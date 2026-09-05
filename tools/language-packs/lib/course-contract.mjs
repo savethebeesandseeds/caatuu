@@ -15,10 +15,17 @@ import { projectWordWorldRuntime } from "../../language-content/project-word-wor
 import { resolveWordWorldProjectionPolicy } from "../../language-content/word-world-projection/registry.mjs";
 import {
   browserCourseGameContentClosureIssues,
+  browserInterfaceContentClosureIssues,
   browserSetupCacheNamespaceIssues,
   browserSharedRuntimeClosureIssues
 } from "./browser-shared-runtime-closure.mjs";
 import { assertLanguageAdapterMatchesTarget } from "../../../apps/language-runtime/contract.mjs";
+import {
+  INTERFACE_CONTENT_SCHEMA as RUNTIME_INTERFACE_CONTENT_SCHEMA_URL,
+  INTERFACE_CONTENT_SCHEMA_VERSION as RUNTIME_INTERFACE_CONTENT_SCHEMA_VERSION,
+  validateInterfaceCatalog,
+  validateInterfaceCatalogParity
+} from "../../../apps/language-runtime/static/source/interface-content.mjs";
 import { normalizeAgreementAuroraPack } from "../../../apps/language-runtime/static/source/games/agreement-aurora/agreement-aurora-core.mjs";
 import { validateConjugationCometCatalog } from "../../../apps/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs";
 import { resolveWordWorldGenerationStrategy } from "../../../apps/language-runtime/static/source/word-world-provider.mjs";
@@ -32,6 +39,7 @@ import {
 
 export {
   browserCourseGameContentClosureIssues,
+  browserInterfaceContentClosureIssues,
   browserSetupCacheNamespaceIssues,
   browserSharedRuntimeClosureIssues
 };
@@ -39,10 +47,15 @@ export {
 export const COURSE_SCHEMA_VERSION = 1;
 export const DEFAULT_CATALOG_PATH = "apps/languages/catalog.json";
 export const CANONICAL_BROWSER_APP_ENTRY_PATH = "apps/language-runtime/static/app/index.html";
+export const INTERFACE_CONTENT_SCHEMA_VERSION = RUNTIME_INTERFACE_CONTENT_SCHEMA_VERSION;
+export const INTERFACE_CONTENT_SCHEMA_URL = RUNTIME_INTERFACE_CONTENT_SCHEMA_URL;
+export const CANONICAL_ENGLISH_INTERFACE_CATALOG_PATH =
+  "apps/language-runtime/static/data/interface/en.v1.json";
 
 const DEFAULT_REPO_ROOT = fileURLToPath(new URL("../../../", import.meta.url));
 const COURSE_SCHEMA_PATH = "tools/language-packs/schemas/course-pack.v1.schema.json";
 const CATALOG_SCHEMA_PATH = "tools/language-packs/schemas/catalog.v1.schema.json";
+const INTERFACE_CATALOG_ROOT = "apps/language-runtime/static/data/interface/";
 const LEARNER_BASE_REALIZATION_ROOT = "apps/languages/shared/learner-base-realizations/";
 const LANGUAGE_ADAPTER_CONTRACT_URL = new URL(
   "../../../apps/language-runtime/contract.mjs",
@@ -167,6 +180,7 @@ const SKILL_COMPASS_COPY_KEYS = [
 ];
 const BASE_RESOURCE_KEYS = [
   "staticRoot",
+  "interfaceCatalog",
   "courseProfile",
   "languageAdapter",
   "webManifest",
@@ -700,6 +714,40 @@ function validateCourseShape(course, issues) {
         }
       }
     }
+    const interfaceCatalog = course.resources.interfaceCatalog;
+    if (isObject(interfaceCatalog)) {
+      if (
+        interfaceCatalog.kind !== "file"
+        || interfaceCatalog.scope !== "shared"
+        || interfaceCatalog.state !== "present"
+        || !new RegExp(`^${INTERFACE_CATALOG_ROOT}[a-z0-9][a-z0-9._-]+\\.json$`, "u")
+          .test(String(interfaceCatalog.path || ""))
+        || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(String(interfaceCatalog.revision || ""))
+      ) {
+        issues.push({
+          code: "interface.resource",
+          message: `${courseId}.resources.interfaceCatalog must declare a present, revisioned shared JSON catalog beneath ${INTERFACE_CATALOG_ROOT}.`
+        });
+      }
+      if (
+        isEnglishLanguage(course.sourceLanguage)
+        && interfaceCatalog.path !== CANONICAL_ENGLISH_INTERFACE_CATALOG_PATH
+      ) {
+        issues.push({
+          code: "interface.authority",
+          message: `${courseId} uses an English learner base and must use the canonical shared English interface catalog ${CANONICAL_ENGLISH_INTERFACE_CATALOG_PATH}.`
+        });
+      }
+      if (
+        !isEnglishLanguage(course.sourceLanguage)
+        && interfaceCatalog.path === CANONICAL_ENGLISH_INTERFACE_CATALOG_PATH
+      ) {
+        issues.push({
+          code: "interface.locale",
+          message: `${courseId} uses non-English learner base ${course.sourceLanguage?.locale || course.sourceLanguage?.id} and cannot relabel the English interface catalog as base-language content.`
+        });
+      }
+    }
     const browserProviderRoot = `apps/languages/${course.directoryName}/static/source/`;
     for (const name of BROWSER_PROVIDER_RESOURCE_KEYS) {
       const resource = course.resources[name];
@@ -856,6 +904,29 @@ export function sourceLanguagePresentationIssues(courses) {
       issues.push({
         code: "language.presentation",
         message: `Source language ${languageLocale} must use identical presentation metadata in ${first.courseId} and ${course.id}.`
+      });
+    }
+  }
+  return issues;
+}
+
+export function interfaceCatalogAuthorityIssues(courses) {
+  const issues = [];
+  const firstBySourceLocale = new Map();
+  for (const { course } of courses ?? []) {
+    const sourceLocale = canonicalLanguageIdentity(course?.sourceLanguage);
+    const resource = course?.resources?.interfaceCatalog;
+    if (!sourceLocale || !isObject(resource)) continue;
+    const authority = `${resource.path || ""}@${resource.revision || ""}`;
+    const first = firstBySourceLocale.get(sourceLocale);
+    if (!first) {
+      firstBySourceLocale.set(sourceLocale, { authority, courseId: course.id });
+      continue;
+    }
+    if (first.authority !== authority) {
+      issues.push({
+        code: "interface.authority-drift",
+        message: `Courses ${first.courseId} and ${course.id} share learner-base locale ${sourceLocale} but declare different interface authorities (${first.authority} and ${authority}).`
       });
     }
   }
@@ -1196,7 +1267,7 @@ export function learnerSourceReadinessIssues(course, { launcher = false } = {}) 
     ];
     issues.push({
       code: "source-language.presentation",
-      message: `${course.id} non-English learner-base presentation is not yet declared for: ${[...new Set(unsupported)].join(", ")}. Only Word World (and a campaign containing no other playable planet) currently consumes the reviewed learner-base role.`
+      message: `${course.id} non-English learner-base presentation is not yet declared for: ${[...new Set(unsupported)].join(", ")}. Reviewed learner-base presentation currently exists for Word World, Conjugation Comet, and Agreement Aurora; Campaign is ready only when every contained playable planet qualifies.`
     });
   }
   return issues;
@@ -1644,6 +1715,11 @@ async function validateBrowserSharedRuntimeDeliveryClosure(records, repoRoot, is
       courseId: record.course.id,
       routePrefix: record.course.routePrefix
     }));
+    issues.push(...browserInterfaceContentClosureIssues({
+      course: record.course,
+      appAssetCatalog,
+      setupCatalog
+    }));
     issues.push(...browserSetupCacheNamespaceIssues({
       course: record.course,
       setupCatalog
@@ -1950,6 +2026,93 @@ async function loadDictionaryProviderRegistration(file) {
 
 async function readJsonDocument(file) {
   return JSON.parse(await readFile(file, "utf8"));
+}
+
+export function interfaceCatalogContentIssues(course, catalog, englishAuthority = null) {
+  const issues = [];
+  const resource = course?.resources?.interfaceCatalog;
+  const validation = validateInterfaceCatalog(catalog, {
+    locale: course?.sourceLanguage?.locale,
+    direction: course?.sourceLanguage?.direction,
+    revision: resource?.revision
+  });
+  for (const message of validation.errors) {
+    issues.push({
+      code: "interface.content",
+      message: `${course?.id || "<unknown>"} ${message}`
+    });
+  }
+  if (
+    validation.valid
+    && englishAuthority
+    && resource?.path !== CANONICAL_ENGLISH_INTERFACE_CATALOG_PATH
+  ) {
+    const parity = validateInterfaceCatalogParity(englishAuthority, catalog);
+    for (const message of parity.errors) {
+      issues.push({
+        code: "interface.parity",
+        message: `${course?.id || "<unknown>"} ${message}`
+      });
+    }
+  }
+  return issues;
+}
+
+async function validateInterfaceCatalogResources(records, repoRoot, issues, checkExistence) {
+  if (!checkExistence) return;
+  const authorityFile = await resolvePinnedRepositoryFile(
+    repoRoot,
+    CANONICAL_ENGLISH_INTERFACE_CATALOG_PATH
+  );
+  let englishAuthority = null;
+  if (!authorityFile) {
+    issues.push({
+      code: "interface.authority-content",
+      message: `Canonical English interface authority cannot be read at ${CANONICAL_ENGLISH_INTERFACE_CATALOG_PATH}.`
+    });
+  } else {
+    try {
+      englishAuthority = await readJsonDocument(authorityFile);
+      const validation = validateInterfaceCatalog(englishAuthority, {
+        locale: ENGLISH_AUDIT_LANGUAGE,
+        direction: "ltr"
+      });
+      for (const message of validation.errors) {
+        issues.push({
+          code: "interface.authority-content",
+          message: `Canonical English interface authority: ${message}`
+        });
+      }
+      if (!validation.valid) englishAuthority = null;
+    } catch (error) {
+      issues.push({
+        code: "interface.authority-content",
+        message: `Canonical English interface authority is not valid JSON: ${error.message ?? String(error)}`
+      });
+    }
+  }
+
+  for (const { course } of records) {
+    const resource = course?.resources?.interfaceCatalog;
+    if (!isObject(resource) || resource.state !== "present") continue;
+    const catalogFile = await resolvePinnedRepositoryFile(repoRoot, resource.path);
+    if (!catalogFile) {
+      issues.push({
+        code: "interface.content",
+        message: `${course.id} interface catalog cannot be read at ${resource.path}.`
+      });
+      continue;
+    }
+    try {
+      const catalog = await readJsonDocument(catalogFile);
+      issues.push(...interfaceCatalogContentIssues(course, catalog, englishAuthority));
+    } catch (error) {
+      issues.push({
+        code: "interface.content",
+        message: `${course.id} interface catalog is not valid JSON: ${error.message ?? String(error)}`
+      });
+    }
+  }
 }
 
 function usesExactCzechLegacyPublicationException(course) {
@@ -2450,6 +2613,7 @@ export async function validateCourseCatalog(
     "Learner-base/target language pair"
   );
   issues.push(...sourceLanguagePresentationIssues(courses));
+  issues.push(...interfaceCatalogAuthorityIssues(courses));
   validateSharedBrowserAppEntry(courses, issues);
 
   for (let leftIndex = 0; leftIndex < courses.length; leftIndex += 1) {
@@ -2488,6 +2652,7 @@ export async function validateCourseCatalog(
       requireNativeReview: course.status === "active"
     });
   }
+  await validateInterfaceCatalogResources(courses, repoRoot, issues, checkExistence);
   await validateBrowserSharedRuntimeDeliveryClosure(courses, repoRoot, issues, checkExistence);
 
   const defaultRecords = courses.filter(({ course }) => course.id === catalog.defaultCourseId);
@@ -2679,6 +2844,7 @@ function courseGameContent(course) {
 
 export function generateCourseProfileObject(course, catalogCourses = [course]) {
   const adapterModule = courseStaticBrowserPath(course, "languageAdapter");
+  const interfaceCatalog = course.resources?.interfaceCatalog;
   const browserProviders = Object.fromEntries(BROWSER_PROVIDER_RESOURCE_KEYS.flatMap((name) => {
     const resource = course.resources?.[name];
     const module = courseStaticBrowserPath(course, name);
@@ -2706,6 +2872,21 @@ export function generateCourseProfileObject(course, catalogCourses = [course]) {
       direction: course.targetLanguage.direction,
       flagClass: course.targetLanguage.flagClass,
       flagSrc: course.targetLanguage.flagSrc
+    },
+    languageRoles: {
+      pair: courseLanguagePairIdentity(course),
+      learnerBaseLanguage: course.sourceLanguage.locale,
+      interfaceLanguage: course.sourceLanguage.locale,
+      targetLanguage: course.targetLanguage.locale,
+      auditLanguage: ENGLISH_AUDIT_LANGUAGE,
+      retrievalLanguage: ENGLISH_AUDIT_LANGUAGE
+    },
+    interfaceContent: {
+      schemaVersion: INTERFACE_CONTENT_SCHEMA_VERSION,
+      locale: course.sourceLanguage.locale,
+      direction: course.sourceLanguage.direction,
+      revision: interfaceCatalog.revision,
+      catalog: setupAssetPathForRuntime(course, interfaceCatalog.path)
     },
     linguisticFeatures: [...(course.linguisticFeatures ?? [])],
     games: [...(course.games ?? [])],

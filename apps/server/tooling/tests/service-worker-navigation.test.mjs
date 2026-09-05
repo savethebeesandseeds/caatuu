@@ -131,6 +131,32 @@ test("setup application entry resolves the course URL to the canonical shared do
   ));
 });
 
+test("the selected interface catalog keeps its exact query revision through precache and offline lookup", async () => {
+  const catalogUrl = "https://caatuu.test/language-runtime/static/data/interface/en.v1.json?v=interface-en-1";
+  const cachedResponse = { source: "revisioned-interface-catalog" };
+  const { context, lookups } = serviceWorkerContext({
+    cachedResponses: new Map([[catalogUrl, cachedResponse]])
+  });
+  const config = validatedConfig(context, {
+    offline: {
+      assets: ["/language-runtime/static/data/interface/en.v1.json?v=interface-en-1"]
+    }
+  });
+
+  assert.ok(config.precacheUrls.includes(catalogUrl));
+  assert.ok(!config.precacheUrls.includes(
+    "https://caatuu.test/language-runtime/static/data/interface/en.v1.json"
+  ));
+
+  const response = await call(context, "cacheFirst(__request, __config)", {
+    __request: new FakeRequest(catalogUrl, { cache: "no-cache" }),
+    __config: config
+  });
+
+  assert.equal(response, cachedResponse);
+  assert.deepEqual(lookups, [catalogUrl]);
+});
+
 test("a course cannot redirect setup back to a course-owned application document", () => {
   const { context } = serviceWorkerContext();
   assert.throws(

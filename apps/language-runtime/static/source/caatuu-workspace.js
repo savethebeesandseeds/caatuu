@@ -12,11 +12,34 @@ let lastAppSettingsTrigger = null;
 let nativeUpdateStatus = null;
 const course = window.CaatuuCourse;
 if (!course) throw new Error("Caatuu course profile must load before the app shell.");
+const interfaceContent = globalThis.CaatuuI18n;
+if (!interfaceContent || typeof interfaceContent.t !== "function") {
+  throw new Error("Caatuu interface content must load before the app shell.");
+}
+
+function interfaceText(messageId, parameters = {}) {
+  const message = interfaceContent.t(messageId, parameters);
+  if (typeof message !== "string" || !message.trim()) {
+    throw new Error(`Caatuu interface content did not resolve ${messageId}.`);
+  }
+  return message;
+}
+
+function interfaceLanguageName(language) {
+  const name = interfaceContent.languageName?.(language);
+  if (typeof name !== "string" || !name.trim()) {
+    throw new Error("Caatuu interface content must resolve every visible language name.");
+  }
+  return name.trim();
+}
+
 const targetLanguage = course.targetLanguage || {};
 const sourceLanguage = course.sourceLanguage || {};
-const verbTargetLabel = String(targetLanguage.label || targetLanguage.nativeLabel || "target language").trim();
+const verbTargetLabel = interfaceLanguageName(targetLanguage);
 const verbTargetNativeLabel = String(targetLanguage.nativeLabel || verbTargetLabel).trim();
-const verbSourceLabel = String(sourceLanguage.label || sourceLanguage.nativeLabel || "source language").trim();
+const verbSourceLabel = interfaceLanguageName(sourceLanguage);
+const verbTargetAuditLabel = String(targetLanguage.label || targetLanguage.nativeLabel || targetLanguage.id).trim();
+const verbSourceAuditLabel = String(sourceLanguage.label || sourceLanguage.nativeLabel || sourceLanguage.id).trim();
 
 function verbMatchInstruction() {
   return `Match each ${verbTargetLabel} verb with its ${verbSourceLabel} meaning.`;
@@ -544,7 +567,7 @@ function confirmDestructiveAction(button, options = {}) {
   if (window.CaatuuChrome?.confirmButtonPress) {
     return window.CaatuuChrome.confirmButtonPress(button, options);
   }
-  return window.confirm(options.message || "Continue?");
+  return window.confirm(options.message || interfaceText("common.continuequestion"));
 }
 
 function runtimeAdapter() {
@@ -1066,7 +1089,7 @@ function isPwaInstalled() {
   return window.matchMedia?.("(display-mode: standalone)")?.matches || window.navigator.standalone === true;
 }
 
-function updatePwaInstallUi(statusText = "") {
+function updatePwaInstallUi(statusMessageId = "") {
   const button = $("#installPwaAction");
   const status = $("#pwaInstallStatus");
   const help = $("#pwaInstallHelp");
@@ -1075,7 +1098,7 @@ function updatePwaInstallUi(statusText = "") {
   if (hasNativeRuntime()) {
     button.hidden = true;
     button.disabled = true;
-    status.textContent = "Android native";
+    status.textContent = interfaceText("platform.pwa.androidnative");
     if (help) help.hidden = true;
     return;
   }
@@ -1083,23 +1106,25 @@ function updatePwaInstallUi(statusText = "") {
   button.hidden = false;
 
   if (isPwaInstalled()) {
-    button.textContent = "Installed";
+    button.textContent = interfaceText("platform.pwa.installed");
     button.disabled = true;
-    status.textContent = "Offline ready";
+    status.textContent = interfaceText("platform.pwa.offlineready");
     if (help) help.hidden = true;
     return;
   }
 
-  button.textContent = "Browser";
+  button.textContent = interfaceText("common.browser");
   button.disabled = !window.isSecureContext && location.hostname !== "localhost" && location.hostname !== "127.0.0.1";
-  status.textContent = statusText || (deferredPwaInstallPrompt ? "Installable" : "Browser");
+  status.textContent = interfaceText(
+    statusMessageId || (deferredPwaInstallPrompt ? "platform.pwa.installable" : "common.browser")
+  );
 }
 
 async function promptPwaInstall() {
   if (!deferredPwaInstallPrompt) {
     const help = $("#pwaInstallHelp");
     if (help) help.hidden = false;
-    updatePwaInstallUi("Browser");
+    updatePwaInstallUi("common.browser");
     return;
   }
 
@@ -1109,9 +1134,9 @@ async function promptPwaInstall() {
 
   try {
     const choice = await promptEvent.userChoice;
-    updatePwaInstallUi(choice?.outcome === "accepted" ? "Installed" : "Browser");
+    updatePwaInstallUi(choice?.outcome === "accepted" ? "platform.pwa.installed" : "common.browser");
   } catch (error) {
-    updatePwaInstallUi("Browser");
+    updatePwaInstallUi("common.browser");
   }
 }
 
@@ -1122,12 +1147,12 @@ function bindPwaInstall() {
   window.addEventListener("beforeinstallprompt", (event) => {
     event.preventDefault();
     deferredPwaInstallPrompt = event;
-    updatePwaInstallUi("Installable");
+    updatePwaInstallUi("platform.pwa.installable");
   });
 
   window.addEventListener("appinstalled", () => {
     deferredPwaInstallPrompt = null;
-    updatePwaInstallUi("Offline ready");
+    updatePwaInstallUi("platform.pwa.offlineready");
   });
 
   window.matchMedia?.("(display-mode: standalone)")?.addEventListener?.("change", () => {
@@ -1164,7 +1189,7 @@ function syncAppRuntimeControls() {
   if (clearButton) clearButton.disabled = false;
 
   if (hasNativeRuntime()) {
-    setText("#maintenanceStatus", "Checking app version.");
+    setText("#maintenanceStatus", interfaceText("maintenance.status.checkingversion"));
     void maintenanceUi().refreshSharedUpdateControl?.({ announce: true });
     return;
   }
@@ -1188,18 +1213,19 @@ async function refreshNativeUpdateStatus() {
   } catch (error) {
     nativeUpdateStatus = { updateAvailable: false };
     setUpdateAppControl(nativeUpdateStatus);
-    setText("#maintenanceStatus", error?.message || String(error));
+    console.error("Native update status failed.", error);
+    setText("#maintenanceStatus", interfaceText("maintenance.copy.checkfailed"));
   }
 }
 
 async function updateApp() {
   if (!hasNativeRuntime()) {
-    setText("#maintenanceStatus", "App updates are available inside the Android APK.");
+    setText("#maintenanceStatus", interfaceText("maintenance.status.androidapkonly"));
     return;
   }
 
   setUpdateAppControl(nativeUpdateStatus, { busy: true });
-  setText("#maintenanceStatus", "Checking the update server...");
+  setText("#maintenanceStatus", interfaceText("maintenance.status.checkingserver"));
   try {
     const status = await runtimeAdapter().maintenance.updateStatus();
     nativeUpdateStatus = status;
@@ -1211,17 +1237,20 @@ async function updateApp() {
     }
 
     setUpdateAppControl(status);
-    setText("#maintenanceStatus", `Update ${status.latestVersionName || status.latestVersionCode || "available"} is ready for confirmation.`);
+    setText("#maintenanceStatus", interfaceText("maintenance.status.readyforconfirmation", {
+      version: status.latestVersionName || status.latestVersionCode || interfaceText("maintenance.version.available")
+    }));
     const confirmed = await maintenanceUi().confirmAppUpdate(status);
     if (!confirmed) {
-      setText("#maintenanceStatus", "Update postponed. You can start it here whenever you are ready.");
+      setText("#maintenanceStatus", interfaceText("maintenance.status.postponed"));
       return;
     }
     setUpdateAppControl(status, { busy: true });
-    setText("#maintenanceStatus", "Opening Setup for the app update.");
+    setText("#maintenanceStatus", interfaceText("maintenance.status.openingsetup"));
     maintenanceUi().beginAppUpdate(status);
   } catch (error) {
-    setText("#maintenanceStatus", error?.message || String(error));
+    console.error("Native app update failed.", error);
+    setText("#maintenanceStatus", interfaceText("maintenance.copy.checkfailed"));
   } finally {
     setUpdateAppControl(nativeUpdateStatus);
   }
@@ -1230,21 +1259,21 @@ async function updateApp() {
 async function clearAppCache() {
   const clearButton = $("#clearCache");
   if (!confirmDestructiveAction(clearButton, {
-    confirmLabel: "Confirm cache clear",
-    message: "Clear temporary cache? Course progress stays saved."
+    confirmLabel: interfaceText("maintenance.cache.confirm"),
+    message: interfaceText("maintenance.cache.prompt")
   })) {
-    setText("#maintenanceStatus", "Press Clear cache again to remove temporary cache. Course progress stays saved.");
+    setText("#maintenanceStatus", interfaceText("maintenance.cache.pressagain"));
     return;
   }
 
   if (clearButton) clearButton.disabled = true;
-  setText("#maintenanceStatus", "Clearing app cache.");
+  setText("#maintenanceStatus", interfaceText("maintenance.cache.clearingapp"));
 
   try {
     const result = await runtimeAdapter().maintenance.clearCache({
       onEvent(message) {
         if (message.kind === "status") {
-          setText("#maintenanceStatus", message.message || "Clearing cache.");
+          setText("#maintenanceStatus", interfaceText("maintenance.cache.clearing"));
         }
       }
     });
@@ -1252,7 +1281,8 @@ async function clearAppCache() {
     setText("#maintenanceStatus", maintenanceUi().cacheResultMessage(result, formatBytes));
     if (!hasNativeRuntime()) registerServiceWorker();
   } catch (error) {
-    setText("#maintenanceStatus", error?.message || String(error));
+    console.error("Cache clear failed.", error);
+    setText("#maintenanceStatus", interfaceText("maintenance.cache.failed"));
   } finally {
     if (clearButton) clearButton.disabled = false;
   }
@@ -1260,7 +1290,7 @@ async function clearAppCache() {
 
 function formatBytes(bytes) {
   const value = Number(bytes || 0);
-  if (!Number.isFinite(value) || value <= 0) return "unknown size";
+  if (!Number.isFinite(value) || value <= 0) return interfaceText("maintenance.cache.unknownsize");
   const gib = value / 1024 / 1024 / 1024;
   if (gib >= 1) return `${gib.toFixed(2)} GiB`;
   const mib = value / 1024 / 1024;
@@ -2733,7 +2763,7 @@ function recordVerbSemanticAttempt(pair, {
         statementRevision: "1",
         kind: "meaning",
         locale: "en",
-        text: `Understands the ${verbTargetLabel} verb meaning “${source}”.`,
+        text: `Understands the ${verbTargetAuditLabel} verb meaning “${source}”.`,
         score,
         coverageWeight: signalWeight,
         masteryWeight: signalMasteryWeight
@@ -2743,7 +2773,7 @@ function recordVerbSemanticAttempt(pair, {
         statementRevision: "1",
         kind: "skill",
         locale: "en",
-        text: `Recognizes a ${verbTargetLabel} verb and matches it to the ${verbSourceLabel} meaning “${source}”.`,
+        text: `Recognizes a ${verbTargetAuditLabel} verb and matches it to the ${verbSourceAuditLabel} meaning “${source}”.`,
         score,
         coverageWeight: signalWeight,
         masteryWeight: signalMasteryWeight
@@ -4297,6 +4327,20 @@ function normalizeView(view) {
   return "verbs";
 }
 
+function sharedGamePresentation(gameId) {
+  const normalizedGameId = String(gameId || "").trim();
+  if (!normalizedGameId || normalizedGameId === "galaxy") return null;
+  const presentation = window.CaatuuChrome?.gamePresentation?.(normalizedGameId);
+  if (!presentation || typeof presentation.title !== "string" || !presentation.title.trim()) {
+    throw new Error(`Shared Chrome did not resolve the ${normalizedGameId} game presentation.`);
+  }
+  return presentation;
+}
+
+function sharedGameTitle(gameId) {
+  return sharedGamePresentation(gameId)?.title || "";
+}
+
 function setView(view) {
   view = normalizeView(view);
   state.activeView = view;
@@ -4306,25 +4350,16 @@ function setView(view) {
   $(`.nav-tab[data-view="${view}"]`)?.classList.add("is-active");
   const homeView = view === "home";
   window.CaatuuChrome?.setPagePresentation?.(homeView
-    ? { kicker: "Caatuu", title: "Home", iconSrc: "/assets/icons/home_icon.png" }
-    : { kicker: "Train", title: "Games", iconSrc: "/assets/icons/games_icon.png" });
+    ? { kicker: "Caatuu", title: interfaceText("nav.home"), iconSrc: "/assets/icons/home_icon.png" }
+    : { kicker: interfaceText("common.train"), title: interfaceText("common.games"), iconSrc: "/assets/icons/games_icon.png" });
   window.CaatuuChrome?.setBottomNavSection?.(homeView ? "home" : view === "verbs" ? "games" : "");
   const viewTitle = view === "verbs"
     ? state.campaignActive
-      ? "Campaign Mode"
-      : ({
-          "verb-lab": "Verb Nebula",
-          "word-net": "Word World",
-          "conjugation-comet": "Conjugation Comet",
-          "case-cosmos": "Case Cosmos",
-          "agreement-aurora": "Agreement Aurora",
-          "naturalization-nucleus": "Naturalization Nucleus",
-          "memory-moon": "Memory Moon",
-          "sound-quasar": "Sounds Quasar"
-        }[state.trainTab] || "")
+      ? sharedGameTitle("campaign")
+      : sharedGameTitle(state.trainTab)
     : "";
   window.CaatuuChrome?.setHeaderTitle?.(viewTitle, {
-    backLabel: "← Menu",
+    backLabel: interfaceText("nav.backtomenu"),
     backHref: viewTitle ? "index.html" : "",
     trainTab: viewTitle ? "galaxy" : ""
   });
@@ -4345,8 +4380,8 @@ function ensureWordNetLoaded() {
       status.classList.add("is-error");
       const title = status.querySelector("strong");
       const copy = status.querySelector("small");
-      if (title) title.textContent = "Word World could not start";
-      if (copy) copy.textContent = "The Word World host is unavailable.";
+      if (title) title.textContent = interfaceText("wordworld.host.startfailure");
+      if (copy) copy.textContent = interfaceText("wordworld.host.unavailable");
     }
     return Promise.resolve(false);
   }
@@ -4356,8 +4391,8 @@ function ensureWordNetLoaded() {
       status.classList.add("is-error");
       const title = status.querySelector("strong");
       const copy = status.querySelector("small");
-      if (title) title.textContent = "Word World could not start";
-      if (copy) copy.textContent = "Return to the planets and try opening it again.";
+      if (title) title.textContent = interfaceText("wordworld.host.startfailure");
+      if (copy) copy.textContent = interfaceText("wordworld.host.retry");
     }
     return false;
   });
@@ -4367,20 +4402,17 @@ const embeddedGameTabs = {
   "conjugation-comet": {
     frameId: "conjugationCometEmbeddedGame",
     stageId: "conjugationCometEmbeddedStage",
-    statusId: "conjugationCometEmbeddedStatus",
-    title: "Conjugation Comet"
+    statusId: "conjugationCometEmbeddedStatus"
   },
   "case-cosmos": {
     frameId: "caseCosmosEmbeddedGame",
     stageId: "caseCosmosEmbeddedStage",
-    statusId: "caseCosmosEmbeddedStatus",
-    title: "Case Cosmos"
+    statusId: "caseCosmosEmbeddedStatus"
   },
   "agreement-aurora": {
     frameId: "agreementAuroraEmbeddedGame",
     stageId: "agreementAuroraEmbeddedStage",
-    statusId: "agreementAuroraEmbeddedStatus",
-    title: "Agreement Aurora"
+    statusId: "agreementAuroraEmbeddedStatus"
   }
 };
 
@@ -4460,13 +4492,14 @@ function ensureEmbeddedGameLoaded(gameId) {
       if (status) status.hidden = true;
       syncEmbeddedGameVisibility(state.trainTab);
     } catch (error) {
-      console.error(`Could not prepare embedded ${config.title}.`, error);
+      const gameTitle = sharedGameTitle(gameId);
+      console.error(`Could not prepare embedded ${gameTitle}.`, error);
       if (status) {
         status.classList.add("is-error");
         const title = status.querySelector("strong");
         const copy = status.querySelector("small");
-        if (title) title.textContent = `${config.title} could not start`;
-        if (copy) copy.textContent = "Return to the planets and try opening it again.";
+        if (title) title.textContent = interfaceText("games.embedded.startfailure", { game: gameTitle });
+        if (copy) copy.textContent = interfaceText("games.embedded.retry");
       }
     }
   }, { once: true });
@@ -4694,20 +4727,9 @@ function setTrainTab(tab) {
   state.trainTab = activeTab;
   document.body.classList.toggle("word-net-active", activeTab === "word-net");
   document.body.classList.toggle("embedded-game-active", activeTab === "word-net" || Object.hasOwn(embeddedGameTabs, activeTab));
-  const trainTitles = {
-    galaxy: "",
-    "verb-lab": "Verb Nebula",
-    "word-net": "Word World",
-    "conjugation-comet": "Conjugation Comet",
-    "case-cosmos": "Case Cosmos",
-    "agreement-aurora": "Agreement Aurora",
-    "naturalization-nucleus": "Naturalization Nucleus",
-    "memory-moon": "Memory Moon",
-    "sound-quasar": "Sounds Quasar"
-  };
-  const title = state.campaignActive ? "Campaign Mode" : (trainTitles[activeTab] || "");
+  const title = state.campaignActive ? sharedGameTitle("campaign") : sharedGameTitle(activeTab);
   window.CaatuuChrome?.setHeaderTitle?.(title, {
-    backLabel: "← Menu",
+    backLabel: interfaceText("nav.backtomenu"),
     backHref: title ? "index.html" : "",
     trainTab: title ? "galaxy" : ""
   });

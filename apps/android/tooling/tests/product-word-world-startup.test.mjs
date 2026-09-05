@@ -236,6 +236,32 @@ test("the generated Standard-only Word World completes its startup contract", as
   await import(courseUrl.href);
   globalThis.CaatuuCourse = window.CaatuuCourse;
   globalThis.CaatuuRuntime = window.CaatuuRuntime;
+  assert.equal(
+    window.CaatuuCourse.interfaceContent.catalog,
+    "/language-runtime/static/data/interface/en.v1.json",
+  );
+  assert.equal(window.CaatuuCourse.languageRoles.interfaceLanguage, "en");
+  assert.equal(window.CaatuuCourse.languageRoles.auditLanguage, "en");
+  assert.equal(window.CaatuuCourse.languageRoles.retrievalLanguage, "en");
+  assert.ok(result.files.includes("language-runtime/static/source/interface-content.mjs"));
+  assert.ok(result.files.includes("language-runtime/static/data/interface/en.v1.json"));
+
+  const interfaceRuntimeUrl = pathToFileURL(join(
+    outputDir,
+    "language-runtime/static/source/interface-content.mjs",
+  ));
+  interfaceRuntimeUrl.searchParams.set("contract", String(Date.now()));
+  const { installInterfaceContent, loadInterfaceContent } = await import(interfaceRuntimeUrl.href);
+  const interfaceContent = await loadInterfaceContent(window.CaatuuCourse, {
+    fetchImpl: environment.fetchImpl,
+    origin: window.location.origin,
+  });
+  installInterfaceContent(interfaceContent, globalThis);
+  installInterfaceContent(interfaceContent, window);
+  t.after(() => {
+    delete globalThis.CaatuuI18n;
+    delete window.CaatuuI18n;
+  });
 
   const compiledAdapter = join(outputDir, "source/language/adapter.mjs");
   assert.deepEqual(

@@ -35,6 +35,21 @@
       flagClass: "zh-hans-flag",
       flagSrc: "/assets/icons/china_flag.png"
     },
+    languageRoles: {
+      pair: "en->zh-hans",
+      learnerBaseLanguage: "en",
+      interfaceLanguage: "en",
+      targetLanguage: "zh-Hans",
+      auditLanguage: "en",
+      retrievalLanguage: "en"
+    },
+    interfaceContent: {
+      schemaVersion: 1,
+      locale: "en",
+      direction: "ltr",
+      revision: "interface-en-1",
+      catalog: "/language-runtime/static/data/interface/en.v1.json"
+    },
     linguisticFeatures: [
       "hanzi-pinyin"
     ],

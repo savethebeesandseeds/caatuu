@@ -36,7 +36,10 @@
       })
     }),
     capabilities: Object.freeze({
-      dictionary: null
+      dictionary: null,
+      generation: null,
+      chat: null,
+      skillCompass: null
     })
   });
 

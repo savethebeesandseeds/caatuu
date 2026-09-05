@@ -20,6 +20,33 @@ delivery remains separately gated. Active courses
 must enable the browser because they are emitted into the clickable launcher;
 retired courses cannot enable it.
 
+## Direction and interface content
+
+A canonical `sourceLanguage.locale` to `targetLanguage.locale` pair identifies
+one directional course. The catalog rejects duplicate pairs, and reversing a
+pair requires a separate manifest, ID, route, namespaces, generated profile,
+and reviewed content rather than an inversion flag. The established `/cz`,
+`/zh`, and `/es` routes remain compatibility identities for the current
+English-base courses; they are not direction-neutral target-language routes.
+
+Every course declares a present, revisioned, shared
+`resources.interfaceCatalog` beneath
+`apps/language-runtime/static/data/interface/`. Its locale and writing
+direction must match `sourceLanguage`. An English learner base uses the
+canonical `en.v1.json` catalog. A non-English-base catalog must expose the
+English authority's exact message IDs, message kinds, and named placeholders;
+it may add plural categories required by its locale. Courses sharing the same
+canonical source locale must declare the same catalog path and revision.
+
+Generated browser profiles expose the separation directly. `languageRoles`
+names the learner base, interface, target, invariant English audit, and
+invariant English retrieval languages; `interfaceContent` names the selected
+catalog locale, direction, revision, and runtime URL. The English interface
+catalog's parity/API role is separate from the English concept and
+`embeddingText` authority used for learning-content audit and retrieval. The
+shared bootstrap loads interface content before Chrome and optional providers;
+no consumer infers it from the target language, route, or course ID.
+
 Every manifest also names a publication contract. New courses use
 `language-content-v1`, which points at their authoritative shared English
 concepts and target realizations. English is the immutable audit/retrieval
@@ -102,12 +129,15 @@ The contract keeps the English audit language independent of
 `sourceLanguage`. Any browser, Android, or launcher delivery whose source
 locale is not English must use `language-content-v1`, name a non-null reviewed
 `publication.learnerBaseRealizations` catalog, and name a non-null
-`publication.runtimeProjection.learnerBaseRuntime`. The currently reusable
-non-English-base presentation path is Word World: playable games must be
-limited to `word-net`, with `campaign` allowed only as its wrapper and not as a
-route to another planet. The dictionary and every other current planet reject
-that configuration with `source-language.presentation` until their shared
-three-role rendering contracts exist.
+`publication.runtimeProjection.learnerBaseRuntime`. The currently complete
+non-English-base presentation paths are Word World, Conjugation Comet, and
+Agreement Aurora. Their contracts keep learner-base presentation separate from
+mandatory English audit data, and the grammar-game round projections exclude
+English audit fields. Campaign is ready only when every contained playable
+planet has a registered learner-base presentation contract. Dictionary, Verb
+Lab, Case Cosmos, and Naturalization Nucleus reject the configuration with
+`source-language.presentation` until their shared three-role rendering
+contracts exist.
 
 Delivery closure is part of the same readiness check. Browser
 `setup-assets.json` must include every runtime-projection output, including the
@@ -116,10 +146,13 @@ course-scoped runtime-projection output in its `android-assets.json` file list,
 and the app-wide asset catalog must bind each shared projection's exact source
 to its exact runtime output. Missing, remapped, or duplicate bindings fail
 closed. In addition, every browser course must cache exactly once by pathname
-every `apps/language-runtime/` to `language-runtime/` mapping in
-`apps/language-runtime/app-assets.json`; query-string revisions are allowed.
-The exact build-only `course-service-worker.js` template mapping is excluded
-because each course owns its generated worker. Missing, duplicate, or remapped
+every universal `apps/language-runtime/` to `language-runtime/` mapping in
+`apps/language-runtime/app-assets.json`. Interface-catalog mappings are excluded
+from that universal closure. A dedicated interface check requires exactly one
+app-assets mapping for the declared catalog, exactly one offline URL with its
+declared revision, and no duplicate or undeclared locale catalogs. The exact
+build-only `course-service-worker.js` template mapping is also excluded because
+each course owns its generated worker. Missing, duplicate, or remapped
 shared-runtime paths fail canonical course validation. The guarded Android
 release builder runs this canonical course and generated-view validation before
 Gradle.
@@ -137,14 +170,14 @@ targets, but the current optional generation strategy is Czech-specific.
 Consequently a non-Czech Word World course must keep `generation` disabled
 until it owns an explicit versioned model/prompt/fallback strategy.
 
-Browser embedding selections, shared embedding runtimes, and Android asset
-allowlists each have their own versioned schema beside the course and catalog
-schemas. When `embeddings` is enabled, the generated profile projects the
-course's declared `embeddingCatalog` directly as `embeddingContent.catalog`;
-the shared workspace does not load a Czech runtime or infer a conventional
-path to discover it. Android catalogs also declare capability-matched native
-providers, so packaging never infers a Czech vector database, dictionary, or
-speech locale from a course ID.
+Browser interface catalogs, embedding selections, shared embedding runtimes,
+and Android asset allowlists each have their own versioned schema beside the
+course and catalog schemas. When `embeddings` is enabled, the generated profile
+projects the course's declared `embeddingCatalog` directly as
+`embeddingContent.catalog`; the shared workspace does not load a Czech runtime
+or infer a conventional path to discover it. Android catalogs also declare
+capability-matched native providers, so packaging never infers a Czech vector
+database, dictionary, or speech locale from a course ID.
 
 The Android product bundle declaration must exactly match the catalog's
 Android-enabled courses in catalog order and use the catalog default. The
@@ -156,9 +189,10 @@ are emitted.
 The explicit `llm`, `generation`, and `embeddings` flags prevent semantic
 search from being coupled to text generation. The public launcher continues to
 project the original eight discoverability capabilities. Browser course
-profiles project the complete capability set, script and speech tags, and the
-language-adapter module so runtime consumers do not infer policy from a course
-ID. The internal manifest remains the authority for both views.
+profiles project the complete capability set, script and speech tags,
+`languageRoles`, `interfaceContent`, and the language-adapter module so runtime
+consumers do not infer policy or interface language from a course ID. The
+internal manifest remains the authority for both views.
 
 Optional browser implementations are explicit resources, not consequences of
 a broad capability flag. When present, `courseRuntime`,

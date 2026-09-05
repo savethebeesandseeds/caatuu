@@ -9,6 +9,85 @@ const source = await readFile(
 );
 const stored = new Map();
 const sessionStored = new Map();
+const interfaceMessages = Object.freeze({
+  "maintenance.action.check": "Check for updates",
+  "maintenance.action.checking": "Checking for updates...",
+  "maintenance.action.downloading": "Downloading {percent}%",
+  "maintenance.action.installupdate": "Install update",
+  "maintenance.action.installversion": "Install {version}",
+  "maintenance.action.resume": "Resume update",
+  "maintenance.action.retrycheck": "Retry check",
+  "maintenance.action.retryupdate": "Retry update",
+  "maintenance.action.update": "Update",
+  "maintenance.action.updateversion": "Update {version}",
+  "maintenance.action.uptodate": "Up to date",
+  "maintenance.cache.cleared": "Cleared {bytes} from {scope}.",
+  "maintenance.cache.cleared.withapk": "Cleared {bytes} from {scope}. Cached update APK removed: {updatebytes}.",
+  "maintenance.cache.localscope": "local cache",
+  "maintenance.copy.available": "Version {version} is available. Installed: {current}.",
+  "maintenance.copy.checkfailed": "The last update check did not finish. Try checking again.",
+  "maintenance.copy.contacting": "Contacting the update server. This can take a few seconds.",
+  "maintenance.copy.current": "No newer release was found. Caatuu {version} is up to date.",
+  "maintenance.copy.downloading": "Version {version} is downloading in the background ({percent}%).",
+  "maintenance.copy.failed": "The saved update download stopped. Retry it without losing a valid completed installer.",
+  "maintenance.copy.installed": "Installed version {version}. Check for a newer version.",
+  "maintenance.copy.partial": "{percent}% of version {version} is saved. Resume without starting over.",
+  "maintenance.copy.ready": "Version {version} is already downloaded and verified. Install it now.",
+  "maintenance.dialog.available.versions": "Installed: {current}. Available: {latest}.",
+  "maintenance.dialog.fallback": "Update Caatuu from {current} to {latest}?",
+  "maintenance.dialog.install.action": "Install {version}",
+  "maintenance.dialog.install.title": "Install Caatuu {version}?",
+  "maintenance.dialog.partial.versions": "Installed: {current}. Downloaded: {percent}% of {latest}.",
+  "maintenance.dialog.ready.versions": "Installed: {current}. Downloaded and verified: {latest}.",
+  "maintenance.dialog.resume.title": "Resume Caatuu {version}?",
+  "maintenance.dialog.update.action": "Update to {version}",
+  "maintenance.progress.download": "Downloading update {bytes} / {total}",
+  "maintenance.progress.download.percent": "Downloading update {bytes} / {total} {percent}%",
+  "maintenance.progress.preparing": "Preparing update.",
+  "maintenance.result.installer.fresh": "Android installer opened. Confirm the update there.",
+  "maintenance.result.installer.resumed": "Download resumed and verified. Android installer opened. Confirm the update there.",
+  "maintenance.result.installer.reused": "Using the already downloaded verified APK. Android installer opened. Confirm the update there.",
+  "maintenance.result.settings.fresh": "Android opened install permission settings. Allow installs for Caatuu, then tap Update App again.",
+  "maintenance.result.settings.resumed": "Download resumed and verified. Android opened install permission settings. Allow installs for Caatuu, then tap Update App again.",
+  "maintenance.result.settings.reused": "Using the already downloaded verified APK. Android opened install permission settings. Allow installs for Caatuu, then tap Update App again.",
+  "maintenance.status.available": "Update available: {latest} ({latestcode}). Installed: {current} ({currentcode}).",
+  "maintenance.status.checkfailed.detail": "Update check failed. {detail}",
+  "maintenance.status.checkingserver": "Checking the update server...",
+  "maintenance.status.downloaded": "Caatuu {version} ({code}) is downloaded and verified. It is ready to install.",
+  "maintenance.status.downloading": "Caatuu {version} ({code}) is downloading in the background ({percent}%).",
+  "maintenance.status.failed": "The Caatuu {version} ({code}) download stopped and can be retried.",
+  "maintenance.status.openingsetup": "Opening Setup for the app update...",
+  "maintenance.status.partial": "Caatuu {version} ({code}) is {percent}% downloaded and can be resumed.",
+  "maintenance.status.postponed": "Update postponed. You can start it here whenever you are ready.",
+  "maintenance.status.readyforconfirmation": "Update {version} is ready for confirmation.",
+  "maintenance.status.storemanaged": "Caatuu {version} ({code}). Updates are managed by the app store.",
+  "maintenance.status.unreachable": "Caatuu {version} ({code}). Could not check for updates.",
+  "maintenance.status.unreachable.detail": "Caatuu {version} ({code}). Could not check for updates. {detail}",
+  "maintenance.status.uptodate": "Caatuu {version} ({code}). App is up to date.",
+  "maintenance.version.available": "available",
+  "maintenance.version.latest": "the latest version",
+  "maintenance.version.latestvalue": "latest",
+  "maintenance.version.line": "Version {version} ({code})",
+  "maintenance.version.new": "new",
+  "maintenance.version.thisversion": "this version",
+  "maintenance.version.unknown": "Version unknown",
+  "maintenance.version.unknownvalue": "unknown"
+});
+
+function interfaceContent(messages = interfaceMessages) {
+  return {
+    t(messageId, parameters = {}) {
+      const template = messages[messageId];
+      if (typeof template !== "string") throw new RangeError(`Unknown interface message: ${messageId}.`);
+      return template.replace(/\{([a-z][a-zA-Z0-9]*)\}/gu, (_match, name) => {
+        if (!Object.hasOwn(parameters, name)) throw new TypeError(`Missing ${name} for ${messageId}.`);
+        return String(parameters[name]);
+      });
+    }
+  };
+}
+
+const englishInterfaceContent = interfaceContent();
 function storage(map) {
   return {
     getItem: (key) => map.get(key) ?? null,
@@ -17,6 +96,7 @@ function storage(map) {
   };
 }
 const context = {
+  CaatuuI18n: englishInterfaceContent,
   window: {
     location: { href: "" },
     localStorage: storage(stored),
@@ -266,6 +346,7 @@ test("confirmed updates persist a versioned Setup handoff across WebView recreat
   assert.equal(sessionStored.size, 0, "the handoff must not depend on session-scoped storage");
 
   const recreatedContext = {
+    CaatuuI18n: englishInterfaceContent,
     window: {
       location: { href: "" },
       localStorage: storage(stored),

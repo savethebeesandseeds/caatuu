@@ -7,7 +7,8 @@
   "sourceLanguage": {
     "id": "en",
     "label": "English",
-    "locale": "en"
+    "locale": "en",
+    "direction": "ltr"
   },
   "targetLanguage": {
     "id": "xx",
@@ -49,6 +50,13 @@
       "kind": "file",
       "path": "apps/language-runtime/static/app/index.html",
       "state": "present"
+    },
+    "interfaceCatalog": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/data/interface/en.v1.json",
+      "scope": "shared",
+      "state": "present",
+      "revision": "interface-en-1"
     },
     "staticRoot": {
       "kind": "directory",

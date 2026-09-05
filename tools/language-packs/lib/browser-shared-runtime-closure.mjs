@@ -2,6 +2,11 @@ import { NON_CAMPAIGN_GAME_REGISTRY } from "../../../apps/language-runtime/stati
 
 const SHARED_RUNTIME_SOURCE_PREFIX = "apps/language-runtime/";
 const SHARED_RUNTIME_OUTPUT_PREFIX = "language-runtime/";
+const INTERFACE_CATALOG_SOURCE_PREFIX =
+  "apps/language-runtime/static/data/interface/";
+const INTERFACE_CATALOG_OUTPUT_PREFIX =
+  "language-runtime/static/data/interface/";
+const INTERFACE_CATALOG_FILE_PATTERN = /^[a-zA-Z0-9][a-zA-Z0-9._-]*\.json$/u;
 
 export const BUILD_ONLY_COURSE_SERVICE_WORKER_MAPPING = Object.freeze({
   source: "apps/language-runtime/static/source/course-service-worker.js",
@@ -78,6 +83,129 @@ function setupAssetUrlKey(asset, routePrefix) {
   } catch {
     return null;
   }
+}
+
+function interfaceCatalogMapping(mapping) {
+  if (!isObject(mapping)) return false;
+  const source = String(mapping.source || "");
+  const output = String(mapping.output || "");
+  const sourceName = source.slice(INTERFACE_CATALOG_SOURCE_PREFIX.length);
+  const outputName = output.slice(INTERFACE_CATALOG_OUTPUT_PREFIX.length);
+  return source.startsWith(INTERFACE_CATALOG_SOURCE_PREFIX)
+    && output.startsWith(INTERFACE_CATALOG_OUTPUT_PREFIX)
+    && INTERFACE_CATALOG_FILE_PATTERN.test(sourceName)
+    && sourceName === outputName;
+}
+
+function setupInterfaceCatalogRecord(asset, routePrefix) {
+  if (typeof asset !== "string" || asset.length === 0) return null;
+  try {
+    const base = new URL(
+      `${String(routePrefix || "/").replace(/\/$/u, "")}/`,
+      "https://caatuu.invalid/"
+    );
+    const url = new URL(asset, base);
+    if (url.origin !== base.origin
+        || !url.pathname.startsWith(`/${INTERFACE_CATALOG_OUTPUT_PREFIX}`)) return null;
+    return Object.freeze({
+      key: `${url.pathname}${url.search}${url.hash}`,
+      pathname: url.pathname
+    });
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Interface message catalogs are shared published data, but they are selected
+ * per learner-base course. A browser course must cache exactly its declared
+ * catalog revision, never every locale present in the shared app catalog.
+ */
+export function browserInterfaceContentClosureIssues({
+  course,
+  appAssetCatalog,
+  setupCatalog
+} = {}) {
+  const courseId = course?.id || "course";
+  const resource = course?.resources?.interfaceCatalog;
+  const source = String(resource?.path || "");
+  const revision = String(resource?.revision || "").trim();
+  const sourceName = source.slice(INTERFACE_CATALOG_SOURCE_PREFIX.length);
+  if (!source.startsWith(INTERFACE_CATALOG_SOURCE_PREFIX)
+      || !INTERFACE_CATALOG_FILE_PATTERN.test(sourceName)
+      || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(revision)) {
+    return [issue(
+      "browser.interface-content-package",
+      `${courseId} cannot resolve a revisioned shared interface catalog.`
+    )];
+  }
+
+  const output = source.slice("apps/".length);
+  const pathname = publicPathname(output);
+  const expectedUrl = new URL(pathname, "https://caatuu.invalid/");
+  expectedUrl.searchParams.set("v", revision);
+  const expectedKey = `${expectedUrl.pathname}${expectedUrl.search}`;
+  const issues = [];
+
+  if (!isObject(appAssetCatalog) || !Array.isArray(appAssetCatalog.assets)) {
+    issues.push(issue(
+      "browser.interface-content-catalog",
+      `${courseId} cannot resolve the shared app asset catalog for ${source}.`
+    ));
+  } else {
+    const matchingMappings = appAssetCatalog.assets.filter((mapping) => (
+      isObject(mapping) && (mapping.source === source || mapping.output === output)
+    ));
+    const exactMappings = matchingMappings.filter((mapping) => (
+      mapping.source === source && mapping.output === output
+    ));
+    if (exactMappings.length !== 1 || matchingMappings.length !== 1) {
+      issues.push(issue(
+        "browser.interface-content-catalog",
+        `${courseId} interface catalog must have exactly one app-assets mapping from ${source} to ${output}.`
+      ));
+    }
+  }
+
+  if (!isObject(setupCatalog) || !Array.isArray(setupCatalog?.offline?.assets)) {
+    issues.push(issue(
+      "browser.interface-content-package",
+      `${courseId} cannot resolve its browser setup offline asset list for interface content.`
+    ));
+    return issues;
+  }
+
+  const records = setupCatalog.offline.assets
+    .map((asset) => setupInterfaceCatalogRecord(asset, course?.routePrefix))
+    .filter(Boolean);
+  const selected = records.filter((record) => record.pathname === pathname);
+  if (selected.length === 0) {
+    issues.push(issue(
+      "browser.interface-content-package",
+      `${courseId} setup offline assets omit the exact interface catalog URL ${expectedKey}.`
+    ));
+  } else if (selected.length !== 1) {
+    issues.push(issue(
+      "browser.interface-content-package",
+      `${courseId} setup offline assets repeat interface catalog pathname ${pathname} ${selected.length} times.`
+    ));
+  } else if (selected[0].key !== expectedKey) {
+    issues.push(issue(
+      "browser.interface-content-package",
+      `${courseId} setup offline assets must cache exact interface catalog URL ${expectedKey}; found ${selected[0].key}.`
+    ));
+  }
+
+  const unrelated = records.filter((record) => record.pathname !== pathname);
+  if (unrelated.length > 0) {
+    issues.push(issue(
+      "browser.interface-content-package",
+      `${courseId} setup offline assets include undeclared interface catalogs: ${[
+        ...new Set(unrelated.map(({ key }) => key))
+      ].join(", ")}.`
+    ));
+  }
+  return issues;
 }
 
 function courseGameResourceUrlKey(course, resourceName) {
@@ -162,6 +290,7 @@ export function browserSharedRuntimeClosureIssues({
   }
 
   const expectedByPathname = new Map();
+  const mappedPathnames = new Set();
   for (const [index, mapping] of appAssetCatalog.assets.entries()) {
     if (!isObject(mapping)) {
       issues.push(issue(
@@ -199,19 +328,20 @@ export function browserSharedRuntimeClosureIssues({
       ));
       continue;
     }
-    if (
-      source === BUILD_ONLY_COURSE_SERVICE_WORKER_MAPPING.source
-      && output === BUILD_ONLY_COURSE_SERVICE_WORKER_MAPPING.output
-    ) continue;
-
     const pathname = publicPathname(output);
-    if (expectedByPathname.has(pathname)) {
+    if (mappedPathnames.has(pathname)) {
       issues.push(issue(
         "browser.shared-runtime-catalog",
         `Shared app asset catalog repeats browser runtime pathname ${pathname}.`
       ));
       continue;
     }
+    mappedPathnames.add(pathname);
+    if (
+      source === BUILD_ONLY_COURSE_SERVICE_WORKER_MAPPING.source
+      && output === BUILD_ONLY_COURSE_SERVICE_WORKER_MAPPING.output
+    ) continue;
+    if (interfaceCatalogMapping(mapping)) continue;
     expectedByPathname.set(pathname, { source, output });
   }
 

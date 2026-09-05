@@ -7,26 +7,32 @@ itself register or publish a course.
 
 ## Shared Caatuu product shell
 
-Czech, Mandarin, and Spanish load the same authoritative interface assets.
-A course route chooses course data; it never chooses a different product UI.
+Czech, Mandarin, and Spanish load the same authoritative product document,
+JavaScript, styles, and component layout. They currently also select the same
+English interface catalog because all three learner bases are English. A course
+route chooses course and interface content; it never chooses a different
+product UI.
 
 | Shared asset | Responsibility |
 | --- | --- |
 | `static/app/index.html` | The one physical Caatuu product document served at every browser course entry URL. |
-| `static/source/app-bootstrap.mjs` | Resolves the route-local course profile and providers, then starts the one product shell. |
+| `static/source/app-bootstrap.mjs` | Resolves the route-local course profile, installs and applies its interface catalog, loads declared providers, then starts the one product shell. |
+| `static/source/interface-content.mjs` | Validates, loads, formats, and applies the source-language interface contract before shared UI modules start. |
+| `static/data/interface/*.json` | Reviewed, revisioned interface messages selected by learner-base locale; `en.v1.json` is the canonical message API and parity authority. |
 | `static/source/caatuu-chrome.js` | Header, Home/Games/Backpack dock, game chooser, Settings, theme, and text-size interactions. |
 | `static/source/shell-policy.js` / `.mjs` | Fail-closed navigation, game, setting, and capability visibility derived from a course profile. |
-| `static/source/caatuu-workspace.js` | Mechanically promoted Czech-authoritative Home/Games navigation, planet layout, state model, and game lifecycle used by every course. |
+| `static/source/caatuu-workspace.js` | The shared Home/Games navigation, planet layout, state model, and game lifecycle used by every course. |
 | `static/source/word-world-host.mjs` | The sole lazy-loading boundary between the workspace controller and the shared Word World provider/renderer. |
 | `static/source/word-world-provider.mjs` | Prepares one frozen context from standard or authored course content, adapter tools, English-only ranking, meanings, and optional hooks. |
-| `static/source/product-word-world.mjs` | The mechanically promoted Czech Word World controller bound to the exact shared DOM: meanings, learner-base/target reconstruction, XP, history, display controls, swipes, speech, and reporting. |
+| `static/source/product-word-world.mjs` | The shared Word World controller bound to the exact shared DOM: meanings, learner-base/target reconstruction, XP, history, display controls, swipes, speech, and reporting. |
 | `static/games/*` and `static/source/games/*` | Shared game documents, mechanics, and hosts. Conjugation Comet and Agreement Aurora resolve revisioned course-owned catalogs only through the generated `gameContent` projection; they never infer a language directory. |
-| `static/styles/caatuu-*.css` | The Czech-derived theme, workspace, Home, chrome, and Word World presentation used without per-course copies. |
+| `static/styles/caatuu-*.css` | The shared theme, workspace, Home, Chrome, and Word World presentation used without per-course copies. |
 
 Course packages supply only identity, learner source/base and target labels,
 routes, capability flags, linguistic features, enabled-game readiness, storage
-namespaces, target-language adapters, reviewed content, and optional providers.
-Unsupported controls are omitted by the shared capability policy.
+namespaces, a shared interface-catalog declaration, target-language adapters,
+reviewed content, and optional providers. Unsupported controls are omitted by
+the shared capability policy.
 Do not add a course-local shell stylesheet, alternate landing topology, or a
 reduced game UI. Course-local `static/index.html` files are contract errors. If
 a future language needs a new reusable interaction, extend the shared shell and
@@ -49,6 +55,35 @@ learner-base catalog, policy-defined supplemental outputs, and
 `resources.wordWorldManifest`. Projection policies may adapt target
 pronunciation and supplementary aids, but they cannot introduce a different
 component tree or silently redirect a manifest reference to another output.
+
+## Interface content and directional courses
+
+Each canonical source-to-target direction is a separate course. A reversal has
+its own course ID, route, namespaces, profile, capabilities, and reviewed
+content; the runtime does not invert an existing course. The established
+`/cz`, `/zh`, and `/es` routes remain compatibility identities for their
+current English-base directions rather than generic target-language routes.
+
+The source/base language controls interface locale and writing direction. The
+generated profile records the learner base, interface, target, English audit,
+and English retrieval roles in `languageRoles`, while `interfaceContent`
+selects the exact catalog locale, direction, revision, and shared URL. The
+bootstrap loads and applies that catalog before Chrome, optional providers, and
+game rendering, so shared modules do not infer interface language from a route
+or target.
+
+The canonical English interface catalog defines the strict callable API.
+Translations must preserve every message ID, string-versus-plural kind, and
+named placeholder, though they may add locale-specific plural categories.
+This parity role is separate from the English concept and `embeddingText`
+authority used to audit and retrieve learning content. Courses with the same
+canonical source locale must reuse the same interface-catalog path and
+revision.
+
+The interface runtime is a universal shared offline asset; message catalogs are
+selective. Each course setup caches exactly its declared catalog URL and
+revision and rejects duplicate or undeclared locale catalogs instead of
+precaching every translation shipped in the app asset catalog.
 
 `contract.mjs` exports the versioned contract, structural validation, immutable
 adapter definition, safe composition, capability assertions, and checked
@@ -181,11 +216,11 @@ Target text, token readings, and transliteration never cross that hook boundary.
 
 English here is an immutable audit/retrieval pivot, not necessarily the
 learner's `sourceLanguage`. The current Czech, Mandarin, and Spanish courses
-happen to use English as their learner base. A non-English-base course supplies a separate, reviewed,
-concept-ID-keyed learner-base realization and its narrow runtime projection
-while retaining English for search and auditing. The shared join keeps all
-three roles explicit; it never labels English concept text as the configured
-learner base.
+happen to use English as their learner base; no non-English-base course is
+registered yet. Such a course supplies a separate, reviewed, concept-ID-keyed
+learner-base realization and its narrow runtime projection while retaining
+English for search and auditing. The shared join keeps all three roles
+explicit; it never labels English concept text as the configured learner base.
 
 The currently complete non-English-base presentation paths are Word World,
 Conjugation Comet, and Agreement Aurora. The two grammar games validate

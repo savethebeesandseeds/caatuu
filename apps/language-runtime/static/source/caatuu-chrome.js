@@ -2,6 +2,27 @@
   const course = window.CaatuuCourse;
   if (!course) throw new Error("Caatuu course profile must load before shared Chrome.");
 
+  function interfaceMessage(messageId, parameters = {}) {
+    const content = globalThis.CaatuuI18n;
+    if (!content || typeof content.t !== "function") {
+      throw new Error("Caatuu interface content must load before shared Chrome.");
+    }
+    const message = content.t(messageId, parameters);
+    if (typeof message !== "string" || !message.trim()) {
+      throw new Error(`Caatuu interface message ${messageId} must be a non-empty string.`);
+    }
+    return message;
+  }
+
+  function interfaceLanguageName(language) {
+    const content = globalThis.CaatuuI18n;
+    const name = content?.languageName?.(language);
+    if (typeof name !== "string" || !name.trim()) {
+      throw new Error("Caatuu interface content must resolve every visible language name.");
+    }
+    return name.trim();
+  }
+
   const courseThemeStorageKey = course.storage.theme;
   const courseFontSizeStorageKey = course.storage.fontSize;
   const themeStorageKey = "caatuu.appearance.theme.v1";
@@ -16,6 +37,7 @@
   const coinIconSrc = "/assets/icons/coin_icon_ui.png";
   const streakIconSrc = "/assets/icons/streak_icon.png";
   const targetLanguage = course.targetLanguage;
+  const targetLanguageName = interfaceLanguageName(targetLanguage);
   const speechLocale = String(
     targetLanguage.speechLocale
     || targetLanguage.locale
@@ -40,47 +62,47 @@
   let languageSelectorDismissalBound = false;
   let streakReminderTimer = 0;
   let streakReminderCheckPromise = null;
-  const speechTestText = String(targetLanguage.nativeLabel || targetLanguage.label || targetLanguage.id || "").trim();
+  const speechTestText = String(targetLanguage.nativeLabel || targetLanguageName).trim();
   const themeOptions = {
-    light: { themeColor: "#f5efe5", label: "Use dark theme" },
-    dark: { themeColor: "#151a18", label: "Use light theme" }
+    light: { themeColor: "#f5efe5", label: interfaceMessage("settings.theme.usedark") },
+    dark: { themeColor: "#151a18", label: interfaceMessage("settings.theme.uselight") }
   };
   const fontSizeOptions = Object.freeze({
-    standard: { label: "Smaller" },
-    large: { label: "Small" },
-    largest: { label: "Standard" }
+    standard: { label: interfaceMessage("settings.textsize.smaller") },
+    large: { label: interfaceMessage("settings.textsize.small") },
+    largest: { label: interfaceMessage("settings.textsize.standard") }
   });
   const speechPaceOptions = Object.freeze({
-    slower: Object.freeze({ label: "Slower", rate: 0.5 }),
-    slow: Object.freeze({ label: "Slow", rate: 0.6 }),
-    normal: Object.freeze({ label: "Normal", rate: 1 })
+    slower: Object.freeze({ label: interfaceMessage("speech.pace.slower"), rate: 0.5 }),
+    slow: Object.freeze({ label: interfaceMessage("speech.pace.slow"), rate: 0.6 }),
+    normal: Object.freeze({ label: interfaceMessage("speech.pace.normal"), rate: 1 })
   });
   const speechPaceOrder = Object.freeze(["slower", "slow", "normal"]);
   const speechPaceByDifficulty = Object.freeze({ 1: "slower", 2: "slow", 3: "normal" });
   const activeToolbarPopovers = new Set();
   const toolbarPopoverFrames = new WeakMap();
   const backpackViewOptions = Object.freeze({
-    items: { label: "Items", iconSrc: "/assets/icons/items_icon.png?v=items-2" },
-    stats: { label: "Stats", iconSrc: "/assets/icons/stats_icon.png" },
-    settings: { label: "Settings", iconSrc: "/assets/icons/gear_icon.png" }
+    items: { label: interfaceMessage("nav.items"), iconSrc: "/assets/icons/items_icon.png?v=items-2" },
+    stats: { label: interfaceMessage("nav.stats"), iconSrc: "/assets/icons/stats_icon.png" },
+    settings: { label: interfaceMessage("nav.settings"), iconSrc: "/assets/icons/gear_icon.png" }
   });
   const homeMenuOptions = Object.freeze({
     home: Object.freeze({
       id: "homeBaseTab",
-      label: "Home",
+      label: interfaceMessage("nav.home"),
       iconSrc: "/assets/icons/homebase_icon.png",
       controls: "homeBaseView"
     }),
     social: Object.freeze({
       id: "homeSocialTab",
-      label: "Social",
+      label: interfaceMessage("nav.social"),
       iconSrc: "/assets/icons/social_icon.png",
       controls: "homeSocialView",
-      status: "In development"
+      status: interfaceMessage("common.indevelopment")
     }),
     store: Object.freeze({
       id: "homeStoreTab",
-      label: "Store",
+      label: interfaceMessage("nav.store"),
       iconSrc: "/assets/icons/store_icon.png",
       controls: "homeStoreView"
     })
@@ -116,14 +138,14 @@
   const navItems = [
     {
       key: "home",
-      label: "Home",
+      label: interfaceMessage("nav.home"),
       iconSrc: "/assets/icons/home_icon.png",
       href: course.routes.home,
       view: "home"
     },
     {
       key: "games",
-      label: "Games",
+      label: interfaceMessage("nav.games"),
       iconSrc: "/assets/icons/games_icon.png",
       href: course.routes.games,
       requiresGames: true,
@@ -131,7 +153,7 @@
     },
     {
       key: "backpack",
-      label: "Backpack",
+      label: interfaceMessage("nav.backpack"),
       iconSrc: "/assets/icons/backpack_icon.png",
       href: course.routes.settings
     }
@@ -198,64 +220,75 @@
     activeToolbarPopovers.forEach((popover) => constrainToolbarPopover(popover));
   }
   const gameNavigationStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.navigation.active-game.v1`;
-  const gamePresentations = {
-    campaign: {
-      title: "Campaign Mode",
-      summary: "Travel between games",
+  const gamePresentationDefinitions = Object.freeze({
+    campaign: Object.freeze({
+      titleId: "games.campaign.title",
+      summaryId: "games.campaign.summary",
       iconSrc: "/assets/planets/campaign-mode.png",
       href: "index.html"
-    },
-    "verb-lab": {
-      title: "Verb Nebula",
-      summary: "Match meanings",
+    }),
+    "verb-lab": Object.freeze({
+      titleId: "games.verblab.title",
+      summaryId: "games.verblab.summary",
       iconSrc: "/assets/planets/verb-nebula.png",
       href: "index.html"
-    },
-    "word-net": {
-      title: "Word World",
-      summary: "Meanings + links",
+    }),
+    "word-net": Object.freeze({
+      titleId: "games.wordworld.title",
+      summaryId: "games.wordworld.summary",
       iconSrc: "/assets/planets/word-world.png",
       href: "index.html"
-    },
-    "conjugation-comet": {
-      title: "Conjugation Comet",
-      summary: "Choose the form",
+    }),
+    "conjugation-comet": Object.freeze({
+      titleId: "games.conjugationcomet.title",
+      summaryId: "games.conjugationcomet.summary",
       iconSrc: "/assets/planets/conjugation-comet.png",
       href: "index.html"
-    },
-    "case-cosmos": {
-      title: "Case Cosmos",
-      summary: "Choose the case route",
+    }),
+    "case-cosmos": Object.freeze({
+      titleId: "games.casecosmos.title",
+      summaryId: "games.casecosmos.summary",
       iconSrc: "/assets/planets/case-cosmos.png",
       href: "index.html"
-    },
-    "agreement-aurora": {
-      title: "Agreement Aurora",
-      summary: "Make the words match",
+    }),
+    "agreement-aurora": Object.freeze({
+      titleId: "games.agreementaurora.title",
+      summaryId: "games.agreementaurora.summary",
       iconSrc: "/assets/planets/agreement-aurora.png?v=agreement-aurora-art-2",
       href: "index.html"
-    },
-    "naturalization-nucleus": {
-      title: "Naturalization Nucleus",
-      summary: "Match Hanzi + pinyin",
+    }),
+    "naturalization-nucleus": Object.freeze({
+      titleId: "games.naturalizationnucleus.title",
+      summaryId: "games.naturalizationnucleus.summary",
       iconSrc: "/assets/planets/naturalization-nucleus.png",
       href: "index.html"
-    },
-    "memory-moon": {
-      title: "Memory Moon",
-      summary: "Coming later",
+    }),
+    "memory-moon": Object.freeze({
+      titleId: "games.memorymoon.title",
+      summaryId: "games.memorymoon.summary",
       iconSrc: "/assets/planets/memory-moon.png",
       href: "index.html"
-    },
-    "sound-quasar": {
-      title: "Sounds Quasar",
-      summary: "Hear it. Spell it.",
+    }),
+    "sound-quasar": Object.freeze({
+      titleId: "games.soundsquasar.title",
+      summaryId: "games.soundsquasar.summary",
       iconSrc: "/assets/planets/sounds-quasar.png",
       href: "index.html"
-    }
-  };
+    })
+  });
+
+  function gamePresentation(gameId) {
+    const definition = gamePresentationDefinitions[String(gameId || "").trim()];
+    if (!definition) return null;
+    return Object.freeze({
+      ...definition,
+      title: interfaceMessage(definition.titleId),
+      summary: interfaceMessage(definition.summaryId)
+    });
+  }
+
   const gameIdsByTitle = new Map(
-    Object.entries(gamePresentations).map(([id, presentation]) => [presentation.title, id])
+    Object.keys(gamePresentationDefinitions).map((id) => [gamePresentation(id).title, id])
   );
 
   function gamePresentationAvailable(gameId, presentation) {
@@ -279,9 +312,9 @@
         && Boolean(course.routes?.soundQuasar);
     }
     if (gameId === "campaign") {
-      return Object.keys(gamePresentations)
+      return Object.keys(gamePresentationDefinitions)
         .filter((candidate) => candidate !== "campaign")
-        .filter((candidate) => gamePresentationAvailable(candidate, gamePresentations[candidate]))
+        .filter((candidate) => gamePresentationAvailable(candidate, gamePresentationDefinitions[candidate]))
         .length >= 1;
     }
     return false;
@@ -297,13 +330,13 @@
   function normalizeGameId(value) {
     const gameId = String(value || "").trim();
     if (gameId === "galaxy") return gameId;
-    const presentation = gamePresentations[gameId];
+    const presentation = gamePresentationDefinitions[gameId];
     return gamePresentationAvailable(gameId, presentation) ? gameId : "";
   }
 
   function gamePresentationHref(gameId) {
     const normalizedGameId = normalizeGameId(gameId);
-    const presentation = gamePresentations[normalizedGameId];
+    const presentation = gamePresentation(normalizedGameId);
     if (!presentation) return course.routes.games;
     return presentation.href;
   }
@@ -319,7 +352,7 @@
       trigger.hidden = !available;
     });
 
-    if (currentGameId() !== "conjugation-comet" || !gamePresentationAvailable("conjugation-comet", gamePresentations["conjugation-comet"])) return;
+    if (currentGameId() !== "conjugation-comet" || !gamePresentationAvailable("conjugation-comet", gamePresentationDefinitions["conjugation-comet"])) return;
     const back = document.querySelector(".app-header-back");
     if (back) back.href = gameLandingHref("conjugation-comet");
   }
@@ -349,14 +382,14 @@
 
   function syncGameNavigationIndicators(gameId = readRememberedGame()) {
     const normalizedGameId = normalizeGameId(gameId);
-    const presentation = gamePresentations[normalizedGameId];
+    const presentation = gamePresentation(normalizedGameId);
     document.querySelectorAll('[data-caatuu-bottom-nav] [data-nav-key="games"]').forEach((button) => {
       let badge = button.querySelector(".app-nav-submenu-icon");
       if (!presentation) {
         badge?.remove();
         delete button.dataset.activeGame;
-        button.setAttribute("aria-label", "Games");
-        button.title = "Open Games";
+        button.setAttribute("aria-label", interfaceMessage("nav.games"));
+        button.title = interfaceMessage("nav.opengames");
         return;
       }
 
@@ -373,19 +406,21 @@
       badge.src = presentation.iconSrc;
       badge.dataset.activeGame = normalizedGameId;
       button.dataset.activeGame = normalizedGameId;
-      button.setAttribute("aria-label", `Games, ${presentation.title}`);
-      button.title = `Open Games, ${presentation.title}`;
+      button.setAttribute("aria-label", interfaceMessage("nav.gamescurrent", { game: presentation.title }));
+      button.title = interfaceMessage("nav.opengamescurrent", { game: presentation.title });
     });
   }
 
   function availableGamePresentations() {
-    return Object.entries(gamePresentations)
-      .filter(([gameId, presentation]) => gamePresentationAvailable(gameId, presentation));
+    return Object.entries(gamePresentationDefinitions)
+      .filter(([gameId, presentation]) => gamePresentationAvailable(gameId, presentation))
+      .map(([gameId]) => [gameId, gamePresentation(gameId)]);
   }
 
   function presentedGamePresentations() {
-    return Object.entries(gamePresentations)
-      .filter(([gameId, presentation]) => gamePresentationState(gameId, presentation) !== "hidden");
+    return Object.entries(gamePresentationDefinitions)
+      .filter(([gameId, presentation]) => gamePresentationState(gameId, presentation) !== "hidden")
+      .map(([gameId]) => [gameId, gamePresentation(gameId)]);
   }
 
   function updateBottomDockHeight(dock) {
@@ -489,8 +524,12 @@
       badge.src = option.iconSrc;
       badge.dataset.homeDestination = normalizedTarget;
       button.dataset.homeDestination = normalizedTarget;
-      button.setAttribute("aria-label", normalizedTarget === "home" ? "Home" : `Home, ${option.label}`);
-      button.title = normalizedTarget === "home" ? "Open Home" : `Open Home, ${option.label}`;
+      button.setAttribute("aria-label", normalizedTarget === "home"
+        ? interfaceMessage("nav.home")
+        : interfaceMessage("nav.homecurrent", { section: option.label }));
+      button.title = normalizedTarget === "home"
+        ? interfaceMessage("nav.openhome")
+        : interfaceMessage("nav.openhomecurrent", { section: option.label });
     });
     document.querySelectorAll("[data-home-menu-target]").forEach((button) => {
       const current = button.dataset.homeMenuTarget === normalizedTarget;
@@ -519,7 +558,7 @@
       menu.id = "homeMenu";
       menu.className = "home-section-switcher";
       menu.setAttribute("role", "tablist");
-      menu.setAttribute("aria-label", "Home sections");
+      menu.setAttribute("aria-label", interfaceMessage("nav.homesections"));
 
       const options = Object.entries(homeMenuOptions).map(([target, option]) => {
         const button = document.createElement("button");
@@ -618,10 +657,10 @@
       if (artwork) artwork.src = pickStoreArtwork();
     }
     setPagePresentation(normalizedTarget === "store"
-      ? { kicker: "Caatuu", title: "Store", iconSrc: "/assets/icons/store_icon.png" }
+      ? { kicker: "Caatuu", title: interfaceMessage("nav.store"), iconSrc: "/assets/icons/store_icon.png" }
       : normalizedTarget === "social"
-        ? { kicker: "Caatuu", title: "Social", iconSrc: "/assets/icons/social_icon.png" }
-        : { kicker: "Caatuu", title: "Home", iconSrc: "/assets/icons/home_icon.png" });
+        ? { kicker: "Caatuu", title: interfaceMessage("nav.social"), iconSrc: "/assets/icons/social_icon.png" }
+        : { kicker: "Caatuu", title: interfaceMessage("nav.home"), iconSrc: "/assets/icons/home_icon.png" });
     setBottomNavSection("home");
     syncHomeMenuSelection(normalizedTarget);
     if (restoreMenuFocus) {
@@ -642,9 +681,9 @@
       panel.className = "games-menu-backdrop";
       panel.hidden = true;
       panel.innerHTML = `
-        <section class="games-menu-sheet" role="dialog" aria-modal="true" aria-label="Choose a game">
+        <section class="games-menu-sheet" role="dialog" aria-modal="true" aria-label="${interfaceMessage("nav.choosegame")}">
           <div class="games-menu-body">
-            <nav class="games-menu-grid" role="tablist" aria-label="Training games"></nav>
+            <nav class="games-menu-grid" role="tablist" aria-label="${interfaceMessage("nav.traininggames")}"></nav>
           </div>
         </section>
       `;
@@ -670,8 +709,8 @@
       button.setAttribute("role", "tab");
       button.setAttribute("aria-selected", String(!upcoming && activeGameId === gameId));
       button.setAttribute("aria-label", upcoming
-        ? `${presentation.title}. Coming later.`
-        : `${presentation.title}. ${presentation.summary}`);
+        ? interfaceMessage("nav.gameupcoming", { game: presentation.title })
+        : interfaceMessage("nav.gameoption", { game: presentation.title, summary: presentation.summary }));
       button.dataset.gameMenuTarget = gameId;
       button.dataset.gameState = gameState;
       button.classList.toggle("is-current", !upcoming && activeGameId === gameId);
@@ -695,7 +734,7 @@
       if (upcoming) {
         const status = document.createElement("small");
         status.className = "games-menu-option-status";
-        status.textContent = "Coming later";
+        status.textContent = interfaceMessage("common.cominglater");
         copy.append(status);
       }
       button.append(image, copy);
@@ -1035,8 +1074,8 @@
     const option = backpackViewOptions[normalizedView];
     document.querySelectorAll('[data-caatuu-bottom-nav] [data-nav-key="backpack"]').forEach((button) => {
       button.dataset.backpackView = normalizedView;
-      button.setAttribute("aria-label", `Backpack, ${option.label}`);
-      button.title = `Open Backpack ${option.label}`;
+      button.setAttribute("aria-label", interfaceMessage("nav.backpackcurrent", { section: option.label }));
+      button.title = interfaceMessage("nav.openbackpack", { section: option.label });
       const badge = button.querySelector(".app-nav-submenu-icon");
       if (!badge) return;
       badge.src = option.iconSrc;
@@ -1140,7 +1179,8 @@
     const preference = readStoredSpeechPace();
     const key = preference || speechPaceByDifficulty[normalizedDifficulty];
     const option = speechPaceOptions[key];
-    const badge = String(learning?.difficultyOption?.(normalizedDifficulty)?.label || `Level ${normalizedDifficulty}`);
+    const badge = String(learning?.difficultyOption?.(normalizedDifficulty)?.label
+      || interfaceMessage("progress.level", { level: normalizedDifficulty }));
     return {
       key,
       label: option.label,
@@ -1186,13 +1226,18 @@
     root.querySelectorAll?.("[data-speech-mute-toggle]").forEach((button) => {
       button.setAttribute("aria-checked", String(muted));
       button.classList.toggle("is-active", muted);
-      button.setAttribute("aria-label", muted ? "Turn on audio across Caatuu" : "Mute audio across Caatuu");
-      button.title = muted ? "Turn on audio across Caatuu" : "Mute audio across Caatuu";
+      const action = muted
+        ? interfaceMessage("speech.audio.turnon")
+        : interfaceMessage("speech.audio.mute");
+      button.setAttribute("aria-label", action);
+      button.title = action;
       const label = button.querySelector?.("[data-speech-mute-label]");
-      if (label) label.textContent = "Mute all audio";
+      if (label) label.textContent = interfaceMessage("speech.audio.muteall");
     });
     root.querySelectorAll?.("[data-speech-mute-status]").forEach((status) => {
-      status.textContent = muted ? "Muted across every language" : "Sound on across every language";
+      status.textContent = muted
+        ? interfaceMessage("speech.audio.mutedstatus")
+        : interfaceMessage("speech.audio.onstatus");
     });
     return muted;
   }
@@ -1229,14 +1274,21 @@
     root.querySelectorAll("[data-speech-pace-slider]").forEach((slider) => {
       slider.value = String(paceIndex);
       slider.style.setProperty("--speech-pace-position", paceProgress);
-      slider.setAttribute("aria-valuetext", `${pace.label}, ${pace.rate} times`);
+      slider.setAttribute("aria-valuetext", interfaceMessage("speech.pace.valuetext", {
+        pace: pace.label,
+        rate: pace.rate
+      }));
       slider.dataset.paceSource = pace.source;
     });
     const status = root.querySelector("#settingsSpeechPaceStatus");
     if (status) {
       status.textContent = pace.source === "badge"
-        ? `${pace.badge} · ${pace.label} ${pace.rate}×`
-        : `Manual · ${pace.label} ${pace.rate}×`;
+        ? interfaceMessage("speech.pace.badgestatus", {
+          badge: pace.badge,
+          pace: pace.label,
+          rate: pace.rate
+        })
+        : interfaceMessage("speech.pace.manualstatus", { pace: pace.label, rate: pace.rate });
     }
     return pace;
   }
@@ -1266,7 +1318,9 @@
       .filter((voice) => speechVoiceMatchesLocale(voice.lang))
       .map((voice) => ({
         id: String(voice.voiceURI || voice.name || "").trim(),
-        name: String(voice.name || voice.voiceURI || `${targetLanguage.label} voice`).trim(),
+        name: String(voice.name || voice.voiceURI || interfaceMessage("speech.voice.defaultname", {
+          language: targetLanguageName
+        })).trim(),
         locale: String(voice.lang || speechLocale),
         matchRank: speechVoiceMatchRank(voice.lang),
         localService: voice.localService !== false
@@ -1286,7 +1340,9 @@
     return voices
       .map((voice) => ({
         id: String(voice?.id || voice?.name || "").trim(),
-        name: String(voice?.name || voice?.id || `${targetLanguage.label} voice`).trim(),
+        name: String(voice?.name || voice?.id || interfaceMessage("speech.voice.defaultname", {
+          language: targetLanguageName
+        })).trim(),
         locale: String(voice?.locale || speechLocale),
         matchRank: speechVoiceMatchRank(voice?.locale),
         localService: voice?.localService === true
@@ -1304,8 +1360,14 @@
   function appendSpeechVoiceOption(select, backend, voice) {
     const option = document.createElement("option");
     option.value = `${backend}:${voice.id}`;
-    const service = voice.localService ? "On device" : "Network";
-    option.textContent = `${voice.name} (${voice.locale} · ${service})`;
+    const service = voice.localService
+      ? interfaceMessage("speech.service.ondevice")
+      : interfaceMessage("speech.service.network");
+    option.textContent = interfaceMessage("speech.voice.option", {
+      name: voice.name,
+      locale: voice.locale,
+      service
+    });
     select.append(option);
   }
 
@@ -1370,7 +1432,9 @@
       voices: voices.map((voice) => ({
         ...voice,
         value: `${backend}:${voice.id}`,
-        service: voice.localService ? "On device" : "Network"
+        service: voice.localService
+          ? interfaceMessage("speech.service.ondevice")
+          : interfaceMessage("speech.service.network")
       }))
     };
   }
@@ -1400,25 +1464,31 @@
     if (result.unavailablePreference) {
       const activeName = speechVoiceName(result, result.activeVoice);
       return activeName
-        ? `Saved voice unavailable. Automatic now uses ${activeName}.`
-        : "Saved voice unavailable. Automatic is now selected.";
+        ? interfaceMessage("speech.voice.savedunavailableactive", { voice: activeName })
+        : interfaceMessage("speech.voice.savedunavailableautomatic");
     }
     if (result.available && result.activeVoice) {
       const activeName = speechVoiceName(result, result.activeVoice);
-      const service = result.activeVoiceLocal ? "on device" : "network";
-      return `${result.requestedVoice ? "Using" : "Automatic uses"} ${activeName} · ${service}.`;
+      const service = result.activeVoiceLocal
+        ? interfaceMessage("speech.service.ondeviceinline")
+        : interfaceMessage("speech.service.networkinline");
+      return result.requestedVoice
+        ? interfaceMessage("speech.voice.using", { voice: activeName, service })
+        : interfaceMessage("speech.voice.automaticuses", { voice: activeName, service });
     }
     if (result.available && result.voices.length) {
-      return `Automatic will use the best available ${targetLanguage.label} voice.`;
+      return interfaceMessage("speech.voice.automaticbest", { language: targetLanguageName });
     }
     if (result.backend === "android" && result.reason === "missing-language-data") {
-      return `${targetLanguage.label} voice data is not installed.`;
+      return interfaceMessage("speech.voice.datanotinstalled", { language: targetLanguageName });
     }
     if (result.backend === "android" && result.reason === "no-language-voice") {
-      return `This speech engine has no ${targetLanguage.label} voice.`;
+      return interfaceMessage("speech.voice.enginemissing", { language: targetLanguageName });
     }
-    if (result.backend === "android") return `${targetLanguage.label} pronunciation is not ready on this device.`;
-    return `No ${targetLanguage.label} browser voice is installed. Use your browser or system speech settings.`;
+    if (result.backend === "android") {
+      return interfaceMessage("speech.voice.devicenotready", { language: targetLanguageName });
+    }
+    return interfaceMessage("speech.voice.browsermissing", { language: targetLanguageName });
   }
 
   async function previewSpeech() {
@@ -1435,7 +1505,7 @@
       };
     }
     const install = window.CaatuuRuntime?.speech?.installData;
-    if (!install) throw new Error("Android voice installation is unavailable.");
+    if (!install) throw new Error(interfaceMessage("speech.voice.installunavailable"));
     return install();
   }
 
@@ -1470,8 +1540,12 @@
 
   async function speakText(text, options = {}) {
     const normalizedText = String(text || "").normalize("NFC").trim();
-    if (!normalizedText) throw new Error(`Enter ${targetLanguage.label} text to hear.`);
-    if (normalizedText.length > 1_000) throw new Error(`${targetLanguage.label} audio supports up to 1,000 characters.`);
+    if (!normalizedText) {
+      throw new Error(interfaceMessage("speech.text.required", { language: targetLanguageName }));
+    }
+    if (normalizedText.length > 1_000) {
+      throw new Error(interfaceMessage("speech.text.toolong", { language: targetLanguageName, count: 1000 }));
+    }
     const locale = speechLocale;
     const rate = clampSpeechControl(options.rate, 0.5, 1.5, resolveSpeechPace().rate);
     const pitch = clampSpeechControl(options.pitch, 0.5, 1.5, 1);
@@ -1490,7 +1564,11 @@
     }
     if (speechVoiceBackend() === "android") {
       const speech = window.CaatuuRuntime?.speech;
-      if (!speech?.speak) throw new Error(`${targetLanguage.label} pronunciation is not available on this device.`);
+      if (!speech?.speak) {
+        throw new Error(interfaceMessage("speech.pronunciation.deviceunavailable", {
+          language: targetLanguageName
+        }));
+      }
       const result = await speech.speak(
         normalizedText,
         { locale, rate, pitch, voice },
@@ -1508,7 +1586,11 @@
 
     const synthesis = window.speechSynthesis;
     const Utterance = window.SpeechSynthesisUtterance;
-    if (!synthesis || !Utterance) throw new Error(`${targetLanguage.label} pronunciation is not available in this browser.`);
+    if (!synthesis || !Utterance) {
+      throw new Error(interfaceMessage("speech.pronunciation.browserunavailable", {
+        language: targetLanguageName
+      }));
+    }
     const utterance = new Utterance(normalizedText);
     utterance.lang = locale;
     utterance.rate = rate;
@@ -1558,7 +1640,7 @@
       };
       activeBrowserSpeechSession = session;
       timeout = window.setTimeout(() => {
-        finish(new Error("The voice test took too long."));
+        finish(new Error(interfaceMessage("speech.test.timeout")));
         synthesis.cancel();
       }, 20_000);
       utterance.onstart = (event) => callSpeechCallback(options.onStart, event);
@@ -1566,7 +1648,7 @@
         finish();
       };
       utterance.onerror = (event) => {
-        const reason = String(event?.error || "Speech synthesis failed.");
+        const reason = String(event?.error || interfaceMessage("speech.test.failed"));
         finish(new Error(reason));
       };
       try {
@@ -1588,7 +1670,7 @@
     panel.dataset.speechVoiceRequest = String(request);
     select.disabled = true;
     testButton.disabled = true;
-    status.textContent = `Checking ${targetLanguage.label} voices...`;
+    status.textContent = interfaceMessage("speech.voice.checking", { language: targetLanguageName });
 
     const result = await getSpeechVoiceControlState();
     if (request !== Number(panel.dataset.speechVoiceRequest)) return;
@@ -1596,7 +1678,7 @@
 
     const automatic = document.createElement("option");
     automatic.value = "";
-    automatic.textContent = "Automatic (recommended)";
+    automatic.textContent = interfaceMessage("speech.voice.automaticrecommended");
     select.replaceChildren(automatic);
     voices.forEach((voice) => appendSpeechVoiceOption(select, backend, voice));
 
@@ -1609,26 +1691,35 @@
     select.dataset.voiceCount = String(voices.length);
     testButton.disabled = !available;
     testButton.dataset.available = String(available);
-    testButton.setAttribute("aria-label", `Test ${selectedVoice?.name || `automatic ${targetLanguage.label} voice`}`);
+    const voiceName = selectedVoice?.name || interfaceMessage("speech.voice.automaticname", {
+      language: targetLanguageName
+    });
+    testButton.setAttribute("aria-label", interfaceMessage("speech.voice.testlabel", { voice: voiceName }));
     status.textContent = describeSpeechVoiceState(result);
     if (installButton) {
       installButton.hidden = !result.canInstallVoice;
       installButton.disabled = false;
-      installButton.textContent = `Install ${targetLanguage.label} voice`;
+      installButton.textContent = interfaceMessage("speech.voice.install", { language: targetLanguageName });
     }
   }
 
   async function playSpeechSettingsPreview(panel) {
     const status = panel?.querySelector("#settingsSpeechVoiceStatus");
-    if (status) status.textContent = `Playing a short ${targetLanguage.label} sample...`;
+    if (status) {
+      status.textContent = interfaceMessage("speech.voice.playingsample", { language: targetLanguageName });
+    }
     try {
       const result = await previewSpeech();
       if (result?.muted) {
-        if (status) status.textContent = "Audio is muted across Caatuu.";
+        if (status) status.textContent = interfaceMessage("speech.audio.mutednotice");
         return;
       }
     } catch (error) {
-      if (status) status.textContent = `Unable to play the selected ${targetLanguage.label} voice.`;
+      if (status) {
+        status.textContent = interfaceMessage("speech.voice.selectedunavailable", {
+          language: targetLanguageName
+        });
+      }
       return;
     }
     await refreshSpeechVoiceControl(panel);
@@ -1653,15 +1744,24 @@
       const label = testButton.textContent;
       testButton.disabled = true;
       testButton.setAttribute("aria-busy", "true");
-      testButton.textContent = "Playing...";
+      testButton.textContent = interfaceMessage("speech.test.playing");
       const pace = resolveSpeechPace();
-      status.textContent = `Playing the selected ${targetLanguage.label} voice at ${pace.label.toLowerCase()} speed...`;
+      status.textContent = interfaceMessage("speech.test.playingatpace", {
+        language: targetLanguageName,
+        pace: pace.label.toLocaleLowerCase(globalThis.CaatuuI18n.locale || "en")
+      });
       try {
         const result = await speakText(speechTestText, { rate: pace.rate });
-        if (result?.muted) status.textContent = "Audio is muted across Caatuu.";
-        else if (result?.outcome !== "stopped") status.textContent = `Voice test finished at ${pace.label.toLowerCase()} speed.`;
+        if (result?.muted) status.textContent = interfaceMessage("speech.audio.mutednotice");
+        else if (result?.outcome !== "stopped") {
+          status.textContent = interfaceMessage("speech.test.finishedatpace", {
+            pace: pace.label.toLocaleLowerCase(globalThis.CaatuuI18n.locale || "en")
+          });
+        }
       } catch (error) {
-        status.textContent = `Unable to play the ${targetLanguage.label} voice on this device.`;
+        status.textContent = interfaceMessage("speech.voice.deviceplaybackfailed", {
+          language: targetLanguageName
+        });
       } finally {
         testButton.removeAttribute("aria-busy");
         testButton.textContent = label;
@@ -1672,14 +1772,14 @@
     installButton?.addEventListener("click", async () => {
       if (installButton.disabled) return;
       installButton.disabled = true;
-      status.textContent = "Opening Android voice installation...";
+      status.textContent = interfaceMessage("speech.voice.openinginstall");
       try {
         const result = await installSpeechData();
         status.textContent = result?.launched === false
-          ? `Open your browser or system speech settings to add a ${targetLanguage.label} voice.`
-          : `Finish adding the ${targetLanguage.label} voice in Android, then return here.`;
+          ? interfaceMessage("speech.voice.addinsettings", { language: targetLanguageName })
+          : interfaceMessage("speech.voice.finishandroidinstall", { language: targetLanguageName });
       } catch (error) {
-        status.textContent = "Android could not open its voice installation settings.";
+        status.textContent = interfaceMessage("speech.voice.androidinstallfailed");
       } finally {
         installButton.disabled = false;
       }
@@ -1786,7 +1886,10 @@
   function learningDifficultyButtons() {
     const levels = learning?.difficultyLevels || [];
     return levels.map((option) => `
-      <button type="button" data-difficulty-level="${option.level}" aria-label="${option.label} challenge badge, level ${option.level}">
+      <button type="button" data-difficulty-level="${option.level}" aria-label="${interfaceMessage("progress.challengebadge", {
+        badge: option.label,
+        level: option.level
+      })}">
         <b aria-hidden="true">
           <img src="/assets/icons/difficulty_medal_${option.level}_ui.png?v=ui-1" alt="" loading="lazy" decoding="async">
         </b>
@@ -1812,13 +1915,13 @@
     return `${String(rounded).replace(/\.0$/u, "")}${suffix}`;
   }
 
-  function renderHeaderReward(root, kind, value, singular, plural) {
+  function renderHeaderReward(root, kind, value, messageId) {
     const count = normalizeRewardCount(value);
     root.querySelectorAll(`[data-caatuu-header-${kind}-count]`).forEach((element) => {
       element.textContent = formatCompactRewardCount(count);
     });
     root.querySelectorAll(`[data-caatuu-header-${kind}]`).forEach((element) => {
-      const label = `${count} ${count === 1 ? singular : plural}`;
+      const label = interfaceMessage(messageId, { count });
       element.setAttribute("aria-label", label);
       element.setAttribute("title", label);
     });
@@ -1832,8 +1935,8 @@
       xp: journey.xp,
       coins: journey.rounds
     };
-    renderHeaderReward(root, "xp", rewards.xp, "experience point", "experience points");
-    renderHeaderReward(root, "coins", rewards.coins, "coin", "coins");
+    renderHeaderReward(root, "xp", rewards.xp, "progress.reward.experience");
+    renderHeaderReward(root, "coins", rewards.coins, "progress.reward.coin");
     root.querySelectorAll("[data-difficulty-level]").forEach((button) => {
       const selected = Number(button.dataset.difficultyLevel) === profile.difficulty;
       button.classList.toggle("is-active", selected);
@@ -1842,7 +1945,7 @@
     const description = root.querySelector("#difficultyDescription");
     if (description) description.textContent = profile.difficultyOption.summary;
     const level = root.querySelector("#difficultyLevelSummary");
-    if (level) level.textContent = `Level ${profile.difficulty}`;
+    if (level) level.textContent = interfaceMessage("progress.level", { level: profile.difficulty });
     const badgeName = root.querySelector("#difficultyBadgeName");
     if (badgeName) badgeName.textContent = profile.difficultyOption.label;
     const xp = root.querySelector("#courseProgressXp");
@@ -1856,8 +1959,11 @@
     const summary = root.querySelector("#courseProgressSummary");
     if (summary) {
       summary.textContent = journey.activities
-        ? `${journey.rounds} completed ${journey.rounds === 1 ? "round" : "rounds"} across ${journey.activeGames} ${journey.activeGames === 1 ? "game" : "games"}.`
-        : "Your learning record will begin with the next activity.";
+        ? interfaceMessage("progress.summary.completed", {
+          rounds: interfaceMessage("progress.summary.rounds", { count: journey.rounds }),
+          games: interfaceMessage("progress.summary.games", { count: journey.activeGames })
+        })
+        : interfaceMessage("progress.record.empty");
     }
     const streak = profile.streak || { currentDays: 0, highestDays: 0, remindersEnabled: false };
     root.querySelectorAll("[data-caatuu-streak-count]").forEach((element) => {
@@ -1867,10 +1973,16 @@
       element.textContent = String(streak.highestDays);
     });
     root.querySelectorAll("[data-caatuu-streak]").forEach((element) => {
-      const currentLabel = `${streak.currentDays} ${streak.currentDays === 1 ? "day" : "days"}`;
-      const bestLabel = `${streak.highestDays} ${streak.highestDays === 1 ? "day" : "days"}`;
-      element.setAttribute("aria-label", `${currentLabel} streak. Best: ${bestLabel}.`);
-      element.setAttribute("title", `${currentLabel} streak · Best ${bestLabel}`);
+      const currentLabel = interfaceMessage("progress.streak.days", { count: streak.currentDays });
+      const bestLabel = interfaceMessage("progress.streak.days", { count: streak.highestDays });
+      element.setAttribute("aria-label", interfaceMessage("progress.streak.arialabel", {
+        current: currentLabel,
+        best: bestLabel
+      }));
+      element.setAttribute("title", interfaceMessage("progress.streak.title", {
+        current: currentLabel,
+        best: bestLabel
+      }));
     });
     renderStreakReminderControls(root, streak);
   }
@@ -1893,27 +2005,26 @@
       const enabled = permission === "granted" && streak?.remindersEnabled === true;
       button.setAttribute("aria-pressed", String(enabled));
       button.textContent = permission === "denied"
-        ? "Blocked by browser"
+        ? interfaceMessage("progress.reminders.blocked")
         : enabled
-          ? "Reminders on"
-          : "Enable reminders";
+          ? interfaceMessage("progress.reminders.on")
+          : interfaceMessage("progress.reminders.enable");
       button.setAttribute("aria-label", enabled
-        ? "Turn off streak notifications"
-        : "Enable five-hour and three-hour streak notifications");
+        ? interfaceMessage("progress.reminders.turnoff")
+        : interfaceMessage("progress.reminders.turnon"));
     });
   }
 
   function streakReminderCopy(reminder) {
-    const days = `${reminder.currentDays}-day`;
     if (reminder.hours === 3) {
       return {
-        title: "Caatuu's feathers are tingling!",
-        body: `Only 3 hours remain. Finish one challenge to keep your ${days} streak flying.`
+        title: interfaceMessage("progress.reminders.threehourtitle"),
+        body: interfaceMessage("progress.reminders.threehourbody", { count: reminder.currentDays })
       };
     }
     return {
-      title: "Your streak is packing its bags!",
-      body: `You have 5 hours to finish one challenge and keep your ${days} adventure going.`
+      title: interfaceMessage("progress.reminders.fivehourtitle"),
+      body: interfaceMessage("progress.reminders.fivehourbody", { count: reminder.currentDays })
     };
   }
 
@@ -1944,8 +2055,8 @@
 
     const dismiss = document.createElement("button");
     dismiss.type = "button";
-    dismiss.textContent = "Got it";
-    dismiss.setAttribute("aria-label", "Dismiss streak reminder");
+    dismiss.textContent = interfaceMessage("common.gotit");
+    dismiss.setAttribute("aria-label", interfaceMessage("progress.reminders.dismiss"));
     dismiss.addEventListener("click", () => {
       notice.hidden = true;
     });
@@ -2042,8 +2153,8 @@
     const status = document.querySelector("#learningStatus");
     if (status) {
       status.textContent = permission === "granted"
-        ? "Streak reminders are on for five and three hours before the deadline."
-        : "Browser notifications stay off. Caatuu will still remind you while the app is open.";
+        ? interfaceMessage("progress.reminders.enabledstatus")
+        : interfaceMessage("progress.reminders.inappstatus");
     }
     button?.focus?.();
   }
@@ -2667,7 +2778,12 @@
         renderLearningControls(document);
         const status = document.querySelector("#learningStatus");
         const selected = learning?.difficultyOption();
-        if (status && selected) status.textContent = `Badge equipped: Level ${selected.level}, ${selected.label}.`;
+        if (status && selected) {
+          status.textContent = interfaceMessage("progress.badge.equipped", {
+            level: selected.level,
+            badge: selected.label
+          });
+        }
         return;
       }
 
@@ -2675,22 +2791,22 @@
       if (!resetButton || !learning) return;
       event.preventDefault();
       if (!confirmButtonPress(resetButton, {
-        confirmLabel: "Confirm restart",
-        message: "Restart course progress? Difficulty and downloaded files will be kept."
+        confirmLabel: interfaceMessage("progress.restart.confirm"),
+        message: interfaceMessage("progress.restart.prompt")
       })) return;
       try {
         await learning.prepareProgressReset?.();
       } catch (error) {
         window.dispatchEvent(new CustomEvent("caatuu:progress-reset-cancelled"));
         const status = document.querySelector("#learningStatus");
-        if (status) status.textContent = "Course progress could not be restarted. Nothing was cleared.";
+        if (status) status.textContent = interfaceMessage("progress.restart.failed");
         return;
       }
       learning.resetProgress();
       await window.CaatuuSemanticLearning?.whenIdle?.();
       renderLearningControls(document);
       const status = document.querySelector("#learningStatus");
-      if (status) status.textContent = "Course progress restarted. Difficulty and downloads were preserved.";
+      if (status) status.textContent = interfaceMessage("progress.restart.completed");
     });
 
     window.addEventListener("caatuu:learning-change", () => {
@@ -3053,15 +3169,24 @@
   function selectorEffortLabels(effort) {
     if (!effort?.hasProgress) {
       return {
-        visible: "Not started",
-        exact: "No learning effort recorded yet"
+        visible: interfaceMessage("progress.effort.notstarted"),
+        exact: interfaceMessage("progress.effort.none")
       };
     }
     const xp = normalizeRewardCount(effort.xp);
     const rounds = normalizeRewardCount(effort.rounds);
     return {
-      visible: `${formatCompactRewardCount(xp)} XP · ${formatCompactRewardCount(rounds)} ${rounds === 1 ? "round" : "rounds"}`,
-      exact: `${xp} experience ${xp === 1 ? "point" : "points"} and ${rounds} completed ${rounds === 1 ? "round" : "rounds"}`
+      visible: interfaceMessage("progress.effort.visible", {
+        xp: formatCompactRewardCount(xp),
+        rounds: interfaceMessage("progress.effort.rounds", {
+          count: rounds,
+          formattedcount: formatCompactRewardCount(rounds)
+        })
+      }),
+      exact: interfaceMessage("progress.effort.exact", {
+        experience: interfaceMessage("progress.reward.experience", { count: xp }),
+        rounds: interfaceMessage("progress.effort.completedrounds", { count: rounds })
+      })
     };
   }
 
@@ -3154,13 +3279,16 @@
     element.setAttribute("role", "img");
     element.setAttribute(
       "aria-label",
-      `Current learning language: ${targetLanguage.label}. Change languages from Home.`
+      interfaceMessage("courseselector.indicator.arialabel", { language: targetLanguageName })
     );
-    element.setAttribute("title", `${targetLanguage.label} course · Change languages from Home`);
+    element.setAttribute("title", interfaceMessage("courseselector.indicator.title", {
+      language: targetLanguageName
+    }));
     element.dataset.caatuuLanguageIndicatorRendered = "true";
   }
 
   function populateLanguageSelectorOption(option, language, { statusLabels = [], effort = null } = {}) {
+    const localizedName = interfaceLanguageName(language);
     const flag = document.createElement("img");
     flag.className = ["language-selector-option-flag", "caatuu-language-flag", language.flagClass]
       .filter(Boolean)
@@ -3176,11 +3304,11 @@
     const nativeLabel = document.createElement("strong");
     nativeLabel.lang = language.locale;
     nativeLabel.dir = language.direction || "auto";
-    nativeLabel.textContent = language.nativeLabel || language.label;
+    nativeLabel.textContent = String(language.nativeLabel || localizedName).trim();
     copy.append(nativeLabel);
-    if (language.label && language.label !== nativeLabel.textContent) {
+    if (localizedName !== nativeLabel.textContent) {
       const translatedLabel = document.createElement("small");
-      translatedLabel.textContent = language.label;
+      translatedLabel.textContent = localizedName;
       copy.append(translatedLabel);
     }
     if (effort) {
@@ -3232,14 +3360,20 @@
     const effort = baseLanguageSelectorEffort(record.id, summaries);
     const statusLabels = [];
     const current = record.id === selectorLanguageKey(course.sourceLanguage);
-    if (current) statusLabels.push("Current");
-    else if (selected) statusLabels.push("Selected");
-    if (unavailableInNativeShell) statusLabels.push("Browser only");
+    if (current) statusLabels.push(interfaceMessage("common.current"));
+    else if (selected) statusLabels.push(interfaceMessage("common.selected"));
+    if (unavailableInNativeShell) statusLabels.push(interfaceMessage("common.browseronly"));
     populateLanguageSelectorOption(option, record.language, { statusLabels, effort });
     const effortLabels = selectorEffortLabels(effort);
     option.setAttribute(
       "aria-label",
-      `${record.language.label || record.language.nativeLabel}. ${effortLabels.exact}.${statusLabels.length ? ` ${statusLabels.join(". ")}.` : ""}`
+      interfaceMessage("courseselector.option.arialabel", {
+        language: interfaceLanguageName(record.language),
+        effort: effortLabels.exact,
+        status: statusLabels.length
+          ? interfaceMessage("courseselector.option.status", { status: statusLabels.join(". ") })
+          : ""
+      })
     );
     option.addEventListener("click", (event) => {
       event.preventDefault();
@@ -3271,20 +3405,26 @@
     }
 
     const statusLabels = [];
-    if (current) statusLabels.push("Current");
-    else if (selected) statusLabels.push("Selected");
+    if (current) statusLabels.push(interfaceMessage("common.current"));
+    else if (selected) statusLabels.push(interfaceMessage("common.selected"));
     if (record.status === "development") {
-      statusLabels.push("Preview");
+      statusLabels.push(interfaceMessage("common.preview"));
     }
     if (unavailableInNativeShell) {
-      statusLabels.push("Browser only");
+      statusLabels.push(interfaceMessage("common.browseronly"));
     }
     const effort = courseSelectorEffort(record, summaries);
     populateLanguageSelectorOption(option, record.targetLanguage, { statusLabels, effort });
     const effortLabels = selectorEffortLabels(effort);
     option.setAttribute(
       "aria-label",
-      `${record.targetLanguage.label || record.targetLanguage.nativeLabel}. ${effortLabels.exact}.${statusLabels.length ? ` ${statusLabels.join(". ")}.` : ""}`
+      interfaceMessage("courseselector.option.arialabel", {
+        language: interfaceLanguageName(record.targetLanguage),
+        effort: effortLabels.exact,
+        status: statusLabels.length
+          ? interfaceMessage("courseselector.option.status", { status: statusLabels.join(". ") })
+          : ""
+      })
     );
     option.addEventListener("click", (event) => {
       event.preventDefault();
@@ -3310,12 +3450,12 @@
     const heading = document.createElement("h3");
     heading.className = "language-selector-form-title";
     heading.id = menu.id + "Title";
-    heading.textContent = "Choose your languages";
+    heading.textContent = interfaceMessage("courseselector.heading");
     menu.setAttribute("aria-labelledby", heading.id);
 
     const introduction = document.createElement("p");
     introduction.className = "language-selector-form-intro";
-    introduction.textContent = "Your course progress stays saved when you switch.";
+    introduction.textContent = interfaceMessage("courseselector.introduction");
 
     const choiceStage = document.createElement("div");
     choiceStage.className = "language-selector-choice-stage";
@@ -3329,7 +3469,7 @@
     const sourceStep = document.createElement("span");
     sourceStep.setAttribute("aria-hidden", "true");
     sourceStep.textContent = "1";
-    sourceLegend.append(sourceStep, " What language do you use?");
+    sourceLegend.append(sourceStep, ` ${interfaceMessage("courseselector.sourcequestion")}`);
     const sourceOptions = document.createElement("div");
     sourceOptions.className = "language-selector-options";
     sourceOptions.dataset.languageSourceOptions = "";
@@ -3345,7 +3485,7 @@
     const targetStep = document.createElement("span");
     targetStep.setAttribute("aria-hidden", "true");
     targetStep.textContent = "2";
-    targetLegend.append(targetStep, " What language do you want to learn?");
+    targetLegend.append(targetStep, ` ${interfaceMessage("courseselector.targetquestion")}`);
     const targetOptions = document.createElement("div");
     targetOptions.className = "language-selector-options";
     targetOptions.dataset.languageTargetOptions = "";
@@ -3364,12 +3504,12 @@
     cancel.className = "language-selector-action is-secondary";
     cancel.type = "button";
     cancel.dataset.languageSelectorCancel = "";
-    cancel.textContent = "Cancel";
+    cancel.textContent = interfaceMessage("common.cancel");
     const review = document.createElement("button");
     review.className = "language-selector-action is-primary";
     review.type = "button";
     review.dataset.languageSelectorReview = "";
-    review.textContent = "Continue";
+    review.textContent = interfaceMessage("common.continue");
     choiceActions.append(cancel, review);
     choiceStage.append(sourceQuestion, targetQuestion, selectionStatus, choiceActions);
 
@@ -3379,7 +3519,7 @@
     reviewStage.hidden = true;
     const reviewKicker = document.createElement("p");
     reviewKicker.className = "language-selector-kicker";
-    reviewKicker.textContent = "Confirm course change";
+    reviewKicker.textContent = interfaceMessage("courseselector.review.kicker");
     const reviewHeading = document.createElement("div");
     reviewHeading.className = "language-selector-review-heading";
     const reviewTitle = document.createElement("h4");
@@ -3403,12 +3543,12 @@
     back.className = "language-selector-action is-secondary";
     back.type = "button";
     back.dataset.languageSelectorBack = "";
-    back.textContent = "Back";
+    back.textContent = interfaceMessage("common.back");
     const confirm = document.createElement("button");
     confirm.className = "language-selector-action is-primary";
     confirm.type = "button";
     confirm.dataset.languageSelectorConfirm = "";
-    confirm.textContent = "Confirm";
+    confirm.textContent = interfaceMessage("common.confirm");
     reviewActions.append(back, confirm);
     reviewStage.append(reviewKicker, reviewHeading, reviewCopy, reviewStatus, reviewActions);
 
@@ -3455,8 +3595,10 @@
       review.disabled = !changed;
       review.setAttribute("aria-disabled", String(!changed));
       selectionStatus.textContent = changed
-        ? `${selected.targetLanguage.label} is selected. Continue to confirm.`
-        : `${targetLanguage.label} is your current learning language.`;
+        ? interfaceMessage("courseselector.selection.changed", {
+          language: interfaceLanguageName(selected.targetLanguage)
+        })
+        : interfaceMessage("courseselector.selection.current", { language: targetLanguageName });
     }
 
     function showChoices({ focusReview = false } = {}) {
@@ -3469,13 +3611,17 @@
     function showReview() {
       const selected = selectedCourseRecord();
       if (!selected || selected.id === course.id || !courseSelectorAvailable(selected)) return;
-      const targetName = selected.targetLanguage.label || selected.targetLanguage.nativeLabel;
-      reviewTitle.textContent = `Switch to ${targetName}?`;
+      const targetName = interfaceLanguageName(selected.targetLanguage);
+      reviewTitle.textContent = interfaceMessage("courseselector.review.title", { language: targetName });
       const reviewFlag = createLanguageFlag(selected.targetLanguage, "language-selector-review-flag");
       reviewFlag.dataset.languageSelectorReviewFlag = "";
       reviewHeading.replaceChildren(reviewTitle, reviewFlag);
-      reviewCopy.textContent = `Your ${targetLanguage.label} course progress will remain saved.`;
-      reviewStatusCopy.textContent = `XP, coins, and streak remain shared across languages. Only the course changes. You can switch back to ${targetLanguage.label} at any time.`;
+      reviewCopy.textContent = interfaceMessage("courseselector.review.progress", {
+        language: targetLanguageName
+      });
+      reviewStatusCopy.textContent = interfaceMessage("courseselector.review.sharedprogress", {
+        language: targetLanguageName
+      });
       choiceStage.hidden = true;
       reviewStage.hidden = false;
       menu.classList.add("is-reviewing");
@@ -3559,17 +3705,21 @@
     current.setAttribute("role", "group");
     current.setAttribute(
       "aria-label",
-      `Current course: ${record.sourceLanguage.label} to ${record.targetLanguage.label}. ${effortLabels.exact}.`
+      interfaceMessage("courseselector.current.arialabel", {
+        source: interfaceLanguageName(record.sourceLanguage),
+        target: interfaceLanguageName(record.targetLanguage),
+        effort: effortLabels.exact
+      })
     );
 
     const copy = document.createElement("span");
     copy.className = "home-language-switch-copy";
     const kicker = document.createElement("span");
     kicker.className = "home-language-switch-kicker";
-    kicker.textContent = "Current course";
+    kicker.textContent = interfaceMessage("courseselector.current.label");
     const routeLabel = document.createElement("strong");
-    const sourceName = record.sourceLanguage.nativeLabel || record.sourceLanguage.label;
-    const targetName = record.targetLanguage.nativeLabel || record.targetLanguage.label;
+    const sourceName = interfaceLanguageName(record.sourceLanguage);
+    const targetName = interfaceLanguageName(record.targetLanguage);
     routeLabel.textContent = `${sourceName} → ${targetName}`;
     const effort = document.createElement("small");
     effort.className = "home-language-switch-effort";
@@ -3579,7 +3729,7 @@
 
     const status = document.createElement("span");
     status.className = "home-language-current-status";
-    status.textContent = "Current";
+    status.textContent = interfaceMessage("common.current");
     current.append(createHomeLanguagePair(record), copy, status);
     current.dataset.languageEffort = effortLabels.visible;
     current.dataset.languageEffortExact = effortLabels.exact;
@@ -3618,10 +3768,12 @@
       copy.className = "home-language-switch-copy";
       const kicker = document.createElement("span");
       kicker.className = "home-language-switch-kicker";
-      kicker.textContent = record.status === "development" ? "Preview course" : "Your course";
+      kicker.textContent = record.status === "development"
+        ? interfaceMessage("courseselector.course.preview")
+        : interfaceMessage("courseselector.course.yours");
       const routeLabel = document.createElement("strong");
-      const sourceName = record.sourceLanguage.nativeLabel || record.sourceLanguage.label;
-      const targetName = record.targetLanguage.nativeLabel || record.targetLanguage.label;
+      const sourceName = interfaceLanguageName(record.sourceLanguage);
+      const targetName = interfaceLanguageName(record.targetLanguage);
       routeLabel.textContent = `${sourceName} → ${targetName}`;
       const effortLabel = document.createElement("small");
       effortLabel.className = "home-language-switch-effort";
@@ -3632,7 +3784,9 @@
       const action = document.createElement("span");
       action.className = "home-language-switch-action";
       const actionLabel = document.createElement("span");
-      actionLabel.textContent = available ? "Switch" : "Browser only";
+      actionLabel.textContent = available
+        ? interfaceMessage("courseselector.action.switch")
+        : interfaceMessage("common.browseronly");
       const actionArrow = document.createElement("span");
       actionArrow.className = "home-language-switch-action-arrow";
       actionArrow.setAttribute("aria-hidden", "true");
@@ -3641,10 +3795,18 @@
       button.append(createHomeLanguagePair(record), copy, action);
       button.dataset.languageEffort = effortLabels.visible;
       button.dataset.languageEffortExact = effortLabels.exact;
-      button.setAttribute(
-        "aria-label",
-        `${available ? "Switch to" : "Unavailable course"}: ${record.sourceLanguage.label} to ${record.targetLanguage.label}. ${effortLabels.exact}.${record.status === "development" ? " Preview." : ""}${available ? " Continue to confirm." : " Browser only."}`
-      );
+      const quickSwitchMessageId = available
+        ? record.status === "development"
+          ? "courseselector.quick.preview"
+          : "courseselector.quick.available"
+        : record.status === "development"
+          ? "courseselector.quick.unavailablepreview"
+          : "courseselector.quick.unavailable";
+      button.setAttribute("aria-label", interfaceMessage(quickSwitchMessageId, {
+        source: interfaceLanguageName(record.sourceLanguage),
+        target: interfaceLanguageName(record.targetLanguage),
+        effort: effortLabels.exact
+      }));
       button.addEventListener("click", (event) => {
         event.preventDefault();
         event.stopPropagation();
@@ -3665,7 +3827,7 @@
     header.className = "home-language-ongoing-head";
     const heading = document.createElement("h3");
     heading.id = menu.id + "OngoingTitle";
-    heading.textContent = "Ongoing courses";
+    heading.textContent = interfaceMessage("courseselector.ongoing.heading");
 
     trigger.className = "home-language-manage";
     const manageIcon = document.createElement("span");
@@ -3673,10 +3835,10 @@
     manageIcon.setAttribute("aria-hidden", "true");
     manageIcon.textContent = "+";
     const manageLabel = document.createElement("span");
-    manageLabel.textContent = "New course";
+    manageLabel.textContent = interfaceMessage("courseselector.newcourse");
     trigger.replaceChildren(manageIcon, manageLabel);
-    trigger.setAttribute("aria-label", "Start a new language course");
-    trigger.setAttribute("title", "Start a new language course");
+    trigger.setAttribute("aria-label", interfaceMessage("courseselector.startnew"));
+    trigger.setAttribute("title", interfaceMessage("courseselector.startnew"));
     header.append(heading, trigger);
     section.append(header);
 
@@ -3687,7 +3849,7 @@
     } else {
       const empty = document.createElement("p");
       empty.className = "home-language-ongoing-empty";
-      empty.textContent = "No other courses in progress.";
+      empty.textContent = interfaceMessage("courseselector.ongoing.empty");
       section.append(empty);
     }
     return section;
@@ -3711,7 +3873,10 @@
     if (!element.getAttribute("aria-label")) {
       element.setAttribute(
         "aria-label",
-        "Choose languages. Base language: " + course.sourceLanguage.label + ". Target language: " + targetLanguage.label + "."
+        interfaceMessage("courseselector.trigger.arialabel", {
+          source: interfaceLanguageName(course.sourceLanguage),
+          target: targetLanguageName
+        })
       );
     }
 
@@ -3752,21 +3917,31 @@
   function renderAppHeader(header) {
     header.replaceChildren();
 
-    const pageKicker = String(header.dataset.caatuuPageKicker || course.workspaceLabel || course.brandLabel || "Caatuu").trim();
-    const pageTitle = String(header.dataset.caatuuPageTitle || "Home").trim();
+    const rawPageKicker = String(
+      header.dataset.caatuuPageKicker || course.workspaceLabel || course.brandLabel || "Caatuu"
+    ).trim();
+    const rawPageTitle = String(header.dataset.caatuuPageTitle || "Home").trim();
+    const pageKicker = rawPageKicker === "Train" ? interfaceMessage("chrome.train") : rawPageKicker;
+    const pageTitle = rawPageTitle === "Home"
+      ? interfaceMessage("nav.home")
+      : rawPageTitle === "Games"
+        ? interfaceMessage("nav.games")
+        : rawPageTitle;
     const pageIcon = String(header.dataset.caatuuPageIcon || "/language-runtime/static/assets/caatuu-shell-512.png").trim();
 
-    const brandOpensGameMenu = pageTitle === "Games";
+    const brandOpensGameMenu = rawPageTitle === "Games" || pageTitle === interfaceMessage("nav.games");
     const brand = document.createElement("a");
     brand.className = "brand-link";
     brand.href = brandOpensGameMenu ? course.routes.games : course.routes.home;
     if (brandOpensGameMenu) {
       brand.dataset.gameMenuLauncher = "";
-      brand.setAttribute("aria-label", "Open game chooser");
-      brand.title = "Open game chooser";
+      brand.setAttribute("aria-label", interfaceMessage("nav.opengamechooser"));
+      brand.title = interfaceMessage("nav.opengamechooser");
     } else {
       brand.dataset.navigationRequest = "home";
-      brand.setAttribute("aria-label", `Open ${course.workspaceLabel} home`);
+      brand.setAttribute("aria-label", interfaceMessage("nav.openworkspacehome", {
+        workspace: course.workspaceLabel
+      }));
     }
 
     const mark = document.createElement("span");
@@ -3807,7 +3982,7 @@
 
     const headerStats = document.createElement("span");
     headerStats.className = "app-header-stats";
-    headerStats.setAttribute("aria-label", "Journey rewards");
+    headerStats.setAttribute("aria-label", interfaceMessage("progress.journeyrewards"));
 
     const createHeaderStat = (kind, iconSrc) => {
       const stat = document.createElement("span");
@@ -3852,7 +4027,7 @@
     const initialTitle = String(header.dataset.caatuuHeaderTitle || "").trim();
     if (initialTitle) {
       setHeaderTitle(initialTitle, {
-        backLabel: header.dataset.caatuuHeaderBackLabel || "Back to menu",
+        backLabel: header.dataset.caatuuHeaderBackLabel || interfaceMessage("nav.backtomenu"),
         backHref: header.dataset.caatuuHeaderBackHref || ""
       });
     }
@@ -3867,7 +4042,7 @@
       if (!element || !back) return;
 
       const gameId = gameIdsByTitle.get(normalizedTitle) || "";
-      const presentation = gamePresentations[gameId];
+      const presentation = gamePresentation(gameId);
       element.replaceChildren();
       if (presentation?.iconSrc) {
         const titleIcon = document.createElement("img");
@@ -3884,7 +4059,7 @@
 
         const titleKicker = document.createElement("span");
         titleKicker.className = "app-header-title-kicker";
-        titleKicker.textContent = "Train";
+        titleKicker.textContent = interfaceMessage("chrome.train");
 
         const titleLabel = document.createElement("span");
         titleLabel.className = "app-header-title-label";
@@ -3900,13 +4075,11 @@
       }
 
       const backHref = String(options.backHref || "").trim();
-      const rawBackLabel = String(options.backLabel || "Back to menu").trim();
+      const rawBackLabel = String(options.backLabel || interfaceMessage("nav.backtomenu")).trim();
       const conciseBackLabel = rawBackLabel.replace(/^[←‹]\s*/, "").trim();
-      const accessibleBackLabel = /^back\b/i.test(conciseBackLabel)
-        ? conciseBackLabel
-        : conciseBackLabel
-          ? `Back to ${conciseBackLabel.toLowerCase()}`
-          : "Go back";
+      const accessibleBackLabel = /^[←‹]/u.test(rawBackLabel)
+        ? interfaceMessage("nav.backto", { destination: conciseBackLabel })
+        : conciseBackLabel || interfaceMessage("common.goback");
       back.replaceChildren();
       if (gameId) {
         const backArtwork = document.createElement("img");
@@ -3942,7 +4115,11 @@
     });
   }
 
-  function setPagePresentation({ kicker = "Train", title = "Games", iconSrc = "/assets/icons/games_icon.png" } = {}) {
+  function setPagePresentation({
+    kicker = interfaceMessage("chrome.train"),
+    title = interfaceMessage("nav.games"),
+    iconSrc = "/assets/icons/games_icon.png"
+  } = {}) {
     document.querySelectorAll(".app-header").forEach((header) => {
       header.dataset.caatuuPageKicker = kicker;
       header.dataset.caatuuPageTitle = title;
@@ -3994,7 +4171,7 @@
     details.dataset.capabilityState = "disabled";
     const message = document.createElement("p");
     message.className = "settings-unavailable-note";
-    message.textContent = "No developer tools are available for this course.";
+    message.textContent = interfaceMessage("settings.developer.none");
     list.replaceChildren(message);
   }
 
@@ -4004,21 +4181,19 @@
     const controls = card?.querySelector(".settings-details:not(.developer-tools-details)");
     if (!card || !controls) return;
 
-    const fallbackMessage = "Local AI is not available for this course. These controls are disabled, and no generation model will be downloaded or loaded.";
-    const message = shellPolicy.localAiAvailability?.(course, null, "generation")?.message
-      || fallbackMessage;
+    const message = interfaceMessage("settings.ai.unavailable.detail");
     controls.dataset.capabilityState = "disabled";
     controls.setAttribute("aria-describedby", "capabilityNote");
 
     const controlsSummary = controls.querySelector(".settings-collapsible-summary small");
-    if (controlsSummary) controlsSummary.textContent = "Unavailable";
+    if (controlsSummary) controlsSummary.textContent = interfaceMessage("common.unavailable");
     const modelSummary = controls.querySelector("#modelChoiceSummary");
-    if (modelSummary) modelSummary.textContent = "Not available for this course";
+    if (modelSummary) modelSummary.textContent = interfaceMessage("settings.course.notavailable");
     const settingsSummary = controls.querySelector("#settingsSummary");
-    if (settingsSummary) settingsSummary.textContent = "Local AI is not available for this course.";
+    if (settingsSummary) settingsSummary.textContent = interfaceMessage("settings.ai.unavailable.short");
     for (const id of ["thinkingSupport", "temperatureSupport", "contextSupport"]) {
       const support = controls.querySelector(`#${id}`);
-      if (support) support.textContent = "Unavailable for this course";
+      if (support) support.textContent = interfaceMessage("settings.course.unavailable");
     }
     const capabilityNote = controls.querySelector("#capabilityNote");
     if (capabilityNote) {
@@ -4030,7 +4205,7 @@
     if (modelSelect) {
       const option = document.createElement("option");
       option.value = "";
-      option.textContent = "Not available for this course";
+      option.textContent = interfaceMessage("settings.course.notavailable");
       modelSelect.replaceChildren(option);
     }
     controls.querySelectorAll("button, input, select").forEach((control) => {
@@ -4041,7 +4216,7 @@
     const legalNotice = panel.querySelector(".legal-notice");
     const legalTitle = legalNotice?.querySelector("strong");
     const legalCopy = legalNotice?.querySelector("p");
-    if (legalTitle) legalTitle.textContent = "AI learning assistant unavailable";
+    if (legalTitle) legalTitle.textContent = interfaceMessage("settings.ai.legalunavailable");
     if (legalCopy) legalCopy.textContent = message;
   }
 
@@ -4055,12 +4230,12 @@
       <section class="settings-sheet app-settings-sheet" role="dialog" aria-modal="true" aria-labelledby="settingsTitle" data-settings-current-view="items">
         <header class="settings-sheet-head">
           <div class="settings-title-row">
-            <button class="settings-brand-mark" type="button" data-settings-view="items" aria-label="Open Backpack items" aria-controls="itemsViewPanel" title="Open Backpack items">
+            <button class="settings-brand-mark" type="button" data-settings-view="items" aria-label="${interfaceMessage("settings.backpack.openitems")}" aria-controls="itemsViewPanel" title="${interfaceMessage("settings.backpack.openitems")}">
               <img src="/assets/icons/backpack_icon.png" alt="" decoding="async">
             </button>
             <div class="settings-title-copy">
-              <p class="settings-kicker kicker" id="settingsViewKicker">Items &amp; rewards</p>
-              <h2 id="settingsTitle">Backpack</h2>
+              <p class="settings-kicker kicker" id="settingsViewKicker">${interfaceMessage("settings.items.kicker")}</p>
+              <h2 id="settingsTitle">${interfaceMessage("nav.backpack")}</h2>
             </div>
           </div>
           <span
@@ -4071,29 +4246,29 @@
 
         <div class="settings-sheet-body" tabindex="-1">
           <section class="settings-view-panel is-active" id="itemsViewPanel" data-settings-view-panel="items" role="tabpanel" aria-labelledby="itemsViewTab">
-            <section class="backpack-card side-card" aria-label="Traveler backpack">
+            <section class="backpack-card side-card" aria-label="${interfaceMessage("settings.backpack.traveleraria")}">
               <header class="backpack-profile-head">
-                <div class="traveler-badge" aria-label="Current traveler badge">
-                  <span class="traveler-badge-level" id="difficultyLevelSummary">Level 2</span>
+                <div class="traveler-badge" aria-label="${interfaceMessage("settings.backpack.currentbadge")}">
+                  <span class="traveler-badge-level" id="difficultyLevelSummary">${interfaceMessage("progress.level", { level: 2 })}</span>
                   <span class="traveler-badge-emblem" aria-hidden="true">
                     <img src="/assets/icons/backpack_icon.png" alt="" decoding="async">
                   </span>
-                  <strong id="difficultyBadgeName">Traveler</strong>
+                  <strong id="difficultyBadgeName">${interfaceMessage("settings.backpack.traveler")}</strong>
                 </div>
                 <div class="backpack-profile-copy">
-                  <p class="settings-kicker kicker">Journey record</p>
-                  <h3>Your ${targetLanguage.label} adventure</h3>
-                  <p>Everything earned while exploring Caatuu travels with you here.</p>
+                  <p class="settings-kicker kicker">${interfaceMessage("settings.journey.record")}</p>
+                  <h3>${interfaceMessage("settings.adventure.title", { language: targetLanguageName })}</h3>
+                  <p>${interfaceMessage("settings.adventure.description")}</p>
                 </div>
               </header>
 
-              <div class="backpack-wallet" aria-label="Experience, coins, and streak">
+              <div class="backpack-wallet" aria-label="${interfaceMessage("progress.wallet.arialabel")}">
                 <div class="backpack-wallet-item backpack-wallet-xp">
                   <span class="wallet-token wallet-token-xp" aria-hidden="true"></span>
                   <span class="wallet-copy">
-                    <span>Experience</span>
+                    <span>${interfaceMessage("progress.experience")}</span>
                     <strong><b id="courseProgressXp">0</b> XP</strong>
-                    <small>Correct answers</small>
+                    <small>${interfaceMessage("progress.correctanswers")}</small>
                   </span>
                 </div>
                 <div class="backpack-wallet-item backpack-wallet-coins">
@@ -4101,9 +4276,9 @@
                     <img src="/assets/icons/coin_icon_ui.png" alt="" loading="lazy" decoding="async">
                   </span>
                   <span class="wallet-copy">
-                    <span>Coins</span>
+                    <span>${interfaceMessage("progress.coins")}</span>
                     <strong id="courseProgressCoins">0</strong>
-                    <small>Completed rounds</small>
+                    <small>${interfaceMessage("progress.completedrounds")}</small>
                   </span>
                 </div>
                 <div class="backpack-wallet-item backpack-wallet-streak" data-caatuu-streak>
@@ -4111,10 +4286,10 @@
                     <img src="${streakIconSrc}" alt="" loading="lazy" decoding="async">
                   </span>
                   <span class="wallet-copy">
-                    <span>Streak</span>
-                    <strong><b data-caatuu-streak-count>0</b> days</strong>
-                    <small>Best <b data-caatuu-streak-best>0</b> days</small>
-                    <button class="streak-reminder-toggle" type="button" data-streak-reminder-toggle>Enable reminders</button>
+                    <span>${interfaceMessage("progress.streak.label")}</span>
+                    <strong><b data-caatuu-streak-count>0</b> ${interfaceMessage("progress.streak.dayword", { count: 0 })}</strong>
+                    <small>${interfaceMessage("progress.streak.bestlabel")} <b data-caatuu-streak-best>0</b> ${interfaceMessage("progress.streak.dayword", { count: 0 })}</small>
+                    <button class="streak-reminder-toggle" type="button" data-streak-reminder-toggle>${interfaceMessage("progress.reminders.enable")}</button>
                   </span>
                 </div>
               </div>
@@ -4122,45 +4297,45 @@
               <details class="badge-collection" open>
                 <summary>
                   <span>
-                    <small>Challenge</small>
-                    <strong>Traveler badge</strong>
+                    <small>${interfaceMessage("settings.challenge")}</small>
+                    <strong>${interfaceMessage("settings.backpack.travelerbadge")}</strong>
                   </span>
-                  <small>Choose your pace</small>
+                  <small>${interfaceMessage("settings.choosepace")}</small>
                 </summary>
                 <div class="difficulty-setting-row">
-                  <div class="difficulty-control" role="group" aria-label="Course difficulty badges">
+                  <div class="difficulty-control" role="group" aria-label="${interfaceMessage("settings.difficulty.badges")}">
                     ${learningDifficultyButtons()}
                   </div>
-                  <p id="difficultyDescription">A balanced course profile for variety, support, and challenge.</p>
+                  <p id="difficultyDescription">${interfaceMessage("settings.difficulty.defaultsummary")}</p>
                 </div>
               </details>
 
               <div class="learning-progress-note">
-                <p id="courseProgressSummary">Your learning record will begin with the next activity.</p>
-                <small>New rewards and achievements will join the backpack as the journey grows.</small>
+                <p id="courseProgressSummary">${interfaceMessage("progress.record.empty")}</p>
+                <small>${interfaceMessage("settings.rewards.future")}</small>
               </div>
               <p class="learning-status" id="learningStatus" role="status" aria-live="polite" aria-atomic="true"></p>
             </section>
           </section>
 
           <section class="settings-view-panel" id="statsViewPanel" data-settings-view-panel="stats" role="tabpanel" aria-labelledby="statsViewTab" hidden>
-            <section class="backpack-card backpack-stats-card side-card" aria-label="Learning statistics">
+            <section class="backpack-card backpack-stats-card side-card" aria-label="${interfaceMessage("settings.stats.arialabel")}">
               <header class="backpack-section-intro">
                 <img src="/assets/icons/stats_icon.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
                 <span>
-                  <span class="settings-kicker kicker">Journey record</span>
-                  <strong>Learning stats</strong>
-                  <small>Your lifetime practice map and measured performance.</small>
+                  <span class="settings-kicker kicker">${interfaceMessage("settings.journey.record")}</span>
+                  <strong>${interfaceMessage("settings.stats.title")}</strong>
+                  <small>${interfaceMessage("settings.stats.description")}</small>
                 </span>
               </header>
               <div id="backpackStatsMount">
-                <div class="journey-ledger" aria-label="Journey performance">
+                <div class="journey-ledger" aria-label="${interfaceMessage("settings.stats.performance")}">
                   <div>
-                    <span>Activities</span>
+                    <span>${interfaceMessage("progress.activities")}</span>
                     <strong id="courseProgressActivities">0</strong>
                   </div>
                   <div>
-                    <span>Accuracy</span>
+                    <span>${interfaceMessage("progress.accuracy")}</span>
                     <strong id="courseProgressAccuracy">—</strong>
                   </div>
                 </div>
@@ -4191,51 +4366,51 @@
           </section>
 
           <section class="settings-view-panel" id="settingsViewPanel" data-settings-view-panel="settings" role="tabpanel" aria-labelledby="settingsViewTab" hidden>
-          <section class="settings-card side-card settings-section-card appearance-card" aria-label="Appearance">
+          <section class="settings-card side-card settings-section-card appearance-card" aria-label="${interfaceMessage("settings.appearance.label")}">
             <details class="settings-section-details" id="settingsAppearanceDetails" open>
               <summary class="settings-section-summary">
                 <span class="settings-section-title">
-                  <span class="settings-kicker kicker">Appearance</span>
-                  <strong>Display</strong>
+                  <span class="settings-kicker kicker">${interfaceMessage("settings.appearance.label")}</span>
+                  <strong>${interfaceMessage("settings.appearance.display")}</strong>
                 </span>
-                <small>Theme, text size</small>
+                <small>${interfaceMessage("settings.appearance.summary")}</small>
               </summary>
               <div class="settings-section-body appearance-settings-body">
-                <p class="settings-summary appearance-settings-intro">Choose a comfortable look and reading size.</p>
+                <p class="settings-summary appearance-settings-intro">${interfaceMessage("settings.appearance.description")}</p>
                 <div class="appearance-controls">
               <div class="appearance-control-row">
                 <span class="appearance-control-label">
-                  <strong>Theme</strong>
-                  <small>Choose the atmosphere</small>
+                  <strong>${interfaceMessage("settings.theme.label")}</strong>
+                  <small>${interfaceMessage("settings.theme.description")}</small>
                 </span>
-                <div class="theme-control" role="group" aria-label="Theme">
+                <div class="theme-control" role="group" aria-label="${interfaceMessage("settings.theme.label")}">
                   <button type="button" data-theme-option="light">
                     <img class="theme-control-icon" src="${lightModeIconSrc}" alt="" aria-hidden="true" loading="lazy" decoding="async">
-                    <b>Light</b>
+                    <b>${interfaceMessage("settings.theme.light")}</b>
                   </button>
                   <button type="button" data-theme-option="dark">
                     <img class="theme-control-icon" src="/assets/icons/dark_mode_ui.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
-                    <b>Dark</b>
+                    <b>${interfaceMessage("settings.theme.dark")}</b>
                   </button>
                 </div>
               </div>
               <div class="appearance-control-row">
                 <span class="appearance-control-label">
-                  <strong>Text size</strong>
-                  <small>Scale every screen</small>
+                  <strong>${interfaceMessage("settings.textsize.label")}</strong>
+                  <small>${interfaceMessage("settings.textsize.description")}</small>
                 </span>
-                <div class="font-size-control" role="group" aria-label="Text size">
-                  <button type="button" data-font-size-option="largest" aria-label="Use standard text size">
+                <div class="font-size-control" role="group" aria-label="${interfaceMessage("settings.textsize.label")}">
+                  <button type="button" data-font-size-option="largest" aria-label="${interfaceMessage("settings.textsize.usestandard")}">
                     <span class="font-size-sample is-largest" aria-hidden="true">A</span>
-                    <b>Standard</b>
+                    <b>${interfaceMessage("settings.textsize.standard")}</b>
                   </button>
-                  <button type="button" data-font-size-option="large" aria-label="Use small text size">
+                  <button type="button" data-font-size-option="large" aria-label="${interfaceMessage("settings.textsize.usesmall")}">
                     <span class="font-size-sample is-large" aria-hidden="true">A</span>
-                    <b>Small</b>
+                    <b>${interfaceMessage("settings.textsize.small")}</b>
                   </button>
-                  <button type="button" data-font-size-option="standard" aria-label="Use smaller text size">
+                  <button type="button" data-font-size-option="standard" aria-label="${interfaceMessage("settings.textsize.usesmaller")}">
                     <span class="font-size-sample is-standard" aria-hidden="true">A</span>
-                    <b>Smaller</b>
+                    <b>${interfaceMessage("settings.textsize.smaller")}</b>
                   </button>
                 </div>
               </div>
@@ -4244,107 +4419,111 @@
             </details>
           </section>
 
-          <section class="settings-card side-card settings-section-card speech-settings-card" aria-label="${targetLanguage.label} pronunciation">
+          <section class="settings-card side-card settings-section-card speech-settings-card" aria-label="${interfaceMessage("speech.pronunciation.label", { language: targetLanguageName })}">
             <details class="settings-section-details" id="settingsSpeechDetails">
               <summary class="settings-section-summary">
                 <span class="settings-section-title">
-                  <span class="settings-kicker kicker">Audio</span>
-                  <strong>${targetLanguage.label} voice</strong>
+                  <span class="settings-kicker kicker">${interfaceMessage("speech.audio.label")}</span>
+                  <strong>${interfaceMessage("speech.voice.label", { language: targetLanguageName })}</strong>
                 </span>
-                <small>Mute, voice, speed</small>
+                <small>${interfaceMessage("speech.summary")}</small>
               </summary>
               <div class="settings-section-body speech-settings-body">
                 <button class="speech-master-mute" type="button" role="switch" aria-checked="false" data-speech-mute-toggle>
                   <span>
-                    <b data-speech-mute-label>Mute all audio</b>
-                    <small data-speech-mute-status>Sound on across every language</small>
+                    <b data-speech-mute-label>${interfaceMessage("speech.audio.muteall")}</b>
+                    <small data-speech-mute-status>${interfaceMessage("speech.audio.onstatus")}</small>
                   </span>
                   <i aria-hidden="true"></i>
                 </button>
                 <div class="speech-voice-row">
               <label class="speech-voice-label" for="settingsSpeechVoice">
-                <b>${targetLanguage.label} voice</b>
-                <small>Phone or browser speech</small>
+                <b>${interfaceMessage("speech.voice.label", { language: targetLanguageName })}</b>
+                <small>${interfaceMessage("speech.voice.source")}</small>
               </label>
               <div class="speech-voice-controls">
                 <select id="settingsSpeechVoice" aria-describedby="settingsSpeechVoiceStatus" disabled>
-                  <option value="">Automatic (recommended)</option>
+                  <option value="">${interfaceMessage("speech.voice.automaticrecommended")}</option>
                 </select>
-                <button class="settings-raised-action speech-voice-test" type="button" id="settingsSpeechVoiceTest" aria-describedby="settingsSpeechVoiceStatus" disabled>Test</button>
-                <button class="settings-raised-action speech-voice-install" type="button" id="settingsSpeechVoiceInstall" aria-describedby="settingsSpeechVoiceStatus" hidden>Install ${targetLanguage.label} voice</button>
-                <p class="settings-summary" id="settingsSpeechVoiceStatus" role="status" aria-live="polite" aria-atomic="true">Automatic will use the best available ${targetLanguage.label} voice.</p>
+                <button class="settings-raised-action speech-voice-test" type="button" id="settingsSpeechVoiceTest" aria-describedby="settingsSpeechVoiceStatus" disabled>${interfaceMessage("common.test")}</button>
+                <button class="settings-raised-action speech-voice-install" type="button" id="settingsSpeechVoiceInstall" aria-describedby="settingsSpeechVoiceStatus" hidden>${interfaceMessage("speech.voice.install", { language: targetLanguageName })}</button>
+                <p class="settings-summary" id="settingsSpeechVoiceStatus" role="status" aria-live="polite" aria-atomic="true">${interfaceMessage("speech.voice.automaticbest", { language: targetLanguageName })}</p>
               </div>
             </div>
             <div class="speech-rate-row">
               <span class="speech-voice-label">
-                <b>Speech speed</b>
-                <small>Choose a pace</small>
+                <b>${interfaceMessage("speech.pace.label")}</b>
+                <small>${interfaceMessage("settings.choosepace")}</small>
               </span>
               <div class="speech-rate-controls">
-                <div class="speech-pace-control" role="group" aria-label="${targetLanguage.label} speech speed">
-                  <input type="range" min="0" max="2" step="1" value="0" data-speech-pace-slider aria-label="${targetLanguage.label} speech speed" aria-describedby="settingsSpeechPaceStatus">
+                <div class="speech-pace-control" role="group" aria-label="${interfaceMessage("speech.pace.language", { language: targetLanguageName })}">
+                  <input type="range" min="0" max="2" step="1" value="0" data-speech-pace-slider aria-label="${interfaceMessage("speech.pace.language", { language: targetLanguageName })}" aria-describedby="settingsSpeechPaceStatus">
                   <span class="speech-pace-ticks" aria-hidden="true">
-                    <span><b>Slower</b><small>0.5×</small></span>
-                    <span><b>Slow</b><small>0.6×</small></span>
-                    <span><b>Normal</b><small>1×</small></span>
+                    <span><b>${interfaceMessage("speech.pace.slower")}</b><small>0.5×</small></span>
+                    <span><b>${interfaceMessage("speech.pace.slow")}</b><small>0.6×</small></span>
+                    <span><b>${interfaceMessage("speech.pace.normal")}</b><small>1×</small></span>
                   </span>
                 </div>
-                <p class="settings-summary" id="settingsSpeechPaceStatus" role="status" aria-live="polite" aria-atomic="true">Explorer · Slower 0.5×</p>
+                <p class="settings-summary" id="settingsSpeechPaceStatus" role="status" aria-live="polite" aria-atomic="true">${interfaceMessage("speech.pace.badgestatus", {
+                  badge: interfaceMessage("settings.backpack.explorer"),
+                  pace: interfaceMessage("speech.pace.slower"),
+                  rate: 0.5
+                })}</p>
               </div>
             </div>
               </div>
             </details>
           </section>
 
-          <section class="settings-card side-card settings-section-card app-controls-card" aria-label="Advanced app settings">
+          <section class="settings-card side-card settings-section-card app-controls-card" aria-label="${interfaceMessage("settings.advanced.arialabel")}">
             <details class="settings-section-details">
               <summary class="settings-section-summary">
                 <span class="settings-section-title">
-                  <span class="settings-kicker kicker">App</span>
-                  <strong>Advanced</strong>
+                  <span class="settings-kicker kicker">${interfaceMessage("settings.app")}</span>
+                  <strong>${interfaceMessage("settings.advanced.label")}</strong>
                 </span>
-                <small>AI, developer, storage</small>
+                <small>${interfaceMessage("settings.advanced.summary")}</small>
               </summary>
               <div class="settings-section-body">
-          <section class="settings-card side-card ai-settings-card" aria-label="Chat settings">
+          <section class="settings-card side-card ai-settings-card" aria-label="${interfaceMessage("settings.ai.chatarialabel")}">
             <details class="settings-details">
               <summary class="settings-collapsible-summary">
                 <span class="settings-summary-title">
-                  <span class="settings-kicker kicker">AI</span>
-                  <strong>Generation model</strong>
+                  <span class="settings-kicker kicker">${interfaceMessage("settings.ai.label")}</span>
+                  <strong>${interfaceMessage("settings.ai.model")}</strong>
                 </span>
-                <small>controls</small>
+                <small>${interfaceMessage("settings.controls")}</small>
               </summary>
               <div class="settings-details-body">
                 <label class="setting-select">
                   <span>
-                    <b>Model</b>
-                    <small id="modelChoiceSummary">Course model</small>
+                      <b>${interfaceMessage("settings.ai.modelshort")}</b>
+                      <small id="modelChoiceSummary">${interfaceMessage("settings.ai.coursemodel")}</small>
                   </span>
                   <select id="settingsModel">
-                    <option value="" selected>Course model</option>
+                    <option value="" selected>${interfaceMessage("settings.ai.coursemodel")}</option>
                   </select>
                 </label>
 
-                <div class="preset-control" role="group" aria-label="Generation preset">
-                  <button type="button" data-preset="fast">Fast</button>
-                  <button type="button" data-preset="chat">Chat</button>
-                  <button type="button" data-preset="careful">Careful</button>
+                <div class="preset-control" role="group" aria-label="${interfaceMessage("settings.ai.preset")}">
+                  <button type="button" data-preset="fast">${interfaceMessage("settings.ai.fast")}</button>
+                  <button type="button" data-preset="chat">${interfaceMessage("settings.ai.chat")}</button>
+                  <button type="button" data-preset="careful">${interfaceMessage("settings.ai.careful")}</button>
                 </div>
-                <p class="settings-summary" id="settingsSummary">Chat preset selected.</p>
+                <p class="settings-summary" id="settingsSummary">${interfaceMessage("settings.ai.chatselected")}</p>
 
                 <div class="settings-grid">
                   <label class="setting-toggle">
                     <span>
-                      <b>Thinking</b>
-                      <small id="thinkingSupport">Runtime support checking</small>
+                      <b>${interfaceMessage("settings.ai.thinking")}</b>
+                      <small id="thinkingSupport">${interfaceMessage("settings.ai.supportchecking")}</small>
                     </span>
                     <input id="thinkingEnabled" type="checkbox">
                   </label>
 
                   <label class="setting-field">
                     <span>
-                      <b>Max tokens</b>
+                      <b>${interfaceMessage("settings.ai.maxtokens")}</b>
                       <output id="maxTokensValue">384</output>
                     </span>
                     <input id="maxTokens" type="range" min="64" max="1024" step="32" value="384">
@@ -4352,155 +4531,158 @@
 
                   <label class="setting-field">
                     <span>
-                      <b>Temperature</b>
+                      <b>${interfaceMessage("settings.ai.temperature")}</b>
                       <output id="temperatureValue">0.2</output>
                     </span>
                     <input id="temperature" type="range" min="0" max="1" step="0.1" value="0.2">
-                    <small id="temperatureSupport">Saved for the model runtime</small>
+                    <small id="temperatureSupport">${interfaceMessage("settings.ai.modelsaved")}</small>
                   </label>
 
                   <label class="setting-select">
                     <span>
-                      <b>Context</b>
-                      <small id="contextSupport">Saved for native runtime</small>
+                      <b>${interfaceMessage("settings.ai.context")}</b>
+                      <small id="contextSupport">${interfaceMessage("settings.ai.nativesaved")}</small>
                     </span>
                     <select id="contextSize">
-                      <option value="768">768 tokens</option>
-                      <option value="1024">1024 tokens</option>
-                      <option value="2048" selected>2048 tokens</option>
-                      <option value="4096">4096 tokens</option>
-                      <option value="8192">8192 tokens</option>
+                      <option value="768">${interfaceMessage("settings.ai.tokens", { count: 768 })}</option>
+                      <option value="1024">${interfaceMessage("settings.ai.tokens", { count: 1024 })}</option>
+                      <option value="2048" selected>${interfaceMessage("settings.ai.tokens", { count: 2048 })}</option>
+                      <option value="4096">${interfaceMessage("settings.ai.tokens", { count: 4096 })}</option>
+                      <option value="8192">${interfaceMessage("settings.ai.tokens", { count: 8192 })}</option>
                     </select>
                   </label>
 
                   <label class="setting-select">
                     <span>
-                      <b>Reasoning display</b>
-                      <small>Visible output</small>
+                      <b>${interfaceMessage("settings.ai.reasoningdisplay")}</b>
+                      <small>${interfaceMessage("settings.ai.visibleoutput")}</small>
                     </span>
                     <select id="reasoningDisplay">
-                      <option value="collapsed" selected>Collapsed</option>
-                      <option value="expanded">Expanded</option>
-                      <option value="hidden">Hidden</option>
+                      <option value="collapsed" selected>${interfaceMessage("settings.ai.collapsed")}</option>
+                      <option value="expanded">${interfaceMessage("settings.ai.expanded")}</option>
+                      <option value="hidden">${interfaceMessage("settings.ai.hidden")}</option>
                     </select>
                   </label>
                 </div>
-                <p class="capability-note" id="capabilityNote">These settings are shared across Caatuu screens.</p>
+                <p class="capability-note" id="capabilityNote">${interfaceMessage("settings.ai.shared")}</p>
               </div>
             </details>
             <details class="settings-details developer-tools-details">
               <summary class="settings-collapsible-summary">
                 <span class="settings-summary-title">
-                  <span class="settings-kicker kicker">Developer</span>
-                  <strong>Developer tools</strong>
+                  <span class="settings-kicker kicker">${interfaceMessage("settings.developer.label")}</span>
+                  <strong>${interfaceMessage("settings.developer.tools")}</strong>
                 </span>
               </summary>
               <div class="settings-details-body">
-                <nav class="advanced-link-list" aria-label="Developer tools">
+                <nav class="advanced-link-list" aria-label="${interfaceMessage("settings.developer.tools")}">
                   ${developerToolLinks}
                 </nav>
               </div>
             </details>
           </section>
 
-          <section class="settings-card side-card maintenance-card" aria-label="App settings">
+          <section class="settings-card side-card maintenance-card" aria-label="${interfaceMessage("settings.appsettings")}">
             <div class="settings-card-head side-head">
-              <p class="settings-kicker kicker">App</p>
-              <h3>Course and storage</h3>
+              <p class="settings-kicker kicker">${interfaceMessage("settings.app")}</p>
+              <h3>${interfaceMessage("settings.storage.title")}</h3>
             </div>
             <dl class="meta-list course-meta">
               <div>
-                <dt>Course</dt>
-                <dd>${course.sourceLanguage.label} to ${targetLanguage.label}</dd>
+                <dt>${interfaceMessage("settings.course.label")}</dt>
+                <dd>${interfaceMessage("settings.course.pair", {
+                  source: interfaceLanguageName(course.sourceLanguage),
+                  target: targetLanguageName
+                })}</dd>
               </div>
               <div>
-                <dt>Workspace</dt>
+                <dt>${interfaceMessage("settings.workspace")}</dt>
                 <dd>${course.workspaceLabel}</dd>
               </div>
             </dl>
             <div class="maintenance-action-list">
               <div class="maintenance-action-row" data-maintenance-action-row hidden>
                 <span class="maintenance-action-copy">
-                  <strong>Update app</strong>
-                  <small data-update-app-copy>Install a newer Android package when one is available.</small>
+                  <strong>${interfaceMessage("settings.update.title")}</strong>
+                  <small data-update-app-copy>${interfaceMessage("settings.update.description")}</small>
                 </span>
-                <button class="maintenance-row-control pwa-install-action" type="button" id="updateApp" aria-describedby="maintenanceStatus" hidden>Update</button>
+                <button class="maintenance-row-control pwa-install-action" type="button" id="updateApp" aria-describedby="maintenanceStatus" hidden>${interfaceMessage("settings.update.action")}</button>
               </div>
               <div class="maintenance-action-row">
                 <span class="maintenance-action-copy">
-                  <strong>Cache</strong>
-                  <small>Remove temporary files. Course progress stays saved.</small>
+                  <strong>${interfaceMessage("settings.cache.title")}</strong>
+                  <small>${interfaceMessage("settings.cache.description")}</small>
                 </span>
-                <button class="maintenance-row-control settings-cache-action" type="button" id="clearCache">Clear</button>
+                <button class="maintenance-row-control settings-cache-action" type="button" id="clearCache">${interfaceMessage("common.clear")}</button>
               </div>
               <div class="maintenance-action-row">
                 <span class="maintenance-action-copy">
-                  <strong>Course progress</strong>
-                  <small>Clear the learning record and start again. Difficulty stays saved.</small>
+                  <strong>${interfaceMessage("settings.progress.title")}</strong>
+                  <small>${interfaceMessage("settings.progress.description")}</small>
                 </span>
-                <button class="maintenance-row-control settings-danger-action course-reset-action" type="button" id="settingsResetCourseProgress">Restart</button>
+                <button class="maintenance-row-control settings-danger-action course-reset-action" type="button" id="settingsResetCourseProgress">${interfaceMessage("common.restart")}</button>
               </div>
             </div>
             <p class="maintenance-status" id="maintenanceStatus" role="status" aria-live="polite" aria-atomic="true"></p>
             <div class="maintenance-install-row" id="browserInstallActions">
               <span class="maintenance-action-copy">
-                <strong>Install</strong>
-                <small id="pwaInstallStatus">Browser</small>
+                <strong>${interfaceMessage("settings.install.title")}</strong>
+                <small id="pwaInstallStatus">${interfaceMessage("common.browser")}</small>
               </span>
               <span class="maintenance-install-actions">
-                <button class="pwa-install-action" type="button" id="installPwaAction" disabled>Browser</button>
-                <a class="pwa-install-action android-install-action" id="installAndroidAction" aria-disabled="true">Checking</a>
+                <button class="pwa-install-action" type="button" id="installPwaAction" disabled>${interfaceMessage("common.browser")}</button>
+                <a class="pwa-install-action android-install-action" id="installAndroidAction" aria-disabled="true">${interfaceMessage("common.checking")}</a>
               </span>
             </div>
-            <p class="pwa-install-help" id="pwaInstallHelp" hidden>Use the browser menu and choose Install app or Add to Home screen.</p>
+            <p class="pwa-install-help" id="pwaInstallHelp" hidden>${interfaceMessage("settings.install.browserhelp")}</p>
           </section>
               </div>
             </details>
           </section>
 
-          <section class="settings-card side-card about-card" aria-label="About">
+          <section class="settings-card side-card about-card" aria-label="${interfaceMessage("settings.about.label")}">
             <div class="settings-card-head side-head">
-              <p class="settings-kicker kicker">About</p>
-              <h3>Details</h3>
+              <p class="settings-kicker kicker">${interfaceMessage("settings.about.label")}</p>
+              <h3>${interfaceMessage("settings.about.details")}</h3>
             </div>
             <dialog class="settings-update-dialog" id="appUpdateConfirmDialog" aria-labelledby="appUpdateConfirmTitle" aria-describedby="appUpdateConfirmVersions appUpdateConfirmNote">
               <form class="settings-update-dialog-card" method="dialog">
-                <p class="settings-kicker kicker">App update</p>
-                <h3 id="appUpdateConfirmTitle">Install Caatuu update?</h3>
-                <p id="appUpdateConfirmVersions">Version information is loading.</p>
-                <p class="settings-update-dialog-note" id="appUpdateConfirmNote">Caatuu will open Setup, lock the other sections, download the verified APK, and then open Android's installer.</p>
+                <p class="settings-kicker kicker">${interfaceMessage("settings.update.app")}</p>
+                <h3 id="appUpdateConfirmTitle">${interfaceMessage("settings.update.confirmtitle")}</h3>
+                <p id="appUpdateConfirmVersions">${interfaceMessage("settings.update.loadingversion")}</p>
+                <p class="settings-update-dialog-note" id="appUpdateConfirmNote">${interfaceMessage("settings.update.confirmnote")}</p>
                 <div class="settings-update-dialog-actions">
-                  <button type="submit" value="cancel">Not now</button>
-                  <button class="is-primary" id="appUpdateConfirmAction" type="submit" value="confirm">Continue to Setup</button>
+                  <button type="submit" value="cancel">${interfaceMessage("common.notnow")}</button>
+                  <button class="is-primary" id="appUpdateConfirmAction" type="submit" value="confirm">${interfaceMessage("settings.update.continuetosetup")}</button>
                 </div>
               </form>
             </dialog>
-            <p class="about-brand-note">Caatuu is a language-learning project from <a href="https://www.waajacu.com/" rel="noopener">Waajacu<sup class="brand-trademark" aria-hidden="true">™</sup></a>.</p>
-            <p class="version-note">Development preview. A governed public beta has not been declared.</p>
+            <p class="about-brand-note">${interfaceMessage("settings.about.brandprefix")} <a href="https://www.waajacu.com/" rel="noopener">Waajacu<sup class="brand-trademark" aria-hidden="true">™</sup></a>.</p>
+            <p class="version-note">${interfaceMessage("settings.about.preview")}</p>
             <div class="legal-notice" role="note">
               <span class="legal-notice-icon" aria-hidden="true">!</span>
               <div>
-                <strong>AI learning assistant</strong>
-                <p>You are interacting with an AI system. Its locally generated responses may be wrong. Use Caatuu for language practice; do not use it for professional, legal, medical, financial, or safety decisions.</p>
+                <strong>${interfaceMessage("settings.ai.legaltitle")}</strong>
+                <p>${interfaceMessage("settings.ai.legalnotice")}</p>
               </div>
             </div>
             <details class="settings-details model-details legal-details">
               <summary class="settings-collapsible-summary">
                 <span class="settings-summary-title">
-                  <span class="settings-kicker kicker">Legal</span>
-                  <strong>Licenses</strong>
+                  <span class="settings-kicker kicker">${interfaceMessage("settings.legal.label")}</span>
+                  <strong>${interfaceMessage("settings.legal.licenses")}</strong>
                 </span>
-                <small id="licenseMetaSummary">Component-specific terms</small>
+                <small id="licenseMetaSummary">${interfaceMessage("settings.legal.componentterms")}</small>
               </summary>
               <div class="settings-details-body">
                 <div class="license-copy">
-                  <p>Caatuu's first-party software and developer documentation are licensed AGPL-3.0-only and are provided without warranty. <a href="https://github.com/savethebeesandseeds/caatuu" rel="noopener">View the corresponding source and license</a>. First-party curriculum is licensed as stated in its tracked course metadata. Third-party or separately licensed models, dictionaries, datasets, artwork, branding, and components keep their separate terms.</p>
-                  <p class="license-link-row"><a href="https://github.com/savethebeesandseeds/caatuu/blob/main/docs/PRIVACY.md" rel="noopener">Privacy</a> · <a href="https://github.com/savethebeesandseeds/caatuu/blob/main/.github/SECURITY.md" rel="noopener">Security</a> · <a href="https://github.com/savethebeesandseeds/caatuu/blob/main/.github/SUPPORT.md" rel="noopener">Support</a> · <a href="https://github.com/savethebeesandseeds/caatuu/blob/main/docs/PRODUCT_READINESS.md" rel="noopener">Product status</a></p>
+                  <p>${interfaceMessage("settings.legal.softwareterms")} <a href="https://github.com/savethebeesandseeds/caatuu" rel="noopener">${interfaceMessage("settings.legal.viewsource")}</a>. ${interfaceMessage("settings.legal.contentterms")}</p>
+                  <p class="license-link-row"><a href="https://github.com/savethebeesandseeds/caatuu/blob/main/docs/PRIVACY.md" rel="noopener">${interfaceMessage("settings.legal.privacy")}</a> · <a href="https://github.com/savethebeesandseeds/caatuu/blob/main/.github/SECURITY.md" rel="noopener">${interfaceMessage("settings.legal.security")}</a> · <a href="https://github.com/savethebeesandseeds/caatuu/blob/main/.github/SUPPORT.md" rel="noopener">${interfaceMessage("settings.legal.support")}</a> · <a href="https://github.com/savethebeesandseeds/caatuu/blob/main/docs/PRODUCT_READINESS.md" rel="noopener">${interfaceMessage("settings.legal.productstatus")}</a></p>
                 </div>
                 <dl class="meta-list model-license-list" id="modelLicenseList">
                   <div>
-                    <dt>Course resources</dt>
-                    <dd>Course-specific models, data, embeddings, artwork, and third-party components keep their separate terms.</dd>
+                    <dt>${interfaceMessage("settings.legal.courseresources")}</dt>
+                    <dd>${interfaceMessage("settings.legal.courseresourceterms")}</dd>
                   </div>
                 </dl>
               </div>
@@ -4511,23 +4693,23 @@
           <footer class="settings-sheet-footer">
             <a class="footer-brand settings-footer-brand" href="https://www.waajacu.com/" rel="noopener">
               <img class="footer-logo" src="/language-runtime/static/assets/caatuu-shell-512.png" alt="" loading="lazy" decoding="async">
-              <span>by Waajacu<sup class="brand-trademark" aria-hidden="true">™</sup></span>
+              <span>${interfaceMessage("settings.about.by")} Waajacu<sup class="brand-trademark" aria-hidden="true">™</sup></span>
             </a>
           </footer>
         </div>
         <p class="settings-view-transition-status" id="settingsViewTransitionStatus" role="status" aria-live="polite"></p>
-        <nav class="settings-section-switcher" role="tablist" aria-label="Backpack sections">
+        <nav class="settings-section-switcher" role="tablist" aria-label="${interfaceMessage("settings.backpack.sections")}">
           <button class="is-active" type="button" role="tab" id="itemsViewTab" data-settings-view="items" aria-controls="itemsViewPanel" aria-selected="true">
             <img src="/assets/icons/items_icon.png?v=items-2" alt="" aria-hidden="true" decoding="async">
-            <span>Items</span>
+            <span>${interfaceMessage("nav.items")}</span>
           </button>
           <button type="button" role="tab" id="statsViewTab" data-settings-view="stats" aria-controls="statsViewPanel" aria-selected="false">
             <img src="/assets/icons/stats_icon.png" alt="" aria-hidden="true" decoding="async">
-            <span>Stats</span>
+            <span>${interfaceMessage("nav.stats")}</span>
           </button>
           <button type="button" role="tab" id="settingsViewTab" data-settings-view="settings" aria-controls="settingsViewPanel" aria-selected="false">
             <img src="/assets/icons/gear_icon.png" alt="" aria-hidden="true" decoding="async">
-            <span>Settings</span>
+            <span>${interfaceMessage("nav.settings")}</span>
           </button>
         </nav>
       </section>
@@ -4563,7 +4745,11 @@
 
   function setSettingsViewTransitionState(panel, requestedView, pending) {
     const view = ["items", "stats", "settings"].includes(requestedView) ? requestedView : "items";
-    const label = { items: "Items", stats: "Stats", settings: "Settings" }[view];
+    const label = {
+      items: interfaceMessage("nav.items"),
+      stats: interfaceMessage("nav.stats"),
+      settings: interfaceMessage("nav.settings")
+    }[view];
     document.querySelectorAll(".settings-section-switcher [data-settings-view]").forEach((button) => {
       const isRequested = button.dataset.settingsView === view;
       const isPending = pending && isRequested;
@@ -4577,7 +4763,9 @@
       else button.removeAttribute("aria-busy");
     });
     const status = panel.querySelector("#settingsViewTransitionStatus");
-    if (status) status.textContent = pending ? `Opening ${label}...` : "";
+    if (status) status.textContent = pending
+      ? interfaceMessage("settings.view.opening", { view: label })
+      : "";
   }
 
   function cancelSettingsViewTransition(panel) {
@@ -4631,7 +4819,7 @@
       const testButton = panel.querySelector("#settingsSpeechVoiceTest");
       if (testButton) {
         testButton.removeAttribute("aria-busy");
-        testButton.textContent = "Test";
+        testButton.textContent = interfaceMessage("common.test");
       }
       void stopSpeech();
     }
@@ -4651,9 +4839,9 @@
     const kicker = panel.querySelector("#settingsViewKicker");
     if (kicker) {
       kicker.textContent = {
-        items: "Items & rewards",
-        stats: "Learning stats",
-        settings: "App controls"
+        items: interfaceMessage("settings.items.kicker"),
+        stats: interfaceMessage("settings.stats.title"),
+        settings: interfaceMessage("settings.controls.app")
       }[view];
     }
     if (body) body.scrollTop = 0;
@@ -4698,7 +4886,7 @@
     action.setAttribute("aria-disabled", "true");
     action.setAttribute("tabindex", "-1");
     action.dataset.state = "unavailable";
-    if (status) status.textContent = "Browser";
+    if (status) status.textContent = interfaceMessage("common.browser");
   }
 
   async function bindAndroidInstallDiscovery(panel) {
@@ -4724,7 +4912,7 @@
     action.removeAttribute("tabindex");
     action.setAttribute("aria-disabled", "true");
     action.dataset.state = "checking";
-    action.textContent = "Checking";
+    action.textContent = interfaceMessage("common.checking");
 
     for (const channel of channels) {
       try {
@@ -4746,10 +4934,12 @@
         action.dataset.state = "available";
         action.onclick = null;
         action.onkeydown = null;
-        action.textContent = channel.kind === "preview" ? "Preview" : "Android";
+        action.textContent = channel.kind === "preview"
+          ? interfaceMessage("common.preview")
+          : interfaceMessage("common.android");
         if (status) status.textContent = channel.kind === "preview"
-          ? "Browser · Android preview available"
-          : "Browser · Android release available";
+          ? interfaceMessage("settings.install.previewavailable")
+          : interfaceMessage("settings.install.releaseavailable");
         return;
       } catch (error) {
         // Try the next explicitly supported channel.
@@ -4763,7 +4953,7 @@
     action.setAttribute("role", "button");
     action.setAttribute("tabindex", "0");
     action.dataset.state = "retry";
-    action.textContent = "Check again";
+    action.textContent = interfaceMessage("settings.install.checkagain");
     action.onclick = (event) => {
       event.preventDefault();
       bindAndroidInstallDiscovery(panel);
@@ -4773,7 +4963,7 @@
       event.preventDefault();
       bindAndroidInstallDiscovery(panel);
     };
-    if (status) status.textContent = "Browser · Android temporarily unavailable";
+    if (status) status.textContent = interfaceMessage("settings.install.temporarilyunavailable");
   }
 
   function openSharedSettings({ view = readRememberedBackpackView() } = {}) {
@@ -4915,7 +5105,9 @@
       const nextOpen = reportPanel.hidden;
       reportPanel.hidden = !nextOpen;
       toggleButton.setAttribute("aria-expanded", String(nextOpen));
-      toggleButton.textContent = nextOpen ? "Close" : "Report";
+      toggleButton.textContent = nextOpen
+        ? interfaceMessage("common.close")
+        : interfaceMessage("settings.report.label");
       if (nextOpen) reportComment.focus();
     });
 
@@ -4923,29 +5115,32 @@
       if (reportButton.disabled) return;
       const runtime = window.CaatuuRuntime;
       if (!runtime?.maintenance?.reportBug) {
-        reportStatus.textContent = "Report service is not available.";
+        reportStatus.textContent = interfaceMessage("settings.report.unavailable");
         return;
       }
 
       reportButton.disabled = true;
-      reportButton.textContent = "Sending";
-      reportStatus.textContent = "Preparing report.";
+      reportButton.textContent = interfaceMessage("settings.report.sending");
+      reportStatus.textContent = interfaceMessage("settings.report.preparing");
       try {
         const result = await runtime.maintenance.reportBug(settingsReportPayload(reportComment.value));
-        if (result?.ok === false) throw new Error(result.message || "Could not send report.");
+        if (result?.ok === false) {
+          throw new Error("Bug report service rejected the request.");
+        }
         const reportId = result?.report_id || result?.reportId || "saved";
-        reportStatus.textContent = `Report sent: ${reportId}`;
+        reportStatus.textContent = interfaceMessage("settings.report.sent", { id: reportId });
         reportComment.value = "";
         if (reportPanel && toggleButton) {
           reportPanel.hidden = true;
           toggleButton.setAttribute("aria-expanded", "false");
-          toggleButton.textContent = "Report";
+          toggleButton.textContent = interfaceMessage("settings.report.label");
         }
       } catch (error) {
-        reportStatus.textContent = error?.message || "Could not send report.";
+        console.error("Bug report failed.", error);
+        reportStatus.textContent = interfaceMessage("settings.report.failed");
       } finally {
         reportButton.disabled = false;
-        reportButton.textContent = "Send report";
+        reportButton.textContent = interfaceMessage("settings.report.send");
       }
     });
   }
@@ -4980,7 +5175,7 @@
     button.dataset.confirmArmed = "true";
     button.dataset.confirmOriginalLabel = button.textContent;
     button.dataset.confirmOriginalAriaLabel = button.getAttribute("aria-label") || "";
-    button.textContent = options.confirmLabel || "Press again";
+    button.textContent = options.confirmLabel || interfaceMessage("common.pressagain");
     button.classList.add("is-confirming");
     if (options.message) button.setAttribute("aria-label", options.message);
     button._caatuuConfirmTimer = window.setTimeout(() => {
@@ -5065,22 +5260,22 @@
     }
     notice.hidden = false;
     if (state === "offline") {
-      if (message) message.textContent = "Offline copy — the latest Caatuu version cannot be checked yet.";
+      if (message) message.textContent = interfaceMessage("chrome.freshness.offline");
       if (action) {
         action.hidden = false;
-        action.textContent = "Retry";
+        action.textContent = interfaceMessage("common.retry");
       }
       return;
     }
     if (state === "update-ready") {
-      if (message) message.textContent = "A newer Caatuu version is ready.";
+      if (message) message.textContent = interfaceMessage("chrome.freshness.ready");
       if (action) {
         action.hidden = false;
-        action.textContent = "Refresh";
+        action.textContent = interfaceMessage("common.refresh");
       }
       return;
     }
-    if (message) message.textContent = "Loading the latest Caatuu version...";
+    if (message) message.textContent = interfaceMessage("chrome.freshness.loading");
     if (action) action.hidden = true;
   }
 
@@ -5114,6 +5309,7 @@
   }
 
   window.CaatuuChrome = {
+    gamePresentation,
     renderAppHeader,
     renderBottomNav,
     renderLanguageIndicator,

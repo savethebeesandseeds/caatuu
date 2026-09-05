@@ -14,6 +14,7 @@ import { fileURLToPath } from "node:url";
 
 import {
   browserCourseGameContentClosureIssues,
+  browserInterfaceContentClosureIssues,
   browserSetupCacheNamespaceIssues,
   browserSharedRuntimeClosureIssues
 } from "../../../tools/language-packs/lib/browser-shared-runtime-closure.mjs";
@@ -420,6 +421,14 @@ export function inspectSetupAssetManifest({
     manifest,
     appAssetCatalogPath: resolve(appAssetCatalogPath)
   });
+  const interfaceContentIssues = browserInterfaceContentClosureIssues({
+    course,
+    appAssetCatalog,
+    setupCatalog: manifest
+  });
+  if (interfaceContentIssues.length > 0) {
+    throw new Error(interfaceContentIssues.map(({ message }) => message).join("\n"));
+  }
   validateCourseGameContentOfflineContract(course, manifest);
   const offlineAssetChanges = canonicalSharedRuntimeOfflineAssetChanges({
     manifest,

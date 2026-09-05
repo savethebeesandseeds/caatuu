@@ -3,6 +3,11 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
 
+import {
+  englishInterfaceContent,
+  installEnglishInterfaceContent
+} from "./helpers/english-interface-content.mjs";
+
 const chromeSource = await readFile(
   new URL("../static/source/caatuu-chrome.js", import.meta.url),
   "utf8"
@@ -92,6 +97,7 @@ function browserSpeechContext(initialStorage = {}) {
     setTimeout
   };
   context.window = context;
+  installEnglishInterfaceContent(context);
   return {
     context,
     storedValue: (key) => storage.get(key),
@@ -211,6 +217,8 @@ test("Mandarin native speech uses zh-CN without loading the Czech LLM course run
     bootstrapSource.indexOf("function setCourseIdentity")
   );
   assert.match(sharedSpeechBoundary, /course\.targetLanguage\?\.speechLocale/u);
+  assert.match(sharedSpeechBoundary, /languageName\(course\.targetLanguage\)/u);
+  assert.doesNotMatch(sharedSpeechBoundary, /targetLanguage\?\.(?:label|nativeLabel)/u);
   assert.match(sharedSpeechBoundary, /"speech_speak"/u);
   assert.doesNotMatch(sharedSpeechBoundary, /OpenAI|WebLLM|models?\.|generate|chat/iu);
 
@@ -223,7 +231,9 @@ test("Mandarin native speech uses zh-CN without loading the Czech LLM course run
     },
     course: mandarinCourse,
     clearTimeout,
-    setTimeout
+    setTimeout,
+    t: englishInterfaceContent.t,
+    languageName: englishInterfaceContent.languageName
   };
   vm.runInNewContext(
     bootstrapSource.slice(

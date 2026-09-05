@@ -299,6 +299,24 @@ function installBrowserEnvironment(course, authorityHtml) {
   const nativeSpeechCalls = [];
   const semanticAttempts = [];
   const dictionaryGapCalls = [];
+  const interfaceCalls = [];
+  const interfaceContent = {
+    locale: course.sourceLanguage.locale,
+    languageName(language) {
+      return String(language?.label || language?.nativeLabel || language?.id || "").trim();
+    },
+    t(messageId, parameters = {}) {
+      interfaceCalls.push({ messageId, parameters: structuredClone(parameters) });
+      const fixed = {
+        "speech.speed.slower": "Slower",
+        "speech.speed.slow": "Slow",
+        "speech.speed.normal": "Normal",
+        "wordworld.feedback.wrongtranslation": `Wrong ${parameters.language} translation`
+      }[messageId];
+      if (fixed) return fixed;
+      return `${messageId} ${Object.values(parameters).join(" ")}`.trim();
+    }
+  };
   const runtime = {
     env: "browser",
     registerServiceWorker: async () => null,
@@ -314,6 +332,7 @@ function installBrowserEnvironment(course, authorityHtml) {
   };
   const window = {
     CaatuuCourse: course,
+    CaatuuI18n: interfaceContent,
     CaatuuRuntime: runtime,
     CaatuuChrome: {
       getSpeechRatePreference: () => "slow",
@@ -384,12 +403,21 @@ function installBrowserEnvironment(course, authorityHtml) {
   globalThis.document = document;
   globalThis.location = window.location;
   globalThis.localStorage = window.localStorage;
+  globalThis.CaatuuI18n = interfaceContent;
   Object.defineProperty(globalThis, "navigator", { configurable: true, value: window.navigator });
   globalThis.Image = class {
     set src(_value) { queueMicrotask(() => this.onerror?.(new Error("not loaded in contract"))); }
   };
   globalThis.fetch = async () => new Response("not found", { status: 404 });
-  return { registry, root, runtime, nativeSpeechCalls, semanticAttempts, dictionaryGapCalls };
+  return {
+    registry,
+    root,
+    runtime,
+    nativeSpeechCalls,
+    semanticAttempts,
+    dictionaryGapCalls,
+    interfaceCalls
+  };
 }
 
 async function runCzechStandardDictionaryGapScenario() {
@@ -661,7 +689,8 @@ async function runScenario(name) {
     reconstructionDistractorCount: reconstructionBank.children.filter((button) => (
       button.dataset.reconstructionOptionId?.startsWith("distractor-")
     )).length,
-    reconstructionOptionTexts: reconstructionBank.children.map((button) => button.textContent)
+    reconstructionOptionTexts: reconstructionBank.children.map((button) => button.textContent),
+    interfaceMessageIds: [...new Set(environment.interfaceCalls.map(({ messageId }) => messageId))].sort()
   };
 }
 
@@ -747,6 +776,9 @@ if (process.argv[2] === CHILD_FLAG) {
     assert.deepEqual(result.speechHidden, [false, false, false]);
     assert.equal(result.generationHidden, true);
     assert.equal(result.generativeDialogHidden, true);
+    assert.ok(result.interfaceMessageIds.includes("speech.sentence.play"));
+    assert.ok(result.interfaceMessageIds.includes("wordworld.instructions.play"));
+    assert.ok(result.interfaceMessageIds.includes("wordworld.instructions.rebuild"));
   });
 
   test("third-language dictionary capability gates independently without selecting another renderer", async () => {

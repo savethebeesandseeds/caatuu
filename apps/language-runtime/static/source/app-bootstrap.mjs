@@ -1,9 +1,29 @@
 import { initializeWorkspaceAfterDictionaryProvider } from "./dictionary-provider-loader.mjs";
+import {
+  installInterfaceContent,
+  loadInterfaceContent
+} from "./interface-content.mjs?v=interface-runtime-1";
 
 const course = globalThis.CaatuuCourse;
 
 if (!course || typeof course !== "object") {
   throw new Error("The course profile must load before the Caatuu application.");
+}
+
+function t(messageId, parameters = {}) {
+  const value = globalThis.CaatuuI18n?.t?.(messageId, parameters);
+  if (typeof value !== "string" || !value.trim()) {
+    throw new Error(`Interface content did not resolve ${messageId}.`);
+  }
+  return value;
+}
+
+function languageName(language) {
+  const value = globalThis.CaatuuI18n?.languageName?.(language);
+  if (typeof value !== "string" || !value.trim()) {
+    throw new Error("Interface content did not resolve a language name.");
+  }
+  return value.trim();
 }
 
 function captureInitialNavigationRequest() {
@@ -90,7 +110,7 @@ function receiveSharedNativeSpeech(rawMessage) {
   if (message.kind === "error") {
     nativeSpeechPending.delete(pending.id);
     globalThis.clearTimeout(pending.timeout);
-    pending.reject(new Error(message.message || "Native speech failed."));
+    pending.reject(new Error(message.message || t("speech.nativefailed")));
     return true;
   }
   try {
@@ -102,13 +122,13 @@ function receiveSharedNativeSpeech(rawMessage) {
 }
 
 function nativeSpeechCall(type, payload = {}, handlers = {}) {
-  if (!hasNativeBridge()) return Promise.reject(new Error("Native speech is not available."));
+  if (!hasNativeBridge()) return Promise.reject(new Error(t("speech.unavailable")));
   const id = `shared-speech-${Date.now()}-${nativeSpeechRequestSequence += 1}`;
   const timeoutMs = Number(handlers.timeoutMs || 60_000);
   return new Promise((resolve, reject) => {
     const timeout = globalThis.setTimeout(() => {
       nativeSpeechPending.delete(id);
-      reject(new Error(handlers.timeoutMessage || "Native speech did not finish in time."));
+      reject(new Error(handlers.timeoutMessage || t("speech.timeout")));
     }, timeoutMs);
     nativeSpeechPending.set(id, {
       id,
@@ -135,7 +155,7 @@ function installSharedSpeechRuntime() {
     || course.targetLanguage?.id
     || "und"
   ).trim().replace(/_/gu, "-");
-  const languageLabel = String(course.targetLanguage?.label || "target-language");
+  const languageLabel = languageName(course.targetLanguage);
   const existingNativeReceiver = typeof globalThis.CaatuuNative?.receive === "function"
     ? globalThis.CaatuuNative.receive.bind(globalThis.CaatuuNative)
     : null;
@@ -157,15 +177,17 @@ function installSharedSpeechRuntime() {
         },
         {
           timeoutMs: 10_000,
-          timeoutMessage: `${languageLabel} speech did not finish its availability check.`
+          timeoutMessage: t("speech.checktimeout", { language: languageLabel })
         }
       );
     },
     speak(text, options = {}, handlers = {}) {
       const normalizedText = String(text || "").normalize("NFC").trim();
-      if (!normalizedText) return Promise.reject(new Error(`${languageLabel} speech requires text.`));
+      if (!normalizedText) {
+        return Promise.reject(new Error(t("speech.textrequired", { language: languageLabel })));
+      }
       if (normalizedText.length > 1_000) {
-        return Promise.reject(new Error(`${languageLabel} speech supports up to 1,000 characters.`));
+        return Promise.reject(new Error(t("speech.texttoolong", { language: languageLabel, count: 1000 })));
       }
       const rate = Number(options.rate);
       const pitch = Number(options.pitch);
@@ -181,7 +203,7 @@ function installSharedSpeechRuntime() {
         {
           ...handlers,
           timeoutMs: Number(handlers.timeoutMs || 60_000),
-          timeoutMessage: handlers.timeoutMessage || `${languageLabel} speech did not finish in time.`
+          timeoutMessage: handlers.timeoutMessage || t("speech.languagetimeout", { language: languageLabel })
         }
       );
     },
@@ -189,14 +211,14 @@ function installSharedSpeechRuntime() {
       return nativeSpeechCall(
         "speech_stop",
         {},
-        { timeoutMs: 3_000, timeoutMessage: `${languageLabel} speech did not stop in time.` }
+        { timeoutMs: 3_000, timeoutMessage: t("speech.stoptimeout", { language: languageLabel }) }
       );
     },
     installData() {
       return nativeSpeechCall(
         "speech_install_data",
         {},
-        { timeoutMs: 10_000, timeoutMessage: `Could not open the ${languageLabel} voice installer.` }
+        { timeoutMs: 10_000, timeoutMessage: t("speech.installererror", { language: languageLabel }) }
       );
     }
   });
@@ -217,7 +239,8 @@ function setCourseIdentity() {
   document.documentElement.dir = course.sourceLanguage?.direction || "ltr";
   document.body.dataset.courseId = course.id;
   document.body.dataset.targetScript = globalThis.CaatuuShellPolicy?.targetScriptToken?.(course) || "Zyyy";
-  document.title = course.workspaceLabel || course.brandLabel || "Caatuu";
+  const targetLabel = languageName(course.targetLanguage);
+  document.title = t("app.title", { target: targetLabel });
   const manifest = document.querySelector('link[rel="manifest"]');
   if (manifest) manifest.href = courseUrl("manifest.webmanifest");
   if (course.status !== "active") {
@@ -227,7 +250,7 @@ function setCourseIdentity() {
     document.head.append(robots);
   }
   const nav = document.querySelector("[data-caatuu-bottom-nav]");
-  nav?.setAttribute("aria-label", `${course.workspaceLabel || "Caatuu"} sections`);
+  nav?.setAttribute("aria-label", t("navigation.sections", { target: targetLabel }));
 }
 
 const READY_HOME_ART = "/assets/icons/hello.png";
@@ -250,7 +273,7 @@ function readyArtifactRow(label, kind) {
   icon.className = "setup-artifact-icon";
   icon.textContent = "\u2713";
   title.textContent = label;
-  meta.textContent = "Ready";
+  meta.textContent = t("common.ready");
   row.append(icon, title, meta);
   return row;
 }
@@ -265,16 +288,16 @@ function bindReadyHomeDetails(card) {
     card.classList.toggle("details-open", open);
     if (details) details.hidden = !open;
     toggle.setAttribute("aria-expanded", String(open));
-    toggle.textContent = open ? "Hide details" : "Show details";
+    toggle.textContent = t(open ? "common.hidedetails" : "common.showdetails");
   });
 }
 
 function renderReadyCourseHome() {
   const card = document.getElementById("nativeSetup");
   if (!card) return;
-  const sourceLabel = String(course.sourceLanguage?.label || "Source language");
-  const targetLabel = String(course.targetLanguage?.label || "Target language");
-  const courseLabel = `${sourceLabel} to ${targetLabel}`;
+  const sourceLabel = languageName(course.sourceLanguage);
+  const targetLabel = languageName(course.targetLanguage);
+  const courseLabel = t("course.direction", { source: sourceLabel, target: targetLabel });
   const art = document.querySelector("#view-home .stage-art");
   if (art) {
     art.src = READY_HOME_ART;
@@ -287,24 +310,24 @@ function renderReadyCourseHome() {
   card.classList.remove("is-error", "is-updating", "is-app-update-lock", "details-open");
   const details = document.getElementById("setupDetails");
   if (details) details.hidden = true;
-  setHomeText("#setupTitle", "Caatuu is ready");
-  setHomeText("#setupPhase", "Ready");
-  setHomeText("#setupMessage", `${courseLabel} is ready.`);
+  setHomeText("#setupTitle", t("setup.readytitle"));
+  setHomeText("#setupPhase", t("common.ready"));
+  setHomeText("#setupMessage", t("setup.readymessage", { course: courseLabel }));
   setHomeText("#setupPercent", "100%");
-  setHomeText("#setupCount", "Ready");
-  setHomeText("#setupBytes", "Course files available");
+  setHomeText("#setupCount", t("common.ready"));
+  setHomeText("#setupBytes", t("setup.filesavailable"));
 
   const progress = document.getElementById("setupProgress");
   progress?.setAttribute("aria-valuenow", "100");
-  progress?.setAttribute("aria-valuetext", `${courseLabel} is ready`);
+  progress?.setAttribute("aria-valuetext", t("setup.readystatus", { course: courseLabel }));
   const progressBar = document.getElementById("setupProgressBar");
   if (progressBar) progressBar.style.width = "100%";
 
   const artifacts = document.getElementById("setupArtifacts");
   if (artifacts) {
-    const rows = [readyArtifactRow(`${targetLabel} course`, "browser-data")];
+    const rows = [readyArtifactRow(t("setup.targetcourse", { target: targetLabel }), "browser-data")];
     if (course.capabilities?.embeddings === true) {
-      rows.push(readyArtifactRow("English-backed embeddings", "embedding-vector-db"));
+      rows.push(readyArtifactRow(t("setup.englishembeddings"), "embedding-vector-db"));
     }
     artifacts.replaceChildren(...rows);
   }
@@ -315,7 +338,7 @@ function renderReadyCourseHome() {
     const title = document.createElement("strong");
     const detail = document.createElement("span");
     entry.dataset.kind = "ready";
-    title.textContent = "Course ready";
+    title.textContent = t("setup.courseready");
     detail.textContent = courseLabel;
     entry.append(title, detail);
     log.replaceChildren(entry);
@@ -329,7 +352,7 @@ function renderReadyCourseHome() {
   if (detailsToggle) {
     detailsToggle.hidden = false;
     detailsToggle.setAttribute("aria-expanded", "false");
-    detailsToggle.textContent = "Show details";
+    detailsToggle.textContent = t("common.showdetails");
   }
   bindReadyHomeDetails(card);
 }
@@ -414,7 +437,7 @@ async function loadCourseFeatureProviders() {
   const courseRuntime = declaredBrowserProvider("courseRuntime");
   if (courseRuntime) await loadScript(courseRuntime);
   installSharedSpeechRuntime();
-  await loadSharedScript("/language-runtime/static/source/maintenance-ui.js?v=maintenance-17");
+  await loadSharedScript("/language-runtime/static/source/maintenance-ui.js?v=maintenance-18");
   for (const providerName of ["semanticLearningProvider", "setupProgressProvider", "setupProvider"]) {
     const providerModule = declaredBrowserProvider(providerName);
     if (providerModule) await loadScript(providerModule);
@@ -426,7 +449,7 @@ async function loadCourseFeatureProviders() {
     origin: location.origin,
     routeBase,
     async initializeWorkspace() {
-      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-13");
+      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-14");
       const workspace = await globalThis.CaatuuWorkspaceReady;
       if (workspace?.ready !== true) {
         throw workspace?.error instanceof Error
@@ -451,10 +474,14 @@ async function registerCourseServiceWorker() {
 }
 
 async function start() {
+  const interfaceContent = await loadInterfaceContent(course);
+  installInterfaceContent(interfaceContent);
+  interfaceContent.apply(document);
   setCourseIdentity();
+  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-143");
   configureGameRoutes();
   applyCapabilityBoundaries();
-  await import("./word-world-host.mjs?v=word-world-host-15");
+  await import("./word-world-host.mjs?v=word-world-host-16");
   await loadCourseFeatureProviders();
   document.documentElement.dataset.caatuuShellReady = "true";
   await registerCourseServiceWorker();
@@ -468,7 +495,9 @@ start().catch((error) => {
   const notice = document.createElement("p");
   notice.className = "empty-state";
   notice.setAttribute("role", "alert");
-  notice.textContent = "Caatuu could not finish loading. Reload the page to try again.";
+  notice.textContent = globalThis.CaatuuI18n?.has?.("app.loaderror")
+    ? globalThis.CaatuuI18n.t("app.loaderror")
+    : "Caatuu could not finish loading. Reload the page to try again.";
   home?.append(notice);
   console.error(error);
 });

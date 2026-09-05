@@ -7,6 +7,44 @@ const promotedUrl = new URL("../static/source/caatuu-workspace.js", import.meta.
 const promoted = await readFile(promotedUrl, "utf8");
 const appEntry = await readFile(new URL("../static/app/index.html", import.meta.url), "utf8");
 
+const interfaceMessages = Object.freeze({
+  "common.browser": "Browser",
+  "common.campaignmode": "Campaign Mode",
+  "common.continuequestion": "Continue?",
+  "common.games": "Games",
+  "common.train": "Train",
+  "games.embedded.retry": "Return to the planets and try opening it again.",
+  "games.embedded.startfailure": "{game} could not start",
+  "maintenance.cache.clearing": "Clearing cache.",
+  "maintenance.cache.clearingapp": "Clearing app cache.",
+  "maintenance.cache.confirm": "Confirm cache clear",
+  "maintenance.cache.pressagain": "Press Clear cache again to remove temporary cache. Course progress stays saved.",
+  "maintenance.cache.prompt": "Clear temporary cache? Course progress stays saved.",
+  "maintenance.cache.unknownsize": "unknown size",
+  "maintenance.status.androidapkonly": "App updates are available inside the Android APK.",
+  "maintenance.status.checkingserver": "Checking the update server...",
+  "maintenance.status.checkingversion": "Checking app version.",
+  "maintenance.status.openingsetup": "Opening Setup for the app update...",
+  "maintenance.status.postponed": "Update postponed. You can start it here whenever you are ready.",
+  "maintenance.status.readyforconfirmation": "Update {version} is ready for confirmation.",
+  "maintenance.version.available": "available",
+  "nav.backtomenu": "Back to menu",
+  "nav.home": "Home",
+  "platform.pwa.androidnative": "Android native",
+  "platform.pwa.installable": "Installable",
+  "platform.pwa.installed": "Installed",
+  "platform.pwa.offlineready": "Offline ready",
+  "wordworld.host.retry": "Return to the planets and try opening it again.",
+  "wordworld.host.startfailure": "Word World could not start",
+  "wordworld.host.unavailable": "The Word World host is unavailable."
+});
+
+function formatInterfaceMessage(messageId, parameters = {}) {
+  const template = interfaceMessages[messageId];
+  if (!template) throw new Error(`Unexpected interface message: ${messageId}`);
+  return template.replace(/\{([a-z][a-zA-Z0-9]*)\}/gu, (_match, name) => String(parameters[name]));
+}
+
 class FakeClassList {
   constructor() {
     this.names = new Set();
@@ -56,6 +94,24 @@ function wordWorldOnlyBrowser(options = {}) {
   };
   const body = { classList: new FakeClassList(), dataset: {} };
   const launchpadShip = { src: "" };
+  const pwaInstallButton = {
+    addEventListener() {},
+    disabled: false,
+    hidden: false,
+    textContent: ""
+  };
+  const pwaInstallStatus = { textContent: "" };
+  const pwaInstallHelp = { hidden: true };
+  const wordWorldStatusTitle = { textContent: "" };
+  const wordWorldStatusCopy = { textContent: "" };
+  const wordWorldStatus = {
+    classList: new FakeClassList(),
+    querySelector(selector) {
+      if (selector === "strong") return wordWorldStatusTitle;
+      if (selector === "small") return wordWorldStatusCopy;
+      return null;
+    }
+  };
   const gamesTrigger = {
     getAttribute() {
       return "false";
@@ -76,19 +132,24 @@ function wordWorldOnlyBrowser(options = {}) {
     querySelector(selector) {
       if (selector === "#gamesLaunchpadShip") return launchpadShip;
       if (selector === '[data-caatuu-bottom-nav] [data-nav-key="games"]') return gamesTrigger;
+      if (options.pwaControls && selector === "#installPwaAction") return pwaInstallButton;
+      if (options.pwaControls && selector === "#pwaInstallStatus") return pwaInstallStatus;
+      if (options.pwaControls && selector === "#pwaInstallHelp") return pwaInstallHelp;
       return null;
     },
     querySelectorAll() {
       return [];
     },
-    getElementById() {
-      return null;
+    getElementById(id) {
+      return id === "wordNetEmbeddedStatus" ? wordWorldStatus : null;
     }
   };
   const localStorage = storage();
   const sessionStorage = storage();
   const fetches = [];
   const hostCalls = { ensureLoaded: 0, setActive: [], ready: 0, next: 0, gamesMenuClicks: 0 };
+  const chromeCalls = { pagePresentation: [], bottomNavSection: [], headerTitle: [], gamePresentation: [] };
+  const interfaceCalls = [];
   const shellPolicyReads = { campaignGameIds: 0 };
   const errors = [];
   const course = {
@@ -128,8 +189,40 @@ function wordWorldOnlyBrowser(options = {}) {
     href: "https://local.test/fixture-word-world/index.html",
     hostname: "local.test"
   };
+  const interfaceContent = {
+    locale: "en",
+    languageName(language) {
+      return String(language?.label || language?.nativeLabel || language?.id || "").trim();
+    },
+    t(messageId, parameters = {}) {
+      interfaceCalls.push({ messageId, parameters: { ...parameters } });
+      return formatInterfaceMessage(messageId, parameters);
+    }
+  };
   const window = {
     CaatuuCourse: course,
+    CaatuuChrome: {
+      gamePresentation(gameId) {
+        chromeCalls.gamePresentation.push(gameId);
+        const titles = {
+          campaign: "Campaign Mode",
+          "word-net": "Word World",
+          ...options.gameTitles
+        };
+        const title = titles[gameId];
+        return title ? { title, summary: `${title} summary` } : null;
+      },
+      setBottomNavSection(section) {
+        chromeCalls.bottomNavSection.push(section);
+      },
+      setHeaderTitle(title, configuration) {
+        chromeCalls.headerTitle.push({ title, configuration });
+      },
+      setPagePresentation(presentation) {
+        chromeCalls.pagePresentation.push(presentation);
+      }
+    },
+    CaatuuI18n: options.interfaceContent === false ? undefined : interfaceContent,
     CaatuuShellPolicy: {
       get CAMPAIGN_GAME_IDS() {
         shellPolicyReads.campaignGameIds += 1;
@@ -142,6 +235,7 @@ function wordWorldOnlyBrowser(options = {}) {
     CaatuuWordWorldHost: {
       ensureLoaded() {
         hostCalls.ensureLoaded += 1;
+        if (options.wordWorldHost === "reject") return Promise.reject(new Error("fixture failure"));
         return Promise.resolve();
       },
       setActive(active, display) {
@@ -176,8 +270,10 @@ function wordWorldOnlyBrowser(options = {}) {
     setTimeout,
     clearTimeout
   };
+  if (options.wordWorldHost === false) window.CaatuuWordWorldHost = undefined;
   window.window = window;
   const context = vm.createContext({
+    CaatuuI18n: options.interfaceContent === false ? undefined : interfaceContent,
     URL,
     Uint8Array,
     TextDecoder,
@@ -209,8 +305,99 @@ function wordWorldOnlyBrowser(options = {}) {
     setTimeout,
     window
   });
-  return { context, errors, fetches, hostCalls, launchpadShip, shellPolicyReads, window };
+  return {
+    chromeCalls,
+    context,
+    dispatchWindowEvent(type, event = {}) {
+      for (const listener of windowListeners.get(type) || []) listener(event);
+    },
+    errors,
+    fetches,
+    hostCalls,
+    interfaceCalls,
+    launchpadShip,
+    pwaInstallButton,
+    pwaInstallHelp,
+    pwaInstallStatus,
+    shellPolicyReads,
+    window,
+    wordWorldStatus,
+    wordWorldStatusCopy,
+    wordWorldStatusTitle
+  };
 }
+
+test("the workspace shell fails closed without installed interface content", () => {
+  const browser = wordWorldOnlyBrowser({ interfaceContent: false });
+  assert.throws(
+    () => vm.runInContext(promoted, browser.context, { filename: "caatuu-workspace.js" }),
+    /interface content must load before the app shell/u
+  );
+});
+
+test("generic navigation and PWA status copy resolves through interface content", async () => {
+  const browser = wordWorldOnlyBrowser({ pwaControls: true });
+  vm.runInContext(promoted, browser.context, { filename: "caatuu-workspace.js" });
+  assert.equal((await browser.window.CaatuuWorkspaceReady).ready, true);
+
+  assert.equal(browser.pwaInstallButton.textContent, "Browser");
+  assert.equal(browser.pwaInstallStatus.textContent, "Browser");
+  browser.dispatchWindowEvent("beforeinstallprompt", { preventDefault() {} });
+  assert.equal(browser.pwaInstallStatus.textContent, "Installable");
+  browser.dispatchWindowEvent("appinstalled");
+  assert.equal(browser.pwaInstallStatus.textContent, "Offline ready");
+
+  browser.window.CaatuuWorkspaceShell.setView("home");
+  browser.window.CaatuuWorkspaceShell.setView("verbs");
+  assert.deepEqual(JSON.parse(JSON.stringify(browser.chromeCalls.pagePresentation)), [
+    { kicker: "Caatuu", title: "Home", iconSrc: "/assets/icons/home_icon.png" },
+    { kicker: "Train", title: "Games", iconSrc: "/assets/icons/games_icon.png" }
+  ]);
+  assert.equal(
+    browser.interfaceCalls.some(({ messageId }) => messageId === "platform.pwa.installable"),
+    true
+  );
+  assert.equal(
+    browser.interfaceCalls.some(({ messageId }) => messageId === "nav.backtomenu"),
+    true
+  );
+});
+
+test("workspace headers and embedded shells consume the shared catalog-backed game presentation", async () => {
+  const browser = wordWorldOnlyBrowser({
+    gameTitles: { "word-net": "Catalog Word World" }
+  });
+  vm.runInContext(promoted, browser.context, { filename: "caatuu-workspace.js" });
+  assert.equal((await browser.window.CaatuuWorkspaceReady).ready, true);
+
+  browser.window.CaatuuWorkspaceShell.setTrainTab("word-net");
+  assert.equal(browser.chromeCalls.headerTitle.at(-1).title, "Catalog Word World");
+  assert.equal(browser.chromeCalls.gamePresentation.includes("word-net"), true);
+  assert.doesNotMatch(promoted, /const trainTitles\s*=/u);
+  assert.doesNotMatch(promoted, /title:\s*"Conjugation Comet"/u);
+  assert.match(promoted, /interfaceText\("games\.embedded\.startfailure", \{ game: gameTitle \}\)/u);
+  assert.match(promoted, /interfaceText\("games\.embedded\.retry"\)/u);
+  assert.match(appEntry, /data-i18n-aria-label="games\.conjugationcomet\.title"/u);
+  assert.match(appEntry, /data-i18n-title="games\.agreementaurora\.title"/u);
+});
+
+test("Word World host failures use installed interface content", async () => {
+  for (const [wordWorldHost, expectedCopy] of [
+    [false, "The Word World host is unavailable."],
+    ["reject", "Return to the planets and try opening it again."]
+  ]) {
+    const browser = wordWorldOnlyBrowser({ wordWorldHost });
+    vm.runInContext(promoted, browser.context, { filename: "caatuu-workspace.js" });
+    assert.equal((await browser.window.CaatuuWorkspaceReady).ready, true);
+    browser.window.CaatuuWorkspaceShell.setView("verbs");
+    browser.window.CaatuuWorkspaceShell.setTrainTab("word-net");
+    await new Promise((resolve) => setImmediate(resolve));
+
+    assert.equal(browser.wordWorldStatus.classList.contains("is-error"), true);
+    assert.equal(browser.wordWorldStatusTitle.textContent, "Word World could not start");
+    assert.equal(browser.wordWorldStatusCopy.textContent, expectedCopy);
+  }
+});
 
 test("the retired training screen is replaced by a ship-only launchpad", () => {
   assert.match(appEntry, /id="gamesLaunchpadShip"/u);

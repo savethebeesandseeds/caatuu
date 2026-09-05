@@ -35,6 +35,21 @@
       flagClass: "spain-flag",
       flagSrc: "/assets/icons/spain_flag.png"
     },
+    languageRoles: {
+      pair: "en->es-es",
+      learnerBaseLanguage: "en",
+      interfaceLanguage: "en",
+      targetLanguage: "es-ES",
+      auditLanguage: "en",
+      retrievalLanguage: "en"
+    },
+    interfaceContent: {
+      schemaVersion: 1,
+      locale: "en",
+      direction: "ltr",
+      revision: "interface-en-1",
+      catalog: "/language-runtime/static/data/interface/en.v1.json"
+    },
     linguisticFeatures: [
       "verb-conjugation",
       "grammatical-agreement"

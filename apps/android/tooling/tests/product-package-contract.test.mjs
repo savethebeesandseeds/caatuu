@@ -192,6 +192,9 @@ test("package requirements are derived from the declared courses and native capa
     "courses/zh/data/embeddings/catalog.json",
     "courses/cz/data/dictionaries/catalog.json",
     "language-runtime/embedding-runtimes.json",
+    "language-runtime/static/source/interface-content.mjs",
+    "language-runtime/static/source/legacy-page-bootstrap.mjs",
+    "language-runtime/static/data/interface/en.v1.json",
   ]) {
     assert.ok(assets.includes(asset), `missing package requirement: ${asset}`);
   }

@@ -75,7 +75,7 @@ test("the shared home exposes a two-question language form and the game display 
   assert.match(appEntry, /<form[^>]*id="setupLanguageForm"/u);
   assert.match(appEntry, /<fieldset[^>]*id="setupSourceLanguageQuestion"[\s\S]*What language do you speak\?/u);
   assert.match(appEntry, /<fieldset[^>]*id="setupTargetLanguageQuestion"[^>]*disabled[\s\S]*What language do you want to learn\?/u);
-  assert.match(appEntry, /id="setupLanguageContinue" type="submit" disabled/u);
+  assert.match(appEntry, /id="setupLanguageContinue"[^>]*type="submit"[^>]*data-i18n="common\.continue"[^>]*disabled/u);
   assert.match(appEntry, /class="verb-toolbar-menu verb-display-menu workspace-display-menu"[^>]*id="setupDisplayMenu"/u);
   assert.match(
     appEntry,
@@ -86,18 +86,18 @@ test("the shared home exposes a two-question language form and the game display 
   assert.match(homeStyles, /\.setup-language-selection \.setup-language-choice/u);
   assert.match(homeStyles, /#homeBaseView > \.workspace-display-menu \{[\s\S]*?position: absolute;[\s\S]*?display: block;/u);
   assert.match(homeStyles, /\.setup-language-selection \.setup-language-choice\.is-selected/u);
-  assert.match(appEntry, /id="setupLogTitle">Events</u);
+  assert.match(appEntry, /id="setupLogTitle"[^>]*data-i18n="setup\.events"[^>]*>Events/u);
   assert.match(homeStyles, /\.setup-log li \{[\s\S]*?grid-template-columns: minmax\(0, 1fr\);[\s\S]*?gap: 2px;/u);
   assert.match(homeStyles, /\.setup-log span \{[\s\S]*?margin-inline-start: 28px;[\s\S]*?text-align: left;/u);
   assert.equal((appEntry.match(/data-caatuu-language-switch/gu) || []).length, 1);
   assert.match(appEntry, /Review your current course, switch to a course in progress, or start a new course\./u);
   assert.match(
     appEntry,
-    /<section class="home-language-card" id="homeLanguageCard"[\s\S]*?id="homeLanguageTitle">Your courses<[\s\S]*?<button[\s\S]*?class="home-language-manage"[\s\S]*?data-caatuu-language-switch[\s\S]*?data-language-switch-variant="home"/u
+    /<section class="home-language-card" id="homeLanguageCard"[\s\S]*?id="homeLanguageTitle"[^>]*data-i18n="home\.courses\.title"[^>]*>Your courses<[\s\S]*?<button[\s\S]*?class="home-language-manage"[\s\S]*?data-caatuu-language-switch[\s\S]*?data-language-switch-variant="home"/u
   );
   assert.match(
     appEntry,
-    /id="homeSocialView" role="tabpanel" aria-labelledby="homeSocialTab" hidden[\s\S]*?id="homeSocialTitle">Social<[\s\S]*?Social is in development\./u
+    /id="homeSocialView" role="tabpanel" aria-labelledby="homeSocialTab" hidden[\s\S]*?id="homeSocialTitle"[^>]*data-i18n="home\.social\.title"[^>]*>Social<[\s\S]*?Social is in development\./u
   );
   assert.match(
     homeStyles,
@@ -110,11 +110,11 @@ test("the shared home exposes a two-question language form and the game display 
   assert.match(chromeSource, /className = "home-language-pair"/u);
   assert.match(chromeSource, /const current = document\.createElement\("div"\)/u);
   assert.match(chromeSource, /current\.className = "home-language-current-course"/u);
-  assert.match(chromeSource, /status\.textContent = "Current"/u);
-  assert.match(chromeSource, /heading\.textContent = "Ongoing courses"/u);
+  assert.match(chromeSource, /status\.textContent = interfaceMessage\("common\.current"\)/u);
+  assert.match(chromeSource, /heading\.textContent = interfaceMessage\("courseselector\.ongoing\.heading"\)/u);
   assert.match(chromeSource, /manageIcon\.textContent = "\+"/u);
-  assert.match(chromeSource, /manageLabel\.textContent = "New course"/u);
-  assert.match(chromeSource, /trigger\.setAttribute\("aria-label", "Start a new language course"\)/u);
+  assert.match(chromeSource, /manageLabel\.textContent = interfaceMessage\("courseselector\.newcourse"\)/u);
+  assert.match(chromeSource, /trigger\.setAttribute\("aria-label", interfaceMessage\("courseselector\.startnew"\)\)/u);
   assert.match(homeStyles, /\.home-language-manage \{[\s\S]*?flex: 0 0 auto;[\s\S]*?white-space: nowrap;/u);
   assert.match(chromeSource, /className = "home-language-quick-switches"/u);
   assert.match(
@@ -125,19 +125,18 @@ test("the shared home exposes a two-question language form and the game display 
   assert.match(chromeSource, /menu\.caatuuReviewCourse\?\.\(record\.id\)/u);
   assert.match(chromeSource, /dataset\.languageEffortExact/u);
   assert.match(chromeSource, /className = "language-pill app-header-language-pill current-language-indicator"/u);
-  assert.match(chromeSource, /function renderLanguageIndicator\(element\)[\s\S]*?Change languages from Home/u);
+  assert.match(chromeSource, /function renderLanguageIndicator\(element\)[\s\S]*?interfaceMessage\("courseselector\.indicator\.arialabel"/u);
   assert.doesNotMatch(chromeSource, /language\.dataset\.caatuuLanguageSwitch/u);
   assert.match(chromeSource, /menu\.setAttribute\("role", "dialog"\)/u);
-  assert.match(chromeSource, /What language do you use\?/u);
-  assert.match(chromeSource, /What language do you want to learn\?/u);
+  assert.match(chromeSource, /interfaceMessage\("courseselector\.sourcequestion"\)/u);
+  assert.match(chromeSource, /interfaceMessage\("courseselector\.targetquestion"\)/u);
   assert.match(chromeSource, /dataset\.languageSelectorReview/u);
   assert.match(chromeSource, /dataset\.languageSelectorConfirm/u);
-  assert.match(chromeSource, /review\.textContent = "Continue"/u);
-  assert.match(chromeSource, /confirm\.textContent = "Confirm"/u);
-  assert.match(chromeSource, /course progress will remain saved/u);
+  assert.match(chromeSource, /review\.textContent = interfaceMessage\("common\.continue"\)/u);
+  assert.match(chromeSource, /confirm\.textContent = interfaceMessage\("common\.confirm"\)/u);
+  assert.match(chromeSource, /interfaceMessage\("courseselector\.review\.progress"/u);
   assert.doesNotMatch(chromeSource, /Instructions will use/u);
-  assert.match(chromeSource, /XP, coins, and streak remain shared across languages/u);
-  assert.match(chromeSource, /switch back to \$\{targetLanguage\.label\} at any time/u);
+  assert.match(chromeSource, /interfaceMessage\("courseselector\.review\.sharedprogress"/u);
   assert.match(chromeSource, /learning\?\.courseSummaries/u);
   assert.match(homeStyles, /\.home-language-selector-menu \.language-selector-effort/u);
   assert.match(
@@ -171,13 +170,17 @@ test("the shared home exposes a two-question language form and the game display 
   assert.match(appEntry, /caatuu-theme\.css\?v=theme-6/u);
   assert.match(appEntry, /caatuu-home\.css\?v=home-45/u);
   assert.match(appEntry, /caatuu-chrome\.css\?v=chrome-style-130/u);
-  assert.match(appEntry, /caatuu-chrome\.js\?v=chrome-142/u);
-  assert.match(appEntry, /app-bootstrap\.mjs\?v=app-40/u);
-  assert.equal(czechSetup.offline.cacheName, "caatuu-czech-pwa-v613");
-  assert.match(czechWorker, /Offline catalog revision: caatuu-czech-pwa-v613/u);
-  assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/source/caatuu-chrome.js?v=chrome-142"));
+  assert.doesNotMatch(appEntry, /caatuu-chrome\.js/u);
+  assert.match(appEntry, /course-profile\.js\?v=course-33/u);
+  assert.match(appEntry, /app-bootstrap\.mjs\?v=app-41/u);
+  assert.equal(czechSetup.offline.cacheName, "caatuu-czech-pwa-v614");
+  assert.match(czechWorker, /Offline catalog revision: caatuu-czech-pwa-v614/u);
+  assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/source/caatuu-chrome.js?v=chrome-143"));
   assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-130"));
   assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/source/dictionary-provider-loader.mjs"));
+  assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/source/interface-content.mjs?v=interface-runtime-1"));
+  assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-1"));
+  assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/data/interface/en.v1.json?v=interface-en-1"));
   assert.ok(czechSetup.offline.assets.includes("./source/features/setup/setup.js?v=setup-39"));
   assert.match(
     bootstrapSource,
@@ -187,7 +190,12 @@ test("the shared home exposes a two-question language form and the game display 
     bootstrapSource,
     /const providerModule = declaredBrowserProvider\(providerName\);\s*if \(providerModule\) await loadScript\(providerModule\);/u
   );
-  assert.match(bootstrapSource, /caatuu-workspace\.js\?v=workspace-13/u);
+  assert.match(bootstrapSource, /interface-content\.mjs\?v=interface-runtime-1/u);
+  assert.match(
+    bootstrapSource,
+    /loadInterfaceContent\(course\);[\s\S]*installInterfaceContent\(interfaceContent\);[\s\S]*caatuu-chrome\.js\?v=chrome-143/u
+  );
+  assert.match(bootstrapSource, /caatuu-workspace\.js\?v=workspace-14/u);
 });
 
 function evaluateInitialTheme(values = {}, { throwOnRead = false } = {}) {

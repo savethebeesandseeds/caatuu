@@ -8,6 +8,7 @@ import vm from "node:vm";
 import {
   authoredGrammarPromotionIssues,
   browserCourseGameContentClosureIssues,
+  browserInterfaceContentClosureIssues,
   browserLanguageAdapterIdentityIssues,
   browserBackendContractIssues,
   browserSetupCacheNamespaceIssues,
@@ -19,6 +20,9 @@ import {
   generateCourseProfileObject,
   generateCourseProfileSource,
   generateLauncherRegistry,
+  INTERFACE_CONTENT_SCHEMA_URL,
+  interfaceCatalogAuthorityIssues,
+  interfaceCatalogContentIssues,
   learnerSourceDeliveryClosureIssues,
   learnerSourceReadinessIssues,
   loadCourseCatalog,
@@ -142,6 +146,72 @@ test("declared browser providers are confined, revisioned course modules", async
   );
 });
 
+test("learner-base interface catalogs are explicit, base-localized, and API-compatible with English", async () => {
+  for (const { course } of loaded.courses) {
+    assert.deepEqual(course.resources.interfaceCatalog, {
+      kind: "file",
+      path: "apps/language-runtime/static/data/interface/en.v1.json",
+      scope: "shared",
+      state: "present",
+      revision: "interface-en-1"
+    });
+  }
+
+  const reusedEnglish = cloneLoaded(loaded);
+  const reverse = reusedEnglish.courses.find(({ course }) => course.id === "es").course;
+  reverse.sourceLanguage = {
+    ...reverse.sourceLanguage,
+    id: "es",
+    label: "Spanish",
+    nativeLabel: "Español",
+    shortCode: "ES",
+    locale: "es"
+  };
+  await assert.rejects(
+    validateCourseCatalog(reusedEnglish, { checkExistence: false }),
+    (error) => hasIssue(error, "interface.locale", /cannot relabel the English interface catalog/u)
+  );
+
+  const authority = {
+    $schema: INTERFACE_CONTENT_SCHEMA_URL,
+    schemaVersion: 1,
+    locale: "en",
+    direction: "ltr",
+    revision: "interface-en-1",
+    messages: {
+      "course.ready": "{course} is ready.",
+      "progress.activity": { one: "{count} activity", other: "{count} activities" }
+    }
+  };
+  const spanishCatalog = {
+    ...structuredClone(authority),
+    locale: "es",
+    revision: "interface-es-1",
+    messages: {
+      "course.ready": "{course} está listo.",
+      "progress.activity": { one: "{count} actividad", other: "{count} actividades" }
+    }
+  };
+  const spanishCourse = {
+    id: "es-en",
+    sourceLanguage: { locale: "es", direction: "ltr" },
+    resources: {
+      interfaceCatalog: {
+        path: "apps/language-runtime/static/data/interface/es.v1.json",
+        revision: "interface-es-1"
+      }
+    }
+  };
+  assert.deepEqual(interfaceCatalogContentIssues(spanishCourse, spanishCatalog, authority), []);
+  spanishCatalog.messages["course.ready"] = "El curso está listo.";
+  assert.match(
+    interfaceCatalogContentIssues(spanishCourse, spanishCatalog, authority)
+      .map(({ message }) => message)
+      .join("\n"),
+    /placeholders must be exactly course/u
+  );
+});
+
 test("browser shared runtime delivery requires one canonical offline pathname per mapping", () => {
   const appAssetCatalog = {
     assets: [
@@ -152,6 +222,14 @@ test("browser shared runtime delivery requires one canonical offline pathname pe
       {
         source: "apps/language-runtime/static/source/course-service-worker.js",
         output: "language-runtime/static/source/course-service-worker.js"
+      },
+      {
+        source: "apps/language-runtime/static/data/interface/en.v1.json",
+        output: "language-runtime/static/data/interface/en.v1.json"
+      },
+      {
+        source: "apps/language-runtime/static/data/interface/es.v1.json",
+        output: "language-runtime/static/data/interface/es.v1.json"
       }
     ]
   };
@@ -204,6 +282,88 @@ test("browser shared runtime delivery requires one canonical offline pathname pe
       routePrefix: "/xx"
     })[0].message,
     /is remapped to language-runtime\/static\/source\/renamed-runtime\.mjs/
+  );
+});
+
+test("browser courses cache only their exact learner-base interface catalog revision", () => {
+  const course = {
+    id: "xx",
+    routePrefix: "/xx",
+    resources: {
+      interfaceCatalog: {
+        path: "apps/language-runtime/static/data/interface/en.v1.json",
+        revision: "interface-en-1"
+      }
+    }
+  };
+  const appAssetCatalog = {
+    assets: [
+      {
+        source: "apps/language-runtime/static/source/interface-content.mjs",
+        output: "language-runtime/static/source/interface-content.mjs"
+      },
+      {
+        source: "apps/language-runtime/static/data/interface/en.v1.json",
+        output: "language-runtime/static/data/interface/en.v1.json"
+      },
+      {
+        source: "apps/language-runtime/static/data/interface/es.v1.json",
+        output: "language-runtime/static/data/interface/es.v1.json"
+      }
+    ]
+  };
+  const setupCatalog = {
+    offline: {
+      assets: [
+        "/language-runtime/static/source/interface-content.mjs?v=interface-runtime-1",
+        "/language-runtime/static/data/interface/en.v1.json?v=interface-en-1"
+      ]
+    }
+  };
+
+  assert.deepEqual(browserInterfaceContentClosureIssues({
+    course,
+    appAssetCatalog,
+    setupCatalog
+  }), []);
+
+  const missingMapping = structuredClone(appAssetCatalog);
+  missingMapping.assets = missingMapping.assets.filter(({ output }) => (
+    output !== "language-runtime/static/data/interface/en.v1.json"
+  ));
+  assert.match(
+    browserInterfaceContentClosureIssues({
+      course,
+      appAssetCatalog: missingMapping,
+      setupCatalog
+    })[0].message,
+    /exactly one app-assets mapping from .*en\.v1\.json to .*en\.v1\.json/u
+  );
+
+  const stale = structuredClone(setupCatalog);
+  stale.offline.assets[1] =
+    "/language-runtime/static/data/interface/en.v1.json?v=interface-en-stale";
+  assert.match(
+    browserInterfaceContentClosureIssues({ course, appAssetCatalog, setupCatalog: stale })[0].message,
+    /must cache exact interface catalog URL .*\?v=interface-en-1/u
+  );
+
+  const repeated = structuredClone(setupCatalog);
+  repeated.offline.assets.push(
+    "/language-runtime/static/data/interface/en.v1.json?v=interface-en-1"
+  );
+  assert.match(
+    browserInterfaceContentClosureIssues({ course, appAssetCatalog, setupCatalog: repeated })[0].message,
+    /repeat interface catalog pathname .* 2 times/u
+  );
+
+  const unrelated = structuredClone(setupCatalog);
+  unrelated.offline.assets.push(
+    "/language-runtime/static/data/interface/es.v1.json?v=interface-es-1"
+  );
+  assert.match(
+    browserInterfaceContentClosureIssues({ course, appAssetCatalog, setupCatalog: unrelated })[0].message,
+    /include undeclared interface catalogs/u
   );
 });
 
@@ -326,23 +486,26 @@ test("course selector assets follow the same browser-course projection", () => {
 });
 
 test("versioned schemas and both authoritative manifests are valid JSON", async () => {
-  const [catalogSchema, courseSchema, androidAssetsSchema, embeddingSchema, embeddingRuntimeSchema] = await Promise.all([
+  const [catalogSchema, courseSchema, androidAssetsSchema, embeddingSchema, embeddingRuntimeSchema, interfaceContentSchema] = await Promise.all([
     readFile(new URL("schemas/catalog.v1.schema.json", new URL("../", import.meta.url)), "utf8").then(JSON.parse),
     readFile(new URL("schemas/course-pack.v1.schema.json", new URL("../", import.meta.url)), "utf8").then(JSON.parse),
     readFile(new URL("schemas/android-assets.v1.schema.json", new URL("../", import.meta.url)), "utf8").then(JSON.parse),
     readFile(new URL("schemas/embedding-catalog.v1.schema.json", new URL("../", import.meta.url)), "utf8").then(JSON.parse),
-    readFile(new URL("schemas/embedding-runtime-catalog.v1.schema.json", new URL("../", import.meta.url)), "utf8").then(JSON.parse)
+    readFile(new URL("schemas/embedding-runtime-catalog.v1.schema.json", new URL("../", import.meta.url)), "utf8").then(JSON.parse),
+    readFile(new URL("schemas/interface-content.v1.schema.json", new URL("../", import.meta.url)), "utf8").then(JSON.parse)
   ]);
   assert.equal(catalogSchema.$schema, "https://json-schema.org/draft/2020-12/schema");
   assert.equal(courseSchema.$schema, "https://json-schema.org/draft/2020-12/schema");
   assert.equal(androidAssetsSchema.$schema, "https://json-schema.org/draft/2020-12/schema");
   assert.equal(embeddingSchema.$schema, "https://json-schema.org/draft/2020-12/schema");
   assert.equal(embeddingRuntimeSchema.$schema, "https://json-schema.org/draft/2020-12/schema");
+  assert.equal(interfaceContentSchema.$schema, "https://json-schema.org/draft/2020-12/schema");
   assert.match(catalogSchema.$id, /language-catalog\.v1/);
   assert.match(courseSchema.$id, /course-pack\.v1/);
   assert.match(androidAssetsSchema.$id, /android-assets\.v1/);
   assert.match(embeddingSchema.$id, /embedding-catalog\.v1/);
   assert.match(embeddingRuntimeSchema.$id, /embedding-runtime-catalog\.v1/);
+  assert.match(interfaceContentSchema.$id, /interface-content\.v1/);
   assert.ok(courseSchema.properties.linguisticFeatures.items.enum.includes("hanzi-pinyin"));
   assert.ok(courseSchema.$defs.presentCourseFileResource);
   assert.ok(courseSchema.$defs.courseRoute);
@@ -518,6 +681,22 @@ test("source-language presentation treats script variants as distinct locale aut
   assert.equal(
     sourceLanguagePresentationIssues(courses).some(({ code }) => code === "language.presentation"),
     true
+  );
+});
+
+test("courses sharing one learner-base locale share one exact interface authority", async () => {
+  assert.deepEqual(interfaceCatalogAuthorityIssues(loaded.courses), []);
+  const candidate = cloneLoaded(loaded);
+  candidate.courses.find(({ course }) => course.id === "es")
+    .course.resources.interfaceCatalog.revision = "interface-en-drift";
+
+  assert.deepEqual(
+    interfaceCatalogAuthorityIssues(candidate.courses).map(({ code }) => code),
+    ["interface.authority-drift"]
+  );
+  await assert.rejects(
+    validateCourseCatalog(candidate, { checkExistence: false }),
+    (error) => hasIssue(error, "interface.authority-drift", /share learner-base locale en/u)
   );
 });
 
@@ -761,7 +940,10 @@ test("reviewed non-English learner-base presentation is registered per shared ga
 
   course.games.push("verb-lab");
   assert.equal(
-    learnerSourceReadinessIssues(course).some(({ code }) => code === "source-language.presentation"),
+    learnerSourceReadinessIssues(course).some(({ code, message }) => (
+      code === "source-language.presentation"
+      && /Word World, Conjugation Comet, and Agreement Aurora/u.test(message)
+    )),
     true
   );
 
@@ -782,6 +964,22 @@ test("reviewed non-English learner-base presentation is registered per shared ga
       code === "source-language.presentation" && /dictionary/u.test(message)
     )),
     true
+  );
+  course.capabilities.dictionary = false;
+  for (const capability of ["generation", "chat", "skillCompass"]) {
+    course.capabilities[capability] = true;
+    assert.equal(
+      learnerSourceReadinessIssues(course).some(({ code, message }) => (
+        code === "source-language.presentation" && new RegExp(`\\b${capability}\\b`, "u").test(message)
+      )),
+      true,
+      `${capability} must fail closed for a non-English learner base`
+    );
+    course.capabilities[capability] = false;
+  }
+  assert.deepEqual(
+    Object.keys(LEARNER_BASE_PRESENTATION_CONTRACT.capabilities).sort(),
+    ["chat", "dictionary", "generation", "skillCompass"]
   );
 });
 
@@ -928,6 +1126,21 @@ test("launcher and course-profile compatibility views match the current consumer
   assert.equal(context.window.CaatuuCourse.targetLanguage.script, "Latn");
   assert.equal(context.window.CaatuuCourse.targetLanguage.speechLocale, "cs-CZ");
   assert.equal(context.window.CaatuuCourse.languageAdapter.module, "source/language/adapter.mjs");
+  assert.deepEqual(JSON.parse(JSON.stringify(context.window.CaatuuCourse.languageRoles)), {
+    pair: "en->cs-cz",
+    learnerBaseLanguage: "en",
+    interfaceLanguage: "en",
+    targetLanguage: "cs-CZ",
+    auditLanguage: "en",
+    retrievalLanguage: "en"
+  });
+  assert.deepEqual(JSON.parse(JSON.stringify(context.window.CaatuuCourse.interfaceContent)), {
+    schemaVersion: 1,
+    locale: "en",
+    direction: "ltr",
+    revision: "interface-en-1",
+    catalog: "/language-runtime/static/data/interface/en.v1.json"
+  });
   assert.equal(Object.hasOwn(context.window.CaatuuCourse.platforms.browser, "pagesEnabled"), false);
   assert.deepEqual(JSON.parse(JSON.stringify(context.window.CaatuuCourse.browserProviders)), {
     courseRuntime: "source/shared/runtime.js?v=runtime-41",

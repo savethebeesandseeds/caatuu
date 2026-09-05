@@ -4,6 +4,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 import test from "node:test";
+import { runInNewContext } from "node:vm";
 
 import {
   CANONICAL_APP_ENTRY_PATH,
@@ -16,6 +17,7 @@ import {
   exactWorkspaceSource,
   loadAndroidCourseBundleConfiguration,
   loadAndroidCourseConfiguration,
+  transformChromeJs,
   transformCourseProfile,
   transformIndex,
   transformWordWorldManifest,
@@ -39,6 +41,13 @@ const generativeFixtureRoot = join(
 );
 const releasePublisher = readFileSync(join(workspaceRoot, "apps/android/tooling/publish-release.sh"), "utf8");
 
+function readPackagedCourseProfile(profilePath) {
+  const context = { window: {} };
+  runInNewContext(readFileSync(profilePath, "utf8"), context, { filename: profilePath });
+  assert.ok(context.window.CaatuuCourse, `${profilePath} must define window.CaatuuCourse`);
+  return context.window.CaatuuCourse;
+}
+
 test("courses share one Android app document and bundle while retaining course-owned assets", () => {
   const czech = loadAndroidCourseConfiguration({ workspaceRoot });
   const fixture = loadAndroidCourseConfiguration({
@@ -53,18 +62,34 @@ test("courses share one Android app document and bundle while retaining course-o
   assert.notDeepEqual(czech.languageFiles, fixture.languageFiles);
   assert.equal(czech.productProfile.capabilities.dictionary, true);
   assert.equal(fixture.productProfile.capabilities.dictionary, false);
+  for (const configuration of [czech, fixture]) {
+    assert.equal(
+      configuration.interfaceContent.sourcePath,
+      "apps/language-runtime/static/data/interface/en.v1.json",
+    );
+    assert.equal(
+      configuration.interfaceContent.output,
+      "language-runtime/static/data/interface/en.v1.json",
+    );
+    assert.equal(configuration.interfaceContent.revision, "interface-en-1");
+    assert.equal(configuration.interfaceContent.locale, "en");
+    assert.equal(configuration.interfaceContent.direction, "ltr");
+  }
 
   const sharedOutputs = new Set(czech.appAssets.map(({ output }) => output));
   for (const path of [
     "language-runtime/static/source/app-bootstrap.mjs",
     "language-runtime/static/source/browser-shell.mjs",
     "language-runtime/static/source/caatuu-workspace.js",
+    "language-runtime/static/source/interface-content.mjs",
+    "language-runtime/static/source/legacy-page-bootstrap.mjs",
     "language-runtime/static/source/product-word-world.mjs",
     "language-runtime/static/source/word-net-core.mjs",
     "language-runtime/static/source/word-net-queue.mjs",
     "language-runtime/static/source/word-world-host.mjs",
     "language-runtime/static/source/word-world-provider.mjs",
     "language-runtime/static/styles/caatuu-word-world.css",
+    "language-runtime/static/data/interface/en.v1.json",
     "assets/icons/china_flag.png",
     "assets/icons/czech_flag_ui.png",
     "assets/icons/english_flag.png",
@@ -83,11 +108,14 @@ test("courses share one Android app document and bundle while retaining course-o
   const requiredSharedOfflinePaths = [
     "/language-runtime/static/source/app-bootstrap.mjs",
     "/language-runtime/static/source/caatuu-workspace.js",
+    "/language-runtime/static/source/interface-content.mjs",
+    "/language-runtime/static/source/legacy-page-bootstrap.mjs",
     "/language-runtime/static/source/word-world-host.mjs",
     "/language-runtime/static/source/word-world-provider.mjs",
     "/language-runtime/static/source/product-word-world.mjs",
     "/language-runtime/static/source/word-net-core.mjs",
     "/language-runtime/static/source/word-net-queue.mjs",
+    "/language-runtime/static/data/interface/en.v1.json",
   ];
   for (const [course, setupPath] of [
     ["Czech", join(workspaceRoot, "apps/languages/czech/static/setup-assets.json")],
@@ -121,6 +149,87 @@ test("courses share one Android app document and bundle while retaining course-o
   assert.ok(!czechFiles.includes("source/games/word-world/word-net-core.mjs"));
   assert.ok(czechFiles.includes("data/games/word-world/standard-v0.1/records.json"));
   assert.ok(mandarinFiles.includes("data/games/word-world/starter-v1.realizations.json"));
+});
+
+test("Android configuration pins each interface catalog to its exact shared app mapping", (t) => {
+  const parent = mkdtempSync(join(tmpdir(), "caatuu-interface-boundary-"));
+  t.after(() => rmSync(parent, { recursive: true, force: true }));
+  const canonicalCatalog = JSON.parse(readFileSync(join(
+    workspaceRoot,
+    "apps/language-runtime/static/data/interface/en.v1.json",
+  ), "utf8"));
+
+  function writeFixture(root, { catalogDirection = "ltr", catalogOutput }) {
+    const manifestPath = join(root, "apps/android/tooling/tests/fixtures/interface-course/course.json");
+    const catalogPath = join(root, "apps/language-runtime/static/data/interface/en.v1.json");
+    mkdirSync(join(root, "apps/language-runtime/static/app"), { recursive: true });
+    mkdirSync(join(root, "apps/language-runtime/static/data/interface"), { recursive: true });
+    mkdirSync(join(root, "apps/android/tooling/tests/fixtures/interface-course/static"), { recursive: true });
+    writeFileSync(join(root, CANONICAL_APP_ENTRY_PATH), "<!doctype html>\n", "utf8");
+    writeFileSync(catalogPath, `${JSON.stringify({
+      ...canonicalCatalog,
+      direction: catalogDirection,
+    }, null, 2)}\n`, "utf8");
+    writeFileSync(join(root, "apps/language-runtime/app-assets.json"), `${JSON.stringify({
+      schemaVersion: 1,
+      appEntry: CANONICAL_APP_ENTRY_PATH,
+      assets: [{
+        source: "apps/language-runtime/static/data/interface/en.v1.json",
+        output: catalogOutput,
+      }],
+    }, null, 2)}\n`, "utf8");
+    mkdirSync(join(root, "apps/android/tooling/tests/fixtures/interface-course"), { recursive: true });
+    writeFileSync(manifestPath, `${JSON.stringify({
+      schemaVersion: 1,
+      id: "fixture-interface",
+      directoryName: "fixture-interface",
+      routePrefix: "/fixture-interface",
+      entryPath: "/fixture-interface/index.html",
+      sourceLanguage: { id: "en", label: "English", locale: "en", direction: "ltr" },
+      platforms: { android: { enabled: true, channels: [] } },
+      resources: {
+        appEntry: { kind: "file", path: CANONICAL_APP_ENTRY_PATH, state: "present" },
+        interfaceCatalog: {
+          kind: "file",
+          path: "apps/language-runtime/static/data/interface/en.v1.json",
+          scope: "shared",
+          state: "present",
+          revision: "interface-en-1",
+        },
+        staticRoot: {
+          kind: "directory",
+          path: "apps/android/tooling/tests/fixtures/interface-course/static",
+          state: "present",
+        },
+      },
+    }, null, 2)}\n`, "utf8");
+    return manifestPath;
+  }
+
+  const wrongMappingRoot = join(parent, "wrong-mapping");
+  const wrongMappingManifest = writeFixture(wrongMappingRoot, {
+    catalogOutput: "language-runtime/static/data/interface/wrong.json",
+  });
+  assert.throws(
+    () => loadAndroidCourseConfiguration({
+      workspaceRoot: wrongMappingRoot,
+      courseManifestPath: wrongMappingManifest,
+    }),
+    /interfaceCatalog app-assets output must be language-runtime\/static\/data\/interface\/en\.v1\.json/u,
+  );
+
+  const invalidCatalogRoot = join(parent, "invalid-catalog");
+  const invalidCatalogManifest = writeFixture(invalidCatalogRoot, {
+    catalogDirection: "rtl",
+    catalogOutput: "language-runtime/static/data/interface/en.v1.json",
+  });
+  assert.throws(
+    () => loadAndroidCourseConfiguration({
+      workspaceRoot: invalidCatalogRoot,
+      courseManifestPath: invalidCatalogManifest,
+    }),
+    /interface catalog is invalid:[\s\S]*direction rtl does not match ltr/iu,
+  );
 });
 
 test("Android course bundles allow one shared storage owner only for an identical artifact", () => {
@@ -201,6 +310,9 @@ test("the Android product bundles Czech and Mandarin behind one shared app docum
   assert.deepEqual(result.files.filter((path) => /(?:^|\/)index\.html$/u.test(path)), ["index.html"]);
   assert.ok(result.files.includes("courses/cz/source/shared/course-profile.js"));
   assert.ok(result.files.includes("courses/zh/source/shared/course-profile.js"));
+  assert.ok(result.files.includes("language-runtime/static/source/interface-content.mjs"));
+  assert.ok(result.files.includes("language-runtime/static/source/legacy-page-bootstrap.mjs"));
+  assert.ok(result.files.includes("language-runtime/static/data/interface/en.v1.json"));
   assert.ok(result.files.includes("courses/cz/data/games/word-world/standard-v0.1/records.json"));
   assert.ok(result.files.includes("courses/zh/data/games/word-world/starter-v1.realizations.json"));
   assert.ok(!result.files.includes("source/shared/course-profile.js"));
@@ -210,6 +322,24 @@ test("the Android product bundles Czech and Mandarin behind one shared app docum
     !result.files.some((path) => /^courses\/[^/]+\/vendor\/transformers\//u.test(path)),
     "course trees must reuse the single shared Transformers.js runtime",
   );
+  for (const courseId of ["cz", "zh"]) {
+    const courseProfile = readPackagedCourseProfile(join(
+      outputDir,
+      `courses/${courseId}/source/shared/course-profile.js`,
+    ));
+    assert.equal(courseProfile.languageRoles.interfaceLanguage, courseProfile.sourceLanguage.locale);
+    assert.equal(courseProfile.languageRoles.learnerBaseLanguage, courseProfile.sourceLanguage.locale);
+    assert.equal(courseProfile.languageRoles.auditLanguage, "en");
+    assert.equal(courseProfile.languageRoles.retrievalLanguage, "en");
+    assert.equal(courseProfile.interfaceContent.locale, courseProfile.sourceLanguage.locale);
+    assert.equal(courseProfile.interfaceContent.direction, courseProfile.sourceLanguage.direction);
+    assert.equal(courseProfile.interfaceContent.revision, "interface-en-1");
+    assert.equal(courseProfile.interfaceContent.catalog, "/language-runtime/static/data/interface/en.v1.json");
+    assert.ok(
+      result.files.includes(courseProfile.interfaceContent.catalog.replace(/^\/+/, "")),
+      `${courseId} selected interface catalog must be packaged in the shared app tree`,
+    );
+  }
 
   const embeddingRuntimeCatalog = JSON.parse(readFileSync(
     join(outputDir, "language-runtime/embedding-runtimes.json"),
@@ -377,12 +507,15 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
   assert.ok(result.files.includes("language-runtime/static/source/course-service-worker.js"));
   assert.ok(result.files.includes("language-runtime/static/source/caatuu-chrome.js"));
   assert.ok(result.files.includes("language-runtime/static/source/caatuu-workspace.js"));
+  assert.ok(result.files.includes("language-runtime/static/source/interface-content.mjs"));
   assert.ok(result.files.includes("language-runtime/static/source/learning-profile.js"));
+  assert.ok(result.files.includes("language-runtime/static/source/legacy-page-bootstrap.mjs"));
   assert.ok(result.files.includes("language-runtime/static/source/product-word-world.mjs"));
   assert.ok(result.files.includes("language-runtime/static/source/word-net-core.mjs"));
   assert.ok(result.files.includes("language-runtime/static/source/word-net-queue.mjs"));
   assert.ok(result.files.includes("language-runtime/static/source/word-world-host.mjs"));
   assert.ok(result.files.includes("language-runtime/static/source/word-world-provider.mjs"));
+  assert.ok(result.files.includes("language-runtime/static/data/interface/en.v1.json"));
   assert.ok(result.files.includes("language-runtime/static/styles/caatuu-chrome.css"));
   assert.ok(result.files.includes("language-runtime/static/styles/caatuu-home.css"));
   assert.ok(result.files.includes("language-runtime/static/styles/caatuu-theme.css"));
@@ -419,12 +552,15 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
     "language-runtime/static/source/app-bootstrap.mjs",
     "language-runtime/static/source/browser-shell.mjs",
     "language-runtime/static/source/caatuu-workspace.js",
+    "language-runtime/static/source/interface-content.mjs",
     "language-runtime/static/source/learning-profile.js",
+    "language-runtime/static/source/legacy-page-bootstrap.mjs",
     "language-runtime/static/source/product-word-world.mjs",
     "language-runtime/static/source/word-net-core.mjs",
     "language-runtime/static/source/word-net-queue.mjs",
     "language-runtime/static/source/word-world-host.mjs",
     "language-runtime/static/source/word-world-provider.mjs",
+    "language-runtime/static/data/interface/en.v1.json",
     "language-runtime/static/games/agreement-aurora.html",
     "language-runtime/static/games/conjugation-comet.html",
     "language-runtime/static/source/games/course-game-content.mjs",
@@ -569,6 +705,47 @@ test("product transforms fail closed when an expected development anchor drifts"
   assert.throws(
     () => transformCourseProfile(source.replace("      chat: true,", "      chat: maybe,")),
     /course chat capability: expected 1 exact source anchor/
+  );
+
+  const indexSource = readFileSync(join(workspaceRoot, CANONICAL_APP_ENTRY_PATH), "utf8");
+  const productIndex = transformIndex(indexSource);
+  assert.match(
+    productIndex,
+    /aria-label="Next sentence options" data-i18n-aria-label="wordworld\.generation\.nextoptions"/u,
+  );
+  assert.match(productIndex, /data-i18n="wordworld\.diagnostics\.content">content<\/dt>/u);
+  assert.match(
+    productIndex,
+    /data-i18n="wordworld\.diagnostics\.model\.curated">none · curated corpus<\/dd>/u,
+  );
+  assert.doesNotMatch(productIndex, /data-i18n-aria-label="wordworld\.generation\.menu"/u);
+  assert.throws(
+    () => transformIndex(indexSource.replace(
+      'aria-label="Sentence generation" data-i18n-aria-label="wordworld.generation.menu"',
+      'aria-label="Sentence generation" data-i18n-aria-label="wordworld.generation.changed"',
+    )),
+    /shared app Word World options message: expected 1 exact source anchor/u,
+  );
+
+  const chromeSource = readFileSync(
+    join(workspaceRoot, "apps/language-runtime/static/source/caatuu-chrome.js"),
+    "utf8",
+  );
+  const productChrome = transformChromeJs(chromeSource);
+  assert.doesNotMatch(productChrome, /href: routes\.chat, label: "debug-chat"/u);
+  assert.doesNotMatch(productChrome, /<section class="settings-card side-card ai-settings-card"/u);
+  assert.doesNotMatch(productChrome, /id="modelLicenseList"/u);
+  assert.match(productChrome, /interfaceMessage\("settings\.product\.summary"\)/u);
+  assert.match(productChrome, /interfaceMessage\("settings\.product\.legal\.contentterms"\)/u);
+  assert.match(productChrome, /interfaceMessage\("settings\.product\.legal\.embeddingstitle"\)/u);
+  assert.match(productChrome, /interfaceMessage\("settings\.product\.legal\.embeddingsterms"\)/u);
+  assert.doesNotMatch(productChrome, /Storage and app controls|Caatuu Curriculum and Asset Embeddings/u);
+  assert.throws(
+    () => transformChromeJs(chromeSource.replace(
+      'interfaceMessage("settings.advanced.summary")',
+      'interfaceMessage("settings.advanced.changed")',
+    )),
+    /chrome advanced summary: expected 1 exact source anchor/u,
   );
 });
 

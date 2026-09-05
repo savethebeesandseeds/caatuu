@@ -4,11 +4,32 @@ import test from "node:test";
 import vm from "node:vm";
 
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
+import { installEnglishInterfaceContent } from "./helpers/english-interface-content.mjs";
+import {
+  createInterfaceContent,
+  installInterfaceContent
+} from "../static/source/interface-content.mjs";
 
 const chromeSource = await readFile(
   new URL("../static/source/caatuu-chrome.js", import.meta.url),
   "utf8"
 );
+const englishInterfaceCatalog = JSON.parse(await readFile(
+  new URL("../static/data/interface/en.v1.json", import.meta.url),
+  "utf8"
+));
+
+function runChrome(harness, interfaceContent = null) {
+  if (interfaceContent) {
+    installInterfaceContent(interfaceContent, harness.context);
+    if (harness.context.window && harness.context.window !== harness.context) {
+      installInterfaceContent(interfaceContent, harness.context.window);
+    }
+  } else {
+    installEnglishInterfaceContent(harness);
+  }
+  vm.runInContext(chromeSource, harness.context, { filename: "caatuu-chrome.js" });
+}
 
 const english = Object.freeze({
   id: "en",
@@ -104,11 +125,11 @@ function fixtureCourse() {
 
 function executeChrome(options = {}) {
   const harness = createBrowserHarness({ course: fixtureCourse(), ...options });
-  vm.runInContext(chromeSource, harness.context, { filename: "caatuu-chrome.js" });
+  runChrome(harness);
   return harness;
 }
 
-function executeChromeWithHomeMenu({ course = fixtureCourse() } = {}) {
+function executeChromeWithHomeMenu({ course = fixtureCourse(), interfaceContent = null } = {}) {
   const harness = createBrowserHarness({ course });
   const homeView = harness.document.createElement("section");
   homeView.id = "view-home";
@@ -136,7 +157,7 @@ function executeChromeWithHomeMenu({ course = fixtureCourse() } = {}) {
   nav.dataset.settingsTarget = "openSettings";
   harness.document.body.append(homeView, nav);
 
-  vm.runInContext(chromeSource, harness.context, { filename: "caatuu-chrome.js" });
+  runChrome(harness, interfaceContent);
   return { ...harness, homeBaseView, homeSocialView, homeStoreArt, homeStoreView, homeView, nav };
 }
 
@@ -181,7 +202,7 @@ test("stored appearance is applied and real controls persist immediate changes",
   standardText.dataset.fontSizeOption = "standard";
   harness.document.body.append(darkTheme, standardText);
 
-  vm.runInContext(chromeSource, harness.context, { filename: "caatuu-chrome.js" });
+  runChrome(harness);
 
   assert.equal(harness.document.documentElement.dataset.theme, "light");
   assert.equal(harness.document.documentElement.dataset.fontSize, "large");
@@ -221,7 +242,7 @@ test("Home display settings stays open for inside controls and dismisses outside
   menu.append(summary, popover);
   harness.document.body.append(menu, outside);
 
-  vm.runInContext(chromeSource, harness.context, { filename: "caatuu-chrome.js" });
+  runChrome(harness);
 
   menu.open = true;
   darkTheme.click();
@@ -249,7 +270,7 @@ test("shared appearance follows the learner across course namespaces", () => {
   const darkTheme = czechHarness.document.createElement("button");
   darkTheme.dataset.themeOption = "dark";
   czechHarness.document.body.append(darkTheme);
-  vm.runInContext(chromeSource, czechHarness.context, { filename: "caatuu-chrome.js" });
+  runChrome(czechHarness);
   czechHarness.document.dispatchEvent({ type: "click", target: darkTheme });
 
   const mandarinCourse = {
@@ -269,7 +290,7 @@ test("shared appearance follows the learner across course namespaces", () => {
     course: mandarinCourse,
     localStorageValues: czechHarness.localStorage.snapshot()
   });
-  vm.runInContext(chromeSource, mandarinHarness.context, { filename: "caatuu-chrome.js" });
+  runChrome(mandarinHarness);
 
   assert.equal(mandarinHarness.document.documentElement.dataset.theme, "dark");
   assert.equal(mandarinHarness.localStorage.getItem("caatuu.appearance.theme.v1"), "dark");
@@ -309,7 +330,7 @@ test("the transparent header renders compact journey stats with exact accessible
   header.className = "app-header";
   harness.document.body.append(header);
 
-  vm.runInContext(chromeSource, harness.context, { filename: "caatuu-chrome.js" });
+  runChrome(harness);
 
   const formatter = harness.window.CaatuuChrome.formatCompactRewardCount;
   for (const [value, expected] of [
@@ -621,6 +642,47 @@ test("the shared game chooser presents Sounds Quasar as a disabled coming-later 
   assert.match(option.querySelector("img").src, /\/assets\/planets\/sounds-quasar\.png$/u);
 });
 
+test("game presentations and visible course names derive from the interface catalog locale", () => {
+  const interfaceContent = createInterfaceContent({
+    ...englishInterfaceCatalog,
+    locale: "es-ES",
+    revision: "interface-es-test-1",
+    messages: {
+      ...englishInterfaceCatalog.messages,
+      "games.wordworld.summary": "Significados y conexiones",
+      "games.wordworld.title": "Mundo de palabras"
+    }
+  });
+  const course = fixtureCourse();
+  course.games = ["word-net"];
+  course.capabilities.wordWorld = true;
+  const harness = createBrowserHarness({ course });
+  const indicator = harness.document.createElement("span");
+  indicator.dataset.caatuuLanguageIndicator = "";
+  const switcher = harness.document.createElement("button");
+  switcher.dataset.caatuuLanguageSwitch = "";
+  switcher.dataset.languageSwitchVariant = "home";
+  harness.document.body.append(indicator, switcher);
+
+  runChrome(harness, interfaceContent);
+
+  const languageNames = new Intl.DisplayNames(["es-ES"], { type: "language", fallback: "none" });
+  const englishName = languageNames.of("en");
+  const czechName = languageNames.of("cs");
+  const presentation = harness.window.CaatuuChrome.gamePresentation("word-net");
+  assert.equal(presentation.title, "Mundo de palabras");
+  assert.equal(presentation.summary, "Significados y conexiones");
+  assert.equal(presentation.titleId, "games.wordworld.title");
+  assert.match(indicator.getAttribute("aria-label"), new RegExp(czechName, "u"));
+
+  const currentCourse = harness.document.querySelector("[data-home-language-current-course]");
+  assert.match(currentCourse.textContent, new RegExp(`${englishName} → ${czechName}`, "u"));
+  const currentOption = harness.document.querySelector('[data-language-course-option="cz"]');
+  assert.match(currentOption.textContent, /Čeština/u, "the explicit target autonym remains visible");
+  assert.match(currentOption.textContent, new RegExp(czechName, "u"));
+  assert.match(currentOption.getAttribute("aria-label"), new RegExp(czechName, "u"));
+});
+
 test("opening Home over Backpack preserves the current screen until selection", () => {
   const { document, nav, window } = executeChromeWithHomeMenu();
   const settingsPanel = document.createElement("section");
@@ -685,7 +747,7 @@ test("the Games header stays on the launchpad and only opens the game chooser", 
   nav.dataset.settingsTarget = "openSettings";
   harness.document.body.append(header, homeView, gamesView, nav);
 
-  vm.runInContext(chromeSource, harness.context, { filename: "caatuu-chrome.js" });
+  runChrome(harness);
 
   let brand = header.querySelector(".brand-link");
   assert.equal(brand.dataset.gameMenuLauncher, "");
@@ -719,7 +781,7 @@ test("the Games header stays on the launchpad and only opens the game chooser", 
 test("the Backpack header icon is an Items shortcut", () => {
   assert.match(
     chromeSource,
-    /<button class="settings-brand-mark" type="button" data-settings-view="items" aria-label="Open Backpack items" aria-controls="itemsViewPanel"/u
+    /<button class="settings-brand-mark" type="button" data-settings-view="items" aria-label="\$\{interfaceMessage\("settings\.backpack\.openitems"\)\}" aria-controls="itemsViewPanel"/u
   );
 
   const harness = executeChrome();
@@ -818,7 +880,7 @@ test("the Home language form is wired at startup and confirms a course switch", 
   trigger.dataset.languageSwitchVariant = "home";
   harness.document.body.append(trigger);
 
-  vm.runInContext(chromeSource, harness.context, { filename: "caatuu-chrome.js" });
+  runChrome(harness);
 
   const host = harness.document.querySelector(".language-selector");
   const menu = host.querySelector("[data-language-selector-menu]");
@@ -840,7 +902,7 @@ test("the Home language form is wired at startup and confirms a course switch", 
   assert.equal(currentCourse.getAttribute("aria-expanded"), null);
   assert.equal(currentCourse.dataset.languageSelectorOpener, undefined);
   assert.match(currentCourse.textContent, /Current course/u);
-  assert.match(currentCourse.textContent, /English → Čeština/u);
+  assert.match(currentCourse.textContent, /English → Czech/u);
   assert.match(currentCourse.textContent, /1\.3K XP · 3 rounds/u);
   assert.match(currentCourse.textContent, /Current/u);
   assert.doesNotMatch(currentCourse.textContent, /Change|›/u);
@@ -887,7 +949,7 @@ test("the Home language form is wired at startup and confirms a course switch", 
   assert.equal(assignments.length, 0, "reviewing a target must not navigate");
   assert.equal(choiceStage.hidden, true);
   assert.equal(reviewStage.hidden, false);
-  assert.match(menu.querySelector("[data-language-selector-review-title]").textContent, /Switch to Mandarin Chinese\?/u);
+  assert.match(menu.querySelector("[data-language-selector-review-title]").textContent, /Switch to Simplified Chinese\?/u);
   assert.equal(
     menu.querySelector("[data-language-selector-review-copy]").textContent,
     "Your Czech course progress will remain saved."
@@ -989,7 +1051,7 @@ test("the Home course card offers engaged courses as confirmed quick switches", 
   assert.equal(host.classList.contains("has-quick-courses"), true);
   assert.equal(quickSwitches.length, 1, "only non-current courses with recorded engagement are listed");
   assert.equal(quickSwitches[0].dataset.homeLanguageQuickCourse, "zh");
-  assert.match(quickSwitches[0].textContent, /English → 简体中文/u);
+  assert.match(quickSwitches[0].textContent, /English → Simplified Chinese/u);
   assert.match(quickSwitches[0].textContent, /28 XP · 10 rounds/u);
   assert.match(quickSwitches[0].textContent, /Switch/u);
   assert.equal(host.querySelector('[data-home-language-quick-course="fr"]'), null);
@@ -1005,7 +1067,7 @@ test("the Home course card offers engaged courses as confirmed quick switches", 
   assert.equal(menu.hidden, false);
   assert.equal(menu.querySelector("[data-language-selector-choice-stage]").hidden, true);
   assert.equal(menu.querySelector("[data-language-selector-review-stage]").hidden, false);
-  assert.match(menu.querySelector("[data-language-selector-review-title]").textContent, /Mandarin Chinese/u);
+  assert.match(menu.querySelector("[data-language-selector-review-title]").textContent, /Simplified Chinese/u);
   assert.equal(quickSwitches[0].getAttribute("aria-expanded"), "true");
 
   menu.dispatchEvent({ type: "keydown", key: "Escape" });
@@ -1028,7 +1090,7 @@ test("the Home language form resets drafts and supports keyboard dismissal", () 
   trigger.dataset.caatuuLanguageSwitch = "";
   trigger.dataset.languageSwitchVariant = "home";
   harness.document.body.append(trigger);
-  vm.runInContext(chromeSource, harness.context, { filename: "caatuu-chrome.js" });
+  runChrome(harness);
   const menu = harness.document.querySelector("[data-language-selector-menu]");
 
   trigger.click();

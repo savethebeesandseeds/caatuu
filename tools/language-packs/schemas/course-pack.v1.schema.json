@@ -172,8 +172,10 @@
     },
     "resources": {
       "type": "object",
+      "required": ["interfaceCatalog"],
       "properties": {
-        "dictionaryProvider": { "$ref": "#/$defs/dictionaryProviderResource" }
+        "dictionaryProvider": { "$ref": "#/$defs/dictionaryProviderResource" },
+        "interfaceCatalog": { "$ref": "#/$defs/interfaceCatalogResource" }
       },
       "additionalProperties": {
         "$ref": "#/$defs/resource"
@@ -891,6 +893,22 @@
               "pattern": "^apps/languages/[a-z0-9]+(?:-[a-z0-9]+)*/static/data/[A-Za-z0-9._/-]+\\.json$"
             },
             "scope": { "const": "course" },
+            "state": { "const": "present" }
+          }
+        }
+      ]
+    },
+    "interfaceCatalogResource": {
+      "allOf": [
+        { "$ref": "#/$defs/resource" },
+        {
+          "required": ["revision"],
+          "properties": {
+            "kind": { "const": "file" },
+            "path": {
+              "pattern": "^apps/language-runtime/static/data/interface/[a-z0-9][a-z0-9._-]+\\.json$"
+            },
+            "scope": { "const": "shared" },
             "state": { "const": "present" }
           }
         }

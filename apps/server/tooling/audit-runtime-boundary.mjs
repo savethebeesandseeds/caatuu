@@ -523,8 +523,7 @@ async function auditHttpRoutes(validatedLanguageCatalog) {
     "/language-runtime/static/styles/caatuu-workspace.css",
     "/language-runtime/static/styles/caatuu-home.css",
     "/language-runtime/static/styles/caatuu-chrome.css",
-    "/language-runtime/static/source/shell-policy.js",
-    "/language-runtime/static/source/caatuu-chrome.js"
+    "/language-runtime/static/source/shell-policy.js"
   ];
   const sharedShellHosts = [
     'class="app-shell"',
@@ -549,8 +548,8 @@ async function auditHttpRoutes(validatedLanguageCatalog) {
     }
     assert(!page.body.includes("/language-runtime/static/styles/course-shell.css"), `${label} home should not load the superseded mini-app stylesheet`);
     assert(!page.body.includes("source/shared/chrome.js"), `${label} home should not load a course-local Chrome duplicate`);
-    const profileIndex = page.body.indexOf('src="source/shared/course-profile.js?v=course-32"');
-    const bootstrapIndex = page.body.indexOf('src="/language-runtime/static/source/app-bootstrap.mjs?v=app-40"');
+    const profileIndex = page.body.indexOf('src="source/shared/course-profile.js?v=course-33"');
+    const bootstrapIndex = page.body.indexOf('src="/language-runtime/static/source/app-bootstrap.mjs?v=app-41"');
     assert(profileIndex >= 0, `${label} home should load its route-relative course profile`);
     assert(bootstrapIndex > profileIndex, `${label} home should load its course profile before the shared bootstrap`);
   }
@@ -576,16 +575,21 @@ async function auditHttpRoutes(validatedLanguageCatalog) {
   }
   assert(appBootstrap.body.includes('robots.content = "noindex, nofollow"'), "the shared bootstrap should apply the development noindex gate");
   assert(appBootstrap.body.includes("frame.dataset.src = typeof path === \"string\" ? path : \"\""), "the shared bootstrap should bind game routes from the course profile");
+  assert(appBootstrap.body.includes('./interface-content.mjs?v=interface-runtime-1'), "the shared bootstrap should load the revisioned interface runtime");
   assert(
-    appBootstrap.body.includes('import("./word-world-host.mjs?v=word-world-host-15")'),
+    appBootstrap.body.indexOf("loadInterfaceContent(course)") < appBootstrap.body.indexOf('caatuu-chrome.js?v=chrome-143'),
+    "the shared bootstrap should install course interface content before loading Chrome"
+  );
+  assert(
+    appBootstrap.body.includes('import("./word-world-host.mjs?v=word-world-host-16")'),
     "the shared app bootstrap should mount every course through the unified Word World host"
   );
   assert(
-    wordWorldHost.body.includes('import("./word-world-provider.mjs?v=word-world-provider-18")'),
+    wordWorldHost.body.includes('import("./word-world-provider.mjs?v=word-world-provider-19")'),
     "the shared Word World host should load the unified provider"
   );
   assert(
-    wordWorldProvider.body.includes('./product-word-world.mjs?v=shared-renderer-17'),
+    wordWorldProvider.body.includes('./product-word-world.mjs?v=shared-renderer-18'),
     "the shared Word World provider should load the one shared renderer"
   );
   assert(mandarinProfile.body.includes('status: "development"'), "the Mandarin profile should declare its development status");
@@ -597,13 +601,16 @@ async function auditHttpRoutes(validatedLanguageCatalog) {
   assert(mandarinSetup?.application?.appEntry === "apps/language-runtime/static/app/index.html", "Mandarin setup should name the canonical app entry");
   assert(mandarinSetup?.application?.entryPath === "/zh/index.html", "Mandarin setup should mount the canonical app at its course route");
   assert(!mandarinSetup?.offline?.assets?.some((asset) => asset.includes("product-shell.mjs")), "Mandarin offline assets must not retain the superseded product shell");
-  assert(mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/word-world-host.mjs?v=word-world-host-15"), "Mandarin offline assets should include the shared Word World host");
+  assert(mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/interface-content.mjs?v=interface-runtime-1"), "Mandarin offline assets should include the shared interface runtime");
+  assert(mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-1"), "Mandarin offline assets should include the shared legacy-page bootstrap");
+  assert(mandarinSetup?.offline?.assets?.includes("/language-runtime/static/data/interface/en.v1.json?v=interface-en-1"), "Mandarin offline assets should include its exact English interface catalog revision");
+  assert(mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/word-world-host.mjs?v=word-world-host-16"), "Mandarin offline assets should include the shared Word World host");
   assert(
-    mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/word-world-provider.mjs?v=word-world-provider-18"),
+    mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/word-world-provider.mjs?v=word-world-provider-19"),
     "Mandarin offline assets should include the unified Word World provider"
   );
   assert(
-    mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-17"),
+    mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-18"),
     "Mandarin offline assets should include the one shared Word World renderer"
   );
 

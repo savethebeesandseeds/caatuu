@@ -38,6 +38,29 @@ Do not move morphology or prompts into the product shell merely to make them
 look shared. Share a mechanic only when its inputs and outputs can be described
 without naming a particular language.
 
+## Course direction and interface language
+
+A course is one canonical `sourceLanguage.locale` to `targetLanguage.locale`
+direction. Reversing that pair creates a separate course with its own identity,
+route, storage and cache namespaces, profile, capabilities, and reviewed
+content; it is not a runtime inversion toggle.
+
+The learner source/base language also owns the interface locale and writing
+direction. Every browser course still serves the same product document,
+component tree, layout, styles, and controllers. The course varies reviewed
+messages through `resources.interfaceCatalog`, not through a course-owned page
+or shell fork. The generated profile makes the roles explicit in
+`languageRoles` and projects the selected locale, direction, revision, and URL
+through `interfaceContent`. Bootstrap installs and applies that content before
+Chrome, optional providers, and game rendering begin.
+
+The canonical English interface catalog is the callable message API and parity
+authority. A translated catalog must contain exactly the same message IDs,
+message kinds, and named placeholders; it may add plural categories required by
+its locale. That UI authority is distinct from English's permanent role in
+learning-content audit and semantic retrieval. Courses with the same canonical
+source locale must declare the same interface-catalog path and revision.
+
 ## Authoritative contracts
 
 - `apps/languages/catalog.json` is the internal course catalog. It reserves
@@ -49,12 +72,20 @@ without naming a particular language.
 - Every browser course names the same shared `resources.appEntry`:
   `apps/language-runtime/static/app/index.html`. A course owns its public route
   and content root, but it cannot own or replace the product document.
+- Every course declares a present, revisioned, shared
+  `resources.interfaceCatalog` beneath
+  `apps/language-runtime/static/data/interface/`. Its locale and direction must
+  match `sourceLanguage`; an English-base course uses the canonical
+  `en.v1.json` authority, while a non-English base supplies a parity-checked
+  translation rather than relabeling English copy.
 - Every browser course's setup offline list contains exactly once by URL
-  pathname every canonical `apps/language-runtime/` to `language-runtime/`
-  mapping in `apps/language-runtime/app-assets.json`. Cache-busting queries may
-  differ between courses; missing, duplicate, or remapped pathnames fail
-  validation. The exact build-only `course-service-worker.js` template mapping
-  is excluded because publication generates the course-owned worker.
+  pathname every universal canonical `apps/language-runtime/` to
+  `language-runtime/` mapping in `apps/language-runtime/app-assets.json`.
+  Interface-catalog mappings are intentionally excluded from that universal
+  closure: a dedicated check requires exactly the course's declared catalog
+  URL with `?v=<revision>` and rejects duplicate or undeclared locale catalogs.
+  The exact build-only `course-service-worker.js` template mapping is also
+  excluded because publication generates the course-owned worker.
 - A browser setup manifest's `offline.cachePrefix` is exactly the owning
   course's `cache.prefix`, and its versioned `offline.cacheName` begins with
   that same prefix. A copied prefix from another course is invalid: service
@@ -93,12 +124,12 @@ without naming a particular language.
   The retired experimental `apps/curriculum` package is not part of the runtime.
 - Each language pack provides generated `course-profile.js` before runtime
   code. It exposes immutable `window.CaatuuCourse` metadata, the complete
-  capability policy, its adapter module, and any explicitly declared
-  `browserProviders`. Optional course runtime, semantic-learning, setup-
-  progress, and setup providers must be revisioned JavaScript resources under
-  that course's exact static source root; the shared bootstrap never infers
-  them from a capability or course identity. Drift from `course.json` fails
-  the language-pack checks.
+  capability policy, explicit `languageRoles` and `interfaceContent`, its
+  adapter module, and any declared `browserProviders`. Optional course runtime,
+  semantic-learning, setup-progress, and setup providers must be revisioned
+  JavaScript resources under that course's exact static source root; the shared
+  bootstrap never infers them from a capability or course identity. Drift from
+  `course.json` fails the language-pack checks.
 - `apps/server/src/language_catalog.rs` validates and mounts browser-enabled
   packs from the internal catalog. The capability-oriented backend is explicit;
   the server resolves only registered implementations and never infers one from
@@ -209,6 +240,12 @@ example, Conjugation Comet requires `verb-conjugation`, Case Cosmos requires
 | Mandarin (`zh`, target `zh-Hans`) | Development preview | Verb Lab, Word World, Naturalization Nucleus | Memory Moon, Sounds Quasar | No |
 | Spanish (`es`, target `es-ES`) | Local development preview | Verb Lab, Word World, Conjugation Comet, Agreement Aurora | Memory Moon, Sounds Quasar | No |
 
+All three current courses use English as `sourceLanguage`. Their established
+`/cz`, `/zh`, and `/es` prefixes remain compatibility identities for those
+specific directional courses; they are not direction-neutral language routes
+that a reverse or other non-English-base course may reuse. No non-English-base
+course or translated interface catalog is registered yet.
+
 All three are browser-enabled in source. Pages currently includes Czech and
 Mandarin; Android contains Czech and Mandarin only. Spanish remains local-only
 until a licensed publication is explicitly enabled.
@@ -250,9 +287,11 @@ planet IDs, routes, capabilities, linguistic features, content resources, and
 Campaign eligibility in both browser runtime and language-pack validation.
 Verb Lab, Word World, Conjugation Comet, Case Cosmos, and Agreement Aurora are
 Campaign-eligible; Naturalization Nucleus, Memory Moon, and Sounds Quasar are
-intentionally not. Campaign is available after one eligible planet, whether
-its availability is derived by the shell or validated from an explicit course
-declaration.
+intentionally not. The base Campaign mechanic is available after one eligible
+planet, whether its availability is derived by the shell or validated from an
+explicit course declaration. For a non-English learner base, every contained
+playable planet must additionally satisfy a registered learner-base
+presentation contract.
 
 ## Semantic and realization boundary
 
@@ -307,33 +346,40 @@ Spanish selects `spanish-spain-v1`: authored word boundaries, accent-preserving
 answer comparison, accent-folded search, and no pronunciation guide until a
 separate reviewed pronunciation policy is approved.
 
-## Adding a language
+## Adding a directional course
 
-1. Add a development manifest to `apps/languages/catalog.json`; choose one
-   stable course route such as `/zh` and reserve any replaced route as an alias.
-2. Create the adapter and deterministic realization data for each enabled
+1. Add a development manifest to `apps/languages/catalog.json` with a unique
+   canonical source-to-target pair. A reversed pair is a different course, not
+   a mode of the existing one. Give it its own stable route and namespaces, and
+   reserve any replaced route only as a compatibility alias.
+2. Declare a present, revisioned shared interface catalog for the exact source
+   locale and direction. English-base courses use the canonical English
+   authority; translated catalogs preserve its exact message API. Reuse the
+   same path and revision across courses with the same source locale, and cache
+   only that selected revisioned catalog offline.
+3. Create the adapter and deterministic realization data for each enabled
    game. Give every assessed item an English translation/audit anchor. If the
    learner base is not English, add a separate base-language realization
    keyed by the same stable concept ID; keep all three roles separate.
-3. Give every persisted key a course-specific namespace. Never reuse another
+4. Give every persisted key a course-specific namespace. Never reuse another
    course's progress keys.
-4. Declare linguistic features separately from runtime capabilities. Enable a
+5. Declare linguistic features separately from runtime capabilities. Enable a
    game only when its required feature, route, implementation, and reviewed
    content all exist.
-5. Mark only existing, confined resources `present`. Every enabled authored
+6. Mark only existing, confined resources `present`. Every enabled authored
    planet must name its own present course resource. Enable only capabilities
    whose runtime, provider, presentation, and reviewed data are complete.
-6. Use the `static` backend unless the course implements a registered,
+7. Use the `static` backend unless the course implements a registered,
    capability-oriented server protocol such as `dictionary-api-v1`. For a
    dictionary, declare all five resources, the exact target-locale/English
    language pair,
    and one provider identity shared by the manifest and runtime registration.
-7. If Android is enabled, add the course manifest and asset catalog in catalog
+8. If Android is enabled, add the course manifest and asset catalog in catalog
    order. Otherwise keep `platforms.android.enabled` false and leave the course
    out of the bundle. Declare capability-matched native providers and both
    source and target presentation; the catalog-derived bundle plan rejects
    omissions, extras, and reordering.
-8. Run language-pack, content, semantic, browser/offline, server, publication,
+9. Run language-pack, content, semantic, browser/offline, server, publication,
    and Android audits. Pages and Android both compare their declared delivery
    sets against the browser- or Android-enabled catalog courses and fail closed
    on omissions, extras, duplicates, reordering, and default-course drift. Add

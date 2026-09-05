@@ -4,6 +4,7 @@ import test from "node:test";
 import vm from "node:vm";
 
 import { generateCourseProfileObject } from "../../../tools/language-packs/lib/course-contract.mjs";
+import { installEnglishInterfaceContent } from "./helpers/english-interface-content.mjs";
 
 const [chromeSource, czechManifest, mandarinManifest, czechProfileSource, mandarinProfileSource] = await Promise.all([
   readFile(new URL("../static/source/caatuu-chrome.js", import.meta.url), "utf8"),
@@ -41,6 +42,7 @@ function chromeContext(course) {
     setTimeout
   };
   context.window = context;
+  installEnglishInterfaceContent(context);
   return context;
 }
 

@@ -48,8 +48,17 @@ test("legal authorities consistently define first-party AGPL scope and preserve 
 });
 
 test("product surfaces disclose code terms and keep reviewed models and corpora explicit", async () => {
-  const [chrome, workspace, routes, chatHtml, modelConfigsSource, wordWorldManifestSource] = await Promise.all([
+  const [
+    chrome,
+    englishInterfaceSource,
+    workspace,
+    routes,
+    chatHtml,
+    modelConfigsSource,
+    wordWorldManifestSource,
+  ] = await Promise.all([
     read("apps/language-runtime/static/source/caatuu-chrome.js"),
+    read("apps/language-runtime/static/data/interface/en.v1.json"),
     read("apps/language-runtime/static/source/caatuu-workspace.js"),
     read("apps/server/src/routes/mod.rs"),
     read("apps/languages/czech/static/chat.html"),
@@ -57,10 +66,41 @@ test("product surfaces disclose code terms and keep reviewed models and corpora 
     read("apps/languages/czech/static/data/games/word-world/manifest.json"),
   ]);
   const productText = `${chrome}\n${workspace}`;
-  assert.match(chrome, /first-party software and developer documentation are licensed AGPL-3\.0-only/u);
-  assert.match(chrome, /First-party curriculum is licensed as stated in its tracked course metadata/u);
-  assert.doesNotMatch(chrome, /first-party (?:English|Mandarin|Czech|Chinese) curriculum/iu);
-  assert.match(chrome, /Third-party or separately licensed models, dictionaries, datasets, artwork, branding, and components keep their separate terms/u);
+  const englishInterface = JSON.parse(englishInterfaceSource).messages;
+  assert.match(chrome, /interfaceMessage\("settings\.legal\.softwareterms"\)/u);
+  assert.match(chrome, /interfaceMessage\("settings\.legal\.contentterms"\)/u);
+  assert.match(
+    englishInterface["settings.legal.softwareterms"],
+    /first-party software and developer documentation are licensed AGPL-3\.0-only/u,
+  );
+  assert.match(
+    englishInterface["settings.legal.contentterms"],
+    /First-party curriculum is licensed as stated in its tracked course metadata/u,
+  );
+  assert.match(
+    englishInterface["settings.legal.contentterms"],
+    /Third-party or separately licensed models, dictionaries, datasets, artwork, branding, and components keep their separate terms/u,
+  );
+  assert.match(
+    englishInterface["settings.product.legal.contentterms"],
+    /Third-party or separately licensed dictionaries, datasets, artwork, branding, and components keep their separate terms/u,
+  );
+  assert.doesNotMatch(englishInterface["settings.product.legal.contentterms"], /models/iu);
+  assert.equal(
+    englishInterface["settings.product.legal.embeddingstitle"],
+    "Caatuu Curriculum and Asset Embeddings",
+  );
+  assert.match(
+    englishInterface["settings.product.legal.embeddingsterms"],
+    /all-MiniLM-L6-v2 embedding base, Apache-2\.0[\s\S]*embeds English text only/u,
+  );
+  assert.doesNotMatch(
+    Object.entries(englishInterface)
+      .filter(([messageId]) => messageId.startsWith("settings.legal.") || messageId.startsWith("settings.product.legal."))
+      .map(([, message]) => String(message))
+      .join("\n"),
+    /first-party (?:English|Mandarin|Czech|Chinese) curriculum/iu,
+  );
   assert.doesNotMatch(productText, /MIT app|Caatuu app code is provided under the MIT license/u);
 
   const wordWorldManifest = JSON.parse(wordWorldManifestSource);

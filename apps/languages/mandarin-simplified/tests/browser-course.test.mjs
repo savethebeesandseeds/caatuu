@@ -30,8 +30,7 @@ const SHARED_SHELL_STYLES = Object.freeze([
   "/language-runtime/static/styles/caatuu-chrome.css"
 ]);
 const SHARED_SHELL_SCRIPTS = Object.freeze([
-  "/language-runtime/static/source/shell-policy.js",
-  "/language-runtime/static/source/caatuu-chrome.js"
+  "/language-runtime/static/source/shell-policy.js"
 ]);
 
 function escapeRegExp(value) {
@@ -188,9 +187,9 @@ test("setup and service-worker catalogs cover every required offline URL", async
     entryPath: "/zh/index.html",
     appEntry: "apps/language-runtime/static/app/index.html"
   });
-  assert.equal(setup.offline.cacheName, "caatuu-zh-hans-pwa-v94");
-  assert.match(courseWorker, /Offline catalog revision: caatuu-zh-hans-pwa-v94/u);
-  assert.match(czechWorker, /Offline catalog revision: caatuu-czech-pwa-v613/u);
+  assert.equal(setup.offline.cacheName, "caatuu-zh-hans-pwa-v95");
+  assert.match(courseWorker, /Offline catalog revision: caatuu-zh-hans-pwa-v95/u);
+  assert.match(czechWorker, /Offline catalog revision: caatuu-czech-pwa-v614/u);
   const withoutRevision = (source) => source.replace(/^\/\/ Offline catalog revision: .+\r?\n/mu, "");
   assert.equal(withoutRevision(courseWorker), withoutRevision(czechWorker));
   assert.match(
@@ -204,16 +203,21 @@ test("setup and service-worker catalogs cover every required offline URL", async
   assert.doesNotMatch(JSON.stringify(setup), /word-world\.html/u);
   assert.doesNotMatch(JSON.stringify(setup), /authored-word-world-provider/u);
   for (const asset of [
-    "/language-runtime/static/source/caatuu-workspace.js?v=workspace-13",
-    "/language-runtime/static/source/maintenance-ui.js?v=maintenance-17",
+    "source/shared/course-profile.js?v=course-33",
+    "/language-runtime/static/source/app-bootstrap.mjs?v=app-41",
+    "/language-runtime/static/source/interface-content.mjs?v=interface-runtime-1",
+    "/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-1",
+    "/language-runtime/static/data/interface/en.v1.json?v=interface-en-1",
+    "/language-runtime/static/source/caatuu-workspace.js?v=workspace-14",
+    "/language-runtime/static/source/maintenance-ui.js?v=maintenance-18",
     "/language-runtime/static/source/child-facing-assets.mjs?v=child-facing-assets-2",
     "/language-runtime/static/source/dictionary-provider-loader.mjs",
-    "/language-runtime/static/source/caatuu-chrome.js?v=chrome-142",
+    "/language-runtime/static/source/caatuu-chrome.js?v=chrome-143",
     "/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-11",
     "/language-runtime/static/source/games/verb-nebula/verb-exercise-family-core.mjs?v=verb-exercise-family-core-3",
-    "/language-runtime/static/source/word-world-host.mjs?v=word-world-host-15",
-    "/language-runtime/static/source/word-world-provider.mjs?v=word-world-provider-18",
-    "/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-17",
+    "/language-runtime/static/source/word-world-host.mjs?v=word-world-host-16",
+    "/language-runtime/static/source/word-world-provider.mjs?v=word-world-provider-19",
+    "/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-18",
     "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-21",
     "/language-runtime/static/source/word-net-queue.mjs?v=word-net-queue-6",
     "/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-130",
@@ -285,6 +289,11 @@ test("the canonical page has no inline executable code while development noindex
   assert.doesNotMatch(html, /<script>(?:.|\n)*?<\/script>/u);
   assert.match(bootstrap, /course\.status !== "active"/u);
   assert.match(bootstrap, /robots\.content = "noindex, nofollow"/u);
+  assert.match(bootstrap, /interface-content\.mjs\?v=interface-runtime-1/u);
+  assert.match(
+    bootstrap,
+    /loadInterfaceContent\(course\);[\s\S]*installInterfaceContent\(interfaceContent\);[\s\S]*caatuu-chrome\.js\?v=chrome-143/u
+  );
   assert.equal(course.status, "development");
 });
 
@@ -302,6 +311,7 @@ test("Czech and Mandarin resolve one authoritative Caatuu document and bootstrap
   assert.equal(await access(path.join(staticRoot, "index.html")).then(() => false, () => true), true);
   for (const style of SHARED_SHELL_STYLES) assertSingleAuthoritativeReference(html, "href", style, "canonical app");
   for (const script of SHARED_SHELL_SCRIPTS) assertSingleAuthoritativeReference(html, "src", script, "canonical app");
+  assert.equal(countAssetReferences(html, "src", "/language-runtime/static/source/caatuu-chrome.js"), 0);
   assertSingleAuthoritativeReference(html, "src", "/language-runtime/static/source/app-bootstrap.mjs", "canonical app");
   const wordWorldStylesheet = "/language-runtime/static/styles/caatuu-word-world.css?v=word-net-90";
   assert.match(html, /caatuu-word-world\.css\?v=word-net-90/u);
@@ -339,7 +349,7 @@ test("Mandarin removes the mini-app and mounts Word World through the authoritat
 
   assert.match(home, /class="app-shell"/u);
   assert.match(workspaceSource, /CaatuuWordWorldHost/u);
-  assert.match(hostSource, /import\("\.\/word-world-provider\.mjs\?v=word-world-provider-18"\)/u);
+  assert.match(hostSource, /import\("\.\/word-world-provider\.mjs\?v=word-world-provider-19"\)/u);
   assert.match(providerSource, /prepareWordWorldContext\(/u);
   assert.match(providerSource, /return mountRenderer\(root, context, \{/u);
   assert.doesNotMatch(JSON.stringify(setup), /authored-word-world-provider/u);

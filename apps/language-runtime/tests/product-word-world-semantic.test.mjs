@@ -11,6 +11,12 @@ globalThis.localStorage = {
 globalThis.window = {
   CaatuuCourse: {
     id: "synthetic-controller-test",
+    sourceLanguage: {
+      id: "en",
+      label: "English",
+      locale: "en",
+      direction: "ltr"
+    },
     targetLanguage: {
       id: "xx",
       label: "Synthetic",
@@ -32,6 +38,25 @@ globalThis.window = {
   }
 };
 globalThis.document = {};
+globalThis.CaatuuI18n = {
+  locale: "en",
+  languageName(language) {
+    const localized = {
+      en: "English",
+      fr: "French",
+      "xx-Test": "Synthetic"
+    }[language?.locale];
+    return localized || String(language?.label || language?.nativeLabel || language?.id || "").trim();
+  },
+  t(messageId, parameters = {}) {
+    if (messageId === "wordworld.feedback.wrongtranslation") {
+      return `Wrong ${parameters.language} translation`;
+    }
+    if (messageId === "wordworld.language.base") return "base language";
+    if (messageId === "wordworld.language.other") return "other language";
+    return `${messageId} ${Object.values(parameters).join(" ")}`.trim();
+  }
+};
 
 const {
   buildDictionaryGapFeedback,
@@ -59,7 +84,10 @@ test("reconstruction fallback spacing derives from the authored surface, not a s
 
 test("translation feedback names the learner base without changing English audit authority", () => {
   assert.equal(sourceTranslationFeedbackLabel({ label: "English" }), "Wrong English translation");
-  assert.equal(sourceTranslationFeedbackLabel({ label: "Français" }), "Wrong Français translation");
+  assert.equal(
+    sourceTranslationFeedbackLabel({ locale: "fr", label: "French", nativeLabel: "Français" }),
+    "Wrong French translation"
+  );
   assert.equal(sourceTranslationFeedbackLabel({}), "Wrong base language translation");
 });
 
@@ -374,11 +402,11 @@ test("the live Next/selected controller path awaits English search and reports i
   assert.match(source, /const outcome = await runOwnedSemanticSelection\(\{/u);
   assert.match(source, /select: \(\) => selectStandardTurn\(provider, \{/u);
   assert.match(source, /const englishQuery = mode === "selected" \? selectedEnglishSemanticQuery\(\) : ""/u);
-  assert.match(source, /Ranking guided sentences by English meaning/u);
+  assert.match(source, /wordworld\.standard\.rankingenglish/u);
   assert.match(source, /searchEnglish: providerContext\?\.searchEnglish/u);
   assert.match(source, /English MiniLM/u);
-  assert.match(source, /English lexical fallback/u);
-  assert.match(source, /Could not choose a guided sentence\. Please try again\./u);
+  assert.match(source, /wordworld\.diagnostics\.semantic\.englishlexical/u);
+  assert.match(source, /wordworld\.standard\.selectionfailed/u);
   const semanticQueryBody = source.match(
     /function selectedEnglishSemanticQuery\(\) \{(?<body>[\s\S]*?)\n\}/u
   )?.groups?.body || "";

@@ -24,10 +24,12 @@ async function fixture({
   await mkdir(join(launcherStaticDir, "assets/images"), { recursive: true });
   await mkdir(join(languageStaticDir, "data"), { recursive: true });
   await mkdir(join(sharedRuntimeDir, "static/app"), { recursive: true });
+  await mkdir(join(sharedRuntimeDir, "static/data/interface"), { recursive: true });
   await mkdir(join(sharedRuntimeDir, "static/source"), { recursive: true });
   await writeFile(join(launcherStaticDir, "assets/images/example.png"), "shared-image");
   await writeFile(join(languageStaticDir, "data/example.json"), "language-data");
   await writeFile(join(sharedRuntimeDir, "static/app/index.html"), "shared-app");
+  await writeFile(join(sharedRuntimeDir, "static/data/interface/en.v1.json"), "{}");
   await writeFile(join(sharedRuntimeDir, "static/source/shared-runtime.mjs"), "export {};\n");
   await writeFile(join(sharedRuntimeDir, "app-assets.json"), JSON.stringify({
     schemaVersion: 1,
@@ -40,6 +42,10 @@ async function fixture({
       {
         source: "apps/language-runtime/static/source/course-service-worker.js",
         output: "language-runtime/static/source/course-service-worker.js"
+      },
+      {
+        source: "apps/language-runtime/static/data/interface/en.v1.json",
+        output: "language-runtime/static/data/interface/en.v1.json"
       }
     ]
   }));
@@ -56,6 +62,10 @@ async function fixture({
     platforms: { browser: { enabled: true } },
     resources: {
       appEntry: { path: "apps/language-runtime/static/app/index.html" },
+      interfaceCatalog: {
+        path: "apps/language-runtime/static/data/interface/en.v1.json",
+        revision: "interface-en-1"
+      },
       staticRoot: { path: `apps/languages/${directoryName}/static` },
       setupCatalog: { path: `apps/languages/${directoryName}/static/setup-assets.json` }
     }
@@ -73,7 +83,10 @@ async function fixture({
     offline: {
       cacheName: `caatuu-${directoryName}-pwa-v1`,
       cachePrefix: `caatuu-${directoryName}-pwa-`,
-      assets: ["/language-runtime/static/source/shared-runtime.mjs?v=runtime-1"]
+      assets: [
+        "/language-runtime/static/source/shared-runtime.mjs?v=runtime-1",
+        "/language-runtime/static/data/interface/en.v1.json?v=interface-en-1"
+      ]
     },
     artifacts: [
       { key: "app-entry", kind: "shared-application", url: `${routePrefix}/index.html`, bytes: 0, sha256: "" },
@@ -503,6 +516,48 @@ test("browser setup catalogs close over shared runtime mappings by exact pathnam
   assert.throws(
     () => inspectSetupAssetManifest(remapped),
     /is remapped to language-runtime\/static\/source\/renamed-runtime\.mjs/
+  );
+});
+
+test("browser setup refresh requires the selected interface catalog's exact query revision", async (t) => {
+  const paths = await fixture();
+  t.after(() => rm(paths.workspaceRoot, { recursive: true, force: true }));
+  assert.doesNotThrow(() => inspectSetupAssetManifest(paths));
+
+  const manifest = JSON.parse(await readFile(paths.manifestPath, "utf8"));
+  const catalogIndex = manifest.offline.assets.indexOf(
+    "/language-runtime/static/data/interface/en.v1.json?v=interface-en-1"
+  );
+  assert.notEqual(catalogIndex, -1);
+  manifest.offline.assets[catalogIndex] =
+    "/language-runtime/static/data/interface/en.v1.json?v=interface-en-stale";
+  await writeFile(paths.manifestPath, JSON.stringify(manifest));
+
+  assert.throws(
+    () => inspectSetupAssetManifest(paths),
+    /must cache exact interface catalog URL .*\?v=interface-en-1/u
+  );
+});
+
+test("browser setup refresh never broadens a course to unrelated interface catalogs", async (t) => {
+  const paths = await fixture();
+  t.after(() => rm(paths.workspaceRoot, { recursive: true, force: true }));
+
+  const spanishCatalog = join(paths.sharedRuntimeDir, "static/data/interface/es.v1.json");
+  await writeFile(spanishCatalog, "{}");
+  const appAssetsPath = join(paths.sharedRuntimeDir, "app-assets.json");
+  const appAssets = JSON.parse(await readFile(appAssetsPath, "utf8"));
+  appAssets.assets.push({
+    source: "apps/language-runtime/static/data/interface/es.v1.json",
+    output: "language-runtime/static/data/interface/es.v1.json"
+  });
+  await writeFile(appAssetsPath, JSON.stringify(appAssets));
+
+  refreshSetupAssetManifest(paths);
+  const manifest = JSON.parse(await readFile(paths.manifestPath, "utf8"));
+  assert.deepEqual(
+    manifest.offline.assets.filter((asset) => asset.includes("/static/data/interface/")),
+    ["/language-runtime/static/data/interface/en.v1.json?v=interface-en-1"]
   );
 });
 

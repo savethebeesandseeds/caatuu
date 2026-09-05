@@ -1,6 +1,11 @@
 (() => {
   const UPDATE_INTENT_KEY = "caatuu.pendingAppUpdate.v1";
   const UPDATE_STATUS_FRESH_MS = 3 * 60 * 1000;
+  const interfaceContent = globalThis.CaatuuI18n;
+  if (!interfaceContent || typeof interfaceContent.t !== "function") {
+    throw new Error("Caatuu interface content must be installed before maintenance UI.");
+  }
+  const t = (messageId, parameters = {}) => interfaceContent.t(messageId, parameters);
   let sharedUpdateController = null;
 
   function updateDownloadState(status) {
@@ -57,22 +62,26 @@
     const currentName = String(status?.currentVersionName || "").trim();
     const statusProblem = status?.serverReachable === false || Boolean(status?.updateError);
     button.textContent = busy
-      ? "Checking for updates..."
+      ? t("maintenance.action.checking")
       : available && downloadState === "ready"
-        ? `Install${latestName ? ` ${latestName}` : " update"}`
+        ? latestName
+          ? t("maintenance.action.installversion", { version: latestName })
+          : t("maintenance.action.installupdate")
         : available && downloadState === "active"
-          ? `Downloading ${updateDownloadPercent(status).toFixed(0)}%`
+          ? t("maintenance.action.downloading", { percent: updateDownloadPercent(status).toFixed(0) })
         : available && downloadState === "partial"
-          ? "Resume update"
+          ? t("maintenance.action.resume")
           : available && downloadState === "failed"
-            ? "Retry update"
+            ? t("maintenance.action.retryupdate")
           : available
-            ? `Update${latestName ? ` ${latestName}` : ""}`
+            ? latestName
+              ? t("maintenance.action.updateversion", { version: latestName })
+              : t("maintenance.action.update")
             : statusProblem
-              ? "Retry check"
+              ? t("maintenance.action.retrycheck")
               : checked
-                ? "Up to date"
-                : "Check for updates";
+                ? t("maintenance.action.uptodate")
+                : t("maintenance.action.check");
     button.setAttribute("aria-disabled", button.disabled ? "true" : "false");
     button.setAttribute("aria-busy", busy ? "true" : "false");
     button.classList?.toggle("is-busy", busy);
@@ -82,23 +91,36 @@
       row.classList?.toggle("is-busy", busy);
       const copy = row.querySelector?.("[data-update-app-copy]");
       if (copy && visible) {
+        const latestDisplay = latestName || status?.downloadedVersionName || status?.latestVersionCode || t("maintenance.version.new");
+        const currentDisplay = currentName || status?.currentVersionCode || t("maintenance.version.unknownvalue");
         copy.textContent = busy
-          ? "Contacting the update server. This can take a few seconds."
+          ? t("maintenance.copy.contacting")
           : available && downloadState === "ready"
-            ? `Version ${latestName || status?.downloadedVersionName || status?.latestVersionCode || "new"} is already downloaded and verified. Install it now.`
+            ? t("maintenance.copy.ready", { version: latestDisplay })
             : available && downloadState === "active"
-              ? `Version ${latestName || status?.latestVersionCode || "new"} is downloading in the background (${updateDownloadPercent(status).toFixed(0)}%).`
+              ? t("maintenance.copy.downloading", {
+                version: latestName || status?.latestVersionCode || t("maintenance.version.new"),
+                percent: updateDownloadPercent(status).toFixed(0)
+              })
             : available && downloadState === "partial"
-              ? `${updateDownloadPercent(status).toFixed(0)}% of version ${latestName || status?.latestVersionCode || "new"} is saved. Resume without starting over.`
+              ? t("maintenance.copy.partial", {
+                percent: updateDownloadPercent(status).toFixed(0),
+                version: latestName || status?.latestVersionCode || t("maintenance.version.new")
+              })
               : available && downloadState === "failed"
-                ? "The saved update download stopped. Retry it without losing a valid completed installer."
+                ? t("maintenance.copy.failed")
               : available
-                ? `Version ${latestName || status?.latestVersionCode || "new"} is available. Installed: ${currentName || status?.currentVersionCode || "unknown"}.`
+                ? t("maintenance.copy.available", {
+                  version: latestName || status?.latestVersionCode || t("maintenance.version.new"),
+                  current: currentDisplay
+                })
                 : statusProblem
-                  ? "The last update check did not finish. Try checking again."
+                  ? t("maintenance.copy.checkfailed")
                   : checked
-                    ? `No newer release was found. Caatuu ${currentName || status?.currentVersionCode || "this version"} is up to date.`
-                    : `Installed version ${currentName || status?.currentVersionCode || "unknown"}. Check for a newer version.`;
+                    ? t("maintenance.copy.current", {
+                      version: currentName || status?.currentVersionCode || t("maintenance.version.thisversion")
+                    })
+                    : t("maintenance.copy.installed", { version: currentDisplay });
       }
     }
   }
@@ -150,7 +172,7 @@
 
       confirmedCurrent = false;
       render(currentStatus || { updateAvailable: false, selfUpdateEnabled: true }, { busy: true });
-      if (announce) setMessage("Checking the update server...");
+      if (announce) setMessage(t("maintenance.status.checkingserver"));
       inFlight = runtime.maintenance.updateStatus()
         .then((status) => {
           currentStatus = status;
@@ -170,7 +192,7 @@
           };
           confirmedCurrent = false;
           render(currentStatus);
-          setMessage(`Update check failed. ${currentStatus.updateError}`);
+          setMessage(t("maintenance.status.checkfailed.detail", { detail: currentStatus.updateError }));
           return currentStatus;
         })
         .finally(() => {
@@ -184,14 +206,16 @@
       const status = await refresh({ force: true, announce: true });
       if (!hasNativeAppUpdate(status)) return status;
 
-      setMessage(`Update ${status.latestVersionName || status.latestVersionCode || "available"} is ready for confirmation.`);
+      setMessage(t("maintenance.status.readyforconfirmation", {
+        version: status.latestVersionName || status.latestVersionCode || t("maintenance.version.available")
+      }));
       const confirmed = await confirmAppUpdate(status);
       if (!confirmed) {
-        setMessage("Update postponed. You can start it here whenever you are ready.");
+        setMessage(t("maintenance.status.postponed"));
         return status;
       }
       render(status, { busy: true });
-      setMessage("Opening Setup for the app update...");
+      setMessage(t("maintenance.status.openingsetup"));
       beginAppUpdate(status);
       return status;
     }
@@ -212,33 +236,37 @@
   }
 
   function updateConfirmation(status) {
-    const latest = status?.latestVersionName || status?.latestVersionCode || "the latest version";
-    const current = status?.currentVersionName || status?.currentVersionCode || "unknown";
+    const latest = status?.latestVersionName || status?.latestVersionCode || t("maintenance.version.latest");
+    const current = status?.currentVersionName || status?.currentVersionCode || t("maintenance.version.unknownvalue");
     const downloadState = updateDownloadState(status);
     if (downloadState === "ready") {
       return {
         latest,
         current,
-        title: `Install Caatuu ${latest}?`,
-        versions: `Installed: ${current}. Downloaded and verified: ${latest}.`,
-        action: `Install ${latest}`
+        title: t("maintenance.dialog.install.title", { version: latest }),
+        versions: t("maintenance.dialog.ready.versions", { current, latest }),
+        action: t("maintenance.dialog.install.action", { version: latest })
       };
     }
     if (downloadState === "partial") {
       return {
         latest,
         current,
-        title: `Resume Caatuu ${latest}?`,
-        versions: `Installed: ${current}. Downloaded: ${updateDownloadPercent(status).toFixed(0)}% of ${latest}.`,
-        action: "Resume update"
+        title: t("maintenance.dialog.resume.title", { version: latest }),
+        versions: t("maintenance.dialog.partial.versions", {
+          current,
+          percent: updateDownloadPercent(status).toFixed(0),
+          latest
+        }),
+        action: t("maintenance.action.resume")
       };
     }
     return {
       latest,
       current,
-      title: `Install Caatuu ${latest}?`,
-      versions: `Installed: ${current}. Available: ${latest}.`,
-      action: `Update to ${latest}`
+      title: t("maintenance.dialog.install.title", { version: latest }),
+      versions: t("maintenance.dialog.available.versions", { current, latest }),
+      action: t("maintenance.dialog.update.action", { version: latest })
     };
   }
 
@@ -246,7 +274,10 @@
     const confirmation = updateConfirmation(status);
     const dialog = document.querySelector("#appUpdateConfirmDialog");
     if (!dialog || typeof dialog.showModal !== "function") {
-      return Promise.resolve(window.confirm?.(`Update Caatuu from ${confirmation.current} to ${confirmation.latest}?`) ?? false);
+      return Promise.resolve(window.confirm?.(t("maintenance.dialog.fallback", {
+        current: confirmation.current,
+        latest: confirmation.latest
+      })) ?? false);
     }
 
     const title = dialog.querySelector("#appUpdateConfirmTitle");
@@ -297,48 +328,69 @@
   }
 
   function updateStatusLine(status) {
-    const versionName = status?.currentVersionName || "unknown";
+    const versionName = status?.currentVersionName || t("maintenance.version.unknownvalue");
     const versionCode = status?.currentVersionCode || "?";
     if (status?.selfUpdateEnabled === false) {
-      return `Caatuu ${versionName} (${versionCode}). Updates are managed by the app store.`;
+      return t("maintenance.status.storemanaged", { version: versionName, code: versionCode });
     }
     if (hasNativeAppUpdate(status)) {
-      const latestName = status.latestVersionName || "latest";
+      const latestName = status.latestVersionName || t("maintenance.version.latestvalue");
       const latestCode = status.latestVersionCode || "?";
       const downloadState = updateDownloadState(status);
       if (downloadState === "ready") {
-        return `Caatuu ${latestName} (${latestCode}) is downloaded and verified. It is ready to install.`;
+        return t("maintenance.status.downloaded", { version: latestName, code: latestCode });
       }
       if (downloadState === "active") {
-        return `Caatuu ${latestName} (${latestCode}) is downloading in the background (${updateDownloadPercent(status).toFixed(0)}%).`;
+        return t("maintenance.status.downloading", {
+          version: latestName,
+          code: latestCode,
+          percent: updateDownloadPercent(status).toFixed(0)
+        });
       }
       if (downloadState === "partial") {
-        return `Caatuu ${latestName} (${latestCode}) is ${updateDownloadPercent(status).toFixed(0)}% downloaded and can be resumed.`;
+        return t("maintenance.status.partial", {
+          version: latestName,
+          code: latestCode,
+          percent: updateDownloadPercent(status).toFixed(0)
+        });
       }
       if (downloadState === "failed") {
-        return `The Caatuu ${latestName} (${latestCode}) download stopped and can be retried.`;
+        return t("maintenance.status.failed", { version: latestName, code: latestCode });
       }
-      return `Update available: ${latestName} (${latestCode}). Installed: ${versionName} (${versionCode}).`;
+      return t("maintenance.status.available", {
+        latest: latestName,
+        latestcode: latestCode,
+        current: versionName,
+        currentcode: versionCode
+      });
     }
     if (status?.serverReachable === false || status?.updateError) {
-      const detail = status?.updateError ? ` ${status.updateError}` : "";
-      return `Caatuu ${versionName} (${versionCode}). Could not check for updates.${detail}`;
+      return status?.updateError
+        ? t("maintenance.status.unreachable.detail", {
+          version: versionName,
+          code: versionCode,
+          detail: status.updateError
+        })
+        : t("maintenance.status.unreachable", { version: versionName, code: versionCode });
     }
-    return `Caatuu ${versionName} (${versionCode}). App is up to date.`;
+    return t("maintenance.status.uptodate", { version: versionName, code: versionCode });
   }
 
-  function versionLine(status, fallback = "Version unknown") {
+  function versionLine(status, fallback = t("maintenance.version.unknown")) {
     const versionName = status?.currentVersionName;
     const versionCode = status?.currentVersionCode;
     if (versionName || versionCode) {
-      return `Version ${versionName || "unknown"} (${versionCode || "?"})`;
+      return t("maintenance.version.line", {
+        version: versionName || t("maintenance.version.unknownvalue"),
+        code: versionCode || "?"
+      });
     }
     return fallback;
   }
 
   function setVersionNote(element, status) {
     if (!element) return;
-    const fallback = element.dataset.fallbackVersion || element.textContent.trim() || "Version unknown";
+    const fallback = element.dataset.fallbackVersion || element.textContent.trim() || t("maintenance.version.unknown");
     element.textContent = versionLine(status, fallback);
   }
 
@@ -346,30 +398,46 @@
     if (message?.kind === "progress" && message.phase === "download") {
       const total = Number(message.totalBytes || 0);
       const bytes = Number(message.bytes || 0);
-      const pct = total > 0 ? ` ${(bytes / total * 100).toFixed(1)}%` : "";
-      return `Downloading update ${formatBytes(bytes)} / ${formatBytes(total)}${pct}`;
+      if (total > 0) {
+        return t("maintenance.progress.download.percent", {
+          bytes: formatBytes(bytes),
+          total: formatBytes(total),
+          percent: (bytes / total * 100).toFixed(1)
+        });
+      }
+      return t("maintenance.progress.download", {
+        bytes: formatBytes(bytes),
+        total: formatBytes(total)
+      });
     }
-    if (message?.kind === "status") return message.message || "Preparing update.";
+    if (message?.kind === "status") return t("maintenance.progress.preparing");
     return "";
   }
 
   function updateResultMessage(result) {
-    const installerPrefix = result?.reused
-      ? "Using the already downloaded verified APK. "
-      : result?.resumed
-        ? "Download resumed and verified. "
-        : "";
+    const state = result?.reused ? "reused" : result?.resumed ? "resumed" : "fresh";
     if (result?.action === "settings") {
-      return `${installerPrefix}Android opened install permission settings. Allow installs for Caatuu, then tap Update App again.`;
+      return t(`maintenance.result.settings.${state}`);
     }
-    return `${installerPrefix}Android installer opened. Confirm the update there.`;
+    return t(`maintenance.result.installer.${state}`);
   }
 
-  function cacheResultMessage(result, formatBytes, { storageScopeFallback = "local cache", includeStorageScope = true } = {}) {
+  function cacheResultMessage(result, formatBytes, {
+    storageScopeFallback = t("maintenance.cache.localscope"),
+    includeStorageScope = true
+  } = {}) {
     const updateBytes = result?.updateApk?.bytesDeleted || 0;
-    const updateText = updateBytes > 0 ? ` Cached update APK removed: ${formatBytes(updateBytes)}.` : "";
-    const scope = includeStorageScope ? ` from ${result?.storageScope || storageScopeFallback}` : ` from ${storageScopeFallback}`;
-    return `Cleared ${formatBytes(result?.bytesDeleted || 0)}${scope}.${updateText}`;
+    const scope = includeStorageScope ? result?.storageScope || storageScopeFallback : storageScopeFallback;
+    const parameters = {
+      bytes: formatBytes(result?.bytesDeleted || 0),
+      scope
+    };
+    return updateBytes > 0
+      ? t("maintenance.cache.cleared.withapk", {
+        ...parameters,
+        updatebytes: formatBytes(updateBytes)
+      })
+      : t("maintenance.cache.cleared", parameters);
   }
 
   window.CaatuuMaintenanceUi = Object.freeze({

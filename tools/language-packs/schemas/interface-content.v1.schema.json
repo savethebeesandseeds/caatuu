@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caatuu.org/schemas/interface-content.v1.schema.json",
+  "title": "Caatuu shared interface content catalog v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schemaVersion",
+    "locale",
+    "direction",
+    "revision",
+    "messages"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://caatuu.org/schemas/interface-content.v1.schema.json"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "locale": {
+      "type": "string",
+      "pattern": "^[A-Za-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$"
+    },
+    "direction": {
+      "enum": ["ltr", "rtl"]
+    },
+    "revision": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "messages": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9]*(?:\\.[a-z][a-z0-9]*)+$"
+      },
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "string",
+            "minLength": 1
+          },
+          {
+            "$ref": "#/$defs/pluralMessage"
+          }
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "nonEmptyMessage": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pluralMessage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["other"],
+      "properties": {
+        "zero": { "$ref": "#/$defs/nonEmptyMessage" },
+        "one": { "$ref": "#/$defs/nonEmptyMessage" },
+        "two": { "$ref": "#/$defs/nonEmptyMessage" },
+        "few": { "$ref": "#/$defs/nonEmptyMessage" },
+        "many": { "$ref": "#/$defs/nonEmptyMessage" },
+        "other": { "$ref": "#/$defs/nonEmptyMessage" }
+      }
+    }
+  }
+}

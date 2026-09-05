@@ -286,12 +286,12 @@ test("setup and the service worker declare one complete Spanish offline closure"
     entryPath: "/es/index.html",
     appEntry: "apps/language-runtime/static/app/index.html"
   });
-  assert.equal(setup.offline.cacheName, "caatuu-es-pwa-v9");
+  assert.equal(setup.offline.cacheName, "caatuu-es-pwa-v10");
   assert.equal(setup.offline.cachePrefix, "caatuu-es-pwa-");
-  assert.match(worker, /Offline catalog revision: caatuu-es-pwa-v9/u);
+  assert.match(worker, /Offline catalog revision: caatuu-es-pwa-v10/u);
   assert.match(worker, /importScripts\("\/language-runtime\/static\/source\/course-service-worker\.js"\)/u);
   for (const asset of [
-    "source/shared/course-profile.js?v=course-32",
+    "source/shared/course-profile.js?v=course-33",
     "source/language/adapter.mjs",
     "data/embeddings/catalog.json",
     "data/games/verb-nebula/core-vocabulary.json",
@@ -308,7 +308,16 @@ test("setup and the service worker declare one complete Spanish offline closure"
     "/language-runtime/static/source/games/agreement-aurora/agreement-aurora-host.mjs?v=agreement-aurora-shared-2",
     "/language-runtime/static/styles/games/conjugation-comet.css?v=conjugation-comet-shared-1",
     "/language-runtime/static/styles/games/agreement-aurora.css?v=agreement-aurora-shared-1",
-    "/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-17",
+    "/language-runtime/static/source/app-bootstrap.mjs?v=app-41",
+    "/language-runtime/static/source/interface-content.mjs?v=interface-runtime-1",
+    "/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-1",
+    "/language-runtime/static/source/caatuu-workspace.js?v=workspace-14",
+    "/language-runtime/static/source/maintenance-ui.js?v=maintenance-18",
+    "/language-runtime/static/source/caatuu-chrome.js?v=chrome-143",
+    "/language-runtime/static/source/word-world-host.mjs?v=word-world-host-16",
+    "/language-runtime/static/source/word-world-provider.mjs?v=word-world-provider-19",
+    "/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-18",
+    "/language-runtime/static/data/interface/en.v1.json?v=interface-en-1",
     "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
     "/assets/icons/czech_flag_ui.png",
     "/assets/icons/china_flag.png",

@@ -35,6 +35,21 @@
       flagClass: "cz-flag",
       flagSrc: "/assets/icons/czech_flag_ui.png"
     },
+    languageRoles: {
+      pair: "en->cs-cz",
+      learnerBaseLanguage: "en",
+      interfaceLanguage: "en",
+      targetLanguage: "cs-CZ",
+      auditLanguage: "en",
+      retrievalLanguage: "en"
+    },
+    interfaceContent: {
+      schemaVersion: 1,
+      locale: "en",
+      direction: "ltr",
+      revision: "interface-en-1",
+      catalog: "/language-runtime/static/data/interface/en.v1.json"
+    },
     linguisticFeatures: [
       "verb-conjugation",
       "grammatical-case",

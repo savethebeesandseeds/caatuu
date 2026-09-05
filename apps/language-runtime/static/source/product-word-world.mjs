@@ -37,6 +37,26 @@ const SCENE_CANDIDATE_SEARCH_TIMEOUT_MS = 3600;
 const SCENE_CANDIDATE_LOAD_TIMEOUT_MS = 1200;
 const course = window.CaatuuCourse;
 if (!course) throw new Error("Caatuu course profile must load before Word World.");
+
+function interfaceText(messageId, parameters = {}) {
+  const api = globalThis.CaatuuI18n;
+  if (!api || typeof api.t !== "function") {
+    throw new Error("Word World requires installed interface content.");
+  }
+  const value = api.t(messageId, parameters);
+  if (typeof value !== "string" || !value.trim()) {
+    throw new TypeError(`Word World interface message ${messageId} must resolve to non-empty text.`);
+  }
+  return value;
+}
+
+function interfaceLanguageName(language, fallbackMessageId = "") {
+  const name = globalThis.CaatuuI18n?.languageName?.(language);
+  if (typeof name === "string" && name.trim()) return name.trim();
+  if (fallbackMessageId) return interfaceText(fallbackMessageId);
+  throw new Error("Word World interface content must resolve every visible language name.");
+}
+
 const targetLocale = course.targetLanguage.locale;
 const sourceLocale = course.sourceLanguage?.locale || course.sourceLanguage?.id || "und";
 let sourcePrimaryLanguage = "";
@@ -46,8 +66,8 @@ try {
   sourcePrimaryLanguage = "";
 }
 const targetSpeechLocale = course.targetLanguage.speechLocale || targetLocale;
-const targetLanguageLabel = String(course.targetLanguage.label || "target language").trim();
-const sourceLanguageLabel = String(course.sourceLanguage?.label || "base language").trim();
+const targetLanguageLabel = interfaceLanguageName(course.targetLanguage);
+const sourceLanguageLabel = interfaceLanguageName(course.sourceLanguage);
 let mountRoot = null;
 let providerContext = null;
 let lifecycleOptions = Object.freeze({});
@@ -115,7 +135,7 @@ const dictionaryGapReporting = resolveDictionaryGapReportingContract(course);
 const DICTIONARY_GAP_STORAGE_KEY = dictionaryGapReporting
   ? `${course.storage.namespace}.dictionary.missing.${dictionaryGapReporting.dictionaryKey}.v1`
   : "";
-const DICTIONARY_GAP_NOTICE = "Missing word queued for server review.";
+const DICTIONARY_GAP_NOTICE_ID = "wordworld.dictionary.missingqueued";
 const DICTIONARY_GAP_LIMIT = 80;
 const RECONSTRUCTION_DISTRACTOR_COUNT = 4;
 const SENTENCE_REWARD_LIMIT = 128;
@@ -146,32 +166,69 @@ const PREFETCH_STOPWORDS = new Set([
   "a", "ale", "do", "i", "je", "jsou", "k", "na", "ne", "o", "od", "po", "pro", "se", "si", "s", "u", "v", "ve", "z", "za", "že"
 ]);
 const translationModes = {
-  off: { label: "Off", delayMs: null },
-  "timer-0": { label: "0s", delayMs: 0 },
-  "timer-5": { label: "5s", delayMs: 5000 },
-  "timer-10": { label: "10s", delayMs: 10000 },
-  "timer-30": { label: "30s", delayMs: 30000 },
-  visible: { label: "Visible", delayMs: 0 },
-  reconstruct: { label: "Rebuild", delayMs: null }
+  off: { labelId: "wordworld.mode.answer.off", delayMs: null },
+  "timer-0": { labelId: "wordworld.mode.answer.delayzero", delayMs: 0 },
+  "timer-5": { labelId: "wordworld.mode.answer.delayfive", delayMs: 5000 },
+  "timer-10": { labelId: "wordworld.mode.answer.delayten", delayMs: 10000 },
+  "timer-30": { labelId: "wordworld.mode.answer.delaythirty", delayMs: 30000 },
+  visible: { labelId: "wordworld.mode.answer.visible", delayMs: 0 },
+  reconstruct: { labelId: "wordworld.mode.answer.rebuild", delayMs: null }
 };
 const generationModes = {
-  random: { label: "New word" },
-  selected: { label: "Selected word" }
+  random: { labelId: "wordworld.mode.generation.newword" },
+  selected: { labelId: "wordworld.mode.generation.selectedword" }
 };
 const challengePromptModes = Object.freeze({
-  random: Object.freeze({ label: "Random" }),
-  source: Object.freeze({ label: "Base language" }),
-  target: Object.freeze({ label: "Target language" })
+  random: Object.freeze({ labelId: "wordworld.mode.prompt.random" }),
+  source: Object.freeze({ labelId: "wordworld.mode.prompt.base" }),
+  target: Object.freeze({ labelId: "wordworld.mode.prompt.target" })
 });
 const contentModes = {
-  standard: { label: "Standard", summary: "Curated, guided, and fully offline." },
-  generative: { label: "Generative", summary: "Optional local AI for open-ended sentences." }
+  standard: {
+    labelId: "wordworld.mode.content.standard",
+    summaryId: "wordworld.mode.content.standardsummary"
+  },
+  generative: {
+    labelId: "wordworld.mode.content.generative",
+    summaryId: "wordworld.mode.content.generativesummary"
+  }
 };
 const audioSpeedOptions = Object.freeze([
-  Object.freeze({ key: "slower", label: "Slower", rate: 0.5, rateLabel: "0.5×" }),
-  Object.freeze({ key: "slow", label: "Slow", rate: 0.6, rateLabel: "0.6×" }),
-  Object.freeze({ key: "normal", label: "Normal", rate: 1, rateLabel: "1×" })
+  Object.freeze({ key: "slower", labelId: "speech.speed.slower", rate: 0.5, rateLabel: "0.5×" }),
+  Object.freeze({ key: "slow", labelId: "speech.speed.slow", rate: 0.6, rateLabel: "0.6×" }),
+  Object.freeze({ key: "normal", labelId: "speech.speed.normal", rate: 1, rateLabel: "1×" })
 ]);
+
+function translationModeLabel(mode) {
+  return interfaceText(translationModes[mode]?.labelId || translationModes.reconstruct.labelId);
+}
+
+function generationModeLabel(mode) {
+  return interfaceText(generationModes[mode]?.labelId || generationModes.random.labelId);
+}
+
+function challengePromptModeLabel(mode) {
+  return interfaceText(challengePromptModes[mode]?.labelId || challengePromptModes.random.labelId);
+}
+
+function contentModeLabel(mode) {
+  return interfaceText(contentModes[mode]?.labelId || contentModes.standard.labelId);
+}
+
+function generationAvailabilityMessage(availability) {
+  if (availability?.reason === "course-unsupported") {
+    return interfaceText("wordworld.generative.unavailable.course");
+  }
+  if (availability?.reason === "runtime-disabled") {
+    return interfaceText("wordworld.generative.unavailable.runtime");
+  }
+  return "";
+}
+
+function speechPaceLabel(value) {
+  const key = normalizeWordWorldSpeechPaceKey(value?.key || value?.label || value) || "normal";
+  return interfaceText(audioSpeedOptions.find((option) => option.key === key)?.labelId || "speech.speed.normal");
+}
 
 function normalizeWordWorldSpeechPaceKey(value) {
   const key = String(value || "").trim().toLocaleLowerCase("en-US");
@@ -193,7 +250,9 @@ export function resolveWordWorldSpeechPace(
   };
 }
 
-const playInstruction = "Use the side arrows or swipe to move between sentences. Tap any word for its meaning.";
+function playInstruction() {
+  return interfaceText("wordworld.instructions.play");
+}
 const reconstructionFallbackTexts = [
   "I am here.",
   "You are ready.",
@@ -619,7 +678,11 @@ function guidedWordInteractionLocked() {
   );
 }
 
-function failGuidedWordWorld(error, message = "Guided Word World is locked.") {
+function failGuidedWordWorld(
+  error,
+  messageId = "wordworld.guided.locked",
+  parameters = {}
+) {
   const lifecycle = state.guidedLifecycle;
   if (lifecycle?.abort) {
     void lifecycle.abort().catch((abortError) => {
@@ -628,9 +691,9 @@ function failGuidedWordWorld(error, message = "Guided Word World is locked.") {
   }
   if (state.guidedLifecycle === lifecycle) state.guidedLifecycle = null;
   state.guidedStatus = "failed";
-  state.guidedError = error?.message || String(error || message);
+  state.guidedError = error?.message || String(error || messageId);
   state.guidedEvidencePending = false;
-  setStatus(message, { tone: "error" });
+  setStatus(interfaceText(messageId, parameters), { tone: "error" });
   renderWordGuidedStatus();
   syncGenerationControl();
   syncContentControl();
@@ -655,23 +718,23 @@ function renderWordGuidedStatus() {
   banner.classList.toggle("is-supported", supported);
   if (!state.guidedRequested) return;
   if (state.guidedStatus === "failed") {
-    detail.textContent = `Locked: ${state.guidedError || "curriculum evidence is unavailable"}`;
+    detail.textContent = interfaceText("wordworld.guided.detail.locked");
   } else if (state.guidedStatus === "complete") {
     detail.textContent = supportedBeforeResponse
-      ? "Pilot complete · supported practice, not independent evidence"
+      ? interfaceText("wordworld.guided.detail.completesupported")
       : reviewedAfterResponse
-        ? "Pilot complete · first response recorded independently; solution reviewed afterward"
-      : "Pilot complete · Unit 3 remains locked behind Units 1–2";
+        ? interfaceText("wordworld.guided.detail.completereviewed")
+      : interfaceText("wordworld.guided.detail.completelocked");
   } else if (supportedBeforeResponse) {
-    detail.textContent = "Supported practice · not independent evidence";
+    detail.textContent = interfaceText("wordworld.guided.detail.supported");
   } else if (reviewedAfterResponse) {
-    detail.textContent = "First response recorded independently · solution reviewed afterward";
+    detail.textContent = interfaceText("wordworld.guided.detail.reviewed");
   } else if (lifecycle?.firstResponseRecorded) {
-    detail.textContent = "First response recorded · this one pilot task is closed";
+    detail.textContent = interfaceText("wordworld.guided.detail.recorded");
   } else if (state.guidedStatus === "ready") {
-    detail.textContent = "Unit 3 mechanic pilot · independent comprehension, non-mastery";
+    detail.textContent = interfaceText("wordworld.guided.detail.ready");
   } else {
-    detail.textContent = "Verifying the exact bound content and evidence task…";
+    detail.textContent = interfaceText("wordworld.guided.detail.verifying");
   }
 }
 
@@ -708,8 +771,8 @@ async function restartGuidedWordWorldAfterReset({ resetCompleted = true } = {}) 
   setBusy(true);
   setStatus(
     resetCompleted
-      ? "Preparing the first Guided Word World task again."
-      : "The restart was cancelled. Rechecking the existing Guided task.",
+      ? interfaceText("wordworld.guided.reset.preparing")
+      : interfaceText("wordworld.guided.reset.cancelled"),
     { tone: "active" }
   );
   await initializeGuidedWordWorldMode({ force: true });
@@ -776,7 +839,8 @@ function czechSpeechPace() {
     state.speechPacePreference
   );
   const badge = String(
-    window.CaatuuLearning?.difficultyOption?.(difficulty)?.label || `Level ${difficulty}`
+    window.CaatuuLearning?.difficultyOption?.(difficulty)?.label
+      || interfaceText("common.level.numbered", { level: difficulty })
   );
   return { ...pace, difficulty, badge };
 }
@@ -799,24 +863,24 @@ function saveAudioAutoplay() {
 }
 
 function unavailableSpeechTitle() {
-  if (!androidSpeechRuntime()) return "This browser does not expose built-in speech synthesis.";
+  if (!androidSpeechRuntime()) return interfaceText("speech.unavailable.browser");
   if (state.nativeSpeechReason === "missing-language-data") {
-    return `Install or enable a ${targetLanguageLabel} voice in Android text-to-speech settings.`;
+    return interfaceText("speech.unavailable.androidmissingdata", { language: targetLanguageLabel });
   }
   if (state.nativeSpeechReason === "no-language-voice") {
-    return `The selected Android text-to-speech engine does not provide a ${targetLanguageLabel} voice.`;
+    return interfaceText("speech.unavailable.androidnovoice", { language: targetLanguageLabel });
   }
-  return "Android text-to-speech is not ready on this device.";
+  return interfaceText("speech.unavailable.androidnotready");
 }
 
 function unavailableSpeechLabel() {
   if (state.nativeSpeechReason === "missing-language-data") {
-    return `${targetLanguageLabel} pronunciation unavailable; install or enable a ${targetLanguageLabel} voice in Android text-to-speech settings`;
+    return interfaceText("speech.unavailable.labelmissingdata", { language: targetLanguageLabel });
   }
   if (state.nativeSpeechReason === "no-language-voice") {
-    return `${targetLanguageLabel} pronunciation unavailable; select an Android text-to-speech engine with a ${targetLanguageLabel} voice`;
+    return interfaceText("speech.unavailable.labelnovoice", { language: targetLanguageLabel });
   }
-  return `${targetLanguageLabel} pronunciation unavailable on this device`;
+  return interfaceText("speech.unavailable.labeldevice", { language: targetLanguageLabel });
 }
 
 function syncSpeechControl() {
@@ -825,26 +889,29 @@ function syncSpeechControl() {
   if (!sentenceButton && !wordButton) return;
 
   const speechPace = czechSpeechPace();
-  const paceDescription = `${speechPace.label} speed`;
+  const paceDescription = interfaceText("speech.speed.description", { speed: speechPaceLabel(speechPace) });
   const supported = speechControlSupported();
   const checking = Boolean(androidSpeechRuntime() && state.nativeSpeechStatusPending);
   const hasSentence = Boolean(String(state.currentSentence || "").trim());
   const speaking = state.speechState === "speaking" && Boolean(state.speechSession);
   const sentenceSpeaking = speaking && state.speechSource === "sentence";
-  let sentenceLabel = `Play ${targetLanguageLabel} sentence aloud — ${paceDescription}`;
+  let sentenceLabel = interfaceText("speech.sentence.play", {
+    language: targetLanguageLabel,
+    speed: paceDescription
+  });
   let sentenceTitle = sentenceLabel;
 
   if (checking) {
-    sentenceLabel = `Checking ${targetLanguageLabel} pronunciation support`;
-    sentenceTitle = `Checking the device's ${targetLanguageLabel} text-to-speech voice.`;
+    sentenceLabel = interfaceText("speech.pronunciation.checking", { language: targetLanguageLabel });
+    sentenceTitle = interfaceText("speech.pronunciation.checkingtitle", { language: targetLanguageLabel });
   } else if (!supported) {
     sentenceLabel = unavailableSpeechLabel();
     sentenceTitle = unavailableSpeechTitle();
   } else if (state.busy || !hasSentence) {
-    sentenceLabel = `${targetLanguageLabel} pronunciation will be available when the sentence is ready`;
-    sentenceTitle = `Wait for the ${targetLanguageLabel} sentence to finish loading.`;
+    sentenceLabel = interfaceText("speech.sentence.waitlabel", { language: targetLanguageLabel });
+    sentenceTitle = interfaceText("speech.sentence.waittitle", { language: targetLanguageLabel });
   } else if (sentenceSpeaking) {
-    sentenceLabel = `Stop ${targetLanguageLabel} sentence pronunciation`;
+    sentenceLabel = interfaceText("speech.sentence.stop", { language: targetLanguageLabel });
     sentenceTitle = sentenceLabel;
   }
 
@@ -866,20 +933,23 @@ function syncSpeechControl() {
   const wordAvailable = Boolean(selectedWord) && state.translationMode !== "off";
   const wordSpeaking = speaking && state.speechSource === "word";
   let wordLabel = selectedWord
-    ? `Play “${selectedWord}” aloud — ${paceDescription}`
-    : `Play selected ${targetLanguageLabel} word aloud — ${paceDescription}`;
+    ? interfaceText("speech.word.play", { word: selectedWord, speed: paceDescription })
+    : interfaceText("speech.word.playselected", {
+        language: targetLanguageLabel,
+        speed: paceDescription
+      });
   let wordTitle = wordLabel;
   if (checking) {
-    wordLabel = `Checking ${targetLanguageLabel} pronunciation support`;
-    wordTitle = `Checking the device's ${targetLanguageLabel} text-to-speech voice.`;
+    wordLabel = interfaceText("speech.pronunciation.checking", { language: targetLanguageLabel });
+    wordTitle = interfaceText("speech.pronunciation.checkingtitle", { language: targetLanguageLabel });
   } else if (!supported) {
     wordLabel = unavailableSpeechLabel();
     wordTitle = unavailableSpeechTitle();
   } else if (state.busy || !wordAvailable) {
-    wordLabel = `Select a ${targetLanguageLabel} word to hear it`;
+    wordLabel = interfaceText("speech.word.select", { language: targetLanguageLabel });
     wordTitle = wordLabel;
   } else if (wordSpeaking) {
-    wordLabel = `Stop pronunciation of “${selectedWord}”`;
+    wordLabel = interfaceText("speech.word.stop", { word: selectedWord });
     wordTitle = wordLabel;
   }
   if (wordButton) {
@@ -903,19 +973,28 @@ function syncAudioSettingsControl() {
   const autoplay = $("#wordNetAudioAutoplay");
   const speed = $("#wordNetAudioSpeed");
   const pace = czechSpeechPace();
-  const paceDescription = `${pace.label} speed`;
+  const paceDescription = interfaceText("speech.speed.description", { speed: speechPaceLabel(pace) });
   if (toggle) {
     toggle.dataset.speechPace = pace.label;
     toggle.dataset.speechPaceSource = pace.source;
     toggle.dataset.speechRate = String(pace.rate);
-    toggle.setAttribute("aria-label", `${targetLanguageLabel} audio settings. Current: ${paceDescription}.`);
-    toggle.title = `${targetLanguageLabel} audio settings — ${paceDescription}`;
+    toggle.setAttribute("aria-label", interfaceText("speech.settings.current", {
+      language: targetLanguageLabel,
+      speed: paceDescription
+    }));
+    toggle.title = interfaceText("speech.settings.title", {
+      language: targetLanguageLabel,
+      speed: paceDescription
+    });
   }
   const paceIndex = Math.max(0, audioSpeedOptions.findIndex((option) => option.key === pace.key));
   const paceOption = audioSpeedOptions[paceIndex];
   if (speed) {
     speed.value = String(paceIndex);
-    speed.setAttribute("aria-valuetext", `${paceOption.label}, ${paceOption.rateLabel} speed`);
+    speed.setAttribute("aria-valuetext", interfaceText("speech.speed.value", {
+      speed: interfaceText(paceOption.labelId),
+      rate: paceOption.rateLabel
+    }));
     speed.style.setProperty("--audio-speed-progress", `${paceIndex * 50}%`);
   }
   if (autoplay) autoplay.setAttribute("aria-checked", String(state.audioAutoplay));
@@ -928,13 +1007,13 @@ async function refreshAudioVoiceOptions() {
   const api = window.CaatuuChrome;
   if (!select || !api?.listSpeechVoiceOptions) return;
   select.disabled = true;
-  if (status) status.textContent = `Checking ${targetLanguageLabel} voices...`;
+  if (status) status.textContent = interfaceText("speech.voices.checking", { language: targetLanguageLabel });
   try {
     const result = api.getSpeechVoiceControlState
       ? await api.getSpeechVoiceControlState()
       : await api.listSpeechVoiceOptions();
     const preferred = preferredSpeechVoice();
-    const options = [new Option("Automatic (recommended)", "")];
+    const options = [new Option(interfaceText("speech.voices.automatic"), "")];
     for (const voice of result?.voices || []) {
       options.push(new Option(
         `${voice.name}${voice.locale ? ` · ${voice.locale}` : ""}`,
@@ -951,8 +1030,8 @@ async function refreshAudioVoiceOptions() {
       status.textContent = api.describeSpeechVoiceState
         ? api.describeSpeechVoiceState(result)
         : (result?.available
-          ? `${targetLanguageLabel} voice ready.`
-          : `${targetLanguageLabel} voice unavailable.`);
+          ? interfaceText("speech.voices.ready", { language: targetLanguageLabel })
+          : interfaceText("speech.voices.unavailable", { language: targetLanguageLabel }));
     }
     if (installButton) {
       installButton.hidden = result?.backend !== "android" || result?.canInstallVoice !== true;
@@ -960,7 +1039,7 @@ async function refreshAudioVoiceOptions() {
     }
   } catch (error) {
     select.disabled = true;
-    if (status) status.textContent = `Unable to check ${targetLanguageLabel} voices.`;
+    if (status) status.textContent = interfaceText("speech.voices.checkfailed", { language: targetLanguageLabel });
     if (installButton) installButton.hidden = true;
   }
 }
@@ -987,16 +1066,16 @@ async function installCzechVoiceFromAudioMenu() {
   const install = sharedCzechSpeechApi()?.install;
   if (!button || button.disabled || !install || !androidSpeechRuntime()) return;
   button.disabled = true;
-  if (status) status.textContent = "Opening Android voice installation...";
+  if (status) status.textContent = interfaceText("speech.install.opening");
   try {
     const result = await install();
     if (status) {
       status.textContent = result?.launched === false
-        ? `Open Android speech settings to add a ${targetLanguageLabel} voice.`
-        : `Finish adding the ${targetLanguageLabel} voice in Android, then return here.`;
+        ? interfaceText("speech.install.openmanually", { language: targetLanguageLabel })
+        : interfaceText("speech.install.finish", { language: targetLanguageLabel });
     }
   } catch (error) {
-    if (status) status.textContent = "Android could not open its voice installation settings.";
+    if (status) status.textContent = interfaceText("speech.install.failed");
   } finally {
     button.disabled = false;
     void refreshAndroidSpeechStatus({ force: true });
@@ -1007,14 +1086,17 @@ function syncDisplaySettingsControl() {
   const toggle = $("#wordNetDisplayToggle");
   const theme = document.documentElement.dataset.theme === "dark" ? "dark" : "light";
   const fontSize = document.documentElement.dataset.fontSize || "largest";
-  const themeLabel = theme === "dark" ? "Dark" : "Light";
+  const themeLabel = interfaceText(theme === "dark" ? "common.theme.dark" : "common.theme.light");
   const fontSizeLabel = {
-    largest: "Standard",
-    large: "Small",
-    standard: "Smaller"
-  }[fontSize] || "Standard";
+    largest: "wordworld.display.text.standard",
+    large: "wordworld.display.text.small",
+    standard: "wordworld.display.text.smaller"
+  }[fontSize] || "wordworld.display.text.standard";
   if (toggle) {
-    const label = `Display settings. Current: ${themeLabel} theme, ${fontSizeLabel} text.`;
+    const label = interfaceText("wordworld.display.current", {
+      theme: themeLabel,
+      size: interfaceText(fontSizeLabel)
+    });
     toggle.setAttribute("aria-label", label);
     toggle.title = label;
   }
@@ -1128,7 +1210,7 @@ function cancelCzechSpeech({ force = false } = {}) {
 
 function reportCzechSpeechFailure() {
   setStatus(
-    `This device could not pronounce the ${targetLanguageLabel} text. Check its ${targetLanguageLabel} text-to-speech voice and try again.`,
+    interfaceText("speech.pronunciation.failed", { language: targetLanguageLabel }),
     { tone: "error" }
   );
 }
@@ -1376,8 +1458,15 @@ function initializeSpeechControl() {
     syncSpeechControl();
     setStatus(
       pace.source === "override"
-        ? `${targetLanguageLabel} audio now uses manual ${pace.label} speed.`
-        : `${pace.badge} controls ${targetLanguageLabel} audio at ${pace.label} speed.`,
+        ? interfaceText("speech.pace.manual", {
+            language: targetLanguageLabel,
+            speed: speechPaceLabel(pace)
+          })
+        : interfaceText("speech.pace.difficulty", {
+            level: pace.badge,
+            language: targetLanguageLabel,
+            speed: speechPaceLabel(pace)
+          }),
       { tone: "active" }
     );
   });
@@ -1687,11 +1776,11 @@ async function restoreSavedGenerativePhraseAtInit() {
     const sceneReady = updateSceneAsset(saved.sceneQuery || saved.en || localTranslation(saved.sentence, saved.word));
     await Promise.all([holdSentenceTransition(transitionStartedAt), sceneReady]);
     if (requestId === state.phraseRequestId) {
-      setStatus("Saved Generative sentence restored. Press Next when you want a new one.", { tone: "muted" });
+      setStatus(interfaceText("wordworld.history.generativerestored"), { tone: "muted" });
     }
   } catch (error) {
     if (requestId === state.phraseRequestId) {
-      setStatus("The saved sentence could not be restored.", { tone: "error" });
+      setStatus(interfaceText("wordworld.history.restorefailed"), { tone: "error" });
     }
   } finally {
     if (requestId === state.phraseRequestId) setBusy(false);
@@ -1765,13 +1854,13 @@ function currentReconstructionInstruction(round = state.reconstruction) {
   const answerLabel = answerSide === "target"
     ? targetLanguageLabel
     : answerSide === "source"
-      ? String(course.sourceLanguage?.label || "base-language").trim()
+      ? sourceLanguageLabel
       : "other-language";
-  return `Build the ${answerLabel} sentence. Submit, then swipe to continue.`;
+  return interfaceText("wordworld.instructions.rebuild", { language: answerLabel });
 }
 
 function currentPlayInstruction() {
-  return state.translationMode === "reconstruct" ? currentReconstructionInstruction() : playInstruction;
+  return state.translationMode === "reconstruct" ? currentReconstructionInstruction() : playInstruction();
 }
 
 function syncPlayInstruction() {
@@ -1782,7 +1871,7 @@ function syncPlayInstruction() {
 function setStatus(message, { tone = "muted" } = {}) {
   const status = $("#wordNetStatus");
   const panel = $(".word-net-status-panel");
-  const isRestingInstruction = message === playInstruction || message === currentReconstructionInstruction();
+  const isRestingInstruction = message === playInstruction() || message === currentReconstructionInstruction();
   syncPlayInstruction();
   if (status) {
     status.textContent = isRestingInstruction ? "" : targetLanguageCopy(message);
@@ -1793,39 +1882,45 @@ function setStatus(message, { tone = "muted" } = {}) {
 }
 
 function diagnosticsPhase() {
-  if (state.standardCorpusLoading) return "loading corpus";
+  if (state.standardCorpusLoading) return "loading-corpus";
   if (state.busy) return "generating";
   if (state.backgroundActivity === "translation") return "translating";
-  if (state.backgroundActivity === "translation-batch") return "translating queue";
+  if (state.backgroundActivity === "translation-batch") return "translating-queue";
   if (state.backgroundActivity === "prefetch") return "prefetching";
-  if (state.prefetchTimerId) return "prefetch queued";
+  if (state.prefetchTimerId) return "prefetch-queued";
   return state.currentSentence ? "ready" : "starting";
 }
 
+function diagnosticsPhaseLabel(phase) {
+  return interfaceText(`wordworld.diagnostics.phase.${String(phase).replaceAll("-", "")}`);
+}
+
 function diagnosticsModel(phase) {
-  if (state.contentMode === "standard") return "none · curated corpus";
-  if (runtimeAdapter()?.env !== "android") return "browser fallback";
-  if (phase === "translating" || phase === "translating queue") return "Czech → English Qwen";
+  if (state.contentMode === "standard") return interfaceText("wordworld.diagnostics.model.curated");
+  if (runtimeAdapter()?.env !== "android") return interfaceText("wordworld.diagnostics.model.browserfallback");
+  if (phase === "translating" || phase === "translating-queue") return "Czech → English Qwen";
   return "Word Sentence CZ";
 }
 
 function diagnosticsSource() {
-  const labels = {
-    "browser-fallback": "browser fallback",
-    "error-fallback": "error fallback",
-    "validated-fallback": "validated fallback",
-    "saved-queue": "saved queue",
-    "standard-corpus": "guided corpus",
-    native: "native model",
-    history: "history"
+  const labelIds = {
+    "browser-fallback": "wordworld.diagnostics.source.browserfallback",
+    "error-fallback": "wordworld.diagnostics.source.errorfallback",
+    "validated-fallback": "wordworld.diagnostics.source.validatedfallback",
+    "saved-queue": "wordworld.diagnostics.source.savedqueue",
+    "standard-corpus": "wordworld.diagnostics.source.guidedcorpus",
+    native: "wordworld.diagnostics.source.nativemodel",
+    history: "wordworld.diagnostics.source.history"
   };
-  const source = labels[state.currentGenerationSource] || state.currentGenerationSource || "—";
+  const source = labelIds[state.currentGenerationSource]
+    ? interfaceText(labelIds[state.currentGenerationSource])
+    : state.currentGenerationSource || "—";
   if (state.currentGenerationSource !== "standard-corpus" || !state.semanticSelectionMode) return source;
-  const semantic = {
-    embedding: "English MiniLM",
-    lexical: "English lexical fallback",
-    provider: "target index fallback"
-  }[state.semanticSelectionMode] || "target index fallback";
+  const semantic = state.semanticSelectionMode === "embedding"
+    ? "English MiniLM"
+    : interfaceText(state.semanticSelectionMode === "lexical"
+      ? "wordworld.diagnostics.semantic.englishlexical"
+      : "wordworld.diagnostics.semantic.targetindex");
   return `${source} · ${semantic}`;
 }
 
@@ -1835,22 +1930,31 @@ function syncDiagnostics() {
   const queueSize = state.branchQueue.size;
   const queueFresh = state.branchQueue.freshSize;
   const queueCapacity = state.branchQueue.capacity;
-  const generationMode = generationModes[state.generationMode]?.label || generationModes.random.label;
-  const contentMode = contentModes[state.contentMode]?.label || contentModes.standard.label;
+  const generationMode = generationModeLabel(state.generationMode);
+  const contentMode = contentModeLabel(state.contentMode);
   const difficulty = learningDifficulty();
   const standardCounts = state.standardProvider?.difficultyCounts?.() || { 1: 0, 2: 0, 3: 0 };
   const eligibleStandard = standardCounts[1]
     + (difficulty >= 2 ? standardCounts[2] : 0)
     + (difficulty >= 3 ? standardCounts[3] : 0);
   const history = state.historyCursor
-    ? `${state.history.length} · back ${state.historyCursor}`
+    ? interfaceText("wordworld.diagnostics.history.back", {
+        count: state.history.length,
+        offset: state.historyCursor
+      })
     : String(state.history.length);
   const values = {
-    wordNetMetaPhase: phase,
+    wordNetMetaPhase: diagnosticsPhaseLabel(phase),
     wordNetMetaModel: diagnosticsModel(phase),
     wordNetMetaQueue: state.contentMode === "standard"
-      ? `${eligibleStandard} eligible · ${state.standardProvider?.usage?.entries?.size || 0} seen`
-      : `${queueFresh} fresh · ${queueSize} saved`,
+      ? interfaceText("wordworld.diagnostics.pool.standard", {
+          eligible: eligibleStandard,
+          seen: state.standardProvider?.usage?.entries?.size || 0
+        })
+      : interfaceText("wordworld.diagnostics.pool.generative", {
+          fresh: queueFresh,
+          saved: queueSize
+        }),
     wordNetMetaMode: `${contentMode} · ${generationMode} · L${difficulty}`,
     wordNetMetaSource: diagnosticsSource(),
     wordNetMetaHistory: history
@@ -1860,12 +1964,27 @@ function syncDiagnostics() {
     if (node) node.textContent = value;
   }
   const poolLabel = $("#wordNetMetaPoolLabel");
-  if (poolLabel) poolLabel.textContent = state.contentMode === "standard" ? "corpus" : "queue";
+  if (poolLabel) {
+    poolLabel.textContent = interfaceText(state.contentMode === "standard"
+      ? "wordworld.diagnostics.pool.corpus"
+      : "wordworld.diagnostics.pool.queue");
+  }
   const summary = $("#wordNetDiagnosticsSummary");
   if (summary) {
     summary.textContent = state.contentMode === "standard"
-      ? `${phase} · Standard · L${difficulty} · ${eligibleStandard} eligible`
-      : `${phase} · ${runtime} · queue ${queueFresh}/${queueSize} · cap ${queueCapacity}`;
+      ? interfaceText("wordworld.diagnostics.summary.standard", {
+          phase: diagnosticsPhaseLabel(phase),
+          mode: contentModeLabel("standard"),
+          level: difficulty,
+          eligible: eligibleStandard
+        })
+      : interfaceText("wordworld.diagnostics.summary.generative", {
+          phase: diagnosticsPhaseLabel(phase),
+          runtime,
+          fresh: queueFresh,
+          saved: queueSize,
+          capacity: queueCapacity
+        });
   }
 }
 
@@ -2000,7 +2119,7 @@ function markGuidedDictionaryHint() {
     renderWordGuidedStatus();
     return true;
   } catch (error) {
-    failGuidedWordWorld(error, "The dictionary hint stayed hidden because support could not be recorded.");
+    failGuidedWordWorld(error, "wordworld.guided.dictionarysavefailed");
     return false;
   }
 }
@@ -2174,15 +2293,15 @@ function syncGenerationControl() {
   const mode = hasGenerationMode(state.generationMode) ? state.generationMode : "random";
   if (mode !== state.generationMode) state.generationMode = mode;
   const config = generationModes[mode];
-  const selectedModeLabel = config.label;
+  const selectedModeLabel = generationModeLabel(mode);
   icon?.querySelectorAll("[data-generation-icon]").forEach((generationIcon) => {
     generationIcon.toggleAttribute("hidden", generationIcon.dataset.generationIcon !== mode);
   });
   if (button) {
     button.disabled = state.busy || state.guidedRequested;
-    const label = mode === "selected" ? selectedModeLabel : config.label;
-    button.setAttribute("aria-label", `Generation options. Current: ${label}.`);
-    button.setAttribute("title", `Generation: ${label}`);
+    const label = mode === "selected" ? selectedModeLabel : generationModeLabel(mode);
+    button.setAttribute("aria-label", interfaceText("wordworld.generation.current", { mode: label }));
+    button.setAttribute("title", interfaceText("wordworld.generation.title", { mode: label }));
   }
   document.querySelectorAll("[data-generation-mode]").forEach((option) => {
     const optionMode = option.dataset.generationMode;
@@ -2193,14 +2312,14 @@ function syncGenerationControl() {
       || state.guidedRequested
       || (optionMode === "selected" && !normalizeWord(state.selectedWord));
     const label = option.querySelector("[data-generation-label]");
-    if (label) label.textContent = generationModes[optionMode]?.label || generationModes.selected.label;
+    if (label) label.textContent = generationModeLabel(optionMode);
   });
   const configuredPromptMode = hasChallengePromptMode(state.challengePromptMode)
     ? state.challengePromptMode
     : "random";
   const promptMode = sourcePrimaryLanguage === "en" ? configuredPromptMode : "source";
   if (promptMode !== state.challengePromptMode) state.challengePromptMode = promptMode;
-  const sourceLabel = String(course.sourceLanguage?.label || "Base language").trim();
+  const sourceLabel = sourceLanguageLabel;
   document.querySelectorAll("[data-challenge-prompt-mode]").forEach((option) => {
     const optionMode = option.dataset.challengePromptMode;
     const selected = optionMode === promptMode;
@@ -2213,18 +2332,21 @@ function syncGenerationControl() {
     const label = option.querySelector("[data-challenge-prompt-label]");
     if (label) {
       label.textContent = optionMode === "source"
-        ? `${sourceLabel} prompt`
+        ? interfaceText("wordworld.prompt.language", { language: sourceLabel })
         : optionMode === "target"
-          ? `${targetLanguageLabel} prompt`
-          : "Random";
+          ? interfaceText("wordworld.prompt.language", { language: targetLanguageLabel })
+          : challengePromptModeLabel("random");
     }
     const summary = option.querySelector("small");
     if (summary) {
       summary.textContent = optionMode === "source"
-        ? `Arrange ${targetLanguageLabel}`
+        ? interfaceText("wordworld.prompt.arrange", { language: targetLanguageLabel })
         : optionMode === "target"
-          ? `Arrange ${sourceLabel}`
-          : `${sourceLabel} or ${targetLanguageLabel}`;
+          ? interfaceText("wordworld.prompt.arrange", { language: sourceLabel })
+          : interfaceText("wordworld.prompt.either", {
+              source: sourceLabel,
+              target: targetLanguageLabel
+            });
     }
   });
   syncDiagnostics();
@@ -2238,6 +2360,7 @@ function learningDifficulty() {
 function syncContentControl() {
   const mode = hasContentMode(state.contentMode) ? state.contentMode : "standard";
   const generative = generationAvailability();
+  const generativeMessage = generationAvailabilityMessage(generative);
   if (mode !== state.contentMode) state.contentMode = mode;
   document.querySelectorAll("[data-content-mode]").forEach((button) => {
     const buttonMode = button.dataset.contentMode;
@@ -2247,20 +2370,23 @@ function syncContentControl() {
     button.setAttribute("aria-pressed", selected ? "true" : "false");
     button.disabled = state.busy || state.guidedRequested || !supportsContentMode(buttonMode);
     button.setAttribute("aria-disabled", String(button.disabled || runtimeDisabled));
-    button.title = runtimeDisabled ? generative.message : "";
+    button.title = runtimeDisabled ? generativeMessage : "";
   });
   const note = $("#wordNetGenerativeNote");
   if (note) {
     note.textContent = generative.enabled
-      ? "Optional local AI requires an initial download."
-      : generative.message;
+      ? interfaceText("wordworld.generative.downloadrequired")
+      : generativeMessage;
     note.hidden = !generative.supported || (generative.enabled && mode !== "generative");
   }
   const control = $("#wordNetContentSource");
   if (control) {
     control.setAttribute(
       "aria-label",
-      `Sentence source. Current: ${contentModes[mode].label}.${generative.supported && !generative.enabled ? ` ${generative.message}` : ""}`
+      interfaceText("wordworld.content.current", {
+        mode: contentModeLabel(mode),
+        note: generative.supported && !generative.enabled ? ` ${generativeMessage}` : ""
+      })
     );
   }
   syncDiagnostics();
@@ -2381,7 +2507,8 @@ async function initializeStandardCorpus() {
       state.standardProvider = createControllerSelectionProvider(providerContext?.selectionProvider);
       return state.standardProvider;
     } catch (error) {
-      state.standardCorpusError = error?.message || "The curated sentence pack is unavailable.";
+      console.error("Word World curated sentence pack could not initialize", error);
+      state.standardCorpusError = interfaceText("wordworld.standard.unavailable");
       return null;
     } finally {
       state.standardCorpusLoading = false;
@@ -2409,7 +2536,10 @@ async function setContentMode(mode) {
     if (mode === "standard" && !state.standardProvider) {
       const provider = await initializeStandardCorpus();
       if (state.contentMode !== mode) return;
-      setStatus(provider ? "Standard is ready." : state.standardCorpusError, { tone: provider ? "active" : "error" });
+      setStatus(
+        provider ? interfaceText("wordworld.standard.ready") : state.standardCorpusError,
+        { tone: provider ? "active" : "error" }
+      );
     }
     return;
   }
@@ -2422,10 +2552,10 @@ async function setContentMode(mode) {
     const provider = await initializeStandardCorpus();
     if (state.contentMode !== mode) return;
     setStatus(provider
-      ? "Standard is ready. The next sentence comes from the guided corpus."
+      ? interfaceText("wordworld.standard.readynext")
       : state.standardCorpusError, { tone: provider ? "active" : "error" });
   } else {
-    setStatus("Generative uses optional local models (about 1.9 GB). They download only after you request a new sentence.", { tone: "active" });
+    setStatus(interfaceText("wordworld.generative.explanation"), { tone: "active" });
   }
 }
 
@@ -2438,19 +2568,25 @@ function configureGenerativeDialog(mode, availability = generationAvailability()
   const cancelButton = dialog.querySelector('button[value="cancel"]');
   const continueButton = dialog.querySelector('button[value="confirm"]');
   const disabled = mode === "disabled";
-  if (title) title.textContent = disabled ? "Generative local AI is disabled" : "Prepare Generative mode?";
+  if (title) {
+    title.textContent = disabled
+      ? interfaceText("wordworld.generative.dialog.disabledtitle")
+      : interfaceText("wordworld.generative.dialog.title");
+  }
   if (description) {
     description.textContent = disabled
-      ? availability.message
-      : "The first use downloads about 1.9 GB of models to this device and may take several minutes. Wi-Fi is recommended.";
+      ? generationAvailabilityMessage(availability)
+      : interfaceText("wordworld.generative.dialog.description");
   }
   if (note) {
     note.textContent = disabled
-      ? "Standard mode remains available offline."
-      : "Nothing downloads yet. The download starts only when you ask for a new Generative sentence; Standard remains available offline.";
+      ? interfaceText("wordworld.generative.dialog.disablednote")
+      : interfaceText("wordworld.generative.dialog.note");
   }
   if (cancelButton) cancelButton.hidden = disabled;
-  if (continueButton) continueButton.textContent = disabled ? "Close" : "Continue";
+  if (continueButton) {
+    continueButton.textContent = interfaceText(disabled ? "common.action.close" : "common.action.continue");
+  }
   dialog.dataset.mode = mode;
   return dialog;
 }
@@ -2459,7 +2595,7 @@ function showGenerativeUnavailablePrompt() {
   const availability = generationAvailability();
   const dialog = configureGenerativeDialog("disabled", availability);
   if (!dialog || typeof dialog.showModal !== "function") {
-    window.alert?.(availability.message);
+    window.alert?.(generationAvailabilityMessage(availability));
     return;
   }
   if (!dialog.open) dialog.showModal();
@@ -2469,7 +2605,7 @@ function confirmGenerativeMode() {
   const dialog = configureGenerativeDialog("confirmation");
   if (!dialog || typeof dialog.showModal !== "function") {
     return Promise.resolve(window.confirm(
-      "Generative mode may download about 1.9 GB of local AI models and can take several minutes. Continue?"
+      interfaceText("wordworld.generative.confirm")
     ));
   }
   if (dialog.open) return Promise.resolve(false);
@@ -2532,7 +2668,7 @@ function generateFromConfiguredMode(mode = state.generationMode, { force = false
   if (mode === "selected") {
     const selectedWord = normalizeWord(state.selectedWord);
     if (!selectedWord) {
-      setStatus("Tap a word before using selected-word generation.", { tone: "muted" });
+      setStatus(interfaceText("wordworld.generation.selectfirst"), { tone: "muted" });
       return;
     }
     state.generativeTurnActive = true;
@@ -2561,14 +2697,14 @@ async function generateStandardFromConfiguredMode(mode = state.generationMode, {
   if (state.guidedRequested) return;
   if (state.busy && !allowBusy) return;
   if (mode === "selected" && !normalizeWord(state.selectedWord)) {
-    setStatus("Tap a word before using selected-word mode.", { tone: "muted" });
+    setStatus(interfaceText("wordworld.generation.selectfirst"), { tone: "muted" });
     return;
   }
   const phraseRequestId = state.phraseRequestId;
   const provider = state.standardProvider || await initializeStandardCorpus();
   if (state.contentMode !== "standard" || phraseRequestId !== state.phraseRequestId) return;
   if (!provider) {
-    setStatus(state.standardCorpusError || "The curated sentence pack is unavailable.", { tone: "error" });
+    setStatus(state.standardCorpusError || interfaceText("wordworld.standard.unavailable"), { tone: "error" });
     return;
   }
   const difficulty = learningDifficulty();
@@ -2578,7 +2714,7 @@ async function generateStandardFromConfiguredMode(mode = state.generationMode, {
   );
   if (ownsSemanticBusy) {
     setBusy(true);
-    setStatus("Ranking guided sentences by English meaning.", { tone: "active" });
+    setStatus(interfaceText("wordworld.standard.rankingenglish"), { tone: "active" });
   }
   const outcome = await runOwnedSemanticSelection({
     select: () => selectStandardTurn(provider, {
@@ -2602,7 +2738,7 @@ async function generateStandardFromConfiguredMode(mode = state.generationMode, {
     onSelectionError(error) {
       state.semanticSelectionMode = mode === "selected" ? "provider" : "";
       console.warn("Word World sentence selection failed.", error);
-      setStatus("Could not choose a guided sentence. Please try again.", { tone: "error" });
+      setStatus(interfaceText("wordworld.standard.selectionfailed"), { tone: "error" });
     }
   });
   if (outcome.error || outcome.skipped || outcome.presented) return;
@@ -2611,12 +2747,15 @@ async function generateStandardFromConfiguredMode(mode = state.generationMode, {
   if (!selection?.record) {
     if (mode === "selected") {
       setStatus(
-        `No other Level ${difficulty} Standard sentence uses "${state.selectedWord}". Choose Random for a different guided sentence.`,
+        interfaceText("wordworld.standard.nomatching", {
+          level: difficulty,
+          word: state.selectedWord
+        }),
         { tone: "active" }
       );
       return;
     }
-    setStatus(`No Standard sentences are available for Level ${difficulty}.`, { tone: "error" });
+    setStatus(interfaceText("wordworld.standard.none", { level: difficulty }), { tone: "error" });
     return;
   }
 }
@@ -2635,7 +2774,7 @@ async function showStandardPhrase(selection, {
   try {
     cancelBackgroundWork();
     hideSceneAsset({ cancel: true });
-    setStatus("Preparing the next guided sentence.", { tone: "active" });
+    setStatus(interfaceText("wordworld.standard.preparing"), { tone: "active" });
     if (requestId !== state.phraseRequestId || state.contentMode !== "standard") return;
     const target = normalizeWord(
       guidedLifecycle
@@ -2698,9 +2837,12 @@ async function showStandardPhrase(selection, {
     if (guidedLifecycle) {
       setStatus(currentReconstructionInstruction(), { tone: "muted" });
     } else if (selection.fallback) {
-      setStatus(`No unused Level ${difficulty} Standard sentence remains for “${selection.requestedWord}”. Showing another guided sentence.`, { tone: "active" });
+      setStatus(interfaceText("wordworld.standard.fallback", {
+        level: difficulty,
+        word: selection.requestedWord
+      }), { tone: "active" });
     } else {
-      setStatus(playInstruction, { tone: "muted" });
+      setStatus(playInstruction(), { tone: "muted" });
     }
   } finally {
     if (requestId === state.phraseRequestId) setBusy(false);
@@ -2738,7 +2880,7 @@ async function generateRandomPhrase({ source = "seed" } = {}) {
   const transitionStartedAt = performance.now();
   setBusy(true);
   setProgress(null);
-  setStatus("Ready from the saved sentence queue.", { tone: "active" });
+  setStatus(interfaceText("wordworld.queue.ready"), { tone: "active" });
   try {
     await presentPreparedCandidate(target, queued, transitionStartedAt);
   } catch (error) {
@@ -2747,7 +2889,8 @@ async function generateRandomPhrase({ source = "seed" } = {}) {
       sentence: localSentence(target, generationAvoidList()),
       source: "queue-error-fallback"
     }, transitionStartedAt);
-    setStatus(error?.message || "Could not restore the saved phrase.", { tone: "error" });
+    console.error("Word World could not restore a queued phrase", error);
+    setStatus(interfaceText("wordworld.history.restorefailed"), { tone: "error" });
   }
 }
 
@@ -2854,8 +2997,10 @@ export function inferReconstructionSeparator(text) {
 }
 
 export function sourceTranslationFeedbackLabel(sourceLanguage = {}) {
-  const label = String(sourceLanguage?.label || "base language").normalize("NFC").trim();
-  return `Wrong ${label || "base language"} translation`;
+  const label = interfaceLanguageName(sourceLanguage, "wordworld.language.base").normalize("NFC").trim();
+  return interfaceText("wordworld.feedback.wrongtranslation", {
+    language: label || interfaceText("wordworld.language.base")
+  });
 }
 
 function targetReconstructionCandidateParts() {
@@ -3013,12 +3158,12 @@ function reconstructionTokenButton(option, location, { inAnswer = false } = {}) 
   button.classList.toggle("is-in-answer", location === "bank" && inAnswer);
   button.disabled = state.busy || guidedWordInteractionLocked() || state.reconstruction?.evidencePending || inAnswer;
   if (location === "answer") {
-    button.setAttribute("aria-label", `Remove ${option.text}`);
+    button.setAttribute("aria-label", interfaceText("wordworld.reconstruction.remove", { word: option.text }));
   } else if (inAnswer) {
     button.tabIndex = -1;
     button.setAttribute("aria-hidden", "true");
   } else {
-    button.setAttribute("aria-label", `Add ${option.text}`);
+    button.setAttribute("aria-label", interfaceText("wordworld.reconstruction.add", { word: option.text }));
   }
   return button;
 }
@@ -3113,7 +3258,7 @@ function renderReconstructionAttempt(round, host) {
       host.textContent = sentence;
     }
     host.removeAttribute("role");
-    host.setAttribute("aria-label", `Your answer: ${sentence} Correct.`);
+    host.setAttribute("aria-label", interfaceText("wordworld.reconstruction.answercorrect", { answer: sentence }));
     return;
   }
 
@@ -3138,7 +3283,12 @@ function renderReconstructionAttempt(round, host) {
       token.textContent = operation.entered;
     }
     submitted.append(token);
-    spokenFeedback.push(`${operation.entered}: ${isCorrect ? "correct" : "incorrect"}`);
+    spokenFeedback.push(interfaceText(
+      isCorrect
+        ? "wordworld.reconstruction.tokencorrect"
+        : "wordworld.reconstruction.tokenincorrect",
+      { word: operation.entered }
+    ));
   });
   if (round.challenge.layout?.trailing) {
     const punctuation = document.createElement("span");
@@ -3151,7 +3301,10 @@ function renderReconstructionAttempt(round, host) {
   host.removeAttribute("role");
   host.setAttribute(
     "aria-label",
-    `Your answer: ${submittedSentence}. ${spokenFeedback.join(", ")}.`
+    interfaceText("wordworld.reconstruction.answerfeedback", {
+      answer: submittedSentence,
+      feedback: spokenFeedback.join(", ")
+    })
   );
 }
 
@@ -3167,12 +3320,12 @@ function renderReconstructionResult(round, result) {
     correct: {
       mark: "\u2713",
       message: "",
-      points: `+${round.awardedXp || 0} XP`
+      points: interfaceText("wordworld.reconstruction.points", { count: round.awardedXp || 0 })
     },
     incorrect: {
       mark: "\u21ba",
-      message: "That answer is incorrect — check the words in red, then try again.",
-      points: "+0 XP"
+      message: interfaceText("wordworld.reconstruction.incorrectdetail"),
+      points: interfaceText("wordworld.reconstruction.points", { count: 0 })
     }
   }[outcome];
 
@@ -3246,12 +3399,12 @@ function syncPreviousSentenceControl(round = null) {
   previous.disabled = state.busy || navigationLocked;
   previous.classList.toggle("is-navigation-locked", navigationLocked);
   const label = challengeLocked
-    ? "Submit the challenge before viewing history"
+    ? interfaceText("wordworld.navigation.previous.submitfirst")
     : state.guidedRequested
-      ? "History is unavailable for this guided task"
+      ? interfaceText("wordworld.navigation.previous.guidedunavailable")
       : historyUnavailable
-        ? "No previous sentence"
-        : "Previous sentence";
+        ? interfaceText("wordworld.navigation.previous.none")
+        : interfaceText("wordworld.navigation.previous.label");
   previous.setAttribute("aria-label", label);
   previous.title = label;
 }
@@ -3265,14 +3418,14 @@ function syncNextSentenceControl(round = null) {
   next.classList.toggle("is-challenge-locked", challengeLocked);
   next.classList.toggle("is-challenge-ready", challengeReady);
   const label = state.guidedRequested && round?.submitted && round.guidedIndependentQualified
-    ? "Continue to Verb Nebula"
+    ? interfaceText("wordworld.navigation.next.verbnebula")
     : state.guidedRequested && round?.submitted
-      ? "Try this lesson again"
+      ? interfaceText("wordworld.navigation.next.retry")
     : challengeLocked
-      ? "Submit the challenge to continue"
+      ? interfaceText("wordworld.navigation.next.submitfirst")
       : state.guidedRequested
-        ? "Complete this guided sentence"
-        : "Next sentence";
+        ? interfaceText("wordworld.navigation.next.completeguided")
+        : interfaceText("wordworld.navigation.next.label");
   next.setAttribute("aria-label", label);
   next.title = label;
   syncPreviousSentenceControl(round);
@@ -3293,7 +3446,7 @@ function syncReconstructionPresentation(round = null) {
   const promptDirection = promptLanguage?.direction === "rtl" ? "rtl" : "ltr";
   const answerLocale = String(answerLanguage?.locale || answerLanguage?.id || "").trim();
   const answerDirection = answerLanguage?.direction === "rtl" ? "rtl" : "ltr";
-  const answerLabel = String(answerLanguage?.label || "other language").trim();
+  const answerLabel = interfaceLanguageName(answerLanguage, "wordworld.language.other");
 
   if (sentence) {
     if (promptSide === "source") {
@@ -3312,14 +3465,22 @@ function syncReconstructionPresentation(round = null) {
   if (promptSide === "source" && state.speechSource === "sentence") {
     cancelCzechSpeech();
   }
-  if (root) root.setAttribute("aria-label", `Rebuild the ${answerLabel} sentence`);
+  if (root) {
+    root.setAttribute("aria-label", interfaceText("wordworld.reconstruction.region", {
+      language: answerLabel
+    }));
+  }
   if (answer) {
-    answer.setAttribute("aria-label", `Your ${answerLabel} sentence`);
+    answer.setAttribute("aria-label", interfaceText("wordworld.reconstruction.answerregion", {
+      language: answerLabel
+    }));
     if (answerLocale) answer.lang = answerLocale;
     answer.dir = answerDirection;
   }
   if (bank) {
-    bank.setAttribute("aria-label", `${answerLabel} word choices`);
+    bank.setAttribute("aria-label", interfaceText("wordworld.reconstruction.bank", {
+      language: answerLabel
+    }));
     if (answerLocale) bank.lang = answerLocale;
     bank.dir = answerDirection;
   }
@@ -3405,7 +3566,7 @@ function selectReconstructionOption(id) {
   const sourceRect = source?.getBoundingClientRect();
   const restoreFocus = source === document.activeElement;
   round.selectedIds.push(id);
-  round.announcement = `Added ${option.text}.`;
+  round.announcement = interfaceText("wordworld.reconstruction.added", { word: option.text });
   renderReconstruction();
   animateReconstructionTransfer(id, sourceRect, "answer", { restoreFocus });
 }
@@ -3419,7 +3580,7 @@ function removeReconstructionOption(id) {
   const sourceRect = source?.getBoundingClientRect();
   const restoreFocus = source === document.activeElement;
   round.selectedIds = round.selectedIds.filter((selectedId) => selectedId !== id);
-  round.announcement = `Removed ${option.text}.`;
+  round.announcement = interfaceText("wordworld.reconstruction.removed", { word: option.text });
   renderReconstruction();
   animateReconstructionTransfer(id, sourceRect, "bank", { restoreFocus });
 }
@@ -3438,14 +3599,14 @@ async function submitReconstructionChallenge() {
     ) {
       failGuidedWordWorld(
         new Error("The Guided response no longer matches its immutable curriculum task."),
-        "This Guided task changed before submission and is now locked."
+        "wordworld.guided.changed"
       );
       return;
     }
   }
   const selected = reconstructionSelectedOptions(round);
   if (!selected.length) {
-    round.announcement = "Choose at least one word before submitting.";
+    round.announcement = interfaceText("wordworld.reconstruction.chooseword");
     renderReconstruction();
     return;
   }
@@ -3456,7 +3617,7 @@ async function submitReconstructionChallenge() {
   if (round.guidedLifecycle && !round.guidedLifecycle.state().firstResponseRecorded) {
     round.evidencePending = true;
     state.guidedEvidencePending = true;
-    round.announcement = "Saving the first response before showing feedback…";
+    round.announcement = interfaceText("wordworld.reconstruction.savingevidence");
     renderReconstruction();
     try {
       if (!correct) round.guidedLifecycle.markSolutionRevealed();
@@ -3476,8 +3637,8 @@ async function submitReconstructionChallenge() {
       }
     } catch (error) {
       round.evidencePending = false;
-      failGuidedWordWorld(error, "Your answer stayed hidden because its evidence could not be saved.");
-      round.announcement = "Evidence was not saved. Feedback remains hidden.";
+      failGuidedWordWorld(error, "wordworld.guided.answersavefailed");
+      round.announcement = interfaceText("wordworld.reconstruction.evidencenotsaved");
       renderReconstruction();
       return;
     }
@@ -3493,10 +3654,12 @@ async function submitReconstructionChallenge() {
   round.announcement = round.correct
     ? guidedRound
       ? round.guidedIndependentQualified
-        ? "Correct. Continue to Verb Nebula."
-        : "Correct with support. Try once more without help."
-      : (round.awardedXp ? "Correct. 3 XP gained." : "Correct. This sentence was already rewarded.")
-    : "That answer is incorrect. Check the words in red, then try again.";
+        ? interfaceText("wordworld.reconstruction.correctcontinue")
+        : interfaceText("wordworld.reconstruction.correctsupported")
+      : (round.awardedXp
+          ? interfaceText("wordworld.reconstruction.correctxp", { count: round.awardedXp })
+          : interfaceText("wordworld.reconstruction.correctalreadyrewarded"))
+    : interfaceText("wordworld.reconstruction.incorrect");
   if (!guidedRound) {
     window.CaatuuLearning?.record("word-world", {
       attempts: 1,
@@ -3518,7 +3681,7 @@ function shouldBlockReconstructionAdvance() {
   if (state.translationMode !== "reconstruct") return false;
   const round = ensureReconstructionChallenge();
   if (!round || round.submitted) return false;
-  round.announcement = "Submit your answer before moving to the next sentence.";
+  round.announcement = interfaceText("wordworld.reconstruction.submitbeforeadvance");
   renderReconstruction();
   $("#wordNetReconstructionSubmit")?.focus({ preventScroll: true });
   return true;
@@ -3551,7 +3714,7 @@ async function activateNextSentence() {
     state.guidedActivationEpoch += 1;
     state.phraseRequestId += 1;
     setBusy(true);
-    setStatus("Preparing another attempt with the same reviewed sentence.", { tone: "active" });
+    setStatus(interfaceText("wordworld.guided.retry.preparing"), { tone: "active" });
     try {
       await generateGuidedStandardPhrase({ allowBusy: true });
     } finally {
@@ -3576,7 +3739,10 @@ function claimSentenceReward(rewardKey = currentReconstructionKey()) {
 function awardTimedRevealXp() {
   if (!claimSentenceReward()) return false;
   window.CaatuuLearning?.record("word-world", { xp: 1 });
-  setStatus(`${sourceLanguageLabel} revealed. +1 XP.`, { tone: "success" });
+  setStatus(interfaceText("wordworld.translation.revealedxp", {
+    language: sourceLanguageLabel,
+    count: 1
+  }), { tone: "success" });
   return true;
 }
 
@@ -3597,7 +3763,8 @@ async function revealGuidedEnglish(lifecycle, phraseToken) {
   } catch (error) {
     failGuidedWordWorld(
       error,
-      `The ${sourceLanguageLabel} answer stayed hidden because its evidence could not be saved.`
+      "wordworld.guided.revealsavefailed",
+      { language: sourceLanguageLabel }
     );
     return;
   } finally {
@@ -3678,7 +3845,7 @@ function setTranslation(text, { loading = false } = {}) {
     node.lang = String(sourceLanguage.locale || sourceLanguage.id || "").trim();
     node.dir = sourceLanguage.direction === "rtl" ? "rtl" : "ltr";
   }
-  node.textContent = loading ? "Translating..." : state.currentTranslation;
+  node.textContent = loading ? interfaceText("wordworld.translation.loading") : state.currentTranslation;
   if (loading) {
     clearTranslationTimer();
     state.translationVisible = state.translationMode === "visible";
@@ -3694,11 +3861,11 @@ function syncTranslationToggle() {
   if (!button || !translation) return;
   const mode = hasTranslationMode(state.translationMode) ? state.translationMode : "reconstruct";
   const reconstructing = mode === "reconstruct";
-  const label = translationModes[mode].label;
+  const label = translationModeLabel(mode);
   button.classList.toggle("is-off", mode === "off");
   button.classList.toggle("is-waiting", mode.startsWith("timer-") && !state.translationVisible);
-  button.setAttribute("aria-label", `Challenge type and dictionary settings. Current answer mode: ${label}.`);
-  button.setAttribute("title", `Answer mode: ${label}`);
+  button.setAttribute("aria-label", interfaceText("wordworld.translation.settingscurrent", { mode: label }));
+  button.setAttribute("title", interfaceText("wordworld.translation.modetitle", { mode: label }));
   translation.hidden = reconstructing;
   translation.classList.toggle("is-hidden", !state.translationVisible && !reconstructing);
   translation.setAttribute("aria-hidden", state.translationVisible && !reconstructing ? "false" : "true");
@@ -3730,11 +3897,17 @@ function syncWordTranslation() {
   const normalizedSelected = normalizeWord(state.selectedWord).toLocaleLowerCase(targetLocale);
   const normalizedLemma = normalizeWord(details?.lemma).toLocaleLowerCase(targetLocale);
   const metadata = [];
-  if (normalizedLemma && normalizedLemma !== normalizedSelected) metadata.push(`lemma ${details.lemma}`);
+  if (normalizedLemma && normalizedLemma !== normalizedSelected) {
+    metadata.push(interfaceText("wordworld.dictionary.lemma", { lemma: details.lemma }));
+  }
   if (details?.formTags?.length) metadata.push(details.formTags.slice(0, 3).join(" ").replaceAll("-", " "));
   const grammarTags = (details?.senseTags || []).filter((tag) => !details?.formTags?.includes(tag));
   if (grammarTags.length) metadata.push(grammarTags.slice(0, 2).join(" ").replaceAll("-", " "));
-  if (details?.synonyms?.length) metadata.push(`also ${details.synonyms.slice(0, 2).join(", ")}`);
+  if (details?.synonyms?.length) {
+    metadata.push(interfaceText("wordworld.dictionary.also", {
+      synonyms: details.synonyms.slice(0, 2).join(", ")
+    }));
+  }
   if (state.selectedWordGapNotice) metadata.push(state.selectedWordGapNotice);
   panel.hidden = !visible;
   panel.setAttribute("aria-hidden", visible ? "false" : "true");
@@ -3748,8 +3921,8 @@ function syncWordTranslation() {
   meaningNode.textContent = !visible
     ? ""
     : state.wordMeaningLoading
-      ? "Looking up..."
-      : state.selectedWordMeaning || "No English meaning found.";
+      ? interfaceText("wordworld.dictionary.loading")
+      : state.selectedWordMeaning || interfaceText("wordworld.dictionary.nomeaning");
   metaNode.textContent = visible && !state.wordMeaningLoading ? metadata.join(" · ") : "";
   metaNode.hidden = !metaNode.textContent;
   metaNode.title = metaNode.textContent;
@@ -3827,7 +4000,7 @@ async function queueMissingDictionaryFeedback(selectedWord, { lookupReturned = 0
   if (!normalizedWord) return;
   if (state.dictionaryGapKeys.includes(normalizedWord)) {
     if (normalizedWord === state.selectedWord.toLocaleLowerCase(targetLocale)) {
-      state.selectedWordGapNotice = DICTIONARY_GAP_NOTICE;
+      state.selectedWordGapNotice = interfaceText(DICTIONARY_GAP_NOTICE_ID);
       syncWordTranslation();
     }
     return;
@@ -3842,7 +4015,7 @@ async function queueMissingDictionaryFeedback(selectedWord, { lookupReturned = 0
     const queued = await runtimeAdapter()?.maintenance?.enqueueDictionaryGap?.(feedback);
     if (!queued?.queued || queued.persisted === false || !rememberDictionaryGap(normalizedWord)) return;
     if (normalizedWord === state.selectedWord.toLocaleLowerCase(targetLocale)) {
-      state.selectedWordGapNotice = DICTIONARY_GAP_NOTICE;
+      state.selectedWordGapNotice = interfaceText(DICTIONARY_GAP_NOTICE_ID);
       syncWordTranslation();
     }
   } catch (error) {
@@ -3901,7 +4074,7 @@ async function lookupSelectedWord(word) {
   const key = selectedWord.toLocaleLowerCase(targetLocale);
   if (state.wordMeaningCache.has(key)) {
     state.selectedWordDetails = state.wordMeaningCache.get(key);
-    state.selectedWordMeaning = state.selectedWordDetails?.meaning || "No English meaning found.";
+    state.selectedWordMeaning = state.selectedWordDetails?.meaning || interfaceText("wordworld.dictionary.nomeaning");
     state.wordMeaningLoading = false;
     if (state.selectedWordDetails && !state.selectedWordDetails.dictionaryMissing && forgetDictionaryGap(key)) {
       state.selectedWordGapNotice = "";
@@ -3951,7 +4124,7 @@ async function lookupSelectedWord(word) {
       result = selectDictionaryMeaning(payload, selectedWord, { maxGlosses: 2 });
       lookupReturned = Array.isArray(payload?.results) ? payload.results.length : 0;
     }
-    const meaning = result?.meaning || fallback || "No English meaning found.";
+    const meaning = result?.meaning || fallback || interfaceText("wordworld.dictionary.nomeaning");
     const details = result || {
       lemma: selectedWord,
       pos: "",
@@ -3971,7 +4144,7 @@ async function lookupSelectedWord(word) {
     if (!result) void queueMissingDictionaryFeedback(selectedWord, { lookupReturned });
   } catch (error) {
     if (error?.name === "AbortError" || requestId !== state.wordLookupRequestId) return;
-    state.selectedWordMeaning = fallback || "Meaning unavailable.";
+    state.selectedWordMeaning = fallback || interfaceText("wordworld.dictionary.unavailable");
     state.selectedWordDetails = null;
   } finally {
     if (requestId === state.wordLookupRequestId) {
@@ -3992,7 +4165,7 @@ function selectWord(word, { lookup = true, render = true, userInitiated = false 
     if (state.speechSource === "word") cancelCzechSpeech();
     abortWordLookup();
     state.selectedWordGapNotice = state.dictionaryGapKeys.includes(nextKey)
-      ? DICTIONARY_GAP_NOTICE
+      ? interfaceText(DICTIONARY_GAP_NOTICE_ID)
       : "";
     state.selectedWordDetails = state.wordMeaningCache.get(nextKey) || null;
     state.selectedWordMeaning = state.selectedWordDetails?.meaning || "";
@@ -4024,7 +4197,13 @@ function setProgress(message) {
     progress.hidden = false;
     progress.setAttribute("aria-valuenow", String(Math.round(percent)));
     bar.style.width = `${percent}%`;
-    setStatus(`Downloading local model ${percent.toFixed(1)}%. Keep the app open.`, { tone: "active" });
+    const formattedPercent = new Intl.NumberFormat(globalThis.CaatuuI18n?.locale || sourceLocale, {
+      maximumFractionDigits: 1,
+      minimumFractionDigits: 1
+    }).format(percent);
+    setStatus(interfaceText("wordworld.generative.downloadprogress", {
+      percent: formattedPercent
+    }), { tone: "active" });
     return;
   }
 
@@ -4524,7 +4703,9 @@ async function requestEnglishTranslation(
           if (message.kind === "token") {
             output += message.token || "";
           } else if (message.kind === "status") {
-            onStatus?.(message.message || "Translating to English.");
+            onStatus?.(interfaceText("wordworld.translation.generating", {
+              language: sourceLanguageLabel
+            }));
           }
         }
       }
@@ -4544,7 +4725,9 @@ async function prepareCandidateForDisplay(word, candidate) {
     return candidate;
   }
 
-  setStatus("Preparing English before the phrase appears.", { tone: "active" });
+  setStatus(interfaceText("wordworld.translation.preparingbefore", {
+    language: sourceLanguageLabel
+  }), { tone: "active" });
   let translation = "";
   try {
     translation = await requestEnglishTranslation(candidate.sentence, word, {
@@ -4609,16 +4792,20 @@ async function enrichCurrentPhrase() {
   const controller = new AbortController();
   state.backgroundController = controller;
   state.backgroundActivity = "translation";
-  setStatus("Preparing English for this phrase.", { tone: "active" });
+  setStatus(interfaceText("wordworld.translation.preparing", {
+    language: sourceLanguageLabel
+  }), { tone: "active" });
   try {
     const englishSentence = await translateCurrentSentence(sentence, target, { signal: controller.signal });
     if (requestId !== state.phraseRequestId || sentence !== state.currentSentence) return;
     void updateSceneAsset(englishSentence);
-    setStatus(playInstruction, { tone: "muted" });
+    setStatus(playInstruction(), { tone: "muted" });
   } catch (error) {
     if (isAbortError(error)) return;
     if (requestId === state.phraseRequestId && sentence === state.currentSentence) {
-      setStatus("The phrase is ready, but English could not be prepared.", { tone: "error" });
+      setStatus(interfaceText("wordworld.translation.failed", {
+        language: sourceLanguageLabel
+      }), { tone: "error" });
     }
   } finally {
     if (state.backgroundController === controller) {
@@ -4950,7 +5137,9 @@ function renderCzechSentence(
   if (!tokens.length) {
     const empty = document.createElement("p");
     empty.className = "word-net-empty";
-    empty.textContent = `Preparing a ${targetLanguageLabel} phrase.`;
+    empty.textContent = interfaceText("wordworld.sentence.preparing", {
+      language: targetLanguageLabel
+    });
     host.replaceChildren(empty);
     syncSpeechControl();
     return;
@@ -4994,8 +5183,8 @@ function renderCzechSentence(
     const curriculumFocused = Number(curriculumFocus?.tokenIndex) === wordIndex
       && wordMatchesTarget(button.dataset.word, curriculumFocus?.normalized);
     const label = curriculumFocused
-      ? `Curriculum focus: ${token.text}. Select it to show its meaning`
-      : `Select ${token.text} and show its meaning`;
+      ? interfaceText("wordworld.word.curriculumfocus", { word: token.text })
+      : interfaceText("wordworld.word.selectmeaning", { word: token.text });
     button.setAttribute("aria-label", label);
     const selected = wordMatchesTarget(button.dataset.word, selectedWord);
     button.setAttribute("aria-pressed", selected ? "true" : "false");
@@ -5101,7 +5290,7 @@ function updateHistoryTranslation(sentence, translation) {
 
 async function showPreviousSentence() {
   if (state.guidedRequested) {
-    setStatus("History is disabled while the exact Guided task is active.", { tone: "muted" });
+    setStatus(interfaceText("wordworld.history.guideddisabled"), { tone: "muted" });
     return;
   }
   if (state.busy) return;
@@ -5109,7 +5298,7 @@ async function showPreviousSentence() {
   const previousIndex = state.historyCursor + 1;
   const previous = state.history[previousIndex];
   if (!previous) {
-    setStatus("There is no earlier sentence yet.", { tone: "muted" });
+    setStatus(interfaceText("wordworld.history.none"), { tone: "muted" });
     return;
   }
 
@@ -5120,7 +5309,7 @@ async function showPreviousSentence() {
   state.phraseRequestId = requestId;
   hideSceneAsset({ cancel: true });
   setBusy(true);
-  setStatus("Restoring the previous sentence.", { tone: "active" });
+  setStatus(interfaceText("wordworld.history.restoring"), { tone: "active" });
   try {
     state.historyCursor = previousIndex;
     state.currentWord = previous.word;
@@ -5149,14 +5338,16 @@ async function showPreviousSentence() {
     if (requestId !== state.phraseRequestId) return;
 
     if (previous.contentMode === "standard") {
-      setStatus("Previous Standard sentence restored.", { tone: "muted" });
+      setStatus(interfaceText("wordworld.history.standardrestored"), { tone: "muted" });
     } else {
       if (state.translationMode !== "off" && !state.selectedWordMeaning && !state.wordMeaningLoading) {
         void lookupSelectedWord(previous.word);
       }
-      setStatus(previous.en
-        ? "Previous sentence restored."
-        : "Previous sentence restored. English was not saved for this older phrase.", { tone: "muted" });
+    setStatus(previous.en
+        ? interfaceText("wordworld.history.restored")
+        : interfaceText("wordworld.history.restoredwithoutbase", {
+            language: sourceLanguageLabel
+          }), { tone: "muted" });
     }
   } finally {
     if (requestId === state.phraseRequestId) setBusy(false);
@@ -5185,7 +5376,7 @@ function resetSentenceFeedback() {
   if (toggle) {
     toggle.hidden = !state.currentSentence;
     toggle.disabled = !state.currentSentence;
-    toggle.textContent = "Report this sentence";
+    toggle.textContent = interfaceText("wordworld.report.action");
   }
   if (status) status.textContent = "";
   if (submit) submit.disabled = false;
@@ -5210,7 +5401,7 @@ async function generateSentenceForWord(word, { source = "choice" } = {}) {
     savePreparedQueue();
     const transitionStartedAt = performance.now();
     setBusy(true);
-    setStatus(`Ready from the saved queue for "${target}".`, { tone: "active" });
+    setStatus(interfaceText("wordworld.queue.readyfor", { word: target }), { tone: "active" });
     await presentPreparedCandidate(target, queued, transitionStartedAt);
     return;
   }
@@ -5220,7 +5411,9 @@ async function generateSentenceForWord(word, { source = "choice" } = {}) {
   renderCzechSentence(state.currentSentence, target);
 
   const firstRun = source === "initial" || source === "seed";
-  setStatus(firstRun ? "Generating a Czech sentence." : `Generating from "${target}".`, { tone: "active" });
+  setStatus(firstRun
+    ? interfaceText("wordworld.generative.generating", { language: targetLanguageLabel })
+    : interfaceText("wordworld.generative.generatingfrom", { word: target }), { tone: "active" });
 
   try {
     const candidate = await requestSentenceCandidate(target, {
@@ -5228,7 +5421,7 @@ async function generateSentenceForWord(word, { source = "choice" } = {}) {
         if (message.kind === "progress") {
           setProgress(message);
         } else if (message.kind === "status") {
-          setStatus(message.message || "Generating locally.", { tone: "active" });
+          setStatus(interfaceText("wordworld.generative.generatinglocal"), { tone: "active" });
         }
       }
     });
@@ -5239,7 +5432,8 @@ async function generateSentenceForWord(word, { source = "choice" } = {}) {
       sentence: localSentence(target, generationAvoidList()),
       source: "error-fallback"
     }, transitionStartedAt);
-    setStatus(error?.message || "Could not generate with the model.", { tone: "error" });
+    console.error("Word World local generation failed", error);
+    setStatus(interfaceText("wordworld.generative.failed"), { tone: "error" });
   }
 }
 
@@ -5274,20 +5468,20 @@ async function showPreparedPhrase(target, candidate) {
   let sceneText = "";
   if (state.translationMode === "off") {
     sceneText = localTranslation(sentence, target);
-    setStatus(playInstruction, { tone: "muted" });
+    setStatus(playInstruction(), { tone: "muted" });
     schedulePrefetch(sentence);
   } else if (candidate?.translation) {
     cacheTranslation(sentence, candidate.translation);
     setTranslation(candidate.translation);
     sceneText = candidate.translation;
-    setStatus(playInstruction, { tone: "muted" });
+    setStatus(playInstruction(), { tone: "muted" });
     if (!state.selectedWordMeaning && !state.wordMeaningLoading) void lookupSelectedWord(target);
     schedulePrefetch(sentence);
   } else {
     const fallbackEnglish = localTranslation(sentence, target);
     setTranslation(fallbackEnglish);
     sceneText = fallbackEnglish;
-    setStatus(playInstruction, { tone: "muted" });
+    setStatus(playInstruction(), { tone: "muted" });
     if (!state.selectedWordMeaning && !state.wordMeaningLoading) void lookupSelectedWord(target);
     schedulePrefetch(sentence);
   }
@@ -5376,7 +5570,7 @@ async function submitSentenceFeedback(event) {
   };
   const dedupeKey = [feedback.kind, sentenceKey, reason].join("|");
   if (submit) submit.disabled = true;
-  if (status) status.textContent = "Saving your report…";
+  if (status) status.textContent = interfaceText("wordworld.report.saving");
   try {
     const preparedRecord = typeof providerContext?.sessionRecord === "function"
       ? providerContext.sessionRecord(snapshot.entryId)
@@ -5401,13 +5595,13 @@ async function submitSentenceFeedback(event) {
       closeSentenceFeedback();
       const toggle = $("#wordNetReportToggle");
       if (toggle) {
-        toggle.textContent = "Report saved";
+        toggle.textContent = interfaceText("wordworld.report.savedaction");
         toggle.disabled = true;
       }
       if (status) {
         status.textContent = queued.persisted === false
-          ? "Kept for this session, but device storage is unavailable."
-          : "Saved on this device. Sending remains off until a reviewed feedback channel is enabled.";
+          ? interfaceText("wordworld.report.sessiononly")
+          : interfaceText("wordworld.report.savedlocal");
       }
     }
     const flush = runtimeAdapter()?.maintenance?.flushReports?.();
@@ -5419,7 +5613,7 @@ async function submitSentenceFeedback(event) {
           snapshot.sentence === state.currentSentence &&
           status
         ) {
-          status.textContent = "Thank you — report sent.";
+          status.textContent = interfaceText("wordworld.report.sent");
         }
       }).catch(() => {});
     }
@@ -5429,7 +5623,7 @@ async function submitSentenceFeedback(event) {
       snapshot.sentence === state.currentSentence &&
       status
     ) {
-      status.textContent = "Could not save the report on this device.";
+      status.textContent = interfaceText("wordworld.report.savefailed");
     }
   } finally {
     if (phraseRequestId === state.phraseRequestId && submit) submit.disabled = false;
@@ -5589,8 +5783,8 @@ function bindUi() {
     }
     selectWord(button.dataset.word, { userInitiated: true });
     setStatus(state.guidedMode
-      ? `Dictionary support opened for "${button.dataset.word}".`
-      : `Selected "${button.dataset.word}". Choose ↻ in Generation to continue with it.`, { tone: "muted" });
+      ? interfaceText("wordworld.word.guidedsupport", { word: button.dataset.word })
+      : interfaceText("wordworld.word.selected", { word: button.dataset.word }), { tone: "muted" });
   });
   const sentencePanel = $(".word-net-sentence-panel");
   sentencePanel?.addEventListener("pointerdown", (event) => {
@@ -5670,8 +5864,16 @@ function bindUi() {
     syncDiagnostics();
     setStatus(
       pace.source === "override"
-        ? `${pace.badge} equipped. ${targetLanguageLabel} audio remains at manual ${pace.label} speed.`
-        : `${pace.badge} equipped. ${targetLanguageLabel} audio now uses ${pace.label} speed. The next Standard sentence will follow this level.`,
+        ? interfaceText("speech.pace.difficultymanual", {
+            level: pace.badge,
+            language: targetLanguageLabel,
+            speed: speechPaceLabel(pace)
+          })
+        : interfaceText("speech.pace.difficultychanged", {
+            level: pace.badge,
+            language: targetLanguageLabel,
+            speed: speechPaceLabel(pace)
+          }),
       { tone: "active" }
     );
   });
@@ -5692,17 +5894,17 @@ async function init() {
   syncWordTranslation();
   syncDiagnostics();
   renderWordGuidedStatus();
-  setStatus(playInstruction);
+  setStatus(playInstruction());
   if (!state.guidedRequested) hydrateQueueFromHistory();
   if (state.guidedRequested) {
     setBusy(true);
     if (!state.guidedMode) {
-      setStatus("Guided Word World is locked because its curriculum contract could not be verified.", { tone: "error" });
+      setStatus(interfaceText("wordworld.guided.contractlocked"), { tone: "error" });
       renderWordGuidedStatus();
       setBusy(false);
       return;
     }
-    setStatus("Preparing the exact Guided developer task.", { tone: "active" });
+    setStatus(interfaceText("wordworld.guided.developerpreparing"), { tone: "active" });
     try {
       await initializeStandardCorpus();
       await generateGuidedStandardPhrase({ allowBusy: true });
@@ -5714,7 +5916,7 @@ async function init() {
   if (state.contentMode === "standard") {
     abortOptionalGenerationDownloads();
     setBusy(true);
-    setStatus("Preparing the guided sentence pack.", { tone: "active" });
+    setStatus(interfaceText("wordworld.standard.packpreparing"), { tone: "active" });
     try {
       await initializeStandardCorpus();
       await generateStandardFromConfiguredMode("random", { allowBusy: true });
@@ -5724,7 +5926,7 @@ async function init() {
   } else {
     state.generativeTurnActive = false;
     if (!(await restoreSavedGenerativePhraseAtInit())) {
-      setStatus("Generative mode is ready. Press Next to create a sentence.", { tone: "muted" });
+      setStatus(interfaceText("wordworld.generative.ready"), { tone: "muted" });
     }
   }
 }

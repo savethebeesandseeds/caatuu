@@ -33,6 +33,7 @@ import {
   assertHttpsUrl,
   setupStorageRecord,
 } from "./android-artifact-contract.mjs";
+import { validateInterfaceCatalog } from "../../language-runtime/static/source/interface-content.mjs";
 
 const scriptPath = fileURLToPath(import.meta.url);
 const defaultWorkspaceRoot = resolve(dirname(scriptPath), "../../..");
@@ -311,6 +312,65 @@ export function productProfileForCourse(course, { assetPaths = [], nativeProvide
   });
 }
 
+function loadAndroidInterfaceContentConfiguration({
+  course,
+  workspaceRoot,
+  appAssets,
+}) {
+  const resolvedCatalog = resourcePath(course, "interfaceCatalog", workspaceRoot);
+  assert.equal(resolvedCatalog.resource.kind, "file", "interfaceCatalog must be a file");
+  assert.equal(resolvedCatalog.resource.scope, "shared", "interfaceCatalog must be shared");
+  assert.match(
+    String(resolvedCatalog.resource.revision || ""),
+    /^[a-z0-9]+(?:-[a-z0-9]+)*$/u,
+    "interfaceCatalog must declare a lowercase cache revision",
+  );
+  const sourcePath = slashPath(relative(workspaceRoot, resolvedCatalog.path));
+  assert.match(
+    sourcePath,
+    /^apps\/language-runtime\/static\/data\/interface\/[a-zA-Z0-9][a-zA-Z0-9._-]*\.json$/u,
+    "interfaceCatalog must be one direct JSON file inside the shared interface catalog directory",
+  );
+  const output = sourcePath.slice("apps/".length);
+  const relatedMappings = appAssets.filter((asset) => (
+    asset.sourcePath === sourcePath || asset.output === output
+  ));
+  assert.equal(
+    relatedMappings.length,
+    1,
+    `interfaceCatalog must have exactly one app-assets mapping from ${sourcePath} to ${output}`,
+  );
+  assert.equal(
+    relatedMappings[0].sourcePath,
+    sourcePath,
+    `interfaceCatalog app-assets source must be ${sourcePath}`,
+  );
+  assert.equal(
+    relatedMappings[0].output,
+    output,
+    `interfaceCatalog app-assets output must be ${output}`,
+  );
+
+  const catalog = readJson(resolvedCatalog.path, `Course ${course.id} interface catalog`);
+  const validation = validateInterfaceCatalog(catalog, {
+    locale: course.sourceLanguage?.locale,
+    direction: course.sourceLanguage?.direction,
+    revision: resolvedCatalog.resource.revision,
+  });
+  assert.ok(
+    validation.valid,
+    `Course ${course.id} interface catalog is invalid:\n${validation.errors.join("\n")}`,
+  );
+  return Object.freeze({
+    source: resolvedCatalog.path,
+    sourcePath,
+    output,
+    revision: resolvedCatalog.resource.revision,
+    locale: catalog.locale,
+    direction: catalog.direction,
+  });
+}
+
 export function loadAndroidCourseConfiguration({
   workspaceRoot = defaultWorkspaceRoot,
   courseManifestPath = DEFAULT_COURSE_MANIFEST_PATH,
@@ -396,6 +456,11 @@ export function loadAndroidCourseConfiguration({
     "shared app asset outputs must be unique",
   );
   const appAssetByOutput = new Map(appAssets.map((asset) => [asset.output, asset]));
+  const interfaceContent = loadAndroidInterfaceContentConfiguration({
+    course,
+    workspaceRoot: resolvedWorkspace,
+    appAssets,
+  });
 
   const assetCatalogResource = resourcePath(course, "androidAssetCatalog", resolvedWorkspace);
   assert.equal(assetCatalogResource.resource.kind, "file", "androidAssetCatalog must be a file");
@@ -526,6 +591,7 @@ export function loadAndroidCourseConfiguration({
     appAssetCatalogPath,
     appAssetCatalog,
     appAssets,
+    interfaceContent,
     androidAssetCatalogPath: assetCatalogResource.path,
     assetCatalog,
     languageFiles: Object.freeze(languageFiles),
@@ -1375,9 +1441,9 @@ export function transformIndex(input) {
   let source = normalizeText(input);
   source = exactReplace(
     source,
-    'aria-label="Sentence generation"',
-    'aria-label="Next sentence options"',
-    "shared app Word World options label",
+    'aria-label="Sentence generation" data-i18n-aria-label="wordworld.generation.menu"',
+    'aria-label="Next sentence options" data-i18n-aria-label="wordworld.generation.nextoptions"',
+    "shared app Word World options message",
   );
   source = replaceBetween(
     source,
@@ -1388,8 +1454,8 @@ export function transformIndex(input) {
   );
   source = exactReplace(
     source,
-    '                            <dt>model</dt>\n                            <dd id="wordNetMetaModel">browser fallback</dd>',
-    '                            <dt>content</dt>\n                            <dd id="wordNetMetaModel">curated corpus</dd>',
+    '                            <dt data-i18n="wordworld.diagnostics.model">model</dt>\n                            <dd id="wordNetMetaModel" data-i18n="wordworld.diagnostics.browserfallback">browser fallback</dd>',
+    '                            <dt data-i18n="wordworld.diagnostics.content">content</dt>\n                            <dd id="wordNetMetaModel" data-i18n="wordworld.diagnostics.model.curated">none · curated corpus</dd>',
     "shared app Word World diagnostics content",
   );
   source = replaceBetween(
@@ -1716,11 +1782,16 @@ export function transformChromeJs(input) {
     "",
     "chrome disabled Chat route",
   );
-  source = exactReplace(source, "<small>AI, developer, storage</small>", "<small>Storage and app controls</small>", "chrome advanced summary");
+  source = exactReplace(
+    source,
+    'interfaceMessage("settings.advanced.summary")',
+    'interfaceMessage("settings.product.summary")',
+    "chrome advanced summary",
+  );
   source = replaceBetween(
     source,
-    '          <section class="settings-card side-card ai-settings-card" aria-label="Chat settings">',
-    '          <section class="settings-card side-card maintenance-card" aria-label="App settings">',
+    '          <section class="settings-card side-card ai-settings-card"',
+    '          <section class="settings-card side-card maintenance-card"',
     "",
     "chrome language model and developer settings"
   );
@@ -1733,8 +1804,8 @@ export function transformChromeJs(input) {
   );
   source = exactReplace(
     source,
-    "Third-party or separately licensed models, dictionaries, datasets, artwork, branding, and components keep their separate terms.",
-    "Third-party or separately licensed dictionaries, datasets, artwork, branding, and components keep their separate terms.",
+    'interfaceMessage("settings.legal.contentterms")',
+    'interfaceMessage("settings.product.legal.contentterms")',
     "chrome legal scope"
   );
   source = replaceBetween(
@@ -1743,8 +1814,8 @@ export function transformChromeJs(input) {
     "                </dl>",
     `                <dl class="meta-list model-license-list" id="embeddingLicenseList">
                   <div>
-                    <dt>Caatuu Curriculum and Asset Embeddings</dt>
-                    <dd>all-MiniLM-L6-v2 embedding base, Apache-2.0. Curriculum and asset provenance review pending; embeds English text only.</dd>
+                    <dt>\${interfaceMessage("settings.product.legal.embeddingstitle")}</dt>
+                    <dd>\${interfaceMessage("settings.product.legal.embeddingsterms")}</dd>
                   </div>
 `,
     "chrome artifact licenses"
@@ -2122,7 +2193,9 @@ const REQUIRED_SHARED_APP_FILES = Object.freeze([
   "language-runtime/static/source/browser-shell.mjs",
   "language-runtime/static/source/caatuu-chrome.js",
   "language-runtime/static/source/caatuu-workspace.js",
+  "language-runtime/static/source/interface-content.mjs",
   "language-runtime/static/source/learning-profile.js",
+  "language-runtime/static/source/legacy-page-bootstrap.mjs",
   "language-runtime/static/source/product-word-world.mjs",
   "language-runtime/static/source/word-net-core.mjs",
   "language-runtime/static/source/word-net-queue.mjs",
@@ -2172,9 +2245,12 @@ const RETIRED_PARALLEL_UI_FILES = Object.freeze([
   "source/games/case-cosmos/launcher.css",
 ]);
 
-function assertSharedAppBoundary(files) {
+function assertSharedAppBoundary(files, interfaceCatalogs = []) {
   for (const path of REQUIRED_SHARED_APP_FILES) {
     assert.ok(files.includes(path), `Android product must package the canonical shared app asset ${path}`);
+  }
+  for (const path of new Set(interfaceCatalogs)) {
+    assert.ok(files.includes(path), `Android product must package the selected interface catalog ${path}`);
   }
   for (const path of LEGACY_WORD_WORLD_FILES) {
     assert.ok(!files.includes(path), `Android product must not package legacy Word World asset ${path}`);
@@ -2576,7 +2652,10 @@ export function validateProductAssetBundle({
     "index.html",
     ...bundle.sharedAssets.map(({ output }) => output),
   ].sort();
-  assertSharedAppBoundary(sharedFiles);
+  assertSharedAppBoundary(
+    sharedFiles,
+    bundle.configurations.map(({ interfaceContent }) => interfaceContent.output),
+  );
   assertCapabilityGatedSharedApp(resolvedOutput, bundle.defaultCourse, profile);
   assertNoForbiddenPaths(files);
   assertFirstPartySurface(resolvedOutput, sharedFiles);
@@ -2626,7 +2705,7 @@ export function validateProductAssets({
     "Packaged index.html must equal the reviewed product transform of the canonical shared app entry",
   );
   assertNoForbiddenPaths(files);
-  assertSharedAppBoundary(files);
+  assertSharedAppBoundary(files, [courseConfiguration.interfaceContent.output]);
   assertFirstPartySurface(resolvedOutput, files);
   const profile = JSON.parse(readFileSync(join(resolvedOutput, "caatuu-profile.json"), "utf8"));
   assert.deepEqual(profile, courseConfiguration.productProfile, "Caatuu profile marker must match the course release capabilities");

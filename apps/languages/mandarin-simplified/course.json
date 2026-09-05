@@ -140,6 +140,13 @@
       "scope": "shared",
       "state": "present"
     },
+    "interfaceCatalog": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/data/interface/en.v1.json",
+      "scope": "shared",
+      "state": "present",
+      "revision": "interface-en-1"
+    },
     "courseProfile": {
       "kind": "file",
       "path": "apps/languages/mandarin-simplified/static/source/shared/course-profile.js",
