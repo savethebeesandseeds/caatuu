@@ -33,8 +33,8 @@ function text(tag, value, className) {
 function sourceUrl(frame) {
   if (!frame || typeof frame.file !== "string") return null;
   if (!/^(?:\.\/)?images\/[a-z0-9][a-z0-9._-]*\.png$/i.test(frame.file)) return null;
-  const url = new URL(frame.file, location.href);
-  const root = new URL("./images/", location.href);
+  const url = new URL(frame.file, import.meta.url);
+  const root = new URL("./images/", import.meta.url);
   if (url.origin !== root.origin || !url.pathname.startsWith(root.pathname) || url.search || url.hash) return null;
   if (typeof frame.sha256 === "string" && /^[0-9a-f]{64}$/.test(frame.sha256)) url.searchParams.set("v", frame.sha256);
   return url.href;
@@ -210,7 +210,7 @@ async function refreshManifest() {
   $("refresh").textContent = "Reading…";
   $("page-error").hidden = true;
   try {
-    const response = await fetch("./manifest.json", { cache: "no-store" });
+    const response = await fetch(new URL("./manifest.json", import.meta.url), { cache: "no-store" });
     if (!response.ok) throw new Error(`Manifest request returned HTTP ${response.status}.`);
     const incoming = await response.json();
     if (!Array.isArray(incoming.frames)) throw new Error("Manifest has no frames array.");

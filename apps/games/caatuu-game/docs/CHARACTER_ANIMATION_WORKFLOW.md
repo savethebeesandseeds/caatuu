@@ -4,7 +4,10 @@ Use this process for Caatuu's illustrated character sprites, including new
 characters and later clothing variants. The macaw standing/walking and running
 sets are the worked examples: 25 walking-set frames plus 30 running frames,
 covering eight directions through five authored views and three mirrors.
-The animation review is separate from the Godot actor integration.
+The animation review is separate from the Godot actor integration. Discover it
+at <http://127.0.0.1:8765/games/lab>, with Motion at `/games/lab/motion` and the
+independent click-to-move Scenery experiment at `/games/lab/scenary` (that exact
+URL spelling).
 
 ## Approve the design, then keep it stable
 
@@ -167,7 +170,7 @@ cell 1, south's four walk frames use **2, 5, 4, 3**, and the other directions us
 Preserve this correction in provenance; do not silently assume row-major
 playback for later characters.
 
-## Review the latest frames in the original animation screen
+## Review the latest frames in the Motion lab
 
 The generation archive is
 `artifacts/games/caatuu-game/art-direction/2026-09-05-macaw/sheets-v2/`.
@@ -179,17 +182,22 @@ and processing evidence in the canonical workspace.
 
 The selected frames, live viewer source, portable provenance and manifest are
 tracked in the [character workshop](../character-workshop/README.md). Promote
-reviewed frames there before publication; do not overwrite it with stale raw
+reviewed frames there before live review; do not overwrite it with stale raw
 split outputs. Original sources and intermediate candidates stay in the archive.
-The old archive publisher records the earlier pipeline; the maintained publisher
-now restores the viewer entirely from tracked files through `caatuu-dev`:
+The local server now serves that tracked source directly at
+`http://127.0.0.1:8765/games/lab/motion`, under its existing
+`ENABLE_CAATUU_GAME_PREVIEW=1` gate. No publisher or Godot export is needed to
+load a source change. Validate the complete curated package through `caatuu-dev`:
 
 ```powershell
-docker exec -w /workspace caatuu-dev node apps/games/caatuu-game/tooling/publish-character-workshop.mjs
+docker exec -w /workspace caatuu-dev node apps/games/caatuu-game/tooling/publish-character-workshop.mjs --check
 ```
 
-The established interactive URL is
-`http://127.0.0.1:8765/games/caatuu-game/godot-v1/review/macaw-walk-v1/`.
+The maintained publisher remains available without `--check` for an optional
+snapshot in `artifacts/games/lab/motion/`, outside the Godot export. That snapshot
+does not back the live lab. Archive publishers record the earlier pipeline.
+The former `/games/caatuu-game/godot-v1/review/macaw-walk-v1/` entry redirects
+to the short Motion URL, with old asset paths retained for compatibility.
 Keep its compass, standing/walking switch, play/pause, frame stepping, scrubber,
 speed control, all eight directions and contact sheets. Walking uses four poses
 at 6 fps; running uses six at 10 fps. The current 55-frame screen opens on south
@@ -206,6 +214,16 @@ files loads changed bytes. Review playback, stopping, mirror directions and
 individual poses; check frame counts, real alpha, loading failures and hashes.
 Registration and successful playback do not by themselves certify the gait.
 
+The adjacent Scenery experiment is authored under `apps/games/lab/scenary/`.
+It reads Motion's same manifest and 55 selected PNGs, and the existing canonical
+`/assets/scenery/metadata/{catalog,world}.json` and `/assets/scenery/images/`
+resources. Click a destination; movement chooses walking for routes shorter
+than 2.6 world units and running otherwise, at 1.55 and 3.6 units per second
+respectively. Arrow keys are not required. Review character scale, gait and
+placement there without treating this browser experiment as Godot integration.
+The lab hub and both experiments stay local, `noindex`, and outside game,
+application and Android exports.
+
 ## Repair only the rejected area
 
 Before a repair, snapshot the accepted manifest and hashes. Identify the exact
@@ -219,7 +237,7 @@ Compare every accepted output hash afterward. Only authorized frames may change;
 all others must remain byte-identical. For the walking foot repair, that meant
 one changed PNG and 24 unchanged PNGs. Preserve before/after candidates and
 record the local correction, source, processing and approval. Update the one
-manifest entry, publish the latest bytes, refresh and inspect the full loop and
+manifest entry, validate the latest bytes, refresh Motion and inspect the full loop and
 the corrected pose. Do not turn a single-frame request into clothing, timing,
 background or whole-character changes.
 

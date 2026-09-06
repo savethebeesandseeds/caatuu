@@ -5,7 +5,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const tooling = path.dirname(fileURLToPath(import.meta.url));
 export const sourceRoot = path.resolve(tooling, '../character-workshop');
-const outputRoot = path.resolve(tooling, '../../../../artifacts/games/caatuu-game/web/godot-v1/review/macaw-walk-v1');
+const outputRoot = path.resolve(tooling, '../../../../artifacts/games/lab/motion');
 const viewFiles = ['index.html','review.js','review.css','animation-clock.mjs'];
 const expected = new Map(['S','N','E','NE','SE'].flatMap(direction => [
   [`${direction}-idle`, {direction,action:'idle',phase:0}],
@@ -54,7 +54,7 @@ export async function publishWorkshop({source = sourceRoot, destination = output
   // Advertise the new hashes only after their image bytes and UI are available.
   for (const file of order) await fs.writeFile(path.join(destination,file),files.get(file));
   return {frames:manifest.frames.length,walking_directions:8,running_directions:8,
-    url:'http://127.0.0.1:8765/games/caatuu-game/godot-v1/review/macaw-walk-v1/'};
+    url:'http://127.0.0.1:8765/games/lab/motion'};
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {

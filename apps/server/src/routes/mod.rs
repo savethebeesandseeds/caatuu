@@ -24,6 +24,7 @@ use crate::{
 
 pub mod dictionary;
 pub mod dictionary_gaps;
+mod game_lab;
 pub mod http;
 pub mod ws;
 
@@ -302,6 +303,7 @@ fn build_web_games(workspace: &std::path::Path) -> Router<Arc<AppState>> {
             HeaderName::from_static("cache-control"),
             HeaderValue::from_static("no-cache, max-age=0"),
         ))
+        .merge(game_lab::build_router(workspace))
 }
 
 fn android_debug_router(
@@ -526,7 +528,17 @@ mod tests {
 
     #[tokio::test]
     async fn standalone_game_preview_is_fail_closed_by_default() {
-        for path in ["/games/caatuu-game/", "/games/caatuu-game/godot-v1/"] {
+        for path in [
+            "/games/caatuu-game/",
+            "/games/caatuu-game/godot-v1/",
+            "/games/lab",
+            "/games/lab/",
+            "/games/lab/motion",
+            "/games/lab/motion/manifest.json",
+            "/games/lab/motion/images/s-idle-sheet-v1.png",
+            "/games/lab/scenary",
+            "/games/caatuu-game/godot-v1/review/macaw-walk-v1/",
+        ] {
             let response = disabled_router()
                 .oneshot(Request::builder().uri(path).body(Body::empty()).unwrap())
                 .await

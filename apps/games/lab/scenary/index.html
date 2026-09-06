@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; style-src-elem 'self' 'unsafe-inline'; style-src-attr 'none'; img-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Caatuu · Scenery lab</title>
+  <link rel="stylesheet" href="/games/lab/assets/lab.css">
+  <script type="module" src="/games/lab/scenary/scene.mjs"></script>
+</head>
+<body>
+  <main class="lab-page scene-page">
+    <nav class="lab-nav" aria-label="Lab"><a class="lab-brand" href="/games/lab">CAATUU <span>/ LAB</span></a><div><a href="/games/lab/motion">Motion</a><a aria-current="page" href="/games/lab/scenary">Scenery</a></div></nav>
+    <header class="scene-intro"><div><p class="eyebrow">02 / SCENERY</p><h1>Take a little wander.</h1><p id="scene-help">Click or tap the ground. Walk nearby, run farther. Pick another spot to change course.</p></div><a class="text-link" href="/games/lab/motion">Inspect the frames ↗</a></header>
+    <section class="scene-panel" aria-label="Exploration playground">
+      <div class="scene-toolbar"><div class="movement-state"><span class="state-dot" aria-hidden="true"></span><output id="movement-state">Preparing the grove</output></div><div class="scene-tools"><label for="view">View</label><select id="view"><option value="grove">Whole grove</option><option value="close">Follow the macaw</option></select><button id="return" type="button" disabled>Back to start</button></div></div>
+      <div class="canvas-wrap"><canvas id="scene" width="1200" height="720" tabindex="0" aria-label="Memory grove. Click or tap the ground to move the macaw." aria-describedby="scene-help scene-message"></canvas><div class="scene-loading" id="loading" role="status">Gathering the scenery…</div></div>
+      <div class="scene-caption"><p id="scene-message" role="status" aria-live="polite">The macaw will find a clear route around trees and stones.</p><span class="grove-name">MEMORY GROVE</span></div>
+    </section>
+    <footer class="lab-footer"><a href="/games/lab">← All experiments</a><span>Same macaw. Same frames. A little more life.</span></footer>
+  </main>
+</body>
+</html>
