@@ -190,8 +190,11 @@ test("the Pages language plan derives current browser route and entry coverage f
     "es/index.html",
     "es/setup-assets.json",
     "es/source/shared/course-profile.js",
+    "es-en/index.html",
+    "es-en/setup-assets.json",
+    "es-en/source/shared/course-profile.js",
   ]);
-  assert.deepEqual(plan.forbiddenOutputPrefixes, ["es/"]);
+  assert.deepEqual(plan.forbiddenOutputPrefixes, ["es/", "es-en/"]);
 });
 
 test("a third browser course fails closed until both its public route and entry are declared", () => {

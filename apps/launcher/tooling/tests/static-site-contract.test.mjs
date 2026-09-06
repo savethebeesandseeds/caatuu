@@ -34,6 +34,11 @@ test("static compiler closes the complete Pages payload", { timeout: 300_000 }, 
     assert.equal(manifest.requiredSetupArtifacts, 3);
     assert.equal(manifest.publishedVisualAssets, 691);
     assert.equal(manifest.basePath, "/");
+    const launcherIndex = readFileSync(join(outputDir, "index.html"), "utf8");
+    assert.match(launcherIndex, /<small>Android app<\/small>/u);
+    assert.match(launcherIndex, /<b>Published separately<\/b>/u);
+    assert.doesNotMatch(launcherIndex, /data-i18n="launcher\.android\.(?:preview|checking)"|class="advanced-entry"/u,
+      "interface initialization must not restore development-only launcher copy or links");
     const languageIndex = readFileSync(join(outputDir, "cz/index.html"), "utf8");
     assert.match(languageIndex, /data-i18n="dictionary\.full\.subtitle">static web dictionary<\/small>/u);
     assert.match(languageIndex, /aria-label="Web dictionary controls" data-i18n-aria-label="dictionary\.full\.controls"/u);

@@ -98,16 +98,16 @@ test("the Pages profile rewrite removes the preview channel from the real Mandar
   }
 });
 
-test("Pages projects local three-course browser views to only publishable catalog courses", async () => {
+test("Pages projects local four-course browser views to only publishable catalog courses", async () => {
   const languagePlan = await assertDeclaredPagesLanguageCoverage({ workspaceRoot });
   assert.deepEqual(languagePlan.browserCourses.map(({ id }) => id), ["cz", "zh"]);
 
   const localRegistry = JSON.parse(readFileSync(join(testDir, "../../static/languages.json"), "utf8"));
-  assert.deepEqual(localRegistry.browserSetup.courses.map(({ id }) => id), ["cz", "zh", "es"]);
+  assert.deepEqual(localRegistry.browserSetup.courses.map(({ id }) => id), ["cz", "zh", "es", "es-en"]);
   const projectedRegistry = projectPagesLanguageRegistry({ registry: localRegistry, languagePlan });
   assert.deepEqual(projectedRegistry.browserSetup.courses.map(({ id }) => id), ["cz", "zh"]);
   assert.deepEqual(projectedRegistry.languages.map(({ id }) => id), ["cz"]);
-  assert.deepEqual(localRegistry.browserSetup.courses.map(({ id }) => id), ["cz", "zh", "es"]);
+  assert.deepEqual(localRegistry.browserSetup.courses.map(({ id }) => id), ["cz", "zh", "es", "es-en"]);
 
   const localLauncher = readFileSync(join(testDir, "../../static/index.html"), "utf8");
   assert.match(localLauncher, /data-language-id="es"/u);
@@ -115,6 +115,7 @@ test("Pages projects local three-course browser views to only publishable catalo
   assert.match(projectedLauncher, /data-language-id="cz"/u);
   assert.match(projectedLauncher, /data-language-id="zh"/u);
   assert.doesNotMatch(projectedLauncher, /data-language-id="es"/u);
+  assert.doesNotMatch(projectedLauncher, /data-language-id="es-en"/u);
 
   for (const course of languagePlan.browserCourses) {
     const localProfile = readFileSync(join(workspaceRoot, course.profileRepositoryPath), "utf8");
@@ -126,6 +127,7 @@ test("Pages projects local three-course browser views to only publishable catalo
       label: `${course.id} test profile`,
     });
     assert.doesNotMatch(projectedProfile, /id: "es"/u);
+    assert.doesNotMatch(projectedProfile, /id: "es-en"/u);
     assert.match(projectedProfile, /id: "cz"/u);
     assert.match(projectedProfile, /id: "zh"/u);
   }

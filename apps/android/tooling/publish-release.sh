@@ -268,7 +268,10 @@ if [[ "$mode" == "build-once" ]]; then
     export CAATUU_RELEASE_SOURCE_REVISION="$(git -C "$repo_root" rev-parse HEAD)"
     start_phase "Validate release source"
     node "$repo_root/tools/language-content/validate.mjs" --release
-    node --test "$repo_root"/apps/android/tooling/tests/product-*.test.mjs
+    node --test "$repo_root"/apps/android/tooling/tests/product-*.test.mjs \
+      "$repo_root/apps/launcher/tooling/tests/static-site-contract.test.mjs" \
+      "$repo_root/apps/launcher/tooling/tests/pages-language-plan.test.mjs" \
+      "$repo_root/apps/launcher/tooling/tests/pages-site-contract.test.mjs"
     finish_phase
     start_phase "Build one signed release candidate"
     bash "$repo_root/apps/android/tooling/build-release-aab.sh"

@@ -104,7 +104,12 @@ docker exec -w /workspace caatuu-dev \
   bash apps/android/tooling/publish-release.sh --build-once
 ```
 
-That command performs at most one Android build. The builder writes a
+That command performs at most one Android build.
+Before signing, the publisher checks both the product package contracts and
+the static Pages export/course-projection contracts. Launcher or publishing
+markup drift therefore fails before a version-owned candidate is sealed.
+
+The builder writes a
 version-owned receipt under `artifacts/android/release-candidates/` that binds
 the APK and AAB hashes, sizes, package, version, signer, and source commit. It
 then finalizes the same APK at `artifacts/android/releases/<versionCode>/`.

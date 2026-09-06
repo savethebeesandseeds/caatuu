@@ -609,15 +609,9 @@ function transformDictionaryUi(input) {
 
 function transformLauncherIndex(input) {
   let source = normalizeText(input);
-  source = exactReplace(source, "<small>Android preview</small>", "<small>Android app</small>", "launcher Android label");
-  source = exactReplace(source, "<b>Checking Android build</b>", "<b>Published separately</b>", "launcher Android state");
-  source = replaceBetween(
-    source,
-    '          <details class="advanced-entry">',
-    '          <p class="home-footnote">',
-    "",
-    "launcher server-only preview link"
-  );
+  source = exactReplace(source, '<small data-i18n="launcher.android.preview">Android preview</small>', "<small>Android app</small>", "launcher Android label");
+  source = exactReplace(source, '<b data-i18n="launcher.android.checking">Checking Android build</b>', "<b>Published separately</b>", "launcher Android state");
+  assert.doesNotMatch(source, /class="advanced-entry"/u, "launcher must not expose a server-only preview link");
   return source;
 }
 

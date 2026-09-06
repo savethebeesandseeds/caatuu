@@ -161,6 +161,13 @@ test("the canonical publisher reports source, build, verification, finalization,
 });
 
 test("a newly sealed signed candidate must come from clean pushed main", () => {
+  const sourceValidation = publisher.indexOf('start_phase "Validate release source"');
+  const signedBuild = publisher.indexOf('start_phase "Build one signed release candidate"');
+  for (const contract of ["static-site-contract", "pages-language-plan", "pages-site-contract"]) {
+    const preflight = publisher.indexOf(`${contract}.test.mjs`);
+    assert.ok(preflight > sourceValidation && preflight < signedBuild,
+      `${contract} must reject unpublishable source before a candidate is signed`);
+  }
   const cleanGuard = builder.indexOf("A signed release candidate requires a clean canonical worktree");
   const pushedGuard = builder.indexOf("Push main before building a signed release candidate");
   const gradleInvocation = builder.indexOf("gradle --no-daemon");

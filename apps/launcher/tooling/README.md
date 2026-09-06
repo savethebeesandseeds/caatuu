@@ -48,6 +48,10 @@ dictionary, Android packages, the standalone Godot preview, archives, and every
 dynamic API.
 Picture selection continues through the existing lexical keymap fallback. The
 full-dictionary panel is relabeled as the static 865-record web dictionary.
+The launcher export recognizes the shared interface's keyed Android labels and
+replaces those two development-only labels with static publication copy. Their
+development translation keys are removed so initialization cannot restore the
+old copy; the exporter also rejects any returning server-only preview link.
 Model-backed Skill Compass mapping is hidden, while ordinary progress and stats
 remain available.
 
@@ -72,7 +76,7 @@ Its deterministic manifest is `caatuu-web-bundle.json`.
 The final Pages builder derives its browser routes from the course catalog and
 the explicit `platforms.browser.pagesEnabled` gate. It currently stages the
 `noindex` Mandarin development course at `/zh/`; local-only Spanish at `/es/`
-is excluded while its license remains `release-review-required`. The builder
+and English-from-Spanish at `/es-en/` are excluded by their publication gates. The builder
 restores the stable 162 / compatibility 161 preservation archive and overlays
 every exact Android release in the append-only descriptor.
 It includes all retained aliases, all 662 release-162 native setup artifacts,
