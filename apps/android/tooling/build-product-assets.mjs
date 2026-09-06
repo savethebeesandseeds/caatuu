@@ -1898,7 +1898,28 @@ export function transformProductInterfaceCatalog(input) {
   return `${JSON.stringify(catalog, null, 2)}\n`;
 }
 
+export function transformProductDeveloperTools(input) {
+  let source = exactReplace(normalizeText(input),
+    'import { mountEmbeddingImages, mountDebugChat } from "./model-tools.mjs";',
+    'import { mountEmbeddingImages } from "./model-tools.mjs";', "product developer imports");
+  return exactReplace(source,
+    '  { id: "debug-chat", label: "developer.tools.chat", mount: mountDebugChat, language: true }\n',
+    "", "product developer chat entry");
+}
+
+export function transformProductModelTools(input) {
+  const source = normalizeText(input);
+  const boundary = "function nativeHost(host) {";
+  assert.equal(countOccurrences(source, boundary), 1, "Expected the separate developer chat implementation");
+  const images = source.slice(0, source.indexOf(boundary));
+  assert.match(images, /export async function mountEmbeddingImages\(/u);
+  assert.match(source.slice(source.indexOf(boundary)), /export async function mountDebugChat\(/u);
+  return exactReplace(images, "const browserServices = new WeakMap();\n", "", "unused developer chat cache");
+}
+
 const SHARED_APP_TRANSFORMS = Object.freeze({
+  "language-runtime/static/source/developer-tools/developer-tools.mjs": transformProductDeveloperTools,
+  "language-runtime/static/source/developer-tools/model-tools.mjs": transformProductModelTools,
   "language-runtime/static/source/developer-tools/browser-model-service.mjs": transformDeveloperBrowserModelService,
   "language-runtime/static/source/caatuu-chrome.js": transformChromeJs,
   "language-runtime/static/styles/caatuu-chrome.css": transformChromeCss,

@@ -112,6 +112,9 @@ The asset compiler and signed-archive audit share one forbidden-source policy,
 including JSON interface text. Product-only catalog projection removes disabled
 generation offers in every packaged locale while retaining unavailable-state
 messages and leaving the browser authority unchanged.
+The product developer hub retains its audio, image, dictionary, and verb
+inspectors, but projects out the browser-only Chat entry and generation
+implementation. Browser development keeps the full hub.
 
 The builder writes a version-owned receipt under
 `artifacts/android/release-candidates/` that binds

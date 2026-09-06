@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
-import { transformProductInterfaceCatalog } from "../build-product-assets.mjs";
+import { transformProductInterfaceCatalog, transformProductDeveloperTools, transformProductModelTools } from "../build-product-assets.mjs";
 import { assertProductSourceText } from "../product-source-policy.mjs";
 import { validateInterfaceCatalogParity } from "../../../language-runtime/static/source/interface-content.mjs";
 
@@ -39,4 +39,20 @@ test("the shared preflight and signed-package text policy rejects disabled produ
     '<a href="chat.html">Chat</a>',
   ]) assert.throws(() => assertProductSourceText(source, "injected asset"), /forbidden product pattern/u);
   assert.doesNotThrow(() => assertProductSourceText('{"capabilities":{"generation":false,"godot":false}}', "profile"));
+});
+
+test("product developer tools retain inspectors but exclude the browser-only Chat entry and implementation", () => {
+  const source = (file) => readFileSync(new URL(`../../../language-runtime/static/source/developer-tools/${file}`, import.meta.url), "utf8");
+  const tools = transformProductDeveloperTools(source("developer-tools.mjs"));
+  const models = transformProductModelTools(source("model-tools.mjs"));
+  for (const id of ["audio-lab", "embedding-images", "verb-difficulty", "dictionary"]) {
+    assert.ok(tools.includes(`id: "${id}"`));
+  }
+  assert.doesNotMatch(tools, /mountDebugChat|debug-chat/u);
+  assert.doesNotMatch(models, /mountDebugChat|browserChatService|models\.generate/u);
+  assert.match(models, /export async function mountEmbeddingImages\(/u);
+  assertProductSourceText(tools, "product developer hub");
+  assertProductSourceText(models, "product image inspector");
+  assert.throws(() => transformProductDeveloperTools("changed boundary"), /anchor/u);
+  assert.throws(() => transformProductModelTools("changed boundary"), /separate developer chat/u);
 });
