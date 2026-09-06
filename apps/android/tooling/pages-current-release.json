@@ -57,6 +57,23 @@
         "bytes": 1103,
         "sha256": "01df6e95df821b73c7ce2d73c440e555f03ae9c639fe7f61a2f2448289e33c66"
       }
+    },
+    {
+      "versionCode": 166,
+      "versionName": "0.1.14",
+      "sourceRevision": "c488939a64ca43208cf51b8a631eb316e371af0d",
+      "manifest": {
+        "bytes": 1042,
+        "sha256": "650c875f8ece0675517e4665a4ef11fa7e32c26709bb8f719dd3275ddae4b56a"
+      },
+      "apk": {
+        "bytes": 41098367,
+        "sha256": "c2d6f8035f89df5e03d1175c6cdef2072ffc57c2c833a8f732fe8433f00bce3a"
+      },
+      "receipt": {
+        "bytes": 1103,
+        "sha256": "c0cecbe35816f4529525fd13eacbf77f35abd882b88cd62cbd03020ef25f3c3a"
+      }
     }
   ],
   "setupEntries": [
