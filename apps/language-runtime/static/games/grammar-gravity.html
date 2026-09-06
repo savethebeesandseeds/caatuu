@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en" data-theme="light" data-font-size="largest">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#f5efe5">
+    <title data-i18n="games.grammargravity.title">Grammar Gravity</title>
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-theme.css?v=theme-7">
+    <link rel="stylesheet" href="/language-runtime/static/styles/games/embedded-game-controls.css?v=embedded-game-controls-8">
+    <link rel="stylesheet" href="/language-runtime/static/styles/games/grammar-gravity.css?v=grammar-gravity-shared-30">
+  </head>
+  <body class="grammar-gravity-page">
+    <div class="app-shell">
+      <main class="workspace">
+        <section class="view is-active" aria-label="Grammar Gravity" data-i18n-aria-label="games.grammargravity.title">
+          <div class="grammar-gravity-shell">
+            <section class="grammar-gravity-panel" id="grammarGravityPanel" aria-label="Grammar Gravity" data-i18n-aria-label="games.grammargravity.title" aria-busy="true">
+              <div class="gravity-settings-content" id="gravityChallengeSettings" hidden>
+                <fieldset class="gravity-time-options">
+                  <legend id="gravityPracticeModeLabel"></legend>
+                  <div id="gravityPracticeModeChoices"></div>
+                </fieldset>
+                <fieldset class="gravity-time-options" id="gravityFallDuration">
+                  <legend id="gravityFallDurationLabel"></legend>
+                  <div id="gravityFallDurationChoices"></div>
+                  <small id="gravityAdjectiveTimeHint"></small>
+                </fieldset>
+              </div>
+
+              <div class="caatuu-game-robot-loading" id="gravityModeLoading" role="status" aria-live="polite">
+                <img class="caatuu-game-robot-loading-art" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true">
+              </div>
+              <div class="gravity-settings-content" id="gravityMeaningSettings" hidden>
+                <fieldset class="gravity-time-options">
+                  <legend id="gravityMeaningCountLabel"></legend>
+                  <div id="gravityMeaningCountChoices"></div>
+                </fieldset>
+              </div>
+
+              <section class="gravity-noun-mode" id="grammarGravityNounMode" aria-label="Grammar Gravity" data-i18n-aria-label="games.grammargravity.title" hidden>
+                <div class="gravity-noun-arena" id="gravityNounArena" tabindex="0">
+                  <header class="gravity-noun-header" id="gravityGameHeader">
+                    <div class="gravity-header-status">
+                      <div class="gravity-noun-clock" id="gravityNounClock" role="progressbar" aria-valuemin="0" aria-valuemax="10" aria-valuenow="10" hidden>
+                        <img src="/assets/icons/clock_icon.png" alt="" aria-hidden="true">
+                        <span class="gravity-clock-track" aria-hidden="true"><span></span></span>
+                      </div>
+                      <div class="gravity-adjective-progress" id="gravityAdjectiveProgress" hidden></div>
+                    </div>
+                    <div id="gravityNounControls"></div>
+                  </header>
+                  <div class="gravity-noun-lanes" id="gravityNounLanes"></div>
+                  <img class="gravity-noun-visual" id="gravityNounVisual" alt="" aria-hidden="true" hidden>
+                  <div class="gravity-noun-block" id="gravityNounBlock" hidden>
+                    <strong id="gravityNounWord" lang="und"></strong>
+                    <span id="gravityNounMeaning"></span>
+                    <button class="gravity-noun-speak" id="gravityNounSpeak" type="button"></button>
+                  </div>
+                  <p class="gravity-visually-hidden" id="gravityNounFeedback" role="status" aria-live="polite" aria-atomic="true"></p>
+                  <div class="caatuu-game-robot-loading" id="gravityNounLoading" role="status">
+                    <img class="caatuu-game-robot-loading-art" id="gravityNounLoadingArt" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true">
+                  </div>
+                </div>
+
+                <p class="gravity-noun-error" id="gravityNounError" role="alert" hidden></p>
+              </section>
+
+              <div class="grammar-gravity-phrase-mode" id="grammarGravityPhraseMode" hidden>
+              <section class="gravity-adjective-mode" id="gravityAdjectiveMode" hidden>
+                <div class="gravity-adjective-arena" id="gravityAdjectiveArena" tabindex="0">
+                  <img id="gravityAdjectiveVisual" alt="" aria-hidden="true" hidden>
+                  <div class="gravity-adjective-drop" id="gravityAdjectiveDrop">
+                    <img class="gravity-drop-parachute" id="gravityAdjectiveParachute" src="/assets/micelaneous/parashute.png" width="108" height="108" alt="" aria-hidden="true" draggable="false" hidden>
+                    <div class="gravity-adjective-dock" id="gravityAdjectiveDock">
+                    <div class="gravity-adjective-dock-copy">
+                      <span class="gravity-adjective-kicker" id="gravityAdjectivePreviewLabel" hidden></span>
+                      <strong id="gravityAdjectiveNoun"><span id="gravityAdjectivePrompt"></span></strong>
+                      <span class="gravity-adjective-context" id="gravityAdjectiveContext" hidden></span>
+                      <div class="gravity-adjective-translation">
+                        <span id="gravityAdjectiveMeaning"></span>
+                        <button class="gravity-noun-speak gravity-adjective-speak" id="gravityAdjectiveSpeak" type="button" hidden></button>
+                      </div>
+                      <div class="gravity-adjective-recap" id="gravityAdjectiveRecap" hidden>
+                        <button class="gravity-adjective-next" id="gravityAdjectiveNext" type="button" disabled></button>
+                      </div>
+                      <p class="gravity-visually-hidden" id="gravityAdjectiveFeedback" role="status" aria-live="polite" aria-atomic="true"></p>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="gravity-adjective-choices" id="gravityAdjectiveChoices"></div>
+                </div>
+              </section>
+
+              <div class="caatuu-game-robot-loading" id="grammarGravityLoading" role="status" aria-live="polite">
+                <img class="caatuu-game-robot-loading-art" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true">
+              </div>
+
+
+              <section class="grammar-gravity-error" id="grammarGravityError" role="alert" hidden>
+                <img src="/assets/planets/grammar-gravity.png" alt="" aria-hidden="true">
+                <h1 id="grammarGravityErrorTitle" data-i18n="games.grammargravity.title">Grammar Gravity</h1>
+                <p id="grammarGravityErrorCopy"></p>
+                <a id="grammarGravityBack" href="/" target="_top" hidden></a>
+              </section>
+              </div>
+            </section>
+            <footer class="gravity-noun-info" id="gravityNounInfo" hidden>
+              <span class="gravity-info-icon" aria-hidden="true">i</span>
+              <p id="gravityNounHelp"></p>
+            </footer>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="/language-runtime/static/source/games/grammar-gravity/grammar-gravity-host.mjs?v=grammar-gravity-shared-32"></script>
+  </body>
+</html>

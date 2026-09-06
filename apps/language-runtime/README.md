@@ -25,7 +25,8 @@ product UI.
 | `static/source/word-world-host.mjs` | The sole lazy-loading boundary between the workspace controller and the shared Word World provider/renderer. |
 | `static/source/word-world-provider.mjs` | Prepares one frozen context from standard or authored course content, adapter tools, English-only ranking, meanings, and optional hooks. |
 | `static/source/product-word-world.mjs` | The shared Word World controller bound to the exact shared DOM: meanings, learner-base/target reconstruction, XP, history, display controls, swipes, speech, and reporting. |
-| `static/games/*` and `static/source/games/*` | Shared game documents, mechanics, and hosts. Conjugation Comet and Agreement Aurora resolve revisioned course-owned catalogs only through the generated `gameContent` projection; they never infer a language directory. |
+| `static/games/*` and `static/source/games/*` | Shared game documents, mechanics, and hosts. Conjugation Comet and Grammar Gravity resolve revisioned course-owned catalogs only through the generated `gameContent` projection; they never infer a language directory. |
+| `static/source/games/embedded-game-controls.mjs` | Reusable embedded-game display, layout, and audio controls. Interface copy comes from the parent catalog; theme, text size, mute, pace, and voice use the existing shell owner. Optional game layout is session-only. |
 | `static/styles/caatuu-*.css` | The shared theme, workspace, Home, Chrome, and Word World presentation used without per-course copies. |
 
 Course packages supply only identity, learner source/base and target labels,
@@ -79,6 +80,11 @@ This parity role is separate from the English concept and `embeddingText`
 authority used to audit and retrieve learning content. Courses with the same
 canonical source locale must reuse the same interface-catalog path and
 revision.
+
+Interface messages are plain text, including their substituted values. Assign
+them through `textContent` or `setAttribute`; shared HTML templates must escape
+them with `interfaceHtml`. A translation must never supply markup or change the
+shared component layout. Refresh plural messages whenever their counts change.
 
 The interface runtime is a universal shared offline asset; message catalogs are
 selective. Each course setup caches exactly its declared catalog URL and
@@ -223,13 +229,18 @@ English for search and auditing. The shared join keeps all three roles
 explicit; it never labels English concept text as the configured learner base.
 
 The currently complete non-English-base presentation paths are Word World,
-Conjugation Comet, and Agreement Aurora. The two grammar games validate
+Conjugation Comet, and Grammar Gravity. The two grammar games validate
 pack-owned learner-base copy independently from mandatory English audit text;
 English audit fields never enter playable round projections. Campaign is ready
 only when every contained planet has one of these registered presentation
 contracts. Dictionary, Verb Lab, Case Cosmos, and Naturalization Nucleus fail
 `source-language.presentation` until they implement the same three-role shared
-rendering boundary. Browser offline setup must include every projection output,
+rendering boundary. The base-sensitive `dictionary`, `generation`, `chat`, and
+`skillCompass` capabilities also remain unavailable for a non-English base until
+their presentation contracts are reviewed. English-authority embeddings and
+semantic search remain independent of those capabilities.
+
+Browser offline setup must include every projection output,
 including each exact revisioned game catalog and the shared English-concept URL,
 while Android packages every course-scoped projection output through the course
 asset catalog.
@@ -260,6 +271,26 @@ Pronunciation rendering requires both an enabled course capability and an
 approved content-review state. Draft course projections may therefore expose
 authored target text and word boundaries without exposing unreviewed readings or
 guessing segmentation and polyphones.
+
+## Shared developer tools
+
+Backpack → Settings → Advanced exposes one shared developer section for every
+course. Audio Lab, Verb difficulty, Dictionary inspector, Embedding Images,
+and Debug Chat appear as a list. Selecting a tool opens a dedicated screen with
+a Back button; its implementation mounts lazily from `static/source/developer-tools/`.
+Language
+selectors inspect generated `courseSelector.courses[].developerContext` data
+without changing the active course, learning progress, or voice preferences.
+Returning to the list or closing the section releases listeners, cancels previews,
+and aborts requests.
+
+Audio Lab checks the selected locale against browser or native speech services.
+Catalog inspectors fetch only resources declared by the selected course. Shared
+image search uses the English artwork catalogs and the existing local MiniLM
+ranker, with an explicitly reported lexical fallback. Debug Chat loads its
+browser model only after the Load action and a successful WebGPU check. Standard
+Android and Pages packages retain the shared tools but replace the browser chat
+adapter with an unavailable stub; they do not package or download that engine.
 
 ## Focused tests
 

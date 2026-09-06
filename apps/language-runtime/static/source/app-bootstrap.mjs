@@ -2,13 +2,32 @@ import { initializeWorkspaceAfterDictionaryProvider } from "./dictionary-provide
 import {
   installInterfaceContent,
   loadInterfaceContent
-} from "./interface-content.mjs?v=interface-runtime-1";
+} from "./interface-content.mjs?v=interface-runtime-2";
 
 const course = globalThis.CaatuuCourse;
 
 if (!course || typeof course !== "object") {
   throw new Error("The course profile must load before the Caatuu application.");
 }
+
+let settleShellReady;
+globalThis.CaatuuShellReady = new Promise((resolve) => {
+  settleShellReady = resolve;
+});
+document.documentElement.dataset.caatuuShellReady = "loading";
+document.documentElement.dataset.caatuuAppReady = "loading";
+document.body.classList.add("app-starting", "setup-blocked");
+document.querySelectorAll("[data-caatuu-bottom-nav]").forEach((nav) => {
+  nav.setAttribute("inert", "");
+  nav.setAttribute("aria-busy", "true");
+});
+// Register before Chrome: its dock handlers stop other capture listeners.
+document.addEventListener("click", (event) => {
+  if (document.documentElement.dataset.caatuuShellReady === "true") return;
+  if (!event.target.closest?.("[data-caatuu-bottom-nav]")) return;
+  event.preventDefault();
+  event.stopImmediatePropagation();
+}, true);
 
 function t(messageId, parameters = {}) {
   const value = globalThis.CaatuuI18n?.t?.(messageId, parameters);
@@ -30,6 +49,9 @@ function captureInitialNavigationRequest() {
   if (document.documentElement.dataset.navigationRequest) return;
   const url = new URL(globalThis.location.href);
   const gameId = String(url.searchParams.get("game") || "").trim();
+  if (gameId === "grammar-gravity" && url.searchParams.has("practice")) {
+    document.documentElement.dataset.grammarGravityPractice = url.searchParams.get("practice");
+  }
   const viewId = String(url.searchParams.get("view") || "").trim();
   if (gameId) document.documentElement.dataset.navigationRequest = `game:${gameId}`;
   else if (viewId) document.documentElement.dataset.navigationRequest = viewId;
@@ -168,6 +190,37 @@ function installSharedSpeechRuntime() {
   };
 
   const speech = Object.freeze({
+    forLocale(inspectorLocale) {
+      // Developer previews select their own language without changing the learning course.
+      const selectedLocale = Intl.getCanonicalLocales(String(inspectorLocale || ""))[0];
+      if (!selectedLocale) throw new Error("A speech preview requires a language.");
+      return Object.freeze({
+        status(_requestedLocale = selectedLocale, options = {}) {
+          return nativeSpeechCall("speech_status", {
+            locale: selectedLocale,
+            voice: String(options.voice || "").trim().slice(0, 256)
+          }, { timeoutMs: 10_000 });
+        },
+        speak(text, options = {}, handlers = {}) {
+          const normalizedText = String(text || "").normalize("NFC").trim();
+          if (!normalizedText) {
+            return Promise.reject(new Error(t("speech.textrequired", { language: selectedLocale })));
+          }
+          if (normalizedText.length > 1_000) {
+            return Promise.reject(new Error(t("speech.texttoolong", { language: selectedLocale, count: 1000 })));
+          }
+          return nativeSpeechCall("speech_speak", {
+            text: normalizedText,
+            locale: selectedLocale,
+            voice: String(options.voice || "").trim().slice(0, 256),
+            rate: Number.isFinite(Number(options.rate)) ? Math.max(0.5, Math.min(1.5, Number(options.rate))) : 0.6,
+            pitch: Number.isFinite(Number(options.pitch)) ? Math.max(0.5, Math.min(1.5, Number(options.pitch))) : 1
+          }, handlers);
+        },
+        stop() { return nativeSpeechCall("speech_stop", {}, { timeoutMs: 3_000 }); },
+        installData() { return nativeSpeechCall("speech_install_data", {}, { timeoutMs: 10_000 }); }
+      });
+    },
     status(_requestedLocale = locale, options = {}) {
       return nativeSpeechCall(
         "speech_status",
@@ -357,12 +410,28 @@ function renderReadyCourseHome() {
   bindReadyHomeDetails(card);
 }
 
+function renderStartingCourseHome() {
+  const card = document.getElementById("nativeSetup");
+  if (!card) return;
+  card.hidden = false;
+  card.classList.remove("is-ready", "is-error");
+  card.setAttribute("aria-busy", "true");
+  setHomeText("#setupTitle", t("setup.preparing"));
+  setHomeText("#setupPhase", t("setup.checking"));
+  setHomeText("#setupMessage", t("setup.preparing"));
+  for (const id of ["setupAction", "setupAbort", "setupDetailsToggle", "setupProgress"]) {
+    const control = document.getElementById(id);
+    if (control) control.hidden = true;
+  }
+  card.querySelector(".setup-progress-meta")?.setAttribute("hidden", "");
+}
+
 function configureGameRoutes() {
   const routes = course.routes || {};
   const routeBindings = {
     conjugationCometEmbeddedGame: routes.conjugationComet,
     caseCosmosEmbeddedGame: routes.caseCosmos,
-    agreementAuroraEmbeddedGame: routes.agreementAurora
+    grammarGravityEmbeddedGame: routes.grammarGravity
   };
   for (const [id, path] of Object.entries(routeBindings)) {
     const frame = document.getElementById(id);
@@ -387,12 +456,8 @@ function applyCapabilityBoundaries() {
     }
   }
 
-  if (course.capabilities?.offlineModels === true) {
-    document.body.classList.add("setup-blocked");
-  } else {
-    document.body.classList.remove("setup-blocked");
-    renderReadyCourseHome();
-  }
+  document.body.classList.add("setup-blocked");
+  if (course.capabilities?.offlineModels !== true) renderStartingCourseHome();
 
   const available = new Set(globalThis.CaatuuShellPolicy?.availableGames?.(course) || []);
   document.querySelectorAll("[data-course-asset]").forEach((image) => {
@@ -430,14 +495,14 @@ async function loadCourseFeatureProviders() {
   const naturalizationNucleus = gameAvailable("naturalization-nucleus");
   if (naturalizationNucleus) {
     await Promise.all([
-      loadStyle("source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-12"),
-      loadScript("source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-12")
+      loadStyle("source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-16"),
+      loadScript("source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-16")
     ]);
   }
   const courseRuntime = declaredBrowserProvider("courseRuntime");
   if (courseRuntime) await loadScript(courseRuntime);
   installSharedSpeechRuntime();
-  await loadSharedScript("/language-runtime/static/source/maintenance-ui.js?v=maintenance-18");
+  await loadSharedScript("/language-runtime/static/source/maintenance-ui.js?v=maintenance-19");
   for (const providerName of ["semanticLearningProvider", "setupProgressProvider", "setupProvider"]) {
     const providerModule = declaredBrowserProvider(providerName);
     if (providerModule) await loadScript(providerModule);
@@ -449,7 +514,7 @@ async function loadCourseFeatureProviders() {
     origin: location.origin,
     routeBase,
     async initializeWorkspace() {
-      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-14");
+      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-21");
       const workspace = await globalThis.CaatuuWorkspaceReady;
       if (workspace?.ready !== true) {
         throw workspace?.error instanceof Error
@@ -478,19 +543,40 @@ async function start() {
   installInterfaceContent(interfaceContent);
   interfaceContent.apply(document);
   setCourseIdentity();
-  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-143");
+  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-155");
   configureGameRoutes();
   applyCapabilityBoundaries();
-  await import("./word-world-host.mjs?v=word-world-host-16");
+  await import("./word-world-host.mjs?v=word-world-host-19");
   await loadCourseFeatureProviders();
+  if (course.capabilities?.offlineModels !== true) {
+    renderReadyCourseHome();
+    document.getElementById("nativeSetup")?.removeAttribute("aria-busy");
+    document.body.classList.remove("setup-blocked");
+  }
   document.documentElement.dataset.caatuuShellReady = "true";
-  await registerCourseServiceWorker();
+  document.body.classList.remove("app-starting");
+  document.querySelectorAll("[data-caatuu-bottom-nav]").forEach((nav) => {
+    nav.removeAttribute("inert");
+    nav.removeAttribute("aria-busy");
+  });
+  settleShellReady(Object.freeze({ ready: true }));
   document.documentElement.dataset.caatuuAppReady = "true";
   document.dispatchEvent(new CustomEvent("caatuu:app-ready", { detail: Object.freeze({ courseId: course.id }) }));
+  void registerCourseServiceWorker();
 }
 
 start().catch((error) => {
   document.documentElement.dataset.caatuuAppReady = "error";
+  document.documentElement.dataset.caatuuShellReady = "error";
+  settleShellReady(Object.freeze({ ready: false, error }));
+  document.body.classList.add("setup-blocked", "app-starting");
+  const card = document.getElementById("nativeSetup");
+  if (card) {
+    card.hidden = false;
+    card.classList.remove("is-ready");
+    card.classList.add("is-error");
+    card.removeAttribute("aria-busy");
+  }
   const home = document.querySelector("#view-home .home-main");
   const notice = document.createElement("p");
   notice.className = "empty-state";
@@ -498,6 +584,8 @@ start().catch((error) => {
   notice.textContent = globalThis.CaatuuI18n?.has?.("app.loaderror")
     ? globalThis.CaatuuI18n.t("app.loaderror")
     : "Caatuu could not finish loading. Reload the page to try again.";
+  setHomeText("#setupTitle", notice.textContent);
+  setHomeText("#setupMessage", notice.textContent);
   home?.append(notice);
   console.error(error);
 });

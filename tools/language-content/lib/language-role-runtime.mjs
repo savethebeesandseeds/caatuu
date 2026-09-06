@@ -1,6 +1,7 @@
 import { isDeepStrictEqual } from "node:util";
 
 import { validateLearnerBaseRealizations } from "./language-role-contract.mjs";
+import { learnerTokenMeanings } from "../../../apps/language-runtime/static/source/learner-base-token-meanings.mjs";
 
 export const LEARNER_BASE_RUNTIME_SCHEMA =
   "https://caatuu.org/schemas/runtime/learner-base-realizations.runtime.v1.schema.json";
@@ -16,7 +17,7 @@ const RUNTIME_KEYS = [
   "license",
   "realizations"
 ];
-const REALIZATION_KEYS = ["conceptId", "text"];
+const REALIZATION_KEYS = ["conceptId", "text", "tokenMeanings"];
 const BASE_LANGUAGE_KEYS = ["languageTag", "script"];
 const REVIEW_KEYS = ["status", "reviewer", "reviewedAt", "notes"];
 const LICENSE_KEYS = [
@@ -58,10 +59,7 @@ export function buildLearnerBaseRuntimeProjection(
     sourceCatalog: baseRealizations.sourceCatalog,
     review: cloneJson(baseRealizations.review),
     license: cloneJson(baseRealizations.license),
-    realizations: baseRealizations.realizations.map(({ conceptId, text }) => ({
-      conceptId,
-      text
-    }))
+    realizations: baseRealizations.realizations.map(projectRealization)
   };
   validateLearnerBaseRuntimeProjection(projection, {
     source: baseRealizations,
@@ -140,7 +138,7 @@ export function validateLearnerBaseRuntimeProjection(projection, {
     const ids = new Set();
     for (const [index, realization] of projection.realizations.entries()) {
       const label = `realizations[${index}]`;
-      strictKeys(realization, REALIZATION_KEYS, REALIZATION_KEYS, label, issues);
+      strictKeys(realization, REALIZATION_KEYS, ["conceptId", "text"], label, issues);
       if (!CONCEPT_ID_PATTERN.test(String(realization?.conceptId ?? ""))) {
         issues.push(`${label}.conceptId is invalid.`);
       } else if (ids.has(realization.conceptId)) {
@@ -149,6 +147,13 @@ export function validateLearnerBaseRuntimeProjection(projection, {
         ids.add(realization.conceptId);
       }
       if (!nonEmpty(realization?.text)) issues.push(`${label}.text must be non-empty.`);
+      if (realization && typeof realization === "object") {
+        try {
+          learnerTokenMeanings(realization);
+        } catch (error) {
+          issues.push(`${label}: ${error.message}`);
+        }
+      }
     }
   }
   if (source) {
@@ -161,7 +166,7 @@ export function validateLearnerBaseRuntimeProjection(projection, {
       sourceCatalog: source.sourceCatalog,
       review: cloneJson(source.review),
       license: cloneJson(source.license),
-      realizations: source.realizations.map(({ conceptId, text }) => ({ conceptId, text }))
+      realizations: source.realizations.map(projectRealization)
     };
     if (!isDeepStrictEqual(projection, expected)) {
       issues.push("Projection must be a faithful, narrow copy of learner-base authoring.");
@@ -169,6 +174,14 @@ export function validateLearnerBaseRuntimeProjection(projection, {
   }
   if (issues.length > 0) throw new LanguageRoleRuntimeError(issues);
   return projection;
+}
+
+function projectRealization({ conceptId, text, tokenMeanings }) {
+  return {
+    conceptId,
+    text,
+    ...(tokenMeanings === undefined ? {} : { tokenMeanings: cloneJson(tokenMeanings) })
+  };
 }
 
 function strictKeys(value, allowed, required, label, issues) {

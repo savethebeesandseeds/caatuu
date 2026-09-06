@@ -151,9 +151,14 @@ function Assert-MainOnlyInvariant {
     Assert-OnePath $remoteRefs "refs/remotes/origin/main" "Remote-tracking branches"
     $worktreeLines = @(Get-NonEmptyLines (Get-GitOutput @("worktree", "list", "--porcelain") "worktree inventory") |
         Where-Object { $_ -like "worktree *" })
-    if ($worktreeLines.Count -ne 1) { throw "Exactly one Caatuu worktree is required." }
-    if (-not (Test-SamePath $worktreeLines[0].Substring(9) $ExpectedRepositoryRoot)) {
-        throw "The sole worktree is not the canonical Caatuu checkout."
+    if ($worktreeLines.Count -lt 1 -or -not (Test-SamePath $worktreeLines[0].Substring(9) $ExpectedRepositoryRoot)) {
+        throw "The primary worktree is not the canonical Caatuu checkout."
+    }
+    # Inactive detached recovery registrations are preserved, not used or deleted.
+    $detachedLines = @(Get-NonEmptyLines (Get-GitOutput @("worktree", "list", "--porcelain") "recovery inventory") |
+        Where-Object { $_ -eq "detached" })
+    if ($detachedLines.Count -ne ($worktreeLines.Count - 1)) {
+        throw "Additional worktrees must be detached recovery registrations."
     }
     if ((Get-GitOutput @("remote", "get-url", "origin") "origin check").Trim() -ne $ExpectedOrigin) {
         throw "origin must be exactly $ExpectedOrigin"

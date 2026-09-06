@@ -475,7 +475,7 @@ function validateCzechAgreementAurora(setupManifests, current) {
   const agreement = czechSetup.artifacts.filter((artifact) => artifact.key === "planet-agreement-aurora");
   assert.equal(agreement.length, 1, `Android ${current.release.versionCode} Czech setup is missing Agreement Aurora`);
   const artwork = agreement[0];
-  assert.equal(artwork.asset_path, "assets/planets/agreement-aurora.png");
+  assert.ok(["assets/planets/agreement-aurora.png", "assets/planets/grammar-gravity.png"].includes(artwork.asset_path), "Grammar Gravity must use its current asset path or the preserved release path");
   assert.ok(Number.isSafeInteger(artwork.bytes) && artwork.bytes > 0, "Agreement Aurora byte count is invalid");
   assert.match(String(artwork.sha256 || ""), sha256Pattern, "Agreement Aurora SHA-256 is invalid");
   assert.equal(artwork.url, `/assets/planets/releases/${artwork.sha256.slice(0, 16)}/agreement-aurora.png`);

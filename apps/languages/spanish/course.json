@@ -38,23 +38,24 @@
     "verb-lab",
     "word-net",
     "conjugation-comet",
-    "agreement-aurora"
+    "grammar-gravity",
+    "sound-quasar"
   ],
   "upcomingGames": [
-    "memory-moon",
-    "sound-quasar"
+    "memory-moon"
   ],
   "launcher": {
     "flagClass": "flag-icon"
   },
   "routes": {
+    "soundQuasar": "/language-runtime/static/games/sound-quasar.html",
     "languageSelection": "/",
     "home": "index.html",
     "games": "index.html",
     "verbNebula": "index.html?game=verb-lab",
     "wordWorld": "index.html?game=word-net",
     "conjugationComet": "/language-runtime/static/games/conjugation-comet.html",
-    "agreementAurora": "/language-runtime/static/games/agreement-aurora.html",
+    "grammarGravity": "/language-runtime/static/games/grammar-gravity.html",
     "settings": "index.html"
   },
   "storage": {
@@ -116,6 +117,13 @@
     }
   },
   "resources": {
+    "soundQuasarCatalog": {
+      "kind": "file",
+      "path": "apps/languages/spanish/static/data/games/sound-quasar/challenges.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "sound-quasar-items-v2"
+    },
     "staticRoot": {
       "kind": "directory",
       "path": "apps/languages/spanish/static",
@@ -133,7 +141,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-1"
+      "revision": "interface-en-27"
     },
     "courseProfile": {
       "kind": "file",
@@ -190,12 +198,19 @@
       "state": "present",
       "revision": "conjugation-comet-content-1"
     },
-    "agreementAuroraCatalog": {
+    "grammarGravityCatalog": {
       "kind": "file",
-      "path": "apps/languages/spanish/static/data/games/agreement-aurora/challenges.json",
+      "path": "apps/languages/spanish/static/data/games/grammar-gravity/challenges.json",
       "scope": "course",
       "state": "present",
-      "revision": "agreement-aurora-content-1"
+      "revision": "grammar-gravity-content-3"
+    },
+    "grammarGravityNouns": {
+      "kind": "file",
+      "path": "apps/languages/spanish/static/data/games/grammar-gravity/nouns.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "grammar-gravity-nouns-3"
     },
     "launcherFlag": {
       "kind": "file",

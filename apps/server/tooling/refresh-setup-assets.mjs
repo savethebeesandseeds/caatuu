@@ -24,7 +24,7 @@ const scriptPath = fileURLToPath(import.meta.url);
 const defaultWorkspaceRoot = resolve(dirname(scriptPath), "..", "..", "..");
 export const CANONICAL_APP_ENTRY = "apps/language-runtime/static/app/index.html";
 const LEGACY_MINI_APP_DOCUMENT = /(?:^|\/)(?:word-world|word-net)\.html$/u;
-const RETIRED_COURSE_GAME_RENDERER_ASSET = /^(?:\.\/)?(?:conjugation-comet\.html|agreement-aurora\.html|source\/games\/conjugation-comet\/conjugation-comet\.(?:css|js)|source\/games\/agreement-aurora\/(?:agreement-aurora\.(?:css|js)|launcher\.css)|source\/games\/case-cosmos\/launcher\.css)$/u;
+const RETIRED_COURSE_GAME_RENDERER_ASSET = /^(?:\.\/)?(?:conjugation-comet\.html|(?:agreement-aurora|triangular-thermosphere|grammar-gravity)\.html|source\/games\/conjugation-comet\/conjugation-comet\.(?:css|js)|source\/games\/(?:agreement-aurora|triangular-thermosphere|grammar-gravity)\/(?:(?:agreement-aurora|triangular-thermosphere|grammar-gravity)\.(?:css|js)|launcher\.css)|source\/games\/case-cosmos\/launcher\.css)$/u;
 const RETIRED_PARALLEL_UI_ASSET = /(?:^|\/)(?:source\/features\/home\/home\.css|source\/games\/verb-nebula\/app\.(?:css|js)|source\/games\/word-world\/word-net(?:-core|-queue)?\.(?:css|js|mjs)|source\/shared\/(?:chrome\.(?:css|js)|learning-profile\.js|theme\.css)|language-runtime\/static\/(?:source\/product-shell\.mjs|styles\/course-shell\.css))$/u;
 
 const LEGACY_ASSET_SOURCE_PREFIXES = [

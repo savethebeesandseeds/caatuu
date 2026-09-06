@@ -13,6 +13,9 @@ const LICENSE_STATUSES = new Set([
   "release-cleared",
   "legacy-review-required"
 ]);
+const LEGACY_ENGLISH_SUBJECTS = Object.freeze({
+  S1: "I", S2: "you", S3: "he or she", P1: "we", P2: "you all", P3: "they"
+});
 const LEGACY_COPY = Object.freeze({
   title: "Conjugation Comet",
   meaningKicker: "Meaning check",
@@ -267,6 +270,24 @@ function legacyContentId(value, prefix, fallbackIndex) {
   return `${prefix}-${(hash >>> 0).toString(16)}`;
 }
 
+function normalizeTargetPhraseFrame(value, location) {
+  if (value === undefined) return { beforeText: "", afterText: "" };
+  if (!isRecord(value)) {
+    throw catalogError("CONJUGATION_COMET_CONTENT_INVALID", `${location} must be an object.`);
+  }
+  return Object.fromEntries(["beforeText", "afterText"].map((key) => {
+    const fragment = value[key] ?? "";
+    if (typeof fragment !== "string" || fragment.length > 320) {
+      throw catalogError(
+        "CONJUGATION_COMET_CONTENT_INVALID",
+        `${location}.${key} must be a string of at most 320 characters.`
+      );
+    }
+    // Boundary spaces are authored: punctuation and joining rules are never guessed.
+    return [key, fragment.normalize("NFC").replace(/\s+/gu, " ")];
+  }));
+}
+
 function normalizeForm(form, verbLocation, formIndex, { legacy = false } = {}) {
   const location = `${verbLocation}.forms[${formIndex}]`;
   if (!isRecord(form)) {
@@ -303,7 +324,14 @@ function normalizeForm(form, verbLocation, formIndex, { legacy = false } = {}) {
       `${location}.subjectTargetText`,
       { maximum: 160 }
     ),
+    subjectBaseText: optionalText(form.subjectBaseText, `${location}.subjectBaseText`, { maximum: 320 })
+      || (legacy ? LEGACY_ENGLISH_SUBJECTS[String(form.label ?? form.id ?? "").trim().toUpperCase()] : "")
+      || learnerBaseCueText,
     targetText,
+    targetPhraseFrame: normalizeTargetPhraseFrame(
+      form.targetPhraseFrame,
+      `${location}.targetPhraseFrame`
+    ),
     learnerBaseCueText,
     englishAuditText,
     acceptedTargetTexts: textList(
@@ -711,5 +739,147 @@ export function buildConjugationFormRound(catalog, verbId, {
     verbId: current.id,
     targetForms,
     baseCues
+  });
+}
+
+function conjugationTextKey(value) {
+  return String(value ?? "").normalize("NFKC").trim().replace(/\s+/gu, " ").toLowerCase();
+}
+
+function copyAuthoredValue(value) {
+  if (Array.isArray(value)) return value.map(copyAuthoredValue);
+  if (isRecord(value)) {
+    return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, copyAuthoredValue(item)]));
+  }
+  return value;
+}
+
+function rotateConjugationItems(values, offset) {
+  return [...values.slice(offset), ...values.slice(0, offset)];
+}
+
+function randomConjugationIndex(length, rng) {
+  const value = Number(rng());
+  const bounded = Number.isFinite(value) ? Math.max(0, Math.min(0.999999999, value)) : 0;
+  return Math.floor(bounded * length);
+}
+
+function conjugationPairMatches(subject, option) {
+  if (!subject || !option || typeof subject.correctFormText !== "string"
+    || typeof option.text !== "string" || (subject.acceptedTargetTexts !== undefined
+      && !Array.isArray(subject.acceptedTargetTexts))) return false;
+  const candidate = conjugationTextKey(option.text);
+  return Boolean(candidate) && [subject.correctFormText, ...(subject.acceptedTargetTexts || [])]
+    .some((text) => typeof text === "string" && conjugationTextKey(text) === candidate);
+}
+
+/**
+ * Shuffle authored pairs into one cyclic order, then rotate the two strands
+ * separately. This makes the entire helix solvable using strand rotations.
+ * Repeated conjugations retain separate options so neither strand loses a row.
+ * Prefer an unsolved starting alignment whenever a wrong rotation exists.
+ */
+export function buildConjugationHelixRound(catalog, verbId, { rng = Math.random } = {}) {
+  const current = catalog?.verbs?.find((verb) => verb.id === verbId);
+  if (!current || !Array.isArray(current.forms) || current.forms.length < 2 || current.forms.length > 12) {
+    throw catalogError(
+      "CONJUGATION_COMET_ROUND_INVALID",
+      `Unknown Conjugation Comet verb: ${String(verbId || "<missing>")}.`
+    );
+  }
+  const entries = shuffleConjugationItems(current.forms.map((form, index) => {
+    const acceptedTargetTexts = [...(form.acceptedTargetTexts || [])];
+    const { beforeText, afterText } = normalizeTargetPhraseFrame(form.targetPhraseFrame, `forms.${form.id}.targetPhraseFrame`);
+    return {
+      subject: {
+        id: form.id,
+        subjectBaseText: form.subjectBaseText || form.learnerBaseCueText,
+        learnerBaseText: form.learnerBaseCueText,
+        correctText: `${beforeText}${form.targetText}${afterText}`,
+        correctFormText: form.targetText,
+        beforeText,
+        afterText,
+        acceptedTargetTexts
+      },
+      option: { id: `option-${index + 1}`, text: form.targetText }
+    };
+  }), rng);
+  const size = entries.length;
+  const unsolvedRotations = entries.flatMap((_, offset) => (
+    entries.every((entry, row) => conjugationPairMatches(entry.subject, entries[(row + offset) % size].option))
+      ? [] : [offset]
+  ));
+  const subjectRotation = randomConjugationIndex(size, rng);
+  const relativeRotation = unsolvedRotations.length
+    ? unsolvedRotations[randomConjugationIndex(unsolvedRotations.length, rng)]
+    : randomConjugationIndex(size, rng);
+  return deepFreeze({
+    verb: copyAuthoredValue(current),
+    subjects: rotateConjugationItems(entries.map((entry) => entry.subject), subjectRotation),
+    options: rotateConjugationItems(entries.map((entry) => entry.option), (subjectRotation + relativeRotation) % size)
+  });
+}
+
+export function judgeConjugationHelixPair(round, subjectId, optionId) {
+  if (typeof subjectId !== "string" || !subjectId || typeof optionId !== "string" || !optionId
+    || !Array.isArray(round?.subjects) || !Array.isArray(round?.options)) return false;
+  const subject = round.subjects.find((item) => item?.id === subjectId);
+  const option = round.options.find((item) => item?.id === optionId);
+  return conjugationPairMatches(subject, option);
+}
+
+/** Grade every displayed row. A single correct pair cannot complete a helix. */
+export function judgeConjugationHelixRound(round, subjectOffset = 0, targetOffset = 0) {
+  const invalid = () => deepFreeze({ correct: false, matched: 0, total: 0, pairs: [] });
+  if (!Number.isSafeInteger(subjectOffset) || !Number.isSafeInteger(targetOffset)
+    || !Array.isArray(round?.subjects) || !Array.isArray(round?.options)) return invalid();
+  const subjects = Array.from(round.subjects);
+  const options = Array.from(round.options);
+  const total = subjects.length;
+  const hasText = (value) => typeof value === "string" && Boolean(conjugationTextKey(value));
+  if (total < 2 || total > 12 || options.length !== total
+    || subjects.some((subject) => !subject || !hasText(subject.id) || !hasText(subject.correctFormText)
+      || (subject.acceptedTargetTexts !== undefined && (!Array.isArray(subject.acceptedTargetTexts)
+        || Array.from(subject.acceptedTargetTexts).some((text) => !hasText(text)))))
+    || options.some((option) => !option || !hasText(option.id) || !hasText(option.text))
+    || new Set(subjects.map((subject) => subject.id)).size !== total
+    || new Set(options.map((option) => option.id)).size !== total) return invalid();
+  const subjectStart = ((subjectOffset % total) + total) % total;
+  const targetStart = ((targetOffset % total) + total) % total;
+  const pairs = subjects.map((_, row) => {
+    const subject = subjects[(row + subjectStart) % total];
+    const option = options[(row + targetStart) % total];
+    return { subjectId: subject.id, optionId: option.id, correct: conjugationPairMatches(subject, option) };
+  });
+  const matched = pairs.filter((pair) => pair.correct).length;
+  return deepFreeze({ correct: matched === total, matched, total, pairs });
+}
+
+/**
+ * A conservative visual comparison, not a grammatical stem parser. Only a
+ * shared prefix of at least two letters in a single varying word is separated.
+ * Reflexive particles and any unchanged surrounding words stay intact.
+ */
+export function splitConjugationDisplay(text, options = []) {
+  const display = String(text ?? "").normalize("NFC");
+  const whole = () => deepFreeze({ beforeText: "", commonText: "", differingText: display, afterText: "" });
+  const candidates = [...new Set([display, ...options.map((value) => String(value).normalize("NFC"))])];
+  const words = candidates.map((value) => [...value.matchAll(/\S+/gu)]);
+  if (candidates.length < 2 || words.some((items) => items.length !== words[0].length)) return whole();
+  const varying = words[0].flatMap((word, index) => words.some((items) => items[index][0] !== word[0]) ? [index] : []);
+  if (varying.length !== 1) return whole();
+  const wordIndex = varying[0];
+  const compared = words.map((items) => items[wordIndex][0]);
+  if (compared.some((word) => !/^[\p{L}\p{M}]+$/u.test(word))) return whole();
+  const prefix = Array.from(compared[0]);
+  while (prefix.length && !compared.every((word) => word.startsWith(prefix.join("")))) prefix.pop();
+  if (prefix.length < 2) return whole();
+  const commonText = prefix.join("");
+  const selected = words[0][wordIndex];
+  return deepFreeze({
+    beforeText: display.slice(0, selected.index),
+    commonText,
+    differingText: selected[0].slice(commonText.length),
+    afterText: display.slice(selected.index + selected[0].length)
   });
 }

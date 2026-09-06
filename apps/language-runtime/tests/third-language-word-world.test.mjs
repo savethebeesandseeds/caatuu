@@ -288,6 +288,10 @@ function installBrowserEnvironment(course, authorityHtml) {
       documentListeners.get(type).add(listener);
     },
     removeEventListener(type, listener) { documentListeners.get(type)?.delete(listener); },
+    dispatchEvent(event) {
+      for (const listener of documentListeners.get(event.type) || []) listener.call(document, event);
+      return !event.defaultPrevented;
+    },
     querySelector: (selector) => registry.querySelector(selector),
     querySelectorAll: (selector) => registry.querySelectorAll(selector),
     getElementById: (id) => registry.byId.get(String(id)) || null,
@@ -399,6 +403,9 @@ function installBrowserEnvironment(course, authorityHtml) {
     getComputedStyle() { return { getPropertyValue() { return ""; } }; },
     confirm() { return false; }
   };
+  document.defaultView = window;
+  registry.document = document;
+  for (const element of registry.elements) element.ownerDocument = document;
   globalThis.window = window;
   globalThis.document = document;
   globalThis.location = window.location;
@@ -531,14 +538,16 @@ async function runScenario(name) {
   if (name === "czech-standard-dictionary-gap") {
     return runCzechStandardDictionaryGapScenario();
   }
-  const speechEnabled = name === "speech-and-semantic" || name === "source-prompt-speech";
-  const sourcePrompt = name === "source-prompt-speech";
+  const contextualHints = name === "spanish-english-contextual";
+  const spanishEnglish = contextualHints || name === "spanish-english" || name === "spanish-english-prompt";
+  const speechEnabled = spanishEnglish || name === "speech-and-semantic" || name === "source-prompt-speech";
+  const sourcePrompt = name === "source-prompt-speech" || name === "spanish-english-prompt";
   const unsupportedGeneration = name === "unsupported-generation";
   const capabilities = speechEnabled
     ? {
         speech: true,
         generation: false,
-        pronunciationGuides: true,
+        pronunciationGuides: !spanishEnglish,
         dictionary: false,
         semanticSearch: true
       }
@@ -550,20 +559,54 @@ async function runScenario(name) {
         dictionary: true,
         semanticSearch: false
       };
-  const course = syntheticCourse(capabilities);
+  let course = syntheticCourse(capabilities);
+  let adapter = spanishAdapter;
+  const activeManifest = structuredClone(manifest);
+  if (spanishEnglish) {
+    adapter = await importBrowserLanguageAdapter("../../languages/english-from-spanish/static/source/language/adapter.mjs");
+    course = {
+      ...course,
+      sourceLanguage: { id: "es", label: "Español", locale: "es-ES", direction: "ltr" },
+      targetLanguage: {
+        id: "en", label: "English", nativeLabel: "English", locale: "en-US", script: "Latn",
+        speechLocale: "en-US", direction: "ltr"
+      }
+    };
+    activeManifest.learnerBaseLanguage = "es-ES";
+  }
   const [englishCatalog, authorityHtml] = await Promise.all([
     readFile(new URL("../static/data/english-concepts/word-world-starter-v1.json", import.meta.url), "utf8")
       .then(JSON.parse),
     readFile(new URL("../static/app/index.html", import.meta.url), "utf8")
   ]);
+  if (spanishEnglish) {
+    englishCatalog.concepts = englishCatalog.concepts.filter(({ id }) => id === "ww.object.book");
+    activeManifest.recordCount = englishCatalog.concepts.length;
+  }
   const realizations = thirdLanguageRealizations(englishCatalog);
   const learnerBase = thirdLanguageLearnerBase(englishCatalog);
+  if (spanishEnglish) {
+    realizations.targetLanguage = { languageTag: "en-US", speechLocale: "en-US", script: "Latn" };
+    learnerBase.baseLanguage = { languageTag: "es-ES", script: "Latn" };
+    learnerBase.realizations.forEach((base, index) => {
+      const target = realizations.realizations[index];
+      target.text = contextualHints ? "Book a book." : englishCatalog.concepts[index].englishText;
+      target.tokens = [...target.text.matchAll(/[\p{L}\p{M}]+(?:[’'-][\p{L}\p{M}]+)?|\d+/gu)].map(([surface]) => ({
+        surface, gloss: surface.toLocaleLowerCase("en-US"), playable: true
+      }));
+      base.text = contextualHints ? "Reserva un libro." : base.conceptId === "ww.object.book" ? "Esto es un libro." : `Frase española ${index + 1}.`;
+      base.tokenMeanings = target.tokens.map((token, tokenIndex) => ({
+        targetLanguage: "en-US", tokenIndex, surface: token.surface,
+        text: token.surface === "This" ? "esto" : token.surface === "Book" ? "reserva" : token.surface === "book" ? "libro" : `significado ${tokenIndex + 1}`
+      }));
+    });
+  }
   const environment = installBrowserEnvironment(course, authorityHtml);
   globalThis.localStorage.setItem(
     `${course.storage.namespace}.wordNet.challengePromptMode.v1`,
     sourcePrompt ? "target" : "source"
   );
-  if (name === "speech-and-semantic") {
+  if (name === "speech-and-semantic" || (spanishEnglish && !sourcePrompt)) {
     globalThis.localStorage.setItem(course.storage.wordWorldTranslationMode, "visible");
   }
   const rankerCalls = [];
@@ -571,9 +614,9 @@ async function runScenario(name) {
   let rendererSpecifier = "";
   const rendererUrl = new URL("../static/source/product-word-world.mjs", import.meta.url);
   rendererUrl.searchParams.set("third-language", `${name}-${Date.now()}`);
-  const controller = await mountWordWorld(environment.root, course, manifest, {
+  const controller = await mountWordWorld(environment.root, course, activeManifest, {
     origin: "https://caatuu.test",
-    adapter: spanishAdapter,
+    adapter,
     runtime: environment.runtime,
     random: () => 0,
     now: () => 1_700_000_000_000,
@@ -600,8 +643,8 @@ async function runScenario(name) {
         async mountProductWordWorld(root, context, options) {
           preparedContext = context;
           const mounted = await renderer.mountProductWordWorld(root, context, options);
-          if (name === "speech-and-semantic") {
-            const record = context.sessionRecord("ww.greeting.hello");
+          if (name === "speech-and-semantic" || spanishEnglish) {
+            const record = context.sessionRecord("ww.greeting.hello") || context.session.records[0];
             await context.searchEnglish(renderer.englishAuditSemanticQuery(record));
           }
           return mounted;
@@ -610,7 +653,7 @@ async function runScenario(name) {
     }
   });
 
-  const hello = preparedContext.sessionRecord("ww.greeting.hello");
+  const hello = preparedContext.sessionRecord("ww.greeting.hello") || preparedContext.session.records[0];
   const gloss = await preparedContext.lookupMeaning({
     record: hello,
     token: hello.target.tokens[0]
@@ -627,6 +670,20 @@ async function runScenario(name) {
   const reconstructionSubmit = environment.registry.element("wordNetReconstructionSubmit");
   await new Promise((resolve) => setTimeout(resolve, 10));
   const initialSpeechCallCount = environment.nativeSpeechCalls.length;
+  const contextualMeanings = [];
+  if (spanishEnglish && !sourcePrompt) {
+    const tokenButton = sentence.querySelector(".cz-word-token");
+    assert.ok(tokenButton, "English sentence exposes selectable target tokens");
+    sentence.dispatchEvent({ type: "click", target: tokenButton });
+    await new Promise((resolve) => setTimeout(resolve, 10));
+    if (contextualHints) {
+      contextualMeanings.push(environment.registry.element("wordNetSelectedMeaning").textContent);
+      const buttons = [...sentence.querySelectorAll(".cz-word-token")];
+      sentence.dispatchEvent({ type: "click", target: buttons.at(-1) });
+      await new Promise((resolve) => setTimeout(resolve, 10));
+      contextualMeanings.push(environment.registry.element("wordNetSelectedMeaning").textContent);
+    }
+  }
   if (sourcePrompt) {
     phraseSound.click();
     environment.registry.element("wordNetAudioSpeed").dispatchEvent({ type: "change" });
@@ -656,6 +713,10 @@ async function runScenario(name) {
     sentenceLanguage: sentence.lang || sentence.getAttribute("lang"),
     sentenceDirection: sentence.getAttribute("dir"),
     sentenceText: sentence.textContent,
+    selectedMeaning: environment.registry.element("wordNetSelectedMeaning").textContent,
+    selectedMeaningLanguage: environment.registry.element("wordNetSelectedMeaning").lang,
+    contextualMeanings,
+    sentenceTranslation: environment.registry.element("wordNetTranslation").textContent,
     targetCopy: phraseSound.getAttribute("aria-label"),
     segmentSignature: segments.map(({ type, text }) => `${type}:${text}`),
     gloss,
@@ -668,6 +729,7 @@ async function runScenario(name) {
     semanticAttempts: environment.semanticAttempts,
     dictionaryGapCalls: environment.dictionaryGapCalls,
     rankerCalls: rankerCalls.length,
+    rankerPayloads: rankerCalls,
     initialSpeechCallCount,
     speechCalls: environment.nativeSpeechCalls.map(({ text, options }) => ({
       text,
@@ -723,6 +785,33 @@ async function executeScenario(name) {
 if (process.argv[2] === CHILD_FLAG) {
   await childScenario(process.argv[3]);
 } else {
+  test("Spanish-base English uses Spanish prompts and contextual hints while speaking and retrieving English", async () => {
+    const target = await executeScenario("spanish-english");
+    assert.equal(target.documentLanguage, "es-ES");
+    assert.equal(target.targetLocale, "en-US");
+    assert.equal(target.targetSpeechLocale, "en-US");
+    assert.equal(target.sentenceLanguage, "en-US");
+    assert.equal(target.selectedMeaning, "esto");
+    assert.equal(target.selectedMeaningLanguage, "es-ES");
+    assert.equal(target.sentenceTranslation, "Esto es un libro.");
+    assert.deepEqual(target.gloss, { meaning: "esto", languageTag: "es-ES", partOfSpeech: "", metadata: "" });
+    assert.ok(target.speechCalls.length > 0);
+    assert.ok(target.speechCalls.every(({ locale }) => locale === "en-US"));
+    assert.equal(target.speechCalls[0].text, "This is a book.");
+    assert.equal(target.selectedEnglishQuery, "This is a book.");
+    assert.doesNotMatch(JSON.stringify(target.rankerPayloads), /tokenMeanings|learnerPrompt|Hola|española/u);
+    const source = await executeScenario("spanish-english-prompt");
+    assert.equal(source.sentenceLanguage, "es-ES");
+    assert.equal(source.sentenceText, "Esto es un libro.");
+    assert.deepEqual(source.speechCalls, [], "Spanish prompt must not speak the hidden English answer");
+  });
+
+  test("repeated English words retain the Spanish meaning of the selected token", async () => {
+    const result = await executeScenario("spanish-english-contextual");
+    assert.deepEqual(result.contextualMeanings, ["reserva", "libro"]);
+    assert.equal(result.selectedMeaningLanguage, "es-ES");
+  });
+
   test("a synthetic third language mounts through the real shared provider and renderer", async () => {
     const result = await executeScenario("speech-and-semantic");
 

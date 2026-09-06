@@ -41,16 +41,17 @@
     "word-net",
     "conjugation-comet",
     "case-cosmos",
-    "agreement-aurora"
+    "grammar-gravity",
+    "sound-quasar"
   ],
   "upcomingGames": [
-    "memory-moon",
-    "sound-quasar"
+    "memory-moon"
   ],
   "launcher": {
     "flagClass": "flag-icon"
   },
   "routes": {
+    "soundQuasar": "/language-runtime/static/games/sound-quasar.html",
     "languageSelection": "/",
     "home": "index.html",
     "games": "index.html",
@@ -64,7 +65,7 @@
     "wordWorld": "index.html?game=word-net",
     "conjugationComet": "/language-runtime/static/games/conjugation-comet.html",
     "caseCosmos": "case-cosmos.html",
-    "agreementAurora": "/language-runtime/static/games/agreement-aurora.html",
+    "grammarGravity": "/language-runtime/static/games/grammar-gravity.html",
     "settings": "index.html"
   },
   "storage": {
@@ -254,6 +255,13 @@
     }
   },
   "resources": {
+    "soundQuasarCatalog": {
+      "kind": "file",
+      "path": "apps/languages/czech/static/data/games/sound-quasar/challenges.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "sound-quasar-items-v2"
+    },
     "staticRoot": {
       "kind": "directory",
       "path": "apps/languages/czech/static",
@@ -271,7 +279,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-1"
+      "revision": "interface-en-27"
     },
     "courseProfile": {
       "kind": "file",
@@ -371,7 +379,7 @@
       "path": "apps/languages/czech/static/source/features/setup/setup.js",
       "scope": "course",
       "state": "present",
-      "revision": "setup-39"
+      "revision": "setup-41"
     },
     "modelCatalog": {
       "kind": "file",
@@ -403,14 +411,21 @@
       "path": "apps/languages/czech/static/data/games/case-cosmos/challenges.json",
       "scope": "course",
       "state": "present",
-      "revision": "case-cosmos-data-5"
+      "revision": "case-cosmos-data-6"
     },
-    "agreementAuroraCatalog": {
+    "grammarGravityCatalog": {
       "kind": "file",
-      "path": "apps/languages/czech/static/data/games/agreement-aurora/challenges.json",
+      "path": "apps/languages/czech/static/data/games/grammar-gravity/challenges.json",
       "scope": "course",
       "state": "present",
-      "revision": "agreement-aurora-data-3"
+      "revision": "grammar-gravity-data-5"
+    },
+    "grammarGravityNouns": {
+      "kind": "file",
+      "path": "apps/languages/czech/static/data/games/grammar-gravity/nouns.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "grammar-gravity-nouns-3"
     },
     "androidAssetCatalog": {
       "kind": "file",

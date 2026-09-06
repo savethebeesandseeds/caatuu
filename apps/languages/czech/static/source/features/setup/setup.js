@@ -167,17 +167,6 @@
     const form = $("#setupLanguageForm");
     form?.setAttribute("aria-busy", String(setupCourseChoicePending));
 
-    const hint = $("#setupLanguageHint");
-    if (!hint) return;
-    if (!selectedSetupSourceId) {
-      hint.textContent = "Choose the language you speak first.";
-    } else if (!selectedCourse) {
-      hint.textContent = "Now choose the language you want to learn.";
-    } else {
-      const sourceLabel = String(selectedCourse.sourceLanguage?.label || "your language");
-      const targetLabel = String(selectedCourse.targetLanguage?.label || "this language");
-      hint.textContent = `${sourceLabel} \u2192 ${targetLabel}. Nothing is downloaded until you continue.`;
-    }
   }
 
   function createSetupSourceChoice(language) {
@@ -202,22 +191,20 @@
   }
 
   function createSetupCourseChoice(record) {
-    const source = record.sourceLanguage || {};
     const target = record.targetLanguage || {};
-    const sourceLabel = String(source.label || source.nativeLabel || "your language").trim();
     const targetLabel = String(target.label || target.nativeLabel || record.id || "Language").trim();
     const { choice, input } = createSetupLanguageRadio({
       language: target,
       name: "setup-target-language",
       value: record.id,
-      description: `${sourceLabel} \u2192 ${targetLabel}`,
+      description: targetLabel,
       status: record.status
     });
     choice.dataset.setupCourseChoice = record.id;
     input.dataset.setupCourseChoice = record.id;
     input.checked = record.id === selectedSetupCourseId;
     input.addEventListener("change", () => {
-      if (!input.checked || setupCourseChoicePending) return;
+      if (!input.checked || setupCourseChoicePending || record.sourceLanguage?.id !== selectedSetupSourceId) return;
       selectedSetupCourseId = String(record.id || "");
       syncSetupLanguageForm();
     });
@@ -227,16 +214,14 @@
   function renderSetupTargetChoices() {
     const options = $("#setupTargetLanguageOptions");
     if (!options) return;
-    const matching = setupCourseChoices.filter((record) => (
-      String(record.sourceLanguage?.id || "") === selectedSetupSourceId
-    ));
-    if (!selectedSetupSourceId) {
-      const prompt = document.createElement("p");
-      prompt.className = "setup-language-awaiting";
-      prompt.textContent = "Choose your base language to see available courses.";
-      options.replaceChildren(prompt);
-      return;
-    }
+    const targets = new Set();
+    const matching = setupCourseChoices.filter((record) => {
+      if (selectedSetupSourceId && String(record.sourceLanguage?.id || "") !== selectedSetupSourceId) return false;
+      const targetId = String(record.targetLanguage?.id || "");
+      if (targets.has(targetId)) return false;
+      targets.add(targetId);
+      return true;
+    });
     options.replaceChildren(...matching.map(createSetupCourseChoice));
   }
 
@@ -274,7 +259,7 @@
     setupCourseChoicePending = false;
     setupCourseChoices = setupCourseRecords();
     const sourceLanguages = setupSourceLanguages(setupCourseChoices);
-    selectedSetupSourceId = sourceLanguages.length === 1 ? String(sourceLanguages[0].id || "") : "";
+    selectedSetupSourceId = "";
     selectedSetupCourseId = "";
     stopSetupMessageCycle();
     stopStageAnimation();
@@ -294,9 +279,9 @@
       const control = document.getElementById(id);
       if (control) control.hidden = true;
     }
-    setText("#setupTitle", "Choose your languages");
-    setText("#setupPhase", "Local setup");
-    setText("#setupMessage", "Answer two quick questions. Caatuu waits for Continue before preparing a course.");
+    setText("#setupTitle", "Choose a language");
+    setText("#setupPhase", "");
+    setText("#setupMessage", "");
     const art = $(".stage-art");
     if (art) {
       art.classList.remove("is-looping");
@@ -1105,6 +1090,33 @@
     setControls();
   }
 
+  async function waitForShellControlsBeforeReady(status) {
+    syncArtifactState(status);
+    if (!Boolean(status?.ready) || !totalReady()) return;
+    setupComplete = false;
+    $("#nativeSetup")?.classList.remove("is-ready");
+    setNavigationLocked(true);
+    stopSetupMessageCycle();
+    setText("#setupTitle", "Preparing Caatuu");
+    setText("#setupPhase", "App controls");
+    setText("#setupMessage", "Preparing app controls and course data.");
+    setText("#setupCount", "Starting");
+    setProgress(99, "Preparing app controls", "99%, preparing app controls");
+
+    // The canonical bootstrap owns this barrier before it loads setup. File
+    // verification can finish while the workspace is still binding its UI.
+    const shellReady = window.CaatuuShellReady;
+    if (!shellReady || typeof shellReady.then !== "function") {
+      throw new Error("App controls could not be checked. Reload Caatuu to try again.");
+    }
+    const shell = await shellReady;
+    if (shell?.ready !== true) {
+      throw shell?.error instanceof Error
+        ? shell.error
+        : new Error("App controls could not finish loading. Reload Caatuu to try again.");
+    }
+  }
+
   async function preloadBackpackStatsBeforeReady(status) {
     syncArtifactState(status);
     if (!Boolean(status?.ready) || !totalReady()) return;
@@ -1131,6 +1143,7 @@
 
   async function renderStatus(status, message = "") {
     document.body.classList.remove("choosing-setup-language");
+    await waitForShellControlsBeforeReady(status);
     await preloadBackpackStatsBeforeReady(status);
     syncArtifactState(status);
     const ready = Boolean(status?.ready) && totalReady();
@@ -1169,10 +1182,13 @@
     document.body.classList.toggle("app-update-lock", appUpdateLocked);
     document.querySelectorAll("[data-caatuu-bottom-nav]").forEach((nav) => {
       nav.dataset.setupLocked = locked ? "true" : "false";
-      nav.setAttribute("aria-disabled", String(locked));
+      // Ordinary setup must leave its own Home recovery route accessible.
+      // A confirmed app update still locks the entire shell.
+      nav.setAttribute("aria-disabled", String(locked && appUpdateLocked));
     });
     document.querySelectorAll("[data-caatuu-bottom-nav] a, [data-caatuu-bottom-nav] button").forEach((node) => {
-      if (locked) {
+      const nodeLocked = locked && (appUpdateLocked || node.dataset.navKey !== "home");
+      if (nodeLocked) {
         node.setAttribute("aria-disabled", "true");
         node.tabIndex = -1;
       } else {
@@ -1200,6 +1216,11 @@
       const target = event.target.closest(selector);
       if (!target) return;
       event.preventDefault();
+      if (!appUpdateLocked && target.dataset.navKey === "home") {
+        event.stopImmediatePropagation();
+        window.CaatuuChrome.showHomeDestination("home");
+        return;
+      }
       event.stopPropagation();
       const message = appUpdateLocked
         ? "Finish or retry the app update before opening other sections."
@@ -1465,10 +1486,12 @@
         if (completed) {
           const currentVersion = status?.currentVersionName || status?.currentVersionCode || "";
           pushLog("ready", "Update installed", `Caatuu ${currentVersion} is installed locally.`);
-          setText("#setupTitle", "Caatuu is ready");
+          setText("#setupTitle", setupComplete ? "Caatuu is ready" : "Preparing Caatuu");
           setText("#setupPhase", "Update installed");
-          setText("#setupMessage", `Caatuu ${currentVersion} is installed and ready.`);
-          setText("#setupCount", "Ready");
+          setText("#setupMessage", setupComplete
+            ? `Caatuu ${currentVersion} is installed and ready.`
+            : `Caatuu ${currentVersion} is installed. App preparation is still in progress.`);
+          setText("#setupCount", setupComplete ? "Ready" : "Preparing");
           setProgress(setupComplete ? 100 : 0, setupComplete ? "Ready" : "Installed", "Installed app update confirmed locally");
           $("#nativeSetup")?.classList.toggle("is-error", false);
           clearAppUpdateHandoff();
@@ -1485,11 +1508,11 @@
           appUpdateUiState = "retry";
         } else {
           const label = updateStatusLabel(status);
-          pushLog("ready", "App is ready", `No newer APK is exposed by the server (${label}).`);
-          setText("#setupTitle", "Caatuu is ready");
-          setText("#setupPhase", "App is ready");
+          pushLog("status", "App is up to date", `No newer APK is exposed by the server (${label}).`);
+          setText("#setupTitle", setupComplete ? "Caatuu is ready" : "Preparing Caatuu");
+          setText("#setupPhase", setupComplete ? "App is ready" : "App is up to date");
           setText("#setupMessage", `No newer app update is exposed by the server (${label}).`);
-          setText("#setupCount", "Ready");
+          setText("#setupCount", setupComplete ? "Ready" : "Preparing");
           setProgress(setupComplete ? 100 : 0, setupComplete ? "Ready" : "No update", "No app update is required");
           $("#nativeSetup")?.classList.toggle("is-error", false);
         }

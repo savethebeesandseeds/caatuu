@@ -13,6 +13,9 @@ import {
 import {
   selectEmbeddingRuntime
 } from "./embedding-runtime-contract.mjs";
+import { targetTextToneNumber } from "./target-text-tones.mjs?v=target-text-tones-1";
+import { learnerTokenMeanings } from "./learner-base-token-meanings.mjs?v=learner-base-token-meanings-1";
+export { targetTextToneNumber };
 
 const DEFAULT_EMBEDDING_MODEL = "all-minilm-l6-v2-qint8-v0.1";
 const SHARED_EMBEDDING_CATALOG = "/language-runtime/embedding-runtimes.json";
@@ -25,7 +28,7 @@ const DEFAULT_ENGLISH_EMBEDDING_POLICY = Object.freeze({
 });
 const LEGACY_STANDARD_PROVIDER_MODULE = "source/games/word-world/word-net-standard.mjs";
 const SHARED_STANDARD_MEANING_SELECTOR = "/language-runtime/static/source/word-net-core.mjs";
-const DEFAULT_RENDERER_MODULE = "./product-word-world.mjs?v=shared-renderer-18";
+const DEFAULT_RENDERER_MODULE = "./product-word-world.mjs?v=shared-renderer-23";
 const SCENE_NUMBERS = Object.freeze([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 33]);
 const STANDARD_USAGE_CAPACITY = 8192;
 const TARGET_TEXT_GUIDE_STATUSES = new Set(["machine-assisted-preview", "native-reviewed"]);
@@ -62,13 +65,6 @@ const LEARNER_BASE_LICENSE_KEYS = Object.freeze([
   "reviewedBy",
   "reviewedAt"
 ]);
-const TARGET_TEXT_TONE_MARKS = Object.freeze({
-  1: /[āēīōūǖĀĒĪŌŪǕ]/u,
-  2: /[áéíóúǘÁÉÍÓÚǗńŃḿḾ]/u,
-  3: /[ǎěǐǒǔǚǍĚǏǑǓǙňŇ]/u,
-  4: /[àèìòùǜÀÈÌÒÙǛǹǸ]/u
-});
-
 async function loadJson(url, options = {}) {
   const response = await fetch(url, {
     credentials: "same-origin",
@@ -267,8 +263,10 @@ function learnerBaseDeclaration(course, manifest) {
  */
 export function joinLearnerBaseProjection(records, catalog, {
   languageTag,
+  targetLanguage = null,
   sourceCatalog,
-  recordCount
+  recordCount,
+  allowLocalPreview = false
 } = {}) {
   if (!Array.isArray(records) || records.length === 0) {
     throw new TypeError("Learner-base projection requires prepared Word World records.");
@@ -308,17 +306,27 @@ export function joinLearnerBaseProjection(records, catalog, {
     throw new Error("Learner-base projection does not reference the loaded English concept authority.");
   }
   exactObjectKeys(catalog.review, LEARNER_BASE_REVIEW_KEYS, "Learner-base projection review");
-  if (catalog.review?.status !== "native-reviewed"
+  const pendingReview = allowLocalPreview === true
+    && catalog.review?.status === "native-review-required"
+    && catalog.review.reviewer === null
+    && catalog.review.reviewedAt === null
+    && Boolean(String(catalog.review.notes || "").trim());
+  if (!pendingReview && (catalog.review?.status !== "native-reviewed"
       || !String(catalog.review?.reviewer || "").trim()
       || !validReviewTimestamp(catalog.review?.reviewedAt)
-      || !String(catalog.review?.notes || "").trim()) {
+      || !String(catalog.review?.notes || "").trim())) {
     throw new Error("Learner-base projection must carry completed native-review evidence.");
   }
   exactObjectKeys(catalog.license, LEARNER_BASE_LICENSE_KEYS, "Learner-base projection license");
-  if (catalog.license?.status !== "release-cleared"
+  const pendingLicense = allowLocalPreview === true
+    && catalog.license?.status === "release-review-required"
+    && Boolean(String(catalog.license.origin || "").trim())
+    && ["spdxExpression", "sourceReference", "reviewedBy", "reviewedAt"]
+      .every((field) => catalog.license[field] === null);
+  if (!pendingLicense && (catalog.license?.status !== "release-cleared"
       || ["origin", "spdxExpression", "sourceReference", "reviewedBy"]
         .some((field) => !String(catalog.license?.[field] || "").trim())
-      || !validReviewTimestamp(catalog.license?.reviewedAt)) {
+      || !validReviewTimestamp(catalog.license?.reviewedAt))) {
     throw new Error("Learner-base projection must be release-cleared before browser activation.");
   }
   if (!Number.isInteger(recordCount) || recordCount !== records.length) {
@@ -332,7 +340,9 @@ export function joinLearnerBaseProjection(records, catalog, {
   for (const [index, realization] of catalog.realizations.entries()) {
     exactObjectKeys(
       realization,
-      LEARNER_BASE_REALIZATION_KEYS,
+      realization && Object.hasOwn(realization, "tokenMeanings")
+        ? [...LEARNER_BASE_REALIZATION_KEYS, "tokenMeanings"]
+        : LEARNER_BASE_REALIZATION_KEYS,
       `Learner-base realization ${index}`
     );
     const conceptId = nonEmptyText(
@@ -342,7 +352,9 @@ export function joinLearnerBaseProjection(records, catalog, {
     if (byId.has(conceptId)) {
       throw new Error(`Duplicate learner-base realization: ${conceptId}.`);
     }
-    byId.set(conceptId, nonEmptyText(realization.text, `${conceptId} learner-base text`));
+    nonEmptyText(realization.text, `${conceptId} learner-base text`);
+    learnerTokenMeanings(realization);
+    byId.set(conceptId, realization);
   }
 
   const expectedIds = new Set(records.map(({ conceptId }) => String(conceptId || "").trim()));
@@ -360,9 +372,15 @@ export function joinLearnerBaseProjection(records, catalog, {
     audit: Object.freeze({ languageTag: "en", text: record.englishText }),
     learnerPrompt: Object.freeze({
       languageTag: projectedLanguage,
-      text: byId.get(record.conceptId),
+      text: byId.get(record.conceptId).text,
       authority: "learner-base-realization"
-    })
+    }),
+    ...(Object.hasOwn(byId.get(record.conceptId), "tokenMeanings") ? {
+      learnerTokenMeanings: learnerTokenMeanings(byId.get(record.conceptId), {
+        targetLanguage,
+        targetTokens: record.target.tokens
+      })
+    } : {})
   })));
 }
 
@@ -388,16 +406,6 @@ function assertEnglishEmbeddingBoundary(policy = {}) {
       || policy.targetTextAllowed !== false) {
     throw new Error("Word World embeddings must use authored English embeddingText only.");
   }
-}
-
-export function targetTextToneNumber(notation) {
-  const value = String(notation || "").normalize("NFC").trim();
-  const numbered = value.match(/[1-5](?!.*[1-5])/u);
-  if (numbered) return Number(numbered[0]);
-  for (const [tone, pattern] of Object.entries(TARGET_TEXT_TONE_MARKS)) {
-    if (pattern.test(value)) return Number(tone);
-  }
-  return 5;
 }
 
 function targetTextGuideKey(conceptId, tokenIndex) {
@@ -826,7 +834,21 @@ function languageTools(adapter) {
   });
 }
 
-function authoredGlossLookup({ token } = {}) {
+function authoredGlossLookup({ record, token, tokenIndex } = {}) {
+  if (Array.isArray(record?.learnerTokenMeanings)) {
+    const index = Number.isInteger(tokenIndex)
+      ? tokenIndex
+      : record.target.tokens.indexOf(token);
+    const entry = record.learnerTokenMeanings.find((meaning) => (
+      meaning.tokenIndex === index && meaning.surface.normalize("NFC") === token?.surface?.normalize("NFC")
+    ));
+    return entry ? {
+      meaning: entry.text,
+      languageTag: record.learnerPrompt.languageTag,
+      partOfSpeech: "",
+      metadata: ""
+    } : null;
+  }
   const meaning = String(token?.gloss || "").normalize("NFC").trim();
   return meaning ? { meaning, partOfSpeech: "", metadata: "" } : null;
 }
@@ -855,6 +877,7 @@ function createFullDictionaryLookup(course, adapter, meaningSelector, runtime) {
 function meaningLookup(fullDictionaryLookup) {
   return async (request) => {
     const authored = authoredGlossLookup(request);
+    if (Array.isArray(request?.record?.learnerTokenMeanings)) return authored;
     if (!fullDictionaryLookup) return authored;
     try {
       return await fullDictionaryLookup(request) || authored;
@@ -895,8 +918,10 @@ async function createAuthoredContext(course, manifest, adapter, options) {
   if (baseDeclaration) {
     const records = joinLearnerBaseProjection(session.records, learnerBaseCatalog, {
       languageTag: baseDeclaration.languageTag,
+      targetLanguage: course.targetLanguage.locale,
       sourceCatalog: conceptCatalog.derivedFrom,
-      recordCount: manifest.recordCount
+      recordCount: manifest.recordCount,
+      allowLocalPreview: course.learnerBasePreview === true
     });
     session = createPreparedWordWorldSession({
       course,

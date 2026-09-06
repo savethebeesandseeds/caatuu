@@ -23,12 +23,11 @@ import {
 } from "./word-net-core.mjs?v=word-net-core-21";
 import { WordNetBranchQueue } from "./word-net-queue.mjs?v=word-net-queue-6";
 import { localAiAvailability } from "./shell-policy.mjs";
+import { mountRobotLoadingScreen } from "./games/embedded-game-controls.mjs?v=embedded-game-controls-8";
 
 let WORD_NET_MODEL_KEY = "";
 let TRANSLATION_MODEL_KEY = "";
 const SCENE_KEYMAP_URL = "/assets/miscellaneous/keymap.json";
-const ROBOT_KEYMAP_URL = "/assets/robots/keymap.json";
-const ROBOT_FALLBACK_URL = "/assets/robots/robot%20(1).png";
 const SCENE_ASSET_LIMIT = 5;
 const SCENE_ASSET_READY_TIMEOUT_MS = 8000;
 const SCENE_SEMANTIC_SEARCH_TIMEOUT_MS = 1600;
@@ -160,8 +159,6 @@ const PRESERVABLE_BACKGROUND_ACTIVITIES = new Set(["prefetch", "translation-batc
 const FOREGROUND_TRANSLATION_TIMEOUT_MS = 5000;
 const MIN_SENTENCE_TRANSITION_MS = 800;
 const LOADING_FADE_MS = 240;
-const LOADING_ROBOT_KEYMAP_WAIT_MS = 700;
-const LOADING_ROBOT_IMAGE_WAIT_MS = 1800;
 const PREFETCH_STOPWORDS = new Set([
   "a", "ale", "do", "i", "je", "jsou", "k", "na", "ne", "o", "od", "po", "pro", "se", "si", "s", "u", "v", "ve", "z", "za", "že"
 ]);
@@ -488,6 +485,8 @@ const state = {
   selectedWordGapNotice: "",
   wordMeaningLoading: false,
   wordMeaningCache: new Map(),
+  selectedWordMeaningKey: "",
+  selectedTokenIndex: null,
   dictionaryGapKeys: loadDictionaryGapKeys(),
   wordLookupController: null,
   wordLookupRequestId: 0,
@@ -499,6 +498,7 @@ const state = {
   currentTranslation: "",
   currentSceneQuery: "",
   currentSceneAsset: null,
+  imagesEnabled: true,
   currentEntryId: "",
   currentCorpusVersion: "",
   currentDifficulty: null,
@@ -554,11 +554,10 @@ const state = {
   prefetchAttemptedWords: new Map(),
   prefetchGeneratedSinceTranslation: 0,
   batteryPromise: null,
-  robotRowsPromise: null,
-  robotRequestId: 0,
-  robotCursor: 0,
-  loadingRobotReadyPromise: Promise.resolve(false),
-  loadingRobotVisibleAt: 0,
+  loadingScreen: null,
+  loadingActive: true,
+  loadingPageHidden: false,
+  loadingActivityWaiters: new Set(),
   loadingHideTimerId: 0,
   feedbackSnapshot: null,
   feedbackReportedKey: "",
@@ -846,6 +845,7 @@ function czechSpeechPace() {
 }
 
 function loadAudioAutoplay() {
+  if (window.CaatuuChrome?.getSpeechAutoplay) return window.CaatuuChrome.getSpeechAutoplay();
   try {
     const stored = window.localStorage.getItem(AUDIO_AUTOPLAY_STORAGE_KEY);
     return stored === null ? true : stored === "true";
@@ -855,6 +855,10 @@ function loadAudioAutoplay() {
 }
 
 function saveAudioAutoplay() {
+  if (window.CaatuuChrome?.setSpeechAutoplay) {
+    window.CaatuuChrome.setSpeechAutoplay(state.audioAutoplay);
+    return;
+  }
   try {
     window.localStorage.setItem(AUDIO_AUTOPLAY_STORAGE_KEY, String(state.audioAutoplay));
   } catch (error) {
@@ -883,6 +887,10 @@ function unavailableSpeechLabel() {
   return interfaceText("speech.unavailable.labeldevice", { language: targetLanguageLabel });
 }
 
+function speechGloballyMuted() {
+  return window.CaatuuChrome?.getSpeechMuted?.() === true;
+}
+
 function syncSpeechControl() {
   const sentenceButton = $("#wordNetPhraseSound");
   const wordButton = $("#wordNetSelectedWordSound");
@@ -891,9 +899,10 @@ function syncSpeechControl() {
   const speechPace = czechSpeechPace();
   const paceDescription = interfaceText("speech.speed.description", { speed: speechPaceLabel(speechPace) });
   const supported = speechControlSupported();
+  const muted = speechGloballyMuted();
   const checking = Boolean(androidSpeechRuntime() && state.nativeSpeechStatusPending);
   const hasSentence = Boolean(String(state.currentSentence || "").trim());
-  const speaking = state.speechState === "speaking" && Boolean(state.speechSession);
+  const speaking = !muted && state.speechState === "speaking" && Boolean(state.speechSession);
   const sentenceSpeaking = speaking && state.speechSource === "sentence";
   let sentenceLabel = interfaceText("speech.sentence.play", {
     language: targetLanguageLabel,
@@ -901,7 +910,9 @@ function syncSpeechControl() {
   });
   let sentenceTitle = sentenceLabel;
 
-  if (checking) {
+  if (muted) {
+    sentenceLabel = sentenceTitle = interfaceText("speech.audio.mutednotice");
+  } else if (checking) {
     sentenceLabel = interfaceText("speech.pronunciation.checking", { language: targetLanguageLabel });
     sentenceTitle = interfaceText("speech.pronunciation.checkingtitle", { language: targetLanguageLabel });
   } else if (!supported) {
@@ -920,7 +931,7 @@ function syncSpeechControl() {
     sentenceButton.dataset.speechPaceSource = speechPace.source;
     sentenceButton.dataset.speechDifficulty = String(speechPace.difficulty);
     sentenceButton.dataset.speechRate = String(speechPace.rate);
-    sentenceButton.disabled = checking || state.busy || !supported || !hasSentence;
+    sentenceButton.disabled = muted || checking || state.busy || !supported || !hasSentence;
     sentenceButton.classList.toggle("is-speaking", sentenceSpeaking);
     sentenceButton.setAttribute("aria-pressed", String(sentenceSpeaking));
     sentenceButton.setAttribute("aria-label", sentenceLabel);
@@ -939,7 +950,9 @@ function syncSpeechControl() {
         speed: paceDescription
       });
   let wordTitle = wordLabel;
-  if (checking) {
+  if (muted) {
+    wordLabel = wordTitle = interfaceText("speech.audio.mutednotice");
+  } else if (checking) {
     wordLabel = interfaceText("speech.pronunciation.checking", { language: targetLanguageLabel });
     wordTitle = interfaceText("speech.pronunciation.checkingtitle", { language: targetLanguageLabel });
   } else if (!supported) {
@@ -957,7 +970,7 @@ function syncSpeechControl() {
     wordButton.dataset.speechPaceSource = speechPace.source;
     wordButton.dataset.speechDifficulty = String(speechPace.difficulty);
     wordButton.dataset.speechRate = String(speechPace.rate);
-    wordButton.disabled = checking || state.busy || !supported || !wordAvailable;
+    wordButton.disabled = muted || checking || state.busy || !supported || !wordAvailable;
     wordButton.classList.toggle("is-speaking", wordSpeaking);
     wordButton.setAttribute("aria-pressed", String(wordSpeaking));
     wordButton.setAttribute("aria-label", wordLabel);
@@ -1363,6 +1376,10 @@ function speakCzechWithBrowser(text, source, pace) {
 
 function toggleCzechSpeech(text, source) {
   const normalizedText = String(text || "").normalize("NFC").trim();
+  if (speechGloballyMuted()) {
+    syncSpeechControl();
+    return;
+  }
   if (source === "sentence" && !targetSentenceSpeechAllowed()) {
     syncSpeechControl();
     return;
@@ -1399,7 +1416,8 @@ function speakSelectedCzechWord() {
 function maybeAutoplayCurrentSentence({ force = false } = {}) {
   const fingerprint = sentenceFingerprint(state.currentSentence);
   if (
-    !state.audioAutoplay
+    speechGloballyMuted()
+    || !state.audioAutoplay
     || state.busy
     || !targetSentenceSpeechAllowed()
     || !fingerprint
@@ -1446,6 +1464,15 @@ async function refreshAndroidSpeechStatus({ force = false } = {}) {
 
 function initializeSpeechControl() {
   syncSpeechControl();
+  window.addEventListener("caatuu:speech-autoplay-change", () => {
+    state.audioAutoplay = loadAudioAutoplay();
+    if (!state.audioAutoplay) cancelCzechSpeech();
+    syncAudioSettingsControl();
+  });
+  window.addEventListener("caatuu:speech-mute-change", () => {
+    if (speechGloballyMuted()) cancelCzechSpeech();
+    syncSpeechControl();
+  });
   window.addEventListener("caatuu:speech-voice-change", async () => {
     cancelCzechSpeech();
     if (androidSpeechRuntime()) await refreshAndroidSpeechStatus({ force: true });
@@ -3922,7 +3949,8 @@ function syncWordTranslation() {
     ? ""
     : state.wordMeaningLoading
       ? interfaceText("wordworld.dictionary.loading")
-      : state.selectedWordMeaning || interfaceText("wordworld.dictionary.nomeaning");
+      : state.selectedWordMeaning || unavailableWordMeaning();
+  meaningNode.lang = details?.languageTag || providerContext?.learnerBase?.languageTag || "en";
   metaNode.textContent = visible && !state.wordMeaningLoading ? metadata.join(" · ") : "";
   metaNode.hidden = !metaNode.textContent;
   metaNode.title = metaNode.textContent;
@@ -4032,14 +4060,32 @@ function preparedTokenForWord(selectedWord) {
   const selectedKey = typeof searchKey === "function"
     ? searchKey(selectedWord, { record, purpose: "word-world-meaning" })
     : normalizeWord(selectedWord).toLocaleLowerCase(targetLocale);
-  const tokenIndex = tokens.findIndex((token, index) => {
+  const matchesSelected = (token, index) => {
     const value = token?.surface ?? token?.text ?? "";
     const key = typeof searchKey === "function"
       ? searchKey(value, { record, token, tokenIndex: index, purpose: "word-world-meaning" })
       : normalizeWord(value).toLocaleLowerCase(targetLocale);
     return key && key === selectedKey;
-  });
+  };
+  const tokenIndex = Number.isInteger(state.selectedTokenIndex)
+    && tokens[state.selectedTokenIndex]
+    && matchesSelected(tokens[state.selectedTokenIndex], state.selectedTokenIndex)
+    ? state.selectedTokenIndex
+    : tokens.findIndex(matchesSelected);
   return tokenIndex >= 0 ? { record, token: tokens[tokenIndex], tokenIndex } : null;
+}
+
+function wordMeaningCacheKey(word) {
+  const normalized = normalizeWord(word).toLocaleLowerCase(targetLocale);
+  if (!providerContext?.learnerBase) return normalized;
+  const prepared = preparedTokenForWord(word);
+  return `${state.currentEntryId}\u0000${prepared?.tokenIndex ?? ""}\u0000${normalized}`;
+}
+
+function unavailableWordMeaning() {
+  return interfaceText(providerContext?.learnerBase
+    ? "wordworld.dictionary.unavailable"
+    : "wordworld.dictionary.nomeaning");
 }
 
 export function englishAuditSemanticQuery(record = {}) {
@@ -4071,10 +4117,10 @@ async function lookupSelectedWord(word) {
     return;
   }
 
-  const key = selectedWord.toLocaleLowerCase(targetLocale);
+  const key = wordMeaningCacheKey(selectedWord);
   if (state.wordMeaningCache.has(key)) {
     state.selectedWordDetails = state.wordMeaningCache.get(key);
-    state.selectedWordMeaning = state.selectedWordDetails?.meaning || interfaceText("wordworld.dictionary.nomeaning");
+    state.selectedWordMeaning = state.selectedWordDetails?.meaning || unavailableWordMeaning();
     state.wordMeaningLoading = false;
     if (state.selectedWordDetails && !state.selectedWordDetails.dictionaryMissing && forgetDictionaryGap(key)) {
       state.selectedWordGapNotice = "";
@@ -4096,7 +4142,7 @@ async function lookupSelectedWord(word) {
   state.wordMeaningLoading = true;
   syncWordTranslation();
 
-  const fallback = fallbackWordMeaning(selectedWord);
+  const fallback = providerContext?.learnerBase ? "" : fallbackWordMeaning(selectedWord);
   try {
     const authored = preparedTokenForWord(selectedWord);
     const preparedMeaning = authored && typeof providerContext?.lookupMeaning === "function"
@@ -4113,18 +4159,20 @@ async function lookupSelectedWord(word) {
           senseTags: [],
           synonyms: [],
           meaning: String(preparedMeaning.meaning || "").normalize("NFC").trim(),
+          languageTag: preparedMeaning.languageTag || "en",
           metadata: String(preparedMeaning.metadata || "").normalize("NFC").trim()
         }
       : null;
     let lookupReturned = result ? 1 : 0;
-    if (!result && providerContext?.session?.course?.capabilities?.dictionary === true) {
+    if (!result && !Array.isArray(authored?.record?.learnerTokenMeanings)
+        && providerContext?.session?.course?.capabilities?.dictionary === true) {
       const dictionary = runtimeAdapter()?.dictionary;
       if (!dictionary?.search) throw new Error("Dictionary lookup is unavailable.");
       const payload = await dictionary.search(selectedWord, { limit: 8, signal: controller.signal });
       result = selectDictionaryMeaning(payload, selectedWord, { maxGlosses: 2 });
       lookupReturned = Array.isArray(payload?.results) ? payload.results.length : 0;
     }
-    const meaning = result?.meaning || fallback || interfaceText("wordworld.dictionary.nomeaning");
+    const meaning = result?.meaning || fallback || unavailableWordMeaning();
     const details = result || {
       lemma: selectedWord,
       pos: "",
@@ -4137,7 +4185,7 @@ async function lookupSelectedWord(word) {
     };
     cacheWordMeaning(key, details);
     if (result) forgetDictionaryGap(key);
-    if (requestId !== state.wordLookupRequestId || key !== state.selectedWord.toLocaleLowerCase(targetLocale)) return;
+    if (requestId !== state.wordLookupRequestId || key !== wordMeaningCacheKey(state.selectedWord)) return;
     state.selectedWordMeaning = meaning;
     state.selectedWordDetails = details;
     if (result) state.selectedWordGapNotice = "";
@@ -4155,19 +4203,22 @@ async function lookupSelectedWord(word) {
   }
 }
 
-function selectWord(word, { lookup = true, render = true, userInitiated = false } = {}) {
+function selectWord(word, { lookup = true, render = true, userInitiated = false, tokenIndex = null } = {}) {
   const selectedWord = normalizeWord(word);
   if (!selectedWord) return;
   const previousKey = state.selectedWord.toLocaleLowerCase(targetLocale);
   const nextKey = selectedWord.toLocaleLowerCase(targetLocale);
+  state.selectedTokenIndex = Number.isInteger(tokenIndex) && tokenIndex >= 0 ? tokenIndex : null;
+  const nextMeaningKey = wordMeaningCacheKey(selectedWord);
   state.selectedWord = selectedWord;
-  if (previousKey !== nextKey) {
+  if (previousKey !== nextKey || state.selectedWordMeaningKey !== nextMeaningKey) {
+    state.selectedWordMeaningKey = nextMeaningKey;
     if (state.speechSource === "word") cancelCzechSpeech();
     abortWordLookup();
     state.selectedWordGapNotice = state.dictionaryGapKeys.includes(nextKey)
       ? interfaceText(DICTIONARY_GAP_NOTICE_ID)
       : "";
-    state.selectedWordDetails = state.wordMeaningCache.get(nextKey) || null;
+    state.selectedWordDetails = state.wordMeaningCache.get(wordMeaningCacheKey(selectedWord)) || null;
     state.selectedWordMeaning = state.selectedWordDetails?.meaning || "";
   }
   if (render && state.currentSentence) renderCzechSentence(state.currentSentence, selectedWord);
@@ -4212,28 +4263,16 @@ function setProgress(message) {
   bar.style.width = "0%";
 }
 
-async function loadingRobotRows() {
-  if (!state.robotRowsPromise) {
-    state.robotRowsPromise = fetch(ROBOT_KEYMAP_URL, { cache: "force-cache" })
-      .then((response) => {
-        if (!response.ok) throw new Error(`Could not load robot keymap (${response.status}).`);
-        return response.json();
-      })
-      .then((raw) => parseSceneKeymap(raw).filter((row) => row.assetPath.startsWith("/assets/robots/")))
-      .catch(() => []);
-  }
-  return state.robotRowsPromise;
+function robotLoadingActive() {
+  return state.loadingActive && !state.loadingPageHidden && document.visibilityState !== "hidden";
 }
 
-function hideLoadingRobot() {
-  state.robotRequestId += 1;
-  state.loadingRobotVisibleAt = 0;
-  const image = $("#wordNetLoadingArt");
-  if (!image) return;
-  image.onload = null;
-  image.onerror = null;
-  image.hidden = true;
-  image.removeAttribute("src");
+function syncRobotLoadingActivity() {
+  const active = robotLoadingActive();
+  state.loadingScreen?.setActive(active);
+  if (!active) {
+    for (const release of state.loadingActivityWaiters) release();
+  }
 }
 
 function waitForVisiblePaint() {
@@ -4242,105 +4281,18 @@ function waitForVisiblePaint() {
   });
 }
 
-async function showLoadingRobot() {
-  const image = $("#wordNetLoadingArt");
-  const loading = $("#wordNetLoading");
-  if (!image || !loading || loading.hidden) return false;
-  const requestId = state.robotRequestId + 1;
-  state.robotRequestId = requestId;
-  state.loadingRobotVisibleAt = 0;
-  const rows = await Promise.race([
-    loadingRobotRows(),
-    new Promise((resolve) => window.setTimeout(() => resolve([]), LOADING_ROBOT_KEYMAP_WAIT_MS))
-  ]);
-  if (requestId !== state.robotRequestId || loading.hidden) return false;
-
-  const startIndex = rows.length ? state.robotCursor % rows.length : 0;
-  if (rows.length) state.robotCursor = (state.robotCursor + 1) % rows.length;
-  const paths = rows.length
-    ? [...rows.slice(startIndex), ...rows.slice(0, startIndex)].map((row) => row.assetPath)
-    : [];
-  if (!paths.includes(ROBOT_FALLBACK_URL)) paths.push(ROBOT_FALLBACK_URL);
-
-  return new Promise((resolve) => {
-    let settled = false;
-    let timeoutId = 0;
-    let loadHandler = null;
-    let errorHandler = null;
-    const removeImageListeners = () => {
-      if (loadHandler) image.removeEventListener("load", loadHandler);
-      if (errorHandler) image.removeEventListener("error", errorHandler);
-      loadHandler = null;
-      errorHandler = null;
-    };
-    const finish = (visible) => {
-      if (settled) return;
-      if (
-        !visible
-        && requestId === state.robotRequestId
-        && !loading.hidden
-        && !state.loadingRobotVisibleAt
-      ) {
-        // Even if every artwork fails, keep a calm, predictable pause on the
-        // loading layer instead of flashing directly to the next sentence.
-        state.loadingRobotVisibleAt = performance.now();
-      }
-      settled = true;
-      window.clearTimeout(timeoutId);
-      removeImageListeners();
-      resolve(visible);
-    };
-    const tryPath = (offset) => {
-      const path = paths[offset];
-      if (!path || requestId !== state.robotRequestId || loading.hidden) {
-        finish(false);
-        return;
-      }
-      removeImageListeners();
-      image.hidden = true;
-      const expectedSrc = new URL(path, window.location.href).href;
-      loadHandler = async () => {
-        if (image.currentSrc !== expectedSrc && image.src !== expectedSrc) return;
-        removeImageListeners();
-        if (requestId !== state.robotRequestId || loading.hidden) {
-          finish(false);
-          return;
-        }
-        image.hidden = false;
-        await waitForVisiblePaint();
-        if (settled) return;
-        if (requestId !== state.robotRequestId || loading.hidden) {
-          finish(false);
-          return;
-        }
-        state.loadingRobotVisibleAt = performance.now();
-        finish(true);
-      };
-      errorHandler = () => {
-        if (image.currentSrc !== expectedSrc && image.src !== expectedSrc) return;
-        removeImageListeners();
-        tryPath(offset + 1);
-      };
-      image.addEventListener("load", loadHandler);
-      image.addEventListener("error", errorHandler);
-      image.src = path;
-      if (image.complete && image.naturalWidth && (image.currentSrc === expectedSrc || image.src === expectedSrc)) {
-        void loadHandler();
-      }
-    };
-    timeoutId = window.setTimeout(() => finish(false), LOADING_ROBOT_IMAGE_WAIT_MS);
-    tryPath(0);
-  });
-}
-
-async function holdSentenceTransition(startedAt) {
-  await Promise.resolve(state.loadingRobotReadyPromise).catch(() => false);
-  const visibleAt = Number(state.loadingRobotVisibleAt || 0);
-  const transitionAnchor = Math.max(startedAt, visibleAt);
-  const elapsed = performance.now() - transitionAnchor;
-  const remaining = Math.max(0, MIN_SENTENCE_TRANSITION_MS - elapsed);
-  if (remaining > 0) {
-    await new Promise((resolve) => window.setTimeout(resolve, remaining));
+async function holdSentenceTransition() {
+  // A preloaded, inactive controller must become ready without waiting for a
+  // resume call that the shell cannot send until its mount has completed. If
+  // activity changes during the cosmetic hold, let readiness finish as well.
+  if (!robotLoadingActive()) return;
+  let release;
+  const inactive = new Promise((resolve) => { release = resolve; });
+  state.loadingActivityWaiters.add(release);
+  try {
+    await Promise.race([state.loadingScreen?.minimumVisible(MIN_SENTENCE_TRANSITION_MS), inactive]);
+  } finally {
+    state.loadingActivityWaiters.delete(release);
   }
 }
 
@@ -4366,22 +4318,20 @@ function setBusy(busy, { cover = busy, immediate = false } = {}) {
       state.loadingHideTimerId = 0;
     }
     if (cover) {
-      loading.hidden = false;
+      state.loadingScreen?.show();
+      syncRobotLoadingActivity();
       window.requestAnimationFrame(() => {
         if (state.busy && !loading.hidden) loading.classList.add("is-visible");
       });
-      state.loadingRobotReadyPromise = showLoadingRobot();
     } else if (immediate) {
       loading.classList.remove("is-visible");
-      loading.hidden = true;
-      hideLoadingRobot();
+      state.loadingScreen?.hide();
     } else {
       loading.classList.remove("is-visible");
       state.loadingHideTimerId = window.setTimeout(() => {
         state.loadingHideTimerId = 0;
         if (state.busy || loading.classList.contains("is-visible")) return;
-        loading.hidden = true;
-        hideLoadingRobot();
+        state.loadingScreen?.hide();
       }, LOADING_FADE_MS);
     }
   }
@@ -4516,6 +4466,23 @@ function stableSceneOffset(text, length) {
     hash = Math.imul(hash, 16777619);
   }
   return Math.abs(hash >>> 0) % Math.max(1, length);
+}
+
+function syncImageControl() {
+  const button = $("#wordNetImageToggle");
+  const scene = $("#wordNetScene");
+  if (scene) scene.dataset.illustrations = String(state.imagesEnabled);
+  if (!button) return;
+  const label = interfaceText(state.imagesEnabled ? "verbnebula.hints.hide" : "verbnebula.hints.show");
+  button.setAttribute("aria-pressed", String(state.imagesEnabled));
+  button.setAttribute("aria-label", label);
+  button.title = label;
+  button.classList.toggle("is-active", state.imagesEnabled);
+}
+
+function toggleSceneImage() {
+  state.imagesEnabled = !state.imagesEnabled;
+  syncImageControl();
 }
 
 function hideSceneAsset({ cancel = false } = {}) {
@@ -5180,13 +5147,15 @@ function renderCzechSentence(
       tokenIndex: wordIndex
     });
     button.dataset.word = normalizeWord(token.text);
+    button.dataset.tokenIndex = String(wordIndex);
     const curriculumFocused = Number(curriculumFocus?.tokenIndex) === wordIndex
       && wordMatchesTarget(button.dataset.word, curriculumFocus?.normalized);
     const label = curriculumFocused
       ? interfaceText("wordworld.word.curriculumfocus", { word: token.text })
       : interfaceText("wordworld.word.selectmeaning", { word: token.text });
     button.setAttribute("aria-label", label);
-    const selected = wordMatchesTarget(button.dataset.word, selectedWord);
+    const selected = wordMatchesTarget(button.dataset.word, selectedWord)
+      && (state.selectedTokenIndex === null || state.selectedTokenIndex === wordIndex);
     button.setAttribute("aria-pressed", selected ? "true" : "false");
     if (selected) {
       button.classList.add("is-selected");
@@ -5638,6 +5607,8 @@ function bindUi() {
     }
   });
   $("#wordNetDisplayToggle")?.addEventListener("click", toggleDisplayMenu);
+  $("#wordNetImageToggle")?.addEventListener("click", toggleSceneImage);
+  syncImageControl();
   $("#wordNetDisplayMenu")?.addEventListener("click", (event) => {
     if (!event.target.closest("[data-theme-option], [data-font-size-option]")) return;
     window.requestAnimationFrame(syncDisplaySettingsControl);
@@ -5781,7 +5752,10 @@ function bindUi() {
       if (!markGuidedDictionaryHint()) return;
       state.wordCardPreferences.showCard = true;
     }
-    selectWord(button.dataset.word, { userInitiated: true });
+    selectWord(button.dataset.word, {
+      userInitiated: true,
+      tokenIndex: Number(button.dataset.tokenIndex)
+    });
     setStatus(state.guidedMode
       ? interfaceText("wordworld.word.guidedsupport", { word: button.dataset.word })
       : interfaceText("wordworld.word.selected", { word: button.dataset.word }), { tone: "muted" });
@@ -5836,6 +5810,7 @@ function bindUi() {
   $("#wordNetFeedbackCancel")?.addEventListener("click", closeSentenceFeedback);
   $("#wordNetFeedbackForm")?.addEventListener("submit", submitSentenceFeedback);
   document.addEventListener("visibilitychange", () => {
+    syncRobotLoadingActivity();
     if (document.visibilityState === "hidden") {
       clearTranslationTimer();
       cancelCzechSpeech();
@@ -5852,7 +5827,15 @@ function bindUi() {
       }
     }
   });
-  window.addEventListener("pagehide", () => cancelCzechSpeech());
+  window.addEventListener("pagehide", () => {
+    state.loadingPageHidden = true;
+    syncRobotLoadingActivity();
+    cancelCzechSpeech();
+  });
+  window.addEventListener("pageshow", () => {
+    state.loadingPageHidden = false;
+    syncRobotLoadingActivity();
+  });
   window.addEventListener("caatuu:learning-change", (event) => {
     if (event.detail?.reason === "progress-reset" && state.guidedRequested) {
       void restartGuidedWordWorldAfterReset();
@@ -6068,6 +6051,12 @@ export async function mountProductWordWorld(root, preparedContext, options = {})
   WORD_NET_MODEL_KEY = context.generationStrategy?.sentenceModelKey || "";
   TRANSLATION_MODEL_KEY = context.generationStrategy?.translationModelKey || "";
   mountRoot = root;
+  state.loadingActive = !root.closest?.("[data-train-panel]")?.hidden;
+  state.loadingScreen = mountRobotLoadingScreen({
+    container: root.querySelector("#wordNetLoading"),
+    label: interfaceText("verbnebula.round.preparing"),
+    active: robotLoadingActive()
+  });
   providerContext = context;
   state.targetTextPreferences = loadTargetTextPreferences(context.targetTextGuide?.defaults);
   lifecycleOptions = Object.freeze({ ...options });
@@ -6084,6 +6073,7 @@ export async function mountProductWordWorld(root, preparedContext, options = {})
     await init();
     notifyHost("ready", { courseId: course.id });
   } catch (error) {
+    state.loadingScreen?.destroy();
     console.error("Word World could not initialize", error);
     notifyHost("error", {
       courseId: course.id,
@@ -6096,10 +6086,14 @@ export async function mountProductWordWorld(root, preparedContext, options = {})
   return Object.freeze({
     next: () => activateNextSentence(),
     pause() {
+      state.loadingActive = false;
+      syncRobotLoadingActivity();
       cancelCzechSpeech();
       suspendStarterWordPresentation();
     },
     resume() {
+      state.loadingActive = true;
+      syncRobotLoadingActivity();
       syncDisplaySettingsControl();
       syncSpeechControl();
       if (!state.busy && state.currentSentence) {

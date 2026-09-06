@@ -87,37 +87,37 @@
     "cases": {
       "Nominative": {
         "form": "kamarád",
-        "english": "My friend is waiting.",
+        "english": "A friend is waiting.",
         "czech": "Kamarád čeká."
       },
       "Genitive": {
         "form": "kamaráda",
-        "english": "The message is from my friend.",
+        "english": "The message is from a friend.",
         "czech": "Zpráva je od kamaráda."
       },
       "Dative": {
         "form": "kamarádovi",
-        "english": "I am helping my friend.",
+        "english": "I am helping a friend.",
         "czech": "Pomáhám kamarádovi."
       },
       "Accusative": {
         "form": "kamaráda",
-        "english": "I see my friend.",
+        "english": "I see a friend.",
         "czech": "Vidím kamaráda."
       },
       "Vocative": {
         "form": "kamaráde",
-        "english": "My friend, wait!",
+        "english": "Friend, wait!",
         "czech": "Kamaráde, počkej!"
       },
       "Locative": {
         "form": "kamarádovi",
-        "english": "I am talking about my friend.",
+        "english": "I am talking about a friend.",
         "czech": "Mluvím o kamarádovi."
       },
       "Instrumental": {
         "form": "kamarádem",
-        "english": "I am travelling with my friend.",
+        "english": "I am travelling with a friend.",
         "czech": "Cestuji s kamarádem."
       }
     }
@@ -149,7 +149,7 @@
       "Vocative": {
         "form": "učitelko",
         "english": "Teacher, please look!",
-        "czech": "Paní učitelko, podívejte se!"
+        "czech": "Paní učitelko, prosím, podívejte se!"
       },
       "Locative": {
         "form": "učitelce",
@@ -272,7 +272,7 @@
       "Vocative": {
         "form": "doktore",
         "english": "Doctor, please come in!",
-        "czech": "Pane doktore, pojďte dál!"
+        "czech": "Pane doktore, prosím, pojďte dál!"
       },
       "Locative": {
         "form": "doktorovi",
@@ -292,22 +292,22 @@
     "cases": {
       "Nominative": {
         "form": "maminka",
-        "english": "My mother is reading.",
+        "english": "Mom is reading.",
         "czech": "Maminka čte."
       },
       "Genitive": {
         "form": "maminky",
-        "english": "The gift is from my mother.",
+        "english": "The gift is from Mom.",
         "czech": "Dárek je od maminky."
       },
       "Dative": {
         "form": "mamince",
-        "english": "I am writing to my mother.",
+        "english": "I am writing to Mom.",
         "czech": "Píšu mamince."
       },
       "Accusative": {
         "form": "maminku",
-        "english": "I see my mother.",
+        "english": "I see Mom.",
         "czech": "Vidím maminku."
       },
       "Vocative": {
@@ -317,12 +317,12 @@
       },
       "Locative": {
         "form": "mamince",
-        "english": "I am talking about my mother.",
+        "english": "I am talking about Mom.",
         "czech": "Mluvím o mamince."
       },
       "Instrumental": {
         "form": "maminkou",
-        "english": "I am going with my mother.",
+        "english": "I am going with Mom.",
         "czech": "Jdu s maminkou."
       }
     }
@@ -415,22 +415,22 @@
     "cases": {
       "Nominative": {
         "form": "tatínek",
-        "english": "My father is working.",
+        "english": "Dad is working.",
         "czech": "Tatínek pracuje."
       },
       "Genitive": {
         "form": "tatínka",
-        "english": "The gift is from my father.",
+        "english": "The gift is from Dad.",
         "czech": "Dárek je od tatínka."
       },
       "Dative": {
         "form": "tatínkovi",
-        "english": "I am writing to my father.",
+        "english": "I am writing to Dad.",
         "czech": "Píšu tatínkovi."
       },
       "Accusative": {
         "form": "tatínka",
-        "english": "I see my father.",
+        "english": "I see Dad.",
         "czech": "Vidím tatínka."
       },
       "Vocative": {
@@ -440,12 +440,12 @@
       },
       "Locative": {
         "form": "tatínkovi",
-        "english": "I am talking about my father.",
+        "english": "I am talking about Dad.",
         "czech": "Mluvím o tatínkovi."
       },
       "Instrumental": {
         "form": "tatínkem",
-        "english": "I am going with my father.",
+        "english": "I am going with Dad.",
         "czech": "Jdu s tatínkem."
       }
     }
@@ -682,7 +682,7 @@
       "Vocative": {
         "form": "studente",
         "english": "Student, please come in!",
-        "czech": "Studente, pojďte dál!"
+        "czech": "Studente, prosím, pojďte dál!"
       },
       "Locative": {
         "form": "studentovi",
@@ -723,7 +723,7 @@
       "Vocative": {
         "form": "sousede",
         "english": "Neighbor, please wait!",
-        "czech": "Sousede, počkejte!"
+        "czech": "Sousede, prosím, počkejte!"
       },
       "Locative": {
         "form": "sousedovi",

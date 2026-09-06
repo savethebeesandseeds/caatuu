@@ -21,14 +21,14 @@ a public course.
   learner base and the immutable retrieval and audit language.
 - Verb Nebula consumes only its course-owned Spanish vocabulary catalog while
   retaining the shared game controller and shell layout.
-- Conjugation Comet and Agreement Aurora use the same shared game hosts as
+- Conjugation Comet and Grammar Gravity use the same shared game hosts as
   other courses. This pack contributes only finite Spanish content catalogs,
   European-Spanish copy, and reviewed language-role text; it owns no game
   HTML, controller, or stylesheet.
 
 ## Current capabilities
 
-Word World, Verb Nebula, Conjugation Comet, Agreement Aurora, English-backed
+Word World, Verb Nebula, Conjugation Comet, Grammar Gravity, English-backed
 semantic search, and Spanish speech are available in this development preview.
 The two grammar games load their declared course catalogs through the generated
 `gameContent` profile projection. Every assessed item retains explicit English
@@ -39,9 +39,11 @@ English lexical ranking remains available if local model inference cannot
 start.
 
 The separate full Dictionary workspace, pronunciation guides, LLM, chat,
-generated sentences, offline models, Memory Moon, Sounds Quasar, and Android
-distribution are disabled. Memory Moon and Sounds Quasar remain shared
-coming-later planets. Word World's authored token glosses are not a declaration
+generated sentences, offline models, Memory Moon, and Android distribution
+are disabled. Memory Moon remains a shared coming-later planet. Sounds Quasar
+provides shared listen-and-choose practice using device speech and course-owned
+words and sentences. Correct answers earn XP; it does not provide pronunciation
+assessment. Word World's authored token glosses are not a declaration
 of full dictionary support. Campaign availability is derived by the shared
 shell from its playable planets.
 

@@ -1,3 +1,5 @@
+import { mountRobotLoadingScreen } from "./games/embedded-game-controls.mjs?v=embedded-game-controls-8";
+
 const course = globalThis.CaatuuCourse;
 
 if (!course || typeof course !== "object") {
@@ -6,6 +8,8 @@ if (!course || typeof course !== "object") {
 
 const state = {
   active: false,
+  pageHidden: false,
+  loadingScreen: null,
   controller: null,
   display: Object.freeze({ theme: "dark", fontSize: "largest" }),
   loading: null
@@ -42,6 +46,10 @@ function setStatus(kind, title, detail) {
   if (!status) return;
   status.hidden = false;
   status.classList.toggle("is-error", kind === "error");
+  if (kind === "loading") {
+    state.loadingScreen?.show();
+    state.loadingScreen?.setActive(state.active && !state.pageHidden && document.visibilityState !== "hidden");
+  } else state.loadingScreen?.setActive(false);
   const heading = status.querySelector("strong");
   const copy = status.querySelector("small");
   if (heading) heading.textContent = title;
@@ -49,16 +57,24 @@ function setStatus(kind, title, detail) {
 }
 
 function syncControllerActivity() {
+  state.loadingScreen?.setActive(state.active && !state.pageHidden
+    && document.visibilityState !== "hidden" && !elements().status?.classList.contains("is-error"));
   const controller = state.controller;
   if (!controller) return;
   controller.setDisplay?.(state.display);
-  if (state.active) controller.resume?.();
+  if (state.active && !state.pageHidden && document.visibilityState !== "hidden") controller.resume?.();
   else controller.pause?.();
 }
 
 async function loadController() {
   const { root, stage, status } = elements();
   if (!root || !stage) throw new Error("The authoritative Word World component tree is missing.");
+
+  if (status && !state.loadingScreen) state.loadingScreen = mountRobotLoadingScreen({
+    container: status,
+    label: globalThis.CaatuuI18n.t("verbnebula.round.preparing"),
+    active: state.active && !state.pageHidden && document.visibilityState !== "hidden"
+  });
 
   stage.dataset.loading = "true";
   stage.setAttribute("aria-busy", "true");
@@ -71,7 +87,7 @@ async function loadController() {
   try {
     const manifest = await loadJson(courseUrl("data/games/word-world/manifest.json"));
     stage.dataset.provider = String(manifest.sessionProvider?.kind || manifest.mode || "course-content");
-    const { mountWordWorld } = await import("./word-world-provider.mjs?v=word-world-provider-19");
+    const { mountWordWorld } = await import("./word-world-provider.mjs?v=word-world-provider-23");
     const controller = await mountWordWorld(root, course, manifest);
     if (!controller || typeof controller !== "object") {
       throw new Error("The shared Word World renderer did not return its controller.");
@@ -82,7 +98,7 @@ async function loadController() {
     stage.dataset.loading = "false";
     stage.setAttribute("aria-busy", "false");
     if (status) {
-      status.hidden = true;
+      state.loadingScreen?.hide();
       status.classList.remove("is-error");
     }
     syncControllerActivity();
@@ -139,5 +155,9 @@ export const CaatuuWordWorldHost = Object.freeze({
 });
 
 globalThis.CaatuuWordWorldHost = CaatuuWordWorldHost;
+
+document.addEventListener("visibilitychange", syncControllerActivity);
+window.addEventListener("pagehide", () => { state.pageHidden = true; syncControllerActivity(); });
+window.addEventListener("pageshow", () => { state.pageHidden = false; syncControllerActivity(); });
 
 export default CaatuuWordWorldHost;

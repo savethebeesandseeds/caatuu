@@ -36,6 +36,9 @@ test("deployer fails closed on concurrency, repository identity, and shared-tree
 });
 
 test("deployer requires the canonical running tool container and validates without building", () => {
+  assert.match(source, /Test-SamePath \$worktreeLines\[0\]\.Substring\(9\) \$ExpectedRepositoryRoot/u);
+  assert.match(source, /\$detachedLines\.Count -ne \(\$worktreeLines\.Count - 1\)/u);
+  assert.doesNotMatch(source, /"worktree",\s*"(?:remove|prune|add)"/u);
   assert.match(source, /"docker"[\s\S]*"inspect",\s*"caatuu-dev"/u);
   assert.match(source, /State\.Running/u);
   assert.match(source, /Destination\s*-eq\s*"\/workspace"/u);

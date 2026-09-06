@@ -8,8 +8,10 @@ export const PLANET_ENGLISH_AUDIT_CONTRACT_IDS = Object.freeze([
   "word-world-manifest-v1",
   "conjugation-comet-items-v1",
   "case-cosmos-items-v1",
-  "agreement-aurora-items-v1",
-  "naturalization-nucleus-items-v1"
+  "grammar-gravity-items-v1",
+  "grammar-gravity-nouns-v1",
+  "naturalization-nucleus-items-v1",
+  "sound-quasar-items-v2"
 ]);
 
 const CONTRACT_IDS = new Set(PLANET_ENGLISH_AUDIT_CONTRACT_IDS);
@@ -71,6 +73,12 @@ function validateVerbNebula(document, context, issues) {
   }
 }
 
+function validateSoundQuasar(document, context, issues) {
+  for (const [index, item] of requireArray(issues, document?.items, `${context.location}.items`).entries()) {
+    requireEnglishText(issues, item, `${context.location}.items[${index}]`);
+  }
+}
+
 function validateConjugationComet(document, context, issues) {
   const verbs = requireArray(issues, document?.verbs, `${context.location}.verbs`);
   for (const [verbIndex, verb] of verbs.entries()) {
@@ -114,7 +122,7 @@ function validateCaseCosmos(document, context, issues) {
   }
 }
 
-function validateAgreementAurora(document, context, issues) {
+function validateGrammarGravity(document, context, issues) {
   const challenges = Array.isArray(document) ? document : document?.challenges;
   for (const [challengeIndex, challenge] of requireArray(
     issues,
@@ -157,6 +165,13 @@ function validateNaturalizationNucleus(document, context, issues) {
       sourceLanguageId: context.sourceLanguageId,
       sourceRoleFields: ["translation"]
     });
+  }
+}
+
+function validateGrammarGravityNouns(document, context, issues) {
+  for (const [index, item] of requireArray(issues, document?.items, `${context.location}.items`).entries()) {
+    // A base-language translation never replaces the independent English authority.
+    requireEnglishText(issues, item, `${context.location}.items[${index}]`);
   }
 }
 
@@ -216,8 +231,10 @@ const VALIDATORS = Object.freeze({
   "word-world-manifest-v1": validateWordWorldManifest,
   "conjugation-comet-items-v1": validateConjugationComet,
   "case-cosmos-items-v1": validateCaseCosmos,
-  "agreement-aurora-items-v1": validateAgreementAurora,
-  "naturalization-nucleus-items-v1": validateNaturalizationNucleus
+  "grammar-gravity-items-v1": validateGrammarGravity,
+  "grammar-gravity-nouns-v1": validateGrammarGravityNouns,
+  "naturalization-nucleus-items-v1": validateNaturalizationNucleus,
+  "sound-quasar-items-v2": validateSoundQuasar
 });
 
 export function validatePlanetEnglishAuditDocument(contractId, document, context = {}) {

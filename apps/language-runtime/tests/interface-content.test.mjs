@@ -192,6 +192,48 @@ test("loads only the declared same-origin base-language catalog and installs it 
   );
 });
 
+test("non-English course bases select their interface independently of target and English audit roles", async () => {
+  for (const [locale, direction, continueText] of [
+    ["es-ES", "ltr", "Continuar"],
+    ["ar", "rtl", "متابعة"]
+  ]) {
+    const translated = catalog({
+      locale,
+      direction,
+      revision: "interface-base-test-1",
+      messages: { ...catalog().messages, "action.continue": continueText }
+    });
+    assert.equal(validateInterfaceCatalogParity(catalog(), translated).valid, true);
+    const course = {
+      sourceLanguage: { locale, direction },
+      targetLanguage: { locale: "zh-Hans", direction: "ltr" },
+      languageRoles: { auditLanguage: "en", retrievalLanguage: "en" },
+      interfaceContent: {
+        schemaVersion: 1,
+        locale,
+        direction,
+        revision: translated.revision,
+        catalog: `/language-runtime/static/data/interface/${locale}.v1.json`
+      }
+    };
+    const requests = [];
+    const content = await loadInterfaceContent(course, {
+      origin: "https://caatuu.test",
+      async fetchImpl(url) {
+        requests.push(url);
+        return { ok: true, json: async () => translated };
+      }
+    });
+    assert.deepEqual(requests, [
+      `https://caatuu.test/language-runtime/static/data/interface/${locale}.v1.json?v=interface-base-test-1`
+    ]);
+    assert.equal(content.locale, locale);
+    assert.equal(content.direction, direction);
+    assert.equal(content.t("action.continue"), continueText);
+    assert.deepEqual(course.languageRoles, { auditLanguage: "en", retrievalLanguage: "en" });
+  }
+});
+
 test("fails closed on interface/source drift, cross-origin catalogs, and request failures", async () => {
   const base = {
     sourceLanguage: { locale: "es-ES", direction: "ltr" },

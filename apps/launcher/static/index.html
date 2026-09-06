@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Caatuu</title>
-    <link rel="stylesheet" href="/app.css?v=34">
-    <script src="/launcher.js?v=11" defer></script>
+    <link rel="stylesheet" href="/app.css?v=35">
+    <script src="/launcher.js?v=12" defer></script>
   </head>
   <body class="home-page">
     <main class="menu-shell">
@@ -20,8 +20,8 @@
                 <strong>Caatuu</strong>
               </span>
             </span>
-            <span class="available-languages" aria-label="Available languages">
-              <span class="available-languages-label">Available languages</span>
+            <span class="available-languages" aria-label="Available courses" data-i18n-aria-label="launcher.available">
+              <span class="available-languages-label" data-i18n="launcher.available">Available courses</span>
               <ul class="language-list" data-language-list>
                 <li aria-label="Czech (Čeština)" data-language-id="cz">
                   <span class="language-choice language-choice-static">
@@ -54,35 +54,40 @@
           </div>
 
           <div class="menu-heading home-heading">
-            <p class="eyebrow">Welcome space language traveler</p>
-            <h1 id="homeTitle">Language App</h1>
-            <p class="home-copy">Caatuu is a free, robust, agentic language-learning app for guided practice with words, phrases, translation, and offline-friendly tools.</p>
+            <p class="eyebrow" data-i18n="launcher.welcome">Welcome space language traveler</p>
+            <h1 id="homeTitle" data-i18n="launcher.title">Language App</h1>
+            <p class="home-copy" data-i18n="launcher.description">Caatuu is a free, robust, agentic language-learning app for guided practice with words, phrases, translation, and offline-friendly tools.</p>
           </div>
 
-          <nav class="entry-options" aria-label="App entry options">
+          <label class="launcher-source-control" data-source-control hidden>
+            <span data-i18n="courseselector.sourcequestion">What language do you use?</span>
+            <select data-source-language aria-label="What language do you use?" data-i18n-aria-label="courseselector.sourcequestion"></select>
+          </label>
+
+          <nav class="entry-options" aria-label="App entry options" data-i18n-aria-label="launcher.entryoptions">
             <a class="entry-option entry-download" data-android-download aria-disabled="true">
               <span class="entry-icon" aria-hidden="true">APK</span>
               <span class="entry-copy">
-                <small>Android preview</small>
-                <b>Checking Android build</b>
+                <small data-i18n="launcher.android.preview">Android preview</small>
+                <b data-i18n="launcher.android.checking">Checking Android build</b>
               </span>
             </a>
-            <a class="entry-option entry-browser" href="/cz/index.html" data-browser-entry aria-label="Continue online in the browser">
+            <a class="entry-option entry-browser" href="/cz/index.html" data-browser-entry aria-label="Continue online in the browser" data-i18n-aria-label="launcher.continuearia">
               <span class="entry-icon" aria-hidden="true">WEB</span>
               <span class="entry-copy">
-                <small>Browser</small>
-                <b>Continue online</b>
+                <small data-i18n="common.browser">Browser</small>
+                <b data-i18n="launcher.continue">Continue online</b>
               </span>
             </a>
           </nav>
-          <p class="home-footnote">Don't lose time, let's get started learning.</p>
+          <p class="home-footnote" data-i18n="launcher.footnote">Don't lose time, let's get started learning.</p>
         </section>
       </div>
 
       <footer class="app-footer">
         <a class="footer-brand" href="https://www.waajacu.com/" rel="noopener">
           <img class="footer-logo" src="/cz/icons/caatuu-czech-512.png" alt="">
-          <span>by Waajacu<sup class="brand-trademark" aria-hidden="true">™</sup></span>
+          <span><span data-i18n="launcher.by">by Waajacu</span><sup class="brand-trademark" aria-hidden="true">™</sup></span>
         </a>
       </footer>
     </main>

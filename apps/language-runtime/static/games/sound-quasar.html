@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en" data-theme="light" data-font-size="largest">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Sounds Quasar</title>
+    <link rel="stylesheet" href="../styles/caatuu-theme.css?v=theme-7">
+    <link rel="stylesheet" href="../styles/games/embedded-game-controls.css?v=embedded-game-controls-8">
+    <link rel="stylesheet" href="../styles/games/sound-quasar.css?v=sound-quasar-6">
+  </head>
+  <body>
+    <main class="quasar" id="quasarRoot" aria-busy="true">
+      <section id="quasarLoading" class="caatuu-game-robot-loading" role="status" aria-label="Preparing listening practice">
+        <img class="caatuu-game-robot-loading-art" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true">
+      </section>
+      <section id="quasarGame" hidden>
+        <fieldset class="quasar-mode-options caatuu-game-controls-setting" id="quasarModeOptions" hidden>
+          <legend data-quasar-copy="soundquasar.mode.title">Listening content</legend>
+          <button class="caatuu-game-control-option" id="quasarWords" type="button" data-mode="words" aria-pressed="true" data-quasar-copy="soundquasar.mode.words">Words</button>
+          <button class="caatuu-game-control-option" id="quasarSentences" type="button" data-mode="sentences" aria-pressed="false" data-quasar-copy="soundquasar.mode.sentences">Sentences</button>
+        </fieldset>
+        <fieldset class="quasar-mode-options caatuu-game-controls-setting" id="quasarChoiceOptions" hidden>
+          <legend data-quasar-copy="soundquasar.options.title">Answer options</legend>
+          <button class="caatuu-game-control-option" id="quasarFourChoices" type="button" data-count="4" aria-pressed="true">4 options</button>
+          <button class="caatuu-game-control-option" id="quasarSixChoices" type="button" data-count="6" aria-pressed="false">6 options</button>
+        </fieldset>
+        <section class="quasar-panel" id="quasarPanel">
+        <header class="quasar-head">
+          <span id="quasarProgress"></span>
+          <div class="quasar-toolbar">
+            <div id="quasarControls"></div>
+          </div>
+        </header>
+        <section id="quasarPlayArea" aria-labelledby="quasarInstructions">
+          <div class="quasar-sound" id="quasarSound">
+            <button class="quasar-skip" id="quasarSkip" type="button" aria-label="Skip this item" title="Skip this item" hidden>
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"></path></svg>
+            </button>
+            <button class="quasar-listen" id="quasarListen" type="button" aria-label="Listen" aria-pressed="false" disabled>
+              <img class="quasar-emblem" id="quasarEmblem" src="/assets/macaw/music/music%20(1).png" alt="" aria-hidden="true">
+              <span id="quasarListenIcon" aria-hidden="true"></span>
+            </button>
+            <div class="quasar-audio-state">
+              <p id="quasarAudioStatus" role="status" aria-live="polite"></p>
+              <button class="quasar-text-button" id="quasarRetryAudio" type="button" data-quasar-copy="soundquasar.audio.retry" hidden>Check audio</button>
+            </div>
+          </div>
+          <div class="quasar-answer-area" id="quasarAnswerArea">
+            <div class="quasar-choices" id="quasarChoices" role="group"></div>
+            <section class="quasar-result" id="quasarResult" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" hidden>
+              <p class="quasar-result-status" id="quasarResultStatus"></p>
+              <p class="quasar-result-target" id="quasarResultTarget"></p>
+              <p class="quasar-result-reading" id="quasarResultReading" lang="zh-Latn" hidden></p>
+              <p class="quasar-result-meaning" id="quasarResultMeaning"></p>
+            </section>
+          </div>
+          <footer class="quasar-actions">
+            <p class="quasar-feedback" id="quasarFeedback" role="status" aria-live="polite" aria-atomic="true"></p>
+            <button class="quasar-report-toggle" id="quasarReport" type="button" data-quasar-copy="soundquasar.report.action">Report sound</button>
+          </footer>
+          <p class="quasar-report-status" id="quasarReportStatus" role="status" aria-live="polite"></p>
+        </section>
+        <section class="caatuu-game-robot-loading" id="quasarTransition" role="status" hidden>
+          <img class="caatuu-game-robot-loading-art" id="quasarRobot" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true">
+        </section>
+        </section>
+        <footer class="quasar-info">
+          <span class="quasar-info-icon" aria-hidden="true">i</span>
+          <div>
+            <p id="quasarInstructions" data-quasar-copy="soundquasar.help">Listen and choose the matching word. Tap any free space in the game to hear it again.</p>
+          </div>
+        </footer>
+      </section>
+      <dialog class="quasar-report-dialog" id="quasarReportDialog" aria-labelledby="quasarReportTitle">
+        <form class="quasar-report-form" id="quasarReportForm">
+          <h2 id="quasarReportTitle" data-quasar-copy="soundquasar.report.action">Report sound</h2>
+          <label for="quasarReportReason" data-quasar-copy="wordworld.report.question">What seems wrong?</label>
+          <select id="quasarReportReason" name="reason">
+            <option value="pronunciation" data-quasar-copy="soundquasar.report.pronunciation">Unclear pronunciation</option>
+            <option value="wrong-word" data-quasar-copy="soundquasar.report.wrongword">Wrong word spoken</option>
+            <option value="no-sound" data-quasar-copy="soundquasar.report.nosound">No sound</option>
+            <option value="other" data-quasar-copy="wordworld.report.reason.other">Something else</option>
+          </select>
+          <label for="quasarReportComment" data-quasar-copy="wordworld.report.note">Optional note</label>
+          <textarea id="quasarReportComment" name="comment" rows="3" maxlength="400"></textarea>
+          <p class="quasar-report-status" id="quasarReportDialogStatus" role="status" aria-live="polite"></p>
+          <div class="quasar-report-actions">
+            <button class="quasar-text-button" id="quasarReportCancel" type="button" data-quasar-copy="common.cancel">Cancel</button>
+            <button class="quasar-next" id="quasarReportSubmit" type="submit" data-quasar-copy="soundquasar.report.save">Save report</button>
+          </div>
+        </form>
+      </dialog>
+      <section id="quasarError" class="quasar-error" role="alert" hidden>
+        <h1>Sounds Quasar could not start</h1>
+        <p id="quasarErrorText"></p>
+      </section>
+    </main>
+    <script type="module" src="../source/games/sound-quasar/sound-quasar-host.mjs?v=sound-quasar-7"></script>
+  </body>
+</html>

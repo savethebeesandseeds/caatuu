@@ -193,6 +193,28 @@ test("master mute gates browser and native synthesis until sound is restored", a
   assert.equal(nativeSpeakCount, 1, "unmuting must restore native synthesis");
 });
 
+for (const backend of ["browser", "android"]) {
+  test(`${backend} permits an explicit muted listening request without changing global mute`, async () => {
+    const browser = browserSpeechContext({ "caatuu.speech.muted.v1": "true" });
+    let nativeCalls = 0;
+    if (backend === "android") browser.context.CaatuuRuntime = {
+      env: "android", speech: {
+        async speak() { nativeCalls += 1; return { outcome: "completed" }; },
+        async stop() { return { stopped: true }; }
+      }
+    };
+    vm.runInNewContext(chromeSource, browser.context, { filename: "caatuu-chrome.js" });
+    const speech = browser.context.CaatuuChrome;
+    assert.equal((await speech.speakText("你好")).outcome, "muted");
+    assert.equal((await speech.speakText("你好", { allowWhileMuted: true })).outcome, "completed");
+    assert.equal(speech.getSpeechMuted(), true);
+    assert.equal(browser.storedValue("caatuu.speech.muted.v1"), "true");
+    assert.equal((await speech.speakText("你好")).outcome, "muted");
+    assert.equal((await speech.speakText("你好", { allowWhileMuted: "true" })).outcome, "muted");
+    assert.equal(backend === "android" ? nativeCalls : browser.synthesisSpeakCount(), 1);
+  });
+}
+
 test("Mandarin native speech uses zh-CN without loading the Czech LLM course runtime", async () => {
   assert.equal(mandarinCourse.capabilities.speech, true);
   assert.equal(mandarinCourse.capabilities.llm, false);
@@ -270,4 +292,22 @@ test("Mandarin native speech uses zh-CN without loading the Czech LLM course run
     result: { outcome: "completed" }
   });
   assert.equal((await speakPromise).outcome, "completed");
+  const inspector = nativeContext.CaatuuRuntime.speech.forLocale("cs-CZ");
+  const inspectorStatus = inspector.status();
+  const inspectorStatusRequest = nativeRequests.shift();
+  assert.equal(inspectorStatusRequest.locale, "cs-CZ");
+  nativeContext.CaatuuNative.receive({ id: inspectorStatusRequest.id, kind: "done", result: { available: true } });
+  await inspectorStatus;
+  const inspectorSpeak = inspector.speak("Ahoj", { locale: "es-ES", rate: 0.8 });
+  const inspectorRequest = nativeRequests.shift();
+  assert.equal(inspectorRequest.locale, "cs-CZ", "inspector speech uses its selected language");
+  assert.equal(inspectorRequest.rate, 0.8);
+  nativeContext.CaatuuNative.receive({ id: inspectorRequest.id, kind: "done", result: { outcome: "completed" } });
+  await inspectorSpeak;
+  const learningStatus = nativeContext.CaatuuRuntime.speech.status();
+  const learningRequest = nativeRequests.shift();
+  assert.equal(learningRequest.locale, "zh-CN", "inspector speech leaves the learning runtime unchanged");
+  nativeContext.CaatuuNative.receive({ id: learningRequest.id, kind: "done", result: { available: true } });
+  await learningStatus;
+  await assert.rejects(inspector.speak(" "), /requires text/iu);
 });

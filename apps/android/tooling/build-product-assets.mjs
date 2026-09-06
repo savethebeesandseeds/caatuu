@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { transformPackagedImageKeymap } from "./developer-image-catalog.mjs";
 import {
   copyFileSync,
   existsSync,
@@ -1461,7 +1462,7 @@ export function transformIndex(input) {
   source = replaceBetween(
     source,
     '                  <dialog\n                    class="word-net-generative-dialog"',
-    '                <div class="word-net-embedded-status"',
+    '                </div>\n                <div class="word-net-embedded-status',
     "",
     "shared app Word World optional content dialog",
   );
@@ -1487,26 +1488,26 @@ export function transformSetupAssets(input) {
   assert.equal(campaign.length, 1, "setup assets must expose exactly one Campaign Mode emblem");
   assert.equal(campaign[0].url, "/assets/planets/campaign-mode.png", "setup Campaign Mode URL");
   assert.equal(campaign[0].asset_path, "assets/planets/campaign-mode.png", "setup Campaign Mode asset path");
-  const agreementAurora = manifest.artifacts.filter(
+  const grammarGravity = manifest.artifacts.filter(
     (artifact) => artifact?.key === "planet-agreement-aurora",
   );
-  assert.equal(agreementAurora.length, 1, "setup assets must expose exactly one Agreement Aurora planet");
+  assert.equal(grammarGravity.length, 1, "setup assets must expose exactly one Grammar Gravity planet");
   assert.equal(
-    agreementAurora[0].url,
-    "/assets/planets/agreement-aurora.png",
-    "development setup Agreement Aurora URL",
+    grammarGravity[0].url,
+    "/assets/planets/grammar-gravity.png",
+    "development setup Grammar Gravity URL",
   );
   assert.equal(
-    agreementAurora[0].asset_path,
-    "assets/planets/agreement-aurora.png",
-    "setup Agreement Aurora local asset path",
+    grammarGravity[0].asset_path,
+    "assets/planets/grammar-gravity.png",
+    "setup Grammar Gravity local asset path",
   );
   assert.match(
-    String(agreementAurora[0].sha256 || ""),
+    String(grammarGravity[0].sha256 || ""),
     /^[a-f\d]{64}$/iu,
-    "setup Agreement Aurora SHA-256",
+    "setup Grammar Gravity SHA-256",
   );
-  agreementAurora[0].url = `/assets/planets/releases/${agreementAurora[0].sha256.slice(0, 16)}/agreement-aurora.png`;
+  grammarGravity[0].url = `/assets/planets/releases/${grammarGravity[0].sha256.slice(0, 16)}/agreement-aurora.png`;
   assert.ok(Array.isArray(manifest.offline?.assets), "setup assets must declare offline assets");
   const offlineCount = manifest.offline.assets.length;
   manifest.offline.assets = manifest.offline.assets.filter(
@@ -1778,22 +1779,16 @@ export function transformChromeJs(input) {
   let source = normalizeText(input);
   source = exactReplace(
     source,
-    '      { href: routes.chat, label: "debug-chat", available: capabilities.chat === true },\n',
-    "",
-    "chrome disabled Chat route",
-  );
-  source = exactReplace(
-    source,
-    'interfaceMessage("settings.advanced.summary")',
-    'interfaceMessage("settings.product.summary")',
+    'interfaceHtml("settings.advanced.summary")',
+    'interfaceHtml("settings.product.summary")',
     "chrome advanced summary",
   );
   source = replaceBetween(
     source,
     '          <section class="settings-card side-card ai-settings-card"',
-    '          <section class="settings-card side-card maintenance-card"',
+    '          <section class="settings-card side-card developer-tools-card"',
     "",
-    "chrome language model and developer settings"
+    "chrome language model settings"
   );
   source = replaceBetween(
     source,
@@ -1804,8 +1799,8 @@ export function transformChromeJs(input) {
   );
   source = exactReplace(
     source,
-    'interfaceMessage("settings.legal.contentterms")',
-    'interfaceMessage("settings.product.legal.contentterms")',
+    'interfaceHtml("settings.legal.contentterms")',
+    'interfaceHtml("settings.product.legal.contentterms")',
     "chrome legal scope"
   );
   source = replaceBetween(
@@ -1814,8 +1809,8 @@ export function transformChromeJs(input) {
     "                </dl>",
     `                <dl class="meta-list model-license-list" id="embeddingLicenseList">
                   <div>
-                    <dt>\${interfaceMessage("settings.product.legal.embeddingstitle")}</dt>
-                    <dd>\${interfaceMessage("settings.product.legal.embeddingsterms")}</dd>
+                    <dt>\${interfaceHtml("settings.product.legal.embeddingstitle")}</dt>
+                    <dd>\${interfaceHtml("settings.product.legal.embeddingsterms")}</dd>
                   </div>
 `,
     "chrome artifact licenses"
@@ -1883,11 +1878,24 @@ export function transformWordNetStandard(input) {
   return source;
 }
 
+export function transformDeveloperBrowserModelService(input) {
+  assert.match(input, /export const BROWSER_CHAT_SUPPORTED = true;/u, "Expected the explicit browser developer model boundary");
+  return 'export const BROWSER_CHAT_SUPPORTED = false;\nexport function createBrowserModelService() { return { available: false, reason: "product" }; }\n';
+}
+
 const SHARED_APP_TRANSFORMS = Object.freeze({
+  "language-runtime/static/source/developer-tools/browser-model-service.mjs": transformDeveloperBrowserModelService,
   "language-runtime/static/source/caatuu-chrome.js": transformChromeJs,
   "language-runtime/static/styles/caatuu-chrome.css": transformChromeCss,
   "language-runtime/static/styles/caatuu-home.css": transformHomeCss,
 });
+
+function sharedAppAssetTransform(output, assets) {
+  if (output === "assets/miscellaneous/keymap.json" || output === "assets/macaw/actions/keymaps.json") {
+    return (input) => transformPackagedImageKeymap(input, assets);
+  }
+  return SHARED_APP_TRANSFORMS[output];
+}
 
 function assertSafeOutputDirectory(outputDir, workspaceRoot, languageStaticDir, launcherStaticDir) {
   const output = resolve(outputDir);
@@ -2188,6 +2196,10 @@ function assertSetupBoundary(
 }
 
 const REQUIRED_SHARED_APP_FILES = Object.freeze([
+  "assets/micelaneous/male_gender.png",
+  "assets/micelaneous/female_gender.png",
+  "assets/micelaneous/neutral_gender.png",
+  "language-runtime/static/styles/games/gravity-paper.svg",
   "index.html",
   "language-runtime/static/source/app-bootstrap.mjs",
   "language-runtime/static/source/browser-shell.mjs",
@@ -2201,15 +2213,29 @@ const REQUIRED_SHARED_APP_FILES = Object.freeze([
   "language-runtime/static/source/word-net-queue.mjs",
   "language-runtime/static/source/word-world-host.mjs",
   "language-runtime/static/source/word-world-provider.mjs",
+  "language-runtime/static/games/grammar-gravity.html",
+  "language-runtime/static/games/triangular-thermosphere.html",
   "language-runtime/static/games/agreement-aurora.html",
   "language-runtime/static/games/conjugation-comet.html",
+  "language-runtime/static/games/sound-quasar.html",
+  "language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs",
+  "language-runtime/static/source/games/sound-quasar/sound-quasar-host.mjs",
+  "language-runtime/static/styles/games/sound-quasar.css",
   "language-runtime/static/source/games/course-game-content.mjs",
-  "language-runtime/static/source/games/agreement-aurora/agreement-aurora-core.mjs",
-  "language-runtime/static/source/games/agreement-aurora/agreement-aurora-host.mjs",
+  "language-runtime/static/source/games/embedded-game-controls.mjs",
+  "language-runtime/static/source/games/grammar-gravity/grammar-gravity-core.mjs",
+  "language-runtime/static/source/games/grammar-gravity/grammar-gravity-host.mjs",
+  "language-runtime/static/source/games/grammar-gravity/noun-landing-core.mjs",
+  "language-runtime/static/source/games/grammar-gravity/noun-landing-host.mjs",
+  "language-runtime/static/source/games/grammar-gravity/adjective-flight-core.mjs",
+  "language-runtime/static/source/games/grammar-gravity/adjective-flight-host.mjs",
+  "language-runtime/static/source/games/grammar-gravity/noun-visual.mjs",
+  "assets/icons/clock_icon.png",
   "language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs",
   "language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs",
-  "language-runtime/static/styles/games/agreement-aurora.css",
+  "language-runtime/static/styles/games/grammar-gravity.css",
   "language-runtime/static/styles/games/conjugation-comet.css",
+  "language-runtime/static/styles/games/embedded-game-controls.css",
   "language-runtime/static/styles/caatuu-chrome.css",
   "language-runtime/static/styles/caatuu-home.css",
   "language-runtime/static/styles/caatuu-theme.css",
@@ -2236,12 +2262,14 @@ const RETIRED_PARALLEL_UI_FILES = Object.freeze([
   "source/shared/theme.css",
   "language-runtime/static/styles/course-shell.css",
   "conjugation-comet.html",
+  "grammar-gravity.html",
+  "triangular-thermosphere.html",
   "agreement-aurora.html",
   "source/games/conjugation-comet/conjugation-comet.css",
   "source/games/conjugation-comet/conjugation-comet.js",
-  "source/games/agreement-aurora/agreement-aurora.css",
-  "source/games/agreement-aurora/agreement-aurora.js",
-  "source/games/agreement-aurora/launcher.css",
+  "source/games/grammar-gravity/grammar-gravity.css",
+  "source/games/grammar-gravity/grammar-gravity.js",
+  "source/games/grammar-gravity/launcher.css",
   "source/games/case-cosmos/launcher.css",
 ]);
 
@@ -2313,7 +2341,9 @@ function assertWordWorldBoundary(outputDir, files, {
 
 function assertLearnerContentSafety(outputDir) {
   const sources = [
-    ["agreement-aurora", "data/games/agreement-aurora/challenges.json"],
+    ["sound-quasar", "data/games/sound-quasar/challenges.json"],
+    ["grammar-gravity", "data/games/grammar-gravity/challenges.json"],
+    ["grammar-gravity-nouns", "data/games/grammar-gravity/nouns.json"],
     ["case-cosmos", "data/games/case-cosmos/challenges.json"],
     ["conjugation-comet", "data/games/conjugation-comet/verbs.json"],
     ["verb-nebula", "data/games/verb-nebula/core-vocabulary.json"],
@@ -2582,7 +2612,7 @@ export function validateProductAssetBundle({
   assert.deepEqual(profile, bundle.productProfile, "Default product profile must match the complete course bundle");
 
   for (const { source, output } of bundle.sharedAssets) {
-    const transform = SHARED_APP_TRANSFORMS[output];
+    const transform = sharedAppAssetTransform(output, bundle.sharedAssets);
     const expected = transform ? transform(readSourceText(source)) : readFileSync(source);
     const actual = transform ? readFileSync(join(resolvedOutput, output), "utf8") : readFileSync(join(resolvedOutput, output));
     assert.deepEqual(actual, expected, `Shared product asset drifted: ${output}`);
@@ -2795,7 +2825,7 @@ export function compileProductAssetBundle({
     }
   }
   for (const { source, output } of bundle.sharedAssets) {
-    const transform = SHARED_APP_TRANSFORMS[output];
+    const transform = sharedAppAssetTransform(output, bundle.sharedAssets);
     if (transform) {
       assert.ok(TEXT_EXTENSIONS.has(extension(output)), `Shared app transform target must be text: ${output}`);
       writeText(join(resolvedOutput, output), transform(readSourceText(source)));
@@ -2877,7 +2907,7 @@ export function compileProductAssets({
     copyExactFile(sourcePath, join(resolvedOutput, output));
   }
   for (const { source, output } of courseConfiguration.appAssets) {
-    const transform = SHARED_APP_TRANSFORMS[output];
+    const transform = sharedAppAssetTransform(output, courseConfiguration.appAssets);
     if (transform) {
       assert.ok(TEXT_EXTENSIONS.has(extension(output)), `Shared app transform target must be text: ${output}`);
       writeText(join(resolvedOutput, output), transform(readSourceText(source)));

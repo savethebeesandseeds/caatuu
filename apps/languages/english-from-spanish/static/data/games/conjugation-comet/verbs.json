@@ -1,0 +1,833 @@
+{
+  "schemaVersion": "caatuu-conjugation-comet-catalog-v1",
+  "id": "es-en-american-present-pilot",
+  "contentRevision": 1,
+  "courseId": "es-en",
+  "targetLanguageId": "en",
+  "targetLocale": "en-US",
+  "learnerBaseLanguageId": "es",
+  "auditLanguageId": "en",
+  "variety": {
+    "id": "en-US",
+    "label": "Inglés estadounidense",
+    "policyNoteEnglish": "Finite present-tense paradigms using American English spelling. The two Spanish second-person number cues both map to English you. No forms are generated at runtime."
+  },
+  "review": {
+    "status": "native-review-required",
+    "noteEnglish": "Machine-assisted American English development draft with Spanish learner cues. Qualified native English and Spanish review is still required."
+  },
+  "license": {
+    "origin": "first-party-authored",
+    "status": "release-review-required",
+    "spdx": null,
+    "noteEnglish": "Development content requires curriculum license clearance before publication."
+  },
+  "authority": {
+    "kind": "authored-finite-catalog",
+    "dictionaryLookup": false,
+    "runtimeGeneration": false,
+    "englishAuditRequired": true
+  },
+  "copy": {
+    "title": "Cometa de Conjugación",
+    "meaningKicker": "Comprueba el significado",
+    "meaningInstruction": "Elige el significado del verbo en español.",
+    "formsKicker": "Presente simple",
+    "formsInstruction": "Relaciona cada forma inglesa con su pista en español.",
+    "meaningTargetHeading": "Verbo en inglés",
+    "meaningChoicesHeading": "Significados",
+    "targetFormsHeading": "Formas en inglés",
+    "baseCuesHeading": "Pistas en español",
+    "meaningBoardLabel": "Tablero de significados de verbos",
+    "formsBoardLabel": "Tablero de formas inglesas",
+    "infinitiveLabel": "Infinitivo",
+    "hintLabel": "Mostrar patrón",
+    "nextLabel": "Siguiente verbo",
+    "hearVerbTemplate": "Escuchar {verb}",
+    "hearFormTemplate": "Escuchar {form}",
+    "playingTemplate": "Reproduciendo {text}",
+    "matchedStateLabel": "relacionado",
+    "audioUnavailableTemplate": "El audio en {language} no está disponible en este dispositivo.",
+    "meaningStartFeedback": "Elige el significado antes de relacionar las formas.",
+    "wrongMeaningFeedback": "Es otro verbo. Prueba otro significado.",
+    "correctMeaningTemplate": "Correcto: {meaning}.",
+    "formsStartFeedback": "Puedes empezar por cualquiera de las columnas.",
+    "pairSelectedFeedback": "Elige la pareja en la otra columna.",
+    "pairMatchedFeedback": "Pareja correcta. Sigue así.",
+    "wrongPairFeedback": "Esas formas no corresponden a la misma persona o número.",
+    "roundCompleteTemplate": "Has relacionado todas las formas de {verb}.",
+    "meaningProgressTemplate": "Verbo {number} · significado",
+    "formsProgressTemplate": "{matched} de {total} parejas",
+    "progressLabel": "Progreso de la ronda"
+  },
+  "verbs": [
+    {
+      "id": "es-en-present-be",
+      "revision": 1,
+      "targetText": "be",
+      "learnerBaseText": "ser; estar",
+      "englishAuditText": "be",
+      "meaningChoiceBaseText": "ser; estar",
+      "difficulty": 1,
+      "family": "Presente irregular",
+      "lessonId": "present-be",
+      "teachingNoteBaseText": "Be cambia a am con I, is con he/she/it y are con you/we/they.",
+      "tags": [
+        "present-simple",
+        "finite-authored"
+      ],
+      "forms": [
+        {
+          "id": "first-singular",
+          "revision": 1,
+          "subjectTargetText": "I",
+          "subjectBaseText": "yo",
+          "targetText": "am",
+          "targetPhraseFrame": {
+            "beforeText": "I ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "yo soy",
+          "englishAuditText": "I am"
+        },
+        {
+          "id": "second-singular",
+          "revision": 1,
+          "subjectTargetText": "you",
+          "subjectBaseText": "tú",
+          "targetText": "are",
+          "targetPhraseFrame": {
+            "beforeText": "you ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "tú eres",
+          "englishAuditText": "you are"
+        },
+        {
+          "id": "third-singular",
+          "revision": 1,
+          "subjectTargetText": "he",
+          "subjectBaseText": "él",
+          "targetText": "is",
+          "targetPhraseFrame": {
+            "beforeText": "he ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "él es",
+          "englishAuditText": "he is"
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "we",
+          "subjectBaseText": "nosotros",
+          "targetText": "are",
+          "targetPhraseFrame": {
+            "beforeText": "we ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "nosotros somos",
+          "englishAuditText": "we are"
+        },
+        {
+          "id": "second-plural",
+          "revision": 1,
+          "subjectTargetText": "you",
+          "subjectBaseText": "vosotros",
+          "targetText": "are",
+          "targetPhraseFrame": {
+            "beforeText": "you ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "vosotros sois",
+          "englishAuditText": "you are"
+        },
+        {
+          "id": "third-plural",
+          "revision": 1,
+          "subjectTargetText": "they",
+          "subjectBaseText": "ellos",
+          "targetText": "are",
+          "targetPhraseFrame": {
+            "beforeText": "they ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "ellos son",
+          "englishAuditText": "they are"
+        }
+      ]
+    },
+    {
+      "id": "es-en-present-have",
+      "revision": 1,
+      "targetText": "have",
+      "learnerBaseText": "tener",
+      "englishAuditText": "have",
+      "meaningChoiceBaseText": "tener",
+      "difficulty": 1,
+      "family": "Presente irregular",
+      "lessonId": "present-have",
+      "teachingNoteBaseText": "En presente, have cambia a has con he, she e it.",
+      "tags": [
+        "present-simple",
+        "finite-authored"
+      ],
+      "forms": [
+        {
+          "id": "first-singular",
+          "revision": 1,
+          "subjectTargetText": "I",
+          "subjectBaseText": "yo",
+          "targetText": "have",
+          "targetPhraseFrame": {
+            "beforeText": "I ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "yo tengo",
+          "englishAuditText": "I have"
+        },
+        {
+          "id": "second-singular",
+          "revision": 1,
+          "subjectTargetText": "you",
+          "subjectBaseText": "tú",
+          "targetText": "have",
+          "targetPhraseFrame": {
+            "beforeText": "you ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "tú tienes",
+          "englishAuditText": "you have"
+        },
+        {
+          "id": "third-singular",
+          "revision": 1,
+          "subjectTargetText": "he",
+          "subjectBaseText": "él",
+          "targetText": "has",
+          "targetPhraseFrame": {
+            "beforeText": "he ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "él tiene",
+          "englishAuditText": "he has"
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "we",
+          "subjectBaseText": "nosotros",
+          "targetText": "have",
+          "targetPhraseFrame": {
+            "beforeText": "we ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "nosotros tenemos",
+          "englishAuditText": "we have"
+        },
+        {
+          "id": "second-plural",
+          "revision": 1,
+          "subjectTargetText": "you",
+          "subjectBaseText": "vosotros",
+          "targetText": "have",
+          "targetPhraseFrame": {
+            "beforeText": "you ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "vosotros tenéis",
+          "englishAuditText": "you have"
+        },
+        {
+          "id": "third-plural",
+          "revision": 1,
+          "subjectTargetText": "they",
+          "subjectBaseText": "ellos",
+          "targetText": "have",
+          "targetPhraseFrame": {
+            "beforeText": "they ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "ellos tienen",
+          "englishAuditText": "they have"
+        }
+      ]
+    },
+    {
+      "id": "es-en-present-speak",
+      "revision": 1,
+      "targetText": "speak",
+      "learnerBaseText": "hablar",
+      "englishAuditText": "speak",
+      "meaningChoiceBaseText": "hablar",
+      "difficulty": 1,
+      "family": "Presente simple",
+      "lessonId": "present-speak",
+      "teachingNoteBaseText": "Añade -s con he, she e it: speaks.",
+      "tags": [
+        "present-simple",
+        "finite-authored"
+      ],
+      "forms": [
+        {
+          "id": "first-singular",
+          "revision": 1,
+          "subjectTargetText": "I",
+          "subjectBaseText": "yo",
+          "targetText": "speak",
+          "targetPhraseFrame": {
+            "beforeText": "I ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "yo hablo",
+          "englishAuditText": "I speak"
+        },
+        {
+          "id": "second-singular",
+          "revision": 1,
+          "subjectTargetText": "you",
+          "subjectBaseText": "tú",
+          "targetText": "speak",
+          "targetPhraseFrame": {
+            "beforeText": "you ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "tú hablas",
+          "englishAuditText": "you speak"
+        },
+        {
+          "id": "third-singular",
+          "revision": 1,
+          "subjectTargetText": "he",
+          "subjectBaseText": "él",
+          "targetText": "speaks",
+          "targetPhraseFrame": {
+            "beforeText": "he ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "él habla",
+          "englishAuditText": "he speaks"
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "we",
+          "subjectBaseText": "nosotros",
+          "targetText": "speak",
+          "targetPhraseFrame": {
+            "beforeText": "we ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "nosotros hablamos",
+          "englishAuditText": "we speak"
+        },
+        {
+          "id": "second-plural",
+          "revision": 1,
+          "subjectTargetText": "you",
+          "subjectBaseText": "vosotros",
+          "targetText": "speak",
+          "targetPhraseFrame": {
+            "beforeText": "you ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "vosotros habláis",
+          "englishAuditText": "you speak"
+        },
+        {
+          "id": "third-plural",
+          "revision": 1,
+          "subjectTargetText": "they",
+          "subjectBaseText": "ellos",
+          "targetText": "speak",
+          "targetPhraseFrame": {
+            "beforeText": "they ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "ellos hablan",
+          "englishAuditText": "they speak"
+        }
+      ]
+    },
+    {
+      "id": "es-en-present-eat",
+      "revision": 1,
+      "targetText": "eat",
+      "learnerBaseText": "comer",
+      "englishAuditText": "eat",
+      "meaningChoiceBaseText": "comer",
+      "difficulty": 1,
+      "family": "Presente simple",
+      "lessonId": "present-eat",
+      "teachingNoteBaseText": "Añade -s con he, she e it: eats.",
+      "tags": [
+        "present-simple",
+        "finite-authored"
+      ],
+      "forms": [
+        {
+          "id": "first-singular",
+          "revision": 1,
+          "subjectTargetText": "I",
+          "subjectBaseText": "yo",
+          "targetText": "eat",
+          "targetPhraseFrame": {
+            "beforeText": "I ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "yo como",
+          "englishAuditText": "I eat"
+        },
+        {
+          "id": "second-singular",
+          "revision": 1,
+          "subjectTargetText": "you",
+          "subjectBaseText": "tú",
+          "targetText": "eat",
+          "targetPhraseFrame": {
+            "beforeText": "you ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "tú comes",
+          "englishAuditText": "you eat"
+        },
+        {
+          "id": "third-singular",
+          "revision": 1,
+          "subjectTargetText": "he",
+          "subjectBaseText": "él",
+          "targetText": "eats",
+          "targetPhraseFrame": {
+            "beforeText": "he ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "él come",
+          "englishAuditText": "he eats"
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "we",
+          "subjectBaseText": "nosotros",
+          "targetText": "eat",
+          "targetPhraseFrame": {
+            "beforeText": "we ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "nosotros comemos",
+          "englishAuditText": "we eat"
+        },
+        {
+          "id": "second-plural",
+          "revision": 1,
+          "subjectTargetText": "you",
+          "subjectBaseText": "vosotros",
+          "targetText": "eat",
+          "targetPhraseFrame": {
+            "beforeText": "you ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "vosotros coméis",
+          "englishAuditText": "you eat"
+        },
+        {
+          "id": "third-plural",
+          "revision": 1,
+          "subjectTargetText": "they",
+          "subjectBaseText": "ellos",
+          "targetText": "eat",
+          "targetPhraseFrame": {
+            "beforeText": "they ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "ellos comen",
+          "englishAuditText": "they eat"
+        }
+      ]
+    },
+    {
+      "id": "es-en-present-read",
+      "revision": 1,
+      "targetText": "read",
+      "learnerBaseText": "leer",
+      "englishAuditText": "read",
+      "meaningChoiceBaseText": "leer",
+      "difficulty": 2,
+      "family": "Presente simple",
+      "lessonId": "present-read",
+      "teachingNoteBaseText": "En presente, read usa el sonido largo de ee; con he, she e it se añade -s.",
+      "tags": [
+        "present-simple",
+        "finite-authored"
+      ],
+      "forms": [
+        {
+          "id": "first-singular",
+          "revision": 1,
+          "subjectTargetText": "I",
+          "subjectBaseText": "yo",
+          "targetText": "read",
+          "targetPhraseFrame": {
+            "beforeText": "I ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "yo leo",
+          "englishAuditText": "I read"
+        },
+        {
+          "id": "second-singular",
+          "revision": 1,
+          "subjectTargetText": "you",
+          "subjectBaseText": "tú",
+          "targetText": "read",
+          "targetPhraseFrame": {
+            "beforeText": "you ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "tú lees",
+          "englishAuditText": "you read"
+        },
+        {
+          "id": "third-singular",
+          "revision": 1,
+          "subjectTargetText": "he",
+          "subjectBaseText": "él",
+          "targetText": "reads",
+          "targetPhraseFrame": {
+            "beforeText": "he ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "él lee",
+          "englishAuditText": "he reads"
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "we",
+          "subjectBaseText": "nosotros",
+          "targetText": "read",
+          "targetPhraseFrame": {
+            "beforeText": "we ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "nosotros leemos",
+          "englishAuditText": "we read"
+        },
+        {
+          "id": "second-plural",
+          "revision": 1,
+          "subjectTargetText": "you",
+          "subjectBaseText": "vosotros",
+          "targetText": "read",
+          "targetPhraseFrame": {
+            "beforeText": "you ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "vosotros leéis",
+          "englishAuditText": "you read"
+        },
+        {
+          "id": "third-plural",
+          "revision": 1,
+          "subjectTargetText": "they",
+          "subjectBaseText": "ellos",
+          "targetText": "read",
+          "targetPhraseFrame": {
+            "beforeText": "they ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "ellos leen",
+          "englishAuditText": "they read"
+        }
+      ]
+    },
+    {
+      "id": "es-en-present-write",
+      "revision": 1,
+      "targetText": "write",
+      "learnerBaseText": "escribir",
+      "englishAuditText": "write",
+      "meaningChoiceBaseText": "escribir",
+      "difficulty": 2,
+      "family": "Presente simple",
+      "lessonId": "present-write",
+      "teachingNoteBaseText": "La e final se mantiene delante de -s: writes.",
+      "tags": [
+        "present-simple",
+        "finite-authored"
+      ],
+      "forms": [
+        {
+          "id": "first-singular",
+          "revision": 1,
+          "subjectTargetText": "I",
+          "subjectBaseText": "yo",
+          "targetText": "write",
+          "targetPhraseFrame": {
+            "beforeText": "I ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "yo escribo",
+          "englishAuditText": "I write"
+        },
+        {
+          "id": "second-singular",
+          "revision": 1,
+          "subjectTargetText": "you",
+          "subjectBaseText": "tú",
+          "targetText": "write",
+          "targetPhraseFrame": {
+            "beforeText": "you ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "tú escribes",
+          "englishAuditText": "you write"
+        },
+        {
+          "id": "third-singular",
+          "revision": 1,
+          "subjectTargetText": "he",
+          "subjectBaseText": "él",
+          "targetText": "writes",
+          "targetPhraseFrame": {
+            "beforeText": "he ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "él escribe",
+          "englishAuditText": "he writes"
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "we",
+          "subjectBaseText": "nosotros",
+          "targetText": "write",
+          "targetPhraseFrame": {
+            "beforeText": "we ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "nosotros escribimos",
+          "englishAuditText": "we write"
+        },
+        {
+          "id": "second-plural",
+          "revision": 1,
+          "subjectTargetText": "you",
+          "subjectBaseText": "vosotros",
+          "targetText": "write",
+          "targetPhraseFrame": {
+            "beforeText": "you ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "vosotros escribís",
+          "englishAuditText": "you write"
+        },
+        {
+          "id": "third-plural",
+          "revision": 1,
+          "subjectTargetText": "they",
+          "subjectBaseText": "ellos",
+          "targetText": "write",
+          "targetPhraseFrame": {
+            "beforeText": "they ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "ellos escriben",
+          "englishAuditText": "they write"
+        }
+      ]
+    },
+    {
+      "id": "es-en-present-go",
+      "revision": 1,
+      "targetText": "go",
+      "learnerBaseText": "ir",
+      "englishAuditText": "go",
+      "meaningChoiceBaseText": "ir",
+      "difficulty": 2,
+      "family": "Presente simple",
+      "lessonId": "present-go",
+      "teachingNoteBaseText": "Go añade -es con he, she e it: goes.",
+      "tags": [
+        "present-simple",
+        "finite-authored"
+      ],
+      "forms": [
+        {
+          "id": "first-singular",
+          "revision": 1,
+          "subjectTargetText": "I",
+          "subjectBaseText": "yo",
+          "targetText": "go",
+          "targetPhraseFrame": {
+            "beforeText": "I ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "yo voy",
+          "englishAuditText": "I go"
+        },
+        {
+          "id": "second-singular",
+          "revision": 1,
+          "subjectTargetText": "you",
+          "subjectBaseText": "tú",
+          "targetText": "go",
+          "targetPhraseFrame": {
+            "beforeText": "you ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "tú vas",
+          "englishAuditText": "you go"
+        },
+        {
+          "id": "third-singular",
+          "revision": 1,
+          "subjectTargetText": "he",
+          "subjectBaseText": "él",
+          "targetText": "goes",
+          "targetPhraseFrame": {
+            "beforeText": "he ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "él va",
+          "englishAuditText": "he goes"
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "we",
+          "subjectBaseText": "nosotros",
+          "targetText": "go",
+          "targetPhraseFrame": {
+            "beforeText": "we ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "nosotros vamos",
+          "englishAuditText": "we go"
+        },
+        {
+          "id": "second-plural",
+          "revision": 1,
+          "subjectTargetText": "you",
+          "subjectBaseText": "vosotros",
+          "targetText": "go",
+          "targetPhraseFrame": {
+            "beforeText": "you ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "vosotros vais",
+          "englishAuditText": "you go"
+        },
+        {
+          "id": "third-plural",
+          "revision": 1,
+          "subjectTargetText": "they",
+          "subjectBaseText": "ellos",
+          "targetText": "go",
+          "targetPhraseFrame": {
+            "beforeText": "they ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "ellos van",
+          "englishAuditText": "they go"
+        }
+      ]
+    },
+    {
+      "id": "es-en-present-study",
+      "revision": 1,
+      "targetText": "study",
+      "learnerBaseText": "estudiar",
+      "englishAuditText": "study",
+      "meaningChoiceBaseText": "estudiar",
+      "difficulty": 3,
+      "family": "Presente simple",
+      "lessonId": "present-study",
+      "teachingNoteBaseText": "Study cambia la y por -ies con he, she e it: studies.",
+      "tags": [
+        "present-simple",
+        "finite-authored"
+      ],
+      "forms": [
+        {
+          "id": "first-singular",
+          "revision": 1,
+          "subjectTargetText": "I",
+          "subjectBaseText": "yo",
+          "targetText": "study",
+          "targetPhraseFrame": {
+            "beforeText": "I ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "yo estudio",
+          "englishAuditText": "I study"
+        },
+        {
+          "id": "second-singular",
+          "revision": 1,
+          "subjectTargetText": "you",
+          "subjectBaseText": "tú",
+          "targetText": "study",
+          "targetPhraseFrame": {
+            "beforeText": "you ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "tú estudias",
+          "englishAuditText": "you study"
+        },
+        {
+          "id": "third-singular",
+          "revision": 1,
+          "subjectTargetText": "he",
+          "subjectBaseText": "él",
+          "targetText": "studies",
+          "targetPhraseFrame": {
+            "beforeText": "he ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "él estudia",
+          "englishAuditText": "he studies"
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "we",
+          "subjectBaseText": "nosotros",
+          "targetText": "study",
+          "targetPhraseFrame": {
+            "beforeText": "we ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "nosotros estudiamos",
+          "englishAuditText": "we study"
+        },
+        {
+          "id": "second-plural",
+          "revision": 1,
+          "subjectTargetText": "you",
+          "subjectBaseText": "vosotros",
+          "targetText": "study",
+          "targetPhraseFrame": {
+            "beforeText": "you ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "vosotros estudiáis",
+          "englishAuditText": "you study"
+        },
+        {
+          "id": "third-plural",
+          "revision": 1,
+          "subjectTargetText": "they",
+          "subjectBaseText": "ellos",
+          "targetText": "study",
+          "targetPhraseFrame": {
+            "beforeText": "they ",
+            "afterText": "."
+          },
+          "learnerBaseCueText": "ellos estudian",
+          "englishAuditText": "they study"
+        }
+      ]
+    }
+  ]
+}

@@ -3,10 +3,28 @@
   const languageList = document.querySelector("[data-language-list]");
   const browserEntry = document.querySelector("[data-browser-entry]");
   const download = document.querySelector("[data-android-download]");
+  const sourceSelect = document.querySelector("[data-source-language]");
+  const sourceControl = document.querySelector("[data-source-control]");
+  const sourcePreferenceKey = "caatuu.launcher.sourceLocale.v1";
   const assetRevision = new URL(document.currentScript?.src || window.location.href).searchParams.get("v") || "1";
   let channelRequest = 0;
   let registryRequest = 0;
   let refreshTimer = 0;
+  let interfaceRequest = 0;
+  let interfaceContent = null;
+  let selectedSourceLocale = "";
+  let currentRegistry = null;
+
+  function t(messageId, parameters = {}) {
+    return interfaceContent?.t(messageId, parameters) || "";
+  }
+
+  function sourcePreferences() {
+    let saved = "";
+    try { saved = window.localStorage.getItem(sourcePreferenceKey) || ""; } catch { /* Storage is optional. */ }
+    return [sourceSelect?.value, new URL(window.location.href).searchParams.get("from"), saved,
+      ...(window.navigator?.languages || [window.navigator?.language])].filter(Boolean);
+  }
 
   function versionedLauncherAsset(path) {
     const url = new URL(path, window.location.origin);
@@ -37,22 +55,23 @@
     download.setAttribute("aria-disabled", "true");
     download.dataset.state = "checking";
     const label = download.querySelector("b");
-    if (label) label.textContent = "Checking Android build";
+    if (label) label.textContent = t("launcher.android.checking");
   }
 
-  function setDownloadUnavailable(message = "Android preview not published") {
+  function setDownloadUnavailable(message = t("launcher.android.unpublished")) {
     if (!download) return;
+    if (!interfaceContent) { download.hidden = true; return; }
     download.removeAttribute("href");
     download.removeAttribute("download");
     download.removeAttribute("aria-disabled");
     download.setAttribute("role", "button");
     download.setAttribute("tabindex", "0");
-    download.setAttribute("aria-label", `${message}. Check again.`);
+    download.setAttribute("aria-label", t("launcher.android.retryaria", { message }));
     download.dataset.state = "retry";
     const channelLabel = download.querySelector("small");
-    if (channelLabel) channelLabel.textContent = "Android temporarily unavailable";
+    if (channelLabel) channelLabel.textContent = t("launcher.android.temporary");
     const label = download.querySelector("b");
-    if (label) label.textContent = "Check Android download again";
+    if (label) label.textContent = t("launcher.android.retry");
   }
 
   function validChannelManifest(channel, manifest) {
@@ -70,7 +89,7 @@
     const request = ++channelRequest;
     const android = language?.platforms?.android;
     if (!android?.enabled || !Array.isArray(android.channels)) {
-      setDownloadUnavailable("Android not available");
+      setDownloadUnavailable(t("launcher.android.unavailable"));
       return;
     }
 
@@ -93,8 +112,10 @@
         download.dataset.state = "available";
         const channelLabel = download.querySelector("small");
         const preview = channel.kind === "preview";
-        if (channelLabel) channelLabel.textContent = preview ? "Android preview" : "Android beta";
-        if (label) label.textContent = `Download ${language.label} ${preview ? "preview" : "beta"}`;
+        if (channelLabel) channelLabel.textContent = t(preview ? "launcher.android.preview" : "launcher.android.beta");
+        if (label) label.textContent = t(preview ? "launcher.android.downloadpreview" : "launcher.android.downloadbeta", {
+          language: interfaceContent.languageName(language.targetLanguage || { label: language.label, id: language.id })
+        });
         return;
       } catch (error) {
         // Try the next explicitly supported channel.
@@ -114,17 +135,17 @@
     ));
   }
 
-  function renderBrowserSetup(registry) {
+  function renderBrowserSetup(registry, selectedCourse) {
     if (browserEntry) {
-      const entryPath = String(registry?.browserSetup?.entryPath || "");
+      const entryPath = String(selectedCourse?.entryPath || registry?.browserSetup?.entryPath || "");
       if (entryPath.startsWith("/") && !entryPath.startsWith("//")) browserEntry.href = entryPath;
       browserEntry.removeAttribute("aria-disabled");
-      browserEntry.setAttribute("aria-label", "Continue online in the browser");
+      browserEntry.setAttribute("aria-label", t("launcher.continuearia"));
       const label = browserEntry.querySelector("b");
-      if (label) label.textContent = "Continue online";
+      if (label) label.textContent = t("launcher.continue");
     }
 
-    const courses = browserSetupCourses(registry);
+    const courses = browserSetupCourses(registry).filter((record) => record.sourceLanguage?.locale === selectedSourceLocale);
     if (!languageList || courses.length === 0) return;
     languageList.replaceChildren(...courses.map((courseRecord) => {
       const language = courseRecord.targetLanguage;
@@ -134,7 +155,10 @@
       const preview = courseRecord.status === "development";
       item.setAttribute(
         "aria-label",
-        `${language.label} (${language.nativeLabel})${preview ? ", Preview" : ""}`
+        `${t("course.direction", {
+          source: interfaceContent.languageName(courseRecord.sourceLanguage),
+          target: interfaceContent.languageName(language)
+        })}${preview ? `, ${t("common.preview")}` : ""}`
       );
       const choice = document.createElement("span");
       choice.className = "language-choice language-choice-static";
@@ -150,7 +174,7 @@
       if (preview) {
         const status = document.createElement("span");
         status.className = "language-choice-status";
-        status.textContent = "Preview";
+        status.textContent = t("common.preview");
         choice.append(status);
       }
       item.append(choice);
@@ -158,12 +182,38 @@
     }));
   }
 
-  function renderLanguages(registry) {
-    renderBrowserSetup(registry);
-    const languages = registry.languages.filter((language) => language.status === "active");
+  async function renderLanguages(registry) {
+    const request = ++interfaceRequest;
+    const { loadLauncherInterface } = await import("/language-runtime/static/source/launcher-interface.mjs?v=launcher-interface-1");
+    const { course, content } = await loadLauncherInterface(registry, sourcePreferences(), {
+      fetchImpl: window.fetch.bind(window), origin: window.location.origin
+    });
+    if (request !== interfaceRequest) return;
+    interfaceContent = content;
+    selectedSourceLocale = course.sourceLanguage.locale;
+    document.documentElement.lang = content.locale;
+    document.documentElement.dir = content.direction;
+    content.apply(document);
+    if (sourceSelect) {
+      const sources = [...new Map(browserSetupCourses(registry).map((record) =>
+        [record.sourceLanguage.locale, record.sourceLanguage])).values()];
+      sourceSelect.replaceChildren(...sources.map((source) => {
+        const option = document.createElement("option");
+        option.value = source.locale;
+        option.textContent = source.nativeLabel || content.languageName(source);
+        option.lang = source.locale;
+        return option;
+      }));
+      sourceSelect.value = selectedSourceLocale;
+      if (sourceControl) sourceControl.hidden = sources.length < 2;
+    }
+    renderBrowserSetup(registry, course);
+    const languages = registry.languages.filter((language) => language.status === "active"
+      && language.sourceLanguage?.locale === selectedSourceLocale);
     const selected = languages.find((language) => language.id === registry.defaultLanguage) || languages[0];
+    ++channelRequest;
+    if (download) download.hidden = !selected;
     if (selected) selectAvailableChannel(selected);
-    else setDownloadUnavailable("Android not available");
   }
 
   async function loadRegistry() {
@@ -176,10 +226,11 @@
       if (registry?.schemaVersion !== 1 || !Array.isArray(registry.languages)) {
         throw new Error("Language registry has an unsupported shape.");
       }
-      renderLanguages(registry);
+      currentRegistry = registry;
+      await renderLanguages(registry);
     } catch (error) {
       // The static course links remain a usable no-JavaScript/network fallback.
-      setDownloadUnavailable("Android availability could not be loaded");
+      setDownloadUnavailable(t("launcher.android.loadfailed"));
     }
   }
 
@@ -203,6 +254,13 @@
       // Availability checks below still bypass the normal HTTP cache.
     }
   }
+
+  sourceSelect?.addEventListener("change", () => {
+    try { window.localStorage.setItem(sourcePreferenceKey, sourceSelect.value); } catch { /* Storage is optional. */ }
+    if (currentRegistry) void renderLanguages(currentRegistry).catch(() => {
+      setDownloadUnavailable(t("launcher.android.loadfailed"));
+    });
+  });
 
   download?.addEventListener("click", (event) => {
     if (download.dataset.state === "available") return;

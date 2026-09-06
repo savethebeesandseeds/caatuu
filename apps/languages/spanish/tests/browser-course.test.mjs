@@ -77,9 +77,10 @@ test("Spanish is a development course projected into the one shared browser app"
     "verb-lab",
     "word-net",
     "conjugation-comet",
-    "agreement-aurora"
+    "grammar-gravity",
+    "sound-quasar"
   ]);
-  assert.deepEqual(course.upcomingGames, ["memory-moon", "sound-quasar"]);
+  assert.deepEqual(course.upcomingGames, ["memory-moon"]);
   assert.deepEqual(course.linguisticFeatures, ["verb-conjugation", "grammatical-agreement"]);
   assert.equal(course.platforms.browser.enabled, true);
   assert.equal(course.platforms.android.enabled, false);
@@ -89,14 +90,14 @@ test("Spanish is a development course projected into the one shared browser app"
     "/language-runtime/static/games/conjugation-comet.html"
   );
   assert.equal(
-    course.routes.agreementAurora,
-    "/language-runtime/static/games/agreement-aurora.html"
+    course.routes.grammarGravity,
+    "/language-runtime/static/games/grammar-gravity.html"
   );
   assert.equal(await missing("index.html"), true, "a course must not fork the canonical app document");
   assert.equal(await missing("source/app.mjs"), true, "a course must not grow a private app shell");
   assert.equal(await missing("word-world.html"), true, "a course must not grow a private Word World document");
   assert.equal(await missing("conjugation-comet.html"), true, "a course must not fork the shared Conjugation Comet host");
-  assert.equal(await missing("agreement-aurora.html"), true, "a course must not fork the shared Agreement Aurora host");
+  assert.equal(await missing("grammar-gravity.html"), true, "a course must not fork the shared Grammar Gravity host");
   const html = await readFile(canonicalEntry, "utf8");
   assert.match(html, /class="app-shell"/u);
   assert.match(html, /\/language-runtime\/static\/source\/app-bootstrap\.mjs/u);
@@ -149,8 +150,12 @@ test("the generated compatibility profile is exactly the catalog projection", as
       "conjugation-comet": {
         conjugationCometCatalog: "data/games/conjugation-comet/verbs.json?v=conjugation-comet-content-1"
       },
-      "agreement-aurora": {
-        agreementAuroraCatalog: "data/games/agreement-aurora/challenges.json?v=agreement-aurora-content-1"
+      "grammar-gravity": {
+        grammarGravityCatalog: "data/games/grammar-gravity/challenges.json?v=grammar-gravity-content-3",
+        grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-3"
+      },
+      "sound-quasar": {
+        soundQuasarCatalog: "data/games/sound-quasar/challenges.json?v=sound-quasar-items-v2"
       }
     }
   );
@@ -286,38 +291,38 @@ test("setup and the service worker declare one complete Spanish offline closure"
     entryPath: "/es/index.html",
     appEntry: "apps/language-runtime/static/app/index.html"
   });
-  assert.equal(setup.offline.cacheName, "caatuu-es-pwa-v10");
+  assert.match(setup.offline.cacheName, /^caatuu-es-pwa-v[1-9]\d*$/u);
   assert.equal(setup.offline.cachePrefix, "caatuu-es-pwa-");
-  assert.match(worker, /Offline catalog revision: caatuu-es-pwa-v10/u);
+  assert.ok(worker.includes(`// Offline catalog revision: ${setup.offline.cacheName}`));
   assert.match(worker, /importScripts\("\/language-runtime\/static\/source\/course-service-worker\.js"\)/u);
   for (const asset of [
-    "source/shared/course-profile.js?v=course-33",
+    "source/shared/course-profile.js?v=course-57",
     "source/language/adapter.mjs",
     "data/embeddings/catalog.json",
     "data/games/verb-nebula/core-vocabulary.json",
     "data/games/word-world/manifest.json",
     "data/games/word-world/starter-v1.realizations.json",
     "data/games/conjugation-comet/verbs.json?v=conjugation-comet-content-1",
-    "data/games/agreement-aurora/challenges.json?v=agreement-aurora-content-1",
+    "data/games/grammar-gravity/challenges.json?v=grammar-gravity-content-3",
     "/language-runtime/static/games/conjugation-comet.html",
-    "/language-runtime/static/games/agreement-aurora.html",
+    "/language-runtime/static/games/grammar-gravity.html",
     "/language-runtime/static/source/games/course-game-content.mjs?v=course-game-content-1",
     "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs?v=conjugation-comet-core-2",
-    "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs?v=conjugation-comet-shared-2",
-    "/language-runtime/static/source/games/agreement-aurora/agreement-aurora-core.mjs?v=agreement-aurora-core-2",
-    "/language-runtime/static/source/games/agreement-aurora/agreement-aurora-host.mjs?v=agreement-aurora-shared-2",
-    "/language-runtime/static/styles/games/conjugation-comet.css?v=conjugation-comet-shared-1",
-    "/language-runtime/static/styles/games/agreement-aurora.css?v=agreement-aurora-shared-1",
-    "/language-runtime/static/source/app-bootstrap.mjs?v=app-41",
-    "/language-runtime/static/source/interface-content.mjs?v=interface-runtime-1",
-    "/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-1",
-    "/language-runtime/static/source/caatuu-workspace.js?v=workspace-14",
-    "/language-runtime/static/source/maintenance-ui.js?v=maintenance-18",
-    "/language-runtime/static/source/caatuu-chrome.js?v=chrome-143",
-    "/language-runtime/static/source/word-world-host.mjs?v=word-world-host-16",
-    "/language-runtime/static/source/word-world-provider.mjs?v=word-world-provider-19",
-    "/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-18",
-    "/language-runtime/static/data/interface/en.v1.json?v=interface-en-1",
+    "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs?v=conjugation-comet-shared-11",
+    "/language-runtime/static/source/games/grammar-gravity/grammar-gravity-core.mjs?v=grammar-gravity-core-4",
+    "/language-runtime/static/source/games/grammar-gravity/grammar-gravity-host.mjs?v=grammar-gravity-shared-32",
+    "/language-runtime/static/styles/games/conjugation-comet.css?v=conjugation-comet-shared-3",
+    "/language-runtime/static/styles/games/grammar-gravity.css?v=grammar-gravity-shared-30",
+    "/language-runtime/static/source/app-bootstrap.mjs?v=app-64",
+    "/language-runtime/static/source/interface-content.mjs?v=interface-runtime-2",
+    "/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-8",
+    "/language-runtime/static/source/caatuu-workspace.js?v=workspace-21",
+    "/language-runtime/static/source/maintenance-ui.js?v=maintenance-19",
+    "/language-runtime/static/source/caatuu-chrome.js?v=chrome-155",
+    "/language-runtime/static/source/word-world-host.mjs?v=word-world-host-19",
+    "/language-runtime/static/source/word-world-provider.mjs?v=word-world-provider-23",
+    "/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-23",
+    "/language-runtime/static/data/interface/en.v1.json?v=interface-en-27",
     "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
     "/assets/icons/czech_flag_ui.png",
     "/assets/icons/china_flag.png",

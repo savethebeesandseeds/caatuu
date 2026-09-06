@@ -239,6 +239,53 @@ test("authored preparation exposes the complete renderer-neutral provider seam",
   assert.equal(reports[0].feedback.contentMode, "authored");
 });
 
+test("explicit base token meanings are contextual and never overwritten by English dictionary glosses", async () => {
+  const projection = frenchBaseProjection();
+  const base = projection.realizations.find(({ conceptId }) => conceptId === "ww.object.book");
+  const target = realizationCatalog.realizations.find(({ conceptId }) => conceptId === base.conceptId);
+  const tokenIndex = target.tokens.length - 1;
+  base.tokenMeanings = [{
+    targetLanguage: "zh-Hans", tokenIndex, surface: target.tokens[tokenIndex].surface, text: "livre"
+  }];
+  let dictionaryCalls = 0;
+  const context = await prepareWordWorldContext({
+    ...frenchBaseCourse, capabilities: { ...frenchBaseCourse.capabilities, dictionary: true }
+  }, frenchBaseManifest(), authoredOptions({
+    loadJson: authoredFrenchJsonLoader(projection),
+    fullDictionaryLookup() { dictionaryCalls += 1; return { meaning: "book" }; }
+  }));
+  const book = context.sessionRecord(base.conceptId);
+  assert.equal(book.target.tokens[tokenIndex].gloss, "book");
+  assert.deepEqual(await context.lookupMeaning({ record: book, token: book.target.tokens[tokenIndex], tokenIndex }), {
+    meaning: "livre", languageTag: "fr", partOfSpeech: "", metadata: ""
+  });
+  assert.equal(await context.lookupMeaning({ record: book, token: book.target.tokens[0], tokenIndex: 0 }), null);
+  assert.equal(dictionaryCalls, 0);
+  base.tokenMeanings[0].surface = "wrong target token";
+  await assert.rejects(prepareWordWorldContext(frenchBaseCourse, frenchBaseManifest(), authoredOptions({
+    loadJson: authoredFrenchJsonLoader(projection)
+  })), /does not match its authored target token/u);
+});
+
+test("pending learner-base review is confined to an explicit generated local preview policy", async () => {
+  const projection = frenchBaseProjection();
+  projection.review = {
+    status: "native-review-required", reviewer: null, reviewedAt: null,
+    notes: "Disclosed local draft awaiting language review."
+  };
+  projection.license = {
+    origin: "synthetic local draft", status: "release-review-required", spdxExpression: null,
+    sourceReference: null, reviewedBy: null, reviewedAt: null
+  };
+  const options = () => authoredOptions({ loadJson: authoredFrenchJsonLoader(projection) });
+  await assert.rejects(prepareWordWorldContext(frenchBaseCourse, frenchBaseManifest(), options()), /native-review/u);
+  await assert.rejects(prepareWordWorldContext({ ...frenchBaseCourse, learnerBasePreview: false }, frenchBaseManifest(), options()), /native-review/u);
+  const local = await prepareWordWorldContext({ ...frenchBaseCourse, learnerBasePreview: true }, frenchBaseManifest(), options());
+  assert.equal(local.sessionRecord("ww.object.book").learnerPrompt.text, "Ceci est un livre français.");
+  projection.review.reviewer = "An unfinished review cannot claim a reviewer";
+  await assert.rejects(prepareWordWorldContext({ ...frenchBaseCourse, learnerBasePreview: true }, frenchBaseManifest(), options()), /native-review/u);
+});
+
 test("a reviewed non-English learner base joins by concept ID without entering English retrieval", async () => {
   const projection = frenchBaseProjection();
   const loaderCalls = [];

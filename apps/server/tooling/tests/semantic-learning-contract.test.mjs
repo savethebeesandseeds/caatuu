@@ -25,8 +25,16 @@ test("the application initializes declared semantic state before the shared work
   assertOrdered(document, [
     "source/shared/course-profile.js",
     "/language-runtime/static/source/learning-profile.js",
-    "/language-runtime/static/source/caatuu-chrome.js",
     "/language-runtime/static/source/app-bootstrap.mjs"
+  ]);
+  assert.doesNotMatch(document, /<script\b[^>]*src="[^"]*\/caatuu-chrome\.js/u);
+  assertOrdered(bootstrap.slice(bootstrap.indexOf("async function start()")), [
+    "await loadInterfaceContent(course)",
+    "installInterfaceContent(interfaceContent)",
+    "interfaceContent.apply(document)",
+    "setCourseIdentity()",
+    "/language-runtime/static/source/caatuu-chrome.js",
+    "await loadCourseFeatureProviders()"
   ]);
   assertOrdered(profile, [
     "source/shared/runtime.js",

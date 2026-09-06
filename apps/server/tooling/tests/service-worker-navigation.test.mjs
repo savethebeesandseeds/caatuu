@@ -37,6 +37,7 @@ function serviceWorkerContext({
 } = {}) {
   const lookups = [];
   const puts = [];
+  const handlers = new Map();
   const cache = {
     async addAll() {},
     async match(request) {
@@ -72,13 +73,13 @@ function serviceWorkerContext({
     self: {
       location: { origin: "https://caatuu.test" },
       registration: { scope },
-      addEventListener() {},
+      addEventListener(type, handler) { handlers.set(type, handler); },
       async skipWaiting() {},
       clients: { async claim() {} }
     }
   });
   vm.runInContext(serviceWorkerSource, context, { filename: "course-service-worker.js" });
-  return { context, lookups, puts };
+  return { context, lookups, puts, handlers };
 }
 
 function validatedConfig(context, overrides = {}) {
@@ -100,6 +101,19 @@ function validatedConfig(context, overrides = {}) {
 async function call(context, expression, bindings) {
   Object.assign(context, bindings);
   return vm.runInContext(expression, context);
+}
+
+async function fetchThroughWorker(worker, request, config) {
+  await call(worker.context, "courseOfflineConfigPromise = Promise.resolve(__config)", {
+    __config: config
+  });
+  let response;
+  worker.handlers.get("fetch")({
+    request,
+    respondWith(value) { response = value; }
+  });
+  assert.ok(response, "the worker must handle the managed request");
+  return response;
 }
 
 test("shared bootstrap bypasses HTTP caches when updating the course worker", async () => {
@@ -149,12 +163,83 @@ test("the selected interface catalog keeps its exact query revision through prec
   ));
 
   const response = await call(context, "cacheFirst(__request, __config)", {
-    __request: new FakeRequest(catalogUrl, { cache: "no-cache" }),
+    __request: new FakeRequest(catalogUrl),
     __config: config
   });
 
   assert.equal(response, cachedResponse);
   assert.deepEqual(lookups, [catalogUrl]);
+});
+
+test("no-cache interface requests refresh stale course-cache content through the fetch handler", async () => {
+  const catalogUrl = "https://caatuu.test/language-runtime/static/data/interface/en.v1.json?v=interface-en-25";
+  const staleResponse = { source: "stale-interface-without-submit" };
+  const freshResponse = new Response(JSON.stringify({ "conjugationcomet.submit": "Submit" }));
+  const requests = [];
+  const worker = serviceWorkerContext({
+    cachedResponses: new Map([[catalogUrl, staleResponse]]),
+    fetchImplementation: async (request) => {
+      requests.push(request);
+      return freshResponse;
+    }
+  });
+  const response = await fetchThroughWorker(
+    worker,
+    new FakeRequest(catalogUrl, { cache: "no-cache" }),
+    validatedConfig(worker.context)
+  );
+
+  assert.equal(response, freshResponse);
+  assert.equal((await response.json())["conjugationcomet.submit"], "Submit");
+  assert.equal(requests.length, 1);
+  assert.equal(requests[0].url, catalogUrl);
+  assert.equal(requests[0].cache, "reload");
+  assert.deepEqual(worker.lookups, []);
+  assert.deepEqual(worker.puts, [catalogUrl]);
+});
+
+test("no-cache interface requests retain their exact revision when falling back offline", async () => {
+  const catalogUrl = "https://caatuu.test/language-runtime/static/data/interface/en.v1.json?v=interface-en-25";
+  const cachedResponse = { source: "cached-interface-revision-25" };
+  const requests = [];
+  const worker = serviceWorkerContext({
+    cachedResponses: new Map([[catalogUrl, cachedResponse]]),
+    fetchImplementation: async (request) => {
+      requests.push(request);
+      throw new Error("offline");
+    }
+  });
+  const response = await fetchThroughWorker(
+    worker,
+    new FakeRequest(catalogUrl, { cache: "no-cache" }),
+    validatedConfig(worker.context)
+  );
+
+  assert.equal(response, cachedResponse);
+  assert.equal(requests.length, 1);
+  assert.equal(requests[0].url, catalogUrl);
+  assert.deepEqual(worker.lookups, [catalogUrl]);
+  assert.deepEqual(worker.puts, []);
+});
+
+test("no-store requests still bypass course-cache reads and writes", async () => {
+  const catalogUrl = "https://caatuu.test/language-runtime/static/data/interface/en.v1.json?v=interface-en-25";
+  const request = new FakeRequest(catalogUrl, { cache: "no-store" });
+  const freshResponse = new Response("fresh interface");
+  const requests = [];
+  const worker = serviceWorkerContext({
+    cachedResponses: new Map([[catalogUrl, { source: "stale-interface" }]]),
+    fetchImplementation: async (incoming) => {
+      requests.push(incoming);
+      return freshResponse;
+    }
+  });
+  const response = await fetchThroughWorker(worker, request, validatedConfig(worker.context));
+
+  assert.equal(response, freshResponse);
+  assert.deepEqual(requests, [request]);
+  assert.deepEqual(worker.lookups, []);
+  assert.deepEqual(worker.puts, []);
 });
 
 test("a course cannot redirect setup back to a course-owned application document", () => {

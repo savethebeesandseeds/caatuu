@@ -548,8 +548,8 @@ async function auditHttpRoutes(validatedLanguageCatalog) {
     }
     assert(!page.body.includes("/language-runtime/static/styles/course-shell.css"), `${label} home should not load the superseded mini-app stylesheet`);
     assert(!page.body.includes("source/shared/chrome.js"), `${label} home should not load a course-local Chrome duplicate`);
-    const profileIndex = page.body.indexOf('src="source/shared/course-profile.js?v=course-33"');
-    const bootstrapIndex = page.body.indexOf('src="/language-runtime/static/source/app-bootstrap.mjs?v=app-41"');
+    const profileIndex = page.body.indexOf('src="source/shared/course-profile.js?v=course-57"');
+    const bootstrapIndex = page.body.indexOf('src="/language-runtime/static/source/app-bootstrap.mjs?v=app-51"');
     assert(profileIndex >= 0, `${label} home should load its route-relative course profile`);
     assert(bootstrapIndex > profileIndex, `${label} home should load its course profile before the shared bootstrap`);
   }
@@ -575,21 +575,21 @@ async function auditHttpRoutes(validatedLanguageCatalog) {
   }
   assert(appBootstrap.body.includes('robots.content = "noindex, nofollow"'), "the shared bootstrap should apply the development noindex gate");
   assert(appBootstrap.body.includes("frame.dataset.src = typeof path === \"string\" ? path : \"\""), "the shared bootstrap should bind game routes from the course profile");
-  assert(appBootstrap.body.includes('./interface-content.mjs?v=interface-runtime-1'), "the shared bootstrap should load the revisioned interface runtime");
+  assert(appBootstrap.body.includes('./interface-content.mjs?v=interface-runtime-2'), "the shared bootstrap should load the revisioned interface runtime");
   assert(
-    appBootstrap.body.indexOf("loadInterfaceContent(course)") < appBootstrap.body.indexOf('caatuu-chrome.js?v=chrome-143'),
+    appBootstrap.body.indexOf("loadInterfaceContent(course)") < appBootstrap.body.indexOf('caatuu-chrome.js?v=chrome-155'),
     "the shared bootstrap should install course interface content before loading Chrome"
   );
   assert(
-    appBootstrap.body.includes('import("./word-world-host.mjs?v=word-world-host-16")'),
+    appBootstrap.body.includes('import("./word-world-host.mjs?v=word-world-host-18")'),
     "the shared app bootstrap should mount every course through the unified Word World host"
   );
   assert(
-    wordWorldHost.body.includes('import("./word-world-provider.mjs?v=word-world-provider-19")'),
+    wordWorldHost.body.includes('import("./word-world-provider.mjs?v=word-world-provider-22")'),
     "the shared Word World host should load the unified provider"
   );
   assert(
-    wordWorldProvider.body.includes('./product-word-world.mjs?v=shared-renderer-18'),
+    wordWorldProvider.body.includes('./product-word-world.mjs?v=shared-renderer-22'),
     "the shared Word World provider should load the one shared renderer"
   );
   assert(mandarinProfile.body.includes('status: "development"'), "the Mandarin profile should declare its development status");
@@ -601,16 +601,16 @@ async function auditHttpRoutes(validatedLanguageCatalog) {
   assert(mandarinSetup?.application?.appEntry === "apps/language-runtime/static/app/index.html", "Mandarin setup should name the canonical app entry");
   assert(mandarinSetup?.application?.entryPath === "/zh/index.html", "Mandarin setup should mount the canonical app at its course route");
   assert(!mandarinSetup?.offline?.assets?.some((asset) => asset.includes("product-shell.mjs")), "Mandarin offline assets must not retain the superseded product shell");
-  assert(mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/interface-content.mjs?v=interface-runtime-1"), "Mandarin offline assets should include the shared interface runtime");
-  assert(mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-1"), "Mandarin offline assets should include the shared legacy-page bootstrap");
-  assert(mandarinSetup?.offline?.assets?.includes("/language-runtime/static/data/interface/en.v1.json?v=interface-en-1"), "Mandarin offline assets should include its exact English interface catalog revision");
-  assert(mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/word-world-host.mjs?v=word-world-host-16"), "Mandarin offline assets should include the shared Word World host");
+  assert(mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/interface-content.mjs?v=interface-runtime-2"), "Mandarin offline assets should include the shared interface runtime");
+  assert(mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-8"), "Mandarin offline assets should include the shared legacy-page bootstrap");
+  assert(mandarinSetup?.offline?.assets?.includes("/language-runtime/static/data/interface/en.v1.json?v=interface-en-25"), "Mandarin offline assets should include its exact English interface catalog revision");
+  assert(mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/word-world-host.mjs?v=word-world-host-18"), "Mandarin offline assets should include the shared Word World host");
   assert(
-    mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/word-world-provider.mjs?v=word-world-provider-19"),
+    mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/word-world-provider.mjs?v=word-world-provider-22"),
     "Mandarin offline assets should include the unified Word World provider"
   );
   assert(
-    mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-18"),
+    mandarinSetup?.offline?.assets?.includes("/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-22"),
     "Mandarin offline assets should include the one shared Word World renderer"
   );
 
@@ -1564,6 +1564,9 @@ function auditRuntimeAdapterBoundary() {
   const chromeCss = readFileSync(join(sharedRuntimeRoot, "styles/caatuu-chrome.css"), "utf8");
   const maintenanceUi = readFileSync(join(sharedRuntimeRoot, "source/maintenance-ui.js"), "utf8");
   const app = readFileSync(join(sharedRuntimeRoot, "source/caatuu-workspace.js"), "utf8");
+  const interfaceMessages = JSON.parse(
+    readFileSync(join(sharedRuntimeRoot, "data/interface/en.v1.json"), "utf8")
+  ).messages;
   const chat = readFileSync(join(staticRoot, "source/features/chat/chat.js"), "utf8");
   const retiredCourseUiPaths = [
     "source/games/word-world/word-net.js",
@@ -1600,7 +1603,11 @@ function auditRuntimeAdapterBoundary() {
   assert(chromeCss.includes("max-height: none"), "the local-artifact license list should show every row without an inner scroller");
   assert(!dictionaryFull.includes('source.textContent = "Wiktionary"'), "dictionary results should not repeat a Wiktionary link on every entry");
   assert(app.includes("CaatuuMaintenanceUi"), "app.js should use the shared maintenance UI helper");
-  assert(app.includes('button.textContent = "Browser"'), "the browser install control should use the concise Browser label");
+  assert(
+    app.includes('button.textContent = interfaceText("common.browser")')
+      && interfaceMessages["common.browser"] === "Browser",
+    "the browser install control should use the canonical concise Browser label through the interface catalog"
+  );
   assert(chat.includes("CaatuuMaintenanceUi"), "chat.js should use the shared maintenance UI helper");
   assert(wordNet.includes("runtimeAdapter()?.dictionary"), "Word World should use the shared Czech-to-English dictionary runtime");
   assert(wordNetHtml.includes('http-equiv="refresh" content="0; url=index.html?game=word-net"'), "the retired Word World document should redirect to the canonical app route");
@@ -1841,6 +1848,9 @@ function auditAndroidSource() {
   const playManifest = readFileSync(playManifestPath, "utf8");
   const canonicalApp = readFileSync(canonicalAppPath, "utf8");
   const maintenanceUi = readFileSync(maintenanceUiPath, "utf8");
+  const interfaceMessages = JSON.parse(readFileSync(
+    join(workspaceRoot, "apps/language-runtime/static/data/interface/en.v1.json"), "utf8"
+  )).messages;
   const debugBuild = readFileSync(debugBuildPath, "utf8");
   const publicDebugPublisher = readFileSync(publicDebugPublisherPath, "utf8");
   const releaseBuild = readFileSync(releaseBuildPath, "utf8");
@@ -1973,10 +1983,17 @@ function auditAndroidSource() {
   assert(maintenanceUi.includes("if (status?.selfUpdateEnabled === false) return false;"), "maintenance UI should treat store-managed builds as having no native self-update");
   assert(maintenanceUi.includes("const visible = native && selfUpdateEnabled;"), "maintenance UI should keep native self-update controls visible for manual checks");
   assert(
-    maintenanceUi.includes('? `Update${latestName ?') && maintenanceUi.includes(': "Check for updates"'),
+    maintenanceUi.includes('t("maintenance.action.updateversion", { version: latestName })')
+      && maintenanceUi.includes('t("maintenance.action.check")')
+      && interfaceMessages["maintenance.action.updateversion"] === "Update {version}"
+      && interfaceMessages["maintenance.action.check"] === "Check for updates",
     "maintenance UI should name available versions and distinguish them from manual checks"
   );
-  assert(maintenanceUi.includes("Updates are managed by the app store."), "maintenance UI should explain store-managed updates");
+  assert(
+    maintenanceUi.includes('t("maintenance.status.storemanaged", { version: versionName, code: versionCode })')
+      && interfaceMessages["maintenance.status.storemanaged"] === "Caatuu {version} ({code}). Updates are managed by the app store.",
+    "maintenance UI should explain store-managed updates through the canonical interface catalog"
+  );
   assert(maintenanceUi.includes("status?.serverReachable === false || status?.updateError"), "maintenance UI should not claim an update check succeeded when the server was unreachable");
   assert(debugBuild.includes('artifacts/android/caatuu-debug.apk'), "debug build script should only publish caatuu-debug.apk");
   assert(debugBuild.includes('artifacts/android/caatuu-debug.json'), "debug build script should only publish caatuu-debug.json");
@@ -2084,7 +2101,7 @@ function auditAndroidSource() {
   assert(runtimeRoutes.includes('artifact_dir: "artifacts/games/caatuu-game/web/godot-v1"'), "runtime should serve Caatuu Game from the neutral generated artifact boundary");
   assert(runtimeRoutes.includes('HeaderValue::from_static("no-cache, max-age=0")'), "generated game files should revalidate instead of becoming immutable during active development");
   assert(canonicalApp.includes("A smaller orbit for recall games will live here."), "the canonical app should retain the static Memory Moon placeholder");
-  assert(canonicalApp.includes("A new orbit for listening, stress, and spelling will live here."), "the canonical app should retain the shared Sounds Quasar placeholder");
+  assert(canonicalApp.includes('data-src="/language-runtime/static/games/sound-quasar.html"'), "the canonical app should mount shared Sounds Quasar listening practice");
   assert(!canonicalApp.includes("/games/caatuu-game"), "the canonical app should not embed the standalone game");
   assert(gradle.includes('exclude("games/**")'), "Android language asset sync should exclude generated game bundles");
   assert(!gradle.includes("generatedGameAssetsDir"), "Android should not define a generated-game asset source");

@@ -9,7 +9,7 @@ async function read(relativePath) {
 }
 
 test("public-product governance remains local-first, bounded, and explicitly preview-only", async () => {
-  const [privacy, readiness, chrome, runtime, config, routes, compose, dictionaryGap, androidBridge] = await Promise.all([
+  const [privacy, readiness, chrome, runtime, config, routes, compose, dictionaryGap, androidBridge, interfaceSource] = await Promise.all([
     read("docs/PRIVACY.md"),
     read("docs/PRODUCT_READINESS.md"),
     read("apps/language-runtime/static/source/caatuu-chrome.js"),
@@ -19,6 +19,7 @@ test("public-product governance remains local-first, bounded, and explicitly pre
     read("compose.yaml"),
     read("apps/languages/czech/static/source/features/dictionary/dictionary-gap-report.mjs"),
     read("apps/android/app/src/main/java/com/caatuu/android/CaatuuBridge.kt"),
+    read("apps/language-runtime/static/data/interface/en.v1.json"),
   ]);
 
   assert.match(config, /bug_reports: env_flag\("ENABLE_BUG_REPORTS"\)/u);
@@ -45,8 +46,11 @@ test("public-product governance remains local-first, bounded, and explicitly pre
   assert.match(privacy, /Previously saved records remain on the device and\s+are not uploaded/iu);
   assert.match(privacy, /There is no public\s+GET or\s+in-app export/iu);
 
-  assert.match(chrome, /You are interacting with an AI system/u);
-  assert.match(chrome, /A governed public beta has not been declared/u);
+  const messages = JSON.parse(interfaceSource).messages;
+  assert.match(chrome, /interfaceHtml\("settings\.ai\.legalnotice"\)/u);
+  assert.match(messages["settings.ai.legalnotice"], /You are interacting with an AI system/u);
+  assert.match(chrome, /interfaceHtml\("settings\.about\.preview"\)/u);
+  assert.match(messages["settings.about.preview"], /A governed public beta has not been declared/u);
   assert.match(readiness, /BOUNDED EDGE CHANNEL READY/u);
   assert.match(readiness, /future-only opted-in\s+dictionary gaps/u);
   assert.match(readiness, /Exact deployed source/u);

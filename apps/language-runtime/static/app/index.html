@@ -8,14 +8,16 @@
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="/language-runtime/static/assets/caatuu-shell-512.png">
     <link rel="apple-touch-icon" href="/language-runtime/static/assets/caatuu-shell-512.png">
-    <script src="source/shared/course-profile.js?v=course-33"></script>
-    <script src="/language-runtime/static/source/learning-profile.js?v=learning-7"></script>
+    <script src="source/shared/course-profile.js?v=course-57"></script>
+    <script src="/language-runtime/static/source/learning-profile.js?v=learning-9"></script>
     <script src="/language-runtime/static/source/initial-theme.js?v=theme-3"></script>
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-theme.css?v=theme-6">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-workspace.css?v=shell-95">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-home.css?v=home-45">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-130">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-word-world.css?v=word-net-90">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-theme.css?v=theme-7">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-workspace.css?v=shell-96">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-home.css?v=home-50">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-133">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-developer-tools.css?v=developer-tools-2">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-word-world.css?v=word-net-91">
+    <link rel="stylesheet" href="/language-runtime/static/styles/games/embedded-game-controls.css?v=embedded-game-controls-8">
   </head>
   <body class="games-page setup-blocked">
     <div class="app-shell">
@@ -53,6 +55,40 @@
                 </section>
               </div>
             </details>
+            <details class="verb-toolbar-menu verb-audio-menu workspace-audio-menu" id="setupAudioMenu">
+              <summary aria-label="Audio settings" title="Audio settings" data-i18n-aria-label="common.audio.settings" data-i18n-title="common.audio.settings">
+                <svg class="verb-audio-menu-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M4.5 9.25v5.5h3.25l4.75 3.75v-13L7.75 9.25H4.5Z"></path>
+                  <path d="M15.5 9.25c1.5 1.5 1.5 4 0 5.5"></path>
+                  <path d="M18.25 6.75c3 3 3 7.5 0 10.5"></path>
+                </svg>
+              </summary>
+              <div class="verb-audio-popover" role="dialog" aria-label="Audio settings" data-i18n-aria-label="common.audio.settings">
+                <span class="verb-popover-label" data-i18n="common.audio">Audio</span>
+                <div class="speech-settings-body" id="setupAudioControls">
+                  <button type="button" role="switch" aria-checked="false" data-speech-mute-toggle>
+                    <span data-speech-mute-label data-i18n="common.audio.muteall">Mute all audio</span><i aria-hidden="true"></i>
+                  </button>
+                  <section class="verb-popover-setting">
+                    <label class="verb-popover-setting-title" for="setupAudioSpeed" data-i18n="common.speed">Speed</label>
+                    <input id="setupAudioSpeed" type="range" min="0" max="2" step="1" data-speech-pace-slider aria-label="Speech speed" data-i18n-aria-label="common.speechspeed">
+                    <div class="verb-audio-speed-ticks" aria-hidden="true">
+                      <span><span data-i18n="common.slower">Slower</span> <small>0.5×</small></span>
+                      <span><span data-i18n="common.slow">Slow</span> <small>0.6×</small></span>
+                      <span><span data-i18n="common.normal">Normal</span> <small>1×</small></span>
+                    </div>
+                  </section>
+                  <section class="verb-popover-setting">
+                    <label class="verb-popover-setting-title" for="setupAudioVoice" data-i18n="common.voice">Voice</label>
+                    <select id="setupAudioVoice" data-speech-control="Voice" disabled>
+                      <option value="" data-i18n="common.automatic.recommended">Automatic (recommended)</option>
+                    </select>
+                    <small data-speech-control="VoiceStatus" role="status" aria-live="polite"></small>
+                    <button type="button" data-speech-control="VoiceInstall" hidden data-i18n="wordworld.audio.installvoice">Install target-language voice</button>
+                  </section>
+                </div>
+              </div>
+            </details>
             <section class="home-hero">
               <p class="home-kicker" data-i18n="home.start">Start</p>
               <h1 id="homeTitle">Caatuu</h1>
@@ -77,17 +113,16 @@
                   <button class="setup-report-link" id="setupReportBug" type="button" data-i18n="setup.reportbug" hidden>Report bug</button>
                 </div>
                 <section class="setup-language-selection" id="setupLanguageSelection" aria-labelledby="setupTitle" hidden>
-                  <form class="setup-language-form" id="setupLanguageForm" aria-describedby="setupLanguageHint">
+                  <form class="setup-language-form" id="setupLanguageForm">
                     <fieldset class="setup-language-question" id="setupSourceLanguageQuestion">
-                      <legend><span aria-hidden="true">1</span> <span data-i18n="setup.language.sourcequestion">What language do you speak?</span></legend>
+                      <legend><span class="setup-question-number" aria-hidden="true">1</span> <span data-i18n="setup.language.sourcequestion">What language do you speak?</span></legend>
                       <div class="setup-language-options" id="setupSourceLanguageOptions"></div>
                     </fieldset>
                     <fieldset class="setup-language-question" id="setupTargetLanguageQuestion" disabled>
-                      <legend><span aria-hidden="true">2</span> <span data-i18n="setup.language.targetquestion">What language do you want to learn?</span></legend>
+                      <legend><span class="setup-question-number" aria-hidden="true">2</span> <span data-i18n="setup.language.targetquestion">What language do you want to learn?</span></legend>
                       <div class="setup-language-options" id="setupTargetLanguageOptions"></div>
                     </fieldset>
                     <div class="setup-language-form-actions">
-                      <p class="setup-language-hint" id="setupLanguageHint" aria-live="polite" data-i18n="setup.language.sourcehint">Choose the language you speak first.</p>
                       <button class="setup-action setup-language-continue" id="setupLanguageContinue" type="submit" data-i18n="common.continue" disabled>Continue</button>
                     </div>
                   </form>
@@ -266,7 +301,7 @@
                 <button type="button" data-train-tab="verb-lab" tabindex="-1"></button>
                 <button type="button" data-train-tab="conjugation-comet" tabindex="-1"></button>
                 <button type="button" data-train-tab="case-cosmos" tabindex="-1"></button>
-                <button type="button" data-train-tab="agreement-aurora" tabindex="-1"></button>
+                <button type="button" data-train-tab="grammar-gravity" tabindex="-1"></button>
                 <button type="button" data-train-tab="naturalization-nucleus" tabindex="-1"></button>
                 <button type="button" data-train-tab="memory-moon" tabindex="-1"></button>
                 <button type="button" data-train-tab="sound-quasar" tabindex="-1"></button>
@@ -339,7 +374,7 @@
                           <i aria-hidden="true"></i>
                         </button>
                         <button id="verbSpeakOnTap" type="button" role="switch" aria-checked="false">
-                          <span id="verbSpeakOnTapLabel" data-i18n="verbnebula.audio.speakontap">Speak target language on tap</span>
+                          <span id="verbSpeakOnTapLabel" data-i18n="verbnebula.audio.speakontap">Speak on tap</span>
                           <i aria-hidden="true"></i>
                         </button>
                         <div class="verb-audio-settings" id="verbAudioSettings" hidden>
@@ -403,7 +438,7 @@
                   </defs>
                   <g id="verbSolutionArrowPaths"></g>
                 </svg>
-                <div id="verbRoundInterstitial" role="status" aria-live="polite" aria-label="Preparing the next round" data-i18n-aria-label="verbnebula.round.preparing" hidden>
+                <div class="caatuu-game-robot-loading" id="verbRoundInterstitial" role="status" aria-live="polite" aria-label="Preparing the next round" data-i18n-aria-label="verbnebula.round.preparing" hidden>
                   <div class="verb-round-reward" id="verbRoundReward" hidden>
                     <span class="verb-round-reward-gem" aria-hidden="true">
                       <img src="/assets/icons/icon_gem.png" alt="" decoding="async">
@@ -414,7 +449,7 @@
                     </span>
                     <span class="verb-round-reward-comet" aria-hidden="true"><i></i><i></i><i></i></span>
                   </div>
-                  <img id="verbRoundRobot" src="/assets/robots/robot%20(1).png" alt="A friendly robot preparing the next verb round">
+                  <img class="caatuu-game-robot-loading-art" id="verbRoundRobot" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true">
                 </div>
               </section>
 
@@ -480,9 +515,9 @@
                           <section class="word-net-display-menu-section" aria-labelledby="wordNetTextSizeLabel">
                             <span id="wordNetTextSizeLabel" data-i18n="common.textsize">Text size</span>
                             <div class="word-net-display-options word-net-display-size-options" role="group" aria-label="Text size" data-i18n-aria-label="common.textsize">
-                              <button type="button" data-font-size-option="largest" aria-pressed="true"><span class="word-net-display-size-sample is-standard" aria-hidden="true">A</span><span data-i18n="common.standard">Standard</span></button>
-                              <button type="button" data-font-size-option="large" aria-pressed="false"><span class="word-net-display-size-sample is-small" aria-hidden="true">A</span><span data-i18n="common.small">Small</span></button>
-                              <button type="button" data-font-size-option="standard" aria-pressed="false"><span class="word-net-display-size-sample is-smaller" aria-hidden="true">A</span><span data-i18n="common.smaller">Smaller</span></button>
+                              <button type="button" data-font-size-option="largest" aria-pressed="true"><span class="word-net-display-size-sample is-standard" aria-hidden="true">Aa</span><span data-i18n="common.standard">Standard</span></button>
+                              <button type="button" data-font-size-option="large" aria-pressed="false"><span class="word-net-display-size-sample is-small" aria-hidden="true">Aa</span><span data-i18n="common.small">Small</span></button>
+                              <button type="button" data-font-size-option="standard" aria-pressed="false"><span class="word-net-display-size-sample is-smaller" aria-hidden="true">Aa</span><span data-i18n="common.smaller">Smaller</span></button>
                             </div>
                           </section>
                         </div>
@@ -492,6 +527,9 @@
                             <path d="M15.5 9.25c1.5 1.5 1.5 4 0 5.5"></path>
                             <path d="M18.25 6.75c3 3 3 7.5 0 10.5"></path>
                           </svg>
+                        </button>
+                        <button class="word-net-icon-button word-net-image-toggle is-active" id="wordNetImageToggle" type="button" aria-label="Hide picture clues" aria-pressed="true" aria-controls="wordNetScene" title="Hide picture clues">
+                          <span aria-hidden="true">🪶</span>
                         </button>
                         <div class="word-net-audio-menu" id="wordNetAudioMenu" role="dialog" aria-label="Audio settings" data-i18n-aria-label="common.audio.settings" hidden>
                           <span class="word-net-audio-menu-label" data-i18n="common.audio">Audio</span>
@@ -612,11 +650,8 @@
                       <button class="word-net-side-nav word-net-side-next" id="wordNetNext" type="button" aria-label="Next sentence" title="Next sentence" data-i18n-aria-label="wordworld.sentence.next" data-i18n-title="wordworld.sentence.next">
                         <span aria-hidden="true">&rsaquo;</span>
                       </button>
-                      <div class="word-net-loading" id="wordNetLoading" hidden>
-                        <img class="word-net-loading-art" id="wordNetLoadingArt" alt="" aria-hidden="true" fetchpriority="low" hidden>
-                        <div class="word-net-loading-copy">
-                          <span class="word-net-loading-spinner" aria-hidden="true"></span>
-                        </div>
+                      <div class="word-net-loading caatuu-game-robot-loading" id="wordNetLoading" role="status" hidden>
+                        <img class="caatuu-game-robot-loading-art" id="wordNetLoadingArt" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true">
                       </div>
                       <figure class="word-net-scene" id="wordNetScene" hidden>
                         <img id="wordNetSceneImage" alt="">
@@ -768,8 +803,8 @@
                     </form>
                   </dialog>
                 </div>
-                <div class="word-net-embedded-status" id="wordNetEmbeddedStatus" role="status" aria-live="polite" aria-atomic="true">
-                  <img class="word-net-embedded-loader" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true">
+                <div class="word-net-embedded-status caatuu-game-robot-loading" id="wordNetEmbeddedStatus" role="status" aria-live="polite" aria-atomic="true">
+                  <img class="caatuu-game-robot-loading-art" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true">
                   <strong></strong>
                   <small></small>
                 </div>
@@ -779,8 +814,8 @@
             <section class="train-tab-panel word-net-panel word-net-embedded-panel embedded-game-panel" id="trainPanelConjugationComet" data-train-panel="conjugation-comet" aria-label="Conjugation Comet" data-i18n-aria-label="games.conjugationcomet.title" hidden>
               <div class="word-net-embedded-stage embedded-game-stage" id="conjugationCometEmbeddedStage" aria-busy="true">
                 <iframe class="word-net-embedded-game embedded-game-frame" id="conjugationCometEmbeddedGame" data-src="/language-runtime/static/games/conjugation-comet.html" data-embedded-game="conjugation-comet" title="Conjugation Comet" data-i18n-title="games.conjugationcomet.title" allow="autoplay" aria-hidden="true" tabindex="-1"></iframe>
-                <div class="word-net-embedded-status embedded-game-status" id="conjugationCometEmbeddedStatus" role="status" aria-live="polite" aria-atomic="true">
-                  <img class="word-net-embedded-loader" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true">
+                <div class="word-net-embedded-status embedded-game-status caatuu-game-robot-loading" id="conjugationCometEmbeddedStatus" role="status" aria-live="polite" aria-atomic="true">
+                  <img class="caatuu-game-robot-loading-art" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true">
                   <strong></strong>
                   <small></small>
                 </div>
@@ -790,19 +825,19 @@
             <section class="train-tab-panel word-net-panel word-net-embedded-panel embedded-game-panel" id="trainPanelCaseCosmos" data-train-panel="case-cosmos" aria-label="Case Cosmos" data-i18n-aria-label="games.casecosmos.title" hidden>
               <div class="word-net-embedded-stage embedded-game-stage" id="caseCosmosEmbeddedStage" aria-busy="true">
                 <iframe class="word-net-embedded-game embedded-game-frame" id="caseCosmosEmbeddedGame" data-src="case-cosmos.html" data-embedded-game="case-cosmos" title="Case Cosmos" data-i18n-title="games.casecosmos.title" allow="autoplay" aria-hidden="true" tabindex="-1"></iframe>
-                <div class="word-net-embedded-status embedded-game-status" id="caseCosmosEmbeddedStatus" role="status" aria-live="polite" aria-atomic="true">
-                  <img class="word-net-embedded-loader" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true">
+                <div class="word-net-embedded-status embedded-game-status caatuu-game-robot-loading" id="caseCosmosEmbeddedStatus" role="status" aria-live="polite" aria-atomic="true">
+                  <img class="caatuu-game-robot-loading-art" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true">
                   <strong></strong>
                   <small></small>
                 </div>
               </div>
             </section>
 
-            <section class="train-tab-panel word-net-panel word-net-embedded-panel embedded-game-panel" id="trainPanelAgreementAurora" data-train-panel="agreement-aurora" aria-label="Agreement Aurora" data-i18n-aria-label="games.agreementaurora.title" hidden>
-              <div class="word-net-embedded-stage embedded-game-stage" id="agreementAuroraEmbeddedStage" aria-busy="true">
-                <iframe class="word-net-embedded-game embedded-game-frame" id="agreementAuroraEmbeddedGame" data-src="/language-runtime/static/games/agreement-aurora.html" data-embedded-game="agreement-aurora" title="Agreement Aurora" data-i18n-title="games.agreementaurora.title" allow="autoplay" aria-hidden="true" tabindex="-1"></iframe>
-                <div class="word-net-embedded-status embedded-game-status" id="agreementAuroraEmbeddedStatus" role="status" aria-live="polite" aria-atomic="true">
-                  <img class="word-net-embedded-loader" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true">
+            <section class="train-tab-panel word-net-panel word-net-embedded-panel embedded-game-panel" id="trainPanelGrammarGravity" data-train-panel="grammar-gravity" aria-label="Grammar Gravity" data-i18n-aria-label="games.grammargravity.title" hidden>
+              <div class="word-net-embedded-stage embedded-game-stage" id="grammarGravityEmbeddedStage" aria-busy="true">
+                <iframe class="word-net-embedded-game embedded-game-frame" id="grammarGravityEmbeddedGame" data-src="/language-runtime/static/games/grammar-gravity.html" data-embedded-game="grammar-gravity" title="Grammar Gravity" data-i18n-title="games.grammargravity.title" allow="autoplay" aria-hidden="true" tabindex="-1"></iframe>
+                <div class="word-net-embedded-status embedded-game-status caatuu-game-robot-loading" id="grammarGravityEmbeddedStatus" role="status" aria-live="polite" aria-atomic="true">
+                  <img class="caatuu-game-robot-loading-art" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true">
                   <strong></strong>
                   <small></small>
                 </div>
@@ -811,8 +846,8 @@
 
             <section class="train-tab-panel naturalization-nucleus-panel" id="trainPanelNaturalizationNucleus" data-train-panel="naturalization-nucleus" aria-label="Naturalization Nucleus" data-i18n-aria-label="games.naturalizationnucleus.title" hidden>
               <div class="naturalization-nucleus-stage" aria-busy="true">
-                <div class="naturalization-nucleus-interstitial" id="naturalizationNucleusInterstitial" role="status" aria-live="polite" aria-atomic="true" aria-label="Preparing a Naturalization Nucleus round">
-                  <img class="word-net-embedded-loader" id="naturalizationNucleusInterstitialRobot" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true">
+                <div class="naturalization-nucleus-interstitial caatuu-game-robot-loading" id="naturalizationNucleusInterstitial" role="status" aria-live="polite" aria-atomic="true" aria-label="Preparing a Naturalization Nucleus round">
+                  <img class="caatuu-game-robot-loading-art" id="naturalizationNucleusInterstitialRobot" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true">
                 </div>
                 <section class="naturalization-nucleus-game" id="naturalizationNucleusGame" aria-label="Circular Hanzi and pinyin matching puzzle" aria-describedby="naturalizationNucleusStatus" aria-hidden="true" inert>
                   <div class="naturalization-nucleus-playfield">
@@ -875,6 +910,9 @@
                           <p class="word-net-audio-status" id="naturalizationNucleusAudioVoiceStatus" role="status" aria-live="polite" aria-atomic="true">Checking Mandarin voices...</p>
                         </section>
                       </div>
+                      <button class="word-net-icon-button word-net-image-toggle is-active" id="naturalizationNucleusImageToggle" type="button" aria-label="Hide picture clues" aria-pressed="true" aria-controls="naturalizationNucleusCore" title="Hide picture clues">
+                        <span aria-hidden="true">🪶</span>
+                      </button>
                       <button class="word-net-icon-button word-net-translation-toggle naturalization-nucleus-options-toggle" id="naturalizationNucleusOptionsToggle" type="button" aria-label="Hanzi tile settings. Current: 5 tiles." aria-haspopup="menu" aria-controls="naturalizationNucleusOptionsMenu" aria-expanded="false" title="Hanzi tile settings">
                         <span class="verb-pair-menu-icon" aria-hidden="true">
                           <i></i><i></i><i></i><i></i><i></i><i></i>
@@ -887,16 +925,6 @@
                           <button type="button" role="menuitemradio" tabindex="-1" aria-checked="false" data-naturalization-piece-count="9"><span>9 tiles</span><small>Full orbit</small></button>
                         </section>
                       </div>
-                      <button class="word-net-icon-button word-net-generation-toggle naturalization-nucleus-new-round" id="naturalizationNucleusNewRound" type="button" aria-label="New round" title="New round">
-                        <span class="word-net-generation-icon" aria-hidden="true">
-                          <svg class="word-net-shuffle-icon" viewBox="0 0 24 24" focusable="false">
-                            <path d="M4 7h3C9.5 7 10.5 10.5 12 12C13.5 13.5 14.5 17 17 17h3"></path>
-                            <path d="m17 14 3 3-3 3"></path>
-                            <path d="M4 17h3C9.5 17 10.5 13.5 12 12C13.5 10.5 14.5 7 17 7h3"></path>
-                            <path d="m17 4 3 3-3 3"></path>
-                          </svg>
-                        </span>
-                      </button>
                     </div>
                     <aside class="word-net-word-translation naturalization-nucleus-feedback" id="naturalizationNucleusFeedback" aria-label="Matched Mandarin word" hidden>
                       <div class="word-net-word-card-copy" role="status" aria-live="polite" aria-atomic="true">
@@ -925,7 +953,7 @@
                     </aside>
                     <div class="naturalization-nucleus-board" id="naturalizationNucleusBoard" data-piece-count="5" data-solved="false" data-chain-started="false" data-tile-selected="false">
                       <div class="naturalization-nucleus-orbit" aria-hidden="true"></div>
-                      <div class="naturalization-nucleus-core" aria-hidden="true">
+                      <div class="naturalization-nucleus-core" id="naturalizationNucleusCore" aria-hidden="true">
                         <span class="naturalization-nucleus-core-glow"></span>
                         <img id="naturalizationNucleusArtwork" alt="">
                       </div>
@@ -957,25 +985,19 @@
               </div>
             </section>
 
-            <section class="train-tab-panel upcoming-game-panel" id="trainPanelSoundQuasar" data-train-panel="sound-quasar" aria-label="Sounds Quasar" data-i18n-aria-label="games.soundsquasar.title" hidden>
-              <header class="word-net-head">
-                <div>
-                  <p class="verb-kicker" data-i18n="upcoming.soundsquasar.kicker">Sounds quasar</p>
-                  <h2 data-i18n="games.soundsquasar.title">Sounds Quasar</h2>
-                  <p class="upcoming-game-copy" data-i18n="upcoming.soundsquasar.description">A new orbit for listening, stress, and spelling will live here.</p>
+            <section class="train-tab-panel word-net-panel word-net-embedded-panel embedded-game-panel" id="trainPanelSoundQuasar" data-train-panel="sound-quasar" aria-label="Sounds Quasar" data-i18n-aria-label="games.soundsquasar.title" hidden>
+              <div class="word-net-embedded-stage embedded-game-stage" id="soundQuasarEmbeddedStage" aria-busy="true">
+                <iframe class="word-net-embedded-game embedded-game-frame" id="soundQuasarEmbeddedGame" data-src="/language-runtime/static/games/sound-quasar.html" data-embedded-game="sound-quasar" title="Sounds Quasar" data-i18n-title="games.soundsquasar.title" allow="autoplay" aria-hidden="true" tabindex="-1"></iframe>
+                <div class="word-net-embedded-status embedded-game-status caatuu-game-robot-loading" id="soundQuasarEmbeddedStatus" role="status" aria-live="polite" aria-atomic="true">
+                  <img class="caatuu-game-robot-loading-art" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true">
+                  <strong></strong>
+                  <small></small>
                 </div>
-                <button type="button" class="train-back-button" data-train-tab="galaxy" data-i18n="common.allgames">All games</button>
-              </header>
-              <div class="upcoming-game-stage">
-                <img src="/assets/planets/sounds-quasar.png" alt="">
-                <span data-i18n="upcoming.cominglater">Coming later</span>
               </div>
             </section>
 
-            <section class="campaign-transition" id="campaignTransition" role="status" aria-live="polite" aria-atomic="true" hidden>
-              <div class="campaign-transition-card">
-                <img id="campaignTransitionRobot" src="/assets/robots/robot%20(1).png" alt="A friendly robot preparing the next Campaign Mode game">
-              </div>
+            <section class="campaign-transition caatuu-game-robot-loading" id="campaignTransition" role="status" aria-live="polite" aria-atomic="true" hidden>
+              <img class="caatuu-game-robot-loading-art" id="campaignTransitionRobot" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true">
             </section>
           </div>
         </section>
@@ -1132,7 +1154,7 @@
 
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true" data-i18n-aria-label="print.book.label"></section>
 
-    <script src="/language-runtime/static/source/shell-policy.js?v=shell-policy-9"></script>
-    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-41"></script>
+    <script src="/language-runtime/static/source/shell-policy.js?v=shell-policy-14"></script>
+    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-64"></script>
   </body>
 </html>

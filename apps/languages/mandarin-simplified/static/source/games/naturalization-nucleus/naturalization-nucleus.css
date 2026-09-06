@@ -67,19 +67,8 @@
 }
 
 .naturalization-nucleus-interstitial {
-  position: absolute;
-  inset: 0;
   z-index: 20;
-  display: grid;
-  place-items: center;
   border-radius: inherit;
-  background:
-    radial-gradient(circle at 50% 48%, rgba(46, 189, 198, 0.15), transparent 36%),
-    color-mix(in srgb, var(--panel) 96%, #dff8f7 4%);
-}
-
-.naturalization-nucleus-interstitial[hidden] {
-  display: none !important;
 }
 
 .naturalization-nucleus-game {
@@ -142,6 +131,10 @@
   place-items: center;
   pointer-events: none;
   transform: translate(-50%, -50%);
+}
+
+.naturalization-nucleus-core[hidden] {
+  display: none;
 }
 
 .naturalization-nucleus-core-glow {
@@ -238,6 +231,7 @@
 
 .naturalization-nucleus-socket-target:hover,
 .naturalization-nucleus-socket-target:focus-visible,
+.naturalization-nucleus-socket-target[aria-pressed="true"],
 .naturalization-nucleus-board[data-tile-selected="true"] .naturalization-nucleus-socket-target {
   background: color-mix(in srgb, var(--green) 10%, transparent);
   color: var(--green);
@@ -272,17 +266,9 @@
   padding: 4px;
   border: 1px solid #9a6a32;
   border-radius: inherit;
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.58), transparent 34%),
-    radial-gradient(ellipse at 19% 48%, transparent 0 10%, rgba(84, 50, 21, 0.13) 11% 12%, transparent 13% 23%, rgba(84, 50, 21, 0.08) 24% 25%, transparent 26%),
-    repeating-linear-gradient(3deg, rgba(91, 54, 24, 0.1) 0 1px, transparent 1px 6px),
-    linear-gradient(100deg, #d3a35f, #f0d49a 46%, #c48945);
+  background: #edcf99;
   color: #243b35;
-  box-shadow:
-    0 4px 0 #8b5d2d,
-    0 9px 15px rgba(32, 43, 38, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.88),
-    inset 0 -2px 3px rgba(91, 67, 38, 0.14);
+  box-shadow: 0 2px 0 #9a6a32;
 }
 
 .naturalization-nucleus-fused-word {
@@ -291,7 +277,7 @@
 }
 
 .naturalization-nucleus-fused-word::after {
-  content: "";
+  content: none;
   position: absolute;
   top: 40%;
   right: 8%;
@@ -366,11 +352,11 @@
 }
 
 .naturalization-nucleus-deck-item {
-  flex: 0 1 calc((100% - 32px) / 5);
+  flex: 0 1 104px;
   min-width: 0;
   min-height: 54px;
   display: grid;
-  border-radius: 12px;
+  border-radius: 8px;
 }
 
 .naturalization-nucleus-deck-item[data-state="placed"] {
@@ -380,7 +366,7 @@
 }
 
 .naturalization-nucleus-deck-item[data-state="placed"]::after {
-  content: "matched";
+  content: "-";
   place-self: center;
   color: color-mix(in srgb, var(--muted) 42%, transparent);
   font-size: 0.58rem;
@@ -399,24 +385,16 @@
   padding: 0;
   overflow: hidden;
   border: 1px solid #9a6a32;
-  border-radius: 12px;
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.58), transparent 34%),
-    radial-gradient(ellipse at 19% 48%, transparent 0 10%, rgba(84, 50, 21, 0.13) 11% 12%, transparent 13% 23%, rgba(84, 50, 21, 0.08) 24% 25%, transparent 26%),
-    repeating-linear-gradient(3deg, rgba(91, 54, 24, 0.1) 0 1px, transparent 1px 6px),
-    linear-gradient(100deg, #d3a35f, #f0d49a 46%, #c48945);
-  color: #243b35;
-  box-shadow:
-    0 4px 0 #8b5d2d,
-    0 9px 15px rgba(32, 43, 38, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.86),
-    inset 0 -2px 3px rgba(91, 67, 38, 0.15);
+  border-radius: 8px;
+  background: #edcf99;
+  color: #000;
+  box-shadow: 0 2px 0 #9a6a32;
   cursor: grab;
   transition: translate 130ms ease, box-shadow 130ms ease, filter 130ms ease;
 }
 
 .naturalization-nucleus-domino::after {
-  content: "";
+  content: none;
   position: absolute;
   pointer-events: none;
 }
@@ -433,10 +411,7 @@
   translate: 0 -3px;
   outline: 3px solid color-mix(in srgb, var(--green) 44%, transparent);
   outline-offset: 3px;
-  box-shadow:
-    0 7px 0 #8d734e,
-    0 13px 20px rgba(32, 43, 38, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  box-shadow: 0 3px 0 #9a6a32;
 }
 
 .naturalization-nucleus-domino[data-dragging="true"] {
@@ -460,7 +435,18 @@
 .naturalization-nucleus-domino-hanzi {
   font-family: var(--font-ui, system-ui, sans-serif);
   font-size: clamp(1.75rem, 5vw, 2.55rem);
+  font-weight: 800;
+  color: #000;
+}
+
+.naturalization-nucleus-domino-hanzi.naturalization-nucleus-script-pinyin {
+  font-size: clamp(1rem, 3vw, 1.35rem);
   font-weight: 400;
+}
+
+.naturalization-nucleus-socket-pinyin.naturalization-nucleus-script-hanzi {
+  font-size: 1.8rem;
+  font-weight: 800;
 }
 
 .naturalization-nucleus-tone-1 { color: #d53c3c; }
@@ -518,16 +504,11 @@
   color: var(--red);
 }
 
-html[data-theme="dark"] .naturalization-nucleus-fused-word,
-html[data-theme="dark"] .naturalization-nucleus-domino {
+html[data-theme="dark"] .naturalization-nucleus-fused-word {
   border-color: #9a6a32;
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.18), transparent 34%),
-    radial-gradient(ellipse at 19% 48%, transparent 0 10%, rgba(30, 16, 7, 0.2) 11% 12%, transparent 13% 23%, rgba(246, 225, 186, 0.08) 24% 25%, transparent 26%),
-    repeating-linear-gradient(3deg, rgba(246, 225, 186, 0.08) 0 1px, transparent 1px 6px),
-    linear-gradient(100deg, #6b4a2d, #725338 46%, #4b321f);
+  background: #59432d;
   color: #f5ead3;
-  box-shadow: 0 4px 0 #2d2117, 0 9px 15px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 0 #2d2117;
 }
 
 html[data-theme="dark"] .naturalization-nucleus-fused-pinyin {
@@ -602,7 +583,7 @@ html[data-theme="dark"] #naturalizationNucleusStatus {
   }
 
   .naturalization-nucleus-deck-item {
-    flex-basis: calc((100% - 16px) / 3);
+    flex-basis: 88px;
   }
 }
 

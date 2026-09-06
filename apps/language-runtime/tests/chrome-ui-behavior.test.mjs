@@ -5,6 +5,7 @@ import vm from "node:vm";
 
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { installEnglishInterfaceContent } from "./helpers/english-interface-content.mjs";
+import shellPolicy from "../static/source/shell-policy.mjs";
 import {
   createInterfaceContent,
   installInterfaceContent
@@ -14,6 +15,20 @@ const chromeSource = await readFile(
   new URL("../static/source/caatuu-chrome.js", import.meta.url),
   "utf8"
 );
+const chromeStyles = await readFile(new URL("../static/styles/caatuu-chrome.css", import.meta.url), "utf8");
+
+test("the games sheet grows with available viewport height instead of a 320px scroll box", () => {
+  const body = /\.games-menu-body\s*\{([^}]+)\}/u.exec(chromeStyles)?.[1] || "";
+  assert.match(body, /max-height:\s*calc\(100dvh - var\(--caatuu-bottom-dock-height, 78px\) - 90px\)/u);
+  assert.doesNotMatch(body, /320px|44dvh/u);
+  assert.match(body, /overflow-y:\s*auto/u, "short screens retain an accessible scrolling fallback");
+});
+
+test("muted audio settings use a grey backslash and hide their inactive options", () => {
+  assert.match(chromeStyles, /html\[data-speech-muted="true"\] \.word-net-audio-toggle,[^}]+color:\s*var\(--theme-quiet/u);
+  assert.match(chromeStyles, /\.verb-audio-menu > summary::after\s*\{[^}]+transform:\s*rotate\(45deg\)/u);
+  assert.match(chromeStyles, /\.speech-settings-body > :not\(\[data-speech-mute-toggle\]\)\s*\{\s*display:\s*none !important/u);
+});
 const englishInterfaceCatalog = JSON.parse(await readFile(
   new URL("../static/data/interface/en.v1.json", import.meta.url),
   "utf8"
@@ -40,6 +55,29 @@ const english = Object.freeze({
   direction: "ltr",
   flagClass: "en-flag",
   flagSrc: "/assets/icons/english_flag.png"
+});
+
+test("autoplay is a persisted global audio preference with legacy Word World migration", async () => {
+  await Promise.resolve();
+  const browser = createBrowserHarness({ course: fixtureCourse() });
+  runChrome(browser);
+  const api = browser.window.CaatuuChrome;
+  assert.equal(api.getSpeechAutoplay(), true);
+  let changes = 0;
+  browser.window.addEventListener("caatuu:speech-autoplay-change", () => { changes += 1; });
+  api.setSpeechAutoplay(false);
+  assert.equal(api.getSpeechAutoplay(), false);
+  assert.equal(browser.localStorage.getItem("caatuu.speech.autoplay.v1"), "false");
+  assert.equal(changes, 1);
+  browser.localStorage.setItem("caatuu.speech.autoplay.v1", "true");
+  browser.window.dispatchEvent({ type: "storage", key: "caatuu.speech.autoplay.v1" });
+  assert.equal(api.getSpeechAutoplay(), true);
+  assert.equal(changes, 2);
+  const course = fixtureCourse();
+  const legacy = createBrowserHarness({ course, localStorageValues: { [`${course.storage.namespace}.wordNet.speechAutoplay.v2`]: "false" } });
+  runChrome(legacy);
+  assert.equal(legacy.window.CaatuuChrome.getSpeechAutoplay(), false);
+  assert.equal(legacy.localStorage.getItem("caatuu.speech.autoplay.v1"), "false");
 });
 const czech = Object.freeze({
   id: "cs",
@@ -129,8 +167,9 @@ function executeChrome(options = {}) {
   return harness;
 }
 
-function executeChromeWithHomeMenu({ course = fixtureCourse(), interfaceContent = null } = {}) {
+function executeChromeWithHomeMenu({ course = fixtureCourse(), interfaceContent = null, policy = null } = {}) {
   const harness = createBrowserHarness({ course });
+  if (policy) harness.window.CaatuuShellPolicy = policy;
   const homeView = harness.document.createElement("section");
   homeView.id = "view-home";
   homeView.className = "view home-view is-active";
@@ -161,6 +200,53 @@ function executeChromeWithHomeMenu({ course = fixtureCourse(), interfaceContent 
   return { ...harness, homeBaseView, homeSocialView, homeStoreArt, homeStoreView, homeView, nav };
 }
 
+test("global mute updates static playback and appearance synchronizes across open courses", () => {
+  const browser = executeChromeWithHomeMenu();
+  const playback = browser.document.createElement("button");
+  playback.id = "naturalizationNucleusFeedbackSound";
+  browser.document.body.append(playback);
+  browser.window.CaatuuChrome.setSpeechMuted(true);
+  assert.equal(browser.document.documentElement.dataset.speechMuted, "true");
+  assert.equal(playback.disabled, true);
+  browser.window.CaatuuChrome.setSpeechMuted(false);
+  assert.equal(playback.disabled, false);
+  browser.localStorage.setItem("caatuu.appearance.theme.v1", "dark");
+  browser.window.dispatchEvent({ type: "storage", key: "caatuu.appearance.theme.v1" });
+  assert.equal(browser.document.documentElement.dataset.theme, "dark");
+  browser.localStorage.setItem("caatuu.appearance.font-size.v1", "large");
+  browser.window.dispatchEvent({ type: "storage", key: "caatuu.appearance.font-size.v1" });
+  assert.equal(browser.document.documentElement.dataset.fontSize, "large");
+});
+
+test("the canonical Home presenter exposes the setup-bearing base view after leaving a game or submenu", () => {
+  const browser = executeChromeWithHomeMenu();
+  const { document, window, homeView, homeBaseView, homeSocialView, homeStoreView } = browser;
+  const gamesView = document.createElement("section");
+  gamesView.id = "view-verbs";
+  gamesView.className = "view is-active";
+  document.body.append(gamesView);
+  homeView.classList.remove("is-active");
+  homeBaseView.hidden = true;
+  homeStoreView.hidden = false;
+  const workspaceRequests = [];
+  document.addEventListener("caatuu:home-request", () => {
+    workspaceRequests.push("home");
+    gamesView.classList.remove("is-active");
+    homeView.classList.add("is-active");
+  });
+
+  assert.equal(window.CaatuuChrome.showHomeDestination("home"), true);
+  assert.deepEqual(workspaceRequests, ["home"]);
+  assert.equal(homeView.classList.contains("is-active"), true);
+  assert.equal(gamesView.classList.contains("is-active"), false);
+  assert.equal(homeBaseView.hidden, false, "Home recovery must reveal the actual setup container");
+  assert.equal(homeSocialView.hidden, true);
+  assert.equal(homeStoreView.hidden, true);
+  assert.equal(homeView.dataset.homeDestination, "home");
+  assert.equal(browser.nav.dataset.activeSection, "home");
+  assert.equal(document.querySelector("#homeMenuPanel")?.hidden, true);
+});
+
 function assertHomeNavIndicator(trigger, destination, iconName) {
   const badges = trigger.querySelectorAll(".app-nav-submenu-icon");
   const primaryIcon = trigger.querySelector(".app-nav-icon-img");
@@ -178,6 +264,46 @@ function assertHomeNavIndicator(trigger, destination, iconName) {
   assert.equal(trigger.title, destination === "home" ? "Open Home" : `Open Home, ${sectionLabel}`);
   return badge;
 }
+
+test("Home audio controls reuse global mute and speed, and dismiss on Escape or outside click", () => {
+  const harness = createBrowserHarness({ course: fixtureCourse(), localStorageValues: { "caatuu.speech.muted.v1": "true" } });
+  const menu = harness.document.createElement("details");
+  menu.id = "setupAudioMenu";
+  const summary = harness.document.createElement("summary");
+  const panel = harness.document.createElement("div");
+  panel.id = "setupAudioControls";
+  const mute = harness.document.createElement("button");
+  mute.dataset.speechMuteToggle = "";
+  const speed = harness.document.createElement("input");
+  speed.dataset.speechPaceSlider = "";
+  panel.append(mute, speed);
+  for (const [name, tag] of [["Voice", "select"], ["VoiceStatus", "small"]]) {
+    const control = harness.document.createElement(tag);
+    control.dataset.speechControl = name;
+    panel.append(control);
+  }
+  menu.append(summary, panel);
+  harness.document.body.append(menu);
+  runChrome(harness);
+  assert.equal(mute.getAttribute("aria-checked"), "true");
+  assert.equal(panel.dataset.speechVoiceBound, "true");
+  speed.value = "2";
+  speed.dispatchEvent({ type: "input", target: speed });
+  assert.equal(harness.localStorage.getItem("caatuu.speech.pace.v1"), "normal");
+  harness.document.dispatchEvent({ type: "click", target: mute });
+  assert.equal(harness.window.CaatuuChrome.getSpeechMuted(), false);
+  harness.window.CaatuuChrome.setSpeechMuted(true);
+  menu.open = true;
+  menu.dispatchEvent({ type: "toggle" });
+  harness.document.dispatchEvent({ type: "click", target: mute });
+  assert.equal(menu.open, true, "inside controls keep their menu open");
+  harness.document.dispatchEvent({ type: "keydown", key: "Escape" });
+  assert.equal(menu.open, false);
+  assert.equal(harness.document.activeElement, summary);
+  menu.open = true;
+  harness.document.dispatchEvent({ type: "click", target: harness.document.body });
+  assert.equal(menu.open, false);
+});
 
 test("stored appearance is applied and real controls persist immediate changes", () => {
   const systemThemes = [];
@@ -620,6 +746,29 @@ test("opening Games over Backpack preserves the current screen until selection",
   assert.equal(localGameClicks, 1);
 });
 
+test("the shared chooser opens the declared Sounds Quasar game", () => {
+  const course = fixtureCourse();
+  course.games = ["sound-quasar"];
+  course.upcomingGames = ["memory-moon"];
+  course.capabilities.speech = true;
+  course.routes.soundQuasar = "/language-runtime/static/games/sound-quasar.html";
+  const { document, nav } = executeChromeWithHomeMenu({ course, policy: shellPolicy });
+  const localTarget = document.createElement("button");
+  localTarget.dataset.trainTab = "sound-quasar";
+  let selections = 0;
+  localTarget.addEventListener("click", () => { selections += 1; });
+  document.body.append(localTarget);
+  nav.querySelector('[data-nav-key="games"]').click();
+  const option = document.querySelector('[data-game-menu-target="sound-quasar"]');
+  assert.equal(option.disabled, false);
+  assert.equal(option.dataset.gameState, "playable");
+  assert.equal(option.classList.contains("is-upcoming"), false);
+  assert.equal(option.querySelector("strong").textContent, "Sounds Quasar");
+  option.click();
+  assert.equal(selections, 1);
+  assert.equal(document.querySelector("#gamesMenuPanel").hidden, true);
+  assert.equal(nav.querySelector('[data-nav-key="games"]').dataset.activeGame, "sound-quasar");
+});
 test("the shared game chooser presents Sounds Quasar as a disabled coming-later planet", () => {
   const course = fixtureCourse();
   course.games = ["word-net"];
@@ -642,6 +791,52 @@ test("the shared game chooser presents Sounds Quasar as a disabled coming-later 
   assert.match(option.querySelector("img").src, /\/assets\/planets\/sounds-quasar\.png$/u);
 });
 
+test("old game identities keep one presentation and are saved canonically on selection", () => {
+  const course = fixtureCourse();
+  course.games = ["grammar-gravity"];
+  course.linguisticFeatures = ["grammatical-agreement"];
+  course.routes.grammarGravity = "/language-runtime/static/games/grammar-gravity.html";
+  const key = `${course.storage.namespace}.navigation.active-game.v1`;
+  const harness = createBrowserHarness({
+    course,
+    localStorageValues: { [key]: "agreement-aurora" },
+    window: { CaatuuShellPolicy: shellPolicy }
+  });
+  const nav = harness.document.createElement("nav");
+  nav.dataset.caatuuBottomNav = "";
+  nav.dataset.activeSection = "games";
+  // Build the menu tree explicitly: the light DOM harness does not parse
+  // innerHTML, and globally registered detached options are not visible items.
+  const panel = harness.document.createElement("div");
+  panel.id = "gamesMenuPanel";
+  panel.className = "games-menu-backdrop";
+  panel.hidden = true;
+  const grid = harness.document.createElement("nav");
+  grid.className = "games-menu-grid";
+  panel.append(grid);
+  harness.document.body.append(nav, panel);
+  runChrome(harness);
+
+  const presentation = harness.window.CaatuuChrome.gamePresentation("agreement-aurora");
+  assert.equal(presentation.title, "Grammar Gravity");
+  assert.equal(presentation.titleId, "games.grammargravity.title");
+  assert.equal(presentation.iconSrc, "/assets/planets/grammar-gravity.png?v=agreement-aurora-art-2");
+  const trigger = nav.querySelector('[data-nav-key="games"]');
+  assert.equal(trigger.dataset.activeGame, undefined,
+    "an old preference must not imply an active planet while the launchpad is visible");
+  assert.equal(harness.localStorage.getItem(key), "agreement-aurora",
+    "rendering the selector must not rewrite a preference");
+  trigger.click();
+  const menu = harness.document.querySelector(".games-menu-grid");
+  assert.equal(menu.querySelectorAll('[data-game-menu-target="grammar-gravity"]').length, 1);
+  assert.equal(menu.querySelector('[data-game-menu-target="agreement-aurora"]'), null);
+  menu.querySelector('[data-game-menu-target="grammar-gravity"]').click();
+  assert.equal(trigger.dataset.activeGame, "grammar-gravity");
+  assert.equal(harness.localStorage.getItem(key), "grammar-gravity");
+  assert.equal(harness.sessionStorage.getItem(`${course.storage.namespace}.navigation.request.v1`),
+    "game:grammar-gravity");
+});
+
 test("game presentations and visible course names derive from the interface catalog locale", () => {
   const interfaceContent = createInterfaceContent({
     ...englishInterfaceCatalog,
@@ -650,7 +845,9 @@ test("game presentations and visible course names derive from the interface cata
     messages: {
       ...englishInterfaceCatalog.messages,
       "games.wordworld.summary": "Significados y conexiones",
-      "games.wordworld.title": "Mundo de palabras"
+      "games.wordworld.title": "Mundo de palabras",
+      "languages.cs": "checo revisado",
+      "languages.en": "inglés revisado"
     }
   });
   const course = fixtureCourse();
@@ -666,9 +863,8 @@ test("game presentations and visible course names derive from the interface cata
 
   runChrome(harness, interfaceContent);
 
-  const languageNames = new Intl.DisplayNames(["es-ES"], { type: "language", fallback: "none" });
-  const englishName = languageNames.of("en");
-  const czechName = languageNames.of("cs");
+  const englishName = "inglés revisado";
+  const czechName = "checo revisado";
   const presentation = harness.window.CaatuuChrome.gamePresentation("word-net");
   assert.equal(presentation.title, "Mundo de palabras");
   assert.equal(presentation.summary, "Significados y conexiones");
@@ -681,6 +877,82 @@ test("game presentations and visible course names derive from the interface cata
   assert.match(currentOption.textContent, /Čeština/u, "the explicit target autonym remains visible");
   assert.match(currentOption.textContent, new RegExp(czechName, "u"));
   assert.match(currentOption.getAttribute("aria-label"), new RegExp(czechName, "u"));
+});
+
+test("translated plain text remains literal in HTML templates and DOM properties", () => {
+  const quoted = 'Abrir "Mis objetos" & <recuerdos>';
+  const title = 'Mochila <viajera> & "amiga"';
+  const translated = createInterfaceContent({
+    ...englishInterfaceCatalog,
+    locale: "es",
+    revision: "interface-es-test-1",
+    messages: {
+      ...englishInterfaceCatalog.messages,
+      "settings.backpack.openitems": quoted,
+      "nav.backpack": title,
+      "games.wordworld.title": title
+    }
+  });
+  const harness = createBrowserHarness({ course: fixtureCourse() });
+  runChrome(harness, translated);
+  const panel = harness.document.createElement("div");
+  harness.window.CaatuuChrome.renderSettingsPanel(panel);
+
+  assert.ok(panel.innerHTML.includes('aria-label="Abrir &quot;Mis objetos&quot; &amp; &lt;recuerdos&gt;"'));
+  assert.ok(panel.innerHTML.includes('title="Abrir &quot;Mis objetos&quot; &amp; &lt;recuerdos&gt;"'));
+  assert.ok(panel.innerHTML.includes('<h2 id="settingsTitle">Mochila &lt;viajera&gt; &amp; &quot;amiga&quot;</h2>'));
+  assert.ok(panel.innerHTML.includes('<img src="/assets/icons/backpack_icon.png"'), "the shared layout remains HTML");
+  assert.doesNotMatch(panel.innerHTML, /<(?:viajera|recuerdos)>/u);
+  assert.equal(harness.window.CaatuuChrome.gamePresentation("word-net").title, title,
+    "textContent/setAttribute consumers receive plain translated text without HTML entities");
+});
+
+test("visible streak units refresh plural forms for current and best counts", () => {
+  const streak = { currentDays: 1, highestDays: 2, remindersEnabled: false };
+  const summary = { activities: 0, activeGames: 0, accuracy: null, rounds: 0, xp: 0 };
+  const learning = {
+    difficultyLevels: [],
+    snapshot: () => ({
+      difficulty: 1,
+      difficultyOption: { label: "Explorer", summary: "" },
+      journey: { summary },
+      streak,
+      summary
+    })
+  };
+  const translated = createInterfaceContent({
+    ...englishInterfaceCatalog,
+    locale: "es",
+    revision: "interface-es-test-1",
+    messages: {
+      ...englishInterfaceCatalog.messages,
+      "progress.streak.dayword": { one: "día", other: "días" }
+    }
+  });
+  const harness = createBrowserHarness({
+    course: fixtureCourse(),
+    window: { CaatuuLearning: learning }
+  });
+  const currentUnit = harness.document.createElement("span");
+  currentUnit.dataset.caatuuStreakUnit = "current";
+  const bestUnit = harness.document.createElement("span");
+  bestUnit.dataset.caatuuStreakUnit = "best";
+  harness.document.body.append(currentUnit, bestUnit);
+  runChrome(harness, translated);
+  assert.equal(currentUnit.textContent, "día");
+  assert.equal(bestUnit.textContent, "días");
+
+  streak.currentDays = 2;
+  streak.highestDays = 1;
+  harness.window.dispatchEvent(new harness.window.CustomEvent("caatuu:learning-change"));
+  assert.equal(currentUnit.textContent, "días");
+  assert.equal(bestUnit.textContent, "día");
+
+  const panel = harness.document.createElement("div");
+  harness.window.CaatuuChrome.renderSettingsPanel(panel);
+  assert.match(panel.innerHTML, /data-caatuu-streak-unit="current"/u);
+  assert.match(panel.innerHTML, /data-caatuu-streak-unit="best"/u);
+  harness.window.dispatchEvent({ type: "pagehide" });
 });
 
 test("opening Home over Backpack preserves the current screen until selection", () => {
@@ -781,7 +1053,7 @@ test("the Games header stays on the launchpad and only opens the game chooser", 
 test("the Backpack header icon is an Items shortcut", () => {
   assert.match(
     chromeSource,
-    /<button class="settings-brand-mark" type="button" data-settings-view="items" aria-label="\$\{interfaceMessage\("settings\.backpack\.openitems"\)\}" aria-controls="itemsViewPanel"/u
+    /<button class="settings-brand-mark" type="button" data-settings-view="items" aria-label="\$\{interfaceHtml\("settings\.backpack\.openitems"\)\}" aria-controls="itemsViewPanel"/u
   );
 
   const harness = executeChrome();

@@ -11,19 +11,19 @@ const setupUrl = new URL(
   repositoryRoot,
 );
 const artworkUrl = new URL(
-  "apps/launcher/static/assets/planets/agreement-aurora.png",
+  "apps/launcher/static/assets/planets/grammar-gravity.png",
   repositoryRoot,
 );
 const validatorUrl = new URL(
   "apps/android/tooling/validate-product-package.mjs",
   repositoryRoot,
 );
-const expectedRemoteUrl = "/assets/planets/releases/5fe5c25467d51dbe/agreement-aurora.png";
-const expectedLocalPath = "assets/planets/agreement-aurora.png";
-const expectedBytes = 1_258_690;
-const expectedSha256 = "5fe5c25467d51dbec0c7e6600f187a685ccb0d42c34a47c3d1a737d2b6051966";
+const expectedRemoteUrl = "/assets/planets/releases/57561da01036cfce/agreement-aurora.png";
+const expectedLocalPath = "assets/planets/grammar-gravity.png";
+const expectedBytes = 1_003_117;
+const expectedSha256 = "57561da01036cfce901243a4a4ea8a9cee25b34c089a324a76a64d85d4663c6d";
 
-test("release 163 uses immutable Agreement Aurora download bytes without changing its APK-local path", async () => {
+test("Grammar Gravity retains immutable download bytes with its renamed APK-local path", async () => {
   const source = await readFile(setupUrl, "utf8");
   const transformed = JSON.parse(transformSetupAssets(source));
   const matches = transformed.artifacts.filter(

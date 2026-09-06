@@ -137,8 +137,8 @@ The ordinary Android product builder retains the stricter local-file check.
 | Current web and Android release 163 | `/assets/planets/releases/5fe5c25467d51dbe/agreement-aurora.png` | 1,258,690 | `5fe5c25467d51dbec0c7e6600f187a685ccb0d42c34a47c3d1a737d2b6051966` |
 
 The Android product transform changes only the current artwork's remote setup
-URL. Its APK-local `asset_path` remains
-`assets/planets/agreement-aurora.png`. The Pages builder copies the current
+URL. New builds use the renamed APK-local `asset_path`
+`assets/planets/grammar-gravity.png`. Previously published APKs retain their original local path. The Pages builder copies the current
 bytes first, rewrites the current web setup URL without changing that local
 path, and overlays the frozen release-162 bytes at the unversioned URL last.
 

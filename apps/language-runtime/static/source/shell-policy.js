@@ -107,17 +107,24 @@
         )]),
         campaignEligible: true
       }),
-      "agreement-aurora": Object.freeze({
-        id: "agreement-aurora",
-        route: "agreementAurora",
-        sharedHost: "/language-runtime/static/games/agreement-aurora.html",
+      "grammar-gravity": Object.freeze({
+        id: "grammar-gravity",
+        route: "grammarGravity",
+        sharedHost: "/language-runtime/static/games/grammar-gravity.html",
         capabilities: Object.freeze([]),
         linguisticFeatures: Object.freeze(["grammatical-agreement"]),
-        resources: Object.freeze([presentCourseFile(
-          "agreementAuroraCatalog",
-          "static/data/games/agreement-aurora/challenges.json",
-          "agreement-aurora-items-v1"
-        )]),
+        resources: Object.freeze([
+          presentCourseFile(
+            "grammarGravityCatalog",
+            "static/data/games/grammar-gravity/challenges.json",
+            "grammar-gravity-items-v1"
+          ),
+          presentCourseFile(
+            "grammarGravityNouns",
+            "static/data/games/grammar-gravity/nouns.json",
+            "grammar-gravity-nouns-v1"
+          )
+        ]),
         campaignEligible: true,
         learnerBasePresentationContract: "authored-game-three-role-v1"
       }),
@@ -144,13 +151,16 @@
       "sound-quasar": Object.freeze({
         id: "sound-quasar",
         route: "soundQuasar",
-        // Sounds Quasar has shared presentation, but no reviewed content or
-        // gameplay contract yet. Promotion requires changing this registry
-        // gate only after that implementation exists.
-        implementationState: "unimplemented",
+        sharedHost: "/language-runtime/static/games/sound-quasar.html",
+        implementationState: "implemented",
         capabilities: Object.freeze(["speech"]),
         linguisticFeatures: Object.freeze([]),
-        resources: Object.freeze([]),
+        resources: Object.freeze([presentCourseFile(
+          "soundQuasarCatalog",
+          "static/data/games/sound-quasar/challenges.json",
+          "sound-quasar-items-v2"
+        )]),
+        learnerBasePresentationContract: "authored-game-three-role-v1",
         campaignEligible: false
       })
     })
@@ -162,6 +172,16 @@
     (gameId) => NON_CAMPAIGN_GAME_REGISTRY[gameId].campaignEligible
   ));
   const GAME_IDS = Object.freeze([PLANET_GAME_CONTRACT.campaign.id, ...NON_CAMPAIGN_GAME_IDS]);
+
+  // Accept an old bookmark or persisted selection without registering a second
+  // planet. Course manifests and campaign queues use canonical identities only.
+  function normalizeGameId(value) {
+    const gameId = typeof value === "string" ? value.trim() : "";
+    return gameId === "agreement-aurora" || gameId === "triangular-thermosphere"
+      ? "grammar-gravity"
+      : gameId;
+  }
+
   const LOCAL_AI_FEATURES = new Set(["generation", "chat"]);
   const LOCAL_AI_DISABLED_MESSAGE = "Local AI is currently disabled in this app. No model will be downloaded or loaded.";
   const LOCAL_AI_UNSUPPORTED_MESSAGE = "Local AI is not available for this course. These controls are disabled, and no generation model will be downloaded or loaded.";
@@ -250,7 +270,7 @@
   }
 
   function isGameAvailable(gameId, courseOrCapabilities) {
-    const normalizedId = typeof gameId === "string" ? gameId.trim() : "";
+    const normalizedId = normalizeGameId(gameId);
     if (!GAME_IDS.includes(normalizedId)) return false;
     return deriveGameAvailability(courseOrCapabilities)[normalizedId] === true;
   }
@@ -265,7 +285,7 @@
   }
 
   function gameState(courseOrCapabilities, gameId) {
-    const normalizedId = typeof gameId === "string" ? gameId.trim() : "";
+    const normalizedId = normalizeGameId(gameId);
     if (!GAME_IDS.includes(normalizedId)) return "hidden";
     if (isGameAvailable(normalizedId, courseOrCapabilities)) return "playable";
     if (
@@ -405,6 +425,7 @@
     NON_CAMPAIGN_GAME_IDS,
     CAMPAIGN_GAME_IDS,
     GAME_IDS,
+    normalizeGameId,
     SETTINGS_SECTION_REGISTRY,
     deriveGameAvailability,
     isGameAvailable,

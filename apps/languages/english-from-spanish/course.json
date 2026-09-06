@@ -1,0 +1,212 @@
+{
+  "$schema": "../../../tools/language-packs/schemas/course-pack.v1.schema.json",
+  "schemaVersion": 1,
+  "id": "es-en",
+  "directoryName": "english-from-spanish",
+  "status": "development",
+  "brandLabel": "Caatuu",
+  "workspaceLabel": "Caatuu Inglés",
+  "routePrefix": "/es-en",
+  "entryPath": "/es-en/index.html",
+  "sourceLanguage": {
+    "id": "es",
+    "label": "Spanish",
+    "nativeLabel": "Español",
+    "shortCode": "ES",
+    "locale": "es-ES",
+    "direction": "ltr",
+    "flagClass": "spain-flag",
+    "flagSrc": "/assets/icons/spain_flag.png"
+  },
+  "targetLanguage": {
+    "id": "en",
+    "label": "English",
+    "nativeLabel": "English",
+    "shortCode": "EN",
+    "locale": "en-US",
+    "script": "Latn",
+    "speechLocale": "en-US",
+    "direction": "ltr",
+    "flagClass": "en-flag",
+    "flagSrc": "/assets/icons/english_flag.png"
+  },
+  "linguisticFeatures": [
+    "verb-conjugation",
+    "grammatical-agreement"
+  ],
+  "games": [
+    "word-net",
+    "conjugation-comet",
+    "grammar-gravity",
+    "sound-quasar"
+  ],
+  "upcomingGames": [],
+  "launcher": {
+    "flagClass": "flag-icon"
+  },
+  "routes": {
+    "soundQuasar": "/language-runtime/static/games/sound-quasar.html",
+    "languageSelection": "/",
+    "home": "index.html",
+    "games": "index.html",
+    "wordWorld": "index.html?game=word-net",
+    "conjugationComet": "/language-runtime/static/games/conjugation-comet.html",
+    "grammarGravity": "/language-runtime/static/games/grammar-gravity.html",
+    "settings": "index.html"
+  },
+  "storage": {
+    "namespace": "caatuu-es-en",
+    "theme": "caatuu-es-en.theme",
+    "fontSize": "caatuu-es-en.font-size",
+    "learningPreferences": "caatuu-es-en.learning.preferences.v1",
+    "learningPerformance": "caatuu-es-en.learning.performance.v1",
+    "semanticLearningDatabase": "caatuu-es-en.semantic-learning",
+    "verbMemory": "caatuu-es-en.verb-memory.v3",
+    "wordWorldTranslationMode": "caatuu-es-en.word-world.translation-mode",
+    "wordWorldRecentSentences": "caatuu-es-en.word-world.recent-sentences.v1"
+  },
+  "cache": {
+    "prefix": "caatuu-es-en-pwa-",
+    "setupFallback": "caatuu-es-en-setup-v1"
+  },
+  "publication": {
+    "contract": "language-content-v1",
+    "concepts": "apps/languages/shared/english-concepts/word-world-starter-v1.json",
+    "realizations": "apps/languages/english-from-spanish/content/word-world/starter-v1.realizations.json",
+    "learnerBaseRealizations": "apps/languages/shared/learner-base-realizations/es-ES/word-world-starter-v1.json",
+    "runtimeProjection": {
+      "policyId": "english-american-word-world-v1",
+      "conceptsRuntime": "apps/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
+      "targetRealizationsRuntime": "apps/languages/english-from-spanish/static/data/games/word-world/starter-v1.realizations.json",
+      "learnerBaseRuntime": "apps/languages/english-from-spanish/static/data/games/word-world/starter-v1.es-base.json",
+      "supplementalOutputs": {},
+      "manifest": "apps/languages/english-from-spanish/static/data/games/word-world/manifest.json"
+    }
+  },
+  "capabilities": {
+    "llm": false,
+    "generation": false,
+    "chat": false,
+    "embeddings": true,
+    "semanticSearch": true,
+    "skillCompass": false,
+    "dictionary": false,
+    "memory": false,
+    "verbs": false,
+    "wordWorld": true,
+    "conjugationComet": true,
+    "offlineModels": false,
+    "speech": true,
+    "pronunciationGuides": false
+  },
+  "skillCompass": null,
+  "platforms": {
+    "browser": {
+      "enabled": true,
+      "pagesEnabled": false,
+      "entryPath": "/es-en/index.html",
+      "backend": "static"
+    },
+    "android": {
+      "enabled": false,
+      "channels": []
+    }
+  },
+  "resources": {
+    "soundQuasarCatalog": {
+      "kind": "file",
+      "path": "apps/languages/english-from-spanish/static/data/games/sound-quasar/challenges.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "sound-quasar-items-v2"
+    },
+    "staticRoot": {
+      "kind": "directory",
+      "path": "apps/languages/english-from-spanish/static",
+      "scope": "course",
+      "state": "present"
+    },
+    "appEntry": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/app/index.html",
+      "scope": "shared",
+      "state": "present"
+    },
+    "interfaceCatalog": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/data/interface/es.v1.json",
+      "scope": "shared",
+      "state": "present",
+      "revision": "interface-es-2"
+    },
+    "courseProfile": {
+      "kind": "file",
+      "path": "apps/languages/english-from-spanish/static/source/shared/course-profile.js",
+      "scope": "course",
+      "state": "present"
+    },
+    "languageAdapter": {
+      "kind": "file",
+      "path": "apps/languages/english-from-spanish/static/source/language/adapter.mjs",
+      "scope": "course",
+      "state": "present"
+    },
+    "webManifest": {
+      "kind": "file",
+      "path": "apps/languages/english-from-spanish/static/manifest.webmanifest",
+      "scope": "course",
+      "state": "present"
+    },
+    "setupCatalog": {
+      "kind": "file",
+      "path": "apps/languages/english-from-spanish/static/setup-assets.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "sourceLanguageFlag": {
+      "kind": "file",
+      "path": "apps/launcher/static/assets/icons/spain_flag.png",
+      "scope": "shared",
+      "state": "present"
+    },
+    "embeddingCatalog": {
+      "kind": "file",
+      "path": "apps/languages/english-from-spanish/static/data/embeddings/catalog.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "wordWorldManifest": {
+      "kind": "file",
+      "path": "apps/languages/english-from-spanish/static/data/games/word-world/manifest.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "conjugationCometCatalog": {
+      "kind": "file",
+      "path": "apps/languages/english-from-spanish/static/data/games/conjugation-comet/verbs.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "conjugation-comet-content-1"
+    },
+    "grammarGravityCatalog": {
+      "kind": "file",
+      "path": "apps/languages/english-from-spanish/static/data/games/grammar-gravity/challenges.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "grammar-gravity-content-2"
+    },
+    "grammarGravityNouns": {
+      "kind": "file",
+      "path": "apps/languages/english-from-spanish/static/data/games/grammar-gravity/nouns.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "grammar-gravity-nouns-1"
+    },
+    "launcherFlag": {
+      "kind": "file",
+      "path": "apps/launcher/static/assets/icons/english_flag.png",
+      "scope": "shared",
+      "state": "present"
+    }
+  }
+}

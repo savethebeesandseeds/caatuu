@@ -1,7 +1,10 @@
+import { englishAmericanContentPolicy } from "./english-american.mjs";
 import { mandarinSimplifiedContentPolicy } from "./mandarin-simplified.mjs";
 import { spanishSpainContentPolicy } from "./spanish-spain.mjs";
 
 const POLICIES = new Map([
+  [englishAmericanContentPolicy.id, englishAmericanContentPolicy],
+
   [mandarinSimplifiedContentPolicy.id, mandarinSimplifiedContentPolicy],
   [spanishSpainContentPolicy.id, spanishSpainContentPolicy]
 ]);

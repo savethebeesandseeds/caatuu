@@ -1,0 +1,3193 @@
+{
+  "schemaVersion": "caatuu-grammar-gravity-content-v3",
+  "courseId": "cz",
+  "gameId": "grammar-gravity",
+  "contentId": "cz.agreement-aurora.legacy-v1",
+  "contentRevision": 2,
+  "status": "legacy-development-content",
+  "learnerBaseLanguage": "en",
+  "targetLanguage": "cs-CZ",
+  "englishAuditLanguage": "en",
+  "review": {
+    "status": "native-review-required",
+    "reviewer": null,
+    "reviewedAt": null,
+    "notes": "Legacy authored course content normalized for the shared Grammar Gravity renderer; qualified language review remains required."
+  },
+  "license": {
+    "origin": "caatuu-legacy-first-party-authored",
+    "status": "legacy-review-required",
+    "spdxExpression": null,
+    "notes": "Preserved legacy course content; release clearance remains governed by the owning course."
+  },
+  "presentation": {
+    "errorTitle": "Grammar Gravity could not load",
+    "errorDetail": "Return to the planets and try opening it again.",
+    "backLabel": "Back to games"
+  },
+  "axes": [
+    {
+      "id": "masculine",
+      "label": "Masculine",
+      "features": {
+        "gender": "masculine"
+      }
+    },
+    {
+      "id": "feminine",
+      "label": "Feminine",
+      "features": {
+        "gender": "feminine"
+      }
+    },
+    {
+      "id": "neuter",
+      "label": "Neuter",
+      "features": {
+        "gender": "neuter"
+      }
+    }
+  ],
+  "challenges": [
+    {
+      "id": "cz.agreement.novy",
+      "revision": 1,
+      "difficulty": 1,
+      "focus": {
+        "kind": "adjective",
+        "label": "Adjective: nový",
+        "targetText": "nový",
+        "resultTitle": "3 agreement forms of nový",
+        "summary": "nový changes across the authored masculine, feminine, neuter forms."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "nový",
+          "examples": [
+            {
+              "id": "cz.agreement.novy.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "new house",
+              "englishAuditText": "new house",
+              "targetText": "nový dům",
+              "slot": {
+                "beforeText": "",
+                "afterText": " dům"
+              },
+              "anchor": {
+                "targetText": "dům",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              }
+            },
+            {
+              "id": "cz.agreement.novy.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "new phone",
+              "englishAuditText": "new phone",
+              "targetText": "nový telefon",
+              "slot": {
+                "beforeText": "",
+                "afterText": " telefon"
+              },
+              "anchor": {
+                "targetText": "telefon",
+                "learnerBaseText": "phone",
+                "englishAuditText": "phone"
+              }
+            },
+            {
+              "id": "cz.agreement.novy.masculine.3",
+              "revision": 1,
+              "learnerBaseText": "new student",
+              "englishAuditText": "new student",
+              "targetText": "nový student",
+              "slot": {
+                "beforeText": "",
+                "afterText": " student"
+              },
+              "anchor": {
+                "targetText": "student",
+                "learnerBaseText": "student",
+                "englishAuditText": "student"
+              }
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "nová",
+          "examples": [
+            {
+              "id": "cz.agreement.novy.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "new book",
+              "englishAuditText": "new book",
+              "targetText": "nová kniha",
+              "slot": {
+                "beforeText": "",
+                "afterText": " kniha"
+              },
+              "anchor": {
+                "targetText": "kniha",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              }
+            },
+            {
+              "id": "cz.agreement.novy.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "new school",
+              "englishAuditText": "new school",
+              "targetText": "nová škola",
+              "slot": {
+                "beforeText": "",
+                "afterText": " škola"
+              },
+              "anchor": {
+                "targetText": "škola",
+                "learnerBaseText": "school",
+                "englishAuditText": "school"
+              }
+            },
+            {
+              "id": "cz.agreement.novy.feminine.3",
+              "revision": 1,
+              "learnerBaseText": "new question",
+              "englishAuditText": "new question",
+              "targetText": "nová otázka",
+              "slot": {
+                "beforeText": "",
+                "afterText": " otázka"
+              },
+              "anchor": {
+                "targetText": "otázka",
+                "learnerBaseText": "question",
+                "englishAuditText": "question"
+              }
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "nové",
+          "examples": [
+            {
+              "id": "cz.agreement.novy.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "new city",
+              "englishAuditText": "new city",
+              "targetText": "nové město",
+              "slot": {
+                "beforeText": "",
+                "afterText": " město"
+              },
+              "anchor": {
+                "targetText": "město",
+                "learnerBaseText": "city",
+                "englishAuditText": "city"
+              }
+            },
+            {
+              "id": "cz.agreement.novy.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "new car",
+              "englishAuditText": "new car",
+              "targetText": "nové auto",
+              "slot": {
+                "beforeText": "",
+                "afterText": " auto"
+              },
+              "anchor": {
+                "targetText": "auto",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              }
+            },
+            {
+              "id": "cz.agreement.novy.neuter.3",
+              "revision": 1,
+              "learnerBaseText": "new window",
+              "englishAuditText": "new window",
+              "targetText": "nové okno",
+              "slot": {
+                "beforeText": "",
+                "afterText": " okno"
+              },
+              "anchor": {
+                "targetText": "okno",
+                "learnerBaseText": "window",
+                "englishAuditText": "window"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "cz.agreement.maly",
+      "revision": 1,
+      "difficulty": 1,
+      "focus": {
+        "kind": "adjective",
+        "label": "Adjective: malý",
+        "targetText": "malý",
+        "resultTitle": "3 agreement forms of malý",
+        "summary": "malý changes across the authored masculine, feminine, neuter forms."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "malý",
+          "examples": [
+            {
+              "id": "cz.agreement.maly.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "small table",
+              "englishAuditText": "small table",
+              "targetText": "malý stůl",
+              "slot": {
+                "beforeText": "",
+                "afterText": " stůl"
+              },
+              "anchor": {
+                "targetText": "stůl",
+                "learnerBaseText": "table",
+                "englishAuditText": "table"
+              }
+            },
+            {
+              "id": "cz.agreement.maly.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "small dog",
+              "englishAuditText": "small dog",
+              "targetText": "malý pes",
+              "slot": {
+                "beforeText": "",
+                "afterText": " pes"
+              },
+              "anchor": {
+                "targetText": "pes",
+                "learnerBaseText": "dog",
+                "englishAuditText": "dog"
+              }
+            },
+            {
+              "id": "cz.agreement.maly.masculine.3",
+              "revision": 1,
+              "learnerBaseText": "small shop",
+              "englishAuditText": "small shop",
+              "targetText": "malý obchod",
+              "slot": {
+                "beforeText": "",
+                "afterText": " obchod"
+              },
+              "anchor": {
+                "targetText": "obchod",
+                "learnerBaseText": "shop",
+                "englishAuditText": "shop"
+              }
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "malá",
+          "examples": [
+            {
+              "id": "cz.agreement.maly.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "small bag",
+              "englishAuditText": "small bag",
+              "targetText": "malá taška",
+              "slot": {
+                "beforeText": "",
+                "afterText": " taška"
+              },
+              "anchor": {
+                "targetText": "taška",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              }
+            },
+            {
+              "id": "cz.agreement.maly.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "small garden",
+              "englishAuditText": "small garden",
+              "targetText": "malá zahrada",
+              "slot": {
+                "beforeText": "",
+                "afterText": " zahrada"
+              },
+              "anchor": {
+                "targetText": "zahrada",
+                "learnerBaseText": "garden",
+                "englishAuditText": "garden"
+              }
+            },
+            {
+              "id": "cz.agreement.maly.feminine.3",
+              "revision": 1,
+              "learnerBaseText": "small café",
+              "englishAuditText": "small café",
+              "targetText": "malá kavárna",
+              "slot": {
+                "beforeText": "",
+                "afterText": " kavárna"
+              },
+              "anchor": {
+                "targetText": "kavárna",
+                "learnerBaseText": "café",
+                "englishAuditText": "café"
+              }
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "malé",
+          "examples": [
+            {
+              "id": "cz.agreement.maly.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "small child",
+              "englishAuditText": "small child",
+              "targetText": "malé dítě",
+              "slot": {
+                "beforeText": "",
+                "afterText": " dítě"
+              },
+              "anchor": {
+                "targetText": "dítě",
+                "learnerBaseText": "child",
+                "englishAuditText": "child"
+              }
+            },
+            {
+              "id": "cz.agreement.maly.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "small square",
+              "englishAuditText": "small square",
+              "targetText": "malé náměstí",
+              "slot": {
+                "beforeText": "",
+                "afterText": " náměstí"
+              },
+              "anchor": {
+                "targetText": "náměstí",
+                "learnerBaseText": "square",
+                "englishAuditText": "square"
+              }
+            },
+            {
+              "id": "cz.agreement.maly.neuter.3",
+              "revision": 1,
+              "learnerBaseText": "small bicycle",
+              "englishAuditText": "small bicycle",
+              "targetText": "malé kolo",
+              "slot": {
+                "beforeText": "",
+                "afterText": " kolo"
+              },
+              "anchor": {
+                "targetText": "kolo",
+                "learnerBaseText": "bicycle",
+                "englishAuditText": "bicycle"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "cz.agreement.dobry",
+      "revision": 1,
+      "difficulty": 1,
+      "focus": {
+        "kind": "adjective",
+        "label": "Adjective: dobrý",
+        "targetText": "dobrý",
+        "resultTitle": "3 agreement forms of dobrý",
+        "summary": "dobrý changes across the authored masculine, feminine, neuter forms."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "dobrý",
+          "examples": [
+            {
+              "id": "cz.agreement.dobry.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "good idea",
+              "englishAuditText": "good idea",
+              "targetText": "dobrý nápad",
+              "slot": {
+                "beforeText": "",
+                "afterText": " nápad"
+              },
+              "anchor": {
+                "targetText": "nápad",
+                "learnerBaseText": "idea",
+                "englishAuditText": "idea"
+              }
+            },
+            {
+              "id": "cz.agreement.dobry.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "good film",
+              "englishAuditText": "good film",
+              "targetText": "dobrý film",
+              "slot": {
+                "beforeText": "",
+                "afterText": " film"
+              },
+              "anchor": {
+                "targetText": "film",
+                "learnerBaseText": "film",
+                "englishAuditText": "film"
+              }
+            },
+            {
+              "id": "cz.agreement.dobry.masculine.3",
+              "revision": 1,
+              "learnerBaseText": "good friend",
+              "englishAuditText": "good friend",
+              "targetText": "dobrý přítel",
+              "slot": {
+                "beforeText": "",
+                "afterText": " přítel"
+              },
+              "anchor": {
+                "targetText": "přítel",
+                "learnerBaseText": "friend",
+                "englishAuditText": "friend"
+              }
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "dobrá",
+          "examples": [
+            {
+              "id": "cz.agreement.dobry.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "good news",
+              "englishAuditText": "good news",
+              "targetText": "dobrá zpráva",
+              "slot": {
+                "beforeText": "",
+                "afterText": " zpráva"
+              },
+              "anchor": {
+                "targetText": "zpráva",
+                "learnerBaseText": "news",
+                "englishAuditText": "news"
+              }
+            },
+            {
+              "id": "cz.agreement.dobry.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "good coffee",
+              "englishAuditText": "good coffee",
+              "targetText": "dobrá káva",
+              "slot": {
+                "beforeText": "",
+                "afterText": " káva"
+              },
+              "anchor": {
+                "targetText": "káva",
+                "learnerBaseText": "coffee",
+                "englishAuditText": "coffee"
+              }
+            },
+            {
+              "id": "cz.agreement.dobry.feminine.3",
+              "revision": 1,
+              "learnerBaseText": "good answer",
+              "englishAuditText": "good answer",
+              "targetText": "dobrá odpověď",
+              "slot": {
+                "beforeText": "",
+                "afterText": " odpověď"
+              },
+              "anchor": {
+                "targetText": "odpověď",
+                "learnerBaseText": "answer",
+                "englishAuditText": "answer"
+              }
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "dobré",
+          "examples": [
+            {
+              "id": "cz.agreement.dobry.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "good food",
+              "englishAuditText": "good food",
+              "targetText": "dobré jídlo",
+              "slot": {
+                "beforeText": "",
+                "afterText": " jídlo"
+              },
+              "anchor": {
+                "targetText": "jídlo",
+                "learnerBaseText": "food",
+                "englishAuditText": "food"
+              }
+            },
+            {
+              "id": "cz.agreement.dobry.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "good place",
+              "englishAuditText": "good place",
+              "targetText": "dobré místo",
+              "slot": {
+                "beforeText": "",
+                "afterText": " místo"
+              },
+              "anchor": {
+                "targetText": "místo",
+                "learnerBaseText": "place",
+                "englishAuditText": "place"
+              }
+            },
+            {
+              "id": "cz.agreement.dobry.neuter.3",
+              "revision": 1,
+              "learnerBaseText": "good weather",
+              "englishAuditText": "good weather",
+              "targetText": "dobré počasí",
+              "slot": {
+                "beforeText": "",
+                "afterText": " počasí"
+              },
+              "anchor": {
+                "targetText": "počasí",
+                "learnerBaseText": "weather",
+                "englishAuditText": "weather"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "cz.agreement.cesky",
+      "revision": 1,
+      "difficulty": 1,
+      "focus": {
+        "kind": "adjective",
+        "label": "Adjective: český",
+        "targetText": "český",
+        "resultTitle": "3 agreement forms of český",
+        "summary": "český changes across the authored masculine, feminine, neuter forms."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "český",
+          "examples": [
+            {
+              "id": "cz.agreement.cesky.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "Czech film",
+              "englishAuditText": "Czech film",
+              "targetText": "český film",
+              "slot": {
+                "beforeText": "",
+                "afterText": " film"
+              },
+              "anchor": {
+                "targetText": "film",
+                "learnerBaseText": "film",
+                "englishAuditText": "film"
+              }
+            },
+            {
+              "id": "cz.agreement.cesky.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "Czech language",
+              "englishAuditText": "Czech language",
+              "targetText": "český jazyk",
+              "slot": {
+                "beforeText": "",
+                "afterText": " jazyk"
+              },
+              "anchor": {
+                "targetText": "jazyk",
+                "learnerBaseText": "language",
+                "englishAuditText": "language"
+              }
+            },
+            {
+              "id": "cz.agreement.cesky.masculine.3",
+              "revision": 1,
+              "learnerBaseText": "Czech castle",
+              "englishAuditText": "Czech castle",
+              "targetText": "český hrad",
+              "slot": {
+                "beforeText": "",
+                "afterText": " hrad"
+              },
+              "anchor": {
+                "targetText": "hrad",
+                "learnerBaseText": "castle",
+                "englishAuditText": "castle"
+              }
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "česká",
+          "examples": [
+            {
+              "id": "cz.agreement.cesky.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "Czech music",
+              "englishAuditText": "Czech music",
+              "targetText": "česká hudba",
+              "slot": {
+                "beforeText": "",
+                "afterText": " hudba"
+              },
+              "anchor": {
+                "targetText": "hudba",
+                "learnerBaseText": "music",
+                "englishAuditText": "music"
+              }
+            },
+            {
+              "id": "cz.agreement.cesky.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "Czech book",
+              "englishAuditText": "Czech book",
+              "targetText": "česká kniha",
+              "slot": {
+                "beforeText": "",
+                "afterText": " kniha"
+              },
+              "anchor": {
+                "targetText": "kniha",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              }
+            },
+            {
+              "id": "cz.agreement.cesky.feminine.3",
+              "revision": 1,
+              "learnerBaseText": "Czech village",
+              "englishAuditText": "Czech village",
+              "targetText": "česká vesnice",
+              "slot": {
+                "beforeText": "",
+                "afterText": " vesnice"
+              },
+              "anchor": {
+                "targetText": "vesnice",
+                "learnerBaseText": "village",
+                "englishAuditText": "village"
+              }
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "české",
+          "examples": [
+            {
+              "id": "cz.agreement.cesky.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "Czech word",
+              "englishAuditText": "Czech word",
+              "targetText": "české slovo",
+              "slot": {
+                "beforeText": "",
+                "afterText": " slovo"
+              },
+              "anchor": {
+                "targetText": "slovo",
+                "learnerBaseText": "word",
+                "englishAuditText": "word"
+              }
+            },
+            {
+              "id": "cz.agreement.cesky.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "Czech city",
+              "englishAuditText": "Czech city",
+              "targetText": "české město",
+              "slot": {
+                "beforeText": "",
+                "afterText": " město"
+              },
+              "anchor": {
+                "targetText": "město",
+                "learnerBaseText": "city",
+                "englishAuditText": "city"
+              }
+            },
+            {
+              "id": "cz.agreement.cesky.neuter.3",
+              "revision": 1,
+              "learnerBaseText": "Czech glass",
+              "englishAuditText": "Czech glass",
+              "targetText": "české sklo",
+              "slot": {
+                "beforeText": "",
+                "afterText": " sklo"
+              },
+              "anchor": {
+                "targetText": "sklo",
+                "learnerBaseText": "glass",
+                "englishAuditText": "glass"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "cz.agreement.velky",
+      "revision": 1,
+      "difficulty": 1,
+      "focus": {
+        "kind": "adjective",
+        "label": "Adjective: velký",
+        "targetText": "velký",
+        "resultTitle": "3 agreement forms of velký",
+        "summary": "velký changes across the authored masculine, feminine, neuter forms."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "velký",
+          "examples": [
+            {
+              "id": "cz.agreement.velky.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "large room",
+              "englishAuditText": "large room",
+              "targetText": "velký pokoj",
+              "slot": {
+                "beforeText": "",
+                "afterText": " pokoj"
+              },
+              "anchor": {
+                "targetText": "pokoj",
+                "learnerBaseText": "room",
+                "englishAuditText": "room"
+              }
+            },
+            {
+              "id": "cz.agreement.velky.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "large tree",
+              "englishAuditText": "large tree",
+              "targetText": "velký strom",
+              "slot": {
+                "beforeText": "",
+                "afterText": " strom"
+              },
+              "anchor": {
+                "targetText": "strom",
+                "learnerBaseText": "tree",
+                "englishAuditText": "tree"
+              }
+            },
+            {
+              "id": "cz.agreement.velky.masculine.3",
+              "revision": 1,
+              "learnerBaseText": "big problem",
+              "englishAuditText": "big problem",
+              "targetText": "velký problém",
+              "slot": {
+                "beforeText": "",
+                "afterText": " problém"
+              },
+              "anchor": {
+                "targetText": "problém",
+                "learnerBaseText": "problem",
+                "englishAuditText": "problem"
+              }
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "velká",
+          "examples": [
+            {
+              "id": "cz.agreement.velky.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "large garden",
+              "englishAuditText": "large garden",
+              "targetText": "velká zahrada",
+              "slot": {
+                "beforeText": "",
+                "afterText": " zahrada"
+              },
+              "anchor": {
+                "targetText": "zahrada",
+                "learnerBaseText": "garden",
+                "englishAuditText": "garden"
+              }
+            },
+            {
+              "id": "cz.agreement.velky.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "large family",
+              "englishAuditText": "large family",
+              "targetText": "velká rodina",
+              "slot": {
+                "beforeText": "",
+                "afterText": " rodina"
+              },
+              "anchor": {
+                "targetText": "rodina",
+                "learnerBaseText": "family",
+                "englishAuditText": "family"
+              }
+            },
+            {
+              "id": "cz.agreement.velky.feminine.3",
+              "revision": 1,
+              "learnerBaseText": "large map",
+              "englishAuditText": "large map",
+              "targetText": "velká mapa",
+              "slot": {
+                "beforeText": "",
+                "afterText": " mapa"
+              },
+              "anchor": {
+                "targetText": "mapa",
+                "learnerBaseText": "map",
+                "englishAuditText": "map"
+              }
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "velké",
+          "examples": [
+            {
+              "id": "cz.agreement.velky.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "large window",
+              "englishAuditText": "large window",
+              "targetText": "velké okno",
+              "slot": {
+                "beforeText": "",
+                "afterText": " okno"
+              },
+              "anchor": {
+                "targetText": "okno",
+                "learnerBaseText": "window",
+                "englishAuditText": "window"
+              }
+            },
+            {
+              "id": "cz.agreement.velky.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "large airport",
+              "englishAuditText": "large airport",
+              "targetText": "velké letiště",
+              "slot": {
+                "beforeText": "",
+                "afterText": " letiště"
+              },
+              "anchor": {
+                "targetText": "letiště",
+                "learnerBaseText": "airport",
+                "englishAuditText": "airport"
+              }
+            },
+            {
+              "id": "cz.agreement.velky.neuter.3",
+              "revision": 1,
+              "learnerBaseText": "large lake",
+              "englishAuditText": "large lake",
+              "targetText": "velké jezero",
+              "slot": {
+                "beforeText": "",
+                "afterText": " jezero"
+              },
+              "anchor": {
+                "targetText": "jezero",
+                "learnerBaseText": "lake",
+                "englishAuditText": "lake"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "cz.agreement.stary",
+      "revision": 1,
+      "difficulty": 1,
+      "focus": {
+        "kind": "adjective",
+        "label": "Adjective: starý",
+        "targetText": "starý",
+        "resultTitle": "3 agreement forms of starý",
+        "summary": "starý changes across the authored masculine, feminine, neuter forms."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "starý",
+          "examples": [
+            {
+              "id": "cz.agreement.stary.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "old house",
+              "englishAuditText": "old house",
+              "targetText": "starý dům",
+              "slot": {
+                "beforeText": "",
+                "afterText": " dům"
+              },
+              "anchor": {
+                "targetText": "dům",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              }
+            },
+            {
+              "id": "cz.agreement.stary.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "old bridge",
+              "englishAuditText": "old bridge",
+              "targetText": "starý most",
+              "slot": {
+                "beforeText": "",
+                "afterText": " most"
+              },
+              "anchor": {
+                "targetText": "most",
+                "learnerBaseText": "bridge",
+                "englishAuditText": "bridge"
+              }
+            },
+            {
+              "id": "cz.agreement.stary.masculine.3",
+              "revision": 1,
+              "learnerBaseText": "old phone",
+              "englishAuditText": "old phone",
+              "targetText": "starý telefon",
+              "slot": {
+                "beforeText": "",
+                "afterText": " telefon"
+              },
+              "anchor": {
+                "targetText": "telefon",
+                "learnerBaseText": "phone",
+                "englishAuditText": "phone"
+              }
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "stará",
+          "examples": [
+            {
+              "id": "cz.agreement.stary.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "old book",
+              "englishAuditText": "old book",
+              "targetText": "stará kniha",
+              "slot": {
+                "beforeText": "",
+                "afterText": " kniha"
+              },
+              "anchor": {
+                "targetText": "kniha",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              }
+            },
+            {
+              "id": "cz.agreement.stary.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "old school",
+              "englishAuditText": "old school",
+              "targetText": "stará škola",
+              "slot": {
+                "beforeText": "",
+                "afterText": " škola"
+              },
+              "anchor": {
+                "targetText": "škola",
+                "learnerBaseText": "school",
+                "englishAuditText": "school"
+              }
+            },
+            {
+              "id": "cz.agreement.stary.feminine.3",
+              "revision": 1,
+              "learnerBaseText": "old photograph",
+              "englishAuditText": "old photograph",
+              "targetText": "stará fotografie",
+              "slot": {
+                "beforeText": "",
+                "afterText": " fotografie"
+              },
+              "anchor": {
+                "targetText": "fotografie",
+                "learnerBaseText": "photograph",
+                "englishAuditText": "photograph"
+              }
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "staré",
+          "examples": [
+            {
+              "id": "cz.agreement.stary.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "old car",
+              "englishAuditText": "old car",
+              "targetText": "staré auto",
+              "slot": {
+                "beforeText": "",
+                "afterText": " auto"
+              },
+              "anchor": {
+                "targetText": "auto",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              }
+            },
+            {
+              "id": "cz.agreement.stary.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "old station",
+              "englishAuditText": "old station",
+              "targetText": "staré nádraží",
+              "slot": {
+                "beforeText": "",
+                "afterText": " nádraží"
+              },
+              "anchor": {
+                "targetText": "nádraží",
+                "learnerBaseText": "station",
+                "englishAuditText": "station"
+              }
+            },
+            {
+              "id": "cz.agreement.stary.neuter.3",
+              "revision": 1,
+              "learnerBaseText": "old radio",
+              "englishAuditText": "old radio",
+              "targetText": "staré rádio",
+              "slot": {
+                "beforeText": "",
+                "afterText": " rádio"
+              },
+              "anchor": {
+                "targetText": "rádio",
+                "learnerBaseText": "radio",
+                "englishAuditText": "radio"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "cz.agreement.dlouhy",
+      "revision": 1,
+      "difficulty": 2,
+      "focus": {
+        "kind": "adjective",
+        "label": "Adjective: dlouhý",
+        "targetText": "dlouhý",
+        "resultTitle": "3 agreement forms of dlouhý",
+        "summary": "dlouhý changes across the authored masculine, feminine, neuter forms."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "dlouhý",
+          "examples": [
+            {
+              "id": "cz.agreement.dlouhy.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "long bridge",
+              "englishAuditText": "long bridge",
+              "targetText": "dlouhý most",
+              "slot": {
+                "beforeText": "",
+                "afterText": " most"
+              },
+              "anchor": {
+                "targetText": "most",
+                "learnerBaseText": "bridge",
+                "englishAuditText": "bridge"
+              }
+            },
+            {
+              "id": "cz.agreement.dlouhy.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "long film",
+              "englishAuditText": "long film",
+              "targetText": "dlouhý film",
+              "slot": {
+                "beforeText": "",
+                "afterText": " film"
+              },
+              "anchor": {
+                "targetText": "film",
+                "learnerBaseText": "film",
+                "englishAuditText": "film"
+              }
+            },
+            {
+              "id": "cz.agreement.dlouhy.masculine.3",
+              "revision": 1,
+              "learnerBaseText": "long day",
+              "englishAuditText": "long day",
+              "targetText": "dlouhý den",
+              "slot": {
+                "beforeText": "",
+                "afterText": " den"
+              },
+              "anchor": {
+                "targetText": "den",
+                "learnerBaseText": "day",
+                "englishAuditText": "day"
+              }
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "dlouhá",
+          "examples": [
+            {
+              "id": "cz.agreement.dlouhy.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "long journey",
+              "englishAuditText": "long journey",
+              "targetText": "dlouhá cesta",
+              "slot": {
+                "beforeText": "",
+                "afterText": " cesta"
+              },
+              "anchor": {
+                "targetText": "cesta",
+                "learnerBaseText": "journey",
+                "englishAuditText": "journey"
+              }
+            },
+            {
+              "id": "cz.agreement.dlouhy.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "long street",
+              "englishAuditText": "long street",
+              "targetText": "dlouhá ulice",
+              "slot": {
+                "beforeText": "",
+                "afterText": " ulice"
+              },
+              "anchor": {
+                "targetText": "ulice",
+                "learnerBaseText": "street",
+                "englishAuditText": "street"
+              }
+            },
+            {
+              "id": "cz.agreement.dlouhy.feminine.3",
+              "revision": 1,
+              "learnerBaseText": "long river",
+              "englishAuditText": "long river",
+              "targetText": "dlouhá řeka",
+              "slot": {
+                "beforeText": "",
+                "afterText": " řeka"
+              },
+              "anchor": {
+                "targetText": "řeka",
+                "learnerBaseText": "river",
+                "englishAuditText": "river"
+              }
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "dlouhé",
+          "examples": [
+            {
+              "id": "cz.agreement.dlouhy.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "long morning",
+              "englishAuditText": "long morning",
+              "targetText": "dlouhé ráno",
+              "slot": {
+                "beforeText": "",
+                "afterText": " ráno"
+              },
+              "anchor": {
+                "targetText": "ráno",
+                "learnerBaseText": "morning",
+                "englishAuditText": "morning"
+              }
+            },
+            {
+              "id": "cz.agreement.dlouhy.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "long word",
+              "englishAuditText": "long word",
+              "targetText": "dlouhé slovo",
+              "slot": {
+                "beforeText": "",
+                "afterText": " slovo"
+              },
+              "anchor": {
+                "targetText": "slovo",
+                "learnerBaseText": "word",
+                "englishAuditText": "word"
+              }
+            },
+            {
+              "id": "cz.agreement.dlouhy.neuter.3",
+              "revision": 1,
+              "learnerBaseText": "long wait",
+              "englishAuditText": "long wait",
+              "targetText": "dlouhé čekání",
+              "slot": {
+                "beforeText": "",
+                "afterText": " čekání"
+              },
+              "anchor": {
+                "targetText": "čekání",
+                "learnerBaseText": "wait",
+                "englishAuditText": "wait"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "cz.agreement.mlady",
+      "revision": 1,
+      "difficulty": 2,
+      "focus": {
+        "kind": "adjective",
+        "label": "Adjective: mladý",
+        "targetText": "mladý",
+        "resultTitle": "3 agreement forms of mladý",
+        "summary": "mladý changes across the authored masculine, feminine, neuter forms."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "mladý",
+          "examples": [
+            {
+              "id": "cz.agreement.mlady.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "young male musician",
+              "englishAuditText": "young male musician",
+              "targetText": "mladý hudebník",
+              "slot": {
+                "beforeText": "",
+                "afterText": " hudebník"
+              },
+              "anchor": {
+                "targetText": "hudebník",
+                "learnerBaseText": "male musician",
+                "englishAuditText": "male musician"
+              }
+            },
+            {
+              "id": "cz.agreement.mlady.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "young male teacher",
+              "englishAuditText": "young male teacher",
+              "targetText": "mladý učitel",
+              "slot": {
+                "beforeText": "",
+                "afterText": " učitel"
+              },
+              "anchor": {
+                "targetText": "učitel",
+                "learnerBaseText": "male teacher",
+                "englishAuditText": "male teacher"
+              }
+            },
+            {
+              "id": "cz.agreement.mlady.masculine.3",
+              "revision": 1,
+              "learnerBaseText": "young male doctor",
+              "englishAuditText": "young male doctor",
+              "targetText": "mladý lékař",
+              "slot": {
+                "beforeText": "",
+                "afterText": " lékař"
+              },
+              "anchor": {
+                "targetText": "lékař",
+                "learnerBaseText": "male doctor",
+                "englishAuditText": "male doctor"
+              }
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "mladá",
+          "examples": [
+            {
+              "id": "cz.agreement.mlady.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "young female athlete",
+              "englishAuditText": "young female athlete",
+              "targetText": "mladá sportovkyně",
+              "slot": {
+                "beforeText": "",
+                "afterText": " sportovkyně"
+              },
+              "anchor": {
+                "targetText": "sportovkyně",
+                "learnerBaseText": "female athlete",
+                "englishAuditText": "female athlete"
+              }
+            },
+            {
+              "id": "cz.agreement.mlady.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "young female teacher",
+              "englishAuditText": "young female teacher",
+              "targetText": "mladá učitelka",
+              "slot": {
+                "beforeText": "",
+                "afterText": " učitelka"
+              },
+              "anchor": {
+                "targetText": "učitelka",
+                "learnerBaseText": "female teacher",
+                "englishAuditText": "female teacher"
+              }
+            },
+            {
+              "id": "cz.agreement.mlady.feminine.3",
+              "revision": 1,
+              "learnerBaseText": "young female doctor",
+              "englishAuditText": "young female doctor",
+              "targetText": "mladá lékařka",
+              "slot": {
+                "beforeText": "",
+                "afterText": " lékařka"
+              },
+              "anchor": {
+                "targetText": "lékařka",
+                "learnerBaseText": "female doctor",
+                "englishAuditText": "female doctor"
+              }
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "mladé",
+          "examples": [
+            {
+              "id": "cz.agreement.mlady.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "young kitten",
+              "englishAuditText": "young kitten",
+              "targetText": "mladé kotě",
+              "slot": {
+                "beforeText": "",
+                "afterText": " kotě"
+              },
+              "anchor": {
+                "targetText": "kotě",
+                "learnerBaseText": "kitten",
+                "englishAuditText": "kitten"
+              }
+            },
+            {
+              "id": "cz.agreement.mlady.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "young animal",
+              "englishAuditText": "young animal",
+              "targetText": "mladé zvíře",
+              "slot": {
+                "beforeText": "",
+                "afterText": " zvíře"
+              },
+              "anchor": {
+                "targetText": "zvíře",
+                "learnerBaseText": "animal",
+                "englishAuditText": "animal"
+              }
+            },
+            {
+              "id": "cz.agreement.mlady.neuter.3",
+              "revision": 1,
+              "learnerBaseText": "young puppy",
+              "englishAuditText": "young puppy",
+              "targetText": "mladé štěně",
+              "slot": {
+                "beforeText": "",
+                "afterText": " štěně"
+              },
+              "anchor": {
+                "targetText": "štěně",
+                "learnerBaseText": "puppy",
+                "englishAuditText": "puppy"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "cz.agreement.rychly",
+      "revision": 1,
+      "difficulty": 2,
+      "focus": {
+        "kind": "adjective",
+        "label": "Adjective: rychlý",
+        "targetText": "rychlý",
+        "resultTitle": "3 agreement forms of rychlý",
+        "summary": "rychlý changes across the authored masculine, feminine, neuter forms."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "rychlý",
+          "examples": [
+            {
+              "id": "cz.agreement.rychly.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "fast train",
+              "englishAuditText": "fast train",
+              "targetText": "rychlý vlak",
+              "slot": {
+                "beforeText": "",
+                "afterText": " vlak"
+              },
+              "anchor": {
+                "targetText": "vlak",
+                "learnerBaseText": "train",
+                "englishAuditText": "train"
+              }
+            },
+            {
+              "id": "cz.agreement.rychly.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "fast runner",
+              "englishAuditText": "fast runner",
+              "targetText": "rychlý běžec",
+              "slot": {
+                "beforeText": "",
+                "afterText": " běžec"
+              },
+              "anchor": {
+                "targetText": "běžec",
+                "learnerBaseText": "runner",
+                "englishAuditText": "runner"
+              }
+            },
+            {
+              "id": "cz.agreement.rychly.masculine.3",
+              "revision": 1,
+              "learnerBaseText": "fast computer",
+              "englishAuditText": "fast computer",
+              "targetText": "rychlý počítač",
+              "slot": {
+                "beforeText": "",
+                "afterText": " počítač"
+              },
+              "anchor": {
+                "targetText": "počítač",
+                "learnerBaseText": "computer",
+                "englishAuditText": "computer"
+              }
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "rychlá",
+          "examples": [
+            {
+              "id": "cz.agreement.rychly.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "quick answer",
+              "englishAuditText": "quick answer",
+              "targetText": "rychlá odpověď",
+              "slot": {
+                "beforeText": "",
+                "afterText": " odpověď"
+              },
+              "anchor": {
+                "targetText": "odpověď",
+                "learnerBaseText": "answer",
+                "englishAuditText": "answer"
+              }
+            },
+            {
+              "id": "cz.agreement.rychly.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "fast river",
+              "englishAuditText": "fast river",
+              "targetText": "rychlá řeka",
+              "slot": {
+                "beforeText": "",
+                "afterText": " řeka"
+              },
+              "anchor": {
+                "targetText": "řeka",
+                "learnerBaseText": "river",
+                "englishAuditText": "river"
+              }
+            },
+            {
+              "id": "cz.agreement.rychly.feminine.3",
+              "revision": 1,
+              "learnerBaseText": "fast transport",
+              "englishAuditText": "fast transport",
+              "targetText": "rychlá doprava",
+              "slot": {
+                "beforeText": "",
+                "afterText": " doprava"
+              },
+              "anchor": {
+                "targetText": "doprava",
+                "learnerBaseText": "transport",
+                "englishAuditText": "transport"
+              }
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "rychlé",
+          "examples": [
+            {
+              "id": "cz.agreement.rychly.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "fast car",
+              "englishAuditText": "fast car",
+              "targetText": "rychlé auto",
+              "slot": {
+                "beforeText": "",
+                "afterText": " auto"
+              },
+              "anchor": {
+                "targetText": "auto",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              }
+            },
+            {
+              "id": "cz.agreement.rychly.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "fast connection",
+              "englishAuditText": "fast connection",
+              "targetText": "rychlé spojení",
+              "slot": {
+                "beforeText": "",
+                "afterText": " spojení"
+              },
+              "anchor": {
+                "targetText": "spojení",
+                "learnerBaseText": "connection",
+                "englishAuditText": "connection"
+              }
+            },
+            {
+              "id": "cz.agreement.rychly.neuter.3",
+              "revision": 1,
+              "learnerBaseText": "quick solution",
+              "englishAuditText": "quick solution",
+              "targetText": "rychlé řešení",
+              "slot": {
+                "beforeText": "",
+                "afterText": " řešení"
+              },
+              "anchor": {
+                "targetText": "řešení",
+                "learnerBaseText": "solution",
+                "englishAuditText": "solution"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "cz.agreement.pomaly",
+      "revision": 1,
+      "difficulty": 2,
+      "focus": {
+        "kind": "adjective",
+        "label": "Adjective: pomalý",
+        "targetText": "pomalý",
+        "resultTitle": "3 agreement forms of pomalý",
+        "summary": "pomalý changes across the authored masculine, feminine, neuter forms."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "pomalý",
+          "examples": [
+            {
+              "id": "cz.agreement.pomaly.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "slow bus",
+              "englishAuditText": "slow bus",
+              "targetText": "pomalý autobus",
+              "slot": {
+                "beforeText": "",
+                "afterText": " autobus"
+              },
+              "anchor": {
+                "targetText": "autobus",
+                "learnerBaseText": "bus",
+                "englishAuditText": "bus"
+              }
+            },
+            {
+              "id": "cz.agreement.pomaly.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "slow elevator",
+              "englishAuditText": "slow elevator",
+              "targetText": "pomalý výtah",
+              "slot": {
+                "beforeText": "",
+                "afterText": " výtah"
+              },
+              "anchor": {
+                "targetText": "výtah",
+                "learnerBaseText": "elevator",
+                "englishAuditText": "elevator"
+              }
+            },
+            {
+              "id": "cz.agreement.pomaly.masculine.3",
+              "revision": 1,
+              "learnerBaseText": "slow computer",
+              "englishAuditText": "slow computer",
+              "targetText": "pomalý počítač",
+              "slot": {
+                "beforeText": "",
+                "afterText": " počítač"
+              },
+              "anchor": {
+                "targetText": "počítač",
+                "learnerBaseText": "computer",
+                "englishAuditText": "computer"
+              }
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "pomalá",
+          "examples": [
+            {
+              "id": "cz.agreement.pomaly.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "slow music",
+              "englishAuditText": "slow music",
+              "targetText": "pomalá hudba",
+              "slot": {
+                "beforeText": "",
+                "afterText": " hudba"
+              },
+              "anchor": {
+                "targetText": "hudba",
+                "learnerBaseText": "music",
+                "englishAuditText": "music"
+              }
+            },
+            {
+              "id": "cz.agreement.pomaly.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "slow change",
+              "englishAuditText": "slow change",
+              "targetText": "pomalá změna",
+              "slot": {
+                "beforeText": "",
+                "afterText": " změna"
+              },
+              "anchor": {
+                "targetText": "změna",
+                "learnerBaseText": "change",
+                "englishAuditText": "change"
+              }
+            },
+            {
+              "id": "cz.agreement.pomaly.feminine.3",
+              "revision": 1,
+              "learnerBaseText": "slow traffic",
+              "englishAuditText": "slow traffic",
+              "targetText": "pomalá doprava",
+              "slot": {
+                "beforeText": "",
+                "afterText": " doprava"
+              },
+              "anchor": {
+                "targetText": "doprava",
+                "learnerBaseText": "traffic",
+                "englishAuditText": "traffic"
+              }
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "pomalé",
+          "examples": [
+            {
+              "id": "cz.agreement.pomaly.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "slow car",
+              "englishAuditText": "slow car",
+              "targetText": "pomalé auto",
+              "slot": {
+                "beforeText": "",
+                "afterText": " auto"
+              },
+              "anchor": {
+                "targetText": "auto",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              }
+            },
+            {
+              "id": "cz.agreement.pomaly.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "slow connection",
+              "englishAuditText": "slow connection",
+              "targetText": "pomalé připojení",
+              "slot": {
+                "beforeText": "",
+                "afterText": " připojení"
+              },
+              "anchor": {
+                "targetText": "připojení",
+                "learnerBaseText": "connection",
+                "englishAuditText": "connection"
+              }
+            },
+            {
+              "id": "cz.agreement.pomaly.neuter.3",
+              "revision": 1,
+              "learnerBaseText": "slow pace",
+              "englishAuditText": "slow pace",
+              "targetText": "pomalé tempo",
+              "slot": {
+                "beforeText": "",
+                "afterText": " tempo"
+              },
+              "anchor": {
+                "targetText": "tempo",
+                "learnerBaseText": "pace",
+                "englishAuditText": "pace"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "cz.agreement.krasny",
+      "revision": 1,
+      "difficulty": 2,
+      "focus": {
+        "kind": "adjective",
+        "label": "Adjective: krásný",
+        "targetText": "krásný",
+        "resultTitle": "3 agreement forms of krásný",
+        "summary": "krásný changes across the authored masculine, feminine, neuter forms."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "krásný",
+          "examples": [
+            {
+              "id": "cz.agreement.krasny.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "beautiful day",
+              "englishAuditText": "beautiful day",
+              "targetText": "krásný den",
+              "slot": {
+                "beforeText": "",
+                "afterText": " den"
+              },
+              "anchor": {
+                "targetText": "den",
+                "learnerBaseText": "day",
+                "englishAuditText": "day"
+              }
+            },
+            {
+              "id": "cz.agreement.krasny.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "beautiful park",
+              "englishAuditText": "beautiful park",
+              "targetText": "krásný park",
+              "slot": {
+                "beforeText": "",
+                "afterText": " park"
+              },
+              "anchor": {
+                "targetText": "park",
+                "learnerBaseText": "park",
+                "englishAuditText": "park"
+              }
+            },
+            {
+              "id": "cz.agreement.krasny.masculine.3",
+              "revision": 1,
+              "learnerBaseText": "beautiful view",
+              "englishAuditText": "beautiful view",
+              "targetText": "krásný výhled",
+              "slot": {
+                "beforeText": "",
+                "afterText": " výhled"
+              },
+              "anchor": {
+                "targetText": "výhled",
+                "learnerBaseText": "view",
+                "englishAuditText": "view"
+              }
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "krásná",
+          "examples": [
+            {
+              "id": "cz.agreement.krasny.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "beautiful garden",
+              "englishAuditText": "beautiful garden",
+              "targetText": "krásná zahrada",
+              "slot": {
+                "beforeText": "",
+                "afterText": " zahrada"
+              },
+              "anchor": {
+                "targetText": "zahrada",
+                "learnerBaseText": "garden",
+                "englishAuditText": "garden"
+              }
+            },
+            {
+              "id": "cz.agreement.krasny.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "beautiful song",
+              "englishAuditText": "beautiful song",
+              "targetText": "krásná píseň",
+              "slot": {
+                "beforeText": "",
+                "afterText": " píseň"
+              },
+              "anchor": {
+                "targetText": "píseň",
+                "learnerBaseText": "song",
+                "englishAuditText": "song"
+              }
+            },
+            {
+              "id": "cz.agreement.krasny.feminine.3",
+              "revision": 1,
+              "learnerBaseText": "beautiful photograph",
+              "englishAuditText": "beautiful photograph",
+              "targetText": "krásná fotografie",
+              "slot": {
+                "beforeText": "",
+                "afterText": " fotografie"
+              },
+              "anchor": {
+                "targetText": "fotografie",
+                "learnerBaseText": "photograph",
+                "englishAuditText": "photograph"
+              }
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "krásné",
+          "examples": [
+            {
+              "id": "cz.agreement.krasny.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "beautiful city",
+              "englishAuditText": "beautiful city",
+              "targetText": "krásné město",
+              "slot": {
+                "beforeText": "",
+                "afterText": " město"
+              },
+              "anchor": {
+                "targetText": "město",
+                "learnerBaseText": "city",
+                "englishAuditText": "city"
+              }
+            },
+            {
+              "id": "cz.agreement.krasny.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "beautiful morning",
+              "englishAuditText": "beautiful morning",
+              "targetText": "krásné ráno",
+              "slot": {
+                "beforeText": "",
+                "afterText": " ráno"
+              },
+              "anchor": {
+                "targetText": "ráno",
+                "learnerBaseText": "morning",
+                "englishAuditText": "morning"
+              }
+            },
+            {
+              "id": "cz.agreement.krasny.neuter.3",
+              "revision": 1,
+              "learnerBaseText": "beautiful place",
+              "englishAuditText": "beautiful place",
+              "targetText": "krásné místo",
+              "slot": {
+                "beforeText": "",
+                "afterText": " místo"
+              },
+              "anchor": {
+                "targetText": "místo",
+                "learnerBaseText": "place",
+                "englishAuditText": "place"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "cz.agreement.teply",
+      "revision": 1,
+      "difficulty": 2,
+      "focus": {
+        "kind": "adjective",
+        "label": "Adjective: teplý",
+        "targetText": "teplý",
+        "resultTitle": "3 agreement forms of teplý",
+        "summary": "teplý changes across the authored masculine, feminine, neuter forms."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "teplý",
+          "examples": [
+            {
+              "id": "cz.agreement.teply.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "warm tea",
+              "englishAuditText": "warm tea",
+              "targetText": "teplý čaj",
+              "slot": {
+                "beforeText": "",
+                "afterText": " čaj"
+              },
+              "anchor": {
+                "targetText": "čaj",
+                "learnerBaseText": "tea",
+                "englishAuditText": "tea"
+              }
+            },
+            {
+              "id": "cz.agreement.teply.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "warm sweater",
+              "englishAuditText": "warm sweater",
+              "targetText": "teplý svetr",
+              "slot": {
+                "beforeText": "",
+                "afterText": " svetr"
+              },
+              "anchor": {
+                "targetText": "svetr",
+                "learnerBaseText": "sweater",
+                "englishAuditText": "sweater"
+              }
+            },
+            {
+              "id": "cz.agreement.teply.masculine.3",
+              "revision": 1,
+              "learnerBaseText": "warm day",
+              "englishAuditText": "warm day",
+              "targetText": "teplý den",
+              "slot": {
+                "beforeText": "",
+                "afterText": " den"
+              },
+              "anchor": {
+                "targetText": "den",
+                "learnerBaseText": "day",
+                "englishAuditText": "day"
+              }
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "teplá",
+          "examples": [
+            {
+              "id": "cz.agreement.teply.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "warm soup",
+              "englishAuditText": "warm soup",
+              "targetText": "teplá polévka",
+              "slot": {
+                "beforeText": "",
+                "afterText": " polévka"
+              },
+              "anchor": {
+                "targetText": "polévka",
+                "learnerBaseText": "soup",
+                "englishAuditText": "soup"
+              }
+            },
+            {
+              "id": "cz.agreement.teply.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "warm water",
+              "englishAuditText": "warm water",
+              "targetText": "teplá voda",
+              "slot": {
+                "beforeText": "",
+                "afterText": " voda"
+              },
+              "anchor": {
+                "targetText": "voda",
+                "learnerBaseText": "water",
+                "englishAuditText": "water"
+              }
+            },
+            {
+              "id": "cz.agreement.teply.feminine.3",
+              "revision": 1,
+              "learnerBaseText": "warm jacket",
+              "englishAuditText": "warm jacket",
+              "targetText": "teplá bunda",
+              "slot": {
+                "beforeText": "",
+                "afterText": " bunda"
+              },
+              "anchor": {
+                "targetText": "bunda",
+                "learnerBaseText": "jacket",
+                "englishAuditText": "jacket"
+              }
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "teplé",
+          "examples": [
+            {
+              "id": "cz.agreement.teply.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "warm food",
+              "englishAuditText": "warm food",
+              "targetText": "teplé jídlo",
+              "slot": {
+                "beforeText": "",
+                "afterText": " jídlo"
+              },
+              "anchor": {
+                "targetText": "jídlo",
+                "learnerBaseText": "food",
+                "englishAuditText": "food"
+              }
+            },
+            {
+              "id": "cz.agreement.teply.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "warm sea",
+              "englishAuditText": "warm sea",
+              "targetText": "teplé moře",
+              "slot": {
+                "beforeText": "",
+                "afterText": " moře"
+              },
+              "anchor": {
+                "targetText": "moře",
+                "learnerBaseText": "sea",
+                "englishAuditText": "sea"
+              }
+            },
+            {
+              "id": "cz.agreement.teply.neuter.3",
+              "revision": 1,
+              "learnerBaseText": "warm weather",
+              "englishAuditText": "warm weather",
+              "targetText": "teplé počasí",
+              "slot": {
+                "beforeText": "",
+                "afterText": " počasí"
+              },
+              "anchor": {
+                "targetText": "počasí",
+                "learnerBaseText": "weather",
+                "englishAuditText": "weather"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "cz.agreement.zajimavy",
+      "revision": 1,
+      "difficulty": 3,
+      "focus": {
+        "kind": "adjective",
+        "label": "Adjective: zajímavý",
+        "targetText": "zajímavý",
+        "resultTitle": "3 agreement forms of zajímavý",
+        "summary": "zajímavý changes across the authored masculine, feminine, neuter forms."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "zajímavý",
+          "examples": [
+            {
+              "id": "cz.agreement.zajimavy.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "interesting story",
+              "englishAuditText": "interesting story",
+              "targetText": "zajímavý příběh",
+              "slot": {
+                "beforeText": "",
+                "afterText": " příběh"
+              },
+              "anchor": {
+                "targetText": "příběh",
+                "learnerBaseText": "story",
+                "englishAuditText": "story"
+              }
+            },
+            {
+              "id": "cz.agreement.zajimavy.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "interesting film",
+              "englishAuditText": "interesting film",
+              "targetText": "zajímavý film",
+              "slot": {
+                "beforeText": "",
+                "afterText": " film"
+              },
+              "anchor": {
+                "targetText": "film",
+                "learnerBaseText": "film",
+                "englishAuditText": "film"
+              }
+            },
+            {
+              "id": "cz.agreement.zajimavy.masculine.3",
+              "revision": 1,
+              "learnerBaseText": "interesting conversation",
+              "englishAuditText": "interesting conversation",
+              "targetText": "zajímavý rozhovor",
+              "slot": {
+                "beforeText": "",
+                "afterText": " rozhovor"
+              },
+              "anchor": {
+                "targetText": "rozhovor",
+                "learnerBaseText": "conversation",
+                "englishAuditText": "conversation"
+              }
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "zajímavá",
+          "examples": [
+            {
+              "id": "cz.agreement.zajimavy.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "interesting question",
+              "englishAuditText": "interesting question",
+              "targetText": "zajímavá otázka",
+              "slot": {
+                "beforeText": "",
+                "afterText": " otázka"
+              },
+              "anchor": {
+                "targetText": "otázka",
+                "learnerBaseText": "question",
+                "englishAuditText": "question"
+              }
+            },
+            {
+              "id": "cz.agreement.zajimavy.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "interesting book",
+              "englishAuditText": "interesting book",
+              "targetText": "zajímavá kniha",
+              "slot": {
+                "beforeText": "",
+                "afterText": " kniha"
+              },
+              "anchor": {
+                "targetText": "kniha",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              }
+            },
+            {
+              "id": "cz.agreement.zajimavy.feminine.3",
+              "revision": 1,
+              "learnerBaseText": "interesting thought",
+              "englishAuditText": "interesting thought",
+              "targetText": "zajímavá myšlenka",
+              "slot": {
+                "beforeText": "",
+                "afterText": " myšlenka"
+              },
+              "anchor": {
+                "targetText": "myšlenka",
+                "learnerBaseText": "thought",
+                "englishAuditText": "thought"
+              }
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "zajímavé",
+          "examples": [
+            {
+              "id": "cz.agreement.zajimavy.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "interesting museum",
+              "englishAuditText": "interesting museum",
+              "targetText": "zajímavé muzeum",
+              "slot": {
+                "beforeText": "",
+                "afterText": " muzeum"
+              },
+              "anchor": {
+                "targetText": "muzeum",
+                "learnerBaseText": "museum",
+                "englishAuditText": "museum"
+              }
+            },
+            {
+              "id": "cz.agreement.zajimavy.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "interesting place",
+              "englishAuditText": "interesting place",
+              "targetText": "zajímavé místo",
+              "slot": {
+                "beforeText": "",
+                "afterText": " místo"
+              },
+              "anchor": {
+                "targetText": "místo",
+                "learnerBaseText": "place",
+                "englishAuditText": "place"
+              }
+            },
+            {
+              "id": "cz.agreement.zajimavy.neuter.3",
+              "revision": 1,
+              "learnerBaseText": "interesting name",
+              "englishAuditText": "interesting name",
+              "targetText": "zajímavé jméno",
+              "slot": {
+                "beforeText": "",
+                "afterText": " jméno"
+              },
+              "anchor": {
+                "targetText": "jméno",
+                "learnerBaseText": "name",
+                "englishAuditText": "name"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "cz.agreement.dulezity",
+      "revision": 1,
+      "difficulty": 3,
+      "focus": {
+        "kind": "adjective",
+        "label": "Adjective: důležitý",
+        "targetText": "důležitý",
+        "resultTitle": "3 agreement forms of důležitý",
+        "summary": "důležitý changes across the authored masculine, feminine, neuter forms."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "důležitý",
+          "examples": [
+            {
+              "id": "cz.agreement.dulezity.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "important task",
+              "englishAuditText": "important task",
+              "targetText": "důležitý úkol",
+              "slot": {
+                "beforeText": "",
+                "afterText": " úkol"
+              },
+              "anchor": {
+                "targetText": "úkol",
+                "learnerBaseText": "task",
+                "englishAuditText": "task"
+              }
+            },
+            {
+              "id": "cz.agreement.dulezity.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "important document",
+              "englishAuditText": "important document",
+              "targetText": "důležitý dokument",
+              "slot": {
+                "beforeText": "",
+                "afterText": " dokument"
+              },
+              "anchor": {
+                "targetText": "dokument",
+                "learnerBaseText": "document",
+                "englishAuditText": "document"
+              }
+            },
+            {
+              "id": "cz.agreement.dulezity.masculine.3",
+              "revision": 1,
+              "learnerBaseText": "important call",
+              "englishAuditText": "important call",
+              "targetText": "důležitý hovor",
+              "slot": {
+                "beforeText": "",
+                "afterText": " hovor"
+              },
+              "anchor": {
+                "targetText": "hovor",
+                "learnerBaseText": "call",
+                "englishAuditText": "call"
+              }
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "důležitá",
+          "examples": [
+            {
+              "id": "cz.agreement.dulezity.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "important meeting",
+              "englishAuditText": "important meeting",
+              "targetText": "důležitá schůzka",
+              "slot": {
+                "beforeText": "",
+                "afterText": " schůzka"
+              },
+              "anchor": {
+                "targetText": "schůzka",
+                "learnerBaseText": "meeting",
+                "englishAuditText": "meeting"
+              }
+            },
+            {
+              "id": "cz.agreement.dulezity.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "important question",
+              "englishAuditText": "important question",
+              "targetText": "důležitá otázka",
+              "slot": {
+                "beforeText": "",
+                "afterText": " otázka"
+              },
+              "anchor": {
+                "targetText": "otázka",
+                "learnerBaseText": "question",
+                "englishAuditText": "question"
+              }
+            },
+            {
+              "id": "cz.agreement.dulezity.feminine.3",
+              "revision": 1,
+              "learnerBaseText": "important message",
+              "englishAuditText": "important message",
+              "targetText": "důležitá zpráva",
+              "slot": {
+                "beforeText": "",
+                "afterText": " zpráva"
+              },
+              "anchor": {
+                "targetText": "zpráva",
+                "learnerBaseText": "message",
+                "englishAuditText": "message"
+              }
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "důležité",
+          "examples": [
+            {
+              "id": "cz.agreement.dulezity.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "important decision",
+              "englishAuditText": "important decision",
+              "targetText": "důležité rozhodnutí",
+              "slot": {
+                "beforeText": "",
+                "afterText": " rozhodnutí"
+              },
+              "anchor": {
+                "targetText": "rozhodnutí",
+                "learnerBaseText": "decision",
+                "englishAuditText": "decision"
+              }
+            },
+            {
+              "id": "cz.agreement.dulezity.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "important rule",
+              "englishAuditText": "important rule",
+              "targetText": "důležité pravidlo",
+              "slot": {
+                "beforeText": "",
+                "afterText": " pravidlo"
+              },
+              "anchor": {
+                "targetText": "pravidlo",
+                "learnerBaseText": "rule",
+                "englishAuditText": "rule"
+              }
+            },
+            {
+              "id": "cz.agreement.dulezity.neuter.3",
+              "revision": 1,
+              "learnerBaseText": "important warning",
+              "englishAuditText": "important warning",
+              "targetText": "důležité upozornění",
+              "slot": {
+                "beforeText": "",
+                "afterText": " upozornění"
+              },
+              "anchor": {
+                "targetText": "upozornění",
+                "learnerBaseText": "warning",
+                "englishAuditText": "warning"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "cz.agreement.chytry",
+      "revision": 1,
+      "difficulty": 3,
+      "focus": {
+        "kind": "adjective",
+        "label": "Adjective: chytrý",
+        "targetText": "chytrý",
+        "resultTitle": "3 agreement forms of chytrý",
+        "summary": "chytrý changes across the authored masculine, feminine, neuter forms."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "chytrý",
+          "examples": [
+            {
+              "id": "cz.agreement.chytry.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "smart male student",
+              "englishAuditText": "smart male student",
+              "targetText": "chytrý student",
+              "slot": {
+                "beforeText": "",
+                "afterText": " student"
+              },
+              "anchor": {
+                "targetText": "student",
+                "learnerBaseText": "male student",
+                "englishAuditText": "male student"
+              }
+            },
+            {
+              "id": "cz.agreement.chytry.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "smart dog",
+              "englishAuditText": "smart dog",
+              "targetText": "chytrý pes",
+              "slot": {
+                "beforeText": "",
+                "afterText": " pes"
+              },
+              "anchor": {
+                "targetText": "pes",
+                "learnerBaseText": "dog",
+                "englishAuditText": "dog"
+              }
+            },
+            {
+              "id": "cz.agreement.chytry.masculine.3",
+              "revision": 1,
+              "learnerBaseText": "smart helper",
+              "englishAuditText": "smart helper",
+              "targetText": "chytrý pomocník",
+              "slot": {
+                "beforeText": "",
+                "afterText": " pomocník"
+              },
+              "anchor": {
+                "targetText": "pomocník",
+                "learnerBaseText": "helper",
+                "englishAuditText": "helper"
+              }
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "chytrá",
+          "examples": [
+            {
+              "id": "cz.agreement.chytry.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "smart female student",
+              "englishAuditText": "smart female student",
+              "targetText": "chytrá studentka",
+              "slot": {
+                "beforeText": "",
+                "afterText": " studentka"
+              },
+              "anchor": {
+                "targetText": "studentka",
+                "learnerBaseText": "female student",
+                "englishAuditText": "female student"
+              }
+            },
+            {
+              "id": "cz.agreement.chytry.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "smart answer",
+              "englishAuditText": "smart answer",
+              "targetText": "chytrá odpověď",
+              "slot": {
+                "beforeText": "",
+                "afterText": " odpověď"
+              },
+              "anchor": {
+                "targetText": "odpověď",
+                "learnerBaseText": "answer",
+                "englishAuditText": "answer"
+              }
+            },
+            {
+              "id": "cz.agreement.chytry.feminine.3",
+              "revision": 1,
+              "learnerBaseText": "smart idea",
+              "englishAuditText": "smart idea",
+              "targetText": "chytrá myšlenka",
+              "slot": {
+                "beforeText": "",
+                "afterText": " myšlenka"
+              },
+              "anchor": {
+                "targetText": "myšlenka",
+                "learnerBaseText": "idea",
+                "englishAuditText": "idea"
+              }
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "chytré",
+          "examples": [
+            {
+              "id": "cz.agreement.chytry.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "smart device",
+              "englishAuditText": "smart device",
+              "targetText": "chytré zařízení",
+              "slot": {
+                "beforeText": "",
+                "afterText": " zařízení"
+              },
+              "anchor": {
+                "targetText": "zařízení",
+                "learnerBaseText": "device",
+                "englishAuditText": "device"
+              }
+            },
+            {
+              "id": "cz.agreement.chytry.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "smart solution",
+              "englishAuditText": "smart solution",
+              "targetText": "chytré řešení",
+              "slot": {
+                "beforeText": "",
+                "afterText": " řešení"
+              },
+              "anchor": {
+                "targetText": "řešení",
+                "learnerBaseText": "solution",
+                "englishAuditText": "solution"
+              }
+            },
+            {
+              "id": "cz.agreement.chytry.neuter.3",
+              "revision": 1,
+              "learnerBaseText": "smart city",
+              "englishAuditText": "smart city",
+              "targetText": "chytré město",
+              "slot": {
+                "beforeText": "",
+                "afterText": " město"
+              },
+              "anchor": {
+                "targetText": "město",
+                "learnerBaseText": "city",
+                "englishAuditText": "city"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "cz.agreement.studeny",
+      "revision": 1,
+      "difficulty": 3,
+      "focus": {
+        "kind": "adjective",
+        "label": "Adjective: studený",
+        "targetText": "studený",
+        "resultTitle": "3 agreement forms of studený",
+        "summary": "studený changes across the authored masculine, feminine, neuter forms."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "studený",
+          "examples": [
+            {
+              "id": "cz.agreement.studeny.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "cold wind",
+              "englishAuditText": "cold wind",
+              "targetText": "studený vítr",
+              "slot": {
+                "beforeText": "",
+                "afterText": " vítr"
+              },
+              "anchor": {
+                "targetText": "vítr",
+                "learnerBaseText": "wind",
+                "englishAuditText": "wind"
+              }
+            },
+            {
+              "id": "cz.agreement.studeny.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "cold drink",
+              "englishAuditText": "cold drink",
+              "targetText": "studený nápoj",
+              "slot": {
+                "beforeText": "",
+                "afterText": " nápoj"
+              },
+              "anchor": {
+                "targetText": "nápoj",
+                "learnerBaseText": "drink",
+                "englishAuditText": "drink"
+              }
+            },
+            {
+              "id": "cz.agreement.studeny.masculine.3",
+              "revision": 1,
+              "learnerBaseText": "cold evening",
+              "englishAuditText": "cold evening",
+              "targetText": "studený večer",
+              "slot": {
+                "beforeText": "",
+                "afterText": " večer"
+              },
+              "anchor": {
+                "targetText": "večer",
+                "learnerBaseText": "evening",
+                "englishAuditText": "evening"
+              }
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "studená",
+          "examples": [
+            {
+              "id": "cz.agreement.studeny.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "cold water",
+              "englishAuditText": "cold water",
+              "targetText": "studená voda",
+              "slot": {
+                "beforeText": "",
+                "afterText": " voda"
+              },
+              "anchor": {
+                "targetText": "voda",
+                "learnerBaseText": "water",
+                "englishAuditText": "water"
+              }
+            },
+            {
+              "id": "cz.agreement.studeny.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "cold soup",
+              "englishAuditText": "cold soup",
+              "targetText": "studená polévka",
+              "slot": {
+                "beforeText": "",
+                "afterText": " polévka"
+              },
+              "anchor": {
+                "targetText": "polévka",
+                "learnerBaseText": "soup",
+                "englishAuditText": "soup"
+              }
+            },
+            {
+              "id": "cz.agreement.studeny.feminine.3",
+              "revision": 1,
+              "learnerBaseText": "cold night",
+              "englishAuditText": "cold night",
+              "targetText": "studená noc",
+              "slot": {
+                "beforeText": "",
+                "afterText": " noc"
+              },
+              "anchor": {
+                "targetText": "noc",
+                "learnerBaseText": "night",
+                "englishAuditText": "night"
+              }
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "studené",
+          "examples": [
+            {
+              "id": "cz.agreement.studeny.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "cold milk",
+              "englishAuditText": "cold milk",
+              "targetText": "studené mléko",
+              "slot": {
+                "beforeText": "",
+                "afterText": " mléko"
+              },
+              "anchor": {
+                "targetText": "mléko",
+                "learnerBaseText": "milk",
+                "englishAuditText": "milk"
+              }
+            },
+            {
+              "id": "cz.agreement.studeny.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "cold weather",
+              "englishAuditText": "cold weather",
+              "targetText": "studené počasí",
+              "slot": {
+                "beforeText": "",
+                "afterText": " počasí"
+              },
+              "anchor": {
+                "targetText": "počasí",
+                "learnerBaseText": "weather",
+                "englishAuditText": "weather"
+              }
+            },
+            {
+              "id": "cz.agreement.studeny.neuter.3",
+              "revision": 1,
+              "learnerBaseText": "cold sea",
+              "englishAuditText": "cold sea",
+              "targetText": "studené moře",
+              "slot": {
+                "beforeText": "",
+                "afterText": " moře"
+              },
+              "anchor": {
+                "targetText": "moře",
+                "learnerBaseText": "sea",
+                "englishAuditText": "sea"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "cz.agreement.vysoky",
+      "revision": 1,
+      "difficulty": 3,
+      "focus": {
+        "kind": "adjective",
+        "label": "Adjective: vysoký",
+        "targetText": "vysoký",
+        "resultTitle": "3 agreement forms of vysoký",
+        "summary": "vysoký changes across the authored masculine, feminine, neuter forms."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "vysoký",
+          "examples": [
+            {
+              "id": "cz.agreement.vysoky.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "tall tree",
+              "englishAuditText": "tall tree",
+              "targetText": "vysoký strom",
+              "slot": {
+                "beforeText": "",
+                "afterText": " strom"
+              },
+              "anchor": {
+                "targetText": "strom",
+                "learnerBaseText": "tree",
+                "englishAuditText": "tree"
+              }
+            },
+            {
+              "id": "cz.agreement.vysoky.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "tall house",
+              "englishAuditText": "tall house",
+              "targetText": "vysoký dům",
+              "slot": {
+                "beforeText": "",
+                "afterText": " dům"
+              },
+              "anchor": {
+                "targetText": "dům",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              }
+            },
+            {
+              "id": "cz.agreement.vysoky.masculine.3",
+              "revision": 1,
+              "learnerBaseText": "high fence",
+              "englishAuditText": "high fence",
+              "targetText": "vysoký plot",
+              "slot": {
+                "beforeText": "",
+                "afterText": " plot"
+              },
+              "anchor": {
+                "targetText": "plot",
+                "learnerBaseText": "fence",
+                "englishAuditText": "fence"
+              }
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "vysoká",
+          "examples": [
+            {
+              "id": "cz.agreement.vysoky.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "tall tower",
+              "englishAuditText": "tall tower",
+              "targetText": "vysoká věž",
+              "slot": {
+                "beforeText": "",
+                "afterText": " věž"
+              },
+              "anchor": {
+                "targetText": "věž",
+                "learnerBaseText": "tower",
+                "englishAuditText": "tower"
+              }
+            },
+            {
+              "id": "cz.agreement.vysoky.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "high mountain",
+              "englishAuditText": "high mountain",
+              "targetText": "vysoká hora",
+              "slot": {
+                "beforeText": "",
+                "afterText": " hora"
+              },
+              "anchor": {
+                "targetText": "hora",
+                "learnerBaseText": "mountain",
+                "englishAuditText": "mountain"
+              }
+            },
+            {
+              "id": "cz.agreement.vysoky.feminine.3",
+              "revision": 1,
+              "learnerBaseText": "high price",
+              "englishAuditText": "high price",
+              "targetText": "vysoká cena",
+              "slot": {
+                "beforeText": "",
+                "afterText": " cena"
+              },
+              "anchor": {
+                "targetText": "cena",
+                "learnerBaseText": "price",
+                "englishAuditText": "price"
+              }
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "vysoké",
+          "examples": [
+            {
+              "id": "cz.agreement.vysoky.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "high number",
+              "englishAuditText": "high number",
+              "targetText": "vysoké číslo",
+              "slot": {
+                "beforeText": "",
+                "afterText": " číslo"
+              },
+              "anchor": {
+                "targetText": "číslo",
+                "learnerBaseText": "number",
+                "englishAuditText": "number"
+              }
+            },
+            {
+              "id": "cz.agreement.vysoky.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "high voltage",
+              "englishAuditText": "high voltage",
+              "targetText": "vysoké napětí",
+              "slot": {
+                "beforeText": "",
+                "afterText": " napětí"
+              },
+              "anchor": {
+                "targetText": "napětí",
+                "learnerBaseText": "voltage",
+                "englishAuditText": "voltage"
+              }
+            },
+            {
+              "id": "cz.agreement.vysoky.neuter.3",
+              "revision": 1,
+              "learnerBaseText": "high mountain range",
+              "englishAuditText": "high mountain range",
+              "targetText": "vysoké pohoří",
+              "slot": {
+                "beforeText": "",
+                "afterText": " pohoří"
+              },
+              "anchor": {
+                "targetText": "pohoří",
+                "learnerBaseText": "mountain range",
+                "englishAuditText": "mountain range"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "cz.agreement.kratky",
+      "revision": 1,
+      "difficulty": 3,
+      "focus": {
+        "kind": "adjective",
+        "label": "Adjective: krátký",
+        "targetText": "krátký",
+        "resultTitle": "3 agreement forms of krátký",
+        "summary": "krátký changes across the authored masculine, feminine, neuter forms."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "krátký",
+          "examples": [
+            {
+              "id": "cz.agreement.kratky.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "short film",
+              "englishAuditText": "short film",
+              "targetText": "krátký film",
+              "slot": {
+                "beforeText": "",
+                "afterText": " film"
+              },
+              "anchor": {
+                "targetText": "film",
+                "learnerBaseText": "film",
+                "englishAuditText": "film"
+              }
+            },
+            {
+              "id": "cz.agreement.kratky.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "short day",
+              "englishAuditText": "short day",
+              "targetText": "krátký den",
+              "slot": {
+                "beforeText": "",
+                "afterText": " den"
+              },
+              "anchor": {
+                "targetText": "den",
+                "learnerBaseText": "day",
+                "englishAuditText": "day"
+              }
+            },
+            {
+              "id": "cz.agreement.kratky.masculine.3",
+              "revision": 1,
+              "learnerBaseText": "short letter",
+              "englishAuditText": "short letter",
+              "targetText": "krátký dopis",
+              "slot": {
+                "beforeText": "",
+                "afterText": " dopis"
+              },
+              "anchor": {
+                "targetText": "dopis",
+                "learnerBaseText": "letter",
+                "englishAuditText": "letter"
+              }
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "krátká",
+          "examples": [
+            {
+              "id": "cz.agreement.kratky.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "short journey",
+              "englishAuditText": "short journey",
+              "targetText": "krátká cesta",
+              "slot": {
+                "beforeText": "",
+                "afterText": " cesta"
+              },
+              "anchor": {
+                "targetText": "cesta",
+                "learnerBaseText": "journey",
+                "englishAuditText": "journey"
+              }
+            },
+            {
+              "id": "cz.agreement.kratky.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "short break",
+              "englishAuditText": "short break",
+              "targetText": "krátká přestávka",
+              "slot": {
+                "beforeText": "",
+                "afterText": " přestávka"
+              },
+              "anchor": {
+                "targetText": "přestávka",
+                "learnerBaseText": "break",
+                "englishAuditText": "break"
+              }
+            },
+            {
+              "id": "cz.agreement.kratky.feminine.3",
+              "revision": 1,
+              "learnerBaseText": "short answer",
+              "englishAuditText": "short answer",
+              "targetText": "krátká odpověď",
+              "slot": {
+                "beforeText": "",
+                "afterText": " odpověď"
+              },
+              "anchor": {
+                "targetText": "odpověď",
+                "learnerBaseText": "answer",
+                "englishAuditText": "answer"
+              }
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "krátké",
+          "examples": [
+            {
+              "id": "cz.agreement.kratky.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "short word",
+              "englishAuditText": "short word",
+              "targetText": "krátké slovo",
+              "slot": {
+                "beforeText": "",
+                "afterText": " slovo"
+              },
+              "anchor": {
+                "targetText": "slovo",
+                "learnerBaseText": "word",
+                "englishAuditText": "word"
+              }
+            },
+            {
+              "id": "cz.agreement.kratky.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "short message",
+              "englishAuditText": "short message",
+              "targetText": "krátké sdělení",
+              "slot": {
+                "beforeText": "",
+                "afterText": " sdělení"
+              },
+              "anchor": {
+                "targetText": "sdělení",
+                "learnerBaseText": "message",
+                "englishAuditText": "message"
+              }
+            },
+            {
+              "id": "cz.agreement.kratky.neuter.3",
+              "revision": 1,
+              "learnerBaseText": "short wait",
+              "englishAuditText": "short wait",
+              "targetText": "krátké čekání",
+              "slot": {
+                "beforeText": "",
+                "afterText": " čekání"
+              },
+              "anchor": {
+                "targetText": "čekání",
+                "learnerBaseText": "wait",
+                "englishAuditText": "wait"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "gameplay": {
+    "contract": "caatuu-grammar-gravity-journey-v1",
+    "stages": [
+      "meaning",
+      "category",
+      "form"
+    ],
+    "categoryFeature": "gender",
+    "categoryOptions": [
+      {
+        "id": "masculine",
+        "label": "Masculine",
+        "image": "/assets/micelaneous/male_gender.png"
+      },
+      {
+        "id": "neuter",
+        "label": "Neuter",
+        "image": "/assets/micelaneous/neutral_gender.png"
+      },
+      {
+        "id": "feminine",
+        "label": "Feminine",
+        "image": "/assets/micelaneous/female_gender.png"
+      }
+    ]
+  }
+}

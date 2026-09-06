@@ -6,6 +6,7 @@ const languageRuntimeStatic = new URL("../../../../apps/language-runtime/static/
 const themeCss = await readFile(new URL("styles/caatuu-theme.css", languageRuntimeStatic), "utf8");
 const chromeCss = await readFile(new URL("styles/caatuu-chrome.css", languageRuntimeStatic), "utf8");
 const chromeJs = await readFile(new URL("source/caatuu-chrome.js", languageRuntimeStatic), "utf8");
+const workspaceCss = await readFile(new URL("styles/caatuu-workspace.css", languageRuntimeStatic), "utf8");
 
 function cssRules(source) {
   const rules = [];
@@ -129,6 +130,24 @@ const darkTheme = new Map([
   ...lightTheme,
   ...darkOverrides
 ]);
+
+test("global Small gently steps down from Standard without changing Smaller", () => {
+  assert.equal(declarationsForSelector(themeCss, "html").get("font-size"), "100%");
+  assert.equal(declarationsForSelector(themeCss, 'html[data-font-size="large"]').get("font-size"), "120%");
+  assert.equal(declarationsForSelector(themeCss, 'html[data-font-size="largest"]').get("font-size"), "125%");
+
+  for (const selector of [
+    ".word-net-target-text-glyph",
+    ".word-net-target-text-notation",
+    "#wordNetTrail .word-net-trail-target",
+    ".verb-match-column-heading-cz #verbTargetColumnHeading",
+    ".verb-match-card-cz .verb-match-card-copy"
+  ]) {
+    const small = declarationsForSelector(workspaceCss, `html[data-font-size="large"] body[data-target-script^="Han"] ${selector}`);
+    const standard = declarationsForSelector(workspaceCss, `html[data-font-size="largest"] body[data-target-script^="Han"] ${selector}`);
+    assert.equal(small.get("font-size"), standard.get("font-size"), `${selector} should follow the global root scale instead of shrinking twice`);
+  }
+});
 
 test("light mode provides a complete, warm semantic palette with accessible text", () => {
   assert.equal(lightTheme.get("color-scheme"), "light");

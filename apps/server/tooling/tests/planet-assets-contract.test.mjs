@@ -17,7 +17,7 @@ const canonicalAssets = Object.freeze({
   "planet-verb": "verb-nebula.png",
   "planet-conjugation": "conjugation-comet.png",
   "planet-case-cosmos": "case-cosmos.png",
-  "planet-agreement-aurora": "agreement-aurora.png",
+  "planet-agreement-aurora": "grammar-gravity.png",
   "planet-campaign": "campaign-mode.png",
   "planet-memory": "memory-moon.png",
   "planet-sound-quasar": "sounds-quasar.png"
@@ -54,8 +54,8 @@ const [
   readFile(new URL("setup-assets.json", spanishStaticRoot), "utf8").then(JSON.parse),
   readFile(new URL("conjugation-comet.html", sharedGameRoot), "utf8"),
   readFile(new URL("case-cosmos.html", staticRoot), "utf8"),
-  readFile(new URL("agreement-aurora.html", sharedGameRoot), "utf8"),
-  readFile(new URL("assets/planets/agreement-aurora.png", launcherRoot)),
+  readFile(new URL("grammar-gravity.html", sharedGameRoot), "utf8"),
+  readFile(new URL("assets/planets/grammar-gravity.png", launcherRoot)),
   readFile(new URL("assets/planets/conjugation-comet.png", launcherRoot)),
   readFile(new URL("assets/planets/campaign-mode.png", launcherRoot)),
   readFile(new URL("assets/visual-vocabulary/miscellaneous (7).png", launcherRoot)),
@@ -86,7 +86,7 @@ test("Naturalization Nucleus art is delivered only by the Mandarin course", () =
   );
 });
 
-test("Sounds Quasar art is a shared coming-later asset for every browser course", () => {
+test("Sounds Quasar uses the same shared art in every browser course", () => {
   const publicUrl = "/assets/planets/sounds-quasar.png";
   assert.match(gamesPage + chrome, /\/assets\/planets\/sounds-quasar\.png/u);
   for (const manifest of [setupManifest, mandarinSetupManifest, spanishSetupManifest]) {
@@ -120,7 +120,7 @@ test("navigation, offline caching, pages, and setup delivery share those names",
   }
 });
 
-test("the generated Agreement Aurora runtime image is the reviewed RGBA artifact", () => {
+test("the generated Grammar Gravity runtime image is the reviewed RGBA artifact", () => {
   assert.equal(agreementBytes.subarray(0, 8).toString("hex"), "89504e470d0a1a0a");
   assert.equal(agreementBytes.subarray(12, 16).toString("ascii"), "IHDR");
   assert.equal(agreementBytes.readUInt32BE(16), 1254);
@@ -129,7 +129,7 @@ test("the generated Agreement Aurora runtime image is the reviewed RGBA artifact
   assert.equal(agreementBytes[25], 6);
   assert.equal(
     createHash("sha256").update(agreementBytes).digest("hex"),
-    "5fe5c25467d51dbec0c7e6600f187a685ccb0d42c34a47c3d1a737d2b6051966"
+    "57561da01036cfce901243a4a4ea8a9cee25b34c089a324a76a64d85d4663c6d"
   );
 });
 
@@ -150,6 +150,6 @@ test("the generated Conjugation Comet runtime image is the reviewed RGBA artifac
   assert.equal(cometBytes[25], 6);
   assert.equal(
     createHash("sha256").update(cometBytes).digest("hex"),
-    "78e59571a850aa92a3c3d6862f676d1b7fad54137b8ad10a74ef2eaaba20fee0"
+    "aae54fac1a8f2e57bf594d134503463e4c0f2cdecd26cdc88412ac68c69c0199"
   );
 });

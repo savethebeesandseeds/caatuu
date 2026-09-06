@@ -56,7 +56,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-1"
+      "revision": "interface-en-27"
     },
     "staticRoot": {
       "kind": "directory",

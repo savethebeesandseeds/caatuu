@@ -42,11 +42,18 @@ repack the 535 MB baseline.
 Release 162 permanently owns
 `/assets/planets/agreement-aurora.png` with 1,511,588 bytes and SHA-256
 `abfc3a443f60e1a1c2f4c16fbb2cda0e20f46b4daeb75bdc35d3b99718cc79a6`.
-The current 1,258,690-byte artwork is published separately at
+Release 163's 1,258,690-byte artwork is published separately at
 `/assets/planets/releases/5fe5c25467d51dbe/agreement-aurora.png` with SHA-256
 `5fe5c25467d51dbec0c7e6600f187a685ccb0d42c34a47c3d1a737d2b6051966`.
-Current Android setup metadata uses that content-addressed URL while retaining
-the APK-local path `assets/planets/agreement-aurora.png`.
+Release 163 setup metadata uses that content-addressed URL while retaining
+the APK-local path `assets/planets/agreement-aurora.png`. New builds use `assets/planets/grammar-gravity.png`; the frozen release paths remain unchanged.
+
+Version 165 pins the new 1,003,117-byte Grammar Gravity artwork at
+`/assets/planets/releases/57561da01036cfce/agreement-aurora.png`, with SHA-256
+`57561da01036cfce901243a4a4ea8a9cee25b34c089a324a76a64d85d4663c6d`.
+The historical URL filename is retained for the immutable update protocol;
+the APK-local filename is `assets/planets/grammar-gravity.png`. This does not
+replace either earlier release's bytes.
 
 Run it only in the maintained container environment:
 

@@ -38,6 +38,14 @@ test("build-once reuses a receipt only for the exact clean pushed source and dec
   assert.match(finalization, /Current main changed during candidate finalization/u);
 });
 
+test("publisher preserves detached recovery registrations without building from them", () => {
+  assert.ok(publisher.includes('$repo_root" == /workspace'));
+  assert.ok(publisher.includes('${worktrees[0]-}" == "$repo_root'));
+  assert.match(publisher, /detached_count/u);
+  assert.match(publisher, /Additional worktrees must be detached recovery registrations/u);
+  assert.doesNotMatch(publisher, /worktree (?:remove|prune|add)/u);
+});
+
 test("the builder reuses a sealed same-source candidate instead of launching Gradle", () => {
   const buildLock = builder.indexOf(".signed-release-build.lock");
   const receiptGuard = builder.indexOf("if [[ \"$signed\" == true && -f \"$candidate_receipt\" ]]");

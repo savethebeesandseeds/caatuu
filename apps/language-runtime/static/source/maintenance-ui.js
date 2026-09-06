@@ -192,7 +192,7 @@
           };
           confirmedCurrent = false;
           render(currentStatus);
-          setMessage(t("maintenance.status.checkfailed.detail", { detail: currentStatus.updateError }));
+          setMessage(t("maintenance.copy.checkfailed"));
           return currentStatus;
         })
         .finally(() => {
@@ -365,13 +365,7 @@
       });
     }
     if (status?.serverReachable === false || status?.updateError) {
-      return status?.updateError
-        ? t("maintenance.status.unreachable.detail", {
-          version: versionName,
-          code: versionCode,
-          detail: status.updateError
-        })
-        : t("maintenance.status.unreachable", { version: versionName, code: versionCode });
+      return t("maintenance.status.unreachable", { version: versionName, code: versionCode });
     }
     return t("maintenance.status.uptodate", { version: versionName, code: versionCode });
   }

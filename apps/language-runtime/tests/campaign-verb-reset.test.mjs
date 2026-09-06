@@ -25,6 +25,31 @@ const campaignCompletionSource = sourceBetween(
   "async function startCampaign()"
 );
 
+for (const gameId of ["sound-quasar", "conjugation-comet"]) test(`${gameId} batch completion uses the campaign transition only for the verified game frame`, () => {
+  const calls = [];
+  const messages = [];
+  const frameWindow = { postMessage: (data, origin) => messages.push({ data, origin }) };
+  const browserWindow = { location: { origin: "https://local.test" } };
+  const context = vm.createContext({
+    window: browserWindow,
+    campaignFrame: (id) => id === gameId ? { contentWindow: frameWindow } : null,
+    completeCampaignRound: (id, source) => calls.push({ id, source })
+  });
+  vm.runInContext(sourceBetween("function handleCampaignGameMessage(event)", "function setTrainTab(tab)")
+    + sourceBetween("function advanceCompletedCampaignGame(gameId, sourceWindow)", "async function completeCampaignRound"), context);
+  const data = { source: "caatuu-game", type: "round-complete", gameId };
+  context.handleCampaignGameMessage({ origin: "https://other.test", source: frameWindow, data });
+  context.handleCampaignGameMessage({ origin: "https://local.test", source: {}, data });
+  context.handleCampaignGameMessage({ origin: "https://local.test", source: frameWindow, data: { ...data, gameId: "word-net" } });
+  assert.equal(calls.length, 0);
+  context.handleCampaignGameMessage({ origin: "https://local.test", source: frameWindow, data });
+  assert.deepEqual(calls, [{ id: gameId, source: frameWindow }]);
+  context.advanceCompletedCampaignGame(gameId, frameWindow);
+  assert.equal(messages.length, 1);
+  assert.equal(messages[0].data.type, "campaign-advance");
+  assert.equal(messages[0].origin, "https://local.test");
+});
+
 test("a one-game Campaign consumes each completed Verb round before the next cycle", async () => {
   const firstPair = Object.freeze({ id: "verb-a" });
   const queuedPairs = [

@@ -10,10 +10,15 @@ const ENGLISH_CATALOG_URL = new URL("../static/data/interface/en.v1.json", impor
 const UI_CONSUMERS = Object.freeze([
   new URL("../static/app/index.html", import.meta.url),
   new URL("../static/source/app-bootstrap.mjs", import.meta.url),
+  new URL("../static/source/developer-tools/developer-tools.mjs", import.meta.url),
+  new URL("../static/source/developer-tools/audio-lab.mjs", import.meta.url),
+  new URL("../static/source/developer-tools/catalog-inspectors.mjs", import.meta.url),
+  new URL("../static/source/developer-tools/model-tools.mjs", import.meta.url),
   new URL("../static/source/caatuu-chrome.js", import.meta.url),
   new URL("../static/source/caatuu-workspace.js", import.meta.url),
   new URL("../static/source/legacy-page-bootstrap.mjs", import.meta.url),
   new URL("../static/source/maintenance-ui.js", import.meta.url),
+  new URL("../static/source/games/grammar-gravity/grammar-gravity-host.mjs", import.meta.url),
   new URL("../static/source/product-word-world.mjs", import.meta.url),
   new URL("../../android/tooling/build-product-assets.mjs", import.meta.url),
   new URL("../../languages/czech/static/audio-lab.html", import.meta.url),
@@ -25,7 +30,7 @@ const UI_CONSUMERS = Object.freeze([
 
 const MESSAGE_ID = String.raw`[a-z][a-z0-9]*(?:\.[a-z][a-z0-9]*)+`;
 const STATIC_REFERENCE_PATTERNS = Object.freeze([
-  new RegExp(String.raw`\b(?:interfaceMessage|interfaceText|t)\(\s*["'](${MESSAGE_ID})["']`, "gu"),
+  new RegExp(String.raw`\b(?:interfaceHtml|interfaceMessage|interfaceText|t)\(\s*["'](${MESSAGE_ID})["']`, "gu"),
   new RegExp(String.raw`\b(?:titleId|summaryId|labelId|messageId)\s*:\s*["'](${MESSAGE_ID})["']`, "gu")
 ]);
 const STATIC_MARKER_PATTERN = new RegExp(
@@ -91,6 +96,22 @@ test("the English authority explicitly names current and planned course language
       .filter((messageId) => !Object.hasOwn(catalog.messages, messageId)),
     []
   );
+});
+
+test("noun landing interface copy comes from the learner-base catalog", async () => {
+  const catalog = JSON.parse(await readFile(ENGLISH_CATALOG_URL, "utf8"));
+  const host = await readFile(new URL("../static/source/games/grammar-gravity/noun-landing-host.mjs", import.meta.url), "utf8");
+  const keys = new Set([
+    ...[...host.matchAll(/\bt\("([a-z]+)"/gu)].map((match) => match[1]),
+    // These are selected through the result state and information labels.
+    "correct", "incorrect", "help", "info", "loading"
+  ]);
+  for (const key of ["arena", "lane", "result"]) assert.ok(keys.has(key));
+  for (const key of keys) assert.equal(typeof catalog.messages[`games.grammargravity.nouns.${key}`], "string", key);
+  for (const key of ["choose", "correction", "drop", "instruction", "next", "pause", "paused", "progress", "ready", "readyuntimed", "restart", "resume", "reviewrequired", "settings", "start", "steer", "streak", "summary", "title", "untimed"]) {
+    assert.equal(Object.hasOwn(catalog.messages, `games.grammargravity.nouns.${key}`), false, `obsolete noun UI: ${key}`);
+  }
+  assert.doesNotMatch(host, /textContent\s*=\s*session\.item\.english/u);
 });
 
 test("shared source-language UI does not expose raw provider or native error prose", async () => {

@@ -1,0 +1,227 @@
+{
+  "schemaVersion": "caatuu-grammar-gravity-nouns-v2",
+  "courseId": "es-en",
+  "gameId": "grammar-gravity",
+  "contentId": "es-en.grammar-gravity.nouns-number-v1",
+  "contentRevision": 1,
+  "learnerBaseLanguage": "es-ES",
+  "targetLanguage": "en-US",
+  "englishAuditLanguage": "en",
+  "review": {
+    "status": "native-review-required",
+    "reviewer": null,
+    "reviewedAt": null,
+    "notes": "Machine-assisted American English development draft with Spanish learner cues. Qualified native English and Spanish review is still required."
+  },
+  "license": {
+    "origin": "caatuu-first-party-authored",
+    "status": "release-review-required",
+    "spdxExpression": null,
+    "notes": "Development content requires curriculum license clearance before publication."
+  },
+  "scope": "Authored singular/plural noun classification for English, including regular and explicit irregular plurals. No grammatical gender is inferred or assigned.",
+  "lanes": [
+    {
+      "id": "singular",
+      "label": "Singular"
+    },
+    {
+      "id": "plural",
+      "label": "Plural"
+    }
+  ],
+  "items": [
+    {
+      "id": "es-en.gravity.noun.book",
+      "revision": 1,
+      "targetText": "book",
+      "learnerBaseText": "libro",
+      "english": "book",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.books",
+      "revision": 1,
+      "targetText": "books",
+      "learnerBaseText": "libros",
+      "english": "books",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.cat",
+      "revision": 1,
+      "targetText": "cat",
+      "learnerBaseText": "gato",
+      "english": "cat",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.cats",
+      "revision": 1,
+      "targetText": "cats",
+      "learnerBaseText": "gatos",
+      "english": "cats",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.apple",
+      "revision": 1,
+      "targetText": "apple",
+      "learnerBaseText": "manzana",
+      "english": "apple",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.apples",
+      "revision": 1,
+      "targetText": "apples",
+      "learnerBaseText": "manzanas",
+      "english": "apples",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.chair",
+      "revision": 1,
+      "targetText": "chair",
+      "learnerBaseText": "silla",
+      "english": "chair",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.chairs",
+      "revision": 1,
+      "targetText": "chairs",
+      "learnerBaseText": "sillas",
+      "english": "chairs",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.window",
+      "revision": 1,
+      "targetText": "window",
+      "learnerBaseText": "ventana",
+      "english": "window",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.windows",
+      "revision": 1,
+      "targetText": "windows",
+      "learnerBaseText": "ventanas",
+      "english": "windows",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.teacher",
+      "revision": 1,
+      "targetText": "teacher",
+      "learnerBaseText": "profesor",
+      "english": "teacher",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.teachers",
+      "revision": 1,
+      "targetText": "teachers",
+      "learnerBaseText": "profesores",
+      "english": "teachers",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.student",
+      "revision": 1,
+      "targetText": "student",
+      "learnerBaseText": "estudiante",
+      "english": "student",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.students",
+      "revision": 1,
+      "targetText": "students",
+      "learnerBaseText": "estudiantes",
+      "english": "students",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.child",
+      "revision": 1,
+      "targetText": "child",
+      "learnerBaseText": "niño",
+      "english": "child",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.children",
+      "revision": 1,
+      "targetText": "children",
+      "learnerBaseText": "niños",
+      "english": "children",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.person",
+      "revision": 1,
+      "targetText": "person",
+      "learnerBaseText": "persona",
+      "english": "person",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.people",
+      "revision": 1,
+      "targetText": "people",
+      "learnerBaseText": "personas",
+      "english": "people",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.box",
+      "revision": 1,
+      "targetText": "box",
+      "learnerBaseText": "caja",
+      "english": "box",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.boxes",
+      "revision": 1,
+      "targetText": "boxes",
+      "learnerBaseText": "cajas",
+      "english": "boxes",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.city",
+      "revision": 1,
+      "targetText": "city",
+      "learnerBaseText": "ciudad",
+      "english": "city",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.cities",
+      "revision": 1,
+      "targetText": "cities",
+      "learnerBaseText": "ciudades",
+      "english": "cities",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.bus",
+      "revision": 1,
+      "targetText": "bus",
+      "learnerBaseText": "autobús",
+      "english": "bus",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.buses",
+      "revision": 1,
+      "targetText": "buses",
+      "learnerBaseText": "autobuses",
+      "english": "buses",
+      "laneId": "plural"
+    }
+  ]
+}

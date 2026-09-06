@@ -27,6 +27,10 @@
     {
       "id": "es",
       "manifest": "apps/languages/spanish/course.json"
+    },
+    {
+      "id": "es-en",
+      "manifest": "apps/languages/english-from-spanish/course.json"
     }
   ]
 }

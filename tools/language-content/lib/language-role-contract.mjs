@@ -1,6 +1,7 @@
 import { readFile, realpath, stat } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { learnerTokenMeanings } from "../../../apps/language-runtime/static/source/learner-base-token-meanings.mjs";
 
 import {
   ENGLISH_AUDIT_LANGUAGE,
@@ -33,7 +34,7 @@ const BASE_CATALOG_KEYS = [
   "realizations"
 ];
 const BASE_LANGUAGE_KEYS = ["languageTag", "script"];
-const BASE_REALIZATION_KEYS = ["conceptId", "text"];
+const BASE_REALIZATION_KEYS = ["conceptId", "text", "tokenMeanings"];
 const REVIEW_KEYS = ["status", "reviewer", "reviewedAt", "notes"];
 const LICENSE_KEYS = [
   "origin",
@@ -184,6 +185,12 @@ export function prepareLanguageRoleContent(
         : baseByConcept.get(concept.id).text,
       authority: isEnglishBase ? "english-concept" : "learner-base-realization"
     },
+    ...(!isEnglishBase && Object.hasOwn(baseByConcept.get(concept.id), "tokenMeanings") ? {
+      learnerTokenMeanings: learnerTokenMeanings(baseByConcept.get(concept.id), {
+        targetLanguage: targetRealizations.targetLanguage.languageTag,
+        targetTokens: targetByConcept.get(concept.id).tokens
+      })
+    } : {}),
     target: cloneJson(targetByConcept.get(concept.id))
   }));
 
@@ -368,7 +375,7 @@ function validateBaseCatalogShape(catalog, issues, { release, requireNativeRevie
     strictKeys(
       realization,
       BASE_REALIZATION_KEYS,
-      BASE_REALIZATION_KEYS,
+      ["conceptId", "text"],
       label,
       "base.shape",
       issues
@@ -383,6 +390,11 @@ function validateBaseCatalogShape(catalog, issues, { release, requireNativeRevie
     }
     if (!isNonEmptyString(realization.text)) {
       addIssue(issues, "base.shape", `${label}.text must be non-empty learner-base text.`);
+    }
+    try {
+      learnerTokenMeanings(realization);
+    } catch (error) {
+      addIssue(issues, "base.token-meanings", `${label}: ${error.message}`);
     }
   }
   addDuplicateIssues(ids, issues, "base.duplicate", "learner-base concept ID");

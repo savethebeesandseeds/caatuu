@@ -1,0 +1,1381 @@
+{
+  "schemaVersion": "caatuu-grammar-gravity-content-v3",
+  "courseId": "es",
+  "gameId": "grammar-gravity",
+  "contentId": "es.agreement-aurora.pilot-v1",
+  "contentRevision": 2,
+  "status": "machine-assisted-preview",
+  "learnerBaseLanguage": "en",
+  "targetLanguage": "es-ES",
+  "englishAuditLanguage": "en",
+  "review": {
+    "status": "native-review-required",
+    "reviewer": null,
+    "reviewedAt": null,
+    "notes": "Machine-assisted European Spanish development pilot; every phrase and level assignment still requires qualified native Spanish review."
+  },
+  "license": {
+    "origin": "caatuu-first-party-authored",
+    "status": "release-review-required",
+    "spdxExpression": null,
+    "notes": "Development content is not cleared for release until the course review and licensing gates are completed."
+  },
+  "presentation": {
+    "errorTitle": "Grammar Gravity could not load",
+    "errorDetail": "Return to the planets and try opening it again.",
+    "backLabel": "Back to games"
+  },
+  "axes": [
+    {
+      "id": "masculine-singular",
+      "label": "Masculine singular",
+      "features": {
+        "gender": "masculine",
+        "number": "singular"
+      }
+    },
+    {
+      "id": "feminine-singular",
+      "label": "Feminine singular",
+      "features": {
+        "gender": "feminine",
+        "number": "singular"
+      }
+    },
+    {
+      "id": "masculine-plural",
+      "label": "Masculine plural",
+      "features": {
+        "gender": "masculine",
+        "number": "plural"
+      }
+    },
+    {
+      "id": "feminine-plural",
+      "label": "Feminine plural",
+      "features": {
+        "gender": "feminine",
+        "number": "plural"
+      }
+    }
+  ],
+  "challenges": [
+    {
+      "id": "es.agreement.adjective-bonito",
+      "revision": 1,
+      "difficulty": 1,
+      "focus": {
+        "kind": "adjective",
+        "label": "Adjective: bonito",
+        "targetText": "bonito",
+        "resultTitle": "Four forms of bonito",
+        "summary": "Bonito changes for both gender and number: bonito, bonita, bonitos, bonitas."
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "bonito",
+          "examples": [
+            {
+              "id": "es.agreement.bonito.ms.libro",
+              "revision": 1,
+              "learnerBaseText": "the beautiful book",
+              "englishAuditText": "the beautiful book",
+              "targetText": "el libro bonito",
+              "slot": {
+                "beforeText": "el libro ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "el libro",
+                "learnerBaseText": "the book",
+                "englishAuditText": "the book"
+              }
+            },
+            {
+              "id": "es.agreement.bonito.ms.jardin",
+              "revision": 1,
+              "learnerBaseText": "a beautiful garden",
+              "englishAuditText": "a beautiful garden",
+              "targetText": "un jardín bonito",
+              "slot": {
+                "beforeText": "un jardín ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "un jardín",
+                "learnerBaseText": "a garden",
+                "englishAuditText": "a garden"
+              }
+            }
+          ]
+        },
+        "feminine-singular": {
+          "displayForm": "bonita",
+          "examples": [
+            {
+              "id": "es.agreement.bonito.fs.casa",
+              "revision": 1,
+              "learnerBaseText": "the beautiful house",
+              "englishAuditText": "the beautiful house",
+              "targetText": "la casa bonita",
+              "slot": {
+                "beforeText": "la casa ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "la casa",
+                "learnerBaseText": "the house",
+                "englishAuditText": "the house"
+              }
+            },
+            {
+              "id": "es.agreement.bonito.fs.cancion",
+              "revision": 1,
+              "learnerBaseText": "a beautiful song",
+              "englishAuditText": "a beautiful song",
+              "targetText": "una canción bonita",
+              "slot": {
+                "beforeText": "una canción ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "una canción",
+                "learnerBaseText": "a song",
+                "englishAuditText": "a song"
+              }
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "bonitos",
+          "examples": [
+            {
+              "id": "es.agreement.bonito.mp.libros",
+              "revision": 1,
+              "learnerBaseText": "the beautiful books",
+              "englishAuditText": "the beautiful books",
+              "targetText": "los libros bonitos",
+              "slot": {
+                "beforeText": "los libros ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "los libros",
+                "learnerBaseText": "the books",
+                "englishAuditText": "the books"
+              }
+            },
+            {
+              "id": "es.agreement.bonito.mp.jardines",
+              "revision": 1,
+              "learnerBaseText": "some beautiful gardens",
+              "englishAuditText": "some beautiful gardens",
+              "targetText": "unos jardines bonitos",
+              "slot": {
+                "beforeText": "unos jardines ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "unos jardines",
+                "learnerBaseText": "some gardens",
+                "englishAuditText": "some gardens"
+              }
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "bonitas",
+          "examples": [
+            {
+              "id": "es.agreement.bonito.fp.casas",
+              "revision": 1,
+              "learnerBaseText": "the beautiful houses",
+              "englishAuditText": "the beautiful houses",
+              "targetText": "las casas bonitas",
+              "slot": {
+                "beforeText": "las casas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "las casas",
+                "learnerBaseText": "the houses",
+                "englishAuditText": "the houses"
+              }
+            },
+            {
+              "id": "es.agreement.bonito.fp.canciones",
+              "revision": 1,
+              "learnerBaseText": "some beautiful songs",
+              "englishAuditText": "some beautiful songs",
+              "targetText": "unas canciones bonitas",
+              "slot": {
+                "beforeText": "unas canciones ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "unas canciones",
+                "learnerBaseText": "some songs",
+                "englishAuditText": "some songs"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "es.agreement.adjective-pequeno",
+      "revision": 1,
+      "difficulty": 1,
+      "focus": {
+        "kind": "adjective",
+        "label": "Adjective: pequeño",
+        "targetText": "pequeño",
+        "resultTitle": "Four forms of pequeño",
+        "summary": "Pequeño keeps the ñ and changes its ending for gender and number."
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "pequeño",
+          "examples": [
+            {
+              "id": "es.agreement.pequeno.ms.perro",
+              "revision": 1,
+              "learnerBaseText": "the small dog",
+              "englishAuditText": "the small dog",
+              "targetText": "el perro pequeño",
+              "slot": {
+                "beforeText": "el perro ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "el perro",
+                "learnerBaseText": "the dog",
+                "englishAuditText": "the dog"
+              }
+            },
+            {
+              "id": "es.agreement.pequeno.ms.pueblo",
+              "revision": 1,
+              "learnerBaseText": "a small town",
+              "englishAuditText": "a small town",
+              "targetText": "un pueblo pequeño",
+              "slot": {
+                "beforeText": "un pueblo ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "un pueblo",
+                "learnerBaseText": "a town",
+                "englishAuditText": "a town"
+              }
+            }
+          ]
+        },
+        "feminine-singular": {
+          "displayForm": "pequeña",
+          "examples": [
+            {
+              "id": "es.agreement.pequeno.fs.mesa",
+              "revision": 1,
+              "learnerBaseText": "the small table",
+              "englishAuditText": "the small table",
+              "targetText": "la mesa pequeña",
+              "slot": {
+                "beforeText": "la mesa ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "la mesa",
+                "learnerBaseText": "the table",
+                "englishAuditText": "the table"
+              }
+            },
+            {
+              "id": "es.agreement.pequeno.fs.tienda",
+              "revision": 1,
+              "learnerBaseText": "a small shop",
+              "englishAuditText": "a small shop",
+              "targetText": "una tienda pequeña",
+              "slot": {
+                "beforeText": "una tienda ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "una tienda",
+                "learnerBaseText": "a shop",
+                "englishAuditText": "a shop"
+              }
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "pequeños",
+          "examples": [
+            {
+              "id": "es.agreement.pequeno.mp.perros",
+              "revision": 1,
+              "learnerBaseText": "the small dogs",
+              "englishAuditText": "the small dogs",
+              "targetText": "los perros pequeños",
+              "slot": {
+                "beforeText": "los perros ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "los perros",
+                "learnerBaseText": "the dogs",
+                "englishAuditText": "the dogs"
+              }
+            },
+            {
+              "id": "es.agreement.pequeno.mp.pueblos",
+              "revision": 1,
+              "learnerBaseText": "some small towns",
+              "englishAuditText": "some small towns",
+              "targetText": "unos pueblos pequeños",
+              "slot": {
+                "beforeText": "unos pueblos ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "unos pueblos",
+                "learnerBaseText": "some towns",
+                "englishAuditText": "some towns"
+              }
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "pequeñas",
+          "examples": [
+            {
+              "id": "es.agreement.pequeno.fp.mesas",
+              "revision": 1,
+              "learnerBaseText": "the small tables",
+              "englishAuditText": "the small tables",
+              "targetText": "las mesas pequeñas",
+              "slot": {
+                "beforeText": "las mesas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "las mesas",
+                "learnerBaseText": "the tables",
+                "englishAuditText": "the tables"
+              }
+            },
+            {
+              "id": "es.agreement.pequeno.fp.tiendas",
+              "revision": 1,
+              "learnerBaseText": "some small shops",
+              "englishAuditText": "some small shops",
+              "targetText": "unas tiendas pequeñas",
+              "slot": {
+                "beforeText": "unas tiendas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "unas tiendas",
+                "learnerBaseText": "some shops",
+                "englishAuditText": "some shops"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "es.agreement.determiner-definite-surprises",
+      "revision": 1,
+      "difficulty": 1,
+      "focus": {
+        "kind": "determiner",
+        "label": "Definite articles with surprising noun endings",
+        "targetText": "el · la · los · las",
+        "resultTitle": "Gender belongs to the noun, not its final letter",
+        "summary": "Problema and mapa are masculine; mano and foto are feminine. Their articles and adjectives reveal the grammatical gender."
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "el",
+          "examples": [
+            {
+              "id": "es.agreement.definite.ms.problema",
+              "revision": 1,
+              "learnerBaseText": "the difficult problem",
+              "englishAuditText": "the difficult problem",
+              "targetText": "el problema difícil",
+              "slot": {
+                "beforeText": "",
+                "afterText": " problema difícil"
+              },
+              "anchor": {
+                "targetText": "problema",
+                "learnerBaseText": "problem",
+                "englishAuditText": "problem"
+              }
+            },
+            {
+              "id": "es.agreement.definite.ms.mapa",
+              "revision": 1,
+              "learnerBaseText": "the new map",
+              "englishAuditText": "the new map",
+              "targetText": "el mapa nuevo",
+              "slot": {
+                "beforeText": "",
+                "afterText": " mapa nuevo"
+              },
+              "anchor": {
+                "targetText": "mapa",
+                "learnerBaseText": "map",
+                "englishAuditText": "map"
+              }
+            }
+          ]
+        },
+        "feminine-singular": {
+          "displayForm": "la",
+          "examples": [
+            {
+              "id": "es.agreement.definite.fs.mano",
+              "revision": 1,
+              "learnerBaseText": "the right hand",
+              "englishAuditText": "the right hand",
+              "targetText": "la mano derecha",
+              "slot": {
+                "beforeText": "",
+                "afterText": " mano derecha"
+              },
+              "anchor": {
+                "targetText": "mano",
+                "learnerBaseText": "hand",
+                "englishAuditText": "hand"
+              }
+            },
+            {
+              "id": "es.agreement.definite.fs.foto",
+              "revision": 1,
+              "learnerBaseText": "the old photograph",
+              "englishAuditText": "the old photograph",
+              "targetText": "la foto antigua",
+              "slot": {
+                "beforeText": "",
+                "afterText": " foto antigua"
+              },
+              "anchor": {
+                "targetText": "foto",
+                "learnerBaseText": "photograph",
+                "englishAuditText": "photograph"
+              }
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "los",
+          "examples": [
+            {
+              "id": "es.agreement.definite.mp.problemas",
+              "revision": 1,
+              "learnerBaseText": "the difficult problems",
+              "englishAuditText": "the difficult problems",
+              "targetText": "los problemas difíciles",
+              "slot": {
+                "beforeText": "",
+                "afterText": " problemas difíciles"
+              },
+              "anchor": {
+                "targetText": "problemas",
+                "learnerBaseText": "problems",
+                "englishAuditText": "problems"
+              }
+            },
+            {
+              "id": "es.agreement.definite.mp.mapas",
+              "revision": 1,
+              "learnerBaseText": "the new maps",
+              "englishAuditText": "the new maps",
+              "targetText": "los mapas nuevos",
+              "slot": {
+                "beforeText": "",
+                "afterText": " mapas nuevos"
+              },
+              "anchor": {
+                "targetText": "mapas",
+                "learnerBaseText": "maps",
+                "englishAuditText": "maps"
+              }
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "las",
+          "examples": [
+            {
+              "id": "es.agreement.definite.fp.manos",
+              "revision": 1,
+              "learnerBaseText": "the right hands",
+              "englishAuditText": "the right hands",
+              "targetText": "las manos derechas",
+              "slot": {
+                "beforeText": "",
+                "afterText": " manos derechas"
+              },
+              "anchor": {
+                "targetText": "manos",
+                "learnerBaseText": "hands",
+                "englishAuditText": "hands"
+              }
+            },
+            {
+              "id": "es.agreement.definite.fp.fotos",
+              "revision": 1,
+              "learnerBaseText": "the old photographs",
+              "englishAuditText": "the old photographs",
+              "targetText": "las fotos antiguas",
+              "slot": {
+                "beforeText": "",
+                "afterText": " fotos antiguas"
+              },
+              "anchor": {
+                "targetText": "fotos",
+                "learnerBaseText": "photographs",
+                "englishAuditText": "photographs"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "es.agreement.determiner-demonstrative-este",
+      "revision": 1,
+      "difficulty": 2,
+      "focus": {
+        "kind": "determiner",
+        "label": "Demonstrative: este",
+        "targetText": "este",
+        "resultTitle": "Four nearby demonstratives",
+        "summary": "Este changes to esta, estos, or estas to match the noun that follows it."
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "este",
+          "examples": [
+            {
+              "id": "es.agreement.este.ms.libro",
+              "revision": 1,
+              "learnerBaseText": "this book",
+              "englishAuditText": "this book",
+              "targetText": "este libro",
+              "slot": {
+                "beforeText": "",
+                "afterText": " libro"
+              },
+              "anchor": {
+                "targetText": "libro",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              }
+            },
+            {
+              "id": "es.agreement.este.ms.coche",
+              "revision": 1,
+              "learnerBaseText": "this car",
+              "englishAuditText": "this car",
+              "targetText": "este coche",
+              "slot": {
+                "beforeText": "",
+                "afterText": " coche"
+              },
+              "anchor": {
+                "targetText": "coche",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              }
+            }
+          ]
+        },
+        "feminine-singular": {
+          "displayForm": "esta",
+          "examples": [
+            {
+              "id": "es.agreement.este.fs.mesa",
+              "revision": 1,
+              "learnerBaseText": "this table",
+              "englishAuditText": "this table",
+              "targetText": "esta mesa",
+              "slot": {
+                "beforeText": "",
+                "afterText": " mesa"
+              },
+              "anchor": {
+                "targetText": "mesa",
+                "learnerBaseText": "table",
+                "englishAuditText": "table"
+              }
+            },
+            {
+              "id": "es.agreement.este.fs.calle",
+              "revision": 1,
+              "learnerBaseText": "this street",
+              "englishAuditText": "this street",
+              "targetText": "esta calle",
+              "slot": {
+                "beforeText": "",
+                "afterText": " calle"
+              },
+              "anchor": {
+                "targetText": "calle",
+                "learnerBaseText": "street",
+                "englishAuditText": "street"
+              }
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "estos",
+          "examples": [
+            {
+              "id": "es.agreement.este.mp.libros",
+              "revision": 1,
+              "learnerBaseText": "these books",
+              "englishAuditText": "these books",
+              "targetText": "estos libros",
+              "slot": {
+                "beforeText": "",
+                "afterText": " libros"
+              },
+              "anchor": {
+                "targetText": "libros",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              }
+            },
+            {
+              "id": "es.agreement.este.mp.coches",
+              "revision": 1,
+              "learnerBaseText": "these cars",
+              "englishAuditText": "these cars",
+              "targetText": "estos coches",
+              "slot": {
+                "beforeText": "",
+                "afterText": " coches"
+              },
+              "anchor": {
+                "targetText": "coches",
+                "learnerBaseText": "cars",
+                "englishAuditText": "cars"
+              }
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "estas",
+          "examples": [
+            {
+              "id": "es.agreement.este.fp.mesas",
+              "revision": 1,
+              "learnerBaseText": "these tables",
+              "englishAuditText": "these tables",
+              "targetText": "estas mesas",
+              "slot": {
+                "beforeText": "",
+                "afterText": " mesas"
+              },
+              "anchor": {
+                "targetText": "mesas",
+                "learnerBaseText": "tables",
+                "englishAuditText": "tables"
+              }
+            },
+            {
+              "id": "es.agreement.este.fp.calles",
+              "revision": 1,
+              "learnerBaseText": "these streets",
+              "englishAuditText": "these streets",
+              "targetText": "estas calles",
+              "slot": {
+                "beforeText": "",
+                "afterText": " calles"
+              },
+              "anchor": {
+                "targetText": "calles",
+                "learnerBaseText": "streets",
+                "englishAuditText": "streets"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "es.agreement.adjective-trabajador",
+      "revision": 1,
+      "difficulty": 2,
+      "focus": {
+        "kind": "adjective",
+        "label": "Adjective: trabajador",
+        "targetText": "trabajador",
+        "resultTitle": "Four forms of trabajador",
+        "summary": "Adjectives ending in -dor add -a for feminine forms and mark the plural with -es or -as."
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "trabajador",
+          "examples": [
+            {
+              "id": "es.agreement.trabajador.ms.alumno",
+              "revision": 1,
+              "learnerBaseText": "the hardworking male student",
+              "englishAuditText": "the hardworking male student",
+              "targetText": "el alumno trabajador",
+              "slot": {
+                "beforeText": "el alumno ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "el alumno",
+                "learnerBaseText": "the male student",
+                "englishAuditText": "the male student"
+              }
+            },
+            {
+              "id": "es.agreement.trabajador.ms.medico",
+              "revision": 1,
+              "learnerBaseText": "a hardworking male doctor",
+              "englishAuditText": "a hardworking male doctor",
+              "targetText": "un médico trabajador",
+              "slot": {
+                "beforeText": "un médico ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "un médico",
+                "learnerBaseText": "a male doctor",
+                "englishAuditText": "a male doctor"
+              }
+            }
+          ]
+        },
+        "feminine-singular": {
+          "displayForm": "trabajadora",
+          "examples": [
+            {
+              "id": "es.agreement.trabajador.fs.alumna",
+              "revision": 1,
+              "learnerBaseText": "the hardworking female student",
+              "englishAuditText": "the hardworking female student",
+              "targetText": "la alumna trabajadora",
+              "slot": {
+                "beforeText": "la alumna ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "la alumna",
+                "learnerBaseText": "the female student",
+                "englishAuditText": "the female student"
+              }
+            },
+            {
+              "id": "es.agreement.trabajador.fs.medica",
+              "revision": 1,
+              "learnerBaseText": "a hardworking female doctor",
+              "englishAuditText": "a hardworking female doctor",
+              "targetText": "una médica trabajadora",
+              "slot": {
+                "beforeText": "una médica ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "una médica",
+                "learnerBaseText": "a female doctor",
+                "englishAuditText": "a female doctor"
+              }
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "trabajadores",
+          "examples": [
+            {
+              "id": "es.agreement.trabajador.mp.alumnos",
+              "revision": 1,
+              "learnerBaseText": "the hardworking male students",
+              "englishAuditText": "the hardworking male students",
+              "targetText": "los alumnos trabajadores",
+              "slot": {
+                "beforeText": "los alumnos ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "los alumnos",
+                "learnerBaseText": "the male students",
+                "englishAuditText": "the male students"
+              }
+            },
+            {
+              "id": "es.agreement.trabajador.mp.medicos",
+              "revision": 1,
+              "learnerBaseText": "some hardworking male doctors",
+              "englishAuditText": "some hardworking male doctors",
+              "targetText": "unos médicos trabajadores",
+              "slot": {
+                "beforeText": "unos médicos ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "unos médicos",
+                "learnerBaseText": "some male doctors",
+                "englishAuditText": "some male doctors"
+              }
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "trabajadoras",
+          "examples": [
+            {
+              "id": "es.agreement.trabajador.fp.alumnas",
+              "revision": 1,
+              "learnerBaseText": "the hardworking female students",
+              "englishAuditText": "the hardworking female students",
+              "targetText": "las alumnas trabajadoras",
+              "slot": {
+                "beforeText": "las alumnas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "las alumnas",
+                "learnerBaseText": "the female students",
+                "englishAuditText": "the female students"
+              }
+            },
+            {
+              "id": "es.agreement.trabajador.fp.medicas",
+              "revision": 1,
+              "learnerBaseText": "some hardworking female doctors",
+              "englishAuditText": "some hardworking female doctors",
+              "targetText": "unas médicas trabajadoras",
+              "slot": {
+                "beforeText": "unas médicas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "unas médicas",
+                "learnerBaseText": "some female doctors",
+                "englishAuditText": "some female doctors"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "es.agreement.adjective-verde",
+      "revision": 1,
+      "difficulty": 2,
+      "focus": {
+        "kind": "adjective",
+        "label": "Adjective: verde",
+        "targetText": "verde",
+        "resultTitle": "Verde marks number, not gender",
+        "summary": "Verde is the same for masculine and feminine nouns; only the plural changes it to verdes."
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "verde",
+          "examples": [
+            {
+              "id": "es.agreement.verde.ms.coche",
+              "revision": 1,
+              "learnerBaseText": "the green car",
+              "englishAuditText": "the green car",
+              "targetText": "el coche verde",
+              "slot": {
+                "beforeText": "el coche ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "el coche",
+                "learnerBaseText": "the car",
+                "englishAuditText": "the car"
+              }
+            },
+            {
+              "id": "es.agreement.verde.ms.vestido",
+              "revision": 1,
+              "learnerBaseText": "a green dress",
+              "englishAuditText": "a green dress",
+              "targetText": "un vestido verde",
+              "slot": {
+                "beforeText": "un vestido ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "un vestido",
+                "learnerBaseText": "a dress",
+                "englishAuditText": "a dress"
+              }
+            }
+          ]
+        },
+        "feminine-singular": {
+          "displayForm": "verde",
+          "examples": [
+            {
+              "id": "es.agreement.verde.fs.camisa",
+              "revision": 1,
+              "learnerBaseText": "the green shirt",
+              "englishAuditText": "the green shirt",
+              "targetText": "la camisa verde",
+              "slot": {
+                "beforeText": "la camisa ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "la camisa",
+                "learnerBaseText": "the shirt",
+                "englishAuditText": "the shirt"
+              }
+            },
+            {
+              "id": "es.agreement.verde.fs.puerta",
+              "revision": 1,
+              "learnerBaseText": "a green door",
+              "englishAuditText": "a green door",
+              "targetText": "una puerta verde",
+              "slot": {
+                "beforeText": "una puerta ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "una puerta",
+                "learnerBaseText": "a door",
+                "englishAuditText": "a door"
+              }
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "verdes",
+          "examples": [
+            {
+              "id": "es.agreement.verde.mp.coches",
+              "revision": 1,
+              "learnerBaseText": "the green cars",
+              "englishAuditText": "the green cars",
+              "targetText": "los coches verdes",
+              "slot": {
+                "beforeText": "los coches ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "los coches",
+                "learnerBaseText": "the cars",
+                "englishAuditText": "the cars"
+              }
+            },
+            {
+              "id": "es.agreement.verde.mp.vestidos",
+              "revision": 1,
+              "learnerBaseText": "some green dresses",
+              "englishAuditText": "some green dresses",
+              "targetText": "unos vestidos verdes",
+              "slot": {
+                "beforeText": "unos vestidos ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "unos vestidos",
+                "learnerBaseText": "some dresses",
+                "englishAuditText": "some dresses"
+              }
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "verdes",
+          "examples": [
+            {
+              "id": "es.agreement.verde.fp.camisas",
+              "revision": 1,
+              "learnerBaseText": "the green shirts",
+              "englishAuditText": "the green shirts",
+              "targetText": "las camisas verdes",
+              "slot": {
+                "beforeText": "las camisas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "las camisas",
+                "learnerBaseText": "the shirts",
+                "englishAuditText": "the shirts"
+              }
+            },
+            {
+              "id": "es.agreement.verde.fp.puertas",
+              "revision": 1,
+              "learnerBaseText": "some green doors",
+              "englishAuditText": "some green doors",
+              "targetText": "unas puertas verdes",
+              "slot": {
+                "beforeText": "unas puertas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "unas puertas",
+                "learnerBaseText": "some doors",
+                "englishAuditText": "some doors"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "es.agreement.determiner-indefinite",
+      "revision": 1,
+      "difficulty": 3,
+      "focus": {
+        "kind": "determiner",
+        "label": "Indefinite articles: un, una, unos, unas",
+        "targetText": "un · una · unos · unas",
+        "resultTitle": "Four indefinite articles",
+        "summary": "Un, una, unos, and unas agree with grammatical gender and number, including masculine nouns such as día and idioma."
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "un",
+          "examples": [
+            {
+              "id": "es.agreement.indefinite.ms.dia",
+              "revision": 1,
+              "learnerBaseText": "a quiet day",
+              "englishAuditText": "a quiet day",
+              "targetText": "un día tranquilo",
+              "slot": {
+                "beforeText": "",
+                "afterText": " día tranquilo"
+              },
+              "anchor": {
+                "targetText": "día",
+                "learnerBaseText": "day",
+                "englishAuditText": "day"
+              }
+            },
+            {
+              "id": "es.agreement.indefinite.ms.idioma",
+              "revision": 1,
+              "learnerBaseText": "a new language",
+              "englishAuditText": "a new language",
+              "targetText": "un idioma nuevo",
+              "slot": {
+                "beforeText": "",
+                "afterText": " idioma nuevo"
+              },
+              "anchor": {
+                "targetText": "idioma",
+                "learnerBaseText": "language",
+                "englishAuditText": "language"
+              }
+            }
+          ]
+        },
+        "feminine-singular": {
+          "displayForm": "una",
+          "examples": [
+            {
+              "id": "es.agreement.indefinite.fs.noche",
+              "revision": 1,
+              "learnerBaseText": "a quiet night",
+              "englishAuditText": "a quiet night",
+              "targetText": "una noche tranquila",
+              "slot": {
+                "beforeText": "",
+                "afterText": " noche tranquila"
+              },
+              "anchor": {
+                "targetText": "noche",
+                "learnerBaseText": "night",
+                "englishAuditText": "night"
+              }
+            },
+            {
+              "id": "es.agreement.indefinite.fs.clase",
+              "revision": 1,
+              "learnerBaseText": "a new class",
+              "englishAuditText": "a new class",
+              "targetText": "una clase nueva",
+              "slot": {
+                "beforeText": "",
+                "afterText": " clase nueva"
+              },
+              "anchor": {
+                "targetText": "clase",
+                "learnerBaseText": "class",
+                "englishAuditText": "class"
+              }
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "unos",
+          "examples": [
+            {
+              "id": "es.agreement.indefinite.mp.dias",
+              "revision": 1,
+              "learnerBaseText": "some quiet days",
+              "englishAuditText": "some quiet days",
+              "targetText": "unos días tranquilos",
+              "slot": {
+                "beforeText": "",
+                "afterText": " días tranquilos"
+              },
+              "anchor": {
+                "targetText": "días",
+                "learnerBaseText": "days",
+                "englishAuditText": "days"
+              }
+            },
+            {
+              "id": "es.agreement.indefinite.mp.idiomas",
+              "revision": 1,
+              "learnerBaseText": "some new languages",
+              "englishAuditText": "some new languages",
+              "targetText": "unos idiomas nuevos",
+              "slot": {
+                "beforeText": "",
+                "afterText": " idiomas nuevos"
+              },
+              "anchor": {
+                "targetText": "idiomas",
+                "learnerBaseText": "languages",
+                "englishAuditText": "languages"
+              }
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "unas",
+          "examples": [
+            {
+              "id": "es.agreement.indefinite.fp.noches",
+              "revision": 1,
+              "learnerBaseText": "some quiet nights",
+              "englishAuditText": "some quiet nights",
+              "targetText": "unas noches tranquilas",
+              "slot": {
+                "beforeText": "",
+                "afterText": " noches tranquilas"
+              },
+              "anchor": {
+                "targetText": "noches",
+                "learnerBaseText": "nights",
+                "englishAuditText": "nights"
+              }
+            },
+            {
+              "id": "es.agreement.indefinite.fp.clases",
+              "revision": 1,
+              "learnerBaseText": "some new classes",
+              "englishAuditText": "some new classes",
+              "targetText": "unas clases nuevas",
+              "slot": {
+                "beforeText": "",
+                "afterText": " clases nuevas"
+              },
+              "anchor": {
+                "targetText": "clases",
+                "learnerBaseText": "classes",
+                "englishAuditText": "classes"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "es.agreement.adjective-feliz",
+      "revision": 1,
+      "difficulty": 3,
+      "focus": {
+        "kind": "adjective",
+        "label": "Adjective: feliz",
+        "targetText": "feliz",
+        "resultTitle": "Feliz marks number, not gender",
+        "summary": "Feliz works with masculine and feminine singular nouns; its plural form is felices."
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "feliz",
+          "examples": [
+            {
+              "id": "es.agreement.feliz.ms.nino",
+              "revision": 1,
+              "learnerBaseText": "the happy boy",
+              "englishAuditText": "the happy boy",
+              "targetText": "el niño feliz",
+              "slot": {
+                "beforeText": "el niño ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "el niño",
+                "learnerBaseText": "the boy",
+                "englishAuditText": "the boy"
+              }
+            },
+            {
+              "id": "es.agreement.feliz.ms.dia",
+              "revision": 1,
+              "learnerBaseText": "a happy day",
+              "englishAuditText": "a happy day",
+              "targetText": "un día feliz",
+              "slot": {
+                "beforeText": "un día ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "un día",
+                "learnerBaseText": "a day",
+                "englishAuditText": "a day"
+              }
+            }
+          ]
+        },
+        "feminine-singular": {
+          "displayForm": "feliz",
+          "examples": [
+            {
+              "id": "es.agreement.feliz.fs.nina",
+              "revision": 1,
+              "learnerBaseText": "the happy girl",
+              "englishAuditText": "the happy girl",
+              "targetText": "la niña feliz",
+              "slot": {
+                "beforeText": "la niña ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "la niña",
+                "learnerBaseText": "the girl",
+                "englishAuditText": "the girl"
+              }
+            },
+            {
+              "id": "es.agreement.feliz.fs.familia",
+              "revision": 1,
+              "learnerBaseText": "a happy family",
+              "englishAuditText": "a happy family",
+              "targetText": "una familia feliz",
+              "slot": {
+                "beforeText": "una familia ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "una familia",
+                "learnerBaseText": "a family",
+                "englishAuditText": "a family"
+              }
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "felices",
+          "examples": [
+            {
+              "id": "es.agreement.feliz.mp.ninos",
+              "revision": 1,
+              "learnerBaseText": "the happy boys",
+              "englishAuditText": "the happy boys",
+              "targetText": "los niños felices",
+              "slot": {
+                "beforeText": "los niños ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "los niños",
+                "learnerBaseText": "the boys",
+                "englishAuditText": "the boys"
+              }
+            },
+            {
+              "id": "es.agreement.feliz.mp.dias",
+              "revision": 1,
+              "learnerBaseText": "some happy days",
+              "englishAuditText": "some happy days",
+              "targetText": "unos días felices",
+              "slot": {
+                "beforeText": "unos días ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "unos días",
+                "learnerBaseText": "some days",
+                "englishAuditText": "some days"
+              }
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "felices",
+          "examples": [
+            {
+              "id": "es.agreement.feliz.fp.ninas",
+              "revision": 1,
+              "learnerBaseText": "the happy girls",
+              "englishAuditText": "the happy girls",
+              "targetText": "las niñas felices",
+              "slot": {
+                "beforeText": "las niñas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "las niñas",
+                "learnerBaseText": "the girls",
+                "englishAuditText": "the girls"
+              }
+            },
+            {
+              "id": "es.agreement.feliz.fp.familias",
+              "revision": 1,
+              "learnerBaseText": "some happy families",
+              "englishAuditText": "some happy families",
+              "targetText": "unas familias felices",
+              "slot": {
+                "beforeText": "unas familias ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "unas familias",
+                "learnerBaseText": "some families",
+                "englishAuditText": "some families"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "gameplay": {
+    "contract": "caatuu-grammar-gravity-journey-v1",
+    "stages": [
+      "meaning",
+      "category",
+      "form"
+    ],
+    "categoryFeature": "gender",
+    "categoryOptions": [
+      {
+        "id": "masculine",
+        "label": "Masculine",
+        "image": "/assets/micelaneous/male_gender.png"
+      },
+      {
+        "id": "feminine",
+        "label": "Feminine",
+        "image": "/assets/micelaneous/female_gender.png"
+      }
+    ]
+  }
+}

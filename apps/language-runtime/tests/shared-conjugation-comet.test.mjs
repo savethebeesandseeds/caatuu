@@ -161,7 +161,7 @@ test("shared game resources resolve only inside the declared course game directo
 
   for (const unsafe of [
     "../mandarin/verbs.json",
-    "data/games/agreement-aurora/challenges.json",
+    "data/games/grammar-gravity/challenges.json",
     "/es/data/games/conjugation-comet/verbs.json",
     "https://example.test/verbs.json",
     "data\\games\\conjugation-comet\\verbs.json",
@@ -389,16 +389,24 @@ test("the shared Conjugation Comet host has no Spanish or Czech rendering fork",
   assert.doesNotMatch(host, /\/es\/|\/cz\/|es-ES|cs-CZ|Spanish|Czech/u);
   assert.match(host, /readEmbeddedCourseProfile/u);
   assert.match(host, /fetchDeclaredCourseGameJson/u);
-  assert.match(host, /learnerBaseCueText/u);
+  assert.match(host, /subject\.learnerBaseText/u);
   assert.doesNotMatch(host, /form\.englishAuditText/u);
-  assert.match(host, /type:\s*"round-success"/u);
-  assert.match(host, /catalog\.copy\.meaningInstruction/u);
-  assert.match(host, /catalog\.copy\.baseCuesHeading/u);
-  assert.match(host, /catalog\.copy\.wrongPairFeedback/u);
+  assert.match(host, /"round-success"\s*:\s*"round-complete"/u);
+  assert.match(host, /languageName/u);
+  assert.match(host, /course\.targetLanguage/u);
+  assert.match(host, /course\.sourceLanguage/u);
+  assert.match(host, /buildConjugationHelixRound/u);
+  assert.match(host, /mountEmbeddedGameControls/u);
+  assert.match(host, /createSpeechIcon/u);
+  assert.doesNotMatch(document, /conjugationCometSpeakPhrase|conjugationCometSelection/u);
+  assert.match(host, /splitConjugationDisplay/u);
   assert.match(host, /buildConjugationVerbQueue\(state\.catalog\.verbs/u);
   assert.match(host, /previousVerbId:\s*state\.current\?\.id/u);
   assert.doesNotMatch(host, /shuffleConjugationItems\(state\.catalog\.verbs/u);
   assert.match(document, /conjugation-comet-host\.mjs/u);
+  assert.match(document, /id="conjugationCometControls"/u);
+  assert.match(document, /id="conjugationCometFormLemma"/u);
+  assert.doesNotMatch(document, /conjugationCometHint(?:Button)?|conjugationCometInstruction|conjugationCometKicker/u);
   assert.doesNotMatch(
     document,
     />\s*(?:Meaning choices|Base-language cues|Next verb|Show pattern)\s*</u

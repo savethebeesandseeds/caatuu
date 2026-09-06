@@ -1718,23 +1718,11 @@ button:focus-visible {
   overscroll-behavior-y: contain;
   scrollbar-gutter: stable;
 }
-.word-net-embedded-status {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-content: center;
-  justify-items: center;
-  gap: 9px;
-  padding: 24px;
-  background:
-    radial-gradient(circle at 50% 44%, color-mix(in srgb, var(--green) 14%, transparent), transparent 34%),
-    var(--panel);
-  color: var(--ink);
-  text-align: center;
-}
+.word-net-embedded-status { color: var(--ink); text-align: center; }
 .word-net-embedded-status[hidden] {
   display: none;
 }
+.word-net-embedded-status.is-error { place-content: center; gap: 9px; }
 .word-net-embedded-status strong {
   font-size: 1rem;
 }
@@ -1748,60 +1736,19 @@ button:focus-visible {
 .word-net-embedded-status:not(.is-error) small {
   display: none;
 }
-.word-net-embedded-loader {
-  width: min(54vw, 240px);
-  max-height: min(44vh, 280px);
-  object-fit: contain;
-  filter: drop-shadow(0 18px 24px color-mix(in srgb, var(--ink) 18%, transparent));
-  animation: embedded-loader-breathe 1.35s ease-in-out infinite alternate;
-}
-.word-net-embedded-status.is-error .word-net-embedded-loader {
-  animation: none;
-  width: min(34vw, 150px);
-  opacity: 0.7;
-}
+
+.word-net-embedded-status.is-error .caatuu-game-robot-loading-art { animation: none; width: min(34vw, 150px); opacity: .7; }
 
 .campaign-transition[hidden] {
   display: none !important;
 }
-.campaign-transition {
-  position: absolute;
-  z-index: 40;
-  inset: 0;
-  min-height: 360px;
-  display: grid;
-  place-items: center;
-  padding: clamp(18px, 5vw, 42px);
-  border: 1px solid color-mix(in srgb, var(--blue) 28%, var(--line));
-  border-radius: 14px;
-  background:
-    radial-gradient(circle at 50% 36%, color-mix(in srgb, var(--blue) 15%, transparent), transparent 38%),
-    color-mix(in srgb, var(--theme-panel, var(--panel)) 96%, var(--green-dark));
-  text-align: center;
-  isolation: isolate;
-}
-.campaign-transition-card {
-  width: min(100%, 420px);
-  display: grid;
-  justify-items: center;
-}
-.campaign-transition-card img {
-  width: min(64vw, 260px);
-  max-height: min(46vh, 290px);
-  object-fit: contain;
-  filter: drop-shadow(0 18px 24px color-mix(in srgb, var(--ink) 18%, transparent));
-  animation: campaign-robot-breathe 1.35s ease-in-out infinite alternate;
-}
+.campaign-transition { z-index: 40; border-radius: 14px; }
 
-@keyframes embedded-loader-breathe {
-  from { opacity: 0.7; transform: translateY(2px) scale(0.985); }
-  to { opacity: 0.96; transform: translateY(-3px) scale(1.015); }
-}
 
-@keyframes campaign-robot-breathe {
-  from { opacity: 0.7; transform: translateY(2px) scale(0.985); }
-  to { opacity: 0.96; transform: translateY(-3px) scale(1.015); }
-}
+
+
+
+
 .memory-moon-panel,
 .upcoming-game-panel {
   min-height: 460px;
@@ -6180,10 +6127,7 @@ html[data-theme] .verb-match-control-cluster > .theme-toggle:focus-visible {
   display: none !important;
 }
 
-#verbRoundInterstitial {
-  position: relative;
-  isolation: isolate;
-}
+#verbRoundInterstitial { isolation: isolate; border-radius: inherit; }
 
 .verb-round-reward[hidden] {
   display: none !important;
@@ -6313,19 +6257,9 @@ html[data-theme] .verb-match-control-cluster > .theme-toggle:focus-visible {
   animation-delay: var(--verb-reward-mote-delay);
 }
 
-.verb-match-board[aria-busy="true"] {
-  background:
-    radial-gradient(circle at 50% 48%, color-mix(in srgb, var(--blue) 10%, transparent), transparent 42%),
-    color-mix(in srgb, var(--theme-input, var(--panel)) 82%, transparent);
-}
+.verb-match-board[aria-busy="true"] { min-height: clamp(260px, 52vh, 420px); }
 
-#verbRoundRobot {
-  position: relative;
-  z-index: 1;
-  display: block;
-  filter: drop-shadow(0 14px 20px rgba(11, 34, 29, 0.14));
-  animation: verb-round-robot-breathe 1.45s ease-in-out infinite alternate;
-}
+
 
 .verb-match-footer {
   display: flex;
@@ -6378,10 +6312,7 @@ html[data-theme="dark"] .verb-match-board {
   to { transform: rotate(360deg); }
 }
 
-@keyframes verb-round-robot-breathe {
-  from { opacity: 0.68; }
-  to { opacity: 0.92; }
-}
+
 
 @keyframes verb-round-reward-arrive {
   0% {
@@ -6527,24 +6458,29 @@ html[data-theme="dark"] .verb-match-board {
 
 }
 
-/* Hanzi and pinyin remain legible at the learner-facing Standard size without
-   enlarging English copy or the surrounding controls. */
+/* Keep Hanzi and pinyin legible in Standard and Small; the global root font
+   scale supplies the gentle step between them without changing Smaller. */
+html[data-font-size="large"] body[data-target-script^="Han"] .word-net-target-text-glyph,
 html[data-font-size="largest"] body[data-target-script^="Han"] .word-net-target-text-glyph {
   font-size: 1.38em;
 }
 
+html[data-font-size="large"] body[data-target-script^="Han"] .word-net-target-text-notation,
 html[data-font-size="largest"] body[data-target-script^="Han"] .word-net-target-text-notation {
   font-size: max(0.56em, 0.7rem);
 }
 
+html[data-font-size="large"] body[data-target-script^="Han"] #wordNetTrail .word-net-trail-target,
 html[data-font-size="largest"] body[data-target-script^="Han"] #wordNetTrail .word-net-trail-target {
   font-size: 1.13rem;
 }
 
+html[data-font-size="large"] body[data-target-script^="Han"] .verb-match-column-heading-cz #verbTargetColumnHeading,
 html[data-font-size="largest"] body[data-target-script^="Han"] .verb-match-column-heading-cz #verbTargetColumnHeading {
   font-size: clamp(1.08rem, 1.66vw, 1.21rem);
 }
 
+html[data-font-size="large"] body[data-target-script^="Han"] .verb-match-card-cz .verb-match-card-copy,
 html[data-font-size="largest"] body[data-target-script^="Han"] .verb-match-card-cz .verb-match-card-copy {
   font-size: clamp(1.38rem, 3.24vw, 1.62rem);
 }
@@ -6679,24 +6615,14 @@ body.embedded-game-active .embedded-game-stage {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .word-net-embedded-loader {
-    animation: none;
-  }
 
-  .campaign-transition-card img {
-    animation: none;
-  }
 
   .verb-match-card,
-  .verb-hint-loader,
-  #verbRoundRobot {
+  .verb-hint-loader {
     animation: none;
     transition: none;
   }
 
-  #verbRoundRobot {
-    opacity: 0.84;
-  }
 
   .verb-round-reward.is-visible,
   .verb-round-reward.is-visible .verb-round-reward-gem,

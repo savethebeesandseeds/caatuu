@@ -9,8 +9,10 @@ Cosmos, Memory Moon, and Verb Nebula assets in this directory.
 
 ## Canonical runtime filenames
 
-Every enabled planet emblem uses the game ID as its filename. Generic lettered
-filenames are retired and must not be reintroduced.
+Planet emblems use the explicit runtime mapping below. Generic lettered
+filenames are retired and must not be reintroduced. Grammar Gravity
+retains the Agreement Aurora artwork filename and artifact key by design;
+the rename does not alter the image bytes or historical release provenance.
 
 | Game ID | Runtime filename |
 | --- | --- |
@@ -18,7 +20,7 @@ filenames are retired and must not be reintroduced.
 | `verb-lab` | `verb-nebula.png` |
 | `conjugation-comet` | `conjugation-comet.png` |
 | `case-cosmos` | `case-cosmos.png` |
-| `agreement-aurora` | `agreement-aurora.png` |
+| `grammar-gravity` | `grammar-gravity.png` |
 | `memory-moon` | `memory-moon.png` |
 | `sound-quasar` | `sounds-quasar.png` |
 | `campaign` | `campaign-mode.png` |
@@ -448,3 +450,7 @@ source asset.
 
 This alias inherits the source asset's provenance and release limits; copying
 it into the planet catalog does not establish additional rights.
+
+## Grammar Gravity filename alignment
+
+On 2026-09-06, the current runtime file was renamed from `agreement-aurora.png` to `grammar-gravity.png` without changing its bytes. Earlier revision paths and published release URLs above remain historical records.

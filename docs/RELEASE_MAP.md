@@ -60,7 +60,7 @@ must contain only an explicit release allowlist.
 | Word World in curated Standard mode | Include after release-subset review |
 | Verb Nebula | Include after stable-content migration and review |
 | Conjugation Comet | Candidate; include only if its six-verb pilot passes its gates |
-| Agreement Aurora | Stretch candidate; include only if its exact content and interface pass |
+| Grammar Gravity | Stretch candidate; include only if its exact content and interface pass |
 | Case Cosmos | Defer by default; promote only if its exact content and interface pass |
 | Memory Moon placeholder | Hide and exclude |
 | Sounds Quasar placeholder / Battle of the Robots | Defer and exclude |
@@ -336,7 +336,7 @@ smaller fully reviewed course over a larger unapproved corpus.
 | Word World | Standard-only; fix manifest/count drift; choose a balanced release subset from the 792 records; obtain qualified Czech and pedagogical review for its exact hash; keep sentence/image/dictionary/embedding integrity |
 | Verb Nebula | Compile a finite verb-only pack from the mixed 865-row vocabulary source; add stable IDs/revisions, reviewed Czech/English pairs and difficulty; remove LLM-catalog coupling |
 | Conjugation Comet | Make the five teaching verbs and one held-out verb explicit in JSON rather than deriving them from 59 records by order/filter; review every form, cue, accepted answer, hint and grammatical claim |
-| Agreement Aurora | Add stable identities and review the exact included adjective phrases; finish phone, keyboard, screen-reader and reduced-motion behavior; include only if green by content freeze |
+| Grammar Gravity | Add stable identities and review the exact included adjective phrases; finish phone, keyboard, screen-reader and reduced-motion behavior; include only if green by content freeze |
 | Case Cosmos | Add stable identities and review all included case forms and complete sentences; finish its seven-choice interface and evidence behavior; otherwise leave it source-only for the next release |
 | Memory Moon | Remove from the release catalog and navigation while it remains a placeholder |
 

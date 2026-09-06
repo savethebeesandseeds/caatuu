@@ -75,6 +75,18 @@ const SIGNATURE_ATTRIBUTES = new Set([
   "value"
 ]);
 
+// Message IDs annotate the existing component; they do not change its layout.
+// Keep the rendered ARIA/default attributes and every other data-* contract
+// in the signature, and continue checking the exact ordered element tree.
+const INTERFACE_MESSAGE_ATTRIBUTES = new Set([
+  "data-i18n",
+  "data-i18n-aria-description",
+  "data-i18n-aria-label",
+  "data-i18n-aria-valuetext",
+  "data-i18n-placeholder",
+  "data-i18n-title"
+]);
+
 const REQUIRED_WORD_WORLD_IDS = Object.freeze([
   "wordNetWordTranslation",
   "wordNetSelectedWord",
@@ -179,6 +191,7 @@ function parseHtml(source) {
     if (closing) {
       while (stack.length > 1) {
         const node = stack.pop();
+        node.contentSource = source.slice(node.contentStart, match.index);
         if (node.tag === tag) break;
       }
       continue;
@@ -190,6 +203,7 @@ function parseHtml(source) {
       tag,
       attributes: parseAttributes(token.slice(attributeStart, attributeEnd)),
       children: [],
+      contentStart: match.index + token.length,
       parent: stack.at(-1)
     };
     stack.at(-1).children.push(node);
@@ -220,6 +234,7 @@ function findOne(root, predicate, label) {
 function contractAttributes(node) {
   const nodeId = node.attributes.get("id");
   return [...node.attributes]
+    .filter(([name]) => !INTERFACE_MESSAGE_ATTRIBUTES.has(name))
     .filter(([name]) => (
       name === "id"
       || name === "class"
@@ -280,6 +295,7 @@ function directChildIdentity(node) {
 function removeApprovedWordWorldExtensions(node) {
   const approvedIds = new Set([
     "wordNetTargetTextSettings",
+    "wordNetImageToggle",
     "wordNetAudioMute"
   ]);
   node.children = node.children.filter((child) => (
@@ -287,6 +303,152 @@ function removeApprovedWordWorldExtensions(node) {
     && child.attributes.get("aria-labelledby") !== "wordNetChallengePromptModeLabel"
   ));
   node.children.forEach(removeApprovedWordWorldExtensions);
+}
+
+function normalizeSharedRobotLoading(root, goldenGame) {
+  const loading = findOne(root, (node) => node.attributes.get("id") === "wordNetLoading", "shared robot screen");
+  const goldenLoading = findOne(goldenGame, (node) => node.attributes.get("id") === "wordNetLoading", "historical robot screen");
+  assert.equal(loading.tag, "div");
+  assert.deepEqual([...loading.attributes].sort(), [
+    ["class", "word-net-loading caatuu-game-robot-loading"], ["hidden", ""],
+    ["id", "wordNetLoading"], ["role", "status"]
+  ].sort());
+  assert.equal(loading.children.length, 1, "The shared robot replaces the separate spinner and image loader.");
+  const image = loading.children[0];
+  assert.equal(image.tag, "img");
+  assert.deepEqual([...image.attributes].sort(), [
+    ["alt", ""], ["aria-hidden", "true"], ["class", "caatuu-game-robot-loading-art"],
+    ["id", "wordNetLoadingArt"], ["src", "/assets/robots/robot%20(1).png"]
+  ].sort());
+  // The user requested one shared centered blinking robot for every game. Only
+  // this verified replacement is normalized before comparing the remaining UI.
+  loading.attributes = new Map(goldenLoading.attributes);
+  loading.children = goldenLoading.children;
+}
+
+function withSharedRobotLoadingCss(source) {
+  // Pin only the reviewed shared display controls and picture-toggle changes.
+  const controlRules = [
+  [
+    ".word-net-display-menu",
+    ".word-net-display-menu {\n  right: 0;\n  left: auto;\n  box-sizing: border-box;\n  width: min(288px, calc(100vw - 24px));\n  padding: 10px;\n  gap: 8px;\n  border-radius: 12px;\n  background: var(--panel);\n}"
+  ],
+  [
+    ".word-net-display-options",
+    ".word-net-display-options {\n  display: grid;\n  grid-template-columns: repeat(2, minmax(0, 1fr));\n  gap: 7px;\n}"
+  ],
+  [
+    ".word-net-display-options button",
+    ".word-net-display-options button {\n  min-width: 0;\n  min-height: 43px;\n  padding: 7px;\n  border: 1px solid var(--theme-line-strong, var(--line));\n  border-radius: 9px;\n  background: var(--theme-input, var(--panel));\n  color: var(--ink);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 5px;\n  font: inherit;\n  font-size: 0.66rem;\n  font-weight: 850;\n  box-shadow: 0 2px 0 color-mix(in srgb, var(--gold) 48%, transparent);\n  cursor: pointer;\n}"
+  ],
+  [
+    ".word-net-display-options button.is-active",
+    ".word-net-display-options button.is-active {\n  border-color: var(--green-dark);\n  background: var(--green-dark);\n  color: #fff;\n  box-shadow: 0 2px 0 color-mix(in srgb, var(--green-dark) 72%, #000);\n}"
+  ],
+  [
+    ".word-net-display-options img",
+    ".word-net-display-options img {\n  width: 17px;\n  height: 17px;\n  object-fit: contain;\n}"
+  ],
+  [
+    ".word-net-display-size-options button",
+    ".word-net-display-size-options button {\n  min-height: 48px;\n  flex-direction: column;\n  gap: 1px;\n  font-size: 0.57rem;\n}"
+  ],
+  [
+    ".word-net-display-size-sample.is-standard",
+    ".word-net-display-size-sample.is-standard {\n  font-size: 0.96rem;\n}"
+  ],
+  [
+    ".word-net-display-size-sample.is-small",
+    ".word-net-display-size-sample.is-small {\n  font-size: 0.82rem;\n}"
+  ],
+  [
+    ".word-net-display-size-sample.is-smaller",
+    ".word-net-display-size-sample.is-smaller {\n  font-size: 0.7rem;\n}"
+  ],
+  [
+    ".word-net-scene[hidden]",
+    ".word-net-scene[hidden],\n.word-net-scene[data-illustrations=\"false\"] {\n  display: none;\n}"
+  ]
+];
+  for (const [selector, replacement] of controlRules) {
+    const start = source.indexOf("\n\n" + selector + " {") + 2;
+    assert.ok(start >= 2, selector + " must exist in the historical authority");
+    const end = source.indexOf("}", start) + 1;
+    source = source.slice(0, start) + replacement + source.slice(end);
+  }
+  source = source.replace(".word-net-panel-actions > .theme-toggle {",
+    ".word-net-image-toggle[aria-pressed=\"true\"] {\n  border-color: var(--theme-green, #22594d);\n  background: var(--theme-soft-green, #e8f5ee);\n}\n\n.word-net-panel-actions > .theme-toggle {");
+  return source
+    .replace(/^\.word-net-loading \{[^}]*\}/mu,
+      ".word-net-loading {\n  opacity: 0;\n  pointer-events: none;\n  transition: opacity 240ms ease;\n}")
+    .replace(/^[ \t]*\.word-net-loading-(?:art(?:\[hidden\])?|copy|spinner) \{[^}]*\}\n\n?/gmu, "")
+    .replace(/^[ \t]*\.word-net-loading-(?:spinner|art),\n/gmu, "")
+    .replace(/@keyframes word-net-(?:spin|robot-breathe) \{(?:[^{}]|\{[^{}]*\})*\}\n\n?/gu, "");
+}
+
+function normalizeApprovedInterfaceAnnotations(root) {
+  const labels = [
+    {
+      className: "word-net-sentence-panel", tag: "section",
+      attributes: ["aria-label"], messageId: "wordworld.sentence.generated",
+      current: "Generated target-language sentence", golden: "Generated Czech sentence"
+    },
+    {
+      id: "wordNetSelectedWordSound", tag: "button",
+      attributes: ["aria-label", "title"], messageId: "wordworld.word.play",
+      current: "Play selected target-language word aloud", golden: "Play selected Czech word aloud"
+    },
+    {
+      id: "wordNetSound", tag: "button",
+      attributes: ["aria-label", "title"], messageId: "wordworld.audio.settings",
+      current: "Target-language audio settings", golden: "Czech audio settings"
+    },
+    {
+      id: "wordNetPhraseSound", tag: "button",
+      attributes: ["aria-label", "title"], messageId: "wordworld.sentence.play",
+      current: "Play target-language sentence aloud", golden: "Play Czech sentence aloud"
+    }
+  ];
+  for (const label of labels) {
+    const identity = label.id || label.className;
+    const node = findOne(root, (candidate) => label.id
+      ? candidate.attributes.get("id") === label.id
+      : hasClass(candidate, label.className), identity);
+    assert.equal(node.tag, label.tag, `${identity}: localized element identity changed.`);
+    for (const attribute of label.attributes) {
+      assert.equal(node.attributes.get(attribute), label.current,
+        `${identity}: only the reviewed target-neutral ${attribute} is allowed.`);
+      assert.equal(node.attributes.get(`data-i18n-${attribute}`), label.messageId,
+        `${identity}: the localized ${attribute} must use its reviewed message ID.`);
+      node.attributes.set(attribute, label.golden);
+    }
+  }
+
+  const ticks = findOne(root,
+    (node) => node.attributes.get("id") === "wordNetAudioSpeedTicks",
+    "shared audio speed ticks");
+  assert.equal(ticks.children.length, 3, "Audio speed ticks must retain three ordered labels.");
+  const messages = [
+    ["common.slower", "Slower"],
+    ["common.slow", "Slow"],
+    ["common.normal", "Normal"]
+  ];
+  ticks.children.forEach((tick, index) => {
+    assert.equal(tick.tag, "span");
+    assert.equal(tick.children.length, 2, "Only one label wrapper may precede the multiplier.");
+    const [label, multiplier] = tick.children;
+    const [messageId, fallback] = messages[index];
+    assert.equal(label.tag, "span");
+    assert.deepEqual([...label.attributes], [["data-i18n", messageId]],
+      "A text wrapper must have no class, ID, style, or behavior attributes.");
+    assert.equal(label.children.length, 0, "A localized label wrapper must contain plain text only.");
+    assert.equal(normalizeSpace(label.contentSource), fallback,
+      "A localized label wrapper must retain the reviewed literal fallback.");
+    assert.equal(multiplier.tag, "small");
+    // The signature does not include text nodes. Normalize this exact plain-text
+    // wrapper back to the golden text-node shape before comparing all elements.
+    tick.children = [multiplier];
+  });
 }
 
 function cssRules(source) {
@@ -414,6 +576,8 @@ test("the live shared Word World subtree exactly preserves the Czech component s
   );
 
   removeApprovedWordWorldExtensions(root);
+  normalizeApprovedInterfaceAnnotations(root);
+  normalizeSharedRobotLoading(root, goldenGame);
 
   assertSameComponentTree(root.children[0], goldenGame, "#wordWorldRoot > .word-net-game");
   assertSameComponentTree(
@@ -462,7 +626,7 @@ test("shared Word World CSS keeps every component byte and only the allowed inli
 
   const goldenPrefix = goldenCss.subarray(0, goldenAnchor).toString("utf8");
   const sharedPrefix = sharedCss.subarray(0, sharedAnchor).toString("utf8");
-  const goldenComponent = goldenCss.subarray(goldenAnchor);
+  const goldenComponent = Buffer.from(withSharedRobotLoadingCss(goldenCss.subarray(goldenAnchor).toString("utf8")));
   const sharedComponentAndDelta = sharedCss.subarray(sharedAnchor);
   const sharedComponent = sharedComponentAndDelta.subarray(0, goldenComponent.length);
   const approvedDelta = sharedComponentAndDelta.subarray(goldenComponent.length);
@@ -470,7 +634,7 @@ test("shared Word World CSS keeps every component byte and only the allowed inli
   assertSameBytes(
     sharedComponent,
     goldenComponent,
-    "The historical Word World component CSS must remain byte-exact before approved shared overrides."
+    "The historical Word World component CSS must remain byte-exact outside the shared robot migration and approved shared overrides."
   );
   assert.equal(approvedDelta.length, APPROVED_SHARED_CSS_DELTA_BYTES);
   assert.equal(

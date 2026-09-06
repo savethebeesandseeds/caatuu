@@ -12,12 +12,11 @@ The immediate product decisions are:
 - **Conjugation Comet remains an optional conjugation game.** A language
   enables it only when verb-form changes are an important learnable system.
 - Czech has two implemented additional game hypotheses: **Case Cosmos** and
-  **Agreement Aurora**. **Sounds Quasar** is a shared coming-later placeholder
-  for sound and spelling practice. Clitic placement is useful content but is
-  not a separate planet.
-- Sounds Quasar is explicitly future work. Its placeholder applies to every
-  course, but it must not enter a course's playable games until that language
-  has reviewed audio and challenge authorities.
+  **Grammar Gravity**. **Sounds Quasar** is shared listening practice using
+  device speech. Clitic placement is useful content but is not a separate planet.
+- Sounds Quasar supports listen-and-choose words and sentences in Czech,
+  Mandarin, and Spanish. Correct answers earn XP; device speech remains
+  unreviewed and provides no pronunciation assessment or mastery evidence.
 - Every enabled game must resolve all assessed challenges from reviewed JSON.
   A game may own that JSON directly or deterministically derive a frozen game
   JSON file from explicitly named general-language JSON sources.
@@ -129,8 +128,8 @@ Examples:
 | Campaign Mode (route) | Initial mixed-play implementation | Complete one successful round, travel with the robots, and continue on another enabled planet |
 | Memory Moon | Placeholder | Recall weak material selected from all active planets |
 | Case Cosmos | Development slice handed off for interface refinement | Recognize why a Czech noun changes and compare its seven case forms |
-| Agreement Aurora | Content and gameplay slice implemented; interface refinement and review pending | Make related Czech words change together |
-| Sounds Quasar | Shared coming-later placeholder | Connect Czech sound, vowel length, diacritics, and spelling through future reviewed content |
+| Grammar Gravity | Content and gameplay slice implemented; interface refinement and review pending | Make related Czech words change together |
+| Sounds Quasar | Shared listening-practice pilot | Hear a word or sentence with device speech and choose its written form |
 | Battle of the Robots | Future main game | Use training and experience from the other planets to face the robot battles |
 
 Memory Moon is a review surface, not another grammar authority. It should draw
@@ -143,15 +142,12 @@ it needs a reviewed policy/configuration JSON and a manifest for that config;
 its session queue may then be derived locally from progress and exact
 `gameId`, challenge ID, and revision references.
 
-Sounds Quasar is also a non-assessing placeholder. The shared shell owns its
-`sound-quasar` identity, presentation, and emblem; Czech, Mandarin, Spanish,
-and future courses opt into the same coming-later surface through
-`upcomingGames`. No language may fork its layout or treat synthesized speech
-as assessed content authority. Activation requires a separate reviewed
-language content contract. The shared planet registry therefore marks it with
-`implementationState: "unimplemented"`: the shell and course validator fail
-closed until that single gate is deliberately changed after reviewed content
-and a shared gameplay host exist.
+Sounds Quasar is a non-assessing practice pilot. The shared shell owns its
+`sound-quasar` identity, presentation, emblem, and gameplay host. Czech,
+Mandarin, and Spanish declare course-owned word and sentence catalogs with
+provenance; no language forks its layout. Correct answers earn 1 XP, including
+correct retries. Reveals earn none. Synthesized speech remains unreviewed,
+and responses do not establish pronunciation mastery or Campaign completion.
 
 ### Campaign Mode — mixed travel between planets
 
@@ -162,7 +158,7 @@ challenge, answer, revision, feedback, and learning record through its existing
 reviewed JSON.
 
 The initial route includes Word World, Verb Nebula, Conjugation Comet when the
-language enables it, Case Cosmos, and Agreement Aurora. It excludes Memory Moon
+language enables it, Case Cosmos, and Grammar Gravity. It excludes Memory Moon
 while that surface remains a non-assessing placeholder. Entering Campaign Mode
 selects a ready implemented planet from a shuffled route. After a genuinely
 successful round—not a reveal, incomplete attempt, or incorrect submission—the
@@ -171,8 +167,8 @@ same robot-only transition appears before the first Campaign planet. When more
 than one planet is playable, the next one must not immediately repeat the one
 just completed; a one-game course keeps sampling that game. Campaign Mode's
 own icon and title remain the visible route identity while the underlying
-planet changes. Sounds Quasar is excluded while it remains a non-assessing
-placeholder.
+planet changes. Sounds Quasar is excluded because its device-speech pilot
+provides practice only.
 
 This random first version is variety, not curriculum guidance. It must not
 claim that a learner is ready, that a concept is mastered, or that a particular
@@ -379,8 +375,8 @@ linguistic facts are shared:
 | Verb Nebula | Existing `core-vocabulary.json` is migration input, not a sufficient runtime contract | Compile a finite stable-ID challenge pack and name it from `verb-nebula/manifest.json` |
 | Conjugation Comet | Directly authored verb records; add structure only when a proved game mechanic needs it | `conjugation-comet/verbs.json`, used directly by the game |
 | Case Cosmos | Directly authored bounded development sample; later shared reviewed paradigms, government records, lesson plan, and contexts only if evidence justifies them | `case-cosmos/challenges.json`, used directly by the game |
-| Agreement Aurora | Directly authored bounded development sample; add shared morphology only after demonstrated reuse | `agreement-aurora/challenges.json`, used directly by the game |
-| Sounds Quasar | Future reviewed challenge records, rule data, and verified audio manifest | Future game manifest to a versioned `challenges.json` and pinned audio assets |
+| Grammar Gravity | Directly authored bounded development sample; add shared morphology only after demonstrated reuse | `grammar-gravity/challenges.json`, used directly by the game |
+| Sounds Quasar | Course-owned word and sentence records with upstream provenance and unreviewed device-speech metadata | `soundQuasarCatalog` pins `data/games/sound-quasar/challenges.json` at `sound-quasar-items-v2` |
 | Memory Moon | A game-owned review policy plus runtime references to exact challenges from the other manifests | Its own configuration JSON and reference queue; never copied Czech answers |
 
 The general JSON modules authorize reusable Czech facts. The game-owned lesson
@@ -856,7 +852,7 @@ conditional, imperative, register contrasts, and voice are later campaigns
 that require separate evidence.
 
 It should not absorb noun declension or general noun-phrase agreement. Those
-belong to Case Cosmos and Agreement Aurora.
+belong to Case Cosmos and Grammar Gravity.
 
 ### 5.2 What is missing now
 
@@ -1035,7 +1031,7 @@ cannot meet the next learning objective.
 - Assemble the `-l` participle, the correct 1st/2nd-person auxiliary or reviewed
   third-person zero realization, and their licensed order.
 - Introduce speaker or subject gender only when context makes it knowable.
-- Share genuine predicate-agreement concept evidence with Agreement Aurora.
+- Share genuine predicate-agreement concept evidence with Grammar Gravity.
 
 #### Orbit 7 — Intent and register
 
@@ -1102,206 +1098,190 @@ Planned challenge types are:
 
 ## 6. Case Cosmos
 
-Status: content and learning loop implemented; interface refinement is a
-separate workstream; qualified Czech review and learner testing remain pending
+Status: bounded English-to-Czech development bank and yes/no recognition loop
+implemented; reference-assisted content checks added; qualified Czech editorial
+review and learner testing remain pending.
 
 ### 6.1 Learning contract
 
-Case Cosmos teaches one central idea: **a Czech noun changes to show the job it
-has in an utterance**. The complete planet must cover all seven Czech cases.
-The current beginner slice keeps one noun fixed for a whole board so the
-learner can see its seven forms together.
+Case Cosmos teaches recognition of a noun's grammatical case in a complete
+Czech sentence. The base keeps seven stable case names, beginner meanings, and
+guiding questions. Those hints are not exhaustive definitions. The current
+bank contains eighteen nouns, with all seven singular cases for each noun.
 
-The case names are the permanent identities. Their English meanings and
-questions are reusable beginner guides, not complete grammatical definitions.
-Examples instantiate this system; they never redefine it.
+The same visible form can represent different cases; the complete utterance
+determines the answer. The game tests recognition, not independent production
+or demonstrated mastery. English remains the learner-base translation and
+audit language for this Czech-only slice.
 
-#### Permanent Case Cosmos base
+### 6.2 Current loop
 
-The shared beginner base expresses every case in the same three-part form:
+Show one authored Czech sentence with exactly one highlighted noun form and
+its intended English translation and actual case. Offer a checked noun form in
+the highlighted slot. The learner answers Yes or No using buttons, keyboard,
+or horizontal swipe. A correct No animates the next distinct noun alternative
+into that same sentence. A mistake shows red retry feedback without advancing.
+Only a correct Yes solves the sentence: show the result, award completion once,
+and transition through the shared robot to the next sentence. After seven
+shuffled cases, move to the next noun. There is no manual Next button.
 
-```text
-case name → general meaning → simple guiding question
-```
+Each sentence has one correct candidate and one to three distinct distractors
+from the same noun's checked singular paradigm, in shuffled order. Only the
+highlighted noun changes; the surrounding text, intended meaning, and case stay
+fixed. Identical forms across cases are deduplicated, never falsely rejected.
 
-| Permanent case | General beginner meaning | Simple guiding question |
-|---|---|---|
-| Nominative — 1st case | naming or subject | Who or what is the subject? |
-| Genitive — 2nd case | belonging, origin, or absence | Whose? From or without whom or what? |
-| Dative — 3rd case | receiver or beneficiary | Who or what receives or benefits? |
-| Accusative — 4th case | direct target | Who or what is the target? |
-| Vocative — 5th case | direct address | Who or what is addressed? |
-| Locative — 6th case | place or topic after a preposition | Where, or about whom or what? |
-| Instrumental — 7th case | companion or means | With whom, or using what? |
+### 6.3 Content authority and safety
 
-The application declares this table once. The JSON does not repeat it. The
-same surface form may represent more than one case, so the complete Czech
-utterance remains part of every example. The grammatical reference for the
-inventory is [CzechEncy: PÁD](https://www.czechency.org/slovnik/P%C3%81D).
+The direct [challenges.json](../apps/languages/czech/static/data/games/case-cosmos/challenges.json)
+list remains the only source of correct utterances. It contains only noun,
+difficulty, and seven cases, each containing form, English, and Czech text.
+There is no runtime AI generation, content compiler, or duplicate generated bank.
 
-### 6.2 Core game loop
+The authorized content-hardening pass adds a bounded Czech acceptance policy:
+selected singular forms, paired Czech/English constructions, one whole-word
+target, and explicit language-pair checks. This policy validates the authored
+bank; it is not an unrestricted declension or sentence generator. Unlisted
+forms or constructions require review rather than silently falling through.
 
-```text
-see a communicative situation
-        ↓
-match it to a complete Czech utterance
-        ↓
-receive immediate meaning-based feedback
-        ↓
-after the board, compare the case base with the matched Czech sentences
-        ↓
-optionally reveal the formal case name
-```
+The complete rules, evidence limits, source references, and extension procedure
+are in [Case Cosmos content safety](CASE_COSMOS_CONTENT.md). Automated validation
+and this AI-assisted reference pass do not replace qualified Czech editorial
+approval. Future production review remains required.
 
-Example:
+### 6.4 Difficulty and expansion
 
-```text
-Situation: I am giving Petr a book.
-Complete Czech sentence: Dávám Petrovi knihu.
-Plain observation: Petr receives the book, so Petr changes to Petrovi.
-Optional grammar name after the board: dative
-```
+Difficulty is cumulative and game-specific, not a CEFR or mastery claim:
 
-The intended lesson unit is a consistent side-to-side board with ordinary
-situations and complete Czech utterances. Every board is dedicated to one noun
-and contains one example of each case. Eighteen noun boards reuse the same seven
-general questions, making the changing forms of one noun visible before the
-learner moves to another noun. The active Caatuu difficulty determines how
-many of those noun patterns are available. After each board, show the seven
-case names and beginner meanings beside that noun's seven forms. This teaches
-recognition of the noun's job and exposes a declension pattern; it does not yet
-prove that the learner can choose a construction or produce an inflected form
-independently.
+- Explorer: twelve noun records.
+- Traveler: four additional records, sixteen total.
+- Navigator: two additional records, eighteen total.
 
-The general guiding question belongs to the case and stays reusable across its
-examples. It must not collapse into an action from one sentence, such as “Who
-is reading?”, or include the example noun. The noun, name, action, and answer
-belong only in the situation and Czech utterance. A prompt such as “Calling
-Petr” is invalid because it mixes the reusable case guide with the specific
-content that should instantiate it.
+Keep all seven cases in the planet's coverage. Add small examined noun sets only
+with matching policy and regression tests. Multiple contexts per case, plural
+forms, pronouns, multiword targets, and other learner-base languages require a
+deliberate contract extension. Do not infer such support from a passing singular
+noun test.
 
-### 6.3 Content authority
+### 6.5 Learning evidence and review
 
-The directly authored `challenges.json` is a top-level JSON list. Each item is
-one noun record containing `noun`, `difficulty`, and `cases`. `difficulty` is
-an integer from 1 to 3 using Caatuu's Explorer, Traveler, and Navigator levels.
-`cases` contains the seven case names in their standard order. Every case
-contains only the changing `form`, the `english` situation, and the complete
-`czech` sentence. The current development bank has eighteen noun records and
-126 case examples in total.
+The UI records recognition decisions through aggregate game totals. It does not
+yet provide case-level learning evidence or prove that a learner can explain,
+produce, or transfer a pattern. Qualified Czech review, accessibility/usability
+testing, and unfamiliar-noun transfer checks remain necessary before broader
+learning claims or production expansion.
 
-This is the complete current runtime shape:
-
-```json
-[
-  {
-    "noun": "Petr",
-    "difficulty": 1,
-    "cases": {
-      "Nominative": {
-        "form": "Petr",
-        "english": "Petr is reading.",
-        "czech": "Petr čte."
-      }
-    }
-  }
-]
-```
-
-The application owns the fixed Case Cosmos base—case meanings, guiding
-questions, lesson instructions, summaries, and interface feedback—once. The
-JSON owns the noun, its exact seven forms, and the English/Czech content that
-changes. It also owns the noun's game-specific difficulty because that value
-changes which noun boards the learner receives. It contains no authored IDs,
-prompt metadata, review fields, source links, lesson wrapper, rounds, or
-summaries. Additional noun details may be added beside `noun`, `difficulty`,
-and `cases` only when a demonstrated learning or selection need requires them.
-Grammatical sources, review status, and release gates
-remain in this plan and the review process rather than being mixed into the
-runtime content.
-
-Difficulty is cumulative and describes this game's progression, not CEFR:
-
-- **1 — Explorer:** twelve frequent, comparatively transparent noun patterns;
-- **2 — Traveler:** adds four noun patterns with more form overlap or stem
-  change, for sixteen available boards in total;
-- **3 — Navigator:** adds two less transparent patterns, making all eighteen
-  boards available.
-
-The runtime includes every record whose `difficulty` is less than or equal to
-the learner's active Caatuu difficulty. It keeps records ordered by difficulty
-and refreshes the noun sequence when the shared difficulty changes. These
-assignments organize the development bank; they do not claim that a learner
-has reached a CEFR level or mastered a case.
-
-The direct `challenges.json` remains the only runtime content source. Do not
-add a manifest, compiler, authored IDs, or shared paradigm infrastructure until
-a demonstrated learning feature requires it. The current records and examples
-still require independent qualified Czech review before production use.
-
-### 6.4 Learning sequence
-
-- **Current:** recognize the noun's job and compare all seven singular forms on
-  one-noun matching boards.
-- **Next:** deepen common dative, instrumental, locative, and contrasting
-  preposition uses with reviewed complete utterances.
-- **Later:** add hard and soft patterns across genders, masculine animacy,
-  plural forms, stem changes, and unfamiliar-noun transfer.
-- **Advanced:** add verb-specific case requirements, multiword noun phrases,
-  pronouns, and less transparent expressions.
-
-Every expansion must retain all seven cases in the planet map even when one
-small campaign focuses on only one contrast.
-
-### 6.5 Interaction roadmap
-
-- current side-to-side situation and Czech-sentence matching;
-- later selection of the phrase that explains why the noun changes;
-- noun-form completion inside a complete utterance;
-- case-error repair and unfamiliar-noun transfer.
-
-### 6.6 Learning evidence
-
-The implemented UI records recognition matches only, and the current shared
-learning profile stores aggregate game totals. It does not yet prove that a
-learner can explain a case choice, produce a noun form, or transfer a pattern.
-Future evidence must record the case, the exact learner decision, and success
-with a different reviewed noun.
-
-### 6.7 Handoff
-
-The development slice now has:
-
-- one simple directly authored JSON list;
-- eighteen nouns and 126 case examples;
-- twelve Explorer, four additional Traveler, and two additional Navigator
-  noun records;
-- one side-to-side interaction for every noun; and
-- all seven cases on every board.
-
-Interface refinement is now a separate workstream. It may improve presentation
-and accessibility without changing the permanent case base, the noun-centered
-loop, or the JSON contract unless this plan is updated first.
-
-Before expanding the learning design, complete qualified Czech review,
-accessibility and facilitated usability testing, case-level evidence design,
-and one held-out unfamiliar-noun transfer check. Only then decide whether to
-expand Case Cosmos or merge overlapping work with Agreement Aurora.
-
-## 7. Agreement Aurora
+## 7. Grammar Gravity
 
 Status: singular-gender content and gameplay slice implemented; interface
 refinement, qualified Czech review, and learner testing pending
 
+The game, formerly Agreement Aurora and briefly Triangular Thermosphere,
+was renamed to Grammar Gravity on 2026-09-05. Runtime files and the canonical game ID use
+`grammar-gravity`; old links and stored progress remain compatible.
+The existing artwork, immutable artwork keys, and stable content evidence IDs
+are intentionally retained. This is still one shared game, not a new course or
+a second renderer.
+
+### Noun landing (implemented development preview)
+
+Grammar Gravity now opens with a falling-noun flight. Its shared engine loads
+each course's `data/games/grammar-gravity/nouns.json` through the declared
+`grammarGravityNouns` resource. Czech supplies three lanes and Spanish two;
+neither categories nor spelling-based gender rules are embedded in the renderer.
+Each bank supplies an expanding pool of explicit singular nouns. Native review remains
+pending in content metadata and publication gates; review status is not a badge
+in the learner's play area.
+
+The flight starts immediately. Selecting a gender lane lands the noun, plays a
+short landing animation, highlights the correct lane and colors the card for
+2.4 seconds, and automatically advances. An accessible live status identifies
+the answer without a popup or per-noun explanation paragraphs.
+There are no counters, fixed twelve-word cutoff, Start, Drop, Next, Pause, or
+Untimed controls. Practice continues through shuffled full-pool cycles;
+incorrect nouns receive one bounded second chance per cycle. After six nouns,
+the same session plays one authored phrase-matching round, then resumes the
+remaining noun queue. There is no mode switcher. The feather directly toggles
+illustration visibility; Aa offers compact 5-, 10-, 15-, and 20-second choices,
+with 10 seconds selected initially. Changing time
+preserves the current fall's elapsed fraction. Appearance and audio controls
+do not stop the fall. Leaving the game or backgrounding the page
+suspends active time; returning resumes it. Reduced motion keeps the time limit
+but removes falling movement. Brief, grey input help is always visible beside
+the familiar information icon in its own footer panel, outside the play panel.
+The existing robot artwork breathes while content loads,
+without visible loading text. Internal round and learning records remain
+separate from the uncluttered play area.
+The phrase-matching activity advances automatically after its feedback interval.
+
+The slim `caatuu-grammar-gravity-nouns-v2` JSON contract retains course/base/target
+identity, stable item IDs and revisions, and review/license metadata. Each noun
+declares `targetText`, `learnerBaseText`, an independent `english` audit meaning,
+and `laneId`; authored item explanations are not required. Lanes declare their
+IDs, localized labels, and optional validated local `image` paths. The current
+banks use the three supplied gender illustrations from `assets/micelaneous`.
+The shared flat panel and noun card follow Word World's visual treatment, with
+a reusable paper-grain SVG over blue, grey, and pink lane tints instead of a grid,
+with a distinct outside border. Smaller lane illustrations sit below their quiet
+labels and leave more room for the fall; the card's
+lower-left translation uses the dictionary accent, with bare pronunciation
+artwork at the lower right.
+
+The landing strip has a separate tinted background and finish line. The supplied
+hourglass mirrors and gently ticks with active falling time, flips between nouns,
+and has a small remaining-time track; hidden games freeze it and reduced motion
+removes the movement. A faint decorative background uses the shell's existing
+visual-vocabulary search with the noun's independent English audit meaning.
+It never blocks the fall, invents a target-language query, or installs a provider;
+missing retrieval, missing images, and courses without that provider simply omit
+the background. Requests and image callbacks are guarded against stale nouns.
+
+The validator rejects missing English meanings, cross-course content, duplicate
+words or IDs, undeclared lane assignments, and unsafe lane image paths. One pure
+state machine and one DOM renderer serve every course, including Czech's three
+lanes and Spanish's two; adding a language does not require a new layout.
+
+### Further modes (design only, not implemented)
+
+1. **Adjective-pattern choice:** show a reviewed illustration and choose the
+   correct complete set of adjective forms for labeled nouns/features. Keep
+   gender, number, case, and animacy explicit. Czech's initial hard-adjective
+   triplet is scoped to nominative singular. Spanish starts with two genders,
+   then four gender/number combinations; identical forms can be correct across
+   multiple slots. Use one content-driven board for either course.
+2. **Phrase assembly, later:** combine noun, adjective, and relevant determiner
+   using complete reviewed examples. The existing phrase-matching bank remains
+   playable while these new modes are discussed.
+
+Spanish nouns have masculine or feminine gender, not a third neuter noun
+class; common-gender and ambiguous-gender nouns require context. See
+[RAE's gender reference](https://www.rae.es/dpd/g%C3%A9nero). Czech later
+number/case work must account for animacy and context; see the
+[Czech Language Institute's agreement reference](https://prirucka.ujc.cas.cz/?id=600).
+
+The starter noun-gender banks still require native review; there is no explicit
+adjective-to-image binding. Each new item needs a stable sense ID, English
+audit text, base-language learner text, authored target forms and scope, and
+review provenance. English sense-specific image retrieval should shortlist
+candidates; a reviewed visual asset ID must then be pinned to the item.
+Incidental adjectives in an image description are not proof that the image
+clearly teaches that property.
+
+Distractors must be reviewed candidate sets that violate a stated constraint
+in the displayed context. Do not fabricate forms by replacing final vowels.
+Validate that exactly one candidate set is correct, equivalent forms do not
+create accidental second answers, and each incorrect choice has an authored
+explanation. This extends the shared content contract rather than introducing
+language-specific game logic.
+
 ### 7.1 Learning contract
 
-Agreement Aurora teaches one central idea: **words connected to a Czech noun
+Grammar Gravity teaches one central idea: **words connected to a Czech noun
 change so they match it**. The first slice keeps the noun in its ordinary
 naming form and changes one hard adjective across masculine, feminine, and
 neuter singular phrases.
 
-Case Cosmos changes the noun because of its job in an utterance. Agreement
-Aurora changes another word to match the noun. The first slice does not ask the
+Case Cosmos changes the noun because of its job in an utterance. Grammar
+Gravity changes another word to match the noun. The first slice does not ask the
 learner to choose a case, number, or animacy class.
 
 ### 7.2 Core game loop
@@ -1436,7 +1416,7 @@ facilitated usability and accessibility testing, and one unfamiliar-noun
 transfer experiment. Then decide whether the player decision is sufficiently
 different from Case Cosmos to remain its own planet.
 
-At the present development scope, Agreement Aurora is ready to hand off for
+At the present development scope, Grammar Gravity is ready to hand off for
 interface refinement. No additional grammar planet is approved next. The
 existing planets should be reviewed and consolidated before another one is
 created.
@@ -1473,69 +1453,72 @@ human approved; qualified Czech review remains a production gate.
 
 ## 9. Sounds Quasar
 
-Status: **shared coming-later placeholder; no gameplay implementation commitment**
+Status: **shared listen-and-choose practice pilot**
 
-The language-neutral `sound-quasar` identity and shared placeholder are now
-stable. This game must not enter the active Czech catalog until its audio and
-content authorities are defined and a reviewed pilot exists.
+The game plays a target-language word or sentence through the device's speech
+provider, then asks the learner to choose its written form. Czech, Mandarin,
+and Spanish use the same screen, round controller, and speech interface.
 
-Sound perception, pronunciation production, and orthographic choice may prove
-to be separate mechanics. Do not force them into one planet merely because the
-working title combines them.
+### 9.1 Practice interaction
 
-### 9.1 Future learning contract
+A short session presents five words or sentences with four written choices each.
+The standard Aa control selects words or sentences and starts a fresh session.
+The learner can replay the prompt before answering. A correct
+answer replaces the choices with a result card, keeping the macaw in place.
+The game advances automatically after a reading pause, held while replaying
+audio, using controls, reporting a sound, or leaving the game. New prompts play
+automatically when audio is enabled. Mute and the autoplay preference suppress
+automatic playback; an explicit listening tap can play once without changing
+global mute. A right-side arrow skips an item when automatic audio is off or
+playback is unavailable. Skipping does not reveal the answer.
 
-Connect Czech perception, pronunciation, vowel length, diacritics, and spelling
-without reducing the experience to abstract orthography quizzes.
+The visible choices use the course's written forms, including Chinese
+characters colored with the existing pinyin tone rules. Correct answers earn
+1 XP; an incorrect attempt earns none, but a correct retry can earn the point.
+Skips earn none. Finishing five items adds one completed round (coin) and streak
+eligibility only when at least one answer was correct. Replaying audio,
+changing modes, and duplicate answer clicks do not award additional credit.
+The game does not record microphone input, grade pronunciation, claim mastery,
+or complete Campaign rounds. A music macaw is sampled for each question, and
+Report sound saves the item, mode, speech settings, reason, and optional note
+through the existing device feedback queue.
 
-Potential scope:
+### 9.2 Content and speech authority
 
-- short and long vowels;
-- `i/í` and `y/ý` as a spelling and morphology problem, not an auditory vowel
-  contrast in contemporary standard Czech;
-- `ě` and consonant effects;
-- háček and čárka contrasts;
-- initial stress of the phonological word or stress group, including
-  stress-bearing prepositions and unstressed clitics;
-- voicing assimilation and final devoicing;
-- consonant clusters;
-- identifying grammatical endings by sound;
-- short dictation and spelling repair.
+Each course declares `soundQuasarCatalog`, a versioned
+`static/data/games/sound-quasar/challenges.json` resource at
+`sound-quasar-items-v2`. The catalog contains target words and sentences,
+English audit text, stable item identities, exact upstream references, and
+existing Mandarin reading-guide units.
+The core validator checks the course, target language, unique words and IDs,
+source metadata, and the practice-only audio contract.
 
-### 9.2 Future content authority
+Words are selected from each course's existing Verb Nebula vocabulary.
+Sentences are selected from the existing Word World sentence resources.
+Their source review states are retained: the Czech source has no independent
+review declaration; Mandarin and Spanish require native review. Selection
+for this game does not grant content or release approval.
 
-The future manifest must pin:
+Speech uses the course's configured device locale and current speech settings.
+The waveform is synthesized at playback time and is explicitly unreviewed.
+It is a practice aid, not verified pronunciation or listening-assessment
+evidence. No recording, speaker, or licensed audio asset is invented.
 
-- an orthography and phonology rule JSON source;
-- reviewed word, minimal-pair, and utterance records;
-- exact audio asset IDs, hashes, speaker or synthesis provenance, license, and
-  review status;
-- the relationship among written form, phonemic target, accepted
-  pronunciation, and assessed distinction;
-- a versioned compiled challenge file.
+### 9.3 Shared delivery
 
-Text-to-speech may be a delivery aid, but an unreviewed generated waveform
-must not silently become the pronunciation authority for an assessed item.
+All courses open `/language-runtime/static/games/sound-quasar.html`.
+The registry requires the `speech` capability and the course catalog, and
+sets `campaignEligible: false`. Browser offline closure includes the shared
+host, controller, styles, and course data. Android packages the same assets
+for its enabled Czech and Mandarin courses; Spanish remains local-only.
 
-### 9.3 Potential challenge types
+### 9.4 Later assessment work
 
-- hear and choose;
-- choose vowel length;
-- restore missing diacritics;
-- minimal-pair discrimination;
-- syllable and stress marking;
-- short dictation;
-- repair spelling from a reviewed audio prompt.
-
-### 9.4 Preconditions if the backlog is reconsidered
-
-1. Define the reusable learner decision and the language-specific pilot scope.
-2. Define recording or synthesis provenance and review policy.
-3. Define the audio-aware manifest and record schemas.
-4. Build a small vowel-length and diacritic pilot.
-5. Validate on representative browser and Android audio paths.
-6. Only then decide whether to prototype it and whether sound and spelling
-   remain one planet.
+Assessed listening, minimal pairs, vowel length, spelling contrasts, or
+pronunciation scoring require a separate reviewed language and audio
+contract. That work must establish the exact distinctions being assessed,
+audio provenance and licensing, acceptable variants, and review evidence
+before any response contributes to assessed mastery.
 
 ## 10. Cross-game prerequisites
 
@@ -1616,7 +1599,7 @@ apps/languages/czech/static/data/
       verbs.json
     case-cosmos/
       challenges.json
-    agreement-aurora/
+    grammar-gravity/
       challenges.json
   language/
     concepts.json
@@ -1726,7 +1709,7 @@ Prototype one at a time; do not wait for whole-planet completion elsewhere.
    matching-only interaction;
    qualified review, concept evidence, held-out transfer, and learner testing
    remain gated.
-2. **Agreement Aurora development slice implemented:** one direct list of
+2. **Grammar Gravity development slice implemented:** one direct list of
    eighteen difficulty-ranked adjectives, three examples for every gender
    form, 162 masculine/feminine/neuter phrase pairs, cumulative
    Explorer/Traveler/Navigator selection, and one matching-only interaction;
@@ -1763,10 +1746,10 @@ Only measured demand or authoring cost justifies this milestone.
 5. Re-evaluate the portfolio after every batch rather than funding all future
    orbits automatically.
 
-### Future backlog — Sounds Quasar
+### Sounds Quasar follow-up
 
-No schema, audio acquisition, content production, or implementation work is
-scheduled. Reconsider it only through the preconditions in section 9.
+The listen-and-choose practice pilot is implemented. Reviewed audio and
+assessment remain separate follow-up work under the conditions in section 9.
 
 ## 13. Pilot evaluation and decision gates
 

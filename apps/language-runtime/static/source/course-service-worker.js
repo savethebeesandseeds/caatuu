@@ -108,6 +108,7 @@ self.addEventListener("fetch", (event) => {
 
     if (
       request.cache === "reload"
+      || request.cache === "no-cache"
       || request.mode === "navigate"
       || ["document", "script", "style"].includes(request.destination)
     ) {

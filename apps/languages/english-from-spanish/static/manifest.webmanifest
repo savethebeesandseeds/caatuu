@@ -1,0 +1,30 @@
+{
+  "name": "Caatuu Inglés",
+  "short_name": "Caatuu ES→EN",
+  "description": "Aprende inglés desde el español. Vista de desarrollo.",
+  "id": "/es-en/",
+  "start_url": "/es-en/index.html",
+  "scope": "/es-en/",
+  "display": "standalone",
+  "background_color": "#fffaf0",
+  "theme_color": "#fffaf0",
+  "lang": "es-ES",
+  "categories": [
+    "education"
+  ],
+  "icons": [
+    {
+      "src": "/assets/icons/english_flag.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Mundo de Palabras",
+      "short_name": "Palabras",
+      "url": "/es-en/index.html?game=word-net"
+    }
+  ]
+}

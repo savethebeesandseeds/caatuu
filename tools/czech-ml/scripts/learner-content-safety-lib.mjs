@@ -1,12 +1,22 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { validateGrammarGravityPack } from "../../../apps/language-runtime/static/source/games/grammar-gravity/grammar-gravity-core.mjs";
+import { validateSoundQuasarCatalog } from "../../../apps/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs";
 
 export const LEARNER_CONTENT_SAFETY_POLICY_VERSION = "caatuu-child-content-safety-v2";
 
 export const SHIPPED_LEARNER_CONTENT_SOURCES = Object.freeze([
   Object.freeze({
-    id: "agreement-aurora",
-    file: "apps/languages/czech/static/data/games/agreement-aurora/challenges.json",
+    id: "sound-quasar",
+    file: "apps/languages/czech/static/data/games/sound-quasar/challenges.json",
+  }),
+  Object.freeze({
+    id: "grammar-gravity",
+    file: "apps/languages/czech/static/data/games/grammar-gravity/challenges.json",
+  }),
+  Object.freeze({
+    id: "grammar-gravity-nouns",
+    file: "apps/languages/czech/static/data/games/grammar-gravity/nouns.json",
   }),
   Object.freeze({
     id: "case-cosmos",
@@ -318,7 +328,12 @@ export function inspectLearnerFields(fields) {
 
 export function extractLearnerContent(sourceId, value, file = sourceForId(sourceId).file) {
   switch (sourceId) {
-    case "agreement-aurora": return extractAgreement(value, file);
+    case "sound-quasar": {
+      validateSoundQuasarCatalog(value);
+      return extractModernGameText(value, file, ["items"], value.items.length);
+    }
+    case "grammar-gravity": return extractAgreement(value, file);
+    case "grammar-gravity-nouns": return extractGravityNouns(value, file);
     case "case-cosmos": return extractCases(value, file);
     case "conjugation-comet": return extractConjugation(value, file);
     case "verb-nebula": return extractVocabulary(value, file);
@@ -382,6 +397,10 @@ export async function scanShippedLearnerContent(repoRoot) {
 }
 
 function extractAgreement(value, file) {
+  if (!Array.isArray(value)) {
+    validateGrammarGravityPack(value);
+    return extractModernGameText(value, file, ["presentation", "axes", "gameplay", "challenges"], value.challenges.length);
+  }
   const rows = expectArray(value, file);
   const fields = [];
   const genders = ["masculine", "feminine", "neuter"];
@@ -400,6 +419,49 @@ function extractAgreement(value, file) {
       });
     }
   });
+  return { fields, recordCount: rows.length };
+}
+
+function extractModernGameText(value, file, sections, recordCount) {
+  const fields = [];
+  const targetLocale = requiredText(value.targetLanguage || value.targetLanguageId, `${file}/targetLanguage`).split("-")[0];
+  const baseLocale = requiredText(value.learnerBaseLanguage || "en", `${file}/learnerBaseLanguage`).split("-")[0];
+  // Scan every string in validated gameplay sections, including new UI copy.
+  // Only non-displayed identity/type references are excluded.
+  const technical = new Set(["id", "kind", "image", "englishAuditId", "sourceId", "categoryId", "axisId", "laneId"]);
+  function visit(node, parts, contentId) {
+    if (typeof node === "string") {
+      const name = parts.at(-1);
+      if (technical.has(name)) return;
+      const locale = /^(targetText|displayForm|beforeText|afterText)$/u.test(name) ? targetLocale
+        : name === "learnerBaseText" ? baseLocale
+        : /^(englishAuditText|english|meaning)$/u.test(name) ? "en" : "und";
+      addField(fields, { file, contentId, field: pointer(...parts), locale, text: node });
+    } else if (node && typeof node === "object") {
+      for (const [key, child] of Object.entries(node)) visit(child, [...parts, key], node.id || contentId);
+    }
+  }
+  for (const section of sections) visit(value[section], [section], value.contentId || value.id);
+  return { fields, recordCount };
+}
+
+function extractGravityNouns(value, file) {
+  const pack = expectObject(value, file);
+  const rows = expectArray(pack.items, `${file}/items`);
+  const fields = [];
+  const baseLocale = requiredText(pack.learnerBaseLanguage, `${file}/learnerBaseLanguage`).split("-")[0];
+  const targetLocale = requiredText(pack.targetLanguage, `${file}/targetLanguage`).split("-")[0];
+  rows.forEach((row, rowIndex) => {
+    expectObject(row, `${file}/items/${rowIndex}`);
+    const contentId = requiredText(row.id, `${file}/items/${rowIndex}/id`);
+    for (const [name, locale] of [["targetText", targetLocale], ["learnerBaseText", baseLocale], ["english", "en"]]) {
+      addField(fields, { file, contentId, field: pointer("items", rowIndex, name), locale, text: row[name] });
+    }
+  });
+  expectArray(pack.lanes, `${file}/lanes`).forEach((lane, index) => {
+    addField(fields, { file, contentId: `lane:${lane.id}`, field: pointer("lanes", index, "label"), locale: baseLocale, text: lane.label });
+  });
+  addField(fields, { file, contentId: "scope", field: "/scope", locale: baseLocale, text: pack.scope });
   return { fields, recordCount: rows.length };
 }
 

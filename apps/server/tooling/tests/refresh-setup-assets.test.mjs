@@ -452,8 +452,8 @@ test("retired course-specific grammar renderers cannot re-enter offline packages
   for (const retiredAsset of [
     "./conjugation-comet.html",
     "./source/games/conjugation-comet/conjugation-comet.js",
-    "./agreement-aurora.html",
-    "./source/games/agreement-aurora/agreement-aurora.css",
+    "./grammar-gravity.html",
+    "./source/games/grammar-gravity/grammar-gravity.css",
     "./source/games/case-cosmos/launcher.css"
   ]) {
     const paths = await fixture();

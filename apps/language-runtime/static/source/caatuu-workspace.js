@@ -25,6 +25,69 @@ function interfaceText(messageId, parameters = {}) {
   return message;
 }
 
+const shellRobotScreens = new Map();
+let shellRobotModulePromise = null;
+let shellRobotPageHidden = false;
+let shellRobotRetired = false;
+
+function shellRobotActive(container) {
+  const gameId = container.closest?.("[data-train-panel]")?.dataset.trainPanel;
+  return !shellRobotPageHidden && document.visibilityState !== "hidden"
+    && !container.classList.contains("is-error") && state.activeView === "verbs"
+    && (container.id === "campaignTransition" ? state.campaignActive : gameId === state.trainTab);
+}
+
+function syncShellRobotLoading() {
+  for (const { container, screen } of shellRobotScreens.values()) {
+    const active = shellRobotActive(container);
+    container.dataset.active = String(active);
+    screen?.setActive(active);
+  }
+}
+
+function setShellRobotLoading(container, visible, label) {
+  if (!container || shellRobotRetired) return;
+  container.hidden = !visible;
+  container.dataset.active = String(shellRobotActive(container));
+  let entry = shellRobotScreens.get(container);
+  if (!visible && !entry) return;
+  container.setAttribute("aria-label", label || interfaceText("verbnebula.round.preparing"));
+  if (!entry) {
+    entry = { container, screen: null, retired: false };
+    shellRobotScreens.set(container, entry);
+    shellRobotModulePromise ||= import("/language-runtime/static/source/games/embedded-game-controls.mjs?v=embedded-game-controls-8");
+    void shellRobotModulePromise.then(({ mountRobotLoadingScreen }) => {
+      if (entry.retired || !container.isConnected) return;
+      entry.screen = mountRobotLoadingScreen({
+        container, label: container.getAttribute("aria-label"), active: shellRobotActive(container)
+      });
+    }).catch((error) => console.error("The shared game loading screen could not initialize.", error));
+  }
+  if (entry.screen) {
+    entry.screen.setActive(shellRobotActive(container));
+    if (visible) entry.screen.show();
+    else entry.screen.hide();
+  }
+}
+
+document.addEventListener("visibilitychange", syncShellRobotLoading);
+window.addEventListener("pagehide", (event) => {
+  shellRobotPageHidden = true;
+  syncShellRobotLoading();
+  if (!event.persisted) {
+    shellRobotRetired = true;
+    for (const entry of shellRobotScreens.values()) {
+      entry.retired = true;
+      entry.container.hidden = true;
+      entry.screen?.destroy();
+    }
+    shellRobotScreens.clear();
+  }
+});
+window.addEventListener("pageshow", () => {
+  shellRobotPageHidden = false;
+  syncShellRobotLoading();
+});
 function interfaceLanguageName(language) {
   const name = interfaceContent.languageName?.(language);
   if (typeof name !== "string" || !name.trim()) {
@@ -99,7 +162,7 @@ function courseGameAvailable(gameId) {
     "word-net": "wordWorld",
     "conjugation-comet": "conjugationComet",
     "case-cosmos": "caseCosmos",
-    "agreement-aurora": "agreementAurora",
+    "grammar-gravity": "grammarGravity",
     "naturalization-nucleus": "naturalizationNucleus",
     "memory-moon": "memoryMoon",
     "sound-quasar": "soundQuasar"
@@ -494,8 +557,6 @@ const state = {
   campaignQueue: [],
   campaignTransitioning: false,
   campaignTransitionId: 0,
-  campaignRobotCursor: -1,
-  campaignRobotPathsPromise: null,
   verbDifficulty: 1,
   verbPairs: [],
   verbQueueIds: [],
@@ -520,9 +581,6 @@ const state = {
   verbRoundRewardXp: 0,
   verbRoundTransitionId: 0,
   verbSolutionAdvanceTimer: null,
-  verbInterstitialRobotPath: "",
-  verbRobotPathsPromise: null,
-  verbRobotCursor: -1,
   verbWrongIds: new Set(),
   verbWrongTimer: null,
   verbGuidedRequested: false,
@@ -1312,8 +1370,6 @@ const verbHintExactAssets = new Map([
     alt: "The robed macaw looks carefully through a magnifying glass."
   }]
 ]);
-const verbRobotKeymapUrl = "/assets/robots/keymap.json";
-const verbRobotFallbackPath = "/assets/robots/robot%20(1).png";
 const campaignContractGameIds = window.CaatuuShellPolicy?.CAMPAIGN_GAME_IDS;
 const campaignPlayableTabs = Object.freeze(
   Array.isArray(campaignContractGameIds) ? [...campaignContractGameIds] : []
@@ -1934,7 +1990,6 @@ function loadVerbMemory() {
     state.verbHintsEnabled = false;
     state.verbSolutionRevealed = false;
     state.verbMemoryLoaded = true;
-    void loadVerbRobotPaths();
     return;
   }
 
@@ -1993,7 +2048,6 @@ function loadVerbMemory() {
   }
 
   state.verbMemoryLoaded = true;
-  void loadVerbRobotPaths();
 }
 
 function setVerbMatchFeedback(message, kind = "") {
@@ -2047,7 +2101,6 @@ function applyVerbRound(plan, preloadedHints = null) {
   state.verbRoundTransitioning = false;
   state.verbRoundInterstitial = false;
   state.verbRoundRewardXp = 0;
-  state.verbInterstitialRobotPath = "";
   state.verbHintById.clear();
   if (state.verbHintsEnabled && preloadedHints instanceof Map) {
     plan.round.forEach((pair) => {
@@ -2120,7 +2173,7 @@ function saveVerbSpeakOnTap() {
 function applyVerbLanguageCopy() {
   const board = $("#verbMeaningBoard");
   if (board) board.setAttribute("aria-label", verbMatchInstruction());
-  const audioSummary = document.querySelector(".verb-audio-menu > summary");
+  const audioSummary = document.querySelector("#verbMeaningBoard .verb-audio-menu > summary");
   if (audioSummary) {
     audioSummary.setAttribute("aria-label", `${verbTargetLabel} audio settings`);
     audioSummary.title = `${verbTargetLabel} audio settings`;
@@ -2128,7 +2181,7 @@ function applyVerbLanguageCopy() {
   const audioDialog = document.querySelector(".verb-audio-popover");
   if (audioDialog) audioDialog.setAttribute("aria-label", `${verbTargetLabel} audio settings`);
   const speakLabel = $("#verbSpeakOnTapLabel");
-  if (speakLabel) speakLabel.textContent = `Speak ${verbTargetLabel} on tap`;
+  if (speakLabel) speakLabel.textContent = interfaceText("verbnebula.audio.speakontap");
   const speed = $("#verbAudioSpeed");
   if (speed) speed.setAttribute("aria-label", `${verbTargetLabel} speech speed`);
   setText("#verbTargetColumnHeading", verbTargetNativeLabel);
@@ -2138,7 +2191,7 @@ function applyVerbLanguageCopy() {
 
 function renderVerbAudioControls() {
   const button = $("#verbSpeakOnTap");
-  const summary = document.querySelector(".verb-audio-menu > summary");
+  const summary = document.querySelector("#verbMeaningBoard .verb-audio-menu > summary");
   const settings = $("#verbAudioSettings");
   if (button) {
     button.setAttribute("aria-checked", String(state.verbSpeakOnTap));
@@ -2443,7 +2496,6 @@ function renderVerbRoundInterstitial() {
   const active = state.verbRoundInterstitial;
   const board = document.querySelector(".verb-match-board");
   const interstitial = $("#verbRoundInterstitial");
-  const image = $("#verbRoundRobot");
   const reward = $("#verbRoundReward");
   const rewardAmount = $("#verbRoundRewardAmount");
   const rewardXp = Math.max(0, Number(state.verbRoundRewardXp) || 0);
@@ -2462,31 +2514,19 @@ function renderVerbRoundInterstitial() {
   board?.setAttribute("aria-busy", active ? "true" : "false");
   if (!interstitial) return;
 
-  interstitial.hidden = !active;
+  setShellRobotLoading(interstitial, active);
   interstitial.setAttribute(
     "aria-label",
     rewardVisible
       ? `Round cleared. ${rewardXp} XP earned this round. Preparing the next round.`
       : "Preparing the next round"
   );
-  interstitial.style.display = active ? "grid" : "none";
-  interstitial.style.gridColumn = "1 / -1";
-  interstitial.style.gridRow = "1 / -1";
-  interstitial.style.minHeight = "clamp(260px, 52vh, 420px)";
-  interstitial.style.placeItems = "center";
-  interstitial.style.padding = "18px";
   if (reward) {
     reward.hidden = !rewardVisible;
     reward.classList.toggle("is-visible", rewardVisible);
   }
   if (rewardAmount) rewardAmount.textContent = rewardVisible ? `+${rewardXp} XP` : "";
-  if (!image) return;
-  image.style.width = "clamp(150px, 34vw, 240px)";
-  image.style.maxHeight = "300px";
-  image.style.objectFit = "contain";
-  image.style.opacity = "0.9";
-  const nextPath = state.verbInterstitialRobotPath || verbRobotFallbackPath;
-  if (image.getAttribute("src") !== nextPath) image.src = nextPath;
+
 }
 
 
@@ -2557,30 +2597,6 @@ function waitForVerbTransition(milliseconds) {
   return new Promise((resolve) => window.setTimeout(resolve, milliseconds));
 }
 
-async function loadVerbRobotPaths() {
-  if (!state.verbRobotPathsPromise) {
-    state.verbRobotPathsPromise = fetch(verbRobotKeymapUrl, { cache: "force-cache" })
-      .then((response) => {
-        if (!response.ok) throw new Error(`Could not load robot keymap (${response.status}).`);
-        return response.json();
-      })
-      .then((raw) => Object.keys(raw || {}).filter((path) => path.startsWith("/assets/robots/")))
-      .catch(() => []);
-  }
-  return state.verbRobotPathsPromise;
-}
-
-async function nextVerbInterstitialRobot() {
-  const paths = await loadVerbRobotPaths();
-  if (!paths.length) return verbRobotFallbackPath;
-  let index = Math.floor(Math.random() * paths.length);
-  if (paths.length > 1 && index === state.verbRobotCursor) {
-    index = (index + 1) % paths.length;
-  }
-  state.verbRobotCursor = index;
-  return paths[index];
-}
-
 async function preloadVerbHintsForRound(round) {
   const pairs = Array.from(round || []);
   const candidateGroups = await Promise.all(
@@ -2603,22 +2619,15 @@ async function preloadVerbHintsForRound(round) {
 
 async function prepareVerbRound(nextRound, transitionId) {
   state.verbRoundInterstitial = true;
-  state.verbInterstitialRobotPath = verbRobotFallbackPath;
   setVerbMatchFeedback("Preparing the next round…", "hint");
   renderVerbNebula();
 
-  const robotPromise = nextVerbInterstitialRobot().then((path) => {
-    if (transitionId !== state.verbRoundTransitionId) return;
-    state.verbInterstitialRobotPath = path;
-    renderVerbRoundInterstitial();
-  });
   const hintPromise = state.verbHintsEnabled
     ? preloadVerbHintsForRound(nextRound.round)
     : Promise.resolve(null);
   let preloadedHints = null;
   await Promise.all([
     waitForVerbTransition(verbRoundInterstitialMillis),
-    robotPromise,
     hintPromise.then((hints) => {
       preloadedHints = hints;
     })
@@ -3168,7 +3177,6 @@ function cancelVerbRoundTransition() {
   state.verbRoundInterstitial = false;
   state.verbRoundRewardXp = 0;
   state.verbSolutionRevealed = false;
-  state.verbInterstitialRobotPath = "";
 }
 
 function rebaseVerbDifficulty() {
@@ -3372,7 +3380,7 @@ function bindVerbNebulaControls() {
   });
   window.addEventListener("caatuu:speech-pace-change", renderVerbAudioControls);
   window.addEventListener("caatuu:speech-voice-change", () => {
-    if (state.verbSpeakOnTap && document.querySelector(".verb-audio-menu")?.open) {
+    if (state.verbSpeakOnTap && document.querySelector("#verbMeaningBoard .verb-audio-menu")?.open) {
       void refreshVerbAudioVoiceControls();
     }
   });
@@ -4344,6 +4352,7 @@ function sharedGameTitle(gameId) {
 function setView(view) {
   view = normalizeView(view);
   state.activeView = view;
+  syncActiveGameVisibility();
   $(".view.is-active")?.classList.remove("is-active");
   $(`#view-${view}`)?.classList.add("is-active");
   $(".nav-tab.is-active")?.classList.remove("is-active");
@@ -4365,8 +4374,17 @@ function setView(view) {
   });
 }
 
+function syncActiveGameVisibility() {
+  const activeTab = state.activeView === "verbs" ? state.trainTab : "";
+  document.body.classList.toggle("word-net-active", activeTab === "word-net");
+  document.body.classList.toggle("embedded-game-active", activeTab === "word-net" || Object.hasOwn(embeddedGameTabs, activeTab));
+  syncEmbeddedWordNetVisibility(activeTab === "word-net");
+  syncEmbeddedGameVisibility(activeTab);
+  syncShellRobotLoading();
+}
+
 function syncEmbeddedWordNetVisibility(active) {
-  window.CaatuuWordWorldHost?.setActive?.(Boolean(active), {
+  window.CaatuuWordWorldHost?.setActive?.(Boolean(active && state.activeView === "verbs"), {
     theme: document.documentElement.dataset.theme || "light",
     fontSize: document.documentElement.dataset.fontSize || "largest"
   });
@@ -4399,6 +4417,11 @@ function ensureWordNetLoaded() {
 }
 
 const embeddedGameTabs = {
+  "sound-quasar": {
+    frameId: "soundQuasarEmbeddedGame",
+    stageId: "soundQuasarEmbeddedStage",
+    statusId: "soundQuasarEmbeddedStatus"
+  },
   "conjugation-comet": {
     frameId: "conjugationCometEmbeddedGame",
     stageId: "conjugationCometEmbeddedStage",
@@ -4409,10 +4432,10 @@ const embeddedGameTabs = {
     stageId: "caseCosmosEmbeddedStage",
     statusId: "caseCosmosEmbeddedStatus"
   },
-  "agreement-aurora": {
-    frameId: "agreementAuroraEmbeddedGame",
-    stageId: "agreementAuroraEmbeddedStage",
-    statusId: "agreementAuroraEmbeddedStatus"
+  "grammar-gravity": {
+    frameId: "grammarGravityEmbeddedGame",
+    stageId: "grammarGravityEmbeddedStage",
+    statusId: "grammarGravityEmbeddedStatus"
   }
 };
 
@@ -4463,7 +4486,7 @@ function syncEmbeddedGameVisibility(activeTab) {
     frame.contentWindow.postMessage({
       source: "caatuu-app-shell",
       type: "visibility",
-      active: activeTab === gameId,
+      active: state.activeView === "verbs" && activeTab === gameId,
       theme: document.documentElement.dataset.theme || "light",
       fontSize: document.documentElement.dataset.fontSize || "largest"
     }, window.location.origin);
@@ -4479,6 +4502,7 @@ function ensureEmbeddedGameLoaded(gameId) {
   const source = frame.dataset.src;
   if (!source) return;
   frame.dataset.loading = "true";
+  setShellRobotLoading(status, true);
 
   frame.addEventListener("load", () => {
     try {
@@ -4489,13 +4513,14 @@ function ensureEmbeddedGameLoaded(gameId) {
       frame.removeAttribute("aria-hidden");
       frame.removeAttribute("tabindex");
       stage?.setAttribute("aria-busy", "false");
-      if (status) status.hidden = true;
+      setShellRobotLoading(status, false);
       syncEmbeddedGameVisibility(state.trainTab);
     } catch (error) {
       const gameTitle = sharedGameTitle(gameId);
       console.error(`Could not prepare embedded ${gameTitle}.`, error);
       if (status) {
         status.classList.add("is-error");
+        syncShellRobotLoading();
         const title = status.querySelector("strong");
         const copy = status.querySelector("small");
         if (title) title.textContent = interfaceText("games.embedded.startfailure", { game: gameTitle });
@@ -4566,44 +4591,13 @@ async function waitForCampaignGameReady(gameId, transitionId) {
   }
 }
 
-async function loadCampaignRobotPaths() {
-  if (!state.campaignRobotPathsPromise) {
-    state.campaignRobotPathsPromise = fetch(verbRobotKeymapUrl, { cache: "force-cache" })
-      .then((response) => {
-        if (!response.ok) throw new Error(`Could not load robot keymap (${response.status}).`);
-        return response.json();
-      })
-      .then((raw) => Object.keys(raw || {}).filter((path) => path.startsWith("/assets/robots/")))
-      .catch(() => []);
-  }
-  return state.campaignRobotPathsPromise;
-}
-
-async function nextCampaignRobot() {
-  const paths = await loadCampaignRobotPaths();
-  if (!paths.length) return verbRobotFallbackPath;
-  let index = Math.floor(Math.random() * paths.length);
-  if (paths.length > 1 && index === state.campaignRobotCursor) index = (index + 1) % paths.length;
-  state.campaignRobotCursor = index;
-  return paths[index];
-}
-
-function showCampaignTransition(transitionId) {
-  const transition = document.getElementById("campaignTransition");
-  const image = document.getElementById("campaignTransitionRobot");
-  if (image) image.src = verbRobotFallbackPath;
-  if (transition) transition.hidden = false;
-  void nextCampaignRobot().then((path) => {
-    if (transitionId !== state.campaignTransitionId || !state.campaignActive) return;
-    if (image) image.src = path;
-  });
+function showCampaignTransition() {
+  setShellRobotLoading(document.getElementById("campaignTransition"), true);
 }
 
 function hideCampaignTransition() {
-  const transition = document.getElementById("campaignTransition");
-  if (transition) transition.hidden = true;
+  setShellRobotLoading(document.getElementById("campaignTransition"), false);
 }
-
 function resetCompletedVerbRoundForCampaign() {
   if (!verbRoundComplete()) return false;
   clearVerbSolutionAdvance();
@@ -4627,7 +4621,7 @@ function advanceCompletedCampaignGame(gameId, sourceWindow) {
     return;
   }
   if (sourceWindow === window || !sourceWindow?.postMessage) return;
-  if (!["word-net", "case-cosmos", "agreement-aurora"].includes(gameId)) return;
+  if (!["word-net", "case-cosmos", "grammar-gravity", "sound-quasar", "conjugation-comet"].includes(gameId)) return;
   sourceWindow.postMessage({
     source: "caatuu-app-shell",
     type: "campaign-advance"
@@ -4697,7 +4691,8 @@ function stopCampaign() {
 function handleCampaignGameMessage(event) {
   if (event.origin !== window.location.origin) return;
   const message = event.data;
-  if (message?.source !== "caatuu-game" || message.type !== "round-success") return;
+  if (message?.source !== "caatuu-game" || !(message.type === "round-success"
+    || (message.type === "round-complete" && ["sound-quasar", "conjugation-comet"].includes(message.gameId)))) return;
   const gameId = String(message.gameId || "");
   if (gameId === "word-net" && event.source === window) {
     void completeCampaignRound(gameId, window);
@@ -4709,13 +4704,14 @@ function handleCampaignGameMessage(event) {
 }
 
 function setTrainTab(tab) {
+  tab = window.CaatuuShellPolicy?.normalizeGameId?.(tab) ?? tab;
   const trainPanels = {
     galaxy: "trainPanelGalaxy",
     "verb-lab": "trainPanelVerbLab",
     "word-net": "trainPanelWordNet",
     "conjugation-comet": "trainPanelConjugationComet",
     "case-cosmos": "trainPanelCaseCosmos",
-    "agreement-aurora": "trainPanelAgreementAurora",
+    "grammar-gravity": "trainPanelGrammarGravity",
     "naturalization-nucleus": "trainPanelNaturalizationNucleus",
     "memory-moon": "trainPanelMemoryMoon",
     "sound-quasar": "trainPanelSoundQuasar"
@@ -4725,8 +4721,6 @@ function setTrainTab(tab) {
   if (courseGameAvailable("verb-lab") && activeTab !== "verb-lab") deferVerbGuidedActivation();
   const targetId = trainPanels[activeTab];
   state.trainTab = activeTab;
-  document.body.classList.toggle("word-net-active", activeTab === "word-net");
-  document.body.classList.toggle("embedded-game-active", activeTab === "word-net" || Object.hasOwn(embeddedGameTabs, activeTab));
   const title = state.campaignActive ? sharedGameTitle("campaign") : sharedGameTitle(activeTab);
   window.CaatuuChrome?.setHeaderTitle?.(title, {
     backLabel: interfaceText("nav.backtomenu"),
@@ -4757,8 +4751,7 @@ function setTrainTab(tab) {
     });
   }
   if (Object.hasOwn(embeddedGameTabs, activeTab)) ensureEmbeddedGameLoaded(activeTab);
-  syncEmbeddedWordNetVisibility(activeTab === "word-net");
-  syncEmbeddedGameVisibility(activeTab);
+  syncActiveGameVisibility();
 }
 
 function setInitialViewFromLocation() {
@@ -4775,9 +4768,10 @@ function setInitialViewFromLocation() {
   const openSettings = navigationRequest === "backpack";
   const openHome = navigationRequest === "home";
   const requestedView = navigationRequest === "dictionary" ? "dictionary" : "";
-  const requestedGame = navigationRequest.startsWith("game:")
+  const requestedGameId = navigationRequest.startsWith("game:")
     ? navigationRequest.slice("game:".length)
     : "";
+  const requestedGame = window.CaatuuShellPolicy?.normalizeGameId?.(requestedGameId) ?? requestedGameId;
 
   if (openHome) {
     setView("home");
@@ -4786,7 +4780,7 @@ function setInitialViewFromLocation() {
     window.requestAnimationFrame(openSettingsPanel);
   } else if (requestedView) {
     setView(requestedView);
-  } else if (["campaign", "verb-lab", "word-net", "conjugation-comet", "case-cosmos", "agreement-aurora", "naturalization-nucleus", "memory-moon", "sound-quasar"].includes(requestedGame)
+  } else if (["campaign", "verb-lab", "word-net", "conjugation-comet", "case-cosmos", "grammar-gravity", "naturalization-nucleus", "memory-moon", "sound-quasar"].includes(requestedGame)
       && courseGameAvailable(requestedGame)) {
     setView("verbs");
     window.requestAnimationFrame(() => {

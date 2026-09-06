@@ -51,7 +51,6 @@ const interfaceMessages = Object.freeze({
   "maintenance.result.settings.resumed": "Download resumed and verified. Android opened install permission settings. Allow installs for Caatuu, then tap Update App again.",
   "maintenance.result.settings.reused": "Using the already downloaded verified APK. Android opened install permission settings. Allow installs for Caatuu, then tap Update App again.",
   "maintenance.status.available": "Update available: {latest} ({latestcode}). Installed: {current} ({currentcode}).",
-  "maintenance.status.checkfailed.detail": "Update check failed. {detail}",
   "maintenance.status.checkingserver": "Checking the update server...",
   "maintenance.status.downloaded": "Caatuu {version} ({code}) is downloaded and verified. It is ready to install.",
   "maintenance.status.downloading": "Caatuu {version} ({code}) is downloading in the background ({percent}%).",
@@ -62,7 +61,6 @@ const interfaceMessages = Object.freeze({
   "maintenance.status.readyforconfirmation": "Update {version} is ready for confirmation.",
   "maintenance.status.storemanaged": "Caatuu {version} ({code}). Updates are managed by the app store.",
   "maintenance.status.unreachable": "Caatuu {version} ({code}). Could not check for updates.",
-  "maintenance.status.unreachable.detail": "Caatuu {version} ({code}). Could not check for updates. {detail}",
   "maintenance.status.uptodate": "Caatuu {version} ({code}). App is up to date.",
   "maintenance.version.available": "available",
   "maintenance.version.latest": "the latest version",
@@ -436,4 +434,59 @@ test("the shared controller announces a single in-flight update check immediatel
 
   assert.equal(button.textContent, "Up to date");
   assert.equal(statusNode.textContent, "Caatuu 0.1.92 (93). App is up to date.");
+});
+
+test("native update failures retain diagnostics while rendering only locale messages", async () => {
+  const rawFailure = "Native English failure: update server connection timed out";
+  const localizedInterfaceContent = interfaceContent({
+    ...interfaceMessages,
+    "maintenance.action.retrycheck": "Reintentar",
+    "maintenance.copy.checkfailed": "No se pudo completar la comprobación. Inténtalo de nuevo.",
+    "maintenance.status.unreachable": "Caatuu {version} ({code}). No se pudo buscar actualizaciones."
+  });
+
+  for (const rejected of [true, false]) {
+    const { button, copy } = control();
+    button.dataset = {};
+    button.addEventListener = () => {};
+    const statusNode = { textContent: "" };
+    const versionNode = { textContent: "", dataset: {} };
+    const failureContext = { CaatuuI18n: localizedInterfaceContent, window: {} };
+    runInNewContext(source, failureContext, { filename: "maintenance-ui.localized.js" });
+    failureContext.document = {
+      querySelector(selector) {
+        if (selector === "#updateApp") return button;
+        if (selector === "#maintenanceStatus") return statusNode;
+        if (selector === "#settingsVersion") return versionNode;
+        return null;
+      }
+    };
+    const controller = failureContext.window.CaatuuMaintenanceUi.createUpdateController({
+      env: "android",
+      maintenance: {
+        async updateStatus() {
+          if (rejected) throw new Error(rawFailure);
+          return {
+            currentVersionName: "0.1.92",
+            currentVersionCode: 93,
+            updateAvailable: false,
+            serverReachable: false,
+            updateError: rawFailure
+          };
+        }
+      }
+    });
+
+    const diagnosticStatus = await controller.refresh({ force: true });
+
+    assert.equal(diagnosticStatus.updateError, rawFailure);
+    assert.equal(button.textContent, "Reintentar");
+    assert.equal(copy.textContent, "No se pudo completar la comprobación. Inténtalo de nuevo.");
+    assert.equal(statusNode.textContent, rejected
+      ? "No se pudo completar la comprobación. Inténtalo de nuevo."
+      : "Caatuu 0.1.92 (93). No se pudo buscar actualizaciones.");
+    for (const node of [button, copy, statusNode, versionNode]) {
+      assert.equal(node.textContent.includes(rawFailure), false);
+    }
+  }
 });

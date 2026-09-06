@@ -13,15 +13,17 @@ import {
 test("every planet English-audit contract accepts its current English-base shape", () => {
   const fixtures = new Map([
     ["verb-nebula-items-v1", [{ target: "gehen", source: "go" }]],
+    ["sound-quasar-items-v2", { items: [{ target: "gehen", meaning: "go", englishAuditText: "go" }] }],
     ["conjugation-comet-items-v1", {
       verbs: [{ verb: "gehen", meaning: "go", forms: [{ form: "gehe", cue: "I go" }] }]
     }],
     ["case-cosmos-items-v1", [{
       cases: { Nominative: { form: "Hund", english: "The dog runs." } }
     }]],
-    ["agreement-aurora-items-v1", [{
+    ["grammar-gravity-items-v1", [{
       forms: { masculine: { examples: [{ target: "guter Hund", english: "good dog" }] } }
     }]],
+    ["grammar-gravity-nouns-v1", { items: [{ targetText: "Hund", learnerBaseText: "dog", english: "dog" }] }],
     ["naturalization-nucleus-items-v1", {
       challenges: [{ target: "字", translation: "written character" }]
     }],
@@ -48,9 +50,18 @@ test("every planet English-audit contract accepts its current English-base shape
   }
 });
 
-test("Agreement Aurora accepts metadata-bearing content packs without dropping English audit", () => {
-  assert.deepEqual(validatePlanetEnglishAuditDocument("agreement-aurora-items-v1", {
-    schemaVersion: "caatuu-agreement-aurora-content-v2",
+test("Sounds Quasar requires independent English for every practice item", () => {
+  for (const sourceLanguageId of ["en", "fr"]) {
+    const document = { items: [{ target: "gehen", meaning: "aller" }] };
+    assert.equal(validatePlanetEnglishAuditDocument("sound-quasar-items-v2", document, { sourceLanguageId }).length, 1);
+    document.items[0].englishAuditText = "go";
+    assert.deepEqual(validatePlanetEnglishAuditDocument("sound-quasar-items-v2", document, { sourceLanguageId }), []);
+  }
+  assert.equal(validatePlanetEnglishAuditDocument("sound-quasar-items-v2", { items: [] }).length, 1);
+});
+test("Grammar Gravity accepts metadata-bearing content packs without dropping English audit", () => {
+  assert.deepEqual(validatePlanetEnglishAuditDocument("grammar-gravity-items-v1", {
+    schemaVersion: "caatuu-grammar-gravity-content-v2",
     challenges: [{
       forms: {
         femininePlural: {
@@ -69,7 +80,8 @@ test("a non-English learner base cannot masquerade as the English audit translat
     }],
     ["naturalization-nucleus-items-v1", {
       challenges: [{ target: "字", translation: "caractère écrit" }]
-    }]
+    }],
+    ["grammar-gravity-nouns-v1", { items: [{ targetText: "Hund", learnerBaseText: "chien" }] }]
   ]) {
     const issues = validatePlanetEnglishAuditDocument(contractId, fixture, {
       sourceLanguageId: "fr"
@@ -78,6 +90,13 @@ test("a non-English learner base cannot masquerade as the English audit translat
     assert.ok(issues.every(({ code }) => code === "content.english-audit"));
     assert.match(issues[0].message, /englishAuditText/u);
   }
+});
+
+test("falling nouns require independent English even when the learner base is English", () => {
+  const missing = { items: [{ targetText: "Hund", learnerBaseText: "dog" }] };
+  assert.equal(validatePlanetEnglishAuditDocument("grammar-gravity-nouns-v1", missing, { sourceLanguageId: "en" }).length, 1);
+  missing.items[0].english = "dog";
+  assert.deepEqual(validatePlanetEnglishAuditDocument("grammar-gravity-nouns-v1", missing, { sourceLanguageId: "en" }), []);
 });
 
 test("explicit English audit text keeps non-English-base content valid", () => {

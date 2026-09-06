@@ -1,5 +1,41 @@
 /* Shared Caatuu chrome: header, language pill, settings sheet, bottom nav, footer. */
 
+/* Global mute keeps its own switch available and hides inactive audio options. */
+html[data-speech-muted="true"] .word-net-audio-menu > .word-net-audio-setting,
+html[data-speech-muted="true"] .word-net-audio-menu > .word-net-audio-autoplay:not([data-speech-mute-toggle]),
+html[data-speech-muted="true"] #verbSpeakOnTap,
+html[data-speech-muted="true"] #verbAudioSettings,
+html[data-speech-muted="true"] .speech-settings-body > :not([data-speech-mute-toggle]) {
+  display: none !important;
+}
+
+.word-net-audio-toggle,
+.verb-audio-menu > summary {
+  position: relative;
+}
+
+html[data-speech-muted="true"] .word-net-audio-toggle,
+html[data-speech-muted="true"] .verb-audio-menu > summary {
+  color: var(--theme-quiet, #767b78);
+}
+
+html[data-speech-muted="true"] .word-net-audio-toggle::after,
+html[data-speech-muted="true"] .verb-audio-menu > summary::after {
+  content: "";
+  position: absolute;
+  width: 55%;
+  height: 2px;
+  inset: 50% auto auto 22.5%;
+  background: currentColor;
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+html[data-speech-muted="true"] .word-net-word-pronounce {
+  opacity: 0.35;
+  cursor: default;
+}
+
 :root {
   --caatuu-scroll-track:
     color-mix(in srgb, var(--theme-page-alt, var(--panel)) 88%, var(--theme-amber, #c19138));
@@ -956,7 +992,7 @@ html[data-theme="light"] .app-bottom-dock {
 
 .games-menu-body {
   min-height: 0;
-  max-height: min(44dvh, 320px);
+  max-height: calc(100dvh - var(--caatuu-bottom-dock-height, 78px) - 90px);
   display: block;
   overflow-x: hidden;
   overflow-y: auto;
@@ -3298,6 +3334,10 @@ body.settings-open {
 .ai-settings-card .settings-details[data-capability-state="disabled"] select:disabled {
   cursor: not-allowed;
   opacity: 0.58;
+}
+
+.ai-settings-card .settings-details[data-capability-state="disabled"] > .settings-collapsible-summary small {
+  color: var(--theme-red, #985044);
 }
 
 .ai-settings-card .settings-details[data-capability-state="disabled"] .capability-note,

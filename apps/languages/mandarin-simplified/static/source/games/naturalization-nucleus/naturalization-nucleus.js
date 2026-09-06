@@ -6,8 +6,6 @@
   const STORAGE_KEY_SUFFIX = "naturalizationNucleus.pieceCount.v1";
   const SOLVED_HOLD_MILLIS = 420;
   const ROUND_LOADING_MILLIS = 1600;
-  const ROBOT_KEYMAP_URL = "/assets/robots/keymap.json";
-  const ROBOT_FALLBACK_URL = "/assets/robots/robot%20(1).png";
   const ROOT_KEYS = new Set([
     "$schema", "schemaVersion", "courseId", "gameId", "contentId", "title",
     "instructions", "roundSettings", "status", "derivedFrom", "review", "challenges"
@@ -39,36 +37,10 @@
     "奶": "nǎi"
   });
   const SAFE_SHIP_PATH = /^\/assets\/ships\/[A-Za-z0-9%._()-]+\.png$/u;
-  const SAFE_ROBOT_PATH = /^\/assets\/robots\/robot%20\(\d+\)\.png$/u;
 
   let catalogPromise = null;
-  let robotPathsPromise = null;
-  let robotCursor = -1;
   const mountedBoards = new WeakMap();
   const mountingBoards = new WeakMap();
-
-  async function loadRobotPaths() {
-    if (typeof global.fetch !== "function") return [];
-    if (!robotPathsPromise) {
-      robotPathsPromise = global.fetch(ROBOT_KEYMAP_URL, { cache: "force-cache" })
-        .then((response) => {
-          if (!response.ok) throw new Error(`Could not load robot keymap (${response.status}).`);
-          return response.json();
-        })
-        .then((raw) => Object.keys(raw || {}).filter((path) => SAFE_ROBOT_PATH.test(path)))
-        .catch(() => []);
-    }
-    return robotPathsPromise;
-  }
-
-  async function nextInterstitialRobot() {
-    const paths = await loadRobotPaths();
-    if (!paths.length) return ROBOT_FALLBACK_URL;
-    let index = Math.floor(global.Math.random() * paths.length);
-    if (paths.length > 1 && index === robotCursor) index = (index + 1) % paths.length;
-    robotCursor = index;
-    return paths[index];
-  }
 
   function isPlainObject(value) {
     return Boolean(value) && typeof value === "object" && !Array.isArray(value);
@@ -545,7 +517,21 @@
     return node;
   }
 
-  function deckHanziTile(documentRef, piece, index, selected, dragging, invalid) {
+  function roundPresentation(roundIndex) {
+    const reversed = roundIndex % 2 === 1;
+    return {
+      deck: reversed ? "pinyin" : "hanzi",
+      ring: reversed ? "hanzi" : "pinyin",
+      deckLabel: reversed ? "Pinyin" : "Hanzi",
+      ringLabel: reversed ? "Hanzi" : "pinyin"
+    };
+  }
+
+  function scriptLanguage(script) {
+    return script === "hanzi" ? "zh-Hans" : "zh-Latn-pinyin";
+  }
+
+  function deckHanziTile(documentRef, piece, index, selected, dragging, invalid, presentation) {
     const item = documentRef.createElement("div");
     item.className = "naturalization-nucleus-deck-item";
     item.dataset.state = "available";
@@ -559,12 +545,12 @@
     tile.dataset.invalid = String(invalid);
     tile.dataset.dragging = String(dragging);
     tile.setAttribute("aria-pressed", String(selected));
-    tile.setAttribute("aria-label", `Hanzi tile ${index + 1}: ${piece.left.hanzi}. Choose its matching pinyin.`);
+    tile.setAttribute("aria-label", `${presentation.deckLabel} tile ${index + 1}: ${piece.left[presentation.deck]}. Choose its matching ${presentation.ringLabel}.`);
     tile.append(makeText(
       documentRef,
-      `naturalization-nucleus-domino-hanzi ${toneClass(piece.left.tone)}`,
-      piece.left.hanzi,
-      "zh-Hans"
+      `naturalization-nucleus-domino-hanzi naturalization-nucleus-script-${presentation.deck}`,
+      piece.left[presentation.deck],
+      scriptLanguage(presentation.deck)
     ));
     item.append(tile);
     return item;
@@ -575,19 +561,19 @@
     item.className = "naturalization-nucleus-deck-item";
     item.dataset.state = "placed";
     item.setAttribute("role", "listitem");
-    item.setAttribute("aria-label", `Hanzi tile ${index + 1} has been matched.`);
+    item.setAttribute("aria-label", `Tile ${index + 1} has been matched.`);
     item.dataset.naturalizationPlacedPieceId = piece.id;
     return item;
   }
 
-  function pinyinSocketTarget(documentRef, index, challenge) {
+  function pinyinSocketTarget(documentRef, index, challenge, presentation) {
     const target = documentRef.createElement("button");
     target.type = "button";
     target.className = "naturalization-nucleus-socket-target";
     target.dataset.naturalizationSocketIndex = String(index);
     target.dataset.naturalizationChallengeId = challenge.id;
-    target.setAttribute("aria-label", `Pinyin ${challenge.pinyin}. Choose the matching Hanzi.`);
-    target.append(makeText(documentRef, "naturalization-nucleus-socket-pinyin", challenge.pinyin, "zh-Latn-pinyin"));
+    target.setAttribute("aria-label", `${presentation.ringLabel} ${challenge[presentation.ring]}. Choose the matching ${presentation.deckLabel}.`);
+    target.append(makeText(documentRef, `naturalization-nucleus-socket-pinyin naturalization-nucleus-script-${presentation.ring}`, challenge[presentation.ring], scriptLanguage(presentation.ring)));
     return target;
   }
 
@@ -605,7 +591,7 @@
     return button;
   }
 
-  function orbitSocket(documentRef, index, challenge, placedPiece, newMatchSlots, errorSlot) {
+  function orbitSocket(documentRef, index, challenge, placedPiece, newMatchSlots, errorSlot, presentation) {
     const item = documentRef.createElement("li");
     item.className = "naturalization-nucleus-socket";
     item.dataset.socketIndex = String(index);
@@ -615,12 +601,12 @@
       item.append(fusedWord(documentRef, challenge, newMatchSlots.includes(index)));
     } else {
       item.dataset.socketState = "empty";
-      item.append(pinyinSocketTarget(documentRef, index, challenge));
+      item.append(pinyinSocketTarget(documentRef, index, challenge, presentation));
     }
     return item;
   }
 
-  function createGame(root, catalog) {
+  function createGame(root, catalog, { loadingScreen, isActive, disposeLoading }) {
     const stage = root.querySelector(".naturalization-nucleus-stage");
     const game = root.querySelector("#naturalizationNucleusGame");
     const interstitial = root.querySelector("#naturalizationNucleusInterstitial");
@@ -629,8 +615,9 @@
     const ring = root.querySelector("#naturalizationNucleusRing");
     const deck = root.querySelector("#naturalizationNucleusDeck");
     const artwork = root.querySelector("#naturalizationNucleusArtwork");
+    const imageToggle = root.querySelector("#naturalizationNucleusImageToggle");
+    const core = root.querySelector("#naturalizationNucleusCore");
     const status = root.querySelector("#naturalizationNucleusStatus");
-    const newRound = root.querySelector("#naturalizationNucleusNewRound");
     const pieceCount = root.querySelector("#naturalizationNucleusPieceCount");
     const displayToggle = root.querySelector("#naturalizationNucleusDisplayToggle");
     const displayMenu = root.querySelector("#naturalizationNucleusDisplayMenu");
@@ -650,8 +637,8 @@
     const feedbackSound = root.querySelector("#naturalizationNucleusFeedbackSound");
     const countButtons = [...root.querySelectorAll("[data-naturalization-piece-count]")];
     assert(
-      stage && game && interstitial && interstitialRobot && board && ring && deck && artwork && status && newRound && pieceCount
-      && displayToggle && displayMenu && audioToggle && audioMenu && optionsToggle && optionsMenu
+      stage && game && interstitial && interstitialRobot && board && ring && deck && artwork && status && pieceCount
+      && displayToggle && displayMenu && audioToggle && audioMenu && optionsToggle && optionsMenu && imageToggle && core
       && audioSpeed && audioVoice && audioVoiceStatus
       && feedback && feedbackPinyin && feedbackHanzi && feedbackReading && feedbackGlyph && feedbackMeaning && feedbackSound,
       "the game shell is incomplete."
@@ -663,6 +650,8 @@
     let errorTimer = 0;
     let transitionId = 0;
     let transitioning = false;
+    let destroyed = false;
+    let active = isActive();
     const roundTimers = new Set();
     const listen = (target, type, handler) => {
       target.addEventListener(type, handler);
@@ -682,8 +671,11 @@
       pieceCount: storedPieceCount(root, catalog),
       difficulty: currentLearningDifficulty(),
       round: null,
+      roundIndex: -1,
+      imagesEnabled: true,
       placements: [],
       selectedPieceId: "",
+      selectedSocketIndex: -1,
       draggingPieceId: "",
       suppressClick: false,
       feedbackChallenge: null,
@@ -694,9 +686,19 @@
       feedbackSequence: 0
     };
 
-    listen(interstitialRobot, "error", () => {
-      if (interstitialRobot.getAttribute("src") !== ROBOT_FALLBACK_URL) interstitialRobot.src = ROBOT_FALLBACK_URL;
-    });
+    function syncImageControl() {
+      core.hidden = !state.imagesEnabled;
+      const label = state.imagesEnabled ? "Hide picture clues" : "Show picture clues";
+      imageToggle.setAttribute("aria-pressed", String(state.imagesEnabled));
+      imageToggle.setAttribute("aria-label", label);
+      imageToggle.title = label;
+      imageToggle.classList.toggle("is-active", state.imagesEnabled);
+    }
+
+    function toggleImage() {
+      state.imagesEnabled = !state.imagesEnabled;
+      syncImageControl();
+    }
 
     function syncDisplayControls() {
       const documentElement = board.ownerDocument?.documentElement;
@@ -814,21 +816,50 @@
     }
 
     function clearRoundTimers() {
-      roundTimers.forEach((timer) => global.clearTimeout(timer));
+      roundTimers.forEach((task) => {
+        global.clearTimeout(task.timer);
+        task.token += 1;
+      });
       roundTimers.clear();
     }
 
+    const now = () => global.performance?.now?.() ?? Date.now();
+    function armRoundTask(task) {
+      if (!active || destroyed) return;
+      task.startedAt = now();
+      const token = ++task.token;
+      task.timer = global.setTimeout(() => {
+        if (token !== task.token || destroyed || !active || !roundTimers.has(task)) return;
+        roundTimers.delete(task);
+        task.callback();
+      }, task.remaining);
+    }
+
     function scheduleRoundTask(callback, delay) {
-      const timer = global.setTimeout(() => {
-        roundTimers.delete(timer);
-        callback();
-      }, delay);
-      roundTimers.add(timer);
-      return timer;
+      const task = { callback, remaining: delay, startedAt: null, timer: null, token: 0 };
+      roundTimers.add(task);
+      armRoundTask(task);
+      return task;
+    }
+
+    function setActive(value) {
+      if (destroyed || active === Boolean(value)) return;
+      active = Boolean(value);
+      loadingScreen.setActive(active);
+      if (!active) {
+        closeToolbarMenus();
+        roundTimers.forEach((task) => {
+          global.clearTimeout(task.timer);
+          task.token += 1;
+          if (task.startedAt !== null) task.remaining = Math.max(0, task.remaining - (now() - task.startedAt));
+          task.startedAt = null;
+        });
+      } else roundTimers.forEach(armRoundTask);
     }
 
     function setRoundLoading(active) {
-      interstitial.hidden = !active;
+      if (active) loadingScreen.show();
+      else loadingScreen.hide();
       stage.setAttribute("aria-busy", String(active));
       game.toggleAttribute("inert", active);
       game.setAttribute("aria-hidden", String(active));
@@ -837,6 +868,7 @@
     function focusDeckPiece(pieceId) {
       if (!pieceId || solved()) return;
       global.requestAnimationFrame?.(() => {
+        if (destroyed || !isActive()) return;
         [...deck.querySelectorAll("[data-naturalization-piece-id]")]
           .find((button) => button.dataset.naturalizationPieceId === pieceId)?.focus();
       });
@@ -858,6 +890,10 @@
 
     function render(focusPieceId = "") {
       const documentRef = board.ownerDocument || global.document;
+      const presentation = roundPresentation(state.roundIndex);
+      deck.setAttribute("aria-label", `${presentation.deckLabel} tiles waiting to be placed`);
+      deck.parentElement.setAttribute("aria-label", `${presentation.deckLabel} tiles waiting to be placed`);
+      ring.setAttribute("aria-label", `${presentation.ringLabel} matching positions`);
       const targets = socketTargets();
       const isSolved = solved();
       const available = deckPieces();
@@ -868,9 +904,13 @@
           challenge,
           pieceForId(state.placements[index]),
           state.newMatchSlots,
-          state.errorSlot
+          state.errorSlot,
+          presentation
         )
       )));
+      ring.querySelectorAll("[data-naturalization-socket-index]").forEach((target) => {
+        target.setAttribute("aria-pressed", String(Number(target.dataset.naturalizationSocketIndex) === state.selectedSocketIndex));
+      });
       const availableIds = new Set(available.map(({ id }) => id));
       deck.replaceChildren(...state.round.pieces.map((piece, index) => (
         availableIds.has(piece.id)
@@ -880,7 +920,8 @@
             index,
             state.selectedPieceId === piece.id,
             state.draggingPieceId === piece.id,
-            state.errorPieceId === piece.id
+            state.errorPieceId === piece.id,
+            presentation
           )
           : placedDeckWell(documentRef, piece, index)
       )));
@@ -896,19 +937,24 @@
       } else if (isSolved) {
         status.textContent = "Orbit complete — every Hanzi has found its pinyin.";
         status.dataset.state = "solved";
+      } else if (state.selectedSocketIndex >= 0) {
+        status.textContent = `Selected ${targets[state.selectedSocketIndex][presentation.ring]}. Choose its matching ${presentation.deckLabel} tile.`;
+        status.dataset.state = "ready";
       } else if (state.selectedPieceId) {
         const piece = pieceForId(state.selectedPieceId);
-        status.textContent = `Selected ${piece.left.hanzi}. Choose its matching pinyin on the orbit.`;
+        status.textContent = `Selected ${piece.left[presentation.deck]}. Choose its matching ${presentation.ringLabel} on the orbit.`;
         status.dataset.state = "ready";
       } else if (state.placements.some(Boolean)) {
-        status.textContent = `${state.placements.filter(Boolean).length} of ${state.pieceCount} matches complete. Choose another Hanzi.`;
+        status.textContent = `${state.placements.filter(Boolean).length} of ${state.pieceCount} matches complete. Choose another ${presentation.deckLabel} tile.`;
         status.dataset.state = "ready";
       } else {
-        status.textContent = "Choose a Hanzi, then choose its matching pinyin.";
+        status.textContent = "Match each Hanzi with its pinyin. Choose either side first.";
         status.dataset.state = "ready";
       }
       pieceCount.textContent = String(state.pieceCount);
-      optionsToggle.setAttribute("aria-label", `Hanzi tile settings. Current: ${state.pieceCount} tiles.`);
+      optionsToggle.setAttribute("aria-label", `Tile settings. Current: ${state.pieceCount} tiles.`);
+      optionsToggle.title = "Tile settings";
+      optionsMenu.setAttribute("aria-label", "Tile settings");
       countButtons.forEach((button) => {
         const selected = Number.parseInt(button.dataset.naturalizationPieceCount || "", 10) === state.pieceCount;
         button.setAttribute("aria-checked", String(selected));
@@ -948,6 +994,7 @@
       global.clearTimeout(errorTimer);
       state.placements = [...transition.placements];
       state.selectedPieceId = "";
+      state.selectedSocketIndex = -1;
       state.errorPieceId = "";
       state.errorSlot = -1;
       state.errorMessage = "";
@@ -986,6 +1033,10 @@
     function selectPiece(pieceId) {
       const piece = pieceForId(pieceId);
       if (!piece || transitioning || solved() || state.placements.includes(piece.id)) return;
+      if (state.selectedSocketIndex >= 0) {
+        tryPlacement(pieceId, state.selectedSocketIndex);
+        return;
+      }
       global.clearTimeout(errorTimer);
       state.selectedPieceId = state.selectedPieceId === piece.id ? "" : piece.id;
       state.errorPieceId = "";
@@ -1000,14 +1051,14 @@
       if (!piece || transitioning || solved() || state.placements.includes(piece.id)) return;
       if (!Number.isInteger(socketIndex) || socketIndex < 0 || socketIndex >= state.pieceCount) return;
       if (state.placements[socketIndex]) {
-        rejectPlacement(piece.id, socketIndex, "That pinyin already has its Hanzi. Choose another position.");
+        rejectPlacement(piece.id, socketIndex, "That position is already matched. Choose another position.");
         return;
       }
       const transition = placeHanzi(state.placements, piece, socketTargets(), socketIndex);
       if (transition) {
         acceptPlacement(transition);
       } else {
-        rejectPlacement(piece.id, socketIndex, "That Hanzi does not match this pinyin. Try another position.");
+        rejectPlacement(piece.id, socketIndex, "That tile does not match this position. Try another position.");
       }
     }
 
@@ -1016,8 +1067,10 @@
       const previousArtworkSrc = state.round?.artworkSrc || "";
       state.pieceCount = pieceCount;
       state.round = createRound(catalog, pieceCount, global.Math.random, previousArtworkSrc, state.difficulty);
+      state.roundIndex += 1;
       state.placements = Array.from({ length: pieceCount }, () => "");
       state.selectedPieceId = "";
+      state.selectedSocketIndex = -1;
       state.draggingPieceId = "";
       state.feedbackChallenge = null;
       state.newMatchSlots = [];
@@ -1035,12 +1088,7 @@
       transitioning = true;
       const showInterstitial = () => {
         if (activeTransition !== transitionId) return;
-        interstitialRobot.src = ROBOT_FALLBACK_URL;
         setRoundLoading(true);
-        void nextInterstitialRobot().then((path) => {
-          if (activeTransition !== transitionId || interstitial.hidden) return;
-          if (interstitialRobot.getAttribute("src") !== path) interstitialRobot.src = path;
-        });
         scheduleRoundTask(() => {
           if (activeTransition !== transitionId) return;
           startRound(pieceCount);
@@ -1065,9 +1113,10 @@
     listen(deck, "keydown", (event) => {
       const domino = eventDeckDomino(event);
       if (!domino) return;
-      if (event.key === "Escape" && state.selectedPieceId) {
+      if (event.key === "Escape" && (state.selectedPieceId || state.selectedSocketIndex >= 0)) {
         event.preventDefault();
         state.selectedPieceId = "";
+        state.selectedSocketIndex = -1;
         render(domino.dataset.naturalizationPieceId || "");
         return;
       }
@@ -1143,17 +1192,31 @@
       if (!target) return;
       const socketIndex = Number.parseInt(target.dataset.naturalizationSocketIndex || "", 10);
       if (!state.selectedPieceId) {
-        rejectPlacement("", socketIndex, "Choose a Hanzi tile first, then choose its pinyin.");
+        if (transitioning || solved() || state.placements[socketIndex]) return;
+        global.clearTimeout(errorTimer);
+        state.selectedSocketIndex = state.selectedSocketIndex === socketIndex ? -1 : socketIndex;
+        state.errorPieceId = "";
+        state.errorSlot = -1;
+        state.errorMessage = "";
+        render();
+        ring.querySelector(`[data-naturalization-socket-index="${socketIndex}"]`)?.focus();
         return;
       }
       tryPlacement(state.selectedPieceId, socketIndex);
     });
 
-    listen(feedbackSound, "click", () => speak(state.feedbackChallenge));
-    listen(newRound, "click", () => {
-      closeToolbarMenus();
-      prepareRound();
+    listen(ring, "keydown", (event) => {
+      if (event.key !== "Escape" || state.selectedSocketIndex < 0) return;
+      event.preventDefault();
+      const socketIndex = state.selectedSocketIndex;
+      state.selectedSocketIndex = -1;
+      render();
+      ring.querySelector(`[data-naturalization-socket-index="${socketIndex}"]`)?.focus();
     });
+
+    listen(feedbackSound, "click", () => speak(state.feedbackChallenge));
+    listen(imageToggle, "click", toggleImage);
+    syncImageControl();
     toolbarMenus.forEach((entry) => {
       listen(entry.toggle, "click", () => toggleToolbarMenu(entry));
       listen(entry.toggle, "keydown", (event) => {
@@ -1210,14 +1273,19 @@
     prepareRound();
     const session = Object.freeze({
       catalog,
+      setActive,
       destroy() {
+        if (destroyed) return;
+        destroyed = true;
         global.clearTimeout(errorTimer);
         transitionId += 1;
         clearRoundTimers();
         transitioning = false;
         setRoundLoading(false);
+        disposeLoading();
         closeToolbarMenus();
         listeners.splice(0).forEach((remove) => remove());
+        if (mountedBoards.get(board) === session) mountedBoards.delete(board);
       }
     });
     mountedBoards.set(board, session);
@@ -1250,32 +1318,88 @@
       latest.destroy();
       mountedBoards.delete(board);
     }
-    status.textContent = "Preparing the Hanzi and pinyin puzzle…";
+    status.textContent = "";
     status.dataset.state = "loading";
     ring.replaceChildren();
     deck.replaceChildren();
-    root.querySelector(".naturalization-nucleus-stage")?.setAttribute("aria-busy", "true");
+    const stage = root.querySelector(".naturalization-nucleus-stage");
+    const interstitial = root.querySelector("#naturalizationNucleusInterstitial");
+    const game = root.querySelector("#naturalizationNucleusGame");
+    assert(stage && interstitial && game, "the loading shell is incomplete.");
+    const documentRef = board.ownerDocument || global.document;
+    stage.setAttribute("aria-busy", "true");
+    interstitial.hidden = false;
+    game.toggleAttribute("inert", true);
+    game.setAttribute("aria-hidden", "true");
+    let loadingScreen = null;
+    let session = null;
+    let disposed = false;
+    let pageHidden = false;
+    const listeners = [];
+    const listen = (target, type, handler) => {
+      target.addEventListener(type, handler);
+      listeners.push(() => target.removeEventListener(type, handler));
+    };
+    function isActive() {
+      if (disposed || pageHidden || documentRef.visibilityState === "hidden" || !board.isConnected) return false;
+      for (let ancestor = stage; ancestor; ancestor = ancestor.parentElement) {
+        if (ancestor.hidden) return false;
+      }
+      return true;
+    }
+    function syncActivity() {
+      const active = isActive();
+      interstitial.dataset.active = String(active);
+      loadingScreen?.setActive(active);
+      session?.setActive(active);
+    }
+    const observer = typeof global.MutationObserver === "function" ? new global.MutationObserver(syncActivity) : null;
+    for (let ancestor = stage; ancestor; ancestor = ancestor.parentElement) {
+      observer?.observe(ancestor, { attributes: true, attributeFilter: ["hidden"] });
+    }
+    function disposeLoading() {
+      if (disposed) return;
+      disposed = true;
+      syncActivity();
+      loadingScreen?.destroy();
+      interstitial.hidden = true;
+      observer?.disconnect();
+      listeners.splice(0).forEach((remove) => remove());
+    }
+    listen(documentRef, "visibilitychange", syncActivity);
+    listen(global, "pagehide", (event) => {
+      pageHidden = true;
+      if (event.persisted) syncActivity();
+      else if (session) session.destroy();
+      else disposeLoading();
+    });
+    listen(global, "pageshow", () => { pageHidden = false; syncActivity(); });
+    syncActivity();
     const mounting = (async () => {
+      const { mountRobotLoadingScreen } = await import("/language-runtime/static/source/games/embedded-game-controls.mjs?v=embedded-game-controls-8");
+      if (disposed) return null;
+      loadingScreen = mountRobotLoadingScreen({ container: interstitial,
+        label: global.CaatuuI18n?.t?.("verbnebula.round.preparing") || "Preparing a Naturalization Nucleus round",
+        active: isActive() });
+      loadingScreen.show();
       const catalog = await loadCatalog(requiredText(dataUrl, "mount.dataUrl", 500), Boolean(forceReload));
-      createGame(root, catalog);
+      if (disposed) return null;
+      session = createGame(root, catalog, { loadingScreen, isActive, disposeLoading });
       return catalog;
     })();
     mountingBoards.set(board, mounting);
     try {
       return await mounting;
     } catch (error) {
+      if (disposed) return null;
+      disposeLoading();
       ring.replaceChildren();
       deck.replaceChildren();
       status.textContent = "The domino puzzle could not be loaded.";
       status.dataset.state = "error";
-      root.querySelector(".naturalization-nucleus-stage")?.setAttribute("aria-busy", "false");
-      const interstitial = root.querySelector("#naturalizationNucleusInterstitial");
-      const game = root.querySelector("#naturalizationNucleusGame");
-      if (interstitial) interstitial.hidden = true;
-      if (game) {
-        game.removeAttribute("inert");
-        game.setAttribute("aria-hidden", "false");
-      }
+      stage.setAttribute("aria-busy", "false");
+      game.removeAttribute("inert");
+      game.setAttribute("aria-hidden", "false");
       throw error;
     } finally {
       if (mountingBoards.get(board) === mounting) mountingBoards.delete(board);

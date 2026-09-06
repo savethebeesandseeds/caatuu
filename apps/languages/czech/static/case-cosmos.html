@@ -8,15 +8,16 @@
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icons/caatuu-czech-512.png">
     <link rel="apple-touch-icon" href="icons/caatuu-czech-512.png">
-    <script src="source/shared/course-profile.js?v=course-33"></script>
-    <script src="/language-runtime/static/source/learning-profile.js?v=learning-7"></script>
+    <script src="source/shared/course-profile.js?v=course-57"></script>
+    <script src="/language-runtime/static/source/learning-profile.js?v=learning-9"></script>
     <script src="/language-runtime/static/source/initial-theme.js?v=theme-3"></script>
   <script src="source/shared/runtime.js?v=runtime-41"></script>
     <script src="source/shared/semantic-learning.js?v=semantic-learning-7"></script>
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-theme.css?v=theme-6">
-  <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-workspace.css?v=shell-95">
-  <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-130">
-    <link rel="stylesheet" href="source/games/case-cosmos/case-cosmos.css?v=case-cosmos-1">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-theme.css?v=theme-7">
+  <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-workspace.css?v=shell-96">
+  <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-133">
+    <link rel="stylesheet" href="/language-runtime/static/styles/games/embedded-game-controls.css?v=embedded-game-controls-8">
+    <link rel="stylesheet" href="source/games/case-cosmos/case-cosmos.css?v=case-cosmos-13">
   </head>
   <body class="games-page case-cosmos-page">
     <div class="app-shell">
@@ -34,66 +35,41 @@
       <main class="workspace">
         <section class="view is-active" id="view-case-cosmos" aria-label="Train">
           <div class="case-cosmos-shell">
-            <section class="case-cosmos-panel" id="caseCosmosPanel" aria-label="Case Cosmos" aria-busy="true">
-              <div class="case-cosmos-controls">
-                <span class="case-cosmos-kicker">Match the meaning</span>
-                <button class="theme-toggle" type="button" data-theme-toggle aria-label="Use dark theme" title="Use dark theme">
-                  <img class="theme-toggle-icon" data-theme-toggle-icon src="/assets/icons/dark_mode_ui.png" alt="" aria-hidden="true" decoding="async">
-                </button>
+            <section class="case-cosmos-panel case-cosmos-boat-layout" id="caseCosmosPanel" aria-label="Case Cosmos" aria-busy="true">
+              <div class="case-cosmos-controls" id="caseCosmosControls"></div>
+
+              <div class="caatuu-game-robot-loading" id="caseCosmosLoading" role="status" aria-live="polite">
+                <img class="caatuu-game-robot-loading-art" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true">
               </div>
 
-              <div class="case-cosmos-loading" id="caseCosmosLoading" role="status" aria-live="polite">
-                <img src="/assets/planets/case-cosmos.png" alt="" aria-hidden="true">
-                <p>Preparing the first noun…</p>
-              </div>
-
-              <article class="case-cosmos-board" id="caseCosmosBoard" aria-labelledby="caseCosmosTitle" hidden>
-                <header class="case-cosmos-scene">
-                  <div class="case-cosmos-route-mark" aria-hidden="true">
-                    <img src="/assets/planets/case-cosmos.png" alt="">
-                    <span id="caseCosmosRouteNumber">1</span>
-                  </div>
-                  <div>
-                    <p class="case-cosmos-eyebrow" id="caseCosmosRoundTitle"></p>
-                    <h1 id="caseCosmosTitle">What job does the noun have?</h1>
-                    <p class="case-cosmos-instruction" id="caseCosmosInstruction"></p>
-                    <p class="case-cosmos-idea" id="caseCosmosIdea"></p>
-                  </div>
-                </header>
-
-                <section class="case-cosmos-matching" aria-labelledby="caseCosmosMatchTitle">
-                  <h2 id="caseCosmosMatchTitle">Pick one card from each side</h2>
-                  <div class="case-cosmos-match-grid">
-                    <section class="case-cosmos-match-column" aria-labelledby="caseCosmosSituationTitle">
-                      <h3 id="caseCosmosSituationTitle">Everyday situation</h3>
-                      <div class="case-cosmos-options" id="caseCosmosSituationOptions"></div>
-                    </section>
-                    <section class="case-cosmos-match-column" aria-labelledby="caseCosmosSentenceTitle">
-                      <h3 id="caseCosmosSentenceTitle">Czech sentence</h3>
-                      <div class="case-cosmos-options" id="caseCosmosSentenceOptions" lang="cs-CZ"></div>
-                    </section>
-                  </div>
-                </section>
-
-                <section class="case-cosmos-result" id="caseCosmosResult" aria-labelledby="caseCosmosResultTitle" hidden>
-                  <p class="case-cosmos-result-kicker" id="caseCosmosResultKicker">All seven matched</p>
-                  <h2 id="caseCosmosResultTitle">Seven forms of this noun</h2>
-                  <div class="case-cosmos-patterns" id="caseCosmosPatterns"></div>
-                  <p id="caseCosmosPlainSummary"></p>
-                  <details class="case-cosmos-grammar">
-                    <summary>Show the base questions</summary>
-                    <p id="caseCosmosGrammarSummary"></p>
-                  </details>
-                </section>
-              </article>
-
-              <footer class="case-cosmos-footer" id="caseCosmosFooter" hidden>
-                <p class="case-cosmos-feedback" id="caseCosmosFeedback" role="status" aria-live="polite" aria-atomic="true"></p>
-                <div class="case-cosmos-progress">
-                  <span id="caseCosmosProgress">Round 1 of 7</span>
-                  <button type="button" id="caseCosmosNext" hidden>Next job</button>
+              <article class="case-cosmos-board" id="caseCosmosBoard" aria-label="Case practice" hidden>
+                <div class="case-cosmos-question" id="caseCosmosCaseNote">
+                  <span class="case-cosmos-noun-label">Noun <strong id="caseCosmosNoun" lang="cs-CZ"></strong></span>
+                  <h2 id="caseCosmosProposedCase"></h2>
+                  <p id="caseCosmosCaseHint"></p>
                 </div>
-              </footer>
+                <div class="case-cosmos-vessel" id="caseCosmosVessel">
+                <img class="case-cosmos-boat" id="caseCosmosBoat" src="/assets/micelaneous/floating_boat.png" width="1189" height="1323" alt="" aria-hidden="true" draggable="false">
+                <section class="case-cosmos-example" id="caseCosmosExample" tabindex="-1" aria-label="Sentence to review" aria-describedby="caseCosmosSentence caseCosmosTranslation caseCosmosProposedCase caseCosmosCaseHint">
+                  <div class="case-cosmos-sentence-row">
+                    <p class="case-cosmos-sentence" id="caseCosmosSentence" lang="cs-CZ"></p>
+                  </div>
+                  <p class="case-cosmos-translation" id="caseCosmosTranslation"></p>
+                </section>
+                <section class="case-cosmos-feedback" id="caseCosmosFeedback" role="status" aria-live="polite" aria-atomic="true" hidden>
+                  <p id="caseCosmosFeedbackTitle"></p>
+                  <h2 id="caseCosmosActualCase"></h2>
+                  <p id="caseCosmosExplanation"></p>
+                </section>
+                </div>
+                <div class="case-cosmos-actions">
+                  <div class="case-cosmos-answers" role="group" aria-label="Does the highlighted noun form fit this sentence?" aria-describedby="caseCosmosProposedCase">
+                    <button class="case-cosmos-answer" type="button" id="caseCosmosNo" aria-label="No" title="No — swipe left (N or 2)" aria-keyshortcuts="N 2" aria-pressed="false"><span aria-hidden="true">×</span></button>
+                    <button class="case-cosmos-answer" type="button" id="caseCosmosYes" aria-label="Yes" title="Yes — swipe right (Y or 1)" aria-keyshortcuts="Y 1" aria-pressed="false"><span aria-hidden="true">✓</span></button>
+                  </div>
+                  <button class="case-cosmos-speak" id="caseCosmosSpeak" type="button" aria-label="Hear the sentence" hidden></button>
+                </div>
+              </article>
 
               <section class="case-cosmos-error" id="caseCosmosError" hidden>
                 <img src="/assets/planets/case-cosmos.png" alt="" aria-hidden="true">
@@ -102,6 +78,10 @@
                 <a href="index.html">Back to games</a>
               </section>
             </section>
+            <div class="case-cosmos-info" id="caseCosmosInfo" hidden>
+              <span class="case-cosmos-info-icon" aria-hidden="true">i</span>
+              <p class="case-cosmos-swipe-help">Swipe left for No · right for Yes, or use the buttons.</p>
+            </div>
           </div>
         </section>
       </main>
@@ -125,7 +105,7 @@
 
     <div data-caatuu-settings-panel hidden></div>
 
-  <script src="/language-runtime/static/source/shell-policy.js?v=shell-policy-9"></script>
-    <script type="module" src="/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-1" data-caatuu-feature-module="source/games/case-cosmos/case-cosmos.js?v=case-cosmos-6"></script>
+  <script src="/language-runtime/static/source/shell-policy.js?v=shell-policy-14"></script>
+    <script type="module" src="/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-8" data-caatuu-feature-module="source/games/case-cosmos/case-cosmos.js?v=case-cosmos-15"></script>
   </body>
 </html>

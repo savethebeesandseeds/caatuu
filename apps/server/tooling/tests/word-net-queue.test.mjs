@@ -220,23 +220,9 @@ test("prepares English before a generative phrase is displayed", () => {
   );
 });
 
-test("holds the transition after the robot artwork itself becomes visible", () => {
-  assert.match(wordNetSource, /loadingRobotReadyPromise: Promise\.resolve\(false\)/);
-  assert.match(wordNetSource, /state\.loadingRobotVisibleAt = performance\.now\(\);/);
-  assert.match(
-    wordNetSource,
-    /await Promise\.resolve\(state\.loadingRobotReadyPromise\)\.catch\(\(\) => false\);/
-  );
-  assert.match(
-    wordNetSource,
-    /const transitionAnchor = Math\.max\(startedAt, visibleAt\);/
-  );
-  assert.match(
-    wordNetSource,
-    /await waitForVisiblePaint\(\);[\s\S]*?state\.loadingRobotVisibleAt = performance\.now\(\);/
-  );
-  assert.match(
-    wordNetSource,
-    /!visible[\s\S]*?!state\.loadingRobotVisibleAt[\s\S]*?state\.loadingRobotVisibleAt = performance\.now\(\);/
-  );
+test("delegates the visible-art transition hold to the shared robot controller", () => {
+  assert.ok(wordNetSource.includes("state.loadingScreen = mountRobotLoadingScreen("));
+  assert.ok(wordNetSource.includes("await Promise.race([state.loadingScreen?.minimumVisible(MIN_SENTENCE_TRANSITION_MS), inactive])"));
+  assert.ok(wordNetSource.includes("state.loadingActivityWaiters.delete(release)"));
+  assert.doesNotMatch(wordNetSource, /loadingRobotReadyPromise|loadingRobotVisibleAt/u);
 });

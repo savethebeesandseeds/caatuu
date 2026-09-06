@@ -229,16 +229,16 @@ Capabilities describe whether a runtime mechanic exists. Linguistic features
 describe whether a language has the concept a game teaches. The shared game
 registry combines both with an explicit course `games` list and route. For
 example, Conjugation Comet requires `verb-conjugation`, Case Cosmos requires
-`grammatical-case`, and Agreement Aurora requires
+`grammatical-case`, and Grammar Gravity requires
 `grammatical-agreement`. No course ID or locale is allowed in that decision.
 
 ## Current course and planet support
 
 | Course | Lifecycle | Manifest-declared planets | Upcoming | Full dictionary |
 | --- | --- | --- | --- | --- |
-| Czech (`cz`, target `cs-CZ`) | Active | Campaign, Verb Lab, Word World, Conjugation Comet, Case Cosmos, Agreement Aurora | Memory Moon, Sounds Quasar | Yes |
-| Mandarin (`zh`, target `zh-Hans`) | Development preview | Verb Lab, Word World, Naturalization Nucleus | Memory Moon, Sounds Quasar | No |
-| Spanish (`es`, target `es-ES`) | Local development preview | Verb Lab, Word World, Conjugation Comet, Agreement Aurora | Memory Moon, Sounds Quasar | No |
+| Czech (`cz`, target `cs-CZ`) | Active | Campaign, Verb Lab, Word World, Conjugation Comet, Case Cosmos, Grammar Gravity, Sounds Quasar | Memory Moon | Yes |
+| Mandarin (`zh`, target `zh-Hans`) | Development preview | Verb Lab, Word World, Naturalization Nucleus, Sounds Quasar | Memory Moon | No |
+| Spanish (`es`, target `es-ES`) | Local development preview | Verb Lab, Word World, Conjugation Comet, Grammar Gravity, Sounds Quasar | Memory Moon | No |
 
 All three current courses use English as `sourceLanguage`. Their established
 `/cz`, `/zh`, and `/es` prefixes remain compatibility identities for those
@@ -251,12 +251,12 @@ Mandarin; Android contains Czech and Mandarin only. Spanish remains local-only
 until a licensed publication is explicitly enabled.
 
 Spanish's current playable authored set is Verb Lab, Word World, Conjugation
-Comet, and Agreement Aurora. The generated course profile exposes each
+Comet, Grammar Gravity, and Sounds Quasar. The generated course profile exposes each
 course-owned, revisioned catalog through `gameContent`; shared game hosts read
 only that projection and never infer a language directory. Conjugation Comet
-and Agreement Aurora use the registry's exact language-neutral host routes,
+and Grammar Gravity use the registry's exact language-neutral host routes,
 `/language-runtime/static/games/conjugation-comet.html` and
-`/language-runtime/static/games/agreement-aurora.html`. Czech, Spanish, and
+`/language-runtime/static/games/grammar-gravity.html`. Czech, Spanish, and
 future courses therefore share the same game document, layout, styles, host,
 and core controller. Language-specific copy, rules, accepted answers, and
 custom presentation remain reviewed course content or adapter behavior inside
@@ -267,6 +267,17 @@ registry-declared shared host, course routes are confined relative paths.
 Schemes, protocol-relative URLs, fragments, backslashes, and literal or encoded
 path traversal are invalid.
 
+Sounds Quasar uses `/language-runtime/static/games/sound-quasar.html` for all
+courses. Its `soundQuasarCatalog` pins course-owned words and sentences with
+English audit text and upstream provenance at `sound-quasar-items-v2`. The
+Aa control switches between five-word and five-sentence rounds. Correct answers
+earn 1 XP, including correct retries; reveals earn none. Completing a round
+adds one completed round (coin), with streak eligibility when at least one
+answer was correct. Device speech remains unreviewed and does not establish
+pronunciation mastery or Campaign completion.
+Source review and license states are preserved; adding the pilot does not
+approve its source text or synthesized audio.
+
 Planet readiness is a conjunction, not a language allowlist:
 
 | Planet | Required course data | Additional requirement |
@@ -275,17 +286,17 @@ Planet readiness is a conjunction, not a language allowlist:
 | Word World | `wordWorldManifest` | `wordWorld` capability and `routes.wordWorld` |
 | Conjugation Comet | `conjugationCometCatalog` | `conjugationComet`, `verb-conjugation`, and its route |
 | Case Cosmos | `caseCosmosCatalog` | `grammatical-case` and its route |
-| Agreement Aurora | `agreementAuroraCatalog` | `grammatical-agreement` and its route |
+| Grammar Gravity | `grammarGravityCatalog` | `grammatical-agreement` and its route |
 | Naturalization Nucleus | `naturalizationNucleusCatalog` | `hanzi-pinyin`, a Chinese target, and its route |
 | Memory Moon | No authored catalog yet | `memory` and its route when promoted from upcoming |
-| Sounds Quasar | No authored catalog yet | `speech`, reviewed language-owned audio/challenge authority, and its route when promoted from upcoming |
+| Sounds Quasar | `soundQuasarCatalog` | `speech` and the shared `routes.soundQuasar` host; device speech is practice only |
 | Campaign | No separate catalog | Its route and at least one explicitly Campaign-eligible playable planet |
 
 Mandarin and Spanish do not declare Campaign directly; Spanish Campaign is
 derived by the shared shell from its eligible playable planets. One immutable shared registry now governs
 planet IDs, routes, capabilities, linguistic features, content resources, and
 Campaign eligibility in both browser runtime and language-pack validation.
-Verb Lab, Word World, Conjugation Comet, Case Cosmos, and Agreement Aurora are
+Verb Lab, Word World, Conjugation Comet, Case Cosmos, and Grammar Gravity are
 Campaign-eligible; Naturalization Nucleus, Memory Moon, and Sounds Quasar are
 intentionally not. The base Campaign mechanic is available after one eligible
 planet, whether its availability is derived by the shell or validated from an
@@ -393,12 +404,16 @@ English must use `language-content-v1`, provide a non-null reviewed
 `publication.learnerBaseRealizations` catalog, and project it through a
 non-null `publication.runtimeProjection.learnerBaseRuntime`. The currently
 complete shared presentation paths are Word World, Conjugation Comet, and
-Agreement Aurora. Their registered contracts keep learner-base presentation
+Grammar Gravity. Their registered contracts keep learner-base presentation
 separate from English audit authority; the two grammar games also keep English
 audit fields out of playable round projections. Campaign may wrap only planets
 whose presentation contracts are ready. Dictionary, Verb Lab, Case Cosmos,
 and Naturalization Nucleus fail closed with `source-language.presentation`
-until they implement the same three-role rendering contract. This readiness is declared by the shared learner-base
+until they implement the same three-role rendering contract. Learner-base-sensitive
+capabilities `dictionary`, `generation`, `chat`, and `skillCompass` also fail
+closed for a non-English base until they have a reviewed presentation contract.
+This does not disable English-authority embedding and semantic-search mechanics.
+This readiness is declared by the shared learner-base
 presentation registry, not by a language or course allowlist: each game or
 capability names a presentation contract and its required English and
 learner-base authorities. Campaign derives readiness from every planet it

@@ -138,8 +138,16 @@ assert_main_only() {
     printf 'Expected only refs/remotes/origin/main; found: %s\n' "${remote_heads[*]-<none>}" >&2
     return 1
   }
-  [[ "${#worktrees[@]}" -eq 1 ]] || {
-    printf 'Expected one worktree; found: %s\n' "${worktrees[*]-<none>}" >&2
+  # Preserve registered detached recovery material; never build from it.
+  # The operator verifies that no alternate checkout is actively in use.
+  [[ "$repo_root" == /workspace && "${worktrees[0]-}" == "$repo_root" ]] || {
+    echo "Release builds require the canonical /workspace checkout." >&2
+    return 1
+  }
+  local detached_count
+  detached_count="$(git -C "$repo_root" worktree list --porcelain | awk '/^detached$/ { count++ } END { print count+0 }')"
+  [[ "$detached_count" -eq $((${#worktrees[@]} - 1)) ]] || {
+    printf 'Additional worktrees must be detached recovery registrations: %s\n' "${worktrees[*]-<none>}" >&2
     return 1
   }
 }

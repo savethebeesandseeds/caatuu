@@ -79,7 +79,7 @@ authority.
 Each playable authored planet also requires its declared present course data:
 Verb Lab uses `verbNebulaCatalog`, Word World uses `wordWorldManifest`,
 Conjugation Comet uses `conjugationCometCatalog`, Case Cosmos uses
-`caseCosmosCatalog`, Agreement Aurora uses `agreementAuroraCatalog`, and
+`caseCosmosCatalog`, Grammar Gravity uses `grammarGravityCatalog`, and
 Naturalization Nucleus uses `naturalizationNucleusCatalog`. This closes the
 route-only failure mode in which the shared shell could expose a planet whose
 course data was absent. The same shared planet registry assigns a versioned
@@ -130,14 +130,31 @@ The contract keeps the English audit language independent of
 locale is not English must use `language-content-v1`, name a non-null reviewed
 `publication.learnerBaseRealizations` catalog, and name a non-null
 `publication.runtimeProjection.learnerBaseRuntime`. The currently complete
-non-English-base presentation paths are Word World, Conjugation Comet, and
-Agreement Aurora. Their contracts keep learner-base presentation separate from
-mandatory English audit data, and the grammar-game round projections exclude
-English audit fields. Campaign is ready only when every contained playable
+non-English-base presentation paths are Word World, Conjugation Comet,
+Grammar Gravity, and Sounds Quasar. Their contracts keep learner-base presentation separate from
+mandatory English audit data. Grammar Gravity carries its anchor's English
+audit text solely for image retrieval; learner-visible meanings always come
+from the declared learner base. Campaign is ready only when every contained playable
 planet has a registered learner-base presentation contract. Dictionary, Verb
 Lab, Case Cosmos, and Naturalization Nucleus reject the configuration with
 `source-language.presentation` until their shared three-role rendering
-contracts exist.
+contracts exist. The base-sensitive `dictionary`, `generation`, `chat`, and
+`skillCompass` capabilities also require reviewed presentation contracts before
+they can be enabled for a non-English base. This gate is independent of the
+English-authority embedding and semantic-search capabilities.
+
+Grammar Gravity has one animated renderer. Every enabled course must author
+`caatuu-grammar-gravity-content-v3` with the explicit
+`caatuu-grammar-gravity-journey-v1` gameplay contract. Declare the ordered stages
+(`meaning`, `category`, `form`), ending in `form`, and author each example's
+target anchor, learner-base and audit meanings, and exact `slot.beforeText` /
+`slot.afterText` around the assessed form. Category options must match the
+course's noun lanes. English can use number with determiner or subject-verb
+choices; courses need not pretend these are adjective endings. All examples
+must produce playable rounds at their declared difficulty. Missing stages,
+ambiguous choices, invalid slots, and old arrays or v2 packs fail validation.
+There is no matching-board fallback; standalone noun practice is an explicit
+mode. See the [migration and verification plan](../../docs/SPANISH_TO_ENGLISH_PLAN.md).
 
 Delivery closure is part of the same readiness check. Browser
 `setup-assets.json` must include every runtime-projection output, including the

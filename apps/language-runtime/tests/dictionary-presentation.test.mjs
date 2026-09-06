@@ -201,5 +201,5 @@ test("workspace initialization never owns initial service-worker registration", 
     workspace.indexOf("function registerServiceWorker()")
   );
   assert.doesNotMatch(init, /registerServiceWorker\(\)/u);
-  assert.match(bootstrap, /await loadCourseFeatureProviders\(\)[\s\S]*await registerCourseServiceWorker\(\)/u);
+  assert.match(bootstrap, /await loadCourseFeatureProviders\(\)[\s\S]*void registerCourseServiceWorker\(\)/u);
 });

@@ -92,6 +92,32 @@
     };
   };
 
+  // The learning profile loads before shell policy. Keep these historical
+  // storage aliases local so old clients and new game events share one aggregate.
+  const canonicalPerformanceGameId = (value) => {
+    const gameId = String(value || "").trim();
+    return gameId === "agreement-aurora" || gameId === "triangular-thermosphere"
+      ? "grammar-gravity"
+      : gameId;
+  };
+
+  const mergeGamePerformance = (previous, incoming) => {
+    const left = normalizeGamePerformance(previous);
+    const right = normalizeGamePerformance(incoming);
+    const leftTime = Date.parse(left.lastPlayedAt);
+    const rightTime = Date.parse(right.lastPlayedAt);
+    return {
+      activities: left.activities + right.activities,
+      attempts: left.attempts + right.attempts,
+      successes: left.successes + right.successes,
+      xp: left.xp + right.xp,
+      rounds: left.rounds + right.rounds,
+      lastPlayedAt: Number.isFinite(rightTime) && (!Number.isFinite(leftTime) || rightTime > leftTime)
+        ? right.lastPlayedAt
+        : left.lastPlayedAt || right.lastPlayedAt
+    };
+  };
+
   const normalizePerformance = (value) => {
     const performance = emptyPerformance();
     if (
@@ -107,7 +133,8 @@
     performance.updatedAt = typeof value.updatedAt === "string" ? value.updatedAt : "";
     Object.entries(value.games).forEach(([gameId, game]) => {
       if (!/^[a-z0-9-]{1,40}$/.test(gameId)) return;
-      performance.games[gameId] = normalizeGamePerformance(game);
+      const canonicalId = canonicalPerformanceGameId(gameId);
+      performance.games[canonicalId] = mergeGamePerformance(performance.games[canonicalId], game);
     });
     return performance;
   };
@@ -366,7 +393,8 @@
   );
 
   const summarize = (performance = readPerformance()) => {
-    const totals = Object.values(performance.games).reduce((summary, game) => ({
+    const games = normalizePerformance(performance).games;
+    const totals = Object.values(games).reduce((summary, game) => ({
       activities: summary.activities + game.activities,
       attempts: summary.attempts + game.attempts,
       successes: summary.successes + game.successes,
@@ -376,7 +404,7 @@
     return {
       ...totals,
       accuracy: totals.attempts ? Math.round((totals.successes / totals.attempts) * 100) : null,
-      activeGames: Object.values(performance.games).filter((game) => game.activities || game.rounds).length
+      activeGames: Object.values(games).filter((game) => game.activities || game.rounds).length
     };
   };
 
@@ -478,7 +506,7 @@
   };
 
   const record = (gameId, delta = {}) => {
-    const id = String(gameId || "").trim();
+    const id = canonicalPerformanceGameId(gameId);
     if (!/^[a-z0-9-]{1,40}$/.test(id)) return snapshot();
     const performance = readPerformance();
     const current = normalizeGamePerformance(performance.games[id]);

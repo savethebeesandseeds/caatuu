@@ -64,7 +64,7 @@ test("the shared host owns Conjugation Comet and the Czech legacy URL only redir
   assert.match(controller, /course-game-content\.mjs\?v=course-game-content-1/u);
   assert.match(controller, /conjugation-comet-core\.mjs\?v=conjugation-comet-core-2/u);
   assert.match(controller, /buildConjugationVerbQueue\(state\.catalog\.verbs/u);
-  assert.match(shell, /conjugation-comet-host\.mjs\?v=conjugation-comet-shared-2/u);
+  assert.match(shell, /conjugation-comet-host\.mjs\?v=conjugation-comet-shared-11/u);
   assert.match(legacyRedirect, /url=\/cz\/index\.html\?game=conjugation-comet/u);
   assert.doesNotMatch(legacyRedirect, /source\/games\/conjugation-comet/u);
 });

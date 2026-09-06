@@ -76,6 +76,7 @@
       "forms": [
         {
           "id": "first-singular",
+          "subjectBaseText": "I",
           "revision": 1,
           "subjectTargetText": "yo",
           "targetText": "hablo",
@@ -84,6 +85,7 @@
         },
         {
           "id": "second-singular-informal",
+          "subjectBaseText": "you (informal)",
           "revision": 1,
           "subjectTargetText": "tú",
           "targetText": "hablas",
@@ -92,6 +94,7 @@
         },
         {
           "id": "third-singular-formal",
+          "subjectBaseText": "he/she/you (formal)",
           "revision": 1,
           "subjectTargetText": "él / ella / usted",
           "targetText": "habla",
@@ -100,6 +103,7 @@
         },
         {
           "id": "first-plural",
+          "subjectBaseText": "we",
           "revision": 1,
           "subjectTargetText": "nosotros / nosotras",
           "targetText": "hablamos",
@@ -108,6 +112,7 @@
         },
         {
           "id": "second-plural-informal-spain",
+          "subjectBaseText": "you all (informal)",
           "revision": 1,
           "subjectTargetText": "vosotros / vosotras",
           "targetText": "habláis",
@@ -116,6 +121,7 @@
         },
         {
           "id": "third-plural-formal",
+          "subjectBaseText": "they/you all (formal)",
           "revision": 1,
           "subjectTargetText": "ellos / ellas / ustedes",
           "targetText": "hablan",
@@ -139,6 +145,7 @@
       "forms": [
         {
           "id": "first-singular",
+          "subjectBaseText": "I",
           "revision": 1,
           "subjectTargetText": "yo",
           "targetText": "como",
@@ -147,6 +154,7 @@
         },
         {
           "id": "second-singular-informal",
+          "subjectBaseText": "you (informal)",
           "revision": 1,
           "subjectTargetText": "tú",
           "targetText": "comes",
@@ -155,6 +163,7 @@
         },
         {
           "id": "third-singular-formal",
+          "subjectBaseText": "he/she/you (formal)",
           "revision": 1,
           "subjectTargetText": "él / ella / usted",
           "targetText": "come",
@@ -163,6 +172,7 @@
         },
         {
           "id": "first-plural",
+          "subjectBaseText": "we",
           "revision": 1,
           "subjectTargetText": "nosotros / nosotras",
           "targetText": "comemos",
@@ -171,6 +181,7 @@
         },
         {
           "id": "second-plural-informal-spain",
+          "subjectBaseText": "you all (informal)",
           "revision": 1,
           "subjectTargetText": "vosotros / vosotras",
           "targetText": "coméis",
@@ -179,6 +190,7 @@
         },
         {
           "id": "third-plural-formal",
+          "subjectBaseText": "they/you all (formal)",
           "revision": 1,
           "subjectTargetText": "ellos / ellas / ustedes",
           "targetText": "comen",
@@ -202,6 +214,7 @@
       "forms": [
         {
           "id": "first-singular",
+          "subjectBaseText": "I",
           "revision": 1,
           "subjectTargetText": "yo",
           "targetText": "vivo",
@@ -210,6 +223,7 @@
         },
         {
           "id": "second-singular-informal",
+          "subjectBaseText": "you (informal)",
           "revision": 1,
           "subjectTargetText": "tú",
           "targetText": "vives",
@@ -218,6 +232,7 @@
         },
         {
           "id": "third-singular-formal",
+          "subjectBaseText": "he/she/you (formal)",
           "revision": 1,
           "subjectTargetText": "él / ella / usted",
           "targetText": "vive",
@@ -226,6 +241,7 @@
         },
         {
           "id": "first-plural",
+          "subjectBaseText": "we",
           "revision": 1,
           "subjectTargetText": "nosotros / nosotras",
           "targetText": "vivimos",
@@ -234,6 +250,7 @@
         },
         {
           "id": "second-plural-informal-spain",
+          "subjectBaseText": "you all (informal)",
           "revision": 1,
           "subjectTargetText": "vosotros / vosotras",
           "targetText": "vivís",
@@ -242,6 +259,7 @@
         },
         {
           "id": "third-plural-formal",
+          "subjectBaseText": "they/you all (formal)",
           "revision": 1,
           "subjectTargetText": "ellos / ellas / ustedes",
           "targetText": "viven",
@@ -265,6 +283,7 @@
       "forms": [
         {
           "id": "first-singular",
+          "subjectBaseText": "I",
           "revision": 1,
           "subjectTargetText": "yo",
           "targetText": "soy",
@@ -273,6 +292,7 @@
         },
         {
           "id": "second-singular-informal",
+          "subjectBaseText": "you (informal)",
           "revision": 1,
           "subjectTargetText": "tú",
           "targetText": "eres",
@@ -281,6 +301,7 @@
         },
         {
           "id": "third-singular-formal",
+          "subjectBaseText": "he/she/you (formal)",
           "revision": 1,
           "subjectTargetText": "él / ella / usted",
           "targetText": "es",
@@ -289,6 +310,7 @@
         },
         {
           "id": "first-plural",
+          "subjectBaseText": "we",
           "revision": 1,
           "subjectTargetText": "nosotros / nosotras",
           "targetText": "somos",
@@ -297,6 +319,7 @@
         },
         {
           "id": "second-plural-informal-spain",
+          "subjectBaseText": "you all (informal)",
           "revision": 1,
           "subjectTargetText": "vosotros / vosotras",
           "targetText": "sois",
@@ -305,6 +328,7 @@
         },
         {
           "id": "third-plural-formal",
+          "subjectBaseText": "they/you all (formal)",
           "revision": 1,
           "subjectTargetText": "ellos / ellas / ustedes",
           "targetText": "son",
@@ -328,6 +352,7 @@
       "forms": [
         {
           "id": "first-singular",
+          "subjectBaseText": "I",
           "revision": 1,
           "subjectTargetText": "yo",
           "targetText": "estoy",
@@ -336,6 +361,7 @@
         },
         {
           "id": "second-singular-informal",
+          "subjectBaseText": "you (informal)",
           "revision": 1,
           "subjectTargetText": "tú",
           "targetText": "estás",
@@ -344,6 +370,7 @@
         },
         {
           "id": "third-singular-formal",
+          "subjectBaseText": "he/she/you (formal)",
           "revision": 1,
           "subjectTargetText": "él / ella / usted",
           "targetText": "está",
@@ -352,6 +379,7 @@
         },
         {
           "id": "first-plural",
+          "subjectBaseText": "we",
           "revision": 1,
           "subjectTargetText": "nosotros / nosotras",
           "targetText": "estamos",
@@ -360,6 +388,7 @@
         },
         {
           "id": "second-plural-informal-spain",
+          "subjectBaseText": "you all (informal)",
           "revision": 1,
           "subjectTargetText": "vosotros / vosotras",
           "targetText": "estáis",
@@ -368,6 +397,7 @@
         },
         {
           "id": "third-plural-formal",
+          "subjectBaseText": "they/you all (formal)",
           "revision": 1,
           "subjectTargetText": "ellos / ellas / ustedes",
           "targetText": "están",
@@ -391,6 +421,7 @@
       "forms": [
         {
           "id": "first-singular",
+          "subjectBaseText": "I",
           "revision": 1,
           "subjectTargetText": "yo",
           "targetText": "voy",
@@ -399,6 +430,7 @@
         },
         {
           "id": "second-singular-informal",
+          "subjectBaseText": "you (informal)",
           "revision": 1,
           "subjectTargetText": "tú",
           "targetText": "vas",
@@ -407,6 +439,7 @@
         },
         {
           "id": "third-singular-formal",
+          "subjectBaseText": "he/she/you (formal)",
           "revision": 1,
           "subjectTargetText": "él / ella / usted",
           "targetText": "va",
@@ -415,6 +448,7 @@
         },
         {
           "id": "first-plural",
+          "subjectBaseText": "we",
           "revision": 1,
           "subjectTargetText": "nosotros / nosotras",
           "targetText": "vamos",
@@ -423,6 +457,7 @@
         },
         {
           "id": "second-plural-informal-spain",
+          "subjectBaseText": "you all (informal)",
           "revision": 1,
           "subjectTargetText": "vosotros / vosotras",
           "targetText": "vais",
@@ -431,6 +466,7 @@
         },
         {
           "id": "third-plural-formal",
+          "subjectBaseText": "they/you all (formal)",
           "revision": 1,
           "subjectTargetText": "ellos / ellas / ustedes",
           "targetText": "van",
@@ -454,6 +490,7 @@
       "forms": [
         {
           "id": "first-singular",
+          "subjectBaseText": "I",
           "revision": 1,
           "subjectTargetText": "yo",
           "targetText": "tengo",
@@ -462,6 +499,7 @@
         },
         {
           "id": "second-singular-informal",
+          "subjectBaseText": "you (informal)",
           "revision": 1,
           "subjectTargetText": "tú",
           "targetText": "tienes",
@@ -470,6 +508,7 @@
         },
         {
           "id": "third-singular-formal",
+          "subjectBaseText": "he/she/you (formal)",
           "revision": 1,
           "subjectTargetText": "él / ella / usted",
           "targetText": "tiene",
@@ -478,6 +517,7 @@
         },
         {
           "id": "first-plural",
+          "subjectBaseText": "we",
           "revision": 1,
           "subjectTargetText": "nosotros / nosotras",
           "targetText": "tenemos",
@@ -486,6 +526,7 @@
         },
         {
           "id": "second-plural-informal-spain",
+          "subjectBaseText": "you all (informal)",
           "revision": 1,
           "subjectTargetText": "vosotros / vosotras",
           "targetText": "tenéis",
@@ -494,6 +535,7 @@
         },
         {
           "id": "third-plural-formal",
+          "subjectBaseText": "they/you all (formal)",
           "revision": 1,
           "subjectTargetText": "ellos / ellas / ustedes",
           "targetText": "tienen",
@@ -517,6 +559,7 @@
       "forms": [
         {
           "id": "first-singular",
+          "subjectBaseText": "I",
           "revision": 1,
           "subjectTargetText": "yo",
           "targetText": "he",
@@ -525,6 +568,7 @@
         },
         {
           "id": "second-singular-informal",
+          "subjectBaseText": "you (informal)",
           "revision": 1,
           "subjectTargetText": "tú",
           "targetText": "has",
@@ -533,6 +577,7 @@
         },
         {
           "id": "third-singular-formal",
+          "subjectBaseText": "he/she/you (formal)",
           "revision": 1,
           "subjectTargetText": "él / ella / usted",
           "targetText": "ha",
@@ -541,6 +586,7 @@
         },
         {
           "id": "first-plural",
+          "subjectBaseText": "we",
           "revision": 1,
           "subjectTargetText": "nosotros / nosotras",
           "targetText": "hemos",
@@ -549,6 +595,7 @@
         },
         {
           "id": "second-plural-informal-spain",
+          "subjectBaseText": "you all (informal)",
           "revision": 1,
           "subjectTargetText": "vosotros / vosotras",
           "targetText": "habéis",
@@ -557,6 +604,7 @@
         },
         {
           "id": "third-plural-formal",
+          "subjectBaseText": "they/you all (formal)",
           "revision": 1,
           "subjectTargetText": "ellos / ellas / ustedes",
           "targetText": "han",
@@ -580,6 +628,7 @@
       "forms": [
         {
           "id": "first-singular",
+          "subjectBaseText": "I",
           "revision": 1,
           "subjectTargetText": "yo",
           "targetText": "quiero",
@@ -588,6 +637,7 @@
         },
         {
           "id": "second-singular-informal",
+          "subjectBaseText": "you (informal)",
           "revision": 1,
           "subjectTargetText": "tú",
           "targetText": "quieres",
@@ -596,6 +646,7 @@
         },
         {
           "id": "third-singular-formal",
+          "subjectBaseText": "he/she/you (formal)",
           "revision": 1,
           "subjectTargetText": "él / ella / usted",
           "targetText": "quiere",
@@ -604,6 +655,7 @@
         },
         {
           "id": "first-plural",
+          "subjectBaseText": "we",
           "revision": 1,
           "subjectTargetText": "nosotros / nosotras",
           "targetText": "queremos",
@@ -612,6 +664,7 @@
         },
         {
           "id": "second-plural-informal-spain",
+          "subjectBaseText": "you all (informal)",
           "revision": 1,
           "subjectTargetText": "vosotros / vosotras",
           "targetText": "queréis",
@@ -620,6 +673,7 @@
         },
         {
           "id": "third-plural-formal",
+          "subjectBaseText": "they/you all (formal)",
           "revision": 1,
           "subjectTargetText": "ellos / ellas / ustedes",
           "targetText": "quieren",
@@ -643,6 +697,7 @@
       "forms": [
         {
           "id": "first-singular",
+          "subjectBaseText": "I",
           "revision": 1,
           "subjectTargetText": "yo",
           "targetText": "pido",
@@ -651,6 +706,7 @@
         },
         {
           "id": "second-singular-informal",
+          "subjectBaseText": "you (informal)",
           "revision": 1,
           "subjectTargetText": "tú",
           "targetText": "pides",
@@ -659,6 +715,7 @@
         },
         {
           "id": "third-singular-formal",
+          "subjectBaseText": "he/she/you (formal)",
           "revision": 1,
           "subjectTargetText": "él / ella / usted",
           "targetText": "pide",
@@ -667,6 +724,7 @@
         },
         {
           "id": "first-plural",
+          "subjectBaseText": "we",
           "revision": 1,
           "subjectTargetText": "nosotros / nosotras",
           "targetText": "pedimos",
@@ -675,6 +733,7 @@
         },
         {
           "id": "second-plural-informal-spain",
+          "subjectBaseText": "you all (informal)",
           "revision": 1,
           "subjectTargetText": "vosotros / vosotras",
           "targetText": "pedís",
@@ -683,6 +742,7 @@
         },
         {
           "id": "third-plural-formal",
+          "subjectBaseText": "they/you all (formal)",
           "revision": 1,
           "subjectTargetText": "ellos / ellas / ustedes",
           "targetText": "piden",
@@ -706,6 +766,7 @@
       "forms": [
         {
           "id": "first-singular",
+          "subjectBaseText": "I",
           "revision": 1,
           "subjectTargetText": "yo",
           "targetText": "me levanto",
@@ -714,6 +775,7 @@
         },
         {
           "id": "second-singular-informal",
+          "subjectBaseText": "you (informal)",
           "revision": 1,
           "subjectTargetText": "tú",
           "targetText": "te levantas",
@@ -722,6 +784,7 @@
         },
         {
           "id": "third-singular-formal",
+          "subjectBaseText": "he/she/you (formal)",
           "revision": 1,
           "subjectTargetText": "él / ella / usted",
           "targetText": "se levanta",
@@ -730,6 +793,7 @@
         },
         {
           "id": "first-plural",
+          "subjectBaseText": "we",
           "revision": 1,
           "subjectTargetText": "nosotros / nosotras",
           "targetText": "nos levantamos",
@@ -738,6 +802,7 @@
         },
         {
           "id": "second-plural-informal-spain",
+          "subjectBaseText": "you all (informal)",
           "revision": 1,
           "subjectTargetText": "vosotros / vosotras",
           "targetText": "os levantáis",
@@ -746,6 +811,7 @@
         },
         {
           "id": "third-plural-formal",
+          "subjectBaseText": "they/you all (formal)",
           "revision": 1,
           "subjectTargetText": "ellos / ellas / ustedes",
           "targetText": "se levantan",

@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
+import { createBrowserHarness } from "../../../language-runtime/tests/helpers/fake-browser.mjs";
+import { mountRobotLoadingScreen } from "../../../language-runtime/static/source/games/embedded-game-controls.mjs";
 
 const repoRoot = new URL("../../../../", import.meta.url);
 const NUCLEUS_SCHEMA_URL = "https://caatuu.org/schemas/development/naturalization-nucleus.preview.v1.json";
@@ -39,6 +41,297 @@ vm.runInContext(controller, context, { filename: "naturalization-nucleus.js" });
 const game = context.window.CaatuuNaturalizationNucleus;
 const validatedCatalog = game.validateCatalog(catalog);
 
+async function settle() {
+  for (let index = 0; index < 12; index += 1) await Promise.resolve();
+}
+
+function createLoadingHarness({ fetchImpl = async () => ({ ok: true, json: async () => catalog }),
+  loadingModule = { mountRobotLoadingScreen } } = {}) {
+  let now = 0;
+  let timerId = 0;
+  const timers = new Map();
+  const observers = [];
+  const fetchCalls = [];
+  const harness = createBrowserHarness({ window: {
+    Math,
+    performance: { now: () => now },
+    setTimeout(callback, delay) {
+      const timer = { id: ++timerId, due: now + delay, callback };
+      timers.set(timer.id, timer);
+      return timer.id;
+    },
+    clearTimeout(id) { timers.delete(id); },
+    MutationObserver: class {
+      constructor(callback) { this.callback = callback; this.disconnected = false; observers.push(this); }
+      observe() {}
+      disconnect() { this.disconnected = true; }
+    },
+    fetch: async (url, options) => { fetchCalls.push(url); return fetchImpl(url, options); }
+  } });
+  const start = appEntry.indexOf('<section class="train-tab-panel naturalization-nucleus-panel"');
+  assert.ok(start >= 0);
+  const stack = [harness.document.body];
+  const voidTags = new Set(["img", "input", "br", "hr"]);
+  for (const token of appEntry.slice(start).match(/<!--[^]*?-->|<[^>]+>|[^<]+/gu)) {
+    if (token.startsWith("<!--")) continue;
+    if (token.startsWith("</")) { stack.pop(); if (stack.length === 1) break; continue; }
+    if (!token.startsWith("<")) { stack.at(-1).append(token); continue; }
+    const [, tag, attributes] = /^<([\w-]+)\b([^]*)>$/u.exec(token);
+    const node = harness.document.createElement(tag);
+    for (const [, name, value] of attributes.matchAll(/([:\w-]+)(?:="([^"]*)")?/gu)) node.setAttribute(name, value ?? "");
+    stack.at(-1).append(node);
+    if (!voidTags.has(tag) && !token.endsWith("/>")) stack.push(node);
+  }
+  const element = (name) => harness.document.getElementById(`naturalizationNucleus${name}`);
+  const panel = harness.document.getElementById("trainPanelNaturalizationNucleus");
+  panel.hidden = false;
+  harness.document.querySelectorAll = (selector) => harness.registry.querySelectorAll(selector).filter((node) => node.isConnected);
+  harness.document.querySelector = (selector) => harness.document.querySelectorAll(selector)[0] || null;
+  harness.context.nucleusLoadingModule = loadingModule;
+  vm.runInContext(controller.replace(/import\("\/language-runtime\/static\/source\/games\/embedded-game-controls\.mjs\?v=[^"]+"\)/u,
+    "Promise.resolve(nucleusLoadingModule)"), harness.context);
+  async function advance(milliseconds) {
+    const until = now + milliseconds;
+    let runs = 0;
+    while ([...timers.values()].some((timer) => timer.due <= until)) {
+      assert.ok(++runs < 100, "round timers must not loop without advancing time");
+      const timer = [...timers.values()].sort((left, right) => left.due - right.due)[0];
+      timers.delete(timer.id);
+      now = timer.due;
+      timer.callback();
+      await settle();
+    }
+    now = until;
+    await settle();
+  }
+  return { ...harness, element, panel, timers, advance, fetchCalls, observers,
+    api: harness.window.CaatuuNaturalizationNucleus,
+    syncPanelVisibility() { observers.filter((observer) => !observer.disconnected).forEach((observer) => observer.callback()); } };
+}
+
+test("the static Nucleus robot follows visibility before its shared module resolves", async () => {
+  let resolveModule;
+  const loadingModule = new Promise((resolve) => { resolveModule = resolve; });
+  const fixture = createLoadingHarness({ loadingModule });
+  fixture.document.visibilityState = "hidden";
+  const mounting = fixture.api.mount();
+  assert.equal(fixture.element("Interstitial").dataset.active, "false", "initial visibility is applied synchronously");
+  fixture.document.visibilityState = "visible";
+  fixture.document.dispatchEvent({ type: "visibilitychange" });
+  assert.equal(fixture.element("Interstitial").dataset.active, "true");
+  fixture.panel.hidden = true;
+  fixture.syncPanelVisibility();
+  assert.equal(fixture.element("Interstitial").dataset.active, "false");
+  fixture.panel.hidden = false;
+  fixture.syncPanelVisibility();
+  assert.equal(fixture.element("Interstitial").dataset.active, "true");
+  fixture.window.dispatchEvent({ type: "pagehide", persisted: true });
+  assert.equal(fixture.element("Interstitial").dataset.active, "false");
+  await fixture.advance(5000);
+  assert.equal(fixture.fetchCalls.length, 0);
+  assert.equal(fixture.timers.size, 0);
+  fixture.window.dispatchEvent({ type: "pageshow", persisted: true });
+  assert.equal(fixture.element("Interstitial").dataset.active, "true");
+  resolveModule({ mountRobotLoadingScreen });
+  await mounting;
+  assert.equal(fixture.element("Interstitial").dataset.active, "true");
+  await fixture.advance(1600);
+  assert.equal(fixture.element("Interstitial").hidden, true);
+  assert.equal(fixture.element("Deck").children.length, 5);
+  fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+});
+
+test("retiring Nucleus before its shared module resolves hides the static robot and prevents catalog loading", async () => {
+  let resolveModule;
+  const loadingModule = new Promise((resolve) => { resolveModule = resolve; });
+  const fixture = createLoadingHarness({ loadingModule });
+  const mounting = fixture.api.mount();
+  fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+  assert.equal(fixture.element("Interstitial").hidden, true);
+  assert.equal(fixture.element("Interstitial").dataset.active, "false");
+  resolveModule({ mountRobotLoadingScreen });
+  assert.equal(await mounting, null);
+  assert.equal(fixture.fetchCalls.length, 0);
+  assert.equal(fixture.timers.size, 0);
+  assert.equal(fixture.element("Deck").children.length, 0);
+  assert.ok(fixture.observers.every((observer) => observer.disconnected));
+});
+
+test("Nucleus uses the shared loader during content loading and retains its existing round interval", async () => {
+  let resolveContent;
+  const content = new Promise((resolve) => { resolveContent = resolve; });
+  const fixture = createLoadingHarness({ fetchImpl: () => content });
+  const mounting = fixture.api.mount();
+  await settle();
+  assert.equal(fixture.element("Interstitial").hidden, false);
+  assert.equal(fixture.element("Interstitial").classList.contains("caatuu-game-robot-loading"), true);
+  assert.equal(fixture.element("InterstitialRobot").classList.contains("caatuu-game-robot-loading-art"), true);
+  assert.equal(fixture.element("Status").textContent, "");
+  assert.equal(fixture.timers.size, 0, "the catalog request gets no artificial timer");
+  resolveContent({ ok: true, json: async () => catalog });
+  await mounting;
+  assert.equal(fixture.timers.size, 1);
+  await fixture.advance(1599);
+  assert.equal(fixture.element("Interstitial").hidden, false);
+  await fixture.advance(1);
+  assert.equal(fixture.element("Interstitial").hidden, true);
+  assert.equal(fixture.element("Game").getAttribute("aria-hidden"), "false");
+  assert.equal(fixture.element("Deck").children.length, 5);
+  assert.deepEqual(fixture.fetchCalls, ["data/games/naturalization-nucleus/challenges.json"]);
+  fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+});
+
+for (const reason of ["document", "panel", "page cache"]) {
+  test(`a hidden ${reason} pauses the Nucleus robot and round timer without moving focus`, async () => {
+    const fixture = createLoadingHarness();
+    await fixture.api.mount();
+    await fixture.advance(600);
+    const timer = [...fixture.timers.values()][0];
+    const originalFocus = fixture.document.activeElement;
+    if (reason === "document") {
+      fixture.document.visibilityState = "hidden";
+      fixture.document.dispatchEvent({ type: "visibilitychange" });
+    } else if (reason === "panel") {
+      fixture.panel.hidden = true;
+      fixture.syncPanelVisibility();
+    } else fixture.window.dispatchEvent({ type: "pagehide", persisted: true });
+    assert.equal(fixture.element("Interstitial").dataset.active, "false");
+    timer.callback();
+    await fixture.advance(5000);
+    assert.equal(fixture.element("Deck").children.length, 0);
+    assert.equal(fixture.document.activeElement, originalFocus);
+    if (reason === "document") {
+      fixture.document.visibilityState = "visible";
+      fixture.document.dispatchEvent({ type: "visibilitychange" });
+    } else if (reason === "panel") {
+      fixture.panel.hidden = false;
+      fixture.syncPanelVisibility();
+    } else fixture.window.dispatchEvent({ type: "pageshow", persisted: true });
+    assert.equal(fixture.element("Interstitial").dataset.active, "true");
+    await fixture.advance(999);
+    assert.equal(fixture.element("Interstitial").hidden, false);
+    await fixture.advance(1);
+    assert.equal(fixture.element("Interstitial").hidden, true);
+    assert.equal(fixture.element("Deck").children.length, 5);
+    fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+  });
+}
+
+test("subsequent Nucleus rounds reuse the shared robot and destruction cancels their callbacks", async () => {
+  const fixture = createLoadingHarness();
+  await fixture.api.mount();
+  await fixture.advance(1600);
+  fixture.document.querySelector('[data-naturalization-piece-count="9"]').click();
+  assert.equal(fixture.element("Interstitial").hidden, false);
+  assert.equal(fixture.element("InterstitialRobot").getAttribute("src"), "/assets/robots/robot%20(1).png");
+  await fixture.advance(1600);
+  assert.equal(fixture.element("Deck").children.length, 9);
+  fixture.document.querySelector('[data-naturalization-piece-count="5"]').click();
+  const timer = [...fixture.timers.values()][0];
+  fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+  timer.callback();
+  await fixture.advance(5000);
+  assert.equal(fixture.element("Interstitial").hidden, true);
+  assert.equal(fixture.element("Deck").children.length, 9);
+  assert.equal(fixture.timers.size, 0);
+  assert.ok(fixture.observers.every((observer) => observer.disconnected));
+  assert.equal(fixture.fetchCalls.length, 1);
+});
+
+test("retiring Nucleus during catalog loading discards the late result", async () => {
+  let resolveContent;
+  const content = new Promise((resolve) => { resolveContent = resolve; });
+  const fixture = createLoadingHarness({ fetchImpl: () => content });
+  const mounting = fixture.api.mount();
+  await settle();
+  fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+  resolveContent({ ok: true, json: async () => catalog });
+  assert.equal(await mounting, null);
+  assert.equal(fixture.element("Interstitial").hidden, true);
+  assert.equal(fixture.element("Deck").children.length, 0);
+  assert.equal(fixture.timers.size, 0);
+  assert.ok(fixture.observers.every((observer) => observer.disconnected));
+});
+
+test("catalog failure dismisses the Nucleus loader and preserves the loading error", async () => {
+  const fixture = createLoadingHarness({ fetchImpl: async () => ({ ok: false, status: 503 }) });
+  await assert.rejects(fixture.api.mount(), /503/u);
+  assert.equal(fixture.element("Interstitial").hidden, true);
+  assert.equal(fixture.element("Status").dataset.state, "error");
+  assert.equal(fixture.element("Status").textContent, "The domino puzzle could not be loaded.");
+  assert.equal(fixture.element("Game").getAttribute("aria-hidden"), "false");
+  assert.equal(fixture.timers.size, 0);
+  assert.ok(fixture.observers.every((observer) => observer.disconnected));
+});
+
+test("each round swaps Hanzi and pinyin without exposing the answer on either side", () => {
+  const rendering = vm.createContext({ window: {} });
+  vm.runInContext(controller.replace("    mount,", "    roundPresentation, deckHanziTile, pinyinSocketTarget, mount,"), rendering);
+  const view = rendering.window.CaatuuNaturalizationNucleus;
+  const { document } = createBrowserHarness();
+  const challenge = validatedCatalog.challenges[0];
+  for (let index = 0; index < 4; index += 1) {
+    const presentation = view.roundPresentation(index);
+    assert.equal(presentation.deck, index % 2 ? "pinyin" : "hanzi");
+    assert.equal(presentation.ring, index % 2 ? "hanzi" : "pinyin");
+    const tile = view.deckHanziTile(document, { id: "test", left: challenge }, 0, false, false, false, presentation).children[0];
+    const target = view.pinyinSocketTarget(document, 0, challenge, presentation);
+    assert.equal(tile.textContent, challenge[presentation.deck]);
+    assert.equal(target.textContent, challenge[presentation.ring]);
+    assert.equal(tile.children[0].lang, index % 2 ? "zh-Latn-pinyin" : "zh-Hans");
+    assert.ok(tile.getAttribute("aria-label").includes(presentation.deckLabel));
+    assert.ok(target.getAttribute("aria-label").includes(presentation.ringLabel));
+    assert.doesNotMatch(tile.children[0].className, /tone-/u);
+  }
+  assert.match(controller, /state\.roundIndex \+= 1/u);
+});
+
+test("deck tiles are compact with bold Hanzi, regular pinyin and quiet empty marks", () => {
+  assert.match(stylesheet, /flex:\s*0 1 104px/u);
+  assert.match(stylesheet, /flex-basis:\s*88px/u);
+  assert.match(stylesheet, /font-weight:\s*800;\s*color:\s*#000/u);
+  assert.match(stylesheet, /background:\s*#edcf99/u);
+  assert.match(stylesheet, /\.naturalization-nucleus-domino-hanzi\.naturalization-nucleus-script-pinyin\s*\{[^}]*font-weight:\s*400/u);
+  assert.match(stylesheet, /\[data-state="placed"\]::after\s*\{\s*content:\s*"-"/u);
+});
+
+test("target-first selection waits without error and submits the same pair as tile-first", () => {
+  const selectSource = controller.slice(controller.indexOf("    function selectPiece("), controller.indexOf("    function tryPlacement("));
+  const ringSource = controller.slice(controller.indexOf('    listen(ring, "click",'), controller.indexOf('    listen(ring, "keydown",'));
+  for (const targetFirst of [true, false]) {
+    const state = { placements: [], selectedPieceId: "", selectedSocketIndex: -1 };
+    const attempts = [];
+    let errors = 0;
+    let ringClick;
+    const target = { dataset: { naturalizationSocketIndex: "2" } };
+    const context = vm.createContext({
+      state, transitioning: false, errorTimer: 0,
+      global: { clearTimeout() {} },
+      ring: { querySelector() { return { focus() {} }; } },
+      listen(_target, _event, handler) { ringClick = handler; },
+      eventSocketTarget() { return target; },
+      pieceForId(id) { return { id }; }, solved() { return false; }, render() {},
+      tryPlacement(id, slot) { attempts.push([id, slot]); },
+      rejectPlacement() { errors += 1; }
+    });
+    vm.runInContext(selectSource + ringSource, context);
+    const clickTarget = () => ringClick({ target: { closest() { return null; } } });
+    const clickTile = () => vm.runInContext('selectPiece("tile-a")', context);
+    if (targetFirst) {
+      clickTarget();
+      assert.equal(errors, 0);
+      assert.equal(state.selectedSocketIndex, 2);
+      assert.deepEqual(attempts, []);
+      clickTile();
+    } else {
+      clickTile();
+      clickTarget();
+    }
+    assert.equal(errors, 0);
+    assert.deepEqual(attempts, [["tile-a", 2]]);
+  }
+});
+
 function seededRandom(seed) {
   let value = seed >>> 0;
   return () => {
@@ -53,8 +346,8 @@ test("the course-owned controller exposes its engine boundary and stays CSP-safe
     /const gameAvailable = \(gameId\) => \(\s*globalThis\.CaatuuShellPolicy\?\.gameAvailable\?\.\(course, gameId\) === true\s*\);/u
   );
   assert.match(bootstrap, /const naturalizationNucleus = gameAvailable\("naturalization-nucleus"\);/u);
-  assert.match(bootstrap, /naturalization-nucleus\/naturalization-nucleus\.css\?v=naturalization-nucleus-12/u);
-  assert.match(bootstrap, /naturalization-nucleus\/naturalization-nucleus\.js\?v=naturalization-nucleus-12/u);
+  assert.match(bootstrap, /naturalization-nucleus\/naturalization-nucleus\.css\?v=naturalization-nucleus-16/u);
+  assert.match(bootstrap, /naturalization-nucleus\/naturalization-nucleus\.js\?v=naturalization-nucleus-16/u);
   assert.match(controller, /CaatuuLearning\?\.record\?\.\("naturalization-nucleus"/u);
   assert.equal(typeof game.mount, "function");
   assert.equal(typeof game.createRound, "function");
@@ -77,6 +370,15 @@ test("the static audio menu exposes the shared global mute hook", () => {
   assert.match(control, /\brole="switch"/u);
   assert.match(control, /\baria-checked="false"/u);
   assert.match(control, /\bdata-speech-mute-label\b/u);
+});
+
+test("matched tiles stay flat in both themes and completed rounds advance without a skip button", () => {
+  for (const block of stylesheet.matchAll(/(?:html\[data-theme="dark"\] )?\.naturalization-nucleus-fused-word\s*\{([^}]+)\}/gu)) {
+    assert.doesNotMatch(block[1], /gradient|background-image/u);
+  }
+  assert.doesNotMatch(appEntry, /naturalizationNucleusNewRound/u);
+  assert.doesNotMatch(controller, /naturalizationNucleusNewRound|listen\(newRound/u);
+  assert.match(controller, /prepareRound\(state\.pieceCount, \{ holdMillis: SOLVED_HOLD_MILLIS \}\)/u);
 });
 
 test("the responsive playfield keeps the challenge below its toolbar", () => {

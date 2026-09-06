@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
+import { createBrowserHarness } from "../../../language-runtime/tests/helpers/fake-browser.mjs";
 
 const repoRoot = new URL("../../../../", import.meta.url);
 const [
@@ -65,9 +66,90 @@ test("the first-run form projects base and target languages without starting on 
   assert.doesNotMatch(targetChoice, /chooseSetupCourse\(/u);
   assert.match(chooser, /if \(record\.id !== course\.id\) \{\s*window\.location\.assign\(record\.entryPath\);/u);
   assert.match(chooser, /await loadSetupVisualFrames\(\);\s*applyStageArt\(\);[\s\S]*await startSetup\(\);/u);
-  assert.match(chooser, /setText\("#setupPhase", "Local setup"\)/u);
+  assert.match(chooser, /setText\("#setupTitle", "Choose a language"\)/u);
   assert.doesNotMatch(chooser, /Before local setup/u);
-  assert.match(chooser, /Nothing is downloaded until you continue\./u);
+  assert.doesNotMatch(chooser, /Nothing is downloaded|Answer two quick questions|Now choose|Choose your base language/u);
+});
+
+function languageForm(records) {
+  const browser = createBrowserHarness();
+  browser.registry.seed(appEntry);
+  const { context, document } = browser;
+  const prepared = [];
+  Object.assign(context, {
+    course: { id: records[0].id, courseSelector: { schemaVersion: 1, courses: records } },
+    $: (selector) => document.querySelector(selector),
+    setText: (selector, value) => { const node = document.querySelector(selector); if (node) node.textContent = value; },
+    stopSetupMessageCycle() {}, stopStageAnimation() {}, setNavigationLocked() {},
+    setStageImage() {}, stageFallback() { return ""; },
+    chooseSetupCourse: (record) => prepared.push(record.id)
+  });
+  vm.runInContext(`
+    let setupCourseChoicePending = false, setupCourseChoices = [], selectedSetupSourceId = "", selectedSetupCourseId = "";
+    let setupRunning = false, nativeSetupActive = false, setupComplete = false, setupAborted = false;
+    ${sourceBetween(setupSource, "  function setupCourseRecords()", "  async function chooseSetupCourse(record)")}
+    renderBrowserLanguageSelection();
+  `, context);
+  return {
+    ...browser, prepared,
+    source: () => document.getElementById("setupSourceLanguageOptions").children.map((choice) => choice.querySelector("input")),
+    targets: () => document.getElementById("setupTargetLanguageOptions").children.map((choice) => choice.querySelector("input")),
+    select(input) {
+      document.querySelectorAll("input").filter((peer) => peer.name === input.name).forEach((peer) => { peer.checked = peer === input; });
+      input.dispatchEvent({ type: "change" });
+    },
+    submit() { document.getElementById("setupLanguageForm").dispatchEvent({ type: "submit" }); }
+  };
+}
+
+const sourceLanguage = { id: "en", label: "English" };
+const testCourses = ["cs", "zh", "es"].map((id) => ({
+  id: `en-${id}`, status: "active", entryPath: `/${id}/index.html`,
+  sourceLanguage, targetLanguage: { id, label: id }
+}));
+
+test("even a single base language requires selection before target selection or Continue", () => {
+  const browser = languageForm(testCourses);
+  const targetFieldset = browser.document.getElementById("setupTargetLanguageQuestion");
+  const submit = browser.document.getElementById("setupLanguageContinue");
+  assert.equal(browser.source().length, 1);
+  assert.equal(browser.source()[0].checked, false);
+  assert.equal(browser.targets().length, 3, "available targets stay visible in the disabled fieldset");
+  assert.equal(targetFieldset.disabled, true);
+  assert.equal(submit.disabled, true);
+  browser.select(browser.targets()[0]);
+  browser.submit();
+  assert.deepEqual(browser.prepared, [], "disabled targets cannot submit even through a synthetic change");
+
+  browser.select(browser.source()[0]);
+  assert.equal(targetFieldset.disabled, false);
+  assert.equal(submit.disabled, true);
+  assert.ok(browser.targets().every((input) => !input.checked));
+  browser.select(browser.targets()[1]);
+  assert.equal(submit.disabled, false);
+  assert.deepEqual(browser.prepared, [], "selecting both languages does not start preparation");
+  browser.submit();
+  assert.deepEqual(browser.prepared, ["en-zh"]);
+});
+
+test("changing the base language filters targets and clears the previous target selection", () => {
+  const browser = languageForm([...testCourses, {
+    id: "es-cs", status: "active", entryPath: "/es-cs/index.html",
+    sourceLanguage: { id: "es", label: "Spanish" }, targetLanguage: { id: "cs", label: "Czech" }
+  }]);
+  assert.equal(browser.targets().length, 3, "targets are not repeated for each base language");
+  browser.select(browser.source()[0]);
+  browser.select(browser.targets()[0]);
+  browser.select(browser.source()[1]);
+  assert.equal(browser.targets().length, 1);
+  assert.equal(browser.targets()[0].value, "es-cs");
+  assert.equal(browser.targets()[0].checked, false);
+  assert.equal(browser.document.getElementById("setupLanguageContinue").disabled, true);
+  browser.submit();
+  assert.deepEqual(browser.prepared, []);
+  browser.select(browser.targets()[0]);
+  browser.submit();
+  assert.deepEqual(browser.prepared, ["es-cs"]);
 });
 
 test("the shared home exposes a two-question language form and the game display menu", () => {
@@ -149,7 +231,7 @@ test("the shared home exposes a two-question language form and the game display 
   assert.match(homeStyles, /\.home-language-ongoing-courses \{[\s\S]*?border:[\s\S]*?background:/u);
   assert.match(
     homeStyles,
-    /\.home-language-ongoing-head \{[\s\S]*?background: color-mix\(in srgb, var\(--setup-accent\) 16%, var\(--setup-panel-raised\)\);/u
+    /\.home-language-ongoing-head \{[\s\S]*?background: var\(--theme-panel-head-bg, #eee8de\);/u
   );
   assert.match(
     homeStyles,
@@ -167,21 +249,21 @@ test("the shared home exposes a two-question language form and the game display 
     /\.setup-actions > \.setup-action,\s*\.setup-actions > \.setup-small-action \{\s*flex: 1 1 96px;/u
   );
   assert.match(appEntry, /initial-theme\.js\?v=theme-3/u);
-  assert.match(appEntry, /caatuu-theme\.css\?v=theme-6/u);
-  assert.match(appEntry, /caatuu-home\.css\?v=home-45/u);
-  assert.match(appEntry, /caatuu-chrome\.css\?v=chrome-style-130/u);
+  assert.match(appEntry, /caatuu-theme\.css\?v=theme-7/u);
+  assert.match(appEntry, /caatuu-home\.css\?v=home-50/u);
+  assert.match(appEntry, /caatuu-chrome\.css\?v=chrome-style-133/u);
   assert.doesNotMatch(appEntry, /caatuu-chrome\.js/u);
-  assert.match(appEntry, /course-profile\.js\?v=course-33/u);
-  assert.match(appEntry, /app-bootstrap\.mjs\?v=app-41/u);
-  assert.equal(czechSetup.offline.cacheName, "caatuu-czech-pwa-v614");
-  assert.match(czechWorker, /Offline catalog revision: caatuu-czech-pwa-v614/u);
-  assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/source/caatuu-chrome.js?v=chrome-143"));
-  assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-130"));
+  assert.match(appEntry, /course-profile\.js\?v=course-57/u);
+  assert.match(appEntry, /app-bootstrap\.mjs\?v=app-64/u);
+  assert.match(czechSetup.offline.cacheName, /^caatuu-czech-pwa-v[1-9]\d*$/u);
+  assert.ok(czechWorker.includes(`// Offline catalog revision: ${czechSetup.offline.cacheName}`));
+  assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/source/caatuu-chrome.js?v=chrome-155"));
+  assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-133"));
   assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/source/dictionary-provider-loader.mjs"));
-  assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/source/interface-content.mjs?v=interface-runtime-1"));
-  assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-1"));
-  assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/data/interface/en.v1.json?v=interface-en-1"));
-  assert.ok(czechSetup.offline.assets.includes("./source/features/setup/setup.js?v=setup-39"));
+  assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/source/interface-content.mjs?v=interface-runtime-2"));
+  assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-8"));
+  assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/data/interface/en.v1.json?v=interface-en-27"));
+  assert.ok(czechSetup.offline.assets.includes("./source/features/setup/setup.js?v=setup-41"));
   assert.match(
     bootstrapSource,
     /for \(const providerName of \["semanticLearningProvider", "setupProgressProvider", "setupProvider"\]\)/u
@@ -190,12 +272,12 @@ test("the shared home exposes a two-question language form and the game display 
     bootstrapSource,
     /const providerModule = declaredBrowserProvider\(providerName\);\s*if \(providerModule\) await loadScript\(providerModule\);/u
   );
-  assert.match(bootstrapSource, /interface-content\.mjs\?v=interface-runtime-1/u);
+  assert.match(bootstrapSource, /interface-content\.mjs\?v=interface-runtime-2/u);
   assert.match(
     bootstrapSource,
-    /loadInterfaceContent\(course\);[\s\S]*installInterfaceContent\(interfaceContent\);[\s\S]*caatuu-chrome\.js\?v=chrome-143/u
+    /loadInterfaceContent\(course\);[\s\S]*installInterfaceContent\(interfaceContent\);[\s\S]*caatuu-chrome\.js\?v=chrome-155/u
   );
-  assert.match(bootstrapSource, /caatuu-workspace\.js\?v=workspace-14/u);
+  assert.match(bootstrapSource, /caatuu-workspace\.js\?v=workspace-21/u);
 });
 
 function evaluateInitialTheme(values = {}, { throwOnRead = false } = {}) {

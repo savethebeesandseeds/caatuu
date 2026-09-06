@@ -35,8 +35,9 @@ import {
   validateConjugationCometCatalog
 } from "../../../apps/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs";
 import {
-  normalizeAgreementAuroraPack
-} from "../../../apps/language-runtime/static/source/games/agreement-aurora/agreement-aurora-core.mjs";
+  normalizeGrammarGravityPack
+} from "../../../apps/language-runtime/static/source/games/grammar-gravity/grammar-gravity-core.mjs";
+import { normalizeNounLandingPack } from "../../../apps/language-runtime/static/source/games/grammar-gravity/noun-landing-core.mjs";
 import {
   GAME_IDS,
   LEARNER_BASE_PRESENTATION_CONTRACT,
@@ -67,6 +68,14 @@ async function assertFixtureFails(loaded, fixture) {
 }
 
 const loaded = await loadCourseCatalog({ repoRoot });
+const englishInterfaceAuthority = JSON.parse(await readFile(
+  new URL("../../../apps/language-runtime/static/data/interface/en.v1.json", import.meta.url),
+  "utf8"
+));
+const spanishInterfaceAuthority = JSON.parse(await readFile(
+  new URL("../../../apps/language-runtime/static/data/interface/es.v1.json", import.meta.url),
+  "utf8"
+));
 const czechWordWorldRuntimeManifest = JSON.parse(await readFile(
   new URL("../../../apps/languages/czech/static/data/games/word-world/manifest.json", import.meta.url),
   "utf8"
@@ -148,13 +157,17 @@ test("declared browser providers are confined, revisioned course modules", async
 
 test("learner-base interface catalogs are explicit, base-localized, and API-compatible with English", async () => {
   for (const { course } of loaded.courses) {
+    const spanishBase = course.id === "es-en";
     assert.deepEqual(course.resources.interfaceCatalog, {
       kind: "file",
-      path: "apps/language-runtime/static/data/interface/en.v1.json",
+      path: `apps/language-runtime/static/data/interface/${spanishBase ? "es" : "en"}.v1.json`,
       scope: "shared",
       state: "present",
-      revision: "interface-en-1"
+      revision: spanishBase ? spanishInterfaceAuthority.revision : englishInterfaceAuthority.revision
     });
+    assert.deepEqual(interfaceCatalogContentIssues(
+      course, spanishBase ? spanishInterfaceAuthority : englishInterfaceAuthority, englishInterfaceAuthority
+    ), []);
   }
 
   const reusedEnglish = cloneLoaded(loaded);
@@ -369,6 +382,8 @@ test("browser courses cache only their exact learner-base interface catalog revi
 
 test("enabled games cache their exact revisioned course-content URLs", async () => {
   const spanish = loaded.courses.find(({ course }) => course.id === "es").course;
+  const conjugationUrl = `data/games/conjugation-comet/verbs.json?v=${spanish.resources.conjugationCometCatalog.revision}`;
+  const grammarUrl = `data/games/grammar-gravity/challenges.json?v=${spanish.resources.grammarGravityCatalog.revision}`;
   const setupCatalog = JSON.parse(await readFile(
     new URL("../../../apps/languages/spanish/static/setup-assets.json", import.meta.url),
     "utf8"
@@ -380,31 +395,30 @@ test("enabled games cache their exact revisioned course-content URLs", async () 
 
   const missing = structuredClone(setupCatalog);
   missing.offline.assets = missing.offline.assets.filter(
-    (asset) => asset !== "data/games/conjugation-comet/verbs.json?v=conjugation-comet-content-1"
+    (asset) => asset !== conjugationUrl
   );
   assert.match(
     browserCourseGameContentClosureIssues({ course: spanish, setupCatalog: missing })[0].message,
-    /omit the exact conjugation-comet\.conjugationCometCatalog URL \/es\/data\/games\/conjugation-comet\/verbs\.json\?v=conjugation-comet-content-1/u
+    /omit the exact conjugation-comet\.conjugationCometCatalog URL \/es\/data\/games\/conjugation-comet\/verbs\.json\?v=/u
   );
 
   const stale = structuredClone(setupCatalog);
   stale.offline.assets = stale.offline.assets.map((asset) => (
-    asset === "data/games/agreement-aurora/challenges.json?v=agreement-aurora-content-1"
-      ? "data/games/agreement-aurora/challenges.json?v=stale"
+    asset === grammarUrl
+      ? "data/games/grammar-gravity/challenges.json?v=stale"
       : asset
   ));
-  assert.match(
-    browserCourseGameContentClosureIssues({ course: spanish, setupCatalog: stale })[0].message,
-    /agreement-aurora-content-1/u
+  assert.ok(
+    browserCourseGameContentClosureIssues({ course: spanish, setupCatalog: stale })[0].message.includes(grammarUrl)
   );
 
   const repeated = structuredClone(setupCatalog);
   repeated.offline.assets.push(
-    "./data/games/agreement-aurora/challenges.json?v=agreement-aurora-content-1"
+    `./${grammarUrl}`
   );
   assert.match(
     browserCourseGameContentClosureIssues({ course: spanish, setupCatalog: repeated })[0].message,
-    /repeat the exact agreement-aurora\.agreementAuroraCatalog URL .* 2 times/u
+    /repeat the exact grammar-gravity\.grammarGravityCatalog URL .* 2 times/u
   );
 });
 
@@ -528,7 +542,7 @@ test("versioned schemas and both authoritative manifests are valid JSON", async 
   assert.equal(NON_CAMPAIGN_GAME_IDS.includes("sound-quasar"), true);
   assert.equal(PLANET_GAME_CONTRACT.planets["sound-quasar"].route, "soundQuasar");
   assert.deepEqual(PLANET_GAME_CONTRACT.planets["sound-quasar"].capabilities, ["speech"]);
-  assert.equal(PLANET_GAME_CONTRACT.planets["sound-quasar"].implementationState, "unimplemented");
+  assert.equal(PLANET_GAME_CONTRACT.planets["sound-quasar"].implementationState, "implemented");
   assert.equal(
     PLANET_GAME_CONTRACT.planets["naturalization-nucleus"].linguisticFeatures.includes("hanzi-pinyin"),
     true
@@ -550,8 +564,8 @@ test("Czech mirrors the active registry, runtime profile, and resource catalogs"
     "/language-runtime/static/games/conjugation-comet.html"
   );
   assert.equal(
-    czech.routes.agreementAurora,
-    "/language-runtime/static/games/agreement-aurora.html"
+    czech.routes.grammarGravity,
+    "/language-runtime/static/games/grammar-gravity.html"
   );
   assert.equal(czech.games.includes("naturalization-nucleus"), false);
   assert.equal(czech.routes.naturalizationNucleus, undefined);
@@ -576,7 +590,7 @@ test("Czech mirrors the active registry, runtime profile, and resource catalogs"
   assert.equal(czech.resources.verbNebulaCatalog.path, "apps/languages/czech/static/data/games/verb-nebula/core-vocabulary.json");
   assert.equal(czech.resources.conjugationCometCatalog.path, "apps/languages/czech/static/data/games/conjugation-comet/verbs.json");
   assert.equal(czech.resources.caseCosmosCatalog.path, "apps/languages/czech/static/data/games/case-cosmos/challenges.json");
-  assert.equal(czech.resources.agreementAuroraCatalog.path, "apps/languages/czech/static/data/games/agreement-aurora/challenges.json");
+  assert.equal(czech.resources.grammarGravityCatalog.path, "apps/languages/czech/static/data/games/grammar-gravity/challenges.json");
   assert.equal(czech.resources.languageAdapter.path, "apps/languages/czech/static/source/language/adapter.mjs");
   assert.equal(czech.resources.androidAssetCatalog.path, "apps/languages/czech/android-assets.json");
   assert.equal(czech.sourceLanguage.flagSrc, "/assets/icons/english_flag.png");
@@ -861,7 +875,11 @@ test("reviewed non-English learner-base presentation is registered per shared ga
     "authored-game-three-role-v1"
   );
   assert.equal(
-    PLANET_GAME_CONTRACT.planets["agreement-aurora"].learnerBasePresentationContract,
+    PLANET_GAME_CONTRACT.planets["grammar-gravity"].learnerBasePresentationContract,
+    "authored-game-three-role-v1"
+  );
+  assert.equal(
+    PLANET_GAME_CONTRACT.planets["sound-quasar"].learnerBasePresentationContract,
     "authored-game-three-role-v1"
   );
 
@@ -935,19 +953,19 @@ test("reviewed non-English learner-base presentation is registered per shared ga
     ["source-language.android-package"]
   );
 
-  course.games = ["conjugation-comet", "agreement-aurora"];
+  course.games = ["conjugation-comet", "grammar-gravity", "sound-quasar"];
   assert.deepEqual(learnerSourceReadinessIssues(course), []);
 
   course.games.push("verb-lab");
   assert.equal(
     learnerSourceReadinessIssues(course).some(({ code, message }) => (
       code === "source-language.presentation"
-      && /Word World, Conjugation Comet, and Agreement Aurora/u.test(message)
+      && /Word World, Conjugation Comet, Grammar Gravity, and Sounds Quasar/u.test(message)
     )),
     true
   );
 
-  course.games = ["campaign", "word-net"];
+  course.games = ["campaign", "word-net", "sound-quasar"];
   assert.deepEqual(learnerSourceReadinessIssues(course), []);
   course.games = ["campaign", "verb-lab"];
   assert.equal(
@@ -1077,6 +1095,27 @@ test("skill-compass packs are explicit, structured, and independent from semanti
   );
 });
 
+test("learner-base preview relaxation is confined to explicitly local development delivery", () => {
+  const course = structuredClone(loaded.courses.find(({ course }) => course.id === "es-en").course);
+  assert.equal(generateCourseProfileObject(course).learnerBasePreview, true);
+  for (const [name, mutate] of [
+    ["active course", (candidate) => { candidate.status = "active"; }],
+    ["retired course", (candidate) => { candidate.status = "retired"; }],
+    ["browser disabled", (candidate) => { candidate.platforms.browser.enabled = false; }],
+    ["Pages delivery", (candidate) => { candidate.platforms.browser.pagesEnabled = true; }],
+    ["Android delivery", (candidate) => { candidate.platforms.android.enabled = true; }],
+    ["unspecified Pages gate", (candidate) => { delete candidate.platforms.browser.pagesEnabled; }],
+    ["unspecified Android gate", (candidate) => { delete candidate.platforms.android.enabled; }],
+    ["English learner base", (candidate) => {
+      candidate.sourceLanguage = structuredClone(loaded.courses.find(({ course }) => course.id === "cz").course.sourceLanguage);
+    }]
+  ]) {
+    const candidate = structuredClone(course);
+    mutate(candidate);
+    assert.equal(generateCourseProfileObject(candidate).learnerBasePreview, false, name);
+  }
+});
+
 test("launcher and course-profile compatibility views match the current consumers", async () => {
   await validateCourseCatalog(loaded, { checkExistence: false });
   await checkGeneratedViews(loaded);
@@ -1105,6 +1144,12 @@ test("launcher and course-profile compatibility views match the current consumer
         status: "development",
         entryPath: "/es/index.html",
         storage: { learningPerformance: "caatuu-es.learning.performance.v1" }
+      },
+      {
+        id: "es-en",
+        status: "development",
+        entryPath: "/es-en/index.html",
+        storage: { learningPerformance: "caatuu-es-en.learning.performance.v1" }
       }
     ]
   );
@@ -1138,7 +1183,7 @@ test("launcher and course-profile compatibility views match the current consumer
     schemaVersion: 1,
     locale: "en",
     direction: "ltr",
-    revision: "interface-en-1",
+    revision: englishInterfaceAuthority.revision,
     catalog: "/language-runtime/static/data/interface/en.v1.json"
   });
   assert.equal(Object.hasOwn(context.window.CaatuuCourse.platforms.browser, "pagesEnabled"), false);
@@ -1146,7 +1191,7 @@ test("launcher and course-profile compatibility views match the current consumer
     courseRuntime: "source/shared/runtime.js?v=runtime-41",
     semanticLearningProvider: "source/shared/semantic-learning.js?v=semantic-learning-7",
     setupProgressProvider: "source/features/setup/setup-progress.js?v=setup-progress-1",
-    setupProvider: "source/features/setup/setup.js?v=setup-39"
+    setupProvider: "source/features/setup/setup.js?v=setup-41"
   });
   assert.deepEqual(
     JSON.parse(JSON.stringify(context.window.CaatuuCourse.gameContent)),
@@ -1161,10 +1206,14 @@ test("launcher and course-profile compatibility views match the current consumer
         conjugationCometCatalog: "data/games/conjugation-comet/verbs.json?v=conjugation-comet-verbs-4"
       },
       "case-cosmos": {
-        caseCosmosCatalog: "data/games/case-cosmos/challenges.json?v=case-cosmos-data-5"
+        caseCosmosCatalog: "data/games/case-cosmos/challenges.json?v=case-cosmos-data-6"
       },
-      "agreement-aurora": {
-        agreementAuroraCatalog: "data/games/agreement-aurora/challenges.json?v=agreement-aurora-data-3"
+      "grammar-gravity": {
+        grammarGravityCatalog: `data/games/grammar-gravity/challenges.json?v=${czech.resources.grammarGravityCatalog.revision}`,
+        grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-3"
+      },
+      "sound-quasar": {
+        soundQuasarCatalog: "data/games/sound-quasar/challenges.json?v=sound-quasar-items-v2"
       }
     }
   );
@@ -1203,6 +1252,11 @@ test("launcher and course-profile compatibility views match the current consumer
         id: "es",
         status: "development",
         storage: { learningPerformance: "caatuu-es.learning.performance.v1" }
+      },
+      {
+        id: "es-en",
+        status: "development",
+        storage: { learningPerformance: "caatuu-es-en.learning.performance.v1" }
       }
     ]
   );
@@ -1210,7 +1264,7 @@ test("launcher and course-profile compatibility views match the current consumer
     JSON.parse(JSON.stringify(
       context.window.CaatuuCourse.courseSelector.courses.map(({ sourceLanguage }) => sourceLanguage.id)
     )),
-    ["en", "en", "en"]
+    ["en", "en", "en", "es"]
   );
 
   const mandarin = loaded.courses.find(({ course }) => course.id === "zh").course;
@@ -1226,6 +1280,32 @@ test("launcher and course-profile compatibility views match the current consumer
     JSON.parse(JSON.stringify(mandarinContext.window.CaatuuCourse)),
     generateCourseProfileObject(mandarin, loaded.courses)
   );
+
+  const englishFromSpanish = loaded.courses.find(({ course }) => course.id === "es-en").course;
+  const englishFromSpanishContext = { window: {} };
+  vm.runInNewContext(await readFile(
+    new URL("../../../apps/languages/english-from-spanish/static/source/shared/course-profile.js", import.meta.url),
+    "utf8"
+  ), englishFromSpanishContext);
+  const englishFromSpanishProfile = JSON.parse(JSON.stringify(englishFromSpanishContext.window.CaatuuCourse));
+  assert.deepEqual(englishFromSpanishProfile, generateCourseProfileObject(englishFromSpanish, loaded.courses));
+  assert.equal(englishFromSpanishProfile.learnerBasePreview, true);
+  assert.deepEqual(englishFromSpanishProfile.languageRoles, {
+    pair: "es-es->en-us",
+    learnerBaseLanguage: "es-ES",
+    interfaceLanguage: "es-ES",
+    targetLanguage: "en-US",
+    auditLanguage: "en",
+    retrievalLanguage: "en"
+  });
+  assert.deepEqual(englishFromSpanishProfile.interfaceContent, {
+    schemaVersion: 1,
+    locale: "es-ES",
+    direction: "ltr",
+    revision: spanishInterfaceAuthority.revision,
+    catalog: "/language-runtime/static/data/interface/es.v1.json"
+  });
+  assert.equal(englishFromSpanishProfile.dictionaryContent, null);
 });
 
 test("failure fixtures catch identity, route, and namespace collisions", async () => {
@@ -1287,8 +1367,8 @@ test("course routes stay confined while retaining the language selector and exac
       courseId
     );
     assert.equal(
-      course.routes.agreementAurora,
-      PLANET_GAME_CONTRACT.planets["agreement-aurora"].sharedHost,
+      course.routes.grammarGravity,
+      PLANET_GAME_CONTRACT.planets["grammar-gravity"].sharedHost,
       courseId
     );
   }
@@ -1523,14 +1603,11 @@ test("browser courses declare only known, unique linguistic features and games",
       }
     },
     {
-      name: "unimplemented placeholder cannot be promoted by a course",
-      code: "game.implementation",
-      message: /sound-quasar.*marked unimplemented.*upcomingGames/,
+      name: "Sounds Quasar requires speech capability",
+      code: "game.capability",
+      message: /sound-quasar.*speech/,
       mutate(candidate) {
-        const course = candidate.courses[1].course;
-        course.upcomingGames = course.upcomingGames.filter((gameId) => gameId !== "sound-quasar");
-        course.games.push("sound-quasar");
-        course.routes.soundQuasar = "index.html?game=sound-quasar";
+        candidate.courses[1].course.capabilities.speech = false;
       }
     },
     {
@@ -1553,9 +1630,9 @@ test("browser courses declare only known, unique linguistic features and games",
     {
       name: "game without declared route",
       code: "game.route",
-      message: /agreement-aurora.*routes\.agreementAurora/,
+      message: /grammar-gravity.*routes\.grammarGravity/,
       mutate(candidate) {
-        delete candidate.courses[0].course.routes.agreementAurora;
+        delete candidate.courses[0].course.routes.grammarGravity;
       }
     },
     {
@@ -1647,18 +1724,23 @@ test("Naturalization Nucleus requires Chinese pinyin support and a present cours
 
 test("every playable authored planet requires its declared course content", async () => {
   const requirements = [
+    ["cz", "sound-quasar", "soundQuasarCatalog"],
+    ["zh", "sound-quasar", "soundQuasarCatalog"],
+    ["es", "sound-quasar", "soundQuasarCatalog"],
     ["cz", "verb-lab", "verbNebulaCatalog"],
     ["cz", "word-net", "wordWorldManifest"],
     ["cz", "conjugation-comet", "conjugationCometCatalog"],
     ["cz", "case-cosmos", "caseCosmosCatalog"],
-    ["cz", "agreement-aurora", "agreementAuroraCatalog"],
+    ["cz", "grammar-gravity", "grammarGravityCatalog"],
+    ["cz", "grammar-gravity", "grammarGravityNouns"],
     ["zh", "verb-lab", "verbNebulaCatalog"],
     ["zh", "word-net", "wordWorldManifest"],
     ["zh", "naturalization-nucleus", "naturalizationNucleusCatalog"],
     ["es", "verb-lab", "verbNebulaCatalog"],
     ["es", "word-net", "wordWorldManifest"],
     ["es", "conjugation-comet", "conjugationCometCatalog"],
-    ["es", "agreement-aurora", "agreementAuroraCatalog"]
+    ["es", "grammar-gravity", "grammarGravityCatalog"],
+    ["es", "grammar-gravity", "grammarGravityNouns"]
   ];
 
   for (const [courseId, gameId, resourceName] of requirements) {
@@ -2029,6 +2111,60 @@ test("active promotion fails closed while native-language review is incomplete",
   );
 });
 
+test("every enabled Grammar Gravity course enforces the modern journey and matching noun categories before exposure", async () => {
+  const temporaryRoot = await mkdtemp(path.join(tmpdir(), "caatuu-grammar-onboarding-"));
+  try {
+    for (const courseId of ["cz", "es", "es-en"]) {
+      const record = structuredClone(loaded.courses.find(({ course }) => course.id === courseId));
+      record.course.games = ["grammar-gravity"];
+      const grammarResource = record.course.resources.grammarGravityCatalog;
+      const nounsResource = record.course.resources.grammarGravityNouns;
+      const grammar = JSON.parse(await readFile(new URL(grammarResource.path, repoRoot), "utf8"));
+      const nouns = JSON.parse(await readFile(new URL(nounsResource.path, repoRoot), "utf8"));
+      const grammarFile = path.join(temporaryRoot, grammarResource.path);
+      const nounsFile = path.join(temporaryRoot, nounsResource.path);
+      await mkdir(path.dirname(grammarFile), { recursive: true });
+      await writeFile(grammarFile, JSON.stringify(grammar), "utf8");
+      await writeFile(nounsFile, JSON.stringify(nouns), "utf8");
+      const candidate = {
+        ...cloneLoaded(loaded),
+        repoRoot: temporaryRoot,
+        courses: [record]
+      };
+      // This small file fixture intentionally omits unrelated application assets.
+      // Inspect the actual onboarding errors for this game, rather than bypassing
+      // its filesystem checks or changing files in the shared course checkout.
+      const grammarIssues = async () => {
+        try {
+          await validateCourseCatalog(candidate);
+          return [];
+        } catch (error) {
+          assert.ok(error instanceof CourseContractError);
+          return error.issues.filter(({ code, message }) => code === "content.game-contract" && message.startsWith(`${courseId}.grammar-gravity `));
+        }
+      };
+      assert.deepEqual(await grammarIssues(), [], `${courseId}: current category declarations agree`);
+
+      const mismatched = structuredClone(grammar);
+      mismatched.gameplay.categoryOptions[0].label += " (different label)";
+      await writeFile(grammarFile, JSON.stringify(mismatched), "utf8");
+      assert.ok((await grammarIssues()).some(({ message }) => /must use the noun catalog's exact label and image/u.test(message)), `${courseId}: category drift must fail onboarding`);
+
+      const olderVersion = structuredClone(grammar);
+      olderVersion.schemaVersion = "caatuu-grammar-gravity-content-v2";
+      await writeFile(grammarFile, JSON.stringify(olderVersion), "utf8");
+      assert.ok((await grammarIssues()).some(({ message }) => /requires schemaVersion caatuu-grammar-gravity-content-v3/u.test(message)), `${courseId}: old content cannot select an old renderer`);
+
+      await writeFile(grammarFile, JSON.stringify(grammar), "utf8");
+      record.course.resources.grammarGravityNouns.path = "apps/languages/another-course/static/nouns.json";
+      assert.ok((await grammarIssues()).some(({ message }) => /grammarGravityNouns cannot be resolved inside its course static root for category validation/u.test(message)), `${courseId}: category evidence must stay inside the owning course`);
+      if (courseId === "cz") assert.equal(record.course.publication.contract, "legacy-active-v1", "the publication exception must not bypass modern gameplay validation");
+    }
+  } finally {
+    await rm(temporaryRoot, { recursive: true, force: true });
+  }
+});
+
 test("Spanish grammar catalogs independently gate preview, browser, Android, and active promotion", async () => {
   const spanish = structuredClone(loaded.courses.find(({ course }) => course.id === "es").course);
   const [conjugationDocument, agreementDocument] = await Promise.all([
@@ -2037,7 +2173,7 @@ test("Spanish grammar catalogs independently gate preview, browser, Android, and
       "utf8"
     ).then(JSON.parse),
     readFile(
-      new URL("../../../apps/languages/spanish/static/data/games/agreement-aurora/challenges.json", import.meta.url),
+      new URL("../../../apps/languages/spanish/static/data/games/grammar-gravity/challenges.json", import.meta.url),
       "utf8"
     ).then(JSON.parse)
   ]);
@@ -2047,7 +2183,7 @@ test("Spanish grammar catalogs independently gate preview, browser, Android, and
     expectedLearnerBaseLanguageId: "en",
     expectedTargetLocale: "es-ES"
   });
-  const validateAgreement = (document) => normalizeAgreementAuroraPack(document, {
+  const validateAgreement = (document) => normalizeGrammarGravityPack(document, {
     courseId: "es",
     learnerBaseLanguage: "en",
     targetLanguage: "es-ES",
@@ -2055,7 +2191,7 @@ test("Spanish grammar catalogs independently gate preview, browser, Android, and
   });
   const pendingCatalogs = [
     ["conjugation-comet", validateConjugation(conjugationDocument)],
-    ["agreement-aurora", validateAgreement(agreementDocument)]
+    ["grammar-gravity", validateAgreement(agreementDocument)]
   ];
 
   for (const [gameId, catalog] of pendingCatalogs) {
@@ -2096,7 +2232,7 @@ test("Spanish grammar catalogs independently gate preview, browser, Android, and
   clearedAgreementDocument.license.spdxExpression = "AGPL-3.0-only";
   const clearedCatalogs = [
     ["conjugation-comet", validateConjugation(clearedConjugationDocument)],
-    ["agreement-aurora", validateAgreement(clearedAgreementDocument)]
+    ["grammar-gravity", validateAgreement(clearedAgreementDocument)]
   ];
   for (const [gameId, catalog] of clearedCatalogs) {
     assert.deepEqual(authoredGrammarPromotionIssues(active, gameId, catalog), []);
@@ -2122,8 +2258,8 @@ test("Spanish grammar catalogs independently gate preview, browser, Android, and
     (error) => (
       hasIssue(error, "release.game-license", /es\.conjugation-comet/u)
       && hasIssue(error, "activation.game-native-review", /es\.conjugation-comet/u)
-      && hasIssue(error, "release.game-license", /es\.agreement-aurora/u)
-      && hasIssue(error, "activation.game-native-review", /es\.agreement-aurora/u)
+      && hasIssue(error, "release.game-license", /es\.grammar-gravity/u)
+      && hasIssue(error, "activation.game-native-review", /es\.grammar-gravity/u)
     )
   );
   await assert.rejects(
@@ -2131,10 +2267,40 @@ test("Spanish grammar catalogs independently gate preview, browser, Android, and
     (error) => (
       hasIssue(error, "release.game-license", /es\.conjugation-comet/u)
       && hasIssue(error, "activation.game-native-review", /es\.conjugation-comet/u)
-      && hasIssue(error, "release.game-license", /es\.agreement-aurora/u)
-      && hasIssue(error, "activation.game-native-review", /es\.agreement-aurora/u)
+      && hasIssue(error, "release.game-license", /es\.grammar-gravity/u)
+      && hasIssue(error, "activation.game-native-review", /es\.grammar-gravity/u)
     )
   );
+});
+
+test("falling-noun resources supply course-defined lanes, English audit, and independent promotion evidence", async () => {
+  for (const [courseId, directory, count] of [["cz", "czech", 3], ["es", "spanish", 2]]) {
+    const course = structuredClone(loaded.courses.find(({ course }) => course.id === courseId).course);
+    const raw = JSON.parse(await readFile(new URL(`../../../apps/languages/${directory}/static/data/games/grammar-gravity/nouns.json`, import.meta.url), "utf8"));
+    const pack = normalizeNounLandingPack(raw, {
+      courseId,
+      targetLanguage: course.targetLanguage.locale,
+      learnerBaseLanguage: course.sourceLanguage.id
+    });
+    assert.equal(pack.lanes.length, count);
+    assert.ok(pack.items.length >= 30, "the authored noun pool must extend beyond the original starter dozen");
+    assert.equal(pack.contentRevision, 3);
+    assert.ok(pack.items.every((item) => item.english && item.learnerBaseText));
+    assert.equal(pack.review.status, "native-review-required");
+    assert.equal(pack.license.status, "release-review-required");
+    if (courseId === "es") {
+      assert.equal(pack.lanes.some(({ id }) => id === "neuter"), false);
+      course.status = "active";
+      assert.deepEqual(authoredGrammarPromotionIssues(course, "grammar-gravity", pack).map(({ code }) => code), ["release.game-license", "activation.game-native-review"]);
+      const promoted = cloneLoaded(loaded);
+      promoted.courses.find(({ course: entry }) => entry.id === "es").course.status = "active";
+      await assert.rejects(validateCourseCatalog(promoted, { checkExistence: false }), (error) => {
+        const grammarLicenseIssues = error.issues?.filter(({ code, message }) => code === "release.game-license" && message.includes("es.grammar-gravity"));
+        // Both the existing phrase pack and the new noun pack need their own clearance.
+        return grammarLicenseIssues?.length === 2;
+      });
+    }
+  }
 });
 
 test("failure fixtures catch traversal, scope escape, missing paths, and file-kind drift", async () => {

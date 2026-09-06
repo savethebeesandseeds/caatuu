@@ -5,87 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="robots" content="noindex, nofollow">
     <title>Conjugation Comet</title>
-    <link rel="stylesheet" href="../styles/caatuu-theme.css?v=theme-6">
-    <link rel="stylesheet" href="../styles/games/conjugation-comet.css?v=conjugation-comet-shared-1">
+    <link rel="stylesheet" href="../styles/caatuu-theme.css?v=theme-7">
+    <link rel="stylesheet" href="../styles/games/embedded-game-controls.css?v=embedded-game-controls-8">
+    <link rel="stylesheet" href="../styles/games/conjugation-comet.css?v=conjugation-comet-shared-3">
   </head>
   <body>
     <main class="conjugation-comet" id="conjugationCometRoot" aria-busy="true">
-      <section class="conjugation-comet-loading" id="conjugationCometLoading" role="status" aria-live="polite">
-        <img src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true">
-        <p>Preparing an authored verb challenge…</p>
-      </section>
-
-      <section class="conjugation-comet-game" id="conjugationCometGame" hidden>
-        <header class="conjugation-comet-header">
-          <div>
-            <p class="conjugation-comet-kicker" id="conjugationCometKicker"></p>
-            <h1 id="conjugationCometTitle"></h1>
-            <p class="conjugation-comet-instruction" id="conjugationCometInstruction"></p>
-          </div>
-          <button
-            class="conjugation-comet-hint-button"
-            id="conjugationCometHintButton"
-            type="button"
-            aria-expanded="false"
-            aria-controls="conjugationCometHint"
-          ></button>
-        </header>
-
-        <aside class="conjugation-comet-hint" id="conjugationCometHint" role="note" hidden></aside>
-
-        <section
-          class="conjugation-comet-board conjugation-comet-meaning-board"
-          id="conjugationCometMeaningBoard"
-          hidden
-        >
-          <section class="conjugation-comet-column" aria-labelledby="conjugationCometMeaningTargetHeading">
-            <h2 id="conjugationCometMeaningTargetHeading"></h2>
-            <div class="conjugation-comet-anchor-card">
-              <span class="conjugation-comet-card-label" id="conjugationCometInfinitiveLabel"></span>
-              <strong id="conjugationCometLemma" lang="und"></strong>
-              <small id="conjugationCometFamily"></small>
-              <button class="conjugation-comet-speak" id="conjugationCometSpeakLemma" type="button">
-                <span aria-hidden="true">🔊</span>
-                <span></span>
-              </button>
+      <section class="caatuu-game-robot-loading" id="conjugationCometLoading" role="status"><img class="caatuu-game-robot-loading-art" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true"></section>
+      <section class="conjugation-comet-game" id="conjugationCometGame" aria-labelledby="conjugationCometTitle" hidden>
+        <h1 class="conjugation-comet-visually-hidden" id="conjugationCometTitle"></h1>
+        <section class="conjugation-comet-play" id="conjugationCometPlay">
+          <section class="conjugation-comet-card" id="conjugationCometCard" aria-describedby="conjugationCometQuestion">
+            <header class="conjugation-comet-header">
+          <article class="conjugation-comet-context" aria-labelledby="conjugationCometFormLemma">
+            <div class="conjugation-comet-lemma-line"><span id="conjugationCometFormLemma" lang="und"></span><button class="conjugation-comet-speak" id="conjugationCometSpeakLemma" type="button"></button></div>
+            <p id="conjugationCometMeaning"></p>
+          </article>
+          <div class="conjugation-comet-header-actions"><span class="conjugation-comet-visually-hidden" id="conjugationCometProgress"></span><div class="conjugation-comet-controls" id="conjugationCometControls"></div></div>
+          <div class="conjugation-comet-dots conjugation-comet-visually-hidden" id="conjugationCometDots" aria-hidden="true"></div>
+            </header>
+            <div class="conjugation-comet-board" id="conjugationCometBoard">
+            <div class="conjugation-comet-strand-controls">
+              <div><span class="conjugation-comet-visually-hidden" id="conjugationCometTargetLabel"></span><button class="conjugation-comet-step" id="conjugationCometTargetPrev" data-helix-side="target" data-step="1" type="button"><span aria-hidden="true">↑</span></button><button class="conjugation-comet-step" id="conjugationCometTargetNext" data-helix-side="target" data-step="-1" type="button"><span aria-hidden="true">↓</span></button></div>
+              <div><span class="conjugation-comet-visually-hidden" id="conjugationCometSubjectLabel"></span><button class="conjugation-comet-step" id="conjugationCometSubjectPrev" data-helix-side="subject" data-step="1" type="button"><span aria-hidden="true">↑</span></button><button class="conjugation-comet-step" id="conjugationCometSubjectNext" data-helix-side="subject" data-step="-1" type="button"><span aria-hidden="true">↓</span></button></div>
             </div>
+            <div class="conjugation-comet-helix" id="conjugationCometHelix">
+              <div class="conjugation-comet-pair-backgrounds" id="conjugationCometPairBackgrounds" aria-hidden="true"></div>
+              <svg class="conjugation-comet-backbone" id="conjugationCometBackbone" viewBox="0 0 600 600" preserveAspectRatio="none" aria-hidden="true"></svg>
+              <div class="conjugation-comet-jewels" id="conjugationCometJewels" aria-hidden="true"></div>
+              <div id="conjugationCometRungStatus" aria-hidden="true"></div>
+              <div class="conjugation-comet-strand conjugation-comet-strand-target" id="conjugationCometTargets" role="group" aria-labelledby="conjugationCometTargetLabel"></div>
+              <div class="conjugation-comet-strand conjugation-comet-strand-subject" id="conjugationCometSubjects" role="group" aria-labelledby="conjugationCometSubjectLabel"></div>
+            </div>
+            </div>
+            <button class="conjugation-comet-submit" id="conjugationCometSubmit" type="button" disabled><span id="conjugationCometSubmitLabel"></span><img src="/assets/icons/paper_plane_submit_ui.png" alt="" aria-hidden="true"></button>
           </section>
-          <section class="conjugation-comet-column" aria-labelledby="conjugationCometMeaningBaseHeading">
-            <h2 id="conjugationCometMeaningBaseHeading"></h2>
-            <div class="conjugation-comet-card-list" id="conjugationCometMeaningOptions"></div>
-          </section>
+          <footer class="conjugation-comet-footer"><div class="conjugation-comet-messages"><div class="conjugation-comet-help" id="conjugationCometHelp"><span class="conjugation-comet-info-icon" aria-hidden="true">i</span><p id="conjugationCometQuestion"></p></div><p id="conjugationCometFeedback" role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p></div></footer>
         </section>
-
-        <section
-          class="conjugation-comet-board conjugation-comet-forms-board"
-          id="conjugationCometFormsBoard"
-          hidden
-        >
-          <section class="conjugation-comet-column" aria-labelledby="conjugationCometTargetFormsHeading">
-            <h2 id="conjugationCometTargetFormsHeading"></h2>
-            <div class="conjugation-comet-card-list" id="conjugationCometTargetForms"></div>
-          </section>
-          <section class="conjugation-comet-column" aria-labelledby="conjugationCometBaseCuesHeading">
-            <h2 id="conjugationCometBaseCuesHeading"></h2>
-            <div class="conjugation-comet-card-list" id="conjugationCometBaseCues"></div>
-          </section>
-        </section>
-
-        <footer class="conjugation-comet-footer">
-          <p id="conjugationCometFeedback" role="status" aria-live="polite" aria-atomic="true"></p>
-          <span id="conjugationCometProgress"></span>
-          <button class="conjugation-comet-next" id="conjugationCometNext" type="button" hidden></button>
-        </footer>
+        <section class="caatuu-game-robot-loading" id="conjugationCometTransition" role="status" hidden><img class="caatuu-game-robot-loading-art" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true"></section>
       </section>
-
-      <section class="conjugation-comet-error" id="conjugationCometError" role="alert" hidden>
-        <img src="/assets/planets/conjugation-comet.png" alt="" aria-hidden="true">
-        <p class="conjugation-comet-kicker">Course content</p>
-        <h1>Conjugation Comet could not start</h1>
-        <p id="conjugationCometErrorText">Return to the planets and try again.</p>
-      </section>
+      <section class="conjugation-comet-error" id="conjugationCometError" role="alert" hidden><img src="/assets/planets/conjugation-comet.png" alt="" aria-hidden="true"><h1>Conjugation Comet could not start</h1><p id="conjugationCometErrorText">Return to the planets and try again.</p></section>
     </main>
-
-    <script type="module" src="../source/games/conjugation-comet/conjugation-comet-host.mjs?v=conjugation-comet-shared-2"></script>
+    <script type="module" src="../source/games/conjugation-comet/conjugation-comet-host.mjs?v=conjugation-comet-shared-11"></script>
   </body>
 </html>

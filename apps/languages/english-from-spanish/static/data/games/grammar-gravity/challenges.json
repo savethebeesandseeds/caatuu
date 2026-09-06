@@ -1,0 +1,593 @@
+{
+  "schemaVersion": "caatuu-grammar-gravity-content-v3",
+  "courseId": "es-en",
+  "gameId": "grammar-gravity",
+  "contentId": "es-en.grammar-gravity.number-v1",
+  "contentRevision": 2,
+  "status": "machine-assisted-preview",
+  "learnerBaseLanguage": "es-ES",
+  "targetLanguage": "en-US",
+  "englishAuditLanguage": "en",
+  "review": {
+    "status": "native-review-required",
+    "reviewer": null,
+    "reviewedAt": null,
+    "notes": "Machine-assisted American English development draft with Spanish learner cues. Qualified native English and Spanish review is still required."
+  },
+  "license": {
+    "origin": "caatuu-first-party-authored",
+    "status": "release-review-required",
+    "spdxExpression": null,
+    "notes": "Development content requires curriculum license clearance before publication."
+  },
+  "presentation": {
+    "errorTitle": "No se pudo cargar Gravedad Gramatical",
+    "errorDetail": "Vuelve a los planetas e inténtalo otra vez.",
+    "backLabel": "Volver a los juegos"
+  },
+  "axes": [
+    {
+      "id": "singular",
+      "label": "Singular",
+      "features": {
+        "number": "singular"
+      }
+    },
+    {
+      "id": "plural",
+      "label": "Plural",
+      "features": {
+        "number": "plural"
+      }
+    }
+  ],
+  "challenges": [
+    {
+      "id": "es-en.agreement.near",
+      "revision": 1,
+      "difficulty": 1,
+      "focus": {
+        "kind": "determiner",
+        "label": "Cerca: this y these",
+        "targetText": "this · these",
+        "resultTitle": "Cerca: this y these",
+        "summary": "Usa this para una cosa cercana y these para varias."
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "this",
+          "examples": [
+            {
+              "id": "es-en.agreement.near.singular.example-1",
+              "revision": 1,
+              "learnerBaseText": "este libro",
+              "englishAuditText": "this book",
+              "targetText": "this book",
+              "slot": {
+                "beforeText": "",
+                "afterText": " book"
+              },
+              "anchor": {
+                "targetText": "book",
+                "learnerBaseText": "libro",
+                "englishAuditText": "book"
+              }
+            },
+            {
+              "id": "es-en.agreement.near.singular.example-2",
+              "revision": 1,
+              "learnerBaseText": "esta manzana",
+              "englishAuditText": "this apple",
+              "targetText": "this apple",
+              "slot": {
+                "beforeText": "",
+                "afterText": " apple"
+              },
+              "anchor": {
+                "targetText": "apple",
+                "learnerBaseText": "manzana",
+                "englishAuditText": "apple"
+              }
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "these",
+          "examples": [
+            {
+              "id": "es-en.agreement.near.plural.example-1",
+              "revision": 1,
+              "learnerBaseText": "estos libros",
+              "englishAuditText": "these books",
+              "targetText": "these books",
+              "slot": {
+                "beforeText": "",
+                "afterText": " books"
+              },
+              "anchor": {
+                "targetText": "books",
+                "learnerBaseText": "libros",
+                "englishAuditText": "books"
+              }
+            },
+            {
+              "id": "es-en.agreement.near.plural.example-2",
+              "revision": 1,
+              "learnerBaseText": "estas manzanas",
+              "englishAuditText": "these apples",
+              "targetText": "these apples",
+              "slot": {
+                "beforeText": "",
+                "afterText": " apples"
+              },
+              "anchor": {
+                "targetText": "apples",
+                "learnerBaseText": "manzanas",
+                "englishAuditText": "apples"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "es-en.agreement.far",
+      "revision": 1,
+      "difficulty": 1,
+      "focus": {
+        "kind": "determiner",
+        "label": "Lejos: that y those",
+        "targetText": "that · those",
+        "resultTitle": "Lejos: that y those",
+        "summary": "Usa that para una cosa más alejada y those para varias."
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "that",
+          "examples": [
+            {
+              "id": "es-en.agreement.far.singular.example-1",
+              "revision": 1,
+              "learnerBaseText": "esa silla",
+              "englishAuditText": "that chair",
+              "targetText": "that chair",
+              "slot": {
+                "beforeText": "",
+                "afterText": " chair"
+              },
+              "anchor": {
+                "targetText": "chair",
+                "learnerBaseText": "silla",
+                "englishAuditText": "chair"
+              }
+            },
+            {
+              "id": "es-en.agreement.far.singular.example-2",
+              "revision": 1,
+              "learnerBaseText": "esa ventana",
+              "englishAuditText": "that window",
+              "targetText": "that window",
+              "slot": {
+                "beforeText": "",
+                "afterText": " window"
+              },
+              "anchor": {
+                "targetText": "window",
+                "learnerBaseText": "ventana",
+                "englishAuditText": "window"
+              }
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "those",
+          "examples": [
+            {
+              "id": "es-en.agreement.far.plural.example-1",
+              "revision": 1,
+              "learnerBaseText": "esas sillas",
+              "englishAuditText": "those chairs",
+              "targetText": "those chairs",
+              "slot": {
+                "beforeText": "",
+                "afterText": " chairs"
+              },
+              "anchor": {
+                "targetText": "chairs",
+                "learnerBaseText": "sillas",
+                "englishAuditText": "chairs"
+              }
+            },
+            {
+              "id": "es-en.agreement.far.plural.example-2",
+              "revision": 1,
+              "learnerBaseText": "esas ventanas",
+              "englishAuditText": "those windows",
+              "targetText": "those windows",
+              "slot": {
+                "beforeText": "",
+                "afterText": " windows"
+              },
+              "anchor": {
+                "targetText": "windows",
+                "learnerBaseText": "ventanas",
+                "englishAuditText": "windows"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "es-en.agreement.present-be",
+      "revision": 1,
+      "difficulty": 2,
+      "focus": {
+        "kind": "subject-agreement",
+        "label": "Presente: is y are",
+        "targetText": "is · are",
+        "resultTitle": "Presente: is y are",
+        "summary": "Con un sujeto de tercera persona singular se usa is; con un sujeto plural, are."
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "is",
+          "examples": [
+            {
+              "id": "es-en.agreement.present-be.singular.example-1",
+              "revision": 1,
+              "learnerBaseText": "El perro está tranquilo.",
+              "englishAuditText": "The dog is quiet.",
+              "targetText": "The dog is quiet.",
+              "slot": {
+                "beforeText": "The dog ",
+                "afterText": " quiet."
+              },
+              "anchor": {
+                "targetText": "The dog",
+                "learnerBaseText": "El perro",
+                "englishAuditText": "The dog"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-be.singular.example-2",
+              "revision": 1,
+              "learnerBaseText": "La habitación está limpia.",
+              "englishAuditText": "The room is clean.",
+              "targetText": "The room is clean.",
+              "slot": {
+                "beforeText": "The room ",
+                "afterText": " clean."
+              },
+              "anchor": {
+                "targetText": "The room",
+                "learnerBaseText": "La habitación",
+                "englishAuditText": "The room"
+              }
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "are",
+          "examples": [
+            {
+              "id": "es-en.agreement.present-be.plural.example-1",
+              "revision": 1,
+              "learnerBaseText": "Los perros están tranquilos.",
+              "englishAuditText": "The dogs are quiet.",
+              "targetText": "The dogs are quiet.",
+              "slot": {
+                "beforeText": "The dogs ",
+                "afterText": " quiet."
+              },
+              "anchor": {
+                "targetText": "The dogs",
+                "learnerBaseText": "Los perros",
+                "englishAuditText": "The dogs"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-be.plural.example-2",
+              "revision": 1,
+              "learnerBaseText": "Las habitaciones están limpias.",
+              "englishAuditText": "The rooms are clean.",
+              "targetText": "The rooms are clean.",
+              "slot": {
+                "beforeText": "The rooms ",
+                "afterText": " clean."
+              },
+              "anchor": {
+                "targetText": "The rooms",
+                "learnerBaseText": "Las habitaciones",
+                "englishAuditText": "The rooms"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "es-en.agreement.present-have",
+      "revision": 1,
+      "difficulty": 2,
+      "focus": {
+        "kind": "subject-agreement",
+        "label": "Posesión: has y have",
+        "targetText": "has · have",
+        "resultTitle": "Posesión: has y have",
+        "summary": "Con un sujeto de tercera persona singular se usa has; con un sujeto plural, have."
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "has",
+          "examples": [
+            {
+              "id": "es-en.agreement.present-have.singular.example-1",
+              "revision": 1,
+              "learnerBaseText": "La niña tiene un libro.",
+              "englishAuditText": "The girl has a book.",
+              "targetText": "The girl has a book.",
+              "slot": {
+                "beforeText": "The girl ",
+                "afterText": " a book."
+              },
+              "anchor": {
+                "targetText": "The girl",
+                "learnerBaseText": "La niña",
+                "englishAuditText": "The girl"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-have.singular.example-2",
+              "revision": 1,
+              "learnerBaseText": "El profesor tiene un bolígrafo.",
+              "englishAuditText": "The teacher has a pen.",
+              "targetText": "The teacher has a pen.",
+              "slot": {
+                "beforeText": "The teacher ",
+                "afterText": " a pen."
+              },
+              "anchor": {
+                "targetText": "The teacher",
+                "learnerBaseText": "El profesor",
+                "englishAuditText": "The teacher"
+              }
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "have",
+          "examples": [
+            {
+              "id": "es-en.agreement.present-have.plural.example-1",
+              "revision": 1,
+              "learnerBaseText": "Las niñas tienen libros.",
+              "englishAuditText": "The girls have books.",
+              "targetText": "The girls have books.",
+              "slot": {
+                "beforeText": "The girls ",
+                "afterText": " books."
+              },
+              "anchor": {
+                "targetText": "The girls",
+                "learnerBaseText": "Las niñas",
+                "englishAuditText": "The girls"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-have.plural.example-2",
+              "revision": 1,
+              "learnerBaseText": "Los profesores tienen bolígrafos.",
+              "englishAuditText": "The teachers have pens.",
+              "targetText": "The teachers have pens.",
+              "slot": {
+                "beforeText": "The teachers ",
+                "afterText": " pens."
+              },
+              "anchor": {
+                "targetText": "The teachers",
+                "learnerBaseText": "Los profesores",
+                "englishAuditText": "The teachers"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "es-en.agreement.past-be",
+      "revision": 1,
+      "difficulty": 3,
+      "focus": {
+        "kind": "subject-agreement",
+        "label": "Pasado: was y were",
+        "targetText": "was · were",
+        "resultTitle": "Pasado: was y were",
+        "summary": "Estos sujetos de tercera persona usan was en singular y were en plural."
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "was",
+          "examples": [
+            {
+              "id": "es-en.agreement.past-be.singular.example-1",
+              "revision": 1,
+              "learnerBaseText": "La tienda estaba abierta.",
+              "englishAuditText": "The shop was open.",
+              "targetText": "The shop was open.",
+              "slot": {
+                "beforeText": "The shop ",
+                "afterText": " open."
+              },
+              "anchor": {
+                "targetText": "The shop",
+                "learnerBaseText": "La tienda",
+                "englishAuditText": "The shop"
+              }
+            },
+            {
+              "id": "es-en.agreement.past-be.singular.example-2",
+              "revision": 1,
+              "learnerBaseText": "El estudiante estaba cansado.",
+              "englishAuditText": "The student was tired.",
+              "targetText": "The student was tired.",
+              "slot": {
+                "beforeText": "The student ",
+                "afterText": " tired."
+              },
+              "anchor": {
+                "targetText": "The student",
+                "learnerBaseText": "El estudiante",
+                "englishAuditText": "The student"
+              }
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "were",
+          "examples": [
+            {
+              "id": "es-en.agreement.past-be.plural.example-1",
+              "revision": 1,
+              "learnerBaseText": "Las tiendas estaban abiertas.",
+              "englishAuditText": "The shops were open.",
+              "targetText": "The shops were open.",
+              "slot": {
+                "beforeText": "The shops ",
+                "afterText": " open."
+              },
+              "anchor": {
+                "targetText": "The shops",
+                "learnerBaseText": "Las tiendas",
+                "englishAuditText": "The shops"
+              }
+            },
+            {
+              "id": "es-en.agreement.past-be.plural.example-2",
+              "revision": 1,
+              "learnerBaseText": "Los estudiantes estaban cansados.",
+              "englishAuditText": "The students were tired.",
+              "targetText": "The students were tired.",
+              "slot": {
+                "beforeText": "The students ",
+                "afterText": " tired."
+              },
+              "anchor": {
+                "targetText": "The students",
+                "learnerBaseText": "Los estudiantes",
+                "englishAuditText": "The students"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "es-en.agreement.negative-do",
+      "revision": 1,
+      "difficulty": 3,
+      "focus": {
+        "kind": "subject-agreement",
+        "label": "Negación: does not y do not",
+        "targetText": "does not · do not",
+        "resultTitle": "Negación: does not y do not",
+        "summary": "La tercera persona singular usa does not; un sujeto plural usa do not. El verbo principal conserva la forma base."
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "does not",
+          "examples": [
+            {
+              "id": "es-en.agreement.negative-do.singular.example-1",
+              "revision": 1,
+              "learnerBaseText": "El niño no come arroz.",
+              "englishAuditText": "The child does not eat rice.",
+              "targetText": "The child does not eat rice.",
+              "slot": {
+                "beforeText": "The child ",
+                "afterText": " eat rice."
+              },
+              "anchor": {
+                "targetText": "The child",
+                "learnerBaseText": "El niño",
+                "englishAuditText": "The child"
+              }
+            },
+            {
+              "id": "es-en.agreement.negative-do.singular.example-2",
+              "revision": 1,
+              "learnerBaseText": "El autobús no para aquí.",
+              "englishAuditText": "The bus does not stop here.",
+              "targetText": "The bus does not stop here.",
+              "slot": {
+                "beforeText": "The bus ",
+                "afterText": " stop here."
+              },
+              "anchor": {
+                "targetText": "The bus",
+                "learnerBaseText": "El autobús",
+                "englishAuditText": "The bus"
+              }
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "do not",
+          "examples": [
+            {
+              "id": "es-en.agreement.negative-do.plural.example-1",
+              "revision": 1,
+              "learnerBaseText": "Los niños no comen arroz.",
+              "englishAuditText": "The children do not eat rice.",
+              "targetText": "The children do not eat rice.",
+              "slot": {
+                "beforeText": "The children ",
+                "afterText": " eat rice."
+              },
+              "anchor": {
+                "targetText": "The children",
+                "learnerBaseText": "Los niños",
+                "englishAuditText": "The children"
+              }
+            },
+            {
+              "id": "es-en.agreement.negative-do.plural.example-2",
+              "revision": 1,
+              "learnerBaseText": "Los autobuses no paran aquí.",
+              "englishAuditText": "The buses do not stop here.",
+              "targetText": "The buses do not stop here.",
+              "slot": {
+                "beforeText": "The buses ",
+                "afterText": " stop here."
+              },
+              "anchor": {
+                "targetText": "The buses",
+                "learnerBaseText": "Los autobuses",
+                "englishAuditText": "The buses"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "gameplay": {
+    "contract": "caatuu-grammar-gravity-journey-v1",
+    "stages": [
+      "meaning",
+      "category",
+      "form"
+    ],
+    "categoryFeature": "number",
+    "categoryOptions": [
+      {
+        "id": "singular",
+        "label": "Singular"
+      },
+      {
+        "id": "plural",
+        "label": "Plural"
+      }
+    ]
+  }
+}

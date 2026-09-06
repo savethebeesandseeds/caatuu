@@ -120,6 +120,12 @@ The tracked Pages current-release descriptor is the durable version floor. If
 mutable aliases or a local receipt disappear, the tools still refuse to rebuild
 that released version or move the stable channel backward.
 
+The canonical checkout must remain on `main`, with no other local or remote
+branches. Inactive detached recovery worktree registrations are preserved and
+do not block publication; they are never used for building or deploying. Before
+release, verify that the existing build container mounts `C:\Work\caatuu` at
+`/workspace` and that no alternate checkout is actively serving or building.
+
 When a signed candidate was built before receipt support, adopt it explicitly:
 
 ```bash

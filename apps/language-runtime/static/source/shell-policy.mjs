@@ -14,6 +14,7 @@ export const {
   NON_CAMPAIGN_GAME_IDS,
   CAMPAIGN_GAME_IDS,
   GAME_IDS,
+  normalizeGameId,
   SETTINGS_SECTION_REGISTRY,
   deriveGameAvailability,
   isGameAvailable,

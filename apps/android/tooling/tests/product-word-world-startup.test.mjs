@@ -24,6 +24,7 @@ function mockElement(tagName = "div", registry = null) {
   let source = "";
   const element = {
     nodeType: 1,
+    get ownerDocument() { return globalThis.document; },
     tagName: String(tagName).toUpperCase(),
     classList: new MockClassList(),
     dataset: {},
@@ -67,6 +68,7 @@ function mockElement(tagName = "div", registry = null) {
       return String(selector || "").trim() === "*" && registry ? [...registry.values()] : [];
     },
     closest() { return null; },
+    contains(node) { return node === this || this.children.some((child) => child === node || child?.contains?.(node)); },
     matches() { return false; },
     setAttribute(name, value) { attributes.set(name, String(value)); },
     getAttribute(name) { return attributes.get(name) ?? null; },
@@ -177,6 +179,7 @@ function installWordWorldEnvironment(outputDir, sharedAppHtml) {
     },
   };
   window.parent = window;
+  document.defaultView = window;
   globalThis.window = window;
   globalThis.document = document;
   globalThis.location = window.location;

@@ -67,8 +67,8 @@ test("product surfaces disclose code terms and keep reviewed models and corpora 
   ]);
   const productText = `${chrome}\n${workspace}`;
   const englishInterface = JSON.parse(englishInterfaceSource).messages;
-  assert.match(chrome, /interfaceMessage\("settings\.legal\.softwareterms"\)/u);
-  assert.match(chrome, /interfaceMessage\("settings\.legal\.contentterms"\)/u);
+  assert.match(chrome, /interfaceHtml\("settings\.legal\.softwareterms"\)/u);
+  assert.match(chrome, /interfaceHtml\("settings\.legal\.contentterms"\)/u);
   assert.match(
     englishInterface["settings.legal.softwareterms"],
     /first-party software and developer documentation are licensed AGPL-3\.0-only/u,

@@ -5,12 +5,13 @@ import vm from "node:vm";
 
 const staticRoot = new URL("../../../../apps/languages/czech/static/", import.meta.url);
 const languageRuntimeStatic = new URL("../../../../apps/language-runtime/static/", import.meta.url);
-const [courseProfileSource, learningProfileSource, chromeSource, appSource, wordWorldSource] = await Promise.all([
+const [courseProfileSource, learningProfileSource, chromeSource, appSource, wordWorldSource, interfaceSource] = await Promise.all([
   readFile(new URL("source/shared/course-profile.js", staticRoot), "utf8"),
   readFile(new URL("source/learning-profile.js", languageRuntimeStatic), "utf8"),
   readFile(new URL("source/caatuu-chrome.js", languageRuntimeStatic), "utf8"),
   readFile(new URL("source/caatuu-workspace.js", languageRuntimeStatic), "utf8"),
-  readFile(new URL("source/product-word-world.mjs", languageRuntimeStatic), "utf8")
+  readFile(new URL("source/product-word-world.mjs", languageRuntimeStatic), "utf8"),
+  readFile(new URL("data/interface/en.v1.json", languageRuntimeStatic), "utf8")
 ]);
 
 const selectorCourses = [
@@ -29,6 +30,16 @@ const selectorCourses = [
 ];
 
 function createLearningContext(initial = {}, options = {}) {
+  let now = new Date(options.now ?? Date.now()).getTime();
+  class ScenarioDate extends Date {
+    constructor(...arguments_) {
+      super(...(arguments_.length ? arguments_ : [now]));
+    }
+
+    static now() {
+      return now;
+    }
+  }
   const rows = new Map(Object.entries(initial));
   const events = [];
   const localStorage = {
@@ -55,6 +66,7 @@ function createLearningContext(initial = {}, options = {}) {
     }
   }
   const context = {
+    Date: options.now === undefined ? Date : ScenarioDate,
     window: {
       localStorage,
       CustomEvent: TestCustomEvent,
@@ -74,7 +86,15 @@ function createLearningContext(initial = {}, options = {}) {
     };
   }
   vm.runInNewContext(learningProfileSource, context, { filename: "learning-profile.js" });
-  return { learning: context.window.CaatuuLearning, rows, events };
+  return {
+    learning: context.window.CaatuuLearning,
+    rows,
+    events,
+    setNow(value) {
+      now = new Date(value).getTime();
+      return new Date(now);
+    }
+  };
 }
 
 test("difficulty is course-scoped, constrained to levels 1-3, and saved independently", () => {
@@ -108,6 +128,93 @@ test("performance aggregates game activity without inventing achievements", () =
   assert.equal(profile.summary.rounds, 2);
   assert.equal(profile.summary.accuracy, 67);
   assert.equal(profile.summary.activeGames, 2);
+});
+
+for (const legacyId of ["agreement-aurora", "triangular-thermosphere"]) {
+test(`Grammar Gravity preserves ${legacyId} progress without migration writes or extra credit`, () => {
+  const key = "caatuu-czech.learning.performance.v1";
+  const saved = JSON.stringify({
+    schemaVersion: 1,
+    updatedAt: "2026-09-04T12:00:00.000Z",
+    games: {
+      [legacyId]: {
+        activities: 6, attempts: 7, successes: 5, rounds: 2,
+        lastPlayedAt: "2026-09-04T12:00:00.000Z"
+      }
+    }
+  });
+  const { learning, rows, events } = createLearningContext({ [key]: saved });
+  for (let read = 0; read < 3; read += 1) {
+    const profile = learning.snapshot();
+    assert.deepEqual(Object.keys(profile.performance.games), ["grammar-gravity"]);
+    assert.equal(profile.summary.xp, 5, "legacy successes still supply the historical XP fallback");
+    assert.equal(profile.summary.activeGames, 1);
+    assert.equal(profile.performance.games["grammar-gravity"].lastPlayedAt, "2026-09-04T12:00:00.000Z");
+    assert.equal(rows.get(key), saved, "reading progress must not rewrite the user's profile");
+    assert.equal(events.length, 0);
+  }
+  for (const gameId of ["grammar-gravity", "agreement-aurora", "triangular-thermosphere"]) {
+    learning.record(gameId, { activities: 1, attempts: 1, successes: 1 });
+  }
+  const stored = JSON.parse(rows.get(key));
+  assert.deepEqual(Object.keys(stored.games), ["grammar-gravity"]);
+  assert.equal(stored.games["grammar-gravity"].activities, 9);
+  assert.equal(stored.games["grammar-gravity"].xp, 8);
+  assert.equal(learning.snapshot().summary.xp, 8);
+  assert.equal(learning.snapshot().summary.activeGames, 1);
+  const reloaded = createLearningContext(Object.fromEntries(rows));
+  assert.equal(reloaded.learning.snapshot().summary.xp, 8);
+  assert.equal(reloaded.learning.snapshot().summary.activeGames, 1);
+  assert.equal(reloaded.events.length, 0, "reloading normalized progress must not award credit");
+});
+}
+
+test("all three historical game identities coalesce once in profile and journey summaries", () => {
+  const games = {
+    "agreement-aurora": {
+      activities: 6, attempts: 7, successes: 5, xp: 5, rounds: 2,
+      lastPlayedAt: "2026-09-03T12:00:00.000Z"
+    },
+    "triangular-thermosphere": {
+      activities: 3, attempts: 3, successes: 3, xp: 4, rounds: 1,
+      lastPlayedAt: "2026-09-04T12:00:00.000Z"
+    },
+    "grammar-gravity": {
+      activities: 2, attempts: 2, successes: 2, xp: 3, rounds: 1,
+      lastPlayedAt: "2026-09-05T12:00:00.000Z"
+    },
+    "word-world": { activities: 1, xp: 1 }
+  };
+  for (const orderedGames of [games, Object.fromEntries(Object.entries(games).reverse())]) {
+    const record = { schemaVersion: 1, updatedAt: "", games: orderedGames };
+    const { learning, rows } = createLearningContext({
+      "caatuu-czech.learning.performance.v1": JSON.stringify(record),
+      "caatuu-zh-hans.learning.performance.v1": JSON.stringify(record)
+    }, { selectorCourses });
+    const performance = learning.performance();
+    assert.equal(performance.games["agreement-aurora"], undefined);
+    assert.equal(performance.games["triangular-thermosphere"], undefined);
+    assert.deepEqual(JSON.parse(JSON.stringify(performance.games["grammar-gravity"])), {
+      activities: 11, attempts: 12, successes: 10, xp: 12, rounds: 4,
+      lastPlayedAt: "2026-09-05T12:00:00.000Z"
+    });
+    assert.equal(learning.summarize(record).activeGames, 2);
+    assert.equal(learning.snapshot().journey.summary.xp, 26);
+    assert.equal(learning.snapshot().journey.summary.activeGames, 4);
+    for (const gameId of ["grammar-gravity", "agreement-aurora", "triangular-thermosphere"]) {
+      learning.record(gameId, { xp: 1 });
+    }
+    assert.equal(learning.snapshot().journey.summary.xp, 29);
+    assert.equal(learning.snapshot().journey.summary.xp, 29, "repeated reads must not remigrate counters");
+    const stored = JSON.parse(rows.get("caatuu-czech.learning.performance.v1"));
+    assert.equal(stored.games["agreement-aurora"], undefined);
+    assert.equal(stored.games["triangular-thermosphere"], undefined);
+    assert.equal(stored.games["grammar-gravity"].xp, 15);
+    const reloaded = createLearningContext(Object.fromEntries(rows), { selectorCourses });
+    assert.equal(reloaded.learning.snapshot().journey.summary.xp, 29);
+    assert.equal(reloaded.learning.snapshot().journey.summary.activeGames, 4);
+    assert.equal(reloaded.events.length, 0);
+  }
 });
 
 test("journey rewards aggregate only selector-declared course records", () => {
@@ -197,14 +304,15 @@ test("course summaries expose safe per-course effort and ignore corrupt catalog 
 });
 
 test("streak advances once per local day, preserves its best, and keeps a recoverable lapse", () => {
-  const { learning } = createLearningContext();
   const firstDay = new Date(2026, 8, 3, 12, 0, 0);
   const sameDay = new Date(2026, 8, 3, 22, 0, 0);
   const nextDay = new Date(2026, 8, 4, 8, 0, 0);
+  // Change announcements take a fresh snapshot using the runtime clock too.
+  const { learning, setNow } = createLearningContext({}, { now: firstDay });
 
-  assert.equal(learning.qualifyStreak(firstDay).currentDays, 1);
-  assert.equal(learning.qualifyStreak(sameDay).currentDays, 1);
-  const active = learning.qualifyStreak(nextDay);
+  assert.equal(learning.qualifyStreak(setNow(firstDay)).currentDays, 1);
+  assert.equal(learning.qualifyStreak(setNow(sameDay)).currentDays, 1);
+  const active = learning.qualifyStreak(setNow(nextDay));
   assert.equal(active.currentDays, 2);
   assert.equal(active.highestDays, 2);
   const expiry = new Date(active.expiresAt);
@@ -213,33 +321,34 @@ test("streak advances once per local day, preserves its best, and keeps a recove
   assert.equal(expiry.getDate(), 6);
   assert.equal(expiry.getHours(), 0);
 
-  const lapsed = learning.refreshStreak(new Date(expiry.getTime() + 1));
+  const lapsed = learning.refreshStreak(setNow(expiry.getTime() + 1));
   assert.equal(lapsed.currentDays, 0);
   assert.equal(lapsed.highestDays, 2);
   assert.equal(lapsed.lastLapse.days, 2);
   assert.equal(lapsed.lastLapse.expiredAt, expiry.toISOString());
 
-  const restarted = learning.qualifyStreak(new Date(2026, 8, 7, 9, 0, 0));
+  const restarted = learning.qualifyStreak(setNow(new Date(2026, 8, 7, 9, 0, 0)));
   assert.equal(restarted.currentDays, 1);
   assert.equal(restarted.highestDays, 2);
 });
 
 test("streak reminders are due once at five and three hours before the active deadline", () => {
-  const { learning } = createLearningContext();
-  const active = learning.qualifyStreak(new Date(2026, 8, 3, 12, 0, 0));
+  const firstDay = new Date(2026, 8, 3, 12, 0, 0);
+  const { learning, setNow } = createLearningContext({}, { now: firstDay });
+  const active = learning.qualifyStreak(firstDay);
   const expiry = new Date(active.expiresAt).getTime();
 
-  assert.equal(learning.dueStreakReminders(new Date(expiry - (6 * 60 * 60 * 1000))).length, 0);
-  const fiveHour = learning.dueStreakReminders(new Date(expiry - (5 * 60 * 60 * 1000)));
+  assert.equal(learning.dueStreakReminders(setNow(expiry - (6 * 60 * 60 * 1000))).length, 0);
+  const fiveHour = learning.dueStreakReminders(setNow(expiry - (5 * 60 * 60 * 1000)));
   assert.equal(fiveHour.map(({ hours }) => hours).join(","), "5");
   assert.ok(learning.streakArtwork.includes(fiveHour[0].imagePath));
   learning.markStreakReminderDelivered(active.expiresAt, 5);
-  assert.equal(learning.dueStreakReminders(new Date(expiry - (4 * 60 * 60 * 1000))).length, 0);
+  assert.equal(learning.dueStreakReminders(setNow(expiry - (4 * 60 * 60 * 1000))).length, 0);
 
-  const threeHour = learning.dueStreakReminders(new Date(expiry - (3 * 60 * 60 * 1000)));
+  const threeHour = learning.dueStreakReminders(setNow(expiry - (3 * 60 * 60 * 1000)));
   assert.equal(threeHour.map(({ hours }) => hours).join(","), "3");
   learning.markStreakReminderDelivered(active.expiresAt, 3);
-  assert.equal(learning.dueStreakReminders(new Date(expiry - (2 * 60 * 60 * 1000))).length, 0);
+  assert.equal(learning.dueStreakReminders(setNow(expiry - (2 * 60 * 60 * 1000))).length, 0);
 });
 
 test("only a successfully completed round qualifies the shared streak", () => {
@@ -354,11 +463,14 @@ test("progress-reset preparers drain before reset, can unregister, and fail with
 });
 
 test("the backpack progression hub and both active games use the global learning contract", () => {
-  assert.match(chromeSource, /label: "Backpack"/);
+  const messages = JSON.parse(interfaceSource).messages;
+  assert.match(chromeSource, /label: interfaceMessage\("nav\.backpack"\)/u);
+  assert.equal(messages["nav.backpack"], "Backpack");
   assert.match(chromeSource, /data-settings-view="items"/);
   assert.match(chromeSource, /data-settings-view="stats"/);
   assert.match(chromeSource, /data-settings-view="settings"/);
-  assert.match(chromeSource, /Traveler badge/);
+  assert.match(chromeSource, /interfaceHtml\("settings\.backpack\.travelerbadge"\)/u);
+  assert.equal(messages["settings.backpack.travelerbadge"], "Difficulty");
   assert.match(chromeSource, /data-difficulty-level/);
   assert.match(chromeSource, /courseProgressXp/);
   assert.match(chromeSource, /courseProgressCoins/);

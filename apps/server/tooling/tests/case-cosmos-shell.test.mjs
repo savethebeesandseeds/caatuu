@@ -4,7 +4,7 @@ import test from "node:test";
 
 const staticRoot = new URL("../../../../apps/languages/czech/static/", import.meta.url);
 const [controller, pack] = await Promise.all([
-  readFile(new URL("source/games/case-cosmos/case-cosmos.js", staticRoot), "utf8"),
+  readFile(new URL("source/games/case-cosmos/case-cosmos-content.mjs", staticRoot), "utf8"),
   readFile(new URL("data/games/case-cosmos/challenges.json", staticRoot), "utf8").then(JSON.parse)
 ]);
 

@@ -36,16 +36,17 @@
   "games": [
     "verb-lab",
     "word-net",
-    "naturalization-nucleus"
+    "naturalization-nucleus",
+    "sound-quasar"
   ],
   "upcomingGames": [
-    "memory-moon",
-    "sound-quasar"
+    "memory-moon"
   ],
   "launcher": {
     "flagClass": "flag-icon"
   },
   "routes": {
+    "soundQuasar": "/language-runtime/static/games/sound-quasar.html",
     "languageSelection": "/",
     "home": "index.html",
     "games": "index.html",
@@ -128,6 +129,13 @@
     }
   },
   "resources": {
+    "soundQuasarCatalog": {
+      "kind": "file",
+      "path": "apps/languages/mandarin-simplified/static/data/games/sound-quasar/challenges.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "sound-quasar-items-v2"
+    },
     "staticRoot": {
       "kind": "directory",
       "path": "apps/languages/mandarin-simplified/static",
@@ -145,7 +153,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-1"
+      "revision": "interface-en-27"
     },
     "courseProfile": {
       "kind": "file",

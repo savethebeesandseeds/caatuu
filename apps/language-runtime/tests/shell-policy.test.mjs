@@ -20,6 +20,7 @@ import {
   isDeveloperLinkAvailable,
   isGameAvailable,
   localAiAvailability,
+  normalizeGameId,
   presentedGameIds,
   targetScriptToken,
   visiblePrimaryNavigation,
@@ -34,6 +35,38 @@ const czech = await json("../../languages/czech/course.json");
 const mandarin = await json("../../languages/mandarin-simplified/course.json");
 const spanish = await json("../../languages/spanish/course.json");
 
+test("both retired identities resolve to one canonical Grammar Gravity planet", () => {
+  for (const legacyId of ["agreement-aurora", "triangular-thermosphere"]) {
+    assert.equal(normalizeGameId(` ${legacyId} `), "grammar-gravity");
+    assert.equal(normalizeGameId(normalizeGameId(legacyId)), "grammar-gravity");
+    assert.equal(GAME_IDS.includes(legacyId), false);
+    assert.equal(CAMPAIGN_GAME_IDS.includes(legacyId), false);
+  }
+  assert.equal(normalizeGameId("grammar-gravity"), "grammar-gravity");
+  assert.equal(normalizeGameId("word-net"), "word-net");
+  assert.equal(normalizeGameId(null), "");
+  assert.equal(GAME_IDS.filter((id) => id === "grammar-gravity").length, 1);
+  assert.equal(CAMPAIGN_GAME_IDS.filter((id) => id === "grammar-gravity").length, 1);
+
+  const course = {
+    capabilities: {},
+    games: ["grammar-gravity"],
+    linguisticFeatures: ["grammatical-agreement"],
+    routes: { grammarGravity: "/language-runtime/static/games/grammar-gravity.html" }
+  };
+  assert.deepEqual(availableGames(course), ["campaign", "grammar-gravity"]);
+  for (const gameId of ["agreement-aurora", "triangular-thermosphere", "grammar-gravity"]) {
+    assert.equal(gameAvailable(course, gameId), true);
+    assert.equal(gameState(course, gameId), "playable");
+    assert.equal(gameAvailable({ ...course, games: [] }, gameId), false,
+      "compatibility must not bypass course availability");
+    assert.equal(gameState({ ...course, games: [] }, gameId), "hidden");
+    assert.equal(gameAvailable({ ...course, routes: {} }, gameId), false);
+    assert.equal(gameAvailable({ ...course, linguisticFeatures: [] }, gameId), false);
+    assert.equal(gameState({ ...course, games: [], upcomingGames: ["grammar-gravity"] }, gameId), "upcoming");
+  }
+});
+
 test("target-script presentation is reusable by any course with the same writing system", async () => {
   assert.equal(targetScriptToken(mandarin), "Hans");
   assert.equal(targetScriptToken({
@@ -43,7 +76,7 @@ test("target-script presentation is reusable by any course with the same writing
   assert.equal(targetScriptToken({ targetLanguage: { script: "invalid" } }), "Zyyy");
 
   const styles = await readFile(new URL("../static/styles/caatuu-workspace.css", import.meta.url), "utf8");
-  const hanziRules = styles.slice(styles.indexOf("/* Hanzi and pinyin"), styles.indexOf("/* Embedded games"));
+  const hanziRules = styles.slice(styles.indexOf("/* Keep Hanzi and pinyin"), styles.indexOf("/* Embedded games"));
   assert.match(hanziRules, /body\[data-target-script\^="Han"\]/u);
   assert.doesNotMatch(hanziRules, /data-course-id/u);
 });
@@ -54,7 +87,7 @@ test("feature bootstrap follows independent game and provider declarations", asy
     bootstrap.indexOf("async function loadCourseFeatureProviders"),
     bootstrap.indexOf("async function registerCourseServiceWorker")
   );
-  assert.doesNotMatch(providers, /source\/games\/(?:case-cosmos|agreement-aurora)\/launcher\.css/u);
+  assert.doesNotMatch(providers, /source\/games\/(?:case-cosmos|grammar-gravity)\/launcher\.css/u);
   assert.doesNotMatch(providers, /capabilities\?\.verbs|\bconst verbs\b/u);
   for (const provider of [
     "semanticLearningProvider",
@@ -89,7 +122,7 @@ test("one declarative planet contract governs IDs, requirements, and Campaign el
     "word-net",
     "conjugation-comet",
     "case-cosmos",
-    "agreement-aurora"
+    "grammar-gravity"
   ]);
   assert.equal(PLANET_GAME_CONTRACT.campaign.minimumEligibleGames, 1);
   assert.deepEqual(
@@ -101,19 +134,19 @@ test("one declarative planet contract governs IDs, requirements, and Campaign el
     "naturalizationNucleusCatalog"
   );
   assert.deepEqual(PLANET_GAME_CONTRACT.planets["sound-quasar"].capabilities, ["speech"]);
-  assert.equal(PLANET_GAME_CONTRACT.planets["sound-quasar"].implementationState, "unimplemented");
+  assert.equal(PLANET_GAME_CONTRACT.planets["sound-quasar"].implementationState, "implemented");
   assert.equal(PLANET_GAME_CONTRACT.planets["sound-quasar"].campaignEligible, false);
   assert.equal(
     PLANET_GAME_CONTRACT.planets["conjugation-comet"].sharedHost,
     "/language-runtime/static/games/conjugation-comet.html"
   );
   assert.equal(
-    PLANET_GAME_CONTRACT.planets["agreement-aurora"].sharedHost,
-    "/language-runtime/static/games/agreement-aurora.html"
+    PLANET_GAME_CONTRACT.planets["grammar-gravity"].sharedHost,
+    "/language-runtime/static/games/grammar-gravity.html"
   );
   for (const game of Object.values(PLANET_GAME_CONTRACT.planets)) {
     for (const resource of game.resources) {
-      assert.match(resource.englishAuditContract, /-v1$/u);
+      assert.match(resource.englishAuditContract, /-v[1-9]\d*$/u);
     }
   }
 });
@@ -129,11 +162,12 @@ test("Czech receives the complete shared navigation, game, and settings matrix",
     "word-net",
     "conjugation-comet",
     "case-cosmos",
-    "agreement-aurora"
+    "grammar-gravity",
+    "sound-quasar"
   ]);
-  assert.deepEqual(policy.presentedGames, [...policy.games, "memory-moon", "sound-quasar"]);
+  assert.deepEqual(policy.presentedGames, [...policy.games.slice(0, -1), "memory-moon", "sound-quasar"]);
   assert.equal(gameState(czech, "memory-moon"), "upcoming");
-  assert.equal(gameState(czech, "sound-quasar"), "upcoming");
+  assert.equal(gameState(czech, "sound-quasar"), "playable");
   assert.deepEqual(policy.settingsSections, [
     "items",
     "progress",
@@ -146,7 +180,7 @@ test("Czech receives the complete shared navigation, game, and settings matrix",
   ]);
   assert.equal(policy.gameAvailability.campaign, true);
   assert.equal(hasAvailableGames(czech), true);
-  assert.equal(gameAvailable(czech, "agreement-aurora"), true);
+  assert.equal(gameAvailable(czech, "grammar-gravity"), true);
   assert.deepEqual(availableGames(czech), policy.games);
   assert.deepEqual(visibleSettings(czech), policy.settingsSections);
   assert.equal(policy.settingsSections.includes("pronunciation"), false);
@@ -156,16 +190,16 @@ test("Mandarin keeps the shared settings structure while precise unsupported con
   const policy = deriveShellPolicy(mandarin);
 
   assert.deepEqual(policy.primaryNavigation.map(({ id }) => id), ["home", "games", "backpack"]);
-  assert.deepEqual(policy.games, ["campaign", "verb-lab", "word-net", "naturalization-nucleus"]);
+  assert.deepEqual(policy.games, ["campaign", "verb-lab", "word-net", "naturalization-nucleus", "sound-quasar"]);
   assert.deepEqual(policy.presentedGames, ["campaign", "verb-lab", "word-net", "naturalization-nucleus", "memory-moon", "sound-quasar"]);
   assert.deepEqual(policy.settingsSections, ["items", "progress", "appearance", "course-storage", "speech", "ai-model"]);
   assert.equal(policy.gameAvailability["verb-lab"], true);
   assert.equal(mandarin.capabilities.verbs, false, "game availability must not load the legacy Czech provider bundle");
   assert.equal(gameState(mandarin, "memory-moon"), "upcoming");
-  assert.equal(gameState(mandarin, "sound-quasar"), "upcoming");
+  assert.equal(gameState(mandarin, "sound-quasar"), "playable");
   assert.deepEqual(presentedGameIds(mandarin), policy.presentedGames);
   assert.equal(policy.gameAvailability["case-cosmos"], false);
-  assert.equal(policy.gameAvailability["agreement-aurora"], false);
+  assert.equal(policy.gameAvailability["grammar-gravity"], false);
   assert.equal(policy.gameAvailability["naturalization-nucleus"], true);
 });
 
@@ -178,9 +212,10 @@ test("Spanish projects its authored grammar games through the same shared shell 
     "verb-lab",
     "word-net",
     "conjugation-comet",
-    "agreement-aurora"
+    "grammar-gravity",
+    "sound-quasar"
   ]);
-  assert.deepEqual(policy.presentedGames, [...policy.games, "memory-moon", "sound-quasar"]);
+  assert.deepEqual(policy.presentedGames, [...policy.games.slice(0, -1), "memory-moon", "sound-quasar"]);
   assert.deepEqual(policy.settingsSections, [
     "items",
     "progress",
@@ -192,27 +227,27 @@ test("Spanish projects its authored grammar games through the same shared shell 
   assert.equal(spanish.capabilities.verbs, false);
   assert.equal(spanish.capabilities.conjugationComet, true);
   assert.equal(gameAvailable(spanish, "conjugation-comet"), true);
-  assert.equal(gameAvailable(spanish, "agreement-aurora"), true);
+  assert.equal(gameAvailable(spanish, "grammar-gravity"), true);
   assert.equal(gameAvailable(spanish, "case-cosmos"), false);
   assert.equal(gameState(spanish, "memory-moon"), "upcoming");
-  assert.equal(gameState(spanish, "sound-quasar"), "upcoming");
+  assert.equal(gameState(spanish, "sound-quasar"), "playable");
 });
 
-test("Sounds Quasar remains upcoming in every current course until its shared implementation gate is promoted", () => {
+test("Sounds Quasar is shared speech practice outside Campaign", () => {
   for (const course of [czech, mandarin, spanish]) {
-    assert.equal(course.upcomingGames.includes("sound-quasar"), true, course.id);
-    assert.equal(gameState(course, "sound-quasar"), "upcoming", course.id);
-    assert.equal(isGameAvailable("sound-quasar", course), false, course.id);
+    assert.equal(course.upcomingGames.includes("sound-quasar"), false, course.id);
+    assert.equal(gameState(course, "sound-quasar"), "playable", course.id);
+    assert.equal(isGameAvailable("sound-quasar", course), true, course.id);
+    assert.equal(course.routes.soundQuasar, "/language-runtime/static/games/sound-quasar.html");
+    assert.equal(course.resources.soundQuasarCatalog.revision, "sound-quasar-items-v2");
+    const noSpeech = structuredClone(course);
+    noSpeech.capabilities.speech = false;
+    assert.equal(isGameAvailable("sound-quasar", noSpeech), false);
+    const noRoute = structuredClone(course);
+    delete noRoute.routes.soundQuasar;
+    assert.equal(isGameAvailable("sound-quasar", noRoute), false);
   }
-
-  const forgedPlayableCourse = structuredClone(spanish);
-  forgedPlayableCourse.upcomingGames = forgedPlayableCourse.upcomingGames
-    .filter((gameId) => gameId !== "sound-quasar");
-  forgedPlayableCourse.games.push("sound-quasar");
-  forgedPlayableCourse.routes.soundQuasar = "index.html?game=sound-quasar";
-  assert.equal(forgedPlayableCourse.capabilities.speech, true);
-  assert.equal(isGameAvailable("sound-quasar", forgedPlayableCourse), false);
-  assert.equal(gameState(forgedPlayableCourse, "sound-quasar"), "hidden");
+  assert.equal(CAMPAIGN_GAME_IDS.includes("sound-quasar"), false);
 });
 
 test("Games remains visible when Word World is the only playable game and verbs are disabled", () => {
@@ -245,11 +280,11 @@ test("game lookup is fail-closed for unknown IDs, undeclared games, and missing 
     linguisticFeatures: ["grammatical-case"],
     games: []
   }), false);
-  assert.equal(isGameAvailable("agreement-aurora", {
+  assert.equal(isGameAvailable("grammar-gravity", {
     capabilities: {},
     linguisticFeatures: [],
-    games: ["agreement-aurora"],
-    routes: { agreementAurora: "agreement-aurora.html" }
+    games: ["grammar-gravity"],
+    routes: { grammarGravity: "grammar-gravity.html" }
   }), false);
   assert.equal(isGameAvailable("case-cosmos", {
     capabilities: {},

@@ -30,18 +30,21 @@ test("launcher keeps release-active languages separate from browser setup choice
     [
       { id: "cz", status: "active", label: "Czech", nativeLabel: "Čeština", shortCode: "CZ" },
       { id: "zh", status: "development", label: "Mandarin", nativeLabel: "中文", shortCode: "ZH" },
-      { id: "es", status: "development", label: "Spanish", nativeLabel: "Español", shortCode: "ES" }
+      { id: "es", status: "development", label: "Spanish", nativeLabel: "Español", shortCode: "ES" },
+      { id: "es-en", status: "development", label: "English", nativeLabel: "English", shortCode: "EN" }
     ]
   );
 });
 
-test("launcher fallback advertises every browser course and one online action", () => {
+test("launcher keeps its English-base fallback and provides localized source selection", () => {
   assert.match(index, /aria-label="Czech \(Čeština\)"[\s\S]*?language-choice-code">CZ<\/span>/u);
   assert.match(index, /aria-label="Mandarin \(中文\), Preview"[\s\S]*?language-choice-code">ZH<\/span>[\s\S]*?language-choice-status">Preview<\/span>/u);
   assert.match(index, /aria-label="Spanish \(Español\), Preview"[\s\S]*?language-choice-code">ES<\/span>[\s\S]*?language-choice-status">Preview<\/span>/u);
   assert.match(index, /china_flag\.png\?caatuu_asset=11/u);
   assert.match(index, /spain_flag\.png\?caatuu_asset=11/u);
-  assert.match(index, /aria-label="Continue online in the browser"[\s\S]*?<b>Continue online<\/b>/u);
+  assert.match(index, /aria-label="Continue online in the browser"[\s\S]*?<b data-i18n="launcher\.continue">Continue online<\/b>/u);
+  assert.match(index, /data-source-control hidden/u);
+  assert.match(index, /<select data-source-language[^>]*data-i18n-aria-label="courseselector\.sourcequestion"/u);
   assert.match(styles, /\.language-choice-status\s*\{/u);
   assert.doesNotMatch(index, /Continue with Czech/u);
 });
@@ -52,14 +55,22 @@ test("server and static launchers preserve the generic form entry after registry
     ["static launcher", staticLauncher]
   ]) {
     assert.match(source, /registry\?\.browserSetup\?\.entryPath/u, `${label} should use the catalog-derived setup entry`);
-    assert.match(source, /label\.textContent = "Continue online"/u, `${label} should keep the online browser CTA`);
-    assert.match(source, /setAttribute\("aria-label", "Continue online in the browser"\)/u, `${label} should retain the descriptive accessible name`);
     assert.match(source, /\["active", "development"\]\.includes\(courseRecord\?\.status\)/u, `${label} should disclose active and development browser courses`);
-    assert.match(source, /status\.textContent = "Preview"/u, `${label} should visibly label development courses`);
     assert.match(source, /versionedLauncherAsset\(language\.flagSrc\)/u, `${label} should bypass stale launcher image caches`);
     assert.match(source, /createElement\("span"\)/u, `${label} should render informational course rows`);
     assert.doesNotMatch(source, /Continue with \$\{language\.label\}|createElement\("button"\)|data\.languageChoice/u, `${label} must not duplicate target selection on the launcher`);
   }
+  assert.match(launcher, /label\.textContent = t\("launcher\.continue"\)/u);
+  assert.match(launcher, /setAttribute\("aria-label", t\("launcher\.continuearia"\)\)/u);
+  assert.match(launcher, /status\.textContent = t\("common\.preview"\)/u);
+  assert.match(launcher, /loadLauncherInterface\(registry, sourcePreferences\(\)/u);
+  assert.match(launcher, /record\.sourceLanguage\?\.locale === selectedSourceLocale/u);
+  assert.match(launcher, /selectedCourse\?\.entryPath/u, "browser action must enter the selected learner-base course");
+  assert.match(launcher, /document\.documentElement\.lang = content\.locale/u);
+  assert.match(launcher, /content\.apply\(document\)/u);
+  assert.match(staticLauncher, /label\.textContent = "Continue online"/u);
+  assert.match(staticLauncher, /setAttribute\("aria-label", "Continue online in the browser"\)/u);
+  assert.match(staticLauncher, /status\.textContent = "Preview"/u);
 });
 
 test("static publication derives browser-course flag files from the launcher catalog", () => {

@@ -19,6 +19,7 @@ import {
   loadAndroidCourseConfiguration,
   transformChromeJs,
   transformCourseProfile,
+  transformDeveloperBrowserModelService,
   transformIndex,
   transformWordWorldManifest,
   validateProductAssetBundle,
@@ -48,6 +49,118 @@ function readPackagedCourseProfile(profilePath) {
   return context.window.CaatuuCourse;
 }
 
+test("global developer tools remain available when product packaging removes model settings", () => {
+  const source = readFileSync(join(workspaceRoot, "apps/language-runtime/static/source/caatuu-chrome.js"), "utf8");
+  const transformed = transformChromeJs(source);
+  const start = source.indexOf('          <section class="settings-card side-card developer-tools-card"');
+  const end = source.indexOf('          <section class="settings-card side-card maintenance-card"', start);
+  assert.ok(start >= 0 && end > start, "The canonical developer tools card has its own Settings boundary");
+  assert.ok(transformed.includes(source.slice(start, end)), "Product packaging must preserve the entire global developer card");
+  assert.match(transformed, /mountDeveloperTools\(\{\s*root,\s*screenRoot,\s*host:\s*window,\s*course\b/u);
+  assert.doesNotMatch(transformed, /<section class="settings-card side-card ai-settings-card"/u);
+  assert.doesNotMatch(transformed, /href: routes\.(?:audioLab|embeddingImages|verbDifficulty)/u);
+});
+
+test("the product developer model adapter reports unavailability without downloaded engine or network-loader bytes", async () => {
+  const source = readFileSync(join(workspaceRoot, "apps/language-runtime/static/source/developer-tools/browser-model-service.mjs"), "utf8");
+  const transformed = transformDeveloperBrowserModelService(source);
+  assert.doesNotMatch(transformed, /webllm|web-llm|qwen|cstinyllama|gguf|esm\.run|huggingface|CreateMLCEngine|fetch\s*\(|import\s*\(/iu);
+  const adapter = await import(`data:text/javascript;base64,${Buffer.from(transformed).toString("base64")}`);
+  assert.equal(adapter.BROWSER_CHAT_SUPPORTED, false);
+  const service = await adapter.createBrowserModelService({
+    importModule() { assert.fail("A product diagnostic must never load a browser model engine"); }
+  });
+  assert.deepEqual(service, { available: false, reason: "product" });
+});
+
+test("global developer resources and declared course inspection data survive the compiled product bundle", async (t) => {
+  const parent = mkdtempSync(join(tmpdir(), "caatuu-developer-product-test-"));
+  const outputDir = join(parent, "product");
+  t.after(() => rmSync(parent, { recursive: true, force: true }));
+  const configuration = loadAndroidCourseBundleConfiguration({ workspaceRoot, courseBundlePath, launcherStaticDir });
+  const result = compileProductAssetBundle({ workspaceRoot, courseBundlePath, launcherStaticDir, outputDir });
+  const files = new Set(result.files);
+  const sharedTools = [
+    "language-runtime/static/source/developer-tools/developer-tools.mjs",
+    "language-runtime/static/source/developer-tools/audio-lab.mjs",
+    "language-runtime/static/source/developer-tools/catalog-inspectors.mjs",
+    "language-runtime/static/source/developer-tools/model-tools.mjs",
+    "language-runtime/static/source/developer-tools/browser-model-service.mjs",
+    "language-runtime/static/styles/caatuu-developer-tools.css"
+  ];
+  for (const path of sharedTools) {
+    assert.ok(files.has(path), `The global developer surface must package ${path}`);
+    assert.ok(readFileSync(join(outputDir, path)).length > 0, `${path} must contain its implementation`);
+  }
+  const adapterPath = sharedTools.find((path) => path.endsWith("browser-model-service.mjs"));
+  const packagedAdapter = readFileSync(join(outputDir, adapterPath), "utf8");
+  assert.doesNotMatch(packagedAdapter, /webllm|web-llm|qwen|esm\.run|CreateMLCEngine/iu);
+  const adapter = await import(pathToFileURL(join(outputDir, adapterPath)).href);
+  assert.equal(adapter.BROWSER_CHAT_SUPPORTED, false);
+  assert.deepEqual(await adapter.createBrowserModelService(), { available: false, reason: "product" });
+  const chrome = readFileSync(join(outputDir, "language-runtime/static/source/caatuu-chrome.js"), "utf8");
+  assert.match(chrome, /class="settings-card side-card developer-tools-card"/u);
+
+  for (const { course, languageFileSources } of configuration.configurations) {
+    const original = readPackagedCourseProfile(languageFileSources["source/shared/course-profile.js"]);
+    const packaged = readPackagedCourseProfile(join(outputDir, `courses/${course.id}/source/shared/course-profile.js`));
+    assert.deepEqual(JSON.parse(JSON.stringify(packaged.gameContent)), JSON.parse(JSON.stringify(original.gameContent)));
+    assert.equal(packaged.capabilities.chat, false);
+    for (const { course: selected } of configuration.configurations) {
+      const before = original.courseSelector.courses.find((record) => record.id === selected.id);
+      const after = packaged.courseSelector.courses.find((record) => record.id === selected.id);
+      assert.ok(before?.developerContext, `${course.id} must declare the ${selected.id} inspection context`);
+      assert.deepEqual(JSON.parse(JSON.stringify(after?.developerContext)), JSON.parse(JSON.stringify(before.developerContext)),
+        `${course.id} product transformation must preserve ${selected.id} resource declarations`);
+      assert.equal(after.targetLanguage.speechLocale, before.targetLanguage.speechLocale);
+      const paths = [after.developerContext.gameContent?.["verb-lab"]?.verbNebulaCatalog];
+      for (const key of ["catalog", "coreEntries", "scriptLines", "referenceDocument"]) {
+        const path = after.developerContext.dictionaryContent?.[key];
+        if (path) paths.push(path);
+      }
+      assert.ok(paths[0], `${selected.id} declares its playable Verb Nebula catalog for inspection`);
+      for (const value of paths) {
+        const path = String(value).split(/[?#]/u, 1)[0];
+        assert.ok(files.has(`courses/${selected.id}/${path}`), `${course.id} developer tools would otherwise request missing ${selected.id} data: ${value}`);
+      }
+    }
+  }
+});
+
+test("Grammar Gravity lane imagery and paper texture share one exact offline asset mapping", () => {
+  const catalog = JSON.parse(readFileSync(join(workspaceRoot, "apps/language-runtime/app-assets.json"), "utf8"));
+  const paths = [
+    "assets/micelaneous/male_gender.png",
+    "assets/micelaneous/female_gender.png",
+    "assets/micelaneous/neutral_gender.png",
+    "assets/micelaneous/parashute.png",
+    "language-runtime/static/styles/games/gravity-paper.svg",
+    "assets/icons/clock_icon.png",
+    "language-runtime/static/source/games/grammar-gravity/noun-visual.mjs"
+  ];
+  for (const path of paths) {
+    const mappings = catalog.assets.filter(({ output }) => output === path);
+    assert.equal(mappings.length, 1, `${path} has one shared source`);
+    assert.ok(readFileSync(join(workspaceRoot, mappings[0].source)).length > 0);
+  }
+  for (const directory of ["czech", "spanish", "mandarin-simplified"]) {
+    const setup = JSON.parse(readFileSync(join(workspaceRoot, `apps/languages/${directory}/static/setup-assets.json`), "utf8"));
+    for (const path of paths) {
+      assert.equal(setup.offline.assets.filter((url) => url.split("?")[0] === `/${path}`).length, 1,
+        `${directory} retains one offline copy of ${path}`);
+    }
+  }
+  for (const directory of ["czech", "spanish"]) {
+    const pack = JSON.parse(readFileSync(join(workspaceRoot, `apps/languages/${directory}/static/data/games/grammar-gravity/nouns.json`), "utf8"));
+    assert.equal(pack.schemaVersion, "caatuu-grammar-gravity-nouns-v2");
+    assert.equal(pack.contentRevision, 3);
+    assert.ok(pack.items.every((item) => !Object.hasOwn(item, "explanation")));
+    for (const lane of pack.lanes) {
+      assert.ok(paths.includes(lane.image.slice(1)), `${directory}.${lane.id} selects registered shared imagery`);
+    }
+  }
+});
+
 test("courses share one Android app document and bundle while retaining course-owned assets", () => {
   const czech = loadAndroidCourseConfiguration({ workspaceRoot });
   const fixture = loadAndroidCourseConfiguration({
@@ -71,7 +184,7 @@ test("courses share one Android app document and bundle while retaining course-o
       configuration.interfaceContent.output,
       "language-runtime/static/data/interface/en.v1.json",
     );
-    assert.equal(configuration.interfaceContent.revision, "interface-en-1");
+    assert.equal(configuration.interfaceContent.revision, "interface-en-27");
     assert.equal(configuration.interfaceContent.locale, "en");
     assert.equal(configuration.interfaceContent.direction, "ltr");
   }
@@ -90,6 +203,10 @@ test("courses share one Android app document and bundle while retaining course-o
     "language-runtime/static/source/word-world-provider.mjs",
     "language-runtime/static/styles/caatuu-word-world.css",
     "language-runtime/static/data/interface/en.v1.json",
+    "assets/micelaneous/male_gender.png",
+    "assets/micelaneous/female_gender.png",
+    "assets/micelaneous/neutral_gender.png",
+    "language-runtime/static/styles/games/gravity-paper.svg",
     "assets/icons/china_flag.png",
     "assets/icons/czech_flag_ui.png",
     "assets/icons/english_flag.png",
@@ -194,7 +311,7 @@ test("Android configuration pins each interface catalog to its exact shared app 
           path: "apps/language-runtime/static/data/interface/en.v1.json",
           scope: "shared",
           state: "present",
-          revision: "interface-en-1",
+          revision: "interface-en-25",
         },
         staticRoot: {
           kind: "directory",
@@ -304,9 +421,13 @@ test("the Android product bundles Czech and Mandarin behind one shared app docum
     launcherStaticDir,
     outputDir,
   });
-  // Guardrail with roughly 5% headroom after the intentional shared store/home,
-  // Sounds Quasar, and shared grammar-game assets.
-  assert.ok(result.totalBytes < 36_500_000, "the media-rich package must remain bounded while MiniLM stays in setup delivery");
+  // Keep a bounded package after the shared store/home, developer inspectors,
+  // Sounds Quasar's 12 music macaws (5.43 MB), and shared grammar-game assets.
+  assert.ok(result.totalBytes < 44_000_000, `The shared app package must remain below 44 MB; got ${result.totalBytes} bytes. MiniLM stays in setup delivery.`);
+  assert.ok(result.files.includes("language-runtime/static/source/target-text-tones.mjs"));
+  for (let musicIndex = 1; musicIndex <= 12; musicIndex += 1) {
+    assert.ok(result.files.includes(`assets/macaw/music/music (${musicIndex}).png`));
+  }
   assert.deepEqual(result.files.filter((path) => /(?:^|\/)index\.html$/u.test(path)), ["index.html"]);
   assert.ok(result.files.includes("courses/cz/source/shared/course-profile.js"));
   assert.ok(result.files.includes("courses/zh/source/shared/course-profile.js"));
@@ -333,7 +454,7 @@ test("the Android product bundles Czech and Mandarin behind one shared app docum
     assert.equal(courseProfile.languageRoles.retrievalLanguage, "en");
     assert.equal(courseProfile.interfaceContent.locale, courseProfile.sourceLanguage.locale);
     assert.equal(courseProfile.interfaceContent.direction, courseProfile.sourceLanguage.direction);
-    assert.equal(courseProfile.interfaceContent.revision, "interface-en-1");
+    assert.equal(courseProfile.interfaceContent.revision, "interface-en-25");
     assert.equal(courseProfile.interfaceContent.catalog, "/language-runtime/static/data/interface/en.v1.json");
     assert.ok(
       result.files.includes(courseProfile.interfaceContent.catalog.replace(/^\/+/, "")),
@@ -350,18 +471,18 @@ test("the Android product bundles Czech and Mandarin behind one shared app docum
     assert.ok(!result.files.includes(`language-runtime/${artifact.path}`));
   }
   const czechSetup = JSON.parse(readFileSync(join(outputDir, "courses/cz/setup-assets.json"), "utf8"));
-  const agreementAurora = czechSetup.artifacts.filter(
+  const grammarGravity = czechSetup.artifacts.filter(
     (artifact) => artifact.key === "planet-agreement-aurora",
   );
-  assert.equal(agreementAurora.length, 1);
+  assert.equal(grammarGravity.length, 1);
   assert.equal(
-    agreementAurora[0].url,
+    grammarGravity[0].url,
     "/assets/planets/releases/5fe5c25467d51dbe/agreement-aurora.png",
     "the Android setup contract must not reuse release 162's immutable public artwork URL",
   );
   assert.equal(
-    agreementAurora[0].asset_path,
-    "assets/planets/agreement-aurora.png",
+    grammarGravity[0].asset_path,
+    "assets/planets/grammar-gravity.png",
     "the Android package must retain its canonical local artwork path",
   );
   const czechRuntimeArtifacts = czechSetup.artifacts.filter(
@@ -537,12 +658,14 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
     "source/shared/theme.css",
     "language-runtime/static/styles/course-shell.css",
     "conjugation-comet.html",
+    "grammar-gravity.html",
+    "triangular-thermosphere.html",
     "agreement-aurora.html",
     "source/games/conjugation-comet/conjugation-comet.css",
     "source/games/conjugation-comet/conjugation-comet.js",
-    "source/games/agreement-aurora/agreement-aurora.css",
-    "source/games/agreement-aurora/agreement-aurora.js",
-    "source/games/agreement-aurora/launcher.css",
+    "source/games/grammar-gravity/grammar-gravity.css",
+    "source/games/grammar-gravity/grammar-gravity.js",
+    "source/games/grammar-gravity/launcher.css",
     "source/games/case-cosmos/launcher.css",
   ]) {
     assert.ok(!result.files.includes(path), `product package must exclude ${path}`);
@@ -561,18 +684,28 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
     "language-runtime/static/source/word-world-host.mjs",
     "language-runtime/static/source/word-world-provider.mjs",
     "language-runtime/static/data/interface/en.v1.json",
+    "language-runtime/static/games/grammar-gravity.html",
+    "language-runtime/static/games/triangular-thermosphere.html",
     "language-runtime/static/games/agreement-aurora.html",
     "language-runtime/static/games/conjugation-comet.html",
+    "language-runtime/static/source/games/embedded-game-controls.mjs",
+    "language-runtime/static/styles/games/embedded-game-controls.css",
     "language-runtime/static/source/games/course-game-content.mjs",
-    "language-runtime/static/source/games/agreement-aurora/agreement-aurora-core.mjs",
-    "language-runtime/static/source/games/agreement-aurora/agreement-aurora-host.mjs",
+    "language-runtime/static/source/games/grammar-gravity/grammar-gravity-core.mjs",
+    "language-runtime/static/source/games/grammar-gravity/grammar-gravity-host.mjs",
+    "language-runtime/static/source/games/grammar-gravity/noun-landing-core.mjs",
+    "language-runtime/static/source/games/grammar-gravity/noun-landing-host.mjs",
     "language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs",
     "language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs",
-    "language-runtime/static/styles/games/agreement-aurora.css",
+    "language-runtime/static/styles/games/grammar-gravity.css",
     "language-runtime/static/styles/games/conjugation-comet.css",
     "language-runtime/static/styles/caatuu-word-world.css",
     "language-runtime/static/styles/caatuu-theme.css",
     "language-runtime/static/styles/caatuu-workspace.css",
+    "assets/micelaneous/male_gender.png",
+    "assets/micelaneous/female_gender.png",
+    "assets/micelaneous/neutral_gender.png",
+    "language-runtime/static/styles/games/gravity-paper.svg",
   ]) {
     const source = application.appAssets.find(({ output }) => output === path)?.source;
     assert.ok(source, `shared app catalog must resolve ${path}`);
@@ -585,7 +718,8 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
 
   const includedCourseGameContent = [
     "data/games/conjugation-comet/verbs.json",
-    "data/games/agreement-aurora/challenges.json"
+    "data/games/grammar-gravity/challenges.json",
+    "data/games/grammar-gravity/nouns.json"
   ];
   assert.ok(STORE_LANGUAGE_FILES.includes("source/shared/child-facing-assets.mjs"));
   assert.ok(result.files.includes("source/shared/child-facing-assets.mjs"));
@@ -735,15 +869,15 @@ test("product transforms fail closed when an expected development anchor drifts"
   assert.doesNotMatch(productChrome, /href: routes\.chat, label: "debug-chat"/u);
   assert.doesNotMatch(productChrome, /<section class="settings-card side-card ai-settings-card"/u);
   assert.doesNotMatch(productChrome, /id="modelLicenseList"/u);
-  assert.match(productChrome, /interfaceMessage\("settings\.product\.summary"\)/u);
-  assert.match(productChrome, /interfaceMessage\("settings\.product\.legal\.contentterms"\)/u);
-  assert.match(productChrome, /interfaceMessage\("settings\.product\.legal\.embeddingstitle"\)/u);
-  assert.match(productChrome, /interfaceMessage\("settings\.product\.legal\.embeddingsterms"\)/u);
+  assert.match(productChrome, /interfaceHtml\("settings\.product\.summary"\)/u);
+  assert.match(productChrome, /interfaceHtml\("settings\.product\.legal\.contentterms"\)/u);
+  assert.match(productChrome, /interfaceHtml\("settings\.product\.legal\.embeddingstitle"\)/u);
+  assert.match(productChrome, /interfaceHtml\("settings\.product\.legal\.embeddingsterms"\)/u);
   assert.doesNotMatch(productChrome, /Storage and app controls|Caatuu Curriculum and Asset Embeddings/u);
   assert.throws(
     () => transformChromeJs(chromeSource.replace(
-      'interfaceMessage("settings.advanced.summary")',
-      'interfaceMessage("settings.advanced.changed")',
+      'interfaceHtml("settings.advanced.summary")',
+      'interfaceHtml("settings.advanced.changed")',
     )),
     /chrome advanced summary: expected 1 exact source anchor/u,
   );

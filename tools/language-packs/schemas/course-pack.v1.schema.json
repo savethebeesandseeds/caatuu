@@ -144,7 +144,7 @@
           "word-net",
           "conjugation-comet",
           "case-cosmos",
-          "agreement-aurora",
+          "grammar-gravity",
           "naturalization-nucleus",
           "memory-moon",
           "sound-quasar"
@@ -160,7 +160,7 @@
           "word-net",
           "conjugation-comet",
           "case-cosmos",
-          "agreement-aurora",
+          "grammar-gravity",
           "naturalization-nucleus",
           "memory-moon",
           "sound-quasar"
@@ -183,6 +183,34 @@
     }
   },
   "allOf": [
+    {
+      "if": {
+        "properties": {
+          "games": { "contains": { "const": "sound-quasar" } }
+        },
+        "required": ["games"]
+      },
+      "then": {
+        "properties": {
+          "capabilities": {
+            "properties": { "speech": { "const": true } },
+            "required": ["speech"]
+          },
+          "routes": {
+            "properties": {
+              "soundQuasar": { "const": "/language-runtime/static/games/sound-quasar.html" }
+            },
+            "required": ["soundQuasar"]
+          },
+          "resources": {
+            "required": ["soundQuasarCatalog"],
+            "properties": {
+              "soundQuasarCatalog": { "$ref": "#/$defs/presentCourseFileResource" }
+            }
+          }
+        }
+      }
+    },
     {
       "if": {
         "properties": {
@@ -267,7 +295,7 @@
       "if": {
         "properties": {
           "games": {
-            "contains": { "const": "agreement-aurora" }
+            "contains": { "const": "grammar-gravity" }
           }
         },
         "required": ["games"]
@@ -275,9 +303,10 @@
       "then": {
         "properties": {
           "resources": {
-            "required": ["agreementAuroraCatalog"],
+            "required": ["grammarGravityCatalog", "grammarGravityNouns"],
             "properties": {
-              "agreementAuroraCatalog": { "$ref": "#/$defs/presentCourseFileResource" }
+              "grammarGravityCatalog": { "$ref": "#/$defs/presentCourseFileResource" },
+              "grammarGravityNouns": { "$ref": "#/$defs/presentCourseFileResource" }
             }
           }
         }

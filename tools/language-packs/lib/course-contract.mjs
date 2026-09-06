@@ -26,8 +26,10 @@ import {
   validateInterfaceCatalog,
   validateInterfaceCatalogParity
 } from "../../../apps/language-runtime/static/source/interface-content.mjs";
-import { normalizeAgreementAuroraPack } from "../../../apps/language-runtime/static/source/games/agreement-aurora/agreement-aurora-core.mjs";
+import { normalizeGrammarGravityPack, validateGrammarGravityCategories } from "../../../apps/language-runtime/static/source/games/grammar-gravity/grammar-gravity-core.mjs";
+import { normalizeNounLandingPack } from "../../../apps/language-runtime/static/source/games/grammar-gravity/noun-landing-core.mjs";
 import { validateConjugationCometCatalog } from "../../../apps/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs";
+import { validateSoundQuasarCatalog } from "../../../apps/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs";
 import { resolveWordWorldGenerationStrategy } from "../../../apps/language-runtime/static/source/word-world-provider.mjs";
 import {
   GAME_IDS,
@@ -1267,7 +1269,7 @@ export function learnerSourceReadinessIssues(course, { launcher = false } = {}) 
     ];
     issues.push({
       code: "source-language.presentation",
-      message: `${course.id} non-English learner-base presentation is not yet declared for: ${[...new Set(unsupported)].join(", ")}. Reviewed learner-base presentation currently exists for Word World, Conjugation Comet, and Agreement Aurora; Campaign is ready only when every contained playable planet qualifies.`
+      message: `${course.id} non-English learner-base presentation is not yet declared for: ${[...new Set(unsupported)].join(", ")}. Reviewed learner-base presentation currently exists for Word World, Conjugation Comet, Grammar Gravity, and Sounds Quasar; Campaign is ready only when every contained playable planet qualifies.`
     });
   }
   return issues;
@@ -2121,7 +2123,14 @@ function usesExactCzechLegacyPublicationException(course) {
     && course?.publication?.contract === "legacy-active-v1";
 }
 
-function normalizeCourseAuthoredGrammarCatalog(course, gameId, document) {
+function normalizeCourseAuthoredGrammarCatalog(course, gameId, document, resourceName) {
+  if (gameId === "grammar-gravity" && resourceName === "grammarGravityNouns") {
+    return normalizeNounLandingPack(document, {
+      courseId: course.id,
+      targetLanguage: course.targetLanguage?.locale || course.targetLanguage?.id,
+      learnerBaseLanguage: course.sourceLanguage?.locale || course.sourceLanguage?.id
+    });
+  }
   if (gameId === "conjugation-comet") {
     return validateConjugationCometCatalog(document, {
       expectedCourseId: course.id,
@@ -2130,8 +2139,8 @@ function normalizeCourseAuthoredGrammarCatalog(course, gameId, document) {
       expectedTargetLocale: course.targetLanguage?.locale
     });
   }
-  if (gameId === "agreement-aurora") {
-    return normalizeAgreementAuroraPack(document, {
+  if (gameId === "grammar-gravity") {
+    return normalizeGrammarGravityPack(document, {
       courseId: course.id,
       targetLanguage: course.targetLanguage?.locale || course.targetLanguage?.id,
       learnerBaseLanguage: course.sourceLanguage?.locale || course.sourceLanguage?.id,
@@ -2156,7 +2165,7 @@ export function authoredGrammarPromotionIssues(course, gameId, catalog) {
   }
   const approvedReviewState = gameId === "conjugation-comet"
     ? "release-approved"
-    : gameId === "agreement-aurora"
+    : gameId === "grammar-gravity"
       ? "approved"
       : "";
   if (requireNativeReview && catalog?.review?.status !== approvedReviewState) {
@@ -2178,7 +2187,8 @@ async function validateAuthoredGrammarPromotionEvidence(record, repoRoot, issues
   const declaredGames = new Set(Array.isArray(course.games) ? course.games : []);
   const grammarResources = [
     ["conjugation-comet", "conjugationCometCatalog"],
-    ["agreement-aurora", "agreementAuroraCatalog"]
+    ["grammar-gravity", "grammarGravityCatalog"],
+    ["grammar-gravity", "grammarGravityNouns"]
   ];
   for (const [gameId, resourceName] of grammarResources) {
     if (!declaredGames.has(gameId)) continue;
@@ -2188,7 +2198,7 @@ async function validateAuthoredGrammarPromotionEvidence(record, repoRoot, issues
         throw new Error(`${resourceName} cannot be resolved inside its course static root.`);
       }
       const document = await readJsonDocument(confined.file);
-      const catalog = normalizeCourseAuthoredGrammarCatalog(course, gameId, document);
+      const catalog = normalizeCourseAuthoredGrammarCatalog(course, gameId, document, resourceName);
       issues.push(...authoredGrammarPromotionIssues(course, gameId, catalog));
     } catch (error) {
       issues.push({
@@ -2239,13 +2249,45 @@ async function validatePlanetEnglishAudit(record, repoRoot, issues, checkExisten
           message: `${course.id}.${gameId} ${issue.message}`
         });
       }
+      if (gameId === "sound-quasar" && requirement.name === "soundQuasarCatalog") {
+        try {
+          const document = await readJsonDocument(confined.file);
+          const expectedSource = `apps/languages/${course.directoryName}/static/data/games/verb-nebula/core-vocabulary.json`;
+          if (document.provenance?.sourcePath !== expectedSource) {
+            throw new Error(`provenance.sourcePath must equal ${expectedSource}.`);
+          }
+          if (document.audio?.locale !== course.targetLanguage?.speechLocale) {
+            throw new Error("audio.locale must match the course targetLanguage.speechLocale.");
+          }
+          validateSoundQuasarCatalog(document, {
+            courseId: course.id,
+            targetLanguageId: course.targetLanguage?.id,
+            learnerBaseLanguage: course.sourceLanguage?.locale || course.sourceLanguage?.id
+          });
+        } catch (error) {
+          issues.push({
+            code: "content.game-contract",
+            message: `${course.id}.${gameId} ${error.message ?? String(error)}`
+          });
+        }
+      }
       if (
         (gameId === "conjugation-comet" && requirement.name === "conjugationCometCatalog")
-        || (gameId === "agreement-aurora" && requirement.name === "agreementAuroraCatalog")
+        || (gameId === "grammar-gravity" && ["grammarGravityCatalog", "grammarGravityNouns"].includes(requirement.name))
       ) {
         try {
           const document = await readJsonDocument(confined.file);
-          normalizeCourseAuthoredGrammarCatalog(course, gameId, document);
+          const catalog = normalizeCourseAuthoredGrammarCatalog(course, gameId, document, requirement.name);
+          if (gameId === "grammar-gravity" && requirement.name === "grammarGravityCatalog") {
+            const nounResource = await resolveConfinedCourseFile(record, repoRoot, "grammarGravityNouns");
+            if (!nounResource) {
+              throw new Error("grammarGravityNouns cannot be resolved inside its course static root for category validation.");
+            }
+            const nouns = normalizeCourseAuthoredGrammarCatalog(
+              course, gameId, await readJsonDocument(nounResource.file), "grammarGravityNouns"
+            );
+            validateGrammarGravityCategories(catalog, nouns.lanes);
+          }
         } catch (error) {
           issues.push({
             code: "content.game-contract",
@@ -2799,13 +2841,28 @@ export function generateCourseSelectorCatalog(catalogCourses) {
       storage: {
         learningPerformance: candidate.storage.learningPerformance
       },
+      developerContext: {
+        gameContent: courseGameContent(candidate),
+        dictionaryContent: candidate.capabilities.dictionary ? {
+          providerId: candidate.resources.dictionaryProvider.providerId,
+          catalog: courseStaticBrowserPath(candidate, "dictionaryCatalog"),
+          coreEntries: courseStaticBrowserPath(candidate, "dictionaryCoreEntries"),
+          scriptLines: courseStaticBrowserPath(candidate, "dictionaryScriptLines"),
+          referenceDocument: courseStaticBrowserPath(candidate, "dictionaryReferenceDocument")
+        } : null,
+        embeddingContent: candidate.capabilities.embeddings ? {
+          catalog: courseStaticBrowserPath(candidate, "embeddingCatalog")
+        } : null
+      },
       sourceLanguage: { ...candidate.sourceLanguage },
+      interfaceContent: courseInterfaceContent(candidate),
       targetLanguage: {
         id: candidate.targetLanguage.id,
         label: candidate.targetLanguage.label,
         nativeLabel: candidate.targetLanguage.nativeLabel,
         shortCode: candidate.targetLanguage.shortCode,
         locale: candidate.targetLanguage.locale,
+        speechLocale: candidate.targetLanguage.speechLocale,
         direction: candidate.targetLanguage.direction,
         flagClass: candidate.targetLanguage.flagClass,
         flagSrc: candidate.targetLanguage.flagSrc
@@ -2842,9 +2899,19 @@ function courseGameContent(course) {
   }));
 }
 
+function courseInterfaceContent(course) {
+  const resource = course.resources.interfaceCatalog;
+  return {
+    schemaVersion: INTERFACE_CONTENT_SCHEMA_VERSION,
+    locale: course.sourceLanguage.locale,
+    direction: course.sourceLanguage.direction,
+    revision: resource.revision,
+    catalog: setupAssetPathForRuntime(course, resource.path)
+  };
+}
+
 export function generateCourseProfileObject(course, catalogCourses = [course]) {
   const adapterModule = courseStaticBrowserPath(course, "languageAdapter");
-  const interfaceCatalog = course.resources?.interfaceCatalog;
   const browserProviders = Object.fromEntries(BROWSER_PROVIDER_RESOURCE_KEYS.flatMap((name) => {
     const resource = course.resources?.[name];
     const module = courseStaticBrowserPath(course, name);
@@ -2881,13 +2948,12 @@ export function generateCourseProfileObject(course, catalogCourses = [course]) {
       auditLanguage: ENGLISH_AUDIT_LANGUAGE,
       retrievalLanguage: ENGLISH_AUDIT_LANGUAGE
     },
-    interfaceContent: {
-      schemaVersion: INTERFACE_CONTENT_SCHEMA_VERSION,
-      locale: course.sourceLanguage.locale,
-      direction: course.sourceLanguage.direction,
-      revision: interfaceCatalog.revision,
-      catalog: setupAssetPathForRuntime(course, interfaceCatalog.path)
-    },
+    interfaceContent: courseInterfaceContent(course),
+    learnerBasePreview: !isEnglishLanguage(course.sourceLanguage)
+      && course.status === "development"
+      && course.platforms.browser.enabled === true
+      && course.platforms.browser.pagesEnabled === false
+      && course.platforms.android.enabled === false,
     linguisticFeatures: [...(course.linguisticFeatures ?? [])],
     games: [...(course.games ?? [])],
     upcomingGames: [...(course.upcomingGames ?? [])],

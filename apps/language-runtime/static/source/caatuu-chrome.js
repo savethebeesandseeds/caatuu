@@ -14,6 +14,22 @@
     return message;
   }
 
+  function escapeHtmlText(value) {
+    return String(value ?? "").replace(/[&<>"']/gu, (character) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    })[character]);
+  }
+
+  // Catalog messages are plain text. Escape only at HTML template sinks;
+  // textContent and setAttribute must keep the original translated characters.
+  function interfaceHtml(messageId, parameters = {}) {
+    return escapeHtmlText(interfaceMessage(messageId, parameters));
+  }
+
   function interfaceLanguageName(language) {
     const content = globalThis.CaatuuI18n;
     const name = content?.languageName?.(language);
@@ -31,6 +47,7 @@
   const legacySpeechPaceStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.speech.pace.v1`;
   const speechPaceStorageKey = "caatuu.speech.pace.v1";
   const speechMutedStorageKey = "caatuu.speech.muted.v1";
+  const speechAutoplayStorageKey = "caatuu.speech.autoplay.v1";
   const backpackViewStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.navigation.backpack-view.v1`;
   const navigationRequestStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.navigation.request.v1`;
   const experienceIconSrc = "/assets/icons/icon_gem.png";
@@ -57,6 +74,7 @@
   let browserSpeechVoiceEventsBound = false;
   let activeBrowserSpeechSession = null;
   let speechMutedFallback = false;
+  let speechAutoplayFallback = true;
   let activeLanguageSelectorHost = null;
   let languageSelectorSequence = 0;
   let languageSelectorDismissalBound = false;
@@ -251,10 +269,10 @@
       iconSrc: "/assets/planets/case-cosmos.png",
       href: "index.html"
     }),
-    "agreement-aurora": Object.freeze({
-      titleId: "games.agreementaurora.title",
-      summaryId: "games.agreementaurora.summary",
-      iconSrc: "/assets/planets/agreement-aurora.png?v=agreement-aurora-art-2",
+    "grammar-gravity": Object.freeze({
+      titleId: "games.grammargravity.title",
+      summaryId: "games.grammargravity.summary",
+      iconSrc: "/assets/planets/grammar-gravity.png?v=agreement-aurora-art-2",
       href: "index.html"
     }),
     "naturalization-nucleus": Object.freeze({
@@ -278,7 +296,8 @@
   });
 
   function gamePresentation(gameId) {
-    const definition = gamePresentationDefinitions[String(gameId || "").trim()];
+    const canonicalId = shellPolicy.normalizeGameId?.(gameId) ?? String(gameId || "").trim();
+    const definition = gamePresentationDefinitions[canonicalId];
     if (!definition) return null;
     return Object.freeze({
       ...definition,
@@ -300,7 +319,7 @@
     if (gameId === "verb-lab") return course.games?.includes?.("verb-lab") && Boolean(course.routes?.verbNebula);
     if (gameId === "conjugation-comet") return course.capabilities?.conjugationComet === true;
     if (gameId === "case-cosmos") return course.capabilities?.verbs === true && course.capabilities?.dictionary === true;
-    if (gameId === "agreement-aurora") return course.capabilities?.verbs === true;
+    if (gameId === "grammar-gravity") return course.capabilities?.verbs === true;
     if (gameId === "naturalization-nucleus") {
       return course.games?.includes?.("naturalization-nucleus") && Boolean(course.routes?.naturalizationNucleus);
     }
@@ -328,7 +347,7 @@
   }
 
   function normalizeGameId(value) {
-    const gameId = String(value || "").trim();
+    const gameId = shellPolicy.normalizeGameId?.(value) ?? String(value || "").trim();
     if (gameId === "galaxy") return gameId;
     const presentation = gamePresentationDefinitions[gameId];
     return gamePresentationAvailable(gameId, presentation) ? gameId : "";
@@ -681,9 +700,9 @@
       panel.className = "games-menu-backdrop";
       panel.hidden = true;
       panel.innerHTML = `
-        <section class="games-menu-sheet" role="dialog" aria-modal="true" aria-label="${interfaceMessage("nav.choosegame")}">
+        <section class="games-menu-sheet" role="dialog" aria-modal="true" aria-label="${interfaceHtml("nav.choosegame")}">
           <div class="games-menu-body">
-            <nav class="games-menu-grid" role="tablist" aria-label="${interfaceMessage("nav.traininggames")}"></nav>
+            <nav class="games-menu-grid" role="tablist" aria-label="${interfaceHtml("nav.traininggames")}"></nav>
           </div>
         </section>
       `;
@@ -793,7 +812,7 @@
       localTarget.click();
       return;
     }
-    if (["campaign", "verb-lab", "word-net", "conjugation-comet", "case-cosmos", "agreement-aurora", "naturalization-nucleus", "memory-moon", "sound-quasar"].includes(normalizedGameId)) {
+    if (["campaign", "verb-lab", "word-net", "conjugation-comet", "case-cosmos", "grammar-gravity", "naturalization-nucleus", "memory-moon", "sound-quasar"].includes(normalizedGameId)) {
       rememberNavigationRequest(`game:${normalizedGameId}`);
       window.location.href = course.routes.games;
       return;
@@ -805,13 +824,13 @@
     if (document.body?.dataset.campaignActive === "true") return "campaign";
     if (document.querySelector(".conjugation-comet-page")) return "conjugation-comet";
     if (document.querySelector(".case-cosmos-page")) return "case-cosmos";
-    if (document.querySelector(".agreement-aurora-page")) return "agreement-aurora";
+    if (document.querySelector(".grammar-gravity-page")) return "grammar-gravity";
     if (document.querySelector(".word-net-page")) return "word-net";
     if (document.querySelector("#trainPanelVerbLab:not([hidden])")) return "verb-lab";
     if (document.querySelector("#trainPanelWordNet:not([hidden])")) return "word-net";
     if (document.querySelector("#trainPanelConjugationComet:not([hidden])")) return "conjugation-comet";
     if (document.querySelector("#trainPanelCaseCosmos:not([hidden])")) return "case-cosmos";
-    if (document.querySelector("#trainPanelAgreementAurora:not([hidden])")) return "agreement-aurora";
+    if (document.querySelector("#trainPanelGrammarGravity:not([hidden])")) return "grammar-gravity";
     if (document.querySelector("#trainPanelNaturalizationNucleus:not([hidden])")) return "naturalization-nucleus";
     if (document.querySelector("#trainPanelMemoryMoon:not([hidden])")) return "memory-moon";
     if (document.querySelector("#trainPanelSoundQuasar:not([hidden])")) return "sound-quasar";
@@ -1218,6 +1237,27 @@
     }
   }
 
+  function getSpeechAutoplay() {
+    try {
+      const stored = localStorage.getItem(speechAutoplayStorageKey);
+      if (stored !== null) return stored === "true";
+      // Preserve an existing Word World choice when migrating to the shared preference.
+      const legacy = localStorage.getItem(`${course.storage.namespace}.wordNet.speechAutoplay.v2`);
+      if (legacy !== null) {
+        speechAutoplayFallback = legacy === "true";
+        localStorage.setItem(speechAutoplayStorageKey, String(speechAutoplayFallback));
+      }
+    } catch { /* Keep the session preference when storage is unavailable. */ }
+    return speechAutoplayFallback;
+  }
+
+  function setSpeechAutoplay(value) {
+    speechAutoplayFallback = Boolean(value);
+    try { localStorage.setItem(speechAutoplayStorageKey, String(speechAutoplayFallback)); } catch { /* Session-only storage. */ }
+    window.dispatchEvent(new CustomEvent("caatuu:speech-autoplay-change", { detail: { enabled: speechAutoplayFallback } }));
+    return speechAutoplayFallback;
+  }
+
   function updateSpeechMuteControls(root = document) {
     const muted = getSpeechMuted();
     if (document.documentElement?.dataset) {
@@ -1238,6 +1278,9 @@
       status.textContent = muted
         ? interfaceMessage("speech.audio.mutedstatus")
         : interfaceMessage("speech.audio.onstatus");
+    });
+    root.querySelectorAll?.("#naturalizationNucleusFeedbackSound").forEach((button) => {
+      button.disabled = muted;
     });
     return muted;
   }
@@ -1552,7 +1595,7 @@
     const voice = String(options.voice ?? getSpeechVoicePreference()).trim().slice(0, 256);
 
     await stopSpeech();
-    if (getSpeechMuted()) {
+    if (getSpeechMuted() && options.allowWhileMuted !== true) {
       const result = {
         runtime: "caatuu-shared-speech",
         outcome: "muted",
@@ -1659,17 +1702,21 @@
     });
   }
 
+  function speechControl(panel, name) {
+    return panel?.querySelector(`[data-speech-control="${name}"]`) || panel?.querySelector(`#settingsSpeech${name}`);
+  }
+
   async function refreshSpeechVoiceControl(panel) {
-    const select = panel?.querySelector("#settingsSpeechVoice");
-    const status = panel?.querySelector("#settingsSpeechVoiceStatus");
-    const testButton = panel?.querySelector("#settingsSpeechVoiceTest");
-    const installButton = panel?.querySelector("#settingsSpeechVoiceInstall");
-    if (!select || !status || !testButton) return;
+    const select = speechControl(panel, "Voice");
+    const status = speechControl(panel, "VoiceStatus");
+    const testButton = speechControl(panel, "VoiceTest");
+    const installButton = speechControl(panel, "VoiceInstall");
+    if (!select || !status) return;
     updateSpeechPaceControls(panel);
     const request = Number(panel.dataset.speechVoiceRequest || 0) + 1;
     panel.dataset.speechVoiceRequest = String(request);
     select.disabled = true;
-    testButton.disabled = true;
+    if (testButton) testButton.disabled = true;
     status.textContent = interfaceMessage("speech.voice.checking", { language: targetLanguageName });
 
     const result = await getSpeechVoiceControlState();
@@ -1689,12 +1736,14 @@
     select.disabled = !voiceControlAvailable;
     select.dataset.available = String(available);
     select.dataset.voiceCount = String(voices.length);
-    testButton.disabled = !available;
-    testButton.dataset.available = String(available);
+    if (testButton) {
+      testButton.disabled = !available;
+      testButton.dataset.available = String(available);
+    }
     const voiceName = selectedVoice?.name || interfaceMessage("speech.voice.automaticname", {
       language: targetLanguageName
     });
-    testButton.setAttribute("aria-label", interfaceMessage("speech.voice.testlabel", { voice: voiceName }));
+    testButton?.setAttribute("aria-label", interfaceMessage("speech.voice.testlabel", { voice: voiceName }));
     status.textContent = describeSpeechVoiceState(result);
     if (installButton) {
       installButton.hidden = !result.canInstallVoice;
@@ -1704,7 +1753,7 @@
   }
 
   async function playSpeechSettingsPreview(panel) {
-    const status = panel?.querySelector("#settingsSpeechVoiceStatus");
+    const status = speechControl(panel, "VoiceStatus");
     if (status) {
       status.textContent = interfaceMessage("speech.voice.playingsample", { language: targetLanguageName });
     }
@@ -1726,11 +1775,11 @@
   }
 
   function bindSpeechVoiceControl(panel) {
-    const select = panel?.querySelector("#settingsSpeechVoice");
-    const testButton = panel?.querySelector("#settingsSpeechVoiceTest");
-    const status = panel?.querySelector("#settingsSpeechVoiceStatus");
-    const installButton = panel?.querySelector("#settingsSpeechVoiceInstall");
-    if (!select || !testButton || !status || panel.dataset.speechVoiceBound === "true") return;
+    const select = speechControl(panel, "Voice");
+    const testButton = speechControl(panel, "VoiceTest");
+    const status = speechControl(panel, "VoiceStatus");
+    const installButton = speechControl(panel, "VoiceInstall");
+    if (!select || !status || panel.dataset.speechVoiceBound === "true") return;
     panel.dataset.speechVoiceBound = "true";
     select.addEventListener("change", async () => {
       select.disabled = true;
@@ -1739,7 +1788,7 @@
       await refreshSpeechVoiceControl(panel);
       await playSpeechSettingsPreview(panel);
     });
-    testButton.addEventListener("click", async () => {
+    testButton?.addEventListener("click", async () => {
       if (testButton.disabled || testButton.getAttribute("aria-busy") === "true") return;
       const label = testButton.textContent;
       testButton.disabled = true;
@@ -1886,14 +1935,14 @@
   function learningDifficultyButtons() {
     const levels = learning?.difficultyLevels || [];
     return levels.map((option) => `
-      <button type="button" data-difficulty-level="${option.level}" aria-label="${interfaceMessage("progress.challengebadge", {
+      <button type="button" data-difficulty-level="${option.level}" aria-label="${interfaceHtml("progress.challengebadge", {
         badge: option.label,
         level: option.level
       })}">
         <b aria-hidden="true">
           <img src="/assets/icons/difficulty_medal_${option.level}_ui.png?v=ui-1" alt="" loading="lazy" decoding="async">
         </b>
-        <span>${option.label}</span>
+        <span>${escapeHtmlText(option.label)}</span>
       </button>
     `).join("");
   }
@@ -1971,6 +2020,12 @@
     });
     root.querySelectorAll("[data-caatuu-streak-best]").forEach((element) => {
       element.textContent = String(streak.highestDays);
+    });
+    root.querySelectorAll("[data-caatuu-streak-unit]").forEach((element) => {
+      const count = element.dataset.caatuuStreakUnit === "best"
+        ? streak.highestDays
+        : streak.currentDays;
+      element.textContent = interfaceMessage("progress.streak.dayword", { count });
     });
     root.querySelectorAll("[data-caatuu-streak]").forEach((element) => {
       const currentLabel = interfaceMessage("progress.streak.days", { count: streak.currentDays });
@@ -2870,6 +2925,36 @@
     });
   }
 
+  function bindHomeAudioControls() {
+    const menu = document.querySelector("#setupAudioMenu");
+    const panel = document.querySelector("#setupAudioControls");
+    if (!menu || !panel) return;
+    bindSpeechVoiceControl(panel);
+    bindSpeechPaceControl(panel);
+    const refresh = () => {
+      updateSpeechMuteControls(panel);
+      updateSpeechPaceControls(panel);
+      if (menu.open && !getSpeechMuted()) void refreshSpeechVoiceControl(panel);
+    };
+    menu.addEventListener("toggle", () => {
+      if (menu.open) closeWorkspaceDisplayMenu();
+      refresh();
+    });
+    window.addEventListener("caatuu:speech-mute-change", refresh);
+    window.addEventListener("caatuu:speech-pace-change", () => updateSpeechPaceControls(panel));
+    window.addEventListener("caatuu:speech-voice-change", refresh);
+    document.addEventListener("click", (event) => {
+      if (menu.open && !menu.contains(event.target)) menu.open = false;
+    }, true);
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || !menu.open) return;
+      event.preventDefault();
+      menu.open = false;
+      menu.querySelector("summary")?.focus();
+    });
+    refresh();
+  }
+
   function bindSpeechPreferences() {
     document.addEventListener("click", (event) => {
       const button = event.target.closest?.("[data-speech-mute-toggle]");
@@ -2887,6 +2972,14 @@
     });
     window.addEventListener("storage", (event) => {
       const key = String(event?.key || "");
+      if (key === themeStorageKey) {
+        applyTheme(readStoredTheme(), { persist: false });
+        return;
+      }
+      if (key === fontSizeStorageKey) {
+        applyFontSize(readStoredFontSize(), { persist: false });
+        return;
+      }
       if (key === speechPaceStorageKey) {
         void stopSpeech();
         window.dispatchEvent(new CustomEvent("caatuu:speech-pace-change", {
@@ -2903,6 +2996,9 @@
         window.dispatchEvent(new CustomEvent("caatuu:speech-mute-change", {
           detail: { muted }
         }));
+      }
+      if (key === speechAutoplayStorageKey) {
+        window.dispatchEvent(new CustomEvent("caatuu:speech-autoplay-change", { detail: { enabled: getSpeechAutoplay() } }));
       }
     });
   }
@@ -4128,51 +4224,60 @@
     });
   }
 
-  function renderDeveloperToolLinks() {
-    const capabilities = course.capabilities || {};
-    const routes = course.routes || {};
-    return [
-      { href: routes.chat, label: "debug-chat", available: capabilities.chat === true },
-      {
-        href: routes.audioLab,
-        label: "audio-lab",
-        available: capabilities.speech === true && capabilities.offlineModels === true
-      },
-      {
-        href: routes.dictionary,
-        label: `${course.id}-dictionary`,
-        navigationRequest: "dictionary",
-        available: capabilities.dictionary === true
-      },
-      {
-        href: routes.embeddingImages,
-        label: "embedding-images",
-        available: capabilities.embeddings === true
-          && capabilities.semanticSearch === true
-          && capabilities.offlineModels === true
-      },
-      { href: routes.verbDifficulty, label: "verb-difficulty", available: capabilities.verbs === true }
-    ]
-      .filter((tool) => tool.available && typeof tool.href === "string" && tool.href.length > 0)
-      .map((tool) => {
-        const navigationRequest = tool.navigationRequest
-          ? ` data-navigation-request="${tool.navigationRequest}"`
-          : "";
-        return `<a class="advanced-link" href="${tool.href}"${navigationRequest}>${tool.label}</a>`;
-      })
-      .join("");
-  }
-
-  function reconcileDeveloperToolVisibility(panel, developerToolLinks) {
-    if (developerToolLinks) return;
+  function bindDeveloperTools(panel) {
     const details = panel.querySelector(".developer-tools-details");
-    const list = details?.querySelector(".advanced-link-list");
-    if (!details || !list) return;
-    details.dataset.capabilityState = "disabled";
-    const message = document.createElement("p");
-    message.className = "settings-unavailable-note";
-    message.textContent = interfaceMessage("settings.developer.none");
-    list.replaceChildren(message);
+    const root = details?.querySelector(".developer-tools-host");
+    const screenRoot = panel.querySelector("#developerToolScreen");
+    const sheet = panel.querySelector(".settings-sheet");
+    if (!root || !screenRoot || !sheet) return;
+    let sequence = 0;
+    let active = false;
+    let dispose = null;
+    const view = panel.querySelector("#settingsViewPanel");
+    const ancestors = [];
+    for (let ancestor = details.parentElement?.closest("details"); ancestor; ancestor = ancestor.parentElement?.closest("details")) ancestors.push(ancestor);
+    async function sync() {
+      const visible = details.open && ancestors.every((ancestor) => ancestor.open) && !panel.hidden && !view?.hidden;
+      if (visible === active) return;
+      active = visible;
+      const request = ++sequence;
+      dispose?.();
+      dispose = null;
+      root.replaceChildren();
+      if (!visible) return;
+      root.textContent = interfaceMessage("developer.tools.loading");
+      try {
+        const { mountDeveloperTools } = await import("/language-runtime/static/source/developer-tools/developer-tools.mjs?v=developer-tools-3");
+        if (request !== sequence) return;
+        const inspectorCourse = {
+          ...course,
+          courseSelector: {
+            ...course.courseSelector,
+            courses: (course.courseSelector?.courses || [course]).filter(courseSelectorAvailable)
+          }
+        };
+        const cleanup = await mountDeveloperTools({
+          root, screenRoot, host: window, course: inspectorCourse,
+          onNavigate(tool) {
+            panel.classList.toggle("is-developer-tool-open", Boolean(tool));
+            sheet.setAttribute("aria-labelledby", tool ? "developerToolTitle" : "settingsTitle");
+            if (tool) setBottomDockMenu("");
+          }
+        });
+        if (request !== sequence) cleanup?.();
+        else dispose = cleanup;
+      } catch (error) {
+        if (request !== sequence) return;
+        root.textContent = interfaceMessage("developer.tools.unavailable", { reason: String(error?.message || error) });
+      }
+    }
+    details.addEventListener("toggle", sync);
+    ancestors.forEach((ancestor) => ancestor.addEventListener("toggle", sync));
+    if (typeof MutationObserver === "function") {
+      const observer = new MutationObserver(sync);
+      observer.observe(panel, { attributes: true, attributeFilter: ["hidden"] });
+      if (view) observer.observe(view, { attributes: true, attributeFilter: ["hidden"] });
+    }
   }
 
   function configureAiSettingsAvailability(panel, supported) {
@@ -4222,7 +4327,7 @@
 
   function renderSettingsPanel(panel) {
     if (!panel || panel.dataset.caatuuSettingsRendered === "true") return panel;
-    const developerToolLinks = renderDeveloperToolLinks();
+
     panel.id = "settingsPanel";
     panel.className = "settings-backdrop app-settings-backdrop";
     panel.hidden = true;
@@ -4230,12 +4335,12 @@
       <section class="settings-sheet app-settings-sheet" role="dialog" aria-modal="true" aria-labelledby="settingsTitle" data-settings-current-view="items">
         <header class="settings-sheet-head">
           <div class="settings-title-row">
-            <button class="settings-brand-mark" type="button" data-settings-view="items" aria-label="${interfaceMessage("settings.backpack.openitems")}" aria-controls="itemsViewPanel" title="${interfaceMessage("settings.backpack.openitems")}">
+            <button class="settings-brand-mark" type="button" data-settings-view="items" aria-label="${interfaceHtml("settings.backpack.openitems")}" aria-controls="itemsViewPanel" title="${interfaceHtml("settings.backpack.openitems")}">
               <img src="/assets/icons/backpack_icon.png" alt="" decoding="async">
             </button>
             <div class="settings-title-copy">
-              <p class="settings-kicker kicker" id="settingsViewKicker">${interfaceMessage("settings.items.kicker")}</p>
-              <h2 id="settingsTitle">${interfaceMessage("nav.backpack")}</h2>
+              <p class="settings-kicker kicker" id="settingsViewKicker">${interfaceHtml("settings.items.kicker")}</p>
+              <h2 id="settingsTitle">${interfaceHtml("nav.backpack")}</h2>
             </div>
           </div>
           <span
@@ -4246,29 +4351,29 @@
 
         <div class="settings-sheet-body" tabindex="-1">
           <section class="settings-view-panel is-active" id="itemsViewPanel" data-settings-view-panel="items" role="tabpanel" aria-labelledby="itemsViewTab">
-            <section class="backpack-card side-card" aria-label="${interfaceMessage("settings.backpack.traveleraria")}">
+            <section class="backpack-card side-card" aria-label="${interfaceHtml("settings.backpack.traveleraria")}">
               <header class="backpack-profile-head">
-                <div class="traveler-badge" aria-label="${interfaceMessage("settings.backpack.currentbadge")}">
-                  <span class="traveler-badge-level" id="difficultyLevelSummary">${interfaceMessage("progress.level", { level: 2 })}</span>
+                <div class="traveler-badge" aria-label="${interfaceHtml("settings.backpack.currentbadge")}">
+                  <span class="traveler-badge-level" id="difficultyLevelSummary">${interfaceHtml("progress.level", { level: 2 })}</span>
                   <span class="traveler-badge-emblem" aria-hidden="true">
                     <img src="/assets/icons/backpack_icon.png" alt="" decoding="async">
                   </span>
-                  <strong id="difficultyBadgeName">${interfaceMessage("settings.backpack.traveler")}</strong>
+                  <strong id="difficultyBadgeName">${interfaceHtml("settings.backpack.traveler")}</strong>
                 </div>
                 <div class="backpack-profile-copy">
-                  <p class="settings-kicker kicker">${interfaceMessage("settings.journey.record")}</p>
-                  <h3>${interfaceMessage("settings.adventure.title", { language: targetLanguageName })}</h3>
-                  <p>${interfaceMessage("settings.adventure.description")}</p>
+                  <p class="settings-kicker kicker">${interfaceHtml("settings.journey.record")}</p>
+                  <h3>${interfaceHtml("settings.adventure.title", { language: targetLanguageName })}</h3>
+                  <p>${interfaceHtml("settings.adventure.description")}</p>
                 </div>
               </header>
 
-              <div class="backpack-wallet" aria-label="${interfaceMessage("progress.wallet.arialabel")}">
+              <div class="backpack-wallet" aria-label="${interfaceHtml("progress.wallet.arialabel")}">
                 <div class="backpack-wallet-item backpack-wallet-xp">
                   <span class="wallet-token wallet-token-xp" aria-hidden="true"></span>
                   <span class="wallet-copy">
-                    <span>${interfaceMessage("progress.experience")}</span>
+                    <span>${interfaceHtml("progress.experience")}</span>
                     <strong><b id="courseProgressXp">0</b> XP</strong>
-                    <small>${interfaceMessage("progress.correctanswers")}</small>
+                    <small>${interfaceHtml("progress.correctanswers")}</small>
                   </span>
                 </div>
                 <div class="backpack-wallet-item backpack-wallet-coins">
@@ -4276,9 +4381,9 @@
                     <img src="/assets/icons/coin_icon_ui.png" alt="" loading="lazy" decoding="async">
                   </span>
                   <span class="wallet-copy">
-                    <span>${interfaceMessage("progress.coins")}</span>
+                    <span>${interfaceHtml("progress.coins")}</span>
                     <strong id="courseProgressCoins">0</strong>
-                    <small>${interfaceMessage("progress.completedrounds")}</small>
+                    <small>${interfaceHtml("progress.completedrounds")}</small>
                   </span>
                 </div>
                 <div class="backpack-wallet-item backpack-wallet-streak" data-caatuu-streak>
@@ -4286,10 +4391,10 @@
                     <img src="${streakIconSrc}" alt="" loading="lazy" decoding="async">
                   </span>
                   <span class="wallet-copy">
-                    <span>${interfaceMessage("progress.streak.label")}</span>
-                    <strong><b data-caatuu-streak-count>0</b> ${interfaceMessage("progress.streak.dayword", { count: 0 })}</strong>
-                    <small>${interfaceMessage("progress.streak.bestlabel")} <b data-caatuu-streak-best>0</b> ${interfaceMessage("progress.streak.dayword", { count: 0 })}</small>
-                    <button class="streak-reminder-toggle" type="button" data-streak-reminder-toggle>${interfaceMessage("progress.reminders.enable")}</button>
+                    <span>${interfaceHtml("progress.streak.label")}</span>
+                    <strong><b data-caatuu-streak-count>0</b> <span data-caatuu-streak-unit="current">${interfaceHtml("progress.streak.dayword", { count: 0 })}</span></strong>
+                    <small>${interfaceHtml("progress.streak.bestlabel")} <b data-caatuu-streak-best>0</b> <span data-caatuu-streak-unit="best">${interfaceHtml("progress.streak.dayword", { count: 0 })}</span></small>
+                    <button class="streak-reminder-toggle" type="button" data-streak-reminder-toggle>${interfaceHtml("progress.reminders.enable")}</button>
                   </span>
                 </div>
               </div>
@@ -4297,45 +4402,45 @@
               <details class="badge-collection" open>
                 <summary>
                   <span>
-                    <small>${interfaceMessage("settings.challenge")}</small>
-                    <strong>${interfaceMessage("settings.backpack.travelerbadge")}</strong>
+                    <small>${interfaceHtml("settings.challenge")}</small>
+                    <strong>${interfaceHtml("settings.backpack.travelerbadge")}</strong>
                   </span>
-                  <small>${interfaceMessage("settings.choosepace")}</small>
+                  <small>${interfaceHtml("settings.choosepace")}</small>
                 </summary>
                 <div class="difficulty-setting-row">
-                  <div class="difficulty-control" role="group" aria-label="${interfaceMessage("settings.difficulty.badges")}">
+                  <div class="difficulty-control" role="group" aria-label="${interfaceHtml("settings.difficulty.badges")}">
                     ${learningDifficultyButtons()}
                   </div>
-                  <p id="difficultyDescription">${interfaceMessage("settings.difficulty.defaultsummary")}</p>
+                  <p id="difficultyDescription">${interfaceHtml("settings.difficulty.defaultsummary")}</p>
                 </div>
               </details>
 
               <div class="learning-progress-note">
-                <p id="courseProgressSummary">${interfaceMessage("progress.record.empty")}</p>
-                <small>${interfaceMessage("settings.rewards.future")}</small>
+                <p id="courseProgressSummary">${interfaceHtml("progress.record.empty")}</p>
+                <small>${interfaceHtml("settings.rewards.future")}</small>
               </div>
               <p class="learning-status" id="learningStatus" role="status" aria-live="polite" aria-atomic="true"></p>
             </section>
           </section>
 
           <section class="settings-view-panel" id="statsViewPanel" data-settings-view-panel="stats" role="tabpanel" aria-labelledby="statsViewTab" hidden>
-            <section class="backpack-card backpack-stats-card side-card" aria-label="${interfaceMessage("settings.stats.arialabel")}">
+            <section class="backpack-card backpack-stats-card side-card" aria-label="${interfaceHtml("settings.stats.arialabel")}">
               <header class="backpack-section-intro">
                 <img src="/assets/icons/stats_icon.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
                 <span>
-                  <span class="settings-kicker kicker">${interfaceMessage("settings.journey.record")}</span>
-                  <strong>${interfaceMessage("settings.stats.title")}</strong>
-                  <small>${interfaceMessage("settings.stats.description")}</small>
+                  <span class="settings-kicker kicker">${interfaceHtml("settings.journey.record")}</span>
+                  <strong>${interfaceHtml("settings.stats.title")}</strong>
+                  <small>${interfaceHtml("settings.stats.description")}</small>
                 </span>
               </header>
               <div id="backpackStatsMount">
-                <div class="journey-ledger" aria-label="${interfaceMessage("settings.stats.performance")}">
+                <div class="journey-ledger" aria-label="${interfaceHtml("settings.stats.performance")}">
                   <div>
-                    <span>${interfaceMessage("progress.activities")}</span>
+                    <span>${interfaceHtml("progress.activities")}</span>
                     <strong id="courseProgressActivities">0</strong>
                   </div>
                   <div>
-                    <span>${interfaceMessage("progress.accuracy")}</span>
+                    <span>${interfaceHtml("progress.accuracy")}</span>
                     <strong id="courseProgressAccuracy">—</strong>
                   </div>
                 </div>
@@ -4366,51 +4471,51 @@
           </section>
 
           <section class="settings-view-panel" id="settingsViewPanel" data-settings-view-panel="settings" role="tabpanel" aria-labelledby="settingsViewTab" hidden>
-          <section class="settings-card side-card settings-section-card appearance-card" aria-label="${interfaceMessage("settings.appearance.label")}">
+          <section class="settings-card side-card settings-section-card appearance-card" aria-label="${interfaceHtml("settings.appearance.label")}">
             <details class="settings-section-details" id="settingsAppearanceDetails" open>
               <summary class="settings-section-summary">
                 <span class="settings-section-title">
-                  <span class="settings-kicker kicker">${interfaceMessage("settings.appearance.label")}</span>
-                  <strong>${interfaceMessage("settings.appearance.display")}</strong>
+                  <span class="settings-kicker kicker">${interfaceHtml("settings.appearance.label")}</span>
+                  <strong>${interfaceHtml("settings.appearance.display")}</strong>
                 </span>
-                <small>${interfaceMessage("settings.appearance.summary")}</small>
+                <small>${interfaceHtml("settings.appearance.summary")}</small>
               </summary>
               <div class="settings-section-body appearance-settings-body">
-                <p class="settings-summary appearance-settings-intro">${interfaceMessage("settings.appearance.description")}</p>
+                <p class="settings-summary appearance-settings-intro">${interfaceHtml("settings.appearance.description")}</p>
                 <div class="appearance-controls">
               <div class="appearance-control-row">
                 <span class="appearance-control-label">
-                  <strong>${interfaceMessage("settings.theme.label")}</strong>
-                  <small>${interfaceMessage("settings.theme.description")}</small>
+                  <strong>${interfaceHtml("settings.theme.label")}</strong>
+                  <small>${interfaceHtml("settings.theme.description")}</small>
                 </span>
-                <div class="theme-control" role="group" aria-label="${interfaceMessage("settings.theme.label")}">
+                <div class="theme-control" role="group" aria-label="${interfaceHtml("settings.theme.label")}">
                   <button type="button" data-theme-option="light">
                     <img class="theme-control-icon" src="${lightModeIconSrc}" alt="" aria-hidden="true" loading="lazy" decoding="async">
-                    <b>${interfaceMessage("settings.theme.light")}</b>
+                    <b>${interfaceHtml("settings.theme.light")}</b>
                   </button>
                   <button type="button" data-theme-option="dark">
                     <img class="theme-control-icon" src="/assets/icons/dark_mode_ui.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
-                    <b>${interfaceMessage("settings.theme.dark")}</b>
+                    <b>${interfaceHtml("settings.theme.dark")}</b>
                   </button>
                 </div>
               </div>
               <div class="appearance-control-row">
                 <span class="appearance-control-label">
-                  <strong>${interfaceMessage("settings.textsize.label")}</strong>
-                  <small>${interfaceMessage("settings.textsize.description")}</small>
+                  <strong>${interfaceHtml("settings.textsize.label")}</strong>
+                  <small>${interfaceHtml("settings.textsize.description")}</small>
                 </span>
-                <div class="font-size-control" role="group" aria-label="${interfaceMessage("settings.textsize.label")}">
-                  <button type="button" data-font-size-option="largest" aria-label="${interfaceMessage("settings.textsize.usestandard")}">
+                <div class="font-size-control" role="group" aria-label="${interfaceHtml("settings.textsize.label")}">
+                  <button type="button" data-font-size-option="largest" aria-label="${interfaceHtml("settings.textsize.usestandard")}">
                     <span class="font-size-sample is-largest" aria-hidden="true">A</span>
-                    <b>${interfaceMessage("settings.textsize.standard")}</b>
+                    <b>${interfaceHtml("settings.textsize.standard")}</b>
                   </button>
-                  <button type="button" data-font-size-option="large" aria-label="${interfaceMessage("settings.textsize.usesmall")}">
+                  <button type="button" data-font-size-option="large" aria-label="${interfaceHtml("settings.textsize.usesmall")}">
                     <span class="font-size-sample is-large" aria-hidden="true">A</span>
-                    <b>${interfaceMessage("settings.textsize.small")}</b>
+                    <b>${interfaceHtml("settings.textsize.small")}</b>
                   </button>
-                  <button type="button" data-font-size-option="standard" aria-label="${interfaceMessage("settings.textsize.usesmaller")}">
+                  <button type="button" data-font-size-option="standard" aria-label="${interfaceHtml("settings.textsize.usesmaller")}">
                     <span class="font-size-sample is-standard" aria-hidden="true">A</span>
-                    <b>${interfaceMessage("settings.textsize.smaller")}</b>
+                    <b>${interfaceHtml("settings.textsize.smaller")}</b>
                   </button>
                 </div>
               </div>
@@ -4419,52 +4524,52 @@
             </details>
           </section>
 
-          <section class="settings-card side-card settings-section-card speech-settings-card" aria-label="${interfaceMessage("speech.pronunciation.label", { language: targetLanguageName })}">
+          <section class="settings-card side-card settings-section-card speech-settings-card" aria-label="${interfaceHtml("speech.pronunciation.label", { language: targetLanguageName })}">
             <details class="settings-section-details" id="settingsSpeechDetails">
               <summary class="settings-section-summary">
                 <span class="settings-section-title">
-                  <span class="settings-kicker kicker">${interfaceMessage("speech.audio.label")}</span>
-                  <strong>${interfaceMessage("speech.voice.label", { language: targetLanguageName })}</strong>
+                  <span class="settings-kicker kicker">${interfaceHtml("speech.audio.label")}</span>
+                  <strong>${interfaceHtml("speech.voice.label", { language: targetLanguageName })}</strong>
                 </span>
-                <small>${interfaceMessage("speech.summary")}</small>
+                <small>${interfaceHtml("speech.summary")}</small>
               </summary>
               <div class="settings-section-body speech-settings-body">
                 <button class="speech-master-mute" type="button" role="switch" aria-checked="false" data-speech-mute-toggle>
                   <span>
-                    <b data-speech-mute-label>${interfaceMessage("speech.audio.muteall")}</b>
-                    <small data-speech-mute-status>${interfaceMessage("speech.audio.onstatus")}</small>
+                    <b data-speech-mute-label>${interfaceHtml("speech.audio.muteall")}</b>
+                    <small data-speech-mute-status>${interfaceHtml("speech.audio.onstatus")}</small>
                   </span>
                   <i aria-hidden="true"></i>
                 </button>
                 <div class="speech-voice-row">
               <label class="speech-voice-label" for="settingsSpeechVoice">
-                <b>${interfaceMessage("speech.voice.label", { language: targetLanguageName })}</b>
-                <small>${interfaceMessage("speech.voice.source")}</small>
+                <b>${interfaceHtml("speech.voice.label", { language: targetLanguageName })}</b>
+                <small>${interfaceHtml("speech.voice.source")}</small>
               </label>
               <div class="speech-voice-controls">
                 <select id="settingsSpeechVoice" aria-describedby="settingsSpeechVoiceStatus" disabled>
-                  <option value="">${interfaceMessage("speech.voice.automaticrecommended")}</option>
+                  <option value="">${interfaceHtml("speech.voice.automaticrecommended")}</option>
                 </select>
-                <button class="settings-raised-action speech-voice-test" type="button" id="settingsSpeechVoiceTest" aria-describedby="settingsSpeechVoiceStatus" disabled>${interfaceMessage("common.test")}</button>
-                <button class="settings-raised-action speech-voice-install" type="button" id="settingsSpeechVoiceInstall" aria-describedby="settingsSpeechVoiceStatus" hidden>${interfaceMessage("speech.voice.install", { language: targetLanguageName })}</button>
-                <p class="settings-summary" id="settingsSpeechVoiceStatus" role="status" aria-live="polite" aria-atomic="true">${interfaceMessage("speech.voice.automaticbest", { language: targetLanguageName })}</p>
+                <button class="settings-raised-action speech-voice-test" type="button" id="settingsSpeechVoiceTest" aria-describedby="settingsSpeechVoiceStatus" disabled>${interfaceHtml("common.test")}</button>
+                <button class="settings-raised-action speech-voice-install" type="button" id="settingsSpeechVoiceInstall" aria-describedby="settingsSpeechVoiceStatus" hidden>${interfaceHtml("speech.voice.install", { language: targetLanguageName })}</button>
+                <p class="settings-summary" id="settingsSpeechVoiceStatus" role="status" aria-live="polite" aria-atomic="true">${interfaceHtml("speech.voice.automaticbest", { language: targetLanguageName })}</p>
               </div>
             </div>
             <div class="speech-rate-row">
               <span class="speech-voice-label">
-                <b>${interfaceMessage("speech.pace.label")}</b>
-                <small>${interfaceMessage("settings.choosepace")}</small>
+                <b>${interfaceHtml("speech.pace.label")}</b>
+                <small>${interfaceHtml("settings.choosepace")}</small>
               </span>
               <div class="speech-rate-controls">
-                <div class="speech-pace-control" role="group" aria-label="${interfaceMessage("speech.pace.language", { language: targetLanguageName })}">
-                  <input type="range" min="0" max="2" step="1" value="0" data-speech-pace-slider aria-label="${interfaceMessage("speech.pace.language", { language: targetLanguageName })}" aria-describedby="settingsSpeechPaceStatus">
+                <div class="speech-pace-control" role="group" aria-label="${interfaceHtml("speech.pace.language", { language: targetLanguageName })}">
+                  <input type="range" min="0" max="2" step="1" value="0" data-speech-pace-slider aria-label="${interfaceHtml("speech.pace.language", { language: targetLanguageName })}" aria-describedby="settingsSpeechPaceStatus">
                   <span class="speech-pace-ticks" aria-hidden="true">
-                    <span><b>${interfaceMessage("speech.pace.slower")}</b><small>0.5×</small></span>
-                    <span><b>${interfaceMessage("speech.pace.slow")}</b><small>0.6×</small></span>
-                    <span><b>${interfaceMessage("speech.pace.normal")}</b><small>1×</small></span>
+                    <span><b>${interfaceHtml("speech.pace.slower")}</b><small>0.5×</small></span>
+                    <span><b>${interfaceHtml("speech.pace.slow")}</b><small>0.6×</small></span>
+                    <span><b>${interfaceHtml("speech.pace.normal")}</b><small>1×</small></span>
                   </span>
                 </div>
-                <p class="settings-summary" id="settingsSpeechPaceStatus" role="status" aria-live="polite" aria-atomic="true">${interfaceMessage("speech.pace.badgestatus", {
+                <p class="settings-summary" id="settingsSpeechPaceStatus" role="status" aria-live="polite" aria-atomic="true">${interfaceHtml("speech.pace.badgestatus", {
                   badge: interfaceMessage("settings.backpack.explorer"),
                   pace: interfaceMessage("speech.pace.slower"),
                   rate: 0.5
@@ -4475,55 +4580,55 @@
             </details>
           </section>
 
-          <section class="settings-card side-card settings-section-card app-controls-card" aria-label="${interfaceMessage("settings.advanced.arialabel")}">
+          <section class="settings-card side-card settings-section-card app-controls-card" aria-label="${interfaceHtml("settings.advanced.arialabel")}">
             <details class="settings-section-details">
               <summary class="settings-section-summary">
                 <span class="settings-section-title">
-                  <span class="settings-kicker kicker">${interfaceMessage("settings.app")}</span>
-                  <strong>${interfaceMessage("settings.advanced.label")}</strong>
+                  <span class="settings-kicker kicker">${interfaceHtml("settings.app")}</span>
+                  <strong>${interfaceHtml("settings.advanced.label")}</strong>
                 </span>
-                <small>${interfaceMessage("settings.advanced.summary")}</small>
+                <small>${interfaceHtml("settings.advanced.summary")}</small>
               </summary>
               <div class="settings-section-body">
-          <section class="settings-card side-card ai-settings-card" aria-label="${interfaceMessage("settings.ai.chatarialabel")}">
+          <section class="settings-card side-card ai-settings-card" aria-label="${interfaceHtml("settings.ai.chatarialabel")}">
             <details class="settings-details">
               <summary class="settings-collapsible-summary">
                 <span class="settings-summary-title">
-                  <span class="settings-kicker kicker">${interfaceMessage("settings.ai.label")}</span>
-                  <strong>${interfaceMessage("settings.ai.model")}</strong>
+                  <span class="settings-kicker kicker">${interfaceHtml("settings.ai.label")}</span>
+                  <strong>${interfaceHtml("settings.ai.model")}</strong>
                 </span>
-                <small>${interfaceMessage("settings.controls")}</small>
+                <small>${interfaceHtml("settings.controls")}</small>
               </summary>
               <div class="settings-details-body">
                 <label class="setting-select">
                   <span>
-                      <b>${interfaceMessage("settings.ai.modelshort")}</b>
-                      <small id="modelChoiceSummary">${interfaceMessage("settings.ai.coursemodel")}</small>
+                      <b>${interfaceHtml("settings.ai.modelshort")}</b>
+                      <small id="modelChoiceSummary">${interfaceHtml("settings.ai.coursemodel")}</small>
                   </span>
                   <select id="settingsModel">
-                    <option value="" selected>${interfaceMessage("settings.ai.coursemodel")}</option>
+                    <option value="" selected>${interfaceHtml("settings.ai.coursemodel")}</option>
                   </select>
                 </label>
 
-                <div class="preset-control" role="group" aria-label="${interfaceMessage("settings.ai.preset")}">
-                  <button type="button" data-preset="fast">${interfaceMessage("settings.ai.fast")}</button>
-                  <button type="button" data-preset="chat">${interfaceMessage("settings.ai.chat")}</button>
-                  <button type="button" data-preset="careful">${interfaceMessage("settings.ai.careful")}</button>
+                <div class="preset-control" role="group" aria-label="${interfaceHtml("settings.ai.preset")}">
+                  <button type="button" data-preset="fast">${interfaceHtml("settings.ai.fast")}</button>
+                  <button type="button" data-preset="chat">${interfaceHtml("settings.ai.chat")}</button>
+                  <button type="button" data-preset="careful">${interfaceHtml("settings.ai.careful")}</button>
                 </div>
-                <p class="settings-summary" id="settingsSummary">${interfaceMessage("settings.ai.chatselected")}</p>
+                <p class="settings-summary" id="settingsSummary">${interfaceHtml("settings.ai.chatselected")}</p>
 
                 <div class="settings-grid">
                   <label class="setting-toggle">
                     <span>
-                      <b>${interfaceMessage("settings.ai.thinking")}</b>
-                      <small id="thinkingSupport">${interfaceMessage("settings.ai.supportchecking")}</small>
+                      <b>${interfaceHtml("settings.ai.thinking")}</b>
+                      <small id="thinkingSupport">${interfaceHtml("settings.ai.supportchecking")}</small>
                     </span>
                     <input id="thinkingEnabled" type="checkbox">
                   </label>
 
                   <label class="setting-field">
                     <span>
-                      <b>${interfaceMessage("settings.ai.maxtokens")}</b>
+                      <b>${interfaceHtml("settings.ai.maxtokens")}</b>
                       <output id="maxTokensValue">384</output>
                     </span>
                     <input id="maxTokens" type="range" min="64" max="1024" step="32" value="384">
@@ -4531,158 +4636,159 @@
 
                   <label class="setting-field">
                     <span>
-                      <b>${interfaceMessage("settings.ai.temperature")}</b>
+                      <b>${interfaceHtml("settings.ai.temperature")}</b>
                       <output id="temperatureValue">0.2</output>
                     </span>
                     <input id="temperature" type="range" min="0" max="1" step="0.1" value="0.2">
-                    <small id="temperatureSupport">${interfaceMessage("settings.ai.modelsaved")}</small>
+                    <small id="temperatureSupport">${interfaceHtml("settings.ai.modelsaved")}</small>
                   </label>
 
                   <label class="setting-select">
                     <span>
-                      <b>${interfaceMessage("settings.ai.context")}</b>
-                      <small id="contextSupport">${interfaceMessage("settings.ai.nativesaved")}</small>
+                      <b>${interfaceHtml("settings.ai.context")}</b>
+                      <small id="contextSupport">${interfaceHtml("settings.ai.nativesaved")}</small>
                     </span>
                     <select id="contextSize">
-                      <option value="768">${interfaceMessage("settings.ai.tokens", { count: 768 })}</option>
-                      <option value="1024">${interfaceMessage("settings.ai.tokens", { count: 1024 })}</option>
-                      <option value="2048" selected>${interfaceMessage("settings.ai.tokens", { count: 2048 })}</option>
-                      <option value="4096">${interfaceMessage("settings.ai.tokens", { count: 4096 })}</option>
-                      <option value="8192">${interfaceMessage("settings.ai.tokens", { count: 8192 })}</option>
+                      <option value="768">${interfaceHtml("settings.ai.tokens", { count: 768 })}</option>
+                      <option value="1024">${interfaceHtml("settings.ai.tokens", { count: 1024 })}</option>
+                      <option value="2048" selected>${interfaceHtml("settings.ai.tokens", { count: 2048 })}</option>
+                      <option value="4096">${interfaceHtml("settings.ai.tokens", { count: 4096 })}</option>
+                      <option value="8192">${interfaceHtml("settings.ai.tokens", { count: 8192 })}</option>
                     </select>
                   </label>
 
                   <label class="setting-select">
                     <span>
-                      <b>${interfaceMessage("settings.ai.reasoningdisplay")}</b>
-                      <small>${interfaceMessage("settings.ai.visibleoutput")}</small>
+                      <b>${interfaceHtml("settings.ai.reasoningdisplay")}</b>
+                      <small>${interfaceHtml("settings.ai.visibleoutput")}</small>
                     </span>
                     <select id="reasoningDisplay">
-                      <option value="collapsed" selected>${interfaceMessage("settings.ai.collapsed")}</option>
-                      <option value="expanded">${interfaceMessage("settings.ai.expanded")}</option>
-                      <option value="hidden">${interfaceMessage("settings.ai.hidden")}</option>
+                      <option value="collapsed" selected>${interfaceHtml("settings.ai.collapsed")}</option>
+                      <option value="expanded">${interfaceHtml("settings.ai.expanded")}</option>
+                      <option value="hidden">${interfaceHtml("settings.ai.hidden")}</option>
                     </select>
                   </label>
                 </div>
-                <p class="capability-note" id="capabilityNote">${interfaceMessage("settings.ai.shared")}</p>
-              </div>
-            </details>
-            <details class="settings-details developer-tools-details">
-              <summary class="settings-collapsible-summary">
-                <span class="settings-summary-title">
-                  <span class="settings-kicker kicker">${interfaceMessage("settings.developer.label")}</span>
-                  <strong>${interfaceMessage("settings.developer.tools")}</strong>
-                </span>
-              </summary>
-              <div class="settings-details-body">
-                <nav class="advanced-link-list" aria-label="${interfaceMessage("settings.developer.tools")}">
-                  ${developerToolLinks}
-                </nav>
+                <p class="capability-note" id="capabilityNote">${interfaceHtml("settings.ai.shared")}</p>
               </div>
             </details>
           </section>
 
-          <section class="settings-card side-card maintenance-card" aria-label="${interfaceMessage("settings.appsettings")}">
+          <section class="settings-card side-card developer-tools-card">
+            <details class="settings-details developer-tools-details">
+              <summary class="settings-collapsible-summary">
+                <span class="settings-summary-title">
+                  <span class="settings-kicker kicker">${interfaceHtml("settings.developer.label")}</span>
+                  <strong>${interfaceHtml("settings.developer.tools")}</strong>
+                </span>
+              </summary>
+              <div class="settings-details-body">
+                <div class="developer-tools-host" aria-label="${interfaceHtml("settings.developer.tools")}"></div>
+              </div>
+            </details>
+          </section>
+
+          <section class="settings-card side-card maintenance-card" aria-label="${interfaceHtml("settings.appsettings")}">
             <div class="settings-card-head side-head">
-              <p class="settings-kicker kicker">${interfaceMessage("settings.app")}</p>
-              <h3>${interfaceMessage("settings.storage.title")}</h3>
+              <p class="settings-kicker kicker">${interfaceHtml("settings.app")}</p>
+              <h3>${interfaceHtml("settings.storage.title")}</h3>
             </div>
             <dl class="meta-list course-meta">
               <div>
-                <dt>${interfaceMessage("settings.course.label")}</dt>
-                <dd>${interfaceMessage("settings.course.pair", {
+                <dt>${interfaceHtml("settings.course.label")}</dt>
+                <dd>${interfaceHtml("settings.course.pair", {
                   source: interfaceLanguageName(course.sourceLanguage),
                   target: targetLanguageName
                 })}</dd>
               </div>
               <div>
-                <dt>${interfaceMessage("settings.workspace")}</dt>
-                <dd>${course.workspaceLabel}</dd>
+                <dt>${interfaceHtml("settings.workspace")}</dt>
+                <dd>${escapeHtmlText(course.workspaceLabel)}</dd>
               </div>
             </dl>
             <div class="maintenance-action-list">
               <div class="maintenance-action-row" data-maintenance-action-row hidden>
                 <span class="maintenance-action-copy">
-                  <strong>${interfaceMessage("settings.update.title")}</strong>
-                  <small data-update-app-copy>${interfaceMessage("settings.update.description")}</small>
+                  <strong>${interfaceHtml("settings.update.title")}</strong>
+                  <small data-update-app-copy>${interfaceHtml("settings.update.description")}</small>
                 </span>
-                <button class="maintenance-row-control pwa-install-action" type="button" id="updateApp" aria-describedby="maintenanceStatus" hidden>${interfaceMessage("settings.update.action")}</button>
+                <button class="maintenance-row-control pwa-install-action" type="button" id="updateApp" aria-describedby="maintenanceStatus" hidden>${interfaceHtml("settings.update.action")}</button>
               </div>
               <div class="maintenance-action-row">
                 <span class="maintenance-action-copy">
-                  <strong>${interfaceMessage("settings.cache.title")}</strong>
-                  <small>${interfaceMessage("settings.cache.description")}</small>
+                  <strong>${interfaceHtml("settings.cache.title")}</strong>
+                  <small>${interfaceHtml("settings.cache.description")}</small>
                 </span>
-                <button class="maintenance-row-control settings-cache-action" type="button" id="clearCache">${interfaceMessage("common.clear")}</button>
+                <button class="maintenance-row-control settings-cache-action" type="button" id="clearCache">${interfaceHtml("common.clear")}</button>
               </div>
               <div class="maintenance-action-row">
                 <span class="maintenance-action-copy">
-                  <strong>${interfaceMessage("settings.progress.title")}</strong>
-                  <small>${interfaceMessage("settings.progress.description")}</small>
+                  <strong>${interfaceHtml("settings.progress.title")}</strong>
+                  <small>${interfaceHtml("settings.progress.description")}</small>
                 </span>
-                <button class="maintenance-row-control settings-danger-action course-reset-action" type="button" id="settingsResetCourseProgress">${interfaceMessage("common.restart")}</button>
+                <button class="maintenance-row-control settings-danger-action course-reset-action" type="button" id="settingsResetCourseProgress">${interfaceHtml("common.restart")}</button>
               </div>
             </div>
             <p class="maintenance-status" id="maintenanceStatus" role="status" aria-live="polite" aria-atomic="true"></p>
             <div class="maintenance-install-row" id="browserInstallActions">
               <span class="maintenance-action-copy">
-                <strong>${interfaceMessage("settings.install.title")}</strong>
-                <small id="pwaInstallStatus">${interfaceMessage("common.browser")}</small>
+                <strong>${interfaceHtml("settings.install.title")}</strong>
+                <small id="pwaInstallStatus">${interfaceHtml("common.browser")}</small>
               </span>
               <span class="maintenance-install-actions">
-                <button class="pwa-install-action" type="button" id="installPwaAction" disabled>${interfaceMessage("common.browser")}</button>
-                <a class="pwa-install-action android-install-action" id="installAndroidAction" aria-disabled="true">${interfaceMessage("common.checking")}</a>
+                <button class="pwa-install-action" type="button" id="installPwaAction" disabled>${interfaceHtml("common.browser")}</button>
+                <a class="pwa-install-action android-install-action" id="installAndroidAction" aria-disabled="true">${interfaceHtml("common.checking")}</a>
               </span>
             </div>
-            <p class="pwa-install-help" id="pwaInstallHelp" hidden>${interfaceMessage("settings.install.browserhelp")}</p>
+            <p class="pwa-install-help" id="pwaInstallHelp" hidden>${interfaceHtml("settings.install.browserhelp")}</p>
           </section>
               </div>
             </details>
           </section>
 
-          <section class="settings-card side-card about-card" aria-label="${interfaceMessage("settings.about.label")}">
+          <section class="settings-card side-card about-card" aria-label="${interfaceHtml("settings.about.label")}">
             <div class="settings-card-head side-head">
-              <p class="settings-kicker kicker">${interfaceMessage("settings.about.label")}</p>
-              <h3>${interfaceMessage("settings.about.details")}</h3>
+              <p class="settings-kicker kicker">${interfaceHtml("settings.about.label")}</p>
+              <h3>${interfaceHtml("settings.about.details")}</h3>
             </div>
             <dialog class="settings-update-dialog" id="appUpdateConfirmDialog" aria-labelledby="appUpdateConfirmTitle" aria-describedby="appUpdateConfirmVersions appUpdateConfirmNote">
               <form class="settings-update-dialog-card" method="dialog">
-                <p class="settings-kicker kicker">${interfaceMessage("settings.update.app")}</p>
-                <h3 id="appUpdateConfirmTitle">${interfaceMessage("settings.update.confirmtitle")}</h3>
-                <p id="appUpdateConfirmVersions">${interfaceMessage("settings.update.loadingversion")}</p>
-                <p class="settings-update-dialog-note" id="appUpdateConfirmNote">${interfaceMessage("settings.update.confirmnote")}</p>
+                <p class="settings-kicker kicker">${interfaceHtml("settings.update.app")}</p>
+                <h3 id="appUpdateConfirmTitle">${interfaceHtml("settings.update.confirmtitle")}</h3>
+                <p id="appUpdateConfirmVersions">${interfaceHtml("settings.update.loadingversion")}</p>
+                <p class="settings-update-dialog-note" id="appUpdateConfirmNote">${interfaceHtml("settings.update.confirmnote")}</p>
                 <div class="settings-update-dialog-actions">
-                  <button type="submit" value="cancel">${interfaceMessage("common.notnow")}</button>
-                  <button class="is-primary" id="appUpdateConfirmAction" type="submit" value="confirm">${interfaceMessage("settings.update.continuetosetup")}</button>
+                  <button type="submit" value="cancel">${interfaceHtml("common.notnow")}</button>
+                  <button class="is-primary" id="appUpdateConfirmAction" type="submit" value="confirm">${interfaceHtml("settings.update.continuetosetup")}</button>
                 </div>
               </form>
             </dialog>
-            <p class="about-brand-note">${interfaceMessage("settings.about.brandprefix")} <a href="https://www.waajacu.com/" rel="noopener">Waajacu<sup class="brand-trademark" aria-hidden="true">™</sup></a>.</p>
-            <p class="version-note">${interfaceMessage("settings.about.preview")}</p>
+            <p class="about-brand-note">${interfaceHtml("settings.about.brandprefix")} <a href="https://www.waajacu.com/" rel="noopener">Waajacu<sup class="brand-trademark" aria-hidden="true">™</sup></a>.</p>
+            <p class="version-note">${interfaceHtml("settings.about.preview")}</p>
             <div class="legal-notice" role="note">
               <span class="legal-notice-icon" aria-hidden="true">!</span>
               <div>
-                <strong>${interfaceMessage("settings.ai.legaltitle")}</strong>
-                <p>${interfaceMessage("settings.ai.legalnotice")}</p>
+                <strong>${interfaceHtml("settings.ai.legaltitle")}</strong>
+                <p>${interfaceHtml("settings.ai.legalnotice")}</p>
               </div>
             </div>
             <details class="settings-details model-details legal-details">
               <summary class="settings-collapsible-summary">
                 <span class="settings-summary-title">
-                  <span class="settings-kicker kicker">${interfaceMessage("settings.legal.label")}</span>
-                  <strong>${interfaceMessage("settings.legal.licenses")}</strong>
+                  <span class="settings-kicker kicker">${interfaceHtml("settings.legal.label")}</span>
+                  <strong>${interfaceHtml("settings.legal.licenses")}</strong>
                 </span>
-                <small id="licenseMetaSummary">${interfaceMessage("settings.legal.componentterms")}</small>
+                <small id="licenseMetaSummary">${interfaceHtml("settings.legal.componentterms")}</small>
               </summary>
               <div class="settings-details-body">
                 <div class="license-copy">
-                  <p>${interfaceMessage("settings.legal.softwareterms")} <a href="https://github.com/savethebeesandseeds/caatuu" rel="noopener">${interfaceMessage("settings.legal.viewsource")}</a>. ${interfaceMessage("settings.legal.contentterms")}</p>
-                  <p class="license-link-row"><a href="https://github.com/savethebeesandseeds/caatuu/blob/main/docs/PRIVACY.md" rel="noopener">${interfaceMessage("settings.legal.privacy")}</a> · <a href="https://github.com/savethebeesandseeds/caatuu/blob/main/.github/SECURITY.md" rel="noopener">${interfaceMessage("settings.legal.security")}</a> · <a href="https://github.com/savethebeesandseeds/caatuu/blob/main/.github/SUPPORT.md" rel="noopener">${interfaceMessage("settings.legal.support")}</a> · <a href="https://github.com/savethebeesandseeds/caatuu/blob/main/docs/PRODUCT_READINESS.md" rel="noopener">${interfaceMessage("settings.legal.productstatus")}</a></p>
+                  <p>${interfaceHtml("settings.legal.softwareterms")} <a href="https://github.com/savethebeesandseeds/caatuu" rel="noopener">${interfaceHtml("settings.legal.viewsource")}</a>. ${interfaceHtml("settings.legal.contentterms")}</p>
+                  <p class="license-link-row"><a href="https://github.com/savethebeesandseeds/caatuu/blob/main/docs/PRIVACY.md" rel="noopener">${interfaceHtml("settings.legal.privacy")}</a> · <a href="https://github.com/savethebeesandseeds/caatuu/blob/main/.github/SECURITY.md" rel="noopener">${interfaceHtml("settings.legal.security")}</a> · <a href="https://github.com/savethebeesandseeds/caatuu/blob/main/.github/SUPPORT.md" rel="noopener">${interfaceHtml("settings.legal.support")}</a> · <a href="https://github.com/savethebeesandseeds/caatuu/blob/main/docs/PRODUCT_READINESS.md" rel="noopener">${interfaceHtml("settings.legal.productstatus")}</a></p>
                 </div>
                 <dl class="meta-list model-license-list" id="modelLicenseList">
                   <div>
-                    <dt>${interfaceMessage("settings.legal.courseresources")}</dt>
-                    <dd>${interfaceMessage("settings.legal.courseresourceterms")}</dd>
+                    <dt>${interfaceHtml("settings.legal.courseresources")}</dt>
+                    <dd>${interfaceHtml("settings.legal.courseresourceterms")}</dd>
                   </div>
                 </dl>
               </div>
@@ -4693,28 +4799,29 @@
           <footer class="settings-sheet-footer">
             <a class="footer-brand settings-footer-brand" href="https://www.waajacu.com/" rel="noopener">
               <img class="footer-logo" src="/language-runtime/static/assets/caatuu-shell-512.png" alt="" loading="lazy" decoding="async">
-              <span>${interfaceMessage("settings.about.by")} Waajacu<sup class="brand-trademark" aria-hidden="true">™</sup></span>
+              <span>${interfaceHtml("settings.about.by")} Waajacu<sup class="brand-trademark" aria-hidden="true">™</sup></span>
             </a>
           </footer>
         </div>
+        <section class="developer-tools-screen developer-tools-host" id="developerToolScreen" hidden></section>
         <p class="settings-view-transition-status" id="settingsViewTransitionStatus" role="status" aria-live="polite"></p>
-        <nav class="settings-section-switcher" role="tablist" aria-label="${interfaceMessage("settings.backpack.sections")}">
+        <nav class="settings-section-switcher" role="tablist" aria-label="${interfaceHtml("settings.backpack.sections")}">
           <button class="is-active" type="button" role="tab" id="itemsViewTab" data-settings-view="items" aria-controls="itemsViewPanel" aria-selected="true">
             <img src="/assets/icons/items_icon.png?v=items-2" alt="" aria-hidden="true" decoding="async">
-            <span>${interfaceMessage("nav.items")}</span>
+            <span>${interfaceHtml("nav.items")}</span>
           </button>
           <button type="button" role="tab" id="statsViewTab" data-settings-view="stats" aria-controls="statsViewPanel" aria-selected="false">
             <img src="/assets/icons/stats_icon.png" alt="" aria-hidden="true" decoding="async">
-            <span>${interfaceMessage("nav.stats")}</span>
+            <span>${interfaceHtml("nav.stats")}</span>
           </button>
           <button type="button" role="tab" id="settingsViewTab" data-settings-view="settings" aria-controls="settingsViewPanel" aria-selected="false">
             <img src="/assets/icons/gear_icon.png" alt="" aria-hidden="true" decoding="async">
-            <span>${interfaceMessage("nav.settings")}</span>
+            <span>${interfaceHtml("nav.settings")}</span>
           </button>
         </nav>
       </section>
     `;
-    reconcileDeveloperToolVisibility(panel, developerToolLinks);
+    bindDeveloperTools(panel);
     const supportsSpeech = course.capabilities?.speech === true;
     const supportsAi = course.capabilities?.llm === true
       || course.capabilities?.generation === true
@@ -5309,6 +5416,8 @@
   }
 
   window.CaatuuChrome = {
+    applyTheme,
+    applyFontSize,
     gamePresentation,
     renderAppHeader,
     renderBottomNav,
@@ -5318,6 +5427,7 @@
     getSpeechVoicePreference,
     getSpeechPacePreference,
     getSpeechMuted,
+    getSpeechAutoplay,
     listSpeechVoiceOptions,
     getSpeechVoiceControlState,
     describeSpeechVoiceState,
@@ -5325,6 +5435,7 @@
     formatCompactRewardCount,
     setSpeechPacePreference,
     setSpeechMuted,
+    setSpeechAutoplay,
     setSpeechVoicePreference,
     updateSpeechMuteControls,
     previewSpeech,
@@ -5347,6 +5458,7 @@
     resetConfirmButton,
     openSharedSettings,
     closeSharedSettings,
+    showHomeDestination,
     handleAndroidBack,
     preloadBackpackStats
   };
@@ -5407,6 +5519,7 @@
   bindThemeToggle();
   bindWorkspaceDisplayMenuDismissal();
   bindSpeechPreferences();
+  bindHomeAudioControls();
   bindLearningControls();
   bindSharedGameNavigation();
   bindSharedSettingsPanel();

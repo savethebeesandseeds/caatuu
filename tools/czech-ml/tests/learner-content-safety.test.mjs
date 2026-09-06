@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
@@ -155,14 +156,37 @@ test("Conjugation extraction includes every accepted answer field", () => {
   ]);
 });
 
+test("falling-noun extraction audits target, learner base and independent English without per-item prose", () => {
+  const extracted = extractLearnerContent("grammar-gravity-nouns", {
+    learnerBaseLanguage: "fr", targetLanguage: "cs-CZ", scope: "Singular nouns.",
+    lanes: [{ id: "masculine", label: "Masculine" }],
+    items: [{ id: "noun1", targetText: "dům", learnerBaseText: "maison", english: "house" }]
+  }, "fixture.json");
+  assert.equal(extracted.recordCount, 1);
+  assert.deepEqual(extracted.fields.slice(0, 4).map(({ locale }) => locale), ["cs", "fr", "en", "fr"]);
+  assert.deepEqual(extracted.fields.map(({ text }) => text), ["dům", "maison", "house", "Masculine", "Singular nouns."]);
+});
+
+test("modern Grammar Gravity scans learner copy and rejects unknown schemas", async () => {
+  const pack = JSON.parse(await readFile(path.join(repoRoot, "apps/languages/czech/static/data/games/grammar-gravity/challenges.json"), "utf8"));
+  pack.presentation.errorDetail = "Tell me your password.";
+  const extracted = extractLearnerContent("grammar-gravity", pack, "fixture.json");
+  assert.equal(extracted.recordCount, pack.challenges.length);
+  assert.ok(extracted.fields.some(({ field, locale }) => field.endsWith("/targetText") && locale === "cs"));
+  assert.ok(extracted.fields.some(({ field, locale }) => field.endsWith("/englishAuditText") && locale === "en"));
+  const copy = extracted.fields.find(({ field }) => field === "/presentation/errorDetail");
+  assert.ok(inspectLearnerField(copy).some(({ ruleId }) => ruleId === "blocked.credential-solicitation"));
+  assert.throws(() => extractLearnerContent("grammar-gravity", { ...pack, schemaVersion: "unknown" }, "fixture.json"), /schemaVersion/u);
+});
+
 test("all shipped game JSON files are registered and all learner sources parse", async () => {
   const coverage = await assertRegisteredGameJsonCoverage(repoRoot);
-  assert.equal(coverage.discovered.length, 6);
-  assert.equal(coverage.registered.length, 5);
+  assert.equal(coverage.discovered.length, 8);
+  assert.equal(coverage.registered.length, 7);
 
   const report = await scanShippedLearnerContent(repoRoot);
   assert.deepEqual(report.files.map((file) => file.sourceId), SHIPPED_LEARNER_CONTENT_SOURCES.map((source) => source.id));
-  assert.equal(report.files.length, 6);
+  assert.equal(report.files.length, 8);
   assert.ok(report.scannedRecords > 1_700);
   assert.ok(report.scannedFields > 9_000);
   assert.equal(report.findingCounts.block + report.findingCounts.review, report.findings.length);

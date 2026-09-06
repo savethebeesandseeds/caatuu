@@ -630,7 +630,8 @@ test("Verb Nebula keeps revealed solutions visible and gates the next round on c
   assert.match(app, /reason === "difficulty"\) rebaseVerbDifficulty\(\)/);
   assert.match(app, /row\.append\(renderVerbHintSlot\(pair\), button\);/);
   assert.match(app, /waitForVerbTransition\(verbRoundInterstitialMillis\)/);
-  assert.match(app, /verbRobotKeymapUrl = "\/assets\/robots\/keymap\.json"/);
+  assert.match(app, /entry\.screen = mountRobotLoadingScreen\(/);
+  assert.doesNotMatch(app, /verbRobotKeymapUrl/);
   assert.match(app, /const verbHintLookupTimeoutMillis = 6000;/);
   assert.match(app, /const request = Promise\.race\(\[lookup, deadline\]\);/);
   assert.doesNotMatch(app, /Picture clue for \$\{pair\.eng\}/);

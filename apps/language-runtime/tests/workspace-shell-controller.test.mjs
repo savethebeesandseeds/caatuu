@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
+import { normalizeGameId } from "../static/source/shell-policy.mjs";
 
 const promotedUrl = new URL("../static/source/caatuu-workspace.js", import.meta.url);
 const promoted = await readFile(promotedUrl, "utf8");
@@ -308,6 +309,9 @@ function wordWorldOnlyBrowser(options = {}) {
   return {
     chromeCalls,
     context,
+    dispatchDocumentEvent(type, event = {}) {
+      for (const listener of documentListeners.get(type) || []) listener(event);
+    },
     dispatchWindowEvent(type, event = {}) {
       for (const listener of windowListeners.get(type) || []) listener(event);
     },
@@ -378,7 +382,7 @@ test("workspace headers and embedded shells consume the shared catalog-backed ga
   assert.match(promoted, /interfaceText\("games\.embedded\.startfailure", \{ game: gameTitle \}\)/u);
   assert.match(promoted, /interfaceText\("games\.embedded\.retry"\)/u);
   assert.match(appEntry, /data-i18n-aria-label="games\.conjugationcomet\.title"/u);
-  assert.match(appEntry, /data-i18n-title="games\.agreementaurora\.title"/u);
+  assert.match(appEntry, /data-i18n-title="games\.grammargravity\.title"/u);
 });
 
 test("Word World host failures use installed interface content", async () => {
@@ -396,6 +400,43 @@ test("Word World host failures use installed interface content", async () => {
     assert.equal(browser.wordWorldStatus.classList.contains("is-error"), true);
     assert.equal(browser.wordWorldStatusTitle.textContent, "Word World could not start");
     assert.equal(browser.wordWorldStatusCopy.textContent, expectedCopy);
+  }
+});
+
+test("old game navigation requests and direct selection enter the renamed shared panel", async () => {
+  for (const [source, legacyId] of ["bookmark", "session"].flatMap((source) =>
+    ["agreement-aurora", "triangular-thermosphere"].map((legacyId) => [source, legacyId]))) {
+    const browser = wordWorldOnlyBrowser({
+      gameTitles: { "grammar-gravity": "Grammar Gravity" }
+    });
+    browser.window.CaatuuShellPolicy.normalizeGameId = normalizeGameId;
+    browser.window.CaatuuShellPolicy.gameAvailable = (_course, gameId) => (
+      ["word-net", "grammar-gravity"].includes(gameId)
+    );
+    const { document, sessionStorage } = browser.context;
+    if (source === "bookmark") document.documentElement.dataset.navigationRequest = `game:${legacyId}`;
+    else sessionStorage.setItem("caatuu-fixture-word-world.navigation.request.v1", `game:${legacyId}`);
+    const query = document.querySelector.bind(document);
+    const requests = [];
+    document.querySelector = (selector) => {
+      if (selector === '[data-train-tab="grammar-gravity"]') {
+        return { click() {
+          requests.push("grammar-gravity");
+          browser.window.CaatuuWorkspaceShell.setTrainTab("grammar-gravity");
+        } };
+      }
+      return query(selector);
+    };
+    vm.runInContext(promoted, browser.context, { filename: "caatuu-workspace.js" });
+    assert.equal((await browser.window.CaatuuWorkspaceReady).ready, true);
+    assert.deepEqual(requests, ["grammar-gravity"]);
+    assert.equal(browser.window.CaatuuWorkspaceShell.state().trainTab, "grammar-gravity");
+    assert.equal(sessionStorage.getItem("caatuu-fixture-word-world.navigation.request.v1"), null);
+    browser.window.CaatuuWorkspaceShell.setTrainTab("galaxy");
+    browser.window.CaatuuWorkspaceShell.setTrainTab(legacyId);
+    assert.equal(browser.window.CaatuuWorkspaceShell.state().trainTab, "grammar-gravity");
+    assert.equal(browser.chromeCalls.headerTitle.at(-1).title, "Grammar Gravity");
+    assert.deepEqual(browser.errors, []);
   }
 });
 
@@ -442,6 +483,67 @@ test("a Word-World-only course initializes and navigates without unrelated cours
   assert.match(browser.launchpadShip.src, /^\/assets\/ships\/ship%20\((?:[1-9]|1\d|2[0-8])\)\.png$/u);
   assert.equal(browser.hostCalls.gamesMenuClicks, 1, "returning to the launchpad must open the planet chooser");
   assert.deepEqual(browser.fetches, []);
+});
+
+test("Home recovery deactivates Word World and returning to Games restores its visibility", async () => {
+  const browser = wordWorldOnlyBrowser();
+  vm.runInContext(promoted, browser.context, { filename: "caatuu-workspace.js" });
+  await browser.window.CaatuuWorkspaceReady;
+  const shell = browser.window.CaatuuWorkspaceShell;
+  shell.setView("verbs");
+  shell.setTrainTab("word-net");
+  assert.equal(browser.hostCalls.setActive.at(-1).active, true);
+  assert.equal(browser.context.document.body.classList.contains("word-net-active"), true);
+
+  browser.dispatchDocumentEvent("caatuu:home-request");
+  assert.equal(shell.state().activeView, "home");
+  assert.equal(browser.hostCalls.setActive.at(-1).active, false);
+  assert.equal(browser.context.document.body.classList.contains("word-net-active"), false);
+  assert.equal(browser.context.document.body.classList.contains("embedded-game-active"), false, "setup must regain normal page scrolling");
+  shell.setTrainTab("word-net");
+  assert.equal(browser.hostCalls.setActive.at(-1).active, false, "a tab refresh while Home is visible must not activate a hidden game");
+  assert.equal(browser.context.document.body.classList.contains("word-net-active"), false);
+  shell.setView("verbs");
+  assert.equal(browser.hostCalls.setActive.at(-1).active, true);
+  assert.equal(browser.context.document.body.classList.contains("word-net-active"), true);
+});
+
+test("Home recovery deactivates embedded games and a late iframe load stays inactive until Games is visible", async () => {
+  const browser = wordWorldOnlyBrowser({ gameTitles: { "grammar-gravity": "Grammar Gravity" } });
+  const messages = [];
+  const frameListeners = new Map();
+  const frame = {
+    dataset: { src: "/language-runtime/static/games/grammar-gravity.html" },
+    classList: new FakeClassList(),
+    contentWindow: { postMessage(message, origin) { messages.push({ message, origin }); } },
+    addEventListener(type, listener) { frameListeners.set(type, listener); },
+    removeAttribute() {}
+  };
+  const originalGetElementById = browser.context.document.getElementById;
+  browser.context.document.getElementById = (id) => id === "grammarGravityEmbeddedGame" ? frame : originalGetElementById(id);
+  browser.window.CaatuuShellPolicy.gameAvailable = (_course, gameId) => ["word-net", "grammar-gravity"].includes(gameId);
+  vm.runInContext(promoted, browser.context, { filename: "caatuu-workspace.js" });
+  await browser.window.CaatuuWorkspaceReady;
+  const shell = browser.window.CaatuuWorkspaceShell;
+  shell.setView("verbs");
+  shell.setTrainTab("grammar-gravity");
+  assert.equal(frame.dataset.loading, "true");
+  assert.equal(browser.context.document.body.classList.contains("embedded-game-active"), true);
+
+  browser.dispatchDocumentEvent("caatuu:home-request");
+  assert.equal(browser.context.document.body.classList.contains("embedded-game-active"), false);
+  frameListeners.get("load")();
+  assert.equal(frame.dataset.ready, "true");
+  assert.equal(messages.at(-1).message.active, false, "loading after Home recovery must not restart the hidden falling-word timer");
+  shell.setView("verbs");
+  assert.equal(messages.at(-1).message.active, true);
+  assert.equal(browser.context.document.body.classList.contains("embedded-game-active"), true);
+  assert.equal(messages.at(-1).origin, browser.window.location.origin);
+  browser.dispatchDocumentEvent("caatuu:home-request");
+  assert.equal(messages.at(-1).message.active, false);
+  shell.setTrainTab("grammar-gravity");
+  assert.equal(messages.at(-1).message.active, false);
+  assert.deepEqual(browser.errors, []);
 });
 
 test("a dictionary-enabled workspace fails before fetching undeclared or unconfined content", async () => {
