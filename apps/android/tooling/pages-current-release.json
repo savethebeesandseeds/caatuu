@@ -40,6 +40,23 @@
         "bytes": 1103,
         "sha256": "4f5235f5723d10a09939555491accecb621caffefc94da81aaddedcfeea93e41"
       }
+    },
+    {
+      "versionCode": 165,
+      "versionName": "0.1.13",
+      "sourceRevision": "ef028c5541d24b5903257cf98c433105195d5dd6",
+      "manifest": {
+        "bytes": 1042,
+        "sha256": "a493fdc82cd18261ba2564786a7aaf88b3506cb5ebcede63e4906e7d55f0fece"
+      },
+      "apk": {
+        "bytes": 40946727,
+        "sha256": "8c33cc61288355484f45d23d520ba525fc44eadf5f63e7f1218c171144cd3916"
+      },
+      "receipt": {
+        "bytes": 1103,
+        "sha256": "01df6e95df821b73c7ce2d73c440e555f03ae9c639fe7f61a2f2448289e33c66"
+      }
     }
   ],
   "setupEntries": [
