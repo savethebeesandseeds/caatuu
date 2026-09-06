@@ -18,7 +18,7 @@ const directionSources = {S:'S',N:'N',E:'E',SE:'SE',NE:'NE',W:'E',SW:'SE',NW:'NE
 const expectedStrips = new Map(Object.entries(directionSources).flatMap(([direction,source]) => {
   const walk = [1,2,3,4].map(phase=>`${source}-walk-0${phase}`);
   const run = [1,2,3,4,5,6].map(phase=>`${source}-run-0${phase}`);
-  return Object.entries({walk,run,all:[`${source}-idle`,...walk,...run]}).map(([action,frame_ids]) =>
+  return Object.entries({walk:[`${source}-idle`,...walk],run:[`${source}-idle`,...run],all:[`${source}-idle`,...walk,...run]}).map(([action,frame_ids]) =>
     [`${direction}-${action}`, {direction,action,mirror:direction!==source,
       file:`images/strips/${direction.toLowerCase()}-${action}.png`,width:frame_ids.length*512,height:512,frame_ids}]);
 }));

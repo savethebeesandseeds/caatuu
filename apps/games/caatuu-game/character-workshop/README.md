@@ -93,8 +93,11 @@ retain the original 32-pixel clearance at y=448. Every silhouette stays inside
 the canvas. The audit records each original hash, registration, factor and result.
 
 In Motion, each contact-sheet direction label has a **Download** button. It
-follows the current action: Walk (4 frames, 2048 × 512) or Run (6 frames,
-3072 × 512). Standing shows the walking sheet and its walking downloads.
+always starts with standing, then follows the current action: Walk (idle + 4
+poses, 2560 × 512) or Run (idle + 6 poses, 3584 × 512). Both contact sheets show
+Standing in their first image column. Standing mode shows the walking sheet
+and its walking downloads. Idle is a reference cell; playback still loops only
+the four walking or six running poses.
 The separate download section and selector have been removed.
 
 The curated asset package still contains all 24 strips, including the mirrored

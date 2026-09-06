@@ -163,8 +163,10 @@ def normalize(source, output, target_area, source_revision, source_archive):
 
     strips = []
     for direction in manifest["directions"]:
-        for action, count in (("walk", 4), ("run", 6), ("all", 11)):
+        for action, count in (("walk", 5), ("run", 7), ("all", 11)):
             sequence = ordered_frames(frames, direction["source"], action)
+            if action != "all":
+                sequence = ordered_frames(frames, direction["source"], "idle") + sequence
             if len(sequence) != count:
                 raise ValueError("Incomplete strip sequence.")
             strip = Image.new("RGBA", (CELL * count, CELL))

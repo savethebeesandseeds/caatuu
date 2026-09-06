@@ -34,11 +34,12 @@ test('curated frame set, hashes, transparent canvases and view files are complet
   const strips=manifest.exports.direction_strips;
   assert.equal(strips.length,24);
   for (const direction of ['S','N','E','NE','SE','W','NW','SW']) {
-    for (const [action,width,count] of [['walk',2048,4],['run',3072,6],['all',5632,11]]) {
+    for (const [action,width,count] of [['walk',2560,5],['run',3584,7],['all',5632,11]]) {
       const strip=strips.find(s=>s.direction===direction && s.action===action);
       assert.equal(strip.width,width);
       assert.equal(strip.height,512);
       assert.equal(strip.frame_ids.length,count);
+      assert.equal(strip.frame_ids[0],`${({W:'E',NW:'NE',SW:'SE'})[direction] || direction}-idle`);
       assert.equal(strip.mirror,['W','NW','SW'].includes(direction));
       assert.ok(files.has(strip.file));
     }
@@ -159,6 +160,7 @@ test('publisher rejects incomplete or inconsistent strips before touching output
       [m=>m.exports.direction_strips.find(s=>s.direction==='SW' && s.action==='all').mirror=false,/Strip metadata mismatch: SW-all/],
       [m=>m.exports.direction_strips.find(s=>s.direction==='SW' && s.action==='all').frame_ids[0]='SW-idle',/Strip metadata mismatch: SW-all/],
       [m=>m.exports.direction_strips.find(s=>s.direction==='N' && s.action==='run').frame_ids.reverse(),/Strip metadata mismatch: N-run/],
+      [m=>m.exports.direction_strips.find(s=>s.direction==='S' && s.action==='run').frame_ids.shift(),/Strip metadata mismatch: S-run/],
       [m=>m.exports.direction_strips[0].width=512,/Strip metadata mismatch/],
       [m=>m.exports.direction_strips[0].file='../outside.png',/Strip metadata mismatch/],
     ];

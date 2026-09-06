@@ -55,7 +55,7 @@ function stripFrameIds(direction, action) {
   const source = defaults.find((entry) => entry.id === direction).source;
   const walk = [1, 2, 3, 4].map((phase) => `${source}-walk-0${phase}`);
   const run = [1, 2, 3, 4, 5, 6].map((phase) => `${source}-run-0${phase}`);
-  return action === "all" ? [`${source}-idle`, ...walk, ...run] : action === "walk" ? walk : run;
+  return [`${source}-idle`, ...(action === "all" ? [...walk, ...run] : action === "walk" ? walk : run)];
 }
 
 function stripUrl(strip, direction, action) {
@@ -74,13 +74,13 @@ function stripUrl(strip, direction, action) {
 function renderRowDownloads() {
   const entries = downloadsReady ? manifest.exports?.direction_strips : [];
   const action = cycleAction();
-  const count = cycleLength();
+  const count = cycleLength() + 1;
   for (const link of document.querySelectorAll(".row-download")) {
     const direction = link.dataset.direction;
     const matching = Array.isArray(entries) ? entries.filter((strip) => strip?.direction === direction && strip.action === action) : [];
     const url = matching.length === 1 ? stripUrl(matching[0], direction, action) : null;
     link.setAttribute("aria-label", `${url ? "Download" : "Unavailable:"} ${names[direction]} ${action} strip, ${count} frames`);
-    link.title = `${names[direction]} · ${count} ${action === "run" ? "running" : "walking"} frames · transparent PNG`;
+    link.title = `${names[direction]} · standing + ${count - 1} ${action === "run" ? "running" : "walking"} frames · transparent PNG`;
     if (url) {
       link.href = url;
       link.download = `caatuu-macaw-${direction.toLowerCase()}-${action}-strip.png`;
@@ -189,8 +189,8 @@ function buildSheet() {
   const running = state.action === "run";
   sheet.classList.toggle("run-sheet", running);
   $("contact-heading").textContent = running ? "Latest running frames" : "Latest walking frames";
-  $("contact-caption").textContent = running ? "Five authored directions · six poses per run cycle" : "Standing + contact / passing / opposite contact / passing";
-  const headings = running ? ["Direction", ...runPhaseNames.map((name,i) => `${String(i+1).padStart(2,"0")} · ${name}`)] : ["Direction", "Standing", "01 · Contact", "02 · Passing", "03 · Contact", "04 · Passing"];
+  $("contact-caption").textContent = running ? "Standing + six poses per run cycle" : "Standing + contact / passing / opposite contact / passing";
+  const headings = running ? ["Direction", "Standing", ...runPhaseNames.map((name,i) => `${String(i+1).padStart(2,"0")} · ${name}`)] : ["Direction", "Standing", "01 · Contact", "02 · Passing", "03 · Contact", "04 · Passing"];
   for (const heading of headings) sheet.append(text("div", heading, "sheet-heading"));
   for (const direction of authored) {
     const label = text("div", "", "row-label");
@@ -198,8 +198,8 @@ function buildSheet() {
     download.dataset.direction = direction;
     label.append(text("span", `${direction}\n${names[direction]}`), download);
     sheet.append(label);
-    for (let phase = running ? 1 : 0; phase <= (running ? 6 : 4); phase += 1) {
-      const selection = frameFor(direction, running ? "run" : phase ? "walk" : "idle", phase);
+    for (let phase = 0; phase <= (running ? 6 : 4); phase += 1) {
+      const selection = frameFor(direction, phase ? running ? "run" : "walk" : "idle", phase);
       const url = sourceUrl(selection.frame);
       const cell = document.createElement(url ? "a" : "div");
       cell.className = `sheet-cell${url ? "" : " missing"}`;
@@ -211,7 +211,7 @@ function buildSheet() {
         cell.setAttribute("aria-label", `Open latest sheet frame ${selection.id}`);
         const holder = text("div", "", "sheet-image");
         const image = new Image();
-        image.alt = `${names[direction]} ${running ? `run ${phase}` : phase ? `walk ${phase}` : "standing"}`;
+        image.alt = `${names[direction]} ${phase ? running ? `run ${phase}` : `walk ${phase}` : "standing"}`;
         image.src = url;
         image.addEventListener("error", () => { image.hidden = true; holder.append(text("span", "Load failed")); cell.classList.add("failed"); });
         holder.append(image);

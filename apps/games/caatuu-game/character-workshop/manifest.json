@@ -2369,7 +2369,7 @@
     "frames_per_cycle": 6,
     "default_fps": 10
   },
-  "generated_at": "2026-09-06T10:15:28.579Z",
+  "generated_at": "2026-09-06T11:26:37.672Z",
   "normalization": {
     "report": "mass-normalization.json",
     "target_median_area": 66000,
@@ -2386,24 +2386,26 @@
         "action": "walk",
         "mirror": false,
         "file": "images/strips/n-walk.png",
-        "width": 2048,
+        "width": 2560,
         "height": 512,
         "frame_ids": [
+          "N-idle",
           "N-walk-01",
           "N-walk-02",
           "N-walk-03",
           "N-walk-04"
         ],
-        "sha256": "29ac300761cbe6ed65cce7986ab0399e543b3a2c3212df09959f1170acec4d7f"
+        "sha256": "668250e6801e5ec8853ba2ff9b7f87c55885cca4f84e1ca176751ea001b8c917"
       },
       {
         "direction": "N",
         "action": "run",
         "mirror": false,
         "file": "images/strips/n-run.png",
-        "width": 3072,
+        "width": 3584,
         "height": 512,
         "frame_ids": [
+          "N-idle",
           "N-run-01",
           "N-run-02",
           "N-run-03",
@@ -2411,7 +2413,7 @@
           "N-run-05",
           "N-run-06"
         ],
-        "sha256": "37266e4bee90a3a5be97704cdae3f53b70b234dad9628b37c6729a6d1de4868e"
+        "sha256": "465c49201431e0f6df279087c0c64c7ae9bc4d418f826a637d3ccb63a65d203b"
       },
       {
         "direction": "N",
@@ -2440,24 +2442,26 @@
         "action": "walk",
         "mirror": false,
         "file": "images/strips/ne-walk.png",
-        "width": 2048,
+        "width": 2560,
         "height": 512,
         "frame_ids": [
+          "NE-idle",
           "NE-walk-01",
           "NE-walk-02",
           "NE-walk-03",
           "NE-walk-04"
         ],
-        "sha256": "da78c780763158a0892131dee81ecf82b72444d0c32f4ead9618ccd672875648"
+        "sha256": "6020672200e773cea78dec571fdfb8c0580b62f4fc35d819f7292db06df9681b"
       },
       {
         "direction": "NE",
         "action": "run",
         "mirror": false,
         "file": "images/strips/ne-run.png",
-        "width": 3072,
+        "width": 3584,
         "height": 512,
         "frame_ids": [
+          "NE-idle",
           "NE-run-01",
           "NE-run-02",
           "NE-run-03",
@@ -2465,7 +2469,7 @@
           "NE-run-05",
           "NE-run-06"
         ],
-        "sha256": "818945091194d73b2dbef48496fcd166a1846f0c10ac36800445a96621ac26e0"
+        "sha256": "2f64435eed1ccd23be70f15d75cdcb1bb4eed840be793f78b7c6e44e9bb2b8b2"
       },
       {
         "direction": "NE",
@@ -2494,24 +2498,26 @@
         "action": "walk",
         "mirror": false,
         "file": "images/strips/e-walk.png",
-        "width": 2048,
+        "width": 2560,
         "height": 512,
         "frame_ids": [
+          "E-idle",
           "E-walk-01",
           "E-walk-02",
           "E-walk-03",
           "E-walk-04"
         ],
-        "sha256": "9e5b1e406d51588ee4d59e3c51f2696c9983d03d00b1aafe2db13bb8706f2cdf"
+        "sha256": "f0a5b671ff8f7ddd540f639222af7e23da3c5aa5cba05795b7bfe7e339782ce8"
       },
       {
         "direction": "E",
         "action": "run",
         "mirror": false,
         "file": "images/strips/e-run.png",
-        "width": 3072,
+        "width": 3584,
         "height": 512,
         "frame_ids": [
+          "E-idle",
           "E-run-01",
           "E-run-02",
           "E-run-03",
@@ -2519,7 +2525,7 @@
           "E-run-05",
           "E-run-06"
         ],
-        "sha256": "dcb5be1f345331687a85e5c34ad7463298e9bd9be0f8b864a2a53f842379893b"
+        "sha256": "dc8fce9c5cc844d8b4231b1431ae18eca6e08b187c3a52a5324dc7403ff97694"
       },
       {
         "direction": "E",
@@ -2548,24 +2554,26 @@
         "action": "walk",
         "mirror": false,
         "file": "images/strips/se-walk.png",
-        "width": 2048,
+        "width": 2560,
         "height": 512,
         "frame_ids": [
+          "SE-idle",
           "SE-walk-01",
           "SE-walk-02",
           "SE-walk-03",
           "SE-walk-04"
         ],
-        "sha256": "a9bb157a42793220f9f395e3f3a81c9e4495ac06ceed989378e83c5226f1cfd0"
+        "sha256": "7e0b8500f7b92fa9d9256a8c7dcc6092c3001cfc34a82b84cf4101f756e4f9b7"
       },
       {
         "direction": "SE",
         "action": "run",
         "mirror": false,
         "file": "images/strips/se-run.png",
-        "width": 3072,
+        "width": 3584,
         "height": 512,
         "frame_ids": [
+          "SE-idle",
           "SE-run-01",
           "SE-run-02",
           "SE-run-03",
@@ -2573,7 +2581,7 @@
           "SE-run-05",
           "SE-run-06"
         ],
-        "sha256": "16f7eb6da40e972ab5c57a9269cd9e61c4ac90ed171d90172a6213a9bc2f762a"
+        "sha256": "dafb5c5d1c3b90093656a9626e096bdff361f0e1d12c75f494575346e00c9a1b"
       },
       {
         "direction": "SE",
@@ -2602,24 +2610,26 @@
         "action": "walk",
         "mirror": false,
         "file": "images/strips/s-walk.png",
-        "width": 2048,
+        "width": 2560,
         "height": 512,
         "frame_ids": [
+          "S-idle",
           "S-walk-01",
           "S-walk-02",
           "S-walk-03",
           "S-walk-04"
         ],
-        "sha256": "c30950909205c1136a7f075aa6edef5b6e09dc93ca1760f3f0bb112f1d432fa8"
+        "sha256": "dd5b13becca9786b3db5fe3aeb8d8e38518d75a872dc4fb00f7298ad138c30b7"
       },
       {
         "direction": "S",
         "action": "run",
         "mirror": false,
         "file": "images/strips/s-run.png",
-        "width": 3072,
+        "width": 3584,
         "height": 512,
         "frame_ids": [
+          "S-idle",
           "S-run-01",
           "S-run-02",
           "S-run-03",
@@ -2627,7 +2637,7 @@
           "S-run-05",
           "S-run-06"
         ],
-        "sha256": "160dd842fb9c04123b5e5724743d07d02834bd28e29bb4797571bfac454ceaeb"
+        "sha256": "f957027b52ca42eb5cd0d2513d93d438ffc1d331046172ca44850992945817c4"
       },
       {
         "direction": "S",
@@ -2656,24 +2666,26 @@
         "action": "walk",
         "mirror": true,
         "file": "images/strips/sw-walk.png",
-        "width": 2048,
+        "width": 2560,
         "height": 512,
         "frame_ids": [
+          "SE-idle",
           "SE-walk-01",
           "SE-walk-02",
           "SE-walk-03",
           "SE-walk-04"
         ],
-        "sha256": "ada4729fbd916d16c52865a5b2275d1e3ca27563641e4c7d53c12cea6cf285e4"
+        "sha256": "64d1bbdda63e795d57036bf4f2ca3ae9e6eaba02a51562c6e3b4c6f0067c4db1"
       },
       {
         "direction": "SW",
         "action": "run",
         "mirror": true,
         "file": "images/strips/sw-run.png",
-        "width": 3072,
+        "width": 3584,
         "height": 512,
         "frame_ids": [
+          "SE-idle",
           "SE-run-01",
           "SE-run-02",
           "SE-run-03",
@@ -2681,7 +2693,7 @@
           "SE-run-05",
           "SE-run-06"
         ],
-        "sha256": "941fdfba31c0ca0ec9bc4b4ce7d021c84567adcba3f925367d71111b4f2903a1"
+        "sha256": "561d7e836ca90b04d46119d6b491cced9443daa39635d8ccac1272908550d01d"
       },
       {
         "direction": "SW",
@@ -2710,24 +2722,26 @@
         "action": "walk",
         "mirror": true,
         "file": "images/strips/w-walk.png",
-        "width": 2048,
+        "width": 2560,
         "height": 512,
         "frame_ids": [
+          "E-idle",
           "E-walk-01",
           "E-walk-02",
           "E-walk-03",
           "E-walk-04"
         ],
-        "sha256": "714105d1615b52ac1f63ebaddcb88202655f31cd2f149d14b1341752941043b4"
+        "sha256": "4bbbed93f487071e774e31c0472ec8f163d23d72ab443d504105ee55c2a3b0d2"
       },
       {
         "direction": "W",
         "action": "run",
         "mirror": true,
         "file": "images/strips/w-run.png",
-        "width": 3072,
+        "width": 3584,
         "height": 512,
         "frame_ids": [
+          "E-idle",
           "E-run-01",
           "E-run-02",
           "E-run-03",
@@ -2735,7 +2749,7 @@
           "E-run-05",
           "E-run-06"
         ],
-        "sha256": "ec42df1bf45512cda99b654aa1e18602c6938acead848efefbff86b76692d20f"
+        "sha256": "d71382bab8b6e74f8980f194bc6a8b31246b5a559d254db19f494759a9e462f2"
       },
       {
         "direction": "W",
@@ -2764,24 +2778,26 @@
         "action": "walk",
         "mirror": true,
         "file": "images/strips/nw-walk.png",
-        "width": 2048,
+        "width": 2560,
         "height": 512,
         "frame_ids": [
+          "NE-idle",
           "NE-walk-01",
           "NE-walk-02",
           "NE-walk-03",
           "NE-walk-04"
         ],
-        "sha256": "1fcf5a166d7fc76f396ec5894ba9949b9801dcdcacb72d625c946b6a540f9800"
+        "sha256": "058131306113e16a4eaf00b843c6a21beaab9cd5fa4033fa196836843a3795c7"
       },
       {
         "direction": "NW",
         "action": "run",
         "mirror": true,
         "file": "images/strips/nw-run.png",
-        "width": 3072,
+        "width": 3584,
         "height": 512,
         "frame_ids": [
+          "NE-idle",
           "NE-run-01",
           "NE-run-02",
           "NE-run-03",
@@ -2789,7 +2805,7 @@
           "NE-run-05",
           "NE-run-06"
         ],
-        "sha256": "43ad6767b22c8e0af83403c7911999230b3a1631cbe88451b0a3e046cfe5b0a9"
+        "sha256": "afd88d80fd927893d7ba851b991ae9b237d739bdb16a3915d25fd70000d0eaab"
       },
       {
         "direction": "NW",

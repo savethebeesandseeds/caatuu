@@ -321,8 +321,11 @@ records the container command, source revision and archive. Current source/resul
 hashes and factors are in the [scale audit](../character-workshop/mass-normalization.json).
 
 Motion provides a **Download** button in each contact-sheet direction label.
-The button follows the current action: four walking frames or six running
-frames, with no separate download section or selector. The package retains all
+Every download begins with the idle frame, followed by the current action:
+four walking poses (five cells total) or six running poses (seven cells total),
+with no separate download section or selector. Both contact sheets show the
+idle reference in their first image column. Animation playback keeps its
+four/six-pose cycle. The package retains all
 eight directions and the complete eleven-frame sequence (idle, walk, run) in
 its manifest. Each strip is a transparent horizontal PNG with 512 × 512 cells
 and no labels. Mirrored directions have the mirror baked into each cell. Verify
