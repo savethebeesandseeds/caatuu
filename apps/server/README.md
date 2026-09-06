@@ -11,7 +11,7 @@ It owns the route split:
 /zh/              Mandarin development course from the same catalog
 /es/              Spanish development course from the same catalog
 /language-runtime narrowly shared course runtime and English embedding assets
-/games/           ignored language-independent artifacts/games Web exports
+/games/lab        paused adventure art labs, gated for local review
 /android/         signed stable and explicit debug Android artifacts
 ```
 
@@ -31,12 +31,12 @@ semantic search. Repository documentation and tests remain private. Target
 text, pronunciation/transliteration, and target-language metadata are never
 model inputs.
 
-Caatuu Game is authored under `apps/games/caatuu-game`, generated under
-`artifacts/games/caatuu-game/web/godot-v1`, and served only when
-`ENABLE_CAATUU_GAME_PREVIEW=1`. Its stable standalone URL is
-`/games/caatuu-game/`; the versioned bundle remains at
-`/games/caatuu-game/godot-v1/`. Language routes and Android do not alias,
-embed, or package it.
+The macaw adventure is a [paused concept](../games/lab/RESUME.md). With
+`ENABLE_CAATUU_GAME_PREVIEW=1`, `/games/lab` exposes only the retained Motion
+and Scenery review pages. They are noindex and excluded from application,
+Android and public static packaging. The old Godot bundle and stable game
+entry are no longer mounted, even when preview is enabled. The former long
+Motion URL remains a compatibility redirect; archived source is never served.
 
 Build the locked release image from the workspace root only after server or
 image-definition changes:

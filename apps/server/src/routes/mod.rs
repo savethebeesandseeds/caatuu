@@ -28,24 +28,12 @@ mod game_lab;
 pub mod http;
 pub mod ws;
 
-#[derive(Clone, Copy)]
-struct WebGameSpec {
-    id: &'static str,
-    route_prefix: &'static str,
-    artifact_dir: &'static str,
-}
-
-const ACTIVE_WEB_GAMES: &[WebGameSpec] = &[WebGameSpec {
-    id: "caatuu-game",
-    route_prefix: "/caatuu-game/godot-v1",
-    artifact_dir: "artifacts/games/caatuu-game/web/godot-v1",
-}];
 const ANDROID_IMMUTABLE_CACHE_CONTROL: &str = "public, max-age=31536000, immutable";
 const ANDROID_MUTABLE_CACHE_CONTROL: &str = "no-store, no-cache, must-revalidate, max-age=0";
 
 /// Build the Caatuu runtime:
 /// - `/` serves the Caatuu landing page.
-/// - `/games/` serves language-independent generated game artifacts.
+/// - `/games/lab` serves the paused adventure concept when local preview is enabled.
 /// - `/zh` serves the canonical Mandarin course from the shared application.
 /// - `/zh-hans` remains a redirect-only compatibility alias.
 /// - archived application sources remain repository-only and are never routed.
@@ -160,7 +148,7 @@ pub fn build_router(state: Arc<AppState>, features: RuntimeFeatures) -> Router {
         .route("/zh-hans/*path", get(redirect_legacy_mandarin_route));
 
     let router = if features.caatuu_game_preview {
-        router.nest("/games", build_web_games(&workspace))
+        router.nest("/games", game_lab::build_router(&workspace))
     } else {
         router
     };
@@ -270,40 +258,6 @@ fn build_language_app(spec: &LanguageAppSpec) -> Router<Arc<AppState>> {
         "mounted language app"
     );
     router.fallback_service(static_service)
-}
-
-fn build_web_games(workspace: &std::path::Path) -> Router<Arc<AppState>> {
-    ACTIVE_WEB_GAMES
-        .iter()
-        .fold(
-            Router::new()
-                .route(
-                    "/caatuu-game",
-                    get(|| async { Redirect::temporary("/games/caatuu-game/godot-v1/") }),
-                )
-                .route(
-                    "/caatuu-game/",
-                    get(|| async { Redirect::temporary("/games/caatuu-game/godot-v1/") }),
-                ),
-            |router, spec| {
-                tracing::debug!(
-                    game = spec.id,
-                    route = spec.route_prefix,
-                    artifact = spec.artifact_dir,
-                    "mounted generated Web game",
-                );
-                router.nest_service(
-                    spec.route_prefix,
-                    ServeDir::new(workspace.join(spec.artifact_dir))
-                        .append_index_html_on_directories(true),
-                )
-            },
-        )
-        .layer(SetResponseHeaderLayer::overriding(
-            HeaderName::from_static("cache-control"),
-            HeaderValue::from_static("no-cache, max-age=0"),
-        ))
-        .merge(game_lab::build_router(workspace))
 }
 
 fn android_debug_router(
@@ -548,25 +502,37 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn standalone_game_preview_has_one_stable_entrypoint_when_enabled() {
-        let response = game_preview_router()
-            .oneshot(
-                Request::builder()
-                    .uri("/games/caatuu-game/")
-                    .body(Body::empty())
-                    .unwrap(),
-            )
-            .await
-            .unwrap();
-
-        assert_eq!(response.status(), StatusCode::TEMPORARY_REDIRECT);
-        assert_eq!(
-            response
-                .headers()
-                .get(axum::http::header::LOCATION)
-                .unwrap(),
+    async fn retired_godot_routes_stay_closed_with_concept_preview_enabled() {
+        let app = game_preview_router();
+        for path in [
+            "/games/caatuu-game",
+            "/games/caatuu-game/",
             "/games/caatuu-game/godot-v1/",
-        );
+            "/games/caatuu-game/godot-v1/index.html",
+            "/games/caatuu-game/godot-v1/index.js",
+            "/games/caatuu-game/godot-v1/index.wasm",
+            "/games/caatuu-game/godot-v1/index.pck",
+        ] {
+            let response = app
+                .clone()
+                .oneshot(Request::builder().uri(path).body(Body::empty()).unwrap())
+                .await
+                .unwrap();
+            assert_eq!(response.status(), StatusCode::NOT_FOUND, "{path}");
+        }
+        for path in ["/games/lab", "/games/lab/motion", "/games/lab/scenary"] {
+            let response = app
+                .clone()
+                .oneshot(Request::builder().uri(path).body(Body::empty()).unwrap())
+                .await
+                .unwrap();
+            assert_eq!(response.status(), StatusCode::OK, "{path}");
+            assert_eq!(
+                response.headers().get("x-robots-tag").unwrap(),
+                "noindex, nofollow",
+                "{path}"
+            );
+        }
     }
 
     #[tokio::test]

@@ -3,6 +3,7 @@
   "id": "sheltered-sea",
   "title": "The Sheltered Sea",
   "state": "layout-selected-detail-pilot-pending",
+  "development_status": "paused",
   "master": {
     "id": "sheltered-sea-layout-v1",
     "file": "master/layout-v1.png",

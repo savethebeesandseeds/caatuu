@@ -1,6 +1,11 @@
 # Standalone Caatuu Game and Application Release Boundary
 
-Status: accepted
+Status: application separation remains accepted; prototype lifecycle superseded
+on 2026-09-06 by the [paused concept record](../../apps/games/lab/RESUME.md).
+
+The following records the historical Godot preview decision. Its source and
+export definitions are now archived, its game routes are retired, and the
+active game catalog is empty. Only the separate local art labs remain available.
 
 Date: 2026-08-03
 

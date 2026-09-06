@@ -1,5 +1,9 @@
 # Caatuu lab
 
+Status: **paused adventure concept**. The [resume guide](RESUME.md) records the
+saved work and next steps; [concept.json](concept.json) records its delivery
+boundary. The current learning app remains separate.
+
 The lab is a local playground for the existing character and scenery assets.
 Use the established Caatuu service on port 8765 with
 `ENABLE_CAATUU_GAME_PREVIEW=1`.

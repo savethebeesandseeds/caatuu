@@ -236,12 +236,17 @@ Embedding-positive assertions:
 - semantic image retrieval and statistics work offline after setup; and
 - no embedding dependency is accidentally classified as an excluded LLM.
 
-### 6.4 Keep Godot source but exclude Godot from release
+### 6.4 Preserve the paused adventure outside application releases
 
-The accepted standalone-game boundary remains in
-[`decisions/0002-standalone-caatuu-game-and-app-release-boundary.md`](decisions/0002-standalone-caatuu-game-and-app-release-boundary.md).
+The application separation in
+[`decisions/0002-standalone-caatuu-game-and-app-release-boundary.md`](decisions/0002-standalone-caatuu-game-and-app-release-boundary.md)
+remains in force. On September 6, 2026 the older Godot implementation and export
+tooling moved to the [legacy archive](../archive/demos/caatuu-game-godot-v1/README.md).
+The selected macaw and world artwork remain a [paused concept](../apps/games/lab/RESUME.md)
+with local art labs; the active standalone-game catalog is empty.
 
-- [x] Keep `apps/games/caatuu-game` and its tooling in the repository.
+- [x] Preserve the original Godot source and tooling in the archive, with the
+  selected character workshop and its maintenance tools retained under `apps/games/`.
 - [ ] Make the store AAB build successfully when `artifacts/games/` is absent.
 - [x] Exclude the standalone game from the static Pages export; Pages has no
   runtime `CAATUU_ENABLE_CAATUU_GAME_PREVIEW` configuration.

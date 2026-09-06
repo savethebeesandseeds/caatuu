@@ -1,5 +1,8 @@
 # World map workshop
 
+Development is paused with the macaw adventure. The approved layout and section
+plan are preserved; see the [resume guide](../RESUME.md) before expanding it.
+
 The selected world is **The Sheltered Sea**: map B, with one purple source of
 dark magic replacing the three temples on its central island. This folder
 preserves its layout and the plan for building detailed, adjoining scenery.

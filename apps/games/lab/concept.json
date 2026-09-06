@@ -1,0 +1,29 @@
+{
+  "format_version": 1,
+  "id": "caatuu-macaw-adventure",
+  "title": "Caatuu macaw adventure",
+  "status": "paused",
+  "paused_on": "2026-09-06",
+  "purpose": "Preserved art and movement concept for a future adventure game.",
+  "delivery": {
+    "local_review_only": true,
+    "application": false,
+    "android": false,
+    "public_static_host": false
+  },
+  "routes": {
+    "hub": "/games/lab",
+    "motion": "/games/lab/motion",
+    "scenery": "/games/lab/scenary"
+  },
+  "sources": {
+    "character_manifest": "../caatuu-game/character-workshop/manifest.json",
+    "world_manifest": "world-map/sheltered-sea/manifest.json",
+    "resume_guide": "RESUME.md"
+  },
+  "retired_prototype": {
+    "archive": "../../../archive/demos/caatuu-game-godot-v1",
+    "source_checkpoint": "934d9cde60308475fc5c5432d8cf29c809e0c172"
+  },
+  "next_step": "When development resumes, compare two adjoining detailed map sections with the existing macaw before committing to world scale or an engine."
+}

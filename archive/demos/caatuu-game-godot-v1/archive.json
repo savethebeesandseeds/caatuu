@@ -1,0 +1,123 @@
+{
+  "format_version": 1,
+  "status": "retired",
+  "archived_on": "2026-09-06",
+  "source_checkpoint": "934d9cde60308475fc5c5432d8cf29c809e0c172",
+  "files": [
+    {
+      "original_path": "apps/games/caatuu-game/.dockerignore",
+      "archived_path": "source/apps/games/caatuu-game/.dockerignore",
+      "git_blob": "0beb38eb4eb01e8a50c7f742f8d1561097e6df05"
+    },
+    {
+      "original_path": "apps/games/caatuu-game/GODOT-LICENSE.txt",
+      "archived_path": "source/apps/games/caatuu-game/GODOT-LICENSE.txt",
+      "git_blob": "99642a3342a6bc4ad314cf174d795d57f134e34c"
+    },
+    {
+      "original_path": "apps/games/caatuu-game/export_presets.cfg",
+      "archived_path": "source/apps/games/caatuu-game/export_presets.cfg",
+      "git_blob": "5f570c1c01775d83c980413e2f88f0fcfffaa9f7"
+    },
+    {
+      "original_path": "apps/games/caatuu-game/game.json",
+      "archived_path": "source/apps/games/caatuu-game/game.json",
+      "git_blob": "a8b123fd02a716add7886cea382337f209b3f45c"
+    },
+    {
+      "original_path": "apps/games/caatuu-game/main.tscn",
+      "archived_path": "source/apps/games/caatuu-game/main.tscn",
+      "git_blob": "c80c2a59839ffb53c1589699495aebad9ba717e3"
+    },
+    {
+      "original_path": "apps/games/caatuu-game/project.godot",
+      "archived_path": "source/apps/games/caatuu-game/project.godot",
+      "git_blob": "feeb994c73dfd794b341ab9e90f75fd5dea4ad58"
+    },
+    {
+      "original_path": "apps/games/caatuu-game/scripts/caatuu_game.gd",
+      "archived_path": "source/apps/games/caatuu-game/scripts/caatuu_game.gd",
+      "git_blob": "960f82cab4c43090aafb75466721001df7509e33"
+    },
+    {
+      "original_path": "apps/games/caatuu-game/scripts/click_navigation.gd",
+      "archived_path": "source/apps/games/caatuu-game/scripts/click_navigation.gd",
+      "git_blob": "395c68aaf7654aca93134be6fcd413f889186b76"
+    },
+    {
+      "original_path": "apps/games/caatuu-game/scripts/macaw_costume.gd",
+      "archived_path": "source/apps/games/caatuu-game/scripts/macaw_costume.gd",
+      "git_blob": "40c1c682ef836543acfb09e555b5636d5eb55547"
+    },
+    {
+      "original_path": "apps/games/caatuu-game/scripts/terrain_chunk_streamer.gd",
+      "archived_path": "source/apps/games/caatuu-game/scripts/terrain_chunk_streamer.gd",
+      "git_blob": "66aaa4578e950a3b1814bf8a92286d03d7c287bf"
+    },
+    {
+      "original_path": "apps/games/caatuu-game/scripts/world_scenery.gd",
+      "archived_path": "source/apps/games/caatuu-game/scripts/world_scenery.gd",
+      "git_blob": "5f77ec435b30fb8a226925755ad9400816a1132a"
+    },
+    {
+      "original_path": "apps/games/caatuu-game/tooling/Dockerfile",
+      "archived_path": "source/apps/games/caatuu-game/tooling/Dockerfile",
+      "git_blob": "ff51aae6fc57d3aca9942ea71a6c37dc4b3e6f91"
+    },
+    {
+      "original_path": "apps/games/caatuu-game/tooling/export-web.sh",
+      "archived_path": "source/apps/games/caatuu-game/tooling/export-web.sh",
+      "git_blob": "691f0424d33b943c15d16ce99e76308925fc7f71"
+    },
+    {
+      "original_path": "apps/games/caatuu-game/tooling/extract_remote_zip.py",
+      "archived_path": "source/apps/games/caatuu-game/tooling/extract_remote_zip.py",
+      "git_blob": "794a728fcc434b06c0d50099079117878fcaf276"
+    },
+    {
+      "original_path": "apps/games/caatuu-game/tooling/provision-toolchain.sh",
+      "archived_path": "source/apps/games/caatuu-game/tooling/provision-toolchain.sh",
+      "git_blob": "9801615e7331994d175a4b17053f361c710f2fca"
+    },
+    {
+      "original_path": "apps/games/caatuu-game/tooling/verify-macaw-costume.gd",
+      "archived_path": "source/apps/games/caatuu-game/tooling/verify-macaw-costume.gd",
+      "git_blob": "ffdd677d926c26ddcb6b9e55ccbc7440fecb820b"
+    },
+    {
+      "original_path": "apps/games/caatuu-game/tooling/verify-movement.gd",
+      "archived_path": "source/apps/games/caatuu-game/tooling/verify-movement.gd",
+      "git_blob": "a05135dce6382a2c760593f695eb224f63877044"
+    },
+    {
+      "original_path": "apps/games/caatuu-game/tooling/verify-responsive-layout.gd",
+      "archived_path": "source/apps/games/caatuu-game/tooling/verify-responsive-layout.gd",
+      "git_blob": "bc647b7baf895e9429bf2fa70a6c95c35117acb3"
+    },
+    {
+      "original_path": "apps/games/caatuu-game/tooling/verify-world-scenery.gd",
+      "archived_path": "source/apps/games/caatuu-game/tooling/verify-world-scenery.gd",
+      "git_blob": "f7345d96fdf298ea89acf2e6ccd8cd29e4416c0f"
+    },
+    {
+      "original_path": "apps/games/tooling/validate-godot-project.mjs",
+      "archived_path": "source/apps/games/tooling/validate-godot-project.mjs",
+      "git_blob": "f9c4e80160abacbaad92d45319b838d4ad9e9dd5"
+    },
+    {
+      "original_path": "apps/games/test/godot-project-validator.test.mjs",
+      "archived_path": "source/apps/games/test/godot-project-validator.test.mjs",
+      "git_blob": "fff730a848469dc5612252e2147d95b7d210e827"
+    },
+    {
+      "original_path": "apps/games/caatuu-game/README.md",
+      "archived_path": "source/apps/games/caatuu-game/README.original.txt",
+      "git_blob": "a6c5f783ca79f6c46a2d08737b3ab31af01cd45f"
+    },
+    {
+      "original_path": "apps/games/caatuu-game/THIRD_PARTY_NOTICES.md",
+      "archived_path": "source/apps/games/caatuu-game/THIRD_PARTY_NOTICES.md",
+      "git_blob": "1acba207bdbc474125fe8f18d2af84af553d6139"
+    }
+  ]
+}

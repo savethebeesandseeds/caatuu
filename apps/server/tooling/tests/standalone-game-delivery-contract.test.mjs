@@ -1,35 +1,51 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readFile, access } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import test from "node:test";
 
 const repoRoot = new URL("../../../../", import.meta.url);
+const readText = (path) => readFile(new URL(path, repoRoot), "utf8");
+const [catalog, concept, compose, launcher] = await Promise.all([
+  readText("apps/games/catalog.json").then(JSON.parse),
+  readText("apps/games/lab/concept.json").then(JSON.parse),
+  readText("compose.yaml"),
+  readText("apps/launcher/static/index.html"),
+]);
 
-async function readText(relativePath) {
-  return readFile(new URL(relativePath, repoRoot), "utf8");
-}
-
-const [catalog, manifest, compose] =
-  await Promise.all([
-    readText("apps/games/catalog.json").then(JSON.parse),
-    readText("apps/games/caatuu-game/game.json").then(JSON.parse),
-    readText("compose.yaml")
-  ]);
-
-test("the catalog defines one standalone browser-only Caatuu Game", () => {
-  assert.deepEqual(catalog.games, [{ id: "caatuu-game", manifest: "caatuu-game/game.json" }]);
-  assert.equal(manifest.id, "caatuu-game");
-  assert.equal(manifest.schema_version, 2);
-  assert.equal(manifest.browser_mode, "standalone");
-  assert.deepEqual(manifest.platforms, { browser: true, android: false });
-  assert.deepEqual(manifest.delivery.compatibility_entrypoints, []);
-  assert.equal(Object.hasOwn(manifest, "host_contract"), false);
+test("the paused adventure has no deliverable game entry or application launch link", async () => {
+  assert.deepEqual(catalog.games, []);
+  assert.equal(concept.status, "paused");
+  assert.deepEqual(concept.delivery, {
+    local_review_only: true, application: false, android: false, public_static_host: false,
+  });
+  assert.doesNotMatch(launcher, /href=["'][^"']*\/games\//);
+  const base = new URL("apps/games/lab/", repoRoot);
+  for (const path of Object.values(concept.sources)) await access(new URL(path, base));
+  await assert.rejects(access(new URL("apps/games/caatuu-game/project.godot", repoRoot)), { code: "ENOENT" });
+  await assert.rejects(access(new URL("apps/games/caatuu-game/game.json", repoRoot)), { code: "ENOENT" });
 });
 
-test("root Compose owns export and public-preview gating without a second project", () => {
+test("the existing local service gates labs without activating archived export services", () => {
   assert.match(compose, /^name: caatuu$/m);
   assert.match(compose, /ENABLE_CAATUU_GAME_PREVIEW/);
-  assert.match(compose, /caatuu-game-godot-export:/);
-  assert.match(compose, /\.\/apps\/games\/caatuu-game:\/project:ro/);
-  assert.match(compose, /\.\/artifacts\/games\/caatuu-game\/web\/godot-v1:\/output/);
-  assert.doesNotMatch(compose, /memory-moon/);
+  assert.doesNotMatch(compose, /caatuu-game-godot-(?:export|provision):/);
+  assert.doesNotMatch(compose, /caatuu-godot-web-toolchain/);
+});
+
+test("the legacy archive preserves every recorded source blob", async () => {
+  const base = new URL("archive/demos/caatuu-game-godot-v1/", repoRoot);
+  const archive = JSON.parse(await readFile(new URL("archive.json", base), "utf8"));
+  assert.equal(archive.source_checkpoint, concept.retired_prototype.source_checkpoint);
+  assert.equal(archive.files.length, 23);
+  assert.equal(new Set(archive.files.map((file) => file.original_path)).size, archive.files.length);
+  for (const file of archive.files) {
+    // These are text sources; compare Git blobs independently of checkout line endings.
+    const text = await readFile(new URL(file.archived_path, base), "utf8");
+    const bytes = Buffer.from(text.replace(/\r\n/g, "\n"));
+    const hash = createHash("sha1").update(Buffer.from(`blob ${bytes.length}\0`)).update(bytes).digest("hex");
+    assert.equal(hash, file.git_blob, file.original_path);
+  }
+  const archivedCompose = await readFile(new URL("compose.godot.yaml", base), "utf8");
+  assert.match(archivedCompose, /caatuu-game-godot-export:/);
+  assert.match(archivedCompose, /caatuu-game-godot-provision:/);
 });

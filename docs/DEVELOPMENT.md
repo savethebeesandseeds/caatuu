@@ -68,7 +68,7 @@ http://127.0.0.1:8765/zh/index.html?game=word-net
 http://127.0.0.1:8765/es/
 http://127.0.0.1:8765/es/index.html?game=verb-lab
 http://127.0.0.1:8765/es/index.html?game=word-net
-http://127.0.0.1:8765/games/caatuu-game/
+http://127.0.0.1:8765/games/lab
 ```
 
 Backend or dependency changes require a rebuild. Static browser files are
@@ -93,9 +93,11 @@ Tunnel is retired: Compose has no tunnel profile or connector service, and the
 runtime image does not install `cloudflared`. Do not restore the old token,
 watchdog, DNS resolver workaround, or forwarding process as a shortcut.
 
-The standalone `caatuu-game` remains a local browser preview unless its own
-release gates are completed. The Minerals project is independent; its private
-port `7979` must never be added to Caatuu Compose or public routes.
+The macaw adventure is a [paused concept](../apps/games/lab/RESUME.md).
+Its retained art labs require `ENABLE_CAATUU_GAME_PREVIEW=1`; the old Godot
+engine preview and export services are archived. These labs are separate from
+application delivery. The Minerals project is independent; its private port
+`7979` must never be added to Caatuu Compose or public routes.
 
 ## Repository-only Chinese archive
 

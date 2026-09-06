@@ -10,6 +10,7 @@ const repoRoot = path.resolve(gamesRoot, "..", "..");
 const catalogPath = path.join(gamesRoot, "catalog.json");
 const catalogSchemaPath = path.join(gamesRoot, "schemas", "game-catalog.v1.schema.json");
 const manifestSchemaPath = path.join(gamesRoot, "schemas", "game-manifest.v2.schema.json");
+const manifestFixturePath = path.join(gamesRoot, "test", "fixtures", "standalone-game.json");
 
 async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, "utf8"));
@@ -49,7 +50,7 @@ function assertReleasedDependenciesActive(manifest) {
   );
 }
 
-test("the catalog indexes unique standalone manifests with matching identities", async () => {
+test("the canonical catalog has no active standalone games while adventure authoring is paused", async () => {
   const [catalog, catalogSchema, manifestSchema] = await Promise.all([
     readJson(catalogPath),
     readJson(catalogSchemaPath),
@@ -98,10 +99,10 @@ test("the catalog indexes unique standalone manifests with matching identities",
       await readFile(path.join(repoRoot, notice));
     }
   }
-  assert.deepEqual([...ids], ["caatuu-game"]);
+  assert.deepEqual([...ids], []);
 });
 
-test("Caatuu Game has no language adapter or application embedding contract", async () => {
+test("the retired Godot preview has no language adapter or application embedding contract", async () => {
   for (const name of ["caatuu-game.v1.json", "memory-moon.v1.json"]) {
     const adapterPath = path.join(
       repoRoot,
@@ -118,11 +119,11 @@ test("Caatuu Game has no language adapter or application embedding contract", as
 });
 
 test("the manifest schema distinguishes standalone and embedded browser games", async () => {
-  const [catalog, manifestSchema] = await Promise.all([
-    readJson(catalogPath),
+  const [manifest, manifestSchema] = await Promise.all([
+    readJson(manifestFixturePath),
     readJson(manifestSchemaPath),
   ]);
-  const manifest = await readJson(path.join(gamesRoot, catalog.games[0].manifest));
+  assertSchemaValid(manifestSchema, manifest, "standalone fixture");
 
   const standaloneWithHost = structuredClone(manifest);
   standaloneWithHost.host_contract = {
@@ -141,18 +142,27 @@ test("the manifest schema distinguishes standalone and embedded browser games", 
     keyword: "oneOf",
     instancePath: "",
   });
+
+  const embeddedWithHost = structuredClone(standaloneWithHost);
+  embeddedWithHost.browser_mode = "embedded";
+  assertSchemaValid(manifestSchema, embeddedWithHost, "embedded fixture");
 });
 
 test("schemas reject traversal, ownership leaks, and unsafe release promotion", async () => {
-  const [catalog, catalogSchema, manifestSchema] = await Promise.all([
-    readJson(catalogPath),
+  const [manifest, catalogSchema, manifestSchema] = await Promise.all([
+    readJson(manifestFixturePath),
     readJson(catalogSchemaPath),
     readJson(manifestSchemaPath),
   ]);
-  const manifest = await readJson(path.join(gamesRoot, catalog.games[0].manifest));
-
-  const traversingCatalog = structuredClone(catalog);
-  traversingCatalog.games[0].manifest = "caatuu-game/../other.json";
+  const fixtureCatalog = {
+    schema_name: "caatuu-game-catalog",
+    schema_version: 1,
+    catalog_version: "1.0.0",
+    games: [{ id: manifest.id, manifest: "fixture-game/game.json" }],
+  };
+  assertSchemaValid(catalogSchema, fixtureCatalog, "populated catalog fixture");
+  const traversingCatalog = structuredClone(fixtureCatalog);
+  traversingCatalog.games[0].manifest = "fixture-game/../other.json";
   assertSchemaInvalid(catalogSchema, traversingCatalog, {
     keyword: "pattern",
     instancePath: "/games/0/manifest",

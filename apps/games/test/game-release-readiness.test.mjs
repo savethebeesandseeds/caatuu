@@ -170,10 +170,7 @@ test("missing authority files and release status fail closed", async () => {
   assert.ok(unstated.some((blocker) => blocker.includes("authority release_status is <missing>")));
 });
 
-test("empty or malformed catalog and manifest structures fail schema validation", async () => {
-  const emptyCatalog = await blockers(await fixture({ emptyCatalog: true }));
-  assert.ok(emptyCatalog.some((blocker) => blocker.includes("game catalog: schema minItems")));
-
+test("malformed catalog and invalid manifest structures fail schema validation", async () => {
   const malformedCatalog = await blockers(await fixture({ malformedCatalog: true }));
   assert.ok(malformedCatalog.some((blocker) => blocker.includes("game catalog is not valid JSON")));
 
@@ -191,6 +188,14 @@ test("every delivered game must appear exactly once in the catalog", async () =>
   )));
 });
 
+test("an empty catalog remains blocked for every explicitly required game", async () => {
+  const result = await blockers(await fixture({ emptyCatalog: true }), ["caatuu-game", "other-game"]);
+  assert.deepEqual(result, [
+    "caatuu-game: delivered game must appear exactly once in the catalog; found 0",
+    "other-game: delivered game must appear exactly once in the catalog; found 0",
+  ]);
+});
+
 test("the CLI returns success only for ready metadata and rejects invalid options", async () => {
   const ready = await runChecker(await fixture());
   assert.equal(ready.code, 0, ready.stderr);
@@ -198,7 +203,7 @@ test("the CLI returns success only for ready metadata and rejects invalid option
 
   const blocked = await runChecker(await fixture({ emptyCatalog: true }));
   assert.equal(blocked.code, 1);
-  assert.match(blocked.stderr, /schema minItems/);
+  assert.match(blocked.stderr, /caatuu-game: delivered game must appear exactly once in the catalog; found 0/);
 
   const invalidOption = await runChecker(await fixture(), ["--unknown"]);
   assert.equal(invalidOption.code, 1);
@@ -209,7 +214,9 @@ test("the checker requires an explicit delivery selection", async () => {
   await assert.rejects(findReleaseBlockers(), /at least one delivered game ID/);
 });
 
-test("the canonical catalog remains deliberately blocked while Caatuu Game is preview-only", async () => {
+test("the canonical empty catalog refuses publication of the retired Caatuu Game", async () => {
   const result = await findReleaseBlockers({ requiredGameIds: ["caatuu-game"] });
-  assert.ok(result.some((blocker) => blocker.startsWith("caatuu-game:")));
+  assert.deepEqual(result, [
+    "caatuu-game: delivered game must appear exactly once in the catalog; found 0",
+  ]);
 });

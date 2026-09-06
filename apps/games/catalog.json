@@ -1,11 +1,6 @@
 {
   "schema_name": "caatuu-game-catalog",
   "schema_version": 1,
-  "catalog_version": "1.0.0",
-  "games": [
-    {
-      "id": "caatuu-game",
-      "manifest": "caatuu-game/game.json"
-    }
-  ]
+  "catalog_version": "1.1.0",
+  "games": []
 }

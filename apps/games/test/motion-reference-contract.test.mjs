@@ -18,24 +18,9 @@ const referenceRoot = path.join(
 );
 const manifestPath = path.join(referenceRoot, "manifest.json");
 const schemaPath = path.join(referenceRoot, "manifest.v1.schema.json");
-const exporterPath = path.join(
-  repoRoot,
-  "apps",
-  "games",
-  "caatuu-game",
-  "tooling",
-  "export-web.sh",
-);
-const gameManifestPath = path.join(repoRoot, "apps", "games", "caatuu-game", "game.json");
 
 async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, "utf8"));
-}
-
-function exporterConstant(script, name) {
-  const match = script.match(new RegExp(`^readonly ${name}="([^"]+)"$`, "mu"));
-  assert.ok(match, `Caatuu Game exporter is missing readonly ${name}`);
-  return match[1];
 }
 
 async function sha256(filePath) {
@@ -43,10 +28,9 @@ async function sha256(filePath) {
 }
 
 test("the preview motion manifest is strict and cannot imply release clearance", async () => {
-  const [manifest, schema, gameManifest] = await Promise.all([
+  const [manifest, schema] = await Promise.all([
     readJson(manifestPath),
     readJson(schemaPath),
-    readJson(gameManifestPath),
   ]);
   const validation = validateJsonSchemaSubset(schema, manifest);
 
@@ -62,12 +46,6 @@ test("the preview motion manifest is strict and cannot imply release clearance",
     "license and distribution review",
   ]));
 
-  const dependency = gameManifest.dependencies.find((item) => (
-    item.authority === "apps/launcher/static/assets/motion/quaternius-standard-v1/manifest.json"
-  ));
-  assert.ok(dependency, "Caatuu Game must declare its centralized motion dependency");
-  assert.equal(gameManifest.release_status, "local-preview-only");
-  assert.equal(dependency.status, "preview-only");
 });
 
 test("the motion manifest hashes the exact tracked source bytes", async () => {
@@ -90,20 +68,4 @@ test("the motion manifest hashes the exact tracked source bytes", async () => {
       `${entry.path} does not match its recorded SHA-256`,
     );
   }
-});
-
-test("Caatuu Game exporter constants agree with the motion authority", async () => {
-  const [manifest, exporter] = await Promise.all([
-    readJson(manifestPath),
-    readFile(exporterPath, "utf8"),
-  ]);
-  const entries = new Map(manifest.files.map((entry) => [path.posix.basename(entry.path), entry]));
-  const glbName = exporterConstant(exporter, "glb_name");
-  const licenseName = exporterConstant(exporter, "reference_license_name");
-
-  assert.equal(entries.get(glbName)?.sha256, exporterConstant(exporter, "glb_sha256"));
-  assert.equal(
-    entries.get(licenseName)?.sha256,
-    exporterConstant(exporter, "reference_license_sha256"),
-  );
 });
