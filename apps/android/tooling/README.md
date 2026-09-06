@@ -108,9 +108,13 @@ That command performs at most one Android build.
 Before signing, the publisher checks both the product package contracts and
 the static Pages export/course-projection contracts. Launcher or publishing
 markup drift therefore fails before a version-owned candidate is sealed.
+The asset compiler and signed-archive audit share one forbidden-source policy,
+including JSON interface text. Product-only catalog projection removes disabled
+generation offers in every packaged locale while retaining unavailable-state
+messages and leaving the browser authority unchanged.
 
-The builder writes a
-version-owned receipt under `artifacts/android/release-candidates/` that binds
+The builder writes a version-owned receipt under
+`artifacts/android/release-candidates/` that binds
 the APK and AAB hashes, sizes, package, version, signer, and source commit. It
 then finalizes the same APK at `artifacts/android/releases/<versionCode>/`.
 

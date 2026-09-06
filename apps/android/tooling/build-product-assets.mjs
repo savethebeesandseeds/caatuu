@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { assertProductSourceText } from "./product-source-policy.mjs";
 import { transformPackagedImageKeymap } from "./developer-image-catalog.mjs";
 import {
   copyFileSync,
@@ -1883,6 +1884,20 @@ export function transformDeveloperBrowserModelService(input) {
   return 'export const BROWSER_CHAT_SUPPORTED = false;\nexport function createBrowserModelService() { return { available: false, reason: "product" }; }\n';
 }
 
+export function transformProductInterfaceCatalog(input) {
+  const catalog = JSON.parse(normalizeText(input));
+  const validation = validateInterfaceCatalog(catalog);
+  assert.ok(validation.valid, validation.errors.join("; "));
+  for (const key of Object.keys(catalog.messages)) {
+    if (key.startsWith("wordworld.generative.")
+      && !key.startsWith("wordworld.generative.unavailable.")
+      && !key.startsWith("wordworld.generative.dialog.disabled")) {
+      delete catalog.messages[key];
+    }
+  }
+  return `${JSON.stringify(catalog, null, 2)}\n`;
+}
+
 const SHARED_APP_TRANSFORMS = Object.freeze({
   "language-runtime/static/source/developer-tools/browser-model-service.mjs": transformDeveloperBrowserModelService,
   "language-runtime/static/source/caatuu-chrome.js": transformChromeJs,
@@ -1891,6 +1906,9 @@ const SHARED_APP_TRANSFORMS = Object.freeze({
 });
 
 function sharedAppAssetTransform(output, assets) {
+  if (/^language-runtime\/static\/data\/interface\/[^/]+\.json$/u.test(output)) {
+    return transformProductInterfaceCatalog;
+  }
   if (output === "assets/miscellaneous/keymap.json" || output === "assets/macaw/actions/keymaps.json") {
     return (input) => transformPackagedImageKeymap(input, assets);
   }
@@ -2034,11 +2052,17 @@ function assertFirstPartySurface(outputDir, files) {
       && !path.startsWith("language-runtime/vendor/")
       && !path.startsWith("language-runtime/models/")
       && !CAPABILITY_GATED_SHARED_APP_FILES.has(path)
-      && [".css", ".html", ".js", ".mjs", ".webmanifest"].includes(extension(path))
+      && [".css", ".html", ".js", ".json", ".mjs", ".webmanifest"].includes(extension(path))
   );
-  const forbidden = /webllm|web-llm|gguf|qwen|cstinyllama|data\/models|chat\.html|source\/features\/chat|report_dictionary_gap|\/cz\/api\/dictionary\/gaps|godot/i;
+  const forbidden = /webllm|web-llm|gguf|qwen|cstinyllama|data\/models|chat\.html|source\/features\/chat|report_dictionary_gap|\/cz\/api\/dictionary\/gaps|godot|\bGenerative mode\b/i;
   for (const path of executableUi) {
-    assert.doesNotMatch(readSourceText(join(outputDir, path)), forbidden, `Forbidden store surface survived in ${path}`);
+    // JSON includes capability declarations such as godot:false, not executable
+    // integrations. Still reject disabled-mode offers before the signed audit.
+    const source = readSourceText(join(outputDir, path));
+    assertProductSourceText(source, `Product asset ${path}`);
+    if (extension(path) !== ".json") {
+      assert.doesNotMatch(source, forbidden, `Forbidden store surface survived in ${path}`);
+    }
   }
 }
 

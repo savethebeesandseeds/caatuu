@@ -4,6 +4,7 @@ import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import { basename, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { assertProductSourceText } from "./product-source-policy.mjs";
 
 import {
   loadAndroidCourseBundleCatalogPlan,
@@ -141,23 +142,6 @@ const FIRST_PARTY_EXECUTABLE_EXTENSIONS = new Set([
   ".mjs",
   ".webmanifest",
 ]);
-
-const FORBIDDEN_FIRST_PARTY_SOURCE_PATTERNS = [
-  /@mlc-ai\/web-llm/i,
-  /(?:^|["'`(\s])(?:\.\/|\.\.\/|\/)?data\/models\//i,
-  /\b(?:llama\.cpp|ggml|gguf|webllm)\b/i,
-  /\bdebug-chat\b/i,
-  /\bchat\.html\b/i,
-  /\bwordNetGenerativeDialog\b/,
-  /data-content-mode\s*=\s*["']generative["']/i,
-  /\bGenerative mode\b/i,
-  /\bmodels\.generate\s*\(/,
-  /\b(?:loadModelCatalog|loadBrowserModel|generateBrowser|browserFallbackModel|webllmCdn)\b/,
-  /nativeCall\(\s*["'](?:prompt|start_download|cancel_download|reset_conversation|benchmark|delete_model)["']/,
-  /["'](?:prompt|start_download|cancel_download|reset_conversation|benchmark|delete_model)["']\s*->/,
-  /(?:^|["'`(\s])\/?games\/caatuu-game(?:\/|\b)/i,
-  /\bgodot-v\d+\b/i,
-];
 
 function usage() {
   console.log(
@@ -1124,9 +1108,7 @@ function assertNoForbiddenFirstPartySource(unzip, archive, entries, kind, label)
     const extension = assetPath.slice(assetPath.lastIndexOf("."));
     if (!FIRST_PARTY_EXECUTABLE_EXTENSIONS.has(extension)) continue;
     const source = archiveText(unzip, archive, entry);
-    for (const pattern of FORBIDDEN_FIRST_PARTY_SOURCE_PATTERNS) {
-      assert(!pattern.test(source), `${label} first-party asset ${entry} contains forbidden product pattern ${pattern}`);
-    }
+    assertProductSourceText(source, `${label} first-party asset ${entry}`);
   }
 }
 
