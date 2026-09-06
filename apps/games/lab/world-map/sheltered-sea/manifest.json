@@ -1,0 +1,168 @@
+{
+  "format_version": 1,
+  "id": "sheltered-sea",
+  "title": "The Sheltered Sea",
+  "state": "layout-selected-detail-pilot-pending",
+  "master": {
+    "id": "sheltered-sea-layout-v1",
+    "file": "master/layout-v1.png",
+    "width": 1536,
+    "height": 1024,
+    "sha256": "f9b67cea73f4f7ac24620a3243a09091caaa29622d1cedb35dfca782b372058e",
+    "immutable": true
+  },
+  "coordinates": {
+    "units": "master-image-pixels",
+    "origin": "top-left",
+    "x_axis": "right",
+    "y_axis": "down",
+    "rect_format": [
+      "x",
+      "y",
+      "width",
+      "height"
+    ],
+    "intervals": "half-open"
+  },
+  "authoring": {
+    "pixels_per_master_pixel": null,
+    "final_composite_size": null,
+    "scale_status": "Choose after reviewing the macaw in two neighboring detailed sections.",
+    "generation_status": "No detailed images generated.",
+    "overlap_margin_master_pixels": 64,
+    "context_policy": "Expand each 512x512 core by 64 pixels per side, clipped to the master canvas. Adjacent context rectangles share 128 pixels.",
+    "section_grid_status": "Provisional first regional pass; may be subdivided after the scale pilot.",
+    "pilot_sections": [
+      "r00-c01",
+      "r00-c00"
+    ],
+    "pilot_focus": "Central city and its western forest approach; inspect a shared land boundary.",
+    "source_policy": "Every detail section references the immutable master coordinates and its approved neighboring sections. Never derive geography only from the last generated image."
+  },
+  "locations": {
+    "approved_sections": "sections/",
+    "walkable_masks": "masks/",
+    "foreground_overlays": "overlays/",
+    "drafts_repo_relative": "artifacts/games/lab/world-map-expansion/sheltered-sea-v1",
+    "concept_archive_repo_relative": "artifacts/games/lab/world-map-concepts/20260906"
+  },
+  "invariants": [
+    "Crescent mainland around the central sea.",
+    "Independent dark island with one purple source of dark magic and no three stepped temples.",
+    "Small southern harbor island.",
+    "Existing city, castle, forest, mountains, coastlines and river connections.",
+    "Broad open ground; roads are guides rather than exclusive walkable corridors."
+  ],
+  "sections": [
+    {
+      "id": "r00-c00",
+      "status": "planned",
+      "core_rect": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "context_rect": [
+        0,
+        0,
+        576,
+        576
+      ],
+      "source_master_sha256": "f9b67cea73f4f7ac24620a3243a09091caaa29622d1cedb35dfca782b372058e",
+      "approved_image": null
+    },
+    {
+      "id": "r00-c01",
+      "status": "planned",
+      "core_rect": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "context_rect": [
+        448,
+        0,
+        640,
+        576
+      ],
+      "source_master_sha256": "f9b67cea73f4f7ac24620a3243a09091caaa29622d1cedb35dfca782b372058e",
+      "approved_image": null
+    },
+    {
+      "id": "r00-c02",
+      "status": "planned",
+      "core_rect": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "context_rect": [
+        960,
+        0,
+        576,
+        576
+      ],
+      "source_master_sha256": "f9b67cea73f4f7ac24620a3243a09091caaa29622d1cedb35dfca782b372058e",
+      "approved_image": null
+    },
+    {
+      "id": "r01-c00",
+      "status": "planned",
+      "core_rect": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "context_rect": [
+        0,
+        448,
+        576,
+        576
+      ],
+      "source_master_sha256": "f9b67cea73f4f7ac24620a3243a09091caaa29622d1cedb35dfca782b372058e",
+      "approved_image": null
+    },
+    {
+      "id": "r01-c01",
+      "status": "planned",
+      "core_rect": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "context_rect": [
+        448,
+        448,
+        640,
+        576
+      ],
+      "source_master_sha256": "f9b67cea73f4f7ac24620a3243a09091caaa29622d1cedb35dfca782b372058e",
+      "approved_image": null
+    },
+    {
+      "id": "r01-c02",
+      "status": "planned",
+      "core_rect": [
+        1024,
+        512,
+        512,
+        512
+      ],
+      "context_rect": [
+        960,
+        448,
+        576,
+        576
+      ],
+      "source_master_sha256": "f9b67cea73f4f7ac24620a3243a09091caaa29622d1cedb35dfca782b372058e",
+      "approved_image": null
+    }
+  ],
+  "approved_masks": [],
+  "approved_overlays": []
+}

@@ -18,6 +18,10 @@ change, then refresh the page; no publisher or Godot export is needed. The
 optional workshop snapshot is separate from the live lab. Pages use the local
 preview gate and `noindex`; the lab is outside Godot, Android and Pages packaging.
 
+The [world map workshop](world-map/README.md) preserves the selected Sheltered
+Sea layout, generation prompts and the plan for adjoining detailed scenery.
+It is an authoring folder for approved art and future movement masks.
+
 ## Scenery and movement
 
 [scene.mjs](scenary/scene.mjs) loads the same 55 curated macaw PNGs and manifest
