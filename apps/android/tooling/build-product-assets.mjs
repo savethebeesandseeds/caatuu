@@ -2217,12 +2217,10 @@ function assertSetupBoundary(
   const outputPath = join(outputDir, "setup-assets.json");
   assert.ok(existsSync(outputPath), "store output must retain the setup manifest");
   if (expectedTransform) {
-    const developmentSource = readSourceText(join(languageStaticDir, "setup-assets.json"));
-    assert.equal(
-      readSourceText(outputPath),
-      projectStagedSetupText(expectedTransform(developmentSource), packageRoot, assetPrefix),
-      "setup manifest must equal the reviewed store transform"
-    );
+    assertStagedCourseAsset({
+      source: join(languageStaticDir, "setup-assets.json"), output: outputPath,
+      path: "setup-assets.json", transform: expectedTransform, packageRoot, assetPrefix,
+    });
   }
   const manifest = JSON.parse(readFileSync(outputPath, "utf8"));
   assertSetupArtifactMetadata(manifest, `${profile.course.id} product setup`);
@@ -2288,6 +2286,16 @@ function projectStagedSetupText(input, packageRoot, assetPrefix) {
     label: `${assetPrefix || "single-course"} product setup`,
   });
   return `${JSON.stringify(setup, null, 2)}\n`;
+}
+
+export function assertStagedCourseAsset({ source, output, path, transform, packageRoot, assetPrefix = "" }) {
+  let expected = transform ? transform(readSourceText(source)) : readFileSync(source);
+  if (path === "setup-assets.json") {
+    expected = projectStagedSetupText(expected.toString("utf8"), packageRoot, assetPrefix);
+  }
+  const expectedBytes = Buffer.isBuffer(expected) ? expected : Buffer.from(expected, "utf8");
+  assert.ok(readFileSync(output).equals(expectedBytes),
+    `Course ${assetPrefix || "single-course"} asset drifted from its final product projection: ${path}`);
 }
 
 function finalizeStagedSetup(packageRoot, assetPrefix = "") {
@@ -2726,9 +2734,8 @@ export function validateProductAssetBundle({
       const source = courseConfiguration.languageFileSources[path];
       const output = join(courseRoot, path);
       const transform = courseAssetTransform(courseConfiguration, path, bundle.embeddingRuntime);
-      const expected = transform ? transform(readSourceText(source)) : readFileSync(source);
-      const actual = transform ? readFileSync(output, "utf8") : readFileSync(output);
-      assert.deepEqual(actual, expected, `Course ${courseConfiguration.course.id} asset drifted: ${path}`);
+      assertStagedCourseAsset({ source, output, path, transform, packageRoot: resolvedOutput,
+        assetPrefix: `courses/${courseConfiguration.course.id}` });
     }
     const courseProfile = productProfileForCourse(courseConfiguration.course, {
       assetPaths: courseFiles,

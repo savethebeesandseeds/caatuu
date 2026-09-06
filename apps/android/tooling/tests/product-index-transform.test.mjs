@@ -1,9 +1,43 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { createHash } from "node:crypto";
 import test from "node:test";
-import { transformIndex } from "../build-product-assets.mjs";
+import { transformIndex, assertStagedCourseAsset } from "../build-product-assets.mjs";
+import { projectBundledSetupArtifacts } from "../android-artifact-contract.mjs";
 
 const canonical = readFileSync(new URL("../../../language-runtime/static/app/index.html", import.meta.url), "utf8");
+
+test("single and multi-course byte validation compares the final bundled setup projection", (t) => {
+  const root = mkdtempSync(join(tmpdir(), "caatuu-setup-projection-"));
+  t.after(() => rmSync(root, { recursive: true, force: true }));
+  const bytes = Buffer.from("exact reviewed lesson");
+  const authored = { artifacts: [{ key: "lesson", url: "/xy/data/lesson.txt", asset_path: "data/lesson.txt",
+    bytes: bytes.length, sha256: createHash("sha256").update(bytes).digest("hex"),
+    native_required: true, browser_required: true }] };
+  const source = join(root, "authored-setup.json");
+  writeFileSync(source, JSON.stringify(authored));
+  for (const assetPrefix of ["", "courses/xy"]) {
+    const packageRoot = join(root, assetPrefix ? "bundle" : "single");
+    const courseRoot = join(packageRoot, assetPrefix);
+    mkdirSync(join(courseRoot, "data"), { recursive: true });
+    writeFileSync(join(courseRoot, "data/lesson.txt"), bytes);
+    const output = join(courseRoot, "setup-assets.json");
+    const projected = projectBundledSetupArtifacts(authored, {
+      assetPrefix, readAsset: (path) => readFileSync(join(packageRoot, path)),
+    });
+    writeFileSync(output, `${JSON.stringify(projected, null, 2)}\n`);
+    const options = { source, output, path: "setup-assets.json", transform: (value) => value, packageRoot, assetPrefix };
+    assert.doesNotThrow(() => assertStagedCourseAsset(options));
+    writeFileSync(output, `${JSON.stringify(authored, null, 2)}\n`);
+    assert.throws(() => assertStagedCourseAsset(options), /final product projection/u,
+      "a stale raw transform must not pass validation instead of the packaged projection");
+    writeFileSync(output, `${JSON.stringify(projected, null, 2)}\n`);
+    writeFileSync(join(courseRoot, "data/lesson.txt"), "tampered bytes");
+    assert.throws(() => assertStagedCourseAsset(options), /final product projection/u);
+  }
+});
 
 test("Android HTML projection follows structural elements when copy, locale, spacing and attribute order change", () => {
   const localized = canonical
