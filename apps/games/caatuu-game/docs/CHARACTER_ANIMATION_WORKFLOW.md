@@ -283,8 +283,9 @@ needed swapping. Record that mapping explicitly. The selected v2 candidates
 also correct the arm in `SE-run-04`, support poses in `NE-run-02` and `NE-run-05`,
 and the backward arm in `E-run-06`. The final `NE-run-05` scale correction uses
 only cell 5 from `ne-run-scale-fix.png`; the other 54 final PNGs stayed unchanged.
-All 25 walking-set PNGs and east run poses 1–5 remain byte-identical to the
-accepted earlier set.
+At that stage, all 25 walking-set PNGs and east run poses 1–5 remained
+byte-identical to the accepted earlier set. The subsequent authorized scale
+refinement below changes the selected PNGs while preserving those originals.
 
 Modest size and costume drift remain, and north/northeast have pronounced
 vertical bounce. Inspect them in motion without assuming registration has
@@ -295,6 +296,38 @@ The [motion review](MACAW_MOTION_REVIEW.md) records the evidence and remaining
 visual limitations. Generation,
 registration and successful loading do not imply final gait approval or Godot
 actor integration.
+
+## Match apparent size and export editable direction strips
+
+Compare the head and torso at a common display scale across facings and actions.
+The objective is a consistent apparent body size, rather than forcing a running
+lean and an upright idle to have identical total height. Alpha-weighted area is
+a useful starting metric; bounding boxes change dramatically as limbs extend.
+
+The September 6 scale refinement uses one uniform factor per direction and gait;
+standing shares the walking factor. This preserves the relative silhouettes
+within each cycle. Do not equalize every pose independently: a smaller silhouette
+from overlapping limbs should not enlarge the torso for that one frame.
+The target median area is 66,000 alpha-weighted pixels. Review the result visually
+because clothing, backpacks and head shapes also affect perceived size.
+
+Use the maintained [normalization utility](../tooling/normalize-motion.py) in
+Tukevejtso with a preserved, hash-verified pre-normalization snapshot. It produces
+a fresh isolated candidate, refuses clipped or already-normalized input, keeps
+the 512-square canvas and preserves y=480 ground and y=448 flight anchors.
+Review its same-scale before/after contact sheet and full loops before promotion.
+The [workshop README](../character-workshop/README.md#apparent-size-and-editable-strips)
+records the container command, source revision and archive. Current source/result
+hashes and factors are in the [scale audit](../character-workshop/mass-normalization.json).
+
+Motion now provides **Download strips**: all eight directions, with four walking
+frames, six running frames or the complete eleven-frame sequence (idle, walk,
+run). Each download is a transparent horizontal PNG with 512 × 512 cells and
+no labels. Mirrored directions have the mirror baked into each cell. Verify
+decoded strip cells against the selected frames, including order and mirrors,
+then publish frames, strips and manifest together. These editable downloads
+supplement the interactive animation demo; they do not replace it. Preserve
+canvas sizes and alpha when importing future manual touch-ups.
 
 For documentation or structural commits, run both repository checks in the
 existing Node container, as required by the repository instructions:

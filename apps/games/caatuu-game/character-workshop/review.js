@@ -13,7 +13,7 @@ const cycleLength = () => cycleAction() === "run" ? 6 : 4;
 const actionTitle = () => cycleAction() === "run" ? "Run" : "Walk";
 const hasRun = () => authored.every((direction) => [1, 2, 3, 4, 5, 6].every((phase) => frames.has(`${direction}-run-0${phase}`)));
 const availableDirections = () => order;
-const state = { direction: "S", action: "walk", phase: 1, fps: 6, playing: true, background: "dark", scale: "medium" };
+const state = { direction: "S", action: "walk", phase: 1, fps: 6, playing: true, background: "dark", scale: "medium", stripAction: "all" };
 let manifest = { frames: [], directions: defaults, expected_frames: 55, blockers: [] };
 let frames = new Map();
 let directionMap = new Map(defaults.map((entry) => [entry.id, entry]));
@@ -21,6 +21,7 @@ const imageCache = new Map();
 const cards = new Map();
 let lastTick = 0;
 let refreshing = false;
+let downloadsReady = false;
 let initialized = false;
 
 function text(tag, value, className) {
@@ -48,6 +49,52 @@ function preload(frame) {
   record.image.onload = () => { record.status = "loaded"; updateLoadAudit(); renderMain(); renderCards(); };
   record.image.onerror = () => { record.status = "error"; updateLoadAudit(); renderMain(); renderCards(); markSheetError(frame.id); };
   record.image.src = url;
+}
+
+function stripFrameIds(direction, action) {
+  const source = defaults.find((entry) => entry.id === direction).source;
+  const walk = [1, 2, 3, 4].map((phase) => `${source}-walk-0${phase}`);
+  const run = [1, 2, 3, 4, 5, 6].map((phase) => `${source}-run-0${phase}`);
+  return action === "all" ? [`${source}-idle`, ...walk, ...run] : action === "walk" ? walk : run;
+}
+
+function stripUrl(strip, direction, action) {
+  const ids = stripFrameIds(direction, action);
+  const mapping = defaults.find((entry) => entry.id === direction);
+  if (!strip || strip.direction !== direction || strip.action !== action || strip.mirror !== mapping.mirror ||
+      strip.file !== `images/strips/${direction.toLowerCase()}-${action}.png` ||
+      strip.width !== ids.length * 512 || strip.height !== 512 || !/^[0-9a-f]{64}$/.test(strip.sha256 || "") ||
+      !Array.isArray(strip.frame_ids) || strip.frame_ids.length !== ids.length ||
+      ids.some((id, index) => strip.frame_ids[index] !== id || !frames.has(id))) return null;
+  const url = new URL(strip.file, import.meta.url);
+  url.searchParams.set("v", strip.sha256);
+  return url.href;
+}
+
+function renderDownloads(entries = downloadsReady ? manifest.exports?.direction_strips : []) {
+  const action = state.stripAction;
+  const count = action === "all" ? 11 : action === "walk" ? 4 : 6;
+  const label = action === "all" ? "complete" : action;
+  $("strip-downloads").replaceChildren();
+  let ready = 0;
+  for (const direction of order) {
+    const matching = Array.isArray(entries) ? entries.filter((strip) => strip?.direction === direction && strip.action === action) : [];
+    const url = matching.length === 1 ? stripUrl(matching[0], direction, action) : null;
+    const link = text("a", "", "strip-download");
+    link.dataset.direction = direction;
+    link.classList.toggle("current-direction", direction === state.direction);
+    link.append(text("strong", `${direction} ↓`), text("span", names[direction]));
+    link.setAttribute("aria-label", `${url ? "Download" : "Unavailable:"} ${names[direction]} ${label} strip, ${count} frames`);
+    if (url) {
+      link.href = url;
+      link.download = `caatuu-macaw-${direction.toLowerCase()}-${action}-strip.png`;
+      ready += 1;
+    } else link.setAttribute("aria-disabled", "true");
+    $("strip-downloads").append(link);
+  }
+  const sequence = action === "all" ? "standing, walk 1–4, run 1–6" : action === "walk" ? "walk 1–4" : "run 1–6";
+  $("strip-order").textContent = `Left to right: ${sequence}. Each frame occupies a 512 × 512 cell. Mirrored directions are included as drawn pixels.`;
+  $("strip-status").textContent = ready === 8 ? `8 ${label} strips ready · ${count * 512} × 512 pixels · transparent PNG` : ready ? `${ready} of 8 ${label} strips available. Refresh files when the rest are ready.` : "No strip downloads listed yet. Refresh files when they are ready.";
 }
 
 function frameFor(direction, action, phase) {
@@ -98,6 +145,7 @@ function renderMain() {
   $("direction-help").textContent = state.action === "run" ? "Running: all eight directions, with three mirrored views." : "Walking and standing: all eight directions.";
   for (const button of document.querySelectorAll("#action-controls button")) button.setAttribute("aria-pressed", String(button.dataset.action === state.action));
   for (const [id, card] of cards) card.button.setAttribute("aria-pressed", String(id === state.direction));
+  for (const link of document.querySelectorAll(".strip-download")) link.classList.toggle("current-direction", link.dataset.direction === state.direction);
   const url = sourceUrl(selection.frame);
   $("original-link").hidden = !url;
   if (url) $("original-link").href = url;
@@ -206,9 +254,11 @@ function renderAudit() {
 async function refreshManifest() {
   if (refreshing) return;
   refreshing = true;
+  downloadsReady = false;
   $("refresh").disabled = true;
   $("refresh").textContent = "Reading…";
   $("page-error").hidden = true;
+  renderDownloads([]);
   try {
     const response = await fetch(new URL("./manifest.json", import.meta.url), { cache: "no-store" });
     if (!response.ok) throw new Error(`Manifest request returned HTTP ${response.status}.`);
@@ -216,6 +266,7 @@ async function refreshManifest() {
     if (!Array.isArray(incoming.frames)) throw new Error("Manifest has no frames array.");
     const known = incoming.frames.filter((frame) => frame && /^(?:S|N|E|SE|NE)-(?:idle|walk-0[1-4]|run-0[1-6])$/.test(frame.id));
     manifest = { ...incoming, frames: known };
+    downloadsReady = true;
     frames = new Map(known.map((frame) => [frame.id, frame]));
     if (!initialized) {
       if (hasRun()) Object.assign(state, {action:"run", phase:1, fps:10});
@@ -238,7 +289,10 @@ async function refreshManifest() {
     renderAudit();
     renderMain();
     renderCards();
+    renderDownloads();
   } catch (error) {
+    downloadsReady = false;
+    renderDownloads();
     $("page-error").textContent = `${error.message} This review needs its manifest.json and images directory beside the page.`;
     $("page-error").hidden = false;
     $("load-count").textContent = "Manifest unavailable";
@@ -285,6 +339,10 @@ $("previous").addEventListener("click", () => step(-1));
 $("next").addEventListener("click", () => step(1));
 $("scrubber").addEventListener("input", (event) => { state.playing = false; state.action = cycleAction(); state.phase = Number(event.target.value); renderMain(); renderCards(); });
 $("refresh").addEventListener("click", refreshManifest);
+$("strip-action").addEventListener("change", (event) => {
+  state.stripAction = ["all", "walk", "run"].includes(event.target.value) ? event.target.value : "all";
+  renderDownloads();
+});
 
 function animate(now) {
   if (state.playing && !document.hidden) {

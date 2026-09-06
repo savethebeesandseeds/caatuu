@@ -61,3 +61,12 @@ footer { display: flex; justify-content: space-between; gap: 15px; color: #708c7
 .lab-nav > div { display: flex; gap: 24px; }
 .lab-nav a { text-decoration: none; }
 .lab-nav [aria-current] { color: #eaf0e8; text-decoration: underline; text-underline-offset: 7px; }
+.download-choice { display: flex; align-items: center; gap: 10px; font-size: .78rem; color: var(--muted); }
+.download-choice select { min-width: 185px; }
+.strip-downloads { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 9px; margin: 16px 0 12px; }
+.strip-download { display: flex; flex-direction: column; gap: 6px; padding: 15px 12px; border: 1px solid var(--line); border-radius: 9px; text-decoration: none; background: #19271f; }
+.strip-download strong { font-size: .92rem; font-weight: 550; }.strip-download span { color: var(--muted); font-size: .69rem; }
+.strip-download[href]:hover { background: #304739; border-color: #9baf91; }.strip-download.current-direction { border-color: var(--accent); }
+.strip-download[aria-disabled="true"] { opacity: .45; cursor: default; }
+@media (max-width: 1000px) { .strip-downloads { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 720px) { .download-choice { margin-top: 15px; justify-content: space-between; }.strip-download { padding: 12px 8px; }.strip-download span { font-size: .62rem; } }

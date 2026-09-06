@@ -46,6 +46,12 @@
       <div class="transport"><button id="previous" type="button" aria-label="Previous animation frame">←</button><button id="play" type="button" aria-pressed="true">Pause</button><button id="next" type="button" aria-label="Next animation frame">→</button><label class="scrubber-label" for="scrubber">Frame</label><input id="scrubber" type="range" min="1" max="4" step="1" value="1" aria-label="Animation frame"><output id="phase-label" for="scrubber">1/4 · Contact</output></div>
       <div class="frame-info"><a id="original-link" target="_blank" rel="noopener" hidden>Open frame PNG ↗</a><span id="image-metadata"></span><p id="visual-notes"></p></div>
     </section>
+    <section class="downloads-section" aria-labelledby="downloads-heading">
+      <div class="section-heading"><div><h2 id="downloads-heading">Download strips</h2><p>One transparent PNG per direction, ready to open in your image editor.</p></div><div class="download-choice"><label for="strip-action">Frames</label><select id="strip-action"><option value="all" selected>Complete · 11 frames</option><option value="walk">Walk · 4 frames</option><option value="run">Run · 6 frames</option></select></div></div>
+      <p id="strip-order" class="small-copy">Left to right: standing, walk 1–4, run 1–6. Each frame occupies a 512 × 512 cell. Mirrored directions are included as drawn pixels.</p>
+      <div id="strip-downloads" class="strip-downloads" aria-label="Download a direction"></div>
+      <p id="strip-status" class="small-copy" role="status">Reading strip downloads…</p>
+    </section>
     <section class="directions-section" aria-labelledby="directions-heading"><div class="section-heading"><h2 id="directions-heading">All eight directions</h2><p id="directions-caption">Synchronized four-frame walks · three views use mirrors</p></div><div id="direction-cards" class="direction-cards"></div></section>
     <section class="contact-section" aria-labelledby="contact-heading"><div class="section-heading"><h2 id="contact-heading">Latest walking frames</h2><p id="contact-caption">Standing + contact / passing / opposite contact / passing</p></div><div class="sheet-scroll"><div id="contact-sheet" class="contact-sheet"></div></div></section>
     <details class="audit-details"><summary>Processing and load notes</summary><p id="generation-status"></p><ul id="blockers"></ul><ul id="load-errors"></ul><p class="small-copy">The viewer reads the latest processed frame files. Gait is a draft; review timing, opposing steps and foot placement before game integration.</p></details>

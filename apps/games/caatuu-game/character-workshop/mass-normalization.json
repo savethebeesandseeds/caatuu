@@ -1,0 +1,2400 @@
+{
+  "schema_version": 1,
+  "source_revision": "6da3c49439eb226a6607101f91abaaabe1ab2683",
+  "source_archive": "artifacts/games/lab/mass-normalization-20260906/originals",
+  "method": "Alpha-weighted silhouette area; one uniform scale per direction and gait. Idle shares walk scale.",
+  "target_median_area": 66000,
+  "resampling": "nearest",
+  "cell_size": [
+    512,
+    512
+  ],
+  "minimum_canvas_margin": 8,
+  "ground_baseline": 480,
+  "flight_lift": 32,
+  "groups": [
+    {
+      "group": "S-walk",
+      "frame_ids": [
+        "S-idle",
+        "S-walk-01",
+        "S-walk-02",
+        "S-walk-03",
+        "S-walk-04"
+      ],
+      "source_median_area": 71625.671,
+      "scale": 0.9599256957976853,
+      "result_median_area": 65917.651
+    },
+    {
+      "group": "N-walk",
+      "frame_ids": [
+        "N-idle",
+        "N-walk-01",
+        "N-walk-02",
+        "N-walk-03",
+        "N-walk-04"
+      ],
+      "source_median_area": 66354.071,
+      "scale": 0.9973283915612335,
+      "result_median_area": 65741.961
+    },
+    {
+      "group": "E-walk",
+      "frame_ids": [
+        "E-idle",
+        "E-walk-01",
+        "E-walk-02",
+        "E-walk-03",
+        "E-walk-04"
+      ],
+      "source_median_area": 86653.718,
+      "scale": 0.8727269110935686,
+      "result_median_area": 65986.678
+    },
+    {
+      "group": "NE-walk",
+      "frame_ids": [
+        "NE-idle",
+        "NE-walk-01",
+        "NE-walk-02",
+        "NE-walk-03",
+        "NE-walk-04"
+      ],
+      "source_median_area": 55526.329,
+      "scale": 1.0902409370461141,
+      "result_median_area": 66014.867
+    },
+    {
+      "group": "SE-walk",
+      "frame_ids": [
+        "SE-idle",
+        "SE-walk-01",
+        "SE-walk-02",
+        "SE-walk-03",
+        "SE-walk-04"
+      ],
+      "source_median_area": 78382.957,
+      "scale": 0.9176163570956324,
+      "result_median_area": 65987.863
+    },
+    {
+      "group": "E-run",
+      "frame_ids": [
+        "E-run-01",
+        "E-run-02",
+        "E-run-03",
+        "E-run-04",
+        "E-run-05",
+        "E-run-06"
+      ],
+      "source_median_area": 68799.716,
+      "scale": 0.9794418256756875,
+      "result_median_area": 66009.053
+    },
+    {
+      "group": "S-run",
+      "frame_ids": [
+        "S-run-01",
+        "S-run-02",
+        "S-run-03",
+        "S-run-04",
+        "S-run-05",
+        "S-run-06"
+      ],
+      "source_median_area": 72790.784,
+      "scale": 0.9522122588814278,
+      "result_median_area": 66100.561
+    },
+    {
+      "group": "N-run",
+      "frame_ids": [
+        "N-run-01",
+        "N-run-02",
+        "N-run-03",
+        "N-run-04",
+        "N-run-05",
+        "N-run-06"
+      ],
+      "source_median_area": 61723.012,
+      "scale": 1.034066367519778,
+      "result_median_area": 66063.469
+    },
+    {
+      "group": "NE-run",
+      "frame_ids": [
+        "NE-run-01",
+        "NE-run-02",
+        "NE-run-03",
+        "NE-run-04",
+        "NE-run-05",
+        "NE-run-06"
+      ],
+      "source_median_area": 53295.761,
+      "scale": 1.112821825430791,
+      "result_median_area": 66175.375
+    },
+    {
+      "group": "SE-run",
+      "frame_ids": [
+        "SE-run-01",
+        "SE-run-02",
+        "SE-run-03",
+        "SE-run-04",
+        "SE-run-05",
+        "SE-run-06"
+      ],
+      "source_median_area": 60531.78,
+      "scale": 1.0441917170115722,
+      "result_median_area": 66026.798
+    }
+  ],
+  "frames": [
+    {
+      "id": "S-idle",
+      "source_sha256": "fc3944c4575d1edd982ac19ca30b2b978afb12dcd800f220b81f6ac40907d6e1",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          309,
+          419
+        ],
+        "translation": [
+          90,
+          61
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        114,
+        85,
+        399,
+        480
+      ],
+      "source_area": 72396.816,
+      "scale": 0.9599256957976853,
+      "result_bounds": [
+        120,
+        101,
+        394,
+        480
+      ],
+      "result_area": 66819.69,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "e0d53eeb1211e01c8bc0834f9edc90e7c1e60bbb12be25410777e50fb8d1ebd6"
+    },
+    {
+      "id": "S-walk-01",
+      "source_sha256": "5dedc74212bf1d88fff71b7aecdb598c7391de3280dd45d340ba0ce5a9d66e7e",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          307,
+          433
+        ],
+        "translation": [
+          91,
+          47
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        115,
+        71,
+        398,
+        480
+      ],
+      "source_area": 73053.929,
+      "scale": 0.9599256957976853,
+      "result_bounds": [
+        121,
+        87,
+        393,
+        480
+      ],
+      "result_area": 67402.506,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "a8dfc901ddbed45fcbb3ecfc838a2549129cf4d753cb2fd5b18ca0784bc5a4ee"
+    },
+    {
+      "id": "S-walk-02",
+      "source_sha256": "9be13db268aae589884cd6593e4c7df351af8de071341850bff7f230f74cd2e1",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          293,
+          425
+        ],
+        "translation": [
+          98,
+          55
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        122,
+        79,
+        391,
+        480
+      ],
+      "source_area": 68842.569,
+      "scale": 0.9599256957976853,
+      "result_bounds": [
+        127,
+        95,
+        385,
+        480
+      ],
+      "result_area": 63349.369,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "7abae5f3ac5fe648b4c11e998dfe4e90b559acf6f1d6d5932ec599fcf84272ad"
+    },
+    {
+      "id": "S-walk-03",
+      "source_sha256": "3bd04148ee217d0646cf82460fefe2aa4fb34d3391d20b3db841ef0b572b10c9",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          302,
+          437
+        ],
+        "translation": [
+          93,
+          43
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        117,
+        67,
+        395,
+        480
+      ],
+      "source_area": 71625.671,
+      "scale": 0.9599256957976853,
+      "result_bounds": [
+        123,
+        84,
+        390,
+        480
+      ],
+      "result_area": 65917.651,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "1c233087c5a0a15e708bac1d707af90c2766cf77a42bac334531882ff9dafd75"
+    },
+    {
+      "id": "S-walk-04",
+      "source_sha256": "31dcdabecd65583a1e1a801ae15fa71c6280f86065bec4ab5bbd952c9f689815",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          303,
+          425
+        ],
+        "translation": [
+          93,
+          55
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        117,
+        79,
+        396,
+        480
+      ],
+      "source_area": 71333.925,
+      "scale": 0.9599256957976853,
+      "result_bounds": [
+        123,
+        95,
+        391,
+        480
+      ],
+      "result_area": 65733.325,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "6dcd6d13aebce83d3dff64b96d1413ee73dd7bfee90ab538d362d86533a64bf5"
+    },
+    {
+      "id": "N-idle",
+      "source_sha256": "f6d11517d1e8597c6a5f87ea736f232c85e5d9578ecd9bc6e4e71cbb793cbd83",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          295,
+          419
+        ],
+        "translation": [
+          97,
+          61
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        121,
+        85,
+        392,
+        480
+      ],
+      "source_area": 69671.706,
+      "scale": 0.9973283915612335,
+      "result_bounds": [
+        121,
+        86,
+        391,
+        480
+      ],
+      "result_area": 69062.294,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "8f932f7e4d50f19bbe2588cf6797ce18338a3de327c2ea3b2763dc24a2ec9b60"
+    },
+    {
+      "id": "N-walk-01",
+      "source_sha256": "c09ff6cebb383e36ec06166448168c3a21009150a0e17b73a02d660e874bd850",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          298,
+          435
+        ],
+        "translation": [
+          95,
+          45
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        119,
+        69,
+        393,
+        480
+      ],
+      "source_area": 67323.804,
+      "scale": 0.9973283915612335,
+      "result_bounds": [
+        119,
+        70,
+        392,
+        480
+      ],
+      "result_area": 66695.537,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "98f647b673b57990738e3759cd69acd369248c0b08565c25d62856e14d0d5ff7"
+    },
+    {
+      "id": "N-walk-02",
+      "source_sha256": "978eda6a8c8d3ed30c67af6df6034a293c5eb5123bb6d40587a66bc8a614f273",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          288,
+          402
+        ],
+        "translation": [
+          100,
+          78
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        124,
+        102,
+        388,
+        480
+      ],
+      "source_area": 64567.329,
+      "scale": 0.9973283915612335,
+      "result_bounds": [
+        124,
+        103,
+        387,
+        480
+      ],
+      "result_area": 63976.933,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "ebc693cf1411d5e325a36904553b2989ac53ad89c4b0353f0fba8b0d836ffdf4"
+    },
+    {
+      "id": "N-walk-03",
+      "source_sha256": "47073d15653519c5dd5d9341844f1115aba73f76172bd6541c027e8f9969952d",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          289,
+          433
+        ],
+        "translation": [
+          100,
+          47
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        124,
+        71,
+        389,
+        480
+      ],
+      "source_area": 66354.071,
+      "scale": 0.9973283915612335,
+      "result_bounds": [
+        124,
+        72,
+        388,
+        480
+      ],
+      "result_area": 65741.961,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "639f4c5b4b72bf7ca7798de4e1c8a07af26df901ffbadf468c86631df7e6e894"
+    },
+    {
+      "id": "N-walk-04",
+      "source_sha256": "a32202d94fe8d44cb737952a32db26737d4a410167c179f1f60f0dd7691347ba",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          282,
+          401
+        ],
+        "translation": [
+          103,
+          79
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        127,
+        103,
+        385,
+        480
+      ],
+      "source_area": 63457.275,
+      "scale": 0.9973283915612335,
+      "result_bounds": [
+        127,
+        104,
+        384,
+        480
+      ],
+      "result_area": 62861.153,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "1b1db606c2194aa29da34ce4be1188b3960e1f5b10562523f15db030d71cd3db"
+    },
+    {
+      "id": "E-idle",
+      "source_sha256": "91713bc07e67d54fe65aed379914b114610e4ab6d0c5e3f66b309209e7a723c5",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          306,
+          472
+        ],
+        "translation": [
+          91,
+          8
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        115,
+        32,
+        397,
+        480
+      ],
+      "source_area": 86653.718,
+      "scale": 0.8727269110935686,
+      "result_bounds": [
+        133,
+        89,
+        379,
+        480
+      ],
+      "result_area": 65986.678,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "5aa02686e7e7d5f098fa9d1fe97a70a24df2f8bf25323061210548c54ed73008"
+    },
+    {
+      "id": "E-walk-01",
+      "source_sha256": "bccdb981e14021b381fbf68217b340552d12d2c71790404ed6507d48bb14fa91",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          343,
+          467
+        ],
+        "translation": [
+          73,
+          13
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        97,
+        37,
+        416,
+        480
+      ],
+      "source_area": 91599.839,
+      "scale": 0.8727269110935686,
+      "result_bounds": [
+        117,
+        93,
+        395,
+        480
+      ],
+      "result_area": 69766.737,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "e66d3faa19c6e97701c449a3c8ad894522701cb5d347d677ad8fb01d35ba46af"
+    },
+    {
+      "id": "E-walk-02",
+      "source_sha256": "5a08655eb42dcbe1980976878f862d992c2c9d76ecc6e46f0e4cc27d899b0708",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          311,
+          473
+        ],
+        "translation": [
+          89,
+          7
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        113,
+        31,
+        400,
+        480
+      ],
+      "source_area": 82775.624,
+      "scale": 0.8727269110935686,
+      "result_bounds": [
+        131,
+        88,
+        381,
+        480
+      ],
+      "result_area": 62997.122,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "bc874c3e7986c11c4ef7193bae8fcf5fa3509974ba8609a256619a5ef983515f"
+    },
+    {
+      "id": "E-walk-03",
+      "source_sha256": "86afc23e78621bf35b3dbb579094a7f600911006de8211940cd3a1293ef26978",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          353,
+          467
+        ],
+        "translation": [
+          68,
+          13
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        92,
+        37,
+        421,
+        480
+      ],
+      "source_area": 89045.11,
+      "scale": 0.8727269110935686,
+      "result_bounds": [
+        113,
+        93,
+        400,
+        480
+      ],
+      "result_area": 67900.965,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "0e61a725149a0b11450b8d8e5e09662a14aa7afd9e211833d0ac76e371e3be8c"
+    },
+    {
+      "id": "E-walk-04",
+      "source_sha256": "e40eb7f50285ad0c20016e498d8c5da0d487029c3ef292ca521d6db04c10559f",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          319,
+          467
+        ],
+        "translation": [
+          85,
+          13
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        109,
+        37,
+        404,
+        480
+      ],
+      "source_area": 81789.161,
+      "scale": 0.8727269110935686,
+      "result_bounds": [
+        128,
+        93,
+        385,
+        480
+      ],
+      "result_area": 62255.902,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "5eb77abcbfb6b7a32797dc49860b21f389cf8cba54078a745b50200bfe767cb9"
+    },
+    {
+      "id": "NE-idle",
+      "source_sha256": "8220694c4211b843de7158dce5b05f0e0e320bea7af38ff7fa532b046011efd2",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          258,
+          377
+        ],
+        "translation": [
+          115,
+          103
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        139,
+        127,
+        373,
+        480
+      ],
+      "source_area": 55526.329,
+      "scale": 1.0902409370461141,
+      "result_bounds": [
+        128,
+        95,
+        383,
+        480
+      ],
+      "result_area": 66014.867,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "121bc006fbdf4d738fd5e61935c88322630470bd612528e97f53cc35b4e8393c"
+    },
+    {
+      "id": "NE-walk-01",
+      "source_sha256": "e3f834563899bbf81d0fe0138ac5d37d2f6175e7f2ebd148c7f887b39d580959",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          295,
+          384
+        ],
+        "translation": [
+          97,
+          96
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        121,
+        120,
+        392,
+        480
+      ],
+      "source_area": 58967.612,
+      "scale": 1.0902409370461141,
+      "result_bounds": [
+        109,
+        88,
+        404,
+        480
+      ],
+      "result_area": 69894.996,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "bf09b37d15c281691dfb1f5adfd8741d7e9a762d9902fcb03aa0fc7aa47c9ce9"
+    },
+    {
+      "id": "NE-walk-02",
+      "source_sha256": "65e5040d7300e2cba42003e998558c45acdded0e33e255eba6d68d54f4ae1a01",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          234,
+          381
+        ],
+        "translation": [
+          127,
+          99
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        151,
+        123,
+        361,
+        480
+      ],
+      "source_area": 52971.749,
+      "scale": 1.0902409370461141,
+      "result_bounds": [
+        142,
+        91,
+        371,
+        480
+      ],
+      "result_area": 62974.592,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "188774f9b832c2908c94b448316a394b4c3c95d3b39fe28ae290ff7192155850"
+    },
+    {
+      "id": "NE-walk-03",
+      "source_sha256": "e6a91347621171b6a2b09d7950629df99e1e57fab0d11894c4d1e2c2fb60da71",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          320,
+          391
+        ],
+        "translation": [
+          84,
+          89
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        108,
+        113,
+        404,
+        480
+      ],
+      "source_area": 59091.067,
+      "scale": 1.0902409370461141,
+      "result_bounds": [
+        95,
+        80,
+        418,
+        480
+      ],
+      "result_area": 70329.384,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "5cc98e326981657a11fc6cb2d0506f64d2ce33b533d249cdc1e82953f9453ce5"
+    },
+    {
+      "id": "NE-walk-04",
+      "source_sha256": "d357b72aff28d1319ce7bd3b98596e544a164e664bf80b6073e0a8010ba490b9",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          233,
+          380
+        ],
+        "translation": [
+          128,
+          100
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        152,
+        124,
+        361,
+        480
+      ],
+      "source_area": 52403.867,
+      "scale": 1.0902409370461141,
+      "result_bounds": [
+        143,
+        92,
+        371,
+        480
+      ],
+      "result_area": 62362.914,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "67b88954da79433132dd74e0a0a3a4e2649eae2985b1210aa9ebcb4d7bdecfbd"
+    },
+    {
+      "id": "SE-idle",
+      "source_sha256": "2e124d6792351b03fddc6f5e6ea467d124c663015ba6607b963c798a405f10d2",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          294,
+          454
+        ],
+        "translation": [
+          97,
+          26
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        121,
+        50,
+        391,
+        480
+      ],
+      "source_area": 78427.773,
+      "scale": 0.9176163570956324,
+      "result_bounds": [
+        132,
+        85,
+        380,
+        480
+      ],
+      "result_area": 66127.075,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "96a151b73055583ce740d8b4ffa3b8f594e2cd2982347311366ade6437229de9"
+    },
+    {
+      "id": "SE-walk-01",
+      "source_sha256": "03df85c101832e3c696f3e3a2afeaceac55428ae25b8df2dc2a503790db395ee",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          330,
+          447
+        ],
+        "translation": [
+          79,
+          33
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        103,
+        57,
+        409,
+        480
+      ],
+      "source_area": 78716.596,
+      "scale": 0.9176163570956324,
+      "result_bounds": [
+        116,
+        92,
+        397,
+        480
+      ],
+      "result_area": 66287.039,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "92ade8ef477adbd2c0f49cb46d9080e671fc8a075bfd3fc75fa33f2dadb0f943"
+    },
+    {
+      "id": "SE-walk-02",
+      "source_sha256": "3016f08f3fcea24518be86d2cb23a53af414324e7a0a7f41d62e76152c4a18c9",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          282,
+          444
+        ],
+        "translation": [
+          103,
+          36
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        127,
+        60,
+        385,
+        480
+      ],
+      "source_area": 74383.639,
+      "scale": 0.9176163570956324,
+      "result_bounds": [
+        138,
+        95,
+        375,
+        480
+      ],
+      "result_area": 62623.2,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "d6e4d3751cd256067c2feb4ea482b16b53af896a927ed826cd8df27d6f3651d5"
+    },
+    {
+      "id": "SE-walk-03",
+      "source_sha256": "456a596e6ab9e20ac3edc44717a9b57195a340c1231f548c06e6d08d6852d4d0",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          341,
+          449
+        ],
+        "translation": [
+          74,
+          31
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        98,
+        55,
+        415,
+        480
+      ],
+      "source_area": 78382.957,
+      "scale": 0.9176163570956324,
+      "result_bounds": [
+        111,
+        90,
+        402,
+        480
+      ],
+      "result_area": 65987.863,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "bf6a2bd4327dec47c025a53dc2512bcf0589b71afe0c27b7efafe0b28e21d011"
+    },
+    {
+      "id": "SE-walk-04",
+      "source_sha256": "48f2b16b8d69a5a4efbf893ae1aa76513bf6a482a7125990a8e8ca94a4dbd6e9",
+      "source_registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          290,
+          453
+        ],
+        "translation": [
+          99,
+          27
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "source_bounds": [
+        123,
+        51,
+        389,
+        480
+      ],
+      "source_area": 76392.871,
+      "scale": 0.9176163570956324,
+      "result_bounds": [
+        134,
+        86,
+        378,
+        480
+      ],
+      "result_area": 64279.749,
+      "anchor_x": 256.0,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "c372526605717bd43ad33cf9d4904dbd818eb558c0f4517f38fefc350d0b9cf0"
+    },
+    {
+      "id": "E-run-01",
+      "source_sha256": "3f13e7f2db747b19e040fd1a1003d957734529361541462a3344a0c7b010d6b8",
+      "source_registration": {
+        "translation": [
+          33,
+          73
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 249,
+        "source_alpha_bounds": [
+          24,
+          24,
+          367,
+          407
+        ]
+      },
+      "source_bounds": [
+        57,
+        97,
+        400,
+        480
+      ],
+      "source_area": 71630.369,
+      "scale": 0.9794418256756875,
+      "result_bounds": [
+        61,
+        105,
+        397,
+        480
+      ],
+      "result_area": 68668.416,
+      "anchor_x": 249,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "8e6d55f75099b8b20681f908ab15762979b7737452900908794fb9bdf5bf5845"
+    },
+    {
+      "id": "E-run-02",
+      "source_sha256": "8a23ca9a5df1a9954dde18af45d2574692761be304f3726a456d05f99af5efc2",
+      "source_registration": {
+        "translation": [
+          46,
+          85
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 249,
+        "source_alpha_bounds": [
+          24,
+          24,
+          330,
+          395
+        ]
+      },
+      "source_bounds": [
+        70,
+        109,
+        376,
+        480
+      ],
+      "source_area": 65519.682,
+      "scale": 0.9794418256756875,
+      "result_bounds": [
+        74,
+        117,
+        374,
+        480
+      ],
+      "result_area": 62787.345,
+      "anchor_x": 249,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "fcc58c1fc7dad72a42701534af880b24d6abb74348977719ca864b5f0fc0f387"
+    },
+    {
+      "id": "E-run-03",
+      "source_sha256": "ac8115677adeebc31ce3bd1d90767c17491413c14d2c3e1f694eecbd44d89f4c",
+      "source_registration": {
+        "translation": [
+          40,
+          71
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 32,
+        "head_anchor_x": 249,
+        "source_alpha_bounds": [
+          24,
+          24,
+          377,
+          377
+        ]
+      },
+      "source_bounds": [
+        64,
+        95,
+        417,
+        448
+      ],
+      "source_area": 69447.318,
+      "scale": 0.9794418256756875,
+      "result_bounds": [
+        68,
+        102,
+        414,
+        448
+      ],
+      "result_area": 66696.11,
+      "anchor_x": 249,
+      "ground_baseline": 480,
+      "flight_lift": 32,
+      "result_sha256": "eca20b21d20fb417e2b5b402c29a56f02061c1ee8ba4658ef1a1a956c6a4cf6d"
+    },
+    {
+      "id": "E-run-04",
+      "source_sha256": "e2724246f2c596f2ef5d4049a307f0d260effd12eb0937c4115c1bbeed3d70ef",
+      "source_registration": {
+        "translation": [
+          37,
+          70
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 249,
+        "source_alpha_bounds": [
+          24,
+          24,
+          367,
+          410
+        ]
+      },
+      "source_bounds": [
+        61,
+        94,
+        404,
+        480
+      ],
+      "source_area": 71132.957,
+      "scale": 0.9794418256756875,
+      "result_bounds": [
+        65,
+        102,
+        401,
+        480
+      ],
+      "result_area": 68197.455,
+      "anchor_x": 249,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "05199022a3933f8eadb2ae59b5b61889758562849b24ce00aa5ffd64762cde17"
+    },
+    {
+      "id": "E-run-05",
+      "source_sha256": "c7919482e698187e5503e4670505a233c987cc2a8b4d741dd8bc172aee3c2efb",
+      "source_registration": {
+        "translation": [
+          47,
+          78
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 249,
+        "source_alpha_bounds": [
+          24,
+          24,
+          326,
+          402
+        ]
+      },
+      "source_bounds": [
+        71,
+        102,
+        373,
+        480
+      ],
+      "source_area": 68152.114,
+      "scale": 0.9794418256756875,
+      "result_bounds": [
+        75,
+        110,
+        371,
+        480
+      ],
+      "result_area": 65321.996,
+      "anchor_x": 249,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "efae78abcaf62b5a7261ad85b84c59ad0a8cedbb127b522c6717a0d0ed33e51f"
+    },
+    {
+      "id": "S-run-01",
+      "source_sha256": "c50cc9f0d334e16e4ed871a9cb1ac3759b3bba13f229362eb4e6ec68f36b9f7f",
+      "source_registration": {
+        "translation": [
+          75,
+          21
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 257,
+        "source_alpha_bounds": [
+          24,
+          24,
+          337,
+          459
+        ],
+        "registered_alpha_bounds": [
+          99,
+          45,
+          412,
+          480
+        ]
+      },
+      "source_bounds": [
+        99,
+        45,
+        412,
+        480
+      ],
+      "source_area": 75181.478,
+      "scale": 0.9522122588814278,
+      "result_bounds": [
+        107,
+        66,
+        405,
+        480
+      ],
+      "result_area": 68125.129,
+      "anchor_x": 257,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "89979eb08bddee3087d26d8d5bc24cd2ca0804be5eba79ed6b2d251945545d6d"
+    },
+    {
+      "id": "S-run-02",
+      "source_sha256": "5ecf0770b6a45cf12c2852d90ec6aa8e568f54f05997a591a3030d69099654e8",
+      "source_registration": {
+        "translation": [
+          79,
+          30
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 257,
+        "source_alpha_bounds": [
+          24,
+          24,
+          323,
+          450
+        ],
+        "registered_alpha_bounds": [
+          103,
+          54,
+          402,
+          480
+        ]
+      },
+      "source_bounds": [
+        103,
+        54,
+        402,
+        480
+      ],
+      "source_area": 72817.09,
+      "scale": 0.9522122588814278,
+      "result_bounds": [
+        110,
+        74,
+        395,
+        480
+      ],
+      "result_area": 66123.537,
+      "anchor_x": 257,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "ff8118edc178e16bb2ea9f52f65b5a696ec6755695103f441d923aa4061fdf00"
+    },
+    {
+      "id": "S-run-03",
+      "source_sha256": "51c1a9c0f9a97302f7d0d0fa0285fdb41923ffeeb9e103fe285dee07a1b9b881",
+      "source_registration": {
+        "translation": [
+          84,
+          21
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 32,
+        "head_anchor_x": 257,
+        "source_alpha_bounds": [
+          24,
+          24,
+          326,
+          427
+        ],
+        "registered_alpha_bounds": [
+          108,
+          45,
+          410,
+          448
+        ]
+      },
+      "source_bounds": [
+        108,
+        45,
+        410,
+        448
+      ],
+      "source_area": 69194.333,
+      "scale": 0.9522122588814278,
+      "result_bounds": [
+        115,
+        64,
+        403,
+        448
+      ],
+      "result_area": 62838.71,
+      "anchor_x": 257,
+      "ground_baseline": 480,
+      "flight_lift": 32,
+      "result_sha256": "a240e86c952670c8f0f708f274f411a3fd6a5ff6134a68e75427079ac80c0410"
+    },
+    {
+      "id": "S-run-04",
+      "source_sha256": "594913f024476086b44c7a5b13c6bfa807fb62be190db10f2a12e300df6f20d1",
+      "source_registration": {
+        "translation": [
+          75,
+          22
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 257,
+        "source_alpha_bounds": [
+          24,
+          24,
+          336,
+          458
+        ],
+        "registered_alpha_bounds": [
+          99,
+          46,
+          411,
+          480
+        ]
+      },
+      "source_bounds": [
+        99,
+        46,
+        411,
+        480
+      ],
+      "source_area": 73319.188,
+      "scale": 0.9522122588814278,
+      "result_bounds": [
+        107,
+        67,
+        404,
+        480
+      ],
+      "result_area": 66417.686,
+      "anchor_x": 257,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "b6f8593bf095bcf80258210ae2aa0ca773a82747ce4d0b02cc806ddd94326935"
+    },
+    {
+      "id": "S-run-05",
+      "source_sha256": "19c391c148268579987a99737a85a17d4a9ad386d877b3a2ffd188d4bbec806e",
+      "source_registration": {
+        "translation": [
+          83,
+          30
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 257,
+        "source_alpha_bounds": [
+          24,
+          24,
+          326,
+          450
+        ],
+        "registered_alpha_bounds": [
+          107,
+          54,
+          409,
+          480
+        ]
+      },
+      "source_bounds": [
+        107,
+        54,
+        409,
+        480
+      ],
+      "source_area": 72764.478,
+      "scale": 0.9522122588814278,
+      "result_bounds": [
+        114,
+        74,
+        402,
+        480
+      ],
+      "result_area": 66077.584,
+      "anchor_x": 257,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "ff5b0dc4a2c4daf5a5570e6140088ca5562eb1cf20c3f668c9859ab5a25412fc"
+    },
+    {
+      "id": "S-run-06",
+      "source_sha256": "2975fa20894dcedbc87914ba2eeafa6c6f25b8c03d3485ca5dc28032d6781fda",
+      "source_registration": {
+        "translation": [
+          80,
+          17
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 32,
+        "head_anchor_x": 257,
+        "source_alpha_bounds": [
+          24,
+          24,
+          326,
+          431
+        ],
+        "registered_alpha_bounds": [
+          104,
+          41,
+          406,
+          448
+        ]
+      },
+      "source_bounds": [
+        104,
+        41,
+        406,
+        448
+      ],
+      "source_area": 70724.306,
+      "scale": 0.9522122588814278,
+      "result_bounds": [
+        111,
+        60,
+        399,
+        448
+      ],
+      "result_area": 64247.518,
+      "anchor_x": 257,
+      "ground_baseline": 480,
+      "flight_lift": 32,
+      "result_sha256": "bd8a894bbfa060bb6e12bf6189315e69577d8cbd20260c0bdf6796691ae75753"
+    },
+    {
+      "id": "N-run-01",
+      "source_sha256": "55496ae57a478848eb99b57643b0620bcdb9d1eaae480868f1ed0a92275f72b0",
+      "source_registration": {
+        "translation": [
+          99,
+          50
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 256,
+        "source_alpha_bounds": [
+          24,
+          24,
+          283,
+          430
+        ],
+        "registered_alpha_bounds": [
+          123,
+          74,
+          382,
+          480
+        ]
+      },
+      "source_bounds": [
+        123,
+        74,
+        382,
+        480
+      ],
+      "source_area": 60829.682,
+      "scale": 1.034066367519778,
+      "result_bounds": [
+        118,
+        60,
+        386,
+        480
+      ],
+      "result_area": 65193.318,
+      "anchor_x": 256,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "3eb08adaf83383c9ae39dcf123a856b6ce59a34bbcafceb10a082160f7f68fe0"
+    },
+    {
+      "id": "N-run-02",
+      "source_sha256": "234d34f0ba59f0865acb1b1ee03712ad18c2c5d02f3895b47758f34d4e849fa6",
+      "source_registration": {
+        "translation": [
+          94,
+          72
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 256,
+        "source_alpha_bounds": [
+          24,
+          24,
+          292,
+          408
+        ],
+        "registered_alpha_bounds": [
+          118,
+          96,
+          386,
+          480
+        ]
+      },
+      "source_bounds": [
+        118,
+        96,
+        386,
+        480
+      ],
+      "source_area": 64395.71,
+      "scale": 1.034066367519778,
+      "result_bounds": [
+        113,
+        83,
+        390,
+        480
+      ],
+      "result_area": 68826.776,
+      "anchor_x": 256,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "15cbb414d9a9f93fab4d436c8a596783212063c0289bc7ffd2fe717ccc56e4cb"
+    },
+    {
+      "id": "N-run-03",
+      "source_sha256": "e69735e4668f87e1a315a09243db0cf4abb0fbc43e19bbdc796b7017dbab5ec0",
+      "source_registration": {
+        "translation": [
+          102,
+          6
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 32,
+        "head_anchor_x": 256,
+        "source_alpha_bounds": [
+          24,
+          24,
+          291,
+          442
+        ],
+        "registered_alpha_bounds": [
+          126,
+          30,
+          393,
+          448
+        ]
+      },
+      "source_bounds": [
+        126,
+        30,
+        393,
+        448
+      ],
+      "source_area": 62616.341,
+      "scale": 1.034066367519778,
+      "result_bounds": [
+        122,
+        16,
+        398,
+        448
+      ],
+      "result_area": 66933.62,
+      "anchor_x": 256,
+      "ground_baseline": 480,
+      "flight_lift": 32,
+      "result_sha256": "dc22dcb571d42387c8576b84e9dcdb72440fdbd64f2c9053ac839ff806cd9bb2"
+    },
+    {
+      "id": "N-run-04",
+      "source_sha256": "a265727567d453b1856c9eafb0e0d1bcf69d614210f3536bf2345a4ca7054408",
+      "source_registration": {
+        "translation": [
+          97,
+          43
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 256,
+        "source_alpha_bounds": [
+          24,
+          24,
+          291,
+          437
+        ],
+        "registered_alpha_bounds": [
+          121,
+          67,
+          388,
+          480
+        ]
+      },
+      "source_bounds": [
+        121,
+        67,
+        388,
+        480
+      ],
+      "source_area": 63310.988,
+      "scale": 1.034066367519778,
+      "result_bounds": [
+        116,
+        53,
+        392,
+        480
+      ],
+      "result_area": 67717.051,
+      "anchor_x": 256,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "658d77e99755266b4ad1b3a07d1f1f56a8dc41bcc3f9bee4596879a66b1c6569"
+    },
+    {
+      "id": "N-run-05",
+      "source_sha256": "7eec9fa5982e44bff4ca2b6e78002b0173d0cecafad9805c5fa48485623acaf5",
+      "source_registration": {
+        "translation": [
+          101,
+          90
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 256,
+        "source_alpha_bounds": [
+          24,
+          24,
+          284,
+          390
+        ],
+        "registered_alpha_bounds": [
+          125,
+          114,
+          385,
+          480
+        ]
+      },
+      "source_bounds": [
+        125,
+        114,
+        385,
+        480
+      ],
+      "source_area": 60650.114,
+      "scale": 1.034066367519778,
+      "result_bounds": [
+        121,
+        102,
+        390,
+        480
+      ],
+      "result_area": 64813.176,
+      "anchor_x": 256,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "37270e194f9b179e4550f4c306dca1722a9865295f6be147056922ec4b4002c8"
+    },
+    {
+      "id": "N-run-06",
+      "source_sha256": "e7868198681b89571be134f62917f6cf150e2439b003ce21f20474832c94e5f2",
+      "source_registration": {
+        "translation": [
+          103,
+          16
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 32,
+        "head_anchor_x": 256,
+        "source_alpha_bounds": [
+          24,
+          24,
+          283,
+          432
+        ],
+        "registered_alpha_bounds": [
+          127,
+          40,
+          386,
+          448
+        ]
+      },
+      "source_bounds": [
+        127,
+        40,
+        386,
+        448
+      ],
+      "source_area": 59585.392,
+      "scale": 1.034066367519778,
+      "result_bounds": [
+        123,
+        26,
+        391,
+        448
+      ],
+      "result_area": 63773.718,
+      "anchor_x": 256,
+      "ground_baseline": 480,
+      "flight_lift": 32,
+      "result_sha256": "2eeb56d2138c7e60ce7788189cfc2b775f6b64a8215bbb757e9e1d73a0ad3140"
+    },
+    {
+      "id": "NE-run-01",
+      "source_sha256": "a7ce16b88255aa3af09cf15e641707a9f1f6feb40852552791d5b134979621e7",
+      "source_registration": {
+        "translation": [
+          99,
+          76
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 253,
+        "source_alpha_bounds": [
+          24,
+          24,
+          269,
+          404
+        ],
+        "registered_alpha_bounds": [
+          123,
+          100,
+          368,
+          480
+        ]
+      },
+      "source_bounds": [
+        123,
+        100,
+        368,
+        480
+      ],
+      "source_area": 53711.141,
+      "scale": 1.112821825430791,
+      "result_bounds": [
+        108,
+        57,
+        381,
+        480
+      ],
+      "result_area": 66663.196,
+      "anchor_x": 253,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "8b4abb31964d1812897be5f48e4d814519d0d45b383ee9802a71fab49492bd46"
+    },
+    {
+      "id": "NE-run-02",
+      "source_sha256": "46f1a437326f5ded326234603725c2d60487e2355ecc4d17bbe6de8df50b7661",
+      "source_registration": {
+        "translation": [
+          95,
+          103
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 253,
+        "source_alpha_bounds": [
+          24,
+          24,
+          256,
+          377
+        ],
+        "registered_alpha_bounds": [
+          119,
+          127,
+          351,
+          480
+        ]
+      },
+      "source_bounds": [
+        119,
+        127,
+        351,
+        480
+      ],
+      "source_area": 51157.282,
+      "scale": 1.112821825430791,
+      "result_bounds": [
+        104,
+        87,
+        362,
+        480
+      ],
+      "result_area": 63371.125,
+      "anchor_x": 253,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "fa729125b26af420d1f8c39df6e056577e117c355b87d47dd580ff2493eb2d29"
+    },
+    {
+      "id": "NE-run-03",
+      "source_sha256": "eb83225f4fd364bbae30047670f50ce97f18dc6450f9f4b2a03f2237888ced9f",
+      "source_registration": {
+        "translation": [
+          81,
+          44
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 32,
+        "head_anchor_x": 253,
+        "source_alpha_bounds": [
+          24,
+          24,
+          317,
+          404
+        ],
+        "registered_alpha_bounds": [
+          105,
+          68,
+          398,
+          448
+        ]
+      },
+      "source_bounds": [
+        105,
+        68,
+        398,
+        448
+      ],
+      "source_area": 56244.882,
+      "scale": 1.112821825430791,
+      "result_bounds": [
+        88,
+        25,
+        414,
+        448
+      ],
+      "result_area": 69708.161,
+      "anchor_x": 253,
+      "ground_baseline": 480,
+      "flight_lift": 32,
+      "result_sha256": "afcb4bee4b2e018833ba4117d29d2785c34c5aa1d9e1c30b0b809149626bb436"
+    },
+    {
+      "id": "NE-run-04",
+      "source_sha256": "ad67991a5ad265de63ef0cabff2dba65e6e8f5ae8d49abfba9406fc5e1cde6cf",
+      "source_registration": {
+        "translation": [
+          79,
+          76
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 253,
+        "source_alpha_bounds": [
+          24,
+          24,
+          308,
+          404
+        ],
+        "registered_alpha_bounds": [
+          103,
+          100,
+          387,
+          480
+        ]
+      },
+      "source_bounds": [
+        103,
+        100,
+        387,
+        480
+      ],
+      "source_area": 55885.267,
+      "scale": 1.112821825430791,
+      "result_bounds": [
+        86,
+        57,
+        402,
+        480
+      ],
+      "result_area": 69198.133,
+      "anchor_x": 253,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "58de484c53dbf8fc27660aac1eeb728ca7ab68a7ad726dcd0639e4d92cd40351"
+    },
+    {
+      "id": "NE-run-05",
+      "source_sha256": "de19d2956cafeeb8a985bdda30c1afd6a34a4d8efaa29d8fef4d1b1faadb5051",
+      "source_registration": {
+        "translation": [
+          99,
+          108
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 253,
+        "source_alpha_bounds": [
+          24,
+          24,
+          249,
+          372
+        ],
+        "registered_alpha_bounds": [
+          123,
+          132,
+          348,
+          480
+        ]
+      },
+      "source_bounds": [
+        123,
+        132,
+        348,
+        480
+      ],
+      "source_area": 49143.843,
+      "scale": 1.112821825430791,
+      "result_bounds": [
+        108,
+        93,
+        358,
+        480
+      ],
+      "result_area": 60739.067,
+      "anchor_x": 253,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "bd87e503ad57fbd6f93ac9b973ec8cdef6c981262be6e58d8d1a435340c381c4"
+    },
+    {
+      "id": "NE-run-06",
+      "source_sha256": "61badad5ff935c9e2d48621867ff17aea2997b19b04726d6dbfd110e2dfbbd71",
+      "source_registration": {
+        "translation": [
+          86,
+          56
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 32,
+        "head_anchor_x": 253,
+        "source_alpha_bounds": [
+          24,
+          24,
+          277,
+          392
+        ],
+        "registered_alpha_bounds": [
+          110,
+          80,
+          363,
+          448
+        ]
+      },
+      "source_bounds": [
+        110,
+        80,
+        363,
+        448
+      ],
+      "source_area": 52880.38,
+      "scale": 1.112821825430791,
+      "result_bounds": [
+        94,
+        38,
+        376,
+        448
+      ],
+      "result_area": 65687.553,
+      "anchor_x": 253,
+      "ground_baseline": 480,
+      "flight_lift": 32,
+      "result_sha256": "cbbfdbfd1b106ea238b66971042cc2c90ad4c03dbee21a4f9a2ccba5a7c84334"
+    },
+    {
+      "id": "SE-run-01",
+      "source_sha256": "56581ab5f050a9c803c08b545b80da37f0077182732d0eef7e9d8c93001dd536",
+      "source_registration": {
+        "translation": [
+          30,
+          84
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 248,
+        "source_alpha_bounds": [
+          24,
+          24,
+          353,
+          396
+        ],
+        "registered_alpha_bounds": [
+          54,
+          108,
+          383,
+          480
+        ]
+      },
+      "source_bounds": [
+        54,
+        108,
+        383,
+        480
+      ],
+      "source_area": 63808.118,
+      "scale": 1.0441917170115722,
+      "result_bounds": [
+        45,
+        92,
+        389,
+        480
+      ],
+      "result_area": 69610.953,
+      "anchor_x": 248,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "90c5bed345fa573b0be747cb4b9e7a09b63653a11398db499cc3cd306790c8fa"
+    },
+    {
+      "id": "SE-run-02",
+      "source_sha256": "232f60fd87c15d89d88543601f08f0641ec2834f913ac3204246a0e7d5923da7",
+      "source_registration": {
+        "translation": [
+          51,
+          87
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 248,
+        "source_alpha_bounds": [
+          24,
+          24,
+          320,
+          393
+        ],
+        "registered_alpha_bounds": [
+          75,
+          111,
+          371,
+          480
+        ]
+      },
+      "source_bounds": [
+        75,
+        111,
+        371,
+        480
+      ],
+      "source_area": 60118.761,
+      "scale": 1.0441917170115722,
+      "result_bounds": [
+        67,
+        95,
+        376,
+        480
+      ],
+      "result_area": 65447.29,
+      "anchor_x": 248,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "d7428eb90f6dacd8e353e9fcce9e35468c3557676ca20a1cfaa8ea2321eb70e3"
+    },
+    {
+      "id": "SE-run-03",
+      "source_sha256": "2615797a63c6169ac3fa108637e7948a40f4a4f9360bd3a88b87dc450f348dca",
+      "source_registration": {
+        "translation": [
+          27,
+          82
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 32,
+        "head_anchor_x": 248,
+        "source_alpha_bounds": [
+          24,
+          24,
+          353,
+          366
+        ],
+        "registered_alpha_bounds": [
+          51,
+          106,
+          380,
+          448
+        ]
+      },
+      "source_bounds": [
+        51,
+        106,
+        380,
+        448
+      ],
+      "source_area": 58758.22,
+      "scale": 1.0441917170115722,
+      "result_bounds": [
+        42,
+        91,
+        386,
+        448
+      ],
+      "result_area": 64165.169,
+      "anchor_x": 248,
+      "ground_baseline": 480,
+      "flight_lift": 32,
+      "result_sha256": "3ee27d993fc959396dc14f38a5ca635bd82fae4e1fb9cdf6ca26e9b2824ee4a1"
+    },
+    {
+      "id": "SE-run-04",
+      "source_sha256": "a638524936777d87bf5494156444f55a61ab64444bf288006cd238ce6c50625c",
+      "source_registration": {
+        "translation": [
+          31,
+          101
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 248,
+        "source_alpha_bounds": [
+          24,
+          24,
+          333,
+          379
+        ],
+        "registered_alpha_bounds": [
+          55,
+          125,
+          364,
+          480
+        ]
+      },
+      "source_bounds": [
+        55,
+        125,
+        364,
+        480
+      ],
+      "source_area": 59851.686,
+      "scale": 1.0441917170115722,
+      "result_bounds": [
+        46,
+        109,
+        369,
+        480
+      ],
+      "result_area": 65445.29,
+      "anchor_x": 248,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "c50f5df33bb3db00d93b18e82aa0e41331575b2725a987f73537a450b57fd990"
+    },
+    {
+      "id": "SE-run-05",
+      "source_sha256": "b44ebe9beb7ca25caf7ca5b4ac2f704e039e704ead719924ecab0e63a5933af0",
+      "source_registration": {
+        "translation": [
+          52,
+          104
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 248,
+        "source_alpha_bounds": [
+          24,
+          24,
+          323,
+          376
+        ],
+        "registered_alpha_bounds": [
+          76,
+          128,
+          375,
+          480
+        ]
+      },
+      "source_bounds": [
+        76,
+        128,
+        375,
+        480
+      ],
+      "source_area": 61669.259,
+      "scale": 1.0441917170115722,
+      "result_bounds": [
+        68,
+        112,
+        380,
+        480
+      ],
+      "result_area": 67212.914,
+      "anchor_x": 248,
+      "ground_baseline": 480,
+      "flight_lift": 0,
+      "result_sha256": "5271dc00b67aea212646bea2e0a91ca453f41a140d8b13dab3d479c00d9bb1ae"
+    },
+    {
+      "id": "SE-run-06",
+      "source_sha256": "06e145e197484e7f30677fa67b6b4142adcd7956b22f309a9814c9dc711d2407",
+      "source_registration": {
+        "translation": [
+          39,
+          73
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 32,
+        "head_anchor_x": 248,
+        "source_alpha_bounds": [
+          24,
+          24,
+          335,
+          375
+        ],
+        "registered_alpha_bounds": [
+          63,
+          97,
+          374,
+          448
+        ]
+      },
+      "source_bounds": [
+        63,
+        97,
+        374,
+        448
+      ],
+      "source_area": 60944.8,
+      "scale": 1.0441917170115722,
+      "result_bounds": [
+        55,
+        81,
+        380,
+        448
+      ],
+      "result_area": 66606.306,
+      "anchor_x": 248,
+      "ground_baseline": 480,
+      "flight_lift": 32,
+      "result_sha256": "66f88896532f1f761a9c2a4dcf910b8e0a2976b5180dbebcbfb3451842474dd7"
+    },
+    {
+      "id": "E-run-06",
+      "source_sha256": "9bad87a0c0cfd8ad84dada9d54515e5b25daefe9ea43244da1dee9e8f39452a1",
+      "source_registration": {
+        "translation": [
+          35,
+          98
+        ],
+        "scale": 0.43517329910141206,
+        "ground_baseline": 480,
+        "flight_lift": 32,
+        "head_anchor_x": 249,
+        "source_alpha_bounds": [
+          24,
+          24,
+          887,
+          803
+        ],
+        "registered_alpha_bounds": [
+          45,
+          108,
+          421,
+          448
+        ]
+      },
+      "source_bounds": [
+        45,
+        108,
+        421,
+        448
+      ],
+      "source_area": 63441.314,
+      "scale": 0.9794418256756875,
+      "result_bounds": [
+        49,
+        115,
+        417,
+        448
+      ],
+      "result_area": 60719.925,
+      "anchor_x": 249,
+      "ground_baseline": 480,
+      "flight_lift": 32,
+      "result_sha256": "f0ae456292da557bdb3e460da6d297d0f2e8d526a06153ca41fa3c412c0a29be"
+    }
+  ],
+  "warnings": []
+}

@@ -6,6 +6,10 @@ three mirrors provide eight directions for both actions. This review does
 not claim final animation approval or Godot actor integration. The final
 northeast pose-5 scale adjustment and browser validation are complete.
 
+Sections through “Viewer and preservation” record the drawing set before the
+later uniform scale refinement. The final section documents the current scaled
+PNGs and editable downloads; earlier byte-preservation claims are historical.
+
 ## Walking
 
 The five authored directions have standing plus four walking poses; three
@@ -94,3 +98,41 @@ The selected assets, viewer, portable provenance and publishing command are
 tracked component files. Candidate generation folders remain ignored. A fresh
 checkout can restore the review without those temporary files. The workshop
 is excluded from the current Godot resource export and does not change gameplay.
+
+## September 6 refinement: apparent size and direction downloads
+
+The observations above describe the pre-normalization drawing set. The user
+subsequently requested consistent apparent size across facings and editable
+horizontal strips. The current 55 PNGs now use one scale per direction/gait,
+with standing sharing walking's factor. The original accepted bytes remain
+intact in the archive and commit recorded by the
+[scale audit](../character-workshop/mass-normalization.json).
+
+The target is apparent head/torso size, not identical bounding-box height.
+Forward lean, overlapping limbs, stride extension and flight retain their
+natural differences. Group median alpha-weighted areas now differ by less than
+0.7%; no per-frame equalization was used. The same-scale before/after comparison
+shows the oversized east/southeast views and smaller northeast views matching
+more closely. All 55 poses were inspected at a common display scale: no new
+clipping, stretching or silhouette distortion, with at least 16 pixels of canvas
+margin. Existing drawing and gait differences remain.
+
+Motion's **Download strips** offers eight directions for each of Walk, Run and
+Complete. Complete is eleven 512-square cells in order: idle, walk 1–4, run 1–6.
+The 24 PNGs have true alpha; mirrored directions contain baked mirrored pixels.
+Every decoded cell was compared to its selected source frame, including order
+and mirrors. The browser successfully downloaded an east complete strip and a
+southwest running strip. All three selectors showed the correct frame counts
+and dimensions, and Refresh files restored the latest links and all 55 frames.
+
+Nine focused workshop tests and eight normalization safeguards passed. The
+normalization tests protect the source archive and reject invalid paths,
+overlapping directories and inconsistent direction/frame mappings before any
+output is written. A served-byte audit matched the current
+manifest and all 79 image hashes (55 frames plus 24 strips), and verified all 55
+archived originals remained unchanged. Motion played all six run phases and
+four walking phases with synchronized mirrored previews and no console errors.
+Scenery loaded the same 55 frames and confirmed short-route walking and
+long-route running with the normalized bird. Its page must be reloaded to pick
+up an asset update. This pass refines scale and editing access; it does not
+constitute final anatomy or gait approval.

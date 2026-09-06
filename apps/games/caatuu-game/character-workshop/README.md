@@ -12,9 +12,11 @@ Their SHA-256 values, pose order and registration anchors are in
 [manifest.json](manifest.json). [provenance.json](provenance.json) preserves exact
 generation prompts, source hashes, the southeast walking-foot repair and the
 historical first east-facing run. [run-v2-provenance.json](run-v2-provenance.json)
-records the additional running directions and v2 corrections. All 25 walking-set
-PNGs and east run poses 1–5 remain byte-identical to the accepted earlier set;
-east pose 6 now has its corrected backward arm swing.
+records the additional running directions and v2 corrections. The current
+55-frame set has a uniform scale refinement, documented in
+[mass-normalization.json](mass-normalization.json). The earlier accepted bytes
+remain recoverable from commit `6da3c49439eb226a6607101f91abaaabe1ab2683` and the
+local archive `artifacts/games/lab/mass-normalization-20260906/originals/`.
 Original sheets, painted concept inspiration and discarded candidates remain
 in the ignored local artifact archives, including `run-v2/`, identified in
 provenance. Those intermediate
@@ -48,7 +50,8 @@ docker exec -w /workspace caatuu-dev node --test apps/games/caatuu-game/tooling/
 ```
 
 The focused tests cover playback cadence, complete frame identity and hashes,
-transparent canvas metadata, unsafe paths and corrupted-input publication.
+transparent canvas metadata, unsafe paths, all 24 direction strips and
+corrupted-input publication.
 The viewer opens on south running at 10 fps, with a six-pose run cycle. Walking
 uses four poses at 6 fps. Action changes retain the selected direction, and
 running's contact sheet has five authored rows. The viewer provides action
@@ -61,8 +64,8 @@ and checked browser playback, mirrors, standing, action switching and hash
 refresh. That historical review does not validate later route or lab changes.
 Successful loading or registration is not final gait approval.
 
-Scenery consumes this same manifest and the same 55 PNGs without changing the
-approved frame set. Its click-to-move view lives under `apps/games/lab/scenary/`
+Scenery consumes this same manifest and the same 55 normalized PNGs. Its
+click-to-move view lives under `apps/games/lab/scenary/`
 and reuses `/assets/scenery/` metadata and images. The experiments remain
 independent of the Godot game.
 
@@ -72,3 +75,56 @@ Promote only reviewed registered frames into this folder; preserve accepted
 frames and the source archive. Then update provenance and hashes, validate,
 reload Motion and inspect the complete animation before committing. Export an
 optional snapshot only when one is needed.
+
+## Apparent size and editable strips
+
+The scale target is consistent apparent body size, allowing leaning, compressed
+support poses and extended strides to change total height. Each authored
+direction has one scale for standing/walking and one for running. The factor is
+the square root of 66,000 divided by that group's median alpha-weighted
+silhouette area. Standing shares walking's factor to avoid resizing on stopping.
+Individual poses are never independently equalized, so limb overlap does not
+cause artificial body pulsing. Head and torso comparisons remain the final
+visual check; equal area cannot repair differences in the original drawings.
+
+Nearest-neighbor scaling preserves the existing palette on transparent
+512 × 512 canvases. Grounded silhouettes end at y=480; running flight frames
+retain the original 32-pixel clearance at y=448. Every silhouette stays inside
+the canvas. The audit records each original hash, registration, factor and result.
+
+In Motion, **Download strips** offers a transparent horizontal PNG for each of
+the eight directions. Choose Walk (4 frames, 2048 × 512), Run (6 frames,
+3072 × 512), or Complete (11 frames, 5632 × 512). Complete order is standing,
+walk 1–4, then run 1–6. Every cell is exactly 512 × 512, with no labels or added
+gutters. West, northwest and southwest contain mirrored pixels, ready to edit.
+
+Keep the full canvas, transparency and cell boundaries when editing. The
+downloads are copies; editing one does not automatically update the lab. Review
+edited cells before promoting them and regenerate affected strips and hashes
+together. Do not resize each cell to fit its individual silhouette.
+
+The maintained [normalization utility](../tooling/normalize-motion.py) runs with
+Pillow in the existing Tukevejtso container. It takes a read-only snapshot
+containing `manifest.json` and `images/`, verifies all 55 source hashes, and
+requires a fresh output directory. It refuses already-normalized inputs and
+clipping; always start from the original snapshot when adjusting the target.
+For the current archive, the container invocation after staging the script and
+originals with `docker cp` was:
+
+```powershell
+docker exec tukevejtso /opt/tukevejtso-venvs/cutout/bin/python /tmp/caatuu-mass-20260906/normalize-motion.py --source /tmp/caatuu-mass-20260906/originals --output /tmp/caatuu-mass-20260906/normalized --source-revision 6da3c49439eb226a6607101f91abaaabe1ab2683 --source-archive artifacts/games/lab/mass-normalization-20260906/originals
+```
+
+Use a new output path for subsequent candidates. Inspect `mass-comparison.png`
+before promoting the result. The utility verifies every encoded strip cell
+against its corresponding normalized frame, including baked mirrors. Copy only
+the final frames, strips and audit into this curated folder, then update the
+manifest last. Generated previews stay in the ignored artifact archive.
+
+The [normalization regression tests](../tooling/tests/test_normalize_motion.py)
+run with the same managed Tukevejtso Python. Stage the utility and tests together
+with their relative `tooling/` and `tooling/tests/` layout, then run the test file
+directly. Eight cases verify that invalid frame paths, overlapping directories
+and malformed direction/frame mappings leave all source bytes intact and create
+no output. The nine Node workshop tests validate the promoted package and its
+download strips.
