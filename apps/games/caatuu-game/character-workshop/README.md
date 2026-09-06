@@ -92,11 +92,16 @@ Nearest-neighbor scaling preserves the existing palette on transparent
 retain the original 32-pixel clearance at y=448. Every silhouette stays inside
 the canvas. The audit records each original hash, registration, factor and result.
 
-In Motion, **Download strips** offers a transparent horizontal PNG for each of
-the eight directions. Choose Walk (4 frames, 2048 × 512), Run (6 frames,
-3072 × 512), or Complete (11 frames, 5632 × 512). Complete order is standing,
-walk 1–4, then run 1–6. Every cell is exactly 512 × 512, with no labels or added
-gutters. West, northwest and southwest contain mirrored pixels, ready to edit.
+In Motion, each contact-sheet direction label has a **Download** button. It
+follows the current action: Walk (4 frames, 2048 × 512) or Run (6 frames,
+3072 × 512). Standing shows the walking sheet and its walking downloads.
+The separate download section and selector have been removed.
+
+The curated asset package still contains all 24 strips, including the mirrored
+directions and Complete (11 frames, 5632 × 512), listed in the manifest.
+Complete order is standing, walk 1–4, then run 1–6. Every cell is exactly
+512 × 512, with no labels or added gutters. West, northwest and southwest
+contain mirrored pixels, ready to edit.
 
 Keep the full canvas, transparency and cell boundaries when editing. The
 downloads are copies; editing one does not automatically update the lab. Review

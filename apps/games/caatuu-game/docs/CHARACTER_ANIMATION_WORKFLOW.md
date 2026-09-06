@@ -320,10 +320,12 @@ The [workshop README](../character-workshop/README.md#apparent-size-and-editable
 records the container command, source revision and archive. Current source/result
 hashes and factors are in the [scale audit](../character-workshop/mass-normalization.json).
 
-Motion now provides **Download strips**: all eight directions, with four walking
-frames, six running frames or the complete eleven-frame sequence (idle, walk,
-run). Each download is a transparent horizontal PNG with 512 × 512 cells and
-no labels. Mirrored directions have the mirror baked into each cell. Verify
+Motion provides a **Download** button in each contact-sheet direction label.
+The button follows the current action: four walking frames or six running
+frames, with no separate download section or selector. The package retains all
+eight directions and the complete eleven-frame sequence (idle, walk, run) in
+its manifest. Each strip is a transparent horizontal PNG with 512 × 512 cells
+and no labels. Mirrored directions have the mirror baked into each cell. Verify
 decoded strip cells against the selected frames, including order and mirrors,
 then publish frames, strips and manifest together. These editable downloads
 supplement the interactive animation demo; they do not replace it. Preserve

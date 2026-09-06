@@ -13,7 +13,7 @@ const cycleLength = () => cycleAction() === "run" ? 6 : 4;
 const actionTitle = () => cycleAction() === "run" ? "Run" : "Walk";
 const hasRun = () => authored.every((direction) => [1, 2, 3, 4, 5, 6].every((phase) => frames.has(`${direction}-run-0${phase}`)));
 const availableDirections = () => order;
-const state = { direction: "S", action: "walk", phase: 1, fps: 6, playing: true, background: "dark", scale: "medium", stripAction: "all" };
+const state = { direction: "S", action: "walk", phase: 1, fps: 6, playing: true, background: "dark", scale: "medium" };
 let manifest = { frames: [], directions: defaults, expected_frames: 55, blockers: [] };
 let frames = new Map();
 let directionMap = new Map(defaults.map((entry) => [entry.id, entry]));
@@ -71,30 +71,26 @@ function stripUrl(strip, direction, action) {
   return url.href;
 }
 
-function renderDownloads(entries = downloadsReady ? manifest.exports?.direction_strips : []) {
-  const action = state.stripAction;
-  const count = action === "all" ? 11 : action === "walk" ? 4 : 6;
-  const label = action === "all" ? "complete" : action;
-  $("strip-downloads").replaceChildren();
-  let ready = 0;
-  for (const direction of order) {
+function renderRowDownloads() {
+  const entries = downloadsReady ? manifest.exports?.direction_strips : [];
+  const action = cycleAction();
+  const count = cycleLength();
+  for (const link of document.querySelectorAll(".row-download")) {
+    const direction = link.dataset.direction;
     const matching = Array.isArray(entries) ? entries.filter((strip) => strip?.direction === direction && strip.action === action) : [];
     const url = matching.length === 1 ? stripUrl(matching[0], direction, action) : null;
-    const link = text("a", "", "strip-download");
-    link.dataset.direction = direction;
-    link.classList.toggle("current-direction", direction === state.direction);
-    link.append(text("strong", `${direction} ↓`), text("span", names[direction]));
-    link.setAttribute("aria-label", `${url ? "Download" : "Unavailable:"} ${names[direction]} ${label} strip, ${count} frames`);
+    link.setAttribute("aria-label", `${url ? "Download" : "Unavailable:"} ${names[direction]} ${action} strip, ${count} frames`);
+    link.title = `${names[direction]} · ${count} ${action === "run" ? "running" : "walking"} frames · transparent PNG`;
     if (url) {
       link.href = url;
       link.download = `caatuu-macaw-${direction.toLowerCase()}-${action}-strip.png`;
-      ready += 1;
-    } else link.setAttribute("aria-disabled", "true");
-    $("strip-downloads").append(link);
+      link.removeAttribute("aria-disabled");
+    } else {
+      link.removeAttribute("href");
+      link.removeAttribute("download");
+      link.setAttribute("aria-disabled", "true");
+    }
   }
-  const sequence = action === "all" ? "standing, walk 1–4, run 1–6" : action === "walk" ? "walk 1–4" : "run 1–6";
-  $("strip-order").textContent = `Left to right: ${sequence}. Each frame occupies a 512 × 512 cell. Mirrored directions are included as drawn pixels.`;
-  $("strip-status").textContent = ready === 8 ? `8 ${label} strips ready · ${count * 512} × 512 pixels · transparent PNG` : ready ? `${ready} of 8 ${label} strips available. Refresh files when the rest are ready.` : "No strip downloads listed yet. Refresh files when they are ready.";
 }
 
 function frameFor(direction, action, phase) {
@@ -145,7 +141,6 @@ function renderMain() {
   $("direction-help").textContent = state.action === "run" ? "Running: all eight directions, with three mirrored views." : "Walking and standing: all eight directions.";
   for (const button of document.querySelectorAll("#action-controls button")) button.setAttribute("aria-pressed", String(button.dataset.action === state.action));
   for (const [id, card] of cards) card.button.setAttribute("aria-pressed", String(id === state.direction));
-  for (const link of document.querySelectorAll(".strip-download")) link.classList.toggle("current-direction", link.dataset.direction === state.direction);
   const url = sourceUrl(selection.frame);
   $("original-link").hidden = !url;
   if (url) $("original-link").href = url;
@@ -198,7 +193,11 @@ function buildSheet() {
   const headings = running ? ["Direction", ...runPhaseNames.map((name,i) => `${String(i+1).padStart(2,"0")} · ${name}`)] : ["Direction", "Standing", "01 · Contact", "02 · Passing", "03 · Contact", "04 · Passing"];
   for (const heading of headings) sheet.append(text("div", heading, "sheet-heading"));
   for (const direction of authored) {
-    sheet.append(text("div", `${direction}\n${names[direction]}`, "row-label"));
+    const label = text("div", "", "row-label");
+    const download = text("a", "Download", "row-download");
+    download.dataset.direction = direction;
+    label.append(text("span", `${direction}\n${names[direction]}`), download);
+    sheet.append(label);
     for (let phase = running ? 1 : 0; phase <= (running ? 6 : 4); phase += 1) {
       const selection = frameFor(direction, running ? "run" : phase ? "walk" : "idle", phase);
       const url = sourceUrl(selection.frame);
@@ -221,6 +220,7 @@ function buildSheet() {
       sheet.append(cell);
     }
   }
+  renderRowDownloads();
 }
 
 function markSheetError(id) {
@@ -258,7 +258,7 @@ async function refreshManifest() {
   $("refresh").disabled = true;
   $("refresh").textContent = "Reading…";
   $("page-error").hidden = true;
-  renderDownloads([]);
+  renderRowDownloads();
   try {
     const response = await fetch(new URL("./manifest.json", import.meta.url), { cache: "no-store" });
     if (!response.ok) throw new Error(`Manifest request returned HTTP ${response.status}.`);
@@ -289,10 +289,9 @@ async function refreshManifest() {
     renderAudit();
     renderMain();
     renderCards();
-    renderDownloads();
   } catch (error) {
     downloadsReady = false;
-    renderDownloads();
+    renderRowDownloads();
     $("page-error").textContent = `${error.message} This review needs its manifest.json and images directory beside the page.`;
     $("page-error").hidden = false;
     $("load-count").textContent = "Manifest unavailable";
@@ -339,10 +338,6 @@ $("previous").addEventListener("click", () => step(-1));
 $("next").addEventListener("click", () => step(1));
 $("scrubber").addEventListener("input", (event) => { state.playing = false; state.action = cycleAction(); state.phase = Number(event.target.value); renderMain(); renderCards(); });
 $("refresh").addEventListener("click", refreshManifest);
-$("strip-action").addEventListener("change", (event) => {
-  state.stripAction = ["all", "walk", "run"].includes(event.target.value) ? event.target.value : "all";
-  renderDownloads();
-});
 
 function animate(now) {
   if (state.playing && !document.hidden) {
