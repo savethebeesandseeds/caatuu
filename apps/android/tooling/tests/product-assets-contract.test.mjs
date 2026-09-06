@@ -422,8 +422,9 @@ test("the Android product bundles Czech and Mandarin behind one shared app docum
     outputDir,
   });
   // Keep a bounded package after the shared store/home, developer inspectors,
-  // Sounds Quasar's 12 music macaws (5.43 MB), and shared grammar-game assets.
-  assert.ok(result.totalBytes < 44_000_000, `The shared app package must remain below 44 MB; got ${result.totalBytes} bytes. MiniLM stays in setup delivery.`);
+  // Sounds Quasar's 12 music macaws (5.43 MB), shared grammar-game assets,
+  // and Case Cosmos's floating boat (1.69 MB). The reviewed bundle is 45.47 MB.
+  assert.ok(result.totalBytes < 46_000_000, `The shared app package must remain below 46 MB; got ${result.totalBytes} bytes. MiniLM stays in setup delivery.`);
   assert.ok(result.files.includes("language-runtime/static/source/target-text-tones.mjs"));
   for (let musicIndex = 1; musicIndex <= 12; musicIndex += 1) {
     assert.ok(result.files.includes(`assets/macaw/music/music (${musicIndex}).png`));
@@ -454,7 +455,7 @@ test("the Android product bundles Czech and Mandarin behind one shared app docum
     assert.equal(courseProfile.languageRoles.retrievalLanguage, "en");
     assert.equal(courseProfile.interfaceContent.locale, courseProfile.sourceLanguage.locale);
     assert.equal(courseProfile.interfaceContent.direction, courseProfile.sourceLanguage.direction);
-    assert.equal(courseProfile.interfaceContent.revision, "interface-en-25");
+    assert.equal(courseProfile.interfaceContent.revision, "interface-en-27");
     assert.equal(courseProfile.interfaceContent.catalog, "/language-runtime/static/data/interface/en.v1.json");
     assert.ok(
       result.files.includes(courseProfile.interfaceContent.catalog.replace(/^\/+/, "")),
@@ -477,7 +478,7 @@ test("the Android product bundles Czech and Mandarin behind one shared app docum
   assert.equal(grammarGravity.length, 1);
   assert.equal(
     grammarGravity[0].url,
-    "/assets/planets/releases/5fe5c25467d51dbe/agreement-aurora.png",
+    "/assets/planets/releases/57561da01036cfce/agreement-aurora.png",
     "the Android setup contract must not reuse release 162's immutable public artwork URL",
   );
   assert.equal(
