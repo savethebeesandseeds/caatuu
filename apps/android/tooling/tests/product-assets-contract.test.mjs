@@ -20,6 +20,7 @@ import {
   transformChromeJs,
   transformCourseProfile,
   transformDeveloperBrowserModelService,
+  transformProductInterfaceCatalog,
   transformIndex,
   transformWordWorldManifest,
   validateProductAssetBundle,
@@ -710,11 +711,12 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
   ]) {
     const source = application.appAssets.find(({ output }) => output === path)?.source;
     assert.ok(source, `shared app catalog must resolve ${path}`);
-    assert.deepEqual(
-      readFileSync(join(outputDir, path)),
-      readFileSync(source),
-      `product package must retain canonical shared app asset byte-for-byte: ${path}`,
-    );
+    const original = readFileSync(source);
+    const expected = path === "language-runtime/static/data/interface/en.v1.json"
+      ? Buffer.from(transformProductInterfaceCatalog(original.toString("utf8")))
+      : original;
+    assert.ok(readFileSync(join(outputDir, path)).equals(expected),
+      `product package must retain the exact reviewed shared app bytes: ${path}`);
   }
 
   const includedCourseGameContent = [
