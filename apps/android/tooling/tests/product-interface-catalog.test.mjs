@@ -14,7 +14,6 @@ test("product interface catalogs omit disabled generation offers without changin
     const product = JSON.parse(output);
     assert.ok(original.messages["wordworld.generative.confirm"]);
     assert.equal(product.messages["wordworld.generative.confirm"], undefined);
-    assert.doesNotMatch(output, /\bGenerative mode\b/iu);
     assertProductSourceText(output, `${locale} product catalog`);
     assert.equal(product.revision, original.revision);
     for (const [key, value] of Object.entries(original.messages)) {
@@ -32,13 +31,15 @@ test("product interface catalogs omit disabled generation offers without changin
 
 test("the shared preflight and signed-package text policy rejects disabled product integrations", () => {
   for (const source of [
-    '{"offer":"Prepare Generative mode?"}',
     'models.generate("prompt")',
     'import("@mlc-ai/web-llm")',
     'nativeCall("start_download")',
     '<a href="chat.html">Chat</a>',
   ]) assert.throws(() => assertProductSourceText(source, "injected asset"), /forbidden product pattern/u);
   assert.doesNotThrow(() => assertProductSourceText('{"capabilities":{"generation":false,"godot":false}}', "profile"));
+  // Copy is not executable capability. Localized or explanatory text cannot
+  // enable a feature; structural entrypoints and calls are checked above.
+  assert.doesNotThrow(() => assertProductSourceText('{"notice":"Generative mode is unavailable"}', "interface copy"));
 });
 
 test("product developer tools retain inspectors but exclude the browser-only Chat entry and implementation", () => {

@@ -100,6 +100,10 @@ test("Pages dispatch is pinned to the handoff revision and ends with public veri
   assert.match(source, /"workflow",\s*"run",\s*\$Workflow/u);
   assert.match(source, /expected_revision=\$Head/u);
   assert.match(source, /allow_http_certificate_bootstrap=false/u);
+  assert.match(source, /deployment_scope=android/u);
+  assert.match(source, /displayTitle -eq \$expectedTitle/u);
+  assert.match(source, /Caatuu android/u);
+  assert.match(source, /"--android-only"/u);
   assert.match(source, /headSha\s*-eq\s*\$Head/u);
   assert.match(source, /"run",\s*"watch"/u);
   assert.match(source, /verify-public-pages-release\.mjs/u);

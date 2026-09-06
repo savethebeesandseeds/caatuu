@@ -154,7 +154,8 @@ test("Grammar Gravity lane imagery and paper texture share one exact offline ass
   for (const directory of ["czech", "spanish"]) {
     const pack = JSON.parse(readFileSync(join(workspaceRoot, `apps/languages/${directory}/static/data/games/grammar-gravity/nouns.json`), "utf8"));
     assert.equal(pack.schemaVersion, "caatuu-grammar-gravity-nouns-v2");
-    assert.equal(pack.contentRevision, 3);
+    assert.ok(Number.isInteger(pack.contentRevision) && pack.contentRevision > 0,
+      `${directory} declares a valid content revision without pinning routine content updates`);
     assert.ok(pack.items.every((item) => !Object.hasOwn(item, "explanation")));
     for (const lane of pack.lanes) {
       assert.ok(paths.includes(lane.image.slice(1)), `${directory}.${lane.id} selects registered shared imagery`);
@@ -185,7 +186,8 @@ test("courses share one Android app document and bundle while retaining course-o
       configuration.interfaceContent.output,
       "language-runtime/static/data/interface/en.v1.json",
     );
-    assert.equal(configuration.interfaceContent.revision, "interface-en-27");
+    const interfaceCatalog = JSON.parse(readFileSync(join(workspaceRoot, configuration.interfaceContent.sourcePath), "utf8"));
+    assert.equal(configuration.interfaceContent.revision, interfaceCatalog.revision);
     assert.equal(configuration.interfaceContent.locale, "en");
     assert.equal(configuration.interfaceContent.direction, "ltr");
   }
@@ -456,7 +458,9 @@ test("the Android product bundles Czech and Mandarin behind one shared app docum
     assert.equal(courseProfile.languageRoles.retrievalLanguage, "en");
     assert.equal(courseProfile.interfaceContent.locale, courseProfile.sourceLanguage.locale);
     assert.equal(courseProfile.interfaceContent.direction, courseProfile.sourceLanguage.direction);
-    assert.equal(courseProfile.interfaceContent.revision, "interface-en-27");
+    const selectedConfiguration = configuration.configurations.find(({ course }) => course.id === courseId);
+    const interfaceCatalog = JSON.parse(readFileSync(join(workspaceRoot, selectedConfiguration.interfaceContent.sourcePath), "utf8"));
+    assert.equal(courseProfile.interfaceContent.revision, interfaceCatalog.revision);
     assert.equal(courseProfile.interfaceContent.catalog, "/language-runtime/static/data/interface/en.v1.json");
     assert.ok(
       result.files.includes(courseProfile.interfaceContent.catalog.replace(/^\/+/, "")),
@@ -476,15 +480,19 @@ test("the Android product bundles Czech and Mandarin behind one shared app docum
   const grammarGravity = czechSetup.artifacts.filter(
     (artifact) => artifact.key === "planet-agreement-aurora",
   );
+  const sourceSetup = JSON.parse(readFileSync(join(languageStaticDir, "setup-assets.json"), "utf8"));
+  const sourceArtwork = sourceSetup.artifacts.find(({ key }) => key === "planet-agreement-aurora");
+  assert.ok(sourceArtwork, "the source catalog declares the artwork authority");
+  assert.match(sourceArtwork.sha256, /^[a-f0-9]{64}$/u);
   assert.equal(grammarGravity.length, 1);
   assert.equal(
     grammarGravity[0].url,
-    "/assets/planets/releases/57561da01036cfce/agreement-aurora.png",
-    "the Android setup contract must not reuse release 162's immutable public artwork URL",
+    `/assets/planets/releases/${sourceArtwork.sha256.slice(0, 16)}/agreement-aurora.png`,
+    "the Android artwork URL must bind the current catalog hash, not a previous release's bytes",
   );
   assert.equal(
     grammarGravity[0].asset_path,
-    "assets/planets/grammar-gravity.png",
+    sourceArtwork.asset_path,
     "the Android package must retain its canonical local artwork path",
   );
   const czechRuntimeArtifacts = czechSetup.artifacts.filter(
@@ -623,7 +631,7 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
     "the product package must use the reviewed transform of the canonical app document",
   );
   assert.match(canonicalAppEntry, /wordNetGenerativeDialog/u);
-  assert.doesNotMatch(productAppEntry, /wordNetGenerativeDialog|data-content-mode=["']generative["']|Generative mode/iu);
+  assert.doesNotMatch(productAppEntry, /wordNetGenerativeDialog|data-content-mode=["']generative["']/iu);
   assert.ok(result.files.includes("language-runtime/contract.mjs"));
   assert.ok(result.files.includes("language-runtime/static/source/app-bootstrap.mjs"));
   assert.ok(result.files.includes("language-runtime/static/source/browser-shell.mjs"));
@@ -761,7 +769,8 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
       return new Response(readFileSync(file), { status: 200 });
     },
   });
-  assert.equal(provider.size, 792, "the generated Standard-only runtime must load all curated records");
+  const sourceCorpus = JSON.parse(readFileSync(join(languageStaticDir, "data/games/word-world/standard-v0.1/records.json"), "utf8"));
+  assert.equal(provider.size, sourceCorpus.records.length, "the generated Standard-only runtime must load all curated records");
   assert.ok(provider.nextRandom({ difficulty: 1 })?.record, "the generated runtime must select a playable first turn");
 });
 
@@ -848,20 +857,20 @@ test("product transforms fail closed when an expected development anchor drifts"
   const productIndex = transformIndex(indexSource);
   assert.match(
     productIndex,
-    /aria-label="Next sentence options" data-i18n-aria-label="wordworld\.generation\.nextoptions"/u,
+    /data-i18n-aria-label="wordworld\.generation\.nextoptions"/u,
   );
-  assert.match(productIndex, /data-i18n="wordworld\.diagnostics\.content">content<\/dt>/u);
+  assert.match(productIndex, /data-i18n="wordworld\.diagnostics\.content"/u);
   assert.match(
     productIndex,
-    /data-i18n="wordworld\.diagnostics\.model\.curated">none · curated corpus<\/dd>/u,
+    /data-i18n="wordworld\.diagnostics\.model\.curated"/u,
   );
   assert.doesNotMatch(productIndex, /data-i18n-aria-label="wordworld\.generation\.menu"/u);
   assert.throws(
     () => transformIndex(indexSource.replace(
-      'aria-label="Sentence generation" data-i18n-aria-label="wordworld.generation.menu"',
-      'aria-label="Sentence generation" data-i18n-aria-label="wordworld.generation.changed"',
+      'id="wordNetGenerationMenu"',
+      'id="wordNetDifferentMenu"',
     )),
-    /shared app Word World options message: expected 1 exact source anchor/u,
+    /structural anchor/u,
   );
 
   const chromeSource = readFileSync(

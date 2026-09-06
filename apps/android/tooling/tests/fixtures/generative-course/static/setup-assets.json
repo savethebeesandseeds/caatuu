@@ -8,6 +8,8 @@
       "artifact_kind": "course-content",
       "url": "/fixture-gen/data/games/word-world/standard-v1/records.json",
       "asset_path": "data/games/word-world/standard-v1/records.json",
+      "bytes": 73,
+      "sha256": "3f13267b8f9ea031126ce0ba14d7cecd96eb26230fa7b8609695628351fde90d",
       "native_required": false,
       "browser_required": true
     },

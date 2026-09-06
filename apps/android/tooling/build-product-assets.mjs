@@ -33,6 +33,10 @@ import {
   embeddingStorageRecord,
   assertEmbeddingArtifactContract,
   assertHttpsUrl,
+  assertSetupArtifactMetadata,
+  assertBundledSetupArtifacts,
+  projectBundledSetupArtifacts,
+  assertPublicSetupDependencies,
   setupStorageRecord,
 } from "./android-artifact-contract.mjs";
 import { validateInterfaceCatalog } from "../../language-runtime/static/source/interface-content.mjs";
@@ -1257,6 +1261,40 @@ function replaceBetween(source, startAnchor, endAnchor, replacement, label) {
   return `${source.slice(0, start)}${replacement}${source.slice(end)}`;
 }
 
+function htmlAttributePattern(name) {
+  return new RegExp(`\\s${name}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s>]+))`, "giu");
+}
+
+function setHtmlAttribute(opening, name, value) {
+  const pattern = htmlAttributePattern(name);
+  const matches = [...opening.matchAll(pattern)];
+  assert.ok(matches.length <= 1, `HTML ${name} attribute is duplicated`);
+  return matches.length
+    ? opening.replace(pattern, ` ${name}="${value}"`)
+    : opening.replace(/>$/u, ` ${name}="${value}">`);
+}
+
+// These are bounded transformations of known authored elements, not text-copy
+// matching. Quoted attribute values may contain > and attributes may be reordered.
+function transformHtmlElement(source, tag, attribute, value, transform) {
+  const token = new RegExp(`<\\/?${tag}\\b(?:[^>"']|"[^"]*"|'[^']*')*>`, "giu");
+  const tokens = [...source.matchAll(token)];
+  const selected = tokens.filter(([opening]) => !opening.startsWith("</") &&
+    [...opening.matchAll(htmlAttributePattern(attribute))].some((match) =>
+      (match[1] ?? match[2] ?? match[3]) === value));
+  assert.equal(selected.length, 1, `HTML ${tag}[${attribute}=${value}] must have one structural anchor`);
+  const start = selected[0];
+  let depth = 0;
+  let end;
+  for (const candidate of tokens.filter(({ index }) => index >= start.index)) {
+    depth += candidate[0].startsWith("</") ? -1 : 1;
+    if (depth === 0) { end = candidate; break; }
+  }
+  assert.ok(end, `HTML ${tag}[${attribute}=${value}] must have a closing element`);
+  const replacement = transform(start[0], source.slice(start.index + start[0].length, end.index), end[0]);
+  return source.slice(0, start.index) + replacement + source.slice(end.index + end[0].length);
+}
+
 function topLevelFunctionRange(source, name, { exported = false, indent = "" } = {}) {
   const prefix = exported ? "export " : "";
   const starts = [
@@ -1441,39 +1479,22 @@ function transformProductSetupAssets(input, course) {
 
 export function transformIndex(input) {
   let source = normalizeText(input);
-  source = exactReplace(
-    source,
-    'aria-label="Sentence generation" data-i18n-aria-label="wordworld.generation.menu"',
-    'aria-label="Next sentence options" data-i18n-aria-label="wordworld.generation.nextoptions"',
-    "shared app Word World options message",
-  );
-  source = replaceBetween(
-    source,
-    '                          <section class="word-net-generation-menu-section" role="group" aria-labelledby="wordNetContentSourceLabel">',
-    "                        </div>\n                      </div>",
-    "",
-    "shared app Word World content source selector",
-  );
-  source = exactReplace(
-    source,
-    '                            <dt data-i18n="wordworld.diagnostics.model">model</dt>\n                            <dd id="wordNetMetaModel" data-i18n="wordworld.diagnostics.browserfallback">browser fallback</dd>',
-    '                            <dt data-i18n="wordworld.diagnostics.content">content</dt>\n                            <dd id="wordNetMetaModel" data-i18n="wordworld.diagnostics.model.curated">none · curated corpus</dd>',
-    "shared app Word World diagnostics content",
-  );
-  source = replaceBetween(
-    source,
-    '                  <dialog\n                    class="word-net-generative-dialog"',
-    '                </div>\n                <div class="word-net-embedded-status',
-    "",
-    "shared app Word World optional content dialog",
-  );
+  source = transformHtmlElement(source, "div", "id", "wordNetGenerationMenu", (opening, body, closing) =>
+    setHtmlAttribute(setHtmlAttribute(opening, "aria-label", "Next sentence options"),
+      "data-i18n-aria-label", "wordworld.generation.nextoptions") + body + closing);
+  source = transformHtmlElement(source, "section", "aria-labelledby", "wordNetContentSourceLabel", () => "");
+  source = transformHtmlElement(source, "dt", "data-i18n", "wordworld.diagnostics.model", (opening, _body, closing) =>
+    setHtmlAttribute(opening, "data-i18n", "wordworld.diagnostics.content") + "content" + closing);
+  source = transformHtmlElement(source, "dd", "id", "wordNetMetaModel", (opening, _body, closing) =>
+    setHtmlAttribute(opening, "data-i18n", "wordworld.diagnostics.model.curated") + "none · curated corpus" + closing);
+  source = transformHtmlElement(source, "dialog", "id", "wordNetGenerativeDialog", () => "");
   assert.doesNotMatch(
     source,
-    /wordNetGenerativeDialog|data-content-mode=["']generative["']|Generative mode/iu,
+    /wordNetGenerativeDialog|data-content-mode\s*=\s*["']generative["']/iu,
     "Android product app entry must exclude disabled generative controls",
   );
-  assert.match(source, /data-generation-mode="random"/u);
-  assert.match(source, /data-generation-mode="selected"/u);
+  assert.match(source, /data-generation-mode\s*=\s*["']random["']/u);
+  assert.match(source, /data-generation-mode\s*=\s*["']selected["']/u);
   return source;
 }
 
@@ -2075,7 +2096,7 @@ function assertFirstPartySurface(outputDir, files) {
       && !CAPABILITY_GATED_SHARED_APP_FILES.has(path)
       && [".css", ".html", ".js", ".json", ".mjs", ".webmanifest"].includes(extension(path))
   );
-  const forbidden = /webllm|web-llm|gguf|qwen|cstinyllama|data\/models|chat\.html|source\/features\/chat|report_dictionary_gap|\/cz\/api\/dictionary\/gaps|godot|\bGenerative mode\b/i;
+  const forbidden = /webllm|web-llm|gguf|qwen|cstinyllama|data\/models|chat\.html|source\/features\/chat|report_dictionary_gap|\/cz\/api\/dictionary\/gaps|godot/i;
   for (const path of executableUi) {
     // JSON includes capability declarations such as godot:false, not executable
     // integrations. Still reject disabled-mode offers before the signed audit.
@@ -2191,7 +2212,7 @@ function assertSetupBoundary(
   outputDir,
   languageStaticDir,
   profile,
-  { expectedTransform = null } = {},
+  { expectedTransform = null, packageRoot = outputDir, assetPrefix = "" } = {},
 ) {
   const outputPath = join(outputDir, "setup-assets.json");
   assert.ok(existsSync(outputPath), "store output must retain the setup manifest");
@@ -2199,11 +2220,22 @@ function assertSetupBoundary(
     const developmentSource = readSourceText(join(languageStaticDir, "setup-assets.json"));
     assert.equal(
       readSourceText(outputPath),
-      normalizeText(expectedTransform(developmentSource)),
+      projectStagedSetupText(expectedTransform(developmentSource), packageRoot, assetPrefix),
       "setup manifest must equal the reviewed store transform"
     );
   }
   const manifest = JSON.parse(readFileSync(outputPath, "utf8"));
+  assertSetupArtifactMetadata(manifest, `${profile.course.id} product setup`);
+  assertBundledSetupArtifacts(manifest, {
+    assetPrefix,
+    readAsset: (path) => readStagedSetupAsset(packageRoot, path),
+    label: `${profile.course.id} product setup`,
+  });
+  if (process.env.CAATUU_RELEASE_PUBLIC_INVENTORY) {
+    const inventoryPath = exactWorkspaceSource(defaultWorkspaceRoot, process.env.CAATUU_RELEASE_PUBLIC_INVENTORY,
+      "Release public asset inventory", { allowAbsolute: true, kind: "file" });
+    assertPublicSetupDependencies(manifest, JSON.parse(readFileSync(inventoryPath, "utf8")), `${profile.course.id} release setup`);
+  }
   const artifacts = Array.isArray(manifest.artifacts) ? manifest.artifacts : [];
   assert.ok(artifacts.length > 0, "setup manifest must retain artifacts");
   if (profile.capabilities.embeddings) {
@@ -2238,6 +2270,30 @@ function assertSetupBoundary(
     assert.doesNotMatch(setup, /gguf|status\?\.models|modelKey/i);
     if (profile.capabilities.embeddings) assert.match(setup, /status\?\.vectorDatabase/);
   }
+}
+
+function readStagedSetupAsset(packageRoot, path) {
+  const absolute = resolve(packageRoot, path);
+  assert.ok(isInside(packageRoot, absolute), `Packaged setup asset escapes its output root: ${path}`);
+  if (!existsSync(absolute)) return null;
+  const stats = lstatSync(absolute);
+  assert.ok(stats.isFile() && !stats.isSymbolicLink(), `Packaged setup asset is not a regular file: ${path}`);
+  return readFileSync(absolute);
+}
+
+function projectStagedSetupText(input, packageRoot, assetPrefix) {
+  const setup = projectBundledSetupArtifacts(JSON.parse(input), {
+    assetPrefix,
+    readAsset: (path) => readStagedSetupAsset(packageRoot, path),
+    label: `${assetPrefix || "single-course"} product setup`,
+  });
+  return `${JSON.stringify(setup, null, 2)}\n`;
+}
+
+function finalizeStagedSetup(packageRoot, assetPrefix = "") {
+  const setupPath = join(packageRoot, assetPrefix, "setup-assets.json");
+  if (existsSync(setupPath)) writeText(setupPath,
+    projectStagedSetupText(readSourceText(setupPath), packageRoot, assetPrefix));
 }
 
 const REQUIRED_SHARED_APP_FILES = Object.freeze([
@@ -2707,6 +2763,8 @@ export function validateProductAssetBundle({
     if (courseFiles.includes("setup-assets.json")) {
       assertSetupBoundary(courseRoot, courseConfiguration.languageStaticDir, courseProfile, {
         expectedTransform: courseAssetTransform(courseConfiguration, "setup-assets.json", bundle.embeddingRuntime),
+        packageRoot: resolvedOutput,
+        assetPrefix: `courses/${courseConfiguration.course.id}`,
       });
     }
     assertLearnerContentSafety(courseRoot);
@@ -2882,6 +2940,9 @@ export function compileProductAssetBundle({
     join(resolvedOutput, PRODUCT_COURSE_BUNDLE_ASSET),
     `${JSON.stringify(bundle.courseCatalog, null, 2)}\n`,
   );
+  for (const { course } of bundle.configurations) {
+    finalizeStagedSetup(resolvedOutput, `courses/${course.id}`);
+  }
   writeText(
     join(resolvedOutput, "caatuu-profile.json"),
     `${JSON.stringify(bundle.productProfile, null, 2)}\n`,
@@ -2963,6 +3024,7 @@ export function compileProductAssets({
   for (const { source, output } of courseConfiguration.sharedRuntimeAssets) {
     copyExactFile(source, join(resolvedOutput, output));
   }
+  finalizeStagedSetup(resolvedOutput);
   writeText(
     join(resolvedOutput, "caatuu-profile.json"),
     `${JSON.stringify(courseConfiguration.productProfile, null, 2)}\n`,

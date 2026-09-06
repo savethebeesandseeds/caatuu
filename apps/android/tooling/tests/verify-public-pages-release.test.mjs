@@ -480,3 +480,22 @@ test("default retry waits cover the documented ten-minute cache delay", async ()
   assert.match(verifier, /retryDelayMs\s*=\s*20_000/u);
   assert.match(verifier, /requestTimeoutMs\s*=\s*30_000/u);
 });
+
+test("Android-only publication ignores website copy and unrelated reporting outages", async () => {
+  const data = fixture();
+  const mock = mockPublicFetch(data);
+  const result = await verifyPublicPagesReleaseOnce({
+    descriptor: data.descriptor, baselineDescriptor: data.baselineDescriptor, androidOnly: true,
+    fetchImpl: (url, options) => {
+      const path = new URL(url).pathname;
+      assert.ok(path !== "/languages.json" && path !== "/api/reporting/health" && !path.endsWith(".html") && path !== "/", "Android publication must not call website/reporting checks");
+      return mock.fetchImpl(url, options);
+    },
+  });
+  assert.equal(result.ok, true);
+  assert.equal(result.reportingVersion, null);
+  await assert.rejects(verifyPublicPagesReleaseOnce({
+    descriptor: data.descriptor, baselineDescriptor: data.baselineDescriptor, androidOnly: true,
+    fetchImpl: mockPublicFetch(data, { corruptAlias: true }).fetchImpl,
+  }), /stable Android APK alias byte count changed/);
+});

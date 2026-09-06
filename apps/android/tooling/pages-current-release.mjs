@@ -16,6 +16,7 @@ import { dirname, isAbsolute, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { readZipEntry, sha256Bytes, sha256File } from "./pages-baseline.mjs";
+import { assertSetupArtifactMetadata } from "./android-artifact-contract.mjs";
 
 const modulePath = fileURLToPath(import.meta.url);
 const defaultWorkspaceRoot = resolve(dirname(modulePath), "../../..");
@@ -469,18 +470,6 @@ function validateLoadedRelease({ workspaceRoot, descriptor, release }) {
   };
 }
 
-function validateCzechAgreementAurora(setupManifests, current) {
-  const czechSetup = setupManifests.get("assets/courses/cz/setup-assets.json");
-  if (!czechSetup) return;
-  const agreement = czechSetup.artifacts.filter((artifact) => artifact.key === "planet-agreement-aurora");
-  assert.equal(agreement.length, 1, `Android ${current.release.versionCode} Czech setup is missing Agreement Aurora`);
-  const artwork = agreement[0];
-  assert.ok(["assets/planets/agreement-aurora.png", "assets/planets/grammar-gravity.png"].includes(artwork.asset_path), "Grammar Gravity must use its current asset path or the preserved release path");
-  assert.ok(Number.isSafeInteger(artwork.bytes) && artwork.bytes > 0, "Agreement Aurora byte count is invalid");
-  assert.match(String(artwork.sha256 || ""), sha256Pattern, "Agreement Aurora SHA-256 is invalid");
-  assert.equal(artwork.url, `/assets/planets/releases/${artwork.sha256.slice(0, 16)}/agreement-aurora.png`);
-}
-
 function validateCurrentSetupManifests(descriptor, current) {
   const setupEntries = setupEntriesFromApk(current.apkPath);
   assert.deepEqual(
@@ -490,10 +479,9 @@ function validateCurrentSetupManifests(descriptor, current) {
   );
   const setupManifests = new Map(setupEntries.map((entry) => {
     const value = JSON.parse(readZipEntry(current.apkPath, entry).toString("utf8"));
-    assert.ok(Array.isArray(value.artifacts), `${entry} does not contain an artifact list`);
+    assertSetupArtifactMetadata(value, entry, descriptor.canonicalOrigin);
     return [entry, value];
   }));
-  validateCzechAgreementAurora(setupManifests, current);
   return setupManifests;
 }
 

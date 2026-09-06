@@ -352,12 +352,14 @@ async function publicBundle(request, origin, current, baseline, languageRegistry
     assert.equal(bundle.android?.previousStableVersionCode, current.previousStableVersionCode);
     assert.equal(bundle.android?.compatibilityVersionCode, current.compatibilityVersionCode);
     assert.ok(Array.isArray(bundle.files), "The web bundle has no file inventory");
-    assert.deepEqual(
-      bundle.entrypoints,
-      languageRegistry.entrypoints,
-      "The web bundle entrypoint order differs from the public language registry",
-    );
-    inventoryRecord(bundle, "/languages.json", languageRegistry, "public language registry");
+    if (languageRegistry) {
+      assert.deepEqual(
+        bundle.entrypoints,
+        languageRegistry.entrypoints,
+        "The web bundle entrypoint order differs from the public language registry",
+      );
+      inventoryRecord(bundle, "/languages.json", languageRegistry, "public language registry");
+    }
 
     for (const channel of [baseline.stable, baseline.compatibility, ...current.releases.map(overlayChannel)]) {
       inventoryRecord(bundle, channel.manifest.path, channel.manifest, `Android ${channel.versionCode} manifest`);
@@ -393,6 +395,7 @@ export async function verifyPublicPagesReleaseOnce({
   baselineDescriptor,
   fetchImpl = globalThis.fetch,
   requestTimeoutMs = 30_000,
+  androidOnly = false,
 }) {
   assert.equal(typeof fetchImpl, "function", "A fetch implementation is required");
   assert.ok(
@@ -406,9 +409,11 @@ export async function verifyPublicPagesReleaseOnce({
 
   // Keep stale-cache checks cheap. Full current APK verification happens only
   // after the Pages metadata, immutable manifests, old routes, and Worker agree.
-  const languageRegistry = await publicLanguageRegistry(timedFetch, origin);
+  const languageRegistry = androidOnly ? null : await publicLanguageRegistry(timedFetch, origin);
   await publicBundle(timedFetch, origin, current, baseline, languageRegistry);
-  for (const path of languageRegistry.entrypoints) await htmlEntrypoint(timedFetch, origin, path);
+  if (!androidOnly) {
+    for (const path of languageRegistry.entrypoints) await htmlEntrypoint(timedFetch, origin, path);
+  }
 
   const channels = [baseline.stable, baseline.compatibility, ...current.releases.map(overlayChannel)];
   for (const channel of channels) {
@@ -447,7 +452,8 @@ export async function verifyPublicPagesReleaseOnce({
       "compatibility Android APK alias",
     );
   }
-  const health = await reportingHealth(timedFetch, origin);
+  // An unrelated reporting service cannot block publication of immutable APKs.
+  const health = androidOnly ? null : await reportingHealth(timedFetch, origin);
 
   await exactBytes(timedFetch, origin, stable.apk, `Android ${stable.versionCode} immutable APK`);
   await exactBytes(
@@ -463,9 +469,9 @@ export async function verifyPublicPagesReleaseOnce({
     versionCode: current.stable.versionCode,
     versionName: current.stable.versionName,
     tag: current.githubRelease.tag,
-    browserEntrypoints: languageRegistry.entrypoints,
+    browserEntrypoints: languageRegistry?.entrypoints ?? [],
     retainedAndroidVersions: channels.map((channel) => channel.versionCode),
-    reportingVersion: health.version,
+    reportingVersion: health?.version ?? null,
   };
 }
 
@@ -482,6 +488,7 @@ export async function verifyPublicPagesRelease({
   requestTimeoutMs = 30_000,
   sleepImpl = sleep,
   onAttemptFailure = () => {},
+  androidOnly = false,
 }) {
   // Thirty 20-second waits give Pages edge caches roughly ten minutes to
   // converge. Request time is separate and individually bounded.
@@ -490,7 +497,7 @@ export async function verifyPublicPagesRelease({
   let lastError;
   for (let attempt = 1; attempt <= attempts; attempt += 1) {
     try {
-      return await verifyPublicPagesReleaseOnce({ descriptor, baselineDescriptor, fetchImpl, requestTimeoutMs });
+      return await verifyPublicPagesReleaseOnce({ descriptor, baselineDescriptor, fetchImpl, requestTimeoutMs, androidOnly });
     } catch (error) {
       lastError = error;
       await onAttemptFailure({ attempt, attempts, error });
@@ -506,6 +513,7 @@ function parseArguments(argv) {
   const options = { descriptor: defaultDescriptorPath, attempts: 31, retryDelayMs: 20_000 };
   for (let index = 0; index < argv.length; index += 1) {
     const argument = argv[index];
+    if (argument === "--android-only") { options.androidOnly = true; continue; }
     assert.ok(["--descriptor", "--attempts", "--retry-delay-ms"].includes(argument), `Unknown argument: ${argument}`);
     const value = argv[index + 1];
     assert.ok(value && !value.startsWith("--"), `${argument} requires a value`);
@@ -526,6 +534,7 @@ async function main(argv) {
     baselineDescriptor,
     attempts: options.attempts,
     retryDelayMs: options.retryDelayMs,
+    androidOnly: options.androidOnly === true,
   });
   process.stdout.write(`${JSON.stringify(result)}\n`);
 }

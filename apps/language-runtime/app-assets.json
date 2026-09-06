@@ -183,6 +183,7 @@
     { "source": "apps/launcher/static/assets/macaw/music/music (9).png", "output": "assets/macaw/music/music (9).png" },
     { "source": "apps/launcher/static/assets/macaw/music/music (10).png", "output": "assets/macaw/music/music (10).png" },
     { "source": "apps/launcher/static/assets/macaw/music/music (11).png", "output": "assets/macaw/music/music (11).png" },
-    { "source": "apps/launcher/static/assets/macaw/music/music (12).png", "output": "assets/macaw/music/music (12).png" }
+    { "source": "apps/launcher/static/assets/macaw/music/music (12).png", "output": "assets/macaw/music/music (12).png" },
+    { "source": "apps/launcher/static/assets/macaw/actions/macaw (49).png", "output": "assets/macaw/actions/macaw (49).png" }
   ]
 }

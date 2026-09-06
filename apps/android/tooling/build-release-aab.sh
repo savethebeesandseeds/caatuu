@@ -114,6 +114,34 @@ if [[ "$signed" == true ]]; then
     echo "A signed release candidate requires a clean canonical worktree." >&2
     exit 1
   }
+
+  # Under the existing build lock, capture only the published file receipts.
+  # The compiler compares remaining downloads AFTER checking embedded bytes,
+  # so a changed external asset fails before Android compilation/signing.
+  start_phase "Capture published native asset inventory"
+  command -v curl >/dev/null 2>&1 || { echo "curl is required for release asset preflight." >&2; exit 1; }
+  inventory_dir="$repo_root/artifacts/android/release-preflight"
+  [[ ! -L "$repo_root/artifacts" && ! -L "$repo_root/artifacts/android" && ! -L "$inventory_dir" ]] || {
+    echo "Release inventory directory must not be a symlink." >&2; exit 1;
+  }
+  mkdir -p "$inventory_dir"
+  inventory_file="$inventory_dir/public-assets-$candidate_version_code.json"
+  [[ ! -L "$inventory_file" ]] || { echo "Release inventory file must not be a symlink." >&2; exit 1; }
+  inventory_download="$(mktemp "$inventory_dir/.public-assets.XXXXXX")"
+  inventory_status="$(curl --fail --silent --show-error --proto '=https' --tlsv1.2 \
+    --connect-timeout 10 --max-time 45 --retry 2 --retry-delay 1 \
+    --output "$inventory_download" --write-out '%{http_code}' \
+    'https://caatuu.waajacu.com/caatuu-web-bundle.json')"
+  [[ "$inventory_status" == 200 ]] || { echo "Published asset inventory did not return HTTP 200." >&2; exit 1; }
+  node --input-type=module - "$repo_root/apps/android/tooling/android-artifact-contract.mjs" "$inventory_download" <<'NODE'
+import { readFileSync } from "node:fs";
+import { pathToFileURL } from "node:url";
+const { assertPublicSetupDependencies } = await import(pathToFileURL(process.argv[2]).href);
+assertPublicSetupDependencies({ artifacts: [] }, JSON.parse(readFileSync(process.argv[3], "utf8")));
+NODE
+  mv "$inventory_download" "$inventory_file"
+  export CAATUU_RELEASE_PUBLIC_INVENTORY="$inventory_file"
+  finish_phase
 fi
 
 for command in gradle java keytool node unzip apkanalyzer; do

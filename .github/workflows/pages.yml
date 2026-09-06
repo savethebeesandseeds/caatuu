@@ -1,4 +1,5 @@
 name: Deploy static Caatuu to GitHub Pages
+run-name: Caatuu ${{ inputs.deployment_scope }} · ${{ inputs.expected_revision }}
 
 on:
   workflow_dispatch:
@@ -7,6 +8,14 @@ on:
         description: Exact pushed main commit that is authorized for this deployment
         required: true
         type: string
+      deployment_scope:
+        description: Android reuses the published website; website explicitly compiles and publishes web changes
+        required: true
+        default: android
+        type: choice
+        options:
+          - android
+          - website
       allow_http_certificate_bootstrap:
         description: Allow one deployment while GitHub provisions custom-domain HTTPS
         required: true
@@ -24,9 +33,12 @@ concurrency:
 
 jobs:
   build:
-    name: Build reviewed static site
+    name: Prepare verified publication artifacts
     runs-on: ubuntu-24.04
     timeout-minutes: 60
+    permissions:
+      contents: write
+      pages: read
     steps:
       - name: Check out main without retained credentials
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
@@ -132,6 +144,7 @@ jobs:
           [[ -z "$PAGES_BASE_PATH" ]]
 
       - name: Download the fixed existing-release preservation archive
+        if: inputs.deployment_scope == 'website'
         shell: bash
         env:
           BASELINE_URL: https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-pages-v162/caatuu-pages-v162.tar
@@ -204,6 +217,7 @@ jobs:
               --descriptor "$RELEASE_DESCRIPTOR"
 
       - name: Build and validate the static bundle with every retained Android release
+        if: inputs.deployment_scope == 'website'
         shell: bash
         run: |
           docker run --rm \
@@ -215,6 +229,58 @@ jobs:
               --baseline-archive artifacts/android/pages-input/caatuu-pages-v162.tar \
               --current-release-descriptor apps/android/tooling/pages-current-release.json \
               --output artifacts/web/github-pages
+
+      - name: Preserve the published website and overlay only verified Android release bytes
+        if: inputs.deployment_scope == 'android'
+        shell: bash
+        run: |
+          docker run --rm \
+            --user "$(id -u):$(id -g)" \
+            --volume "$GITHUB_WORKSPACE:/workspace" \
+            --workdir /workspace \
+            node:24-bookworm@sha256:be23f54a88d34e8824c741b19b91064094f92c1c97b194144bfc8b50d67258e2 \
+            node apps/android/tooling/pages-website-snapshot.mjs android \
+              --site /workspace/artifacts/web/github-pages \
+              --archive /workspace/artifacts/web/published-website.tar \
+              --bootstrap /workspace/apps/android/tooling/pages-website-bootstrap.json \
+              --descriptor /workspace/apps/android/tooling/pages-current-release.json
+
+      - name: Seal the website for subsequent build-free Android updates
+        if: inputs.deployment_scope == 'website'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          docker run --rm \
+            --user "$(id -u):$(id -g)" \
+            --volume "$GITHUB_WORKSPACE:/workspace" \
+            --workdir /workspace \
+            node:24-bookworm@sha256:be23f54a88d34e8824c741b19b91064094f92c1c97b194144bfc8b50d67258e2 \
+            node apps/android/tooling/pages-website-snapshot.mjs seal \
+              --site /workspace/artifacts/web/github-pages \
+              --archive /workspace/artifacts/web/caatuu-website.tar \
+              --revision "$GITHUB_SHA"
+          tag="caatuu-web-${GITHUB_SHA}"
+          receipt=artifacts/web/caatuu-website.tar.json
+          # No replacement uploads. An interrupted retry must match the sealed bytes.
+          if ! gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release create "$tag" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
+              --draft --latest=false --title "Published website snapshot ${GITHUB_SHA}" \
+              --notes "Immutable website artifact reused by Android-only publications."
+          fi
+          for file in artifacts/web/caatuu-website.tar "$receipt"; do
+            name="$(basename "$file")"
+            digest="$(sha256sum "$file" | cut -d ' ' -f 1)"
+            size="$(stat -c '%s' "$file")"
+            existing="$(gh release view "$tag" --repo "$GITHUB_REPOSITORY" --json assets --jq ".assets[] | select(.name == \"$name\") | [.size, .digest] | @tsv")"
+            if [[ -n "$existing" ]]; then
+              [[ "$existing" == "${size}"$'\t'"sha256:${digest}" ]]
+            else
+              gh release upload "$tag" "$file" --repo "$GITHUB_REPOSITORY"
+            fi
+          done
+          gh release edit "$tag" --repo "$GITHUB_REPOSITORY" --draft=false --latest=false
 
       - name: Upload the exact static site
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0

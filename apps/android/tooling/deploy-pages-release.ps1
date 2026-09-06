@@ -335,7 +335,7 @@ function Get-WorkflowRuns {
     $json = Invoke-Checked -File "gh" -Arguments @(
         "run", "list", "--repo", $Repository, "--workflow", $Workflow, "--branch", "main",
         "--event", "workflow_dispatch", "--limit", "50",
-        "--json", "databaseId,headSha,status,conclusion,createdAt,url,event"
+        "--json", "databaseId,headSha,status,conclusion,createdAt,url,event,displayTitle"
     ) -Label "Pages workflow run lookup"
     if ([string]::IsNullOrWhiteSpace($json)) { return @() }
     return @($json | ConvertFrom-Json)
@@ -343,7 +343,8 @@ function Get-WorkflowRuns {
 
 function Wait-PagesRun {
     param([string]$Head)
-    $runs = @(Get-WorkflowRuns | Where-Object { $_.headSha -eq $Head } | Sort-Object createdAt -Descending)
+    $expectedTitle = "Caatuu android · $Head"
+    $runs = @(Get-WorkflowRuns | Where-Object { $_.headSha -eq $Head -and $_.displayTitle -eq $expectedTitle } | Sort-Object createdAt -Descending)
     $successful = @($runs | Where-Object { $_.status -eq "completed" -and $_.conclusion -eq "success" } | Select-Object -First 1)
     if ($successful.Count -eq 1) { return $successful[0] }
     $active = @($runs | Where-Object { $_.status -ne "completed" } | Select-Object -First 1)
@@ -358,13 +359,14 @@ function Wait-PagesRun {
         if ($githubMain -ne $Head) { throw "GitHub main changed before Pages dispatch." }
         [void](Invoke-Checked -File "gh" -Arguments @(
             "workflow", "run", $Workflow, "--repo", $Repository, "--ref", "main",
+            "-f", "deployment_scope=android",
             "-f", "allow_http_certificate_bootstrap=false",
             "-f", "expected_revision=$Head"
         ) -Label "Pages workflow dispatch")
         for ($attempt = 1; $attempt -le 30; $attempt += 1) {
             Start-Sleep -Seconds 2
             $newRuns = @(Get-WorkflowRuns | Where-Object {
-                $_.headSha -eq $Head -and -not $knownIds.ContainsKey([string]$_.databaseId)
+                $_.headSha -eq $Head -and $_.displayTitle -eq $expectedTitle -and -not $knownIds.ContainsKey([string]$_.databaseId)
             } | Sort-Object createdAt -Descending)
             if ($newRuns.Count -gt 0) { $active = @($newRuns[0]); break }
         }
@@ -515,6 +517,7 @@ try {
             descriptorAction = [string]$script:candidate.action
             repositoryState = [string]$script:state.Kind
             willBuild = $false
+            willBuildWebsite = $false
         } | ConvertTo-Json -Compress
         return
     }
@@ -681,7 +684,7 @@ try {
     }
 
     $script:pagesRun = $null
-    Invoke-Phase "Deploy the exact main commit with GitHub Pages" {
+    Invoke-Phase "Publish Android files while preserving the deployed website" {
         Assert-MainOnlyInvariant -CheckRemote
         if ((Get-WorktreeState).Kind -ne "clean") { throw "The repository changed during GitHub Release publication." }
         $currentHead = (Get-GitOutput @("rev-parse", "HEAD") "current HEAD").Trim()
@@ -692,10 +695,10 @@ try {
     }
 
     $script:publicResult = $null
-    Invoke-Phase "Verify public Pages, Android, and reporting routes" {
+    Invoke-Phase "Verify the public Android manifest and immutable bytes" {
         $verifyJson = Invoke-Checked -File "docker" -Arguments @(
             "exec", "--workdir", "/workspace", "caatuu-dev", "node", $PublicVerifier,
-            "--descriptor", $DescriptorContainerPath
+            "--descriptor", $DescriptorContainerPath, "--android-only"
         ) -Label "public Pages verification"
         $script:publicResult = ConvertFrom-CheckedJson $verifyJson "public Pages verification"
         if (-not [bool]$script:publicResult.ok -or [int]$script:publicResult.versionCode -ne [int]$script:candidate.versionCode) {

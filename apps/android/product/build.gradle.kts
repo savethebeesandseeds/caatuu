@@ -442,8 +442,8 @@ val androidTargetSdk = providers.environmentVariable("CAATUU_ANDROID_TARGET_SDK"
     .orElse(36)
 val androidUpdateBaseUrl = providers.environmentVariable("CAATUU_ANDROID_UPDATE_BASE_URL")
     .orElse("https://caatuu.waajacu.com/android")
-val caatuuVersionCode = providers.gradleProperty("caatuuVersionCode").map(String::toInt).orElse(165)
-val caatuuVersionName = providers.gradleProperty("caatuuVersionName").orElse("0.1.13")
+val caatuuVersionCode = providers.gradleProperty("caatuuVersionCode").map(String::toInt).orElse(166)
+val caatuuVersionName = providers.gradleProperty("caatuuVersionName").orElse("0.1.14")
 val releaseSigningValues = listOf(
     releaseKeystorePath,
     releaseKeystorePassword,
@@ -502,6 +502,9 @@ val generateProductAssets by tasks.registering(Exec::class) {
     inputs.file(assetCompiler)
     inputs.file(courseBundlePlanner)
     inputs.file(androidArtifactContract)
+    val publicSetupInventory = providers.environmentVariable("CAATUU_RELEASE_PUBLIC_INVENTORY")
+    inputs.property("releasePublicInventory", publicSetupInventory.orElse(""))
+    publicSetupInventory.orNull?.let { inputs.file(it) }
     inputs.file(courseBundleFile)
     inputs.file(languageCatalogFile)
     inputs.files(languageCatalogCourseManifestFiles)

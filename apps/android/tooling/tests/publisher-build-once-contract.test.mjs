@@ -76,6 +76,17 @@ test("signed and unsigned release builds share one global Gradle-output lock", (
   assert.match(builder, /Signed and unsigned invocations share the same Gradle tree/u);
 });
 
+test("new signed builds capture public native-asset receipts under the lock before Gradle", () => {
+  const lock = builder.indexOf('flock -n "$build_lock_fd"');
+  const receiptReuse = builder.indexOf('if [[ "$signed" == true && -f "$candidate_receipt" ]]');
+  const inventory = builder.indexOf('start_phase "Capture published native asset inventory"');
+  const gradle = builder.indexOf("gradle --no-daemon");
+  assert.ok(lock >= 0 && receiptReuse > lock && inventory > receiptReuse && gradle > inventory);
+  assert.match(builder, /export CAATUU_RELEASE_PUBLIC_INVENTORY="\$inventory_file"/u);
+  assert.match(builder, /assertPublicSetupDependencies\(\{ artifacts: \[\] \}/u);
+  assert.doesNotMatch(builder, /build-pages-site|build-static-site/u);
+});
+
 test("the authoritative APK is derived once from the release bundle", () => {
   const gradleBlock = /gradle --no-daemon \\\n([\s\S]*?)\n\nsource_aab=/u.exec(builder)?.[1] ?? "";
   assert.deepEqual(
@@ -160,14 +171,22 @@ test("the canonical publisher reports source, build, verification, finalization,
   assert.doesNotMatch(publisher, /Finalized existing Caatuu .* without rebuilding it/u);
 });
 
-test("a newly sealed signed candidate must come from clean pushed main", () => {
+test("release preflight checks cheap Android safety contracts without rebuilding product or website fixtures", () => {
   const sourceValidation = publisher.indexOf('start_phase "Validate release source"');
   const signedBuild = publisher.indexOf('start_phase "Build one signed release candidate"');
-  for (const contract of ["static-site-contract", "pages-language-plan", "pages-site-contract"]) {
+  const preflightSource = publisher.slice(sourceValidation, signedBuild);
+  assert.match(preflightSource, /tools\/language-content\/validate\.mjs" --release/u);
+  for (const contract of ["android-artifact-contract", "product-package-contract", "product-interface-catalog", "product-index-transform", "publisher-build-once-contract"]) {
     const preflight = publisher.indexOf(`${contract}.test.mjs`);
     assert.ok(preflight > sourceValidation && preflight < signedBuild,
-      `${contract} must reject unpublishable source before a candidate is signed`);
+      `${contract} must validate the Android boundary before signing`);
   }
+  assert.doesNotMatch(preflightSource, /product-\*|product-assets-contract|product-word-world-startup|apps\/launcher\/tooling|build-product-assets\.mjs|build-static-site\.mjs|build-pages-site\.mjs/u);
+  assert.match(builder, /:product:generateProductAssets/u);
+  assert.match(builder, /validate-product-package\.mjs/u);
+});
+
+test("a newly sealed signed candidate must come from clean pushed main", () => {
   const cleanGuard = builder.indexOf("A signed release candidate requires a clean canonical worktree");
   const pushedGuard = builder.indexOf("Push main before building a signed release candidate");
   const gradleInvocation = builder.indexOf("gradle --no-daemon");

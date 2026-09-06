@@ -81,3 +81,17 @@ test("Pages publication downloads the fixed baseline plus every descriptor relea
   assert.doesNotMatch(workflow, /releases\/(?:latest|download\/latest)/iu);
   assert.doesNotMatch(workflow, /publish-public-debug|gradlew|assemble(?:Debug|Release)|bundle(?:Debug|Release)/iu);
 });
+
+test("routine Android publication cannot invoke the website compiler", () => {
+  assert.match(workflow, /deployment_scope:[\s\S]*default: android/u);
+  const steps = workflow.split(/\n      - name: /u);
+  const build = steps.find((step) => step.includes("node apps/launcher/tooling/build-pages-site.mjs"));
+  assert.ok(build);
+  assert.match(build, /if: inputs\.deployment_scope == 'website'/u);
+  const overlay = steps.find((step) => step.includes("pages-website-snapshot.mjs android"));
+  assert.ok(overlay);
+  assert.match(overlay, /if: inputs\.deployment_scope == 'android'/u);
+  assert.doesNotMatch(overlay, /build-pages-site|build-static-site|gradle|product-assets/u);
+  assert.match(workflow, /pages-website-snapshot\.mjs seal/u);
+  assert.doesNotMatch(workflow, /--clobber/u);
+});

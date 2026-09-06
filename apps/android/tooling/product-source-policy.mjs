@@ -9,7 +9,6 @@ export const FORBIDDEN_FIRST_PARTY_SOURCE_PATTERNS = Object.freeze([
   /\bchat\.html\b/i,
   /\bwordNetGenerativeDialog\b/,
   /data-content-mode\s*=\s*["']generative["']/i,
-  /\bGenerative mode\b/i,
   /\bmodels\.generate\s*\(/,
   /\b(?:loadModelCatalog|loadBrowserModel|generateBrowser|browserFallbackModel|webllmCdn)\b/,
   /nativeCall\(\s*["'](?:prompt|start_download|cancel_download|reset_conversation|benchmark|delete_model)["']/,

@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
@@ -8,12 +9,110 @@ import {
   assertDictionaryArtifactContract,
   assertEmbeddingArtifactContract,
   assertSafeStorageKey,
+  assertSetupArtifactMetadata,
+  assertBundledSetupArtifacts,
+  projectBundledSetupArtifacts,
+  assertPublicSetupDependencies,
   embeddingStorageRecord,
   setupStorageRecord,
   assertUniqueActiveDictionaryKeys,
 } from "../android-artifact-contract.mjs";
 
 const course = Object.freeze({ targetLanguage: Object.freeze({ id: "cs" }) });
+
+test("release preflight requires exact published bytes only for remaining native downloads", () => {
+  const file = { path: "assets/public image.png", bytes: 123, sha256: "a".repeat(64) };
+  const inventory = {
+    canonicalOrigin: "https://caatuu.waajacu.com", files: [file],
+    payloadFileCount: 1, payloadBytes: file.bytes,
+    payloadSha256: createHash("sha256").update(`${file.path}\0${file.bytes}\0${file.sha256}`).digest("hex"),
+  };
+  const artifact = { key: "image", asset_path: file.path, url: "/assets/public%20image.png?v=1",
+    bytes: file.bytes, sha256: file.sha256, native_required: true, browser_required: true };
+  const setup = { artifacts: [artifact] };
+  assert.equal(assertPublicSetupDependencies(setup, inventory), setup);
+  assert.throws(() => assertPublicSetupDependencies({ artifacts: [{ ...artifact, url: "/assets/missing.png" }] }, inventory), /public asset is missing/u);
+  assert.throws(() => assertPublicSetupDependencies({ artifacts: [{ ...artifact, sha256: "b".repeat(64) }] }, inventory), /bytes\/hash differ/u);
+  assert.throws(() => assertPublicSetupDependencies({ artifacts: [{ ...artifact, bytes: 124 }] }, inventory), /bytes\/hash differ/u);
+  assert.doesNotThrow(() => assertPublicSetupDependencies({ artifacts: [{ ...artifact, url: "/assets/bundled.png", native_required: false, android_packaged: true }] }, inventory));
+  assert.throws(() => assertPublicSetupDependencies(setup, { ...inventory, payloadSha256: "c".repeat(64) }), /payload digest differs/u);
+});
+
+test("native setup skips downloads only for byte-identical assets in the actual shared or course package", () => {
+  const bytes = Buffer.from("reviewed bundled content");
+  const sha256 = createHash("sha256").update(bytes).digest("hex");
+  const record = (key, asset_path) => ({
+    key, asset_path, url: `/${asset_path}`, bytes: bytes.length, sha256,
+    native_required: true, browser_required: true, label: "Unchanged metadata",
+  });
+  const source = { schema_version: 1, artifacts: [
+    record("shared", "assets/art.png"),
+    record("course", "data/lesson.json"),
+    record("external", "language-runtime/model.onnx"),
+    record("mismatch", "assets/old.png"),
+  ] };
+  const assets = new Map([
+    ["assets/art.png", bytes],
+    ["courses/xy/data/lesson.json", bytes],
+    ["assets/old.png", Buffer.from("different bundled bytes")],
+  ]);
+  const options = { assetPrefix: "courses/xy", readAsset: (path) => assets.get(path) ?? null };
+  const projected = projectBundledSetupArtifacts(source, options);
+  assert.deepEqual(projected.artifacts.map(({ native_required }) => native_required), [false, false, true, true]);
+  assert.ok(source.artifacts.every(({ native_required }) => native_required), "source metadata is not mutated");
+  for (const [index, artifact] of projected.artifacts.entries()) {
+    const { android_packaged, ...unchanged } = artifact;
+    assert.deepEqual({ ...unchanged, native_required: true }, source.artifacts[index]);
+    assert.equal(android_packaged, index < 2 ? true : undefined);
+  }
+  assert.equal(assertBundledSetupArtifacts(projected, options), projected);
+  assert.deepEqual(projectBundledSetupArtifacts(projected, options), projected, "final projection is idempotent");
+  for (const readAsset of [() => null, () => Buffer.from("wrong")]) {
+    assert.throws(() => assertBundledSetupArtifacts(projected, { ...options, readAsset }), /exact matching packaged bytes/u);
+  }
+  const invalid = structuredClone(projected);
+  invalid.artifacts[0].native_required = true;
+  assert.throws(() => assertBundledSetupArtifacts(invalid, options), /must not require a download/u);
+});
+
+test("setup artifacts follow metadata without requiring a named game, artwork, or frozen revision", () => {
+  assert.deepEqual(assertSetupArtifactMetadata({ artifacts: [] }), { artifacts: [] });
+  for (const digest of ["a".repeat(64), "b".repeat(64)]) {
+    const setup = { artifacts: [{
+      key: "new-course-art", label: "Any translated title", bytes: 123,
+      url: `/assets/illustrations/releases/${digest.slice(0, 16)}/new-art.png`,
+      asset_path: "assets/illustrations/new-art.png", sha256: digest,
+    }, {
+      key: "browser-module", bytes: 12, sha256: digest,
+      url: "/xy/source/runtime.js?v=next", browser_required: true,
+    }] };
+    assert.equal(assertSetupArtifactMetadata(setup), setup);
+  }
+});
+
+test("setup metadata retains confinement, same-origin delivery and immutable digest checks", () => {
+  const artifact = {
+    key: "content", bytes: 12, sha256: "a".repeat(64),
+    url: "/assets/releases/aaaaaaaaaaaaaaaa/art.png",
+    asset_path: "assets/art.png", native_required: true,
+  };
+  for (const patch of [
+    { url: "https://other.example/assets/art.png" },
+    { url: "http://caatuu.waajacu.com/assets/art.png" },
+    { url: "//caatuu.waajacu.com/assets/art.png" },
+    { url: "/assets/../secret" },
+    { url: "/assets/%2e%2e/secret" },
+    { url: "/assets/%5csecret" },
+    { url: "/assets/art.png#fragment" },
+    { url: "/assets/releases/bbbbbbbbbbbbbbbb/art.png" },
+    { url: "/assets/releases/current/art.png" },
+    { bytes: 0 }, { bytes: "12" }, { sha256: "bad" },
+    { asset_path: "../outside" }, { asset_path: undefined },
+  ]) {
+    assert.throws(() => assertSetupArtifactMetadata({ artifacts: [{ ...artifact, ...patch }] }), JSON.stringify(patch));
+  }
+  assert.throws(() => assertSetupArtifactMetadata({ artifacts: [artifact, artifact] }), /duplicated/u);
+});
 
 function dictionaryFixture() {
   return {

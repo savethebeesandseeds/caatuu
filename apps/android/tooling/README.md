@@ -83,7 +83,11 @@ edited, so include that generated metadata with the corresponding asset change.
 ## Canonical release workflow
 
 A release has two separate operations: build and locally finalize one signed
-candidate, then deploy those exact bytes. Deployment never rebuilds the app.
+candidate, then deploy those exact bytes. Routine Android deployment rebuilds
+neither the app nor the website. It restores the hash-pinned published website
+artifact, preserves its current file inventory, and overlays the sealed Android
+release and download aliases. Website changes require an explicit
+`deployment_scope=website` dispatch of the existing Pages workflow.
 
 The routine entrypoint orchestrates both operations with one command:
 
@@ -105,9 +109,13 @@ docker exec -w /workspace caatuu-dev \
 ```
 
 That command performs at most one Android build.
-Before signing, the publisher checks both the product package contracts and
-the static Pages export/course-projection contracts. Launcher or publishing
-markup drift therefore fails before a version-owned candidate is sealed.
+Before signing, the publisher runs focused Android safety contracts and the
+content release validator. Full fixture builds and website export tests belong
+to source CI, not every APK publication. The real asset compiler and final
+archive audit still enforce package capabilities and source/asset integrity.
+Interface words, catalog revision literals, corpus counts and particular artwork
+filenames are not release requirements: tests derive changing metadata from the
+authoritative catalogs, and forbidden features are checked structurally.
 The asset compiler and signed-archive audit share one forbidden-source policy,
 including JSON interface text. Product-only catalog projection removes disabled
 generation offers in every packaged locale while retaining unavailable-state
@@ -164,11 +172,45 @@ pwsh -NoProfile -File apps/android/tooling/deploy-pages-release.ps1 `
 
 The deployer updates only the append-only Pages release descriptor, commits and
 pushes that handoff on `main`, uploads only missing exact release assets,
-dispatches the Pages workflow, and verifies the public site, Android routes,
-and reporting health. It never invokes the builder or Gradle. Rerun this command
+dispatches the Pages workflow in `android` scope, and verifies the public
+Android manifests, retained downloads and exact stable APK bytes. Browser
+interface schemas and reporting-service health do not gate an Android update.
+It never invokes the builder, Gradle, or the website compiler. Rerun this command
 after an interrupted upload or deployment; do not rerun `--build-once`.
 The compatibility transition remains the frozen version 161 artifact; never
 build a new transition for each stable release.
+
+### Website preservation, not recompilation
+
+`pages-website-snapshot.mjs` and `pages-android-overlay.mjs` are helpers in the
+existing release workflow, not alternate publication entrypoints. The live
+`caatuu-web-bundle.json` names a source-pinned, hash-checked website archive in
+GitHub Releases. Explicit website publications seal a new archive automatically;
+Android publications keep that archive and every subsequent live immutable
+addition, including setup assets needed by older installed releases. They can
+add missing content-addressed setup files only from the verified sealed APK.
+They cannot replace website files, overwrite an immutable release, or roll back
+the live stable version. GitHub Pages still requires uploading a complete site
+artifact, but that is file transport, not a source build.
+
+Setup uses a packaged asset directly when its actual APK bytes match its
+catalog receipt; it does not download a second copy from the website. The
+compiler marks these entries `android_packaged`, and the final archive audit
+checks every marked entry. Remaining external downloads are checked against the
+published byte inventory during asset compilation, before signing. Changed
+external artwork must be bundled or published at its own immutable URL; never
+replace files still required by older installations. This check reads artifact
+paths and hashes, not browser copy or interface schemas.
+
+The one-time `pages-website-bootstrap.json` receipt preserves the last deployed
+website before snapshot support (successful run 33749970406). Its bytes were
+captured against the public inventory, reusing only locally cached files with
+matching hashes. It is used only when the public manifest has no snapshot field
+and still matches that exact inventory. It is never regenerated on an APK retry.
+
+Release timings are printed per phase. A successful receipt skips all build
+work; deployment repair uses the same receipt. Do not promise a fixed duration:
+signing/build time, artifact transport and Pages availability are separate.
 
 The release key remains the existing ignored
 `artifacts/android/caatuu-debug.keystore`, pinned by

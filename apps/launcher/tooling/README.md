@@ -1,5 +1,13 @@
 # Static web bundle tooling
 
+These compilers run only for an explicit **website** publication. Routine
+Android releases select `deployment_scope=android` in the existing Pages
+workflow: they reuse the published website snapshot and overlay exact signed
+Android files without running either compiler. See the
+[Android release workflow](../../android/tooling/README.md#canonical-release-workflow).
+Website publication selects `deployment_scope=website` and automatically seals
+its output as an immutable GitHub Release artifact for later Android updates.
+
 `build-static-site.mjs` creates the reviewed browser-only `web-static-core`
 intermediate. `build-pages-site.mjs` turns that intermediate into the final
 `web-static-pages-cutover` bundle by adding every catalog-declared,
