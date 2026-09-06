@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; style-src-elem 'self' 'unsafe-inline'; style-src-attr 'none'; img-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Caatuu · Macaw motion · Latest sheet frames</title>
+  <link rel="stylesheet" href="./review.css">
+  <script src="./review.js" type="module"></script>
+</head>
+<body>
+  <main class="page">
+    <header class="page-header">
+      <div><p class="eyebrow">CAATUU / CHARACTER WORKSHOP</p><h1>The macaw, in motion.</h1><p class="intro">A new six-frame run. The complete walking set, ready to compare.</p></div>
+      <div class="header-actions"><span class="status-tag">Latest sheet frames</span><button id="refresh" type="button">Refresh files</button></div>
+    </header>
+    <aside class="notice" aria-label="Production status"><strong>Sheet-derived frames · common centered canvas.</strong><span id="processing-status">Draft gait. Processing details will appear when the latest frame manifest loads.</span></aside>
+    <section class="audit-bar" aria-label="Asset summary">
+      <div><strong id="frame-count">— / 25</strong><span>latest sheet frames</span></div>
+      <div><strong id="alpha-count">—</strong><span>with transparent pixels</span></div>
+      <div><strong id="load-count">Loading manifest…</strong><span id="load-detail">Image load audit</span></div>
+    </section>
+    <p id="page-error" class="error" role="alert" hidden></p>
+    <section class="review-panel" aria-labelledby="review-heading">
+      <div class="panel-title"><h2 id="review-heading">Direction &amp; movement</h2><span id="current-label">South · Walk 1/4</span></div>
+      <div class="review-layout">
+        <div id="stage" class="stage bg-dark size-medium" data-direction="S" data-frame="S-walk-01" data-phase="1">
+          <img id="hero" alt="" hidden><p id="stage-empty">Loading frames…</p>
+          <span id="stage-id" class="stage-id">S-walk-01</span>
+        </div>
+        <div class="inspector">
+          <fieldset><legend>Face a direction</legend><div class="compass" id="compass">
+            <button type="button" data-direction="NW" aria-label="Northwest, mirrored" aria-pressed="false">↖<small>NW</small></button><button type="button" data-direction="N" aria-label="North" aria-pressed="false">↑<small>N</small></button><button type="button" data-direction="NE" aria-label="Northeast" aria-pressed="false">↗<small>NE</small></button>
+            <button type="button" data-direction="W" aria-label="West, mirrored" aria-pressed="false">←<small>W</small></button><span class="compass-center" aria-hidden="true">✦</span><button type="button" data-direction="E" aria-label="East" aria-pressed="false">→<small>E</small></button>
+            <button type="button" data-direction="SW" aria-label="Southwest, mirrored" aria-pressed="false">↙<small>SW</small></button><button type="button" data-direction="S" aria-label="South" aria-pressed="true">↓<small>S</small></button><button type="button" data-direction="SE" aria-label="Southeast" aria-pressed="false">↘<small>SE</small></button>
+          </div><p id="direction-help" class="small-copy">Walking and standing: all eight directions.</p></fieldset>
+          <fieldset><legend>Action</legend><div class="segmented" id="action-controls"><button type="button" data-action="idle" aria-pressed="false">Standing</button><button type="button" data-action="walk" aria-pressed="true">Walking</button><button id="run-action" type="button" data-action="run" aria-pressed="false" disabled>Running</button></div></fieldset>
+          <div class="field-row"><label for="fps">Playback</label><select id="fps"><option value="6" selected>6 fps</option><option value="7">7 fps</option><option value="8">8 fps</option><option value="10">10 fps</option><option value="12">12 fps</option></select></div>
+          <div class="field-row"><label for="scale">Canvas scale</label><select id="scale"><option value="small">Small</option><option value="medium" selected>Medium</option><option value="large">Large</option></select></div>
+          <fieldset><legend>Backdrop</legend><div class="segmented" id="background-controls"><button type="button" data-background="dark" aria-pressed="true">Dark</button><button type="button" data-background="light" aria-pressed="false">Light</button><button type="button" data-background="checker" aria-pressed="false">Check</button></div></fieldset>
+          <p class="small-copy">Every cut frame uses a common centered canvas. Scale changes the whole canvas uniformly; mirrored views use the same frame.</p>
+        </div>
+      </div>
+      <div class="transport"><button id="previous" type="button" aria-label="Previous animation frame">←</button><button id="play" type="button" aria-pressed="true">Pause</button><button id="next" type="button" aria-label="Next animation frame">→</button><label class="scrubber-label" for="scrubber">Frame</label><input id="scrubber" type="range" min="1" max="4" step="1" value="1" aria-label="Animation frame"><output id="phase-label" for="scrubber">1/4 · Contact</output></div>
+      <div class="frame-info"><a id="original-link" target="_blank" rel="noopener" hidden>Open frame PNG ↗</a><span id="image-metadata"></span><p id="visual-notes"></p></div>
+    </section>
+    <section class="directions-section" aria-labelledby="directions-heading"><div class="section-heading"><h2 id="directions-heading">All eight directions</h2><p id="directions-caption">Synchronized four-frame walks · three views use mirrors</p></div><div id="direction-cards" class="direction-cards"></div></section>
+    <section class="contact-section" aria-labelledby="contact-heading"><div class="section-heading"><h2 id="contact-heading">Latest walking frames</h2><p id="contact-caption">Standing + contact / passing / opposite contact / passing</p></div><div class="sheet-scroll"><div id="contact-sheet" class="contact-sheet"></div></div></section>
+    <details class="audit-details"><summary>Processing and load notes</summary><p id="generation-status"></p><ul id="blockers"></ul><ul id="load-errors"></ul><p class="small-copy">The viewer reads the latest processed frame files. Gait is a draft; review timing, opposing steps and foot placement before game integration.</p></details>
+    <footer>CAATUU · MACAW MOTION WORKSHOP <span id="updated-at"></span></footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,1091 @@
+{
+  "schema_version": 2,
+  "status": "curated-walk-and-first-run-study",
+  "expected_originals": 25,
+  "complete": true,
+  "missing": [],
+  "frames": [
+    {
+      "id": "S-idle",
+      "direction": "S",
+      "action": "idle",
+      "phase": 0,
+      "source_sheet": "s.png",
+      "source_slot": 1,
+      "file": "images/s-idle-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "fc3944c4575d1edd982ac19ca30b2b978afb12dcd800f220b81f6ac40907d6e1",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7228813171386719,
+        "partial_fraction": 0.01047515869140625
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          309,
+          419
+        ],
+        "translation": [
+          90,
+          61
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Accepted in user review on September 6. Original registered pixels preserved."
+    },
+    {
+      "id": "S-walk-01",
+      "direction": "S",
+      "action": "walk",
+      "phase": 1,
+      "source_sheet": "s.png",
+      "source_slot": 2,
+      "file": "images/s-walk-01-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "5dedc74212bf1d88fff71b7aecdb598c7391de3280dd45d340ba0ce5a9d66e7e",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7204475402832031,
+        "partial_fraction": 0.00974273681640625
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          307,
+          433
+        ],
+        "translation": [
+          91,
+          47
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Accepted in user review on September 6. Original registered pixels preserved."
+    },
+    {
+      "id": "S-walk-02",
+      "direction": "S",
+      "action": "walk",
+      "phase": 2,
+      "source_sheet": "s.png",
+      "source_slot": 5,
+      "file": "images/s-walk-02-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "9be13db268aae589884cd6593e4c7df351af8de071341850bff7f230f74cd2e1",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7365303039550781,
+        "partial_fraction": 0.00949859619140625
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          293,
+          425
+        ],
+        "translation": [
+          98,
+          55
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Accepted in user review on September 6. Original registered pixels preserved."
+    },
+    {
+      "id": "S-walk-03",
+      "direction": "S",
+      "action": "walk",
+      "phase": 3,
+      "source_sheet": "s.png",
+      "source_slot": 4,
+      "file": "images/s-walk-03-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "3bd04148ee217d0646cf82460fefe2aa4fb34d3391d20b3db841ef0b572b10c9",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.72589111328125,
+        "partial_fraction": 0.009754180908203125
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          302,
+          437
+        ],
+        "translation": [
+          93,
+          43
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Accepted in user review on September 6. Original registered pixels preserved."
+    },
+    {
+      "id": "S-walk-04",
+      "direction": "S",
+      "action": "walk",
+      "phase": 4,
+      "source_sheet": "s.png",
+      "source_slot": 3,
+      "file": "images/s-walk-04-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "31dcdabecd65583a1e1a801ae15fa71c6280f86065bec4ab5bbd952c9f689815",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7270126342773438,
+        "partial_fraction": 0.009578704833984375
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          303,
+          425
+        ],
+        "translation": [
+          93,
+          55
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Accepted in user review on September 6. Original registered pixels preserved."
+    },
+    {
+      "id": "N-idle",
+      "direction": "N",
+      "action": "idle",
+      "phase": 0,
+      "source_sheet": "n.png",
+      "source_slot": 1,
+      "file": "images/n-idle-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "f6d11517d1e8597c6a5f87ea736f232c85e5d9578ecd9bc6e4e71cbb793cbd83",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7332763671875,
+        "partial_fraction": 0.0103759765625
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          295,
+          419
+        ],
+        "translation": [
+          97,
+          61
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Accepted in user review on September 6. Original registered pixels preserved."
+    },
+    {
+      "id": "N-walk-01",
+      "direction": "N",
+      "action": "walk",
+      "phase": 1,
+      "source_sheet": "n.png",
+      "source_slot": 2,
+      "file": "images/n-walk-01-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "c09ff6cebb383e36ec06166448168c3a21009150a0e17b73a02d660e874bd850",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7422943115234375,
+        "partial_fraction": 0.00977325439453125
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          298,
+          435
+        ],
+        "translation": [
+          95,
+          45
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Accepted in user review on September 6. Original registered pixels preserved."
+    },
+    {
+      "id": "N-walk-02",
+      "direction": "N",
+      "action": "walk",
+      "phase": 2,
+      "source_sheet": "n.png",
+      "source_slot": 3,
+      "file": "images/n-walk-02-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "978eda6a8c8d3ed30c67af6df6034a293c5eb5123bb6d40587a66bc8a614f273",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7529144287109375,
+        "partial_fraction": 0.008548736572265625
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          288,
+          402
+        ],
+        "translation": [
+          100,
+          78
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Accepted in user review on September 6. Original registered pixels preserved."
+    },
+    {
+      "id": "N-walk-03",
+      "direction": "N",
+      "action": "walk",
+      "phase": 3,
+      "source_sheet": "n.png",
+      "source_slot": 4,
+      "file": "images/n-walk-03-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "47073d15653519c5dd5d9341844f1115aba73f76172bd6541c027e8f9969952d",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7460098266601562,
+        "partial_fraction": 0.009586334228515625
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          289,
+          433
+        ],
+        "translation": [
+          100,
+          47
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Accepted in user review on September 6. Original registered pixels preserved."
+    },
+    {
+      "id": "N-walk-04",
+      "direction": "N",
+      "action": "walk",
+      "phase": 4,
+      "source_sheet": "n.png",
+      "source_slot": 5,
+      "file": "images/n-walk-04-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "a32202d94fe8d44cb737952a32db26737d4a410167c179f1f60f0dd7691347ba",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7571563720703125,
+        "partial_fraction": 0.008541107177734375
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          282,
+          401
+        ],
+        "translation": [
+          103,
+          79
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Accepted in user review on September 6. Original registered pixels preserved."
+    },
+    {
+      "id": "E-idle",
+      "direction": "E",
+      "action": "idle",
+      "phase": 0,
+      "source_sheet": "e.png",
+      "source_slot": 1,
+      "file": "images/e-idle-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "91713bc07e67d54fe65aed379914b114610e4ab6d0c5e3f66b309209e7a723c5",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.6654052734375,
+        "partial_fraction": 0.3345947265625
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          306,
+          472
+        ],
+        "translation": [
+          91,
+          8
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Accepted in user review on September 6. Original registered pixels preserved."
+    },
+    {
+      "id": "E-walk-01",
+      "direction": "E",
+      "action": "walk",
+      "phase": 1,
+      "source_sheet": "e.png",
+      "source_slot": 2,
+      "file": "images/e-walk-01-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "bccdb981e14021b381fbf68217b340552d12d2c71790404ed6507d48bb14fa91",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.6461677551269531,
+        "partial_fraction": 0.3538322448730469
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          343,
+          467
+        ],
+        "translation": [
+          73,
+          13
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Accepted in user review on September 6. Original registered pixels preserved."
+    },
+    {
+      "id": "E-walk-02",
+      "direction": "E",
+      "action": "walk",
+      "phase": 2,
+      "source_sheet": "e.png",
+      "source_slot": 3,
+      "file": "images/e-walk-02-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "5a08655eb42dcbe1980976878f862d992c2c9d76ecc6e46f0e4cc27d899b0708",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.6803398132324219,
+        "partial_fraction": 0.3196601867675781
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          311,
+          473
+        ],
+        "translation": [
+          89,
+          7
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Accepted in user review on September 6. Original registered pixels preserved."
+    },
+    {
+      "id": "E-walk-03",
+      "direction": "E",
+      "action": "walk",
+      "phase": 3,
+      "source_sheet": "e.png",
+      "source_slot": 4,
+      "file": "images/e-walk-03-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "86afc23e78621bf35b3dbb579094a7f600911006de8211940cd3a1293ef26978",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.6560325622558594,
+        "partial_fraction": 0.3439674377441406
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          353,
+          467
+        ],
+        "translation": [
+          68,
+          13
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Accepted in user review on September 6. Original registered pixels preserved."
+    },
+    {
+      "id": "E-walk-04",
+      "direction": "E",
+      "action": "walk",
+      "phase": 4,
+      "source_sheet": "e.png",
+      "source_slot": 5,
+      "file": "images/e-walk-04-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "e40eb7f50285ad0c20016e498d8c5da0d487029c3ef292ca521d6db04c10559f",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.6841201782226562,
+        "partial_fraction": 0.31587982177734375
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          319,
+          467
+        ],
+        "translation": [
+          85,
+          13
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Accepted in user review on September 6. Original registered pixels preserved."
+    },
+    {
+      "id": "NE-idle",
+      "direction": "NE",
+      "action": "idle",
+      "phase": 0,
+      "source_sheet": "ne.png",
+      "source_slot": 1,
+      "file": "images/ne-idle-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "8220694c4211b843de7158dce5b05f0e0e320bea7af38ff7fa532b046011efd2",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7872962951660156,
+        "partial_fraction": 0.009765625
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          258,
+          377
+        ],
+        "translation": [
+          115,
+          103
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Accepted in user review on September 6. Original registered pixels preserved."
+    },
+    {
+      "id": "NE-walk-01",
+      "direction": "NE",
+      "action": "walk",
+      "phase": 1,
+      "source_sheet": "ne.png",
+      "source_slot": 2,
+      "file": "images/ne-walk-01-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "e3f834563899bbf81d0fe0138ac5d37d2f6175e7f2ebd148c7f887b39d580959",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7740974426269531,
+        "partial_fraction": 0.0106353759765625
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          295,
+          384
+        ],
+        "translation": [
+          97,
+          96
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Accepted in user review on September 6. Original registered pixels preserved."
+    },
+    {
+      "id": "NE-walk-02",
+      "direction": "NE",
+      "action": "walk",
+      "phase": 2,
+      "source_sheet": "ne.png",
+      "source_slot": 3,
+      "file": "images/ne-walk-02-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "65e5040d7300e2cba42003e998558c45acdded0e33e255eba6d68d54f4ae1a01",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7971916198730469,
+        "partial_fraction": 0.0081329345703125
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          234,
+          381
+        ],
+        "translation": [
+          127,
+          99
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Accepted in user review on September 6. Original registered pixels preserved."
+    },
+    {
+      "id": "NE-walk-03",
+      "direction": "NE",
+      "action": "walk",
+      "phase": 3,
+      "source_sheet": "ne.png",
+      "source_slot": 4,
+      "file": "images/ne-walk-03-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "e6a91347621171b6a2b09d7950629df99e1e57fab0d11894c4d1e2c2fb60da71",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7736396789550781,
+        "partial_fraction": 0.010387420654296875
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          320,
+          391
+        ],
+        "translation": [
+          84,
+          89
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Accepted in user review on September 6. Original registered pixels preserved."
+    },
+    {
+      "id": "NE-walk-04",
+      "direction": "NE",
+      "action": "walk",
+      "phase": 4,
+      "source_sheet": "ne.png",
+      "source_slot": 5,
+      "file": "images/ne-walk-04-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "d357b72aff28d1319ce7bd3b98596e544a164e664bf80b6073e0a8010ba490b9",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7993698120117188,
+        "partial_fraction": 0.007999420166015625
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          233,
+          380
+        ],
+        "translation": [
+          128,
+          100
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Accepted in user review on September 6. Original registered pixels preserved."
+    },
+    {
+      "id": "SE-idle",
+      "direction": "SE",
+      "action": "idle",
+      "phase": 0,
+      "source_sheet": "se.png",
+      "source_slot": 1,
+      "file": "images/se-idle-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "2e124d6792351b03fddc6f5e6ea467d124c663015ba6607b963c798a405f10d2",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.6998748779296875,
+        "partial_fraction": 0.010349273681640625
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          294,
+          454
+        ],
+        "translation": [
+          97,
+          26
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Accepted in user review on September 6. Original registered pixels preserved."
+    },
+    {
+      "id": "SE-walk-01",
+      "direction": "SE",
+      "action": "walk",
+      "phase": 1,
+      "source_sheet": "se.png",
+      "source_slot": 2,
+      "file": "images/se-walk-01-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "03df85c101832e3c696f3e3a2afeaceac55428ae25b8df2dc2a503790db395ee",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.6987800598144531,
+        "partial_fraction": 0.010326385498046875
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          330,
+          447
+        ],
+        "translation": [
+          79,
+          33
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Accepted in user review on September 6. Original registered pixels preserved."
+    },
+    {
+      "id": "SE-walk-02",
+      "direction": "SE",
+      "action": "walk",
+      "phase": 2,
+      "source_sheet": "se.png",
+      "source_slot": 3,
+      "file": "images/se-walk-02-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "3016f08f3fcea24518be86d2cb23a53af414324e7a0a7f41d62e76152c4a18c9",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7154159545898438,
+        "partial_fraction": 0.009227752685546875
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          282,
+          444
+        ],
+        "translation": [
+          103,
+          36
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Accepted in user review on September 6. Original registered pixels preserved."
+    },
+    {
+      "id": "SE-walk-03",
+      "direction": "SE",
+      "action": "walk",
+      "phase": 3,
+      "source_sheet": "se.png",
+      "source_slot": 4,
+      "file": "images/se-walk-03-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "456a596e6ab9e20ac3edc44717a9b57195a340c1231f548c06e6d08d6852d4d0",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7000885009765625,
+        "partial_fraction": 0.009857177734375
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          341,
+          449
+        ],
+        "translation": [
+          74,
+          31
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Leading foot corrected to point southeast. The approved body pixels are preserved; southwest uses its horizontal mirror.",
+      "correction": {
+        "provenance_id": "se-walk-03-foot",
+        "before_sha256": "d4e00ee5c4bf8d128ab92021f397349f67f2b3158590a89db5a1287e59353782",
+        "changed_bounds": [
+          138,
+          420,
+          250,
+          480
+        ],
+        "unchanged_outside_foot": true
+      }
+    },
+    {
+      "id": "SE-walk-04",
+      "direction": "SE",
+      "action": "walk",
+      "phase": 4,
+      "source_sheet": "se.png",
+      "source_slot": 5,
+      "file": "images/se-walk-04-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "48f2b16b8d69a5a4efbf893ae1aa76513bf6a482a7125990a8e8ca94a4dbd6e9",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7076416015625,
+        "partial_fraction": 0.010280609130859375
+      },
+      "registration": {
+        "source_alpha_bounds": [
+          24,
+          24,
+          290,
+          453
+        ],
+        "translation": [
+          99,
+          27
+        ],
+        "ground_baseline": 480,
+        "scale": 1
+      },
+      "visual_notes": "Accepted in user review on September 6. Original registered pixels preserved."
+    },
+    {
+      "id": "E-run-01",
+      "direction": "E",
+      "action": "run",
+      "phase": 1,
+      "source_sheet": "e-run.png",
+      "source_slot": 1,
+      "cleaned_gap": true,
+      "file": "images/e-run-01-sheet-v1.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "3f13e7f2db747b19e040fd1a1003d957734529361541462a3344a0c7b010d6b8",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7257003784179688,
+        "partial_fraction": 0.011646270751953125
+      },
+      "registration": {
+        "translation": [
+          33,
+          73
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 249,
+        "source_alpha_bounds": [
+          24,
+          24,
+          367,
+          407
+        ]
+      },
+      "visual_notes": "Near contact. First six-pose run study; native pixels, aligned head, grounded foot baseline."
+    },
+    {
+      "id": "E-run-02",
+      "direction": "E",
+      "action": "run",
+      "phase": 2,
+      "source_sheet": "e-run.png",
+      "source_slot": 2,
+      "cleaned_gap": false,
+      "file": "images/e-run-02-sheet-v1.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "8a23ca9a5df1a9954dde18af45d2574692761be304f3726a456d05f99af5efc2",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7490615844726562,
+        "partial_fraction": 0.011043548583984375
+      },
+      "registration": {
+        "translation": [
+          46,
+          85
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 249,
+        "source_alpha_bounds": [
+          24,
+          24,
+          330,
+          395
+        ]
+      },
+      "visual_notes": "Near support. First six-pose run study; native pixels, aligned head, grounded foot baseline."
+    },
+    {
+      "id": "E-run-03",
+      "direction": "E",
+      "action": "run",
+      "phase": 3,
+      "source_sheet": "e-run.png",
+      "source_slot": 3,
+      "cleaned_gap": true,
+      "file": "images/e-run-03-sheet-v1.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "ac8115677adeebc31ce3bd1d90767c17491413c14d2c3e1f694eecbd44d89f4c",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7339668273925781,
+        "partial_fraction": 0.012279510498046875
+      },
+      "registration": {
+        "translation": [
+          40,
+          71
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 32,
+        "head_anchor_x": 249,
+        "source_alpha_bounds": [
+          24,
+          24,
+          377,
+          377
+        ]
+      },
+      "visual_notes": "Flight. First six-pose run study; native pixels, aligned head, 32-pixel flight clearance."
+    },
+    {
+      "id": "E-run-04",
+      "direction": "E",
+      "action": "run",
+      "phase": 4,
+      "source_sheet": "e-run.png",
+      "source_slot": 4,
+      "cleaned_gap": false,
+      "file": "images/e-run-04-sheet-v1.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "e2724246f2c596f2ef5d4049a307f0d260effd12eb0937c4115c1bbeed3d70ef",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7275238037109375,
+        "partial_fraction": 0.012424468994140625
+      },
+      "registration": {
+        "translation": [
+          37,
+          70
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 249,
+        "source_alpha_bounds": [
+          24,
+          24,
+          367,
+          410
+        ]
+      },
+      "visual_notes": "Far contact. First six-pose run study; native pixels, aligned head, grounded foot baseline."
+    },
+    {
+      "id": "E-run-05",
+      "direction": "E",
+      "action": "run",
+      "phase": 5,
+      "source_sheet": "e-run.png",
+      "source_slot": 5,
+      "cleaned_gap": false,
+      "file": "images/e-run-05-sheet-v1.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "c7919482e698187e5503e4670505a233c987cc2a8b4d741dd8bc172aee3c2efb",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7389564514160156,
+        "partial_fraction": 0.01171112060546875
+      },
+      "registration": {
+        "translation": [
+          47,
+          78
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 249,
+        "source_alpha_bounds": [
+          24,
+          24,
+          326,
+          402
+        ]
+      },
+      "visual_notes": "Far support. First six-pose run study; native pixels, aligned head, grounded foot baseline."
+    },
+    {
+      "id": "E-run-06",
+      "direction": "E",
+      "action": "run",
+      "phase": 6,
+      "source_sheet": "e-run.png",
+      "source_slot": 6,
+      "cleaned_gap": true,
+      "file": "images/e-run-06-sheet-v1.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "c6ab8b91b1d5fe3dd7f0fb9209a7ba8f4f9040c63a4cf07cc79397a649b4eeb2",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.745849609375,
+        "partial_fraction": 0.01158905029296875
+      },
+      "registration": {
+        "translation": [
+          27,
+          85
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 32,
+        "head_anchor_x": 249,
+        "source_alpha_bounds": [
+          24,
+          24,
+          395,
+          363
+        ]
+      },
+      "visual_notes": "Flight. First six-pose run study; native pixels, aligned head, 32-pixel flight clearance. Review: near arm repeats the forward swing from frame 03; needs an opposite backward swing before final gait approval."
+    }
+  ],
+  "directions": [
+    {
+      "id": "N",
+      "source": "N",
+      "mirror": false
+    },
+    {
+      "id": "NE",
+      "source": "NE",
+      "mirror": false
+    },
+    {
+      "id": "E",
+      "source": "E",
+      "mirror": false
+    },
+    {
+      "id": "SE",
+      "source": "SE",
+      "mirror": false
+    },
+    {
+      "id": "S",
+      "source": "S",
+      "mirror": false
+    },
+    {
+      "id": "SW",
+      "source": "SE",
+      "mirror": true
+    },
+    {
+      "id": "W",
+      "source": "E",
+      "mirror": true
+    },
+    {
+      "id": "NW",
+      "source": "NE",
+      "mirror": true
+    }
+  ],
+  "processing_summary": "25 reviewed standing/walking frames and a six-frame east/west run study. The final running arm swing still needs refinement.",
+  "blockers": [],
+  "review": {
+    "date": "2026-09-06",
+    "accepted_unchanged_frames": 24,
+    "corrected_frame": "SE-walk-03",
+    "correction_status": "Prepared for user review",
+    "running_status": "First study; frame 06 arm swing needs refinement before expanding directions."
+  },
+  "expected_frames": 31,
+  "run": {
+    "directions": [
+      "E",
+      "W"
+    ],
+    "frames_per_cycle": 6,
+    "default_fps": 10
+  },
+  "generated_at": "2026-09-06T00:31:12.539Z"
+}

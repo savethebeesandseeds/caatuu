@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-06",
+  "tool": "built-in image_gen",
+  "storage": "Selected registered frames are tracked here. Original generation images and intermediate candidates remain read-only in the ignored local artifact archive; source IDs below are archival identifiers, not served paths.",
+  "local_archive": "artifacts/games/caatuu-game/art-direction/2026-09-05-macaw",
+  "source_sheets": [
+    {
+      "id": "s.png",
+      "action": "walk",
+      "direction": "S",
+      "sha256": "2e809ed1da0a9500263d6c9eaa43d291277fcd67f839e998ddc5d2f97ca7fa08",
+      "width": 1536,
+      "height": 1024,
+      "layout": {
+        "rows": 2,
+        "columns": 3,
+        "empty_slots": [
+          6
+        ]
+      },
+      "prompt": "Use case: identity-preserve.\nAsset type: Caatuu game animation direction sheet. Create ONE cohesive sheet containing five poses of this exact macaw. Generating the poses TOGETHER must lock face, costume, palette, body volume and pixel scale.\nInput reference: approved FRONT STANDING macaw identity. Preserve this identity faithfully; ignore the reference's baked checkerboard background.\nOutput composition: landscape aspect ratio 3:2, ideally 1536 by 1024, invisible equal 3-column by 2-row grid. Five isolated full-body sprites, same scale, occupying roughly 75% of each square cell's height with wide empty gutters. Row1 column1 idle, column2 walk contact A, column3 walk passing A. Row2 column1 walk contact B, column2 walk passing B, column3 EMPTY. No visible grid, no numbers, no text, no sixth sprite. Keep the character centered at the same relative horizontal anchor in each cell, standing-ground baseline same relative vertical position. Whole heads, hands, tails and toes fit with generous padding. No cropped sprites or overlap.\nDirection: ALL FIVE are SOUTH/front-facing, walking straight toward the bottom of the screen. Fixed slightly elevated overhead RPG camera, frontal yaw, face directly toward viewer. No side view or rotation between poses.\nCharacter invariants: same compact turquoise-blue macaw, rounded large blue head, cream facial eye patches, two large dark friendly eyes, golden-yellow hooked beak with dark lower tip, gold throat. Same ochre-brown travel robe, hood DOWN behind shoulders, gold neckline/cuffs/hem, central dark brown belt and one square pale-gold buckle. Same TWO shoulder straps with matching square clasps, backpack centered on BACK (never chest). Same short blue feathered hands, blue lower legs, golden avian feet with dark claws. Exact same clothing construction, accessory placement, head size, beak size, eye size and robe length in every cell. No hat, weapon or staff.\nPose order, deliberately make visible opposite steps:\n1 idle: balanced, both feet planted equally, hands relaxed beside robe.\n2 contact A: character's LEFT foot (screen RIGHT) extended forward toward viewer and low in image, character's RIGHT foot (screen LEFT) behind and higher. Opposite right arm (screen LEFT) forward; modest natural stride.\n3 passing A: weight on planted left foot (screen RIGHT) under body, right leg (screen LEFT) bent with foot lifted passing forward close beside support leg, arms passing neutral. Slight body rise, same scale.\n4 contact B: character's RIGHT foot (screen LEFT) extended forward toward viewer and low in image, LEFT foot (screen RIGHT) behind and higher. LEFT arm (screen RIGHT) forward, opposite pose to2. Do NOT repeat pose2.\n5 passing B: weight on planted right foot (screen LEFT) under body, LEFT foot (screen RIGHT) lifted passing forward near support leg, opposite leg roles to3.\nWalking is restrained, readable, not hopping or marching, no splayed gigantic feet. Small robe/hand movement and tiny body bob, no rubbery head changes. Ground contact logical.\nStyle: same approved middle-detail pixel-art fantasy RPG style, crisp deliberate square clusters and warm dark outlines, restrained shading bands, consistent resolution across all five figures. Preserve charming readable expression. Not coarse tiny retro sprites, not smooth cartoon/vector/3D, no painterly blur.\nBackground: actual transparent alpha preferred. If transparency is unavailable use ONE perfectly uniform pure white background. Absolutely no drawn checkerboard, no texture, no scenery, no shadows, no platforms, no glow, no captions. All five form one coherent animation model sheet, preserve appearance across poses.",
+      "references": [
+        "s-idle-163ffa8cd425.png"
+      ]
+    },
+    {
+      "id": "n.png",
+      "action": "walk",
+      "direction": "N",
+      "sha256": "bac1a4aace022cdabf2175466b678664d1891f3da52a6a2002ccad8332f98647",
+      "width": 1536,
+      "height": 1024,
+      "layout": {
+        "rows": 2,
+        "columns": 3,
+        "empty_slots": [
+          6
+        ]
+      },
+      "prompt": "Use case: identity-preserve.\nAsset type: ONE cohesive NORTH walk-cycle sprite sheet for Caatuu, all five poses drawn TOGETHER for strict consistency.\nInput 1: approved front-standing macaw identity and attractive middle-detail pixel style. Input 2: exact NORTH/rear standing orientation and backpack design. Use these as references, not content to collage.\nCanvas and layout: LANDSCAPE 3:2 aspect, ideally 1536x1024. Imagine three equal columns and two equal rows of square cells, with NO drawn grid. EXACTLY FIVE full-body macaws: row1 col1 standing idle; row1 col2 walk contact A; row1 col3 passing A; row2 col1 contact B; row2 col2 passing B; row2 col3 COMPLETELY EMPTY. Figure centers at (16.7%,25%),(50%,25%),(83.3%,25%),(16.7%,75%),(50%,75%). Each figure occupies about 75% of its cell height with generous clear margins and identical local body anchor. No label, number, caption or line.\nAll five face NORTH, exactly AWAY from viewer, viewed gently from above in an RPG. Show back of the round teal-blue head, no eyes, no face patches and no beak. Same brown robe with gold collar edge/cuffs/hem, blue feather hands, ochre clawed feet and short centered blue tail. The centered leather backpack from input2 keeps EXACTLY the same flap shape, two brass strap buckles, two straps and central pocket in all five. Keep head width, robe length, backpack scale and every costume detail rigidly consistent; animate limbs and small cloth sway only.\nPose sequence:\nTop left IDLE: both feet evenly planted and hands relaxed.\nTop middle CONTACT A: anatomical LEFT leg (screen left in rear view) steps FORWARD AWAY from viewer; that foot is higher on canvas, partly under the hem. Anatomical RIGHT leg (screen right) trails BACK toward viewer, its foot lower and extended behind, slight lifted heel. Right arm forward, left arm backward; arms oppose legs. Visible open stride.\nTop right PASSING A: left foot supports directly under left hip; right foot lifts and swings under body close to left planted ankle, toes clear of ground. Compact pose, little vertical bob, one foot stays planted.\nBottom left CONTACT B: opposite stride, right foot forward AWAY and high beneath hem; LEFT foot trailing toward viewer, lower and extended behind. Left arm forward, right arm backward. It must visibly swap the legs and arm swing relative to top middle.\nBottom middle PASSING B: right foot supports under right hip; left foot lifts and passes close to the right ankle. Opposite passing leg from top right.\nWalking is restrained, natural, upright; no hopping, no sideways steps, no five identical idle copies. The head and backpack remain the same shape and scale throughout.\nStyle: exact approved medium-detail pixel-art clusters, warm dark outlines, crisp visible square pixels and restrained cyan/ochre/brown palette. Approximately96x96 logical-pixel character shown enlarged within eachcell. Not coarse retro art, not smooth painting.\nBackground: actual transparent alpha preferred. If unavailable, use completely uniform SOLID WHITE. NEVER draw or reproduce the reference's checker pattern. No ground shadows, scene, staff, hat, magic, text, extra props or sixth character.",
+      "references": [
+        "exec-f0109dd1-3cd4-456a-9a88-1e5f0f688ac8.png",
+        "exec-8f4e824d-a665-4a61-887e-c26bd8d946eb.png"
+      ]
+    },
+    {
+      "id": "e.png",
+      "action": "walk",
+      "direction": "E",
+      "sha256": "6e4a3f23be1a1f6cc96a13ce870b888ae373ffbbae4ac9c992eebee6382717ea",
+      "width": 1536,
+      "height": 1024,
+      "layout": {
+        "rows": 2,
+        "columns": 3,
+        "empty_slots": [
+          6
+        ]
+      },
+      "prompt": "Use case: identity-preserve.\nAsset type: ONE cohesive EAST/right walking-cycle sprite sheet for Caatuu. Draw all five frames TOGETHER so they use exactly the same character proportions and design.\nInput1: approved front-standing macaw identity and attractive middle-detail pixel-art style. Input2: exact RIGHT-facing standing profile, costume and backpack orientation. These are visual references. Preserve their identity faithfully.\nCanvas/layout: LANDSCAPE3:2, ideally1536x1024. Use an INVISIBLE grid of3 equalcolumns by2 equalrows, eachcell square. EXACTLY FIVE fullbody sprites: TOPLEFT idle, TOPMIDDLE contactA, TOPRIGHT passingA, BOTTOMLEFT contactB, BOTTOMMIDDLE passingB. BOTTOMRIGHT EMPTY. Figure centers at(16.7%,25%),(50%,25%),(83.3%,25%),(16.7%,75%),(50%,75%). Eachsprite about75%cellheight, identical headwidth and local bodyanchor; plentyof margins/separation. NO grids, labels, numbers or captions.\nEverymacaw faces screenRIGHT in pure sideprofile from the same gentlyelevated RPGcamera. One near eye, creamcheek, ochrehookedbeak pointingright with charcoal lowerbeak, roundteal head. Brownrobe/goldtrim and cuffs, brown belt/brassbuckle, bluehands, ochre clawedfeet, shortblue tail. Compactbrownbackpack always ontheback toward screenLEFT. Keep EXACTsame backpackshape, flap, fasteners and strap, robe length, headsize, faceshape andlighting acrossallfive; onlylimbs and tinyhemfolds animate. Neverturn thetorso towardviewer or change headangle.\nPose sequence with clear walk mechanics, nearleg is anatomicalLEFT:\nTOPLEFT idle: twofeet plantedunderhips, armsrelaxed.\nTOPMIDDLE contactA: NEAR leg reaches FORWARD RIGHT, farleg stretches BACK LEFT. Neararm swings BACK LEFT and fararm gently FORWARD RIGHT, visible bluehands separatefromrobe. Open modeststride, onefoot contactingground.\nTOPRIGHT passingA: NEAR leg plantedalmostvertical underhip, FAR knee bends and itsfoot swings UNDERbody closebehind thenearankle, distinctlyraised. Armsreturntowardvertical. Compactstance, modest headbob.\nBOTTOMLEFT contactB is the OPPOSITEstride: NEAR leg stretches BACK LEFT; FAR leg steps FORWARD RIGHT. NEAR arm swings FORWARD RIGHT, itsbluehand clearly infrontof belly, fararm BACK LEFT. Thispose mustnotrepeat topmiddle.\nBOTTOMMIDDLE passingB: FAR leg planted underhip; NEAR leg bends and itsraised foot passes UNDERbody slightlyinfrontof thefarankle. Nearhand returns towardvertical slightlyahead, opposite passingpose totopright.\nStable upright head/body, no fullbody translation insidecells, no hopping, no sprint, no fivecopiesofidle. Gentlyswing hands and feet, at leastonefootplanted, subtleclothmotion only.\nStyle: consistentmedium-detail pixelclusters, warmdarkoutline, crisp visible squarepixels. Approximately96x96logical character enlargedincell, keep thesamepixel scale acrosssheet. Neithercoarse retrogame simplification nor smoothpainting.\nBackground: genuinelyTRANSPARENTalpha preferred; ifunavailable use plainUNIFORMSOLIDWHITE. NEVERreproduce orpaint areferencecheckerboard. No floor, groundshadow, scene, staff, hat, magic, text, newprops or sixthsprite.",
+      "references": [
+        "exec-f0109dd1-3cd4-456a-9a88-1e5f0f688ac8.png",
+        "exec-e655d5a7-91f7-4a24-b601-22f6baf9bc3a.png"
+      ]
+    },
+    {
+      "id": "ne.png",
+      "action": "walk",
+      "direction": "NE",
+      "sha256": "e5e7ac6948ee9626281d170d3376a835dd444fa380817bf95cb5fc1fd36f82de",
+      "width": 1536,
+      "height": 1024,
+      "layout": {
+        "rows": 2,
+        "columns": 3,
+        "empty_slots": [
+          6
+        ]
+      },
+      "prompt": "Use case: precise-object-edit. Edit this ENTIRE FIVE-POSE SPRITE SHEET, preserving the3columns by2rows layout, allfive northeast-facing macaws and empty bottom-right cell. Make ONLY TWO precise repairs. FIRST: bottom-left character is the OPPOSITE contact step, so REVERSE its leg polarity from the top-middle character. Bottom-left NEAR leg that starts from RIGHT robe hem must angle DOWN-LEFT into a long trailing near leg and put its golden foot at local cell x50percent y87percent, LOWEST below body. Bottom-left FAR leg that starts below LEFT robe/tail must cross BEHIND the near leg and angle UP-RIGHT to put its smaller golden foot at local cell x68percent y76percent, HIGH near the right hem. Clearly crossed diagonal legs: right-origin near leg ends lowcenter, left-origin far leg ends highright. In particular the low trailing foot must be attached to visible NEAR blue leg from righthem, not the far leg from lefthem. Reverse bottom-left arm swing relative to top-middle: near/right hand lower and back, far/left hand higher and forward, still outside robe. SECOND: match the head diameter, torso width and body height of BOTH bottom-row characters precisely to corresponding upper-row characters, preserving identical costume details, camera, proportions and local cell framing. Top-left idle, top-middle contact A and top-right passing A should remain unchanged. Bottom-middle remains opposite passing pose, with only size consistency repaired if needed. All macaws still face AWAY and SCREEN RIGHT. Keep exact pixel-art style, beak, head shape, feathers, centered backpack, buckles, robe, palette, overall1536x1024-landscape3:2 composition, white background and ample margins. No grids, text, labels, checkerboard, extra sprites, floor, shadows or new props. Preserve five cells occupied and last cell empty.",
+      "references": [
+        "exec-14623cc8-0072-4d49-a9a4-ee58736fcfa6.png"
+      ],
+      "initial_prompt": "Use case: identity-preserve. Asset type: ONE complete five-pose animation SPRITE SHEET for the macaw's NORTHEAST / UP-RIGHT direction. Reference image1 is the user's approved macaw identity and moderately detailed pixel-art style. Reference image2 is the approved up-right standing orientation and exact costume/backpack construction. Generate all five poses TOGETHER in a single LANDSCAPE 3:2 image for maximum consistent identity. Layout is an INVISIBLE 3-column by 2-row grid of equal SQUARE cells: TOP LEFT standing idle, TOP MIDDLE walking contact A, TOP RIGHT walking passing A; BOTTOM LEFT walking opposite contact B, BOTTOM MIDDLE walking opposite passing B; BOTTOM RIGHT COMPLETELY EMPTY. Exactly FIVE full-body macaws, no sixth. Every macaw occupies about75percent of its cell height, centered horizontally with the same local floor anchor and ample clean margins. All five face AWAY FROM VIEWER AND SCREEN RIGHT, rear three-quarter northeast, just like image2; back of blue head and centered brown backpack are visible in all five. Same gently elevated RPG camera and identical character size, head/body proportions, beak sliver, blue tail, ochre robe with gold trim and belt, backpack flap with brass buckle, blue hands and golden feet in every cell. Preserve distinct moderately detailed crisp pixel clusters, not coarse, not painted. Walking contacts MUST be opposite steps. Contact A: near leg from the screen-right hem reaches upper-right, far leg from screen-left hem trails lower-left; one blue hand forward, other back. Passing A: feet close under body, near leg planted and far leg bent passing underneath, hands near hips, body one logical pixel higher. Contact B: near leg from screen-right hem trails DOWN-LEFT and its foot is lowest at lower-center; FAR leg from screen-left/tail side crosses behind and reaches UP-RIGHT, higher near the right hem; reverse the arm swing. Passing B: feet close under body, far leg planted and near leg bent passing in front, reverse hand shift. Show visible foot separation in contacts and compact feet in passing poses. Idle has both feet planted level and hands relaxed. Only feet, knees, hands, small robe folds and one-pixel bob move; heads, backpack and all costume details are rigorously identical. Ask for genuinely transparent alpha PNG. If true transparency unavailable, use pure SOLID WHITE background. NEVER draw checkerboard pixels, gridlines, labels, letters, numbers, floor, shadows, scenery, staff, hat or extra props. Whole figures uncropped and separated with no overlap.",
+      "initial_references": [
+        "exec-f0109dd1-3cd4-456a-9a88-1e5f0f688ac8.png",
+        "exec-0a0a53ff-74ba-45be-8ac1-0a9505039f04.png"
+      ]
+    },
+    {
+      "id": "se.png",
+      "action": "walk",
+      "direction": "SE",
+      "sha256": "ef023c0af3fc63ec55442b6cfc6da7632d1f4433c7134dd2bc597b617b454f3d",
+      "width": 1536,
+      "height": 1024,
+      "layout": {
+        "rows": 2,
+        "columns": 3,
+        "empty_slots": [
+          6
+        ]
+      },
+      "prompt": "Use case: precise-object-edit. Edit this WHOLE FIVE-POSE SOUTHEAST MACAW SPRITE SHEET. Preserve the landscape3:2 invisible3columns x2rows layout: top row idle, contact A, passing A; bottom row contact B, passing B, EMPTY. Preserve ALL upper-row characters exactly. Make two repairs ONLY. FIRST, bottom-LEFT character must show OPPOSITE FOOT STRIDE to top-middle. Its BIG extended forward foot currently at lower RIGHT must be moved to lower LEFT. Specifically, big golden near foot starts from LEFT robe panel and is placed at local bottom-left-cell x43percent y86percent; its blue lower leg descends from LEFT hem. Its SMALL trailing far foot starts from RIGHT robe panel, placed at localcell x64percent y74percent, high close to RIGHT hem, heel raised. So bottom-left sprite must have LARGE foot at lowerLEFT and SMALL foot at upperRIGHT, reversing top-middle sprite with large foot lowerRIGHT. Keep both golden feet and both blue lower legs legible. Bottom-left near/left-on-screen blue hand swings BACK/up-left and far/right-on-screen blue hand swings FORWARD/down-right, opposite the top-middle arm swing. SECOND, enlarge BOTH bottom-row characters uniformly so head diameter, shoulder width, torso height and robe scale match upper-row figures exactly; keep each figure centered inside its own cell with identical local floor anchor. Do not change costume, backpack, belt buckles, face, beak, head proportions or pixel cluster texture. All five still face TOWARD VIEWER AND SCREEN RIGHT. Bottom-middle remains opposite passing pose. White solid background, no checkerboard or transparency pattern. Exactlyfive sprites and emptylastcell, no labels or grids, no numbers, no floor or shadows, no props. Maintain entire sheet composition, safe margins and visible whole bodies.",
+      "references": [
+        "exec-7b878e44-6d91-4087-951b-365556e76d5f.png"
+      ],
+      "initial_prompt": "Use case: identity-preserve. Asset type: ONE complete five-pose animation SPRITE SHEET for the macaw's SOUTHEAST / DOWN-RIGHT direction. Reference image1 is user's approved front macaw identity and exact moderately detailed pixel style. Reference image2 is exact front-three-quarter down-right orientation, costume and backpack anchor. Generate all five poses TOGETHER in ONE LANDSCAPE 3:2 image for maximum identity consistency. Layout invisible3columns by2rows of equal SQUARE cells. Row1 from left: standing idle; walking contact A; walking passing A. Row2 from left: walking OPPOSITE contact B; walking OPPOSITE passing B; EMPTY final cell. ExactlyFIVE full-body macaws, no sixth. Each occupies75percent of its own cell height, centered with the same local floor anchor and ample safe margins. ALL FIVE face TOWARD VIEWER AND SCREEN RIGHT, front three-quarter down-right, same as image2. Both eyes visible, chest and belt front visible, centered backpack only peeks behind screen-left shoulder. Same gently elevated RPG camera, exact same blue head, cream cheeks, golden beak, head-body proportions, brown-ochre robe and gold trim, front seam, brass belt buckle, two straps, blue hands, golden feet, pixel cluster size and scale throughout. Only walking legs, arms, slight hem folds and tiny bob vary. Contact A in TOP MIDDLE: far leg from SCREEN-RIGHT robe hem extends forward DOWN-RIGHT with LARGE foot LOW on screen-right; near leg from SCREEN-LEFT robe hem trails behind with SMALL foot HIGH on screen-left. Passing A in TOP RIGHT: far foot planted under hips, near foot bent passing close in front; compact feet, arms near sides, body raised one logical pixel. Contact B in BOTTOM LEFT MUST REVERSE THE LEGS: near leg from SCREEN-LEFT robe hem is now FORWARD with the LARGE foot LOW on SCREEN-LEFT, while far leg from SCREEN-RIGHT robe hem is BACK with SMALL foot HIGH on SCREEN-RIGHT. This is the opposite step, do not repeat contact A. Passing B in BOTTOM MIDDLE: near foot planted, far bent foot passing behind; reverse the ankle overlap and slight arm shift. Opposing blue hands swing clearly outside robe in contacts and return close in passing poses; reverse hands between contact A and B. Idle hands relaxed, both feet level planted. Rigorously preserve face, head and backpack details across every cell. Moderately detailed crisp pixel-art clusters, not coarse, not smooth painting. Genuine transparent alpha PNG preferred; if unavailable use pure SOLID WHITE background. Absolutely NO fauxcheckerboard, no labels, no gridlines, text, numbers, floor, shadow, scenery, staff, hat or new props. All figures uncropped, no touching or overlap.",
+      "initial_references": [
+        "exec-f0109dd1-3cd4-456a-9a88-1e5f0f688ac8.png",
+        "exec-1d0d5015-4001-4667-a139-1c2d8a8a855c.png"
+      ]
+    },
+    {
+      "id": "e-run.png",
+      "action": "run",
+      "direction": "E",
+      "sha256": "0514fef33bbdaa4069b9b168e2b1f7954397fd07b1d64df01fc6091b845d4e29",
+      "width": 1536,
+      "height": 1024,
+      "layout": {
+        "rows": 2,
+        "columns": 3,
+        "empty_slots": []
+      },
+      "prompt": "Use case: stylized-concept.\nAsset: Caatuu game character sprite sheet, ONE complete six-frame RUNNING cycle facing EAST/right.\nReference image 1 is the approved macaw's identity, outfit, pixel-art rendering and slightly elevated side camera. It is NOT the requested pose layout. Generate new running poses of exactly this character.\nPreserve its round turquoise-blue macaw head, one visible cream eye patch and brown eye, gold upper beak/dark lower beak, short brown hooded wizard coat with gold edging, brown belt and square gold buckle, brown leather backpack with flap and straps, blue feather hands, blue tail and short blue legs with gold bird feet and dark claws. Same middle-detail pixel art, crisp pixel clusters, consistent character proportions and palette in all six cells. No wizard hat, no weapon, no new accessories, no new colors.\nSheet: landscape 1536x1024, exactly THREE columns and TWO rows of equal 512-square cells. All SIX cells occupied by one complete macaw each. Read left to right across top row, then left to right across bottom row. No seventh image, no standing pose, no blank cell. At least 40 pixels of clear gutter around each silhouette; no touching, overlap or clipped toes/tail. Each character about 380 pixels tall and the same anatomical size. Keep the torso centered at the same horizontal point inside each cell; do not translate the character across the sheet.\nMotion: a lively purposeful RUN, moderate forward lean toward screen-right, bent arms swinging opposite the legs, two alternating strides with brief airborne recovery. Clearly unlike the upright walking reference. Robe hem and backpack bounce subtly without changing their construction. Keep head size, viewing angle and forward gaze constant.\nSIX chronological poses, near leg = viewer-facing leg, far leg = farther leg:\n1 top-left: near foot contacts ground forward at screen-right, far leg bent behind toward screen-left; near arm swings back.\n2 top-middle: weight compresses over planted near foot beneath hip, far knee drives forward; near arm starts swinging forward.\n3 top-right: airborne transition after near-leg push-off, near leg extends backward screen-left, far leg reaches forward screen-right; both feet above the shared ground line, near arm forward.\n4 bottom-left: far foot lands forward screen-right, near leg bent behind; near arm forward. Opposite support and arm swing to pose 1.\n5 bottom-middle: weight compresses over far foot beneath hip, near knee drives forward; near arm starts swinging back. Opposite support to pose 2.\n6 bottom-right: airborne transition after far-leg push-off, far leg extends backward, near leg reaches forward screen-right; near arm back. Flows smoothly back into pose 1.\nIn every pose retain TWO anatomically attached bird legs only. Gold toes point in the direction of the foot naturally, with readable ankle joints and heels. Distinguish the overlapping far limbs with slightly darker shading, not extra limbs. No duplicated poses. Retain small vertical lift in airborne cells relative to a common implied ground baseline; no actual drawn floor.\nBackground: genuine transparent alpha if possible, NO painted checkerboard, NO glow or shadow, NO scenery, NO text/numbers/grid lines. If actual transparency is unavailable use perfectly plain white. Preserve clean complete silhouettes.",
+      "references": [
+        "e.png"
+      ]
+    }
+  ],
+  "processing": {
+    "splitter": "Tukevejtso image_tool.sh sprite-split",
+    "walk": {
+      "expected_sprites": 25,
+      "warnings": [],
+      "south_walk_slots": [
+        2,
+        5,
+        4,
+        3
+      ],
+      "other_walk_slots": [
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "run": {
+      "expected_sprites": 6,
+      "warnings": [],
+      "alpha_threshold": 200,
+      "cleanup": "Bounded hole-knockout for observed checker islands in frames 01, 03 and 06; idempotence verified.",
+      "canvas": [
+        512,
+        512
+      ],
+      "ground_baseline": 480,
+      "head_anchor_x": 249,
+      "flight_frames": [
+        3,
+        6
+      ],
+      "flight_lift": 32
+    },
+    "scale": 1
+  },
+  "corrections": [
+    {
+      "id": "se-walk-03-foot",
+      "prompt": "Use case: precise-object-edit.\nEdit target: Image 1 is the exact approved Caatuu macaw SE-walk-03 animation frame. Image 2 is supporting costume/direction context only, a five-pose southeast sheet; do not output a sheet.\nPrimary request: Correct ONLY the visibly backward-pointing leading foot on the SCREEN-LEFT lower leg in Image 1. Output ONE full-body macaw frame, same square composition. This is a surgical anatomy correction, not a redesign.\nThe macaw faces and travels diagonally down-right (southeast). Its leading foot is on the screen-left side of the body, but the toes currently point to the LEFT, opposite the direction of travel. Redraw that single golden foot so the ankle remains attached naturally to the same blue lower leg, its heel stays behind the toes, and its three dark-clawed front toes extend diagonally DOWN-RIGHT / toward the lower-right corner. The foot should read as an ordinary bird walking forward, not an upturned shoe sole or a backwards twisted ankle. Use a modest natural foot size. Preserve the forward screen-left LEG and trailing screen-right LEG positions; do not swap the legs and do not replace this with the other contact pose. The screen-right trailing foot stays unchanged.\nPreserve everything else in Image 1 as exactly as possible: head and facial expression, beak, cream eye patches, pixel density, blue feathers, brown robe and gold trim, belt and square buckle, backpack straps, sleeve folds, hands, arm swing, pose, body proportions, camera, lighting, horizontal center, top of head, and existing whole-character size. No head redraw, no new accessories, no costume change, no extra limb, no text.\nStyle: retain the existing middle-detail pixel-art RPG rendering with crisp clustered edges and the exact palette. Do not smooth, paint over, blur or add gloss.\nComposition: one character only, entire body and toes inside the same square frame, matching reference scale and padding. Match the existing transparent canvas and ground baseline. Image 2 is only to confirm southeast direction and identity; never reproduce its white background or its other four characters.\nBackground: actual transparent alpha, no shadow, no floor, no checkerboard, no colored glow. If true alpha is unavailable, use a perfectly plain white background. Only the one leading foot needs correction.",
+      "references": [
+        "se-walk-03-sheet-v2.png",
+        "se.png"
+      ],
+      "donor_sha256": "84a5c315ee3cc17845ebaca4e74915cb0065be6b525ad4703452adefb9043d89",
+      "audit": {
+        "frame_id": "SE-walk-03",
+        "before_sha256": "d4e00ee5c4bf8d128ab92021f397349f67f2b3158590a89db5a1287e59353782",
+        "after_sha256": "456a596e6ab9e20ac3edc44717a9b57195a340c1231f548c06e6d08d6852d4d0",
+        "donor_crop": [
+          140,
+          884,
+          360,
+          1030
+        ],
+        "donor_scale": {
+          "size": [
+            90,
+            61
+          ],
+          "sampling": "nearest"
+        },
+        "donor_position": [
+          162,
+          419
+        ],
+        "allowed_change_bounds": [
+          138,
+          419,
+          252,
+          480
+        ],
+        "actual_changed_bounds": [
+          138,
+          420,
+          250,
+          480
+        ],
+        "changed_pixels": 3880,
+        "unchanged_outside_foot": true,
+        "canvas": [
+          512,
+          512
+        ],
+        "ground_baseline": 480,
+        "alpha": {
+          "has_alpha_channel": true,
+          "transparent_fraction": 0.7000885009765625,
+          "partial_fraction": 0.009857177734375
+        },
+        "split_warnings": []
+      }
+    }
+  ],
+  "review": {
+    "walking": "Previously accepted 24 frames preserved; localized SE-walk-03 foot repair retained.",
+    "running": "First east/west study. Frame 06 repeats the forward near-arm swing; revise that arm before expanding directions. Small costume and scale variations remain."
+  }
+}

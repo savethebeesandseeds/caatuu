@@ -5,6 +5,11 @@ game lives here once; a pinned Linux container exports one Web bundle that the
 standalone browser preview serves directly. The Caatuu browser application and
 Android package do not embed or copy this preview.
 
+For illustrated character sheets, frame processing and the interactive motion
+review, follow the [character animation workflow](docs/CHARACTER_ANIMATION_WORKFLOW.md).
+The [character workshop](character-workshop/README.md) contains the selected
+walking/running assets and the command to restore their interactive preview.
+
 The first vertical slice is deliberately small:
 
 - a real standalone Godot 3D scene served outside the Caatuu application;

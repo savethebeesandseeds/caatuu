@@ -1,0 +1,253 @@
+# Character animation workflow
+
+Use this process for Caatuu's illustrated character sprites, including new
+characters and later clothing variants. The current macaw walk is the worked
+example. Its animation review is separate from the Godot actor integration.
+
+## Approve the design, then keep it stable
+
+Start from a user-approved standing design and the selected world style. Keep
+the reference image, exact prompt, generated source path and SHA-256 together.
+For the macaw, preserve the blue head, cream face patches, gold beak and feet,
+brown robe with gold trim, backpack, proportions, camera angle and pixel detail.
+State these invariants in every generation prompt. A clothing variant changes
+the approved clothing boundary while retaining the character and reviewed poses.
+
+Human approval freezes accepted poses. Do not regenerate an accepted direction
+or batch to fix one frame. As of September 6, 2026, the user accepted the other
+24 frames in the latest macaw set and requested a correction only to the foot
+in `SE-walk-03`. Preserve that frame's unaffected body and the other 24 PNGs.
+
+## Generate one sheet per direction
+
+Generate five original directions: south (`S`), north (`N`), east (`E`),
+northeast (`NE`) and southeast (`SE`). Horizontal mirrors supply west from east,
+northwest from northeast and southwest from southeast. North and south need
+their own drawings. Confirm that clothing, bags and held objects can be mirrored;
+an asymmetric design may need separately authored counterparts.
+
+Use one built-in image-generation call per direction, with five poses together
+in a three-column, two-row sheet. This improves consistency over generating
+every frame separately. Specify full silhouettes, generous empty gutters,
+consistent character size and camera, and no labels or scenery.
+
+| Cell 1 | Cell 2 | Cell 3 |
+| --- | --- | --- |
+| Standing | Contact A | Passing A |
+| **Cell 4: Contact B** | **Cell 5: Passing B** | **Cell 6: Empty** |
+
+The walking poses should show opposite supporting feet and opposing arm swings.
+Passing poses must differ from contact poses. Review the actual drawing rather
+than assuming the requested layout guarantees correct gait.
+
+Request genuine transparent alpha during generation. Inspect alpha metadata and
+the image on contrasting backgrounds; a checkerboard picture is not proof of
+transparency. Preserve usable alpha. If generation supplies a solid or baked
+background, keep the art and clean it only when needed. Background removal is
+optional during art review and must not stall approval or trigger repeated
+generation solely to obtain alpha.
+
+Save original sheets unchanged. Keep prompts, references, direction, source
+paths, hashes and visual notes in the batch provenance. Keep candidates and
+processing outputs separate from originals. Raw generations and temporary
+research stay in ignored artifacts, not tracked production assets.
+
+## Use the established image container
+
+Work only in canonical `C:\Work\caatuu` on `main`, with the repository's
+main-only and shared-session checks. Verify existing containers and mounts
+before processing. Do not create another checkout, container, service or port.
+
+The verified environment is:
+
+| Existing container | Relevant storage |
+| --- | --- |
+| `caatuu-dev` | `C:\Work\caatuu` mounted at `/workspace` |
+| `tukevejtso` | `C:\Work\tukevejtso` mounted at `/workspace/tukevejtso` |
+| Tuke's existing `tukevejtso-cutout-venvs` volume | Mounted at `/opt/tukevejtso-venvs` |
+
+Read `C:\Work\tukevejtso\windows\README.md`, its existing launcher and
+`C:\Work\tukevejtso\linux\scripts\images\SPRITE_SPLIT_REPACK.md` before use.
+Caatuu's container-only requirement overrides the external guide's optional
+host-side Python example. Install no image packages on Windows.
+
+If the inspected managed Tuke container is stopped, its established launcher is:
+
+```powershell
+& 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe' -NoProfile -File 'C:\Work\tukevejtso\windows\tools\docker-tukevejtso-shell.ps1' -NoShell
+```
+
+Use Windows PowerShell 5.1 for this launcher. In the confirmed September 6
+incident, PowerShell 7 converted Docker volume `CreatedAt` into a `DateTime`,
+changing the string used in the configuration fingerprint. Windows PowerShell
+5.1 preserved the original string and matched the existing container. This
+required no rebuild, recreation, guard bypass or volume change. A mismatch
+that remains after the documented launcher is still a coordination blocker.
+
+Put the existing `/opt/tukevejtso-venvs/cutout/bin` first on the process PATH
+when invoking `image_tool.sh`: the system Python did not contain NumPy, while
+the managed cutout environment already had the required packages. Do not
+bootstrap or reinstall a healthy environment to work around PATH selection.
+
+## Split, inspect and register
+
+Use `image_tool.sh sprite-split` and its object-aware masks, manifest and
+previews. The approved splitter supports `--empty-slots 6`, using one-based
+row-major positions. It validates that the other five cells contain sprites
+and that the declared empty cell is empty.
+
+The [external splitter patch record](../tooling/patches/README.md) preserves
+the compatibility change used here; inspect the current tool before applying it.
+
+The worked macaw staging root inside Tuke is
+`/tmp/caatuu-macaw-sheets-v2-20260906`. Its `originals/` are processing inputs
+and remain unchanged. `split/`, `repacked/`, `previews/` and `registered/` are
+separate outputs. Use a fresh bounded output location for a new character or
+candidate; do not rerun this whole batch over accepted frames for one repair.
+
+Inside the existing Tuke container, the full-batch command pattern is:
+
+```bash
+cd /workspace/tukevejtso/linux
+export PATH="/opt/tukevejtso-venvs/cutout/bin:$PATH"
+sprite_stage=/tmp/caatuu-macaw-sheets-v2-20260906
+./scripts/images/image_tool.sh sprite-split \
+  "$sprite_stage/originals" "$sprite_stage/split" \
+  --rows 2 --cols 3 --empty-slots 6 \
+  --prefix macaw-walk --padding 24 --tile-padding 48 \
+  --mask-mode auto \
+  --repack-dir "$sprite_stage/repacked" \
+  --preview-dir "$sprite_stage/previews" \
+  --manifest "$sprite_stage/split-manifest.json"
+```
+
+Use existing alpha where it is usable. Choose additional cutout settings only
+after inspecting the affected input. The first macaw processing pass used
+`--cutout-engine classic --alpha-threshold 200` to exclude a soft glow on the
+east sheet. **Threshold 200 is not a reusable default**: it can remove valid
+soft edges or artwork in another image. Background cleanup should solve an
+observed problem, preserve the character, and produce a reviewed candidate.
+
+Check both `sprites.length == expected_count == 25` and an empty `warnings`
+list. A matching total alone can hide a missing pose and an unexpected object
+in the empty cell. Inspect every repacked preview, the combined contact sheet
+and relevant individual cuts for clipped feet, halos, detached details and
+neighbor contamination. Correct splitting problems before registration.
+
+The current macaw registration script is staged as
+`$sprite_stage/register-frames.py` and reads `$sprite_stage/split-manifest.json`:
+
+```bash
+python "$sprite_stage/register-frames.py" \
+  "$sprite_stage/split-manifest.json" "$sprite_stage/registered"
+```
+
+For this particular walk, registration uses one 512 × 512 canvas, horizontal
+alpha-bounds centering and a ground baseline of 480. It translates native pixels
+without independently resizing or warping poses. Those dimensions are a macaw
+review choice, not a universal character requirement. Record canvas, anchors,
+translation and scale in the frame manifest, and choose an appropriate common
+contract when a new character or action needs one.
+
+Map source cells to action IDs explicitly. In this macaw sheet set, standing is
+cell 1, south's four walk frames use **2, 5, 4, 3**, and the other directions use
+2, 3, 4, 5. South's passing drawings were generated in the opposite order.
+Preserve this correction in provenance; do not silently assume row-major
+playback for later characters.
+
+## Review the latest frames in the original animation screen
+
+The generation archive is
+`artifacts/games/caatuu-game/art-direction/2026-09-05-macaw/sheets-v2/`.
+It contains `originals/`, `batch-*.json`, `register-frames.py`, `motion-ui/` and
+`publish-motion.mjs`. Copy the Tuke outputs into its
+`processed/{split,repacked,previews,registered}/` and preserve
+`processed/split-manifest.json` alongside them. Retain the generated sources
+and processing evidence in the canonical workspace.
+
+The selected frames, live viewer source, portable provenance and manifest are
+tracked in the [character workshop](../character-workshop/README.md). Promote
+reviewed frames there before publication; do not overwrite it with stale raw
+split outputs. Original sources and intermediate candidates stay in the archive.
+The old archive publisher records the earlier pipeline; the maintained publisher
+now restores the viewer entirely from tracked files through `caatuu-dev`:
+
+```powershell
+docker exec -w /workspace caatuu-dev node apps/games/caatuu-game/tooling/publish-character-workshop.mjs
+```
+
+The established interactive URL is
+`http://127.0.0.1:8765/games/caatuu-game/godot-v1/review/macaw-walk-v1/`.
+Keep its compass, standing/walking switch, play/pause, frame stepping, scrubber,
+speed control, all eight walking directions and contact sheet. Walking uses
+6 fps. With the first running study present, the screen opens on east running
+at 10 fps; switching actions restores the appropriate cycle and directions.
+A full-sheet gallery may supplement this screen; it must not
+replace the animation demo.
+
+The latest manifest is the only frame source. Missing frames remain visible
+placeholders, with no fallback to earlier images. The viewer validates relative
+`images/*.png` paths and uses each SHA-256 as an internal cache key so Refresh
+files loads changed bytes. Review playback, stopping, mirror directions and
+individual poses; check frame counts, real alpha, loading failures and hashes.
+Registration and successful playback do not by themselves certify the gait.
+
+## Repair only the rejected area
+
+Before a repair, snapshot the accepted manifest and hashes. Identify the exact
+frame and rejected feature. Generate or edit a candidate using that frame and
+its neighbors as references, stating that every unaffected part must stay fixed.
+If the generator changes the body while fixing a foot, treat it as a donor
+candidate: isolate the correction and integrate only the approved foot region
+through the existing container workflow. Preserve the accepted body pixels.
+
+Compare all 25 output hashes afterward. Only the authorized frame may change;
+the other 24 must remain byte-identical. Preserve before/after candidates and
+record the local correction, source, processing and approval. Update the one
+manifest entry, publish the latest bytes, refresh and inspect the full loop and
+the corrected pose. Do not turn a single-frame request into clothing, timing,
+background or whole-character changes.
+
+## Running: first action study
+
+The user authorized creating a six-frame east-facing run on September 6, 2026. The
+reviewed east walk sheet supplies the character identity and costume reference.
+Running uses its own lean, stride, support/flight phases and clothing motion.
+Start with one facing and review its poses and loop before expanding directions.
+
+The first study is preserved beside `sheets-v2/` in
+`artifacts/games/caatuu-game/art-direction/2026-09-05-macaw/run-v1/`.
+Its `generation.json` records the exact built-in prompt and source reference.
+Six poses occupy all cells of a 3 × 2 sheet, so this split has no empty slot.
+The selected split manifest requires count=expected_count=6 and warnings=[].
+Only this sheet's observed pale edges and three enclosed checkerboard islands
+needed cleanup, using the documented splitter and bounded `hole-knockout` tool.
+
+`register-run.py` keeps native pixels, aligns the upper blue-head median x to
+the approved east idle reference, and uses the shared 512-square canvas and
+ground baseline 480. Airborne frames 3 and 6 retain 32 pixels of clearance.
+This avoids forcing every foot to the ground and losing the running lift.
+Record such action-specific anchors explicitly instead of applying the walking
+registration formula blindly.
+
+The original review screen now includes a Running action with six-frame
+playback, stepping and its own contact sheet. East is authored; west is mirrored.
+Other facings are disabled only while reviewing this initial running study.
+Standing and Walking retain all eight directions and the original 25 images.
+The publisher combines 25 walking-set frames and six run frames, checking hashes.
+`run-v1/verify-preview.mjs` verifies all 25 earlier PNGs remain byte-identical
+and the six served run PNGs match their manifest. Keep the first run marked as
+a study until its motion has been reviewed; loading successfully is not gait
+approval.
+
+The [September 6 motion review](MACAW_MOTION_REVIEW.md) records the remaining
+final-frame arm-swing issue. Creation authorization does not imply final gait
+approval. Correct that pose locally before extending this run to more facings.
+
+For documentation or structural commits, run both repository checks in the
+existing Node container, as required by the repository instructions:
+
+```powershell
+docker exec -w /workspace caatuu-dev node tools/repository/check-tracked-files.mjs
+docker exec -w /workspace caatuu-dev node tools/repository/check-markdown-links.mjs
+```
