@@ -1,0 +1,457 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-06",
+  "tool": "built-in image_gen",
+  "local_archive": "artifacts/games/caatuu-game/art-direction/2026-09-05-macaw/run-v2",
+  "source_records": [
+    {
+      "record": "north/generation.json",
+      "schema_version": 1,
+      "direction": "N",
+      "action": "run",
+      "status": "candidate-preserved-for-split-and-motion-review",
+      "tool": "image_gen.imagegen",
+      "mode": "built-in",
+      "generation_count": 1,
+      "recorded_at": "2026-09-06T08:24:36.3922898Z",
+      "prompt": "Use case: stylized-concept.\nAsset type: ONE six-frame NORTH RUN animation sprite sheet for the Caatuu macaw traveler, 1536 by 1024 landscape. Exactly 3 columns by 2 rows, ALL SIX CELLS OCCUPIED, chronological order left-to-right then top-to-bottom. This is a new run cycle, not a reproduction of the five-pose walking layout in the reference.\nReference Image 1: the accepted NORTH walking sheet is ONLY the character identity, costume, rear direction and pixel-style authority. Preserve this exact round blue macaw, blue feather hands and short central blue tail, brown robe with golden collar/cuffs/hem, hood down, centered brown travel backpack with two gold buckles and small front pocket. Preserve proportions, pixel density, colors, outline weight and gently elevated RPG camera. No hat. Show only back/top of blue head in every cell: no eyes, facial patches or beak. Face directly AWAY toward screen top throughout, never turn sideways.\nComposition: six complete isolated full-body sprites, each at the SAME scale, evenly centered within six equal 512x512 cells. Leave at least 40 pixels of clear gutter from every silhouette to each cell boundary. No overlap, no cropping, no drawn grid, labels or numbers. Medium-detail pixel art, same sharp square pixel clusters as the reference, no painting or smoothing.\nMovement: energetic RUN toward screen top, with a modest forward lean AWAY from camera, a clear grounded compression and two airborne phases. Only two anatomically attached bird legs and two blue feather arms. Golden toes/claws point logically with the movement, not reversed flippers. Modest robe and backpack sway and body bounce, constant head/backpack/body sizes.\nIMPORTANT ARM CONTRAST: the first and second half of the run MUST reverse the arm swing. In this direct BACK view, anatomical LEFT is viewer LEFT. A forward arm swings AWAY from camera, bends at the elbow and sits higher beside the robe; a backward arm swings TOWARD camera and is more visible/lower. Keep both attached to shoulders; do not hide or duplicate them. Feet alternate support.\nExact six chronological poses:\nCELL 1 top-left: LEFT foot contacts forward AWAY, higher under the hem; RIGHT leg trails toward viewer, foot lower. LEFT arm BACK toward viewer, RIGHT arm FORWARD away. One foot supports.\nCELL 2 top-middle: LEFT leg supports with knee/body compressed; RIGHT knee drives forward under the body. Arms pass through neutral beside the torso. Both arms readable. This is the first support moment.\nCELL 3 top-right: AIRBORNE after left push-off, RIGHT leg reaches forward AWAY, LEFT leg trails toward viewer and bends upward. BOTH feet off ground. LEFT arm FORWARD away, RIGHT arm BACK toward viewer. Body a little higher than support poses, not resized.\nCELL 4 bottom-left: RIGHT foot contacts forward AWAY, LEFT leg trails toward viewer. LEFT arm FORWARD away, RIGHT arm BACK toward viewer. This is the exact opposite limb-role contact to cell 1.\nCELL 5 bottom-middle: RIGHT leg supports with knee/body compressed; LEFT knee drives forward under the body. Arms pass through neutral, opposite leg support from cell 2. No standing duplicate.\nCELL 6 bottom-right: AIRBORNE after right push-off, LEFT leg reaches forward AWAY, RIGHT leg trails toward viewer and bends upward. BOTH feet off ground. LEFT arm BACK toward viewer, RIGHT arm FORWARD away. Opposite limb roles from cell 3, ready to loop into cell 1.\nBackground: genuinely transparent alpha preferred. If alpha is unavailable use plain pure white, with no checkerboard pixels, glow, cast shadow or ground. No scenery, staff, magic, extra props, captions or watermark.\nDeliver one complete six-pose sheet. The final bottom-right cell is a real sixth running pose, NOT EMPTY.",
+      "references": [
+        {
+          "role": "accepted walking identity, rear direction, costume and pixel-style reference only",
+          "path": "n.png",
+          "sha256": "bac1a4aace022cdabf2175466b678664d1891f3da52a6a2002ccad8332f98647"
+        }
+      ],
+      "generated_source_path": "exec-37173fbd-fb2c-49e8-8412-e6aec13cad0a.png",
+      "preserved_source": {
+        "path": "n-run.png",
+        "sha256": "cf04a0890875e6708cb4478a3d7ef4bdb126fa777933db2b718c3111dfbdc727",
+        "read_only": true,
+        "width": 1536,
+        "height": 1024,
+        "png_color_type": 2,
+        "has_alpha_channel": false
+      },
+      "layout": {
+        "columns": 3,
+        "rows": 2,
+        "occupied_cells": 6,
+        "empty_cells": [],
+        "cell_numbering": "1-based row-major",
+        "expected_frame_count": 6
+      },
+      "transparency": {
+        "requested": true,
+        "result": "Opaque RGB with a baked light checkerboard; cleanup may be performed later in the established image container. No regeneration attempted solely for alpha."
+      },
+      "visual_qa": {
+        "identity": "Six consistent direct-rear macaws; no face or beak visible; blue head, hood-down brown/gold robe, two-buckle backpack and central tail preserved.",
+        "anatomy": "Two attached bird legs are visible or partly occluded by the robe in each pose. Lifted trailing soles appear in cells 3 and 6.",
+        "scale_and_layout": "All six 3x2 cells occupied with separate full silhouettes. Lower-row pack/body proportions vary slightly; maintain native-pixel evidence through splitting.",
+        "arm_swing": "Opposite halves visibly reverse the raised/forward arm: viewer-left raised in cells 1/3, viewer-right raised in cells 4/6; arms pass near neutral in 2/5.",
+        "cell_notes": [
+          {
+            "cell": 1,
+            "note": "Left arm raised/forward and left leg trails toward viewer: contact roles appear opposite to requested phase 1."
+          },
+          {
+            "cell": 2,
+            "note": "Compressed support pose; left support and right knee drive are subtle under the robe."
+          },
+          {
+            "cell": 3,
+            "note": "Left arm forward; trailing left sole lifted and right foot mostly under hem. Review flight height after registration."
+          },
+          {
+            "cell": 4,
+            "note": "Right arm raised/forward and right leg trails toward viewer: candidate for requested phase 1."
+          },
+          {
+            "cell": 5,
+            "note": "Opposite compressed support; right foot lower and left foot tucked."
+          },
+          {
+            "cell": 6,
+            "note": "Right arm forward/left arm back; trailing right sole lifted. Opposite flight candidate to cell 3."
+          }
+        ],
+        "proposed_run_source_slots": [
+          4,
+          2,
+          3,
+          1,
+          5,
+          6
+        ],
+        "mapping_status": "Proposed visual remapping of the two contact drawings; requires parent split/frame-by-frame and loop verification.",
+        "regeneration_decision": "No second generation: all six poses exist and contact ordering may be corrected by explicit source-slot mapping. Do not treat as motion-validated."
+      }
+    },
+    {
+      "record": "south/generation.json",
+      "schema_version": 1,
+      "direction": "S",
+      "action": "run",
+      "generation_mode": "built-in image_gen",
+      "tool": "image_gen.imagegen",
+      "source_path": "exec-ad053096-41d5-4290-8b07-2a7d49ad2fb6.png",
+      "workspace_path": "s-run.png",
+      "sha256": "80ce3cebfaf2e9df66c1b2fcc9b8d0d10411fa9a8b3f46201e2b22d796fc0fbb",
+      "references": [
+        "s.png"
+      ],
+      "prompt": "Use case: identity-preserve.\nAsset type: ONE cohesive six-frame SOUTH/front RUNNING animation sprite sheet for Caatuu.\nReference image is ONLY the approved character identity, south camera, costume, proportions and medium-detail pixel style. The reference contains walking poses; replace those with the six running poses specified here. Draw all six together so face, beak, head size and costume details remain consistent.\n\nCanvas: LANDSCAPE 1536 x 1024, invisible grid of THREE equal columns and TWO equal rows. Exactly SIX complete macaws, one per cell; all six cells occupied. Chronological order left to right across top row (1,2,3), then left to right bottom row (4,5,6). Each full figure fits in its 512x512 cell, about390px tall, with at least40px clear margins/gutters, no overlap or clipped hands/feet. Match head size and body anchor within every cell. NO drawn grid, labels, numbers, captions or diagram arrows.\n\nEvery character faces SOUTH directly toward viewer, both cream cheek patches and both eyes visible, at the same slightly elevated RPG camera. Rounded teal-blue head, centered ochre hooked beak with dark lower beak, friendly dark eyes; brown travel wizard robe with gold trim and hood DOWN, brown belt with brass buckle, two brown backpack straps with brass fasteners, blue feather hands, short blue legs, gold bird feet with natural dark claws. No hat, staff or added accessory. Keep the exact reference identity and refined pixel clusters; do not enlarge head, lengthen legs, change palette or redesign the outfit. A modest lean toward the viewer conveys forward running, with lively but controlled robe and hand movement.\n\nANATOMICAL LEFT IS SCREEN RIGHT. ANATOMICAL RIGHT IS SCREEN LEFT.\nSix chronological RUN poses:\n1 TOP LEFT: LEFT-forward CONTACT. Screen-RIGHT blue leg reaches toward viewer, its gold foot is lower/closer and touches down. Screen-LEFT leg trails higher behind. LEFT arm on screen right swings BACK, RIGHT arm on screen left swings FORWARD (bent elbow, larger visible fist toward viewer). Keep hands clear of torso.\n2 TOP MIDDLE: LEFT SUPPORT/COMPRESSION. Screen-right leg supports beneath body with bent knee; body dips slightly. Screen-left knee lifts and swings forward under the hem. Both elbows pass nearer neutral as they exchange direction. This is a compact running support, not idle.\n3 TOP RIGHT: FLIGHT after LEFT push-off. BOTH feet lifted clear of ground. LEFT/screen-right leg trails back, bent and tucked high; RIGHT/screen-left leg reaches forward toward viewer, its foot lower/closer. LEFT arm on screen RIGHT swings FORWARD visibly; RIGHT arm on screen left swings BACK. This arm arrangement is opposite pose1.\n4 BOTTOM LEFT: RIGHT-forward CONTACT. Screen-LEFT gold foot touches down low toward viewer; screen-RIGHT leg trails higher behind. LEFT arm on screen RIGHT swings FORWARD, RIGHT arm on screen LEFT swings BACK. This is the opposite contact stride to pose1.\n5 BOTTOM MIDDLE: RIGHT SUPPORT/COMPRESSION. Screen-left leg supports beneath body with bent knee; screen-right knee lifts forward under the hem. Body slightly compressed, arms pass near neutral. Opposite support to pose2.\n6 BOTTOM RIGHT: FLIGHT after RIGHT push-off. BOTH feet lifted. RIGHT/screen-left leg trails bent and tucked high; LEFT/screen-right leg reaches forward toward viewer, its foot lower/closer. LEFT arm on SCREEN RIGHT swings BACK; RIGHT arm on SCREEN LEFT swings FORWARD. This must be visibly OPPOSITE to pose3 and naturally lead back into pose1.\n\nContact and flight poses have clear alternating legs and opposing arm swings. Two anatomically attached legs and two attached ankles per macaw, natural bird toes oriented toward travel. No duplicated limb, detached foot, sideways step, repeated idle, marching or symmetric hopping. Flight3 and6 are suspended above an imaginary common ground line; no ground is drawn. Keep head/costume rigidly consistent, only restrained running bob and cloth movement. Preserve reference's medium-detail crisp pixel clusters and warm dark outline; not coarse low-resolution art and not smooth painting.\n\nBackground: genuinely transparent alpha if possible. Otherwise completely uniform SOLID WHITE is fine. NEVER paint a checkerboard, gradient, glow, ground shadow, floor or scenery. Exactly six fullbody run sprites, nothing else.",
+      "layout": {
+        "width": 1536,
+        "height": 1024,
+        "columns": 3,
+        "rows": 2,
+        "expected_frames": 6,
+        "chronology": "row-major"
+      },
+      "phase_qa": [
+        {
+          "phase": 1,
+          "pose": "left-forward contact",
+          "observation": "Screen-right foot forward/low, screen-left hand forward. Correct opposite limb arrangement."
+        },
+        {
+          "phase": 2,
+          "pose": "left support compression",
+          "observation": "Screen-right support foot lower; screen-left blue knee raised and foot tucked. Both arms near neutral."
+        },
+        {
+          "phase": 3,
+          "pose": "flight after left push-off",
+          "observation": "Screen-left leg reaches forward, screen-right leg trails tucked. Screen-right hand forward, opposite phase 1. Both feet visibly lifted relative to contact baseline."
+        },
+        {
+          "phase": 4,
+          "pose": "right-forward contact",
+          "observation": "Screen-left foot forward/low and screen-right hand forward, correctly opposite phase 1."
+        },
+        {
+          "phase": 5,
+          "pose": "right support compression",
+          "observation": "Screen-left support foot lower, screen-right knee raised. Correct opposite support from phase 2."
+        },
+        {
+          "phase": 6,
+          "pose": "flight after right push-off",
+          "observation": "Screen-right leg forward, screen-left leg trails; screen-left hand forward, correctly opposite phase 3. Both feet visibly lifted relative to contact baseline."
+        }
+      ],
+      "visual_notes": "Exactly six complete figures, 3x2 layout; stable frontal identity with both cream face patches. All ankles attached, two legs and two arms per sprite, no clipping, clear alternating strides and arms. Good compact run support/flight differentiation. Background displays black/dark with blue and ochre glows despite requested alpha/white; alpha unverified and likely needs established masking workflow. No structural regeneration needed. Unprocessed source only; not split, registered, or loop-tested.",
+      "preservation": "Default generated source retained unchanged; workspace PNG is a byte-preserving copy. No tracked UI or runtime manifests modified."
+    },
+    {
+      "record": "northeast/generation.json",
+      "schema_version": 1,
+      "tool": "built-in image_gen",
+      "action": "run",
+      "direction": "NE",
+      "source_file": "ne-run.png",
+      "source_path": "exec-6b3f79f2-1ef1-43ab-9bf7-36d96cda0df4.png",
+      "sha256": "4E72C2FAC9F883122F9C06524AFD245671CF8B28DEB2697F53AF10B991F208ED",
+      "layout": {
+        "width": 1536,
+        "height": 1024,
+        "columns": 3,
+        "rows": 2,
+        "frame_count": 6,
+        "order": "left-to-right, top row then bottom row",
+        "slots": [
+          "near-contact",
+          "near-support-compression",
+          "flight-after-near-push-off",
+          "far-contact",
+          "far-support-compression",
+          "flight-after-far-push-off"
+        ]
+      },
+      "prompt": "Use case: precise-object-edit. Correct this ENTIRE SIX-FRAME RUN sheet, keeping layout, all six rear-three-quarter up-right-facing macaws, exact same head/backpack/robe/face details, consistent scale,1536x1024 landscape, white background and wide safe gutters. This edit fixes repeated arms and leg polarity, not identity. Frames numbered mentally left-to-right top1,2,3 bottom4,5,6; do NOT draw numbers. IMPORTANT: the screen-RIGHT NEAR ARM must NOT point upward-forward in all six. Change it by phase:\n1 TOP-LEFT: lower NEAR right elbow sharply down beside the right hip; near blue fist at lower-right robe edge around waist/hem, pointing DOWN-LEFT behind travel. Far left hand rises forward and partly peeks near upper left backpack side. Near foot forward upper-right, far leg trailing lower-left.\n2 TOP-MIDDLE: near blue fist halfway LOW beside belt/hip, lower than in3, far knee lifted moving forward; supporting near knee compressed.\n3 TOP-RIGHT: keep near arm FORWARD/up-right, fist HIGH near chest; FAR foot leading UP-RIGHT and NEAR blue leg attached RIGHT hem trails DOWN-LEFT visibly crossing in front to LOW CENTER. Both feet airborne. Near trailing leg must have visible blue attachment from righthem to lowcenter, not from lefttail side.\n4 BOTTOM-LEFT: keep near arm FORWARD/up-right, fist HIGH near chest. FAR leg from LEFT hem reaches forward UPPER-RIGHT behind nearleg; NEAR leg attached RIGHT hem trails DOWN-LEFT crossing in FRONT, foot at LOW CENTER. This opposite leg attachment must differ clearly from frame1. Far leading foot contacts.\n5 BOTTOM-MIDDLE: near blue fist halfway LOW beside belt/hip, transitioning BACK, FAR foot supports compressed body beneath hip and NEAR bent knee drives UP-RIGHT. Clearly invert the leg overlap from frame2.\n6 BOTTOM-RIGHT: lower NEAR right elbow DOWN beside right hip, near blue fist LOW at lower-right robe edge pointing DOWN-LEFT behind travel, like1; FAR arm forward. NEAR foot from RIGHT hem extends forward UP-RIGHT; FAR leg from LEFT hem trails DOWN-LEFT behind body, two feet airborne. This differs from3 with both opposite arms and opposite leg overlap.\nThus near arm is LOW/BACK in1 and6, MID in2and5, HIGH/FORWARD in3and4. Do not leave all six near fists in the same high pose. All legs attached, two feet only, logical bird toes. Preserve stable head sizes, compact backpack and robe proportions, slightly leaning UP-RIGHT running posture and small bounce. No new props, no grid, text, scenery, shadow, ground line or fake checkerboard. Exactlysix full bodies in sixcells.",
+      "references": [
+        "exec-f7ad143d-e6e3-4bbc-b84f-69433bed8489.png"
+      ],
+      "generation_prompt": "Use case: identity-preserve. Asset: ONE six-frame NORTHEAST RUNNING animation sprite sheet for Caatuu. The supplied reference is ONLY the accepted macaw identity, costume, pixel-art style and UP-RIGHT rear-three-quarter facing authority; do not copy its walk poses. Create a NEW energetic RUN cycle with exactly SIX full-body macaws in one 1536x1024 landscape image, invisible grid 3 columns x 2 rows, ALL SIX cells occupied. Read frames left-to-right top row1,2,3 then bottom row4,5,6. Keep 40px minimum empty gutters between sprites and ample outer margins. Same 360px approximate fullbodyheight in every 512x512 cell, common centered local anchor, no cropping or overlap. All SIX face AWAY FROM VIEWER plus SCREEN RIGHT: NORTHEAST/up-right rear-three-quarter. Same gently elevated RPG camera throughout. Same blue head seen from behind with tiny cream cheek/gold beak sliver at screen-right, same centered brown backpack with one flap brass buckle and side strap buckles, same brown-ochre hood-DOWN robe with gold trim, same blue tail, blue hands and golden bird feet. Identical head/backpack/robe proportions, accessory details, pixel size and shading across all six. Preserve moderately detailed crisp pixel-art clusters; not coarse, smooth, painterly or 3D. Moderate wholebody forward lean toward UP-RIGHT with small natural vertical bounce. This is RUNNING with bent elbows, visible counter-swinging hands, springy compression and two distinct airborne phases, not walking or six similar standing poses.\nRUN ANATOMY: NEAR leg begins under SCREEN-RIGHT robe hem. FAR leg begins under SCREEN-LEFT/tail-side hem. NEAR arm is the visible screen-right sleeve/hand. There are exactly two attached bird legs, never detached feet or extra legs. Feet point logically in northeast travel direction. Legs alternate which passes in front; arms oppose their matching legs.\nFRAME1 TOP-LEFT: NEAR foot reaches forward UP-RIGHT and contacts, FAR leg trails DOWN-LEFT; NEAR arm swings BACK/down-left and FAR arm forward/up-right.\nFRAME2 TOP-MIDDLE: NEAR foot under hip supports a compressed bent knee, FAR knee drives forward/up-right; NEAR arm transitions forward, hands clearly separated from robe.\nFRAME3 TOP-RIGHT: FLIGHT after NEAR push-off: both feet off ground, NEAR leg trails DOWN-LEFT, FAR leg reaches UP-RIGHT; NEAR arm forward/up-right and FAR arm back/down-left.\nFRAME4 BOTTOM-LEFT: OPPOSITE CONTACT: FAR foot contacts forward UP-RIGHT, NEAR leg is visibly attached to righthem but trails DOWN-LEFT crossing in front of farleg; NEAR arm forward/up-right, FAR arm back/down-left. Must differ from frame1.\nFRAME5 BOTTOM-MIDDLE: FAR foot supports compressed bent knee under hip, NEAR knee drives forward/up-right; NEAR arm transitions back. Opposite support leg to frame2.\nFRAME6 BOTTOM-RIGHT: OPPOSITE FLIGHT after FAR push-off: both feet off ground, FAR leg trails DOWN-LEFT, NEAR leg reaches UP-RIGHT; NEAR arm back/down-left and FAR arm forward/up-right. Opposite limb polarity to frame3.\nPrioritize readable alternate contacts, support compression and flight with visible two-foot silhouettes and consistent identity. Preserve full silhouette and safe margins. Transparent alpha background preferred; if unavailable use perfectly uniform PURE WHITE. Absolutely no fake checkerboard, labels, numbers, gridlines, scenery, ground planes, cast shadows, hats, staffs, weapons or extra accessories.",
+      "generation_references": [
+        "ne.png"
+      ],
+      "review_status": "source candidate; not split, normalized or motion validated",
+      "visual_review": {
+        "count": 6,
+        "facing": "All six face away and screen-right, rear three-quarter northeast.",
+        "background": "Uniform white fallback, no visible checkerboard or scenery.",
+        "identity": "Blue head, cream cheek/beak sliver, centered brown backpack, hood-down gold-trim robe and blue tail preserved. Small size and fold variations remain.",
+        "anatomy": "All six have two attached bird legs and visible hands. Corrected near-arm swing is clearly lower in1/6, intermediate2/5 and higher3/4. Opposite-half leg depth and support-versus-flight phases remain visually ambiguous and require loop QA.",
+        "structural_issues": [
+          "Opposite contact leg polarity is not unambiguous from robe occlusion.",
+          "Frames2 and5 support compression is weak; silhouettes retain substantial stride separation.",
+          "Feet in contact and flight are insufficiently differentiated to claim grounded mechanics."
+        ],
+        "frames": [
+          {
+            "frame": 1,
+            "notes": "Near arm lowered beside hip, far hand near shoulder; feet in split stride. Contact phase still reads somewhat airborne."
+          },
+          {
+            "frame": 2,
+            "notes": "Near arm down/intermediate, far hand lower; support knee compression not strongly readable."
+          },
+          {
+            "frame": 3,
+            "notes": "Near arm high-forward, clear extended stride and raised body; leg polarity versus6 remains occluded."
+          },
+          {
+            "frame": 4,
+            "notes": "Near arm high-forward, trailing lower foot with clear blue leg; opposite attachment versus1 needs frame loop inspection."
+          },
+          {
+            "frame": 5,
+            "notes": "Near arm intermediate/lower, one supporting foot flattened, clear blue near leg; support depth is ambiguous."
+          },
+          {
+            "frame": 6,
+            "notes": "Near arm low-back and two separated feet, distinct arm polarity from3; leg attachment and flight phase need animation QA."
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "file": "candidates/ne-run-initial.png",
+          "source_path": "exec-f7ad143d-e6e3-4bbc-b84f-69433bed8489.png",
+          "sha256": "D75C3FD2A24763FD86AA917C0F7374571240E381662B1628E0996205D2B436FD",
+          "prompt": "Use case: identity-preserve. Asset: ONE six-frame NORTHEAST RUNNING animation sprite sheet for Caatuu. The supplied reference is ONLY the accepted macaw identity, costume, pixel-art style and UP-RIGHT rear-three-quarter facing authority; do not copy its walk poses. Create a NEW energetic RUN cycle with exactly SIX full-body macaws in one 1536x1024 landscape image, invisible grid 3 columns x 2 rows, ALL SIX cells occupied. Read frames left-to-right top row1,2,3 then bottom row4,5,6. Keep 40px minimum empty gutters between sprites and ample outer margins. Same 360px approximate fullbodyheight in every 512x512 cell, common centered local anchor, no cropping or overlap. All SIX face AWAY FROM VIEWER plus SCREEN RIGHT: NORTHEAST/up-right rear-three-quarter. Same gently elevated RPG camera throughout. Same blue head seen from behind with tiny cream cheek/gold beak sliver at screen-right, same centered brown backpack with one flap brass buckle and side strap buckles, same brown-ochre hood-DOWN robe with gold trim, same blue tail, blue hands and golden bird feet. Identical head/backpack/robe proportions, accessory details, pixel size and shading across all six. Preserve moderately detailed crisp pixel-art clusters; not coarse, smooth, painterly or 3D. Moderate wholebody forward lean toward UP-RIGHT with small natural vertical bounce. This is RUNNING with bent elbows, visible counter-swinging hands, springy compression and two distinct airborne phases, not walking or six similar standing poses.\nRUN ANATOMY: NEAR leg begins under SCREEN-RIGHT robe hem. FAR leg begins under SCREEN-LEFT/tail-side hem. NEAR arm is the visible screen-right sleeve/hand. There are exactly two attached bird legs, never detached feet or extra legs. Feet point logically in northeast travel direction. Legs alternate which passes in front; arms oppose their matching legs.\nFRAME1 TOP-LEFT: NEAR foot reaches forward UP-RIGHT and contacts, FAR leg trails DOWN-LEFT; NEAR arm swings BACK/down-left and FAR arm forward/up-right.\nFRAME2 TOP-MIDDLE: NEAR foot under hip supports a compressed bent knee, FAR knee drives forward/up-right; NEAR arm transitions forward, hands clearly separated from robe.\nFRAME3 TOP-RIGHT: FLIGHT after NEAR push-off: both feet off ground, NEAR leg trails DOWN-LEFT, FAR leg reaches UP-RIGHT; NEAR arm forward/up-right and FAR arm back/down-left.\nFRAME4 BOTTOM-LEFT: OPPOSITE CONTACT: FAR foot contacts forward UP-RIGHT, NEAR leg is visibly attached to righthem but trails DOWN-LEFT crossing in front of farleg; NEAR arm forward/up-right, FAR arm back/down-left. Must differ from frame1.\nFRAME5 BOTTOM-MIDDLE: FAR foot supports compressed bent knee under hip, NEAR knee drives forward/up-right; NEAR arm transitions back. Opposite support leg to frame2.\nFRAME6 BOTTOM-RIGHT: OPPOSITE FLIGHT after FAR push-off: both feet off ground, FAR leg trails DOWN-LEFT, NEAR leg reaches UP-RIGHT; NEAR arm back/down-left and FAR arm forward/up-right. Opposite limb polarity to frame3.\nPrioritize readable alternate contacts, support compression and flight with visible two-foot silhouettes and consistent identity. Preserve full silhouette and safe margins. Transparent alpha background preferred; if unavailable use perfectly uniform PURE WHITE. Absolutely no fake checkerboard, labels, numbers, gridlines, scenery, ground planes, cast shadows, hats, staffs, weapons or extra accessories.",
+          "references": [
+            "ne.png"
+          ],
+          "rejection_reason": "Near arms repeated high-forward position in all six poses; opposite-half leg depth weak. Preserved before the single targeted correction."
+        }
+      ],
+      "processing": "Only original-byte copying and text provenance creation performed. No Tukevejtso splitting, UI edits, commits, branch creation or runtime integration."
+    },
+    {
+      "record": "northeast/support-fix-generation.json",
+      "schema_version": 1,
+      "tool": "built-in image_gen",
+      "direction": "NE",
+      "action": "run",
+      "source_file": "ne-run-support-fix.png",
+      "source_path": "exec-0b5f2087-9d1e-4b07-a71a-f5ef4a0ac0d5.png",
+      "sha256": "5BD9BE8C296EDFD538BAF0C79D043719661146E6AAE71681CBBC33064FE70662",
+      "prompt": "Use case: precise-object-edit. ONLY repair LEGS BELOW ROBE HEM in the TWO MIDDLE-COLUMN sprites (TOP-MIDDLE frame2 and BOTTOM-MIDDLE frame5) on this six-frame northeast running sheet. Keep other four sprites completely unchanged. Keep both edited sprites' heads, backpack, robe, tail, hands and arm poses unchanged too. Preserve all six sprite sizes, exact placements, rear-three-quarter orientation facing AWAY and SCREEN RIGHT, entire1536x1024 layout and white background. The two middle-column poses must become VERY COMPACT SUPPORT/COMPRESSION, with BOTH golden feet close together directly UNDER THE HIPS instead of their current wide split stride. BRING THE WIDE RIGHT FOOT INWARD beneath the robe, and bring trailing left foot inward too. Foot-to-foot span must be LESS THAN HALF THE ROBE WIDTH. Neither foot extends outside the robe's left/right silhouette.\nTOP-MIDDLE frame2: NEAR leg from right robe hem bends downward beneath torso and plants its golden foot flat at localcell x52percent,y83percent. FAR knee bends with its golden foot lifted close BEHIND the planted near ankle at localcell x48percent,y78percent. Two compact visible feet, one planted below hips and one tucked up, compressed bent-knee support. Do NOT leave a foot stretched far right or far left.\nBOTTOM-MIDDLE frame5: FAR leg from left/tail-side robe hem bends under torso and plants its golden foot flat at localcell x48percent,y83percent. NEAR knee bends forward with its golden foot lifted close IN FRONT of that planted ankle at localcell x55percent,y78percent. This swaps support leg and foot-overlap compared with top-middle. Again feet compact under hips, not spread out. Show attached blue lower legs, only TWO golden bird feet and clear sole contact vs lifted toes. Both feet point naturally up-right and never detached. Keep the existing gently leaning torso and small natural body compression without changing scale. The other four OPEN STRIDE poses remain untouched. No text, guides, grids, labels, shadows, ground, extra props, checkerboard or missing sprites. EXACTLYSIX full-body macaws.",
+      "references": [
+        "ne-run.png"
+      ],
+      "layout": {
+        "width": 1536,
+        "height": 1024,
+        "columns": 3,
+        "rows": 2,
+        "frame_count": 6,
+        "order": "left-to-right top row then bottom row"
+      },
+      "intended_use": "Use only cells2 and5 for support phases, keep1/3/4/6 from ne-run.png. Parent handles documented splitting and animation QA.",
+      "visual_notes": "Six correct-facing sprites preserved. Cells2/5 now have compact feet directly beneath hips, providing visibly different silhouettes from open-stride cells. Both still read close to a planted stance: support/lifted foot and opposite-leg overlap remain subtle. Cell5 tail was shortened or occluded; small hem variation. Heads/backpacks/arm sequence appear stable. Source is unnormalized and not motion validated.",
+      "frames_reviewed": [
+        {
+          "frame": 1,
+          "notes": "Open stride remains, use prior selected source."
+        },
+        {
+          "frame": 2,
+          "notes": "Feet compact under hips with both blue lower legs visible; one planted vs one lifted not strongly distinct."
+        },
+        {
+          "frame": 3,
+          "notes": "Open airborne stride remains, use prior selected source."
+        },
+        {
+          "frame": 4,
+          "notes": "Open opposite contact remains, use prior selected source."
+        },
+        {
+          "frame": 5,
+          "notes": "Compact support stance, reduced tail visibility; supporting foot distinction and opposite depth require loop review."
+        },
+        {
+          "frame": 6,
+          "notes": "Open airborne stride remains, use prior selected source."
+        }
+      ]
+    },
+    {
+      "record": "southeast/generation.json",
+      "tool": "built-in image_gen",
+      "date": "2026-09-06",
+      "direction": "SE",
+      "action": "run",
+      "prompt": "Use case: stylized-concept.\nAsset: ONE cohesive six-frame SOUTHEAST running sprite sheet for Caatuu, using the reference walking sheet ONLY for character identity, costume, pixel rendering and facing.\nDraw exactly SIX complete blue macaw travelers, all in the same front-three-quarter SOUTH-EAST facing: toward viewer and screen-RIGHT, same gently elevated RPG camera. Keep both cream facial eye patches/eyes, gold hooked beak with dark tip, same large turquoise head, brown hood-down robe with gold edges and cuffs, dark belt/square brass buckle, two backpack straps, brown backpack peeking behind screen-left shoulder, blue hands/tail/short bluelegs and gold bird feet. No hat, weapon or new accessories. Fixed head size, costume design, palette and pixel-cluster scale across all cells. Crisp medium-detail pixel RPG art matching reference, no coarse reduction or smooth painting.\nLayout1536x1024 landscape, THREE columns TWO rows of equal512cells, ALL SIX occupied. Wide40pxclear margins around every silhouette, no overlap or cropped toes. Characters about380px high, identical anatomy size and local body anchor; poses must fit squarecells. No labels/grid/numbers/scenery. True transparent alpha preferred; if unavailable pure flat white, never painted checkerboard or glow.\nChronological RUN cycle, different from upright walking: slight purposeful forward lean DOWN-RIGHT, bent arms visibly swinging opposite legs, two alternating strides with flight, small cloth sway. NEAR leg originates from SCREEN-LEFT robe hem and FAR leg from SCREEN-RIGHT robe hem. Forward means toes and knee toward lower-right, backward toward upper-left; never make toes point opposite travel by reversing a foot.\n1 TOPLEFT: NEAR leg extends forward DOWN-RIGHT into contact, FAR leg bends trailing UPPER-LEFT. NEAR arm swings BACK upper-left, FAR arm forward down-right.\n2 TOPMIDDLE: NEAR foot supports under hip with compression, FAR knee drives forward toward lower-right; arms pass neutral.\n3 TOPRIGHT: airborne after near push-off, NEAR leg trails upper-left, FAR leg reaches forward down-right; NEAR arm swings FORWARD down-right.\n4 BOTTOMLEFT: FAR foot lands forward down-right, NEAR leg trails upper-left, visibly opposite leg overlap to1; NEAR arm forward down-right, opposite arm pose to1.\n5 BOTTOMMIDDLE: FAR foot supports underhip, NEAR knee drives forward down-right; arms pass neutral headingback.\n6 BOTTOMRIGHT: airborne after far push-off, FAR leg trails upper-left, NEAR leg reaches forward down-right; NEAR arm BACK upper-left, opposite to3, flowing into1.\nAll poses have TWO naturally attached bird legs only, readable ankle joints with gold toes/claws pointing naturally down-right; differentiate near/far by overlap and shading. Keep feet clear of floor during3and6. Do not repeat near-arm-forward in both flight poses. No duplicated poses, idle stance, jumping-in-place, kicking toward camera, rubbery proportions or rotating camera.",
+      "reference": "sheets-v2/originals/se.png",
+      "source": "se-run-initial.png"
+    },
+    {
+      "record": "southeast/contact-correction.json",
+      "tool": "built-in image_gen",
+      "date": "2026-09-06",
+      "direction": "SE",
+      "action": "run",
+      "prompt": "Use case: precise-object-edit. Edit this exact SIX-frame southeast running sprite sheet. ONLY change the BOTTOM-LEFT character (cell4); keep the other FIVE cells visually unchanged, no reorder, same1536x1024layout/cellanchors. Cell4 currently wrongly repeats the top-left contact pose. Make it the OPPOSITE stride and arm swing. Character remains front threequarter facing lower-right, samehead/face/body/backpack/clothes/pixelstyle/camera/scale. The large NEAR arm rooted at SCREEN-LEFT shoulder must swing FORWARD across the chest toward screenRIGHT/downRIGHT, with bent elbow and blue hand clearly in front of the belly (like the near arm in TOP-RIGHT character cell3). The far arm on screenRIGHT must swing BACK, partly hidden behind right side of body. Near leg rooted screenLEFT hem must trail diagonally upper-left, FAR leg from screenRIGHT hem must stretch forward lower-right with the landing gold foot, swapping limb overlap/depth from cell1. Two attached legs only. Do not alter any other pose, head, costume, sheetbackground, size, position or palette. The primary visible fix is bottom-left's NEAR ARM moving from behind body to forward crossing chest; it must be unmistakably opposite the top-left back-swing arm. Exactly6figures in3cols2rows,noadditionallabels/grid/shadows. Preserve plain white or truealpha background.",
+      "reference": "se-run-initial.png",
+      "source": "se-run-contact-fix.png",
+      "selected_slots": [
+        4
+      ],
+      "preservation": "Other five frames will use original sheet, not the edit output."
+    },
+    {
+      "record": "east-correction/generation.json",
+      "tool": "built-in image_gen",
+      "date": "2026-09-06",
+      "direction": "E",
+      "action": "run",
+      "prompt": "Use case: precise-object-edit.\nEdit target: the single attached Caatuu E-run-06 macaw frame. Fix ONLY the near arm's running swing. The character travels screen-right in side profile. This frame is the opposite airborne stride from frame3: the visible NEAR arm must swing BACK toward SCREEN LEFT, behind the torso, rather than projecting forward toward the beak. Near shoulder stays at current shoulder attachment; elbow is bent naturally and near blue hand goes behind the hip toward screen-left, near but clearly separate from backpack/tail. Remove the present forward near sleeve and hand; reveal the same brown robe beneath that arm. Far arm may swing forward subtly on the far side. Do not change the airborne leg positions: near leg reaches right, far leg stretches left; retain both feet and current body angle. Preserve exact head, eye, beak, head size, robe/gold trim, backpack construction, silhouette scale, all other pixels as closely as possible, crisp medium-detail pixel clusters. Same512-square composition/character scale and large transparent margins; do not enlarge to fill canvas, no cropping. Exactly one complete macaw. Genuine transparent alpha, no floor/shadow/checkerboard/glow/text. The only requested anatomy change is the near arm returning BACK, opposite its original forward position.",
+      "reference": "images/e-run-06-sheet-v1.png",
+      "source": "e-run-06.png"
+    },
+    {
+      "record": "northeast/scale-fix-generation.json",
+      "schema_version": 1,
+      "tool": "built-in image_gen",
+      "direction": "NE",
+      "action": "run",
+      "source_file": "ne-run-scale-fix.png",
+      "source_path": "exec-8ef1ccd6-8439-45c8-85a0-0722625db475.png",
+      "sha256": "B466E17948749390D114F76B5BE353E18061F26225E34B4B370E287E51E35C82",
+      "prompt": "Use case: precise-object-edit. This1536x1024 six-sprite northeast running sheet needs ONE LOCAL SCALE REPAIR ONLY. Edit ONLY the BOTTOM-MIDDLE sprite (cell5 in an invisible3column2row grid). Every pixel of cells1,2,3,4,6 and the surrounding white canvas must remain visually unchanged. Cell5 was drawn too small and must be redrawn at the SAME NATIVE ANATOMICAL SCALE as TOP-MIDDLE cell2, which is the exact scale authority. Match cell2's blue head diameter and height, neck/hood width, torso height and width, backpack size, sleeve width, belt/robe proportions, hand size and pixel-cluster resolution. Draw fresh crisp pixel clusters at the correct scale; do NOT stretch or interpolate the old pixels. Cell5 head must be the same diameter as cell2, not just a larger robe. Keep its rear-three-quarter up-right facing, same small cream cheek/goldbeak sliver, centered brown backpack flap/buckles, hood-down ochre robe and gold trim, hands in their CURRENT low/intermediate running positions. Preserve cell5's compact opposite-support pose: both feet close under hips, supporting farfoot flat and nearknee bent with lifted foot close in front; do not widen into a stride or copy cell2's supportleg polarity. Restore natural blue tail visibility if occluded by undersized body while using identical tail design. Place the redrawn cell5 centered at same relative anchor inside its cell, with equivalent local top-of-head and ground-foot positions as cell2; small posture compression may remain but anatomical scale cannot shrink. Use TOP-MIDDLE sprite as drawing-size reference, but preserve BOTTOM-MIDDLE limb pose. All other five figures unchanged. Whole sheet stays exactlysix full-body macaws,3x2layout,1536x1024, white uniform background, wide empty gutters. No labels, grids, shadows, textures, checkerboard, props, accessories or camera changes.",
+      "references": [
+        "ne-run-support-fix.png"
+      ],
+      "layout": {
+        "width": 1536,
+        "height": 1024,
+        "columns": 3,
+        "rows": 2,
+        "frame_count": 6,
+        "order": "left-to-right top row then bottom row"
+      },
+      "intended_use": "Candidate replacement for ONLY frame5/bottom-middle. Parent will split and compare registered scale; all other selected frames stay unchanged.",
+      "visual_notes": "Cell5 is redrawn taller with visible blue lower legs, tail restored and feet compact beneath hips. Head appears slightly narrower than top-middle cell2 despite explicit equal-scale request, so precise equality is not claimed. Costume and rear-three-quarter northeast direction maintained; current low/intermediate arm position maintained. Exact supporting-foot polarity remains subtle. Full sheet remains six separated figures with uniform white background. Only cell5 should be considered for replacement because generated tool may subtly alter other cells.",
+      "qa_status": "One requested generation completed and visually inspected; awaits parent crop/registration scale assessment. Not independently split or integrated."
+    }
+  ],
+  "source_hashes": [
+    {
+      "file": "north/n-run.png",
+      "sha256": "cf04a0890875e6708cb4478a3d7ef4bdb126fa777933db2b718c3111dfbdc727"
+    },
+    {
+      "file": "south/s-run.png",
+      "sha256": "80ce3cebfaf2e9df66c1b2fcc9b8d0d10411fa9a8b3f46201e2b22d796fc0fbb"
+    },
+    {
+      "file": "northeast/ne-run.png",
+      "sha256": "4e72c2fac9f883122f9c06524afd245671cf8b28deb2697f53af10b991f208ed"
+    },
+    {
+      "file": "northeast/ne-run-support-fix.png",
+      "sha256": "5bd9be8c296edfd538baf0c79d043719661146e6aae71681cbbc33064fe70662"
+    },
+    {
+      "file": "southeast/se-run-initial.png",
+      "sha256": "d797cea8a203bc1fe1f915ab8af9e5b7ee22e8cd125eb922c4165afb2ecc010f"
+    },
+    {
+      "file": "southeast/se-run-contact-fix.png",
+      "sha256": "1310b2c77381acec1b824dd93b2bc61c9ecf8d5289a5db3b1182e314dddb3ad2"
+    },
+    {
+      "file": "east-correction/e-run-06.png",
+      "sha256": "2793f252fdbcccc5e3cb2c50e50b3d7ef71d2b968e594aab3d8a81c70166b667"
+    },
+    {
+      "file": "northeast/ne-run-scale-fix.png",
+      "sha256": "b466e17948749390d114f76b5be353e18061f26225e34b4b370e287e51e35c82"
+    }
+  ],
+  "selection": {
+    "N": [
+      4,
+      2,
+      3,
+      1,
+      5,
+      6
+    ],
+    "S": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "NE": {
+      "base": "ne-run.png",
+      "support_override": {
+        "sheet": "ne-run-support-fix.png",
+        "slots": [
+          2
+        ]
+      },
+      "scale_override": {
+        "sheet": "ne-run-scale-fix.png",
+        "slots": [
+          5
+        ]
+      }
+    },
+    "SE": {
+      "base": "se-run-initial.png",
+      "contact_override": {
+        "sheet": "se-run-contact-fix.png",
+        "slots": [
+          4
+        ]
+      }
+    },
+    "E": {
+      "preserved_phases": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "corrected_phase": 6,
+      "source": "e-run-06.png"
+    }
+  },
+  "processing": {
+    "splitter": "Tukevejtso image_tool.sh sprite-split",
+    "alpha_threshold": 200,
+    "expected_counts": [
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      1,
+      6
+    ],
+    "warnings": [],
+    "registration": "512-square transparent canvas; blue-head median aligned to corresponding approved facing. Baseline 480, flight foot clearance 32. Native pixels for new direction sheets; single E06 edit uniformly scaled to the prior frame silhouette height."
+  },
+  "preservation": {
+    "standing_walking_frames_unchanged": 25,
+    "east_run_frames_unchanged": 5,
+    "previous_east_06_sha256": "c6ab8b91b1d5fe3dd7f0fb9209a7ba8f4f9040c63a4cf07cc79397a649b4eeb2"
+  },
+  "known_limitations": [
+    "Diagonal near/far leg overlap remains subtle.",
+    "N and NE support/flight have stronger vertical bob than front and side.",
+    "NE5 size correction reduces the support-pose size jump; minor head/body variation and partly hidden leg roles remain.",
+    "E06 arm is corrected; edited body/face rendering is not pixel-identical to its predecessor."
+  ]
+}

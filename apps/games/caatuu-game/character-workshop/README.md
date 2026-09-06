@@ -1,17 +1,23 @@
 # Macaw character workshop
 
 This is the durable source for the local animation review: 25 standing/walking
-frames, six east-facing running frames, the interactive viewer and its manifest.
-West, northwest and southwest walking use horizontal mirrors. Running currently
-supports east and mirrored west only. The run is a first motion study with a
-known final-frame arm-swing issue; see the [motion review](../docs/MACAW_MOTION_REVIEW.md).
+frames, 30 running frames, the interactive viewer and its manifest. Both actions
+have five authored directions: south, north, east, northeast and southeast.
+West, northwest and southwest use horizontal mirrors, giving eight directions.
+The run remains a motion study; see the [motion review](../docs/MACAW_MOTION_REVIEW.md)
+for its corrections, draft limitations and completed validation.
 
-The 31 selected PNGs are true-alpha, 512 × 512 canvases, about 4 MiB in total.
+The 55 selected PNGs use true-alpha, 512 × 512 canvases.
 Their SHA-256 values, pose order and registration anchors are in
 [manifest.json](manifest.json). [provenance.json](provenance.json) preserves exact
-generation prompts, source hashes and the southeast foot-repair audit.
+generation prompts, source hashes, the southeast walking-foot repair and the
+historical first east-facing run. [run-v2-provenance.json](run-v2-provenance.json)
+records the additional running directions and v2 corrections. All 25 walking-set
+PNGs and east run poses 1–5 remain byte-identical to the accepted earlier set;
+east pose 6 now has its corrected backward arm swing.
 Original sheets, painted concept inspiration and discarded candidates remain
-in the ignored local artifact archive identified there. Those intermediate
+in the ignored local artifact archives, including `run-v2/`, identified in
+provenance. Those intermediate
 images are not necessary to restore this viewer from a fresh checkout.
 
 With the established Caatuu services running, publish from the canonical checkout:
@@ -31,9 +37,17 @@ docker exec -w /workspace caatuu-dev node --test apps/games/caatuu-game/tooling/
 
 The focused tests cover playback cadence, complete frame identity and hashes,
 transparent canvas metadata, unsafe paths and corrupted-input publication.
-The viewer provides action selection, all available directions, speed and scale,
+The viewer opens on south running at 10 fps, with a six-pose run cycle. Walking
+uses four poses at 6 fps. Action changes retain the selected direction, and
+running's contact sheet has five authored rows. The viewer provides action
+selection, all eight directions, speed and scale,
 contrasting backgrounds, play/pause, stepping, a scrubber and frame contact sheets.
 It is a local, noindex review, excluded from Godot resource import/export.
+Seven focused tests passed after the final northeast pose-5 scale adjustment.
+Browser review loaded all 55 true-alpha frames without broken images or console
+messages and checked the six-pose cycles in all eight directions, mirrors,
+standing, action switching and hash refresh. Successful loading or registration
+is not final gait approval.
 
 For future characters, clothes and animation changes, follow the
 [character animation workflow](../docs/CHARACTER_ANIMATION_WORKFLOW.md).

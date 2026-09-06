@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "status": "curated-walk-and-first-run-study",
+  "status": "all-directions-walk-and-run-study",
   "expected_originals": 25,
   "complete": true,
   "missing": [],
@@ -992,39 +992,1029 @@
       "visual_notes": "Far support. First six-pose run study; native pixels, aligned head, grounded foot baseline."
     },
     {
-      "id": "E-run-06",
-      "direction": "E",
+      "id": "S-run-01",
+      "direction": "S",
       "action": "run",
-      "phase": 6,
-      "source_sheet": "e-run.png",
-      "source_slot": 6,
-      "cleaned_gap": true,
-      "file": "images/e-run-06-sheet-v1.png",
+      "phase": 1,
+      "source_sheet": "s-run.png",
+      "source_slot": 1,
+      "source_group": "s",
+      "file": "images/s-run-01-sheet-v2.png",
       "width": 512,
       "height": 512,
-      "sha256": "c6ab8b91b1d5fe3dd7f0fb9209a7ba8f4f9040c63a4cf07cc79397a649b4eeb2",
+      "sha256": "c50cc9f0d334e16e4ed871a9cb1ac3759b3bba13f229362eb4e6ec68f36b9f7f",
       "alpha": {
         "has_alpha_channel": true,
-        "transparent_fraction": 0.745849609375,
-        "partial_fraction": 0.01158905029296875
+        "transparent_fraction": 0.7096481323242188,
+        "partial_fraction": 0.29035186767578125
+      },
+      "registration": {
+        "translation": [
+          75,
+          21
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 257,
+        "source_alpha_bounds": [
+          24,
+          24,
+          337,
+          459
+        ],
+        "registered_alpha_bounds": [
+          99,
+          45,
+          412,
+          480
+        ]
+      },
+      "visual_notes": "Grounded contact or compressed support. Six-pose direction study; inspect the loop for final gait approval."
+    },
+    {
+      "id": "S-run-02",
+      "direction": "S",
+      "action": "run",
+      "phase": 2,
+      "source_sheet": "s-run.png",
+      "source_slot": 2,
+      "source_group": "s",
+      "file": "images/s-run-02-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "5ecf0770b6a45cf12c2852d90ec6aa8e568f54f05997a591a3030d69099654e8",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7187690734863281,
+        "partial_fraction": 0.2812309265136719
+      },
+      "registration": {
+        "translation": [
+          79,
+          30
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 257,
+        "source_alpha_bounds": [
+          24,
+          24,
+          323,
+          450
+        ],
+        "registered_alpha_bounds": [
+          103,
+          54,
+          402,
+          480
+        ]
+      },
+      "visual_notes": "Grounded contact or compressed support. Six-pose direction study; inspect the loop for final gait approval."
+    },
+    {
+      "id": "S-run-03",
+      "direction": "S",
+      "action": "run",
+      "phase": 3,
+      "source_sheet": "s-run.png",
+      "source_slot": 3,
+      "source_group": "s",
+      "file": "images/s-run-03-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "51c1a9c0f9a97302f7d0d0fa0285fdb41923ffeeb9e103fe285dee07a1b9b881",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7327117919921875,
+        "partial_fraction": 0.2672882080078125
+      },
+      "registration": {
+        "translation": [
+          84,
+          21
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 32,
+        "head_anchor_x": 257,
+        "source_alpha_bounds": [
+          24,
+          24,
+          326,
+          427
+        ],
+        "registered_alpha_bounds": [
+          108,
+          45,
+          410,
+          448
+        ]
+      },
+      "visual_notes": "Airborne recovery, 32-pixel foot clearance. Six-pose direction study; inspect the loop for final gait approval."
+    },
+    {
+      "id": "S-run-04",
+      "direction": "S",
+      "action": "run",
+      "phase": 4,
+      "source_sheet": "s-run.png",
+      "source_slot": 4,
+      "source_group": "s",
+      "file": "images/s-run-04-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "594913f024476086b44c7a5b13c6bfa807fb62be190db10f2a12e300df6f20d1",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7168159484863281,
+        "partial_fraction": 0.2831840515136719
+      },
+      "registration": {
+        "translation": [
+          75,
+          22
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 257,
+        "source_alpha_bounds": [
+          24,
+          24,
+          336,
+          458
+        ],
+        "registered_alpha_bounds": [
+          99,
+          46,
+          411,
+          480
+        ]
+      },
+      "visual_notes": "Grounded contact or compressed support. Six-pose direction study; inspect the loop for final gait approval."
+    },
+    {
+      "id": "S-run-05",
+      "direction": "S",
+      "action": "run",
+      "phase": 5,
+      "source_sheet": "s-run.png",
+      "source_slot": 5,
+      "source_group": "s",
+      "file": "images/s-run-05-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "19c391c148268579987a99737a85a17d4a9ad386d877b3a2ffd188d4bbec806e",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7190055847167969,
+        "partial_fraction": 0.2809944152832031
+      },
+      "registration": {
+        "translation": [
+          83,
+          30
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 257,
+        "source_alpha_bounds": [
+          24,
+          24,
+          326,
+          450
+        ],
+        "registered_alpha_bounds": [
+          107,
+          54,
+          409,
+          480
+        ]
+      },
+      "visual_notes": "Grounded contact or compressed support. Six-pose direction study; inspect the loop for final gait approval."
+    },
+    {
+      "id": "S-run-06",
+      "direction": "S",
+      "action": "run",
+      "phase": 6,
+      "source_sheet": "s-run.png",
+      "source_slot": 6,
+      "source_group": "s",
+      "file": "images/s-run-06-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "2975fa20894dcedbc87914ba2eeafa6c6f25b8c03d3485ca5dc28032d6781fda",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.726837158203125,
+        "partial_fraction": 0.273162841796875
+      },
+      "registration": {
+        "translation": [
+          80,
+          17
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 32,
+        "head_anchor_x": 257,
+        "source_alpha_bounds": [
+          24,
+          24,
+          326,
+          431
+        ],
+        "registered_alpha_bounds": [
+          104,
+          41,
+          406,
+          448
+        ]
+      },
+      "visual_notes": "Airborne recovery, 32-pixel foot clearance. Six-pose direction study; inspect the loop for final gait approval."
+    },
+    {
+      "id": "N-run-01",
+      "direction": "N",
+      "action": "run",
+      "phase": 1,
+      "source_sheet": "n-run.png",
+      "source_slot": 4,
+      "source_group": "n",
+      "file": "images/n-run-01-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "55496ae57a478848eb99b57643b0620bcdb9d1eaae480868f1ed0a92275f72b0",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7671089172363281,
+        "partial_fraction": 0.009246826171875
+      },
+      "registration": {
+        "translation": [
+          99,
+          50
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 256,
+        "source_alpha_bounds": [
+          24,
+          24,
+          283,
+          430
+        ],
+        "registered_alpha_bounds": [
+          123,
+          74,
+          382,
+          480
+        ]
+      },
+      "visual_notes": "Grounded contact or compressed support. Six-pose direction study; inspect the loop for final gait approval."
+    },
+    {
+      "id": "N-run-02",
+      "direction": "N",
+      "action": "run",
+      "phase": 2,
+      "source_sheet": "n-run.png",
+      "source_slot": 2,
+      "source_group": "n",
+      "file": "images/n-run-02-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "234d34f0ba59f0865acb1b1ee03712ad18c2c5d02f3895b47758f34d4e849fa6",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7535743713378906,
+        "partial_fraction": 0.008453369140625
+      },
+      "registration": {
+        "translation": [
+          94,
+          72
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 256,
+        "source_alpha_bounds": [
+          24,
+          24,
+          292,
+          408
+        ],
+        "registered_alpha_bounds": [
+          118,
+          96,
+          386,
+          480
+        ]
+      },
+      "visual_notes": "Grounded contact or compressed support. Six-pose direction study; inspect the loop for final gait approval."
+    },
+    {
+      "id": "N-run-03",
+      "direction": "N",
+      "action": "run",
+      "phase": 3,
+      "source_sheet": "n-run.png",
+      "source_slot": 3,
+      "source_group": "n",
+      "file": "images/n-run-03-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "e69735e4668f87e1a315a09243db0cf4abb0fbc43e19bbdc796b7017dbab5ec0",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7602767944335938,
+        "partial_fraction": 0.009395599365234375
+      },
+      "registration": {
+        "translation": [
+          102,
+          6
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 32,
+        "head_anchor_x": 256,
+        "source_alpha_bounds": [
+          24,
+          24,
+          291,
+          442
+        ],
+        "registered_alpha_bounds": [
+          126,
+          30,
+          393,
+          448
+        ]
+      },
+      "visual_notes": "Airborne recovery, 32-pixel foot clearance. Six-pose direction study; inspect the loop for final gait approval."
+    },
+    {
+      "id": "N-run-04",
+      "direction": "N",
+      "action": "run",
+      "phase": 4,
+      "source_sheet": "n-run.png",
+      "source_slot": 1,
+      "source_group": "n",
+      "file": "images/n-run-04-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "a265727567d453b1856c9eafb0e0d1bcf69d614210f3536bf2345a4ca7054408",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7576408386230469,
+        "partial_fraction": 0.00928497314453125
+      },
+      "registration": {
+        "translation": [
+          97,
+          43
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 256,
+        "source_alpha_bounds": [
+          24,
+          24,
+          291,
+          437
+        ],
+        "registered_alpha_bounds": [
+          121,
+          67,
+          388,
+          480
+        ]
+      },
+      "visual_notes": "Grounded contact or compressed support. Six-pose direction study; inspect the loop for final gait approval."
+    },
+    {
+      "id": "N-run-05",
+      "direction": "N",
+      "action": "run",
+      "phase": 5,
+      "source_sheet": "n-run.png",
+      "source_slot": 5,
+      "source_group": "n",
+      "file": "images/n-run-05-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "7eec9fa5982e44bff4ca2b6e78002b0173d0cecafad9805c5fa48485623acaf5",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7679023742675781,
+        "partial_fraction": 0.00811004638671875
+      },
+      "registration": {
+        "translation": [
+          101,
+          90
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 256,
+        "source_alpha_bounds": [
+          24,
+          24,
+          284,
+          390
+        ],
+        "registered_alpha_bounds": [
+          125,
+          114,
+          385,
+          480
+        ]
+      },
+      "visual_notes": "Grounded contact or compressed support. Six-pose direction study; inspect the loop for final gait approval."
+    },
+    {
+      "id": "N-run-06",
+      "direction": "N",
+      "action": "run",
+      "phase": 6,
+      "source_sheet": "n-run.png",
+      "source_slot": 6,
+      "source_group": "n",
+      "file": "images/n-run-06-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "e7868198681b89571be134f62917f6cf150e2439b003ce21f20474832c94e5f2",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7718544006347656,
+        "partial_fraction": 0.009185791015625
+      },
+      "registration": {
+        "translation": [
+          103,
+          16
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 32,
+        "head_anchor_x": 256,
+        "source_alpha_bounds": [
+          24,
+          24,
+          283,
+          432
+        ],
+        "registered_alpha_bounds": [
+          127,
+          40,
+          386,
+          448
+        ]
+      },
+      "visual_notes": "Airborne recovery, 32-pixel foot clearance. Six-pose direction study; inspect the loop for final gait approval."
+    },
+    {
+      "id": "NE-run-01",
+      "direction": "NE",
+      "action": "run",
+      "phase": 1,
+      "source_sheet": "ne-run.png",
+      "source_slot": 1,
+      "source_group": "ne",
+      "file": "images/ne-run-01-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "a7ce16b88255aa3af09cf15e641707a9f1f6feb40852552791d5b134979621e7",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7942428588867188,
+        "partial_fraction": 0.009403228759765625
+      },
+      "registration": {
+        "translation": [
+          99,
+          76
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 253,
+        "source_alpha_bounds": [
+          24,
+          24,
+          269,
+          404
+        ],
+        "registered_alpha_bounds": [
+          123,
+          100,
+          368,
+          480
+        ]
+      },
+      "visual_notes": "Grounded contact or compressed support. Six-pose direction study; inspect the loop for final gait approval."
+    },
+    {
+      "id": "NE-run-02",
+      "direction": "NE",
+      "action": "run",
+      "phase": 2,
+      "source_sheet": "ne-run-support-fix.png",
+      "source_slot": 2,
+      "source_group": "ne-fix",
+      "file": "images/ne-run-02-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "46f1a437326f5ded326234603725c2d60487e2355ecc4d17bbe6de8df50b7661",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.8041038513183594,
+        "partial_fraction": 0.008022308349609375
+      },
+      "registration": {
+        "translation": [
+          95,
+          103
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 253,
+        "source_alpha_bounds": [
+          24,
+          24,
+          256,
+          377
+        ],
+        "registered_alpha_bounds": [
+          119,
+          127,
+          351,
+          480
+        ]
+      },
+      "visual_notes": "Grounded contact or compressed support. Six-pose direction study; inspect the loop for final gait approval."
+    },
+    {
+      "id": "NE-run-03",
+      "direction": "NE",
+      "action": "run",
+      "phase": 3,
+      "source_sheet": "ne-run.png",
+      "source_slot": 3,
+      "source_group": "ne",
+      "file": "images/ne-run-03-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "eb83225f4fd364bbae30047670f50ce97f18dc6450f9f4b2a03f2237888ced9f",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7844657897949219,
+        "partial_fraction": 0.010585784912109375
+      },
+      "registration": {
+        "translation": [
+          81,
+          44
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 32,
+        "head_anchor_x": 253,
+        "source_alpha_bounds": [
+          24,
+          24,
+          317,
+          404
+        ],
+        "registered_alpha_bounds": [
+          105,
+          68,
+          398,
+          448
+        ]
+      },
+      "visual_notes": "Airborne recovery, 32-pixel foot clearance. Six-pose direction study; inspect the loop for final gait approval."
+    },
+    {
+      "id": "NE-run-04",
+      "direction": "NE",
+      "action": "run",
+      "phase": 4,
+      "source_sheet": "ne-run.png",
+      "source_slot": 4,
+      "source_group": "ne",
+      "file": "images/ne-run-04-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "ad67991a5ad265de63ef0cabff2dba65e6e8f5ae8d49abfba9406fc5e1cde6cf",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7858505249023438,
+        "partial_fraction": 0.01042938232421875
+      },
+      "registration": {
+        "translation": [
+          79,
+          76
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 253,
+        "source_alpha_bounds": [
+          24,
+          24,
+          308,
+          404
+        ],
+        "registered_alpha_bounds": [
+          103,
+          100,
+          387,
+          480
+        ]
+      },
+      "visual_notes": "Grounded contact or compressed support. Six-pose direction study; inspect the loop for final gait approval."
+    },
+    {
+      "id": "NE-run-05",
+      "direction": "NE",
+      "action": "run",
+      "phase": 5,
+      "source_sheet": "ne-run-scale-fix.png",
+      "source_slot": 5,
+      "source_group": "ne-scale-fix",
+      "file": "images/ne-run-05-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "de19d2956cafeeb8a985bdda30c1afd6a34a4d8efaa29d8fef4d1b1faadb5051",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.811798095703125,
+        "partial_fraction": 0.0079193115234375
+      },
+      "registration": {
+        "translation": [
+          99,
+          108
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 253,
+        "source_alpha_bounds": [
+          24,
+          24,
+          249,
+          372
+        ],
+        "registered_alpha_bounds": [
+          123,
+          132,
+          348,
+          480
+        ]
+      },
+      "visual_notes": "Grounded contact or compressed support. Six-pose direction study; inspect the loop for final gait approval."
+    },
+    {
+      "id": "NE-run-06",
+      "direction": "NE",
+      "action": "run",
+      "phase": 6,
+      "source_sheet": "ne-run.png",
+      "source_slot": 6,
+      "source_group": "ne",
+      "file": "images/ne-run-06-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "61badad5ff935c9e2d48621867ff17aea2997b19b04726d6dbfd110e2dfbbd71",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7974395751953125,
+        "partial_fraction": 0.00910186767578125
+      },
+      "registration": {
+        "translation": [
+          86,
+          56
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 32,
+        "head_anchor_x": 253,
+        "source_alpha_bounds": [
+          24,
+          24,
+          277,
+          392
+        ],
+        "registered_alpha_bounds": [
+          110,
+          80,
+          363,
+          448
+        ]
+      },
+      "visual_notes": "Airborne recovery, 32-pixel foot clearance. Six-pose direction study; inspect the loop for final gait approval."
+    },
+    {
+      "id": "SE-run-01",
+      "direction": "SE",
+      "action": "run",
+      "phase": 1,
+      "source_sheet": "se-run.png",
+      "source_slot": 1,
+      "source_group": "se",
+      "file": "images/se-run-01-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "56581ab5f050a9c803c08b545b80da37f0077182732d0eef7e9d8c93001dd536",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7556533813476562,
+        "partial_fraction": 0.010234832763671875
+      },
+      "registration": {
+        "translation": [
+          30,
+          84
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 248,
+        "source_alpha_bounds": [
+          24,
+          24,
+          353,
+          396
+        ],
+        "registered_alpha_bounds": [
+          54,
+          108,
+          383,
+          480
+        ]
+      },
+      "visual_notes": "Grounded contact or compressed support. Six-pose direction study; inspect the loop for final gait approval."
+    },
+    {
+      "id": "SE-run-02",
+      "direction": "SE",
+      "action": "run",
+      "phase": 2,
+      "source_sheet": "se-run.png",
+      "source_slot": 2,
+      "source_group": "se",
+      "file": "images/se-run-02-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "232f60fd87c15d89d88543601f08f0641ec2834f913ac3204246a0e7d5923da7",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7698249816894531,
+        "partial_fraction": 0.00916290283203125
+      },
+      "registration": {
+        "translation": [
+          51,
+          87
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 248,
+        "source_alpha_bounds": [
+          24,
+          24,
+          320,
+          393
+        ],
+        "registered_alpha_bounds": [
+          75,
+          111,
+          371,
+          480
+        ]
+      },
+      "visual_notes": "Grounded contact or compressed support. Six-pose direction study; inspect the loop for final gait approval."
+    },
+    {
+      "id": "SE-run-03",
+      "direction": "SE",
+      "action": "run",
+      "phase": 3,
+      "source_sheet": "se-run.png",
+      "source_slot": 3,
+      "source_group": "se",
+      "file": "images/se-run-03-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "2615797a63c6169ac3fa108637e7948a40f4a4f9360bd3a88b87dc450f348dca",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7749214172363281,
+        "partial_fraction": 0.010158538818359375
       },
       "registration": {
         "translation": [
           27,
-          85
+          82
         ],
         "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 32,
+        "head_anchor_x": 248,
+        "source_alpha_bounds": [
+          24,
+          24,
+          353,
+          366
+        ],
+        "registered_alpha_bounds": [
+          51,
+          106,
+          380,
+          448
+        ]
+      },
+      "visual_notes": "Airborne recovery, 32-pixel foot clearance. Six-pose direction study; inspect the loop for final gait approval."
+    },
+    {
+      "id": "SE-run-04",
+      "direction": "SE",
+      "action": "run",
+      "phase": 4,
+      "source_sheet": "se-run-contact-fix.png",
+      "source_slot": 4,
+      "source_group": "se-fix",
+      "file": "images/se-run-04-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "a638524936777d87bf5494156444f55a61ab64444bf288006cd238ce6c50625c",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7708091735839844,
+        "partial_fraction": 0.00949859619140625
+      },
+      "registration": {
+        "translation": [
+          31,
+          101
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 248,
+        "source_alpha_bounds": [
+          24,
+          24,
+          333,
+          379
+        ],
+        "registered_alpha_bounds": [
+          55,
+          125,
+          364,
+          480
+        ]
+      },
+      "visual_notes": "Grounded contact or compressed support. Six-pose direction study; inspect the loop for final gait approval."
+    },
+    {
+      "id": "SE-run-05",
+      "direction": "SE",
+      "action": "run",
+      "phase": 5,
+      "source_sheet": "se-run.png",
+      "source_slot": 5,
+      "source_group": "se",
+      "file": "images/se-run-05-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "b44ebe9beb7ca25caf7ca5b4ac2f704e039e704ead719924ecab0e63a5933af0",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7638397216796875,
+        "partial_fraction": 0.009960174560546875
+      },
+      "registration": {
+        "translation": [
+          52,
+          104
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "head_anchor_x": 248,
+        "source_alpha_bounds": [
+          24,
+          24,
+          323,
+          376
+        ],
+        "registered_alpha_bounds": [
+          76,
+          128,
+          375,
+          480
+        ]
+      },
+      "visual_notes": "Grounded contact or compressed support. Six-pose direction study; inspect the loop for final gait approval."
+    },
+    {
+      "id": "SE-run-06",
+      "direction": "SE",
+      "action": "run",
+      "phase": 6,
+      "source_sheet": "se-run.png",
+      "source_slot": 6,
+      "source_group": "se",
+      "file": "images/se-run-06-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "06e145e197484e7f30677fa67b6b4142adcd7956b22f309a9814c9dc711d2407",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7665863037109375,
+        "partial_fraction": 0.010101318359375
+      },
+      "registration": {
+        "translation": [
+          39,
+          73
+        ],
+        "scale": 1,
+        "ground_baseline": 480,
+        "flight_lift": 32,
+        "head_anchor_x": 248,
+        "source_alpha_bounds": [
+          24,
+          24,
+          335,
+          375
+        ],
+        "registered_alpha_bounds": [
+          63,
+          97,
+          374,
+          448
+        ]
+      },
+      "visual_notes": "Airborne recovery, 32-pixel foot clearance. Six-pose direction study; inspect the loop for final gait approval."
+    },
+    {
+      "id": "E-run-06",
+      "direction": "E",
+      "action": "run",
+      "phase": 6,
+      "source_sheet": "e-run-06.png",
+      "source_slot": 1,
+      "source_group": "e-fix",
+      "file": "images/e-run-06-sheet-v2.png",
+      "width": 512,
+      "height": 512,
+      "sha256": "9bad87a0c0cfd8ad84dada9d54515e5b25daefe9ea43244da1dee9e8f39452a1",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7574806213378906,
+        "partial_fraction": 0.005550384521484375
+      },
+      "registration": {
+        "translation": [
+          35,
+          98
+        ],
+        "scale": 0.43517329910141206,
         "ground_baseline": 480,
         "flight_lift": 32,
         "head_anchor_x": 249,
         "source_alpha_bounds": [
           24,
           24,
-          395,
-          363
+          887,
+          803
+        ],
+        "registered_alpha_bounds": [
+          45,
+          108,
+          421,
+          448
         ]
       },
-      "visual_notes": "Flight. First six-pose run study; native pixels, aligned head, 32-pixel flight clearance. Review: near arm repeats the forward swing from frame 03; needs an opposite backward swing before final gait approval."
+      "visual_notes": "Airborne recovery, 32-pixel foot clearance. Corrected backward near-arm swing."
     }
   ],
   "directions": [
@@ -1069,23 +2059,29 @@
       "mirror": true
     }
   ],
-  "processing_summary": "25 reviewed standing/walking frames and a six-frame east/west run study. The final running arm swing still needs refinement.",
+  "processing_summary": "Walking and running in all eight directions. Five authored six-pose runs, three mirrors, and the 25 preserved standing/walking frames.",
   "blockers": [],
   "review": {
     "date": "2026-09-06",
     "accepted_unchanged_frames": 24,
     "corrected_frame": "SE-walk-03",
     "correction_status": "Prepared for user review",
-    "running_status": "First study; frame 06 arm swing needs refinement before expanding directions."
+    "running_status": "All direction studies integrated; targeted east arm and diagonal pose corrections applied. Remaining pose and size variation needs final art approval."
   },
-  "expected_frames": 31,
+  "expected_frames": 55,
   "run": {
     "directions": [
+      "N",
+      "NE",
       "E",
-      "W"
+      "SE",
+      "S",
+      "SW",
+      "W",
+      "NW"
     ],
     "frames_per_cycle": 6,
     "default_fps": 10
   },
-  "generated_at": "2026-09-06T00:31:12.539Z"
+  "generated_at": "2026-09-06T09:01:04.902Z"
 }

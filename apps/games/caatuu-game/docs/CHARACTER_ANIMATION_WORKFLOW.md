@@ -1,8 +1,10 @@
 # Character animation workflow
 
 Use this process for Caatuu's illustrated character sprites, including new
-characters and later clothing variants. The current macaw walk is the worked
-example. Its animation review is separate from the Godot actor integration.
+characters and later clothing variants. The macaw standing/walking and running
+sets are the worked examples: 25 walking-set frames plus 30 running frames,
+covering eight directions through five authored views and three mirrors.
+The animation review is separate from the Godot actor integration.
 
 ## Approve the design, then keep it stable
 
@@ -14,9 +16,11 @@ State these invariants in every generation prompt. A clothing variant changes
 the approved clothing boundary while retaining the character and reviewed poses.
 
 Human approval freezes accepted poses. Do not regenerate an accepted direction
-or batch to fix one frame. As of September 6, 2026, the user accepted the other
-24 frames in the latest macaw set and requested a correction only to the foot
-in `SE-walk-03`. Preserve that frame's unaffected body and the other 24 PNGs.
+or batch to fix one frame. The September 6 walking repair changed only the foot
+in `SE-walk-03`, preserving its unaffected body and the other 24 PNGs. The
+subsequent all-direction running work preserves all 25 accepted walking-set
+PNGs and east run poses 1–5 byte-for-byte. Its authorized east pose-6 arm repair
+and other run candidates have separate provenance.
 
 ## Generate one sheet per direction
 
@@ -26,8 +30,8 @@ northwest from northeast and southwest from southeast. North and south need
 their own drawings. Confirm that clothing, bags and held objects can be mirrored;
 an asymmetric design may need separately authored counterparts.
 
-Use one built-in image-generation call per direction, with five poses together
-in a three-column, two-row sheet. This improves consistency over generating
+For standing/walking, use one built-in image-generation call per direction,
+with five poses together in a three-column, two-row sheet. This improves consistency over generating
 every frame separately. Specify full silhouettes, generous empty gutters,
 consistent character size and camera, and no labels or scenery.
 
@@ -35,6 +39,10 @@ consistent character size and camera, and no labels or scenery.
 | --- | --- | --- |
 | Standing | Contact A | Passing A |
 | **Cell 4: Contact B** | **Cell 5: Passing B** | **Cell 6: Empty** |
+
+For a running sheet, use six chronological poses in the same 3 × 2 layout,
+with all cells occupied: first contact, first support, flight, opposite contact,
+opposite support, opposite flight. It is a separate action, not a faster walk.
 
 The walking poses should show opposite supporting feet and opposing arm swings.
 Passing poses must differ from contact poses. Review the actual drawing rather
@@ -92,9 +100,10 @@ bootstrap or reinstall a healthy environment to work around PATH selection.
 ## Split, inspect and register
 
 Use `image_tool.sh sprite-split` and its object-aware masks, manifest and
-previews. The approved splitter supports `--empty-slots 6`, using one-based
-row-major positions. It validates that the other five cells contain sprites
-and that the declared empty cell is empty.
+previews. For the walking layout, the approved splitter supports
+`--empty-slots 6`, using one-based row-major positions. It validates that the
+other five cells contain sprites and that the declared empty cell is empty.
+Omit `--empty-slots` for running: all six cells are occupied.
 
 The [external splitter patch record](../tooling/patches/README.md) preserves
 the compatibility change used here; inspect the current tool before applying it.
@@ -132,7 +141,10 @@ Check both `sprites.length == expected_count == 25` and an empty `warnings`
 list. A matching total alone can hide a missing pose and an unexpected object
 in the empty cell. Inspect every repacked preview, the combined contact sheet
 and relevant individual cuts for clipped feet, halos, detached details and
-neighbor contamination. Correct splitting problems before registration.
+neighbor contamination. Correct splitting problems before registration. A
+complete five-direction run batch instead requires
+`sprites.length == expected_count == 30`, again with no warnings; a separately
+processed single run sheet requires six.
 
 The current macaw registration script is staged as
 `$sprite_stage/register-frames.py` and reads `$sprite_stage/split-manifest.json`:
@@ -179,9 +191,11 @@ docker exec -w /workspace caatuu-dev node apps/games/caatuu-game/tooling/publish
 The established interactive URL is
 `http://127.0.0.1:8765/games/caatuu-game/godot-v1/review/macaw-walk-v1/`.
 Keep its compass, standing/walking switch, play/pause, frame stepping, scrubber,
-speed control, all eight walking directions and contact sheet. Walking uses
-6 fps. With the first running study present, the screen opens on east running
-at 10 fps; switching actions restores the appropriate cycle and directions.
+speed control, all eight directions and contact sheets. Walking uses four poses
+at 6 fps; running uses six at 10 fps. The current 55-frame screen opens on south
+running. Action changes retain the selected direction, and the running contact
+sheet has five authored rows. Historical first-run behavior opened east and
+limited running to east/west; that restriction no longer applies.
 A full-sheet gallery may supplement this screen; it must not
 replace the animation demo.
 
@@ -201,14 +215,15 @@ If the generator changes the body while fixing a foot, treat it as a donor
 candidate: isolate the correction and integrate only the approved foot region
 through the existing container workflow. Preserve the accepted body pixels.
 
-Compare all 25 output hashes afterward. Only the authorized frame may change;
-the other 24 must remain byte-identical. Preserve before/after candidates and
+Compare every accepted output hash afterward. Only authorized frames may change;
+all others must remain byte-identical. For the walking foot repair, that meant
+one changed PNG and 24 unchanged PNGs. Preserve before/after candidates and
 record the local correction, source, processing and approval. Update the one
 manifest entry, publish the latest bytes, refresh and inspect the full loop and
 the corrected pose. Do not turn a single-frame request into clothing, timing,
 background or whole-character changes.
 
-## Running: first action study
+## Running: historical first action study
 
 The user authorized creating a six-frame east-facing run on September 6, 2026. The
 reviewed east walk sheet supplies the character identity and costume reference.
@@ -230,19 +245,38 @@ This avoids forcing every foot to the ground and losing the running lift.
 Record such action-specific anchors explicitly instead of applying the walking
 registration formula blindly.
 
-The original review screen now includes a Running action with six-frame
-playback, stepping and its own contact sheet. East is authored; west is mirrored.
-Other facings are disabled only while reviewing this initial running study.
-Standing and Walking retain all eight directions and the original 25 images.
-The publisher combines 25 walking-set frames and six run frames, checking hashes.
-`run-v1/verify-preview.mjs` verifies all 25 earlier PNGs remain byte-identical
-and the six served run PNGs match their manifest. Keep the first run marked as
-a study until its motion has been reviewed; loading successfully is not gait
-approval.
+That first review combined 25 walking-set frames with six east run frames and
+mirrored west. `run-v1/verify-preview.mjs` recorded preservation of the earlier
+walking PNGs and the six served run hashes. Its final east pose repeated the
+forward arm swing; the v2 correction now supplies the backward swing. The
+first-run archive is historical evidence, not the current frame authority.
 
-The [September 6 motion review](MACAW_MOTION_REVIEW.md) records the remaining
-final-frame arm-swing issue. Creation authorization does not imply final gait
-approval. Correct that pose locally before extending this run to more facings.
+## Running: current all-direction study
+
+The current package contains 30 running frames: six each for south, north,
+east, northeast and southeast. Three horizontal mirrors provide eight running
+directions. The local archive is
+`artifacts/games/caatuu-game/art-direction/2026-09-05-macaw/run-v2/`.
+The tracked [run-v2 provenance](../character-workshop/run-v2-provenance.json)
+preserves exact prompts, source hashes, selected candidates and registration.
+
+North's actual source order is **4, 2, 3, 1, 5, 6**: the generated contact cells
+needed swapping. Record that mapping explicitly. The selected v2 candidates
+also correct the arm in `SE-run-04`, support poses in `NE-run-02` and `NE-run-05`,
+and the backward arm in `E-run-06`. The final `NE-run-05` scale correction uses
+only cell 5 from `ne-run-scale-fix.png`; the other 54 final PNGs stayed unchanged.
+All 25 walking-set PNGs and east run poses 1–5 remain byte-identical to the
+accepted earlier set.
+
+Modest size and costume drift remain, and north/northeast have pronounced
+vertical bounce. Inspect them in motion without assuming registration has
+solved anatomy or timing. Seven focused tests passed after the final asset
+adjustment. Browser review loaded all 55 frames and checked all eight run
+directions, wraparound, mirrors, standing, action switching and hash refresh.
+The [motion review](MACAW_MOTION_REVIEW.md) records the evidence and remaining
+visual limitations. Generation,
+registration and successful loading do not imply final gait approval or Godot
+actor integration.
 
 For documentation or structural commits, run both repository checks in the
 existing Node container, as required by the repository instructions:

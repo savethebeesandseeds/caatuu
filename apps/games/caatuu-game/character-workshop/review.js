@@ -7,14 +7,14 @@ const order = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
 const authored = ["S", "N", "E", "SE", "NE"];
 const defaults = order.map((id) => ({ id, source: ({ NW: "NE", W: "E", SW: "SE" })[id] || id, mirror: ["NW", "W", "SW"].includes(id) }));
 const phaseNames = ["Contact", "Passing", "Opposite contact", "Passing"];
-const runPhaseNames = ["Near contact", "Near support", "Flight", "Far contact", "Far support", "Flight"];
+const runPhaseNames = ["First contact", "First support", "Flight", "Opposite contact", "Opposite support", "Flight"];
 const cycleAction = () => state.action === "run" ? "run" : "walk";
 const cycleLength = () => cycleAction() === "run" ? 6 : 4;
 const actionTitle = () => cycleAction() === "run" ? "Run" : "Walk";
-const hasRun = () => frames.has("E-run-01");
-const availableDirections = () => cycleAction() === "run" ? ["E", "W"] : order;
+const hasRun = () => authored.every((direction) => [1, 2, 3, 4, 5, 6].every((phase) => frames.has(`${direction}-run-0${phase}`)));
+const availableDirections = () => order;
 const state = { direction: "S", action: "walk", phase: 1, fps: 6, playing: true, background: "dark", scale: "medium" };
-let manifest = { frames: [], directions: defaults, expected_originals: 25, blockers: [] };
+let manifest = { frames: [], directions: defaults, expected_frames: 55, blockers: [] };
 let frames = new Map();
 let directionMap = new Map(defaults.map((entry) => [entry.id, entry]));
 const imageCache = new Map();
@@ -95,7 +95,7 @@ function renderMain() {
     button.disabled = !availableDirections().includes(button.dataset.direction);
   }
   $("run-action").disabled = !hasRun();
-  $("direction-help").textContent = state.action === "run" ? "Running preview: east and mirrored west." : "Walking and standing: all eight directions.";
+  $("direction-help").textContent = state.action === "run" ? "Running: all eight directions, with three mirrored views." : "Walking and standing: all eight directions.";
   for (const button of document.querySelectorAll("#action-controls button")) button.setAttribute("aria-pressed", String(button.dataset.action === state.action));
   for (const [id, card] of cards) card.button.setAttribute("aria-pressed", String(id === state.direction));
   const url = sourceUrl(selection.frame);
@@ -108,9 +108,8 @@ function renderMain() {
 function buildCards() {
   $("direction-cards").replaceChildren();
   cards.clear();
-  $("directions-heading").textContent = state.action === "run" ? "Run in both directions" : "All eight directions";
-  $("directions-caption").textContent = state.action === "run" ? "Six-frame run · west mirrors east" : "Synchronized four-frame walks · three views use mirrors";
-  $("direction-cards").classList.toggle("run-cards", state.action === "run");
+  $("directions-heading").textContent = "All eight directions";
+  $("directions-caption").textContent = state.action === "run" ? "Synchronized six-frame runs · three views use mirrors" : "Synchronized four-frame walks · three views use mirrors";
   for (const id of availableDirections()) {
     const mapping = directionMap.get(id);
     const button = document.createElement("button");
@@ -147,10 +146,10 @@ function buildSheet() {
   const running = state.action === "run";
   sheet.classList.toggle("run-sheet", running);
   $("contact-heading").textContent = running ? "Latest running frames" : "Latest walking frames";
-  $("contact-caption").textContent = running ? "Six poses · one complete run cycle" : "Standing + contact / passing / opposite contact / passing";
+  $("contact-caption").textContent = running ? "Five authored directions · six poses per run cycle" : "Standing + contact / passing / opposite contact / passing";
   const headings = running ? ["Direction", ...runPhaseNames.map((name,i) => `${String(i+1).padStart(2,"0")} · ${name}`)] : ["Direction", "Standing", "01 · Contact", "02 · Passing", "03 · Contact", "04 · Passing"];
   for (const heading of headings) sheet.append(text("div", heading, "sheet-heading"));
-  for (const direction of running ? ["E"] : authored) {
+  for (const direction of authored) {
     sheet.append(text("div", `${direction}\n${names[direction]}`, "row-label"));
     for (let phase = running ? 1 : 0; phase <= (running ? 6 : 4); phase += 1) {
       const selection = frameFor(direction, running ? "run" : phase ? "walk" : "idle", phase);
@@ -190,7 +189,7 @@ function updateLoadAudit() {
 }
 
 function renderAudit() {
-  const expected = manifest.expected_frames || manifest.expected_originals || 25;
+  const expected = manifest.expected_frames || manifest.expected_originals || 55;
   const transparent = manifest.frames.filter((frame) => frame.alpha?.transparent_fraction > 0).length;
   const unknown = manifest.frames.filter((frame) => frame.alpha?.transparent_fraction === null || frame.alpha?.transparent_fraction === undefined).length;
   $("frame-count").textContent = `${manifest.frames.length} / ${expected}`;
@@ -215,11 +214,11 @@ async function refreshManifest() {
     if (!response.ok) throw new Error(`Manifest request returned HTTP ${response.status}.`);
     const incoming = await response.json();
     if (!Array.isArray(incoming.frames)) throw new Error("Manifest has no frames array.");
-    const known = incoming.frames.filter((frame) => frame && /^(?:[A-Z]{1,2}-(idle|walk-0[1-4])|E-run-0[1-6])$/.test(frame.id));
+    const known = incoming.frames.filter((frame) => frame && /^(?:S|N|E|SE|NE)-(?:idle|walk-0[1-4]|run-0[1-6])$/.test(frame.id));
     manifest = { ...incoming, frames: known };
     frames = new Map(known.map((frame) => [frame.id, frame]));
     if (!initialized) {
-      if (hasRun()) Object.assign(state, {direction:"E", action:"run", phase:1, fps:10});
+      if (hasRun()) Object.assign(state, {action:"run", phase:1, fps:10});
       $("fps").value = String(state.fps);
       initialized = true;
     } else if (state.action === "run" && !hasRun()) {
@@ -266,7 +265,6 @@ $("action-controls").addEventListener("click", (event) => {
   if (!button || button.disabled) return;
   state.action = button.dataset.action;
   state.phase = 1;
-  if (state.action === "run" && !["E","W"].includes(state.direction)) state.direction = "E";
   state.fps = state.action === "run" ? 10 : 6;
   $("fps").value = String(state.fps);
   lastTick = 0;

@@ -7,21 +7,30 @@ const tooling = path.dirname(fileURLToPath(import.meta.url));
 export const sourceRoot = path.resolve(tooling, '../character-workshop');
 const outputRoot = path.resolve(tooling, '../../../../artifacts/games/caatuu-game/web/godot-v1/review/macaw-walk-v1');
 const viewFiles = ['index.html','review.js','review.css','animation-clock.mjs'];
-const expected = ['S','N','E','NE','SE'].flatMap(d => [`${d}-idle`, ...[1,2,3,4].map(p=>`${d}-walk-0${p}`)]).concat([1,2,3,4,5,6].map(p=>`E-run-0${p}`));
+const expected = new Map(['S','N','E','NE','SE'].flatMap(direction => [
+  [`${direction}-idle`, {direction,action:'idle',phase:0}],
+  ...[1,2,3,4].map(phase => [`${direction}-walk-0${phase}`, {direction,action:'walk',phase}]),
+  ...[1,2,3,4,5,6].map(phase => [`${direction}-run-0${phase}`, {direction,action:'run',phase}]),
+]));
 const pngSignature = Buffer.from([137,80,78,71,13,10,26,10]);
 const digest = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 
 export async function validateWorkshop(root = sourceRoot) {
   const manifestBytes = await fs.readFile(path.join(root,'manifest.json'));
   const manifest = JSON.parse(manifestBytes);
-  if (manifest.frames?.length !== 31 || manifest.expected_frames !== 31 || !manifest.complete ||
-      new Set(manifest.frames.map(f=>f.id)).size !== 31 || expected.some(id=>!manifest.frames.some(f=>f.id===id))) {
-    throw Error('Expected the complete 25-frame walk and six-frame run set');
+  if (manifest.frames?.length !== 55 || manifest.expected_frames !== 55 || manifest.complete !== true ||
+      new Set(manifest.frames.map(f=>f?.id)).size !== 55 || [...expected.keys()].some(id=>!manifest.frames.some(f=>f?.id===id))) {
+    throw Error('Expected the complete 55-frame set: 25 walking/standing frames and 30 running frames across five authored directions');
   }
   const files = new Map([['manifest.json',manifestBytes]]);
   const seen = new Set();
   for (const frame of manifest.frames) {
-    if (!/^images\/[a-z]+-(?:idle|walk-0[1-4]|run-0[1-6])-sheet-v[12]\.png$/.test(frame.file) || seen.has(frame.file)) throw Error(`Unsafe or duplicate image path: ${frame.id}`);
+    const metadata = expected.get(frame.id);
+    if (frame.direction !== metadata.direction || frame.action !== metadata.action || frame.phase !== metadata.phase) {
+      throw Error(`Frame metadata mismatch: ${frame.id}`);
+    }
+    const imagePath = new RegExp(`^images/${frame.id.toLowerCase()}-sheet-v[12]\\.png$`);
+    if (typeof frame.file !== 'string' || !imagePath.test(frame.file) || seen.has(frame.file)) throw Error(`Unsafe or duplicate image path: ${frame.id}`);
     seen.add(frame.file);
     const bytes = await fs.readFile(path.join(root,frame.file));
     if (digest(bytes) !== frame.sha256) throw Error(`Frame hash mismatch: ${frame.id}`);
@@ -44,7 +53,7 @@ export async function publishWorkshop({source = sourceRoot, destination = output
     .concat(['animation-clock.mjs','review.css','review.js','index.html','manifest.json']);
   // Advertise the new hashes only after their image bytes and UI are available.
   for (const file of order) await fs.writeFile(path.join(destination,file),files.get(file));
-  return {frames:manifest.frames.length,walking_directions:8,running_directions:2,
+  return {frames:manifest.frames.length,walking_directions:8,running_directions:8,
     url:'http://127.0.0.1:8765/games/caatuu-game/godot-v1/review/macaw-walk-v1/'};
 }
 
