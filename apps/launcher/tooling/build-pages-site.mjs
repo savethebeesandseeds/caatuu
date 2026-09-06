@@ -968,6 +968,15 @@ function enableAndroidSurfaces({ workspaceRoot, siteDir, languagePlan }) {
   writeText(join(siteDir, "launcher.js"), launcher);
 }
 
+export function transformPagesSentenceReporting(input) {
+  return exactReplace(input,
+    'interfaceText("wordworld.report.savedlocal")',
+    `(course.id === "cz"
+            ? "Saved on this device. If sending is interrupted, the public site will retry later."
+            : interfaceText("wordworld.report.savedlocal"))`,
+    "Pages sentence-report retry copy");
+}
+
 function enableReportingSurfaces({ siteDir }) {
   const reportingSource = join(toolingDir, "templates/pages-reporting.mjs");
   const reportingDestination = outputPath(siteDir, reportingModulePublicPath);
@@ -991,14 +1000,7 @@ function enableReportingSurfaces({ siteDir }) {
   writeText(bootstrapPath, bootstrap);
 
   const wordWorldPath = join(siteDir, "language-runtime/static/source/product-word-world.mjs");
-  const wordWorld = exactReplace(
-    readText(wordWorldPath),
-    "Saved on this device. Sending remains off until a reviewed feedback channel is enabled.",
-    `course.id === "cz"
-            ? "Saved on this device. If sending is interrupted, the public site will retry later."
-            : "Saved on this device. Sending remains off until a reviewed feedback channel is enabled."`,
-    "Pages sentence-report retry copy"
-  );
+  const wordWorld = transformPagesSentenceReporting(readText(wordWorldPath));
   writeText(wordWorldPath, wordWorld);
 
   const profilePath = join(siteDir, "cz/caatuu-profile.json");
@@ -1562,7 +1564,7 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, current
   assert.match(bootstrap, /declaredBrowserProvider\("courseRuntime"\)[\s\S]*await loadScript\(courseRuntime\);[\s\S]*course\.id === "cz"[\s\S]*await import\("\/cz\/source\/shared\/pages-reporting\.mjs/u);
   assert.match(bootstrap, /course\.status !== "active"[\s\S]*robots\.content = "noindex, nofollow"/u);
   const wordWorld = readText(join(siteDir, "language-runtime/static/source/product-word-world.mjs"));
-  assert.match(wordWorld, /course\.id === "cz"[\s\S]*public site will retry later[\s\S]*Sending remains off until a reviewed feedback channel is enabled/u);
+  assert.match(wordWorld, /course\.id === "cz"[\s\S]*public site will retry later[\s\S]*interfaceText\("wordworld\.report\.savedlocal"\)/u);
   const profile = JSON.parse(readText(join(siteDir, "cz/caatuu-profile.json")));
   assert.equal(profile.capabilities.reportingApi, true);
   assert.equal(profile.privacy.dictionaryGapReportsFutureOptIn, true);

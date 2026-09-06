@@ -105,6 +105,12 @@ the stricter default and fail when those local runtime files are absent.
 
 ## Hosting boundary
 
+The Pages sentence-report copy is projected at the shared interface-key call,
+not by replacing an English literal inside JavaScript. The existing Czech-only
+reporting scope stays intact, and other courses retain their localized
+local-only message. A focused contract checks both outcomes and module syntax
+before release signing; deployment repairs reuse the finalized APK receipt.
+
 The published UI uses origin-root `/assets/`, `/cz/`, and `/zh/` paths.
 Publication therefore requires `https://caatuu.waajacu.com` at the root; a
 GitHub project subpath is not compatible. The manual Pages workflow checks that

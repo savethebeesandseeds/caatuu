@@ -11,6 +11,7 @@ import {
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import test from "node:test";
+import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 import {
@@ -25,12 +26,26 @@ import {
   retainPagesManagedCourseOfflineAssets,
   rewritePagesCourseProfileReceipt,
   stagePagesBrowserCourses,
+  transformPagesSentenceReporting,
   validatePagesSite,
 } from "../build-pages-site.mjs";
 
 const testDir = dirname(fileURLToPath(import.meta.url));
 const workspaceRoot = resolve(testDir, "../../../..");
 const source = readFileSync(join(testDir, "../build-pages-site.mjs"), "utf8");
+
+test("Pages reporting projects the current interface-key call and keeps other courses local-only", () => {
+  const wordWorld = readFileSync(join(workspaceRoot, "apps/language-runtime/static/source/product-word-world.mjs"), "utf8");
+  const transformed = transformPagesSentenceReporting(wordWorld);
+  assert.match(transformed, /course\.id === "cz"[\s\S]*public site will retry later[\s\S]*interfaceText\("wordworld\.report\.savedlocal"\)/u);
+  const syntax = spawnSync(process.execPath, ["--input-type=module", "--check"], { input: transformed, encoding: "utf8" });
+  assert.equal(syntax.status, 0, syntax.stderr);
+  const expression = transformPagesSentenceReporting('interfaceText("wordworld.report.savedlocal")');
+  const render = new Function("course", "interfaceText", `return ${expression};`);
+  assert.match(render({ id: "cz" }, () => "local-only"), /public site will retry later/u);
+  assert.equal(render({ id: "zh" }, () => "local-only"), "local-only");
+  assert.throws(() => transformPagesSentenceReporting("changed boundary"), /anchor count/u);
+});
 
 test("the Pages builder exposes compilation and validation without running on import", () => {
   assert.equal(typeof compilePagesSite, "function");
