@@ -105,7 +105,9 @@ jobs:
                   ! -path "apps/launcher/tooling/tests/static-site-contract.test.mjs" \
                   | sort
               )
-              node --test "${tests[@]}"
+              # Full asset compilers share substantial catalog and image buffers.
+              # Bound their overlap on the runner and retain child-exit diagnostics.
+              node --test --test-concurrency=1 --test-reporter=tap "${tests[@]}"
             '
 
       - name: Exercise Android release failure and resume behavior without publication
