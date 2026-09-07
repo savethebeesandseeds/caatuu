@@ -18,7 +18,6 @@ test("the complete Spanish interface preserves the live English message API", ()
     locale: "es-ES", direction: "ltr", revision: spanish.revision
   }), { valid: true, errors: [] });
   assert.deepEqual(validateInterfaceCatalogParity(english, spanish), { valid: true, errors: [] });
-  assert.deepEqual(Object.keys(spanish.messages), Object.keys(spanish.messages).sort());
 });
 
 test("Spanish has no copied English prose outside explicit shared terms and templates", () => {

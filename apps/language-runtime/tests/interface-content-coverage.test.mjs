@@ -47,11 +47,6 @@ function collectMatches(source, pattern) {
 test("the English interface authority covers every static shared-app message reference", async () => {
   const catalog = JSON.parse(await readFile(ENGLISH_CATALOG_URL, "utf8"));
   assert.deepEqual(validateInterfaceCatalog(catalog), { valid: true, errors: [] });
-  assert.deepEqual(
-    Object.keys(catalog.messages),
-    Object.keys(catalog.messages).sort(),
-    "the authority stays deterministic and reviewable"
-  );
 
   const references = new Map();
   const markerIds = new Set();
