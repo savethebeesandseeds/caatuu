@@ -211,10 +211,11 @@ test("packaged course-bundle order derives setup coverage for a synthetic third 
 test("the validated download plan contains every derived immutable release asset", () => {
   const plan = pagesCurrentReleaseDownloadPlan(descriptor);
   assert.equal(plan.currentVersionCode, currentVersionCode);
-  assert.equal(plan.assets.length, descriptor.releases.length * 3);
   assert.deepEqual(
-    plan.assets.map((asset) => asset.kind),
-    descriptor.releases.flatMap(() => ["apk", "manifest", "receipt"]),
+    plan.assets.map(({ versionCode, kind }) => ({ versionCode, kind })),
+    descriptor.releases.flatMap((release) => ["apk", "manifest", "receipt", "setup"]
+      .filter((kind) => Object.hasOwn(release, kind))
+      .map((kind) => ({ versionCode: release.versionCode, kind }))),
   );
   assert.ok(plan.assets.every((asset) => descriptorVersionCodes.includes(asset.versionCode)));
   assert.ok(plan.assets.every((asset) => asset.downloadUrl.startsWith(
