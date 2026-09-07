@@ -50,7 +50,7 @@ export function targetSpan(czech, form) {
 }
 
 function validateLegacyPack(value) {
-  if (!Array.isArray(value) || !value.length || value.length > 500) throw new Error("The noun bank must be a nonempty bounded list.");
+  if (!Array.isArray(value) || !value.length) throw new Error("The noun bank must be a nonempty list.");
   const nouns = new Set();
   const difficulties = new Set();
   const allSentences = new Set();
@@ -90,9 +90,9 @@ export function validatePack(value) {
   const legacyNouns = validateLegacyPack(value.legacyNouns);
   const curriculum = normalizeCurriculum(value.curriculum);
   if (!curriculum) throw new Error("Case Cosmos v2 needs a declared curriculum.");
-  if (!Array.isArray(value.paradigms) || !value.paradigms.length || value.paradigms.length > 200
-      || !Array.isArray(value.contexts) || !value.contexts.length || value.contexts.length > 1500) {
-    throw new Error("Case Cosmos needs bounded checked paradigms and authored contexts.");
+  if (!Array.isArray(value.paradigms) || !value.paradigms.length
+      || !Array.isArray(value.contexts) || !value.contexts.length) {
+    throw new Error("Case Cosmos needs nonempty checked paradigms and authored contexts.");
   }
   const byId = new Map();
   const paradigms = value.paradigms.map((paradigm) => {

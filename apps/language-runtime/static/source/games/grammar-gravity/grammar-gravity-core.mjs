@@ -271,8 +271,8 @@ function validateExamples(examples, {
 }
 
 function validateChallenges(pack, axisIds) {
-  if (!Array.isArray(pack.challenges) || pack.challenges.length < 4 || pack.challenges.length > 48) {
-    throw new Error("challenges must contain a bounded bank of four to forty-eight authored challenges.");
+  if (!Array.isArray(pack.challenges) || pack.challenges.length < 4) {
+    throw new Error("challenges must contain at least four authored challenges.");
   }
   const challengeIds = new Set();
   const exampleIds = new Set();

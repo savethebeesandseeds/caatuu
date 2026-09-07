@@ -6,7 +6,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-czech-pwa-v695",
+    "cacheName": "caatuu-czech-pwa-v696",
     "cachePrefix": "caatuu-czech-pwa-",
     "assets": [
       "/language-runtime/static/source/image-embedding-index.mjs?v=image-index-runtime-1",

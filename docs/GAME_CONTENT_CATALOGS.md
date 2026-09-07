@@ -22,6 +22,55 @@ Android source asset mappings, dictionary references and maintained tests use
 those declarations. The filename contract is checked by
 [game-content-filenames.test.mjs](../tools/language-packs/tests/game-content-filenames.test.mjs).
 
+## Word World: editable sources and loaded JSON
+
+**Word World does use JSON during standard/authored play in every course.**
+There are two stages: content authoring and runtime loading. The existence of a
+build step does not mean the game invents its standard sentences or obtains
+them from application code.
+
+| Course | Authoritative editable content | What the app reads |
+| --- | --- | --- |
+| Czech | `tools/czech-ml/data/word-world/standard-v0.1/source/*.jsonl`, with existing editorial and token-hint JSON companions | The compiler writes `apps/languages/czech/static/data/games/word-world/content.json`; `manifest.json` identifies it and its integrity hash. |
+| Mandarin, Spanish, English from Spanish | Shared English concept JSON plus each course's `content/word-world/starter-v1.realizations.json`; English from Spanish also uses the shared Spanish learner-base JSON | The projector writes each course's `static/data/games/word-world/content.json` and the required shared concepts, learner-base or reading-guide JSON. The runtime joins matching concept IDs. |
+
+JSONL means one JSON object per line. It is editable structured content, not
+executable code. The Czech compiler combines those records, applies recorded
+editorial corrections, validates them, and writes the runtime JSON and manifest.
+The modern projector validates aligned meanings/translations and emits the
+JSON needed by the browser and Android source delivery. It can withhold
+unreviewed pronunciation from the main runtime file while retaining the
+separately labeled Mandarin preview guide.
+
+For example, an English concept for asking the price, its Spanish sentence and
+its token hints are joined by one stable concept ID. That lets the learner see
+Spanish while the established retrieval system still uses the English meaning.
+The generator does not author a new translation for the standard round.
+
+Directly editing only the generated `content.json` is not the maintained
+authoring route: the next generator run would overwrite it. Edit the source
+catalogs, then run the existing generators and validation. That requires no
+interface change. Dictionary lookup and image retrieval remain separate
+supporting sources; Czech's existing optional generative mode is also separate
+from its finite standard catalog and is not included in the catalog counts.
+
+## Remaining Case Cosmos authoring coupling
+
+The numeric bank ceilings were removed on 2026-09-07, but that alone does not
+make every game freely extensible by JSON. Case Cosmos reads its exercises from
+`content.json` and then compares them against checked content duplicated in
+`case-cosmos-cs-policy.mjs`. Its `CHECKED_PARADIGMS` and `CHECKED_CONTEXTS` require
+exact matches; legacy nouns/forms and sentence frames also have code-owned
+allowlists. New IDs or new constructions can therefore be rejected even with
+no numeric cap.
+
+This corrects the earlier overbroad claim that all banks were ready for
+JSON-only expansion. The checked linguistic data needs a separate move into
+content authority, preserving its validation purpose, before Case's planned
+expansion can be performed exclusively through content files. The cap-removal
+work does not bypass, delete or weaken those checks and does not claim a valid
+6,000-context Case bank has been tested.
+
 ## Difficulty behavior
 
 - Verb Nebula, Word World, Conjugation Comet, Case Cosmos, Grammar Gravity

@@ -14,6 +14,22 @@ import {
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
 
+test("Word World runtime realizations remain scanned after the shared filename migration", async () => {
+  for (const course of ["spanish", "mandarin-simplified", "english-from-spanish"]) {
+    const file = `apps/languages/${course}/static/data/games/word-world/content.json`;
+    const pack = JSON.parse(await readFile(path.join(repoRoot, file), "utf8"));
+    const extracted = extractLearnerContent("word-world", pack, file);
+    assert.equal(extracted.recordCount, pack.realizations.length);
+    assert.ok(extracted.fields.some(({ text }) => text === pack.realizations[0].text));
+    assert.ok(extracted.fields.some(({ text }) => text === pack.realizations[0].tokens[0].gloss));
+    assert.throws(() => extractLearnerContent("word-world", { ...pack, realizations: null }, file));
+    const unsafe = structuredClone(pack);
+    unsafe.realizations[0].tokens[0].gloss = "explicit sex";
+    const fields = extractLearnerContent("word-world", unsafe, file).fields;
+    assert.ok(fields.some((field) => inspectLearnerField(field).length > 0));
+  }
+});
+
 function findings(text, locale = "en") {
   return inspectLearnerField({
     file: "fixture.json",

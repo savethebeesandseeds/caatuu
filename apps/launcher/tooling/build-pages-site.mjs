@@ -20,7 +20,7 @@ import {
 import { basename, dirname, extname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
-import { compileStaticSite } from "./build-static-site.mjs";
+import { assertHtmlReferences, compileStaticSite } from "./build-static-site.mjs";
 import {
   checkGeneratedViews,
   evaluateCourseProfile,
@@ -1464,6 +1464,7 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, current
   const czech = registry.languages.find((language) => language.id === "cz");
   assert.ok(czech, "Pages registry is missing the active Czech baseline course");
   const rootIndex = readText(join(siteDir, "index.html"));
+  assertHtmlReferences(siteDir, ["index.html"]);
   assert.doesNotMatch(rootIndex, /\/games\/caatuu-game\//u);
   assert.deepEqual(
     launcherFallbackCourseIds(rootIndex, "final Pages launcher fallback").ids,

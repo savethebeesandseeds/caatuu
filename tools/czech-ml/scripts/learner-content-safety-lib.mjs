@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { TARGET_REALIZATION_RUNTIME_SCHEMA, validateTargetRealizationRuntimeProjection } from "../../language-content/lib/runtime-projection-contract.mjs";
 import { validateGrammarGravityPack } from "../../../apps/language-runtime/static/source/games/grammar-gravity/grammar-gravity-core.mjs";
 import { validateSoundQuasarCatalog } from "../../../apps/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs";
 import { validateConjugationCometCatalog } from "../../../apps/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs";
@@ -430,7 +431,7 @@ function extractModernGameText(value, file, sections, recordCount) {
   const baseLocale = requiredText(value.learnerBaseLanguage || value.learnerBaseLanguageId || "en", `${file}/learnerBaseLanguage`).split("-")[0];
   // Scan every string in validated gameplay sections, including new UI copy.
   // Only non-displayed identity/type references are excluded.
-  const technical = new Set(["id", "kind", "image", "englishAuditId", "sourceId", "categoryId", "axisId", "laneId"]);
+  const technical = new Set(["id", "conceptId", "kind", "image", "englishAuditId", "sourceId", "categoryId", "axisId", "laneId"]);
   function visit(node, parts, contentId) {
     if (typeof node === "string") {
       const name = parts.at(-1);
@@ -549,6 +550,11 @@ function extractVocabulary(value, file) {
 
 function extractWordWorld(value, file) {
   const pack = expectObject(value, file);
+  if (pack.$schema === TARGET_REALIZATION_RUNTIME_SCHEMA) {
+    validateTargetRealizationRuntimeProjection(pack);
+    return extractModernGameText({ ...pack, targetLanguage: pack.targetLanguage.languageTag },
+      file, ["realizations"], pack.realizations.length);
+  }
   const rows = expectArray(pack.records, `${file}/records`);
   const fields = [];
   rows.forEach((row, rowIndex) => {

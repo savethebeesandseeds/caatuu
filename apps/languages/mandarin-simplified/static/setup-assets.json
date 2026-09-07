@@ -7,7 +7,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-zh-hans-pwa-v164",
+    "cacheName": "caatuu-zh-hans-pwa-v165",
     "cachePrefix": "caatuu-zh-hans-pwa-",
     "assets": [
       "/language-runtime/static/source/image-embedding-index.mjs?v=image-index-runtime-1",
@@ -534,7 +534,7 @@
       "url": "/zh/sw.js",
       "browserRequired": true,
       "bytes": 143,
-      "sha256": "660657a6e41b03c2d6774936ed41e21271bb447c547d932f51b255c4f7ef944a"
+      "sha256": "3ae904d92769832f19577ae9e5dedeb541ac997919110584c4fe265dee784bba"
     },
     {
       "key": "shared-course-service-worker",

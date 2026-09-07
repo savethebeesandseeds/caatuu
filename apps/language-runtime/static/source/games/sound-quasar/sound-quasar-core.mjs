@@ -144,7 +144,7 @@ export function validateSoundQuasarCatalog(document, { courseId, targetLanguageI
   }
   const itemIds = new Set();
   function collection(values, label, maxLength) {
-    requireCondition(Array.isArray(values) && values.length >= 4 && values.length <= 500, `${label} must contain 4–500 entries.`);
+    requireCondition(Array.isArray(values) && values.length >= 4, `${label} must contain at least 4 entries.`);
     const sourceIds = new Set();
     const targetWords = new Set();
     return Object.freeze(values.map((value, index) => {

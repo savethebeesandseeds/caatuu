@@ -81,3 +81,23 @@ test("Word World runtime manifest rejects a data-driven remote corpus", () => {
     rmSync(root, { recursive: true, force: true });
   }
 });
+
+test("only declared landing-page course links may wait for final Pages staging", () => {
+  const root = mkdtempSync(join(tmpdir(), "caatuu-static-network-"));
+  const options = { deferredCourseEntries: ["/es/index.html"] };
+  try {
+    writeFileSync(join(root, "index.html"), '<a href="/es/index.html">Spanish</a>');
+    assert.doesNotThrow(() => assertStaticNetworkBoundary(root, ["index.html"], options));
+    assert.throws(() => assertStaticNetworkBoundary(root, ["index.html"]), /missing HTML href/u);
+    writeFileSync(join(root, "index.html"), '<a href="/unknown/index.html">Unknown</a>');
+    assert.throws(() => assertStaticNetworkBoundary(root, ["index.html"], options), /missing HTML href/u);
+    writeFileSync(join(root, "index.html"), '<img src="/es/index.html">');
+    assert.throws(() => assertStaticNetworkBoundary(root, ["index.html"], options), /missing HTML src/u);
+    mkdirSync(join(root, "es"));
+    writeFileSync(join(root, "es/index.html"), "Spanish course");
+    writeFileSync(join(root, "index.html"), '<a href="/es/index.html">Spanish</a>');
+    assert.doesNotThrow(() => assertStaticNetworkBoundary(root, ["index.html"]));
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
