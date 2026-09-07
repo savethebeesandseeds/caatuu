@@ -3,6 +3,11 @@
 Caatuu is pre-release software. A file being buildable or reachable on the
 public server does not make it a production release.
 
+For the maintained Android commands, bounded retries, recovery decisions and
+session-to-session handoff, use
+[`ANDROID_RELEASE_OPERATIONS.md`](ANDROID_RELEASE_OPERATIONS.md). That runbook
+does not waive the channel or physical-device gates below.
+
 Before planning the first invited Android beta or any wider Android release,
 review [`FIRST_ANDROID_RELEASE.md`](FIRST_ANDROID_RELEASE.md) and record its
 maintainer decisions and candidate evidence.

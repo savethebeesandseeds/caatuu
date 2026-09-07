@@ -5,12 +5,27 @@ import test from "node:test";
 const publisher = await readFile(new URL("../publish-release.sh", import.meta.url), "utf8");
 const builder = await readFile(new URL("../build-release-aab.sh", import.meta.url), "utf8");
 
+function assertTimedCommand(source, command) {
+  const operation = source.indexOf(command);
+  assert.ok(operation >= 0, `missing operation: ${command}`);
+  const starts = [...source.slice(0, operation).matchAll(/^\s*start_phase .+$/gmu)];
+  const finishes = [...source.slice(0, operation).matchAll(/^\s*finish_phase\s*$/gmu)];
+  assert.ok(starts.length > 0 && starts.at(-1).index > (finishes.at(-1)?.index ?? -1), `operation must begin inside a timed phase: ${command}`);
+  const remainder = source.slice(operation);
+  const finish = /^\s*finish_phase\s*$/mu.exec(remainder)?.index ?? -1;
+  const nextStart = /^\s*start_phase .+$/mu.exec(remainder)?.index ?? Infinity;
+  assert.ok(finish >= 0 && finish < nextStart, `operation must finish its timed phase: ${command}`);
+}
+
 test("publication can adopt or promote an exact signed candidate without an Android build", () => {
   assert.match(publisher, /--candidate-receipt/u);
   assert.match(publisher, /--adopt-existing/u);
   assert.match(publisher, /--expected-apk-sha256/u);
-  assert.match(publisher, /It never starts an implicit Android build/u);
-  assert.match(publisher, /Finalized Caatuu .* from a sealed candidate; no Gradle build ran/u);
+  const defaultMode = publisher.slice(publisher.indexOf('if [[ -z "$mode" ]]'), publisher.indexOf("\nassert_main_only()"));
+  assert.match(defaultMode, /if \[\[ -f "\$default_candidate_receipt" \]\]/u);
+  assert.match(defaultMode, /mode=receipt/u);
+  assert.match(defaultMode, /exit 2/u);
+  assert.doesNotMatch(defaultMode, /build-release-aab|mode=build-once/u);
 });
 
 test("a new release has one explicit build boundary and no regenerated transition", () => {
@@ -30,19 +45,18 @@ test("build-once reuses a receipt only for the exact clean pushed source and dec
   assert.ok(currentRevision > cleanGuard && currentRevision < receiptGuard);
   assert.match(buildOnce, /\.identity\.version_code/u);
   assert.match(buildOnce, /\.identity\.version_name/u);
-  assert.match(buildOnce, /does not match the Android version declared by current main/u);
+  assert.ok(buildOnce.includes('"$receipt_version_code" == "$candidate_version_code" && "$receipt_version_name" == "$candidate_version_name"'));
   assert.match(publisher, /--expected-source-revision "\$expected_source_revision"/u);
-  const finalization = publisher.slice(publisher.indexOf('start_phase "Finalize local immutable release"'));
+  const finalization = publisher.slice(publisher.indexOf('publication_lock="$repo_root/artifacts/android/.artifact-publication.lock"'));
   assert.ok(finalization.match(/assert_clean_build_source/gu)?.length >= 2);
-  assert.match(finalization, /Current main changed after the build-once source was selected/u);
-  assert.match(finalization, /Current main changed during candidate finalization/u);
+  assert.equal(finalization.split('[[ "$(git -C "$repo_root" rev-parse HEAD)" == "$expected_source_revision" ]] || {').length - 1, 2);
 });
 
 test("publisher preserves detached recovery registrations without building from them", () => {
   assert.ok(publisher.includes('$repo_root" == /workspace'));
   assert.ok(publisher.includes('${worktrees[0]-}" == "$repo_root'));
   assert.match(publisher, /detached_count/u);
-  assert.match(publisher, /Additional worktrees must be detached recovery registrations/u);
+  assert.ok(publisher.includes('[[ "$detached_count" -eq $((${#worktrees[@]} - 1)) ]] || {'));
   assert.doesNotMatch(publisher, /worktree (?:remove|prune|add)/u);
 });
 
@@ -59,7 +73,7 @@ test("the builder reuses a sealed same-source candidate instead of launching Gra
   assert.ok(durableFloorGuard > receiptGuard && durableFloorGuard < gradleInvocation);
   assert.ok(languageCourseValidation > durableFloorGuard && languageCourseValidation < gradleInvocation);
   assert.match(builder, /release-candidate\.mjs" verify/u);
-  assert.match(builder, /no Android build was started/u);
+  assert.match(builder.slice(receiptGuard, durableFloorGuard), /--expected-source-revision "\$source_revision"[\s\S]*exit 0/u);
   assert.match(builder, /release-candidate\.mjs" seal-existing/u);
 });
 
@@ -73,13 +87,12 @@ test("signed and unsigned release builds share one global Gradle-output lock", (
     builder,
     /if \[\[ "\$signed" == true \]\]; then\s*\n\s*for command in git node flock mkdir/u,
   );
-  assert.match(builder, /Signed and unsigned invocations share the same Gradle tree/u);
 });
 
 test("new signed builds capture public native-asset receipts under the lock before Gradle", () => {
   const lock = builder.indexOf('flock -n "$build_lock_fd"');
   const receiptReuse = builder.indexOf('if [[ "$signed" == true && -f "$candidate_receipt" ]]');
-  const inventory = builder.indexOf('start_phase "Capture published native asset inventory"');
+  const inventory = builder.indexOf('inventory_dir="$repo_root/artifacts/android/release-preflight"');
   const gradle = builder.indexOf("gradle --no-daemon");
   assert.ok(lock >= 0 && receiptReuse > lock && inventory > receiptReuse && gradle > inventory);
   assert.match(builder, /export CAATUU_RELEASE_PUBLIC_INVENTORY="\$inventory_file"/u);
@@ -95,7 +108,7 @@ test("the authoritative APK is derived once from the release bundle", () => {
   );
   assert.doesNotMatch(
     builder,
-    /:product:assembleRelease|product\/build\/outputs\/apk\/|product-release(?:-unsigned)?\.apk|source_direct_apk|output_direct_apk|-direct\.apk|direct build; diagnostic only/u,
+    /:product:assembleRelease|product\/build\/outputs\/apk\/|product-release(?:-unsigned)?\.apk|source_direct_apk|output_direct_apk|-direct\.apk/u,
   );
 
   const sourceBundle = builder.indexOf('source_aab="$repo_root/apps/android/product/build/outputs/bundle/release/product-release.aab"');
@@ -141,39 +154,36 @@ test("the authoritative APK is derived once from the release bundle", () => {
 test("meaningful build and validation stages report elapsed time", () => {
   assert.match(builder, /phase_started_at=\$SECONDS/u);
   assert.match(builder, /\$\(\(SECONDS - phase_started_at\)\)/u);
-  for (const phase of [
-    "Validate language courses",
-    "Gradle release bundle",
-    "Validate release bundle",
-    "Create universal APK",
-    "Validate package boundary",
-    "Seal release candidate",
+  for (const command of [
+    'node "$repo_root/tools/language-packs/validate.mjs" --check-views',
+    "gradle --no-daemon",
+    'validate --bundle="$output_aab"',
+    'unzip -q -o "$output_apks" universal.apk',
+    'node "$repo_root/apps/android/tooling/validate-product-package.mjs"',
+    'release-candidate.mjs" seal-existing',
   ]) {
-    assert.ok(builder.includes(`start_phase "${phase}"`), `missing timed phase: ${phase}`);
+    assertTimedCommand(builder, command);
   }
 });
 
 test("the canonical publisher reports source, build, verification, finalization, and total time", () => {
   assert.match(publisher, /pipeline_started_at=\$SECONDS/u);
   assert.match(publisher, /\$\(\(SECONDS - phase_started_at\)\)/u);
-  for (const phase of [
-    "Validate release source",
-    "Build one signed release candidate",
-    "Adopt existing signed candidate",
-    "Verify sealed release candidate",
-    "Finalize local immutable release",
+  for (const command of [
+    'node "$repo_root/tools/language-content/validate.mjs" --release',
+    'bash "$repo_root/apps/android/tooling/build-release-aab.sh"',
+    'validate_and_read_existing_candidate "$source_apk" "$source_aab"',
+    'cp "$candidate_receipt" "$staged_receipt"',
+    'flock -n "$publication_lock_fd"',
   ]) {
-    assert.ok(publisher.includes(`start_phase "${phase}"`), `missing timed publisher phase: ${phase}`);
+    assertTimedCommand(publisher, command);
   }
-  assert.match(publisher, /Local release pipeline completed in %ss/u);
-  assert.match(publisher, /Built once and finalized Caatuu/u);
-  assert.match(publisher, /Reused the exact current-source candidate/u);
-  assert.doesNotMatch(publisher, /Finalized existing Caatuu .* without rebuilding it/u);
+  assert.match(publisher, /printf[^\n]+"\$\(\(SECONDS - pipeline_started_at\)\)"/u);
 });
 
 test("release preflight checks cheap Android safety contracts without rebuilding product or website fixtures", () => {
-  const sourceValidation = publisher.indexOf('start_phase "Validate release source"');
-  const signedBuild = publisher.indexOf('start_phase "Build one signed release candidate"');
+  const sourceValidation = publisher.indexOf('node "$repo_root/tools/language-content/validate.mjs" --release');
+  const signedBuild = publisher.indexOf('bash "$repo_root/apps/android/tooling/build-release-aab.sh"');
   const preflightSource = publisher.slice(sourceValidation, signedBuild);
   assert.match(preflightSource, /tools\/language-content\/validate\.mjs" --release/u);
   for (const contract of ["android-artifact-contract", "product-package-contract", "product-interface-catalog", "product-index-transform", "publisher-build-once-contract"]) {
@@ -187,12 +197,12 @@ test("release preflight checks cheap Android safety contracts without rebuilding
 });
 
 test("a newly sealed signed candidate must come from clean pushed main", () => {
-  const cleanGuard = builder.indexOf("A signed release candidate requires a clean canonical worktree");
-  const pushedGuard = builder.indexOf("Push main before building a signed release candidate");
+  const cleanGuard = builder.indexOf('[[ -z "$(git -C "$repo_root" status --porcelain=v1 --untracked-files=all)" ]] || {');
+  const pushedGuard = builder.indexOf('[[ "$source_revision" == "$(git -C "$repo_root" rev-parse --verify refs/remotes/origin/main)" ]] || {');
   const gradleInvocation = builder.indexOf("gradle --no-daemon");
   assert.ok(cleanGuard >= 0 && cleanGuard < gradleInvocation);
   assert.ok(pushedGuard >= 0 && pushedGuard < gradleInvocation);
-  const postBuildGuard = builder.indexOf("changed while the signed candidate was building");
+  const postBuildGuard = builder.indexOf('[[ "$current_source_revision" == "$source_revision" && "$current_origin_revision" == "$source_revision" ]] || {');
   const receiptSeal = builder.lastIndexOf("release-candidate.mjs\" seal-existing");
   assert.ok(postBuildGuard > gradleInvocation && postBuildGuard < receiptSeal);
 });
@@ -206,9 +216,22 @@ test("publication snapshots verified candidate bytes and never installs from mut
   assert.doesNotMatch(publisher.slice(immutableInstall), /cp "\$candidate_receipt"/u);
   assert.match(publisher, /release-publication-state\.mjs" assert-alias-update/u);
   assert.match(publisher, /--durable-floor/u);
-  assert.match(publisher, /Stable Android releases must use exactly/u);
+  assert.ok(publisher.includes('[[ "$public_base_url" == "$canonical_public_base_url" ]] || {'));
   const manifestInstall = publisher.indexOf('mv "$install_manifest_tmp" "$versioned_manifest"');
   const receiptInstall = publisher.indexOf('mv "$install_receipt_tmp" "$versioned_receipt"');
   assert.ok(manifestInstall >= 0 && manifestInstall < receiptInstall);
-  assert.match(publisher, /Install the receipt only after the APK and manifest/u);
+});
+
+test("only a fresh successful builder invocation can reuse its full package audit", () => {
+  const capture = builder.indexOf('release-candidate.mjs" capture-audit-input');
+  const fullAudit = builder.indexOf('node "$repo_root/apps/android/tooling/validate-product-package.mjs"');
+  const seal = builder.lastIndexOf('release-candidate.mjs" seal-existing');
+  const proof = builder.indexOf('release-candidate.mjs" emit-audit-proof');
+  assert.ok(capture > 0 && capture < fullAudit && fullAudit < seal && seal < proof);
+  assert.match(publisher, /randomBytes\(32\)/u);
+  assert.match(publisher, /trap cleanup_invocation_audit EXIT/u);
+  assert.match(publisher, /verify-audit-proof/u);
+  const adoption = publisher.slice(publisher.indexOf('if [[ "$mode" == "adopt-existing" ]]'), publisher.indexOf('[[ "$mode" == "receipt"'));
+  assert.match(adoption, /validate_and_read_existing_candidate "\$source_apk" "\$source_aab"/u);
+  assert.doesNotMatch(adoption, /invocation_audit|emit-audit-proof/u);
 });

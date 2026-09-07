@@ -106,6 +106,13 @@ jobs:
               node --test "${tests[@]}"
             '
 
+      - name: Exercise Android release failure and resume behavior without publication
+        if: needs.changes.outputs.browser == 'true'
+        shell: pwsh
+        run: |
+          ./apps/android/tooling/tests/release-orchestration.test.ps1
+          ./apps/android/tooling/tests/release-network-retry.test.ps1
+
       - name: Validate language content and deterministic Word World projections
         if: needs.changes.outputs.language == 'true'
         run: |

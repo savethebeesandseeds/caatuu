@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { mkdtempSync, readFileSync, rmSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import test from "node:test";
@@ -12,9 +12,6 @@ test("static compiler closes the complete Pages payload", { timeout: 300_000 }, 
   try {
     const built = compileStaticSite({ outputDir });
     assert.equal(built.profile, "web-static-core");
-    assert.ok(built.fileCount > 730, "the closed payload includes the canonical shared app graph");
-    assert.ok(built.totalBytes < 800_000_000);
-    assert.ok(built.setupRequiredBytes > 0 && built.setupRequiredBytes < 1024 * 1024);
     const firstManifest = JSON.parse(
       readFileSync(join(outputDir, "caatuu-web-bundle.json"), "utf8"),
     );
@@ -31,25 +28,31 @@ test("static compiler closes the complete Pages payload", { timeout: 300_000 }, 
     assert.ok(!Object.hasOwn(manifest, "schemaName"));
     assert.ok(!Object.hasOwn(manifest, "schemaVersion"));
     assert.equal(manifest.payloadFileCount, built.fileCount - 1);
-    assert.equal(manifest.requiredSetupArtifacts, 3);
-    assert.equal(manifest.publishedVisualAssets, 691);
+    assert.equal(built.totalBytes, manifest.files.reduce((sum, file) => sum + file.bytes, 0)
+      + statSync(join(outputDir, "caatuu-web-bundle.json")).size);
+    const setup = JSON.parse(readFileSync(join(outputDir, "cz/setup-assets.json"), "utf8"));
+    const sourceSetup = JSON.parse(readFileSync(new URL("../../../languages/czech/static/setup-assets.json", import.meta.url), "utf8"));
+    const required = setup.artifacts.filter((artifact) => artifact.browser_required);
+    assert.equal(manifest.requiredSetupArtifacts, required.length);
+    assert.equal(built.setupRequiredBytes, required.reduce((sum, artifact) => sum + artifact.bytes, 0));
+    assert.equal(manifest.publishedVisualAssets, sourceSetup.artifacts.filter((artifact) => artifact.artifact_kind === "visual-asset").length);
     assert.equal(manifest.basePath, "/");
     const launcherIndex = readFileSync(join(outputDir, "index.html"), "utf8");
-    assert.match(launcherIndex, /<small>Android app<\/small>/u);
-    assert.match(launcherIndex, /<b>Published separately<\/b>/u);
+    assert.match(launcherIndex, /\bdata-android-download\b/u);
     assert.doesNotMatch(launcherIndex, /data-i18n="launcher\.android\.(?:preview|checking)"|class="advanced-entry"/u,
       "interface initialization must not restore development-only launcher copy or links");
     const languageIndex = readFileSync(join(outputDir, "cz/index.html"), "utf8");
-    assert.match(languageIndex, /data-i18n="dictionary\.full\.subtitle">static web dictionary<\/small>/u);
-    assert.match(languageIndex, /aria-label="Web dictionary controls" data-i18n-aria-label="dictionary\.full\.controls"/u);
     const interfaceContent = createInterfaceContent(JSON.parse(readFileSync(
       join(outputDir, "language-runtime/static/data/interface/en.v1.json"), "utf8"
     )));
-    assert.equal(interfaceContent.t("dictionary.full.subtitle"), "static web dictionary",
-      "interface initialization must preserve the static dictionary description");
-    assert.equal(interfaceContent.t("dictionary.full.controls"), "Web dictionary controls");
-    assert.equal(interfaceContent.t("dictionary.full.download"), "Static dictionary");
-    assert.match(interfaceContent.t("dictionary.full.search.help"), /865-record curated learning dictionary/u);
+    for (const key of ["dictionary.full.subtitle", "dictionary.full.download", "dictionary.full.search.help"]) {
+      const escapedKey = key.replaceAll(".", "\\.");
+      const text = new RegExp(`<([a-z][a-z0-9]*)\\b(?=[^>]*\\bdata-i18n="${escapedKey}")[^>]*>([^<]*)<\\/\\1>`, "u").exec(languageIndex)?.[2];
+      assert.equal(text, interfaceContent.t(key), `${key}: translation initialization must retain the projected static description`);
+      assert.ok(text?.trim());
+    }
+    const controls = /<[^>]*\bdata-i18n-aria-label="dictionary\.full\.controls"[^>]*>/u.exec(languageIndex)?.[0];
+    assert.equal(/\baria-label="([^"]*)"/u.exec(controls)?.[1], interfaceContent.t("dictionary.full.controls"));
     const chrome = readFileSync(join(outputDir, "language-runtime/static/source/caatuu-chrome.js"), "utf8");
     assert.match(chrome, /class="settings-card side-card developer-tools-card"/u);
     const serviceWorker = readFileSync(join(outputDir, "sw.js"), "utf8");

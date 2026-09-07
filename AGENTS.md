@@ -66,6 +66,10 @@
 
 ## Android release publication practices
 
+- Read `docs/ANDROID_RELEASE_OPERATIONS.md` before release or deployment repair.
+  It owns the operation/resume decision table, test policy, incident handoff,
+  and publication/CI/device status distinctions. Keep it and the adjacent
+  tooling README current when the maintained workflow changes.
 - Prefer the one-command routine release entrypoint:
   `pwsh -NoProfile -File apps/android/tooling/release-android.ps1`.
   It invokes the guarded build stage only when the version has no finalized
@@ -107,3 +111,12 @@
   explicit request for deeper release validation.
 - Keep version monotonicity, immutable release paths, certificate pinning, and
   the publisher's built-in safeguards intact.
+- Release tests must protect behavior and integrity, not incidental English UI
+  copy, current artwork names, or live catalog counts/revisions. Derive changing
+  expectations from authoritative catalogs; keep immutable historical pins and
+  real capability/security assertions. Do not fix this class of failure by
+  updating one hard-coded interface phrase to another.
+- For orchestration changes, run the native PowerShell failure/resume and
+  network-reconciliation suites plus the focused Node contracts in the runbook.
+  They simulate failures without an APK build or publication. Do not rebuild a
+  published APK merely to validate release-tool or documentation changes.

@@ -1,6 +1,6 @@
 # Caatuu deployment standard
 
-Last reviewed: 1 August 2026
+Last reviewed: 7 September 2026 (Android publication operations)
 
 This document defines provider-neutral operational requirements for deploying
 Caatuu. [`ARCHITECTURE.md`](ARCHITECTURE.md) owns component and route
@@ -59,10 +59,23 @@ Static delivery, update delivery, and any optional dynamic service must be
 independently replaceable. Failure of an optional API must not remove already
 published installers or static learning content.
 
-## Current migration direction
+## Implemented Android publication path
 
-The first migration should separate delivery planes rather than move the whole
-development Compose stack unchanged:
+The current Android path builds and seals a candidate once, then deploys only
+the receipt's verified bytes. An Android-only Pages deployment restores the
+published website snapshot and current immutable inventory rather than
+recompiling website sources. Explicit website publication remains a separate
+scope of the same workflow. The operational source of truth is
+[`ANDROID_RELEASE_OPERATIONS.md`](ANDROID_RELEASE_OPERATIONS.md), including
+bounded network recovery, executable failure/resume tests and the incident
+handoff process. These component-level safeguards do not claim completion of
+the provider-neutral release ledger or readiness requirements below.
+
+## Original migration direction (August 2026 baseline)
+
+The original migration plan separated delivery planes rather than moving the
+whole development Compose stack unchanged. The facts in this table describe
+that baseline, not today's Android/static publication architecture:
 
 | Plane | Current fact | Clean target |
 | --- | --- | --- |

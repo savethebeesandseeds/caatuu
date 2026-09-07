@@ -11,6 +11,7 @@ import {
   openSync,
   readFileSync,
   readSync,
+  realpathSync,
   rmSync,
   writeFileSync,
 } from "node:fs";
@@ -196,6 +197,88 @@ function readReceiptFile(repoRoot, receiptPath) {
   return { receipt: JSON.parse(readFileSync(receiptFile.absolute, "utf8")), absolute: receiptFile.absolute };
 }
 
+function assertCleanAuditSource(repoRoot, sourceRevision) {
+  const git = (...args) => {
+    const result = spawnSync("git", ["-C", resolve(repoRoot), ...args], { encoding: "utf8", windowsHide: true });
+    assert.equal(result.status, 0, "Could not verify the package audit source");
+    return result.stdout.trim();
+  };
+  assert.equal(git("rev-parse", "HEAD"), sourceRevision, "Package audit source revision changed");
+  assert.equal(git("status", "--porcelain=v1", "--untracked-files=all"), "", "Package audit source is no longer clean");
+}
+
+function auditContext({ repoRoot, sourceRevision, apkanalyzer, unzip, verifySource = assertCleanAuditSource }) {
+  assertRevision(sourceRevision);
+  verifySource(repoRoot, sourceRevision);
+  const tool = (path) => {
+    const resolved = realpathSync(path);
+    assert.ok(lstatSync(resolved).isFile(), `Package audit tool is not a file: ${path}`);
+    return { path: resolved, sha256: sha256File(resolved) };
+  };
+  // Clean exact-source identity covers the validator's tracked imports and
+  // catalogs too; an edited dependency cannot reuse an earlier audit.
+  return {
+    source_revision: sourceRevision,
+    validator_sha256: sha256File(resolve(repoRoot, "apps/android/tooling/validate-product-package.mjs")),
+    receipt_helper_sha256: sha256File(resolve(repoRoot, "apps/android/tooling/release-candidate.mjs")),
+    node_version: process.version,
+    apkanalyzer: tool(apkanalyzer),
+    unzip: tool(unzip),
+  };
+}
+
+/** Capture BEFORE the full audit; this is not evidence that an audit passed. */
+export function capturePackageAuditInput({ repoRoot = defaultRepoRoot, apk, aab, ...context }) {
+  return {
+    schema_name: "caatuu-package-audit-input",
+    schema_version: 1,
+    context: auditContext({ repoRoot, ...context }),
+    artifacts: { apk: artifactRecord(repoRoot, apk, "APK"), aab: artifactRecord(repoRoot, aab, "AAB") },
+  };
+}
+
+/** Called only after the builder's full audit and receipt seal both succeed. */
+export function createInvocationAuditProof({ repoRoot = defaultRepoRoot, receiptPath, auditInput, challenge, verifyCommit = defaultCommitVerifier, ...context }) {
+  assertHash(challenge, "Fresh publication challenge");
+  assert.equal(auditInput?.schema_name, "caatuu-package-audit-input");
+  assert.equal(auditInput.schema_version, 1);
+  const stored = readReceiptFile(repoRoot, receiptPath);
+  const receipt = verifyCandidateReceipt({ repoRoot, receipt: stored.receipt, verifyCommit });
+  assert.equal(receipt.mode, "builder-emitted", "Adopted candidates require a full publication audit");
+  assert.deepEqual(auditInput.artifacts, receipt.artifacts, "Candidate artifacts changed between package audit and sealing");
+  assert.deepEqual(auditInput.context, auditContext({ repoRoot, sourceRevision: receipt.source_revision, ...context }), "Package audit verifier changed during the build");
+  return {
+    schema_name: "caatuu-invocation-package-audit",
+    schema_version: 1,
+    challenge,
+    receipt_sha256: sha256File(stored.absolute),
+    context: auditInput.context,
+    artifacts: auditInput.artifacts,
+  };
+}
+
+/** A receipt alone, or proof from another invocation, can never skip an audit. */
+export function verifyInvocationAuditProof({ repoRoot = defaultRepoRoot, proofPath, receiptPath, apk, aab, challenge, ...context }) {
+  assertHash(challenge, "Fresh publication challenge");
+  const proofFile = regularArtifact(repoRoot, isAbsolute(proofPath) ? slashPath(relative(repoRoot, proofPath)) : proofPath, "Invocation audit proof");
+  const proof = JSON.parse(readFileSync(proofFile.absolute, "utf8"));
+  assert.equal(proof.schema_name, "caatuu-invocation-package-audit");
+  assert.equal(proof.schema_version, 1);
+  assert.equal(proof.challenge, challenge, "Package audit proof belongs to another invocation");
+  const stored = readReceiptFile(repoRoot, receiptPath);
+  const receipt = validateReceiptShape(stored.receipt);
+  assert.equal(receipt.mode, "builder-emitted", "Adopted candidates require a full publication audit");
+  assert.equal(proof.receipt_sha256, sha256File(stored.absolute), "Package audit proof names a different sealed receipt");
+  assert.deepEqual(proof.artifacts, receipt.artifacts, "Package audit proof names different artifacts");
+  assert.deepEqual(proof.context, auditContext({ repoRoot, sourceRevision: receipt.source_revision, ...context }), "Package audit verifier changed since validation");
+  for (const [kind, path] of [["apk", apk], ["aab", aab]]) {
+    const actual = artifactRecord(repoRoot, isAbsolute(path) ? slashPath(relative(repoRoot, path)) : path, kind.toUpperCase());
+    assert.equal(actual.bytes, proof.artifacts[kind].bytes, `Audited ${kind.toUpperCase()} byte count changed`);
+    assert.equal(actual.sha256, proof.artifacts[kind].sha256, `Audited ${kind.toUpperCase()} hash changed`);
+  }
+  return { reused: true, source_revision: receipt.source_revision };
+}
+
 export function verifyCandidateReceipt({
   repoRoot = defaultRepoRoot,
   receipt,
@@ -302,8 +385,20 @@ async function main(argv) {
       expectedApkSha256: options.expected_apk_sha256?.toLowerCase(),
       expectedSourceRevision: options.expected_source_revision?.toLowerCase(),
     });
+  } else if (["capture-audit-input", "emit-audit-proof", "verify-audit-proof"].includes(command)) {
+    const context = { repoRoot, apkanalyzer: required(options, "apkanalyzer"), unzip: required(options, "unzip") };
+    if (command === "capture-audit-input") receipt = capturePackageAuditInput({
+      ...context, apk: required(options, "apk"), aab: required(options, "aab"), sourceRevision: required(options, "source_revision"),
+    });
+    else if (command === "emit-audit-proof") receipt = createInvocationAuditProof({
+      ...context, receiptPath: required(options, "receipt"), challenge: required(options, "challenge"), auditInput: JSON.parse(required(options, "audit_input")),
+    });
+    else receipt = verifyInvocationAuditProof({
+      ...context, proofPath: required(options, "proof"), receiptPath: required(options, "receipt"), challenge: required(options, "challenge"),
+      apk: required(options, "apk"), aab: required(options, "aab"),
+    });
   } else {
-    throw new Error("Usage: release-candidate.mjs seal-existing|verify [options]");
+    throw new Error("Usage: release-candidate.mjs seal-existing|verify|capture-audit-input|emit-audit-proof|verify-audit-proof [options]");
   }
   process.stdout.write(`${JSON.stringify(receipt, null, 2)}\n`);
 }

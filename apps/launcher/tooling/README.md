@@ -113,6 +113,13 @@ the stricter default and fail when those local runtime files are absent.
 
 ## Hosting boundary
 
+For APK publication and retries, use the
+[Android release operations runbook](../../../docs/ANDROID_RELEASE_OPERATIONS.md).
+The existing Pages workflow's default Android scope preserves the published
+website bytes; it does not run the website compiler. Changing website sources
+requires explicit `deployment_scope=website`. A complete Pages artifact upload
+is transport, not a reason to recompile the website for every APK.
+
 The Pages sentence-report copy is projected at the shared interface-key call,
 not by replacing an English literal inside JavaScript. The existing Czech-only
 reporting scope stays intact, and other courses retain their localized

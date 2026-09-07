@@ -2,8 +2,9 @@
 
 This folder keeps the Android build environment out of Windows. Repeat
 publishes use the reusable `caatuu-dev` container and shared Docker volumes for
-downloaded tools. A temporary Debian container remains available only as a
-bootstrap or recovery path. Both mount the checkout at `/workspace`.
+downloaded tools, with the canonical checkout mounted at `/workspace`. Legacy
+bootstrap helpers are not alternate release environments; creating a replacement
+container requires explicit authorization under the repository safety policy.
 
 Android has two deliberate distributions. The full development
 application includes the Czech WebView UI and native llama.cpp bridge for the
@@ -65,7 +66,7 @@ applying Caatuu's tracked Android overlay. The fallback Temurin JDK download is
 accepted only when its upstream SHA-256 sidecar is available, well formed, and
 matches the archive; checksum failures stop the build before extraction.
 
-Setup asset metadata is reproducible as well. Every Gradle build runs
+Setup asset metadata is reproducible as well. The full development module runs
 `refreshSetupAssetManifest` before copying browser files into the APK. The task
 recalculates every artifact byte count and SHA-256 in
 `apps/languages/czech/static/setup-assets.json` from the authoritative shared and
@@ -77,10 +78,18 @@ stops the build. To inspect drift without writing the manifest, run inside
 node apps/server/tooling/refresh-setup-assets.mjs --check
 ```
 
-The build task intentionally updates the tracked manifest when an asset was
-edited, so include that generated metadata with the corresponding asset change.
+That development task updates the tracked manifest when an asset was edited,
+so include the generated metadata with the corresponding asset change. The
+public `product` compiler instead validates its declared sources and writes
+packaged setup projections into build output; routine deployment does not
+refresh tracked source manifests.
 
 ## Canonical release workflow
+
+Read the [Android release operations runbook](../../../docs/ANDROID_RELEASE_OPERATIONS.md)
+for source checks, the recovery decision table, executable failure tests and
+the incident handoff standard. This README owns implementation details; the
+runbook owns the operator procedure.
 
 A release has two separate operations: build and locally finalize one signed
 candidate, then deploy those exact bytes. Routine Android deployment rebuilds
@@ -113,6 +122,12 @@ Before signing, the publisher runs focused Android safety contracts and the
 content release validator. Full fixture builds and website export tests belong
 to source CI, not every APK publication. The real asset compiler and final
 archive audit still enforce package capabilities and source/asset integrity.
+The publisher can reuse a fresh builder's full archive audit only within the
+same invocation, using a private challenge bound to pre-audit APK/AAB hashes,
+the sealed receipt, clean source revision and verifier/launcher identities.
+It still checks copied hashes, package/version/debug state and the signing pin.
+Missing or stale proof, changed inputs and adopted candidates retain the full
+audit path; receipts are not a permanent validation cache.
 Interface words, catalog revision literals, corpus counts and particular artwork
 filenames are not release requirements: tests derive changing metadata from the
 authoritative catalogs, and forbidden features are checked structurally.
@@ -177,6 +192,12 @@ Android manifests, retained downloads and exact stable APK bytes. Browser
 interface schemas and reporting-service health do not gate an Android update.
 It never invokes the builder, Gradle, or the website compiler. Rerun this command
 after an interrupted upload or deployment; do not rerun `--build-once`.
+Short allowlisted network reads have three attempts at most, a 60-second
+per-attempt limit and 2/4-second backoff. Permanent/authentication/certificate
+errors stop. Uploads, finalization and dispatch are never blindly repeated:
+uncertain responses require exact server-state reconciliation. The native
+PowerShell failure/resume and retry suites run in source CI without real
+builds or publication; commands and coverage are in the runbook.
 The compatibility transition remains the frozen version 161 artifact; never
 build a new transition for each stable release.
 
@@ -219,6 +240,12 @@ or mismatched, stop and recover the original key. Generating a replacement
 would break updates for existing installations.
 
 ## Bootstrap/fallback debug build
+
+This legacy bootstrap section is for a separately authorized development
+environment only. Its disposable-container command is not the routine build,
+publication or release-recovery path. Reuse `caatuu-dev` for this repository;
+do not create a replacement container without the explicit authorization and
+configuration checks required by `AGENTS.md`.
 
 From PowerShell:
 

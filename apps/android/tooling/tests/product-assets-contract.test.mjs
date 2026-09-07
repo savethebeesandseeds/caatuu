@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
-import { mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, statSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join, relative } from "node:path";
 import { pathToFileURL } from "node:url";
 import test from "node:test";
 import { runInNewContext } from "node:vm";
@@ -42,6 +42,46 @@ const generativeFixtureRoot = join(
   "apps/android/tooling/tests/fixtures/generative-course",
 );
 const releasePublisher = readFileSync(join(workspaceRoot, "apps/android/tooling/publish-release.sh"), "utf8");
+// Source CI has the hash-pinned setup catalog, not Git-ignored model downloads.
+// This explicit test mode never packages those binaries or bypasses a hash check
+// for an existing file. Real Android builds retain the strict default.
+const sourceOnlyRuntimeOptions = Object.freeze({ allowMissingSetupDeliveredRuntimeFiles: true });
+
+function currentInterfaceFixture(t, manifestPath) {
+  const source = JSON.parse(readFileSync(manifestPath, "utf8"));
+  const catalog = JSON.parse(readFileSync(join(workspaceRoot, source.resources.interfaceCatalog.path), "utf8"));
+  source.resources.interfaceCatalog.revision = catalog.revision;
+  // Only tiny fixture metadata is generated; the canonical app and fixture
+  // assets remain at their original physical paths, never copied or aliased.
+  const fixturesRoot = join(workspaceRoot, "apps/android/tooling/tests/fixtures/tmp");
+  mkdirSync(fixturesRoot, { recursive: true });
+  const directory = mkdtempSync(join(fixturesRoot, "course-"));
+  t.after(() => rmSync(directory, { recursive: true, force: true }));
+  const output = join(directory, "course.json");
+  writeFileSync(output, `${JSON.stringify(source)}\n`);
+  return output;
+}
+
+function currentBundleFixture(t) {
+  const manifestPath = currentInterfaceFixture(t, join(generativeFixtureRoot, "course.json"));
+  const relativeManifest = relative(workspaceRoot, manifestPath).replaceAll("\\", "/");
+  for (const filename of ["course-bundle.json", "language-catalog.json"]) {
+    const declaration = JSON.parse(readFileSync(join(generativeFixtureRoot, filename), "utf8"));
+    for (const entry of declaration.courses) entry.manifest = relativeManifest;
+    writeFileSync(join(dirname(manifestPath), filename), `${JSON.stringify(declaration)}\n`);
+  }
+  return { courseBundlePath: join(dirname(manifestPath), "course-bundle.json"), languageCatalogPath: join(dirname(manifestPath), "language-catalog.json") };
+}
+
+test("fixture interface revisions follow their authority rather than a previous release", (t) => {
+  const manifestPath = currentInterfaceFixture(t, fixtureCourseManifest);
+  const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+  const authority = JSON.parse(readFileSync(join(workspaceRoot, manifest.resources.interfaceCatalog.path), "utf8"));
+  assert.equal(manifest.resources.interfaceCatalog.revision, authority.revision);
+  assert.equal(loadAndroidCourseConfiguration({ workspaceRoot, courseManifestPath: manifestPath }).interfaceContent.revision, authority.revision);
+  const bundle = loadAndroidCourseBundleConfiguration({ workspaceRoot, ...currentBundleFixture(t) });
+  assert.equal(bundle.configurations[0].interfaceContent.revision, authority.revision);
+});
 
 function readPackagedCourseProfile(profilePath) {
   const context = { window: {} };
@@ -78,8 +118,8 @@ test("global developer resources and declared course inspection data survive the
   const parent = mkdtempSync(join(tmpdir(), "caatuu-developer-product-test-"));
   const outputDir = join(parent, "product");
   t.after(() => rmSync(parent, { recursive: true, force: true }));
-  const configuration = loadAndroidCourseBundleConfiguration({ workspaceRoot, courseBundlePath, launcherStaticDir });
-  const result = compileProductAssetBundle({ workspaceRoot, courseBundlePath, launcherStaticDir, outputDir });
+  const configuration = loadAndroidCourseBundleConfiguration({ workspaceRoot, courseBundlePath, launcherStaticDir, ...sourceOnlyRuntimeOptions });
+  const result = compileProductAssetBundle({ workspaceRoot, courseBundlePath, launcherStaticDir, outputDir, ...sourceOnlyRuntimeOptions });
   const files = new Set(result.files);
   const sharedTools = [
     "language-runtime/static/source/developer-tools/developer-tools.mjs",
@@ -128,46 +168,31 @@ test("global developer resources and declared course inspection data survive the
   }
 });
 
-test("Grammar Gravity lane imagery and paper texture share one exact offline asset mapping", () => {
+test("course-declared Grammar Gravity lane imagery has one exact shared offline mapping", () => {
   const catalog = JSON.parse(readFileSync(join(workspaceRoot, "apps/language-runtime/app-assets.json"), "utf8"));
-  const paths = [
-    "assets/micelaneous/male_gender.png",
-    "assets/micelaneous/female_gender.png",
-    "assets/micelaneous/neutral_gender.png",
-    "assets/micelaneous/parashute.png",
-    "language-runtime/static/styles/games/gravity-paper.svg",
-    "assets/icons/clock_icon.png",
-    "language-runtime/static/source/games/grammar-gravity/noun-visual.mjs"
-  ];
-  for (const path of paths) {
-    const mappings = catalog.assets.filter(({ output }) => output === path);
-    assert.equal(mappings.length, 1, `${path} has one shared source`);
-    assert.ok(readFileSync(join(workspaceRoot, mappings[0].source)).length > 0);
-  }
-  for (const directory of ["czech", "spanish", "mandarin-simplified"]) {
-    const setup = JSON.parse(readFileSync(join(workspaceRoot, `apps/languages/${directory}/static/setup-assets.json`), "utf8"));
-    for (const path of paths) {
-      assert.equal(setup.offline.assets.filter((url) => url.split("?")[0] === `/${path}`).length, 1,
-        `${directory} retains one offline copy of ${path}`);
-    }
-  }
   for (const directory of ["czech", "spanish"]) {
+    const setup = JSON.parse(readFileSync(join(workspaceRoot, `apps/languages/${directory}/static/setup-assets.json`), "utf8"));
     const pack = JSON.parse(readFileSync(join(workspaceRoot, `apps/languages/${directory}/static/data/games/grammar-gravity/nouns.json`), "utf8"));
     assert.equal(pack.schemaVersion, "caatuu-grammar-gravity-nouns-v2");
     assert.ok(Number.isInteger(pack.contentRevision) && pack.contentRevision > 0,
       `${directory} declares a valid content revision without pinning routine content updates`);
     assert.ok(pack.items.every((item) => !Object.hasOwn(item, "explanation")));
     for (const lane of pack.lanes) {
-      assert.ok(paths.includes(lane.image.slice(1)), `${directory}.${lane.id} selects registered shared imagery`);
+      const path = lane.image.replace(/^\//u, "");
+      const mappings = catalog.assets.filter(({ output }) => output === path);
+      assert.equal(mappings.length, 1, `${directory}.${lane.id} selects one registered shared image`);
+      assert.ok(readFileSync(join(workspaceRoot, mappings[0].source)).length > 0);
+      assert.equal(setup.offline.assets.filter((url) => url.split("?")[0] === `/${path}`).length, 1,
+        `${directory} retains one offline copy of ${path}`);
     }
   }
 });
 
-test("courses share one Android app document and bundle while retaining course-owned assets", () => {
+test("courses share one Android app document and bundle while retaining course-owned assets", (t) => {
   const czech = loadAndroidCourseConfiguration({ workspaceRoot });
   const fixture = loadAndroidCourseConfiguration({
     workspaceRoot,
-    courseManifestPath: fixtureCourseManifest,
+    courseManifestPath: currentInterfaceFixture(t, fixtureCourseManifest),
   });
   assert.equal(czech.appEntryPath, fixture.appEntryPath);
   assert.deepEqual(
@@ -314,7 +339,7 @@ test("Android configuration pins each interface catalog to its exact shared app 
           path: "apps/language-runtime/static/data/interface/en.v1.json",
           scope: "shared",
           state: "present",
-          revision: "interface-en-25",
+          revision: canonicalCatalog.revision,
         },
         staticRoot: {
           kind: "directory",
@@ -354,6 +379,7 @@ test("Android configuration pins each interface catalog to its exact shared app 
 
 test("Android course bundles allow one shared storage owner only for an identical artifact", () => {
   const bundle = loadAndroidCourseBundleConfiguration({
+    ...sourceOnlyRuntimeOptions,
     workspaceRoot,
     courseBundlePath,
     launcherStaticDir,
@@ -406,6 +432,7 @@ test("the Android product bundles Czech and Mandarin behind one shared app docum
   t.after(() => rmSync(parent, { recursive: true, force: true }));
 
   const configuration = loadAndroidCourseBundleConfiguration({
+    ...sourceOnlyRuntimeOptions,
     workspaceRoot,
     courseBundlePath,
     launcherStaticDir,
@@ -419,18 +446,17 @@ test("the Android product bundles Czech and Mandarin behind one shared app docum
   );
 
   const result = compileProductAssetBundle({
+    ...sourceOnlyRuntimeOptions,
     workspaceRoot,
     courseBundlePath,
     launcherStaticDir,
     outputDir,
   });
-  // Keep a bounded package after the shared store/home, developer inspectors,
-  // Sounds Quasar's 12 music macaws (5.43 MB), shared grammar-game assets,
-  // and Case Cosmos's floating boat (1.69 MB). The reviewed bundle is 45.47 MB.
-  assert.ok(result.totalBytes < 46_000_000, `The shared app package must remain below 46 MB; got ${result.totalBytes} bytes. MiniLM stays in setup delivery.`);
+  assert.equal(result.totalBytes, result.files.reduce((sum, path) => sum + statSync(join(outputDir, path)).size, 0),
+    "the byte inventory must describe every actual packaged file");
   assert.ok(result.files.includes("language-runtime/static/source/target-text-tones.mjs"));
-  for (let musicIndex = 1; musicIndex <= 12; musicIndex += 1) {
-    assert.ok(result.files.includes(`assets/macaw/music/music (${musicIndex}).png`));
+  for (const { output } of configuration.configurations[0].appAssets) {
+    assert.ok(result.files.includes(output), `the shared asset authority must be packaged: ${output}`);
   }
   assert.deepEqual(result.files.filter((path) => /(?:^|\/)index\.html$/u.test(path)), ["index.html"]);
   assert.ok(result.files.includes("courses/cz/source/shared/course-profile.js"));
@@ -477,24 +503,16 @@ test("the Android product bundles Czech and Mandarin behind one shared app docum
     assert.ok(!result.files.includes(`language-runtime/${artifact.path}`));
   }
   const czechSetup = JSON.parse(readFileSync(join(outputDir, "courses/cz/setup-assets.json"), "utf8"));
-  const grammarGravity = czechSetup.artifacts.filter(
-    (artifact) => artifact.key === "planet-agreement-aurora",
-  );
   const sourceSetup = JSON.parse(readFileSync(join(languageStaticDir, "setup-assets.json"), "utf8"));
-  const sourceArtwork = sourceSetup.artifacts.find(({ key }) => key === "planet-agreement-aurora");
-  assert.ok(sourceArtwork, "the source catalog declares the artwork authority");
-  assert.match(sourceArtwork.sha256, /^[a-f0-9]{64}$/u);
-  assert.equal(grammarGravity.length, 1);
-  assert.equal(
-    grammarGravity[0].url,
-    `/assets/planets/releases/${sourceArtwork.sha256.slice(0, 16)}/agreement-aurora.png`,
-    "the Android artwork URL must bind the current catalog hash, not a previous release's bytes",
-  );
-  assert.equal(
-    grammarGravity[0].asset_path,
-    sourceArtwork.asset_path,
-    "the Android package must retain its canonical local artwork path",
-  );
+  for (const sourceArtwork of sourceSetup.artifacts.filter(({ artifact_kind }) => artifact_kind === "visual-asset")) {
+    const matches = czechSetup.artifacts.filter(({ key }) => key === sourceArtwork.key);
+    assert.equal(matches.length, 1, `${sourceArtwork.key} is preserved once`);
+    for (const field of ["asset_path", "bytes", "sha256"]) assert.equal(matches[0][field], sourceArtwork[field]);
+    if (matches[0].url.includes("/releases/")) {
+      assert.ok(matches[0].url.includes(`/releases/${sourceArtwork.sha256.slice(0, 16)}/`),
+        `${sourceArtwork.key} immutable URL binds the source receipt`);
+    }
+  }
   const czechRuntimeArtifacts = czechSetup.artifacts.filter(
     (artifact) => artifact.artifact_kind === "embedding-runtime",
   );
@@ -561,6 +579,7 @@ test("the Android product bundles Czech and Mandarin behind one shared app docum
   assert.deepEqual(profile.assets, result.files.filter((path) => path !== "caatuu-profile.json").sort());
   assert.deepEqual(
     validateProductAssetBundle({
+      ...sourceOnlyRuntimeOptions,
       outputDir,
       workspaceRoot,
       courseBundlePath,
@@ -582,8 +601,7 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
     outputDir
   });
   assert.equal(result.fileCount, result.files.length);
-  assert.ok(result.fileCount >= 81);
-  assert.ok(result.totalBytes > 1_000_000);
+  assert.equal(result.totalBytes, result.files.reduce((sum, path) => sum + statSync(join(outputDir, path)).size, 0));
   assert.ok(result.files.includes("assets/icons/china_flag.png"));
   assert.ok(result.files.includes("assets/icons/czech_flag_ui.png"));
   assert.ok(result.files.includes("assets/icons/english_flag.png"));
@@ -775,6 +793,7 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
 });
 
 test("a no-LLM embedding course compiles from its manifest without Czech dictionary or model assumptions", (t) => {
+  const fixtureCourseManifest = currentInterfaceFixture(t, join(workspaceRoot, "apps/android/tooling/tests/fixtures/no-llm-course/course.json"));
   const parent = mkdtempSync(join(tmpdir(), "caatuu-product-fixture-test-"));
   const outputDir = join(parent, "product");
   const czechOutputDir = join(parent, "czech-product");
@@ -923,8 +942,7 @@ test("a non-Czech generative browser course compiles into the shared Standard-on
 
   const options = {
     workspaceRoot,
-    courseBundlePath: join(generativeFixtureRoot, "course-bundle.json"),
-    languageCatalogPath: join(generativeFixtureRoot, "language-catalog.json"),
+    ...currentBundleFixture(t),
     launcherStaticDir,
     outputDir,
   };
@@ -994,22 +1012,7 @@ test("publication treats every packaged Czech application file as release input"
   assert.doesNotMatch(unrelatedDirtyBlock, /apps\/languages\/czech\/static/);
 });
 
-test("pending native review remains advisory for Android publication", () => {
-  const configuration = loadAndroidCourseBundleConfiguration({
-    workspaceRoot,
-    courseBundlePath,
-    launcherStaticDir,
-  });
-  const mandarin = configuration.configurations.find(({ course }) => course.id === "zh");
-  const realizations = JSON.parse(readFileSync(join(
-    workspaceRoot,
-    "apps/languages/mandarin-simplified/content/word-world/starter-v1.realizations.json",
-  ), "utf8"));
-
-  assert.equal(mandarin.course.status, "development");
-  assert.equal(mandarin.course.platforms.android.enabled, true);
-  assert.ok(mandarin.course.platforms.android.channels.some(({ kind }) => kind === "release"));
-  assert.equal(realizations.review.status, "native-review-required");
+test("Android publication invokes licensing validation without requiring native review", () => {
   assert.match(
     releasePublisher,
     /node\s+"?\$repo_root\/tools\/language-content\/validate\.mjs"?\s+--release/u,

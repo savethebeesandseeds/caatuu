@@ -3,6 +3,7 @@ param()
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+Import-Module (Join-Path $PSScriptRoot "release-orchestration.psm1") -Force
 
 $ExpectedRepositoryRoot = [System.IO.Path]::GetFullPath("C:\Work\caatuu")
 $RepositoryRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot "..\..\.."))
@@ -30,26 +31,21 @@ $FinalizedReleaseDirectory = Join-Path $RepositoryRoot "artifacts\android\releas
 $FinalizedApk = Join-Path $FinalizedReleaseDirectory "caatuu.apk"
 $FinalizedManifest = Join-Path $FinalizedReleaseDirectory "caatuu.json"
 $FinalizedReceipt = Join-Path $FinalizedReleaseDirectory "caatuu-release-candidate.json"
-$FinalizedReleaseComplete =
-    (Test-Path -LiteralPath $FinalizedApk -PathType Leaf) -and
-    (Test-Path -LiteralPath $FinalizedManifest -PathType Leaf) -and
-    (Test-Path -LiteralPath $FinalizedReceipt -PathType Leaf)
-
-if ($FinalizedReleaseComplete) {
-    Write-Host "Found finalized Android $VersionCode receipt; skipping the build stage."
-} else {
-    Write-Host "Android $VersionCode is not completely finalized; running the guarded build-once stage."
+$ReadFinalizedState = {
+    return (Test-Path -LiteralPath $FinalizedApk -PathType Leaf) -and
+        (Test-Path -LiteralPath $FinalizedManifest -PathType Leaf) -and
+        (Test-Path -LiteralPath $FinalizedReceipt -PathType Leaf)
+}.GetNewClosure()
+$BuildStage = {
     & docker exec --workdir /workspace caatuu-dev bash apps/android/tooling/publish-release.sh --build-once
     if ($LASTEXITCODE -ne 0) {
         throw "The guarded Android build/finalization stage failed with exit code $LASTEXITCODE."
     }
 }
-
-if (-not (Test-Path -LiteralPath $FinalizedApk -PathType Leaf) -or
-    -not (Test-Path -LiteralPath $FinalizedManifest -PathType Leaf) -or
-    -not (Test-Path -LiteralPath $FinalizedReceipt -PathType Leaf)) {
-    throw "Android $VersionCode finished without its complete version-owned APK, manifest, and receipt."
-}
-
-Write-Host "Deploying only the exact bytes named by the finalized Android $VersionCode receipt."
-& (Join-Path $PSScriptRoot "deploy-pages-release.ps1") -CandidateReceipt $FinalizedReceipt
+$Deployer = Join-Path $PSScriptRoot "deploy-pages-release.ps1"
+$DeployStage = {
+    param([string]$Receipt)
+    & $Deployer -CandidateReceipt $Receipt
+}.GetNewClosure()
+Invoke-CaatuuReleasePipeline -VersionCode $VersionCode -CandidateReceipt $FinalizedReceipt `
+    -ReadFinalizedState $ReadFinalizedState -BuildStage $BuildStage -DeployStage $DeployStage

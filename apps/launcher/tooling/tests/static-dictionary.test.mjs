@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 import {
   countStaticDictionaryEntries,
   createStaticDictionaryApi,
+  normalizeStaticDictionarySearch,
   searchStaticDictionary,
   searchStaticDictionaryWithSupplement
 } from "../templates/dictionary-static-core.mjs";
@@ -23,8 +24,9 @@ const supplement = JSON.parse(readFileSync(
 ));
 
 test("static dictionary preserves the complete curated core", () => {
-  assert.equal(rows.length, 865);
-  assert.equal(countStaticDictionaryEntries(rows), 863);
+  assert.ok(rows.length > 0);
+  const teachingEntries = new Set(rows.map((row) => `${normalizeStaticDictionarySearch(row.cs)}\0${normalizeStaticDictionarySearch(row.kind)}`));
+  assert.equal(countStaticDictionaryEntries(rows), teachingEntries.size);
   for (const [index, row] of rows.entries()) {
     for (const key of ["cat", "cs", "en", "kind", "cue", "use"]) {
       assert.ok(String(row[key] || "").trim(), `row ${index} is missing ${key}`);
@@ -59,9 +61,11 @@ test("static dictionary merges duplicate teaching rows without losing meanings o
 test("static dictionary preserves inflected Word World lookups without the full database", () => {
   assert.equal(supplement.schema_name, "caatuu-static-word-world-dictionary");
   assert.equal(supplement.schema_version, 1);
-  assert.equal(supplement.surface_count, 1277);
-  assert.equal(supplement.resolved_surface_count, 1195);
-  assert.equal(supplement.unresolved_surfaces.length, 82);
+  const corpus = JSON.parse(readFileSync(join(workspaceRoot, "apps/languages/czech/static/data/games/word-world/standard-v0.1/records.json"), "utf8"));
+  const surfaces = new Set(corpus.records.flatMap((record) => [...record.cs.normalize("NFC").matchAll(/[\p{L}\p{M}]+(?:[-'][\p{L}\p{M}]+)?|\d+/gu)].map(([surface]) => surface)));
+  assert.equal(supplement.surface_count, surfaces.size);
+  assert.equal(supplement.resolved_surface_count, surfaces.size - supplement.unresolved_surfaces.length);
+  assert.ok(supplement.unresolved_surfaces.every((surface) => surfaces.has(surface)));
   const payload = searchStaticDictionaryWithSupplement(rows, supplement, "cítím", { limit: 8 });
   const selected = selectDictionaryMeaning(payload, "cítím", { maxGlosses: 2 });
   assert.equal(selected.lemma, "cítit");
@@ -77,7 +81,7 @@ test("static dictionary handles empty, missing, bounded, and aborted searches", 
   const status = await api.status();
   assert.deepEqual(
     { recordCount: status.recordCount, entryCount: status.entryCount, available: status.available, downloadRequired: status.downloadRequired },
-    { recordCount: 865, entryCount: 863, available: true, downloadRequired: false }
+    { recordCount: rows.length, entryCount: countStaticDictionaryEntries(rows), available: true, downloadRequired: false }
   );
   assert.deepEqual(await api.download(), status);
   const controller = new AbortController();

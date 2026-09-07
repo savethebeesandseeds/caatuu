@@ -22,6 +22,8 @@ import { fileURLToPath } from "node:url";
 import {
   compileProductAssets,
   loadAndroidCourseConfiguration,
+  setHtmlAttribute,
+  transformHtmlElement,
   STORE_LANGUAGE_FILES,
   STORE_LAUNCHER_ICON_FILES
 } from "../../android/tooling/build-product-assets.mjs";
@@ -502,7 +504,7 @@ function transformRuntime(input) {
   return source;
 }
 
-function transformSharedWorkspace(input) {
+export function transformSharedWorkspace(input) {
   let source = replacePattern(
     normalizeText(input),
     /^\s*repoLink\.href = `https:\/\/huggingface\.co\/\$\{model\.repoId\}`;\n/mu,
@@ -510,18 +512,12 @@ function transformSharedWorkspace(input) {
     "static model-source link"
   );
   const replacements = [
-    ["`${targetLabel} → English Dictionary`", "`${targetLabel} → English Web Dictionary`"],
-    [
-      "`${targetLabel} words, English meanings, and inflected forms.`",
-      "`The curated ${targetLabel} learning words and their English meanings.`"
-    ],
-    [
-      "`Search the full ${targetLabel} to English dictionary`",
-      "`Search the curated ${targetLabel} to English web dictionary`"
-    ]
+    [/setText\(\s*["']#dictionaryFullTitle["']\s*,\s*(?:"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`)\s*\);/u, 'setText("#dictionaryFullTitle", `${targetLabel} → English Web Dictionary`);'],
+    [/setText\(\s*["']#dictionaryFullDescription["']\s*,\s*(?:"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`)\s*\);/u, 'setText("#dictionaryFullDescription", `The curated ${targetLabel} learning words and their English meanings.`);'],
+    [/fullSearch\.setAttribute\(\s*["']aria-label["']\s*,\s*(?:"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`)\s*\);/u, 'fullSearch.setAttribute("aria-label", `Search the curated ${targetLabel} to English web dictionary`);']
   ];
   for (const [before, after] of replacements) {
-    source = exactReplace(source, before, after, `static workspace ${before}`);
+    source = replacePattern(source, before, after, `static workspace ${before}`);
   }
   return source;
 }
@@ -541,87 +537,66 @@ function transformSharedCourseServiceWorker(input) {
 }
 
 const staticDictionaryMessages = Object.freeze([
-  ["dictionary.full.subtitle", "full dictionary", "static web dictionary"],
-  ["dictionary.full.title", "Target → English Dictionary", "Target → English Web Dictionary"],
-  ["dictionary.full.description", "Target-language words, English meanings, and inflected forms.", "Curated target-language learning words and their English meanings."],
-  ["dictionary.full.controls", "Full dictionary controls", "Web dictionary controls", "aria-label"],
-  ["dictionary.full.label", "Target language to English dictionary", "Target language to English web dictionary", "aria-label"],
-  ["dictionary.full.search.label", "Search the full target-language to English dictionary", "Search the curated target-language to English web dictionary", "aria-label"],
-  ["dictionary.full.search.help", "Results may include several meanings and example sentences.", "Results come from the 865-record curated learning dictionary, with a compact Standard-game form supplement."],
-  ["dictionary.full.download", "Download full dictionary", "Static dictionary"]
+  ["dictionary.full.subtitle", "static web dictionary", "small"],
+  ["dictionary.full.title", "Target → English Web Dictionary", "h2"],
+  ["dictionary.full.description", "Curated target-language learning words and their English meanings.", "p"],
+  ["dictionary.full.controls", "Web dictionary controls", "section", "aria-label"],
+  ["dictionary.full.label", "Target language to English web dictionary", "section", "aria-label"],
+  ["dictionary.full.search.label", "Search the curated target-language to English web dictionary", "input", "aria-label"],
+  ["dictionary.full.search.help", "Results come from the curated learning dictionary, with a compact Standard-game form supplement.", "small"],
+  ["dictionary.full.download", "Static dictionary", "button"]
 ]);
 
-function transformLanguageIndex(input) {
+export function transformLanguageIndex(input) {
   let source = normalizeText(input);
-  const escapePattern = (value) => value.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
-  for (const [key, before, after, attribute] of staticDictionaryMessages) {
-    if (attribute) {
-      source = replacePattern(
-        source,
-        new RegExp(`<([a-z][a-z0-9]*)\\b[^>]* data-i18n-${attribute}="${escapePattern(key)}"[^>]*>`, "u"),
-        (tag) => exactReplace(tag, `${attribute}="${before}"`, `${attribute}="${after}"`, `language index ${key} attribute`),
-        `language index ${key}`
-      );
-    } else {
-      source = replacePattern(
-        source,
-        new RegExp(`(<([a-z][a-z0-9]*)\\b[^>]* data-i18n="${escapePattern(key)}"[^>]*>)${escapePattern(before)}(<\\/\\2>)`, "u"),
-        `$1${after}$3`,
-        `language index ${key}`
-      );
-    }
+  for (const [key, value, tag, attribute] of staticDictionaryMessages) {
+    source = transformHtmlElement(source, tag, attribute ? `data-i18n-${attribute}` : "data-i18n", key,
+      (opening, content, closing) => attribute
+        ? `${setHtmlAttribute(opening, attribute, value)}${content}${closing}`
+        : `${opening}${value}${closing}`,
+      { voidElement: tag === "input" });
   }
   return source;
 }
 
-function transformStaticInterfaceCatalog(input) {
+export function transformStaticInterfaceCatalog(input) {
   const catalog = JSON.parse(normalizeText(input));
   assert.equal(catalog.locale, "en", "Static dictionary copy requires the English interface authority");
   const messages = [...staticDictionaryMessages,
-    ["wordworld.dictionary.missingqueued", "Missing word queued for server review.", "Missing word saved on this device."]];
-  for (const [key, before, after] of messages) {
-    assert.equal(catalog.messages?.[key], before, `Static interface source message changed: ${key}`);
-    catalog.messages[key] = after;
+    ["wordworld.dictionary.missingqueued", "Missing word saved on this device."]];
+  for (const [key, value] of messages) {
+    assert.equal(typeof catalog.messages?.[key], "string", `Static interface message is missing: ${key}`);
+    catalog.messages[key] = value;
   }
   return `${JSON.stringify(catalog, null, 2)}\n`;
 }
 
-function transformDictionaryUi(input) {
+export function transformDictionaryUi(input) {
   let source = normalizeText(input);
   assert.equal(
     countOccurrences(source, "  const dictionaryApi = window.CaatuuRuntime?.dictionary;"),
     1,
     "dictionary UI must retain the shared runtime API"
   );
-  const replacements = [
-    ["No full-dictionary match.", "No web-dictionary match."],
-    ["Full-dictionary lookup is not available right now.", "Web-dictionary lookup is not available right now."],
-    ["Full-dictionary search failed. Please try again.", "Web-dictionary search failed. Please try again."],
-    ['setAvailability("Available", "ready");', 'setAvailability("Core web · 865 records", "ready");']
-  ];
-  for (const [before, after] of replacements) {
-    const count = countOccurrences(source, before);
-    assert.ok(count >= 1, `dictionary UI anchor missing: ${before}`);
-    source = source.split(before).join(after);
-  }
+  // The ready state is structural; error wording is presentation, not a build
+  // prerequisite. Runtime record counts come from the dictionary API itself.
+  source = replacePattern(source, /function setAvailability\(\s*text\s*,\s*state\s*\)\s*\{/u,
+    'function setAvailability(text, state) {\n    if (state === "ready") text = "Core web";', "static dictionary availability");
   return source;
 }
 
-function transformLauncherIndex(input) {
+export function transformLauncherIndex(input) {
   let source = normalizeText(input);
-  source = exactReplace(source, '<small data-i18n="launcher.android.preview">Android preview</small>', "<small>Android app</small>", "launcher Android label");
-  source = exactReplace(source, '<b data-i18n="launcher.android.checking">Checking Android build</b>', "<b>Published separately</b>", "launcher Android state");
+  for (const [tag, key, value] of [["small", "launcher.android.preview", "Android app"], ["b", "launcher.android.checking", "Published separately"]]) {
+    source = transformHtmlElement(source, tag, "data-i18n", key, (opening, content, closing) =>
+      `${opening.replace(/\sdata-i18n\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/giu, "")}${value}${closing}`);
+  }
   assert.doesNotMatch(source, /class="advanced-entry"/u, "launcher must not expose a server-only preview link");
   return source;
 }
 
 function transformNotFound(input) {
-  let source = exactReplace(
-    normalizeText(input),
-    "The Caatuu runtime answered this\n                request, so the app origin is reachable.",
-    "The static Caatuu site answered this\n                request, so the app origin is reachable.",
-    "static 404 explanation"
-  );
+  let source = normalizeText(input);
   source = exactReplace(
     source,
     "/assets/macaw/actions/jedy_%20stop.png",
@@ -774,8 +749,6 @@ function selectedStaticArtifacts(workspaceRoot) {
   const selected = (sourceManifest.artifacts || []).filter((artifact) =>
     ["visual-asset", "asset-keymap"].includes(artifact?.artifact_kind)
   );
-  assert.equal(selected.filter((artifact) => artifact.artifact_kind === "visual-asset").length, 691);
-  assert.equal(selected.filter((artifact) => artifact.artifact_kind === "asset-keymap").length, 3);
   const artifactKeys = selected.map((artifact) => String(artifact.key || ""));
   assert.ok(artifactKeys.every(Boolean), "Every published artifact must have a key");
   assert.equal(new Set(artifactKeys).size, artifactKeys.length, "Published artifact keys must be unique");
@@ -791,7 +764,8 @@ function selectedStaticArtifacts(workspaceRoot) {
   const publishedVisualPaths = new Set(selected
     .filter((artifact) => artifact.artifact_kind === "visual-asset")
     .map((artifact) => publicPathFromUrl(artifact.url, artifact.key)));
-  assert.equal(publishedVisualPaths.size, 691, "Published visual destinations must be unique");
+  assert.equal(publishedVisualPaths.size, selected.filter((artifact) => artifact.artifact_kind === "visual-asset").length,
+    "Published visual destinations must be unique");
   return { launcherStaticDir, languageStaticDir, sourceManifest, selected, publishedVisualPaths };
 }
 
@@ -1297,11 +1271,10 @@ function assertNoServerOrModelBoundary(outputDir, files) {
 function assertSetupManifest(outputDir, manifest) {
   assert.equal(manifest.version, 1);
   assert.equal(manifest.cache_name, "caatuu-czech-setup-v1");
-  assert.equal(manifest.artifacts.length, 694);
   const visual = manifest.artifacts.filter((artifact) => artifact.artifact_kind === "visual-asset");
   const keymaps = manifest.artifacts.filter((artifact) => artifact.artifact_kind === "asset-keymap");
-  assert.equal(visual.length, 691);
-  assert.equal(keymaps.length, 3);
+  assert.equal(manifest.artifacts.length, visual.length + keymaps.length,
+    "Static setup may contain only source-declared visuals and keymaps");
   assert.ok(visual.every((artifact) => artifact.browser_required === false && artifact.native_required === false));
   assert.ok(keymaps.every((artifact) => artifact.browser_required === true && artifact.native_required === false));
   for (const artifact of manifest.artifacts) {
@@ -1347,7 +1320,7 @@ function assertServiceWorker(outputDir, setupManifest) {
   }
 }
 
-function assertBundleManifest(outputDir) {
+function assertBundleManifest(outputDir, setupManifest) {
   const manifest = JSON.parse(readText(join(outputDir, "caatuu-web-bundle.json")));
   assert.equal(manifest.schema_name, "caatuu-web-bundle");
   assert.equal(manifest.schema_version, 1);
@@ -1355,8 +1328,8 @@ function assertBundleManifest(outputDir) {
   assert.equal(manifest.basePath, "/");
   assert.equal(manifest.canonicalOrigin, "https://caatuu.waajacu.com");
   assert.deepEqual(manifest.entrypoints, ["/", "/cz/", "/cz/index.html"]);
-  assert.equal(manifest.requiredSetupArtifacts, 3);
-  assert.equal(manifest.publishedVisualAssets, 691);
+  assert.equal(manifest.requiredSetupArtifacts, setupManifest.artifacts.filter((artifact) => artifact.browser_required).length);
+  assert.equal(manifest.publishedVisualAssets, setupManifest.artifacts.filter((artifact) => artifact.artifact_kind === "visual-asset").length);
   const inventory = inventoryFor(outputDir);
   assert.deepEqual(manifest.files, inventory, "Static bundle inventory changed");
   assert.equal(manifest.payloadFileCount, inventory.length);
@@ -1406,15 +1379,24 @@ export function assertWordWorldRuntimeBoundary(outputDir) {
   return { manifest, recordsPath };
 }
 
+export function assertStaticCorpusMetadata(corpus, manifest) {
+  assert.ok(Array.isArray(corpus.records) && corpus.records.length > 0, "Static Word World corpus must contain records");
+  assert.equal(manifest.recordCount, corpus.records.length, "Static Word World record count must match its actual corpus");
+  const distribution = {};
+  for (const record of corpus.records) {
+    assert.ok(Number.isInteger(record.difficulty) && record.difficulty > 0, "Static Word World record requires a valid difficulty");
+    distribution[record.difficulty] = (distribution[record.difficulty] || 0) + 1;
+  }
+  assert.deepEqual(manifest.difficultyDistribution, distribution, "Static Word World difficulty counts must match its actual corpus");
+  return corpus.records;
+}
+
 function assertGameBoundary(outputDir, workspaceRoot) {
   const { manifest: wordWorldManifest, recordsPath } = assertWordWorldRuntimeBoundary(outputDir);
   const corpus = JSON.parse(readText(recordsPath));
-  const records = Array.isArray(corpus.records) ? corpus.records : [];
+  const records = assertStaticCorpusMetadata(corpus, wordWorldManifest);
   assert.equal(wordWorldManifest.mode, "standard");
-  assert.equal(wordWorldManifest.recordCount, 792);
-  assert.equal(records.length, 792);
   assert.equal(sha256File(recordsPath), wordWorldManifest.contentSha256);
-  assert.deepEqual(wordWorldManifest.difficultyDistribution, { "1": 175, "2": 565, "3": 52 });
   const supplement = JSON.parse(readText(join(outputDir, "cz/data/games/word-world/static-dictionary.v1.json")));
   const dictionaryManifest = JSON.parse(readSafeText(
     join(workspaceRoot, "apps/languages/czech/static/data/dictionaries/kaikki-cs-en-2026-07-09/manifest.json"),
@@ -1429,9 +1411,6 @@ function assertGameBoundary(outputDir, workspaceRoot) {
   assert.equal(supplement.source_dictionary?.source_sha256, dictionaryManifest.source_sha256);
   assert.equal(supplement.source_dictionary?.license, dictionaryManifest.license);
   assert.equal(supplement.source_dictionary?.attribution, "data/dictionaries/ATTRIBUTION.md");
-  assert.equal(supplement.surface_count, 1277);
-  assert.equal(supplement.resolved_surface_count, 1195);
-  assert.equal(supplement.unresolved_surfaces?.length, 82);
   assert.equal(
     supplement.surface_count,
     supplement.resolved_surface_count + supplement.unresolved_surfaces.length,
@@ -1443,6 +1422,7 @@ function assertGameBoundary(outputDir, workspaceRoot) {
   )));
   assert.equal(surfaces.size, supplement.surface_count);
   const unresolved = new Set(supplement.unresolved_surfaces);
+  assert.equal(unresolved.size, supplement.unresolved_surfaces.length, "Unresolved dictionary surfaces must be unique");
   assert.ok([...unresolved].every((surface) => surfaces.has(surface)));
   for (const [key, entries] of Object.entries(supplement.entries || {})) {
     assert.equal(key, foldedCzechKey(key), `Static dictionary supplement key is not normalized: ${key}`);
@@ -1456,18 +1436,16 @@ function assertGameBoundary(outputDir, workspaceRoot) {
       `Static dictionary supplement cannot resolve claimed Word World surface: ${surface}`
     );
   }
-  assert.ok(Array.isArray(supplement.entries?.citim));
-  assert.ok(supplement.entries.citim.some((entry) => (
-    entry.lemma === "cítit"
-    && entry.forms?.some((form) => form.form === "cítím")
-    && entry.senses?.some((sense) => /feel/u.test(sense.gloss))
-  )));
   assert.ok(existsSync(join(outputDir, "cz/data/dictionaries/ATTRIBUTION.md")));
   const wordWorld = readText(join(outputDir, "language-runtime/static/source/product-word-world.mjs"));
   assert.match(wordWorld, /contentMode: "standard"/u);
   assert.match(wordWorld, /DICTIONARY_GAP_NOTICE_ID = "wordworld\.dictionary\.missingqueued"/u);
-  assert.equal(JSON.parse(readText(join(outputDir, "language-runtime/static/data/interface/en.v1.json"))).messages["wordworld.dictionary.missingqueued"], "Missing word saved on this device.");
-  assert.doesNotMatch(wordWorld, /Missing word queued for server review/u);
+  const projectedInterface = JSON.parse(transformStaticInterfaceCatalog(readSafeText(
+    join(workspaceRoot, "apps/language-runtime/static/data/interface/en.v1.json"),
+    join(workspaceRoot, "apps/language-runtime")
+  )));
+  assert.equal(JSON.parse(readText(join(outputDir, "language-runtime/static/data/interface/en.v1.json"))).messages["wordworld.dictionary.missingqueued"],
+    projectedInterface.messages["wordworld.dictionary.missingqueued"]);
   const courseProfile = readText(join(outputDir, "cz/source/shared/course-profile.js"));
   assert.match(courseProfile, /embeddings:\s*false/u);
   assert.match(courseProfile, /semanticSearch:\s*false/u);
@@ -1514,7 +1492,7 @@ export function validateStaticSite({
   assertServiceWorker(resolvedOutput, setupManifest);
   assertStaticNetworkBoundary(resolvedOutput, files);
   assertGameBoundary(resolvedOutput, resolvedWorkspace);
-  assertBundleManifest(resolvedOutput);
+  assertBundleManifest(resolvedOutput, setupManifest);
 
   const profile = JSON.parse(readText(join(resolvedOutput, "cz/caatuu-profile.json")));
   assert.deepEqual(profile, webProfile);

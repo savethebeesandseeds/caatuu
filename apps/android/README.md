@@ -93,6 +93,10 @@ control explicitly resets the retained native context.
 
 ## Build
 
+The [Android release operations runbook](../../docs/ANDROID_RELEASE_OPERATIONS.md)
+owns the routine procedure, failure recovery and deployment knowledge handoff.
+Publication, source CI and physical-device testing are separate statuses.
+
 For a routine signed stable release, use the maintained one-command path from
 the repository root:
 

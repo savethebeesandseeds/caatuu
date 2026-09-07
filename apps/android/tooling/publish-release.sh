@@ -16,6 +16,13 @@ build_outcome="not-requested"
 pipeline_started_at=$SECONDS
 phase_name=""
 phase_started_at=0
+invocation_audit_proof=""
+invocation_audit_challenge=""
+
+cleanup_invocation_audit() {
+  [[ -z "$invocation_audit_proof" ]] || rm -f -- "$invocation_audit_proof"
+}
+trap cleanup_invocation_audit EXIT
 
 start_phase() {
   phase_name="$1"
@@ -217,11 +224,19 @@ read_signer_sha() {
 
 validate_and_read_existing_candidate() {
   local apk="$1" aab="$2"
-  node "$repo_root/apps/android/tooling/validate-product-package.mjs" \
-    --aab "$aab" \
-    --apk "$apk" \
-    --apkanalyzer "$(command -v apkanalyzer)" \
-    --unzip "$(command -v unzip)"
+  local proof="${3:-}" challenge="${4:-}" receipt="${5:-}"
+  if [[ -n "$proof" && -n "$challenge" && -n "$receipt" ]] && \
+    node "$repo_root/apps/android/tooling/release-candidate.mjs" verify-audit-proof \
+      --repo-root "$repo_root" --proof "$proof" --challenge "$challenge" --receipt "$receipt" \
+      --apk "$apk" --aab "$aab" --apkanalyzer "$(command -v apkanalyzer)" --unzip "$(command -v unzip)" >/dev/null; then
+    echo "Reused this invocation's full package audit for the exact sealed APK/AAB; checking identity and signing again."
+  else
+    node "$repo_root/apps/android/tooling/validate-product-package.mjs" \
+      --aab "$aab" \
+      --apk "$apk" \
+      --apkanalyzer "$(command -v apkanalyzer)" \
+      --unzip "$(command -v unzip)"
+  fi
   package_name="$(apkanalyzer manifest application-id "$apk" | tr -d '\r\n')"
   version_code="$(apkanalyzer manifest version-code "$apk" | tr -d '\r\n')"
   version_name="$(apkanalyzer manifest version-name "$apk" | tr -d '\r\n')"
@@ -279,7 +294,10 @@ if [[ "$mode" == "build-once" ]]; then
       "$repo_root/apps/android/tooling/tests/publisher-build-once-contract.test.mjs"
     finish_phase
     start_phase "Build one signed release candidate"
-    bash "$repo_root/apps/android/tooling/build-release-aab.sh"
+    invocation_audit_proof="$(mktemp "$repo_root/artifacts/android/.invocation-audit.XXXXXX")"
+    invocation_audit_challenge="$(node -e 'process.stdout.write(require("node:crypto").randomBytes(32).toString("hex"))')"
+    CAATUU_RELEASE_AUDIT_PROOF="$invocation_audit_proof" CAATUU_RELEASE_AUDIT_CHALLENGE="$invocation_audit_challenge" \
+      bash "$repo_root/apps/android/tooling/build-release-aab.sh"
     finish_phase
     [[ -f "$candidate_receipt" ]] || {
       echo "The one Android build completed without an immutable candidate receipt." >&2
@@ -364,6 +382,7 @@ install_apk_tmp=""
 install_manifest_tmp=""
 install_receipt_tmp=""
 cleanup() {
+  cleanup_invocation_audit
   local path
   for path in \
     "$alias_apk_next" "$alias_manifest_next" \
@@ -417,7 +436,8 @@ assert_file_identity "$staged_candidate_apk" "$apk_sha256" "$apk_bytes" "Sealed 
 assert_file_identity "$staged_candidate_aab" "$aab_sha256" "$aab_bytes" "Sealed candidate AAB"
 receipt_sha256="$(sha256sum "$staged_receipt" | awk '{print $1}')"
 assert_source_on_origin_main "$receipt_source_revision"
-validate_and_read_existing_candidate "$staged_candidate_apk" "$staged_candidate_aab"
+validate_and_read_existing_candidate "$staged_candidate_apk" "$staged_candidate_aab" \
+  "$invocation_audit_proof" "$invocation_audit_challenge" "$staged_receipt"
 
 [[ "$version_code" == "$(jq -er '.identity.version_code' "$verified_receipt")" \
   && "$version_name" == "$(jq -er '.identity.version_name' "$verified_receipt")" \

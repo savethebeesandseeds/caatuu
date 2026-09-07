@@ -10,7 +10,10 @@ test("receipt-only deployer plan mode makes no tracked descriptor, commit, relea
   assert.match(source, /artifacts\/android\/releases\/\(\[1-9\]\[0-9\]\*\)\/caatuu-release-candidate/u);
   assert.match(source, /mode\s*=\s*"plan-only"/u);
   assert.match(source, /willBuild\s*=\s*\$false/u);
-  assert.match(source, /may refresh origin\/main[\s\S]*never changes the[\s\S]*tracked descriptor/u);
+  const plan = source.slice(source.indexOf("if ($PlanOnly) {"), source.indexOf("$script:head = $null"));
+  assert.match(plan, /willBuildWebsite\s*=\s*\$false/u);
+  assert.match(plan, /return/u);
+  assert.doesNotMatch(plan, /Get-GitOutput|Invoke-PagesAdvance|Invoke-NativeResult|Wait-PagesRun/u);
 });
 
 test("deployer fails closed on concurrency, repository identity, and shared-tree state", () => {
@@ -54,7 +57,8 @@ test("new descriptor publication is bound to the exact source commit while retri
   assert.match(source, /\$reconstruction\.action\s*-eq\s*"append"/u);
   assert.match(source, /"rev-list",\s*"--parents",\s*"-n",\s*"1",\s*"HEAD"/u);
   assert.match(source, /Assert-ExactCandidateSource\s+\$parents\[1\]/u);
-  assert.match(source, /publishing a stale candidate/u);
+  assert.match(source, /\$actualRevision\s*=\s*\[string\]\$script:receipt\.source_revision/u);
+  assert.match(source, /if \(\$actualRevision -ne \$ExpectedRevision\) \{\s*throw/u);
 });
 
 test("deployer scopes the only source commit and uses ordinary main pushes", () => {
@@ -90,9 +94,15 @@ test("GitHub publication is draft-first, immutable, digest-checked, and resumabl
   assert.match(source, /remote\.digest/u);
   assert.match(source, /remote\.size/u);
   assert.match(source, /"release",\s*"edit"[\s\S]*"--draft=false"/u);
-  assert.match(source, /Assert-MainOnlyInvariant\s+-CheckRemote[\s\S]*?HEAD before draft release creation[\s\S]*?GitHub main before draft release creation[\s\S]*?\$create = Invoke-NativeResult[\s\S]*?"release", "create"/u);
-  assert.match(source, /Assert-MainOnlyInvariant\s+-CheckRemote[\s\S]*?HEAD before uploading \$name[\s\S]*?GitHub main before uploading \$name[\s\S]*?\$upload = Invoke-NativeResult[\s\S]*?"release", "upload"/u);
-  assert.match(source, /Assert-MainOnlyInvariant\s+-CheckRemote[\s\S]*?HEAD before publishing the GitHub Release[\s\S]*?GitHub main before publishing the GitHub Release[\s\S]*?"release", "edit"/u);
+  for (const command of ["create", "upload", "edit"]) {
+    const commandIndex = source.indexOf(`"release", "${command}"`);
+    const guardIndex = source.lastIndexOf("Assert-MainOnlyInvariant -CheckRemote", commandIndex);
+    assert.ok(commandIndex >= 0 && guardIndex >= 0);
+    const guarded = source.slice(guardIndex, commandIndex);
+    assert.match(guarded, /if \(\$currentHead -ne \$script:head\) \{ throw/u);
+    assert.match(guarded, /if \(\$githubMain -ne \$script:head\) \{ throw/u);
+    assert.match(guarded, /Get-WorktreeState/u);
+  }
   assert.doesNotMatch(source, /--clobber|"release",\s*"delete"|(?:-X|--method)\s*DELETE/u);
 });
 

@@ -309,6 +309,21 @@ fi
 finish_phase
 
 start_phase "Validate package boundary"
+# Only this publisher invocation may reuse the full audit below. Receipt reuse
+# exits earlier without emitting proof, so it cannot masquerade as a new audit.
+audit_input=""
+if [[ "$signed" == true && -n "${CAATUU_RELEASE_AUDIT_CHALLENGE:-}" && -n "${CAATUU_RELEASE_AUDIT_PROOF:-}" ]]; then
+  case "$CAATUU_RELEASE_AUDIT_PROOF" in
+    "$repo_root/artifacts/android/.invocation-audit."??????) ;;
+    *) echo "Invocation audit proof must use the publisher's private temporary file." >&2; exit 1 ;;
+  esac
+  [[ -f "$CAATUU_RELEASE_AUDIT_PROOF" && ! -L "$CAATUU_RELEASE_AUDIT_PROOF" ]] || {
+    echo "Invocation audit proof must be an existing regular temporary file." >&2; exit 1;
+  }
+  audit_input="$(node "$repo_root/apps/android/tooling/release-candidate.mjs" capture-audit-input \
+    --repo-root "$repo_root" --apk "artifacts/android/caatuu-universal.apk" --aab "artifacts/android/caatuu.aab" \
+    --source-revision "$source_revision" --apkanalyzer "$(command -v apkanalyzer)" --unzip "$(command -v unzip)")"
+fi
 node "$repo_root/apps/android/tooling/validate-product-package.mjs" \
   --aab "$output_aab" \
   --apk "$output_universal_apk" \
@@ -352,6 +367,12 @@ if [[ "$signed" == true ]]; then
     --signer-sha256 "$signer_sha256" \
     --mode builder-emitted \
     --output "$candidate_receipt" >/dev/null
+  if [[ -n "$audit_input" ]]; then
+    node "$repo_root/apps/android/tooling/release-candidate.mjs" emit-audit-proof \
+      --repo-root "$repo_root" --receipt "$candidate_receipt" --audit-input "$audit_input" \
+      --challenge "$CAATUU_RELEASE_AUDIT_CHALLENGE" \
+      --apkanalyzer "$(command -v apkanalyzer)" --unzip "$(command -v unzip)" > "$CAATUU_RELEASE_AUDIT_PROOF"
+  fi
   finish_phase
 fi
 

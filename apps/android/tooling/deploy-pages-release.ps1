@@ -9,6 +9,7 @@ param(
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+Import-Module (Join-Path $PSScriptRoot "release-network-retry.psm1") -Force
 
 $ExpectedRepositoryRoot = [System.IO.Path]::GetFullPath("C:\Work\caatuu")
 $ExpectedOrigin = "https://github.com/savethebeesandseeds/caatuu.git"
@@ -80,7 +81,11 @@ function Invoke-Checked {
         [string[]]$Arguments = @(),
         [string]$Label = $File
     )
-    $result = Invoke-NativeResult -File $File -Arguments $Arguments
+    $result = if (Test-CaatuuNetworkRead -File $File -Arguments $Arguments) {
+        Invoke-CaatuuNetworkRead -File $File -Arguments $Arguments -Label $Label
+    } else {
+        Invoke-NativeResult -File $File -Arguments $Arguments
+    }
     if ($result.Code -ne 0) {
         throw "$Label failed with exit code $($result.Code).`n$($result.Output)"
     }
@@ -285,7 +290,7 @@ function Assert-ExactCandidateSource {
 
 function Get-GitHubRelease {
     param([string]$Tag, [switch]$AllowMissing)
-    $result = Invoke-NativeResult -File "gh" -Arguments @(
+    $result = Invoke-CaatuuNetworkRead -File "gh" -Label "GitHub Release lookup" -Arguments @(
         "release", "view", $Tag, "--repo", $Repository,
         "--json", "tagName,isDraft,isPrerelease,assets"
     )
@@ -357,12 +362,17 @@ function Wait-PagesRun {
         if ($dispatchHead -ne $Head) { throw "HEAD changed before Pages dispatch." }
         $githubMain = (Invoke-Checked -File "gh" -Arguments @("api", "repos/$Repository/commits/main", "--jq", ".sha") -Label "GitHub main before Pages dispatch").Trim()
         if ($githubMain -ne $Head) { throw "GitHub main changed before Pages dispatch." }
-        [void](Invoke-Checked -File "gh" -Arguments @(
+        $dispatch = Invoke-NativeResult -File "gh" -Arguments @(
             "workflow", "run", $Workflow, "--repo", $Repository, "--ref", "main",
             "-f", "deployment_scope=android",
             "-f", "allow_http_certificate_bootstrap=false",
             "-f", "expected_revision=$Head"
-        ) -Label "Pages workflow dispatch")
+        )
+        if ($dispatch.Code -ne 0 -and -not (Test-CaatuuTransientReadFailure -Code $dispatch.Code -Output $dispatch.Output)) {
+            throw "Pages workflow dispatch failed.`n$($dispatch.Output)"
+        }
+        # A timeout may arrive after GitHub accepted the dispatch. Look only for
+        # the exact new Android run; never issue a second dispatch here.
         for ($attempt = 1; $attempt -le 30; $attempt += 1) {
             Start-Sleep -Seconds 2
             $newRuns = @(Get-WorkflowRuns | Where-Object {
@@ -370,7 +380,7 @@ function Wait-PagesRun {
             } | Sort-Object createdAt -Descending)
             if ($newRuns.Count -gt 0) { $active = @($newRuns[0]); break }
         }
-        if ($active.Count -eq 0) { throw "The dispatched Pages workflow did not appear for HEAD $Head." }
+        if ($active.Count -eq 0) { throw "The dispatched Pages workflow did not appear for HEAD $Head. No duplicate dispatch was attempted.`n$($dispatch.Output)" }
     }
 
     $runId = [string]$active[0].databaseId
@@ -655,15 +665,15 @@ try {
                 if ($currentHead -ne $script:head) { throw "HEAD changed before uploading $name." }
                 $githubMain = (Invoke-Checked -File "gh" -Arguments @("api", "repos/$Repository/commits/main", "--jq", ".sha") -Label "GitHub main before uploading $name").Trim()
                 if ($githubMain -ne $script:head) { throw "GitHub main changed before uploading $name." }
-                $upload = Invoke-NativeResult -File "gh" -Arguments @("release", "upload", $tag, $uploadPath, "--repo", $Repository)
-                if ($upload.Code -ne 0) {
+                [void](Invoke-CaatuuMutationOnce -Label "GitHub asset upload $name" -Execute {
+                    $upload = Invoke-NativeResult -File "gh" -Arguments @("release", "upload", $tag, $uploadPath, "--repo", $Repository)
+                    return $upload
+                } -Reconcile {
                     $script:release = Get-GitHubRelease -Tag $tag
-                    try {
-                        $recovered = Assert-ServerAssets $script:release $expectedAssets -AllowMissing
-                        if (-not $recovered.ContainsKey($name)) { throw "Asset is still missing." }
-                    }
-                    catch { throw "GitHub asset upload failed without an exact recoverable asset: $name`n$($upload.Output)" }
-                }
+                    Assert-ReleaseIdentity $script:release $tag
+                    $recovered = Assert-ServerAssets $script:release $expectedAssets -AllowMissing
+                    return $recovered.ContainsKey($name)
+                })
             }
             $script:release = Get-GitHubRelease -Tag $tag
             [void](Assert-ServerAssets $script:release $expectedAssets)
@@ -673,9 +683,16 @@ try {
             if ($currentHead -ne $script:head) { throw "HEAD changed before publishing the GitHub Release." }
             $githubMain = (Invoke-Checked -File "gh" -Arguments @("api", "repos/$Repository/commits/main", "--jq", ".sha") -Label "GitHub main before publishing the GitHub Release").Trim()
             if ($githubMain -ne $script:head) { throw "GitHub main changed before publishing the GitHub Release." }
-            [void](Invoke-Checked -File "gh" -Arguments @(
-                "release", "edit", $tag, "--repo", $Repository, "--draft=false", "--latest=false"
-            ) -Label "publish GitHub Release")
+            [void](Invoke-CaatuuMutationOnce -Label "Publish GitHub Release" -Execute {
+                Invoke-NativeResult -File "gh" -Arguments @(
+                    "release", "edit", $tag, "--repo", $Repository, "--draft=false", "--latest=false"
+                )
+            } -Reconcile {
+                $confirmedRelease = Get-GitHubRelease -Tag $tag
+                Assert-ReleaseIdentity $confirmedRelease $tag
+                [void](Assert-ServerAssets $confirmedRelease $expectedAssets)
+                return -not [bool]$confirmedRelease.draft
+            })
             $script:release = Get-GitHubRelease -Tag $tag
         }
         Assert-ReleaseIdentity $script:release $tag

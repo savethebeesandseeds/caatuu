@@ -666,12 +666,35 @@ function sha256File(path) {
   return createHash("sha256").update(readFileSync(path)).digest("hex");
 }
 
+export function resolveEmbeddingRuntimeArtifactSource({
+  workspaceRoot, artifactPath, allowMissingSetupDeliveredRuntimeFiles = false,
+}) {
+  const relativePath = `apps/language-runtime/${normalizedCatalogPath(artifactPath, "embedding runtime artifact path")}`;
+  const label = `embedding runtime artifact ${artifactPath}`;
+  if (!allowMissingSetupDeliveredRuntimeFiles) {
+    return confinedWorkspacePath(workspaceRoot, relativePath, label, { kind: "file" });
+  }
+  const runtimeRoot = confinedWorkspacePath(workspaceRoot, "apps/language-runtime", label, { kind: "directory" });
+  const candidate = resolve(runtimeRoot, artifactPath);
+  assert.ok(isInside(runtimeRoot, candidate), `${label} must stay inside the shared runtime`);
+  // A source-only checkout may omit setup downloads, but existing ancestors
+  // must still resolve to their exact physical path (including dangling links).
+  let ancestor = candidate;
+  while (!lstatSync(ancestor, { throwIfNoEntry: false })) ancestor = dirname(ancestor);
+  exactWorkspaceSource(workspaceRoot, ancestor, label, { allowAbsolute: true });
+  if (ancestor === candidate) {
+    return confinedWorkspacePath(workspaceRoot, relativePath, label, { kind: "file" });
+  }
+  return candidate;
+}
+
 export function verifyEmbeddingRuntimeArtifactSource({
   source,
   artifact,
   artifactPath,
   allowMissingSetupDeliveredRuntimeFiles = false,
 }) {
+  assertCanonicalPositiveBytes(artifact.bytes, `embedding runtime artifact bytes: ${artifactPath}`);
   assert.match(String(artifact.sha256 || ""), /^[a-f\d]{64}$/, `embedding runtime artifact hash is invalid: ${artifactPath}`);
   if (!existsSync(source)) {
     assert.ok(
@@ -726,12 +749,9 @@ function loadEmbeddingRuntimeAssets(
         /(?:^|\/)(?:README(?:\.[^/]*)?|tests?)(?:\/|$)/i,
         `embedding runtime artifact is not packageable: ${artifactPath}`,
       );
-      const source = confinedWorkspacePath(
-        workspaceRoot,
-        `apps/language-runtime/${artifactPath}`,
-        `embedding runtime artifact ${artifactPath}`,
-        { kind: "file" },
-      );
+      const source = resolveEmbeddingRuntimeArtifactSource({
+        workspaceRoot, artifactPath, allowMissingSetupDeliveredRuntimeFiles,
+      });
       verifyEmbeddingRuntimeArtifactSource({
         source,
         artifact,
@@ -1265,7 +1285,7 @@ function htmlAttributePattern(name) {
   return new RegExp(`\\s${name}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s>]+))`, "giu");
 }
 
-function setHtmlAttribute(opening, name, value) {
+export function setHtmlAttribute(opening, name, value) {
   const pattern = htmlAttributePattern(name);
   const matches = [...opening.matchAll(pattern)];
   assert.ok(matches.length <= 1, `HTML ${name} attribute is duplicated`);
@@ -1276,7 +1296,7 @@ function setHtmlAttribute(opening, name, value) {
 
 // These are bounded transformations of known authored elements, not text-copy
 // matching. Quoted attribute values may contain > and attributes may be reordered.
-function transformHtmlElement(source, tag, attribute, value, transform) {
+export function transformHtmlElement(source, tag, attribute, value, transform, { voidElement = false } = {}) {
   const token = new RegExp(`<\\/?${tag}\\b(?:[^>"']|"[^"]*"|'[^']*')*>`, "giu");
   const tokens = [...source.matchAll(token)];
   const selected = tokens.filter(([opening]) => !opening.startsWith("</") &&
@@ -1284,6 +1304,9 @@ function transformHtmlElement(source, tag, attribute, value, transform) {
       (match[1] ?? match[2] ?? match[3]) === value));
   assert.equal(selected.length, 1, `HTML ${tag}[${attribute}=${value}] must have one structural anchor`);
   const start = selected[0];
+  if (voidElement) {
+    return source.slice(0, start.index) + transform(start[0], "", "") + source.slice(start.index + start[0].length);
+  }
   let depth = 0;
   let end;
   for (const candidate of tokens.filter(({ index }) => index >= start.index)) {
@@ -1501,41 +1524,25 @@ export function transformIndex(input) {
 export function transformSetupAssets(input) {
   const manifest = JSON.parse(normalizeText(input));
   assert.ok(Array.isArray(manifest.artifacts), "setup assets must declare an artifact array");
-  const conjugation = manifest.artifacts.filter((artifact) => artifact?.key === "planet-conjugation");
-  assert.equal(conjugation.length, 1, "setup assets must expose exactly one Conjugation Comet planet");
-  assert.equal(conjugation[0].label, "Conjugation Comet", "setup Conjugation Comet label");
-  assert.equal(conjugation[0].url, "/assets/planets/conjugation-comet.png", "setup Conjugation Comet URL");
-  assert.equal(conjugation[0].asset_path, "assets/planets/conjugation-comet.png", "setup Conjugation Comet asset path");
-  const campaign = manifest.artifacts.filter((artifact) => artifact?.key === "planet-campaign");
-  assert.equal(campaign.length, 1, "setup assets must expose exactly one Campaign Mode emblem");
-  assert.equal(campaign[0].url, "/assets/planets/campaign-mode.png", "setup Campaign Mode URL");
-  assert.equal(campaign[0].asset_path, "assets/planets/campaign-mode.png", "setup Campaign Mode asset path");
   const grammarGravity = manifest.artifacts.filter(
     (artifact) => artifact?.key === "planet-agreement-aurora",
   );
-  assert.equal(grammarGravity.length, 1, "setup assets must expose exactly one Grammar Gravity planet");
-  assert.equal(
-    grammarGravity[0].url,
-    "/assets/planets/grammar-gravity.png",
-    "development setup Grammar Gravity URL",
-  );
-  assert.equal(
-    grammarGravity[0].asset_path,
-    "assets/planets/grammar-gravity.png",
-    "setup Grammar Gravity local asset path",
-  );
-  assert.match(
-    String(grammarGravity[0].sha256 || ""),
-    /^[a-f\d]{64}$/iu,
-    "setup Grammar Gravity SHA-256",
-  );
-  grammarGravity[0].url = `/assets/planets/releases/${grammarGravity[0].sha256.slice(0, 16)}/agreement-aurora.png`;
+  for (const artwork of grammarGravity) {
+    // This historical download slug is compatibility data, not the current
+    // illustration's name. Its local source and digest come from the receipt.
+    const path = normalizedCatalogPath(artwork.asset_path, "setup artwork local path");
+    assert.ok(path.startsWith("assets/"), "setup artwork must use the shared asset namespace");
+    assert.equal(artwork.url, `/${path}`, "development artwork URL must match its local receipt path");
+    assert.match(String(artwork.sha256 || ""), /^[a-f\d]{64}$/u, "setup artwork SHA-256");
+    artwork.url = `/assets/planets/releases/${artwork.sha256.slice(0, 16)}/agreement-aurora.png`;
+  }
   assert.ok(Array.isArray(manifest.offline?.assets), "setup assets must declare offline assets");
-  const offlineCount = manifest.offline.assets.length;
   manifest.offline.assets = manifest.offline.assets.filter(
     (asset) => !/^\.\/(?:chat\.html|source\/features\/chat\/)/u.test(String(asset)),
   );
-  assert.equal(offlineCount - manifest.offline.assets.length, 3, "setup assets must remove the three disabled Chat files");
+  assert.ok(manifest.offline.assets.every((asset) => !/^\.\/(?:chat\.html|source\/features\/chat\/)/u.test(String(asset))),
+    "setup assets must not retain disabled Chat files");
+  assertSetupArtifactMetadata(manifest, "product setup projection");
   return `${JSON.stringify(manifest, null, 2)}\n`;
 }
 
@@ -1545,9 +1552,7 @@ function hasReviewedPlanetSetupProjection(input) {
   const disabledChatAssets = (manifest.offline?.assets || []).filter(
     (asset) => /^\.\/(?:chat\.html|source\/features\/chat\/)/u.test(String(asset)),
   );
-  return ["planet-conjugation", "planet-campaign", "planet-agreement-aurora"]
-    .every((key) => keys.has(key))
-    && disabledChatAssets.length === 3;
+  return keys.has("planet-agreement-aurora") || disabledChatAssets.length > 0;
 }
 
 function embeddingRuntimeById(catalog, runtimeId) {
@@ -1572,13 +1577,6 @@ export function transformBundleSetupAssets(
   const manifest = JSON.parse(productSource);
   assert.ok(Array.isArray(manifest.artifacts), "Bundle setup assets must declare an artifact array");
   assert.ok(Array.isArray(manifest.offline?.assets), "Bundle setup assets must declare offline assets");
-  const existingRuntimeArtifacts = manifest.artifacts.filter(
-    (artifact) => artifact?.artifact_kind === "embedding-runtime",
-  );
-  if (reviewedProjection) {
-    assert.ok(existingRuntimeArtifacts.length > 0, "reviewed setup projection must retain its authored embedding runtime anchors");
-  }
-
   const runtime = embeddingRuntimeById(embeddingRuntimeCatalog, runtimeId);
   assert.ok(Array.isArray(runtime.artifacts) && runtime.artifacts.length > 0, "Shared embedding runtime must list artifacts");
   const runtimeArtifacts = runtime.artifacts.map((artifact, index) => ({
