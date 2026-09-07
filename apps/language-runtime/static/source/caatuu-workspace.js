@@ -105,7 +105,7 @@ const verbTargetAuditLabel = String(targetLanguage.label || targetLanguage.nativ
 const verbSourceAuditLabel = String(sourceLanguage.label || sourceLanguage.nativeLabel || sourceLanguage.id).trim();
 
 function verbMatchInstruction() {
-  return `Match each ${verbTargetLabel} verb with its ${verbSourceLabel} meaning.`;
+  return interfaceText("verbnebula.instructions");
 }
 
 // This controller is mechanically promoted from the Czech workspace authority.
@@ -535,7 +535,7 @@ async function loadContentData() {
 
   if (verbsEnabled) {
     [verbNebulaCore, verbExerciseFamilyCore, childFacingAssets] = await Promise.all([
-      import("/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-11"),
+      import("/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-12"),
       import("/language-runtime/static/source/games/verb-nebula/verb-exercise-family-core.mjs?v=verb-exercise-family-core-3"),
       import("/language-runtime/static/source/child-facing-assets.mjs?v=child-facing-assets-2")
     ]);
@@ -1359,7 +1359,6 @@ const verbStorageKey = course.storage.verbMemory || `${course.storage.namespace}
 const verbLegacyStorageKey = course.storage.verbMemoryLegacy;
 const verbMemorySchemaVersion = 3;
 const verbHintKeymapUrl = "/assets/macaw/actions/keymaps.json";
-const verbHintFallbackPath = "/assets/macaw/actions/macaw (1).png";
 const verbHintExactAssets = new Map([
   ["hear", {
     assetPath: "/assets/macaw/actions/180-hear_listen.png?art=2",
@@ -1995,7 +1994,9 @@ function loadVerbMemory() {
 
   state.verbDifficulty = Number(window.CaatuuLearning?.difficulty?.()) || 1;
   state.verbPairs = verbNebulaCore.filterVerbPairsForDifficulty(
-    verbNebulaCore.extractCoreVerbPairs(countryDictionary),
+    verbNebulaCore.validateVerbNebulaCatalog(countryDictionary, {
+      learnerBaseLanguage: sourceLanguage.locale || sourceLanguage.id
+    }),
     state.verbDifficulty
   );
   const pairById = new Map(state.verbPairs.map((pair) => [pair.id, pair]));
@@ -2105,9 +2106,7 @@ function applyVerbRound(plan, preloadedHints = null) {
   if (state.verbHintsEnabled && preloadedHints instanceof Map) {
     plan.round.forEach((pair) => {
       state.verbHintById.set(pair.id, preloadedHints.get(pair.id) || {
-        status: "ready",
-        assetPath: verbHintFallbackPath,
-        alt: "Macaw picture clue"
+        status: "unavailable"
       });
     });
   }
@@ -2175,15 +2174,15 @@ function applyVerbLanguageCopy() {
   if (board) board.setAttribute("aria-label", verbMatchInstruction());
   const audioSummary = document.querySelector("#verbMeaningBoard .verb-audio-menu > summary");
   if (audioSummary) {
-    audioSummary.setAttribute("aria-label", `${verbTargetLabel} audio settings`);
-    audioSummary.title = `${verbTargetLabel} audio settings`;
+    audioSummary.setAttribute("aria-label", interfaceText("verbnebula.audio.settings"));
+    audioSummary.title = interfaceText("verbnebula.audio.settings");
   }
   const audioDialog = document.querySelector(".verb-audio-popover");
-  if (audioDialog) audioDialog.setAttribute("aria-label", `${verbTargetLabel} audio settings`);
+  if (audioDialog) audioDialog.setAttribute("aria-label", interfaceText("verbnebula.audio.settings"));
   const speakLabel = $("#verbSpeakOnTapLabel");
   if (speakLabel) speakLabel.textContent = interfaceText("verbnebula.audio.speakontap");
   const speed = $("#verbAudioSpeed");
-  if (speed) speed.setAttribute("aria-label", `${verbTargetLabel} speech speed`);
+  if (speed) speed.setAttribute("aria-label", interfaceText("verbnebula.audio.speed"));
   setText("#verbTargetColumnHeading", verbTargetNativeLabel);
   setText("#verbSourceColumnHeading", verbSourceLabel);
   setText("#verbMatchFeedback", verbMatchInstruction());
@@ -2199,9 +2198,9 @@ function renderVerbAudioControls() {
   }
   if (settings) settings.hidden = !state.verbSpeakOnTap;
   if (summary) {
-    const stateLabel = state.verbSpeakOnTap ? "on" : "off";
-    summary.setAttribute("aria-label", `${verbTargetLabel} audio settings. Speak on tap is ${stateLabel}.`);
-    summary.title = `${verbTargetLabel} audio settings. Speak on tap is ${stateLabel}.`;
+    const stateLabel = interfaceText(state.verbSpeakOnTap ? "verbnebula.audio.enabled" : "verbnebula.audio.disabled");
+    summary.setAttribute("aria-label", stateLabel);
+    summary.title = stateLabel;
     summary.classList.toggle("is-active", state.verbSpeakOnTap);
   }
   const slider = $("#verbAudioSpeed");
@@ -2211,7 +2210,7 @@ function renderVerbAudioControls() {
     const paceIndex = Math.max(0, paceOrder.indexOf(pace.key));
     slider.value = String(paceIndex);
     slider.style.setProperty("--speech-pace-position", `${(paceIndex / (paceOrder.length - 1)) * 100}%`);
-    slider.setAttribute("aria-valuetext", `${pace.label}, ${pace.rate} times`);
+    slider.setAttribute("aria-valuetext", interfaceText("speech.pace.valuetext", { pace: pace.label, rate: pace.rate }));
   }
 }
 
@@ -2237,18 +2236,18 @@ async function refreshVerbAudioVoiceControls() {
   const chrome = window.CaatuuChrome;
   if (typeof chrome?.getSpeechVoiceControlState !== "function") {
     select.disabled = true;
-    status.textContent = `${verbTargetLabel} voice settings are unavailable.`;
+    status.textContent = interfaceText("speech.voices.unavailable", { language: verbTargetLabel });
     return;
   }
   const request = Number(select.dataset.request || 0) + 1;
   select.dataset.request = String(request);
   select.disabled = true;
-  status.textContent = `Checking ${verbTargetLabel} voices...`;
+  status.textContent = interfaceText("speech.voices.checking", { language: verbTargetLabel });
   const result = await chrome.getSpeechVoiceControlState();
   if (request !== Number(select.dataset.request)) return;
   const automatic = document.createElement("option");
   automatic.value = "";
-  automatic.textContent = "Automatic (recommended)";
+  automatic.textContent = interfaceText("speech.voices.automatic");
   select.replaceChildren(automatic);
   result.voices.forEach((voice) => {
     const option = document.createElement("option");
@@ -2260,7 +2259,8 @@ async function refreshVerbAudioVoiceControls() {
   const selected = result.voices.find((voice) => voice.id === preferred);
   select.value = selected ? selected.value : "";
   select.disabled = !(result.available || result.voices.length);
-  status.textContent = chrome.describeSpeechVoiceState?.(result) || "Voice selection is ready.";
+  status.textContent = chrome.describeSpeechVoiceState?.(result)
+    || interfaceText("speech.voices.ready", { language: verbTargetLabel });
 }
 
 function closeVerbToolbarMenus(except = null) {
@@ -2303,9 +2303,9 @@ function renderVerbMatchStats() {
     revealButton.setAttribute("aria-pressed", String(state.verbSolutionRevealed));
     revealButton.setAttribute(
       "aria-label",
-      state.verbSolutionRevealed ? "Hide solution" : "Reveal solution"
+      interfaceText(state.verbSolutionRevealed ? "verbnebula.solution.hide" : "verbnebula.solution.reveal")
     );
-    revealButton.title = state.verbSolutionRevealed ? "Hide solution" : "Reveal solution";
+    revealButton.title = interfaceText(state.verbSolutionRevealed ? "verbnebula.solution.hide" : "verbnebula.solution.reveal");
   }
 }
 
@@ -2326,7 +2326,7 @@ function renderVerbHintSlot(pair) {
   if (hint.status === "loading") {
     const loader = document.createElement("span");
     loader.className = "verb-hint-loader";
-    loader.setAttribute("aria-label", "Loading picture clue");
+    loader.setAttribute("aria-label", interfaceText("verbnebula.hints.loading"));
     slot.append(loader);
     return slot;
   }
@@ -2334,12 +2334,10 @@ function renderVerbHintSlot(pair) {
   if (hint.status === "ready") {
     const image = document.createElement("img");
     image.src = hint.assetPath;
-    image.alt = hint.alt || "Picture clue";
+    image.alt = interfaceText("verbnebula.hints.picture");
     image.addEventListener("error", () => {
       state.verbHintById.set(pair.id, {
-        status: "ready",
-        assetPath: verbHintFallbackPath,
-        alt: "Macaw picture clue"
+        status: "unavailable"
       });
       renderVerbNebula();
     }, { once: true });
@@ -2347,10 +2345,7 @@ function renderVerbHintSlot(pair) {
     return slot;
   }
 
-  const fallback = document.createElement("img");
-  fallback.src = verbHintFallbackPath;
-  fallback.alt = "Macaw picture clue";
-  slot.append(fallback);
+  slot.hidden = true;
   return slot;
 }
 
@@ -2379,8 +2374,11 @@ function createVerbMatchCard(pair, side) {
   copy.className = "verb-match-card-copy";
   const label = side === "cz" ? (pair.target ?? pair.cz) : (pair.source ?? pair.eng);
   copy.textContent = label;
+  copy.lang = side === "cz" ? targetLanguage.locale : sourceLanguage.locale;
   if (state.verbSolutionRevealed) {
-    button.setAttribute("aria-label", `${pair.target ?? pair.cz} means ${pair.source ?? pair.eng}`);
+    button.setAttribute("aria-label", interfaceText("verbnebula.match.meaning", {
+      target: pair.target ?? pair.cz, meaning: pair.source ?? pair.eng
+    }));
   }
   button.append(copy);
   if (side === "cz") {
@@ -2486,8 +2484,8 @@ function renderVerbHintButton() {
   button.disabled = !state.verbRound.length || state.verbRoundTransitioning;
   if (state.verbGuidedRequested) button.disabled ||= verbGuidedInteractionLocked();
   button.setAttribute("aria-pressed", String(state.verbHintsEnabled));
-  button.setAttribute("aria-label", state.verbHintsEnabled ? "Hide picture clues" : "Show picture clues");
-  button.title = state.verbHintsEnabled ? "Hide picture clues" : "Show picture clues";
+  button.setAttribute("aria-label", interfaceText(state.verbHintsEnabled ? "verbnebula.hints.hide" : "verbnebula.hints.show"));
+  button.title = interfaceText(state.verbHintsEnabled ? "verbnebula.hints.hide" : "verbnebula.hints.show");
   button.classList.toggle("is-active", state.verbHintsEnabled);
   button.classList.toggle("is-loading", loading);
 }
@@ -2518,8 +2516,8 @@ function renderVerbRoundInterstitial() {
   interstitial.setAttribute(
     "aria-label",
     rewardVisible
-      ? `Round cleared. ${rewardXp} XP earned this round. Preparing the next round.`
-      : "Preparing the next round"
+      ? interfaceText("verbnebula.round.reward", { xp: rewardXp })
+      : interfaceText("verbnebula.round.preparing")
   );
   if (reward) {
     reward.hidden = !rewardVisible;
@@ -2558,7 +2556,7 @@ function renderVerbNebula() {
   if (!courseGameAvailable("verb-lab")) return;
   const panel = $("#trainPanelVerbLab");
   if (!panel) return;
-  setText("#verbWorldSubtitle", "Match meanings");
+  setText("#verbWorldSubtitle", interfaceText("games.verblab.summary"));
   loadVerbMemory();
   if (!state.verbRound.length && state.verbPairs.length && !state.verbRoundTransitioning) {
     void startVerbRound();
@@ -2607,9 +2605,7 @@ async function preloadVerbHintsForRound(round) {
     const assigned = assignments[index];
     const hint = assigned ? await loadableVerbHint([assigned], pair) : null;
     return [pair.id, hint || {
-      status: "ready",
-      assetPath: verbHintFallbackPath,
-      alt: "Macaw picture clue"
+      status: "unavailable"
     }];
   }));
   const hints = new Map(entries);
@@ -2619,7 +2615,7 @@ async function preloadVerbHintsForRound(round) {
 
 async function prepareVerbRound(nextRound, transitionId) {
   state.verbRoundInterstitial = true;
-  setVerbMatchFeedback("Preparing the next round…", "hint");
+  setVerbMatchFeedback(interfaceText("verbnebula.round.preparing"), "hint");
   renderVerbNebula();
 
   const hintPromise = state.verbHintsEnabled
@@ -2637,7 +2633,8 @@ async function prepareVerbRound(nextRound, transitionId) {
 }
 
 function preloadVerbHintAsset(assetPath) {
-  const path = String(assetPath || verbHintFallbackPath);
+  const path = String(assetPath || "");
+  if (!path) return Promise.resolve();
   return new Promise((resolve) => {
     const image = new Image();
     let settled = false;
@@ -2725,7 +2722,7 @@ async function toggleVerbSolution() {
   }
   state.verbSolutionRevealed = true;
   setVerbMatchFeedback(
-    "Follow the arrows to review every pair.",
+    interfaceText("verbnebula.solution.review"),
     "hint"
   );
   renderVerbNebula();
@@ -2747,9 +2744,10 @@ function recordVerbSemanticAttempt(pair, {
   const semanticLearning = window.CaatuuSemanticLearning;
   const target = pair?.target ?? pair?.cz;
   const source = pair?.source ?? pair?.eng;
+  const englishAuditText = verbNebulaCore.verbHintSearchText(pair);
   if (!semanticLearning || !pair?.id || !source) return;
   const hint = state.verbHintById.get(pair.id);
-  const hintShown = Boolean(state.verbHintsEnabled && hint && hint.status !== "loading");
+  const hintShown = Boolean(state.verbHintsEnabled && hint?.status === "ready");
   const solutionShown = Boolean(state.verbSolutionRevealed);
   const totalWeight = solutionShown ? 0.25 : (hintShown ? 0.65 : 1);
   const masteryWeight = solutionShown ? 0 : totalWeight;
@@ -2764,6 +2762,7 @@ function recordVerbSemanticAttempt(pair, {
       sourceIndex: pair.sourceIndex,
       target,
       source,
+      englishAuditText,
       difficulty: pair.difficulty
     },
     signals: [
@@ -2772,7 +2771,7 @@ function recordVerbSemanticAttempt(pair, {
         statementRevision: "1",
         kind: "meaning",
         locale: "en",
-        text: `Understands the ${verbTargetAuditLabel} verb meaning “${source}”.`,
+        text: `Understands the ${verbTargetAuditLabel} verb meaning “${englishAuditText}”.`,
         score,
         coverageWeight: signalWeight,
         masteryWeight: signalMasteryWeight
@@ -2782,7 +2781,7 @@ function recordVerbSemanticAttempt(pair, {
         statementRevision: "1",
         kind: "skill",
         locale: "en",
-        text: `Recognizes a ${verbTargetAuditLabel} verb and matches it to the ${verbSourceAuditLabel} meaning “${source}”.`,
+        text: `Recognizes a ${verbTargetAuditLabel} verb meaning “${englishAuditText}” and matches it to its ${verbSourceAuditLabel} translation.`,
         score,
         coverageWeight: signalWeight,
         masteryWeight: signalMasteryWeight
@@ -2855,9 +2854,11 @@ async function settleVerbMatch() {
     if (roundComplete) {
       state.verbStats.rounds += 1;
       state.verbRoundRewardXp = state.verbGuidedMode ? 0 : state.verbRound.length;
-      setVerbMatchFeedback("Round complete.", "correct");
+      setVerbMatchFeedback(interfaceText("verbnebula.round.cleared"), "correct");
     } else {
-      setVerbMatchFeedback(`${pair?.target ?? pair?.cz ?? "This verb"} means ${pair?.source ?? pair?.eng ?? "this meaning"}.`, "correct");
+      setVerbMatchFeedback(interfaceText("verbnebula.match.meaning", {
+        target: pair.target ?? pair.cz, meaning: pair.source ?? pair.eng
+      }), "correct");
     }
     if (!state.verbGuidedMode) {
       window.CaatuuLearning?.record("verb-nebula", {
@@ -2899,7 +2900,7 @@ async function settleVerbMatch() {
       chosenSource: chosenPair?.source ?? chosenPair?.eng ?? ""
     });
   }
-  setVerbMatchFeedback(`Those two do not match. Keep the ${verbTargetLabel} verb and try another meaning.`, "wrong");
+  setVerbMatchFeedback(interfaceText("verbnebula.match.retry"), "wrong");
   saveVerbMemory();
   renderVerbNebula();
   state.verbWrongTimer = window.setTimeout(() => {
@@ -2946,7 +2947,7 @@ function changeVerbPairCount(event) {
   if (nextCount === state.verbPairCount) return;
   state.verbPairCount = nextCount;
   saveVerbMemory();
-  setVerbMatchFeedback(`${nextCount} pairs will appear in the next round.`, "hint");
+  setVerbMatchFeedback(interfaceText("verbnebula.pairs.next", { count: nextCount }), "hint");
   renderVerbNebula();
 }
 
@@ -3017,11 +3018,12 @@ async function fallbackVerbHintCandidates(pair) {
   return rows
     .map((row) => {
       const actionText = row.action.toLowerCase().trim();
-      const candidateTokens = new Set(verbHintTokens(`${row.action} ${row.description}`));
+      const candidateTokens = new Set(verbHintTokens(row.action));
       let shared = 0;
       queryTokens.forEach((token) => {
         if (candidateTokens.has(token)) shared += 1;
       });
+      if (!shared) return null;
       const exact = actionText === englishText.toLowerCase() ? 2 : 0;
       return {
         assetPath: row.assetPath,
@@ -3029,31 +3031,9 @@ async function fallbackVerbHintCandidates(pair) {
         score: 50 + exact + shared / queryTokens.size
       };
     })
-    .filter((row) => row.score > 0)
+    .filter(Boolean)
     .sort((left, right) => right.score - left.score)
     .slice(0, 10);
-}
-
-function stableVerbHintOffset(value, length) {
-  if (!length) return 0;
-  let hash = 0;
-  Array.from(String(value || "")).forEach((character) => {
-    hash = ((hash * 31) + character.codePointAt(0)) >>> 0;
-  });
-  return hash % length;
-}
-
-function genericVerbHintCandidates(pair, rows) {
-  if (!rows.length) return [];
-  const offset = stableVerbHintOffset(verbNebulaCore.verbHintSearchText(pair), rows.length);
-  return rows.map((_, rank) => {
-    const row = rows[(offset + rank) % rows.length];
-    return {
-      assetPath: row.assetPath,
-      alt: row.description || "Macaw picture clue",
-      score: -100 - rank
-    };
-  });
 }
 
 function mergeVerbHintCandidates(...candidateGroups) {
@@ -3107,12 +3087,10 @@ function cachedVerbHintCandidates(pair) {
   if (!state.verbHintCache.has(key)) {
     const lookup = Promise.all([
       vectorVerbHintCandidates(pair).catch(() => []),
-      fallbackVerbHintCandidates(pair),
-      loadVerbHintKeymap()
-    ]).then(([vectorCandidates, lexicalCandidates, keymapRows]) => mergeVerbHintCandidates(
+      fallbackVerbHintCandidates(pair)
+    ]).then(([vectorCandidates, lexicalCandidates]) => mergeVerbHintCandidates(
       vectorCandidates,
-      lexicalCandidates,
-      genericVerbHintCandidates(pair, keymapRows)
+      lexicalCandidates
     )).catch(() => []);
     const deadline = new Promise((resolve) => {
       window.setTimeout(() => resolve([]), verbHintLookupTimeoutMillis);
@@ -3130,15 +3108,13 @@ async function loadVerbHintsForRound() {
   state.verbHintById.clear();
   const round = [...state.verbRound];
   round.forEach((pair) => state.verbHintById.set(pair.id, { status: "loading" }));
-  setVerbMatchFeedback("Loading picture clues…", "hint");
+  setVerbMatchFeedback(interfaceText("verbnebula.hints.loading"), "hint");
   renderVerbNebula();
 
   const hints = await preloadVerbHintsForRound(round);
   if (requestId !== state.verbHintRequestId || !state.verbHintsEnabled) return;
   round.forEach((pair) => state.verbHintById.set(pair.id, hints.get(pair.id) || {
-    status: "ready",
-    assetPath: verbHintFallbackPath,
-    alt: "Macaw picture clue"
+    status: "unavailable"
   }));
   setVerbMatchFeedback(verbMatchInstruction());
   renderVerbNebula();
@@ -3163,7 +3139,7 @@ function toggleVerbHints() {
   saveVerbMemory();
   setVerbMatchFeedback(
     state.verbHintsEnabled
-      ? "Loading picture clues…"
+      ? interfaceText("verbnebula.hints.loading")
       : verbMatchInstruction(),
     state.verbHintsEnabled ? "hint" : ""
   );

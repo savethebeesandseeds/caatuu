@@ -30,6 +30,7 @@ import { normalizeGrammarGravityPack, validateGrammarGravityCategories } from ".
 import { normalizeNounLandingPack } from "../../../apps/language-runtime/static/source/games/grammar-gravity/noun-landing-core.mjs";
 import { validateConjugationCometCatalog } from "../../../apps/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs";
 import { validateSoundQuasarCatalog } from "../../../apps/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs";
+import { validateVerbNebulaCatalog } from "../../../apps/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs";
 import { resolveWordWorldGenerationStrategy } from "../../../apps/language-runtime/static/source/word-world-provider.mjs";
 import {
   GAME_IDS,
@@ -1269,7 +1270,7 @@ export function learnerSourceReadinessIssues(course, { launcher = false } = {}) 
     ];
     issues.push({
       code: "source-language.presentation",
-      message: `${course.id} non-English learner-base presentation is not yet declared for: ${[...new Set(unsupported)].join(", ")}. Reviewed learner-base presentation currently exists for Word World, Conjugation Comet, Grammar Gravity, and Sounds Quasar; Campaign is ready only when every contained playable planet qualifies.`
+      message: `${course.id} non-English learner-base presentation is not yet declared for: ${[...new Set(unsupported)].join(", ")}. Learner-base presentation currently exists for Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, and Sounds Quasar; Campaign is ready only when every contained playable planet qualifies.`
     });
   }
   return issues;
@@ -2248,6 +2249,15 @@ async function validatePlanetEnglishAudit(record, repoRoot, issues, checkExisten
           code: issue.code,
           message: `${course.id}.${gameId} ${issue.message}`
         });
+      }
+      if (gameId === "verb-lab" && requirement.name === "verbNebulaCatalog") {
+        try {
+          validateVerbNebulaCatalog(await readJsonDocument(confined.file), {
+            learnerBaseLanguage: course.sourceLanguage?.locale || course.sourceLanguage?.id
+          });
+        } catch (error) {
+          issues.push({ code: "content.game-contract", message: `${course.id}.${gameId} ${error.message ?? String(error)}` });
+        }
       }
       if (gameId === "sound-quasar" && requirement.name === "soundQuasarCatalog") {
         try {

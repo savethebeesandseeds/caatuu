@@ -5,6 +5,21 @@ governed beta or stable release.
 
 ## Unreleased
 
+### Android 0.1.15 (167) and shared course fixes
+
+- Fixed Czech setup reporting readiness before its setup provider had enabled
+  navigation, and retained Mandarin Verb Nebula in the Android package.
+- Added shared Android update and cache controls for courses without the Czech
+  setup provider, including update-download recovery after changing pages.
+- Made the language chooser modal, stacked its choices vertically, and required
+  an explicit source-language choice before enabling the target-language step.
+- Enabled Verb Nebula and its Campaign entry for the browser-only Spanish to
+  English course, with Spanish feedback and separate English retrieval text.
+- Removed unrelated fallback picture clues, packaged the shared hearing and
+  seeing artwork, and refreshed course profiles and offline asset references.
+- Physical-device installation, update, offline use, and progress-preservation
+  testing remain unverified for this candidate.
+
 ### Mandarin learning preview
 
 - Expanded the child-safe Mandarin course to 250 Word World entries, 180 Verb

@@ -8,6 +8,98 @@
   const t = (messageId, parameters = {}) => interfaceContent.t(messageId, parameters);
   let sharedUpdateController = null;
 
+  function installSharedMaintenanceRuntime() {
+    const course = window.CaatuuCourse;
+    const runtime = window.CaatuuRuntime || {};
+    if (!course?.id || runtime.maintenance) return;
+    const android = typeof window.CaatuuAndroid?.postMessage === "function";
+    const pending = new Map();
+    let sequence = 0;
+
+    function nativeCall(type, handlers = {}, timeoutMs = 0) {
+      const id = `shared-maintenance-${Date.now()}-${++sequence}`;
+      return new Promise((resolve, reject) => {
+        const timeout = timeoutMs ? window.setTimeout(() => {
+          pending.delete(id);
+          reject(new Error(t("maintenance.copy.checkfailed")));
+        }, timeoutMs) : null;
+        pending.set(id, { resolve, reject, timeout, onEvent: handlers.onEvent });
+        try {
+          window.CaatuuAndroid.postMessage(JSON.stringify({ id, type }));
+        } catch (error) {
+          pending.delete(id);
+          if (timeout !== null) window.clearTimeout(timeout);
+          reject(error);
+        }
+      });
+    }
+
+    if (android) {
+      const previous = window.CaatuuNative?.receive?.bind(window.CaatuuNative);
+      window.CaatuuNative = {
+        ...(window.CaatuuNative || {}),
+        receive(raw) {
+          let message;
+          try { message = typeof raw === "string" ? JSON.parse(raw) : raw; }
+          catch { return; }
+          const request = pending.get(message?.id);
+          if (!request) { previous?.(raw); return; }
+          if (message.kind === "done" || message.kind === "error") {
+            pending.delete(message.id);
+            if (request.timeout !== null) window.clearTimeout(request.timeout);
+            if (message.kind === "done") request.resolve(message.result || {});
+            else request.reject(new Error(message.message || t("maintenance.copy.failed")));
+          } else {
+            try { request.onEvent?.(message); } catch { /* Keep native completion reachable. */ }
+          }
+        }
+      };
+    }
+
+    async function clearBrowserCache() {
+      const prefix = String(course.cache?.prefix || "").trim();
+      const fallback = String(course.cache?.setupFallback || "").trim();
+      const result = { cacheNamesDeleted: [], bytesDeleted: 0 };
+      const before = await window.navigator?.storage?.estimate?.();
+      if (window.caches) {
+        const names = await window.caches.keys();
+        for (const name of names) {
+          if ((prefix && name.startsWith(prefix)) || (fallback && name === fallback)) {
+            if (await window.caches.delete(name)) result.cacheNamesDeleted.push(name);
+          }
+        }
+      }
+      const after = await window.navigator?.storage?.estimate?.();
+      if (before && after) result.bytesDeleted = Math.max(0, (before.usage || 0) - (after.usage || 0));
+      return result;
+    }
+
+    window.CaatuuRuntime = {
+      ...runtime,
+      env: android ? "android" : "browser",
+      maintenance: Object.freeze({
+        async updateStatus() {
+          if (android) return nativeCall("update_app_status", {}, 30_000);
+          return { updateAvailable: false, selfUpdateEnabled: false };
+        },
+        async updateApp(handlers = {}) {
+          if (android) return nativeCall("update_app", handlers);
+          const registration = await window.navigator?.serviceWorker?.getRegistration?.();
+          await registration?.update();
+          return { updateAvailable: false, reloaded: false };
+        },
+        clearCache(handlers = {}) {
+          return android ? nativeCall("clear_cache", handlers, 120_000) : clearBrowserCache();
+        },
+        async cacheStatus() {
+          return { available: Boolean(window.caches), cacheNames: await window.caches?.keys() || [] };
+        }
+      })
+    };
+  }
+
+  installSharedMaintenanceRuntime();
+
   function updateDownloadState(status) {
     const current = Number(status?.currentVersionCode || 0);
     const latest = Number(status?.latestVersionCode || 0);
@@ -132,6 +224,18 @@
     let checkedAt = 0;
     let inFlight = null;
     let confirmedCurrent = false;
+    let activePoll = null;
+
+    function scheduleActivePoll(status) {
+      if (activePoll !== null) window.clearTimeout(activePoll);
+      activePoll = null;
+      if (runtime.env !== "android" || window.CaatuuCourse?.browserProviders?.setupProvider
+        || updateDownloadState(status) !== "active" || document.visibilityState === "hidden") return;
+      activePoll = window.setTimeout?.(() => {
+        activePoll = null;
+        void refresh({ force: true, announce: true });
+      }, 2500) ?? null;
+    }
 
     const statusNode = () => document.querySelector("#maintenanceStatus");
     const versionNode = () => document.querySelector("#settingsVersion");
@@ -140,6 +244,7 @@
       if (node) node.textContent = message;
     };
     const render = (status = currentStatus, { busy = false } = {}) => {
+      scheduleActivePoll(status);
       setUpdateAppControl(button, runtime, status || { updateAvailable: false }, {
         busy,
         checked: confirmedCurrent
@@ -215,6 +320,25 @@
         return status;
       }
       render(status, { busy: true });
+      if (!window.CaatuuCourse?.browserProviders?.setupProvider) {
+        // Courses without a setup provider must complete the confirmed update here.
+        inFlight = runtime.maintenance.updateApp({
+          onEvent(message) {
+            const progress = updateProgressMessage(message, (bytes) => `${Math.round(Number(bytes || 0) / 1048576)} MB`);
+            if (progress) setMessage(progress);
+          }
+        }).then(async (result) => {
+          try { currentStatus = await runtime.maintenance.updateStatus(); }
+          catch { currentStatus = status; } // Opening the installer remains a success if a later check fails.
+          render(currentStatus);
+          setMessage(updateResultMessage(result));
+          return result;
+        }).catch(() => {
+          render(status);
+          setMessage(t("maintenance.copy.failed"));
+        }).finally(() => { inFlight = null; });
+        return inFlight;
+      }
       setMessage(t("maintenance.status.openingsetup"));
       beginAppUpdate(status);
       return status;
@@ -223,6 +347,14 @@
     button.dataset.sharedUpdateControl = "true";
     button.addEventListener("click", activate);
     render({ updateAvailable: false, selfUpdateEnabled: runtime.env === "android" });
+    document.addEventListener?.("visibilitychange", () => {
+      if (document.visibilityState === "hidden") {
+        if (activePoll !== null) window.clearTimeout(activePoll);
+        activePoll = null;
+      } else if (runtime.env === "android") {
+        void refresh({ force: true, announce: true });
+      }
+    });
     return Object.freeze({ activate, refresh, render });
   }
 

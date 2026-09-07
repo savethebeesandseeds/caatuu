@@ -282,7 +282,7 @@ Planet readiness is a conjunction, not a language allowlist:
 
 | Planet | Required course data | Additional requirement |
 | --- | --- | --- |
-| Verb Lab | `verbNebulaCatalog` | `routes.verbNebula` |
+| Verb Lab | `verbNebulaCatalog` | `routes.verbNebula`; distinct learner-base meanings and explicit English audit text for a non-English base |
 | Word World | `wordWorldManifest` | `wordWorld` capability and `routes.wordWorld` |
 | Conjugation Comet | `conjugationCometCatalog` | `conjugationComet`, `verb-conjugation`, and its route |
 | Case Cosmos | `caseCosmosCatalog` | `grammatical-case` and its route |
@@ -403,11 +403,18 @@ base. Any browser, Android, or launcher delivery whose source locale is not
 English must use `language-content-v1`, provide a non-null reviewed
 `publication.learnerBaseRealizations` catalog, and project it through a
 non-null `publication.runtimeProjection.learnerBaseRuntime`. The currently
-complete shared presentation paths are Word World, Conjugation Comet, and
-Grammar Gravity. Their registered contracts keep learner-base presentation
-separate from English audit authority; the two grammar games also keep English
-audit fields out of playable round projections. Campaign may wrap only planets
-whose presentation contracts are ready. Dictionary, Verb Lab, Case Cosmos,
+complete shared presentation paths are Verb Nebula, Word World, Conjugation
+Comet, Grammar Gravity, and Sounds Quasar. Their registered contracts keep
+learner-base presentation separate from English audit authority; the two grammar
+games also keep English audit fields out of playable round projections. Verb
+Nebula displays authored target verbs and learner-base meanings, while picture
+retrieval and semantic signals use English audit text. A non-English learner-base
+catalog must provide distinct authored IDs, targets, and meanings for every
+playable item, with independent English audit text. The local Spanish-to-English
+course uses this path for its existing English verbs and Spanish meanings;
+English target text never substitutes implicitly for English audit evidence.
+Campaign may wrap only planets whose presentation contracts are ready.
+Dictionary, Case Cosmos,
 and Naturalization Nucleus fail closed with `source-language.presentation`
 until they implement the same three-role rendering contract. Learner-base-sensitive
 capabilities `dictionary`, `generation`, `chat`, and `skillCompass` also fail

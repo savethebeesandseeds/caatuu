@@ -548,8 +548,8 @@ async function auditHttpRoutes(validatedLanguageCatalog) {
     }
     assert(!page.body.includes("/language-runtime/static/styles/course-shell.css"), `${label} home should not load the superseded mini-app stylesheet`);
     assert(!page.body.includes("source/shared/chrome.js"), `${label} home should not load a course-local Chrome duplicate`);
-    const profileIndex = page.body.indexOf('src="source/shared/course-profile.js?v=course-57"');
-    const bootstrapIndex = page.body.indexOf('src="/language-runtime/static/source/app-bootstrap.mjs?v=app-51"');
+    const profileIndex = page.body.search(/src="source\/shared\/course-profile\.js\?v=course-[1-9]\d*"/u);
+    const bootstrapIndex = page.body.search(/src="\/language-runtime\/static\/source\/app-bootstrap\.mjs\?v=app-[1-9]\d*"/u);
     assert(profileIndex >= 0, `${label} home should load its route-relative course profile`);
     assert(bootstrapIndex > profileIndex, `${label} home should load its course profile before the shared bootstrap`);
   }
@@ -576,8 +576,10 @@ async function auditHttpRoutes(validatedLanguageCatalog) {
   assert(appBootstrap.body.includes('robots.content = "noindex, nofollow"'), "the shared bootstrap should apply the development noindex gate");
   assert(appBootstrap.body.includes("frame.dataset.src = typeof path === \"string\" ? path : \"\""), "the shared bootstrap should bind game routes from the course profile");
   assert(appBootstrap.body.includes('./interface-content.mjs?v=interface-runtime-2'), "the shared bootstrap should load the revisioned interface runtime");
+  const interfaceLoadIndex = appBootstrap.body.indexOf("loadInterfaceContent(course)");
+  const chromeLoadIndex = appBootstrap.body.search(/caatuu-chrome\.js\?v=chrome-[1-9]\d*/u);
   assert(
-    appBootstrap.body.indexOf("loadInterfaceContent(course)") < appBootstrap.body.indexOf('caatuu-chrome.js?v=chrome-155'),
+    interfaceLoadIndex >= 0 && chromeLoadIndex > interfaceLoadIndex,
     "the shared bootstrap should install course interface content before loading Chrome"
   );
   assert(

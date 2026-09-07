@@ -14,7 +14,8 @@ const [
   chromeSource,
   workspaceSource,
   czechSetup,
-  czechWorker
+  czechWorker,
+  englishInterface
 ] = await Promise.all([
   readFile(new URL("apps/languages/czech/static/source/features/setup/setup.js", repoRoot), "utf8"),
   readFile(new URL("apps/language-runtime/static/app/index.html", repoRoot), "utf8"),
@@ -24,8 +25,18 @@ const [
   readFile(new URL("apps/language-runtime/static/source/caatuu-chrome.js", repoRoot), "utf8"),
   readFile(new URL("apps/language-runtime/static/source/caatuu-workspace.js", repoRoot), "utf8"),
   readFile(new URL("apps/languages/czech/static/setup-assets.json", repoRoot), "utf8").then(JSON.parse),
-  readFile(new URL("apps/languages/czech/static/sw.js", repoRoot), "utf8")
+  readFile(new URL("apps/languages/czech/static/sw.js", repoRoot), "utf8"),
+  readFile(new URL("apps/language-runtime/static/data/interface/en.v1.json", repoRoot), "utf8").then(JSON.parse)
 ]);
+
+function revisionedReference(source, pathname, revisionPrefix) {
+  const escapedPath = pathname.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
+  const pattern = new RegExp(`["'](${escapedPath}\\?v=${revisionPrefix}-[1-9]\\d*)["']`, "gu");
+  const references = [...source.matchAll(pattern)].map((match) => match[1]);
+  assert.ok(references.length, `Missing revisioned reference to ${pathname}`);
+  assert.equal(new Set(references).size, 1, `Conflicting revisions for ${pathname}`);
+  return references[0];
+}
 
 function sourceBetween(source, startMarker, endMarker) {
   const start = source.indexOf(startMarker);
@@ -187,7 +198,7 @@ test("the shared home exposes a two-question language form and the game display 
   );
   assert.match(
     homeStyles,
-    /\.home-language-card \.language-selector-menu \{[\s\S]*?position: fixed;[\s\S]*?left: 50%;[\s\S]*?transform: translateX\(-50%\);/u
+    /dialog\.home-language-selector-menu \{[\s\S]*?position: fixed;[\s\S]*?left: 50%;[\s\S]*?transform: translateX\(-50%\);/u
   );
   assert.match(chromeSource, /className = "home-language-pair"/u);
   assert.match(chromeSource, /const current = document\.createElement\("div"\)/u);
@@ -210,6 +221,9 @@ test("the shared home exposes a two-question language form and the game display 
   assert.match(chromeSource, /function renderLanguageIndicator\(element\)[\s\S]*?interfaceMessage\("courseselector\.indicator\.arialabel"/u);
   assert.doesNotMatch(chromeSource, /language\.dataset\.caatuuLanguageSwitch/u);
   assert.match(chromeSource, /menu\.setAttribute\("role", "dialog"\)/u);
+  assert.match(chromeSource, /document\.createElement\("dialog"\)/u);
+  assert.match(chromeSource, /menu\.showModal\(\)/u);
+  assert.match(homeStyles, /\.home-language-selector-menu::backdrop/u);
   assert.match(chromeSource, /interfaceMessage\("courseselector\.sourcequestion"\)/u);
   assert.match(chromeSource, /interfaceMessage\("courseselector\.targetquestion"\)/u);
   assert.match(chromeSource, /dataset\.languageSelectorReview/u);
@@ -250,19 +264,23 @@ test("the shared home exposes a two-question language form and the game display 
   );
   assert.match(appEntry, /initial-theme\.js\?v=theme-3/u);
   assert.match(appEntry, /caatuu-theme\.css\?v=theme-7/u);
-  assert.match(appEntry, /caatuu-home\.css\?v=home-50/u);
+  const homeUrl = revisionedReference(appEntry, "/language-runtime/static/styles/caatuu-home.css", "home");
   assert.match(appEntry, /caatuu-chrome\.css\?v=chrome-style-133/u);
   assert.doesNotMatch(appEntry, /caatuu-chrome\.js/u);
-  assert.match(appEntry, /course-profile\.js\?v=course-57/u);
-  assert.match(appEntry, /app-bootstrap\.mjs\?v=app-64/u);
+  revisionedReference(appEntry, "source/shared/course-profile.js", "course");
+  const bootstrapUrl = revisionedReference(appEntry, "/language-runtime/static/source/app-bootstrap.mjs", "app");
+  const chromeUrl = revisionedReference(bootstrapSource, "/language-runtime/static/source/caatuu-chrome.js", "chrome");
+  const workspaceUrl = revisionedReference(bootstrapSource, "/language-runtime/static/source/caatuu-workspace.js", "workspace");
   assert.match(czechSetup.offline.cacheName, /^caatuu-czech-pwa-v[1-9]\d*$/u);
   assert.ok(czechWorker.includes(`// Offline catalog revision: ${czechSetup.offline.cacheName}`));
-  assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/source/caatuu-chrome.js?v=chrome-155"));
+  for (const url of [homeUrl, bootstrapUrl, chromeUrl, workspaceUrl]) {
+    assert.ok(czechSetup.offline.assets.includes(url), `Offline setup must contain the current shared reference ${url}`);
+  }
   assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-133"));
   assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/source/dictionary-provider-loader.mjs"));
   assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/source/interface-content.mjs?v=interface-runtime-2"));
   assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-8"));
-  assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/data/interface/en.v1.json?v=interface-en-27"));
+  assert.ok(czechSetup.offline.assets.includes(`/language-runtime/static/data/interface/en.v1.json?v=${englishInterface.revision}`));
   assert.ok(czechSetup.offline.assets.includes("./source/features/setup/setup.js?v=setup-41"));
   assert.match(
     bootstrapSource,
@@ -275,9 +293,8 @@ test("the shared home exposes a two-question language form and the game display 
   assert.match(bootstrapSource, /interface-content\.mjs\?v=interface-runtime-2/u);
   assert.match(
     bootstrapSource,
-    /loadInterfaceContent\(course\);[\s\S]*installInterfaceContent\(interfaceContent\);[\s\S]*caatuu-chrome\.js\?v=chrome-155/u
+    /loadInterfaceContent\(course\);[\s\S]*installInterfaceContent\(interfaceContent\);[\s\S]*caatuu-chrome\.js\?v=chrome-[1-9]\d*/u
   );
-  assert.match(bootstrapSource, /caatuu-workspace\.js\?v=workspace-21/u);
 });
 
 function evaluateInitialTheme(values = {}, { throwOnRead = false } = {}) {

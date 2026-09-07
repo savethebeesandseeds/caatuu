@@ -6,6 +6,7 @@ import { pathToFileURL } from "node:url";
 import test from "node:test";
 import { runInNewContext } from "node:vm";
 
+import { availableGameIds } from "../../../language-runtime/static/source/shell-policy.mjs";
 import {
   CANONICAL_APP_ENTRY_PATH,
   STORE_LANGUAGE_FILES,
@@ -89,6 +90,22 @@ function readPackagedCourseProfile(profilePath) {
   assert.ok(context.window.CaatuuCourse, `${profilePath} must define window.CaatuuCourse`);
   return context.window.CaatuuCourse;
 }
+
+test("Android course profiles preserve shared game availability", () => {
+  const bundle = JSON.parse(readFileSync(courseBundlePath, "utf8"));
+  for (const entry of bundle.courses) {
+    const course = JSON.parse(readFileSync(join(workspaceRoot, entry.manifest), "utf8"));
+    const profilePath = join(workspaceRoot, course.resources.courseProfile.path);
+    const browserCourse = readPackagedCourseProfile(profilePath);
+    const context = { window: {} };
+    runInNewContext(transformCourseProfile(readFileSync(profilePath, "utf8"), course), context);
+    assert.deepEqual(
+      availableGameIds(context.window.CaatuuCourse),
+      availableGameIds(browserCourse),
+      `${course.id}: packaging must preserve the shared game's declared availability`,
+    );
+  }
+});
 
 test("global developer tools remain available when product packaging removes model settings", () => {
   const source = readFileSync(join(workspaceRoot, "apps/language-runtime/static/source/caatuu-chrome.js"), "utf8");

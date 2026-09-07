@@ -1123,7 +1123,7 @@ const PRODUCT_ROUTE_CAPABILITIES = Object.freeze({
   dictionary: "dictionary",
   wordWorld: "wordWorld",
   conjugationComet: "conjugationComet",
-  verbNebula: "verbs",
+  // Verb Nebula uses course vocabulary and does not require verb conjugation.
   llm: "llm",
   generation: "generation",
   offlineModels: "offlineModels",

@@ -1196,7 +1196,11 @@ test("the Home language form is wired at startup and confirms a course switch", 
   assert.equal(sourceOptions.length, 1);
   assert.equal(courseOptions.length, 2);
   assert.equal(current.getAttribute("aria-current"), "page");
-  assert.equal(current.getAttribute("aria-checked"), "true");
+  assert.equal(current.getAttribute("aria-checked"), "false");
+  assert.equal(sourceOptions[0].getAttribute("aria-checked"), "false");
+  assert.equal(current.disabled, true);
+  assert.equal(preview.disabled, true);
+  assert.equal(current.closest("fieldset").disabled, true);
   assert.equal(current.dataset.languageEffort, "1.3K XP · 3 rounds");
   assert.equal(current.dataset.languageEffortExact, "1250 experience points and 3 completed rounds");
   assert.equal(preview.dataset.languageEffort, "Not started");
@@ -1207,6 +1211,14 @@ test("the Home language form is wired at startup and confirms a course switch", 
   assert.equal(review.disabled, true);
 
   trigger.click();
+  preview.click();
+  assert.equal(review.disabled, true, "step 2 cannot select a course before step 1");
+  menu.querySelector('[data-language-base-option="en"]').click();
+  preview = menu.querySelector('[data-language-course-option="zh"]');
+  assert.equal(preview.closest("fieldset").disabled, false);
+  assert.equal(preview.disabled, false);
+  assert.equal(preview.getAttribute("aria-checked"), "false");
+  assert.equal(review.disabled, true, "step 1 must not automatically choose step 2");
   preview.click();
   preview = menu.querySelector('[data-language-course-option="zh"]');
   assert.equal(assignments.length, 0, "choosing a target must not navigate");
@@ -1366,9 +1378,15 @@ test("the Home language form resets drafts and supports keyboard dismissal", () 
   const menu = harness.document.querySelector("[data-language-selector-menu]");
 
   trigger.click();
+  assert.equal(menu.tagName, "DIALOG", "native modality blocks pointer and keyboard access to the background");
+  assert.equal(menu.open, true);
+  assert.equal(menu.getAttribute("aria-modal"), "true");
+  assert.equal(harness.document.activeElement.closest("dialog"), menu);
+  menu.querySelector('[data-language-base-option="en"]').click();
   menu.querySelector('[data-language-course-option="zh"]').click();
   menu.querySelector("[data-language-selector-cancel]").click();
   assert.equal(menu.hidden, true);
+  assert.equal(menu.open, false);
   assert.equal(assignments.length, 0);
   assert.equal(harness.document.activeElement, trigger);
 
@@ -1379,7 +1397,9 @@ test("the Home language form resets drafts and supports keyboard dismissal", () 
   assert.equal(menu.hidden, false);
   assert.equal(trigger.getAttribute("aria-expanded"), "true");
   assert.equal(harness.document.activeElement, enabledOptions[0]);
-  assert.equal(menu.querySelector('[data-language-course-option="cz"]').getAttribute("aria-checked"), "true");
+  assert.equal(menu.querySelector('[data-language-course-option="cz"]').getAttribute("aria-checked"), "false");
+  assert.equal(menu.querySelector('[data-language-base-option="en"]').getAttribute("aria-checked"), "false");
+  assert.equal(menu.querySelector('[data-language-course-option="cz"]').disabled, true);
 
   menu.dispatchEvent({ type: "keydown", key: "End" });
   assert.equal(harness.document.activeElement, enabledOptions.at(-1));
@@ -1387,6 +1407,28 @@ test("the Home language form resets drafts and supports keyboard dismissal", () 
   assert.equal(menu.hidden, true);
   assert.equal(trigger.getAttribute("aria-expanded"), "false");
   assert.equal(harness.document.activeElement, trigger);
+});
+
+test("native dialog dismissal releases the language selector and restores its opener", () => {
+  const harness = executeChrome();
+  const trigger = harness.document.createElement("button");
+  trigger.dataset.caatuuLanguageSwitch = "";
+  harness.document.body.append(trigger);
+  harness.window.CaatuuChrome.renderLanguageSwitch(trigger);
+  const menu = harness.document.querySelector("[data-language-selector-menu]");
+  trigger.click();
+  menu.dispatchEvent({ type: "cancel" });
+  assert.equal(menu.open, false);
+  assert.equal(menu.hidden, true);
+  assert.equal(trigger.getAttribute("aria-expanded"), "false");
+  assert.equal(harness.document.activeElement, trigger);
+  trigger.click();
+  menu.close();
+  assert.equal(menu.hidden, true);
+  assert.equal(harness.document.activeElement, trigger);
+  trigger.click();
+  menu.dispatchEvent({ type: "close" });
+  assert.equal(menu.open, true, "a queued close event cannot dismiss a newly reopened dialog");
 });
 
 test("the native selector disables courses absent from the installed shell", () => {
@@ -1414,7 +1456,7 @@ test("the native selector disables courses absent from the installed shell", () 
   assert.match(preview.textContent, /Browser only/u);
 });
 
-test("base-language switching preserves the current target and checks the destination bundle", () => {
+test("base-language switching preserves an explicitly chosen current target and checks the destination bundle", () => {
   const course = fixtureCourse();
   course.courseSelector.courses.push(
     {
@@ -1460,7 +1502,9 @@ test("base-language switching preserves the current target and checks the destin
   assert.match(frenchBase.textContent, /Français/u);
   assert.doesNotMatch(frenchBase.textContent, /Browser only/u);
   trigger.click();
-  frenchBase.click();
+  harness.document.querySelector('[data-language-base-option="en"]').click();
+  harness.document.querySelector('[data-language-course-option="cz"]').click();
+  harness.document.querySelector('[data-language-base-option="fr"]').click();
 
   const menu = harness.document.querySelector("[data-language-selector-menu]");
   const selectedFrenchBase = menu.querySelector('[data-language-base-option="fr"]');
@@ -1511,6 +1555,7 @@ test("base-language switching preserves the in-progress target selection", () =>
   harness.window.CaatuuChrome.renderLanguageSwitch(trigger);
 
   trigger.click();
+  harness.document.querySelector('[data-language-base-option="en"]').click();
   harness.document.querySelector('[data-language-course-option="zh"]').click();
   harness.document.querySelector('[data-language-base-option="fr"]').click();
 
@@ -1573,6 +1618,7 @@ test("base-language switching preserves the exact target script variant", () => 
   harness.window.CaatuuChrome.renderLanguageSwitch(trigger);
 
   trigger.click();
+  harness.document.querySelector('[data-language-base-option="en"]').click();
   harness.document.querySelector('[data-language-course-option="zh-hant"]').click();
   harness.document.querySelector('[data-language-base-option="fr"]').click();
 

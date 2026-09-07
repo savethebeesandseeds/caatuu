@@ -12,6 +12,8 @@
     { "source": "apps/language-runtime/static/styles/games/sound-quasar.css", "output": "language-runtime/static/styles/games/sound-quasar.css" },
     { "source": "apps/launcher/static/assets/visual-vocabulary/keymap.json", "output": "assets/miscellaneous/keymap.json" },
     { "source": "apps/launcher/static/assets/macaw/actions/keymaps.json", "output": "assets/macaw/actions/keymaps.json" },
+    { "source": "apps/launcher/static/assets/macaw/actions/180-hear_listen.png", "output": "assets/macaw/actions/180-hear_listen.png" },
+    { "source": "apps/launcher/static/assets/macaw/actions/181-see_look.png", "output": "assets/macaw/actions/181-see_look.png" },
     { "source": "apps/language-runtime/static/source/developer-tools/browser-model-service.mjs", "output": "language-runtime/static/source/developer-tools/browser-model-service.mjs" },
     { "source": "apps/language-runtime/static/source/developer-tools/developer-tools.mjs", "output": "language-runtime/static/source/developer-tools/developer-tools.mjs" },
     { "source": "apps/language-runtime/static/source/developer-tools/audio-lab.mjs", "output": "language-runtime/static/source/developer-tools/audio-lab.mjs" },

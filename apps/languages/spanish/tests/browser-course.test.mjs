@@ -295,8 +295,9 @@ test("setup and the service worker declare one complete Spanish offline closure"
   assert.equal(setup.offline.cachePrefix, "caatuu-es-pwa-");
   assert.ok(worker.includes(`// Offline catalog revision: ${setup.offline.cacheName}`));
   assert.match(worker, /importScripts\("\/language-runtime\/static\/source\/course-service-worker\.js"\)/u);
+  const offlinePaths = new Set(setup.offline.assets.map((asset) => asset.split("?")[0]));
   for (const asset of [
-    "source/shared/course-profile.js?v=course-57",
+    "source/shared/course-profile.js",
     "source/language/adapter.mjs",
     "data/embeddings/catalog.json",
     "data/games/verb-nebula/core-vocabulary.json",
@@ -313,22 +314,22 @@ test("setup and the service worker declare one complete Spanish offline closure"
     "/language-runtime/static/source/games/grammar-gravity/grammar-gravity-host.mjs?v=grammar-gravity-shared-32",
     "/language-runtime/static/styles/games/conjugation-comet.css?v=conjugation-comet-shared-3",
     "/language-runtime/static/styles/games/grammar-gravity.css?v=grammar-gravity-shared-30",
-    "/language-runtime/static/source/app-bootstrap.mjs?v=app-64",
+    "/language-runtime/static/source/app-bootstrap.mjs",
     "/language-runtime/static/source/interface-content.mjs?v=interface-runtime-2",
     "/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-8",
-    "/language-runtime/static/source/caatuu-workspace.js?v=workspace-21",
-    "/language-runtime/static/source/maintenance-ui.js?v=maintenance-19",
-    "/language-runtime/static/source/caatuu-chrome.js?v=chrome-155",
+    "/language-runtime/static/source/caatuu-workspace.js",
+    "/language-runtime/static/source/maintenance-ui.js",
+    "/language-runtime/static/source/caatuu-chrome.js",
     "/language-runtime/static/source/word-world-host.mjs?v=word-world-host-19",
     "/language-runtime/static/source/word-world-provider.mjs?v=word-world-provider-23",
     "/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-23",
-    "/language-runtime/static/data/interface/en.v1.json?v=interface-en-27",
+    "/language-runtime/static/data/interface/en.v1.json",
     "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
     "/assets/icons/czech_flag_ui.png",
     "/assets/icons/china_flag.png",
     "/assets/icons/spain_flag.png",
     "/assets/icons/english_flag.png"
-  ]) assert.ok(setup.offline.assets.includes(asset), `Spanish offline closure is missing ${asset}`);
+  ]) assert.ok(offlinePaths.has(asset.split("?")[0]), `Spanish offline closure is missing ${asset}`);
   assert.doesNotMatch(JSON.stringify(setup), /(?:word-world\.html|authored-word-world-provider|course-shell\.css)/u);
   assert.equal(new Set(setup.artifacts.map(({ key }) => key)).size, setup.artifacts.length);
   for (const artifact of setup.artifacts) {

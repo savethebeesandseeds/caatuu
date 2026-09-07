@@ -66,7 +66,8 @@
           "static/data/games/verb-nebula/core-vocabulary.json",
           "verb-nebula-items-v1"
         )]),
-        campaignEligible: true
+        campaignEligible: true,
+        learnerBasePresentationContract: "authored-game-three-role-v1"
       }),
       "word-net": Object.freeze({
         id: "word-net",

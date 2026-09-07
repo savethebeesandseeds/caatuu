@@ -76,7 +76,7 @@ test('launcher fetches only the selected declared Spanish catalog with its exact
   assert.equal(content.t('launcher.continue'), spanish.messages['launcher.continue']);
   assert.notEqual(content.t('launcher.continue'), english.messages['launcher.continue']);
   assert.deepEqual(requests, [{
-    url: 'http://127.0.0.1:8765/language-runtime/static/data/interface/es.v1.json?v=interface-es-2',
+    url: `http://127.0.0.1:8765/language-runtime/static/data/interface/es.v1.json?v=${spanish.revision}`,
     options: { cache: 'no-cache', credentials: 'same-origin' }
   }]);
 });

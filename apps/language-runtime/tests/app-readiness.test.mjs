@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
 
+import { transformSetupJs } from "../../android/tooling/build-product-assets.mjs";
 import { initializeWorkspaceAfterDictionaryProvider } from "../static/source/dictionary-provider-loader.mjs";
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { englishInterfaceContent, installEnglishInterfaceContent } from "./helpers/english-interface-content.mjs";
@@ -16,6 +17,13 @@ const bootstrapSource = (await readFile(
   .replace(/^import\s+[\s\S]*?from\s+"[^"]+";\r?\n/gmu, "")
   .replace(/await import\("\.\/word-world-host\.mjs\?v=[^"]+"\)/u, "await loadWordWorldHost()");
 
+const setupSource = transformSetupJs(await readFile(new URL(
+  "../../languages/czech/static/source/features/setup/setup.js", import.meta.url
+), "utf8"));
+const setupProgressSource = await readFile(new URL(
+  "../../languages/czech/static/source/features/setup/setup-progress.js", import.meta.url
+), "utf8");
+
 function deferred() {
   let resolve;
   let reject;
@@ -28,7 +36,7 @@ function deferred() {
 
 const flush = () => new Promise((resolve) => setImmediate(resolve));
 
-function startHarness({ dictionary = false, failScript = "", serviceWorker = null, interfaceGate = null } = {}) {
+function startHarness({ dictionary = false, failScript = "", serviceWorker = null, interfaceGate = null, nativeSetup = null } = {}) {
   const course = {
     id: "en-zh-Hans",
     routePrefix: "/zh",
@@ -36,6 +44,9 @@ function startHarness({ dictionary = false, failScript = "", serviceWorker = nul
     sourceLanguage: { id: "en", locale: "en", label: "English" },
     targetLanguage: { id: "zh-Hans", locale: "zh-Hans", label: "Simplified Chinese" },
     capabilities: { dictionary, offlineModels: false },
+    ...(nativeSetup ? {
+      browserProviders: { setupProvider: "source/features/setup/setup.js?v=setup-test-1" }
+    } : {}),
     ...(dictionary ? {
       dictionaryContent: {
         providerId: "readiness-dictionary-v1",
@@ -45,6 +56,14 @@ function startHarness({ dictionary = false, failScript = "", serviceWorker = nul
   };
   const harness = createBrowserHarness({ course });
   const { context, document } = harness;
+  if (nativeSetup) {
+    harness.runtime.env = "android";
+    harness.runtime.setup = { status: () => nativeSetup.promise };
+    context.Image = class {
+      set src(value) { queueMicrotask(() => this.onload?.()); }
+    };
+    vm.runInContext(setupProgressSource, context);
+  }
   const workspace = deferred();
   const dictionaryMount = deferred();
   const scriptUrls = [];
@@ -73,11 +92,13 @@ function startHarness({ dictionary = false, failScript = "", serviceWorker = nul
   for (const id of ["setupAction", "setupAbort", "setupReportBug", "setupDetailsToggle"]) {
     element("button", id, card);
   }
+  element("div", null, card).className = "setup-progress-meta";
   const nav = element("nav", null, document.body);
   nav.setAttribute("data-caatuu-bottom-nav", "");
   const gamesButton = element("button", "readinessGamesButton", nav);
   gamesButton.dataset.view = "train";
   gamesButton.dataset.caatuuNav = "train";
+  gamesButton.dataset.navKey = "games";
 
   // Simulate a user interaction, including the browser's inert/disabled rules.
   function clickNavigation() {
@@ -88,7 +109,7 @@ function startHarness({ dictionary = false, failScript = "", serviceWorker = nul
   document.styleSheets = [];
   document.addEventListener("caatuu:app-ready", () => {
     readyEvents += 1;
-    assert.equal(card.classList.contains("is-ready"), true, "ready events must observe the ready UI");
+    if (!nativeSetup) assert.equal(card.classList.contains("is-ready"), true, "ready events must observe the ready UI");
     assert.equal(nav.hasAttribute("inert"), false, "ready events must observe usable navigation");
   });
   if (serviceWorker) {
@@ -128,6 +149,10 @@ function startHarness({ dictionary = false, failScript = "", serviceWorker = nul
             id: course.dictionaryContent.providerId,
             mountDictionaryProvider: () => dictionaryMount.promise
           };
+        }
+        if (node.src.includes("features/setup/setup.js")) {
+          harness.window.CaatuuShellReady = context.CaatuuShellReady;
+          vm.runInContext(setupSource, context);
         }
         if (node.src.includes("caatuu-workspace.js")) {
           context.CaatuuWorkspaceReady = workspace.promise.then((result) => {
@@ -214,6 +239,41 @@ test("bootstrap locks navigation immediately and renders ready only after worksp
   const result = await harness.context.CaatuuShellReady;
   assert.equal(result.ready, true);
   assertReady(harness);
+});
+
+test("Android's model-free profile leaves readiness and details with its setup provider", { timeout: 2_000 }, async () => {
+  const nativeSetup = deferred();
+  const harness = startHarness({ nativeSetup });
+  await flush();
+  harness.workspace.resolve({ ready: true });
+  assert.equal((await harness.context.CaatuuShellReady).ready, true);
+
+  const { document, card, nav } = harness;
+  const games = document.getElementById("readinessGamesButton");
+  const details = document.getElementById("setupDetails");
+  const toggle = document.getElementById("setupDetailsToggle");
+  assert.equal(card.classList.contains("is-ready"), false, "shell initialization cannot announce native setup readiness");
+  assert.equal(document.body.classList.contains("setup-blocked"), true);
+  assert.equal(games.getAttribute("aria-disabled"), "true");
+  assert.equal(document.getElementById("setupProgress").hidden, false);
+  assert.equal(card.querySelector(".setup-progress-meta").hasAttribute("hidden"), false);
+  assert.equal(toggle.dataset.readyHomeBound, undefined, "only the setup provider owns the details toggle");
+
+  nativeSetup.resolve({ ready: true, staticAssets: { assets: [{ key: "course", ready: true, bytes: 1 }] } });
+  await flush();
+  assert.equal(card.classList.contains("is-ready"), true);
+  assert.equal(document.body.classList.contains("setup-blocked"), false);
+  assert.equal(games.hasAttribute("aria-disabled"), false);
+  assert.equal(nav.dataset.setupLocked, "false");
+  assert.equal(document.getElementById("setupTitle").textContent, englishInterfaceContent.t("setup.readytitle"));
+  assert.equal(details.hidden, true);
+  document.dispatchEvent({ type: "click", target: toggle });
+  assert.equal(details.hidden, false);
+  document.dispatchEvent({ type: "click", target: toggle });
+  assert.equal(details.hidden, true);
+  harness.clickNavigation();
+  assert.equal(harness.navigationCalls, 1);
+  assert.deepEqual(harness.errors, []);
 });
 
 test("a loaded workspace script cannot report ready when initialization fails", { timeout: 2_000 }, async () => {

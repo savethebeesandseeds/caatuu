@@ -12,6 +12,11 @@ import {
 } from '../../../language-runtime/static/source/games/grammar-gravity/grammar-gravity-core.mjs';
 import { normalizeNounLandingPack } from '../../../language-runtime/static/source/games/grammar-gravity/noun-landing-core.mjs';
 import { validateSoundQuasarCatalog } from '../../../language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs';
+import {
+  validateVerbNebulaCatalog, filterVerbPairsForDifficulty, dealVerbRound,
+  shuffleVerbMeanings, verbPairMatches, isVerbRoundComplete, verbHintSearchText
+} from '../../../language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs';
+import { availableGameIds, CAMPAIGN_GAME_IDS } from '../../../language-runtime/static/source/shell-policy.mjs';
 
 const root = new URL('../', import.meta.url);
 const json = async (relative) => JSON.parse(await readFile(new URL(relative, root), 'utf8'));
@@ -43,15 +48,56 @@ test('the Spanish-to-English course owns direction, identity, resources and isol
   assert.equal(course.platforms.browser.pagesEnabled, false);
   assert.equal(course.platforms.android.enabled, false);
   assert.equal(course.resources.interfaceCatalog.path, 'apps/language-runtime/static/data/interface/es.v1.json');
-  assert.equal(course.resources.interfaceCatalog.revision, 'interface-es-2');
+  assert.equal(course.resources.interfaceCatalog.revision, (await json('../../language-runtime/static/data/interface/es.v1.json')).revision);
   assert.equal(course.resources.appEntry.scope, 'shared');
-  assert.deepEqual(course.games, ['word-net', 'conjugation-comet', 'grammar-gravity', 'sound-quasar']);
+  assert.deepEqual(course.games, ['verb-lab', 'word-net', 'conjugation-comet', 'grammar-gravity', 'sound-quasar']);
+  assert.deepEqual(availableGameIds(course), ['campaign', ...course.games]);
+  assert.deepEqual(CAMPAIGN_GAME_IDS.filter((id) => availableGameIds(course).includes(id)),
+    ['verb-lab', 'word-net', 'conjugation-comet', 'grammar-gravity']);
   for (const key of ['generation', 'llm', 'chat', 'dictionary', 'skillCompass', 'memory']) {
     assert.equal(course.capabilities[key], false, key);
   }
   for (const value of Object.values(course.storage)) assert.ok(value.startsWith('caatuu-es-en'), value);
   assert.equal(course.cache.prefix, 'caatuu-es-en-pwa-');
   assert.equal((await json('static/manifest.webmanifest')).lang, 'es-ES');
+});
+
+test('Verb Nebula deals and completes English-to-Spanish meaning rounds with English-only image queries', async () => {
+  const rows = await json('static/data/games/verb-nebula/core-vocabulary.json');
+  const pairs = validateVerbNebulaCatalog(rows, { learnerBaseLanguage: 'es-ES' });
+  assert.equal(pairs.length, rows.length);
+  for (const [index, pair] of pairs.entries()) {
+    assert.equal(pair.target, rows[index].target);
+    assert.equal(pair.source, rows[index].source);
+    assert.equal(verbHintSearchText(pair), rows[index].englishAuditText);
+    assert.notEqual(pair.source, pair.englishAuditText);
+  }
+  for (const difficulty of [1, 2, 3]) for (const pairCount of [2, 4, 6, 8]) {
+    const eligible = filterVerbPairsForDifficulty(pairs, difficulty);
+    const { round } = dealVerbRound(eligible, [], pairCount, () => 0.37);
+    const meanings = shuffleVerbMeanings(round, () => 0.37);
+    assert.equal(round.length, pairCount);
+    assert.equal(new Set(meanings.map((pair) => pair.source)).size, pairCount);
+    assert.ok(round.every((pair, index) => pair.id !== meanings[index].id));
+    assert.ok(round.every((pair) => verbPairMatches(pair.id, meanings.find((item) => item.id === pair.id).id)));
+    assert.equal(verbPairMatches(round[0].id, round[1].id), false);
+    assert.equal(isVerbRoundComplete(round, new Set(round.map((pair) => pair.id))), true);
+  }
+});
+
+test('non-English Verb Nebula data fails closed for missing audit, ambiguous meanings, and malformed learner fields', async () => {
+  const rows = await json('static/data/games/verb-nebula/core-vocabulary.json');
+  const options = { learnerBaseLanguage: 'es-ES' };
+  for (const badAudit of [undefined, {}, 42, '']) {
+    const invalid = structuredClone(rows); invalid[0].englishAuditText = badAudit;
+    assert.throws(() => validateVerbNebulaCatalog(invalid, options), /explicit English audit/u);
+  }
+  for (const key of ['id', 'target', 'source']) {
+    const invalid = structuredClone(rows); invalid[0][key] = {};
+    assert.throws(() => validateVerbNebulaCatalog(invalid, options), /authored IDs/u);
+  }
+  const duplicate = structuredClone(rows); duplicate[1].source = duplicate[0].source;
+  assert.throws(() => validateVerbNebulaCatalog(duplicate, options), /distinct authored/u);
 });
 
 test('English adapter segments contractions, preserves spelling and speaks en-US', async () => {

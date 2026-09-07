@@ -614,7 +614,6 @@ test("Verb Nebula keeps revealed solutions visible and gates the next round on c
   assert.match(app, /route\.dataset\.verbPairId = pair\.id/);
   assert.doesNotMatch(app, /solutionOrdinal/);
   assert.match(app, /assignUniqueVerbHintCandidates\(candidateGroups\)/);
-  assert.match(app, /Follow the arrows to review every pair\./);
   assert.match(
     app,
     /const guidedLifecycle = state\.verbGuidedLifecycle;[\s\S]*?await guidedLifecycle\.recordSolutionReveal[\s\S]*?state\.verbSolutionRevealed = true/

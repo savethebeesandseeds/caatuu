@@ -130,13 +130,15 @@ The contract keeps the English audit language independent of
 locale is not English must use `language-content-v1`, name a non-null reviewed
 `publication.learnerBaseRealizations` catalog, and name a non-null
 `publication.runtimeProjection.learnerBaseRuntime`. The currently complete
-non-English-base presentation paths are Word World, Conjugation Comet,
+non-English-base presentation paths are Verb Nebula, Word World, Conjugation Comet,
 Grammar Gravity, and Sounds Quasar. Their contracts keep learner-base presentation separate from
 mandatory English audit data. Grammar Gravity carries its anchor's English
 audit text solely for image retrieval; learner-visible meanings always come
 from the declared learner base. Campaign is ready only when every contained playable
-planet has a registered learner-base presentation contract. Dictionary, Verb
-Lab, Case Cosmos, and Naturalization Nucleus reject the configuration with
+planet has a registered learner-base presentation contract. Verb Nebula keeps
+authored learner-base meanings on its matching cards and explicit English audit
+text for image retrieval and learning signals. Non-English-base catalogs reject
+missing audit text or ambiguous playable pairs. Dictionary, Case Cosmos, and Naturalization Nucleus reject the configuration with
 `source-language.presentation` until their shared three-role rendering
 contracts exist. The base-sensitive `dictionary`, `generation`, `chat`, and
 `skillCompass` capabilities also require reviewed presentation contracts before

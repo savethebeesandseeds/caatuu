@@ -457,7 +457,8 @@ function applyCapabilityBoundaries() {
   }
 
   document.body.classList.add("setup-blocked");
-  if (course.capabilities?.offlineModels !== true) renderStartingCourseHome();
+  // Setup providers own progress and navigation even when Android disables LLMs.
+  if (!declaredBrowserProvider("setupProvider")) renderStartingCourseHome();
 
   const available = new Set(globalThis.CaatuuShellPolicy?.availableGames?.(course) || []);
   document.querySelectorAll("[data-course-asset]").forEach((image) => {
@@ -502,7 +503,7 @@ async function loadCourseFeatureProviders() {
   const courseRuntime = declaredBrowserProvider("courseRuntime");
   if (courseRuntime) await loadScript(courseRuntime);
   installSharedSpeechRuntime();
-  await loadSharedScript("/language-runtime/static/source/maintenance-ui.js?v=maintenance-19");
+  await loadSharedScript("/language-runtime/static/source/maintenance-ui.js?v=maintenance-20");
   for (const providerName of ["semanticLearningProvider", "setupProgressProvider", "setupProvider"]) {
     const providerModule = declaredBrowserProvider(providerName);
     if (providerModule) await loadScript(providerModule);
@@ -514,7 +515,7 @@ async function loadCourseFeatureProviders() {
     origin: location.origin,
     routeBase,
     async initializeWorkspace() {
-      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-21");
+      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-23");
       const workspace = await globalThis.CaatuuWorkspaceReady;
       if (workspace?.ready !== true) {
         throw workspace?.error instanceof Error
@@ -543,12 +544,12 @@ async function start() {
   installInterfaceContent(interfaceContent);
   interfaceContent.apply(document);
   setCourseIdentity();
-  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-155");
+  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-156");
   configureGameRoutes();
   applyCapabilityBoundaries();
   await import("./word-world-host.mjs?v=word-world-host-19");
   await loadCourseFeatureProviders();
-  if (course.capabilities?.offlineModels !== true) {
+  if (!declaredBrowserProvider("setupProvider")) {
     renderReadyCourseHome();
     document.getElementById("nativeSetup")?.removeAttribute("aria-busy");
     document.body.classList.remove("setup-blocked");

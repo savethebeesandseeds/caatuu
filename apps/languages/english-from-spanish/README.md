@@ -16,14 +16,21 @@ are keyed by concept, target locale, token index, and surface; English target
 token glosses remain independent audit data. English target text is never used
 as an implicit substitute for Spanish learner presentation.
 
-The course enables Word World, Conjugation Comet, Grammar Gravity, and Sounds
-Quasar. Conjugation Comet uses eight finite present-tense paradigms. Grammar
+The course enables Verb Nebula, Word World, Conjugation Comet, Grammar Gravity,
+and Sounds Quasar. Verb Nebula matches 16 English verbs with their authored
+Spanish meanings. The shared core preserves explicit English audit text for
+picture retrieval and learning signals; Spanish meanings are never used as
+English retrieval queries. Conjugation Comet uses eight finite present-tense paradigms. Grammar
 Gravity classifies singular/plural nouns and teaches demonstratives and subject
 agreement through complete phrase pairs; it does not assign grammatical gender
 to English nouns. Sounds Quasar uses 16 words and 16 sentences with Spanish
 meanings and unreviewed device speech for listening practice. Its vocabulary
-source is retained under the established vocabulary path; Verb Nebula is not an
-enabled game.
+source is shared with Verb Nebula under the established vocabulary path.
+
+Campaign includes the four campaign-eligible games above; Sounds Quasar remains
+standalone. Case Cosmos has no English case curriculum, Naturalization Nucleus
+requires Hanzi/pinyin material, and Memory Moon has no implemented game, so none
+is enabled by this addition.
 
 Spanish interface messages come from the shared `es.v1.json` catalog. The two
 grammar catalogs also own Spanish lesson instructions, cues, and feedback.
@@ -40,7 +47,7 @@ assessment.
 Run focused checks in the established container:
 
 ```sh
-docker exec -w /workspace caatuu-dev node --test apps/languages/english-from-spanish/tests/course-content.test.mjs tools/language-content/tests/english-policy.test.mjs
+docker exec -w /workspace caatuu-dev node --test apps/languages/english-from-spanish/tests/course-content.test.mjs apps/language-runtime/tests/verb-nebula-language-roles.test.mjs tools/language-content/tests/english-policy.test.mjs
 docker exec -w /workspace caatuu-dev node tools/language-content/validate.mjs --course es-en
 docker exec -w /workspace caatuu-dev node tools/language-packs/validate.mjs --check-views
 ```

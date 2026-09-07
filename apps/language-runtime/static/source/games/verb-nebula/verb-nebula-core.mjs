@@ -26,7 +26,7 @@ function hasVerbDifficultyMetadata(value) {
   return Number.isInteger(level) && level >= 1 && level <= 3;
 }
 
-function projectCoreVerbPair(row, sourceIndex) {
+function projectCoreVerbPair(row, sourceIndex, { learnerBaseLanguage = "en" } = {}) {
   const canonicalPair = normalizedLabel(row?.target) && normalizedLabel(row?.source);
   const kind = normalizedLabel(row?.kind);
   if (!canonicalPair && !verbKindPattern.test(kind)) return null;
@@ -34,11 +34,19 @@ function projectCoreVerbPair(row, sourceIndex) {
   const target = firstLearnerLabel(row.target ?? row.cs);
   const source = firstLearnerLabel(row.source ?? row.en);
   if (!labelKey(target) || !labelKey(source)) return null;
+  const englishBase = String(learnerBaseLanguage).split("-")[0] === "en";
+  const englishAuditText = firstLearnerLabel([row.englishAuditText, row.english, row.en]
+    .find((value) => typeof value === "string" && value.trim()))
+    || (englishBase ? source : "");
+  if (!englishAuditText) {
+    throw new Error(`Verb Nebula ${row.id || sourceIndex} requires explicit English audit text for a non-English learner base.`);
+  }
 
   return {
     id: normalizedLabel(row.id) || `core-verb-${sourceIndex}`,
     target,
     source,
+    englishAuditText,
     // Temporary compatibility aliases keep the proven Czech guided-mode and
     // migration code working while every course consumes the neutral fields.
     cz: target,
@@ -59,7 +67,7 @@ function bytesToHex(bytes) {
   return Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
-export function extractCoreVerbPairs(dictionary) {
+export function extractCoreVerbPairs(dictionary, options = {}) {
   if (!Array.isArray(dictionary)) return [];
 
   const seenTarget = new Set();
@@ -68,7 +76,7 @@ export function extractCoreVerbPairs(dictionary) {
   const pairs = [];
 
   dictionary.forEach((row, sourceIndex) => {
-    const pair = projectCoreVerbPair(row, sourceIndex);
+    const pair = projectCoreVerbPair(row, sourceIndex, options);
     if (!pair) return;
     const targetKey = labelKey(pair.target);
     const sourceKey = labelKey(pair.source);
@@ -80,6 +88,20 @@ export function extractCoreVerbPairs(dictionary) {
     pairs.push(Object.freeze(pair));
   });
 
+  return pairs;
+}
+
+export function validateVerbNebulaCatalog(dictionary, options = {}) {
+  if (!Array.isArray(dictionary)) throw new Error("Verb Nebula requires an authored vocabulary array.");
+  const pairs = extractCoreVerbPairs(dictionary, options);
+  if (pairs.length < 2) throw new Error("Verb Nebula requires at least two distinct playable verb pairs.");
+  if (String(options.learnerBaseLanguage || "en").split("-")[0] !== "en") {
+    if (pairs.length !== dictionary.length || dictionary.some((row) => ["id", "target", "source"].some(
+      (field) => typeof row[field] !== "string" || !row[field].trim()
+    ))) {
+      throw new Error("Non-English Verb Nebula catalogs require distinct authored IDs, targets, and learner-base meanings for every item.");
+    }
+  }
   return pairs;
 }
 
@@ -438,7 +460,7 @@ export function filterVerbPairsForDifficulty(pairs, difficulty) {
 }
 
 export function verbHintSearchText(pair) {
-  return normalizedLabel(pair?.source ?? pair?.eng);
+  return normalizedLabel(pair?.englishAuditText ?? pair?.source ?? pair?.eng);
 }
 
 export function assignUniqueVerbHintCandidates(candidateGroups) {

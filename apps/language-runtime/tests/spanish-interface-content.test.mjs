@@ -15,7 +15,7 @@ const [english, spanish] = await Promise.all([readCatalog("en"), readCatalog("es
 
 test("the complete Spanish interface preserves the live English message API", () => {
   assert.deepEqual(validateInterfaceCatalog(spanish, {
-    locale: "es-ES", direction: "ltr", revision: "interface-es-2"
+    locale: "es-ES", direction: "ltr", revision: spanish.revision
   }), { valid: true, errors: [] });
   assert.deepEqual(validateInterfaceCatalogParity(english, spanish), { valid: true, errors: [] });
   assert.deepEqual(Object.keys(spanish.messages), Object.keys(spanish.messages).sort());
@@ -52,7 +52,7 @@ test("Spanish learner UI loads independently from an English target and audit au
     languageRoles: { auditLanguage: "en", retrievalLanguage: "en" },
     interfaceContent: {
       schemaVersion: 1, locale: "es-ES", direction: "ltr",
-      revision: "interface-es-2",
+      revision: spanish.revision,
       catalog: "/language-runtime/static/data/interface/es.v1.json"
     }
   };
@@ -65,7 +65,7 @@ test("Spanish learner UI loads independently from an English target and audit au
     }
   });
   assert.deepEqual(requests, [
-    "https://caatuu.test/language-runtime/static/data/interface/es.v1.json?v=interface-es-2"
+    `https://caatuu.test/language-runtime/static/data/interface/es.v1.json?v=${spanish.revision}`
   ]);
   assert.equal(content.locale, "es-ES");
   assert.equal(content.t("nav.home"), "Inicio");

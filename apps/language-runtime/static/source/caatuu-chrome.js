@@ -3302,6 +3302,7 @@
       || host.querySelector("[data-caatuu-language-switch]");
     const menu = host.querySelector("[data-language-selector-menu]");
     if (!menu) return;
+    if (menu.open) menu.close();
     menu.hidden = true;
     host.querySelectorAll("[data-language-selector-opener]")
       .forEach((opener) => opener.setAttribute("aria-expanded", "false"));
@@ -3326,27 +3327,22 @@
     host.caatuuLanguageSelectorOpener = trigger;
     activeLanguageSelectorHost = host;
     menu.hidden = false;
+    menu.showModal();
     host.querySelectorAll("[data-language-selector-opener]")
       .forEach((candidate) => candidate.setAttribute("aria-expanded", "false"));
     trigger.setAttribute("aria-expanded", "true");
     host.classList.add("is-open");
-    if (Number.isInteger(focusIndex)) {
-      window.requestAnimationFrame(() => {
-        const options = languageSelectorOptions(menu);
-        if (!options.length) return;
-        const normalizedIndex = (focusIndex + options.length) % options.length;
-        options[normalizedIndex].focus();
-      });
-    }
+    window.requestAnimationFrame(() => {
+      const options = languageSelectorOptions(menu);
+      if (!options.length || !menu.open) return;
+      const normalizedIndex = ((Number.isInteger(focusIndex) ? focusIndex : 0) + options.length) % options.length;
+      options[normalizedIndex].focus();
+    });
   }
 
   function bindLanguageSelectorDismissal() {
     if (languageSelectorDismissalBound) return;
     languageSelectorDismissalBound = true;
-    document.addEventListener("click", (event) => {
-      if (!activeLanguageSelectorHost || activeLanguageSelectorHost.contains(event.target)) return;
-      closeLanguageSelectorHost(activeLanguageSelectorHost);
-    });
     document.addEventListener("keydown", (event) => {
       if (event.key !== "Escape" || !activeLanguageSelectorHost) return;
       event.preventDefault();
@@ -3494,7 +3490,7 @@
     if (current) option.setAttribute("aria-current", "page");
 
     const unavailableInNativeShell = !courseSelectorAvailable(record);
-    if (unavailableInNativeShell) {
+    if (unavailableInNativeShell || !state.sourceId) {
       option.setAttribute("aria-disabled", "true");
       option.disabled = true;
       option.tabIndex = -1;
@@ -3525,20 +3521,27 @@
     option.addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
-      if (unavailableInNativeShell) return;
+      if (unavailableInNativeShell || !state.sourceId) return;
       onSelect(record.id);
     });
     return option;
   }
 
   function createLanguageSelectorMenu(host, trigger) {
-    const menu = document.createElement("div");
+    const menu = document.createElement("dialog");
     menu.className = "language-selector-menu home-language-selector-menu";
     menu.dataset.languageSelectorMenu = "";
     menu.id = "caatuuLanguageSelectorMenu" + (++languageSelectorSequence);
     menu.setAttribute("role", "dialog");
-    menu.setAttribute("aria-modal", "false");
+    menu.setAttribute("aria-modal", "true");
     menu.hidden = true;
+    menu.addEventListener("cancel", (event) => {
+      event.preventDefault();
+      closeLanguageSelectorHost(host, { restoreFocus: true });
+    });
+    menu.addEventListener("close", () => {
+      if (!menu.open && activeLanguageSelectorHost === host) closeLanguageSelectorHost(host, { restoreFocus: true });
+    });
 
     const form = document.createElement("form");
     form.className = "language-selector-form";
@@ -3654,8 +3657,8 @@
     trigger.setAttribute("aria-expanded", "false");
 
     const state = {
-      sourceId: selectorLanguageKey(course.sourceLanguage),
-      courseId: String(course.id || "")
+      sourceId: "",
+      courseId: ""
     };
 
     function selectedCourseRecord() {
@@ -3673,13 +3676,15 @@
             const sameTarget = compatible.find(
               (record) => selectorLanguageKey(record.targetLanguage) === draftTargetKey
             );
-            state.courseId = (sameTarget || compatible[0])?.id || "";
+            state.courseId = sameTarget?.id || "";
           }
           renderDraft();
         })
       )));
 
-      targetOptions.replaceChildren(...availableCourseSelectorRecords(state.sourceId).map((record) => (
+      targetQuestion.disabled = !state.sourceId;
+      targetQuestion.setAttribute("aria-disabled", String(!state.sourceId));
+      targetOptions.replaceChildren(...availableCourseSelectorRecords(state.sourceId || selectorLanguageKey(course.sourceLanguage)).map((record) => (
         createLanguageSelectorOption(record, state, summaries, (courseId) => {
           state.courseId = courseId;
           renderDraft();
@@ -3690,7 +3695,8 @@
       const changed = Boolean(selected && selected.id !== course.id);
       review.disabled = !changed;
       review.setAttribute("aria-disabled", String(!changed));
-      selectionStatus.textContent = changed
+      selectionStatus.hidden = !selected;
+      selectionStatus.textContent = !selected ? "" : changed
         ? interfaceMessage("courseselector.selection.changed", {
           language: interfaceLanguageName(selected.targetLanguage)
         })
@@ -3725,8 +3731,8 @@
     }
 
     menu.caatuuResetDraft = () => {
-      state.sourceId = selectorLanguageKey(course.sourceLanguage);
-      state.courseId = String(course.id || "");
+      state.sourceId = "";
+      state.courseId = "";
       renderDraft();
       showChoices();
     };

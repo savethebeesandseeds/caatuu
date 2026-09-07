@@ -957,20 +957,16 @@ test("reviewed non-English learner-base presentation is registered per shared ga
   assert.deepEqual(learnerSourceReadinessIssues(course), []);
 
   course.games.push("verb-lab");
-  assert.equal(
-    learnerSourceReadinessIssues(course).some(({ code, message }) => (
-      code === "source-language.presentation"
-      && /Word World, Conjugation Comet, Grammar Gravity, and Sounds Quasar/u.test(message)
-    )),
-    true
-  );
+  assert.deepEqual(learnerSourceReadinessIssues(course), []);
 
   course.games = ["campaign", "word-net", "sound-quasar"];
   assert.deepEqual(learnerSourceReadinessIssues(course), []);
   course.games = ["campaign", "verb-lab"];
+  assert.deepEqual(learnerSourceReadinessIssues(course), []);
+  course.games = ["campaign", "case-cosmos"];
   assert.equal(
     learnerSourceReadinessIssues(course).some(({ code, message }) => (
-      code === "source-language.presentation" && /campaign, verb-lab/u.test(message)
+      code === "source-language.presentation" && /campaign, case-cosmos/u.test(message)
     )),
     true
   );
