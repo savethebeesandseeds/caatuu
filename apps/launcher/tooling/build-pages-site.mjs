@@ -1334,6 +1334,26 @@ function validateCurrentAndroidSetupClosure({ siteDir, currentRelease }) {
   return { nativeArtifactCount, uniqueNativePaths: seen.size };
 }
 
+export function validatePagesArtwork({ workspaceRoot, siteDir, baselineDescriptor }) {
+  const currentAgreement = currentAgreementArtworkContract({ workspaceRoot });
+  const currentAgreementPublic = outputPath(siteDir, currentAgreement.versionedPath);
+  assert.ok(existsSync(currentAgreementPublic), "Pages output is missing current Agreement Aurora artwork");
+  assert.equal(statSync(currentAgreementPublic).size, currentAgreement.bytes);
+  assert.equal(sha256File(currentAgreementPublic), currentAgreement.sha256);
+  const legacyAgreement = baselineDescriptor.sourceOverrides.find(
+    (item) => item.key === "legacy-agreement-aurora",
+  );
+  assert.ok(legacyAgreement, "Pages baseline is missing legacy Agreement Aurora artwork");
+  // The immutable baseline owns its historical URL; current source names can change.
+  assert.notEqual(legacyAgreement.publicPath, currentAgreement.versionedPath,
+    "Historical artwork cannot occupy the current versioned URL");
+  const legacyAgreementPublic = outputPath(siteDir, legacyAgreement.publicPath);
+  assert.equal(statSync(legacyAgreementPublic).size, Number(legacyAgreement.bytes));
+  assert.equal(sha256File(legacyAgreementPublic), String(legacyAgreement.sha256).toLowerCase());
+  assert.notEqual(sha256File(currentAgreementPublic), sha256File(legacyAgreementPublic));
+  return currentAgreement;
+}
+
 function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, currentRelease, languagePlan }) {
   const workspace = resolve(workspaceRoot);
   const siteDir = resolve(outputDir);
@@ -1367,20 +1387,7 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, current
     assert.equal(sha256File(published), sha256File(source), `${path} hash changed`);
   }
 
-  const currentAgreement = currentAgreementArtworkContract({ workspaceRoot });
-  const currentAgreementPublic = outputPath(siteDir, currentAgreement.versionedPath);
-  assert.ok(existsSync(currentAgreementPublic), "Pages output is missing current Agreement Aurora artwork");
-  assert.equal(statSync(currentAgreementPublic).size, currentAgreement.bytes);
-  assert.equal(sha256File(currentAgreementPublic), currentAgreement.sha256);
-  const legacyAgreement = baseline.descriptor.sourceOverrides.find(
-    (item) => item.key === "legacy-agreement-aurora",
-  );
-  assert.ok(legacyAgreement, "Pages baseline is missing legacy Agreement Aurora artwork");
-  assert.equal(legacyAgreement.publicPath, currentAgreement.assetPath);
-  const legacyAgreementPublic = outputPath(siteDir, legacyAgreement.publicPath);
-  assert.equal(statSync(legacyAgreementPublic).size, Number(legacyAgreement.bytes));
-  assert.equal(sha256File(legacyAgreementPublic), String(legacyAgreement.sha256).toLowerCase());
-  assert.notEqual(sha256File(currentAgreementPublic), sha256File(legacyAgreementPublic));
+  const currentAgreement = validatePagesArtwork({ workspaceRoot, siteDir, baselineDescriptor: baseline.descriptor });
 
   const descriptor = baseline.descriptor;
   const currentDescriptor = currentRelease.descriptor;

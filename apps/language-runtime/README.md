@@ -214,6 +214,12 @@ of every course, and are pinned by `embedding-runtimes.json`. Before the canonic
 SHA-256. Tests, repository notes, and course-specific vector databases remain
 private.
 
+Fresh CI checkouts restore missing shared model files from their existing public
+URLs and verify the catalog's size and SHA-256 before the runtime contracts run.
+Historical Word World parity checks require the full Git history; the CI test
+container uses the checkout owner's UID and GID so Git can read that history
+without changing ownership or adding a global trust exception.
+
 `static/source/browser-shell.mjs` joins the reusable English concept catalog to
 a course realization catalog by stable `conceptId`. Embedding rankers receive a
 deliberately narrow payload: the query and candidate content use only the

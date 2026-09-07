@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import {
   existsSync,
   mkdirSync,
@@ -28,11 +29,45 @@ import {
   stagePagesBrowserCourses,
   transformPagesSentenceReporting,
   validatePagesSite,
+  validatePagesArtwork,
 } from "../build-pages-site.mjs";
 
 const testDir = dirname(fileURLToPath(import.meta.url));
 const workspaceRoot = resolve(testDir, "../../../..");
 const source = readFileSync(join(testDir, "../build-pages-site.mjs"), "utf8");
+
+test("renamed current artwork preserves the baseline URL and validates both byte identities", () => {
+  const temporaryDirectory = mkdtempSync(join(tmpdir(), "caatuu-pages-artwork-test-"));
+  try {
+    const manifest = JSON.parse(readFileSync(join(workspaceRoot, "apps/languages/czech/static/setup-assets.json"), "utf8"));
+    const current = manifest.artifacts.find(artifact => artifact.key === "planet-agreement-aurora");
+    const baseline = JSON.parse(readFileSync(join(workspaceRoot, "apps/android/tooling/pages-baseline.json"), "utf8"));
+    const historical = baseline.sourceOverrides.find(artifact => artifact.key === "legacy-agreement-aurora");
+    const oldBytes = Buffer.from("distinct preserved historical fixture");
+    const descriptor = { sourceOverrides: [{ ...historical, bytes: oldBytes.length,
+      sha256: createHash("sha256").update(oldBytes).digest("hex") }] };
+    const legacyPath = join(temporaryDirectory, historical.publicPath);
+    const currentPath = join(temporaryDirectory, `assets/planets/releases/${current.sha256.slice(0, 16)}/agreement-aurora.png`);
+    mkdirSync(dirname(legacyPath), { recursive: true });
+    mkdirSync(dirname(currentPath), { recursive: true });
+    const currentBytes = readFileSync(join(workspaceRoot, "apps/launcher/static", current.asset_path));
+    writeFileSync(legacyPath, oldBytes);
+    writeFileSync(currentPath, currentBytes);
+    const check = () => validatePagesArtwork({ workspaceRoot, siteDir: temporaryDirectory, baselineDescriptor: descriptor });
+    assert.equal(check().assetPath, current.asset_path);
+    const corruptOld = Buffer.from(oldBytes);
+    corruptOld[0] ^= 1;
+    writeFileSync(legacyPath, corruptOld);
+    assert.throws(check, /Expected values/u, "historical bytes must retain their pinned hash");
+    writeFileSync(legacyPath, oldBytes);
+    const corruptCurrent = Buffer.from(currentBytes);
+    corruptCurrent[0] ^= 1;
+    writeFileSync(currentPath, corruptCurrent);
+    assert.throws(check, /Expected values/u, "current artwork must also match its source receipt");
+  } finally {
+    rmSync(temporaryDirectory, { recursive: true, force: true });
+  }
+});
 
 test("Pages reporting projects the current interface-key call and keeps other courses local-only", () => {
   const wordWorld = readFileSync(join(workspaceRoot, "apps/language-runtime/static/source/product-word-world.mjs"), "utf8");

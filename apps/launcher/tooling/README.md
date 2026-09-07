@@ -128,6 +128,11 @@ keeps its catalog publication boundary and preserves the language-change
 handler when replacing the server's service-worker setup. The executable
 `launcher-locale-behavior.test.mjs` covers both launcher variants.
 
+Historical artwork keeps the public path and byte identity pinned in the
+preservation descriptor. Current artwork uses a separate content-addressed URL;
+renaming its local source must not require renaming the historical download.
+The Pages artwork regression checks both files' hashes independently.
+
 The Pages sentence-report copy is projected at the shared interface-key call,
 not by replacing an English literal inside JavaScript. The existing Czech-only
 reporting scope stays intact, and other courses retain their localized

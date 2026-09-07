@@ -84,6 +84,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          fetch-depth: 0
 
       - name: Check repository structure and documentation links
         run: |
@@ -113,10 +115,26 @@ jobs:
           ./apps/android/tooling/tests/release-orchestration.test.ps1
           ./apps/android/tooling/tests/release-network-retry.test.ps1
 
+      - name: Restore pinned shared runtime files for contract tests
+        if: needs.changes.outputs.language == 'true'
+        run: |
+          set -euo pipefail
+          while IFS=$'\t' read -r path url bytes sha256; do
+            destination="apps/language-runtime/$path"
+            [[ -f "$destination" ]] && continue
+            mkdir -p "$(dirname -- "$destination")"
+            temporary="${destination}.ci-download"
+            curl --fail --show-error --silent --location --retry 3 \
+              "https://caatuu.waajacu.com$url" --output "$temporary"
+            [[ "$(stat -c %s "$temporary")" == "$bytes" ]]
+            printf '%s  %s\n' "$sha256" "$temporary" | sha256sum --check --status
+            mv -- "$temporary" "$destination"
+          done < <(jq -r '.runtimes[].artifacts[] | [.path, .url, .bytes, .sha256] | @tsv' apps/language-runtime/embedding-runtimes.json)
+
       - name: Validate language content and deterministic Word World projections
         if: needs.changes.outputs.language == 'true'
         run: |
-          docker run --rm -v "$PWD:/workspace" -w /workspace node:24-bookworm \
+          docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace node:24-bookworm \
             bash -lc \
             "node tools/language-content/validate.mjs && node tools/language-content/project-word-world-runtime.mjs --check && node apps/server/tooling/refresh-setup-assets.mjs --check --manifest apps/languages/mandarin-simplified/static/setup-assets.json --launcher-static apps/launcher/static --language-static apps/languages/mandarin-simplified/static --shared-runtime apps/language-runtime --course-manifest apps/languages/mandarin-simplified/course.json --language-route-prefix /zh && node --test apps/language-runtime/tests/*.test.mjs apps/languages/mandarin-simplified/tests/*.test.mjs tools/language-content/tests/*.test.mjs tools/language-packs/tests/*.test.mjs tools/semantic-index/tests/*.test.mjs tools/czech-ml/tests/*.test.mjs"
 
