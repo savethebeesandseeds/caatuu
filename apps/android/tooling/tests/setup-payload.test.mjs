@@ -119,7 +119,9 @@ test("receipt and append-only Pages handoff bind a fourth artifact without chang
   assertPagesReleaseHistoryPrefix(descriptor, advance.descriptor);
   const again = advancePagesCurrentReleaseDescriptor({ ...release, descriptor: advance.descriptor });
   assert.equal(again.action, "reuse");
-  const setupAsset = pagesCurrentReleaseDownloadPlan(advance.descriptor).assets.find((asset) => asset.kind === "setup");
+  const setupAsset = pagesCurrentReleaseDownloadPlan(advance.descriptor).assets.find((asset) =>
+    asset.kind === "setup" && asset.releaseAssetName === `caatuu-${version}-setup-payload.tar`);
+  assert.ok(setupAsset, "the appended release must retain its own setup companion");
   assert.equal(setupAsset.sourcePath, `artifacts/android/releases/${version}/caatuu-setup-payload.tar`);
   assert.equal(setupAsset.releaseAssetName, `caatuu-${version}-setup-payload.tar`);
   writeFileSync(join(release.directory, "caatuu-setup-payload.tar"), "changed finalized content");

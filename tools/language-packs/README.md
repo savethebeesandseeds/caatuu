@@ -247,6 +247,13 @@ has active status.
 
 ## Validation in the established development container
 
+CI restores the shared runtime downloads before running
+`node tools/language-packs/restore-ci-runtime.mjs`. That helper reconstructs
+ignored course compatibility copies, including their course-relative license
+notice, only when the resulting bytes match the setup catalog's length and
+SHA-256. Existing files are verified and never overwritten; normal setup
+catalog checks still validate the complete local content.
+
 Use the existing `caatuu-dev` container with the canonical checkout mounted at
 `/workspace`. If it is unavailable, follow the root repository procedure; do
 not create a parallel checkout, container, Compose project, or preview port.
