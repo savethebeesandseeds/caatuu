@@ -191,7 +191,7 @@
 
   async function renderLanguages(registry) {
     const request = ++interfaceRequest;
-    const { loadLauncherInterface, launcherLocales } = await import("/language-runtime/static/source/launcher-interface.mjs?v=launcher-interface-4");
+    const { loadLauncherInterface, launcherLocales } = await import("/language-runtime/static/source/launcher-interface.mjs?v=launcher-interface-5");
     const { course, content } = await loadLauncherInterface(registry, localePreferences());
     if (request !== interfaceRequest) return;
     interfaceContent = content;

@@ -108,12 +108,18 @@
 .landing-feature-safety svg { fill: none; stroke: #fff; stroke-width: 2; }
 .landing-feature-safety h3 { color: #16486c; font-size: 23px; font-weight: 850; }
 .landing-feature-safety p { color: #2b5573; }
+.landing-feature-row { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
 .landing-about { max-width: 620px; margin: 20px auto 0; padding: 28px 0; text-align: center; }
 .landing-about h2 { margin: 0 0 12px; font-size: 22px; letter-spacing: -.5px; }
 .landing-about p { margin: 0; font-size: 15px; line-height: 1.7; color: var(--muted); }
 .landing-page .app-footer { padding: 14px 0 28px; }
 
 @media (max-width: 1000px) {
+  .landing-feature-row { gap: 12px; }
+  .landing-feature-row .landing-feature { gap: 8px; }
+  .landing-feature-row .landing-feature-icon { width: 40px; height: 40px; flex-basis: 40px; }
+  .landing-feature-row svg { width: 22px; height: 22px; }
+  .landing-feature-row h3, .landing-feature-row p { font-size: 11px; }
   .landing-wrap { width: calc(100% - 48px); }
   .landing-nav-panel { gap: 30px; padding-inline: 16px 22px; }
   .landing-nav { gap: 24px; }
@@ -160,6 +166,10 @@
   .landing-feature-free h3, .landing-feature-safety h3 { font-size: 20px; }
   .landing-feature-free p, .landing-feature-safety p { font-size: 12px; }
   .landing-about { margin-top: 12px; padding: 24px 8px; }
+}
+
+@media (max-width: 600px) {
+  .landing-feature-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 12px; }
 }
 
 @media (max-width: 540px) {
