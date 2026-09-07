@@ -22,7 +22,7 @@
     let saved = "";
     try { saved = window.localStorage.getItem(localePreferenceKey) || ""; } catch { /* Storage is optional. */ }
     return [localeSelect?.value, new URL(window.location.href).searchParams.get("lang"), saved,
-      ...(window.navigator?.languages || [window.navigator?.language])].filter(Boolean);
+      ...(window.navigator?.languages || []), window.navigator?.language, "en"].filter(Boolean);
   }
 
   function versionedLauncherAsset(path) {
@@ -191,7 +191,7 @@
 
   async function renderLanguages(registry) {
     const request = ++interfaceRequest;
-    const { loadLauncherInterface, launcherLocales } = await import("/language-runtime/static/source/launcher-interface.mjs?v=launcher-interface-2");
+    const { loadLauncherInterface, launcherLocales } = await import("/language-runtime/static/source/launcher-interface.mjs?v=launcher-interface-4");
     const { course, content } = await loadLauncherInterface(registry, localePreferences());
     if (request !== interfaceRequest) return;
     interfaceContent = content;
