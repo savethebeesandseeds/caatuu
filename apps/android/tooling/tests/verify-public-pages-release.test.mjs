@@ -329,6 +329,47 @@ test("public verifier discovers every entrypoint for a synthetic third browser c
   assert.ok(mock.calls.some(({ path }) => path === "/es/index.html"));
 });
 
+test("public verifier accepts every published development course and preserves legacy website snapshots", async () => {
+  const data = fixture();
+  const legacyEntrypoints = browserEntrypointsFromLanguageRegistry(data.languageRegistry);
+  assert.ok(legacyEntrypoints.includes("/zh/index.html"));
+  data.languageRegistry.browserSetup.courses.push(browserCourse("es"), browserCourse("es-en"));
+  data.languageRegistry.languages = data.languageRegistry.browserSetup.courses.map(({ id, status }) => ({ id, status }));
+  const entrypoints = refreshLanguageProjection(data);
+  const mock = mockPublicFetch(data);
+  const result = await verifyPublicPagesReleaseOnce({
+    descriptor: data.descriptor,
+    baselineDescriptor: data.baselineDescriptor,
+    fetchImpl: mock.fetchImpl,
+  });
+  assert.equal(result.ok, true);
+  assert.deepEqual(result.browserEntrypoints, entrypoints);
+  for (const course of data.languageRegistry.browserSetup.courses) {
+    assert.ok(mock.calls.some(({ path }) => path === course.entryPath), course.id);
+  }
+
+  const current = JSON.parse(await readFile(new URL("../../../launcher/static/languages.json", import.meta.url), "utf8"));
+  assert.deepEqual(browserEntrypointsFromLanguageRegistry(current), [
+    "/",
+    ...current.browserSetup.courses.flatMap(({ routePrefix, entryPath }) => [`${routePrefix}/`, entryPath]),
+  ]);
+  const unknownField = structuredClone(current);
+  unknownField.browserSetup.courses[0].unknownField = {};
+  assert.throws(() => browserEntrypointsFromLanguageRegistry(unknownField), /fields changed/u);
+  const malformedInterface = structuredClone(current);
+  malformedInterface.browserSetup.courses[0].interfaceContent = null;
+  assert.throws(() => browserEntrypointsFromLanguageRegistry(malformedInterface), /interfaceContent must be an object/u);
+});
+
+test("public registry rejects partial preview lists, unknown courses, and reordered courses", () => {
+  for (const ids of [["cz", "zh"], ["cz", "unknown", "es"], ["zh", "cz", "es"]]) {
+    const registry = fixture().languageRegistry;
+    registry.browserSetup.courses.push(browserCourse("es"));
+    registry.languages = ids.map((id) => ({ id }));
+    assert.throws(() => browserEntrypointsFromLanguageRegistry(registry), /language order must match/u);
+  }
+});
+
 test("browser entrypoint discovery rejects duplicates, escaping paths, and bundle order drift", async () => {
   const duplicate = fixture().languageRegistry;
   duplicate.browserSetup.courses.push(browserCourse("zh"));

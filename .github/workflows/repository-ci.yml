@@ -96,7 +96,7 @@ jobs:
       - name: Run browser and server contract tests
         if: needs.changes.outputs.browser == 'true'
         run: |
-          docker run --rm -v "$PWD:/workspace" -w /workspace node:24-bookworm \
+          docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace node:24-bookworm \
             bash -lc '
               set -euo pipefail
               mapfile -t tests < <(

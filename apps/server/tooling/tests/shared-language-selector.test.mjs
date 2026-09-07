@@ -37,8 +37,7 @@ function evaluateProfile(source, filename) {
 }
 
 test("every browser course receives one catalog-derived course-selector projection", async () => {
-  assert.equal(profiles.length, 4);
-  assert.deepEqual(profiles.map(({ id }) => id), ["cz", "zh", "es", "es-en"]);
+  assert.deepEqual(profiles.map(({ id }) => id), browserRecords.map(({ id }) => id));
   const reference = profiles[0].profile.courseSelector;
   for (const { id, profile } of profiles) {
     assert.deepEqual(profile.courseSelector, reference, `${id} selector projection drifted`);
@@ -68,7 +67,10 @@ test("every browser course receives one catalog-derived course-selector projecti
   const spanishBaseCourse = browserRecords.find(({ id }) => id === "es-en").course;
   const spanishInterfaceCatalog = await readJson(spanishBaseCourse.resources.interfaceCatalog.path);
   assert.equal(spanishBase.interfaceContent.revision, spanishInterfaceCatalog.revision);
-  assert.deepEqual(launcherRegistry.languages.map(({ id }) => id), ["cz"], "the public launcher remains active-only");
+  assert.deepEqual(launcherRegistry.languages.map(({ id, status }) => ({ id, status })),
+    browserRecords.filter(({ course }) => ["active", "development"].includes(course.status))
+      .map(({ id, course }) => ({ id, status: course.status })),
+    "the launcher preserves supported courses and their review status");
 });
 
 test("every shared selector flag is cached by every browser course and packaged by the shared app", () => {

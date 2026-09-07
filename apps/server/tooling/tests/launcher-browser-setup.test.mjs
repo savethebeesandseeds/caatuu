@@ -13,10 +13,9 @@ const [index, launcher, staticLauncher, staticBuilder, styles, registry] = await
   readFile(new URL("apps/launcher/static/languages.json", repoRoot), "utf8").then(JSON.parse)
 ]);
 
-test("launcher keeps release-active languages separate from browser setup choices", () => {
-  assert.deepEqual(registry.languages.map(({ id, status }) => ({ id, status })), [
-    { id: "cz", status: "active" }
-  ]);
+test("launcher exposes supported browser courses while preserving preview status", () => {
+  assert.deepEqual(registry.languages.map(({ id, status }) => ({ id, status })),
+    registry.browserSetup.courses.map(({ id, status }) => ({ id, status })));
   assert.equal(registry.browserSetup.schemaVersion, 1);
   assert.equal(registry.browserSetup.entryPath, "/cz/index.html");
   assert.deepEqual(

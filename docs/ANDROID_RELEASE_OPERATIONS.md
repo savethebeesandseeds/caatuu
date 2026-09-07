@@ -143,6 +143,13 @@ objects in the canonical repository; no alternate checkout is created.
 Current validator security and integrity checks still apply. This allows a
 later course addition to coexist with an already sealed earlier APK.
 
+If the finalized receipt predates the current source before its first Pages
+descriptor advance, pass `-ExpectedSourceRevision <receipt-source-commit>` to
+the receipt-only deployer. The full commit must match the verified receipt
+exactly and remain an ancestor of `origin/main`. Omission keeps the routine
+exact-current-source guard. Keep the same argument when resuming an interrupted
+descriptor handoff; this option never rebuilds or replaces sealed artifacts.
+
 Short allowlisted metadata reads have at most three attempts: a 60-second
 process limit per attempt and 2/4-second backoff. TLS handshake timeouts,
 connection resets, HTTP 408/429 and selected 5xx errors are retryable.

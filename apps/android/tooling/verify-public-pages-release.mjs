@@ -42,7 +42,13 @@ export function browserEntrypointsFromLanguageRegistry(value) {
     const label = `Public browser setup courses[${index}]`;
     exactKeys(course, [
       "id", "status", "routePrefix", "entryPath", "storage", "sourceLanguage", "targetLanguage",
+      ...["developerContext", "interfaceContent"].filter((key) => Object.hasOwn(course, key)),
     ], label);
+    for (const key of ["developerContext", "interfaceContent"]) {
+      if (Object.hasOwn(course, key)) {
+        assert.ok(course[key] && typeof course[key] === "object" && !Array.isArray(course[key]), `${label}.${key} must be an object`);
+      }
+    }
     assert.match(String(course.id || ""), courseIdPattern, `${label}.id is invalid`);
     assert.ok(["active", "development"].includes(course.status), `${label}.status is not publishable`);
     assert.match(String(course.routePrefix || ""), routePrefixPattern, `${label}.routePrefix is invalid`);
@@ -84,10 +90,16 @@ export function browserEntrypointsFromLanguageRegistry(value) {
     return language.id;
   });
   assertUnique(launcherCourseIds, "Public launcher language IDs");
+  const activeCourseIds = value.browserSetup.courses
+    .filter(({ status }) => status === "active").map(({ id }) => id);
+  // Receipt-only Android deployments preserve older website snapshots whose
+  // launcher listed active courses only. New exports list every browser course;
+  // accept those two complete projections, never an arbitrary preview subset.
+  const legacyActiveOnly = launcherCourseIds.length === activeCourseIds.length;
   assert.deepEqual(
     launcherCourseIds,
-    value.browserSetup.courses.filter(({ status }) => status === "active").map(({ id }) => id),
-    "Public launcher language order must match active browser setup courses",
+    legacyActiveOnly ? activeCourseIds : courseIds,
+    "Public launcher language order must match all browser setup courses or the legacy active-only projection",
   );
 
   const entrypoints = [

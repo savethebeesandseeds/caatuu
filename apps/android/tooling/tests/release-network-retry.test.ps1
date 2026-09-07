@@ -178,10 +178,25 @@ $tokens = $null
 $parseErrors = $null
 $ast = [System.Management.Automation.Language.Parser]::ParseFile($deployerPath, [ref]$tokens, [ref]$parseErrors)
 Assert-Equal @($parseErrors).Count 0 "deployer syntax"
-foreach ($name in @("Assert-ReleaseIdentity", "Assert-ServerAssets", "ConvertFrom-CheckedJson")) {
+foreach ($name in @("Assert-ReleaseIdentity", "Assert-ServerAssets", "ConvertFrom-CheckedJson", "Assert-ExactCandidateSource")) {
     $functionAst = $ast.Find({ param($node) $node -is [System.Management.Automation.Language.FunctionDefinitionAst] -and $node.Name -eq $name }, $true)
     if ($null -eq $functionAst) { throw "Missing deployer validator $name" }
     . ([scriptblock]::Create($functionAst.Extent.Text))
+}
+
+Test-Case "receipt recovery requires an explicit exact source while routine publication rejects stale bytes" {
+    $current = "a" * 40
+    $recorded = "b" * 40
+    $script:ExpectedSourceRevision = $null
+    $script:receipt = [pscustomobject]@{ source_revision = $current }
+    Assert-ExactCandidateSource $current "routine"
+    $script:receipt.source_revision = $recorded
+    Assert-Throws { Assert-ExactCandidateSource $current "routine" } "requires receipt source_revision"
+    $script:ExpectedSourceRevision = $recorded
+    Assert-ExactCandidateSource $current "recovery"
+    $script:ExpectedSourceRevision = $current
+    Assert-Throws { Assert-ExactCandidateSource $recorded "wrong recovery" } "requires receipt source_revision"
+    $script:ExpectedSourceRevision = $null
 }
 
 Test-Case "actual Pages dispatch reconciles an accepted timeout without sending a duplicate" {

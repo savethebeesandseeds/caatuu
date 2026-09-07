@@ -4,6 +4,9 @@ param(
     [ValidateNotNullOrEmpty()]
     [string]$CandidateReceipt,
 
+    [ValidatePattern('^[a-f0-9]{40}$')]
+    [string]$ExpectedSourceRevision,
+
     [switch]$PlanOnly
 )
 
@@ -282,9 +285,12 @@ function Assert-SourceOnOriginMain {
 
 function Assert-ExactCandidateSource {
     param([string]$ExpectedRevision, [string]$Context)
+    if (-not [string]::IsNullOrEmpty($script:ExpectedSourceRevision)) {
+        $ExpectedRevision = $script:ExpectedSourceRevision
+    }
     $actualRevision = [string]$script:receipt.source_revision
     if ($actualRevision -ne $ExpectedRevision) {
-        throw "$Context requires receipt source_revision $ExpectedRevision; found $actualRevision. Rebuild once from the exact pushed source instead of publishing a stale candidate."
+        throw "$Context requires receipt source_revision $ExpectedRevision; found $actualRevision. For an already finalized candidate, explicitly select its recorded commit with -ExpectedSourceRevision; never rebuild sealed bytes."
     }
 }
 
@@ -478,6 +484,9 @@ try {
             throw "Candidate receipt version does not match its finalized directory."
         }
         Assert-SourceOnOriginMain ([string]$script:receipt.source_revision)
+        if (-not [string]::IsNullOrEmpty($ExpectedSourceRevision)) {
+            Assert-ExactCandidateSource $ExpectedSourceRevision "Explicit receipt recovery"
+        }
         $script:candidate = Invoke-PagesAdvance -DescriptorPath (Join-Path $ExpectedRepositoryRoot $DescriptorRelativePath)
         if ([int]$script:candidate.versionCode -ne [int]$script:receipt.identity.version_code) {
             throw "Validated Pages candidate version differs from its receipt."

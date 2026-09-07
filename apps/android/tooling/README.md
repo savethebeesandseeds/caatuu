@@ -5,6 +5,8 @@ bytes directly from the sealed source commit using Git objects. It keeps the
 current package integrity checks and does not rebuild or change the checkout
 when newer courses have been added. See the
 [release recovery table](../../../docs/ANDROID_RELEASE_OPERATIONS.md#recovery-decision-table).
+When source advanced before the first Pages handoff, receipt-only deployment
+also requires `-ExpectedSourceRevision` with that exact recorded commit.
 
 This folder keeps the Android build environment out of Windows. Repeat
 publishes use the reusable `caatuu-dev` container and shared Docker volumes for
