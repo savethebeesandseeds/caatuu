@@ -1091,14 +1091,13 @@ test("skill-compass packs are explicit, structured, and independent from semanti
   );
 });
 
-test("learner-base preview supports development APKs and stays outside active and Pages delivery", () => {
+test("learner-base preview supports web and Android development delivery without enabling active previews", () => {
   const course = structuredClone(loaded.courses.find(({ course }) => course.id === "es-en").course);
   assert.equal(generateCourseProfileObject(course).learnerBasePreview, true);
   for (const [name, mutate] of [
     ["active course", (candidate) => { candidate.status = "active"; }],
     ["retired course", (candidate) => { candidate.status = "retired"; }],
     ["browser disabled", (candidate) => { candidate.platforms.browser.enabled = false; }],
-    ["Pages delivery", (candidate) => { candidate.platforms.browser.pagesEnabled = true; }],
     ["unspecified Pages gate", (candidate) => { delete candidate.platforms.browser.pagesEnabled; }],
     ["unspecified Android gate", (candidate) => { delete candidate.platforms.android.enabled; }],
     ["English learner base", (candidate) => {
@@ -1109,8 +1108,13 @@ test("learner-base preview supports development APKs and stays outside active an
     mutate(candidate);
     assert.equal(generateCourseProfileObject(candidate).learnerBasePreview, false, name);
   }
-  course.platforms.android.enabled = true;
-  assert.equal(generateCourseProfileObject(course).learnerBasePreview, true);
+  for (const pagesEnabled of [false, true]) {
+    for (const androidEnabled of [false, true]) {
+      course.platforms.browser.pagesEnabled = pagesEnabled;
+      course.platforms.android.enabled = androidEnabled;
+      assert.equal(generateCourseProfileObject(course).learnerBasePreview, true);
+    }
+  }
 });
 
 test("launcher and course-profile compatibility views match the current consumers", async () => {
@@ -1119,7 +1123,18 @@ test("launcher and course-profile compatibility views match the current consumer
   const expectedLauncher = await generateLauncherRegistry(loaded);
   const actualLauncher = JSON.parse(await readFile(new URL("../../../apps/launcher/static/languages.json", import.meta.url), "utf8"));
   assert.deepEqual(expectedLauncher, actualLauncher);
-  assert.deepEqual(expectedLauncher.languages.map(({ id }) => id), ["cz"]);
+  const supportedCourses = loaded.courses
+    .map(({ course }) => course)
+    .filter((course) => ["active", "development"].includes(course.status));
+  assert.deepEqual(expectedLauncher.languages.map(({ id }) => id), supportedCourses.map(({ id }) => id));
+  for (const course of supportedCourses) {
+    assert.equal(course.platforms.browser.enabled, true, `${course.id} local browser`);
+    assert.equal(course.platforms.browser.pagesEnabled, true, `${course.id} public web`);
+    assert.equal(course.platforms.android.enabled, true, `${course.id} Android`);
+    const language = expectedLauncher.languages.find(({ id }) => id === course.id);
+    assert.equal(language.status, course.status, `${course.id} keeps its review status`);
+    assert.deepEqual(language.platforms.android, course.platforms.android);
+  }
   assert.equal(expectedLauncher.browserSetup.entryPath, "/cz/index.html");
   assert.deepEqual(
     expectedLauncher.browserSetup.courses.map(({ id, status, entryPath, storage }) => ({ id, status, entryPath, storage })),
@@ -1185,9 +1200,9 @@ test("launcher and course-profile compatibility views match the current consumer
   });
   assert.equal(Object.hasOwn(context.window.CaatuuCourse.platforms.browser, "pagesEnabled"), false);
   assert.deepEqual(JSON.parse(JSON.stringify(context.window.CaatuuCourse.browserProviders)), {
-    courseRuntime: "source/shared/runtime.js?v=runtime-41",
-    semanticLearningProvider: "source/shared/semantic-learning.js?v=semantic-learning-7",
-    setupProgressProvider: "source/features/setup/setup-progress.js?v=setup-progress-1",
+    courseRuntime: `source/shared/runtime.js?v=${czech.resources.courseRuntime.revision}`,
+    semanticLearningProvider: `source/shared/semantic-learning.js?v=${czech.resources.semanticLearningProvider.revision}`,
+    setupProgressProvider: `source/features/setup/setup-progress.js?v=${czech.resources.setupProgressProvider.revision}`,
     setupProvider: `source/features/setup/setup.js?v=${czech.resources.setupProvider.revision}`
   });
   assert.deepEqual(
@@ -2066,16 +2081,18 @@ test("browser delivery fails closed for development, active, and retired courses
   );
 });
 
-test("Pages publication requires release-cleared target licensing without requiring native review for preview courses", async () => {
-  const spanish = loaded.courses.find(({ course }) => course.id === "es").course;
-  assert.equal(spanish.platforms.browser.enabled, true);
-  assert.equal(spanish.platforms.browser.pagesEnabled, false);
-
-  const publishSpanish = cloneLoaded(loaded);
-  publishSpanish.courses.find(({ course }) => course.id === "es")
-    .course.platforms.browser.pagesEnabled = true;
+test("web and Android previews preserve draft licensing while active promotion requires clearance", async () => {
+  await validateCourseCatalog(loaded, { checkExistence: false });
+  const registry = await generateLauncherRegistry(loaded);
+  for (const { course } of loaded.courses.filter(({ course }) => course.status === "development")) {
+    assert.equal(course.platforms.browser.pagesEnabled, true, course.id);
+    assert.equal(course.platforms.android.enabled, true, course.id);
+    assert.equal(registry.languages.find(({ id }) => id === course.id).status, "development");
+  }
+  const promotedSpanish = cloneLoaded(loaded);
+  promotedSpanish.courses.find(({ course }) => course.id === "es").course.status = "active";
   await assert.rejects(
-    validateCourseCatalog(publishSpanish, { checkExistence: false }),
+    validateCourseCatalog(promotedSpanish, { checkExistence: false }),
     (error) => hasIssue(error, "release.license", /target catalog licensing is not release-cleared/u)
   );
 });
@@ -2199,15 +2216,9 @@ test("Spanish grammar catalogs independently gate preview, browser, Android, and
   pagesPreview.platforms.browser.pagesEnabled = true;
   const androidPreview = structuredClone(spanish);
   androidPreview.platforms.android.enabled = true;
-  for (const [gameId, catalog] of pendingCatalogs) {
-    assert.deepEqual(authoredGrammarPromotionIssues(androidPreview, gameId, catalog), []);
-  }
-  for (const releaseCourse of [pagesPreview]) {
+  for (const previewCourse of [pagesPreview, androidPreview]) {
     for (const [gameId, catalog] of pendingCatalogs) {
-      assert.deepEqual(
-        authoredGrammarPromotionIssues(releaseCourse, gameId, catalog).map(({ code }) => code),
-        ["release.game-license"]
-      );
+      assert.deepEqual(authoredGrammarPromotionIssues(previewCourse, gameId, catalog), []);
     }
   }
 

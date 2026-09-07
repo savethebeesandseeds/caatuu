@@ -200,7 +200,7 @@
       if (localeControl) localeControl.hidden = launcherLocales.length < 2;
     }
     renderBrowserSetup(registry, course);
-    const languages = registry.languages.filter((language) => language.status === "active"
+    const languages = registry.languages.filter((language) => ["active", "development"].includes(language.status)
       && language.platforms?.android?.enabled);
     const selected = languages.find((language) => language.id === registry.defaultLanguage) || languages[0];
     ++channelRequest;

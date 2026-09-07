@@ -3,16 +3,16 @@
 This app is the static browser landing page for the workspace. It is served at
 `/` by the Rust server in `apps/server`.
 
-The launcher discovers courses from `static/languages.json`; Czech is the
-current default and only release-active entry. The separate `browserSetup`
-projection contains browser-enabled Mandarin and Spanish development courses
-without promoting either to active status. Browser and Android delivery remain
-distinct: Mandarin is in the current Android bundle, while Spanish declares
-Android disabled. Pages publication is narrower again; only courses with
-`platforms.browser.pagesEnabled` may enter its generated registry, selectors,
-and routes. Mandarin is currently deployed as an unlisted preview, while
-Spanish remains local-only until its release-license gate clears. Chinese is
-preserved under `archive/caatuu-chinese` for historical reference.
+The launcher discovers all supported courses from `static/languages.json`.
+Czech is the default active course; Mandarin, Spanish for English speakers,
+and English for Spanish speakers retain their development-preview labels.
+All four courses are enabled for the browser, Pages, and Android. The
+`browserSetup` projection, launcher registry, and course selectors preserve
+development status without hiding those courses. Only courses with
+`platforms.browser.pagesEnabled` enter Pages routes and generated views.
+Availability changes reach the published website and installed Android app
+through their respective release workflows. Earlier Chinese work is preserved
+under `archive/caatuu-chinese` for historical reference.
 
 The files live under:
 

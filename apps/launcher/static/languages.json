@@ -307,6 +307,144 @@
           ]
         }
       }
+    },
+    {
+      "id": "zh",
+      "status": "development",
+      "label": "Mandarin",
+      "nativeLabel": "中文",
+      "shortCode": "ZH",
+      "locale": "zh-Hans",
+      "direction": "ltr",
+      "flagClass": "flag-icon",
+      "flagSrc": "/assets/icons/china_flag.png",
+      "routePrefix": "/zh",
+      "entryPath": "/zh/index.html",
+      "sourceLanguage": {
+        "id": "en",
+        "label": "English",
+        "locale": "en"
+      },
+      "capabilities": [
+        "memory",
+        "wordWorld",
+        "semanticSearch"
+      ],
+      "platforms": {
+        "browser": {
+          "enabled": true,
+          "entryPath": "/zh/index.html"
+        },
+        "android": {
+          "enabled": true,
+          "channels": [
+            {
+              "kind": "release",
+              "manifest": "/android/caatuu.json",
+              "artifact": "/android/caatuu.apk",
+              "minimumVersionCode": 161
+            },
+            {
+              "kind": "preview",
+              "manifest": "/android/caatuu-preview.json",
+              "artifact": "/android/caatuu-preview.apk",
+              "minimumVersionCode": 161
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "es",
+      "status": "development",
+      "label": "Spanish",
+      "nativeLabel": "Español",
+      "shortCode": "ES",
+      "locale": "es-ES",
+      "direction": "ltr",
+      "flagClass": "flag-icon",
+      "flagSrc": "/assets/icons/spain_flag.png",
+      "routePrefix": "/es",
+      "entryPath": "/es/index.html",
+      "sourceLanguage": {
+        "id": "en",
+        "label": "English",
+        "locale": "en"
+      },
+      "capabilities": [
+        "wordWorld",
+        "conjugationComet",
+        "semanticSearch"
+      ],
+      "platforms": {
+        "browser": {
+          "enabled": true,
+          "entryPath": "/es/index.html"
+        },
+        "android": {
+          "enabled": true,
+          "channels": [
+            {
+              "kind": "release",
+              "manifest": "/android/caatuu.json",
+              "artifact": "/android/caatuu.apk",
+              "minimumVersionCode": 170
+            },
+            {
+              "kind": "preview",
+              "manifest": "/android/caatuu-preview.json",
+              "artifact": "/android/caatuu-preview.apk",
+              "minimumVersionCode": 170
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "es-en",
+      "status": "development",
+      "label": "English",
+      "nativeLabel": "English",
+      "shortCode": "EN",
+      "locale": "en-US",
+      "direction": "ltr",
+      "flagClass": "flag-icon",
+      "flagSrc": "/assets/icons/english_flag.png",
+      "routePrefix": "/es-en",
+      "entryPath": "/es-en/index.html",
+      "sourceLanguage": {
+        "id": "es",
+        "label": "Spanish",
+        "locale": "es-ES"
+      },
+      "capabilities": [
+        "wordWorld",
+        "conjugationComet",
+        "semanticSearch"
+      ],
+      "platforms": {
+        "browser": {
+          "enabled": true,
+          "entryPath": "/es-en/index.html"
+        },
+        "android": {
+          "enabled": true,
+          "channels": [
+            {
+              "kind": "release",
+              "manifest": "/android/caatuu.json",
+              "artifact": "/android/caatuu.apk",
+              "minimumVersionCode": 168
+            },
+            {
+              "kind": "preview",
+              "manifest": "/android/caatuu-preview.json",
+              "artifact": "/android/caatuu-preview.apk",
+              "minimumVersionCode": 168
+            }
+          ]
+        }
+      }
     }
   ]
 }

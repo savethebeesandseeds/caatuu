@@ -24,6 +24,7 @@ import {
   projectPagesCourseProfileSource,
   projectPagesLanguageRegistry,
   projectPagesLauncherFallback,
+  projectStableAndroidChannels,
   retainPagesManagedCourseOfflineAssets,
   rewritePagesCourseProfileReceipt,
   stagePagesBrowserCourses,
@@ -31,6 +32,7 @@ import {
   validatePagesSite,
   validatePagesArtwork,
 } from "../build-pages-site.mjs";
+import { evaluateCourseProfile } from "../../../../tools/language-packs/lib/course-contract.mjs";
 
 const testDir = dirname(fileURLToPath(import.meta.url));
 const workspaceRoot = resolve(testDir, "../../../..");
@@ -116,71 +118,93 @@ test("the Pages builder keeps every Android release exact and outside service-wo
   assert.match(source, /Pages bundle and service worker disagree about the cache name/u);
 });
 
-test("the Pages launcher offers only the signed stable Android channel", () => {
-  const channels = source.slice(
-    source.indexOf("function androidChannels()"),
-    source.indexOf("function enableStableAndroidCourseProfile"),
-  );
-  assert.match(channels, /kind: "release"/u);
-  assert.match(channels, /manifest: "\/android\/caatuu\.json"/u);
-  assert.doesNotMatch(channels, /kind: "preview"/u);
-  assert.doesNotMatch(channels, /android\/caatuu-preview/u);
-  assert.match(source, /languagePlan\.browserCourses\.filter\(\(\{ androidEnabled \}\) => androidEnabled\)/u);
+test("Pages preserves course APK minimums while offering only the declared stable channel", () => {
+  const catalog = JSON.parse(readFileSync(join(workspaceRoot, "apps/languages/catalog.json"), "utf8"));
+  for (const entry of catalog.courses) {
+    const course = JSON.parse(readFileSync(join(workspaceRoot, entry.manifest), "utf8"));
+    if (!course.platforms.android.enabled) continue;
+    const expected = course.platforms.android.channels.filter(({ kind }) => kind === "release");
+    assert.deepEqual(projectStableAndroidChannels(course.platforms.android), expected, course.id);
+    const laterCourse = structuredClone(course.platforms.android);
+    laterCourse.channels.find(({ kind }) => kind === "release").minimumVersionCode += 100;
+    assert.equal(projectStableAndroidChannels(laterCourse)[0].minimumVersionCode, expected[0].minimumVersionCode + 100);
+  }
+  assert.throws(() => projectStableAndroidChannels({ channels: [] }), /one declared stable channel/u);
 });
 
-test("the Pages profile rewrite removes the preview channel from the real Mandarin profile", () => {
+test("the Pages profile rewrite preserves every course APK minimum and removes preview channels", () => {
   const temporaryDirectory = mkdtempSync(join(tmpdir(), "caatuu-pages-profile-test-"));
   const profilePath = join(temporaryDirectory, "course-profile.js");
   try {
-    writeFileSync(
-      profilePath,
-      readFileSync(
-        join(testDir, "../../../languages/mandarin-simplified/static/source/shared/course-profile.js"),
-        "utf8",
-      ),
-    );
-    enableStableAndroidCourseProfile(profilePath, "Mandarin test profile");
-    const profile = readFileSync(profilePath, "utf8");
-    assert.match(profile, /"kind": "release"[\s\S]*"manifest": "\/android\/caatuu\.json"/u);
-    assert.doesNotMatch(profile, /"kind": "preview"|caatuu-preview/u);
+    const catalog = JSON.parse(readFileSync(join(workspaceRoot, "apps/languages/catalog.json"), "utf8"));
+    for (const entry of catalog.courses) {
+      const course = JSON.parse(readFileSync(join(workspaceRoot, entry.manifest), "utf8"));
+      if (!course.platforms.android.enabled) continue;
+      writeFileSync(profilePath, readFileSync(join(workspaceRoot, course.resources.courseProfile.path), "utf8"));
+      enableStableAndroidCourseProfile(profilePath, `${course.id} test profile`);
+      const source = readFileSync(profilePath, "utf8");
+      const profile = evaluateCourseProfile(source, `${course.id} projected profile`);
+      assert.deepEqual(JSON.parse(JSON.stringify(profile.platforms.android)), {
+        enabled: true,
+        channels: course.platforms.android.channels.filter(({ kind }) => kind === "release"),
+      });
+      assert.doesNotMatch(source, /"kind": "preview"|caatuu-preview/u);
+    }
   } finally {
     rmSync(temporaryDirectory, { recursive: true, force: true });
   }
 });
 
-test("Pages projects local four-course browser views to only publishable catalog courses", async () => {
+test("Pages retains every supported course and its preview status in registry, fallback, and selectors", async () => {
   const languagePlan = await assertDeclaredPagesLanguageCoverage({ workspaceRoot });
-  assert.deepEqual(languagePlan.browserCourses.map(({ id }) => id), ["cz", "zh"]);
-
   const localRegistry = JSON.parse(readFileSync(join(testDir, "../../static/languages.json"), "utf8"));
-  assert.deepEqual(localRegistry.browserSetup.courses.map(({ id }) => id), ["cz", "zh", "es", "es-en"]);
+  const expectedIds = localRegistry.browserSetup.courses.map(({ id }) => id);
+  const expectedStatuses = localRegistry.browserSetup.courses.map(({ id, status }) => ({ id, status }));
+  assert.deepEqual(languagePlan.browserCourses.map(({ id }) => id), expectedIds);
   const projectedRegistry = projectPagesLanguageRegistry({ registry: localRegistry, languagePlan });
-  assert.deepEqual(projectedRegistry.browserSetup.courses.map(({ id }) => id), ["cz", "zh"]);
-  assert.deepEqual(projectedRegistry.languages.map(({ id }) => id), ["cz"]);
-  assert.deepEqual(localRegistry.browserSetup.courses.map(({ id }) => id), ["cz", "zh", "es", "es-en"]);
+  assert.deepEqual(projectedRegistry.browserSetup.courses.map(({ id, status }) => ({ id, status })), expectedStatuses);
+  assert.deepEqual(projectedRegistry.languages.map(({ id, status }) => ({ id, status })), expectedStatuses);
+  assert.deepEqual(localRegistry.browserSetup.courses.map(({ id }) => id), expectedIds);
 
   const localLauncher = readFileSync(join(testDir, "../../static/index.html"), "utf8");
-  assert.match(localLauncher, /data-language-id="es"/u);
   const projectedLauncher = projectPagesLauncherFallback({ source: localLauncher, languagePlan });
-  assert.match(projectedLauncher, /data-language-id="cz"/u);
-  assert.match(projectedLauncher, /data-language-id="zh"/u);
-  assert.doesNotMatch(projectedLauncher, /data-language-id="es"/u);
-  assert.doesNotMatch(projectedLauncher, /data-language-id="es-en"/u);
+  assert.deepEqual([...projectedLauncher.matchAll(/data-language-id="([^"]+)"/gu)].map(match => match[1]), expectedIds);
 
   for (const course of languagePlan.browserCourses) {
     const localProfile = readFileSync(join(workspaceRoot, course.profileRepositoryPath), "utf8");
-    assert.match(localProfile, /id: "es"/u);
     const projectedProfile = projectPagesCourseProfileSource({
       source: localProfile,
       languagePlan,
       courseId: course.id,
       label: `${course.id} test profile`,
     });
-    assert.doesNotMatch(projectedProfile, /id: "es"/u);
-    assert.doesNotMatch(projectedProfile, /id: "es-en"/u);
-    assert.match(projectedProfile, /id: "cz"/u);
-    assert.match(projectedProfile, /id: "zh"/u);
+    const profile = evaluateCourseProfile(projectedProfile, `${course.id} projected test profile`);
+    assert.deepEqual(Array.from(profile.courseSelector.courses, ({ id, status }) => ({ id, status })), expectedStatuses);
   }
+});
+
+test("Pages filters explicitly withheld courses without dropping a published development preview", () => {
+  const registry = {
+    browserSetup: { schemaVersion: 1, courses: [
+      { id: "baseline", status: "active" },
+      { id: "preview", status: "development" },
+      { id: "withheld", status: "development" },
+    ] },
+    languages: [
+      { id: "baseline", status: "active" },
+      { id: "preview", status: "development" },
+      { id: "withheld", status: "development" },
+    ],
+  };
+  const languagePlan = {
+    defaultCourse: { entryPath: "/baseline/index.html" },
+    browserCourses: registry.browserSetup.courses.slice(0, 2),
+  };
+  const projected = projectPagesLanguageRegistry({ registry, languagePlan });
+  for (const records of [projected.languages, projected.browserSetup.courses]) {
+    assert.deepEqual(records, languagePlan.browserCourses);
+  }
+  assert.equal(registry.languages.length, 3, "projection must not change the local catalog");
 });
 
 test("Pages adds and refreshes a staged-only profile receipt for the legacy default setup", () => {

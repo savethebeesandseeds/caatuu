@@ -1,6 +1,6 @@
 # Caatuu English from Spanish
 
-This local development course teaches American English (`en-US`) from Spanish
+This development course teaches American English (`en-US`) from Spanish
 (`es-ES`) at `/es-en/`. Its source language and interface are Spanish; the
 English audit and retrieval authority remains unchanged.
 
@@ -11,11 +11,12 @@ requirement to hire a professional teacher.
 
 The course contributes a manifest, English language adapter, authored content,
 and resource declarations to the shared Caatuu application. It owns no copied
-HTML shell, game controller, or stylesheet. Browser delivery is enabled locally;
-Pages delivery remains disabled. Android includes the development course from
-version 168 for hands-on evaluation, using the shared MiniLM provider and English
-device speech. Draft review and provenance metadata are retained; trying this
-preview does not require a professional curriculum review.
+HTML shell, game controller, or stylesheet. Browser delivery is enabled locally
+and on public Pages as a `noindex` development preview. Android
+includes the development course from version 168 for hands-on evaluation, using
+the shared MiniLM provider and English device speech. Draft review and provenance
+metadata are retained; trying this preview does not require a professional
+curriculum review.
 
 Word World joins all 250 shared English concept IDs to English target
 realizations and the shared Spanish learner-base catalog. Spanish base sentences
@@ -49,7 +50,9 @@ consume only the shared English `embeddingText` field.
 Target tokens, Spanish token meanings and grammar material receive iterative
 editorial review. The existing metadata records no independent human review or
 separate license clearance; the practical content review above does not invent
-either. Device speech is listening practice, not pronunciation assessment.
+either. Active-course promotion still requires recorded native-review and
+release-license clearance. Device speech is listening practice, not
+pronunciation assessment.
 
 Run focused checks in the established container:
 
@@ -66,5 +69,6 @@ target, while the index and surface together detect tokenization drift. English
 base entries.
 
 The generated `learnerBasePreview` declaration permits pending Spanish review
-and license status in the declared development course, in both the local browser
-and APK. It does not approve the content or promote it to an active course.
+and license status in the declared development course, in the local browser,
+public Pages, and APK. It does not approve the content or promote it to an active
+course.

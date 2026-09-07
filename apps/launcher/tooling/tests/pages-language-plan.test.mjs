@@ -128,73 +128,44 @@ function outputFixture(plan, {
   };
 }
 
-test("the Pages language plan derives current browser route and entry coverage from the catalog", () => {
+test("every supported catalog course has Pages route, setup, and profile coverage", () => {
   const plan = loadPagesLanguagePlan({ workspaceRoot });
-  assert.deepEqual(plan.browserCourses, [
-    {
-      id: "cz",
-      status: "active",
-      directoryName: "czech",
-      manifestPath: "apps/languages/czech/course.json",
-      staticRootPath: "apps/languages/czech/static",
-      setupRepositoryPath: "apps/languages/czech/static/setup-assets.json",
-      setupRelativePath: "setup-assets.json",
-      profileRepositoryPath: "apps/languages/czech/static/source/shared/course-profile.js",
-      profileRelativePath: "source/shared/course-profile.js",
-      routePrefix: "/cz",
-      publicRoute: "/cz/",
-      entryPath: "/cz/index.html",
-      setupPath: "/cz/setup-assets.json",
-      profilePath: "/cz/source/shared/course-profile.js",
-      pagesEnabled: true,
-      androidEnabled: true,
-    },
-    {
-      id: "zh",
-      status: "development",
-      directoryName: "mandarin-simplified",
-      manifestPath: "apps/languages/mandarin-simplified/course.json",
-      staticRootPath: "apps/languages/mandarin-simplified/static",
-      setupRepositoryPath: "apps/languages/mandarin-simplified/static/setup-assets.json",
-      setupRelativePath: "setup-assets.json",
-      profileRepositoryPath: "apps/languages/mandarin-simplified/static/source/shared/course-profile.js",
-      profileRelativePath: "source/shared/course-profile.js",
-      routePrefix: "/zh",
-      publicRoute: "/zh/",
-      entryPath: "/zh/index.html",
-      setupPath: "/zh/setup-assets.json",
-      profilePath: "/zh/source/shared/course-profile.js",
-      pagesEnabled: true,
-      androidEnabled: true,
-    },
-  ]);
-  assert.deepEqual(plan.requiredEntrypoints, [
-    "/",
-    "/cz/",
-    "/cz/index.html",
-    "/zh/",
-    "/zh/index.html",
-  ]);
-  assert.equal(plan.defaultCourseId, "cz");
-  assert.equal(plan.defaultCourse, plan.browserCourses[0]);
+  const catalog = JSON.parse(readFileSync(join(workspaceRoot, "apps/languages/catalog.json"), "utf8"));
+  const supported = catalog.courses.map(({ manifest }) => ({
+    manifest,
+    course: JSON.parse(readFileSync(join(workspaceRoot, manifest), "utf8")),
+  })).filter(({ course }) => ["active", "development"].includes(course.status));
+  assert.deepEqual(plan.browserCourses, supported.map(({ manifest, course }) => ({
+    id: course.id,
+    status: course.status,
+    directoryName: course.directoryName,
+    manifestPath: manifest,
+    staticRootPath: course.resources.staticRoot.path,
+    setupRepositoryPath: course.resources.setupCatalog.path,
+    setupRelativePath: "setup-assets.json",
+    profileRepositoryPath: course.resources.courseProfile.path,
+    profileRelativePath: "source/shared/course-profile.js",
+    routePrefix: course.routePrefix,
+    publicRoute: `${course.routePrefix}/`,
+    entryPath: course.entryPath,
+    setupPath: `${course.routePrefix}/setup-assets.json`,
+    profilePath: `${course.routePrefix}/source/shared/course-profile.js`,
+    pagesEnabled: true,
+    androidEnabled: true,
+  })));
+  assert.deepEqual(plan.requiredEntrypoints, ["/", ...supported.flatMap(({ course }) => [
+    `${course.routePrefix}/`, course.entryPath,
+  ])]);
+  assert.equal(plan.defaultCourseId, catalog.defaultCourseId);
+  assert.equal(plan.defaultCourse, plan.browserCourses.find(({ id }) => id === catalog.defaultCourseId));
   assert.equal(assertPagesLanguageCoverage({ plan, declaredEntrypoints: plan.requiredEntrypoints }), plan);
-  assert.deepEqual(plan.requiredOutputPaths, [
-    "cz/index.html",
-    "cz/setup-assets.json",
-    "cz/source/shared/course-profile.js",
-    "zh/index.html",
-    "zh/setup-assets.json",
-    "zh/source/shared/course-profile.js",
-  ]);
-  assert.deepEqual(plan.forbiddenOutputPaths, [
-    "es/index.html",
-    "es/setup-assets.json",
-    "es/source/shared/course-profile.js",
-    "es-en/index.html",
-    "es-en/setup-assets.json",
-    "es-en/source/shared/course-profile.js",
-  ]);
-  assert.deepEqual(plan.forbiddenOutputPrefixes, ["es/", "es-en/"]);
+  assert.deepEqual(plan.requiredOutputPaths, supported.flatMap(({ course }) => [
+    course.entryPath.slice(1),
+    `${course.routePrefix.slice(1)}/setup-assets.json`,
+    `${course.routePrefix.slice(1)}/source/shared/course-profile.js`,
+  ]));
+  assert.deepEqual(plan.forbiddenOutputPaths, []);
+  assert.deepEqual(plan.forbiddenOutputPrefixes, []);
 });
 
 test("a third browser course fails closed until both its public route and entry are declared", () => {

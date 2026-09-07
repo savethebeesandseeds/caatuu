@@ -55,7 +55,7 @@ test('the Spanish-to-English course owns direction, identity, resources and isol
   assert.equal(course.targetLanguage.speechLocale, 'en-US');
   assert.equal(course.routePrefix, '/es-en');
   assert.equal(course.platforms.browser.enabled, true);
-  assert.equal(course.platforms.browser.pagesEnabled, false);
+  assert.equal(course.platforms.browser.pagesEnabled, true);
   assert.equal(course.platforms.android.enabled, true);
   assert.equal(course.resources.interfaceCatalog.path, 'apps/language-runtime/static/data/interface/es.v1.json');
   assert.equal(course.resources.interfaceCatalog.revision, (await json('../../language-runtime/static/data/interface/es.v1.json')).revision);

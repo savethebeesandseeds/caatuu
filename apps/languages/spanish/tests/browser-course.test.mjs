@@ -83,7 +83,8 @@ test("Spanish is a development course projected into the one shared browser app"
   assert.deepEqual(course.upcomingGames, ["memory-moon"]);
   assert.deepEqual(course.linguisticFeatures, ["verb-conjugation", "grammatical-agreement"]);
   assert.equal(course.platforms.browser.enabled, true);
-  assert.equal(course.platforms.android.enabled, false);
+  assert.equal(course.platforms.browser.pagesEnabled, true);
+  assert.equal(course.platforms.android.enabled, true);
   assert.equal(course.resources.appEntry.path, "apps/language-runtime/static/app/index.html");
   assert.equal(
     course.routes.conjugationComet,

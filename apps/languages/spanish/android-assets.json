@@ -1,0 +1,42 @@
+{
+  "$schema": "https://caatuu.org/schemas/android-assets.v1.schema.json",
+  "schemaVersion": 1,
+  "courseId": "es",
+  "nativeProviders": {
+    "schemaVersion": 1,
+    "providers": {
+      "embeddings": {
+        "implementation": "webview-english-minilm-v1",
+        "resource": "embeddingCatalog"
+      },
+      "speech": {
+        "implementation": "android-text-to-speech-v1",
+        "localeSource": "targetLanguage.speechLocale"
+      }
+    }
+  },
+  "files": [
+    "manifest.webmanifest",
+    "setup-assets.json",
+    "source/language/adapter.mjs",
+    "source/shared/course-profile.js",
+    "sw.js",
+    "data/embeddings/catalog.json",
+    "data/games/verb-nebula/core-vocabulary.json",
+    "data/games/sound-quasar/challenges.json",
+    "data/games/word-world/manifest.json",
+    "data/games/word-world/starter-v1.realizations.json",
+    "data/games/conjugation-comet/verbs.json",
+    "data/games/grammar-gravity/challenges.json",
+    "data/games/grammar-gravity/nouns.json"
+  ],
+  "launcherIconFiles": [
+    "english_flag.png",
+    "spain_flag.png"
+  ],
+  "policy": {
+    "includeOnlyAllowlistedFiles": true,
+    "llmAssetsAllowed": false,
+    "targetPronunciationMetadataAllowed": false
+  }
+}

@@ -1,8 +1,7 @@
 # Caatuu Spanish
 
 This is an English-to-Spanish development course pack rendered by the shared
-Caatuu product shell. It is not a separate Spanish application and is not yet
-a public course.
+Caatuu product shell, enabled for browser, public Pages, and Android delivery.
 
 ## Product boundary
 
@@ -10,8 +9,8 @@ a public course.
   an `index.html`, alternate shell, copied layout, or private Word World
   renderer.
 - `platforms.browser.enabled` keeps the course available on the canonical local
-  server, while `platforms.browser.pagesEnabled` remains false until its release
-  gates are cleared.
+  server. `platforms.browser.pagesEnabled` and `platforms.android.enabled` also
+  enable delivery as a disclosed development preview.
 - `course.json` owns Spanish identity, routes, storage namespaces,
   capabilities, resources, and platform eligibility.
 - `static/source/language/adapter.mjs` owns Spanish normalization,
@@ -39,9 +38,10 @@ English lexical ranking remains available if local model inference cannot
 start.
 
 The separate full Dictionary workspace, pronunciation guides, LLM, chat,
-generated sentences, offline models, Memory Moon, and Android distribution
-are disabled. Memory Moon remains a shared coming-later planet. Sounds Quasar
-provides shared listen-and-choose practice using device speech and course-owned
+generated sentences, offline models, and Memory Moon are disabled. Android
+includes the development course in the shared APK. Memory Moon remains a
+shared coming-later planet. Sounds Quasar provides shared listen-and-choose
+practice using device speech and course-owned
 words and sentences. Correct answers earn XP; it does not provide pronunciation
 assessment. Word World's authored token glosses are not a declaration
 of full dictionary support. Campaign availability is derived by the shared
@@ -49,9 +49,10 @@ shell from its playable planets.
 
 The Spanish curriculum is machine-assisted and remains
 `native-review-required`. Its license gate is `release-review-required`; the
-course must remain a development, `noindex` browser preview until both review
-gates and the repository's artwork/model notice gates are deliberately
-cleared.
+course remains a disclosed development preview on Pages and Android, with
+`noindex` Pages delivery and its draft metadata preserved. Active-course
+promotion still requires recorded native-review and release-license clearance,
+along with the repository's applicable artwork/model notice gates.
 
 ## Validation
 

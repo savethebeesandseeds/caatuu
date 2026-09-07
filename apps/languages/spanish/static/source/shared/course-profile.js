@@ -396,8 +396,21 @@
         backend: "static"
       },
       android: {
-        enabled: false,
-        channels: []
+        enabled: true,
+        channels: [
+          {
+            kind: "release",
+            manifest: "/android/caatuu.json",
+            artifact: "/android/caatuu.apk",
+            minimumVersionCode: 170
+          },
+          {
+            kind: "preview",
+            manifest: "/android/caatuu-preview.json",
+            artifact: "/android/caatuu-preview.apk",
+            minimumVersionCode: 170
+          }
+        ]
       }
     }
   });

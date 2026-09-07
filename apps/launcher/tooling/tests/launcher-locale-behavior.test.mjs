@@ -49,6 +49,23 @@ async function launch(script, { courses = registry, valid = true, preferences = 
 }
 
 for (const [name, script] of [['server', source], ['Pages', projectPagesLauncherSource(source)]]) {
+  test(`${name}: development courses retain preview disclosure and an enabled Android download`, async () => {
+    const courses = structuredClone(registry);
+    const preview = courses.browserSetup.courses.find(course => course.status === 'development');
+    const android = courses.languages.find(course => course.platforms?.android?.enabled);
+    assert.ok(preview, 'fixture must exercise a development course');
+    assert.ok(android, 'fixture must include an enabled Android channel');
+    courses.defaultLanguage = preview.id;
+    courses.browserSetup.entryPath = preview.entryPath;
+    courses.browserSetup.courses = [preview];
+    courses.languages = [{ ...android, id: preview.id, status: preview.status }];
+    const app = await launch(script, { courses });
+    assert.deepEqual(app.list.children.map(item => item.dataset.languageId), [preview.id]);
+    assert.equal(app.list.children[0].dataset.courseStatus, 'development');
+    assert.ok(app.list.children[0].querySelector('.language-choice-status')?.textContent);
+    assert.equal(app.download.dataset.state, 'available');
+  });
+
   test(`${name}: page language keeps all courses, the browser entry and APK available`, async () => {
     const app = await launch(script, { preferences: { 'caatuu.launcher.sourceLocale.v1': 'es-ES', 'course.progress': 'preserve' } });
     const ids = () => app.list.children.map(item => item.dataset.languageId);

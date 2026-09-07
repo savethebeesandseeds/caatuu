@@ -231,8 +231,8 @@ export function projectPagesLanguageRegistry({ registry, languagePlan }) {
   );
   projected.languages = projectRecordsById(
     projected.languages,
-    languagePlan.browserCourses.filter(({ status }) => status === "active").map(({ id }) => id),
-    "Pages active-language registry",
+    courseIds,
+    "Pages language registry",
   );
   return projected;
 }
@@ -904,15 +904,14 @@ function createAndroidAliases({ baselineDescriptor, currentDescriptor, siteDir }
   }
 }
 
-function androidChannels() {
-  return [
-    {
-      kind: "release",
-      manifest: "/android/caatuu.json",
-      artifact: "/android/caatuu.apk",
-      minimumVersionCode: 160
-    }
-  ];
+export function projectStableAndroidChannels(android) {
+  const channels = android?.channels?.filter(({ kind }) => kind === "release") ?? [];
+  assert.equal(channels.length, 1, "Pages Android delivery requires one declared stable channel");
+  const [channel] = channels;
+  assert.equal(channel.manifest, "/android/caatuu.json");
+  assert.equal(channel.artifact, "/android/caatuu.apk");
+  assert.ok(Number.isInteger(channel.minimumVersionCode) && channel.minimumVersionCode > 0);
+  return [{ ...channel }];
 }
 
 export function enableStableAndroidCourseProfile(path, label) {
@@ -923,7 +922,8 @@ export function enableStableAndroidCourseProfile(path, label) {
   const endAnchor = "\n      }\n    }\n  });";
   const end = source.indexOf(endAnchor, start);
   assert.ok(start >= 0 && end > start, `${label} platform boundary changed`);
-  const channels = JSON.stringify(androidChannels(), null, 2).replaceAll("\n", "\n        ");
+  const profile = evaluateCourseProfile(source, label);
+  const channels = JSON.stringify(projectStableAndroidChannels(profile.platforms.android), null, 2).replaceAll("\n", "\n        ");
   const android = `      android: {
         enabled: true,
         channels: ${channels}
@@ -941,7 +941,9 @@ function enableAndroidSurfaces({ workspaceRoot, siteDir, languagePlan }) {
   for (const language of registry.languages) {
     const course = plannedById.get(language.id);
     assert.ok(course, `Pages registry contains an unplanned browser course: ${language.id}`);
-    if (course.androidEnabled) language.platforms.android = { enabled: true, channels: androidChannels() };
+    if (course.androidEnabled) {
+      language.platforms.android = { enabled: true, channels: projectStableAndroidChannels(language.platforms.android) };
+    }
   }
   writeJson(registryPath, registry);
 
@@ -1445,19 +1447,22 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, current
   );
   assert.deepEqual(
     registry.languages.map(({ id }) => id),
-    languagePlan.browserCourses.filter(({ status }) => status === "active").map(({ id }) => id),
-    "Pages launcher languages must exactly match active browser courses",
+    languagePlan.browserCourses.map(({ id }) => id),
+    "Pages launcher languages must exactly match Pages-enabled browser courses",
   );
   for (const language of registry.languages) {
     const course = plannedById.get(language.id);
     assert.ok(course, `Pages registry contains an unplanned browser course: ${language.id}`);
     if (course.androidEnabled) {
-      assert.deepEqual(language.platforms.android, { enabled: true, channels: androidChannels() });
+      const manifest = JSON.parse(readText(resolve(workspaceRoot, course.manifestPath)));
+      assert.deepEqual(language.platforms.android, {
+        enabled: true,
+        channels: projectStableAndroidChannels(manifest.platforms.android),
+      });
     }
   }
   const czech = registry.languages.find((language) => language.id === "cz");
   assert.ok(czech, "Pages registry is missing the active Czech baseline course");
-  assert.deepEqual(czech.platforms.android, { enabled: true, channels: androidChannels() });
   const rootIndex = readText(join(siteDir, "index.html"));
   assert.doesNotMatch(rootIndex, /\/games\/caatuu-game\//u);
   assert.deepEqual(

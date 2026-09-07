@@ -60,11 +60,11 @@ independent roles. Development validation accepts explicitly marked drafts, but
 changing a course to `active` makes both catalog validation and launcher
 generation enforce native review and release-cleared licensing.
 That native-review requirement belongs to course activation and approved
-pronunciation, not to packaging or publishing an APK that includes a disclosed
-development course. Development APKs may include explicitly marked draft
-catalogs for hands-on evaluation, with the same learner-base preview behavior as
-the local browser. Promotion to an active course or public Pages delivery still
-requires the recorded clearance; draft metadata is never rewritten as approval.
+pronunciation. Disclosed development courses may ship on Pages and in Android
+APKs with explicitly marked draft catalogs for hands-on evaluation, using the
+same learner-base preview behavior as the local browser. Promotion to an active
+course still requires the recorded native-review and release-license clearance;
+preview delivery never rewrites draft metadata as approval.
 The existing Czech app alone uses the confined `legacy-active-v1` migration
 marker; future courses cannot use that compatibility exception.
 
@@ -238,10 +238,12 @@ setup catalog and route. `platforms.browser.enabled` means the canonical local
 server may mount the course; `platforms.browser.pagesEnabled` is the separate
 public staging gate. A new course therefore uses the same compiler and shared
 runtime; missing entrypoints, assets, stale markers, or route collisions fail
-before publication output is mutated. Pages-eligible modern content is also
-validated with release licensing enabled. This prevents a local draft from
-leaking into the public selector or offline graph without introducing a second
-app layout.
+before publication output is mutated. Active modern courses require recorded
+native review and release-cleared licensing. Pages-enabled development previews
+retain their declared draft review and provenance status and remain `noindex`;
+they use the same shared app and offline graph. All four current
+catalog courses enable browser, Pages, and Android delivery, while Czech alone
+has active status.
 
 ## Validation in the established development container
 
@@ -267,7 +269,7 @@ setup manifests; the tool validates and inspects the complete set before its
 first write.
 
 Check that the public launcher and every present course profile have not
-drifted (including unlisted development courses):
+drifted (including development courses):
 
 ```sh
 docker exec -w /workspace caatuu-dev node tools/language-packs/validate.mjs --check-views

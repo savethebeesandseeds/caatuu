@@ -105,7 +105,7 @@
   "platforms": {
     "browser": {
       "enabled": true,
-      "pagesEnabled": false,
+      "pagesEnabled": true,
       "entryPath": "/es-en/index.html",
       "backend": "static"
     },

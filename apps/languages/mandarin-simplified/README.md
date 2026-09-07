@@ -1,7 +1,7 @@
 # Caatuu Mandarin
 
-This is a development course pack rendered by the shared Caatuu product shell.
-It is not a separate Mandarin application and is not yet a public course.
+This is an English-to-Mandarin development course pack rendered by the shared
+Caatuu product shell, enabled for browser, public Pages, and Android delivery.
 
 ## Product boundary
 
@@ -27,11 +27,12 @@ inference is unavailable.
 Mandarin speech output is enabled with the course-owned `zh-CN` locale, and
 authored token glosses remain available inside Word World. LLM, chat,
 generated sentences, the separate full Dictionary workspace, pronunciation
-guides, and offline model packaging are disabled. Browser and Android
-distribution are enabled, including bundling this disclosed development course
-in the shared APK. Pending native Mandarin review is a visible quality note and
-does not block APK publication. The shared shell hides only the unsupported
-controls; it does not choose another renderer or layout. The course remains
+guides, and offline model packaging are disabled. Browser, public Pages, and
+Android distribution are enabled, including bundling this disclosed development
+course in the shared APK. Pending native Mandarin review is a visible quality
+note and does not block Pages or APK preview publication. The shared shell hides
+only the unsupported controls; it does not choose another renderer or layout.
+The course remains
 `development`, `noindex`, and blocked from active-course promotion and approved
 pronunciation guidance until native Mandarin review passes. Its first-party
 English and Mandarin curriculum licensing is release-cleared under

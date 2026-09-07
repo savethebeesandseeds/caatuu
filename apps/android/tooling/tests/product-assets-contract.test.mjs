@@ -458,7 +458,10 @@ test("the Android product bundles declared courses behind one shared app documen
   assert.equal(configuration.declaration.defaultCourseId, "cz");
   assert.deepEqual(configuration.configurations.map(({ course }) => course.id),
     configuration.declaration.courses.map(({ manifest }) => JSON.parse(readFileSync(join(workspaceRoot, manifest), "utf8")).id));
-  assert.ok(configuration.configurations.some(({ course }) => course.id === "es-en"));
+  const languageCatalog = JSON.parse(readFileSync(join(workspaceRoot, "apps/languages/catalog.json"), "utf8"));
+  assert.deepEqual(configuration.configurations.map(({ course }) => course.id),
+    languageCatalog.courses.map(({ id }) => id),
+    "every supported course must be included in the product assets");
   assert.equal(
     configuration.configurations[0].appEntryPath,
     configuration.configurations[1].appEntryPath,
@@ -516,6 +519,12 @@ test("the Android product bundles declared courses behind one shared app documen
       result.files.includes(courseProfile.interfaceContent.catalog.replace(/^\/+/, "")),
       `${courseId} selected interface catalog must be packaged in the shared app tree`,
     );
+    for (const gameResources of Object.values(courseProfile.gameContent)) {
+      for (const catalogUrl of Object.values(gameResources)) {
+        const catalogPath = new URL(catalogUrl, `https://appassets.androidplatform.net/courses/${courseId}/`).pathname.slice(1);
+        assert.ok(result.files.includes(catalogPath), `${courseId} game catalog must be packaged: ${catalogPath}`);
+      }
+    }
   }
 
   const embeddingRuntimeCatalog = JSON.parse(readFileSync(

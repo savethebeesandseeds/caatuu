@@ -55,16 +55,23 @@ adapter, content, and capability contracts instead of forking the app. English
 remains the immutable per-item audit and retrieval authority even when neither
 the learner base nor the target language is English.
 
+All four courses are enabled for browser, public Pages, and Android delivery:
+
+| Learner language | Learning language | Route | Course status |
+| --- | --- | --- | --- |
+| English | Czech | `/cz/` | Active |
+| English | Mandarin (Simplified Chinese) | `/zh/` | Development preview |
+| English | Spanish | `/es/` | Development preview |
+| Spanish | English (American) | `/es-en/` | Development preview |
+
 Czech is the first active reference course and the experience shown in these
-screenshots. Mandarin is the currently deployed unlisted, `noindex` development
-preview at `/zh/`. English-to-Spanish (`es-ES`) is browser-enabled in the local
-catalog at `/es/`, using the same shared Verb Nebula and Word World experiences,
-but is withheld from Pages and Android while its native-language and
-release-license reviews remain pending. Both modern courses use the shared
-English concept authority and their own target-language realizations. Earlier
-Chinese work remains preserved as history and is not a dependency of the
-current Mandarin course. More languages can join through the same manifest,
-adapter, content, and capability contracts.
+screenshots. Development courses remain `noindex` previews on Pages,
+with their recorded review and licensing status preserved. Preview delivery
+does not promote them to active courses or clear pending reviews. The modern
+courses use the shared English concept authority and their own target-language
+realizations. Earlier Chinese work remains preserved as history and is not a
+dependency of the current Mandarin course. More languages can join through the
+same manifest, adapter, content, and capability contracts.
 
 ## Replicate the development environment
 

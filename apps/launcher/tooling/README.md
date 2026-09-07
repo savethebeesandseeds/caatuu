@@ -82,9 +82,11 @@ local imports, resolves HTML and service-worker references, confirms the
 Its deterministic manifest is `caatuu-web-bundle.json`.
 
 The final Pages builder derives its browser routes from the course catalog and
-the explicit `platforms.browser.pagesEnabled` gate. It currently stages the
-`noindex` Mandarin development course at `/zh/`; local-only Spanish at `/es/`
-and English-from-Spanish at `/es-en/` are excluded by their publication gates. The builder
+the explicit `platforms.browser.pagesEnabled` gate. All four current courses
+are enabled: Czech at `/cz/`, Mandarin at `/zh/`, Spanish at `/es/`, and
+English for Spanish speakers at `/es-en/`. Development courses keep their
+preview labels and `noindex` policy while appearing in the launcher and course
+selectors. The builder
 restores the stable 162 / compatibility 161 preservation archive and overlays
 every exact Android release in the append-only descriptor.
 It includes all retained aliases, all 662 release-162 native setup artifacts,
@@ -139,7 +141,8 @@ reporting scope stays intact, and other courses retain their localized
 local-only message. A focused contract checks both outcomes and module syntax
 before release signing; deployment repairs reuse the finalized APK receipt.
 
-The published UI uses origin-root `/assets/`, `/cz/`, and `/zh/` paths.
+The published UI uses origin-root asset and course paths, including `/assets/`,
+`/cz/`, `/zh/`, `/es/`, and `/es-en/`.
 Publication therefore requires `https://caatuu.waajacu.com` at the root; a
 GitHub project subpath is not compatible. The manual Pages workflow checks that
 configuration before it uploads anything and deploys through the Pages artifact

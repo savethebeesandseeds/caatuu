@@ -2124,6 +2124,14 @@ function usesExactCzechLegacyPublicationException(course) {
     && course?.publication?.contract === "legacy-active-v1";
 }
 
+function requiresCourseReleaseEvidence(course) {
+  return course?.status === "active"
+    || course?.status !== "development" && (
+      course?.platforms?.browser?.pagesEnabled === true
+      || course?.platforms?.android?.enabled === true
+    );
+}
+
 function normalizeCourseAuthoredGrammarCatalog(course, gameId, document, resourceName) {
   if (gameId === "grammar-gravity" && resourceName === "grammarGravityNouns") {
     return normalizeNounLandingPack(document, {
@@ -2153,15 +2161,13 @@ function normalizeCourseAuthoredGrammarCatalog(course, gameId, document, resourc
 
 export function authoredGrammarPromotionIssues(course, gameId, catalog) {
   if (usesExactCzechLegacyPublicationException(course)) return [];
-  const release = course?.status === "active"
-    || course?.platforms?.browser?.pagesEnabled === true
-    || course?.platforms?.android?.enabled === true && course?.status !== "development";
+  const release = requiresCourseReleaseEvidence(course);
   const requireNativeReview = course?.status === "active";
   const issues = [];
   if (release && catalog?.license?.status !== "release-cleared") {
     issues.push({
       code: "release.game-license",
-      message: `${course?.id}.${gameId} license.status must be release-cleared before browser or Android release.`
+      message: `${course?.id}.${gameId} license.status must be release-cleared before active promotion.`
     });
   }
   const approvedReviewState = gameId === "conjugation-comet"
@@ -2181,9 +2187,7 @@ export function authoredGrammarPromotionIssues(course, gameId, catalog) {
 async function validateAuthoredGrammarPromotionEvidence(record, repoRoot, issues) {
   const { course } = record;
   if (usesExactCzechLegacyPublicationException(course)) return;
-  const release = course.status === "active"
-    || course.platforms?.browser?.pagesEnabled === true
-    || course.platforms?.android?.enabled === true && course.status !== "development";
+  const release = requiresCourseReleaseEvidence(course);
   if (!release) return;
   const declaredGames = new Set(Array.isArray(course.games) ? course.games : []);
   const grammarResources = [
@@ -2700,7 +2704,7 @@ export async function validateCourseCatalog(
     await validatePlanetEnglishAudit(record, repoRoot, issues, checkExistence);
     await validateAuthoredGrammarPromotionEvidence(record, repoRoot, issues);
     await validatePublicationEvidence(record, repoRoot, issues, {
-      release: course.status === "active" || course.platforms?.browser?.pagesEnabled === true,
+      release: requiresCourseReleaseEvidence(course),
       requireNativeReview: course.status === "active"
     });
   }
@@ -2733,17 +2737,21 @@ export async function generateLauncherRegistry(loaded) {
     })));
   }
   const publicationIssues = [];
-  for (const record of activeRecords) {
+  const launcherRecords = loaded.courses.filter(({ course }) => (
+    ["active", "development"].includes(course.status)
+    && course.platforms?.browser?.enabled === true
+  ));
+  for (const record of launcherRecords) {
     validateLearnerSourceReadiness(record.course, publicationIssues, { launcher: true });
     await validatePublicationEvidence(record, loaded.repoRoot, publicationIssues, {
-      release: true,
-      requireNativeReview: true
+      release: requiresCourseReleaseEvidence(record.course),
+      requireNativeReview: record.course.status === "active"
     });
     await validateAuthoredGrammarPromotionEvidence(record, loaded.repoRoot, publicationIssues);
   }
   if (publicationIssues.length > 0) throw new CourseContractError(publicationIssues);
-  const languages = activeCourses
-    .map((course) => ({
+  const languages = launcherRecords
+    .map(({ course }) => ({
       id: course.id,
       status: course.status,
       label: course.targetLanguage.label,
@@ -2962,7 +2970,7 @@ export function generateCourseProfileObject(course, catalogCourses = [course]) {
     learnerBasePreview: !isEnglishLanguage(course.sourceLanguage)
       && course.status === "development"
       && course.platforms.browser.enabled === true
-      && course.platforms.browser.pagesEnabled === false
+      && typeof course.platforms.browser.pagesEnabled === "boolean"
       && typeof course.platforms.android.enabled === "boolean",
     linguisticFeatures: [...(course.linguisticFeatures ?? [])],
     games: [...(course.games ?? [])],
@@ -3055,7 +3063,7 @@ export async function checkLauncherView(loaded, launcherPath = "apps/launcher/st
   const expected = await generateLauncherRegistry(loaded);
   const actual = JSON.parse(await readFile(path.resolve(loaded.repoRoot, launcherPath), "utf8"));
   if (!isDeepStrictEqual(actual, expected)) {
-    throw new CourseContractError([{ code: "view.launcher", message: `${launcherPath} does not match the active course manifests.` }]);
+    throw new CourseContractError([{ code: "view.launcher", message: `${launcherPath} does not match the supported browser course manifests.` }]);
   }
 }
 

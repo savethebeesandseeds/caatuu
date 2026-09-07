@@ -107,16 +107,25 @@
   "platforms": {
     "browser": {
       "enabled": true,
-      "pagesEnabled": false,
+      "pagesEnabled": true,
       "entryPath": "/es/index.html",
       "backend": "static"
     },
     "android": {
-      "enabled": false,
-      "channels": []
+      "enabled": true,
+      "channels": [
+        { "kind": "release", "manifest": "/android/caatuu.json", "artifact": "/android/caatuu.apk", "minimumVersionCode": 170 },
+        { "kind": "preview", "manifest": "/android/caatuu-preview.json", "artifact": "/android/caatuu-preview.apk", "minimumVersionCode": 170 }
+      ]
     }
   },
   "resources": {
+    "androidAssetCatalog": {
+      "kind": "file",
+      "path": "apps/languages/spanish/android-assets.json",
+      "scope": "course",
+      "state": "present"
+    },
     "soundQuasarCatalog": {
       "kind": "file",
       "path": "apps/languages/spanish/static/data/games/sound-quasar/challenges.json",

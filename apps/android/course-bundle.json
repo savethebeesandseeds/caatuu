@@ -10,6 +10,9 @@
       "manifest": "apps/languages/mandarin-simplified/course.json"
     },
     {
+      "manifest": "apps/languages/spanish/course.json"
+    },
+    {
       "manifest": "apps/languages/english-from-spanish/course.json"
     }
   ]
