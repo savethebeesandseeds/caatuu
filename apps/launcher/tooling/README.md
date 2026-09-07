@@ -120,6 +120,14 @@ website bytes; it does not run the website compiler. Changing website sources
 requires explicit `deployment_scope=website`. A complete Pages artifact upload
 is transport, not a reason to recompile the website for every APK.
 
+The landing page's language control changes only page copy. Its small catalogs
+live in `launcher-interface.mjs`, independently of learner preferences and
+course publication. Both locales retain every course available in the current
+registry, the same browser entry and the same Caatuu Android download. Pages
+keeps its catalog publication boundary and preserves the language-change
+handler when replacing the server's service-worker setup. The executable
+`launcher-locale-behavior.test.mjs` covers both launcher variants.
+
 The Pages sentence-report copy is projected at the shared interface-key call,
 not by replacing an English literal inside JavaScript. The existing Czech-only
 reporting scope stays intact, and other courses retain their localized

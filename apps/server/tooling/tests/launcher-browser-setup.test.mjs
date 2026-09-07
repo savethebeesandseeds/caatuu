@@ -36,15 +36,16 @@ test("launcher keeps release-active languages separate from browser setup choice
   );
 });
 
-test("launcher keeps its English-base fallback and provides localized source selection", () => {
+test("launcher keeps all fallback courses and labels its independent page language", () => {
   assert.match(index, /aria-label="Czech \(Čeština\)"[\s\S]*?language-choice-code">CZ<\/span>/u);
   assert.match(index, /aria-label="Mandarin \(中文\), Preview"[\s\S]*?language-choice-code">ZH<\/span>[\s\S]*?language-choice-status">Preview<\/span>/u);
   assert.match(index, /aria-label="Spanish \(Español\), Preview"[\s\S]*?language-choice-code">ES<\/span>[\s\S]*?language-choice-status">Preview<\/span>/u);
   assert.match(index, /china_flag\.png\?caatuu_asset=11/u);
   assert.match(index, /spain_flag\.png\?caatuu_asset=11/u);
   assert.match(index, /aria-label="Continue online in the browser"[\s\S]*?<b data-i18n="launcher\.continue">Continue online<\/b>/u);
-  assert.match(index, /data-source-control hidden/u);
-  assert.match(index, /<select data-source-language[^>]*data-i18n-aria-label="courseselector\.sourcequestion"/u);
+  assert.match(index, /data-language-control hidden/u);
+  assert.match(index, /<select data-page-language[^>]*data-i18n-aria-label="launcher\.language"/u);
+  for (const course of registry.browserSetup.courses) assert.ok(index.includes(`data-language-id="${course.id}"`));
   assert.match(styles, /\.language-choice-status\s*\{/u);
   assert.doesNotMatch(index, /Continue with Czech/u);
 });
@@ -63,9 +64,8 @@ test("server and static launchers preserve the generic form entry after registry
   assert.match(launcher, /label\.textContent = t\("launcher\.continue"\)/u);
   assert.match(launcher, /setAttribute\("aria-label", t\("launcher\.continuearia"\)\)/u);
   assert.match(launcher, /status\.textContent = t\("common\.preview"\)/u);
-  assert.match(launcher, /loadLauncherInterface\(registry, sourcePreferences\(\)/u);
-  assert.match(launcher, /record\.sourceLanguage\?\.locale === selectedSourceLocale/u);
-  assert.match(launcher, /selectedCourse\?\.entryPath/u, "browser action must enter the selected learner-base course");
+  assert.match(launcher, /loadLauncherInterface\(registry, localePreferences\(\)/u);
+  assert.doesNotMatch(launcher, /selectedSourceLocale/u);
   assert.match(launcher, /document\.documentElement\.lang = content\.locale/u);
   assert.match(launcher, /content\.apply\(document\)/u);
   assert.match(staticLauncher, /label\.textContent = "Continue online"/u);

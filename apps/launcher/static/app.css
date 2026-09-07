@@ -18,7 +18,7 @@
   box-sizing: border-box;
 }
 
-.launcher-source-control {
+.launcher-language-control {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -28,9 +28,9 @@
   color: var(--muted);
 }
 
-.launcher-source-control[hidden], .entry-option[hidden] { display: none; }
+.launcher-language-control[hidden], .entry-option[hidden] { display: none; }
 
-.launcher-source-control select {
+.launcher-language-control select {
   max-width: 100%;
   border: 1px solid var(--line);
   border-radius: 10px;

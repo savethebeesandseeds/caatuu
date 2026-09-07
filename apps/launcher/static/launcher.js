@@ -3,26 +3,25 @@
   const languageList = document.querySelector("[data-language-list]");
   const browserEntry = document.querySelector("[data-browser-entry]");
   const download = document.querySelector("[data-android-download]");
-  const sourceSelect = document.querySelector("[data-source-language]");
-  const sourceControl = document.querySelector("[data-source-control]");
-  const sourcePreferenceKey = "caatuu.launcher.sourceLocale.v1";
+  const localeSelect = document.querySelector("[data-page-language]");
+  const localeControl = document.querySelector("[data-language-control]");
+  const localePreferenceKey = "caatuu.launcher.interfaceLocale.v1";
   const assetRevision = new URL(document.currentScript?.src || window.location.href).searchParams.get("v") || "1";
   let channelRequest = 0;
   let registryRequest = 0;
   let refreshTimer = 0;
   let interfaceRequest = 0;
   let interfaceContent = null;
-  let selectedSourceLocale = "";
   let currentRegistry = null;
 
   function t(messageId, parameters = {}) {
     return interfaceContent?.t(messageId, parameters) || "";
   }
 
-  function sourcePreferences() {
+  function localePreferences() {
     let saved = "";
-    try { saved = window.localStorage.getItem(sourcePreferenceKey) || ""; } catch { /* Storage is optional. */ }
-    return [sourceSelect?.value, new URL(window.location.href).searchParams.get("from"), saved,
+    try { saved = window.localStorage.getItem(localePreferenceKey) || ""; } catch { /* Storage is optional. */ }
+    return [localeSelect?.value, new URL(window.location.href).searchParams.get("lang"), saved,
       ...(window.navigator?.languages || [window.navigator?.language])].filter(Boolean);
   }
 
@@ -113,9 +112,7 @@
         const channelLabel = download.querySelector("small");
         const preview = channel.kind === "preview";
         if (channelLabel) channelLabel.textContent = t(preview ? "launcher.android.preview" : "launcher.android.beta");
-        if (label) label.textContent = t(preview ? "launcher.android.downloadpreview" : "launcher.android.downloadbeta", {
-          language: interfaceContent.languageName(language.targetLanguage || { label: language.label, id: language.id })
-        });
+        if (label) label.textContent = t(preview ? "launcher.android.downloadpreview" : "launcher.android.downloadbeta");
         return;
       } catch (error) {
         // Try the next explicitly supported channel.
@@ -145,7 +142,7 @@
       if (label) label.textContent = t("launcher.continue");
     }
 
-    const courses = browserSetupCourses(registry).filter((record) => record.sourceLanguage?.locale === selectedSourceLocale);
+    const courses = browserSetupCourses(registry);
     if (!languageList || courses.length === 0) return;
     languageList.replaceChildren(...courses.map((courseRecord) => {
       const language = courseRecord.targetLanguage;
@@ -184,36 +181,31 @@
 
   async function renderLanguages(registry) {
     const request = ++interfaceRequest;
-    const { loadLauncherInterface } = await import("/language-runtime/static/source/launcher-interface.mjs?v=launcher-interface-1");
-    const { course, content } = await loadLauncherInterface(registry, sourcePreferences(), {
-      fetchImpl: window.fetch.bind(window), origin: window.location.origin
-    });
+    const { loadLauncherInterface, launcherLocales } = await import("/language-runtime/static/source/launcher-interface.mjs?v=launcher-interface-1");
+    const { course, content } = await loadLauncherInterface(registry, localePreferences());
     if (request !== interfaceRequest) return;
     interfaceContent = content;
-    selectedSourceLocale = course.sourceLanguage.locale;
     document.documentElement.lang = content.locale;
     document.documentElement.dir = content.direction;
     content.apply(document);
-    if (sourceSelect) {
-      const sources = [...new Map(browserSetupCourses(registry).map((record) =>
-        [record.sourceLanguage.locale, record.sourceLanguage])).values()];
-      sourceSelect.replaceChildren(...sources.map((source) => {
+    if (localeSelect) {
+      localeSelect.replaceChildren(...launcherLocales.map((source) => {
         const option = document.createElement("option");
         option.value = source.locale;
         option.textContent = source.nativeLabel || content.languageName(source);
         option.lang = source.locale;
         return option;
       }));
-      sourceSelect.value = selectedSourceLocale;
-      if (sourceControl) sourceControl.hidden = sources.length < 2;
+      localeSelect.value = content.locale;
+      if (localeControl) localeControl.hidden = launcherLocales.length < 2;
     }
     renderBrowserSetup(registry, course);
     const languages = registry.languages.filter((language) => language.status === "active"
-      && language.sourceLanguage?.locale === selectedSourceLocale);
+      && language.platforms?.android?.enabled);
     const selected = languages.find((language) => language.id === registry.defaultLanguage) || languages[0];
     ++channelRequest;
-    if (download) download.hidden = !selected;
-    if (selected) selectAvailableChannel(selected);
+    if (download) download.hidden = false;
+    await selectAvailableChannel(selected);
   }
 
   async function loadRegistry() {
@@ -255,8 +247,8 @@
     }
   }
 
-  sourceSelect?.addEventListener("change", () => {
-    try { window.localStorage.setItem(sourcePreferenceKey, sourceSelect.value); } catch { /* Storage is optional. */ }
+  localeSelect?.addEventListener("change", () => {
+    try { window.localStorage.setItem(localePreferenceKey, localeSelect.value); } catch { /* Storage is optional. */ }
     if (currentRegistry) void renderLanguages(currentRegistry).catch(() => {
       setDownloadUnavailable(t("launcher.android.loadfailed"));
     });

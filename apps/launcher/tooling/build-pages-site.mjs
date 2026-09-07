@@ -941,9 +941,15 @@ function enableAndroidSurfaces({ workspaceRoot, siteDir, languagePlan }) {
     );
   }
 
-  let launcher = readText(resolve(workspaceRoot, "apps/launcher/static/launcher.js"));
+  writeText(join(siteDir, "launcher.js"), projectPagesLauncherSource(
+    readText(resolve(workspaceRoot, "apps/launcher/static/launcher.js"))
+  ));
+}
+
+export function projectPagesLauncherSource(source) {
+  let launcher = source;
   const startAnchor = "  async function removeLegacyRootServiceWorker() {";
-  const endAnchor = "\n  download?.addEventListener";
+  const endAnchor = "\n  localeSelect?.addEventListener";
   const start = launcher.indexOf(startAnchor);
   const end = launcher.indexOf(endAnchor, start);
   assert.ok(start >= 0 && end > start, "Launcher service-worker boundary changed");
@@ -965,7 +971,7 @@ function enableAndroidSurfaces({ workspaceRoot, siteDir, languagePlan }) {
   const finalCall = "  removeLegacyRootServiceWorker().finally(loadRegistry);";
   assert.equal(launcher.split(finalCall).length - 1, 1, "Launcher final startup call changed");
   launcher = launcher.replace(finalCall, "  void registerStaticWorker().catch(() => {});\n  loadRegistry();");
-  writeText(join(siteDir, "launcher.js"), launcher);
+  return launcher;
 }
 
 export function transformPagesSentenceReporting(input) {

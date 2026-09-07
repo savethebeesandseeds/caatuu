@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Caatuu</title>
-    <link rel="stylesheet" href="/app.css?v=35">
-    <script src="/launcher.js?v=12" defer></script>
+    <link rel="stylesheet" href="/app.css?v=36">
+    <script src="/launcher.js?v=13" defer></script>
   </head>
   <body class="home-page">
     <main class="menu-shell">
@@ -43,6 +43,13 @@
                     <span class="language-choice-status">Preview</span>
                   </span>
                 </li>
+                <li aria-label="English, Preview" data-language-id="es-en" data-course-status="development">
+                  <span class="language-choice language-choice-static">
+                    <img class="flag-icon" src="/assets/icons/english_flag.png?caatuu_asset=11" alt="" decoding="async">
+                    <span class="language-choice-code">EN</span>
+                    <span class="language-choice-status">Preview</span>
+                  </span>
+                </li>
               </ul>
             </span>
           </header>
@@ -56,12 +63,12 @@
           <div class="menu-heading home-heading">
             <p class="eyebrow" data-i18n="launcher.welcome">Welcome space language traveler</p>
             <h1 id="homeTitle" data-i18n="launcher.title">Language App</h1>
-            <p class="home-copy" data-i18n="launcher.description">Caatuu is a free, robust, agentic language-learning app for guided practice with words, phrases, translation, and offline-friendly tools.</p>
+            <p class="home-copy" data-i18n="launcher.description">Caatuu is a free language-learning app for guided practice with words, phrases, translation, and tools that also work offline.</p>
           </div>
 
-          <label class="launcher-source-control" data-source-control hidden>
-            <span data-i18n="courseselector.sourcequestion">What language do you use?</span>
-            <select data-source-language aria-label="What language do you use?" data-i18n-aria-label="courseselector.sourcequestion"></select>
+          <label class="launcher-language-control" data-language-control hidden>
+            <span data-i18n="launcher.language">Page language</span>
+            <select data-page-language aria-label="Page language" data-i18n-aria-label="launcher.language"></select>
           </label>
 
           <nav class="entry-options" aria-label="App entry options" data-i18n-aria-label="launcher.entryoptions">
