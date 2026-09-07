@@ -1,0 +1,34 @@
+/* Shared word card for inline and embedded games. Games own only placement. */
+.dictionary-word-card {
+  position: relative;
+  box-sizing: border-box;
+  width: 220px;
+  max-width: 244px;
+  padding: 12px;
+  border: 1px solid var(--theme-control-border, #b8c5bd);
+  border-radius: 9px;
+  background: var(--theme-paper, #f1ece2);
+  color: var(--theme-green-strong, #1c4a40);
+  box-shadow: 0 8px 20px #17201d14;
+  display: block;
+  line-height: 1.2;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+html[data-theme="dark"] .dictionary-word-card { background: color-mix(in srgb, var(--theme-control-bg, #181f1c) 92%, transparent); }
+.dictionary-word-card [hidden], .dictionary-word-card[hidden] { display: none; }
+.dictionary-word-card__copy { min-width: 0; display: grid; align-content: start; gap: 5px; }
+.dictionary-word-card__heading { min-width: 0; min-height: 36px; display: grid; grid-template-columns: 32px minmax(0, 1fr) auto; align-items: center; gap: 7px; }
+.dictionary-word-card__word { grid-column: 2; min-width: 0; font-size: .98rem; font-weight: 700; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dictionary-word-card__word.has-target-text-guide { padding-top: .32rem; overflow: visible; text-overflow: clip; }
+.dictionary-word-card__pos { grid-column: 3; color: var(--theme-quiet, #74817b); font-size: .62rem; font-weight: 850; letter-spacing: .04em; text-transform: uppercase; text-align: right; }
+.dictionary-word-card__meaning { margin: 0; display: block; color: var(--theme-entry-accent, #8f4b40); font-size: .74rem; text-align: center; overflow-wrap: anywhere; }
+.dictionary-word-card__meta { display: block; color: var(--theme-quiet, #74817b); font-size: .62rem; overflow-wrap: anywhere; }
+:is(.dictionary-word-card .dictionary-word-card__pronounce, .word-net-word-pronounce.word-net-sound-toggle) { position: absolute; top: 0; left: 0; width: 34px; height: 34px; padding: 0; border: 0; border-radius: 0; background: transparent; color: var(--theme-amber, #b77726); z-index: 2; display: grid; place-items: center; cursor: pointer; }
+.dictionary-word-card .dictionary-word-card__pronounce { top: 13px; }
+.dictionary-word-card__pronounce svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+:is(.dictionary-word-card .dictionary-word-card__pronounce, .word-net-word-pronounce.word-net-sound-toggle):is(:hover, :focus-visible, .is-speaking, [aria-pressed="true"]) { background: transparent; color: color-mix(in srgb, var(--theme-amber, #b77726) 82%, var(--theme-ink, #17201d)); box-shadow: none; }
+:is(.dictionary-word-card .dictionary-word-card__pronounce, .word-net-word-pronounce.word-net-sound-toggle):focus-visible { outline: 3px solid var(--theme-focus-ring, #5b8fc3); outline-offset: -3px; border-radius: 999px; }
+:is(.dictionary-word-card .dictionary-word-card__pronounce, .word-net-word-pronounce.word-net-sound-toggle):disabled { cursor: not-allowed; opacity: .4; }
+.dictionary-word-card.is-loading :is(.dictionary-word-card__meaning, .dictionary-word-card__meta), .dictionary-word-card.is-translation-off .dictionary-word-card__meaning { color: var(--theme-quiet, #74817b); }
+@media (max-width: 560px) { .dictionary-word-card { max-width: 176px; padding: 10px; } .dictionary-word-card .dictionary-word-card__pronounce { top: 11px; } }
+@media (max-width: 380px) { .dictionary-word-card { max-width: 140px; } }

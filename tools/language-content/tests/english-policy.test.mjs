@@ -80,7 +80,7 @@ test('projection binds three roles and preserves English-only retrieval without 
   const manifest = {
     ...policy.buildManifest({ concepts, realizations: target, paths: ENGLISH_AMERICAN_WORD_WORLD_PATHS }),
     learnerBaseLanguage: 'es-ES',
-    learnerBaseFile: 'starter-v1.es-base.json'
+    learnerBaseFile: 'learner-base.json'
   };
   const output = buildWordWorldRuntimeProjections(concepts, target, manifest, {
     projectionPolicy: policy, paths: ENGLISH_AMERICAN_WORD_WORLD_PATHS, sourceLanguage: 'es-ES', learnerBaseRealizations: base
@@ -89,7 +89,7 @@ test('projection binds three roles and preserves English-only retrieval without 
   assert.equal(output.targetProjection.targetLanguage.languageTag, 'en-US');
   assert.equal(output.learnerBaseProjection.baseLanguage.languageTag, 'es-ES');
   assert.equal(output.runtimeManifest.learnerBaseLanguage, 'es-ES');
-  assert.equal(output.runtimeManifest.learnerBaseFile, 'starter-v1.es-base.json');
+  assert.equal(output.runtimeManifest.learnerBaseFile, 'learner-base.json');
   assert.equal(output.runtimeManifest.embeddingPolicy.inputLanguage, 'en');
   assert.equal(output.runtimeManifest.embeddingPolicy.targetTextAllowed, false);
   assert.equal(output.runtimeManifest.capabilities.generation, false);

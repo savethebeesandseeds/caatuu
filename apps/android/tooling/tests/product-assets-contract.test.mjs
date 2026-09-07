@@ -310,8 +310,8 @@ test("courses share one Android app document and bundle while retaining course-o
   }
   assert.ok(czechFiles.includes("source/games/word-world/word-net-standard.mjs"));
   assert.ok(!czechFiles.includes("source/games/word-world/word-net-core.mjs"));
-  assert.ok(czechFiles.includes("data/games/word-world/standard-v0.1/records.json"));
-  assert.ok(mandarinFiles.includes("data/games/word-world/starter-v1.realizations.json"));
+  assert.ok(czechFiles.includes("data/games/word-world/content.json"));
+  assert.ok(mandarinFiles.includes("data/games/word-world/content.json"));
 });
 
 test("Android configuration pins each interface catalog to its exact shared app mapping", (t) => {
@@ -488,8 +488,8 @@ test("the Android product bundles declared courses behind one shared app documen
   assert.ok(result.files.includes("language-runtime/static/source/interface-content.mjs"));
   assert.ok(result.files.includes("language-runtime/static/source/legacy-page-bootstrap.mjs"));
   assert.ok(result.files.includes("language-runtime/static/data/interface/en.v1.json"));
-  assert.ok(result.files.includes("courses/cz/data/games/word-world/standard-v0.1/records.json"));
-  assert.ok(result.files.includes("courses/zh/data/games/word-world/starter-v1.realizations.json"));
+  assert.ok(result.files.includes("courses/cz/data/games/word-world/content.json"));
+  assert.ok(result.files.includes("courses/zh/data/games/word-world/content.json"));
   assert.ok(!result.files.includes("source/shared/course-profile.js"));
   assert.ok(!result.files.includes("language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx"));
   assert.ok(!result.files.includes("language-runtime/vendor/transformers/transformers.min.js"));
@@ -787,8 +787,8 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
   }
 
   const includedCourseGameContent = [
-    "data/games/conjugation-comet/verbs.json",
-    "data/games/grammar-gravity/challenges.json",
+    "data/games/conjugation-comet/content.json",
+    "data/games/grammar-gravity/content.json",
     "data/games/grammar-gravity/nouns.json"
   ];
   assert.ok(STORE_LANGUAGE_FILES.includes("source/shared/child-facing-assets.mjs"));
@@ -828,7 +828,7 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
       return new Response(readFileSync(file), { status: 200 });
     },
   });
-  const sourceCorpus = JSON.parse(readFileSync(join(languageStaticDir, "data/games/word-world/standard-v0.1/records.json"), "utf8"));
+  const sourceCorpus = JSON.parse(readFileSync(join(languageStaticDir, "data/games/word-world/content.json"), "utf8"));
   assert.equal(provider.size, sourceCorpus.records.length, "the generated Standard-only runtime must load all curated records");
   assert.ok(provider.nextRandom({ difficulty: 1 })?.record, "the generated runtime must select a playable first turn");
 });
@@ -1037,7 +1037,7 @@ test("product validation rejects unsafe learner text after compilation", (t) => 
   t.after(() => rmSync(parent, { recursive: true, force: true }));
   compileProductAssets({ workspaceRoot, languageStaticDir, launcherStaticDir, outputDir });
 
-  const runtimeFile = join(outputDir, "data/games/word-world/standard-v0.1/records.json");
+  const runtimeFile = join(outputDir, "data/games/word-world/content.json");
   const runtime = JSON.parse(readFileSync(runtimeFile, "utf8"));
   runtime.records[0].en = "I have two balls.";
   runtime.records[0].sceneQuery = "I have two balls";

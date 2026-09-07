@@ -57,7 +57,7 @@ function readingGuide(value, target, targetLanguageId, label) {
   requireCondition(targetLanguageId === "zh" && reading.system === "pinyin", `${label} must use the target language's reading system.`);
   requireCondition(reading.status === "machine-assisted-preview", `${label} must preserve the source reading-guide status.`);
   const sourcePath = text(reading.sourcePath, `${label}.sourcePath`, 220);
-  requireCondition(sourcePath === "apps/languages/mandarin-simplified/static/data/games/word-world/starter-v1.reading-guides.json", `${label} must name the existing reading-guide file.`);
+  requireCondition(sourcePath === "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json", `${label} must name the existing reading-guide file.`);
   requireCondition(Array.isArray(reading.tokens) && reading.tokens.length > 0 && reading.tokens.length <= 100, `${label} must contain reading tokens.`);
   let cursor = 0;
   const tokens = reading.tokens.map((value, tokenIndex) => {
@@ -85,6 +85,23 @@ function readingGuide(value, target, targetLanguageId, label) {
     sourceId: identifier(reading.sourceId, `${label}.sourceId`),
     tokens: Object.freeze(tokens)
   });
+}
+
+function editorialReview(value, label, { authored = false } = {}) {
+  const review = record(value, label);
+  const pending = authored ? ["ai-editorial-pending"] : ["pending", "ai-editorial-pending"];
+  const reviewed = review.status === "ai-editorial-reviewed";
+  requireCondition(reviewed || pending.includes(review.status), `${label} must retain a pending or AI editorial status.`);
+  if (reviewed) {
+    text(review.reviewer, `${label}.reviewer`, 180);
+    requireCondition(typeof review.reviewedAt === "string" && /^\d{4}-\d{2}-\d{2}(?:T[^\s]+Z)?$/u.test(review.reviewedAt)
+      && Number.isFinite(Date.parse(review.reviewedAt)), `${label}.reviewedAt must be an ISO date.`);
+  } else {
+    requireCondition(review.reviewer === null && review.reviewedAt === null,
+      `${label} must not name a reviewer or date while pending.`);
+  }
+  return Object.freeze({ status: review.status, reviewer: reviewed ? review.reviewer.trim() : null,
+    reviewedAt: reviewed ? review.reviewedAt : null, notes: text(review.notes, `${label}.notes`, 1000) });
 }
 
 /** Validate and copy course-owned practice content without upgrading its review status. */
@@ -116,7 +133,15 @@ export function validateSoundQuasarCatalog(document, { courseId, targetLanguageI
 
   const provenance = record(source.provenance, "provenance");
   const sourcePath = text(provenance.sourcePath, "provenance.sourcePath", 220);
-  requireCondition(/^apps\/languages\/[a-z0-9]+(?:-[a-z0-9]+)*\/static\/data\/games\/verb-nebula\/core-vocabulary\.json$/u.test(sourcePath), "provenance must name the existing course vocabulary file.");
+  requireCondition(/^apps\/languages\/[a-z0-9]+(?:-[a-z0-9]+)*\/static\/data\/games\/verb-nebula\/content\.json$/u.test(sourcePath), "provenance must name the existing course vocabulary file.");
+  let authoredProvenance;
+  if (source.authoredProvenance !== undefined) {
+    const authored = record(source.authoredProvenance, "authoredProvenance");
+    requireCondition(authored.kind === "first-party-authored", "authoredProvenance.kind must be first-party-authored.");
+    const review = editorialReview({ ...authored, status: authored.reviewStatus }, "authoredProvenance", { authored: true });
+    authoredProvenance = Object.freeze({ kind: authored.kind, reviewStatus: review.status,
+      reviewer: review.reviewer, reviewedAt: review.reviewedAt, notes: review.notes });
+  }
   const itemIds = new Set();
   function collection(values, label, maxLength) {
     requireCondition(Array.isArray(values) && values.length >= 4 && values.length <= 500, `${label} must contain 4–500 entries.`);
@@ -134,9 +159,18 @@ export function validateSoundQuasarCatalog(document, { courseId, targetLanguageI
       requireCondition(SOURCE_ID_PATTERN.test(sourceId) && !sourceIds.has(sourceId), "source item references must be stable and unique.");
       const sourceReviewStatus = text(item.sourceReviewStatus, `${label}[${index}].sourceReviewStatus`, 80);
       requireCondition(/^[a-z]+(?:[-_][a-z]+)*$/u.test(sourceReviewStatus), "sourceReviewStatus must preserve an explicit source status or not-declared.");
+      if (item.sourceKind !== undefined) {
+        requireCondition(item.sourceKind === "authored-listening", `${label}[${index}].sourceKind is unsupported.`);
+        requireCondition(authoredProvenance && sourceId === id,
+          `${label}[${index}] authored listening needs provenance and sourceId equal to its stable item ID.`);
+        requireCondition(sourceReviewStatus === authoredProvenance.reviewStatus,
+          `${label}[${index}] must preserve its authored editorial review status.`);
+      }
       itemIds.add(id);
       targetWords.add(identity);
       sourceIds.add(sourceId);
+      const difficulty = item.difficulty === undefined ? undefined
+        : integer(item.difficulty, `${label}[${index}].difficulty`, 1, 3);
       return Object.freeze({
         id,
         revision: identifier(item.revision, `${label}[${index}].revision`),
@@ -145,6 +179,8 @@ export function validateSoundQuasarCatalog(document, { courseId, targetLanguageI
         englishAuditText: text(item.englishAuditText, `${label}[${index}].englishAuditText`, 300),
         sourceId,
         sourceReviewStatus,
+        ...(difficulty === undefined ? {} : { difficulty }),
+        ...(item.sourceKind ? { sourceKind: item.sourceKind } : {}),
         ...(item.reading === undefined ? {} : { reading: readingGuide(item.reading, target, actualTargetId, `${label}[${index}].reading`) })
       });
     }));
@@ -160,8 +196,8 @@ export function validateSoundQuasarCatalog(document, { courseId, targetLanguageI
     const sentenceSourcePath = text(declared.sourcePath, "sentenceProvenance.sourcePath", 220);
     const courseDirectory = sourcePath.split("/")[2];
     requireCondition([
-      `apps/languages/${courseDirectory}/static/data/games/word-world/starter-v1.realizations.json`,
-      `apps/languages/${courseDirectory}/static/data/games/word-world/standard-v0.1/records.json`
+      `apps/languages/${courseDirectory}/static/data/games/word-world/content.json`,
+      `apps/languages/${courseDirectory}/static/data/games/word-world/content.json`
     ].includes(sentenceSourcePath), "sentence provenance must name the course's existing Word World content.");
     const englishSourcePath = text(declared.englishSourcePath, "sentenceProvenance.englishSourcePath", 220);
     requireCondition(englishSourcePath === sentenceSourcePath || englishSourcePath === "apps/languages/shared/english-concepts/word-world-starter-v1.json", "sentence English provenance must name the existing English authority.");
@@ -192,6 +228,7 @@ export function validateSoundQuasarCatalog(document, { courseId, targetLanguageI
     }),
     items,
     sentences,
+    ...(authoredProvenance ? { authoredProvenance } : {}),
     ...(sentenceProvenance ? { sentenceProvenance } : {})
   });
   validatedCatalogs.add(catalog);
@@ -226,20 +263,29 @@ function makeRound(items, answer, random, choiceCount, mode) {
   });
 }
 
-export function buildSoundQuasarRound(catalog, { index = 0, random = Math.random, choiceCount = 4, mode = "words" } = {}) {
+export function soundQuasarItemsForDifficulty(catalog, { mode = "words", difficulty = 3 } = {}) {
+  integer(difficulty, "difficulty", 1, 3);
+  return modeItems(asCatalog(catalog), mode).filter(item => item.difficulty === undefined || item.difficulty <= difficulty);
+}
+
+export function buildSoundQuasarRound(catalog, { index = 0, random = Math.random, choiceCount = 4, mode = "words", difficulty = 3 } = {}) {
   const validated = asCatalog(catalog);
-  const items = modeItems(validated, mode);
+  integer(choiceCount, "choiceCount", 2, modeItems(validated, mode).length);
+  const items = soundQuasarItemsForDifficulty(validated, { mode, difficulty });
+  requireCondition(items.length >= 2, "difficulty needs at least two eligible listening items.");
   integer(index, "index", 0, Number.MAX_SAFE_INTEGER);
-  return makeRound(items, items[index % items.length], random, choiceCount, mode);
+  return makeRound(items, items[index % items.length], random, Math.min(choiceCount, items.length), mode);
 }
 
 /** A finite session never repeats an answer. The host owns playback and progress. */
-export function createSoundQuasarSession(catalog, { random = Math.random, roundLength = 5, choiceCount = 4, mode = "words" } = {}) {
+export function createSoundQuasarSession(catalog, { random = Math.random, roundLength = 5, choiceCount = 4, mode = "words", difficulty = 3 } = {}) {
   const validated = asCatalog(catalog);
-  const items = modeItems(validated, mode);
+  const items = soundQuasarItemsForDifficulty(validated, { mode, difficulty });
+  requireCondition(items.length >= 2, "difficulty needs at least two eligible listening items.");
+  integer(choiceCount, "choiceCount", 2, modeItems(validated, mode).length);
   integer(roundLength, "roundLength", 1, 500);
   const answers = shuffled(items, random).slice(0, Math.min(roundLength, items.length));
-  return Object.freeze(answers.map((answer) => makeRound(items, answer, random, choiceCount, mode)));
+  return Object.freeze(answers.map((answer) => makeRound(items, answer, random, Math.min(choiceCount, items.length), mode)));
 }
 
 export function evaluateSoundQuasarChoice(round, choiceId) {

@@ -382,8 +382,8 @@ test("browser courses cache only their exact learner-base interface catalog revi
 
 test("enabled games cache their exact revisioned course-content URLs", async () => {
   const spanish = loaded.courses.find(({ course }) => course.id === "es").course;
-  const conjugationUrl = `data/games/conjugation-comet/verbs.json?v=${spanish.resources.conjugationCometCatalog.revision}`;
-  const grammarUrl = `data/games/grammar-gravity/challenges.json?v=${spanish.resources.grammarGravityCatalog.revision}`;
+  const conjugationUrl = `data/games/conjugation-comet/content.json?v=${spanish.resources.conjugationCometCatalog.revision}`;
+  const grammarUrl = `data/games/grammar-gravity/content.json?v=${spanish.resources.grammarGravityCatalog.revision}`;
   const setupCatalog = JSON.parse(await readFile(
     new URL("../../../apps/languages/spanish/static/setup-assets.json", import.meta.url),
     "utf8"
@@ -399,13 +399,13 @@ test("enabled games cache their exact revisioned course-content URLs", async () 
   );
   assert.match(
     browserCourseGameContentClosureIssues({ course: spanish, setupCatalog: missing })[0].message,
-    /omit the exact conjugation-comet\.conjugationCometCatalog URL \/es\/data\/games\/conjugation-comet\/verbs\.json\?v=/u
+    /omit the exact conjugation-comet\.conjugationCometCatalog URL \/es\/data\/games\/conjugation-comet\/content\.json\?v=/u
   );
 
   const stale = structuredClone(setupCatalog);
   stale.offline.assets = stale.offline.assets.map((asset) => (
     asset === grammarUrl
-      ? "data/games/grammar-gravity/challenges.json?v=stale"
+      ? "data/games/grammar-gravity/content.json?v=stale"
       : asset
   ));
   assert.ok(
@@ -455,7 +455,7 @@ test("course selector assets follow the same browser-course projection", () => {
     {
       courseId: "cz",
       url: "/assets/icons/english_flag.png",
-      source: "apps/launcher/static/assets/icons/english_flag.png",
+      source: loaded.courses.find(({course}) => course.id === "cz").course.resources.sourceLanguageFlag.path,
       output: "assets/icons/english_flag.png"
     },
     {
@@ -473,7 +473,7 @@ test("course selector assets follow the same browser-course projection", () => {
     {
       courseId: "es",
       url: "/assets/icons/spain_flag.png",
-      source: "apps/launcher/static/assets/icons/spain_flag.png",
+      source: loaded.courses.find(({course}) => course.id === "es").course.resources.launcherFlag.path,
       output: "assets/icons/spain_flag.png"
     }
   ]);
@@ -583,18 +583,19 @@ test("Czech mirrors the active registry, runtime profile, and resource catalogs"
   assert.equal(czech.resources.dictionaryProvider.providerId, "czech-full-dictionary-v1");
   assert.equal(czech.resources.dictionaryProvider.revision, "full-dictionary-7");
   assert.equal(czech.resources.dictionaryReferenceDocument.path, "apps/languages/czech/static/data/dictionaries/reference.html");
-  assert.equal(czech.resources.dictionaryCoreEntries.path, "apps/languages/czech/static/data/games/verb-nebula/core-vocabulary.json");
+  assert.equal(czech.resources.dictionaryCoreEntries.path, "apps/languages/czech/static/data/games/verb-nebula/content.json");
   assert.equal(czech.resources.dictionaryScriptLines.path, "apps/languages/czech/static/data/language/scripts.json");
   assert.equal(czech.resources.modelCatalog.path, "apps/languages/czech/static/data/models/models.json");
   assert.equal(czech.resources.wordWorldManifest.path, "apps/languages/czech/static/data/games/word-world/manifest.json");
-  assert.equal(czech.resources.verbNebulaCatalog.path, "apps/languages/czech/static/data/games/verb-nebula/core-vocabulary.json");
-  assert.equal(czech.resources.conjugationCometCatalog.path, "apps/languages/czech/static/data/games/conjugation-comet/verbs.json");
-  assert.equal(czech.resources.caseCosmosCatalog.path, "apps/languages/czech/static/data/games/case-cosmos/challenges.json");
-  assert.equal(czech.resources.grammarGravityCatalog.path, "apps/languages/czech/static/data/games/grammar-gravity/challenges.json");
+  assert.equal(czech.resources.verbNebulaCatalog.path, "apps/languages/czech/static/data/games/verb-nebula/content.json");
+  assert.equal(czech.resources.conjugationCometCatalog.path, "apps/languages/czech/static/data/games/conjugation-comet/content.json");
+  assert.equal(czech.resources.caseCosmosCatalog.path, "apps/languages/czech/static/data/games/case-cosmos/content.json");
+  assert.equal(czech.resources.grammarGravityCatalog.path, "apps/languages/czech/static/data/games/grammar-gravity/content.json");
   assert.equal(czech.resources.languageAdapter.path, "apps/languages/czech/static/source/language/adapter.mjs");
   assert.equal(czech.resources.androidAssetCatalog.path, "apps/languages/czech/android-assets.json");
   assert.equal(czech.sourceLanguage.flagSrc, "/assets/icons/english_flag.png");
-  assert.equal(czech.resources.sourceLanguageFlag.path, "apps/launcher/static/assets/icons/english_flag.png");
+  assert.equal(generateCourseSelectorAssetMappings(loaded.courses).find(row => row.url === czech.sourceLanguage.flagSrc).source,
+    czech.resources.sourceLanguageFlag.path);
   assert.deepEqual(czech.resources.appEntry, {
     kind: "file",
     path: "apps/language-runtime/static/app/index.html",
@@ -640,7 +641,7 @@ test("Mandarin is an unlisted development no-LLM English-embedding pack", () => 
   assert.ok(chinese.games.includes("naturalization-nucleus"));
   assert.deepEqual(chinese.resources.naturalizationNucleusCatalog, {
     kind: "file",
-    path: "apps/languages/mandarin-simplified/static/data/games/naturalization-nucleus/challenges.json",
+    path: "apps/languages/mandarin-simplified/static/data/games/naturalization-nucleus/content.json",
     scope: "course",
     state: "present"
   });
@@ -1209,23 +1210,23 @@ test("launcher and course-profile compatibility views match the current consumer
     JSON.parse(JSON.stringify(context.window.CaatuuCourse.gameContent)),
     {
       "verb-lab": {
-        verbNebulaCatalog: "data/games/verb-nebula/core-vocabulary.json"
+        verbNebulaCatalog: "data/games/verb-nebula/content.json"
       },
       "word-net": {
-        wordWorldManifest: "data/games/word-world/manifest.json"
+        wordWorldManifest: `data/games/word-world/manifest.json?v=${czech.resources.wordWorldManifest.revision}`
       },
       "conjugation-comet": {
-        conjugationCometCatalog: "data/games/conjugation-comet/verbs.json?v=conjugation-comet-verbs-4"
+        conjugationCometCatalog: "data/games/conjugation-comet/content.json?v=conjugation-comet-verbs-4"
       },
       "case-cosmos": {
-        caseCosmosCatalog: "data/games/case-cosmos/challenges.json?v=case-cosmos-data-6"
+        caseCosmosCatalog: `data/games/case-cosmos/content.json?v=${czech.resources.caseCosmosCatalog.revision}`
       },
       "grammar-gravity": {
-        grammarGravityCatalog: `data/games/grammar-gravity/challenges.json?v=${czech.resources.grammarGravityCatalog.revision}`,
+        grammarGravityCatalog: `data/games/grammar-gravity/content.json?v=${czech.resources.grammarGravityCatalog.revision}`,
         grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-3"
       },
       "sound-quasar": {
-        soundQuasarCatalog: "data/games/sound-quasar/challenges.json?v=sound-quasar-items-v2"
+        soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-items-v2"
       }
     }
   );
@@ -1233,7 +1234,7 @@ test("launcher and course-profile compatibility views match the current consumer
     JSON.parse(JSON.stringify(context.window.CaatuuCourse.dictionaryContent)),
     {
       catalog: "data/dictionaries/catalog.json",
-      coreEntries: "data/games/verb-nebula/core-vocabulary.json",
+      coreEntries: "data/games/verb-nebula/content.json",
       scriptLines: "data/language/scripts.json",
       referenceDocument: "data/dictionaries/reference.html",
       providerId: "czech-full-dictionary-v1",
@@ -1466,6 +1467,8 @@ test("failure fixtures catch capability, backend, and resource contradictions", 
       message: /sourceLanguage\.flagSrc.*sourceLanguageFlag/,
       mutate(candidate) {
         for (const { course } of candidate.courses) {
+          // This check governs launcher-owned paths; shared assets can use declared aliases.
+          course.resources.sourceLanguageFlag.path = "apps/launcher/static/assets/icons/english_flag.png";
           course.sourceLanguage.flagSrc = "/assets/icons/different-english-flag.svg";
         }
       }
@@ -1782,7 +1785,7 @@ test("every playable authored planet requires its declared course content", asyn
     .course.resources.verbNebulaCatalog.path = "apps/languages/czech/static/data/games/word-world/manifest.json";
   await assert.rejects(
     validateCourseCatalog(wrongExistingPath, { checkExistence: false }),
-    (error) => hasIssue(error, "game.resource", /verbNebulaCatalog\.path must be .*verb-nebula\/core-vocabulary\.json/u)
+    (error) => hasIssue(error, "game.resource", /verbNebulaCatalog\.path must be .*verb-nebula\/content\.json/u)
   );
 });
 
@@ -1798,10 +1801,10 @@ test("Word World runtime outputs are bound exactly to course publication authori
   assert.deepEqual(mandarin.publication.runtimeProjection, {
     policyId: "mandarin-simplified-word-world-v1",
     conceptsRuntime: "apps/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
-    targetRealizationsRuntime: "apps/languages/mandarin-simplified/static/data/games/word-world/starter-v1.realizations.json",
+    targetRealizationsRuntime: "apps/languages/mandarin-simplified/static/data/games/word-world/content.json",
     learnerBaseRuntime: null,
     supplementalOutputs: {
-      readingGuideProjection: "apps/languages/mandarin-simplified/static/data/games/word-world/starter-v1.reading-guides.json"
+      readingGuideProjection: "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json"
     },
     manifest: "apps/languages/mandarin-simplified/static/data/games/word-world/manifest.json"
   });
@@ -2183,11 +2186,11 @@ test("Spanish grammar catalogs independently gate preview, browser, Android, and
   const spanish = structuredClone(loaded.courses.find(({ course }) => course.id === "es").course);
   const [conjugationDocument, agreementDocument] = await Promise.all([
     readFile(
-      new URL("../../../apps/languages/spanish/static/data/games/conjugation-comet/verbs.json", import.meta.url),
+      new URL("../../../apps/languages/spanish/static/data/games/conjugation-comet/content.json", import.meta.url),
       "utf8"
     ).then(JSON.parse),
     readFile(
-      new URL("../../../apps/languages/spanish/static/data/games/grammar-gravity/challenges.json", import.meta.url),
+      new URL("../../../apps/languages/spanish/static/data/games/grammar-gravity/content.json", import.meta.url),
       "utf8"
     ).then(JSON.parse)
   ]);

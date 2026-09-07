@@ -1,0 +1,352 @@
+{
+  "schemaVersion": 1,
+  "gameId": "sound-quasar",
+  "courseId": "cz",
+  "targetLanguageId": "cs",
+  "id": "cz-sound-quasar-listening-pilot",
+  "contentRevision": "sound-quasar-retained-levels-1",
+  "mode": "practice",
+  "audio": {
+    "kind": "device-speech",
+    "locale": "cs-CZ",
+    "reviewStatus": "unreviewed",
+    "purpose": "listening-practice"
+  },
+  "provenance": {
+    "sourcePath": "apps/languages/czech/static/data/games/verb-nebula/content.json",
+    "sourceItemIds": [
+      "/0",
+      "/1",
+      "/2",
+      "/3",
+      "/6",
+      "/9",
+      "/11",
+      "/12",
+      "/14",
+      "/15",
+      "/16",
+      "/22",
+      "/23",
+      "/24",
+      "/25",
+      "/26"
+    ],
+    "selection": "Existing vocabulary; target text and meanings copied without linguistic edits."
+  },
+  "items": [
+    {
+      "id": "cz-word-1", "difficulty": 1,
+      "revision": "1",
+      "target": "ano",
+      "meaning": "yes",
+      "sourceId": "/0",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "yes"
+    },
+    {
+      "id": "cz-word-2", "difficulty": 1,
+      "revision": "1",
+      "target": "ne",
+      "meaning": "no",
+      "sourceId": "/1",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "no"
+    },
+    {
+      "id": "cz-word-3", "difficulty": 1,
+      "revision": "1",
+      "target": "prosím",
+      "meaning": "please / here you are",
+      "sourceId": "/2",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "please / here you are"
+    },
+    {
+      "id": "cz-word-4", "difficulty": 1,
+      "revision": "1",
+      "target": "děkuji",
+      "meaning": "thank you",
+      "sourceId": "/3",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "thank you"
+    },
+    {
+      "id": "cz-word-5", "difficulty": 1,
+      "revision": "1",
+      "target": "ahoj",
+      "meaning": "hi / bye",
+      "sourceId": "/6",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "hi / bye"
+    },
+    {
+      "id": "cz-word-6", "difficulty": 1,
+      "revision": "1",
+      "target": "pardon",
+      "meaning": "sorry / pardon",
+      "sourceId": "/9",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "sorry / pardon"
+    },
+    {
+      "id": "cz-word-7", "difficulty": 1,
+      "revision": "1",
+      "target": "dobře",
+      "meaning": "okay / well",
+      "sourceId": "/11",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "okay / well"
+    },
+    {
+      "id": "cz-word-8", "difficulty": 1,
+      "revision": "1",
+      "target": "špatně",
+      "meaning": "badly / wrong",
+      "sourceId": "/12",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "badly / wrong"
+    },
+    {
+      "id": "cz-word-9", "difficulty": 1,
+      "revision": "1",
+      "target": "možná",
+      "meaning": "maybe",
+      "sourceId": "/14",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "maybe"
+    },
+    {
+      "id": "cz-word-10", "difficulty": 2,
+      "revision": "1",
+      "target": "samozřejmě",
+      "meaning": "of course",
+      "sourceId": "/15",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "of course"
+    },
+    {
+      "id": "cz-word-11", "difficulty": 2,
+      "revision": "1",
+      "target": "bohužel",
+      "meaning": "unfortunately",
+      "sourceId": "/16",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "unfortunately"
+    },
+    {
+      "id": "cz-word-12", "difficulty": 1,
+      "revision": "1",
+      "target": "trochu",
+      "meaning": "a little",
+      "sourceId": "/22",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "a little"
+    },
+    {
+      "id": "cz-word-13", "difficulty": 1,
+      "revision": "1",
+      "target": "pomalu",
+      "meaning": "slowly",
+      "sourceId": "/23",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "slowly"
+    },
+    {
+      "id": "cz-word-14", "difficulty": 1,
+      "revision": "1",
+      "target": "česky",
+      "meaning": "in Czech",
+      "sourceId": "/24",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "in Czech"
+    },
+    {
+      "id": "cz-word-15", "difficulty": 2,
+      "revision": "1",
+      "target": "anglicky",
+      "meaning": "in English",
+      "sourceId": "/25",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "in English"
+    },
+    {
+      "id": "cz-word-16", "difficulty": 2,
+      "revision": "1",
+      "target": "nerozumím",
+      "meaning": "I do not understand",
+      "sourceId": "/26",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "I do not understand"
+    }
+  ],
+  "sentenceProvenance": {
+    "sourcePath": "apps/languages/czech/static/data/games/word-world/content.json",
+    "englishSourcePath": "apps/languages/czech/static/data/games/word-world/content.json",
+    "sourceItemIds": [
+      "ww-codex-exp-0001-0001",
+      "ww-codex-exp-0001-0026",
+      "ww-codex-exp-0001-0051",
+      "ww-codex-exp-0001-0077",
+      "ww-codex-exp-0001-0101",
+      "ww-codex-exp-0001-0126",
+      "ww-codex-exp-0001-0151",
+      "ww-codex-exp-0001-0176",
+      "ww-codex-exp-0001-0201",
+      "ww-codex-exp-0001-0226",
+      "ww-codex-exp-0001-0230",
+      "ww-cp-000151",
+      "ww-codex-exp-0001-0004",
+      "ww-codex-exp-0001-0005",
+      "ww-codex-exp-0001-0027",
+      "ww-codex-exp-0001-0028"
+    ],
+    "selection": "Sixteen existing short Word World sentences; target text, English meanings, and review status copied without linguistic edits."
+  },
+  "sentences": [
+    {
+      "id": "cz-sentence-1", "difficulty": 2,
+      "revision": "1",
+      "target": "Můj bratr běhá.",
+      "meaning": "My brother runs.",
+      "sourceId": "ww-codex-exp-0001-0001",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "My brother runs."
+    },
+    {
+      "id": "cz-sentence-2", "difficulty": 1,
+      "revision": "1",
+      "target": "Tady je klíč.",
+      "meaning": "Here is the key.",
+      "sourceId": "ww-codex-exp-0001-0026",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "Here is the key."
+    },
+    {
+      "id": "cz-sentence-3", "difficulty": 2,
+      "revision": "1",
+      "target": "Banány jsou žluté.",
+      "meaning": "Bananas are yellow.",
+      "sourceId": "ww-codex-exp-0001-0051",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "Bananas are yellow."
+    },
+    {
+      "id": "cz-sentence-4", "difficulty": 2,
+      "revision": "1",
+      "target": "Vezmi si tužku.",
+      "meaning": "Take a pencil.",
+      "sourceId": "ww-codex-exp-0001-0077",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "Take a pencil."
+    },
+    {
+      "id": "cz-sentence-5", "difficulty": 2,
+      "revision": "1",
+      "target": "Mám dva fotbalové míče.",
+      "meaning": "I have two soccer balls.",
+      "sourceId": "ww-codex-exp-0001-0101",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "I have two soccer balls."
+    },
+    {
+      "id": "cz-sentence-6", "difficulty": 1,
+      "revision": "1",
+      "target": "Auto je modré.",
+      "meaning": "The car is blue.",
+      "sourceId": "ww-codex-exp-0001-0126",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "The car is blue."
+    },
+    {
+      "id": "cz-sentence-7", "difficulty": 1,
+      "revision": "1",
+      "target": "Škola je blízko.",
+      "meaning": "The school is nearby.",
+      "sourceId": "ww-codex-exp-0001-0151",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "The school is nearby."
+    },
+    {
+      "id": "cz-sentence-8", "difficulty": 2,
+      "revision": "1",
+      "target": "Deštník je mokrý.",
+      "meaning": "The umbrella is wet.",
+      "sourceId": "ww-codex-exp-0001-0176",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "The umbrella is wet."
+    },
+    {
+      "id": "cz-sentence-9", "difficulty": 2,
+      "revision": "1",
+      "target": "Je právě dvanáct.",
+      "meaning": "It is exactly twelve.",
+      "sourceId": "ww-codex-exp-0001-0201",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "It is exactly twelve."
+    },
+    {
+      "id": "cz-sentence-10", "difficulty": 2,
+      "revision": "1",
+      "target": "Baterie je nabitá.",
+      "meaning": "The battery is charged.",
+      "sourceId": "ww-codex-exp-0001-0226",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "The battery is charged."
+    },
+    {
+      "id": "cz-sentence-11", "difficulty": 1,
+      "revision": "1",
+      "target": "Mám peníze.",
+      "meaning": "I have money.",
+      "sourceId": "ww-codex-exp-0001-0230",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "I have money."
+    },
+    {
+      "id": "cz-sentence-12", "difficulty": 2,
+      "revision": "1",
+      "target": "Vstávám brzy.",
+      "meaning": "I get up early.",
+      "sourceId": "ww-cp-000151",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "I get up early."
+    },
+    {
+      "id": "cz-sentence-13", "difficulty": 2,
+      "revision": "1",
+      "target": "Cítím se dobře.",
+      "meaning": "I feel good.",
+      "sourceId": "ww-codex-exp-0001-0004",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "I feel good."
+    },
+    {
+      "id": "cz-sentence-14", "difficulty": 2,
+      "revision": "1",
+      "target": "Po škole mám hlad.",
+      "meaning": "After school I am hungry.",
+      "sourceId": "ww-codex-exp-0001-0005",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "After school I am hungry."
+    },
+    {
+      "id": "cz-sentence-15", "difficulty": 1,
+      "revision": "1",
+      "target": "Taška je těžká.",
+      "meaning": "The bag is heavy.",
+      "sourceId": "ww-codex-exp-0001-0027",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "The bag is heavy."
+    },
+    {
+      "id": "cz-sentence-16", "difficulty": 1,
+      "revision": "1",
+      "target": "Stůl je čistý.",
+      "meaning": "The table is clean.",
+      "sourceId": "ww-codex-exp-0001-0028",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "The table is clean."
+    }
+  ]
+}

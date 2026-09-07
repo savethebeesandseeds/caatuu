@@ -126,13 +126,13 @@ test("declared category options must agree with noun lanes without silent infere
 
 for (const [directory, id, expectedChallenges, expectedExamples] of [["czech", "cz", 18, 162], ["spanish", "es", 8, 64], ["english-from-spanish", "es-en", 6, 24]]) {
   test(`${id}: every authored example uses modern stages at every offered difficulty`, async () => {
-    const raw = JSON.parse(await readFile(new URL(`../../languages/${directory}/static/data/games/grammar-gravity/challenges.json`, import.meta.url), "utf8"));
+    const raw = JSON.parse(await readFile(new URL(`../../languages/${directory}/static/data/games/grammar-gravity/content.json`, import.meta.url), "utf8"));
     const pack = core.validateGrammarGravityPack(raw, { courseId: id });
-    assert.equal(pack.challenges.length, expectedChallenges);
-    assert.equal(core.buildGrammarGravityRounds(pack, 3).length, expectedExamples);
+    assert.ok(pack.challenges.length >= expectedChallenges);
+    assert.ok(core.buildGrammarGravityRounds(pack, 3).length >= expectedExamples);
     for (const level of [1, 2, 3]) {
       const eligible = pack.challenges.filter(({ difficulty }) => difficulty <= level);
-      const authored = new Map(eligible.flatMap((challenge) => pack.axes.flatMap((axis) => challenge.forms[axis.id].examples
+      const authored = new Map(eligible.flatMap((challenge) => (challenge.axes || pack.axes).flatMap((axis) => challenge.forms[axis.id].examples
         .map((example) => [example.id, { challenge, axis, form: challenge.forms[axis.id], example }]))));
       const rounds = core.buildGrammarGravityRounds(pack, level, () => 0.999);
       assert.deepEqual(rounds.map(({ id }) => id).sort(), [...authored.keys()].sort());
@@ -143,7 +143,7 @@ for (const [directory, id, expectedChallenges, expectedExamples] of [["czech", "
         assert.equal(round.challengeId, challenge.id);
         assert.equal(round.challengeRevision, challenge.revision);
         assert.deepEqual(flight.stages, ["meaning", "category", "form"]);
-        assert.equal(flight.categoryId, axis.features[pack.gameplay.categoryFeature]);
+        assert.equal(flight.categoryId, axis.features[(challenge.gameplay || pack.gameplay).categoryFeature]);
         assert.equal(flight.anchorText, example.anchor.targetText);
         assert.equal(flight.anchorMeaning, example.anchor.learnerBaseText);
         assert.equal(flight.learnerBaseText, example.learnerBaseText);

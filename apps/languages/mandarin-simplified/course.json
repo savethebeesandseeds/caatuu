@@ -78,10 +78,10 @@
     "runtimeProjection": {
       "policyId": "mandarin-simplified-word-world-v1",
       "conceptsRuntime": "apps/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
-      "targetRealizationsRuntime": "apps/languages/mandarin-simplified/static/data/games/word-world/starter-v1.realizations.json",
+      "targetRealizationsRuntime": "apps/languages/mandarin-simplified/static/data/games/word-world/content.json",
       "learnerBaseRuntime": null,
       "supplementalOutputs": {
-        "readingGuideProjection": "apps/languages/mandarin-simplified/static/data/games/word-world/starter-v1.reading-guides.json"
+        "readingGuideProjection": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json"
       },
       "manifest": "apps/languages/mandarin-simplified/static/data/games/word-world/manifest.json"
     }
@@ -131,10 +131,10 @@
   "resources": {
     "soundQuasarCatalog": {
       "kind": "file",
-      "path": "apps/languages/mandarin-simplified/static/data/games/sound-quasar/challenges.json",
+      "path": "apps/languages/mandarin-simplified/static/data/games/sound-quasar/content.json",
       "scope": "course",
       "state": "present",
-      "revision": "sound-quasar-items-v2"
+      "revision": "sound-quasar-retained-levels-1"
     },
     "staticRoot": {
       "kind": "directory",
@@ -153,7 +153,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-30"
+      "revision": "interface-en-31"
     },
     "courseProfile": {
       "kind": "file",
@@ -181,7 +181,7 @@
     },
     "sourceLanguageFlag": {
       "kind": "file",
-      "path": "apps/launcher/static/assets/icons/english_flag.png",
+      "path": "apps/language-runtime/static/assets/home/english_flag.png",
       "scope": "shared",
       "state": "present"
     },
@@ -195,17 +195,18 @@
       "kind": "file",
       "path": "apps/languages/mandarin-simplified/static/data/games/word-world/manifest.json",
       "scope": "course",
-      "state": "present"
+      "state": "present",
+      "revision": "catalog-files-2"
     },
     "verbNebulaCatalog": {
       "kind": "file",
-      "path": "apps/languages/mandarin-simplified/static/data/games/verb-nebula/core-vocabulary.json",
+      "path": "apps/languages/mandarin-simplified/static/data/games/verb-nebula/content.json",
       "scope": "course",
       "state": "present"
     },
     "naturalizationNucleusCatalog": {
       "kind": "file",
-      "path": "apps/languages/mandarin-simplified/static/data/games/naturalization-nucleus/challenges.json",
+      "path": "apps/languages/mandarin-simplified/static/data/games/naturalization-nucleus/content.json",
       "scope": "course",
       "state": "present"
     },

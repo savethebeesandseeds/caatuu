@@ -5,6 +5,18 @@ governed beta or stable release.
 
 ## Unreleased
 
+### Android 0.1.18 (170): restore the established Home
+
+- Restored the illustrated Home and its existing language chooser. Selected-course
+  downloads run in Home's setup card before learning content initializes.
+- Remember the last visited course across Android launches without clearing
+  saved learning progress; installed courses reuse verified local files.
+- Include English-to-Spanish alongside Czech, Mandarin and Spanish-to-English.
+- Keep essential Home artwork in the APK, with smaller copies of the same art,
+  while curriculum and larger game assets remain selected-course downloads.
+- Physical-device update, offline use and progress-preservation testing remain
+  unverified until this candidate is installed and checked on a phone.
+
 ### Android 0.1.17 (169): smaller APK and selected-course setup
 
 - Reduced APK-resident web assets from about 47 MB to 3.77 MB. Course content

@@ -66,9 +66,10 @@ function fixture(search = async () => result(), { capabilities = { embeddings: t
     originalAddEventListener(name, listener);
   };
   const calls = [];
-  const vector = { search(query, options) { calls.push({ query, options, receiver: this }); return search(query, options); } };
+  const vector = { search() { assert.fail("Noun images must not query a course database"); } };
   const shell = { location: { origin: ORIGIN }, CaatuuRuntime: { vector } };
-  const helper = createNounVisual({ shell, course: { capabilities }, image });
+  const helper = createNounVisual({ shell, course: { capabilities }, image,
+    searchImages(query, options) { calls.push({ query, options }); return search(query, options); } });
   return {
     helper, image, calls, vector, shell, captured,
     load() {
@@ -84,15 +85,14 @@ function fixture(search = async () => result(), { capabilities = { embeddings: t
   };
 }
 
-test("noun visuals send only independent English to the existing source-filtered retrieval API", async () => {
+test("noun visuals send only independent English to shared image retrieval even when a course database exists", async () => {
   const browser = fixture();
   const item = noun();
   for (let index = 0; index < 20; index += 1) browser.helper.update(item);
   await turn();
   assert.equal(browser.calls.length, 1);
   assert.equal(browser.calls[0].query, "dog");
-  assert.deepEqual(browser.calls[0].options, { limit: 5, sourceKinds: ["image_asset"] });
-  assert.equal(browser.calls[0].receiver, browser.vector);
+  assert.deepEqual(browser.calls[0].options, { sourceKind: "image_asset" });
   assert.equal(browser.image.src, DOG);
   assert.equal(browser.image.hidden, true, "the decorative image stays hidden until loaded");
   browser.load();

@@ -81,7 +81,7 @@
     "runtimeProjection": {
       "policyId": "spanish-spain-word-world-v1",
       "conceptsRuntime": "apps/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
-      "targetRealizationsRuntime": "apps/languages/spanish/static/data/games/word-world/starter-v1.realizations.json",
+      "targetRealizationsRuntime": "apps/languages/spanish/static/data/games/word-world/content.json",
       "learnerBaseRuntime": null,
       "supplementalOutputs": {},
       "manifest": "apps/languages/spanish/static/data/games/word-world/manifest.json"
@@ -114,8 +114,18 @@
     "android": {
       "enabled": true,
       "channels": [
-        { "kind": "release", "manifest": "/android/caatuu.json", "artifact": "/android/caatuu.apk", "minimumVersionCode": 170 },
-        { "kind": "preview", "manifest": "/android/caatuu-preview.json", "artifact": "/android/caatuu-preview.apk", "minimumVersionCode": 170 }
+        {
+          "kind": "release",
+          "manifest": "/android/caatuu.json",
+          "artifact": "/android/caatuu.apk",
+          "minimumVersionCode": 170
+        },
+        {
+          "kind": "preview",
+          "manifest": "/android/caatuu-preview.json",
+          "artifact": "/android/caatuu-preview.apk",
+          "minimumVersionCode": 170
+        }
       ]
     }
   },
@@ -128,10 +138,10 @@
     },
     "soundQuasarCatalog": {
       "kind": "file",
-      "path": "apps/languages/spanish/static/data/games/sound-quasar/challenges.json",
+      "path": "apps/languages/spanish/static/data/games/sound-quasar/content.json",
       "scope": "course",
       "state": "present",
-      "revision": "sound-quasar-items-v2"
+      "revision": "sound-quasar-retained-levels-1"
     },
     "staticRoot": {
       "kind": "directory",
@@ -150,7 +160,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-30"
+      "revision": "interface-en-31"
     },
     "courseProfile": {
       "kind": "file",
@@ -178,7 +188,7 @@
     },
     "sourceLanguageFlag": {
       "kind": "file",
-      "path": "apps/launcher/static/assets/icons/english_flag.png",
+      "path": "apps/language-runtime/static/assets/home/english_flag.png",
       "scope": "shared",
       "state": "present"
     },
@@ -192,24 +202,25 @@
       "kind": "file",
       "path": "apps/languages/spanish/static/data/games/word-world/manifest.json",
       "scope": "course",
-      "state": "present"
+      "state": "present",
+      "revision": "word-world-context-hints-1"
     },
     "verbNebulaCatalog": {
       "kind": "file",
-      "path": "apps/languages/spanish/static/data/games/verb-nebula/core-vocabulary.json",
+      "path": "apps/languages/spanish/static/data/games/verb-nebula/content.json",
       "scope": "course",
       "state": "present"
     },
     "conjugationCometCatalog": {
       "kind": "file",
-      "path": "apps/languages/spanish/static/data/games/conjugation-comet/verbs.json",
+      "path": "apps/languages/spanish/static/data/games/conjugation-comet/content.json",
       "scope": "course",
       "state": "present",
       "revision": "conjugation-comet-content-1"
     },
     "grammarGravityCatalog": {
       "kind": "file",
-      "path": "apps/languages/spanish/static/data/games/grammar-gravity/challenges.json",
+      "path": "apps/languages/spanish/static/data/games/grammar-gravity/content.json",
       "scope": "course",
       "state": "present",
       "revision": "grammar-gravity-content-3"
@@ -219,11 +230,11 @@
       "path": "apps/languages/spanish/static/data/games/grammar-gravity/nouns.json",
       "scope": "course",
       "state": "present",
-      "revision": "grammar-gravity-nouns-3"
+      "revision": "grammar-gravity-nouns-4"
     },
     "launcherFlag": {
       "kind": "file",
-      "path": "apps/launcher/static/assets/icons/spain_flag.png",
+      "path": "apps/language-runtime/static/assets/home/spain_flag.png",
       "scope": "shared",
       "state": "present"
     }

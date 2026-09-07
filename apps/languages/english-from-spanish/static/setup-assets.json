@@ -7,28 +7,31 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-es-en-pwa-v5",
+    "cacheName": "caatuu-es-en-pwa-v19",
     "cachePrefix": "caatuu-es-en-pwa-",
     "assets": [
-      "/language-runtime/static/source/english-image-search.mjs?v=english-image-search-2",
+      "/language-runtime/static/source/image-embedding-index.mjs?v=image-index-runtime-1",
+      "/language-runtime/static/data/image-embeddings/minilm-v1.json?v=image-index-1",
+      "/language-runtime/static/source/games/curriculum-progression.mjs",
+      "/language-runtime/static/source/english-image-search.mjs?v=english-image-search-3",
       "/language-runtime/static/source/learner-base-token-meanings.mjs?v=learner-base-token-meanings-1",
       "/language-runtime/static/source/launcher-interface.mjs?v=launcher-interface-1",
       "manifest.webmanifest",
-      "source/shared/course-profile.js?v=course-57",
+      "source/shared/course-profile.js?v=course-64",
       "source/language/adapter.mjs",
       "data/embeddings/catalog.json",
-      "data/games/verb-nebula/core-vocabulary.json",
-      "data/games/word-world/manifest.json",
-      "data/games/word-world/starter-v1.realizations.json",
-      "data/games/conjugation-comet/verbs.json?v=conjugation-comet-content-1",
-      "data/games/grammar-gravity/challenges.json?v=grammar-gravity-content-2",
-      "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1",
+      "data/games/verb-nebula/content.json",
+      "data/games/word-world/manifest.json?v=word-world-context-hints-1",
+      "data/games/word-world/content.json",
+      "data/games/conjugation-comet/content.json?v=conjugation-comet-content-1",
+      "data/games/grammar-gravity/content.json?v=grammar-gravity-content-2",
+      "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-3",
       "/language-runtime/contract.mjs",
       "/language-runtime/embedding-runtimes.json",
       "/language-runtime/static/source/initial-theme.js?v=theme-3",
-      "/language-runtime/static/source/app-bootstrap.mjs?v=app-72",
+      "/language-runtime/static/source/app-bootstrap.mjs?v=app-82",
       "/language-runtime/static/source/interface-content.mjs?v=interface-runtime-2",
-      "/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-8",
+      "/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-10",
       "/language-runtime/static/source/dictionary-provider-loader.mjs",
       "/language-runtime/static/source/embedded-game-bootstrap.js?v=embedded-1",
       "/language-runtime/static/games/grammar-gravity.html",
@@ -38,43 +41,44 @@
       "/language-runtime/static/source/games/embedded-game-controls.mjs?v=embedded-game-controls-8",
       "/language-runtime/static/styles/games/embedded-game-controls.css?v=embedded-game-controls-8",
       "/language-runtime/static/source/games/course-game-content.mjs?v=course-game-content-1",
-      "/language-runtime/static/source/games/grammar-gravity/grammar-gravity-core.mjs?v=grammar-gravity-core-5",
-      "/language-runtime/static/source/games/grammar-gravity/grammar-gravity-host.mjs?v=grammar-gravity-shared-33",
-      "/language-runtime/static/source/games/grammar-gravity/noun-landing-core.mjs?v=noun-landing-core-7",
-      "/language-runtime/static/source/games/grammar-gravity/noun-landing-host.mjs?v=noun-landing-host-18",
-      "/language-runtime/static/source/games/grammar-gravity/noun-visual.mjs?v=noun-visual-3",
-      "/language-runtime/static/source/games/grammar-gravity/adjective-flight-core.mjs?v=grammar-journey-1",
-      "/language-runtime/static/source/games/grammar-gravity/adjective-flight-host.mjs?v=grammar-flight-15",
+      "/language-runtime/static/source/games/grammar-gravity/grammar-gravity-core.mjs?v=grammar-gravity-core-7",
+      "/language-runtime/static/source/games/grammar-gravity/grammar-gravity-host.mjs?v=grammar-gravity-shared-37",
+      "/language-runtime/static/source/games/grammar-gravity/noun-landing-core.mjs?v=noun-landing-core-10",
+      "/language-runtime/static/source/games/grammar-gravity/noun-landing-host.mjs?v=noun-landing-host-22",
+      "/language-runtime/static/source/games/grammar-gravity/noun-visual.mjs?v=noun-visual-4",
+      "/language-runtime/static/source/games/grammar-gravity/adjective-flight-core.mjs?v=grammar-journey-3",
+      "/language-runtime/static/source/games/grammar-gravity/adjective-flight-host.mjs?v=adjective-flight-host-18",
       "/assets/icons/clock_icon.png",
       "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs?v=conjugation-comet-core-2",
       "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs?v=conjugation-comet-shared-13",
-      "/language-runtime/static/styles/games/grammar-gravity.css?v=grammar-gravity-shared-31",
-      "/language-runtime/static/styles/games/conjugation-comet.css?v=conjugation-comet-shared-4",
-      "/language-runtime/static/source/caatuu-workspace.js?v=workspace-24",
-      "/language-runtime/static/source/maintenance-ui.js?v=maintenance-23",
+      "/language-runtime/static/styles/games/grammar-gravity.css?v=grammar-gravity-shared-37",
+      "/language-runtime/static/styles/games/conjugation-comet.css?v=conjugation-comet-shared-5",
+      "/language-runtime/static/source/caatuu-workspace.js?v=workspace-31",
+      "/language-runtime/static/source/maintenance-ui.js?v=maintenance-24",
       "/language-runtime/static/source/child-facing-assets.mjs?v=child-facing-assets-2",
-      "/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-12",
+      "/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-14",
       "/language-runtime/static/source/games/verb-nebula/verb-exercise-family-core.mjs?v=verb-exercise-family-core-3",
-      "/language-runtime/static/source/word-world-host.mjs?v=word-world-host-20",
-      "/language-runtime/static/source/word-world-provider.mjs?v=word-world-provider-24",
+      "/language-runtime/static/source/word-world-host.mjs?v=word-world-host-23",
+      "/language-runtime/static/source/word-world-provider.mjs?v=word-world-provider-27",
       "/language-runtime/static/source/catalog-runtime.mjs",
       "/language-runtime/static/source/browser-shell.mjs?v=browser-shell-2",
       "/language-runtime/static/source/shell-policy.js?v=shell-policy-15",
       "/language-runtime/static/source/shell-policy.mjs",
-      "/language-runtime/static/source/caatuu-chrome.js?v=chrome-160",
-      "/language-runtime/static/source/learning-profile.js?v=learning-10",
-      "/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-24",
+      "/language-runtime/static/source/caatuu-chrome.js?v=chrome-162",
+      "/language-runtime/static/source/learning-profile.js?v=learning-11",
+      "/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-26",
       "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-21",
       "/language-runtime/static/source/word-net-queue.mjs?v=word-net-queue-6",
       "/language-runtime/static/source/embedding-runtime-contract.mjs",
       "/language-runtime/static/source/english-minilm-ranker.mjs",
       "/language-runtime/static/styles/caatuu-theme.css?v=theme-7",
       "/language-runtime/static/styles/caatuu-workspace.css?v=shell-96",
-      "/language-runtime/static/styles/caatuu-home.css?v=home-54",
-      "/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-134",
-      "/language-runtime/static/styles/caatuu-word-world.css?v=word-net-91",
+      "/language-runtime/static/styles/caatuu-home.css?v=home-57",
+      "/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-135",
+      "/language-runtime/static/styles/caatuu-word-world.css?v=word-net-92",
+      "/language-runtime/static/styles/dictionary-word-card.css?v=dictionary-card-1",
       "/language-runtime/static/assets/caatuu-shell-512.png",
-      "/language-runtime/static/data/interface/es.v1.json?v=interface-es-5",
+      "/language-runtime/static/data/interface/es.v1.json?v=interface-es-6",
       "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
       "/assets/icons/czech_flag_ui.png",
       "/assets/icons/china_flag.png",
@@ -180,10 +184,10 @@
       "/language-runtime/static/styles/caatuu-developer-tools.css?v=developer-tools-2",
       "/assets/macaw/actions/keymaps.json",
       "/language-runtime/static/games/sound-quasar.html",
-      "/language-runtime/static/source/games/sound-quasar/sound-quasar-host.mjs?v=sound-quasar-8",
-      "/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-3",
+      "/language-runtime/static/source/games/sound-quasar/sound-quasar-host.mjs?v=sound-quasar-11",
+      "/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-6",
       "/language-runtime/static/styles/games/sound-quasar.css?v=sound-quasar-6",
-      "data/games/sound-quasar/challenges.json?v=sound-quasar-items-v2",
+      "data/games/sound-quasar/content.json?v=sound-quasar-items-v3",
       "/language-runtime/static/source/target-text-tones.mjs?v=target-text-tones-1",
       "/assets/macaw/music/music%20(1).png",
       "/assets/macaw/music/music%20(2).png",
@@ -197,9 +201,10 @@
       "/assets/macaw/music/music%20(10).png",
       "/assets/macaw/music/music%20(11).png",
       "/assets/macaw/music/music%20(12).png",
-      "data/games/word-world/starter-v1.es-base.json",
+      "data/games/word-world/learner-base.json",
       "/language-runtime/static/source/course-setup.mjs",
-      "/language-runtime/static/styles/course-setup.css"
+      "/language-runtime/static/styles/course-setup.css",
+      "/assets/miscellaneous/calendar-days.png"
     ]
   },
   "artifacts": [
@@ -208,32 +213,32 @@
       "kind": "course-game-content",
       "url": "/es-en/data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-3",
       "browserRequired": true,
-      "bytes": 5718,
-      "sha256": "f0270c938cabc960d94e10def2dc33f3c140f34d5cac49a1bc00efd1df015ce8"
+      "bytes": 10025,
+      "sha256": "094cbed312fa7228c942266bfa377b8ab29331336c5a0c8e0177b32d836247c2"
     },
     {
       "key": "app-entry",
       "kind": "shared-application",
       "url": "/es-en/index.html",
       "browserRequired": true,
-      "bytes": 96069,
-      "sha256": "7f4af439fe66766bd4dc09e138ec3c71cb2d23866ba431e92ea82282be0725b1"
+      "bytes": 97068,
+      "sha256": "ef0a6e4cf77798b8aeb3cacd5320004a4e4be7fb36ec312f83d716fc6de446d7"
     },
     {
       "key": "course-profile",
       "kind": "course-contract",
       "url": "/es-en/source/shared/course-profile.js",
       "browserRequired": true,
-      "bytes": 13734,
-      "sha256": "dc69c2b80d0a4cb83b66d758aba1ae02d69fb82034cf031f7fee69472e4f5a6a"
+      "bytes": 13820,
+      "sha256": "f5c2dfa3a0ac89fe7ed8390cb432b9e1352d5df66627b6d7c0f64584be399983"
     },
     {
       "key": "shared-app-bootstrap",
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/app-bootstrap.mjs",
       "browserRequired": true,
-      "bytes": 23111,
-      "sha256": "44295665ee5e609212240969eeea20d63c836515de5e3175aa8464b61c321e30"
+      "bytes": 23434,
+      "sha256": "ea5568a977d32e13921525685fa7f4994da605359e7d111549ba8e7bbe8c3ed0"
     },
     {
       "key": "initial-theme",
@@ -288,16 +293,16 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/shell-policy.js",
       "browserRequired": true,
-      "bytes": 17357,
-      "sha256": "e5fcb84a3d574dd970a92eacf0a926086565e02e872598ab0bae189fb01ee7c3"
+      "bytes": 17339,
+      "sha256": "ec1226cf4337fef14c99f93e86413207cdf4df969cc57bd61a17dc11b030a4e2"
     },
     {
       "key": "caatuu-workspace",
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/caatuu-workspace.js",
       "browserRequired": true,
-      "bytes": 180764,
-      "sha256": "7d632a3981b1d0dde06856f0c76779cadf24eb12cf86eef6aebf3a8808f6c59d"
+      "bytes": 182887,
+      "sha256": "a073f72fe48ba05ef413a5a71be65f6c178e6e715bfd24cdf1ac9d3485b5aa9e"
     },
     {
       "key": "child-facing-assets",
@@ -329,39 +334,39 @@
       "url": "/language-runtime/static/source/word-world-host.mjs",
       "browserRequired": true,
       "bytes": 5290,
-      "sha256": "41b19b09c86ee50b0d9034b6110d9ea06df62c48ef1ee1b8ead8f4fbe251a8ff"
+      "sha256": "dc4554a7effe02e93dfe40c0bdd2669b81aa0e8710278c958845a985c450fad7"
     },
     {
       "key": "word-world-provider",
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/word-world-provider.mjs",
       "browserRequired": true,
-      "bytes": 47024,
-      "sha256": "07ae5b8079396af1049eb4fd02c3b41eb01809eca67c77363a4a77591fcce079"
+      "bytes": 46837,
+      "sha256": "3c032677ad294c2701b8e413c9219c893aaae281100964d3eae7244b65634eb3"
     },
     {
       "key": "shared-chrome",
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/caatuu-chrome.js",
       "browserRequired": true,
-      "bytes": 241382,
-      "sha256": "18bd81a56e3534e349749d5ebff190e4d172615190dd1b924ccb2fe23fb3898b"
+      "bytes": 243403,
+      "sha256": "d0b07c4f45ae863684b59737d12f5840fd0e8fb037f8db8d781bd2480f16aa23"
     },
     {
       "key": "learning-profile",
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/learning-profile.js",
       "browserRequired": true,
-      "bytes": 21196,
-      "sha256": "b6e713fa99ff85b2099532146d91b52871bb082bee0574a9cd2a890606f105a1"
+      "bytes": 35944,
+      "sha256": "8cee0f6f59d7489076e591e42379a4240958711aab0a70e4d9690c05e16af6e9"
     },
     {
       "key": "product-word-world",
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/product-word-world.mjs",
       "browserRequired": true,
-      "bytes": 233527,
-      "sha256": "f6f3247be8bf319d98678eaa9664f27b974b16e8247ea939578a3ce869b0d128"
+      "bytes": 231122,
+      "sha256": "723d88c437e9a82d35cce05cefdd7e75fefb0816978ecab90ac99c3642931c57"
     },
     {
       "key": "word-net-core",
@@ -416,24 +421,24 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/styles/caatuu-home.css",
       "browserRequired": true,
-      "bytes": 37009,
-      "sha256": "fa7ac5f416846472ef1b2e1eb42447559aca305a4d618c80bbc58efe1754a481"
+      "bytes": 38054,
+      "sha256": "3782c485da85ef7672e9b2e9dca3fb8ce3f3ae1e0ea2ff5b16711b61e6414e5c"
     },
     {
       "key": "shared-chrome-style",
       "kind": "shared-interface",
       "url": "/language-runtime/static/styles/caatuu-chrome.css",
       "browserRequired": true,
-      "bytes": 107206,
-      "sha256": "b0da48c3c445c9991e1d8ff67c5a2c45c6ad936a4af7726743aeb22ee68142d0"
+      "bytes": 107509,
+      "sha256": "99e739ef1b0d5cc10df58038361ffdd2928c15bfa39830a1e648dfde5cdb4139"
     },
     {
       "key": "shared-word-world-style",
       "kind": "shared-interface",
       "url": "/language-runtime/static/styles/caatuu-word-world.css",
       "browserRequired": true,
-      "bytes": 59536,
-      "sha256": "df4a5e72559adacdbc39fee029f32f7e3b054193ed09f3f064894834fc69f2c3"
+      "bytes": 55790,
+      "sha256": "463caf64015df25b15942656502fcf118a097e9d8ebc87131ba01ec9e217e16e"
     },
     {
       "key": "shared-caatuu-art",
@@ -454,7 +459,7 @@
     {
       "key": "target-realizations",
       "kind": "target-realization-catalog",
-      "url": "/es-en/data/games/word-world/starter-v1.realizations.json",
+      "url": "/es-en/data/games/word-world/content.json",
       "browserRequired": true,
       "bytes": 182465,
       "sha256": "b42b273a85ca4c61bb69834463f5928e640a0c81ca9072478b67df6a3a2ffe08"
@@ -462,18 +467,18 @@
     {
       "key": "word-world-manifest",
       "kind": "runtime-manifest",
-      "url": "/es-en/data/games/word-world/manifest.json",
+      "url": "/es-en/data/games/word-world/manifest.json?v=word-world-context-hints-1",
       "browserRequired": true,
-      "bytes": 1662,
-      "sha256": "bce586dfa5901d54bf43c0a7db94b53884e7ee375290e4e5e1f30ecabe9c3196"
+      "bytes": 1640,
+      "sha256": "47ea130252be4c96184dc3de4aec9868f3ccc547be5f84e64744a8ae198ee43d"
     },
     {
       "key": "verb-nebula-catalog",
       "kind": "course-game-content",
-      "url": "/es-en/data/games/verb-nebula/core-vocabulary.json",
+      "url": "/es-en/data/games/verb-nebula/content.json",
       "browserRequired": true,
-      "bytes": 3737,
-      "sha256": "1b6bc0e6899cf1d9232a69dd0eeb5e2e4c353a98f13970100788c922886e56e8"
+      "bytes": 11777,
+      "sha256": "57d4cc45e9ebf984db994430fff2195914b41b0e58f79db0a459ec6db31e7920"
     },
     {
       "key": "embedding-catalog",
@@ -496,8 +501,8 @@
       "kind": "service-worker",
       "url": "/es-en/sw.js",
       "browserRequired": true,
-      "bytes": 139,
-      "sha256": "0b4ef11c0b16b00095c5a5fa25a34ebcc76822be726150ab0c579b3ee3ba866f"
+      "bytes": 140,
+      "sha256": "dcfa457c4f9fe1318ccc66f7f2fec1503c6c16c708178f24e20548e63fe5d7a6"
     },
     {
       "key": "shared-course-service-worker",
@@ -512,8 +517,8 @@
       "kind": "shared-visual",
       "url": "/assets/icons/spain_flag.png",
       "browserRequired": true,
-      "bytes": 1478415,
-      "sha256": "f8bf234578327340c8d4490e95254dec33eacd5dd22a493ea9d8cf9d53db08a4"
+      "bytes": 42713,
+      "sha256": "e9ea0e7e2cbae05e5f5b8bd1244adeec06bef3bd3b0a69429c2f523c3dd20854"
     }
   ]
 }

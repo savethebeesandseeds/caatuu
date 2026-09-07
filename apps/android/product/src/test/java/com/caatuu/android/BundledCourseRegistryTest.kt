@@ -44,6 +44,15 @@ class BundledCourseRegistryTest {
     }
 
     @Test
+    fun startupRestoresOnlyAValidBundledCourseAndOtherwiseUsesHome() {
+        val registry = BundledCourseRegistry.fromJson(BUNDLE_JSON)
+        assertEquals("https://caatuu.local/zh/index.html", registry.startUrlForCourse("zh"))
+        for (invalid in listOf(null, "", "unknown", "https://example.com/", "../zh")) {
+            assertEquals(registry.startUrl, registry.startUrlForCourse(invalid))
+        }
+    }
+
+    @Test
     fun rejectsUnknownUnsafeAndUntrustedRoutes() {
         val registry = BundledCourseRegistry.fromJson(BUNDLE_JSON)
 

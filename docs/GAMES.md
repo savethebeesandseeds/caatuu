@@ -372,11 +372,11 @@ linguistic facts are shared:
 | Planet | Authoring authority | Game-local runtime boundary |
 | --- | --- | --- |
 | Word World | Existing reviewed authoring and deterministic build pipeline; migration must add the common envelope and provenance contract | Migrated `word-world/manifest.json` and versioned `records.json` |
-| Verb Nebula | Existing `core-vocabulary.json` is migration input, not a sufficient runtime contract | Compile a finite stable-ID challenge pack and name it from `verb-nebula/manifest.json` |
-| Conjugation Comet | Directly authored verb records; add structure only when a proved game mechanic needs it | `conjugation-comet/verbs.json`, used directly by the game |
-| Case Cosmos | Directly authored bounded development sample; later shared reviewed paradigms, government records, lesson plan, and contexts only if evidence justifies them | `case-cosmos/challenges.json`, used directly by the game |
-| Grammar Gravity | Directly authored bounded development sample; add shared morphology only after demonstrated reuse | `grammar-gravity/challenges.json`, used directly by the game |
-| Sounds Quasar | Course-owned word and sentence records with upstream provenance and unreviewed device-speech metadata | `soundQuasarCatalog` pins `data/games/sound-quasar/challenges.json` at `sound-quasar-items-v2` |
+| Verb Nebula | Existing `content.json` is migration input, not a sufficient runtime contract | Compile a finite stable-ID challenge pack and name it from `verb-nebula/manifest.json` |
+| Conjugation Comet | Directly authored verb records; add structure only when a proved game mechanic needs it | `conjugation-comet/content.json`, used directly by the game |
+| Case Cosmos | Directly authored bounded development sample; later shared reviewed paradigms, government records, lesson plan, and contexts only if evidence justifies them | `case-cosmos/content.json`, used directly by the game |
+| Grammar Gravity | Directly authored bounded development sample; add shared morphology only after demonstrated reuse | `grammar-gravity/content.json`, used directly by the game |
+| Sounds Quasar | Course-owned word and sentence records with upstream provenance and unreviewed device-speech metadata | `soundQuasarCatalog` pins `data/games/sound-quasar/content.json` at `sound-quasar-items-v2` |
 | Memory Moon | A game-owned review policy plus runtime references to exact challenges from the other manifests | Its own configuration JSON and reference queue; never copied Czech answers |
 
 The general JSON modules authorize reusable Czech facts. The game-owned lesson
@@ -1132,7 +1132,7 @@ fixed. Identical forms across cases are deduplicated, never falsely rejected.
 
 ### 6.3 Content authority and safety
 
-The direct [challenges.json](../apps/languages/czech/static/data/games/case-cosmos/challenges.json)
+The direct [challenges.json](../apps/languages/czech/static/data/games/case-cosmos/content.json)
 list remains the only source of correct utterances. It contains only noun,
 difficulty, and seven cases, each containing form, English, and Czech text.
 There is no runtime AI generation, content compiler, or duplicate generated bank.
@@ -1486,7 +1486,7 @@ through the existing device feedback queue.
 ### 9.2 Content and speech authority
 
 Each course declares `soundQuasarCatalog`, a versioned
-`static/data/games/sound-quasar/challenges.json` resource at
+`static/data/games/sound-quasar/content.json` resource at
 `sound-quasar-items-v2`. The catalog contains target words and sentences,
 English audit text, stable item identities, exact upstream references, and
 existing Mandarin reading-guide units.

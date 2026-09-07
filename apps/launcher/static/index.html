@@ -1,102 +1,100 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="landing-document">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Caatuu</title>
-    <link rel="stylesheet" href="/app.css?v=36">
-    <script src="/launcher.js?v=14" defer></script>
+    <meta name="description" content="Learn languages. Explore new worlds. Free guided practice, games, and language tools with Caatuu.">
+    <title>Caatuu · Learn languages. Explore new worlds.</title>
+    <link rel="stylesheet" href="/app.css?v=39">
+    <script src="/launcher.js?v=15" defer></script>
   </head>
-  <body class="home-page">
-    <main class="menu-shell">
-      <div class="menu-stack">
-        <section class="menu-card home-card" aria-labelledby="homeTitle">
-          <header class="brand-row">
-            <span class="brand-identity">
-              <span class="brand-mark" aria-hidden="true">
-                <img src="/cz/icons/caatuu-czech-192.png" alt="">
-              </span>
-              <span class="brand-copy">
-                <strong>Caatuu</strong>
-              </span>
-            </span>
-            <span class="available-languages" aria-label="Available courses" data-i18n-aria-label="launcher.available">
-              <span class="available-languages-label" data-i18n="launcher.available">Available courses</span>
-              <ul class="language-list" data-language-list>
-                <li aria-label="Czech (Čeština)" data-language-id="cz">
-                  <span class="language-choice language-choice-static">
-                    <img class="flag-icon" src="/assets/icons/czech_flag_ui.png?caatuu_asset=11" alt="" decoding="async">
-                    <span class="language-choice-code">CZ</span>
-                  </span>
-                </li>
-                <li aria-label="Mandarin (中文), Preview" data-language-id="zh" data-course-status="development">
-                  <span class="language-choice language-choice-static">
-                    <img class="flag-icon" src="/assets/icons/china_flag.png?caatuu_asset=11" alt="" decoding="async">
-                    <span class="language-choice-code">ZH</span>
-                    <span class="language-choice-status">Preview</span>
-                  </span>
-                </li>
-                <li aria-label="Spanish (Español), Preview" data-language-id="es" data-course-status="development">
-                  <span class="language-choice language-choice-static">
-                    <img class="flag-icon" src="/assets/icons/spain_flag.png?caatuu_asset=11" alt="" decoding="async">
-                    <span class="language-choice-code">ES</span>
-                    <span class="language-choice-status">Preview</span>
-                  </span>
-                </li>
-                <li aria-label="English, Preview" data-language-id="es-en" data-course-status="development">
-                  <span class="language-choice language-choice-static">
-                    <img class="flag-icon" src="/assets/icons/english_flag.png?caatuu_asset=11" alt="" decoding="async">
-                    <span class="language-choice-code">EN</span>
-                    <span class="language-choice-status">Preview</span>
-                  </span>
-                </li>
-              </ul>
-            </span>
-          </header>
-
-          <div class="welcome-stage" aria-hidden="true">
-            <img class="welcome-art welcome-art-study" src="/assets/macaw/actions/macaw%20(23).png" alt="">
-            <img class="welcome-art welcome-art-hero" src="/assets/miscellaneous/burrow-review_062.png" alt="">
-            <img class="welcome-art welcome-art-explore" src="/assets/macaw/actions/macaw%20(62).png" alt="">
-          </div>
-
-          <div class="menu-heading home-heading">
-            <p class="eyebrow" data-i18n="launcher.welcome">Welcome space language traveler</p>
-            <h1 id="homeTitle" data-i18n="launcher.title">Language App</h1>
-            <p class="home-copy" data-i18n="launcher.description">Caatuu is a free language-learning app for guided practice with words, phrases, translation, and tools that also work offline.</p>
-          </div>
-
-          <label class="launcher-language-control" data-language-control hidden>
-            <span data-i18n="launcher.language">Page language</span>
-            <select data-page-language aria-label="Page language" data-i18n-aria-label="launcher.language"></select>
-          </label>
-
-          <nav class="entry-options" aria-label="App entry options" data-i18n-aria-label="launcher.entryoptions">
-            <a class="entry-option entry-download" data-android-download aria-disabled="true">
-              <span class="entry-icon" aria-hidden="true">APK</span>
-              <span class="entry-copy">
-                <small data-i18n="launcher.android.preview">Android preview</small>
-                <b data-i18n="launcher.android.checking">Checking Android build</b>
-              </span>
-            </a>
-            <a class="entry-option entry-browser" href="/cz/index.html" data-browser-entry aria-label="Continue online in the browser" data-i18n-aria-label="launcher.continuearia">
-              <span class="entry-icon" aria-hidden="true">WEB</span>
-              <span class="entry-copy">
-                <small data-i18n="common.browser">Browser</small>
-                <b data-i18n="launcher.continue">Continue online</b>
-              </span>
-            </a>
+  <body class="home-page landing-page">
+    <a class="landing-skip" href="#learn" data-i18n="launcher.skip">Skip to content</a>
+    <img class="landing-art" src="/assets/micelaneous/landing_page_concept.png" width="1672" height="941" alt="" fetchpriority="high" aria-hidden="true">
+    <div class="landing-wrap">
+      <header class="landing-header">
+        <div class="landing-nav-panel">
+          <a class="landing-brand" href="#learn" aria-label="Caatuu">
+            <img src="/cz/icons/caatuu-czech-192.png" width="56" height="56" alt="">
+            <strong>Caatuu</strong>
+          </a>
+          <nav class="landing-nav" aria-label="Main navigation" data-i18n-aria-label="launcher.navigation">
+            <a href="#learn" data-i18n="launcher.nav.learn">Learn</a>
+            <a href="#courses" data-i18n="launcher.nav.courses">Courses</a>
+            <a href="#tools" data-i18n="launcher.nav.tools">Tools</a>
+            <a href="#about" data-i18n="launcher.nav.about">About</a>
           </nav>
-          <p class="home-footnote" data-i18n="launcher.footnote">Don't lose time, let's get started learning.</p>
+        </div>
+        <label class="launcher-language-control" data-language-control hidden>
+          <span class="launcher-language-symbol" aria-hidden="true"><span>a</span><span>&#x3042;</span></span>
+          <select data-page-language aria-label="Page language" data-i18n-aria-label="launcher.language"></select>
+        </label>
+      </header>
+      <main>
+        <section class="landing-hero" id="learn" aria-labelledby="homeTitle">
+          <div class="landing-hero-copy">
+            <h1 id="homeTitle"><span data-i18n="launcher.hero.title">Learn languages.</span><span data-i18n="launcher.hero.worlds">Explore new worlds.</span></h1>
+            <p data-i18n="launcher.description">Caatuu is a free language-learning app for guided practice with words, phrases, translation, and tools that also work offline.</p>
+            <a class="landing-primary" href="#courses"><span aria-hidden="true">🚀</span><span data-i18n="launcher.getstarted">Get started</span><span aria-hidden="true">→</span></a>
+          </div>
         </section>
-      </div>
-
+        <section class="landing-courses" id="courses" aria-labelledby="coursesTitle">
+          <div class="landing-section-heading">
+            <h2 id="coursesTitle"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m16 8-2 6-6 2 2-6z"/></svg><span data-i18n="launcher.available">Available courses</span></h2>
+            <span class="landing-course-hint" data-i18n="launcher.viewcourses">Explore the courses</span>
+          </div>
+          <ul class="language-list" data-language-list>
+              <li aria-label="Czech (Čeština)" data-language-id="cz">
+                <a class="language-choice" href="/cz/index.html">
+                  <img class="flag-icon" src="/assets/icons/czech_flag_ui.png?caatuu_asset=11" alt="" decoding="async">
+                  <strong class="language-choice-name" data-i18n="languages.cs">Czech</strong><span class="language-choice-code">CZ</span>
+                <span class="language-choice-start" data-i18n="launcher.start">Start</span></a></li>
+              <li aria-label="Mandarin (中文), Preview" data-language-id="zh" data-course-status="development">
+                <a class="language-choice" href="/zh/index.html">
+                  <img class="flag-icon" src="/assets/icons/china_flag.png?caatuu_asset=11" alt="" decoding="async">
+                  <strong class="language-choice-name" data-i18n="languages.zh.hans">Chinese</strong><span class="language-choice-code">ZH</span>
+                  <span class="language-choice-status">Preview</span>
+                <span class="language-choice-start" data-i18n="launcher.start">Start</span></a></li>
+              <li aria-label="Spanish (Español), Preview" data-language-id="es" data-course-status="development">
+                <a class="language-choice" href="/es/index.html">
+                  <img class="flag-icon" src="/assets/icons/spain_flag.png?caatuu_asset=11" alt="" decoding="async">
+                  <strong class="language-choice-name" data-i18n="languages.es">Spanish</strong><span class="language-choice-code">ES</span>
+                  <span class="language-choice-status">Preview</span>
+                <span class="language-choice-start" data-i18n="launcher.start">Start</span></a></li>
+              <li aria-label="English, Preview" data-language-id="es-en" data-course-status="development">
+                <a class="language-choice" href="/es-en/index.html">
+                  <img class="flag-icon" src="/assets/icons/english_flag.png?caatuu_asset=11" alt="" decoding="async">
+                  <strong class="language-choice-name" data-i18n="languages.en">English</strong><span class="language-choice-code">EN</span>
+                  <span class="language-choice-status">Preview</span>
+                <span class="language-choice-start" data-i18n="launcher.start">Start</span></a></li>
+            </ul>
+        </section>
+        <nav class="entry-options" aria-label="App entry options" data-i18n-aria-label="launcher.entryoptions">
+          <a class="entry-option entry-download" data-android-download aria-disabled="true">
+            <svg class="landing-entry-art landing-android-art" viewBox="0 0 64 64" aria-hidden="true"><path d="m20 14-5-8m29 8 5-8M14 26a18 18 0 0 1 36 0zM14 30h36v22H14zM21 52v8m22-8v8M7 31v18m50-18v18"/><path class="android-eyes" d="M23 20h1m16 0h1"/></svg>
+            <span class="entry-copy"><small data-i18n="launcher.android.preview">Android preview</small><b data-i18n="launcher.android.checking">Checking Android build</b><span data-i18n="launcher.android.detail">Learn on the go, even offline.</span></span>
+            <span class="landing-entry-arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="entry-option entry-browser" href="/cz/index.html" data-browser-entry aria-label="Continue online in the browser" data-i18n-aria-label="launcher.continuearia">
+            <svg class="landing-entry-art" viewBox="0 0 64 64" aria-hidden="true"><rect x="12" y="9" width="40" height="34" rx="2"/><path d="M5 47h54l-4 8H9z"/><path d="M26 48h12"/></svg>
+            <span class="entry-copy"><small data-i18n="common.browser">Browser</small><b data-i18n="launcher.continue">Continue online</b><span data-i18n="launcher.browser.detail">No installation needed.</span></span>
+            <span class="landing-entry-arrow" aria-hidden="true">→</span>
+          </a>
+        </nav>
+        <section class="landing-features" id="tools" aria-label="Learning tools" data-i18n-aria-label="launcher.nav.tools">
+          <div class="landing-feature"><span class="landing-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5C8 2 4 3 2 4v15c4-2 7-1 10 1 3-2 6-3 10-1V4c-3-1-6-2-10 1v15"/></svg></span><div><h3 data-i18n="launcher.feature.practice">Guided practice</h3><p data-i18n="launcher.feature.practice.detail">Words and phrases</p></div></div>
+          <div class="landing-feature"><span class="landing-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11c0 5-5 8-10 8l-7 3 1-6a8 8 0 0 1-3-5c0-5 4-8 10-8s9 3 9 8z"/></svg></span><div><h3 data-i18n="launcher.feature.translation">Translation tools</h3><p data-i18n="launcher.feature.translation.detail">Understand and explore</p></div></div>
+          <div class="landing-feature"><span class="landing-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8c6-6 14-6 20 0M5 12c4-4 10-4 14 0m-11 4c2-2 4-2 6 0"/><circle cx="12" cy="20" r="1"/></svg></span><div><h3 data-i18n="launcher.feature.offline">Offline mode</h3><p data-i18n="launcher.feature.offline.detail">Learn anywhere</p></div></div>
+          <div class="landing-feature"><span class="landing-feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21v-7h3v7zm7 0V8h3v13zm7 0V3h3v18z"/></svg></span><div><h3 data-i18n="launcher.feature.progress">Track progress</h3><p data-i18n="launcher.feature.progress.detail">See your improvement</p></div></div>
+        </section>
+        <section class="landing-about" id="about" aria-labelledby="aboutTitle">
+          <h2 id="aboutTitle" data-i18n="launcher.about">A language to learn. A world to discover.</h2>
+          <p data-i18n="launcher.about.detail">Caatuu brings guided practice, games, and language tools together in a free learning experience that also works offline.</p>
+        </section>
+      </main>
       <footer class="app-footer">
-        <a class="footer-brand" href="https://www.waajacu.com/" rel="noopener">
-          <img class="footer-logo" src="/cz/icons/caatuu-czech-512.png" alt="">
-          <span><span data-i18n="launcher.by">by Waajacu</span><sup class="brand-trademark" aria-hidden="true">™</sup></span>
-        </a>
+        <a class="footer-brand" href="https://www.waajacu.com/" rel="noopener"><img class="footer-logo" src="/cz/icons/caatuu-czech-512.png" alt=""><span><span data-i18n="launcher.by">by Waajacu</span><sup class="brand-trademark" aria-hidden="true">™</sup></span></a>
       </footer>
-    </main>
+    </div>
   </body>
 </html>

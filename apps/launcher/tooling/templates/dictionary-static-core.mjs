@@ -196,7 +196,7 @@ function abortError() {
 export function createStaticDictionaryApi(options = {}) {
   const fetchImpl = options.fetchImpl || globalThis.fetch?.bind(globalThis);
   const dataUrl = options.dataUrl
-    || new URL("../../../data/games/verb-nebula/core-vocabulary.json", import.meta.url).href;
+    || new URL("../../../data/games/verb-nebula/content.json", import.meta.url).href;
   const supplementUrl = options.supplementUrl
     || new URL("../../../data/games/word-world/static-dictionary.v1.json", import.meta.url).href;
   let dataPromise = null;

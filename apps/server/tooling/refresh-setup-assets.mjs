@@ -48,6 +48,7 @@ export function sourcePathForArtifact({
   launcherStaticDir,
   languageStaticDir,
   sharedRuntimeDir,
+  appAssetCatalog,
   languageRoutePrefix = "/cz"
 }) {
   const key = String(artifact?.key || "<missing-key>");
@@ -64,6 +65,13 @@ export function sourcePathForArtifact({
   }
 
   if (decodedUrl.startsWith("/assets/")) {
+    const mappings = (appAssetCatalog?.assets || []).filter(
+      (mapping) => mapping.output === decodedUrl.slice(1)
+    );
+    if (mappings.length > 1) throw new Error(`${key} has ambiguous app asset mappings: ${decodedUrl}`);
+    if (mappings.length === 1) {
+      return resolvedWithin(workspaceRoot, mappings[0].source, key);
+    }
     const publicAssetPath = decodedUrl.slice("/assets/".length);
     const alias = LEGACY_ASSET_SOURCE_PREFIXES.find(([publicPrefix]) =>
       publicAssetPath.startsWith(publicPrefix)
@@ -401,6 +409,11 @@ export function inspectSetupAssetManifest({
   }
   const applicationChanged = JSON.stringify(manifest.application) !== JSON.stringify(application);
   validateBrowserSetupCacheNamespace(course, manifest);
+  const appAssetCatalog = validateBrowserSharedRuntimeOfflineContract({
+    course,
+    manifest,
+    appAssetCatalogPath: resolve(appAssetCatalogPath)
+  });
   validateOfflineCatalog(manifest, (asset) => {
     const publicUrl = new URL(
       asset,
@@ -413,13 +426,9 @@ export function inspectSetupAssetManifest({
       launcherStaticDir: resolve(launcherStaticDir),
       languageStaticDir: resolve(languageStaticDir),
       sharedRuntimeDir: resolve(sharedRuntimeDir),
+      appAssetCatalog,
       languageRoutePrefix: effectiveRoutePrefix
     });
-  });
-  const appAssetCatalog = validateBrowserSharedRuntimeOfflineContract({
-    course,
-    manifest,
-    appAssetCatalogPath: resolve(appAssetCatalogPath)
   });
   const interfaceContentIssues = browserInterfaceContentClosureIssues({
     course,
@@ -462,6 +471,7 @@ export function inspectSetupAssetManifest({
       launcherStaticDir: resolve(launcherStaticDir),
       languageStaticDir: resolve(languageStaticDir),
       sharedRuntimeDir: resolve(sharedRuntimeDir),
+      appAssetCatalog,
       languageRoutePrefix: effectiveRoutePrefix
     });
     if (!existsSync(sourcePath) || !statSync(sourcePath).isFile()) {

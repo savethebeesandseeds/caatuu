@@ -7,7 +7,8 @@
     <title>Conjugation Comet</title>
     <link rel="stylesheet" href="../styles/caatuu-theme.css?v=theme-7">
     <link rel="stylesheet" href="../styles/games/embedded-game-controls.css?v=embedded-game-controls-8">
-    <link rel="stylesheet" href="../styles/games/conjugation-comet.css?v=conjugation-comet-shared-4">
+    <link rel="stylesheet" href="../styles/games/conjugation-comet.css?v=conjugation-comet-shared-5">
+    <link rel="stylesheet" href="../styles/dictionary-word-card.css?v=dictionary-card-1">
   </head>
   <body>
     <main class="conjugation-comet" id="conjugationCometRoot" aria-busy="true">
@@ -17,9 +18,15 @@
         <section class="conjugation-comet-play" id="conjugationCometPlay">
           <section class="conjugation-comet-card" id="conjugationCometCard" aria-describedby="conjugationCometQuestion">
             <header class="conjugation-comet-header">
-          <article class="conjugation-comet-context" aria-labelledby="conjugationCometFormLemma">
-            <div class="conjugation-comet-lemma-line"><span id="conjugationCometFormLemma" lang="und"></span><button class="conjugation-comet-speak" id="conjugationCometSpeakLemma" type="button"></button></div>
-            <p id="conjugationCometMeaning"></p>
+          <article class="conjugation-comet-context dictionary-word-card" aria-labelledby="conjugationCometFormLemma">
+            <div class="dictionary-word-card__copy">
+              <div class="dictionary-word-card__heading">
+                <strong class="dictionary-word-card__word" id="conjugationCometFormLemma" lang="und"></strong>
+                <span class="dictionary-word-card__pos">VERB</span>
+              </div>
+              <p class="dictionary-word-card__meaning" id="conjugationCometMeaning"></p>
+            </div>
+            <button class="conjugation-comet-speak dictionary-word-card__pronounce" id="conjugationCometSpeakLemma" type="button"></button>
           </article>
           <div class="conjugation-comet-header-actions"><span class="conjugation-comet-visually-hidden" id="conjugationCometProgress"></span><div class="conjugation-comet-controls" id="conjugationCometControls"></div></div>
           <div class="conjugation-comet-dots conjugation-comet-visually-hidden" id="conjugationCometDots" aria-hidden="true"></div>

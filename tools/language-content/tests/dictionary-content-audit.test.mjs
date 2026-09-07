@@ -16,7 +16,7 @@ async function readJson(relativeUrl) {
 test("the current Czech dictionary is target/English complete at the build boundary", async () => {
   const [catalog, coreEntries, scripts] = await Promise.all([
     readJson("../../../apps/languages/czech/static/data/dictionaries/catalog.json"),
-    readJson("../../../apps/languages/czech/static/data/games/verb-nebula/core-vocabulary.json"),
+    readJson("../../../apps/languages/czech/static/data/games/verb-nebula/content.json"),
     readJson("../../../apps/languages/czech/static/data/language/scripts.json")
   ]);
   assert.deepEqual(auditDictionaryContentDocuments({

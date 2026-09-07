@@ -43,7 +43,10 @@ function normalizeTarget(target = {}) {
     surface,
     normalized,
     tokenIndex,
-    playable: target.playable !== false
+    playable: target.playable !== false,
+    ...(typeof target.gloss === "string" && target.gloss.trim()
+      ? { gloss: target.gloss.normalize("NFC").trim() }
+      : {})
   };
 }
 

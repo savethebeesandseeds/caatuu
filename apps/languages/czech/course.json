@@ -257,10 +257,10 @@
   "resources": {
     "soundQuasarCatalog": {
       "kind": "file",
-      "path": "apps/languages/czech/static/data/games/sound-quasar/challenges.json",
+      "path": "apps/languages/czech/static/data/games/sound-quasar/content.json",
       "scope": "course",
       "state": "present",
-      "revision": "sound-quasar-items-v2"
+      "revision": "sound-quasar-retained-levels-1"
     },
     "staticRoot": {
       "kind": "directory",
@@ -279,7 +279,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-30"
+      "revision": "interface-en-31"
     },
     "courseProfile": {
       "kind": "file",
@@ -307,7 +307,7 @@
     },
     "sourceLanguageFlag": {
       "kind": "file",
-      "path": "apps/launcher/static/assets/icons/english_flag.png",
+      "path": "apps/language-runtime/static/assets/home/english_flag.png",
       "scope": "shared",
       "state": "present"
     },
@@ -343,7 +343,7 @@
     },
     "dictionaryCoreEntries": {
       "kind": "file",
-      "path": "apps/languages/czech/static/data/games/verb-nebula/core-vocabulary.json",
+      "path": "apps/languages/czech/static/data/games/verb-nebula/content.json",
       "scope": "course",
       "state": "present"
     },
@@ -365,7 +365,7 @@
       "path": "apps/languages/czech/static/source/shared/semantic-learning.js",
       "scope": "course",
       "state": "present",
-      "revision": "semantic-learning-7"
+      "revision": "semantic-learning-8"
     },
     "setupProgressProvider": {
       "kind": "file",
@@ -391,41 +391,42 @@
       "kind": "file",
       "path": "apps/languages/czech/static/data/games/word-world/manifest.json",
       "scope": "course",
-      "state": "present"
+      "state": "present",
+      "revision": "word-world-token-hints-1"
     },
     "verbNebulaCatalog": {
       "kind": "file",
-      "path": "apps/languages/czech/static/data/games/verb-nebula/core-vocabulary.json",
+      "path": "apps/languages/czech/static/data/games/verb-nebula/content.json",
       "scope": "course",
       "state": "present"
     },
     "conjugationCometCatalog": {
       "kind": "file",
-      "path": "apps/languages/czech/static/data/games/conjugation-comet/verbs.json",
+      "path": "apps/languages/czech/static/data/games/conjugation-comet/content.json",
       "scope": "course",
       "state": "present",
-      "revision": "conjugation-comet-verbs-4"
+      "revision": "conjugation-comet-verbs-5"
     },
     "caseCosmosCatalog": {
       "kind": "file",
-      "path": "apps/languages/czech/static/data/games/case-cosmos/challenges.json",
+      "path": "apps/languages/czech/static/data/games/case-cosmos/content.json",
       "scope": "course",
       "state": "present",
-      "revision": "case-cosmos-data-6"
+      "revision": "case-cosmos-data-8"
     },
     "grammarGravityCatalog": {
       "kind": "file",
-      "path": "apps/languages/czech/static/data/games/grammar-gravity/challenges.json",
+      "path": "apps/languages/czech/static/data/games/grammar-gravity/content.json",
       "scope": "course",
       "state": "present",
-      "revision": "grammar-gravity-data-5"
+      "revision": "grammar-gravity-data-7"
     },
     "grammarGravityNouns": {
       "kind": "file",
       "path": "apps/languages/czech/static/data/games/grammar-gravity/nouns.json",
       "scope": "course",
       "state": "present",
-      "revision": "grammar-gravity-nouns-3"
+      "revision": "grammar-gravity-nouns-4"
     },
     "androidAssetCatalog": {
       "kind": "file",

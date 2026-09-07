@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { assertProductSourceText } from "./product-source-policy.mjs";
 import { transformPackagedImageKeymap } from "./developer-image-catalog.mjs";
-import { nativeBootstrapCatalogAssets, planProductDelivery, SETUP_PAYLOAD_MANIFEST } from "./product-delivery.mjs";
+import { homeBootstrapAssets, nativeBootstrapCatalogAssets, planProductDelivery, SETUP_PAYLOAD_MANIFEST } from "./product-delivery.mjs";
 import {
   copyFileSync,
   existsSync,
@@ -2333,6 +2333,7 @@ const REQUIRED_SHARED_APP_FILES = Object.freeze([
   "language-runtime/static/source/games/sound-quasar/sound-quasar-host.mjs",
   "language-runtime/static/styles/games/sound-quasar.css",
   "language-runtime/static/source/games/course-game-content.mjs",
+  "language-runtime/static/source/games/curriculum-progression.mjs",
   "language-runtime/static/source/games/embedded-game-controls.mjs",
   "language-runtime/static/source/games/grammar-gravity/grammar-gravity-core.mjs",
   "language-runtime/static/source/games/grammar-gravity/grammar-gravity-host.mjs",
@@ -2351,6 +2352,7 @@ const REQUIRED_SHARED_APP_FILES = Object.freeze([
   "language-runtime/static/styles/caatuu-home.css",
   "language-runtime/static/styles/caatuu-theme.css",
   "language-runtime/static/styles/caatuu-word-world.css",
+  "language-runtime/static/styles/dictionary-word-card.css",
   "language-runtime/static/styles/caatuu-workspace.css",
 ]);
 
@@ -2452,13 +2454,13 @@ function assertWordWorldBoundary(outputDir, files, {
 
 function assertLearnerContentSafety(outputDir) {
   const sources = [
-    ["sound-quasar", "data/games/sound-quasar/challenges.json"],
-    ["grammar-gravity", "data/games/grammar-gravity/challenges.json"],
+    ["sound-quasar", "data/games/sound-quasar/content.json"],
+    ["grammar-gravity", "data/games/grammar-gravity/content.json"],
     ["grammar-gravity-nouns", "data/games/grammar-gravity/nouns.json"],
-    ["case-cosmos", "data/games/case-cosmos/challenges.json"],
-    ["conjugation-comet", "data/games/conjugation-comet/verbs.json"],
-    ["verb-nebula", "data/games/verb-nebula/core-vocabulary.json"],
-    ["word-world", "data/games/word-world/standard-v0.1/records.json"],
+    ["case-cosmos", "data/games/case-cosmos/content.json"],
+    ["conjugation-comet", "data/games/conjugation-comet/content.json"],
+    ["verb-nebula", "data/games/verb-nebula/content.json"],
+    ["word-world", "data/games/word-world/content.json"],
     ["language-scripts", "data/language/scripts.json"]
   ];
   const fields = sources.filter(([, assetPath]) => existsSync(join(outputDir, assetPath))).flatMap(([sourceId, assetPath]) => {
@@ -2930,11 +2932,13 @@ function productLogicalBytes(bundle) {
 export function createAndroidProductDelivery(bundle) {
   const logicalFiles = productLogicalBytes(bundle);
   const providerCatalogs = nativeBootstrapCatalogAssets(logicalFiles, bundle.courseCatalog);
+  const bootstrapAssets = homeBootstrapAssets(logicalFiles, bundle.configurations.map(({ course }) => course));
   return {
     ...planProductDelivery({
       files: logicalFiles,
       courseIds: bundle.courseCatalog.courses.map(({ id }) => id),
       profile: bundle.productProfile,
+      bootstrapAssets,
       providerCatalogs,
     }),
     logicalFiles,

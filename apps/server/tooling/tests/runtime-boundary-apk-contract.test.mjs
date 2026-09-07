@@ -109,8 +109,8 @@ test("the runtime audit plans the bundled product APK from every course", () => 
   assert.ok(plan.requiredEntries.includes("assets/language-runtime/static/source/english-minilm-ranker.mjs"));
   assert.ok(plan.requiredEntries.includes("assets/language-runtime/static/source/word-world-provider.mjs"));
   assert.ok(plan.requiredEntries.includes("assets/courses/cz/source/games/word-world/word-net-standard.mjs"));
-  assert.ok(plan.requiredEntries.includes("assets/courses/cz/data/games/word-world/standard-v0.1/records.json"));
-  assert.ok(plan.requiredEntries.includes("assets/courses/zh/data/games/word-world/starter-v1.realizations.json"));
+  assert.ok(plan.requiredEntries.includes("assets/courses/cz/data/games/word-world/content.json"));
+  assert.ok(plan.requiredEntries.includes("assets/courses/zh/data/games/word-world/content.json"));
   assert.ok(!plan.requiredEntries.includes("assets/setup-assets.json"));
   assert.ok(!plan.requiredEntries.includes("assets/data/embeddings/models.json"));
   assert.ok(!plan.requiredEntries.includes("assets/word-net.html"));

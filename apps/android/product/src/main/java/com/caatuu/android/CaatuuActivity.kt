@@ -139,9 +139,12 @@ class CaatuuActivity : ComponentActivity() {
             onThemeChanged = { theme -> applySystemTheme(theme) },
         )
 
+        val coursePreferences = getSharedPreferences("caatuu-course-selection", Context.MODE_PRIVATE)
         val assetClient = CaatuuAssetClient(
             context = this,
             courseRegistry = courseRegistry,
+            preferredCourseId = coursePreferences.getString("courseId", null),
+            onCourseVisited = { courseId -> coursePreferences.edit().putString("courseId", courseId).apply() },
             vectorDatabaseManagerForCourse = { courseId -> courseRuntimes[courseId]?.initializedVectorManager() },
             courseSetupReady = { courseId, adopt ->
                 courseRuntimes[courseId]?.let { runtime ->

@@ -53,7 +53,7 @@ function correctionExamples(sentences) {
 
 async function appDataExamples() {
   const rows = [];
-  const dictionary = await readJson(path.join(appDataRoot, "games", "verb-nebula", "core-vocabulary.json"));
+  const dictionary = await readJson(path.join(appDataRoot, "games", "verb-nebula", "content.json"));
   const scripts = await readJson(path.join(appDataRoot, "language", "scripts.json"));
   const verbData = await readJson(path.join(appDataRoot, "games", "conjugation-comet", "verbs.json"));
   const verbs = verbData.verbs || [];

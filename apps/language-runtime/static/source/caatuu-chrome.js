@@ -71,6 +71,8 @@
   let lastStoreArtwork = "";
   let bottomDockResizeObserver = null;
   let appFreshnessBound = false;
+  let progressSaveBound = false;
+  let progressSaveFailed = false;
   let browserSpeechVoiceEventsBound = false;
   let activeBrowserSpeechSession = null;
   let speechMutedFallback = false;
@@ -2853,13 +2855,13 @@
       })) return;
       try {
         await learning.prepareProgressReset?.();
+        learning.resetProgress();
       } catch (error) {
         window.dispatchEvent(new CustomEvent("caatuu:progress-reset-cancelled"));
         const status = document.querySelector("#learningStatus");
         if (status) status.textContent = interfaceMessage("progress.restart.failed");
         return;
       }
-      learning.resetProgress();
       await window.CaatuuSemanticLearning?.whenIdle?.();
       renderLearningControls(document);
       const status = document.querySelector("#learningStatus");
@@ -4749,11 +4751,13 @@
           </section>
 
           <section class="settings-card side-card about-card" aria-label="${interfaceHtml("settings.about.label")}">
-            <div class="settings-card-head side-head">
-              <p class="settings-kicker kicker">${interfaceHtml("settings.about.label")}</p>
-              <h3>${interfaceHtml("settings.about.details")}</h3>
+            <div class="settings-card-head side-head about-card-head">
+              <div>
+                <p class="settings-kicker kicker">${interfaceHtml("settings.about.label")}</p>
+                <h3>${interfaceHtml("settings.about.details")}</h3>
+              </div>
+              <button class="maintenance-row-control pwa-install-action" type="button" id="updateApp" aria-describedby="maintenanceStatus" hidden>${interfaceHtml("settings.update.action")}</button>
             </div>
-            <button class="maintenance-row-control pwa-install-action" type="button" id="updateApp" aria-describedby="maintenanceStatus" hidden>${interfaceHtml("settings.update.action")}</button>
             <p class="maintenance-status" id="maintenanceStatus" role="status" aria-live="polite" aria-atomic="true" hidden></p>
             <dialog class="settings-update-dialog" id="appUpdateConfirmDialog" aria-labelledby="appUpdateConfirmTitle" aria-describedby="appUpdateConfirmVersions appUpdateConfirmNote">
               <form class="settings-update-dialog-card" method="dialog">
@@ -5320,6 +5324,52 @@
     return true;
   }
 
+  function renderProgressSaveNotice(status) {
+    if (status !== "saved" && status !== "error") return;
+    progressSaveFailed = status === "error";
+    let notice = document.querySelector("#progressSaveNotice");
+    if (progressSaveFailed && !notice && document.body) {
+      notice = document.createElement("aside");
+      notice.id = "progressSaveNotice";
+      notice.className = "app-freshness-notice";
+      notice.setAttribute("role", "alert");
+      notice.setAttribute("aria-live", "assertive");
+      notice.setAttribute("aria-atomic", "true");
+      const message = document.createElement("span");
+      message.textContent = interfaceMessage("chrome.progress.savefailed");
+      const retry = document.createElement("button");
+      retry.type = "button";
+      retry.textContent = interfaceMessage("common.retry");
+      retry.addEventListener("click", async () => {
+        if (retry.disabled) return;
+        retry.disabled = true;
+        try {
+          await window.CaatuuLearning?.retryPendingSaves?.();
+        } catch {
+          // The warning stays visible until the storage layer confirms a save.
+        } finally {
+          retry.disabled = false;
+        }
+      });
+      notice.append(message, retry);
+      document.body.append(notice);
+    }
+    if (notice) notice.hidden = !progressSaveFailed;
+    const freshnessNotice = document.querySelector("#appFreshnessNotice");
+    if (freshnessNotice) {
+      renderAppFreshnessNotice(freshnessNotice.dataset.state || "checking");
+    }
+  }
+
+  function bindProgressSaveStatus() {
+    if (progressSaveBound) return;
+    progressSaveBound = true;
+    window.addEventListener("caatuu:progress-save-status", (event) => {
+      renderProgressSaveNotice(event?.detail?.status);
+    });
+    renderProgressSaveNotice(window.CaatuuLearning?.saveStatus?.()?.status);
+  }
+
   function ensureAppFreshnessNotice() {
     let notice = document.querySelector("#appFreshnessNotice");
     if (notice || !document.body) return notice;
@@ -5365,7 +5415,7 @@
     const message = notice.querySelector("[data-freshness-message]");
     const action = notice.querySelector("[data-freshness-action]");
     notice.dataset.state = state;
-    if (["current", "checking"].includes(state)) {
+    if (progressSaveFailed || ["current", "checking"].includes(state)) {
       notice.hidden = true;
       return;
     }
@@ -5416,6 +5466,7 @@
     renderLearningControls(document);
     updateSpeechMuteControls(document);
     syncCourseGameTriggers();
+    bindProgressSaveStatus();
     bindAppFreshness();
     scheduleStreakReminderCheck({ immediate: true });
   }

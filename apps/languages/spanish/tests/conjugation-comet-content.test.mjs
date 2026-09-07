@@ -6,7 +6,7 @@ import { validateConjugationCometCatalog } from "../../../language-runtime/stati
 import { validatePlanetEnglishAuditDocument } from "../../../../tools/language-content/lib/planet-english-audit.mjs";
 
 const catalogUrl = new URL(
-  "../static/data/games/conjugation-comet/verbs.json",
+  "../static/data/games/conjugation-comet/content.json",
   import.meta.url
 );
 

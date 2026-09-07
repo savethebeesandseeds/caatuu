@@ -41,7 +41,7 @@ translation pack. No external dictionary or corpus was copied into these files.
 
 Word World receives the 250 authored realizations. Verb Lab receives 180 common
 Spanish infinitives and infinitive phrases in
-`static/data/games/verb-nebula/core-vocabulary.json`, divided into difficulty
+`static/data/games/verb-nebula/content.json`, divided into difficulty
 blocks of 60, 70, and 50. Every verb record has a stable `es.verb.*` ID, an
 English audit cue, and `native-review-required` status.
 

@@ -10,7 +10,7 @@
     "wordMeanings": true
   },
   "sourceConceptCatalog": "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
-  "realizationFile": "starter-v1.realizations.json",
+  "realizationFile": "content.json",
   "recordCount": 250,
   "targetLanguage": "en-US",
   "mediationLanguage": "en",
@@ -48,5 +48,5 @@
     "reviewedAt": null
   },
   "learnerBaseLanguage": "es-ES",
-  "learnerBaseFile": "starter-v1.es-base.json"
+  "learnerBaseFile": "learner-base.json"
 }

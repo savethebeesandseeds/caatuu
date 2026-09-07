@@ -927,10 +927,10 @@ export function productApkAuditPlan(profile) {
           `assets/${prefix}/data/games/word-world/manifest.json`,
         );
         if (course.id === "cz") {
-          requiredEntries.push(`assets/${prefix}/data/games/word-world/standard-v0.1/records.json`);
+          requiredEntries.push(`assets/${prefix}/data/games/word-world/content.json`);
         }
         if (course.id === "zh") {
-          requiredEntries.push(`assets/${prefix}/data/games/word-world/starter-v1.realizations.json`);
+          requiredEntries.push(`assets/${prefix}/data/games/word-world/content.json`);
         }
       }
     }
@@ -1000,7 +1000,7 @@ export function productApkAuditPlan(profile) {
       "assets/source/games/word-world/word-net-standard.mjs",
       "assets/language-runtime/static/source/word-net-core.mjs",
       "assets/data/games/word-world/manifest.json",
-      "assets/data/games/word-world/standard-v0.1/records.json"
+      "assets/data/games/word-world/content.json"
     );
   }
 
@@ -1286,7 +1286,7 @@ function auditApk(androidPublicationPlan) {
     "assets/source/games/verb-nebula/verb-exercise-family-core.mjs",
     "assets/source/games/word-world/word-net-core.mjs",
     "assets/setup-assets.json",
-    "assets/data/games/conjugation-comet/verbs.json",
+    "assets/data/games/conjugation-comet/content.json",
     "assets/data/models/phone-bench/models.json",
     "assets/data/embeddings/models.json",
     "assets/data/embeddings/caatuu-local-hash-v0.1/manifest.json",

@@ -47,7 +47,7 @@
       schemaVersion: 1,
       locale: "es-ES",
       direction: "ltr",
-      revision: "interface-es-5",
+      revision: "interface-es-6",
       catalog: "/language-runtime/static/data/interface/es.v1.json"
     },
     learnerBasePreview: true,
@@ -70,20 +70,20 @@
     browserProviders: {},
     gameContent: {
       "verb-lab": {
-        verbNebulaCatalog: "data/games/verb-nebula/core-vocabulary.json"
+        verbNebulaCatalog: "data/games/verb-nebula/content.json"
       },
       "word-net": {
-        wordWorldManifest: "data/games/word-world/manifest.json"
+        wordWorldManifest: "data/games/word-world/manifest.json?v=word-world-context-hints-1"
       },
       "conjugation-comet": {
-        conjugationCometCatalog: "data/games/conjugation-comet/verbs.json?v=conjugation-comet-content-1"
+        conjugationCometCatalog: "data/games/conjugation-comet/content.json?v=conjugation-comet-content-1"
       },
       "grammar-gravity": {
-        grammarGravityCatalog: "data/games/grammar-gravity/challenges.json?v=grammar-gravity-content-2",
-        grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1"
+        grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-2",
+        grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-3"
       },
       "sound-quasar": {
-        soundQuasarCatalog: "data/games/sound-quasar/challenges.json?v=sound-quasar-items-v2"
+        soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-items-v3"
       }
     },
     dictionaryContent: null,
@@ -104,29 +104,29 @@
           developerContext: {
             gameContent: {
               "verb-lab": {
-                verbNebulaCatalog: "data/games/verb-nebula/core-vocabulary.json"
+                verbNebulaCatalog: "data/games/verb-nebula/content.json"
               },
               "word-net": {
-                wordWorldManifest: "data/games/word-world/manifest.json"
+                wordWorldManifest: "data/games/word-world/manifest.json?v=word-world-token-hints-1"
               },
               "conjugation-comet": {
-                conjugationCometCatalog: "data/games/conjugation-comet/verbs.json?v=conjugation-comet-verbs-4"
+                conjugationCometCatalog: "data/games/conjugation-comet/content.json?v=conjugation-comet-verbs-5"
               },
               "case-cosmos": {
-                caseCosmosCatalog: "data/games/case-cosmos/challenges.json?v=case-cosmos-data-6"
+                caseCosmosCatalog: "data/games/case-cosmos/content.json?v=case-cosmos-data-8"
               },
               "grammar-gravity": {
-                grammarGravityCatalog: "data/games/grammar-gravity/challenges.json?v=grammar-gravity-data-5",
-                grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-3"
+                grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-data-7",
+                grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-4"
               },
               "sound-quasar": {
-                soundQuasarCatalog: "data/games/sound-quasar/challenges.json?v=sound-quasar-items-v2"
+                soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-retained-levels-1"
               }
             },
             dictionaryContent: {
               providerId: "czech-full-dictionary-v1",
               catalog: "data/dictionaries/catalog.json",
-              coreEntries: "data/games/verb-nebula/core-vocabulary.json",
+              coreEntries: "data/games/verb-nebula/content.json",
               scriptLines: "data/language/scripts.json",
               referenceDocument: "data/dictionaries/reference.html"
             },
@@ -148,7 +148,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-30",
+            revision: "interface-en-31",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -174,16 +174,16 @@
           developerContext: {
             gameContent: {
               "verb-lab": {
-                verbNebulaCatalog: "data/games/verb-nebula/core-vocabulary.json"
+                verbNebulaCatalog: "data/games/verb-nebula/content.json"
               },
               "word-net": {
-                wordWorldManifest: "data/games/word-world/manifest.json"
+                wordWorldManifest: "data/games/word-world/manifest.json?v=catalog-files-2"
               },
               "naturalization-nucleus": {
-                naturalizationNucleusCatalog: "data/games/naturalization-nucleus/challenges.json"
+                naturalizationNucleusCatalog: "data/games/naturalization-nucleus/content.json"
               },
               "sound-quasar": {
-                soundQuasarCatalog: "data/games/sound-quasar/challenges.json?v=sound-quasar-items-v2"
+                soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-retained-levels-1"
               }
             },
             dictionaryContent: null,
@@ -205,7 +205,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-30",
+            revision: "interface-en-31",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -231,20 +231,20 @@
           developerContext: {
             gameContent: {
               "verb-lab": {
-                verbNebulaCatalog: "data/games/verb-nebula/core-vocabulary.json"
+                verbNebulaCatalog: "data/games/verb-nebula/content.json"
               },
               "word-net": {
-                wordWorldManifest: "data/games/word-world/manifest.json"
+                wordWorldManifest: "data/games/word-world/manifest.json?v=word-world-context-hints-1"
               },
               "conjugation-comet": {
-                conjugationCometCatalog: "data/games/conjugation-comet/verbs.json?v=conjugation-comet-content-1"
+                conjugationCometCatalog: "data/games/conjugation-comet/content.json?v=conjugation-comet-content-1"
               },
               "grammar-gravity": {
-                grammarGravityCatalog: "data/games/grammar-gravity/challenges.json?v=grammar-gravity-content-3",
-                grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-3"
+                grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-3",
+                grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-4"
               },
               "sound-quasar": {
-                soundQuasarCatalog: "data/games/sound-quasar/challenges.json?v=sound-quasar-items-v2"
+                soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-retained-levels-1"
               }
             },
             dictionaryContent: null,
@@ -266,7 +266,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-30",
+            revision: "interface-en-31",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -292,20 +292,20 @@
           developerContext: {
             gameContent: {
               "verb-lab": {
-                verbNebulaCatalog: "data/games/verb-nebula/core-vocabulary.json"
+                verbNebulaCatalog: "data/games/verb-nebula/content.json"
               },
               "word-net": {
-                wordWorldManifest: "data/games/word-world/manifest.json"
+                wordWorldManifest: "data/games/word-world/manifest.json?v=word-world-context-hints-1"
               },
               "conjugation-comet": {
-                conjugationCometCatalog: "data/games/conjugation-comet/verbs.json?v=conjugation-comet-content-1"
+                conjugationCometCatalog: "data/games/conjugation-comet/content.json?v=conjugation-comet-content-1"
               },
               "grammar-gravity": {
-                grammarGravityCatalog: "data/games/grammar-gravity/challenges.json?v=grammar-gravity-content-2",
-                grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1"
+                grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-2",
+                grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-3"
               },
               "sound-quasar": {
-                soundQuasarCatalog: "data/games/sound-quasar/challenges.json?v=sound-quasar-items-v2"
+                soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-items-v3"
               }
             },
             dictionaryContent: null,
@@ -327,7 +327,7 @@
             schemaVersion: 1,
             locale: "es-ES",
             direction: "ltr",
-            revision: "interface-es-5",
+            revision: "interface-es-6",
             catalog: "/language-runtime/static/data/interface/es.v1.json"
           },
           targetLanguage: {

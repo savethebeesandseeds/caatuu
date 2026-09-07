@@ -40,7 +40,7 @@ function createLearningContext(initial = {}, options = {}) {
       return now;
     }
   }
-  const rows = new Map(Object.entries(initial));
+  const rows = options.rows || new Map(Object.entries(initial));
   const events = [];
   const localStorage = {
     get length() {
@@ -50,12 +50,15 @@ function createLearningContext(initial = {}, options = {}) {
       return [...rows.keys()][index] ?? null;
     },
     getItem(key) {
+      options.beforeRead?.(key, rows);
       return rows.has(key) ? rows.get(key) : null;
     },
     setItem(key, value) {
+      options.beforeWrite?.(key, value, rows);
       rows.set(key, String(value));
     },
     removeItem(key) {
+      options.beforeRemove?.(key, rows);
       rows.delete(key);
     }
   };
@@ -69,6 +72,7 @@ function createLearningContext(initial = {}, options = {}) {
     Date: options.now === undefined ? Date : ScenarioDate,
     window: {
       localStorage,
+      navigator: options.navigator || { locks: { request: async (_name, action) => action() } },
       CustomEvent: TestCustomEvent,
       dispatchEvent(event) {
         events.push(event);
@@ -145,7 +149,7 @@ test("performance aggregates game activity without inventing achievements", () =
 });
 
 for (const legacyId of ["agreement-aurora", "triangular-thermosphere"]) {
-test(`Grammar Gravity preserves ${legacyId} progress without migration writes or extra credit`, () => {
+test(`Grammar Gravity preserves ${legacyId} progress without migration writes or extra credit`, async () => {
   const key = "caatuu-czech.learning.performance.v1";
   const saved = JSON.stringify({
     schemaVersion: 1,
@@ -170,6 +174,7 @@ test(`Grammar Gravity preserves ${legacyId} progress without migration writes or
   for (const gameId of ["grammar-gravity", "agreement-aurora", "triangular-thermosphere"]) {
     learning.record(gameId, { activities: 1, attempts: 1, successes: 1 });
   }
+  await learning.retryPendingSaves();
   const stored = JSON.parse(rows.get(key));
   assert.deepEqual(Object.keys(stored.games), ["grammar-gravity"]);
   assert.equal(stored.games["grammar-gravity"].activities, 9);
@@ -183,7 +188,7 @@ test(`Grammar Gravity preserves ${legacyId} progress without migration writes or
 });
 }
 
-test("all three historical game identities coalesce once in profile and journey summaries", () => {
+test("all three historical game identities coalesce once in profile and journey summaries", async () => {
   const games = {
     "agreement-aurora": {
       activities: 6, attempts: 7, successes: 5, xp: 5, rounds: 2,
@@ -220,6 +225,7 @@ test("all three historical game identities coalesce once in profile and journey 
     }
     assert.equal(learning.snapshot().journey.summary.xp, 29);
     assert.equal(learning.snapshot().journey.summary.xp, 29, "repeated reads must not remigrate counters");
+    await learning.retryPendingSaves();
     const stored = JSON.parse(rows.get("caatuu-czech.learning.performance.v1"));
     assert.equal(stored.games["agreement-aurora"], undefined);
     assert.equal(stored.games["triangular-thermosphere"], undefined);
@@ -408,7 +414,7 @@ test("legacy game records use successes as XP until an explicit XP total exists"
   assert.equal(learning.snapshot().summary.successes, 2);
 });
 
-test("existing Verb Nebula statistics migrate once into the global learning record", () => {
+test("existing Verb Nebula statistics migrate once into the global learning record", async () => {
   const legacy = JSON.stringify({
     schemaVersion: 2,
     stats: { attempts: 7, matches: 5, rounds: 2 }
@@ -418,6 +424,7 @@ test("existing Verb Nebula statistics migrate once into the global learning reco
   });
   assert.equal(learning.snapshot().summary.accuracy, 71);
   assert.equal(learning.snapshot().summary.xp, 5);
+  await learning.retryPendingSaves();
   assert.ok(rows.has("caatuu-czech.learning.performance.v1"));
   learning.record("verb-nebula", { activities: 1, attempts: 1, successes: 1 });
   assert.equal(learning.snapshot().summary.attempts, 8);
@@ -474,6 +481,234 @@ test("progress-reset preparers drain before reset, can unregister, and fail with
     3,
     "a rejected preparation must leave global progress untouched"
   );
+});
+
+const progressKey = "caatuu-czech.learning.performance.v1";
+const pendingProgressKeys = (rows) => [...rows.keys()].filter((key) => key.startsWith(`${progressKey}.pending.`));
+const savedProgress = (xp) => JSON.stringify({ schemaVersion: 1, games: { "word-world": { xp, activities: xp } } });
+
+test("an answer survives immediate reload before asynchronous compaction, including without Web Locks", async () => {
+  const rows = new Map();
+  const first = createLearningContext({}, { rows, navigator: {} });
+  first.learning.record("word-world", { xp: 3, activities: 1 });
+  assert.equal(pendingProgressKeys(rows).length, 1, "the journal must exist before record returns");
+  assert.equal(rows.has(progressKey), false);
+  const reloaded = createLearningContext({}, { rows, navigator: {} });
+  assert.equal(reloaded.learning.snapshot().summary.xp, 3);
+  await reloaded.learning.retryPendingSaves();
+  assert.equal(pendingProgressKeys(rows).length, 1, "an unsupported lock must retain the durable answer");
+  const supported = createLearningContext({}, { rows });
+  await supported.learning.retryPendingSaves();
+  assert.equal(supported.learning.snapshot().summary.xp, 3);
+  assert.equal(pendingProgressKeys(rows).length, 0);
+});
+
+test("two tabs contribute independent answers before either can compact", async () => {
+  const rows = new Map([[progressKey, savedProgress(7)]]);
+  let release;
+  const gate = new Promise((resolve) => { release = resolve; });
+  let serial = Promise.resolve();
+  const navigator = { locks: { request(_name, action) {
+    serial = serial.then(async () => { await gate; return action(); });
+    return serial;
+  } } };
+  const first = createLearningContext({}, { rows, navigator });
+  const second = createLearningContext({}, { rows, navigator });
+  first.learning.record("word-world", { xp: 2 });
+  second.learning.record("word-world", { xp: 3 });
+  assert.equal(pendingProgressKeys(rows).length, 2);
+  assert.equal(first.learning.snapshot().summary.xp, 12);
+  release();
+  await Promise.all([first.learning.retryPendingSaves(), second.learning.retryPendingSaves()]);
+  assert.equal(createLearningContext({}, { rows }).learning.snapshot().summary.xp, 12);
+  assert.equal(pendingProgressKeys(rows).length, 0);
+});
+
+test("a failed mirrored checkpoint survives reload and retries without double credit", async () => {
+  const rows = new Map([[progressKey, savedProgress(7)], [`${progressKey}.backup`, savedProgress(7)]]);
+  const first = createLearningContext({}, { rows, beforeWrite(key) {
+    if (key === `${progressKey}.backup`) throw new Error("disk full");
+  } });
+  first.learning.record("word-world", { xp: 3 });
+  await first.learning.retryPendingSaves();
+  assert.equal(first.learning.saveStatus().status, "error");
+  assert.equal(pendingProgressKeys(rows).length, 1);
+  assert.equal(JSON.parse(rows.get(progressKey)).games["word-world"].xp, 10);
+  const reloaded = createLearningContext({}, { rows });
+  await reloaded.learning.retryPendingSaves();
+  assert.equal(reloaded.learning.snapshot().summary.xp, 10);
+  assert.equal(pendingProgressKeys(rows).length, 0);
+  assert.equal(rows.get(progressKey), rows.get(`${progressKey}.backup`));
+});
+
+test("a committed answer left behind by failed cleanup is never credited twice", async () => {
+  const rows = new Map();
+  const first = createLearningContext({}, { rows, beforeRemove(key) {
+    if (key.startsWith(`${progressKey}.pending.`)) throw new Error("cleanup interrupted");
+  } });
+  first.learning.record("word-world", { xp: 3 });
+  await first.learning.retryPendingSaves();
+  assert.equal(first.learning.saveStatus().status, "error");
+  assert.equal(pendingProgressKeys(rows).length, 1);
+  const reloaded = createLearningContext({}, { rows });
+  reloaded.learning.record("word-world", { xp: 2 });
+  await reloaded.learning.retryPendingSaves();
+  assert.equal(reloaded.learning.snapshot().summary.xp, 5);
+  assert.equal(pendingProgressKeys(rows).length, 0);
+});
+
+test("failed journal writes remain visible in memory, report failure, and retry exactly once", async () => {
+  let full = true;
+  const { learning, rows, events } = createLearningContext({}, { beforeWrite(key) {
+    if (full && key.startsWith(`${progressKey}.pending.`)) throw new Error("quota exceeded");
+  } });
+  learning.record("word-world", { xp: 3 });
+  await learning.retryPendingSaves();
+  assert.equal(learning.snapshot().summary.xp, 3);
+  assert.equal(learning.saveStatus().status, "error");
+  assert.equal(rows.has(progressKey), false, "never commit an undurable event receipt");
+  full = false;
+  await learning.retryPendingSaves();
+  await learning.retryPendingSaves();
+  assert.equal(learning.snapshot().summary.xp, 3);
+  assert.equal(learning.saveStatus().status, "saved");
+  assert.deepEqual(events.filter((event) => event.type === "caatuu:progress-save-status")
+    .map((event) => event.detail.status), ["error", "saved"]);
+});
+
+test("a damaged primary recovers from its backup while preserving the unreadable original", async () => {
+  const rows = new Map([[progressKey, "{interrupted"], [`${progressKey}.backup`, savedProgress(7)]]);
+  const { learning } = createLearningContext({}, { rows });
+  assert.equal(learning.snapshot().summary.xp, 7);
+  learning.record("word-world", { xp: 3 });
+  await learning.retryPendingSaves();
+  assert.equal(learning.snapshot().summary.xp, 10);
+  assert.equal(rows.get(`${progressKey}.damaged`), "{interrupted");
+  assert.equal(learning.saveStatus().status, "saved");
+});
+
+test("Retry repairs readable recovery copies without requiring the learner to play again", async () => {
+  const historyKey = "caatuu-test.history";
+  const rows = new Map([[progressKey, "{broken"], [`${progressKey}.backup`, savedProgress(7)],
+    [historyKey, "{broken-history"], [`${historyKey}.backup`, JSON.stringify(["earned phrase"])]]);
+  const { learning } = createLearningContext({}, { rows });
+  assert.equal(learning.snapshot().summary.xp, 7);
+  assert.equal(learning.readGameState(historyKey, { validate: Array.isArray })[0], "earned phrase");
+  await learning.retryPendingSaves();
+  assert.equal(learning.saveStatus().status, "saved");
+  assert.equal(JSON.parse(rows.get(progressKey)).games["word-world"].xp, 7);
+  assert.deepEqual(JSON.parse(rows.get(historyKey)), ["earned phrase"]);
+  assert.equal(rows.get(`${historyKey}.damaged`), "{broken-history");
+});
+
+for (const unreadable of ["{broken", JSON.stringify({ schemaVersion: 99, games: { "word-world": { xp: 20 } } })]) {
+  test(`unrecoverable or newer progress is preserved, never replaced by defaults: ${unreadable}`, async () => {
+    const { learning, rows } = createLearningContext({ [progressKey]: unreadable });
+    learning.record("word-world", { xp: 3 });
+    await learning.retryPendingSaves();
+    assert.equal(rows.get(progressKey), unreadable);
+    assert.equal(pendingProgressKeys(rows).length, 1);
+    assert.equal(learning.saveStatus().status, "error");
+  });
+}
+
+test("a temporary read failure cannot replace existing totals and recovers on retry", async () => {
+  let blocked = true;
+  const { learning, rows } = createLearningContext({ [progressKey]: savedProgress(7) }, { beforeRead(key) {
+    if (blocked && key === progressKey) throw new Error("storage unavailable");
+  } });
+  learning.record("word-world", { xp: 3 });
+  await learning.retryPendingSaves();
+  assert.equal(rows.get(progressKey), savedProgress(7));
+  blocked = false;
+  await learning.retryPendingSaves();
+  assert.equal(learning.snapshot().summary.xp, 10);
+  assert.equal(learning.saveStatus().status, "saved");
+});
+
+test("partial journal reads cannot drop receipts or delete unseen answers", async () => {
+  const rows = new Map();
+  const seed = createLearningContext({}, { rows, navigator: {} });
+  seed.learning.record("word-world", { xp: 3 });
+  const hiddenKey = pendingProgressKeys(rows)[0];
+  let blocked = true;
+  const { learning } = createLearningContext({}, { rows, beforeRead(key) {
+    if (blocked && key === hiddenKey) throw new Error("read interrupted");
+  } });
+  learning.record("word-world", { xp: 2 });
+  await learning.retryPendingSaves();
+  assert.equal(pendingProgressKeys(rows).length, 2);
+  assert.equal(rows.has(progressKey), false);
+  blocked = false;
+  await learning.retryPendingSaves();
+  assert.equal(learning.snapshot().summary.xp, 5);
+  assert.equal(learning.saveStatus().status, "saved");
+});
+
+test("unreadable journal records remain untouched and do not crash profile reads", async () => {
+  const malformedKey = `${progressKey}.pending.12`;
+  const malformed = JSON.stringify({ schemaVersion: 1, id: 12, gameId: "word-world", at: null, delta: {}, generation: "legacy" });
+  const { learning, rows } = createLearningContext({ [malformedKey]: malformed });
+  learning.record("word-world", { xp: 3 });
+  await learning.retryPendingSaves();
+  assert.equal(learning.snapshot().summary.xp, 3);
+  assert.equal(rows.get(malformedKey), malformed);
+  assert.equal(learning.saveStatus().status, "error");
+});
+
+test("a journal recovered by another tab releases the local retry warning", async () => {
+  let failRemoval = true;
+  const rows = new Map();
+  const first = createLearningContext({}, { rows, beforeRemove(key) {
+    if (failRemoval && key.startsWith(`${progressKey}.pending.`)) throw new Error("cleanup interrupted");
+  } });
+  first.learning.record("word-world", { xp: 3 });
+  await first.learning.retryPendingSaves();
+  assert.equal(first.learning.saveStatus().status, "error");
+  const second = createLearningContext({}, { rows });
+  await second.learning.retryPendingSaves();
+  assert.equal(pendingProgressKeys(rows).length, 0);
+  failRemoval = false;
+  await first.learning.retryPendingSaves();
+  assert.equal(first.learning.saveStatus().status, "saved");
+  assert.equal(first.learning.snapshot().summary.xp, 3);
+});
+
+test("a failed provider retry is reported without an unhandled rejection and can recover", async () => {
+  const { learning } = createLearningContext();
+  let unavailable = true;
+  learning.registerSaveRetry(() => {
+    if (unavailable) throw new Error("provider unavailable");
+  });
+  assert.equal((await learning.retryPendingSaves()).status, "error");
+  unavailable = false;
+  assert.equal((await learning.retryPendingSaves()).status, "saved");
+});
+
+test("a reset fences queued compaction and retains answers earned after the latest reset", async () => {
+  const rows = new Map([[progressKey, savedProgress(7)]]);
+  let release;
+  const gate = new Promise((resolve) => { release = resolve; });
+  const navigator = { locks: { request: async (_name, action) => { await gate; return action(); } } };
+  const first = createLearningContext({}, { rows, navigator });
+  const second = createLearningContext({}, { rows, navigator });
+  first.learning.record("word-world", { xp: 3 });
+  second.learning.resetProgress();
+  first.learning.record("word-world", { xp: 2 });
+  second.learning.resetProgress();
+  first.learning.record("word-world", { xp: 4 });
+  release();
+  await Promise.all([first.learning.retryPendingSaves(), second.learning.retryPendingSaves()]);
+  assert.equal(createLearningContext({}, { rows }).learning.snapshot().summary.xp, 4);
+});
+
+test("a failed explicit reset leaves earned progress intact", async () => {
+  const { learning, rows } = createLearningContext({ [progressKey]: savedProgress(7) }, { beforeWrite(key) {
+    if (key === `${progressKey}.reset`) throw new Error("reset cannot save");
+  } });
+  assert.throws(() => learning.resetProgress(), /reset cannot save/);
+  assert.equal(learning.snapshot().summary.xp, 7);
+  assert.equal(rows.get(progressKey), savedProgress(7));
 });
 
 test("the backpack progression hub and both active games use the global learning contract", () => {

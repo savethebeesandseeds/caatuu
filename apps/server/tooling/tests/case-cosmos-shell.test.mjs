@@ -3,10 +3,11 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const staticRoot = new URL("../../../../apps/languages/czech/static/", import.meta.url);
-const [controller, pack] = await Promise.all([
+const [controller, catalog] = await Promise.all([
   readFile(new URL("source/games/case-cosmos/case-cosmos-content.mjs", staticRoot), "utf8"),
-  readFile(new URL("data/games/case-cosmos/challenges.json", staticRoot), "utf8").then(JSON.parse)
+  readFile(new URL("data/games/case-cosmos/content.json", staticRoot), "utf8").then(JSON.parse)
 ]);
+const pack = catalog.legacyNouns;
 
 test("the direct JSON keeps the first Case Cosmos content boundary small and inspectable", () => {
   const caseNames = ["Nominative", "Genitive", "Dative", "Accusative", "Vocative", "Locative", "Instrumental"];

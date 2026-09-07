@@ -90,127 +90,7 @@
   gap: 8px;
 }
 
-.word-net-word-translation {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  z-index: 3;
-  box-sizing: border-box;
-  width: 244px;
-  padding: 10px;
-  border: 1px solid var(--theme-control-border, #b8c5bd);
-  border-radius: 9px;
-  background: var(--theme-paper, #f1ece2);
-  color: var(--theme-green-strong, #1c4a40);
-  box-shadow: 0 8px 20px rgba(23, 32, 29, 0.08);
-  display: block;
-  line-height: 1.2;
-  overflow: visible;
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-}
-
-html[data-theme="dark"] .word-net-word-translation {
-  background: color-mix(in srgb, var(--theme-control-bg, #181f1c) 92%, transparent);
-}
-
-.word-net-word-translation[hidden] {
-  display: none;
-}
-
-.word-net-word-card-copy {
-  min-width: 0;
-  display: grid;
-  grid-template-rows: auto auto auto;
-  align-content: start;
-  gap: 3px;
-}
-
-.word-net-word-pronounce.word-net-sound-toggle {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 34px;
-  height: 34px;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  color: var(--theme-amber, #b77726);
-  z-index: 2;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-}
-
-.word-net-word-pronounce.word-net-sound-toggle:hover,
-.word-net-word-pronounce.word-net-sound-toggle:focus-visible,
-.word-net-word-pronounce.word-net-sound-toggle.is-speaking {
-  border-color: transparent;
-  background: transparent;
-  color: color-mix(in srgb, var(--theme-amber, #b77726) 82%, var(--theme-ink, #17201d));
-  box-shadow: none;
-}
-
-.word-net-word-pronounce.word-net-sound-toggle:focus-visible {
-  outline: 3px solid var(--theme-focus-ring, #5b8fc3);
-  outline-offset: -3px;
-  border-radius: 999px;
-}
-
-.word-net-word-pronounce.word-net-sound-toggle:disabled {
-  cursor: not-allowed;
-  opacity: 0.4;
-}
-
-.word-net-word-heading {
-  min-width: 0;
-  min-height: 30px;
-  padding-left: 38px;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 6px;
-}
-
-.word-net-word-heading strong {
-  min-width: 0;
-  font-size: 0.98rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.word-net-word-pos {
-  flex: 0 0 auto;
-  color: var(--theme-quiet, #74817b);
-  font-size: 0.62rem;
-  font-weight: 850;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  text-align: right;
-}
-
-.word-net-word-meaning {
-  color: var(--theme-entry-accent, #8f4b40);
-  font-size: 0.74rem;
-  overflow-wrap: anywhere;
-  display: block;
-}
-
-.word-net-word-meta {
-  color: var(--theme-quiet, #74817b);
-  font-size: 0.62rem;
-  display: block;
-}
-
-.word-net-word-translation.is-loading .word-net-word-meaning,
-.word-net-word-translation.is-loading .word-net-word-meta {
-  color: var(--theme-quiet, #74817b);
-}
-
-.word-net-word-translation.is-translation-off .word-net-word-meaning {
-  color: var(--theme-quiet, #74817b);
-}
+.word-net-word-translation.dictionary-word-card { position: absolute; top: 14px; left: 14px; z-index: 3; }
 
 .word-net-display-menu,
 .word-net-audio-menu,
@@ -2332,12 +2212,7 @@ html[data-theme="dark"] .word-net-trail-head {
     right: 7px;
   }
 
-  .word-net-word-translation {
-    top: 12px;
-    left: 12px;
-    width: 176px;
-    padding: 8px;
-  }
+  .word-net-word-translation.dictionary-word-card { top: 12px; left: 12px; }
 
   .word-net-scene {
     inset: 120px 14px auto;
@@ -2399,25 +2274,6 @@ html[data-theme="dark"] .word-net-trail-head {
   }
 }
 
-@media (max-width: 380px) {
-  .word-net-word-translation {
-    width: 140px;
-  }
-
-  .word-net-word-heading {
-    padding-left: 36px;
-  }
-
-  .word-net-word-pronounce.word-net-sound-toggle {
-    top: 0;
-    left: 0;
-  }
-
-  .word-net-word-pos {
-    display: none;
-  }
-}
-
 @media (max-width: 430px) {
   .word-net-page .app-header::after {
     content: none;
@@ -2458,43 +2314,6 @@ html[data-theme="dark"] .word-net-trail-head {
 #wordNetInstructions {
   color: var(--theme-quiet, #74817b);
   font-size: 0.68rem;
-}
-
-.word-net-word-translation {
-  width: fit-content;
-  max-width: 244px;
-}
-
-@media (max-width: 560px) {
-  .word-net-word-translation {
-    max-width: 176px;
-  }
-}
-
-.word-net-word-heading {
-  padding-left: 0;
-  display: grid;
-  grid-template-columns: 38px minmax(0, 1fr) 38px;
-  align-items: center;
-}
-
-.word-net-word-heading strong {
-  grid-column: 2;
-  text-align: center;
-}
-
-.word-net-word-meaning {
-  text-align: center;
-}
-
-.word-net-word-heading strong.has-target-text-guide {
-  padding-top: 0.32rem;
-  overflow: visible;
-  text-overflow: clip;
-}
-
-.word-net-word-pos {
-  grid-column: 3;
 }
 
 .word-net-generation-menu button[data-challenge-prompt-mode] {
@@ -2609,14 +2428,4 @@ html[data-theme="dark"] .word-net-target-text-unit[data-tone="4"] .word-net-targ
 
 .word-net-trail-base {
   color: var(--theme-green-strong, #1c4a40);
-}
-
-@media (max-width: 380px) {
-  .word-net-word-translation {
-    max-width: 140px;
-  }
-
-  .word-net-word-heading {
-    grid-template-columns: 36px minmax(0, 1fr) 36px;
-  }
 }

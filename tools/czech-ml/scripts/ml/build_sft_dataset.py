@@ -87,7 +87,7 @@ def correction_examples(sentences: list[str], *, limit: int) -> list[dict[str, A
 
 def app_data_examples() -> list[dict[str, Any]]:
     examples: list[dict[str, Any]] = []
-    dictionary = load_json(APP_DATA / "games" / "verb-nebula" / "core-vocabulary.json")
+    dictionary = load_json(APP_DATA / "games" / "verb-nebula" / "content.json")
     scripts = load_json(APP_DATA / "language" / "scripts.json")
     verbs = load_json(APP_DATA / "games" / "conjugation-comet" / "verbs.json")
 

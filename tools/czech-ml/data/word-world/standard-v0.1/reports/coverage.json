@@ -6,7 +6,8 @@
     "tools/czech-ml/data/word-world/standard-v0.1/source/codex-level3-0001-reviewed.jsonl",
     "tools/czech-ml/data/word-world/standard-v0.1/source/codex-reflexive-0001-reviewed.jsonl",
     "tools/czech-ml/data/word-world/standard-v0.1/source/common-phrases-pilot.jsonl",
-    "tools/czech-ml/data/word-world/standard-v0.1/editorial-overrides.json"
+    "tools/czech-ml/data/word-world/standard-v0.1/editorial-overrides.json",
+    "tools/czech-ml/data/word-world/standard-v0.1/token-meanings.json"
   ],
   "editorialOverrides": {
     "file": "tools/czech-ml/data/word-world/standard-v0.1/editorial-overrides.json",

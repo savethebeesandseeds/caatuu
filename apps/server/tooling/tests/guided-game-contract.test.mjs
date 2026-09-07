@@ -14,7 +14,7 @@ const [app, indexHtml, comet, cometHtml, wordWorld, wordWorldProvider, wordWorld
   readFile(productWordWorld, "utf8"),
   readFile(wordWorldProviderUrl, "utf8"),
   readFile(new URL("word-net.html", staticRoot), "utf8"),
-  readFile(new URL("data/games/conjugation-comet/verbs.json", staticRoot), "utf8").then(JSON.parse),
+  readFile(new URL("data/games/conjugation-comet/content.json", staticRoot), "utf8").then(JSON.parse),
   readFile(new URL("data/language/scripts.json", staticRoot), "utf8").then(JSON.parse)
 ]);
 

@@ -57,21 +57,142 @@
     return difficultyLevels.some((option) => option.level === level) ? level : 1;
   };
 
-  const readJson = (key) => {
+  const saveFailures = new Map();
+  const retryHandlers = new Set();
+  const pendingValues = new Map();
+  const damagedValues = new Map();
+  const gameStateVersions = new Map();
+  const gameStateValidators = new Map();
+  const journalPrefix = `${performanceStorageKey}.pending.`;
+  const resetKey = `${performanceStorageKey}.reset`;
+  const pendingEvents = new Map();
+  const uniqueId = () => window.crypto?.randomUUID?.()
+    || `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}-${Math.random().toString(36).slice(2)}`;
+  let lastSaveStatus = "saved";
+  let compaction = null;
+  let lockDatabase = null;
+
+  const saveStatus = () => ({ status: saveFailures.size ? "error" : "saved" });
+  const announceSaveStatus = () => {
+    const status = saveStatus();
+    if (status.status === lastSaveStatus) return;
+    lastSaveStatus = status.status;
+    if (typeof window.CustomEvent === "function") {
+      window.dispatchEvent?.(new window.CustomEvent("caatuu:progress-save-status", { detail: status }));
+    }
+  };
+  const reportSaveFailure = (key, error) => {
+    saveFailures.set(key, error);
+    announceSaveStatus();
+  };
+  const clearSaveFailure = (key) => {
+    saveFailures.delete(key);
+    announceSaveStatus();
+  };
+
+  // Keep a second committed copy. Never replace unreadable/future data with defaults.
+  const readJson = (key, options = {}, includePending = true) => {
+    if (!key) return null;
+    if (Number.isInteger(options.maxSchemaVersion)) gameStateVersions.set(key, options.maxSchemaVersion);
+    if (typeof options.validate === "function") gameStateValidators.set(key, options.validate);
+    if (includePending && pendingValues.has(key)) return pendingValues.get(key);
+    const maximumVersion = gameStateVersions.get(key)
+      ?? ([performanceStorageKey, preferenceStorageKey, streakStorageKey].includes(key) ? schemaVersion : Infinity);
+    const decode = (raw) => {
+      const value = JSON.parse(raw || "null");
+      if (value && typeof value.schemaVersion === "number" && value.schemaVersion > maximumVersion) {
+        damagedValues.set(key, { raw, future: true });
+        throw new Error("Progress was saved by a newer app version.");
+      }
+      if (value !== null && gameStateValidators.has(key) && !gameStateValidators.get(key)(value)) {
+        throw new Error("Stored game progress needs recovery.");
+      }
+      return value;
+    };
+    let raw;
     try {
-      return JSON.parse(window.localStorage.getItem(key) || "null");
+      raw = window.localStorage.getItem(key);
+      const value = decode(raw);
+      const result = value === null ? decode(window.localStorage.getItem(`${key}.backup`)) : value;
+      damagedValues.delete(key);
+      clearSaveFailure(`read:${key}`);
+      return result;
     } catch (error) {
-      return null;
+      if (typeof raw === "string" && !damagedValues.has(key)) damagedValues.set(key, { raw });
+      reportSaveFailure(`read:${key}`, error);
+      try {
+        const backup = decode(window.localStorage.getItem(`${key}.backup`));
+        if (damagedValues.has(key)) damagedValues.get(key).recoverable = backup !== null;
+        return backup;
+      }
+      catch { return null; }
     }
   };
 
-  const writeJson = (key, value) => {
+  const writeJson = (key, value, retainPending = true) => {
     try {
-      window.localStorage.setItem(key, JSON.stringify(value));
+      const damaged = damagedValues.get(key);
+      if (saveFailures.has(`read:${key}`) && !damaged) throw new Error("Existing progress could not be read safely.");
+      if (damaged) {
+        if (damaged.future) throw new Error("A newer progress format must not be overwritten.");
+        if (!damaged.recoverable) throw new Error("Unreadable progress must be recovered before replacing it.");
+        const preserved = window.localStorage.getItem(`${key}.damaged`);
+        if (preserved !== null && preserved !== damaged.raw) throw new Error("Unrecovered progress already exists.");
+        window.localStorage.setItem(`${key}.damaged`, damaged.raw);
+      }
+      const raw = JSON.stringify(value);
+      window.localStorage.setItem(key, raw);
+      window.localStorage.setItem(`${key}.backup`, raw);
+      pendingValues.delete(key);
+      damagedValues.delete(key);
+      clearSaveFailure(`read:${key}`);
+      clearSaveFailure(`write:${key}`);
       return true;
     } catch (error) {
+      if (retainPending) pendingValues.set(key, value);
+      reportSaveFailure(`write:${key}`, error);
       return false;
     }
+  };
+
+  const removeGameState = (key) => {
+    try {
+      window.localStorage.removeItem(`${key}.backup`);
+      window.localStorage.removeItem(key);
+      pendingValues.delete(key);
+      damagedValues.delete(key);
+      clearSaveFailure(`read:${key}`);
+      clearSaveFailure(`write:${key}`);
+      return true;
+    } catch (error) { reportSaveFailure(`write:${key}`, error); throw error; }
+  };
+
+  // Every answer is synchronously journaled before returning to gameplay. The
+  // compact totals remain at their historical key for browser/APK compatibility.
+  // Only compaction needs a cross-tab lock; unique journal entries never collide.
+  const withProgressLock = (action) => {
+    if (window.navigator?.locks?.request) return window.navigator.locks.request("caatuu-progress", action);
+    if (!window.indexedDB) return Promise.resolve(); // Keep the durable journal intact.
+    lockDatabase ||= new Promise((resolve, reject) => {
+      const request = window.indexedDB.open("caatuu.progress-locks.v1", 1);
+      request.onupgradeneeded = () => request.result.createObjectStore("lock");
+      request.onsuccess = () => {
+        const database = request.result;
+        database.onversionchange = () => { database.close(); lockDatabase = null; };
+        resolve(database);
+      };
+      request.onerror = () => { lockDatabase = null; reject(request.error); };
+      request.onblocked = () => { lockDatabase = null; reject(new Error("Progress storage is busy.")); };
+    });
+    return lockDatabase.then((database) => new Promise((resolve, reject) => {
+      const transaction = database.transaction("lock", "readwrite");
+      const request = transaction.objectStore("lock").get("writer");
+      request.onsuccess = () => {
+        try { action(); } catch (error) { transaction.abort(); reject(error); }
+      };
+      transaction.oncomplete = resolve;
+      transaction.onerror = transaction.onabort = () => reject(transaction.error || new Error("Progress save interrupted."));
+    }));
   };
 
   const emptyPerformance = () => ({
@@ -378,12 +499,154 @@
     return performance;
   };
 
-  const readPerformance = () => {
-    const stored = readJson(performanceStorageKey);
-    if (stored?.schemaVersion === schemaVersion) return normalizePerformance(stored);
-    const migrated = migrateLegacyPerformance();
-    if (Object.keys(migrated.games).length) writeJson(performanceStorageKey, migrated);
-    return migrated;
+  const validPerformance = (value) => value?.schemaVersion === schemaVersion
+    && value.games && typeof value.games === "object" && !Array.isArray(value.games);
+
+  const journalEntries = (storageKey = performanceStorageKey) => {
+    const prefix = `${storageKey}.pending.`;
+    const entries = new Map(storageKey === performanceStorageKey ? pendingEvents : []);
+    try {
+      const storage = window.localStorage;
+      const keys = Array.from({ length: storage.length }, (_, index) => storage.key(index));
+      for (const key of keys) {
+        if (!key?.startsWith(prefix)) continue;
+        try {
+          const entry = JSON.parse(storage.getItem(key));
+          if (entry === null) continue; // Another tab finished compaction.
+          if (entry.schemaVersion !== 1 || typeof entry.id !== "string" || key !== `${prefix}${entry.id}`
+            || !/^[a-z0-9-]{1,40}$/.test(entry.gameId) || !entry.delta
+            || typeof entry.delta !== "object" || Array.isArray(entry.delta)
+            || typeof entry.generation !== "string" || typeof entry.at !== "string" || !validDate(entry.at)) {
+            throw new Error("Unreadable pending progress must be preserved.");
+          }
+          entries.set(entry.id, entry);
+          clearSaveFailure(`journal:${key}`);
+        } catch (error) { reportSaveFailure(`journal:${key}`, error); }
+      }
+      for (const failure of saveFailures.keys()) {
+        if (!failure.startsWith(`journal:${prefix}`)) continue;
+        const key = failure.slice("journal:".length);
+        if (!pendingEvents.has(key.slice(prefix.length)) && storage.getItem(key) === null) clearSaveFailure(failure);
+      }
+      clearSaveFailure(`journal-read:${storageKey}`);
+    } catch (error) { reportSaveFailure(`journal-read:${storageKey}`, error); }
+    return [...entries.values()].sort((a, b) => a.at.localeCompare(b.at) || a.id.localeCompare(b.id));
+  };
+
+  const performanceState = (storageKey = performanceStorageKey) => {
+    let stored = readJson(storageKey);
+    if (stored !== null && !validPerformance(stored)) {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        damagedValues.set(storageKey, { raw, future: stored?.schemaVersion > schemaVersion });
+        const backup = JSON.parse(window.localStorage.getItem(`${storageKey}.backup`) || "null");
+        stored = validPerformance(backup) ? backup : null;
+        damagedValues.get(storageKey).recoverable = stored !== null;
+      } catch { stored = null; }
+      reportSaveFailure(`read:${storageKey}`, new Error("Stored progress needs recovery."));
+    }
+    let blocked = (saveFailures.has(`read:${storageKey}`) && (!stored || !damagedValues.has(storageKey)))
+      || (damagedValues.has(storageKey) && (!stored || damagedValues.get(storageKey).future));
+    let base = stored || (storageKey === performanceStorageKey && !blocked ? migrateLegacyPerformance() : emptyPerformance());
+    // A separate atomic reset marker fences out a compactor in another tab that
+    // started before the reset. Its old totals cannot resurrect cleared progress.
+    try {
+      const reset = window.localStorage.getItem(`${storageKey}.reset`);
+      if (reset && reset !== base.journalGeneration) base = { ...emptyPerformance(), journalGeneration: reset };
+    } catch (error) { blocked = true; reportSaveFailure(`read:${storageKey}`, error); }
+    const performance = normalizePerformance(base);
+    const generation = typeof base.journalGeneration === "string" ? base.journalGeneration : "legacy";
+    const applied = new Set(Array.isArray(base.journalApplied) ? base.journalApplied : []);
+    const entries = journalEntries(storageKey).filter((entry) => entry.generation === generation);
+    for (const entry of entries) {
+      if (applied.has(entry.id)) continue;
+      const current = normalizeGamePerformance(performance.games[entry.gameId]);
+      for (const field of ["activities", "attempts", "successes", "xp", "rounds"]) current[field] += safeCount(entry.delta[field]);
+      if (!current.lastPlayedAt || entry.at > current.lastPlayedAt) current.lastPlayedAt = entry.at;
+      performance.games[entry.gameId] = current;
+      if (!performance.updatedAt || entry.at > performance.updatedAt) performance.updatedAt = entry.at;
+    }
+    return { performance, generation, entries, blocked, applied };
+  };
+
+  const readPerformance = () => performanceState().performance;
+
+  const persistEvent = (entry) => {
+    const key = `${journalPrefix}${entry.id}`;
+    try {
+      window.localStorage.setItem(key, JSON.stringify(entry));
+      pendingEvents.delete(entry.id);
+      clearSaveFailure(`journal:${key}`);
+      return true;
+    } catch (error) {
+      pendingEvents.set(entry.id, entry);
+      reportSaveFailure(`journal:${key}`, error);
+      return false;
+    }
+  };
+
+  const compactProgress = () => {
+    for (const entry of [...pendingEvents.values()]) persistEvent(entry);
+    if (pendingEvents.size) throw new Error("An answer is still waiting to be journaled.");
+    const state = performanceState();
+    if (state.blocked) throw new Error("Existing progress must be recovered before replacing it.");
+    if ([...saveFailures.keys()].some((key) => key.startsWith(`journal:${journalPrefix}`)
+      || key === `journal-read:${performanceStorageKey}`)) throw new Error("Pending progress could not be read completely.");
+    if (!state.entries.length && !damagedValues.has(performanceStorageKey)
+      && (window.localStorage.getItem(performanceStorageKey) !== null
+      || !Object.keys(state.performance.games).length)) return;
+    const applied = new Set(state.entries.map((entry) => entry.id));
+    for (const id of state.applied) {
+      if (window.localStorage.getItem(`${journalPrefix}${id}`) !== null) applied.add(id);
+    }
+    const value = { ...state.performance, journalGeneration: state.generation, journalApplied: [...applied] };
+    if (!writeJson(performanceStorageKey, value, false)) throw new Error("Progress checkpoint could not be saved.");
+    for (const entry of state.entries) {
+      if (entry.delta.rounds && (entry.delta.successes || entry.delta.xp || entry.delta.streakEligible)) {
+        updateStreakForQualification(entry.at);
+      }
+    }
+    if (saveFailures.has(`write:${streakStorageKey}`)) throw new Error("Streak save is still pending.");
+    // Both copies contain receipts before deletion. A crash at any intermediate
+    // point therefore replays the journal without duplicating earned progress.
+    for (const entry of state.entries) {
+      const key = `${journalPrefix}${entry.id}`;
+      try {
+        window.localStorage.removeItem(key);
+        pendingEvents.delete(entry.id);
+        clearSaveFailure(`journal:${key}`);
+      } catch (error) { reportSaveFailure(`journal:${key}`, error); }
+    }
+  };
+
+  const scheduleCompaction = () => {
+    if (compaction) return compaction;
+    compaction = Promise.resolve().then(() => withProgressLock(compactProgress))
+      .then(() => { clearSaveFailure("checkpoint"); })
+      .catch((error) => { reportSaveFailure("checkpoint", error); })
+      .finally(() => { compaction = null; });
+    return compaction;
+  };
+
+  const retryPendingSaves = async () => {
+    for (const key of [...damagedValues.keys()]) {
+      if (performanceStoragePattern.test(key) || pendingValues.has(key)) continue;
+      const recovered = readJson(key, {}, false);
+      const damaged = damagedValues.get(key);
+      if (damaged?.recoverable && !damaged.future) writeJson(key, recovered);
+    }
+    for (const [key, value] of pendingValues) {
+      readJson(key, {}, false);
+      writeJson(key, value);
+    }
+    for (const entry of [...pendingEvents.values()]) persistEvent(entry);
+    if (compaction) await compaction;
+    await scheduleCompaction();
+    const retries = await Promise.allSettled([...retryHandlers].map((handler) => Promise.resolve().then(handler)));
+    const failed = retries.find((result) => result.status === "rejected");
+    if (failed) reportSaveFailure("retry", failed.reason);
+    else clearSaveFailure("retry");
+    return saveStatus();
   };
 
   const readDifficulty = () => normalizeDifficulty(readJson(preferenceStorageKey)?.difficulty);
@@ -426,9 +689,7 @@
       ) return [];
       seenCourseIds.add(id);
       seenStorageKeys.add(storageKey);
-      const stored = storageKey === performanceStorageKey
-        ? readPerformance()
-        : readJson(storageKey);
+      const stored = performanceState(storageKey).performance;
       const performance = stored?.schemaVersion === schemaVersion
         ? normalizePerformance(stored)
         : emptyPerformance();
@@ -509,36 +770,40 @@
   const record = (gameId, delta = {}) => {
     const id = canonicalPerformanceGameId(gameId);
     if (!/^[a-z0-9-]{1,40}$/.test(id)) return snapshot();
-    const performance = readPerformance();
-    const current = normalizeGamePerformance(performance.games[id]);
-    const next = {
-      activities: current.activities + safeCount(delta.activities),
-      attempts: current.attempts + safeCount(delta.attempts),
-      successes: current.successes + safeCount(delta.successes),
-      xp: current.xp + safeCount(delta.xp ?? delta.successes),
-      rounds: current.rounds + safeCount(delta.rounds),
-      lastPlayedAt: new Date().toISOString()
-    };
-    performance.games[id] = next;
-    performance.updatedAt = next.lastPlayedAt;
-    writeJson(performanceStorageKey, performance);
+    const entry = { schemaVersion: 1, id: uniqueId(), generation: performanceState().generation,
+      gameId: id, at: new Date().toISOString(), delta: {
+        activities: safeCount(delta.activities), attempts: safeCount(delta.attempts),
+        successes: safeCount(delta.successes), xp: safeCount(delta.xp ?? delta.successes),
+        rounds: safeCount(delta.rounds), streakEligible: delta.streakEligible === true
+      } };
+    persistEvent(entry);
     if (
       safeCount(delta.rounds)
       && (safeCount(delta.successes) || safeCount(delta.xp) || delta.streakEligible === true)
-    ) updateStreakForQualification(next.lastPlayedAt);
+    ) updateStreakForQualification(entry.at);
+    void scheduleCompaction();
     announceChange("performance");
     return snapshot();
   };
 
   const resetProgress = () => {
+    const previous = performanceState();
+    if (previous.blocked) throw new Error("Progress could not be reset safely.");
+    const generation = uniqueId();
+    try { window.localStorage.setItem(resetKey, generation); }
+    catch (error) { reportSaveFailure(`write:${resetKey}`, error); throw error; }
+    clearSaveFailure(`write:${resetKey}`);
     try {
-      window.localStorage.removeItem(performanceStorageKey);
-      if (course.storage.verbMemory) window.localStorage.removeItem(course.storage.verbMemory);
-      if (course.storage.verbMemoryLegacy) window.localStorage.removeItem(course.storage.verbMemoryLegacy);
+      if (course.storage.verbMemory) removeGameState(course.storage.verbMemory);
+      if (course.storage.verbMemoryLegacy) removeGameState(course.storage.verbMemoryLegacy);
+      for (const entry of previous.entries) {
+        window.localStorage.removeItem(`${journalPrefix}${entry.id}`);
+        pendingEvents.delete(entry.id);
+      }
     } catch (error) {
-      // In-memory game state can still respond to the reset event.
+      reportSaveFailure("reset-cleanup", error);
     }
-    writeJson(performanceStorageKey, emptyPerformance());
+    void scheduleCompaction();
     announceChange("progress-reset");
     return snapshot();
   };
@@ -575,6 +840,24 @@
     setStreakRemindersEnabled,
     registerProgressResetPreparation,
     prepareProgressReset,
+    saveStatus,
+    retryPendingSaves,
+    reportSaveFailure,
+    clearSaveFailure,
+    readGameState: readJson,
+    writeGameState: writeJson,
+    removeGameState,
+    registerSaveRetry(handler) { retryHandlers.add(handler); return () => retryHandlers.delete(handler); },
     resetProgress
   });
+  window.addEventListener?.("pageshow", () => { void retryPendingSaves(); });
+  window.addEventListener?.("focus", () => { void retryPendingSaves(); });
+  window.document?.addEventListener?.("visibilitychange", () => {
+    if (window.document.visibilityState === "visible") void retryPendingSaves();
+  });
+  // Persistence is optional in WebView. A denial never blocks learning.
+  window.document?.addEventListener?.("pointerdown", () => {
+    try { void window.navigator?.storage?.persist?.().catch(() => {}); } catch { /* Optional protection. */ }
+  }, { once: true });
+  if (journalEntries().length) void scheduleCompaction();
 })();

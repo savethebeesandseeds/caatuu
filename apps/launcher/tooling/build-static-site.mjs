@@ -72,6 +72,10 @@ const excludedProductPaths = Object.freeze([
 
 const rootExtraFiles = Object.freeze([
   Object.freeze({
+    source: "assets/micelaneous/landing_page_concept.png",
+    output: "assets/micelaneous/landing_page_concept.png"
+  }),
+  Object.freeze({
     source: "assets/loading-animation/animations_manifest.json",
     output: "assets/loading_animation/animations_manifest.json"
   })
@@ -693,12 +697,11 @@ function transformProductOutput(workspaceRoot, stagingDir) {
 
 function sharedAppAssetsForStatic(courseConfiguration) {
   // Reviewed artwork/keymaps are copied from their source manifest below. Keep
-  // the browser runtime complete, while the native installer remains Android-only.
-  // Its registry and installation bridge are supplied by the APK.
+  // the browser runtime complete, including the Home setup module imported by
+  // app-bootstrap. Only the standalone installer documents/styles are Android-only.
   const androidInstallerAssets = new Set([
     "setup.html",
     "course-install.html",
-    "language-runtime/static/source/course-setup.mjs",
     "language-runtime/static/styles/course-setup.css"
   ]);
   const { selected } = selectedStaticArtifacts(courseConfiguration.workspaceRoot);
@@ -878,7 +881,7 @@ function coreAssetPaths(stagingDir, setupManifest) {
     if (path.startsWith("language-runtime/")) paths.add(`/${path}`);
     if (["app.css", "launcher.js", "languages.json", "404.html"].includes(path)) paths.add(`/${path}`);
     if (path.startsWith("assets/icons/")) paths.add(`/${path}`);
-    if (path === "assets/loading_animation/animations_manifest.json") paths.add(`/${path}`);
+    if (rootExtraFiles.some(({ output }) => output === path)) paths.add(`/${path}`);
   }
   for (const artifact of setupManifest.artifacts.filter((item) => item.artifact_kind === "asset-keymap")) {
     paths.add(`/${publicPathFromUrl(artifact.url, artifact.key)}`);
@@ -1054,6 +1057,7 @@ function expectedFiles(workspaceRoot, setupManifest) {
     "cz/index.html"
   ]);
   for (const path of keptProductFiles()) expected.add(`cz/${path}`);
+  for (const { output } of rootExtraFiles) expected.add(output);
   for (const { output } of sharedAppAssetsForStatic(courseConfiguration)) {
     expected.add(output);
   }

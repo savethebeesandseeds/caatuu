@@ -32,9 +32,9 @@ const GOLDEN_CSS_SHA256 =
   "0df7102e42304f6f43886b7913d3a76ef94ff238ae7865ea12d482cb00200045";
 
 const COMPONENT_CSS_ANCHOR = Buffer.from(".word-net-game {", "utf8");
-const APPROVED_SHARED_CSS_DELTA_BYTES = 3847;
+const APPROVED_SHARED_CSS_DELTA_BYTES = 3082;
 const APPROVED_SHARED_CSS_DELTA_SHA256 =
-  "7de71b586876e413490d9b90e707d62887a9f4d161ab456206fa730d62260baf";
+  "6543430be21989bd200e5d8dc0a6085c7920d7486b9d71f2f2b7576b9541f781";
 
 const VOID_ELEMENTS = new Set([
   "area",
@@ -326,6 +326,34 @@ function normalizeSharedRobotLoading(root, goldenGame) {
   loading.children = goldenLoading.children;
 }
 
+function normalizeSharedDictionaryCard(root) {
+  const card = findOne(root, (node) => node.attributes.get("id") === "wordNetWordTranslation", "shared dictionary card");
+  const classes = new Set([
+    "dictionary-word-card", "dictionary-word-card__copy", "dictionary-word-card__heading",
+    "dictionary-word-card__word", "dictionary-word-card__pos", "dictionary-word-card__meaning",
+    "dictionary-word-card__meta", "dictionary-word-card__pronounce"
+  ]);
+  const nodes = [card, ...findAll(card, () => true)];
+  for (const name of classes) {
+    assert.equal(nodes.filter((node) => hasClass(node, name)).length, 1, `The card must retain its shared ${name} hook.`);
+  }
+  for (const node of nodes) {
+    const retained = normalizeSpace(node.attributes.get("class")).split(" ").filter((name) => !classes.has(name)).join(" ");
+    if (retained) node.attributes.set("class", retained);
+    else node.attributes.delete("class");
+  }
+}
+
+function withSharedDictionaryCardCss(source) {
+  // The requested common dictionary card owns presentation; Word World retains placement.
+  return source
+    .replace(/\.word-net-word-translation \{[\s\S]*?(?=\.word-net-display-menu,)/u,
+      ".word-net-word-translation.dictionary-word-card { position: absolute; top: 14px; left: 14px; z-index: 3; }\n\n")
+    .replace(/  \.word-net-word-translation \{\n    top: 12px;[\s\S]*?\n  \}/u,
+      "  .word-net-word-translation.dictionary-word-card { top: 12px; left: 12px; }")
+    .replace(/@media \(max-width: 380px\) \{\n  \.word-net-word-translation[\s\S]*?(?=@media \(max-width: 430px\))/u, "");
+}
+
 function withSharedRobotLoadingCss(source) {
   // Pin only the reviewed shared display controls and picture-toggle changes.
   const controlRules = [
@@ -578,6 +606,7 @@ test("the live shared Word World subtree exactly preserves the Czech component s
   removeApprovedWordWorldExtensions(root);
   normalizeApprovedInterfaceAnnotations(root);
   normalizeSharedRobotLoading(root, goldenGame);
+  normalizeSharedDictionaryCard(root);
 
   assertSameComponentTree(root.children[0], goldenGame, "#wordWorldRoot > .word-net-game");
   assertSameComponentTree(
@@ -626,7 +655,7 @@ test("shared Word World CSS keeps every component byte and only the allowed inli
 
   const goldenPrefix = goldenCss.subarray(0, goldenAnchor).toString("utf8");
   const sharedPrefix = sharedCss.subarray(0, sharedAnchor).toString("utf8");
-  const goldenComponent = Buffer.from(withSharedRobotLoadingCss(goldenCss.subarray(goldenAnchor).toString("utf8")));
+  const goldenComponent = Buffer.from(withSharedDictionaryCardCss(withSharedRobotLoadingCss(goldenCss.subarray(goldenAnchor).toString("utf8"))));
   const sharedComponentAndDelta = sharedCss.subarray(sharedAnchor);
   const sharedComponent = sharedComponentAndDelta.subarray(0, goldenComponent.length);
   const approvedDelta = sharedComponentAndDelta.subarray(goldenComponent.length);
@@ -634,44 +663,44 @@ test("shared Word World CSS keeps every component byte and only the allowed inli
   assertSameBytes(
     sharedComponent,
     goldenComponent,
-    "The historical Word World component CSS must remain byte-exact outside the shared robot migration and approved shared overrides."
+    "The historical Word World component CSS must remain byte-exact outside the shared robot/card migrations and approved shared overrides."
   );
   assert.equal(approvedDelta.length, APPROVED_SHARED_CSS_DELTA_BYTES);
   assert.equal(
     sha256(approvedDelta),
     APPROVED_SHARED_CSS_DELTA_SHA256,
-    "The approved shared overrides for target reading guides, tone colors, prompt direction, compact centered dictionary cards, and base/target history changed."
+    "The approved shared overrides for target reading guides, tone colors, prompt direction, and base/target history changed."
   );
   const approvedDeltaText = approvedDelta.toString("utf8");
   for (const selector of [
     ".word-net-target-text-unit",
     "button[data-challenge-prompt-mode]",
-    ".word-net-word-translation",
-    ".word-net-word-meaning",
-    ".word-net-word-heading strong.has-target-text-guide",
     ".word-net-trail-base",
     ".word-net-trail-target"
   ]) assert.match(approvedDeltaText, new RegExp(selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "u"));
+  const dictionaryCss = await readFile(new URL("../static/styles/dictionary-word-card.css", import.meta.url), "utf8");
   assert.match(
-    approvedDeltaText,
-    /\.word-net-word-meaning\s*\{\s*text-align:\s*center;\s*\}/u,
+    dictionaryCss,
+    /\.dictionary-word-card__meaning\s*\{[^}]*text-align:\s*center;/u,
     "The selected meaning must remain centered under its target-language word."
   );
   assert.match(
-    approvedDeltaText,
-    /\.word-net-word-translation\s*\{\s*width:\s*fit-content;\s*max-width:\s*244px;\s*\}/u,
-    "Shared dictionary cards must shrink to short content without exceeding their desktop width."
+    dictionaryCss,
+    /\.dictionary-word-card\s*\{[^}]*width:\s*220px;\s*max-width:\s*244px;/u,
+    "Shared dictionary cards must keep the requested wider desktop layout."
   );
   assert.match(
-    approvedDeltaText,
-    /@media \(max-width:\s*560px\)\s*\{\s*\.word-net-word-translation\s*\{\s*max-width:\s*176px;\s*\}\s*\}/u,
+    dictionaryCss,
+    /@media \(max-width:\s*560px\)\s*\{\s*\.dictionary-word-card\s*\{\s*max-width:\s*176px;/u,
     "Shared dictionary cards must retain their narrow-screen width ceiling."
   );
   assert.match(
-    approvedDeltaText,
-    /@media \(max-width:\s*380px\)[\s\S]*?\.word-net-word-translation\s*\{\s*max-width:\s*140px;\s*\}/u,
-    "Shared dictionary cards must retain their phone width ceiling."
+    dictionaryCss,
+    /\.dictionary-word-card__word\.has-target-text-guide\s*\{[^}]*overflow:\s*visible;/u,
+    "Target reading guides must remain visible above their word."
   );
+  assert.match(dictionaryCss, /@media \(max-width:\s*380px\)\s*\{\s*\.dictionary-word-card\s*\{\s*max-width:\s*140px;/u,
+    "Phone cards must leave space for the adjacent game controls.");
   assert.ok(
     sharedPrefix.length <= goldenPrefix.length + 512,
     "The inline-context CSS prefix must remain a small mechanical transformation."

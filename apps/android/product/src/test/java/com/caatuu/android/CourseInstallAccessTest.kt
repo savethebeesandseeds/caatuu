@@ -15,13 +15,17 @@ class CourseInstallAccessTest {
     }
 
     @Test
-    fun selectedCourseEntryGetsInstallerAndPartialDataIsBlocked() {
+    fun originalHomeAndItsProfileLoadBeforeSetupWhilePartialDataIsBlocked() {
         val selected = course("zh")
         val requests = mutableListOf<Pair<String, Boolean>>()
         val ready: (String, Boolean) -> Boolean = { id, adopt -> requests += id to adopt; false }
-        assertEquals("course-install.html", CourseInstallAccess.assetPath(BundledAssetResolution("index.html", selected, "index.html"), ready))
+        assertEquals("index.html", CourseInstallAccess.assetPath(BundledAssetResolution("index.html", selected, "index.html"), ready))
+        for (path in listOf("source/shared/course-profile.js", "manifest.webmanifest")) {
+            assertEquals("courses/zh/$path", CourseInstallAccess.assetPath(BundledAssetResolution("courses/zh/$path", selected, path), ready))
+        }
         assertNull(CourseInstallAccess.assetPath(BundledAssetResolution("courses/zh/data/words.json", selected, "data/words.json"), ready))
-        assertEquals(listOf("zh" to true, "zh" to false), requests)
+        assertNull(CourseInstallAccess.assetPath(BundledAssetResolution("courses/zh/source/games/game.js", selected, "source/games/game.js"), ready))
+        assertEquals(listOf("zh" to false, "zh" to false), requests)
     }
 
     @Test

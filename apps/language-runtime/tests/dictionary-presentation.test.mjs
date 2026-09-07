@@ -78,8 +78,8 @@ test("Mandarin only treats source as English when the learner base is English", 
 
 test("both current course-owned core catalogs satisfy the presentation seam", async () => {
   const [czechRecords, mandarinRecords] = await Promise.all([
-    readJson("../../languages/czech/static/data/games/verb-nebula/core-vocabulary.json"),
-    readJson("../../languages/mandarin-simplified/static/data/games/verb-nebula/core-vocabulary.json")
+    readJson("../../languages/czech/static/data/games/verb-nebula/content.json"),
+    readJson("../../languages/mandarin-simplified/static/data/games/verb-nebula/content.json")
   ]);
   const czechPresentations = czechRecords.map((record, recordIndex) => presentDictionaryEntry(
     czech,

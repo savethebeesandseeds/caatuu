@@ -1,5 +1,5 @@
 import { readEmbeddedCourseProfile, fetchDeclaredCourseGameJson } from "../course-game-content.mjs?v=course-game-content-1";
-import { validateSoundQuasarCatalog, createSoundQuasarSession, evaluateSoundQuasarChoice } from "./sound-quasar-core.mjs?v=sound-quasar-3";
+import { validateSoundQuasarCatalog, createSoundQuasarSession, evaluateSoundQuasarChoice, soundQuasarItemsForDifficulty } from "./sound-quasar-core.mjs?v=sound-quasar-6";
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-8";
 import { appendTargetToneText } from "../../target-text-tones.mjs?v=target-text-tones-1";
 
@@ -240,9 +240,10 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     state.resolved = false;
     state.skipped = false;
     cancelAdvance();
-    const available = (state.mode === "sentences" ? catalog.sentences : catalog.items).length;
-    const choiceCount = available >= state.choiceCount ? state.choiceCount : 4;
-    state.rounds = createSoundQuasarSession(catalog, { random, roundLength: 5, mode: state.mode, choiceCount });
+    const difficulty = Math.max(1, Math.min(3, Math.floor(Number(shell.CaatuuLearning?.difficulty?.()) || 1)));
+    const available = soundQuasarItemsForDifficulty(catalog, { mode: state.mode, difficulty }).length;
+    const choiceCount = available >= state.choiceCount ? state.choiceCount : Math.min(4, available);
+    state.rounds = createSoundQuasarSession(catalog, { random, roundLength: 5, mode: state.mode, choiceCount, difficulty });
     for (const button of node("quasarChoiceOptions").querySelectorAll("button[data-count]")) {
       const count = Number(button.dataset.count);
       button.textContent = t("soundquasar.options.count", { count });

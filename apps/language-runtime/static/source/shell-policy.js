@@ -63,7 +63,7 @@
         linguisticFeatures: Object.freeze([]),
         resources: Object.freeze([presentCourseFile(
           "verbNebulaCatalog",
-          "static/data/games/verb-nebula/core-vocabulary.json",
+          "static/data/games/verb-nebula/content.json",
           "verb-nebula-items-v1"
         )]),
         campaignEligible: true,
@@ -90,7 +90,7 @@
         linguisticFeatures: Object.freeze(["verb-conjugation"]),
         resources: Object.freeze([presentCourseFile(
           "conjugationCometCatalog",
-          "static/data/games/conjugation-comet/verbs.json",
+          "static/data/games/conjugation-comet/content.json",
           "conjugation-comet-items-v1"
         )]),
         campaignEligible: true,
@@ -103,7 +103,7 @@
         linguisticFeatures: Object.freeze(["grammatical-case"]),
         resources: Object.freeze([presentCourseFile(
           "caseCosmosCatalog",
-          "static/data/games/case-cosmos/challenges.json",
+          "static/data/games/case-cosmos/content.json",
           "case-cosmos-items-v1"
         )]),
         campaignEligible: true
@@ -117,7 +117,7 @@
         resources: Object.freeze([
           presentCourseFile(
             "grammarGravityCatalog",
-            "static/data/games/grammar-gravity/challenges.json",
+            "static/data/games/grammar-gravity/content.json",
             "grammar-gravity-items-v1"
           ),
           presentCourseFile(
@@ -136,7 +136,7 @@
         linguisticFeatures: Object.freeze(["hanzi-pinyin"]),
         resources: Object.freeze([presentCourseFile(
           "naturalizationNucleusCatalog",
-          "static/data/games/naturalization-nucleus/challenges.json",
+          "static/data/games/naturalization-nucleus/content.json",
           "naturalization-nucleus-items-v1"
         )]),
         campaignEligible: false
@@ -158,7 +158,7 @@
         linguisticFeatures: Object.freeze([]),
         resources: Object.freeze([presentCourseFile(
           "soundQuasarCatalog",
-          "static/data/games/sound-quasar/challenges.json",
+          "static/data/games/sound-quasar/content.json",
           "sound-quasar-items-v2"
         )]),
         learnerBasePresentationContract: "authored-game-three-role-v1",

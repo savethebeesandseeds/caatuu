@@ -30,7 +30,7 @@ async function json(relativeUrl) {
 }
 
 const englishCatalog = await json("../static/data/english-concepts/word-world-starter-v1.json");
-const realizationCatalog = await json("../../languages/mandarin-simplified/static/data/games/word-world/starter-v1.realizations.json");
+const realizationCatalog = await json("../../languages/mandarin-simplified/static/data/games/word-world/content.json");
 const course = await json("../../languages/mandarin-simplified/course.json");
 
 test("joins language-neutral English concepts to target realizations by stable conceptId", () => {

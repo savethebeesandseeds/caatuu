@@ -3,7 +3,7 @@
   "courseId": "es-en",
   "gameId": "grammar-gravity",
   "contentId": "es-en.grammar-gravity.nouns-number-v1",
-  "contentRevision": 1,
+  "contentRevision": 3,
   "learnerBaseLanguage": "es-ES",
   "targetLanguage": "en-US",
   "englishAuditLanguage": "en",
@@ -19,7 +19,7 @@
     "spdxExpression": null,
     "notes": "Development content requires curriculum license clearance before publication."
   },
-  "scope": "Authored singular/plural noun classification for English, including regular and explicit irregular plurals. No grammatical gender is inferred or assigned.",
+  "scope": "Authored noun and noun-phrase classification by grammatical number: regular plurals, irregular plurals, and count/noncount quantity expressions. Noncount nouns use singular agreement in the taught senses. Gender is not assigned. Separate AI editorial review of the new curriculum is pending.",
   "lanes": [
     {
       "id": "singular",
@@ -33,195 +33,363 @@
   "items": [
     {
       "id": "es-en.gravity.noun.book",
-      "revision": 1,
+      "revision": 2,
       "targetText": "book",
       "learnerBaseText": "libro",
       "english": "book",
-      "laneId": "singular"
+      "laneId": "singular",
+      "difficulty": 1
     },
     {
       "id": "es-en.gravity.noun.books",
-      "revision": 1,
+      "revision": 2,
       "targetText": "books",
       "learnerBaseText": "libros",
       "english": "books",
-      "laneId": "plural"
+      "laneId": "plural",
+      "difficulty": 1
     },
     {
       "id": "es-en.gravity.noun.cat",
-      "revision": 1,
+      "revision": 2,
       "targetText": "cat",
       "learnerBaseText": "gato",
       "english": "cat",
-      "laneId": "singular"
+      "laneId": "singular",
+      "difficulty": 1
     },
     {
       "id": "es-en.gravity.noun.cats",
-      "revision": 1,
+      "revision": 2,
       "targetText": "cats",
       "learnerBaseText": "gatos",
       "english": "cats",
-      "laneId": "plural"
+      "laneId": "plural",
+      "difficulty": 1
     },
     {
       "id": "es-en.gravity.noun.apple",
-      "revision": 1,
+      "revision": 2,
       "targetText": "apple",
       "learnerBaseText": "manzana",
       "english": "apple",
-      "laneId": "singular"
+      "laneId": "singular",
+      "difficulty": 1
     },
     {
       "id": "es-en.gravity.noun.apples",
-      "revision": 1,
+      "revision": 2,
       "targetText": "apples",
       "learnerBaseText": "manzanas",
       "english": "apples",
-      "laneId": "plural"
+      "laneId": "plural",
+      "difficulty": 1
     },
     {
       "id": "es-en.gravity.noun.chair",
-      "revision": 1,
+      "revision": 2,
       "targetText": "chair",
       "learnerBaseText": "silla",
       "english": "chair",
-      "laneId": "singular"
+      "laneId": "singular",
+      "difficulty": 1
     },
     {
       "id": "es-en.gravity.noun.chairs",
-      "revision": 1,
+      "revision": 2,
       "targetText": "chairs",
       "learnerBaseText": "sillas",
       "english": "chairs",
-      "laneId": "plural"
+      "laneId": "plural",
+      "difficulty": 1
     },
     {
       "id": "es-en.gravity.noun.window",
-      "revision": 1,
+      "revision": 2,
       "targetText": "window",
       "learnerBaseText": "ventana",
       "english": "window",
-      "laneId": "singular"
+      "laneId": "singular",
+      "difficulty": 1
     },
     {
       "id": "es-en.gravity.noun.windows",
-      "revision": 1,
+      "revision": 2,
       "targetText": "windows",
       "learnerBaseText": "ventanas",
       "english": "windows",
-      "laneId": "plural"
+      "laneId": "plural",
+      "difficulty": 1
     },
     {
       "id": "es-en.gravity.noun.teacher",
-      "revision": 1,
+      "revision": 2,
       "targetText": "teacher",
       "learnerBaseText": "profesor",
       "english": "teacher",
-      "laneId": "singular"
+      "laneId": "singular",
+      "difficulty": 1
     },
     {
       "id": "es-en.gravity.noun.teachers",
-      "revision": 1,
+      "revision": 2,
       "targetText": "teachers",
       "learnerBaseText": "profesores",
       "english": "teachers",
-      "laneId": "plural"
+      "laneId": "plural",
+      "difficulty": 1
     },
     {
       "id": "es-en.gravity.noun.student",
-      "revision": 1,
+      "revision": 2,
       "targetText": "student",
       "learnerBaseText": "estudiante",
       "english": "student",
-      "laneId": "singular"
+      "laneId": "singular",
+      "difficulty": 1
     },
     {
       "id": "es-en.gravity.noun.students",
-      "revision": 1,
+      "revision": 2,
       "targetText": "students",
       "learnerBaseText": "estudiantes",
       "english": "students",
-      "laneId": "plural"
+      "laneId": "plural",
+      "difficulty": 1
     },
     {
       "id": "es-en.gravity.noun.child",
-      "revision": 1,
+      "revision": 2,
       "targetText": "child",
       "learnerBaseText": "niño",
       "english": "child",
-      "laneId": "singular"
+      "laneId": "singular",
+      "difficulty": 2
     },
     {
       "id": "es-en.gravity.noun.children",
-      "revision": 1,
+      "revision": 2,
       "targetText": "children",
       "learnerBaseText": "niños",
       "english": "children",
-      "laneId": "plural"
+      "laneId": "plural",
+      "difficulty": 2
     },
     {
       "id": "es-en.gravity.noun.person",
-      "revision": 1,
+      "revision": 2,
       "targetText": "person",
       "learnerBaseText": "persona",
       "english": "person",
-      "laneId": "singular"
+      "laneId": "singular",
+      "difficulty": 2
     },
     {
       "id": "es-en.gravity.noun.people",
-      "revision": 1,
+      "revision": 2,
       "targetText": "people",
       "learnerBaseText": "personas",
       "english": "people",
-      "laneId": "plural"
+      "laneId": "plural",
+      "difficulty": 2
     },
     {
       "id": "es-en.gravity.noun.box",
-      "revision": 1,
+      "revision": 2,
       "targetText": "box",
       "learnerBaseText": "caja",
       "english": "box",
-      "laneId": "singular"
+      "laneId": "singular",
+      "difficulty": 1
     },
     {
       "id": "es-en.gravity.noun.boxes",
-      "revision": 1,
+      "revision": 2,
       "targetText": "boxes",
       "learnerBaseText": "cajas",
       "english": "boxes",
-      "laneId": "plural"
+      "laneId": "plural",
+      "difficulty": 1
     },
     {
       "id": "es-en.gravity.noun.city",
-      "revision": 1,
+      "revision": 2,
       "targetText": "city",
       "learnerBaseText": "ciudad",
       "english": "city",
-      "laneId": "singular"
+      "laneId": "singular",
+      "difficulty": 1
     },
     {
       "id": "es-en.gravity.noun.cities",
-      "revision": 1,
+      "revision": 2,
       "targetText": "cities",
       "learnerBaseText": "ciudades",
       "english": "cities",
-      "laneId": "plural"
+      "laneId": "plural",
+      "difficulty": 1
     },
     {
       "id": "es-en.gravity.noun.bus",
-      "revision": 1,
+      "revision": 2,
       "targetText": "bus",
       "learnerBaseText": "autobús",
       "english": "bus",
-      "laneId": "singular"
+      "laneId": "singular",
+      "difficulty": 1
     },
     {
       "id": "es-en.gravity.noun.buses",
-      "revision": 1,
+      "revision": 2,
       "targetText": "buses",
       "learnerBaseText": "autobuses",
       "english": "buses",
-      "laneId": "plural"
+      "laneId": "plural",
+      "difficulty": 1
+    },
+    {
+      "id": "es-en.gravity.noun.mouse",
+      "revision": 1,
+      "targetText": "mouse",
+      "learnerBaseText": "ratón",
+      "english": "mouse",
+      "laneId": "singular",
+      "difficulty": 2
+    },
+    {
+      "id": "es-en.gravity.noun.mice",
+      "revision": 1,
+      "targetText": "mice",
+      "learnerBaseText": "ratones",
+      "english": "mice",
+      "laneId": "plural",
+      "difficulty": 2
+    },
+    {
+      "id": "es-en.gravity.noun.tooth",
+      "revision": 1,
+      "targetText": "tooth",
+      "learnerBaseText": "diente",
+      "english": "tooth",
+      "laneId": "singular",
+      "difficulty": 2
+    },
+    {
+      "id": "es-en.gravity.noun.teeth",
+      "revision": 1,
+      "targetText": "teeth",
+      "learnerBaseText": "dientes",
+      "english": "teeth",
+      "laneId": "plural",
+      "difficulty": 2
+    },
+    {
+      "id": "es-en.gravity.noun.woman",
+      "revision": 1,
+      "targetText": "woman",
+      "learnerBaseText": "mujer",
+      "english": "woman",
+      "laneId": "singular",
+      "difficulty": 2
+    },
+    {
+      "id": "es-en.gravity.noun.women",
+      "revision": 1,
+      "targetText": "women",
+      "learnerBaseText": "mujeres",
+      "english": "women",
+      "laneId": "plural",
+      "difficulty": 2
+    },
+    {
+      "id": "es-en.gravity.noun.man",
+      "revision": 1,
+      "targetText": "man",
+      "learnerBaseText": "hombre",
+      "english": "man",
+      "laneId": "singular",
+      "difficulty": 2
+    },
+    {
+      "id": "es-en.gravity.noun.men",
+      "revision": 1,
+      "targetText": "men",
+      "learnerBaseText": "hombres",
+      "english": "men",
+      "laneId": "plural",
+      "difficulty": 2
+    },
+    {
+      "id": "es-en.gravity.noun.some-water",
+      "revision": 1,
+      "targetText": "some water",
+      "learnerBaseText": "algo de agua",
+      "english": "some water",
+      "laneId": "singular",
+      "difficulty": 3
+    },
+    {
+      "id": "es-en.gravity.noun.some-books",
+      "revision": 1,
+      "targetText": "some books",
+      "learnerBaseText": "algunos libros",
+      "english": "some books",
+      "laneId": "plural",
+      "difficulty": 3
+    },
+    {
+      "id": "es-en.gravity.noun.much-rice",
+      "revision": 1,
+      "targetText": "much rice",
+      "learnerBaseText": "mucho arroz",
+      "english": "much rice",
+      "laneId": "singular",
+      "difficulty": 3
+    },
+    {
+      "id": "es-en.gravity.noun.many-cars",
+      "revision": 1,
+      "targetText": "many cars",
+      "learnerBaseText": "muchos coches",
+      "english": "many cars",
+      "laneId": "plural",
+      "difficulty": 3
+    },
+    {
+      "id": "es-en.gravity.noun.a-little-milk",
+      "revision": 1,
+      "targetText": "a little milk",
+      "learnerBaseText": "un poco de leche",
+      "english": "a little milk",
+      "laneId": "singular",
+      "difficulty": 3
+    },
+    {
+      "id": "es-en.gravity.noun.a-few-eggs",
+      "revision": 1,
+      "targetText": "a few eggs",
+      "learnerBaseText": "unos pocos huevos",
+      "english": "a few eggs",
+      "laneId": "plural",
+      "difficulty": 3
+    },
+    {
+      "id": "es-en.gravity.noun.much-information",
+      "revision": 1,
+      "targetText": "much information",
+      "learnerBaseText": "mucha información",
+      "english": "much information",
+      "laneId": "singular",
+      "difficulty": 3
+    },
+    {
+      "id": "es-en.gravity.noun.many-questions",
+      "revision": 1,
+      "targetText": "many questions",
+      "learnerBaseText": "muchas preguntas",
+      "english": "many questions",
+      "laneId": "plural",
+      "difficulty": 3
     }
   ]
 }

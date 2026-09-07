@@ -1,9 +1,9 @@
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "/language-runtime/static/source/games/embedded-game-controls.mjs?v=embedded-game-controls-8";
 
-import { CZECH_CASES, validatePack, buildRounds, buildQuestions } from "./case-cosmos-content.mjs?v=case-cosmos-content-2";
-import { assertEnglishCzechCourse } from "./case-cosmos-cs-policy.mjs?v=case-cosmos-policy-1";
+import { CZECH_CASES, validatePack, buildRounds, buildQuestions } from "./case-cosmos-content.mjs?v=case-cosmos-content-4";
+import { assertEnglishCzechCourse } from "./case-cosmos-cs-policy.mjs?v=case-cosmos-policy-2";
 
-const DATA_URL = "data/games/case-cosmos/challenges.json?v=case-cosmos-data-6";
+const DATA_URL = "data/games/case-cosmos/content.json?v=case-cosmos-data-8";
 const $ = (selector) => document.querySelector(selector);
 const state = {
   pack: [],
@@ -423,7 +423,7 @@ function bindUi() {
     chooseAnswer(key === "y" || key === "1");
   });
   listen(state.shell, "caatuu:learning-change", (event) => {
-    if (event.detail?.reason !== "difficulty" || !state.pack.length) return;
+    if (event.detail?.reason !== "difficulty" || !(state.pack.length || state.pack.contexts?.length)) return;
     configureDifficulty();
     render();
     if (engaged()) $("#caseCosmosExample").focus({ preventScroll: true });

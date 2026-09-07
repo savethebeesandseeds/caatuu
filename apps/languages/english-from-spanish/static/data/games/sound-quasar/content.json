@@ -1,0 +1,2720 @@
+{
+  "schemaVersion": 1,
+  "gameId": "sound-quasar",
+  "courseId": "es-en",
+  "targetLanguageId": "en",
+  "learnerBaseLanguage": "es-ES",
+  "auditLanguage": "en",
+  "id": "es-en-sound-quasar-listening-pilot",
+  "contentRevision": "sound-quasar-content-3",
+  "mode": "practice",
+  "audio": {
+    "kind": "device-speech",
+    "locale": "en-US",
+    "reviewStatus": "unreviewed",
+    "purpose": "listening-practice"
+  },
+  "provenance": {
+    "sourcePath": "apps/languages/english-from-spanish/static/data/games/verb-nebula/content.json",
+    "sourceItemIds": [
+      "es-en.verb.be",
+      "es-en.verb.have",
+      "es-en.verb.do",
+      "es-en.verb.go",
+      "es-en.verb.come",
+      "es-en.verb.want",
+      "es-en.verb.need",
+      "es-en.verb.speak",
+      "es-en.verb.ask",
+      "es-en.verb.listen",
+      "es-en.verb.see",
+      "es-en.verb.understand",
+      "es-en.verb.remember",
+      "es-en.verb.eat",
+      "es-en.verb.drink",
+      "es-en.verb.sleep",
+      "es-en-word-vowel-i-1",
+      "es-en-word-vowel-i-2",
+      "es-en-word-vowel-i-3",
+      "es-en-word-vowel-i-4",
+      "es-en-word-vowel-i-5",
+      "es-en-word-vowel-a-1",
+      "es-en-word-vowel-a-2",
+      "es-en-word-vowel-a-3",
+      "es-en-word-vowel-a-4",
+      "es-en-word-vowel-a-5",
+      "es-en-word-final-stop-1",
+      "es-en-word-final-stop-2",
+      "es-en-word-final-stop-3",
+      "es-en-word-final-stop-4",
+      "es-en-word-final-stop-5",
+      "es-en-word-liquid-sounds-1",
+      "es-en-word-liquid-sounds-2",
+      "es-en-word-liquid-sounds-3",
+      "es-en-word-liquid-sounds-4",
+      "es-en-word-liquid-sounds-5"
+    ],
+    "selection": "Original vocabulary references retained as ungraded practice. New authored-listening items are first-party content defined only in this catalog. AI text review is recorded in authoredProvenance; audible review is pending."
+  },
+  "items": [
+    {
+      "id": "es-en-word-1",
+      "revision": "2",
+      "target": "be",
+      "meaning": "ser; estar",
+      "sourceId": "es-en.verb.be",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "be",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.vowels",
+      "phase": "practice",
+      "contrastGroupId": "legacy-short-vowels",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "El audio dice «be», que aquí significa «ser; estar».",
+      "graded": false
+    },
+    {
+      "id": "es-en-word-2",
+      "revision": "2",
+      "target": "have",
+      "meaning": "tener",
+      "sourceId": "es-en.verb.have",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "have",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.consonants",
+      "phase": "practice",
+      "contrastGroupId": "legacy-final-sounds",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "El audio dice «have», que aquí significa «tener».",
+      "graded": false
+    },
+    {
+      "id": "es-en-word-3",
+      "revision": "2",
+      "target": "do",
+      "meaning": "hacer",
+      "sourceId": "es-en.verb.do",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "do",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.stress",
+      "phase": "practice",
+      "contrastGroupId": "legacy-syllables-a",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "El audio dice «do», que aquí significa «hacer».",
+      "graded": false
+    },
+    {
+      "id": "es-en-word-4",
+      "revision": "2",
+      "target": "go",
+      "meaning": "ir",
+      "sourceId": "es-en.verb.go",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "go",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.vowels",
+      "phase": "practice",
+      "contrastGroupId": "legacy-short-vowels",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "El audio dice «go», que aquí significa «ir».",
+      "graded": false
+    },
+    {
+      "id": "es-en-word-5",
+      "revision": "2",
+      "target": "come",
+      "meaning": "venir",
+      "sourceId": "es-en.verb.come",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "come",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.vowels",
+      "phase": "practice",
+      "contrastGroupId": "legacy-short-vowels",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "El audio dice «come», que aquí significa «venir».",
+      "graded": false
+    },
+    {
+      "id": "es-en-word-6",
+      "revision": "2",
+      "target": "want",
+      "meaning": "querer",
+      "sourceId": "es-en.verb.want",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "want",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.consonants",
+      "phase": "practice",
+      "contrastGroupId": "legacy-final-sounds",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "El audio dice «want», que aquí significa «querer».",
+      "graded": false
+    },
+    {
+      "id": "es-en-word-7",
+      "revision": "2",
+      "target": "need",
+      "meaning": "necesitar",
+      "sourceId": "es-en.verb.need",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "need",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.consonants",
+      "phase": "practice",
+      "contrastGroupId": "legacy-final-sounds",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "El audio dice «need», que aquí significa «necesitar».",
+      "graded": false
+    },
+    {
+      "id": "es-en-word-8",
+      "revision": "2",
+      "target": "speak",
+      "meaning": "hablar",
+      "sourceId": "es-en.verb.speak",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "speak",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.stress",
+      "phase": "practice",
+      "contrastGroupId": "legacy-syllables-a",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "El audio dice «speak», que aquí significa «hablar».",
+      "graded": false
+    },
+    {
+      "id": "es-en-word-9",
+      "revision": "2",
+      "target": "ask",
+      "meaning": "preguntar",
+      "sourceId": "es-en.verb.ask",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "ask",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.consonants",
+      "phase": "practice",
+      "contrastGroupId": "legacy-final-sounds",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "El audio dice «ask», que aquí significa «preguntar».",
+      "graded": false
+    },
+    {
+      "id": "es-en-word-10",
+      "revision": "2",
+      "target": "listen",
+      "meaning": "escuchar",
+      "sourceId": "es-en.verb.listen",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "listen",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.stress",
+      "phase": "practice",
+      "contrastGroupId": "legacy-syllables-a",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "El audio dice «listen», que aquí significa «escuchar».",
+      "graded": false
+    },
+    {
+      "id": "es-en-word-11",
+      "revision": "2",
+      "target": "see",
+      "meaning": "ver",
+      "sourceId": "es-en.verb.see",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "see",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.vowels",
+      "phase": "practice",
+      "contrastGroupId": "legacy-short-vowels",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "El audio dice «see», que aquí significa «ver».",
+      "graded": false
+    },
+    {
+      "id": "es-en-word-12",
+      "revision": "2",
+      "target": "understand",
+      "meaning": "entender",
+      "sourceId": "es-en.verb.understand",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "understand",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.stress",
+      "phase": "practice",
+      "contrastGroupId": "legacy-syllables-a",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "El audio dice «understand», que aquí significa «entender».",
+      "graded": false
+    },
+    {
+      "id": "es-en-word-13",
+      "revision": "2",
+      "target": "remember",
+      "meaning": "recordar",
+      "sourceId": "es-en.verb.remember",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "remember",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.stress",
+      "phase": "practice",
+      "contrastGroupId": "legacy-syllables-b",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "El audio dice «remember», que aquí significa «recordar».",
+      "graded": false
+    },
+    {
+      "id": "es-en-word-14",
+      "revision": "2",
+      "target": "eat",
+      "meaning": "comer",
+      "sourceId": "es-en.verb.eat",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "eat",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.stress",
+      "phase": "practice",
+      "contrastGroupId": "legacy-syllables-b",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "El audio dice «eat», que aquí significa «comer».",
+      "graded": false
+    },
+    {
+      "id": "es-en-word-15",
+      "revision": "2",
+      "target": "drink",
+      "meaning": "beber",
+      "sourceId": "es-en.verb.drink",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "drink",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.stress",
+      "phase": "practice",
+      "contrastGroupId": "legacy-syllables-b",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "El audio dice «drink», que aquí significa «beber».",
+      "graded": false
+    },
+    {
+      "id": "es-en-word-16",
+      "revision": "2",
+      "target": "sleep",
+      "meaning": "dormir",
+      "sourceId": "es-en.verb.sleep",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "sleep",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.stress",
+      "phase": "practice",
+      "contrastGroupId": "legacy-syllables-b",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "El audio dice «sleep», que aquí significa «dormir».",
+      "graded": false
+    },
+    {
+      "id": "es-en-word-vowel-i-1",
+      "revision": "2",
+      "target": "ship",
+      "meaning": "barco",
+      "englishAuditText": "ship",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-word-vowel-i-1",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.vowels",
+      "phase": "practice",
+      "contrastGroupId": "vowel-i",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "Ship tiene la vocal de sit; sheep tiene la vocal de see. La diferencia incluye la calidad de la vocal, no solo su duración.",
+      "requiredContrastIds": [
+        "es-en-word-vowel-i-2",
+        "es-en-word-vowel-i-3"
+      ]
+    },
+    {
+      "id": "es-en-word-vowel-i-2",
+      "revision": "2",
+      "target": "sheep",
+      "meaning": "oveja",
+      "englishAuditText": "sheep",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-word-vowel-i-2",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.vowels",
+      "phase": "practice",
+      "contrastGroupId": "vowel-i",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "Sheep tiene la vocal de see. Escucha también la consonante inicial para distinguir sheep de cheap.",
+      "requiredContrastIds": [
+        "es-en-word-vowel-i-1",
+        "es-en-word-vowel-i-4"
+      ]
+    },
+    {
+      "id": "es-en-word-vowel-i-3",
+      "revision": "2",
+      "target": "chip",
+      "meaning": "patata frita de bolsa",
+      "englishAuditText": "chip",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-word-vowel-i-3",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.vowels",
+      "phase": "practice",
+      "contrastGroupId": "vowel-i",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "En inglés estadounidense, chip puede ser una patata frita de bolsa. Aquí se practica la vocal de sit.",
+      "requiredContrastIds": [
+        "es-en-word-vowel-i-4",
+        "es-en-word-vowel-i-1"
+      ]
+    },
+    {
+      "id": "es-en-word-vowel-i-4",
+      "revision": "2",
+      "target": "cheap",
+      "meaning": "barato",
+      "englishAuditText": "cheap",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-word-vowel-i-4",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.vowels",
+      "phase": "practice",
+      "contrastGroupId": "vowel-i",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "Cheap tiene la vocal de see y empieza con el sonido de chair.",
+      "requiredContrastIds": [
+        "es-en-word-vowel-i-3",
+        "es-en-word-vowel-i-2"
+      ]
+    },
+    {
+      "id": "es-en-word-vowel-i-5",
+      "revision": "2",
+      "target": "shop",
+      "meaning": "tienda",
+      "englishAuditText": "shop",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-word-vowel-i-5",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.vowels",
+      "phase": "transfer",
+      "contrastGroupId": "vowel-i",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "Shop cambia la vocal respecto a ship y sheep. Escucha la palabra completa; no basta con reconocer sh.",
+      "requiredContrastIds": [
+        "es-en-word-vowel-i-1",
+        "es-en-word-vowel-i-2"
+      ]
+    },
+    {
+      "id": "es-en-word-vowel-a-1",
+      "revision": "2",
+      "target": "hat",
+      "meaning": "sombrero",
+      "englishAuditText": "hat",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-word-vowel-a-1",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.vowels",
+      "phase": "practice",
+      "contrastGroupId": "vowel-a",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "Hat tiene la vocal de cat. La consonante final es t.",
+      "requiredContrastIds": [
+        "es-en-word-vowel-a-3",
+        "es-en-word-vowel-a-4"
+      ]
+    },
+    {
+      "id": "es-en-word-vowel-a-2",
+      "revision": "2",
+      "target": "heart",
+      "meaning": "corazón",
+      "englishAuditText": "heart",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-word-vowel-a-2",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.vowels",
+      "phase": "practice",
+      "contrastGroupId": "vowel-a",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "En la variedad estadounidense prevista, heart incluye una r pronunciada antes de t.",
+      "requiredContrastIds": [
+        "es-en-word-vowel-a-3"
+      ]
+    },
+    {
+      "id": "es-en-word-vowel-a-3",
+      "revision": "2",
+      "target": "hot",
+      "meaning": "caliente",
+      "englishAuditText": "hot",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-word-vowel-a-3",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.vowels",
+      "phase": "practice",
+      "contrastGroupId": "vowel-a",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "Hot tiene la vocal de una pronunciación estadounidense de father. Las vocales varían entre acentos.",
+      "requiredContrastIds": [
+        "es-en-word-vowel-a-1",
+        "es-en-word-vowel-a-2"
+      ]
+    },
+    {
+      "id": "es-en-word-vowel-a-4",
+      "revision": "2",
+      "target": "hut",
+      "meaning": "cabaña",
+      "englishAuditText": "hut",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-word-vowel-a-4",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.vowels",
+      "phase": "practice",
+      "contrastGroupId": "vowel-a",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "Hut tiene la vocal de cup. No es la misma vocal que en hat.",
+      "requiredContrastIds": [
+        "es-en-word-vowel-a-1"
+      ]
+    },
+    {
+      "id": "es-en-word-vowel-a-5",
+      "revision": "2",
+      "target": "heat",
+      "meaning": "calor",
+      "englishAuditText": "heat",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-word-vowel-a-5",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.vowels",
+      "phase": "transfer",
+      "contrastGroupId": "vowel-a",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "Heat tiene la vocal de see. La consonante inicial y la final coinciden con las de hat.",
+      "requiredContrastIds": [
+        "es-en-word-vowel-a-1"
+      ]
+    },
+    {
+      "id": "es-en-word-final-stop-1",
+      "revision": "2",
+      "target": "cap",
+      "meaning": "gorra",
+      "englishAuditText": "cap",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-word-final-stop-1",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.consonants",
+      "phase": "practice",
+      "contrastGroupId": "final-stop",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "Cap termina en p. Compara el final con cab, que termina en b.",
+      "requiredContrastIds": [
+        "es-en-word-final-stop-2"
+      ]
+    },
+    {
+      "id": "es-en-word-final-stop-2",
+      "revision": "2",
+      "target": "cab",
+      "meaning": "taxi",
+      "englishAuditText": "cab",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-word-final-stop-2",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.consonants",
+      "phase": "practice",
+      "contrastGroupId": "final-stop",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "Cab significa taxi en este ejercicio y termina en b.",
+      "requiredContrastIds": [
+        "es-en-word-final-stop-1"
+      ]
+    },
+    {
+      "id": "es-en-word-final-stop-3",
+      "revision": "2",
+      "target": "cat",
+      "meaning": "gato",
+      "englishAuditText": "cat",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-word-final-stop-3",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.consonants",
+      "phase": "practice",
+      "contrastGroupId": "final-stop",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "Cat termina en t; no termina en p ni en b.",
+      "requiredContrastIds": [
+        "es-en-word-final-stop-4"
+      ]
+    },
+    {
+      "id": "es-en-word-final-stop-4",
+      "revision": "2",
+      "target": "can",
+      "meaning": "lata",
+      "englishAuditText": "can",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-word-final-stop-4",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.consonants",
+      "phase": "practice",
+      "contrastGroupId": "final-stop",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "Can se usa aquí como sustantivo: una lata. Termina en n.",
+      "requiredContrastIds": [
+        "es-en-word-final-stop-3"
+      ]
+    },
+    {
+      "id": "es-en-word-final-stop-5",
+      "revision": "2",
+      "target": "catch",
+      "meaning": "atrapar",
+      "englishAuditText": "catch",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-word-final-stop-5",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.consonants",
+      "phase": "transfer",
+      "contrastGroupId": "final-stop",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "Catch termina con el sonido de chair. No tiene el mismo final que cat.",
+      "requiredContrastIds": [
+        "es-en-word-final-stop-3"
+      ]
+    },
+    {
+      "id": "es-en-word-liquid-sounds-1",
+      "revision": "2",
+      "target": "rice",
+      "meaning": "arroz",
+      "englishAuditText": "rice",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-word-liquid-sounds-1",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.consonants",
+      "phase": "practice",
+      "contrastGroupId": "liquid-sounds",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "Rice empieza con r y termina con s. Compara el inicio con lice.",
+      "requiredContrastIds": [
+        "es-en-word-liquid-sounds-2"
+      ]
+    },
+    {
+      "id": "es-en-word-liquid-sounds-2",
+      "revision": "2",
+      "target": "lice",
+      "meaning": "piojos",
+      "englishAuditText": "lice",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-word-liquid-sounds-2",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.consonants",
+      "phase": "practice",
+      "contrastGroupId": "liquid-sounds",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "Lice es el plural de louse. Empieza con l y termina con s.",
+      "requiredContrastIds": [
+        "es-en-word-liquid-sounds-1"
+      ]
+    },
+    {
+      "id": "es-en-word-liquid-sounds-3",
+      "revision": "2",
+      "target": "light",
+      "meaning": "luz",
+      "englishAuditText": "light",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-word-liquid-sounds-3",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.consonants",
+      "phase": "practice",
+      "contrastGroupId": "liquid-sounds",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "Light se usa aquí como sustantivo y empieza con l.",
+      "requiredContrastIds": [
+        "es-en-word-liquid-sounds-4"
+      ]
+    },
+    {
+      "id": "es-en-word-liquid-sounds-4",
+      "revision": "2",
+      "target": "right",
+      "meaning": "derecha",
+      "englishAuditText": "right",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-word-liquid-sounds-4",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.consonants",
+      "phase": "practice",
+      "contrastGroupId": "liquid-sounds",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "Right se usa aquí con el sentido de derecha y empieza con r.",
+      "requiredContrastIds": [
+        "es-en-word-liquid-sounds-3"
+      ]
+    },
+    {
+      "id": "es-en-word-liquid-sounds-5",
+      "revision": "2",
+      "target": "ride",
+      "meaning": "montar; ir en un vehículo",
+      "englishAuditText": "ride",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-word-liquid-sounds-5",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.consonants",
+      "phase": "transfer",
+      "contrastGroupId": "liquid-sounds",
+      "context": "Escucha la palabra completa antes de elegir.",
+      "explanation": "Ride termina en d. Escucha el final para distinguirlo de right.",
+      "requiredContrastIds": [
+        "es-en-word-liquid-sounds-4",
+        "es-en-word-liquid-sounds-3"
+      ]
+    }
+  ],
+  "sentenceProvenance": {
+    "sourcePath": "apps/languages/english-from-spanish/static/data/games/word-world/content.json",
+    "englishSourcePath": "apps/languages/shared/english-concepts/word-world-starter-v1.json",
+    "sourceItemIds": [
+      "ww.greeting.hello",
+      "ww.greeting.thanks",
+      "ww.greeting.goodbye",
+      "ww.identity.name",
+      "ww.identity.student",
+      "ww.object.book",
+      "ww.animal.cat",
+      "ww.weather.cold-today",
+      "ww.comprehension.not-understand",
+      "ww.greeting.good-morning",
+      "ww.greeting.good-evening",
+      "ww.number.seven-to-ten",
+      "ww.politeness.welcome",
+      "ww.greeting.how-are-you",
+      "ww.greeting.i-am-well",
+      "ww.identity.your-name",
+      "es-en-sentence-sentence-vowels-1",
+      "es-en-sentence-sentence-vowels-2",
+      "es-en-sentence-sentence-vowels-3",
+      "es-en-sentence-sentence-vowels-4",
+      "es-en-sentence-sentence-vowels-5",
+      "es-en-sentence-sentence-consonants-1",
+      "es-en-sentence-sentence-consonants-2",
+      "es-en-sentence-sentence-consonants-3",
+      "es-en-sentence-sentence-consonants-4",
+      "es-en-sentence-sentence-consonants-5",
+      "es-en-sentence-sentence-stress-1",
+      "es-en-sentence-sentence-stress-2",
+      "es-en-sentence-sentence-stress-3",
+      "es-en-sentence-sentence-stress-4",
+      "es-en-sentence-sentence-stress-5",
+      "es-en-sentence-sentence-stress-6",
+      "es-en-sentence-sentence-stress-7",
+      "es-en-sentence-sentence-stress-8",
+      "es-en-sentence-sentence-endings-1",
+      "es-en-sentence-sentence-endings-2",
+      "es-en-sentence-sentence-endings-3",
+      "es-en-sentence-sentence-endings-4",
+      "es-en-sentence-sentence-endings-5",
+      "es-en-sentence-sentence-endings-6",
+      "es-en-sentence-sentence-endings-7",
+      "es-en-sentence-sentence-endings-8",
+      "es-en-sentence-sentence-plurals-1",
+      "es-en-sentence-sentence-plurals-2",
+      "es-en-sentence-sentence-plurals-3",
+      "es-en-sentence-sentence-plurals-4",
+      "es-en-sentence-sentence-plurals-5",
+      "es-en-sentence-sentence-plurals-6",
+      "es-en-sentence-sentence-plurals-7",
+      "es-en-sentence-sentence-plurals-8",
+      "es-en-sentence-sentence-agreement-1",
+      "es-en-sentence-sentence-agreement-2",
+      "es-en-sentence-sentence-agreement-3",
+      "es-en-sentence-sentence-agreement-4",
+      "es-en-sentence-sentence-agreement-5",
+      "es-en-sentence-sentence-agreement-6",
+      "es-en-sentence-sentence-agreement-7",
+      "es-en-sentence-sentence-agreement-8",
+      "es-en-sentence-sentence-connected-1",
+      "es-en-sentence-sentence-connected-2",
+      "es-en-sentence-sentence-connected-3",
+      "es-en-sentence-sentence-connected-4",
+      "es-en-sentence-sentence-connected-5",
+      "es-en-sentence-sentence-connected-6",
+      "es-en-sentence-sentence-connected-7",
+      "es-en-sentence-sentence-connected-8",
+      "es-en-sentence-sentence-intent-1",
+      "es-en-sentence-sentence-intent-2",
+      "es-en-sentence-sentence-intent-3",
+      "es-en-sentence-sentence-intent-4",
+      "es-en-sentence-sentence-intent-5",
+      "es-en-sentence-sentence-intent-location-1",
+      "es-en-sentence-sentence-intent-location-2",
+      "es-en-sentence-sentence-intent-location-3",
+      "es-en-sentence-sentence-intent-location-4",
+      "es-en-sentence-sentence-intent-location-5",
+      "es-en-sentence-sentence-intent-tickets-1",
+      "es-en-sentence-sentence-intent-tickets-2",
+      "es-en-sentence-sentence-intent-tickets-3",
+      "es-en-sentence-sentence-intent-tickets-4",
+      "es-en-sentence-sentence-intent-tickets-5"
+    ],
+    "selection": "Original Word World references retained as ungraded practice. New authored-listening items are first-party content defined only in this catalog. AI text review is recorded in authoredProvenance; audible review is pending."
+  },
+  "sentences": [
+    {
+      "id": "es-en-sentence-1",
+      "revision": "2",
+      "target": "Hello!",
+      "meaning": "¡Hola!",
+      "sourceId": "ww.greeting.hello",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Hello!",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.connected",
+      "phase": "practice",
+      "contrastGroupId": "legacy-greetings",
+      "context": "Escucha toda la frase antes de elegir.",
+      "explanation": "El audio dice «Hello!», que aquí significa «¡Hola!».",
+      "graded": false
+    },
+    {
+      "id": "es-en-sentence-2",
+      "revision": "2",
+      "target": "Thank you.",
+      "meaning": "Gracias.",
+      "sourceId": "ww.greeting.thanks",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Thank you.",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.connected",
+      "phase": "practice",
+      "contrastGroupId": "legacy-greetings",
+      "context": "Escucha toda la frase antes de elegir.",
+      "explanation": "El audio dice «Thank you.», que aquí significa «Gracias.».",
+      "graded": false
+    },
+    {
+      "id": "es-en-sentence-3",
+      "revision": "2",
+      "target": "Goodbye!",
+      "meaning": "¡Adiós!",
+      "sourceId": "ww.greeting.goodbye",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Goodbye!",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.connected",
+      "phase": "practice",
+      "contrastGroupId": "legacy-greetings",
+      "context": "Escucha toda la frase antes de elegir.",
+      "explanation": "El audio dice «Goodbye!», que aquí significa «¡Adiós!».",
+      "graded": false
+    },
+    {
+      "id": "es-en-sentence-4",
+      "revision": "2",
+      "target": "My name is Lin.",
+      "meaning": "Me llamo Lin.",
+      "sourceId": "ww.identity.name",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "My name is Lin.",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "practice",
+      "contrastGroupId": "legacy-statements",
+      "context": "Escucha toda la frase antes de elegir.",
+      "explanation": "El audio dice «My name is Lin.», que aquí significa «Me llamo Lin.».",
+      "graded": false
+    },
+    {
+      "id": "es-en-sentence-5",
+      "revision": "2",
+      "target": "I am a student.",
+      "meaning": "Soy estudiante.",
+      "sourceId": "ww.identity.student",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I am a student.",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "practice",
+      "contrastGroupId": "legacy-statements",
+      "context": "Escucha toda la frase antes de elegir.",
+      "explanation": "El audio dice «I am a student.», que aquí significa «Soy estudiante.».",
+      "graded": false
+    },
+    {
+      "id": "es-en-sentence-6",
+      "revision": "2",
+      "target": "This is a book.",
+      "meaning": "Esto es un libro.",
+      "sourceId": "ww.object.book",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "This is a book.",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "practice",
+      "contrastGroupId": "legacy-statements",
+      "context": "Escucha toda la frase antes de elegir.",
+      "explanation": "El audio dice «This is a book.», que aquí significa «Esto es un libro.».",
+      "graded": false
+    },
+    {
+      "id": "es-en-sentence-7",
+      "revision": "2",
+      "target": "That is a cat.",
+      "meaning": "Eso es un gato.",
+      "sourceId": "ww.animal.cat",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "That is a cat.",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "practice",
+      "contrastGroupId": "legacy-statements",
+      "context": "Escucha toda la frase antes de elegir.",
+      "explanation": "El audio dice «That is a cat.», que aquí significa «Eso es un gato.».",
+      "graded": false
+    },
+    {
+      "id": "es-en-sentence-8",
+      "revision": "2",
+      "target": "It is cold today.",
+      "meaning": "Hoy hace frío.",
+      "sourceId": "ww.weather.cold-today",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "It is cold today.",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "practice",
+      "contrastGroupId": "legacy-time",
+      "context": "Escucha toda la frase antes de elegir.",
+      "explanation": "El audio dice «It is cold today.», que aquí significa «Hoy hace frío.».",
+      "graded": false
+    },
+    {
+      "id": "es-en-sentence-9",
+      "revision": "2",
+      "target": "I do not understand.",
+      "meaning": "No entiendo.",
+      "sourceId": "ww.comprehension.not-understand",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I do not understand.",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "practice",
+      "contrastGroupId": "legacy-conversation",
+      "context": "Escucha toda la frase antes de elegir.",
+      "explanation": "El audio dice «I do not understand.», que aquí significa «No entiendo.».",
+      "graded": false
+    },
+    {
+      "id": "es-en-sentence-10",
+      "revision": "2",
+      "target": "Good morning!",
+      "meaning": "¡Buenos días!",
+      "sourceId": "ww.greeting.good-morning",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Good morning!",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "practice",
+      "contrastGroupId": "legacy-time",
+      "context": "Escucha toda la frase antes de elegir.",
+      "explanation": "El audio dice «Good morning!», que aquí significa «¡Buenos días!».",
+      "graded": false
+    },
+    {
+      "id": "es-en-sentence-11",
+      "revision": "2",
+      "target": "Good evening!",
+      "meaning": "¡Buenas noches!",
+      "sourceId": "ww.greeting.good-evening",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Good evening!",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "practice",
+      "contrastGroupId": "legacy-time",
+      "context": "Escucha toda la frase antes de elegir.",
+      "explanation": "El audio dice «Good evening!», que aquí significa «¡Buenas noches!».",
+      "graded": false
+    },
+    {
+      "id": "es-en-sentence-12",
+      "revision": "2",
+      "target": "Seven, eight, nine, ten.",
+      "meaning": "Siete, ocho, nueve, diez.",
+      "sourceId": "ww.number.seven-to-ten",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Seven, eight, nine, ten.",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "practice",
+      "contrastGroupId": "legacy-time",
+      "context": "Escucha toda la frase antes de elegir.",
+      "explanation": "El audio dice «Seven, eight, nine, ten.», que aquí significa «Siete, ocho, nueve, diez.».",
+      "graded": false
+    },
+    {
+      "id": "es-en-sentence-13",
+      "revision": "2",
+      "target": "You are welcome.",
+      "meaning": "De nada.",
+      "sourceId": "ww.politeness.welcome",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "You are welcome.",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.connected",
+      "phase": "practice",
+      "contrastGroupId": "legacy-greetings",
+      "context": "Escucha toda la frase antes de elegir.",
+      "explanation": "El audio dice «You are welcome.», que aquí significa «De nada.».",
+      "graded": false
+    },
+    {
+      "id": "es-en-sentence-14",
+      "revision": "2",
+      "target": "How are you?",
+      "meaning": "¿Cómo estás?",
+      "sourceId": "ww.greeting.how-are-you",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "How are you?",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "practice",
+      "contrastGroupId": "legacy-conversation",
+      "context": "Escucha toda la frase antes de elegir.",
+      "explanation": "El audio dice «How are you?», que aquí significa «¿Cómo estás?».",
+      "graded": false
+    },
+    {
+      "id": "es-en-sentence-15",
+      "revision": "2",
+      "target": "I am very well.",
+      "meaning": "Estoy muy bien.",
+      "sourceId": "ww.greeting.i-am-well",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I am very well.",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "practice",
+      "contrastGroupId": "legacy-conversation",
+      "context": "Escucha toda la frase antes de elegir.",
+      "explanation": "El audio dice «I am very well.», que aquí significa «Estoy muy bien.».",
+      "graded": false
+    },
+    {
+      "id": "es-en-sentence-16",
+      "revision": "2",
+      "target": "What is your name?",
+      "meaning": "¿Cómo te llamas?",
+      "sourceId": "ww.identity.your-name",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "What is your name?",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "practice",
+      "contrastGroupId": "legacy-conversation",
+      "context": "Escucha toda la frase antes de elegir.",
+      "explanation": "El audio dice «What is your name?», que aquí significa «¿Cómo te llamas?».",
+      "graded": false
+    },
+    {
+      "id": "es-en-sentence-sentence-vowels-1",
+      "revision": "2",
+      "target": "I saw the ship.",
+      "meaning": "Vi el barco.",
+      "englishAuditText": "I saw the ship.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-vowels-1",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.vowels",
+      "phase": "practice",
+      "contrastGroupId": "sentence-vowels",
+      "context": "Escucha la vocal y la consonante inicial de la palabra que cambia.",
+      "explanation": "Ship tiene la vocal de sit. Las demás opciones usan la misma frase; escucha la palabra central.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-vowels-2",
+        "es-en-sentence-sentence-vowels-3"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-vowels-2",
+      "revision": "2",
+      "target": "I saw the sheep.",
+      "meaning": "Vi la oveja.",
+      "englishAuditText": "I saw the sheep.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-vowels-2",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.vowels",
+      "phase": "practice",
+      "contrastGroupId": "sentence-vowels",
+      "context": "Escucha la vocal y la consonante inicial de la palabra que cambia.",
+      "explanation": "Sheep tiene la vocal de see. Ship y sheep conservan los mismos sonidos inicial y final.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-vowels-1"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-vowels-3",
+      "revision": "2",
+      "target": "I saw the chip.",
+      "meaning": "Vi la patata frita de bolsa.",
+      "englishAuditText": "I saw the chip.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-vowels-3",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.vowels",
+      "phase": "practice",
+      "contrastGroupId": "sentence-vowels",
+      "context": "Escucha la vocal y la consonante inicial de la palabra que cambia.",
+      "explanation": "Chip tiene la vocal de sit y empieza con el sonido de chair. Aquí chip se usa en su sentido estadounidense de patata frita de bolsa.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-vowels-1"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-vowels-4",
+      "revision": "2",
+      "target": "I saw the jeep.",
+      "meaning": "Vi el todoterreno.",
+      "englishAuditText": "I saw the jeep.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-vowels-4",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.vowels",
+      "phase": "practice",
+      "contrastGroupId": "sentence-vowels",
+      "context": "Escucha la vocal y la consonante inicial de la palabra que cambia.",
+      "explanation": "Jeep tiene la vocal de see y empieza con el sonido de job. El inicio permite distinguir jeep de sheep.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-vowels-2"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-vowels-5",
+      "revision": "2",
+      "target": "I saw the shop.",
+      "meaning": "Vi la tienda.",
+      "englishAuditText": "I saw the shop.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-vowels-5",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.vowels",
+      "phase": "transfer",
+      "contrastGroupId": "sentence-vowels",
+      "context": "Escucha la vocal y la consonante inicial de la palabra que cambia.",
+      "explanation": "Shop conserva sh y p, pero cambia la vocal respecto a ship y sheep. La estructura de la frase es la misma.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-vowels-1",
+        "es-en-sentence-sentence-vowels-2"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-consonants-1",
+      "revision": "2",
+      "target": "I drew a cap.",
+      "meaning": "Dibujé una gorra.",
+      "englishAuditText": "I drew a cap.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-consonants-1",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.consonants",
+      "phase": "practice",
+      "contrastGroupId": "sentence-consonants",
+      "context": "Escucha la consonante final y los sonidos del comienzo de la palabra que cambia.",
+      "explanation": "Cap termina en p. Compara el final con cab, que termina en b.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-consonants-2",
+        "es-en-sentence-sentence-consonants-3"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-consonants-2",
+      "revision": "2",
+      "target": "I drew a cab.",
+      "meaning": "Dibujé un taxi.",
+      "englishAuditText": "I drew a cab.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-consonants-2",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.consonants",
+      "phase": "practice",
+      "contrastGroupId": "sentence-consonants",
+      "context": "Escucha la consonante final y los sonidos del comienzo de la palabra que cambia.",
+      "explanation": "Cab significa taxi y termina en b; cap termina en p.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-consonants-1"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-consonants-3",
+      "revision": "2",
+      "target": "I drew a cat.",
+      "meaning": "Dibujé un gato.",
+      "englishAuditText": "I drew a cat.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-consonants-3",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.consonants",
+      "phase": "practice",
+      "contrastGroupId": "sentence-consonants",
+      "context": "Escucha la consonante final y los sonidos del comienzo de la palabra que cambia.",
+      "explanation": "Cat termina en t. El resto de la frase coincide con las otras opciones.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-consonants-1"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-consonants-4",
+      "revision": "2",
+      "target": "I drew a can.",
+      "meaning": "Dibujé una lata.",
+      "englishAuditText": "I drew a can.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-consonants-4",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.consonants",
+      "phase": "practice",
+      "contrastGroupId": "sentence-consonants",
+      "context": "Escucha la consonante final y los sonidos del comienzo de la palabra que cambia.",
+      "explanation": "Can es aquí una lata y termina en n. Escucha el final para distinguirlo de cat.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-consonants-3"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-consonants-5",
+      "revision": "2",
+      "target": "I drew a crab.",
+      "meaning": "Dibujé un cangrejo.",
+      "englishAuditText": "I drew a crab.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-consonants-5",
+      "difficulty": 1,
+      "objectiveId": "es-en.sounds.consonants",
+      "phase": "transfer",
+      "contrastGroupId": "sentence-consonants",
+      "context": "Escucha la consonante final y los sonidos del comienzo de la palabra que cambia.",
+      "explanation": "Crab añade r después de c respecto a cab y conserva el final b. Hay que escuchar toda la palabra.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-consonants-2"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-stress-1",
+      "revision": "2",
+      "target": "We need a record.",
+      "meaning": "Necesitamos un registro.",
+      "englishAuditText": "We need a record.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-stress-1",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.stress",
+      "phase": "practice",
+      "contrastGroupId": "sentence-stress",
+      "context": "Escucha la sílaba acentuada y la estructura de la frase; el nombre y el verbo se escriben igual.",
+      "explanation": "Record es aquí un sustantivo, un registro, y se acentúa la primera sílaba. A introduce el nombre.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-stress-2"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-stress-2",
+      "revision": "2",
+      "target": "We need to record.",
+      "meaning": "Necesitamos grabar.",
+      "englishAuditText": "We need to record.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-stress-2",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.stress",
+      "phase": "practice",
+      "contrastGroupId": "sentence-stress",
+      "context": "Escucha la sílaba acentuada y la estructura de la frase; el nombre y el verbo se escriben igual.",
+      "explanation": "Record es un verbo después de to y se acentúa la segunda sílaba. La estructura también ayuda a interpretar lo que se oye.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-stress-1"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-stress-3",
+      "revision": "2",
+      "target": "They need a permit for visitors.",
+      "meaning": "Necesitan un permiso para los visitantes.",
+      "englishAuditText": "They need a permit for visitors.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-stress-3",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.stress",
+      "phase": "practice",
+      "contrastGroupId": "sentence-stress",
+      "context": "Escucha la sílaba acentuada y la estructura de la frase; el nombre y el verbo se escriben igual.",
+      "explanation": "Permit es un sustantivo después de a y se acentúa la primera sílaba.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-stress-4"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-stress-4",
+      "revision": "2",
+      "target": "They need to permit visitors.",
+      "meaning": "Necesitan permitir la entrada de visitantes.",
+      "englishAuditText": "They need to permit visitors.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-stress-4",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.stress",
+      "phase": "practice",
+      "contrastGroupId": "sentence-stress",
+      "context": "Escucha la sílaba acentuada y la estructura de la frase; el nombre y el verbo se escriben igual.",
+      "explanation": "Permit es aquí un verbo: permitir la entrada. Se acentúa la segunda sílaba.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-stress-3"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-stress-5",
+      "revision": "2",
+      "target": "We need to present the plan.",
+      "meaning": "Necesitamos presentar el plan.",
+      "englishAuditText": "We need to present the plan.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-stress-5",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.stress",
+      "phase": "transfer",
+      "contrastGroupId": "sentence-stress",
+      "context": "Escucha la sílaba acentuada y la estructura de la frase; el nombre y el verbo se escriben igual.",
+      "explanation": "Present es un verbo después de to y se acentúa la segunda sílaba. Se aplica el contraste de nombre y verbo en un uso nuevo.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-stress-8"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-stress-6",
+      "revision": "1",
+      "target": "We need an object.",
+      "meaning": "Necesitamos un objeto.",
+      "englishAuditText": "We need an object.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-stress-6",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.stress",
+      "phase": "practice",
+      "contrastGroupId": "sentence-stress",
+      "context": "Escucha la sílaba acentuada y la estructura de la frase; el nombre y el verbo se escriben igual.",
+      "explanation": "Object es aquí un sustantivo y se acentúa la primera sílaba. An introduce un objeto.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-stress-7"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-stress-7",
+      "revision": "1",
+      "target": "We need to object.",
+      "meaning": "Necesitamos oponernos.",
+      "englishAuditText": "We need to object.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-stress-7",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.stress",
+      "phase": "practice",
+      "contrastGroupId": "sentence-stress",
+      "context": "Escucha la sílaba acentuada y la estructura de la frase; el nombre y el verbo se escriben igual.",
+      "explanation": "Object es un verbo después de to y se acentúa la segunda sílaba. Aquí significa oponerse, no nombrar una cosa.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-stress-6"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-stress-8",
+      "revision": "1",
+      "target": "We need a present.",
+      "meaning": "Necesitamos un regalo.",
+      "englishAuditText": "We need a present.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-stress-8",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.stress",
+      "phase": "practice",
+      "contrastGroupId": "sentence-stress",
+      "context": "Escucha la sílaba acentuada y la estructura de la frase; el nombre y el verbo se escriben igual.",
+      "explanation": "Present es aquí un sustantivo, un regalo, y se acentúa la primera sílaba.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-stress-1"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-endings-1",
+      "revision": "2",
+      "target": "I watch the game.",
+      "meaning": "Veo el partido.",
+      "englishAuditText": "I watch the game.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-endings-1",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.endings",
+      "phase": "practice",
+      "contrastGroupId": "sentence-endings",
+      "context": "Escucha la terminación del verbo; las opciones cercanas conservan la misma acción y el mismo objeto.",
+      "explanation": "Watch está en presente. No tiene la terminación del pasado.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-endings-2"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-endings-2",
+      "revision": "2",
+      "target": "I watched the game.",
+      "meaning": "Vi el partido.",
+      "englishAuditText": "I watched the game.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-endings-2",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.endings",
+      "phase": "practice",
+      "contrastGroupId": "sentence-endings",
+      "context": "Escucha la terminación del verbo; las opciones cercanas conservan la misma acción y el mismo objeto.",
+      "explanation": "Watched está en pasado. Después del sonido final de watch, ed se pronuncia como t, sin añadir una sílaba.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-endings-1"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-endings-3",
+      "revision": "2",
+      "target": "I play the guitar.",
+      "meaning": "Toco la guitarra.",
+      "englishAuditText": "I play the guitar.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-endings-3",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.endings",
+      "phase": "practice",
+      "contrastGroupId": "sentence-endings",
+      "context": "Escucha la terminación del verbo; las opciones cercanas conservan la misma acción y el mismo objeto.",
+      "explanation": "Play está en presente. La frase habla de tocar un instrumento.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-endings-4"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-endings-4",
+      "revision": "2",
+      "target": "I played the guitar.",
+      "meaning": "Toqué la guitarra.",
+      "englishAuditText": "I played the guitar.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-endings-4",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.endings",
+      "phase": "practice",
+      "contrastGroupId": "sentence-endings",
+      "context": "Escucha la terminación del verbo; las opciones cercanas conservan la misma acción y el mismo objeto.",
+      "explanation": "Played está en pasado. Ed se pronuncia como d, sin añadir otra sílaba.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-endings-3"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-endings-5",
+      "revision": "2",
+      "target": "I waited for the bus.",
+      "meaning": "Esperé el autobús.",
+      "englishAuditText": "I waited for the bus.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-endings-5",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.endings",
+      "phase": "transfer",
+      "contrastGroupId": "sentence-endings",
+      "context": "Escucha la terminación del verbo; las opciones cercanas conservan la misma acción y el mismo objeto.",
+      "explanation": "Waited está en pasado. La terminación añade una sílaba después del sonido t, como en wanted.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-endings-8"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-endings-6",
+      "revision": "1",
+      "target": "I want a ticket.",
+      "meaning": "Quiero un billete.",
+      "englishAuditText": "I want a ticket.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-endings-6",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.endings",
+      "phase": "practice",
+      "contrastGroupId": "sentence-endings",
+      "context": "Escucha la terminación del verbo; las opciones cercanas conservan la misma acción y el mismo objeto.",
+      "explanation": "Want está en presente. Escucha el final para distinguirlo del pasado.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-endings-7"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-endings-7",
+      "revision": "1",
+      "target": "I wanted a ticket.",
+      "meaning": "Quería un billete.",
+      "englishAuditText": "I wanted a ticket.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-endings-7",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.endings",
+      "phase": "practice",
+      "contrastGroupId": "sentence-endings",
+      "context": "Escucha la terminación del verbo; las opciones cercanas conservan la misma acción y el mismo objeto.",
+      "explanation": "Wanted está en pasado. Ed añade una sílaba después del sonido t.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-endings-6"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-endings-8",
+      "revision": "1",
+      "target": "I wait for the bus.",
+      "meaning": "Espero el autobús.",
+      "englishAuditText": "I wait for the bus.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-endings-8",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.endings",
+      "phase": "practice",
+      "contrastGroupId": "sentence-endings",
+      "context": "Escucha la terminación del verbo; las opciones cercanas conservan la misma acción y el mismo objeto.",
+      "explanation": "Wait está en presente. For the bus indica qué se espera.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-endings-6"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-plurals-1",
+      "revision": "1",
+      "target": "I can see the cup.",
+      "meaning": "Puedo ver la taza.",
+      "englishAuditText": "I can see the cup.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-plurals-1",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.endings",
+      "phase": "practice",
+      "contrastGroupId": "sentence-plurals",
+      "context": "Escucha si el nombre lleva una terminación de plural; el resto de cada par es igual.",
+      "explanation": "Cup está en singular; se habla de una taza.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-plurals-2"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-plurals-2",
+      "revision": "1",
+      "target": "I can see the cups.",
+      "meaning": "Puedo ver las tazas.",
+      "englishAuditText": "I can see the cups.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-plurals-2",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.endings",
+      "phase": "practice",
+      "contrastGroupId": "sentence-plurals",
+      "context": "Escucha si el nombre lleva una terminación de plural; el resto de cada par es igual.",
+      "explanation": "Cups está en plural. La terminación se pronuncia como s.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-plurals-1"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-plurals-3",
+      "revision": "1",
+      "target": "I can see the dog.",
+      "meaning": "Puedo ver el perro.",
+      "englishAuditText": "I can see the dog.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-plurals-3",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.endings",
+      "phase": "practice",
+      "contrastGroupId": "sentence-plurals",
+      "context": "Escucha si el nombre lleva una terminación de plural; el resto de cada par es igual.",
+      "explanation": "Dog está en singular; se habla de un perro.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-plurals-4"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-plurals-4",
+      "revision": "1",
+      "target": "I can see the dogs.",
+      "meaning": "Puedo ver los perros.",
+      "englishAuditText": "I can see the dogs.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-plurals-4",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.endings",
+      "phase": "practice",
+      "contrastGroupId": "sentence-plurals",
+      "context": "Escucha si el nombre lleva una terminación de plural; el resto de cada par es igual.",
+      "explanation": "Dogs está en plural. La terminación se pronuncia como z, con vibración de la voz.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-plurals-3"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-plurals-5",
+      "revision": "1",
+      "target": "I can see the box.",
+      "meaning": "Puedo ver la caja.",
+      "englishAuditText": "I can see the box.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-plurals-5",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.endings",
+      "phase": "practice",
+      "contrastGroupId": "sentence-plurals",
+      "context": "Escucha si el nombre lleva una terminación de plural; el resto de cada par es igual.",
+      "explanation": "Box está en singular. Su x ya termina con los sonidos k y s; esa s forma parte del nombre.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-plurals-6"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-plurals-6",
+      "revision": "1",
+      "target": "I can see the boxes.",
+      "meaning": "Puedo ver las cajas.",
+      "englishAuditText": "I can see the boxes.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-plurals-6",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.endings",
+      "phase": "practice",
+      "contrastGroupId": "sentence-plurals",
+      "context": "Escucha si el nombre lleva una terminación de plural; el resto de cada par es igual.",
+      "explanation": "Boxes está en plural. Es añade una sílaba, igual que ocurre tras otros sonidos sibilantes.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-plurals-5"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-plurals-7",
+      "revision": "1",
+      "target": "I can see the bus.",
+      "meaning": "Puedo ver el autobús.",
+      "englishAuditText": "I can see the bus.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-plurals-7",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.endings",
+      "phase": "practice",
+      "contrastGroupId": "sentence-plurals",
+      "context": "Escucha si el nombre lleva una terminación de plural; el resto de cada par es igual.",
+      "explanation": "Bus está en singular. La s final forma parte de la palabra y por sí sola no indica plural.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-plurals-5"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-plurals-8",
+      "revision": "1",
+      "target": "I can see the buses.",
+      "meaning": "Puedo ver los autobuses.",
+      "englishAuditText": "I can see the buses.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-plurals-8",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.endings",
+      "phase": "transfer",
+      "contrastGroupId": "sentence-plurals",
+      "context": "Escucha si el nombre lleva una terminación de plural; el resto de cada par es igual.",
+      "explanation": "Buses está en plural. Es añade una sílaba después del sonido s, como en otros plurales aprendidos.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-plurals-7"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-agreement-1",
+      "revision": "1",
+      "target": "Our neighbors walk home.",
+      "meaning": "Nuestros vecinos van andando a casa.",
+      "englishAuditText": "Our neighbors walk home.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-agreement-1",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.endings",
+      "phase": "practice",
+      "contrastGroupId": "sentence-agreement",
+      "context": "Escucha las terminaciones del nombre y del verbo que distinguen a una persona de varias.",
+      "explanation": "Con neighbors, plural, el verbo va en la forma walk.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-agreement-2"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-agreement-2",
+      "revision": "1",
+      "target": "Our neighbor walks home.",
+      "meaning": "Nuestro vecino va andando a casa.",
+      "englishAuditText": "Our neighbor walks home.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-agreement-2",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.endings",
+      "phase": "practice",
+      "contrastGroupId": "sentence-agreement",
+      "context": "Escucha las terminaciones del nombre y del verbo que distinguen a una persona de varias.",
+      "explanation": "Con neighbor, singular, walks lleva la terminación de tercera persona, pronunciada como s.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-agreement-1"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-agreement-3",
+      "revision": "1",
+      "target": "Our neighbors play outside.",
+      "meaning": "Nuestros vecinos juegan fuera.",
+      "englishAuditText": "Our neighbors play outside.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-agreement-3",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.endings",
+      "phase": "practice",
+      "contrastGroupId": "sentence-agreement",
+      "context": "Escucha las terminaciones del nombre y del verbo que distinguen a una persona de varias.",
+      "explanation": "Con neighbors, plural, se usa play sin la terminación de tercera persona singular.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-agreement-4"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-agreement-4",
+      "revision": "1",
+      "target": "Our neighbor plays outside.",
+      "meaning": "Nuestro vecino juega fuera.",
+      "englishAuditText": "Our neighbor plays outside.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-agreement-4",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.endings",
+      "phase": "practice",
+      "contrastGroupId": "sentence-agreement",
+      "context": "Escucha las terminaciones del nombre y del verbo que distinguen a una persona de varias.",
+      "explanation": "Plays lleva la terminación de tercera persona singular, pronunciada como z.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-agreement-3"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-agreement-5",
+      "revision": "1",
+      "target": "Our neighbors wash the car.",
+      "meaning": "Nuestros vecinos lavan el coche.",
+      "englishAuditText": "Our neighbors wash the car.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-agreement-5",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.endings",
+      "phase": "practice",
+      "contrastGroupId": "sentence-agreement",
+      "context": "Escucha las terminaciones del nombre y del verbo que distinguen a una persona de varias.",
+      "explanation": "Con neighbors, plural, se usa wash. Escucha también si neighbor lleva s.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-agreement-6"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-agreement-6",
+      "revision": "1",
+      "target": "Our neighbor washes the car.",
+      "meaning": "Nuestro vecino lava el coche.",
+      "englishAuditText": "Our neighbor washes the car.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-agreement-6",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.endings",
+      "phase": "practice",
+      "contrastGroupId": "sentence-agreement",
+      "context": "Escucha las terminaciones del nombre y del verbo que distinguen a una persona de varias.",
+      "explanation": "Washes lleva la terminación de tercera persona singular. Después del sonido sh, es añade una sílaba.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-agreement-5"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-agreement-7",
+      "revision": "1",
+      "target": "Our neighbors close the gate.",
+      "meaning": "Nuestros vecinos cierran la puerta de la valla.",
+      "englishAuditText": "Our neighbors close the gate.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-agreement-7",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.endings",
+      "phase": "practice",
+      "contrastGroupId": "sentence-agreement",
+      "context": "Escucha las terminaciones del nombre y del verbo que distinguen a una persona de varias.",
+      "explanation": "Con neighbors, plural, close es la forma del verbo. Aquí significa cerrar.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-agreement-5"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-agreement-8",
+      "revision": "1",
+      "target": "Our neighbor closes the gate.",
+      "meaning": "Nuestro vecino cierra la puerta de la valla.",
+      "englishAuditText": "Our neighbor closes the gate.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-agreement-8",
+      "difficulty": 2,
+      "objectiveId": "es-en.sounds.endings",
+      "phase": "transfer",
+      "contrastGroupId": "sentence-agreement",
+      "context": "Escucha las terminaciones del nombre y del verbo que distinguen a una persona de varias.",
+      "explanation": "Closes lleva la terminación de tercera persona singular. Añade una sílaba después del sonido z del verbo close.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-agreement-7"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-connected-1",
+      "revision": "2",
+      "target": "I'd call you in an hour.",
+      "meaning": "Te llamaría dentro de una hora.",
+      "englishAuditText": "I'd call you in an hour.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-connected-1",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.connected",
+      "phase": "practice",
+      "contrastGroupId": "sentence-connected",
+      "context": "Escucha la contracción y las palabras cortas; las opciones cercanas hablan de la misma situación.",
+      "explanation": "I'd equivale aquí a I would; expresa una situación condicional. Hour empieza con sonido vocálico y su h no se pronuncia.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-connected-4"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-connected-2",
+      "revision": "2",
+      "target": "She's at home.",
+      "meaning": "Ella está en casa.",
+      "englishAuditText": "She's at home.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-connected-2",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.connected",
+      "phase": "practice",
+      "contrastGroupId": "sentence-connected",
+      "context": "Escucha la contracción y las palabras cortas; las opciones cercanas hablan de la misma situación.",
+      "explanation": "She's equivale aquí a she is. La frase sitúa a la persona en casa en el presente.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-connected-6"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-connected-3",
+      "revision": "2",
+      "target": "We don't need to hurry.",
+      "meaning": "No necesitamos darnos prisa.",
+      "englishAuditText": "We don't need to hurry.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-connected-3",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.connected",
+      "phase": "practice",
+      "contrastGroupId": "sentence-connected",
+      "context": "Escucha la contracción y las palabras cortas; las opciones cercanas hablan de la misma situación.",
+      "explanation": "Don't equivale a do not. To puede debilitarse al hablar; escucha también la contracción inicial.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-connected-7"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-connected-4",
+      "revision": "2",
+      "target": "I'll call you in an hour.",
+      "meaning": "Te llamaré dentro de una hora.",
+      "englishAuditText": "I'll call you in an hour.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-connected-4",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.connected",
+      "phase": "practice",
+      "contrastGroupId": "sentence-connected",
+      "context": "Escucha la contracción y las palabras cortas; las opciones cercanas hablan de la misma situación.",
+      "explanation": "I'll equivale a I will. La contracción cambia la interpretación respecto a I'd, I would.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-connected-1"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-connected-5",
+      "revision": "2",
+      "target": "They've left their bags at the hotel.",
+      "meaning": "Han dejado sus bolsas en el hotel.",
+      "englishAuditText": "They've left their bags at the hotel.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-connected-5",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.connected",
+      "phase": "transfer",
+      "contrastGroupId": "sentence-connected",
+      "context": "Escucha la contracción y las palabras cortas; las opciones cercanas hablan de la misma situación.",
+      "explanation": "They've equivale a they have y va con el participio left. No expresa el futuro de they'll leave.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-connected-8"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-connected-6",
+      "revision": "1",
+      "target": "She was at home.",
+      "meaning": "Ella estaba en casa.",
+      "englishAuditText": "She was at home.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-connected-6",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.connected",
+      "phase": "practice",
+      "contrastGroupId": "sentence-connected",
+      "context": "Escucha la contracción y las palabras cortas; las opciones cercanas hablan de la misma situación.",
+      "explanation": "Was sitúa la estancia en casa en el pasado. No equivale a la contracción she's, she is.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-connected-2"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-connected-7",
+      "revision": "1",
+      "target": "We didn't need to hurry.",
+      "meaning": "No necesitábamos darnos prisa.",
+      "englishAuditText": "We didn't need to hurry.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-connected-7",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.connected",
+      "phase": "practice",
+      "contrastGroupId": "sentence-connected",
+      "context": "Escucha la contracción y las palabras cortas; las opciones cercanas hablan de la misma situación.",
+      "explanation": "Didn't equivale a did not. La necesidad se niega en pasado y need conserva su forma base.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-connected-3"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-connected-8",
+      "revision": "1",
+      "target": "They'll leave their bags at the hotel.",
+      "meaning": "Dejarán sus bolsas en el hotel.",
+      "englishAuditText": "They'll leave their bags at the hotel.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-connected-8",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.connected",
+      "phase": "practice",
+      "contrastGroupId": "sentence-connected",
+      "context": "Escucha la contracción y las palabras cortas; las opciones cercanas hablan de la misma situación.",
+      "explanation": "They'll equivale a they will y va con leave. La frase expresa una acción futura.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-connected-4"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-intent-1",
+      "revision": "2",
+      "target": "The train leaves at six fifteen.",
+      "meaning": "El tren sale a las seis y cuarto.",
+      "englishAuditText": "The train leaves at six fifteen.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-intent-1",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "practice",
+      "contrastGroupId": "sentence-intent",
+      "context": "Escucha la hora completa: la frase sobre el tren es igual en todas las opciones.",
+      "explanation": "Six fifteen indica las 6:15. El final de fifteen permite distinguirlo de fifty.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-intent-2"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-intent-2",
+      "revision": "2",
+      "target": "The train leaves at six fifty.",
+      "meaning": "El tren sale a las siete menos diez.",
+      "englishAuditText": "The train leaves at six fifty.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-intent-2",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "practice",
+      "contrastGroupId": "sentence-intent",
+      "context": "Escucha la hora completa: la frase sobre el tren es igual en todas las opciones.",
+      "explanation": "Six fifty indica las 6:50. La diferencia respecto a six fifteen está en los minutos.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-intent-1"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-intent-3",
+      "revision": "2",
+      "target": "The train leaves at seven thirteen.",
+      "meaning": "El tren sale a las siete y trece.",
+      "englishAuditText": "The train leaves at seven thirteen.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-intent-3",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "practice",
+      "contrastGroupId": "sentence-intent",
+      "context": "Escucha la hora completa: la frase sobre el tren es igual en todas las opciones.",
+      "explanation": "Seven thirteen indica las 7:13. Thirteen y thirty no indican el mismo número de minutos.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-intent-4"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-intent-4",
+      "revision": "2",
+      "target": "The train leaves at seven thirty.",
+      "meaning": "El tren sale a las siete y media.",
+      "englishAuditText": "The train leaves at seven thirty.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-intent-4",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "practice",
+      "contrastGroupId": "sentence-intent",
+      "context": "Escucha la hora completa: la frase sobre el tren es igual en todas las opciones.",
+      "explanation": "Seven thirty indica las 7:30. Escucha el final para distinguir thirty de thirteen.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-intent-3"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-intent-5",
+      "revision": "2",
+      "target": "The train leaves at seven fifteen.",
+      "meaning": "El tren sale a las siete y cuarto.",
+      "englishAuditText": "The train leaves at seven fifteen.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-intent-5",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "transfer",
+      "contrastGroupId": "sentence-intent",
+      "context": "Escucha la hora completa: la frase sobre el tren es igual en todas las opciones.",
+      "explanation": "Seven fifteen indica las 7:15. Combina una hora y unos minutos ya practicados en una combinación nueva.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-intent-1",
+        "es-en-sentence-sentence-intent-3"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-intent-location-1",
+      "revision": "1",
+      "target": "Did you leave the keys in the kitchen?",
+      "meaning": "¿Dejaste las llaves en la cocina?",
+      "englishAuditText": "Did you leave the keys in the kitchen?",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-intent-location-1",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "practice",
+      "contrastGroupId": "sentence-intent-location",
+      "context": "Escucha si la frase pregunta, afirma o niega algo, y en qué habitación sitúa las llaves.",
+      "explanation": "Did al principio introduce una pregunta en pasado. La ubicación es la cocina.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-intent-location-2",
+        "es-en-sentence-sentence-intent-location-4"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-intent-location-2",
+      "revision": "1",
+      "target": "You left the keys in the kitchen.",
+      "meaning": "Dejaste las llaves en la cocina.",
+      "englishAuditText": "You left the keys in the kitchen.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-intent-location-2",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "practice",
+      "contrastGroupId": "sentence-intent-location",
+      "context": "Escucha si la frase pregunta, afirma o niega algo, y en qué habitación sitúa las llaves.",
+      "explanation": "Es una afirmación en pasado. No lleva did interrogativo ni una negación.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-intent-location-1",
+        "es-en-sentence-sentence-intent-location-3"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-intent-location-3",
+      "revision": "1",
+      "target": "You didn't leave the keys in the kitchen.",
+      "meaning": "No dejaste las llaves en la cocina.",
+      "englishAuditText": "You didn't leave the keys in the kitchen.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-intent-location-3",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "practice",
+      "contrastGroupId": "sentence-intent-location",
+      "context": "Escucha si la frase pregunta, afirma o niega algo, y en qué habitación sitúa las llaves.",
+      "explanation": "Didn't niega la acción en pasado y leave conserva su forma base.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-intent-location-2"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-intent-location-4",
+      "revision": "1",
+      "target": "Did you leave the keys in the bedroom?",
+      "meaning": "¿Dejaste las llaves en el dormitorio?",
+      "englishAuditText": "Did you leave the keys in the bedroom?",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-intent-location-4",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "practice",
+      "contrastGroupId": "sentence-intent-location",
+      "context": "Escucha si la frase pregunta, afirma o niega algo, y en qué habitación sitúa las llaves.",
+      "explanation": "Es una pregunta en pasado. Bedroom cambia la ubicación respecto a kitchen.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-intent-location-1"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-intent-location-5",
+      "revision": "1",
+      "target": "You left the keys in the bedroom.",
+      "meaning": "Dejaste las llaves en el dormitorio.",
+      "englishAuditText": "You left the keys in the bedroom.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-intent-location-5",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "transfer",
+      "contrastGroupId": "sentence-intent-location",
+      "context": "Escucha si la frase pregunta, afirma o niega algo, y en qué habitación sitúa las llaves.",
+      "explanation": "Es una afirmación en pasado sobre el dormitorio. Combina una estructura y una ubicación ya practicadas.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-intent-location-2",
+        "es-en-sentence-sentence-intent-location-4"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-intent-tickets-1",
+      "revision": "1",
+      "target": "We need two tickets for tomorrow morning.",
+      "meaning": "Necesitamos dos billetes para mañana por la mañana.",
+      "englishAuditText": "We need two tickets for tomorrow morning.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-intent-tickets-1",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "practice",
+      "contrastGroupId": "sentence-intent-tickets",
+      "context": "Escucha la cantidad de billetes, el día y el momento del viaje.",
+      "explanation": "Los detalles son two, dos, y tomorrow morning, mañana por la mañana.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-intent-tickets-2",
+        "es-en-sentence-sentence-intent-tickets-4"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-intent-tickets-2",
+      "revision": "1",
+      "target": "We need three tickets for tomorrow morning.",
+      "meaning": "Necesitamos tres billetes para mañana por la mañana.",
+      "englishAuditText": "We need three tickets for tomorrow morning.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-intent-tickets-2",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "practice",
+      "contrastGroupId": "sentence-intent-tickets",
+      "context": "Escucha la cantidad de billetes, el día y el momento del viaje.",
+      "explanation": "Three cambia la cantidad de billetes. El día y el momento coinciden con la opción que pide dos.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-intent-tickets-1"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-intent-tickets-3",
+      "revision": "1",
+      "target": "We need two tickets for Friday morning.",
+      "meaning": "Necesitamos dos billetes para el viernes por la mañana.",
+      "englishAuditText": "We need two tickets for Friday morning.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-intent-tickets-3",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "practice",
+      "contrastGroupId": "sentence-intent-tickets",
+      "context": "Escucha la cantidad de billetes, el día y el momento del viaje.",
+      "explanation": "Friday morning indica el viernes por la mañana. La cantidad sigue siendo two, dos.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-intent-tickets-1"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-intent-tickets-4",
+      "revision": "1",
+      "target": "We need two tickets for tomorrow evening.",
+      "meaning": "Necesitamos dos billetes para mañana por la tarde-noche.",
+      "englishAuditText": "We need two tickets for tomorrow evening.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-intent-tickets-4",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "practice",
+      "contrastGroupId": "sentence-intent-tickets",
+      "context": "Escucha la cantidad de billetes, el día y el momento del viaje.",
+      "explanation": "Tomorrow evening indica mañana por la tarde-noche, no por la mañana. La traducción evita fijar una hora de inicio para evening.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-intent-tickets-1"
+      ]
+    },
+    {
+      "id": "es-en-sentence-sentence-intent-tickets-5",
+      "revision": "1",
+      "target": "We need three tickets for Friday morning.",
+      "meaning": "Necesitamos tres billetes para el viernes por la mañana.",
+      "englishAuditText": "We need three tickets for Friday morning.",
+      "sourceKind": "authored-listening",
+      "sourceReviewStatus": "ai-editorial-reviewed",
+      "sourceId": "es-en-sentence-sentence-intent-tickets-5",
+      "difficulty": 3,
+      "objectiveId": "es-en.sounds.intent",
+      "phase": "transfer",
+      "contrastGroupId": "sentence-intent-tickets",
+      "context": "Escucha la cantidad de billetes, el día y el momento del viaje.",
+      "explanation": "Three tickets y Friday morning combinan una cantidad y un día ya practicados en una solicitud nueva.",
+      "requiredContrastIds": [
+        "es-en-sentence-sentence-intent-tickets-2",
+        "es-en-sentence-sentence-intent-tickets-3"
+      ]
+    }
+  ],
+  "curriculum": {
+    "schemaVersion": 1,
+    "objectives": [
+      {
+        "id": "es-en.sounds.vowels",
+        "difficulty": 1,
+        "label": "Distinguir vocales del inglés estadounidense"
+      },
+      {
+        "id": "es-en.sounds.consonants",
+        "difficulty": 1,
+        "label": "Distinguir consonantes y sonidos finales"
+      },
+      {
+        "id": "es-en.sounds.stress",
+        "difficulty": 2,
+        "label": "Reconocer la sílaba acentuada"
+      },
+      {
+        "id": "es-en.sounds.endings",
+        "difficulty": 2,
+        "label": "Reconocer terminaciones gramaticales"
+      },
+      {
+        "id": "es-en.sounds.connected",
+        "difficulty": 3,
+        "label": "Entender contracciones y palabras enlazadas"
+      },
+      {
+        "id": "es-en.sounds.intent",
+        "difficulty": 3,
+        "label": "Identificar preguntas, negación y detalles"
+      }
+    ]
+  },
+  "authoredProvenance": {
+    "kind": "first-party-authored",
+    "reviewStatus": "ai-editorial-reviewed",
+    "reviewer": "web_all_courses",
+    "reviewedAt": "2026-09-07",
+    "notes": "Independent AI text review by web_all_courses read all 117 items (36 words, 81 sentences), including 85 authored items. No concrete translation, audit, explanation or answer-ambiguity defect found. Stress also uses grammatical context. No audible, native, voice or device review; audio remains unreviewed."
+  },
+  "contrastGroups": [
+    {
+      "id": "legacy-short-vowels",
+      "mode": "words",
+      "itemIds": [
+        "es-en-word-1",
+        "es-en-word-4",
+        "es-en-word-5",
+        "es-en-word-11"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null,
+        "notes": "Retained source-linked introductory examples. Contrast quality requires separate review and later refinement; this group is not evidence of full objective coverage."
+      }
+    },
+    {
+      "id": "legacy-final-sounds",
+      "mode": "words",
+      "itemIds": [
+        "es-en-word-2",
+        "es-en-word-6",
+        "es-en-word-7",
+        "es-en-word-9"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null,
+        "notes": "Retained source-linked introductory examples. Contrast quality requires separate review and later refinement; this group is not evidence of full objective coverage."
+      }
+    },
+    {
+      "id": "legacy-syllables-a",
+      "mode": "words",
+      "itemIds": [
+        "es-en-word-3",
+        "es-en-word-8",
+        "es-en-word-10",
+        "es-en-word-12"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null,
+        "notes": "Retained source-linked introductory examples. Contrast quality requires separate review and later refinement; this group is not evidence of full objective coverage."
+      }
+    },
+    {
+      "id": "legacy-syllables-b",
+      "mode": "words",
+      "itemIds": [
+        "es-en-word-13",
+        "es-en-word-14",
+        "es-en-word-15",
+        "es-en-word-16"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null,
+        "notes": "Retained source-linked introductory examples. Contrast quality requires separate review and later refinement; this group is not evidence of full objective coverage."
+      }
+    },
+    {
+      "id": "legacy-greetings",
+      "mode": "sentences",
+      "itemIds": [
+        "es-en-sentence-1",
+        "es-en-sentence-2",
+        "es-en-sentence-3",
+        "es-en-sentence-13"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null,
+        "notes": "Retained source-linked introductory examples. Contrast quality requires separate review and later refinement; this group is not evidence of full objective coverage."
+      }
+    },
+    {
+      "id": "legacy-statements",
+      "mode": "sentences",
+      "itemIds": [
+        "es-en-sentence-4",
+        "es-en-sentence-5",
+        "es-en-sentence-6",
+        "es-en-sentence-7"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null,
+        "notes": "Retained source-linked introductory examples. Contrast quality requires separate review and later refinement; this group is not evidence of full objective coverage."
+      }
+    },
+    {
+      "id": "legacy-time",
+      "mode": "sentences",
+      "itemIds": [
+        "es-en-sentence-8",
+        "es-en-sentence-10",
+        "es-en-sentence-11",
+        "es-en-sentence-12"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null,
+        "notes": "Retained source-linked introductory examples. Contrast quality requires separate review and later refinement; this group is not evidence of full objective coverage."
+      }
+    },
+    {
+      "id": "legacy-conversation",
+      "mode": "sentences",
+      "itemIds": [
+        "es-en-sentence-9",
+        "es-en-sentence-14",
+        "es-en-sentence-15",
+        "es-en-sentence-16"
+      ],
+      "review": {
+        "status": "pending",
+        "reviewer": null,
+        "reviewedAt": null,
+        "notes": "Retained source-linked introductory examples. Contrast quality requires separate review and later refinement; this group is not evidence of full objective coverage."
+      }
+    },
+    {
+      "id": "vowel-i",
+      "mode": "words",
+      "itemIds": [
+        "es-en-word-vowel-i-1",
+        "es-en-word-vowel-i-2",
+        "es-en-word-vowel-i-3",
+        "es-en-word-vowel-i-4",
+        "es-en-word-vowel-i-5"
+      ],
+      "review": {
+        "status": "ai-editorial-reviewed",
+        "reviewer": "web_all_courses",
+        "reviewedAt": "2026-09-07",
+        "notes": "Independent AI text review of the complete group and its required contrasts found no concrete translation, audit, explanation or answer-ambiguity defect. Stress relies partly on grammatical context. Audible en-US voice review and native review remain pending."
+      }
+    },
+    {
+      "id": "vowel-a",
+      "mode": "words",
+      "itemIds": [
+        "es-en-word-vowel-a-1",
+        "es-en-word-vowel-a-2",
+        "es-en-word-vowel-a-3",
+        "es-en-word-vowel-a-4",
+        "es-en-word-vowel-a-5"
+      ],
+      "review": {
+        "status": "ai-editorial-reviewed",
+        "reviewer": "web_all_courses",
+        "reviewedAt": "2026-09-07",
+        "notes": "Independent AI text review of the complete group and its required contrasts found no concrete translation, audit, explanation or answer-ambiguity defect. Stress relies partly on grammatical context. Audible en-US voice review and native review remain pending."
+      }
+    },
+    {
+      "id": "final-stop",
+      "mode": "words",
+      "itemIds": [
+        "es-en-word-final-stop-1",
+        "es-en-word-final-stop-2",
+        "es-en-word-final-stop-3",
+        "es-en-word-final-stop-4",
+        "es-en-word-final-stop-5"
+      ],
+      "review": {
+        "status": "ai-editorial-reviewed",
+        "reviewer": "web_all_courses",
+        "reviewedAt": "2026-09-07",
+        "notes": "Independent AI text review of the complete group and its required contrasts found no concrete translation, audit, explanation or answer-ambiguity defect. Stress relies partly on grammatical context. Audible en-US voice review and native review remain pending."
+      }
+    },
+    {
+      "id": "liquid-sounds",
+      "mode": "words",
+      "itemIds": [
+        "es-en-word-liquid-sounds-1",
+        "es-en-word-liquid-sounds-2",
+        "es-en-word-liquid-sounds-3",
+        "es-en-word-liquid-sounds-4",
+        "es-en-word-liquid-sounds-5"
+      ],
+      "review": {
+        "status": "ai-editorial-reviewed",
+        "reviewer": "web_all_courses",
+        "reviewedAt": "2026-09-07",
+        "notes": "Independent AI text review of the complete group and its required contrasts found no concrete translation, audit, explanation or answer-ambiguity defect. Stress relies partly on grammatical context. Audible en-US voice review and native review remain pending."
+      }
+    },
+    {
+      "id": "sentence-vowels",
+      "mode": "sentences",
+      "itemIds": [
+        "es-en-sentence-sentence-vowels-1",
+        "es-en-sentence-sentence-vowels-2",
+        "es-en-sentence-sentence-vowels-3",
+        "es-en-sentence-sentence-vowels-4",
+        "es-en-sentence-sentence-vowels-5"
+      ],
+      "review": {
+        "status": "ai-editorial-reviewed",
+        "reviewer": "web_all_courses",
+        "reviewedAt": "2026-09-07",
+        "notes": "Independent AI text review of the complete group and its required contrasts found no concrete translation, audit, explanation or answer-ambiguity defect. Stress relies partly on grammatical context. Audible en-US voice review and native review remain pending."
+      }
+    },
+    {
+      "id": "sentence-consonants",
+      "mode": "sentences",
+      "itemIds": [
+        "es-en-sentence-sentence-consonants-1",
+        "es-en-sentence-sentence-consonants-2",
+        "es-en-sentence-sentence-consonants-3",
+        "es-en-sentence-sentence-consonants-4",
+        "es-en-sentence-sentence-consonants-5"
+      ],
+      "review": {
+        "status": "ai-editorial-reviewed",
+        "reviewer": "web_all_courses",
+        "reviewedAt": "2026-09-07",
+        "notes": "Independent AI text review of the complete group and its required contrasts found no concrete translation, audit, explanation or answer-ambiguity defect. Stress relies partly on grammatical context. Audible en-US voice review and native review remain pending."
+      }
+    },
+    {
+      "id": "sentence-stress",
+      "mode": "sentences",
+      "itemIds": [
+        "es-en-sentence-sentence-stress-1",
+        "es-en-sentence-sentence-stress-2",
+        "es-en-sentence-sentence-stress-3",
+        "es-en-sentence-sentence-stress-4",
+        "es-en-sentence-sentence-stress-5",
+        "es-en-sentence-sentence-stress-6",
+        "es-en-sentence-sentence-stress-7",
+        "es-en-sentence-sentence-stress-8"
+      ],
+      "review": {
+        "status": "ai-editorial-reviewed",
+        "reviewer": "web_all_courses",
+        "reviewedAt": "2026-09-07",
+        "notes": "Independent AI text review of the complete group and its required contrasts found no concrete translation, audit, explanation or answer-ambiguity defect. Stress relies partly on grammatical context. Audible en-US voice review and native review remain pending."
+      }
+    },
+    {
+      "id": "sentence-endings",
+      "mode": "sentences",
+      "itemIds": [
+        "es-en-sentence-sentence-endings-1",
+        "es-en-sentence-sentence-endings-2",
+        "es-en-sentence-sentence-endings-3",
+        "es-en-sentence-sentence-endings-4",
+        "es-en-sentence-sentence-endings-5",
+        "es-en-sentence-sentence-endings-6",
+        "es-en-sentence-sentence-endings-7",
+        "es-en-sentence-sentence-endings-8"
+      ],
+      "review": {
+        "status": "ai-editorial-reviewed",
+        "reviewer": "web_all_courses",
+        "reviewedAt": "2026-09-07",
+        "notes": "Independent AI text review of the complete group and its required contrasts found no concrete translation, audit, explanation or answer-ambiguity defect. Stress relies partly on grammatical context. Audible en-US voice review and native review remain pending."
+      }
+    },
+    {
+      "id": "sentence-plurals",
+      "mode": "sentences",
+      "itemIds": [
+        "es-en-sentence-sentence-plurals-1",
+        "es-en-sentence-sentence-plurals-2",
+        "es-en-sentence-sentence-plurals-3",
+        "es-en-sentence-sentence-plurals-4",
+        "es-en-sentence-sentence-plurals-5",
+        "es-en-sentence-sentence-plurals-6",
+        "es-en-sentence-sentence-plurals-7",
+        "es-en-sentence-sentence-plurals-8"
+      ],
+      "review": {
+        "status": "ai-editorial-reviewed",
+        "reviewer": "web_all_courses",
+        "reviewedAt": "2026-09-07",
+        "notes": "Independent AI text review of the complete group and its required contrasts found no concrete translation, audit, explanation or answer-ambiguity defect. Stress relies partly on grammatical context. Audible en-US voice review and native review remain pending."
+      }
+    },
+    {
+      "id": "sentence-agreement",
+      "mode": "sentences",
+      "itemIds": [
+        "es-en-sentence-sentence-agreement-1",
+        "es-en-sentence-sentence-agreement-2",
+        "es-en-sentence-sentence-agreement-3",
+        "es-en-sentence-sentence-agreement-4",
+        "es-en-sentence-sentence-agreement-5",
+        "es-en-sentence-sentence-agreement-6",
+        "es-en-sentence-sentence-agreement-7",
+        "es-en-sentence-sentence-agreement-8"
+      ],
+      "review": {
+        "status": "ai-editorial-reviewed",
+        "reviewer": "web_all_courses",
+        "reviewedAt": "2026-09-07",
+        "notes": "Independent AI text review of the complete group and its required contrasts found no concrete translation, audit, explanation or answer-ambiguity defect. Stress relies partly on grammatical context. Audible en-US voice review and native review remain pending."
+      }
+    },
+    {
+      "id": "sentence-connected",
+      "mode": "sentences",
+      "itemIds": [
+        "es-en-sentence-sentence-connected-1",
+        "es-en-sentence-sentence-connected-2",
+        "es-en-sentence-sentence-connected-3",
+        "es-en-sentence-sentence-connected-4",
+        "es-en-sentence-sentence-connected-5",
+        "es-en-sentence-sentence-connected-6",
+        "es-en-sentence-sentence-connected-7",
+        "es-en-sentence-sentence-connected-8"
+      ],
+      "review": {
+        "status": "ai-editorial-reviewed",
+        "reviewer": "web_all_courses",
+        "reviewedAt": "2026-09-07",
+        "notes": "Independent AI text review of the complete group and its required contrasts found no concrete translation, audit, explanation or answer-ambiguity defect. Stress relies partly on grammatical context. Audible en-US voice review and native review remain pending."
+      }
+    },
+    {
+      "id": "sentence-intent",
+      "mode": "sentences",
+      "itemIds": [
+        "es-en-sentence-sentence-intent-1",
+        "es-en-sentence-sentence-intent-2",
+        "es-en-sentence-sentence-intent-3",
+        "es-en-sentence-sentence-intent-4",
+        "es-en-sentence-sentence-intent-5"
+      ],
+      "review": {
+        "status": "ai-editorial-reviewed",
+        "reviewer": "web_all_courses",
+        "reviewedAt": "2026-09-07",
+        "notes": "Independent AI text review of the complete group and its required contrasts found no concrete translation, audit, explanation or answer-ambiguity defect. Stress relies partly on grammatical context. Audible en-US voice review and native review remain pending."
+      }
+    },
+    {
+      "id": "sentence-intent-location",
+      "mode": "sentences",
+      "itemIds": [
+        "es-en-sentence-sentence-intent-location-1",
+        "es-en-sentence-sentence-intent-location-2",
+        "es-en-sentence-sentence-intent-location-3",
+        "es-en-sentence-sentence-intent-location-4",
+        "es-en-sentence-sentence-intent-location-5"
+      ],
+      "review": {
+        "status": "ai-editorial-reviewed",
+        "reviewer": "web_all_courses",
+        "reviewedAt": "2026-09-07",
+        "notes": "Independent AI text review of the complete group and its required contrasts found no concrete translation, audit, explanation or answer-ambiguity defect. Stress relies partly on grammatical context. Audible en-US voice review and native review remain pending."
+      }
+    },
+    {
+      "id": "sentence-intent-tickets",
+      "mode": "sentences",
+      "itemIds": [
+        "es-en-sentence-sentence-intent-tickets-1",
+        "es-en-sentence-sentence-intent-tickets-2",
+        "es-en-sentence-sentence-intent-tickets-3",
+        "es-en-sentence-sentence-intent-tickets-4",
+        "es-en-sentence-sentence-intent-tickets-5"
+      ],
+      "review": {
+        "status": "ai-editorial-reviewed",
+        "reviewer": "web_all_courses",
+        "reviewedAt": "2026-09-07",
+        "notes": "Independent AI text review of the complete group and its required contrasts found no concrete translation, audit, explanation or answer-ambiguity defect. Stress relies partly on grammatical context. Audible en-US voice review and native review remain pending."
+      }
+    }
+  ]
+}

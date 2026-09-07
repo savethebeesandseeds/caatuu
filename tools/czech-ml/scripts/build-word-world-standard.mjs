@@ -15,14 +15,23 @@ import {
   writeJson,
 } from "./word-world-standard-lib.mjs";
 import { appDataRoot, caatuuRoot, fromRoot } from "./paths.mjs";
+import { applyTokenMeanings } from "./word-world-token-meanings.mjs";
 
 const datasetDir = fromRoot("data", "word-world", "standard-v0.1");
 const rubricFile = path.resolve(argValue("--rubric", path.join(datasetDir, "rubric.json")));
 const editorialOverridesFile = path.resolve(argValue("--editorial-overrides", path.join(datasetDir, "editorial-overrides.json")));
+const tokenMeaningsFile = path.resolve(argValue("--token-meanings", path.join(datasetDir, "token-meanings.json")));
 const runtimeRoot = path.resolve(argValue("--runtime-root", path.join(appDataRoot, "games", "word-world")));
 const coverageFile = path.resolve(argValue("--coverage-report", path.join(datasetDir, "reports", "coverage.json")));
 const rubric = await readJson(rubricFile);
 const editorialOverrides = await readJson(editorialOverridesFile);
+const tokenMeanings = await readJson(tokenMeaningsFile);
+const tokenMeaningsEvidence = {
+  file: path.relative(caatuuRoot, tokenMeaningsFile).replaceAll("\\", "/"),
+  sha256: sha256(await fs.readFile(tokenMeaningsFile)),
+  recordCount: tokenMeanings.records.length,
+  review: tokenMeanings.review,
+};
 const editorialOverridesRelativeFile = path.relative(caatuuRoot, editorialOverridesFile).replaceAll("\\", "/");
 const editorialOverridesSha256 = sha256(await fs.readFile(editorialOverridesFile));
 const editorialOverrideEvidence = {
@@ -32,7 +41,7 @@ const editorialOverrideEvidence = {
   reviewedOn: editorialOverrides.editorialPass.reviewedOn,
   humanApproved: editorialOverrides.editorialPass.humanApproved,
 };
-const runtimeBaseRelativeFile = `${rubric.corpusVersion}/records.json`;
+const runtimeBaseRelativeFile = "content.json";
 const runtimeFile = path.join(runtimeRoot, ...runtimeBaseRelativeFile.split("/"));
 const manifestFile = path.join(runtimeRoot, "manifest.json");
 const inputFiles = await resolveInputFiles();
@@ -40,7 +49,7 @@ const sourceRecords = (await Promise.all(inputFiles.map(readJsonl))).flat().sort
 const records = applyEditorialOverrides(sourceRecords, editorialOverrides);
 const validation = validateRecords(records, rubric);
 const relativeInputs = inputFiles.map((file) => path.relative(caatuuRoot, file));
-const reportedInputs = [...relativeInputs, editorialOverridesRelativeFile];
+const reportedInputs = [...relativeInputs, editorialOverridesRelativeFile, tokenMeaningsEvidence.file];
 const coverage = buildCoverageReport(records, rubric, validation, reportedInputs, editorialOverrideEvidence);
 await writeJson(coverageFile, coverage);
 
@@ -53,7 +62,7 @@ if (!validation.valid) {
   }, null, 2));
   process.exitCode = 1;
 } else {
-  const runtimeRecords = records.map(toRuntimeRecord);
+  const runtimeRecords = applyTokenMeanings(records.map(toRuntimeRecord), tokenMeanings);
   const pack = {
     schemaVersion: RUNTIME_SCHEMA_VERSION,
     corpusVersion: rubric.corpusVersion,
@@ -72,7 +81,7 @@ if (!validation.valid) {
     mode: "standard",
     sessionProvider: {
       kind: "standard-corpus",
-      module: "source/games/word-world/word-net-standard.mjs?v=word-net-standard-5",
+      module: "source/games/word-world/word-net-standard.mjs?v=word-net-standard-6",
       meaningSelectorModule: "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-21",
     },
     features: {
@@ -111,6 +120,7 @@ if (!validation.valid) {
     reviewStatus: "codex_reviewed",
     humanApproved: false,
     editorialOverrides: editorialOverrideEvidence,
+    tokenMeanings: tokenMeaningsEvidence,
     authoringSchema: "caatuu-word-world-record-v1",
   };
 

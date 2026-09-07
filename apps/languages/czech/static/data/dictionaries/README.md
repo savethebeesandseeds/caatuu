@@ -1,7 +1,7 @@
 # Caatuu full dictionaries
 
 The compact curated game vocabulary lives at
-`../games/verb-nebula/core-vocabulary.json`. It is ordered learner content and
+`../games/verb-nebula/content.json`. It is ordered learner content and
 must not be overwritten or reordered by a full dictionary build.
 
 The full Czech-to-English dictionary is generated from the English

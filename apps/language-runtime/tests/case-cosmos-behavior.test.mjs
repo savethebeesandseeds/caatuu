@@ -16,7 +16,7 @@ const markup = await readFile(new URL(
   "../../languages/czech/static/case-cosmos.html", import.meta.url
 ), "utf8");
 const catalog = JSON.parse(await readFile(new URL(
-  "../../languages/czech/static/data/games/case-cosmos/challenges.json", import.meta.url
+  "../../languages/czech/static/data/games/case-cosmos/content.json", import.meta.url
 ), "utf8"));
 
 // Keep real ancestry and authored text while reusing the repository's fake DOM.
@@ -442,7 +442,7 @@ test("each noun gets seven sentence challenges with a reachable unique correct f
     for (const round of game.api.state.rounds) {
       const original = JSON.stringify(round);
       const challenges = game.api.buildQuestions(round, seededRandom(seed));
-      assert.equal(new Set(challenges.map((entry) => entry.case)).size, 7);
+      assert.equal(new Set(challenges.map((entry) => entry.case)).size, round.contextItem ? 1 : 7);
       for (const challenge of challenges) {
         const authored = round.matches.find((entry) => entry.case === challenge.case);
         for (const field of ["form", "czech", "english"]) assert.equal(challenge[field], authored[field]);
@@ -469,7 +469,7 @@ test("the highlighted form and English translation belong to the single displaye
 
 test("markup injected into authored content fails closed before a playable question appears", async () => {
   const pack = structuredClone(catalog);
-  for (const example of Object.values(pack[0].cases)) {
+  for (const example of Object.values((pack.legacyNouns || pack)[0].cases)) {
     example.czech = example.czech.replace(example.form, "<img src=x onerror=alert(1)>");
     example.form = "<img src=x onerror=alert(1)>";
   }
@@ -582,8 +582,10 @@ test("a correct X replaces only the noun, stays in the sentence, and does not co
 test("every sentence persists through rejection until solved, then all seven cases advance and nouns wrap", async () => {
   const game = await mountGame();
   const count = game.api.state.rounds.length;
+  const total = game.api.state.rounds.reduce((sum, round) => sum + (round.contextItem ? 1 : 7), 0);
   for (let nounIndex = 0; nounIndex < count; nounIndex += 1) {
-    for (let questionIndex = 0; questionIndex < 7; questionIndex += 1) {
+    const questionCount = game.api.currentRound().contextItem ? 1 : 7;
+    for (let questionIndex = 0; questionIndex < questionCount; questionIndex += 1) {
       const challenge = game.api.currentChallenge();
       game.api.nextRound();
       assert.equal(game.api.currentChallenge(), challenge);
@@ -600,9 +602,9 @@ test("every sentence persists through rejection until solved, then all seven cas
     assert.equal(game.api.state.index, (nounIndex + 1) % count);
   }
   assert.equal(game.api.state.questionIndex, 0);
-  assert.equal(game.records.reduce((sum, entry) => sum + entry.delta.rounds, 0), count * 7);
-  assert.equal(game.records.reduce((sum, entry) => sum + entry.delta.xp, 0), count * 7);
-  assert.equal(game.messages.length, count * 7);
+  assert.equal(game.records.reduce((sum, entry) => sum + entry.delta.rounds, 0), total);
+  assert.equal(game.records.reduce((sum, entry) => sum + entry.delta.xp, 0), total);
+  assert.equal(game.messages.length, total);
   assert.equal(game.timers.length, 0);
 });
 
@@ -705,7 +707,7 @@ test("difficulty changes rebuild eligible noun rounds and clear pending feedback
   assert.ok(game.api.state.rounds.length > initialCount);
   assert.ok(game.api.state.rounds.every((round) => round.difficulty <= 2));
   game.difficulty(3);
-  assert.equal(game.api.state.rounds.length, catalog.length);
+  assert.equal(game.api.state.rounds.length, catalog.legacyNouns.length + catalog.contexts.length);
   game.difficulty(99);
   assert.equal(game.api.state.difficulty, 1);
   assert.equal(game.api.state.rounds.length, initialCount);

@@ -11,7 +11,6 @@ import {
   isWordReconstructionCorrect,
   isSpeechSynthesisSupported,
   normalizeWord,
-  parseSceneKeymap,
   selectDictionaryMeaning,
   selectSpeechSynthesisVoice,
   sentenceFingerprint,
@@ -24,16 +23,15 @@ import {
 import { WordNetBranchQueue } from "./word-net-queue.mjs?v=word-net-queue-6";
 import { localAiAvailability } from "./shell-policy.mjs";
 import { mountRobotLoadingScreen } from "./games/embedded-game-controls.mjs?v=embedded-game-controls-8";
+import { createEnglishImageSearch } from "./english-image-search.mjs?v=english-image-search-3";
 
 let WORD_NET_MODEL_KEY = "";
 let TRANSLATION_MODEL_KEY = "";
-const SCENE_KEYMAP_URL = "/assets/miscellaneous/keymap.json";
 const SCENE_ASSET_LIMIT = 5;
 const SCENE_ASSET_READY_TIMEOUT_MS = 8000;
-const SCENE_SEMANTIC_SEARCH_TIMEOUT_MS = 1600;
-const SCENE_KEYMAP_SEARCH_TIMEOUT_MS = 1800;
 const SCENE_CANDIDATE_SEARCH_TIMEOUT_MS = 3600;
 const SCENE_CANDIDATE_LOAD_TIMEOUT_MS = 1200;
+const searchSceneImages = createEnglishImageSearch({ timeoutMs: SCENE_CANDIDATE_SEARCH_TIMEOUT_MS - 100 });
 const course = window.CaatuuCourse;
 if (!course) throw new Error("Caatuu course profile must load before Word World.");
 
@@ -529,7 +527,6 @@ const state = {
   nativeSpeechRequestedVoiceAvailable: true,
   nativeSpeechStatusPending: false,
   nativeSpeechStatusRequestId: 0,
-  sceneAssetRowsPromise: null,
   sceneCandidates: [],
   sceneRequestId: 0,
   history: loadHistory(),
@@ -1520,23 +1517,36 @@ function randomItem(items) {
   return items[Math.floor(Math.random() * items.length)];
 }
 
-function readStoredArray(key, { session = false } = {}) {
+function readStoredArray(key, { session = false, gameState = false } = {}) {
   try {
-    const storage = session ? window.sessionStorage : window.localStorage;
-    const value = JSON.parse(storage.getItem(key) || "[]");
+    const value = gameState && !session && typeof window.CaatuuLearning?.readGameState === "function"
+      ? window.CaatuuLearning.readGameState(key, { validate: Array.isArray })
+      : JSON.parse((session ? window.sessionStorage : window.localStorage).getItem(key) || "[]");
     return Array.isArray(value) ? value : [];
   } catch (error) {
     return [];
   }
 }
 
-function readStoredObject(key) {
+function readStoredObject(key, { gameState = false } = {}) {
   try {
-    const value = JSON.parse(window.localStorage.getItem(key) || "null");
+    const value = gameState && typeof window.CaatuuLearning?.readGameState === "function"
+      ? window.CaatuuLearning.readGameState(key, {
+        validate: (entry) => Boolean(entry && typeof entry === "object" && !Array.isArray(entry))
+      })
+      : JSON.parse(window.localStorage.getItem(key) || "null");
     return value && typeof value === "object" && !Array.isArray(value) ? value : {};
   } catch (error) {
     return {};
   }
+}
+
+function writeStoredGameState(key, value) {
+  if (typeof window.CaatuuLearning?.writeGameState === "function") {
+    return window.CaatuuLearning.writeGameState(key, value);
+  }
+  window.localStorage.setItem(key, JSON.stringify(value));
+  return true;
 }
 
 function loadWordCardPreferences() {
@@ -1629,27 +1639,27 @@ function forgetDictionaryGap(key) {
 }
 
 function loadHistory() {
-  const current = readStoredArray(HISTORY_STORAGE_KEY);
-  const legacy = current.length ? [] : readStoredArray(LEGACY_HISTORY_STORAGE_KEY);
+  const current = readStoredArray(HISTORY_STORAGE_KEY, { gameState: true });
+  const legacy = current.length ? [] : readStoredArray(LEGACY_HISTORY_STORAGE_KEY, { gameState: true });
   return migrateWordWorldHistory(current.length ? current : legacy, { limit: HISTORY_LIMIT });
 }
 
 function saveHistory() {
   try {
-    localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(state.history.slice(0, HISTORY_LIMIT)));
+    writeStoredGameState(HISTORY_STORAGE_KEY, state.history.slice(0, HISTORY_LIMIT));
   } catch (error) {
     // Phrase history remains available for the current session.
   }
 }
 
 function loadStandardUsage() {
-  return readStoredObject(STANDARD_USAGE_STORAGE_KEY);
+  return readStoredObject(STANDARD_USAGE_STORAGE_KEY, { gameState: true });
 }
 
 function saveStandardUsage() {
   if (!state.standardProvider) return;
   try {
-    localStorage.setItem(STANDARD_USAGE_STORAGE_KEY, JSON.stringify(state.standardProvider.usage.snapshot()));
+    writeStoredGameState(STANDARD_USAGE_STORAGE_KEY, state.standardProvider.usage.snapshot());
   } catch (error) {
     // Standard selection remains useful in memory when storage is unavailable.
   }
@@ -1684,7 +1694,7 @@ function savePreparedQueue() {
 }
 
 function loadRecentSentences() {
-  return readStoredArray(RECENT_SENTENCES_STORAGE_KEY)
+  return readStoredArray(RECENT_SENTENCES_STORAGE_KEY, { gameState: true })
     .map((value) => String(value || "").slice(0, 180))
     .filter(Boolean)
     .slice(0, RECENT_SENTENCE_LIMIT);
@@ -1692,7 +1702,7 @@ function loadRecentSentences() {
 
 function saveRecentSentences() {
   try {
-    localStorage.setItem(RECENT_SENTENCES_STORAGE_KEY, JSON.stringify(state.recentSentences));
+    writeStoredGameState(RECENT_SENTENCES_STORAGE_KEY, state.recentSentences);
   } catch (error) {
     // Recent phrases remain useful in memory when storage is unavailable.
   }
@@ -4369,103 +4379,26 @@ function renderTrail() {
   }));
 }
 
-async function sceneAssetRows() {
-  if (!state.sceneAssetRowsPromise) {
-    state.sceneAssetRowsPromise = fetch(SCENE_KEYMAP_URL, { cache: "force-cache" })
-      .then((response) => {
-        if (!response.ok) throw new Error(`Could not load scene keymap (${response.status}).`);
-        return response.json();
-      })
-      .then((raw) => parseSceneKeymap(raw).filter((row) => isMiscellaneousAssetPath(row.assetPath)))
-      .catch(() => []);
-  }
-  return state.sceneAssetRowsPromise;
-}
-
 async function rankedSceneCandidates(englishText) {
   const text = String(englishText || "").trim();
   if (!text) return [];
-  const [semanticRows, keymapRows] = await Promise.all([
-    semanticSceneCandidates(text),
-    Promise.race([
-      rankedKeymapSceneCandidates(text),
-      sceneDelay(SCENE_KEYMAP_SEARCH_TIMEOUT_MS, [])
-    ])
-  ]);
-  const seenPaths = new Set();
-  return [...semanticRows, ...keymapRows].filter((candidate) => {
-    const path = String(candidate?.assetPath || "");
-    if (!path || seenPaths.has(path)) return false;
-    seenPaths.add(path);
-    return true;
-  });
-}
-
-async function semanticSceneCandidates(text) {
   try {
-    const response = await Promise.race([
-      Promise.resolve(runtimeAdapter()?.vector?.search?.(text, {
-        limit: SCENE_ASSET_LIMIT,
-        sourceKinds: ["image_asset"]
-      })),
-      sceneDelay(SCENE_SEMANTIC_SEARCH_TIMEOUT_MS, null)
-    ]);
-    return (Array.isArray(response?.results) ? response.results : [])
+    const response = await searchSceneImages(text, { sourceKind: "image_asset" });
+    return (Array.isArray(response?.rows) ? response.rows : [])
+      .filter(row => row.sourceKind === "image_asset")
+      .slice(0, SCENE_ASSET_LIMIT)
       .map((row) => ({
-        assetPath: row.documentMetadata?.asset_path || row.chunkMetadata?.asset_path || row.sourceId || "",
-        description: row.text || row.title || "Caatuu scene",
+        assetPath: row.path,
+        description: row.description || "Caatuu scene",
         score: Number(row.score || 0),
-        semanticScore: Number(row.semanticScore ?? row.score ?? 0),
-        lexicalScore: Number(row.lexicalScore || 0)
+        semanticScore: response.mode === "embedding" ? Number(row.score || 0) : 0,
+        lexicalScore: response.mode === "lexical" ? Number(row.score || 0) : 0
       }))
       .filter((row) => isMiscellaneousAssetPath(row.assetPath));
   } catch (error) {
-    // The game must remain playable if setup is incomplete or a runtime is not
-    // available. The keymap-only fallback below still chooses a related image.
+    // An unavailable image service does not alter or block the learning round.
   }
   return [];
-}
-
-async function rankedKeymapSceneCandidates(text) {
-  const rows = await sceneAssetRows();
-  if (!rows.length) return [];
-  const queryTokens = englishSceneTokens(text);
-  const ranked = rows
-    .map((row) => ({
-      ...row,
-      score: sceneLexicalScore(queryTokens, row)
-    }))
-    .sort((left, right) => right.score - left.score)
-    .slice(0, SCENE_ASSET_LIMIT);
-  if (ranked[0]?.score > 0) return ranked;
-
-  const offset = stableSceneOffset(text, rows.length);
-  return Array.from({ length: Math.min(SCENE_ASSET_LIMIT, rows.length) }, (_, index) => (
-    rows[(offset + index) % rows.length]
-  ));
-}
-
-function englishSceneTokens(text) {
-  return new Set(String(text || "").toLowerCase().match(/[a-z0-9]+/g) || []);
-}
-
-function sceneLexicalScore(queryTokens, row) {
-  if (!queryTokens.size) return 0;
-  const candidateTokens = englishSceneTokens(`${row.description || ""} ${row.category || ""}`);
-  let shared = 0;
-  for (const token of queryTokens) {
-    if (candidateTokens.has(token)) shared += 1;
-  }
-  return shared / queryTokens.size;
-}
-
-function stableSceneOffset(text, length) {
-  let hash = 2166136261;
-  for (const char of String(text || "")) {
-    hash ^= char.codePointAt(0);
-    hash = Math.imul(hash, 16777619);
-  }
-  return Math.abs(hash >>> 0) % Math.max(1, length);
 }
 
 function syncImageControl() {
@@ -4585,29 +4518,14 @@ async function updateSceneAsset(englishText) {
         && typeof providerContext.sessionRecord === "function") {
       const record = providerContext.sessionRecord(state.currentEntryId);
       const scene = record ? providerContext.sceneForRecord(record) : null;
-      if (scene?.src) {
-        state.sceneCandidates = [{
-          assetPath: String(scene.src),
-          description: String(scene.alt || record?.sceneQuery || record?.englishText || "Caatuu scene")
-        }];
-        if (await renderSceneCandidate(0, requestId, deadline)) return true;
-        if (requestId !== state.sceneRequestId) return false;
-      }
+      if (scene?.query) englishText = scene.query;
     }
     let candidates = await Promise.race([
       rankedSceneCandidates(englishText),
       sceneDelay(Math.min(SCENE_CANDIDATE_SEARCH_TIMEOUT_MS, sceneTimeRemaining(deadline)), null)
     ]);
     if (requestId !== state.sceneRequestId) return false;
-    if (!Array.isArray(candidates)) {
-      const fallbackBudget = Math.max(0, Math.min(1200, sceneTimeRemaining(deadline) - 1800));
-      candidates = fallbackBudget > 0
-        ? await Promise.race([
-            rankedKeymapSceneCandidates(String(englishText || "").trim()),
-            sceneDelay(fallbackBudget, [])
-          ])
-        : [];
-    }
+    if (!Array.isArray(candidates)) candidates = [];
     if (requestId !== state.sceneRequestId) return false;
     state.sceneCandidates = candidates;
     for (let index = 0; index < candidates.length && sceneTimeRemaining(deadline) > 0; index += 1) {

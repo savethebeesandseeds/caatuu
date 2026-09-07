@@ -13,11 +13,7 @@ button:focus-visible { outline: 3px solid var(--theme-focus-ring); outline-offse
 #conjugationCometProgress { color: var(--theme-muted); font-size: .65rem; margin-inline-start: 6px; white-space: nowrap; }
 .conjugation-comet-controls { position: relative; z-index: 10; }
 .conjugation-comet-play { display: flex; flex: 1; flex-direction: column; min-height: 0; gap: 8px; }
-.conjugation-comet-context { pointer-events: auto; display: grid; gap: 5px; min-width: 0; max-width: 38%; padding: 12px 16px; border: 1px solid var(--theme-control-border); border-radius: 9px; background: var(--theme-paper); box-shadow: 0 5px 14px #17201d0d; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
-html[data-theme="dark"] .conjugation-comet-context { background: var(--theme-control-bg); }
-.conjugation-comet-lemma-line { display: flex; align-items: center; gap: 8px; }
-#conjugationCometFormLemma { font-size: clamp(1.2rem, 4vw, 1.4rem); line-height: 1.2; font-weight: 600; overflow-wrap: anywhere; }
-#conjugationCometMeaning { margin: 0; color: var(--theme-entry-accent); font-size: .85rem; }
+.conjugation-comet-context { pointer-events: auto; flex: 0 1 auto; min-width: 0; }
 .conjugation-comet-dots { display: flex; gap: 5px; flex-wrap: wrap; max-width: 110px; }
 .conjugation-comet-dot { width: 7px; height: 7px; border: 1px solid var(--theme-control-border); border-radius: 50%; }
 .conjugation-comet-dot[data-result="correct"] { background: var(--theme-green); border-color: var(--theme-green); }
@@ -77,9 +73,6 @@ html[data-theme="dark"] .conjugation-comet-context { background: var(--theme-con
 .conjugation-comet-node[data-result="wrong"] { text-decoration: none; color: var(--theme-red); }
 .conjugation-comet-common { color: inherit; }
 .conjugation-comet-difference { color: var(--comet-emphasis); font-weight: 600; }
-.conjugation-comet-speak { display: inline-flex; flex-shrink: 0; justify-content: center; align-items: center; width: 32px; height: 32px; padding: 4px; border: 0; border-radius: 50%; background: transparent; color: var(--theme-green-strong); }
-.conjugation-comet-speak:hover:not(:disabled), .conjugation-comet-speak[aria-pressed="true"] { background: var(--theme-selection); }
-.conjugation-comet-speak:disabled { opacity: .35; }
 .conjugation-comet-footer { display: grid; flex-shrink: 0; gap: 6px; }
 .conjugation-comet-messages { display: grid; gap: 6px; min-width: 0; }
 .conjugation-comet-help { display: flex; align-items: center; gap: 10px; padding: 8px; }
@@ -105,7 +98,7 @@ html[data-theme="dark"] .conjugation-comet-context { background: var(--theme-con
 
   #conjugationCometQuestion, #conjugationCometFeedback { text-align: left; }
 }
-@media (max-width: 540px) { .conjugation-comet { padding: 6px; } .conjugation-comet-header { position: relative; padding: 8px; } .conjugation-comet-context { max-width: 58%; padding: 10px; } .conjugation-comet-header-actions { gap: 5px; } .conjugation-comet-controls .caatuu-game-controls { flex-wrap: wrap; max-width: 104px; } .conjugation-comet-node { padding-inline: 3px; font-size: .86rem; } .conjugation-comet-helix { height: max(calc(100dvh - 172px), calc(var(--helix-rows, 6) * 80px + 60px)); margin-top: -64px; } .conjugation-comet-board { padding-inline: 38px; padding-bottom: 54px; } .conjugation-comet-strand-controls > div:first-child { left: 4px; } .conjugation-comet-strand-controls > div:last-child { right: 4px; } .conjugation-comet-step { width: 40px; } }
+@media (max-width: 540px) { .conjugation-comet { padding: 6px; } .conjugation-comet-header { position: relative; padding: 8px; } .conjugation-comet-header-actions { gap: 5px; } .conjugation-comet-controls .caatuu-game-controls { flex-wrap: wrap; max-width: 104px; } .conjugation-comet-node { padding-inline: 3px; font-size: .86rem; } .conjugation-comet-helix { height: max(calc(100dvh - 172px), calc(var(--helix-rows, 6) * 80px + 60px)); margin-top: -64px; } .conjugation-comet-board { padding-inline: 38px; padding-bottom: 54px; } .conjugation-comet-strand-controls > div:first-child { left: 4px; } .conjugation-comet-strand-controls > div:last-child { right: 4px; } .conjugation-comet-step { width: 40px; } }
 @media (prefers-reduced-motion: reduce) { *, *::before { animation: none !important; transition: none !important; } }
 
 html[data-theme="dark"] .conjugation-comet-game { --strand-subject: var(--theme-ink); --strand-target: var(--theme-ink); --comet-emphasis: #78baff; }

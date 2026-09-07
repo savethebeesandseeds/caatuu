@@ -3,17 +3,18 @@ import path from "node:path";
 import { validateGrammarGravityPack } from "../../../apps/language-runtime/static/source/games/grammar-gravity/grammar-gravity-core.mjs";
 import { validateSoundQuasarCatalog } from "../../../apps/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs";
 import { validateConjugationCometCatalog } from "../../../apps/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs";
+import { validatePack as validateCaseCosmosPack } from "../../../apps/languages/czech/static/source/games/case-cosmos/case-cosmos-content.mjs";
 
 export const LEARNER_CONTENT_SAFETY_POLICY_VERSION = "caatuu-child-content-safety-v2";
 
 export const SHIPPED_LEARNER_CONTENT_SOURCES = Object.freeze([
   Object.freeze({
     id: "sound-quasar",
-    file: "apps/languages/czech/static/data/games/sound-quasar/challenges.json",
+    file: "apps/languages/czech/static/data/games/sound-quasar/content.json",
   }),
   Object.freeze({
     id: "grammar-gravity",
-    file: "apps/languages/czech/static/data/games/grammar-gravity/challenges.json",
+    file: "apps/languages/czech/static/data/games/grammar-gravity/content.json",
   }),
   Object.freeze({
     id: "grammar-gravity-nouns",
@@ -21,19 +22,19 @@ export const SHIPPED_LEARNER_CONTENT_SOURCES = Object.freeze([
   }),
   Object.freeze({
     id: "case-cosmos",
-    file: "apps/languages/czech/static/data/games/case-cosmos/challenges.json",
+    file: "apps/languages/czech/static/data/games/case-cosmos/content.json",
   }),
   Object.freeze({
     id: "conjugation-comet",
-    file: "apps/languages/czech/static/data/games/conjugation-comet/verbs.json",
+    file: "apps/languages/czech/static/data/games/conjugation-comet/content.json",
   }),
   Object.freeze({
     id: "verb-nebula",
-    file: "apps/languages/czech/static/data/games/verb-nebula/core-vocabulary.json",
+    file: "apps/languages/czech/static/data/games/verb-nebula/content.json",
   }),
   Object.freeze({
     id: "word-world",
-    file: "apps/languages/czech/static/data/games/word-world/standard-v0.1/records.json",
+    file: "apps/languages/czech/static/data/games/word-world/content.json",
   }),
   Object.freeze({
     id: "language-scripts",
@@ -467,22 +468,41 @@ function extractGravityNouns(value, file) {
 }
 
 function extractCases(value, file) {
-  const rows = expectArray(value, file);
+  const validated = validateCaseCosmosPack(value);
+  const legacy = Array.isArray(validated);
+  const rows = legacy ? validated : validated.legacyNouns;
+  const prefix = legacy ? [] : ["legacyNouns"];
   const fields = [];
   const cases = ["Nominative", "Genitive", "Dative", "Accusative", "Vocative", "Locative", "Instrumental"];
   rows.forEach((row, rowIndex) => {
     expectObject(row, `${file}/${rowIndex}`);
     const contentId = `case:${requiredText(row.noun, `${file}/${rowIndex}/noun`)}`;
-    addField(fields, { file, contentId, field: pointer(rowIndex, "noun"), locale: "cs", text: row.noun });
+    addField(fields, { file, contentId, field: pointer(...prefix, rowIndex, "noun"), locale: "cs", text: row.noun });
     expectObject(row.cases, `${file}/${rowIndex}/cases`);
     for (const caseName of cases) {
       const example = expectObject(row.cases[caseName], `${file}/${rowIndex}/cases/${caseName}`);
       for (const [name, locale] of [["form", "cs"], ["english", "en"], ["czech", "cs"]]) {
-        addField(fields, { file, contentId, field: pointer(rowIndex, "cases", caseName, name), locale, text: example[name] });
+        addField(fields, { file, contentId, field: pointer(...prefix, rowIndex, "cases", caseName, name), locale, text: example[name] });
       }
     }
   });
-  return { fields, recordCount: rows.length };
+  if (!legacy) {
+    validated.paradigms.forEach((paradigm, index) => {
+      addField(fields, { file, contentId: paradigm.id, field: pointer("paradigms", index, "noun"), locale: "cs", text: paradigm.noun });
+      paradigm.forms.forEach((form, formIndex) => addField(fields, { file, contentId: paradigm.id,
+        field: pointer("paradigms", index, "forms", formIndex), locale: "cs", text: form }));
+    });
+    validated.contexts.forEach((item, index) => {
+      for (const [name, locale] of [["form", "cs"], ["czech", "cs"], ["english", "en"], ["context", "en"], ["explanation", "en"]]) {
+        addField(fields, { file, contentId: item.id, field: pointer("contexts", index, name), locale, text: item[name] });
+      }
+      item.acceptedForms.forEach((form, formIndex) => addField(fields, { file, contentId: item.id,
+        field: pointer("contexts", index, "acceptedForms", formIndex), locale: "cs", text: form }));
+    });
+    validated.curriculum.objectives.forEach((objective, index) => addField(fields, { file, contentId: objective.id,
+      field: pointer("curriculum", "objectives", index, "label"), locale: "en", text: objective.label }));
+  }
+  return { fields, recordCount: rows.length + (legacy ? 0 : validated.contexts.length) };
 }
 
 function extractConjugation(value, file) {

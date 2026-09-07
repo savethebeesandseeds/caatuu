@@ -16,7 +16,7 @@ const courses = [
 ];
 const documents = new Map(await Promise.all(courses.map(async (course) => [
   course.courseId,
-  JSON.parse(await readFile(new URL(`apps/languages/${course.directory}/static/data/games/sound-quasar/challenges.json`, repositoryRoot), "utf8"))
+  JSON.parse(await readFile(new URL(`apps/languages/${course.directory}/static/data/games/sound-quasar/content.json`, repositoryRoot), "utf8"))
 ])));
 
 function sample() {
@@ -39,7 +39,7 @@ for (const course of courses) {
     assert.equal(catalog.audio.reviewStatus, "unreviewed");
     assert.equal(catalog.audio.purpose, "listening-practice");
     assert.equal(catalog.items.length, 16);
-    assert.equal(catalog.provenance.sourcePath, `apps/languages/${course.directory}/static/data/games/verb-nebula/core-vocabulary.json`);
+    assert.equal(catalog.provenance.sourcePath, `apps/languages/${course.directory}/static/data/games/verb-nebula/content.json`);
     const original = JSON.parse(await readFile(new URL(catalog.provenance.sourcePath, repositoryRoot), "utf8"));
     for (const item of catalog.items) {
       const source = item.sourceId.startsWith("/")
@@ -134,7 +134,7 @@ test("sentence choices reject punctuation-only duplicates and invalid sentence p
     raw => { raw.sentences = raw.sentences.slice(0, 3); },
     raw => { raw.sentences[0].id = raw.items[0].id; },
     raw => { raw.sentenceProvenance.sourceItemIds.reverse(); },
-    raw => { raw.sentenceProvenance.sourcePath = "apps/languages/czech/static/data/games/word-world/standard-v0.1/records.json"; },
+    raw => { raw.sentenceProvenance.sourcePath = "apps/languages/czech/static/data/games/word-world/content.json"; },
     raw => { raw.sentenceProvenance.englishSourcePath = "../unknown.json"; }
   ]) {
     const raw = sample();

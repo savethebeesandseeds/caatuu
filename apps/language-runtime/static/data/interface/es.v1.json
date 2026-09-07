@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "locale": "es-ES",
   "direction": "ltr",
-  "revision": "interface-es-5",
+  "revision": "interface-es-6",
   "messages": {
     "maintenance.browser.action": "Actualizar app",
     "maintenance.browser.description": "Busca actualizaciones y recarga Caatuu en el navegador. Tu progreso se conserva.",
@@ -15,6 +15,7 @@
     "chrome.freshness.loading": "Cargando la última versión de Caatuu…",
     "chrome.freshness.offline": "Copia sin conexión: todavía no se puede comprobar la última versión de Caatuu.",
     "chrome.freshness.ready": "Hay una nueva versión de Caatuu disponible.",
+    "chrome.progress.savefailed": "No se pudo guardar tu progreso. Mantén la app abierta y vuelve a intentarlo.",
     "chrome.train": "Practicar",
     "common.action.close": "Cerrar",
     "common.action.continue": "Continuar",

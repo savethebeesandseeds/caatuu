@@ -8,7 +8,7 @@ import { createInterfaceContent } from "../static/source/interface-content.mjs";
 import { appendTargetToneText } from "../static/source/target-text-tones.mjs";
 import { fetchDeclaredCourseGameJson, readEmbeddedCourseProfile } from "../static/source/games/course-game-content.mjs";
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../static/source/games/embedded-game-controls.mjs";
-import { createSoundQuasarSession, evaluateSoundQuasarChoice, validateSoundQuasarCatalog }
+import { createSoundQuasarSession, evaluateSoundQuasarChoice, validateSoundQuasarCatalog, soundQuasarItemsForDifficulty }
   from "../static/source/games/sound-quasar/sound-quasar-core.mjs";
 
 const hostSource = await readFile(new URL("../static/source/games/sound-quasar/sound-quasar-host.mjs", import.meta.url), "utf8");
@@ -85,7 +85,7 @@ function createTestClock() {
 async function mountGame({ language = "mandarin-simplified", muted = true, voiceState,
   speechResult = { outcome: "completed" }, fetchFailure = false, reportResult = { queued: true, persisted: true },
   realLearning = false, onRecord, mutateCatalog, random = () => 0, localStorageValues = {}, interfaceOverride, beforeContent } = {}) {
-  const raw = JSON.parse(await readFile(new URL(`../../languages/${language}/static/data/games/sound-quasar/challenges.json`, import.meta.url), "utf8"));
+  const raw = JSON.parse(await readFile(new URL(`../../languages/${language}/static/data/games/sound-quasar/content.json`, import.meta.url), "utf8"));
   mutateCatalog?.(raw);
   const catalog = validateSoundQuasarCatalog(raw);
   const course = {
@@ -95,7 +95,7 @@ async function mountGame({ language = "mandarin-simplified", muted = true, voice
     targetLanguage: { id: catalog.targetLanguageId, locale: catalog.audio.locale, direction: "ltr" },
     storage: { namespace: `caatuu-${catalog.courseId}`, learningPerformance: `caatuu-${catalog.courseId}.learning.performance.v1` },
     capabilities: { speech: true },
-    gameContent: { "sound-quasar": { soundQuasarCatalog: "data/games/sound-quasar/challenges.json?v=test-1" } }
+    gameContent: { "sound-quasar": { soundQuasarCatalog: "data/games/sound-quasar/content.json?v=test-1" } }
   };
   course.courseSelector = { courses: [{ id: course.id, sourceLanguage: course.sourceLanguage,
     targetLanguage: course.targetLanguage, storage: course.storage }] };
@@ -155,7 +155,7 @@ async function mountGame({ language = "mandarin-simplified", muted = true, voice
   Object.assign(harness.context, {
     fetchDeclaredCourseGameJson, readEmbeddedCourseProfile, createSpeechIcon,
     mountEmbeddedGameControls, mountRobotLoadingScreen, createSoundQuasarSession, evaluateSoundQuasarChoice,
-    validateSoundQuasarCatalog, appendTargetToneText, testRandom: random,
+    validateSoundQuasarCatalog, soundQuasarItemsForDifficulty, appendTargetToneText, testRandom: random,
     fetch: async (url) => {
       fetchCalls.push(url);
       await beforeContent?.({ harness, shell, clock, speechCalls, records });
@@ -224,7 +224,7 @@ for (const language of ["czech", "mandarin-simplified", "spanish"]) {
     assert.equal(game.speechCalls.length, 0, "opening the game never starts audio");
     assert.equal(game.element("AudioStatus").textContent, "", "a ready voice does not add device details to the game");
     assert.equal(game.fetchCalls.length, 1);
-    assert.equal(new URL(game.fetchCalls[0]).pathname, `${game.course.routePrefix}/data/games/sound-quasar/challenges.json`);
+    assert.equal(new URL(game.fetchCalls[0]).pathname, `${game.course.routePrefix}/data/games/sound-quasar/content.json`);
     assert.equal(game.choices().length, 4);
     assert.ok(game.choices().every((button) => button.disabled));
     assert.ok(game.element("Controls").querySelector('[aria-label="Audio settings"]'));
@@ -279,6 +279,20 @@ test("shell difficulty changes reset a hidden listening round and ignore stale a
   playback.resolve({ outcome: "completed" });
   await settle();
   assert.ok(game.choices().every((button) => button.disabled), "the new round still requires its own listen");
+  game.noCredit();
+  game.controller.destroy();
+});
+
+test("the listening host uses the selected course difficulty for both answers and choices", async () => {
+  const game = await mountGame({ language: "english-from-spanish", realLearning: true });
+  for (const difficulty of [1, 2, 3]) {
+    game.shell.CaatuuLearning.setDifficulty(difficulty);
+    await settle();
+    const eligible = new Set(game.catalog.items.filter(row => row.difficulty <= difficulty).map(row => row.id));
+    assert.ok(game.choices().every(button => eligible.has(button.dataset.choiceId)));
+    await game.listen();
+    assert.ok(eligible.has(game.current().id));
+  }
   game.noCredit();
   game.controller.destroy();
 });
@@ -1013,11 +1027,10 @@ test("earned Quasar XP and rounds persist through the shared learning profile an
   assert.equal(profile.journey.summary.xp, 5);
   assert.equal(profile.journey.summary.rounds, 1);
   assert.equal(profile.streak.currentDays, 1);
-  const stored = JSON.parse(game.parent.localStorage.getItem(game.course.storage.learningPerformance));
-  assert.equal(stored.games["sound-quasar"].xp, 5);
-  const reloaded = createBrowserHarness({ course: game.course, localStorageValues: {
-    [game.course.storage.learningPerformance]: JSON.stringify(stored)
-  } });
+  // Reload all durable storage: progress may be in a compact checkpoint or
+  // pending journal entries when the simulated browser has no lock provider.
+  const stored = game.parent.localStorage.snapshot();
+  const reloaded = createBrowserHarness({ course: game.course, localStorageValues: stored });
   vm.runInContext(learningProfileSource, reloaded.context, { filename: "learning-profile.js" });
   assert.equal(reloaded.window.CaatuuLearning.snapshot().journey.summary.xp, 5);
   assert.equal(reloaded.window.CaatuuLearning.snapshot().journey.summary.rounds, 1);
@@ -1167,7 +1180,7 @@ test("six-answer preference survives remounting and safely falls back for smalle
   assert.equal(game.choices().length, 6);
   game.controller.destroy();
   const small = await mountGame({ localStorageValues: { [key]: "6" }, mutateCatalog(catalog) {
-    catalog.sentences = catalog.sentences.slice(0, 4);
+    catalog.sentences = catalog.sentences.slice(0, 4).map(row => ({ ...row, difficulty: 1 }));
     catalog.sentenceProvenance.sourceItemIds = catalog.sentences.map((sentence) => sentence.sourceId);
   } });
   small.click(small.element("Sentences"));

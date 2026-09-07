@@ -266,7 +266,7 @@ test("loads the versioned manifest and its relative compact runtime pack", async
         ok: true,
         url: "https://example.test/cz/data/games/word-world/manifest.json",
         async json() {
-          return { corpusVersion: "pilot-v1", runtimeFile: "standard-v0.1/records.json" };
+          return { corpusVersion: "pilot-v1", runtimeFile: "content.json" };
         }
       };
     }
@@ -284,7 +284,7 @@ test("loads the versioned manifest and its relative compact runtime pack", async
   const corpus = await loadStandardWordWorldCorpus({ fetchImpl });
   assert.equal(corpus.size, 1);
   assert.equal(calls[0].options.cache, "reload");
-  assert.equal(calls[1].url, "https://example.test/cz/data/games/word-world/standard-v0.1/records.json");
+  assert.equal(calls[1].url, "https://example.test/cz/data/games/word-world/content.json");
 });
 
 test("stable-ID selection remains behind the runtime pack integrity check", async () => {
@@ -302,7 +302,7 @@ test("stable-ID selection remains behind the runtime pack integrity check", asyn
         async json() {
           return {
             corpusVersion: "pilot-v1",
-            runtimeFile: "standard-v0.1/records.json",
+            runtimeFile: "content.json",
             contentSha256: "0".repeat(64)
           };
         }
@@ -328,7 +328,7 @@ test("runtime integrity rejects a BOM-prefixed byte mutation", async () => {
     "utf8"
   ));
   const cleanBytes = await readFile(
-    new URL("../../../languages/czech/static/data/games/word-world/standard-v0.1/records.json", import.meta.url)
+    new URL("../../../languages/czech/static/data/games/word-world/content.json", import.meta.url)
   );
   const bomPrefixed = new Uint8Array(cleanBytes.length + 3);
   bomPrefixed.set([0xef, 0xbb, 0xbf]);

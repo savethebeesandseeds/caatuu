@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "locale": "en",
   "direction": "ltr",
-  "revision": "interface-en-30",
+  "revision": "interface-en-31",
   "messages": {
     "maintenance.browser.action": "Refresh app",
     "maintenance.browser.description": "Check for browser updates and refresh Caatuu. Your progress stays saved.",
@@ -15,6 +15,7 @@
     "chrome.freshness.loading": "Loading the latest Caatuu version...",
     "chrome.freshness.offline": "Offline copy — the latest Caatuu version cannot be checked yet.",
     "chrome.freshness.ready": "A newer Caatuu version is ready.",
+    "chrome.progress.savefailed": "Progress could not be saved. Keep the app open and try again.",
     "chrome.train": "Train",
     "common.action.close": "Close",
     "common.action.continue": "Continue",

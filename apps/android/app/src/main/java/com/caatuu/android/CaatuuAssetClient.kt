@@ -25,9 +25,12 @@ class CaatuuAssetClient(
     private val staticAssetManagers: Map<String, StaticAssetManager> = emptyMap(),
     private val vectorDatabaseManagerForCourse: ((String) -> VectorDatabaseManager?)? = null,
     private val courseSetupReady: ((String, Boolean) -> Boolean)? = null,
+    preferredCourseId: String? = null,
+    private val onCourseVisited: ((String) -> Unit)? = null,
 ) : WebViewClient() {
 
-    val startUrl: String = if (courseSetupReady != null) "${BundledCourseRegistry.APP_ORIGIN}/setup.html" else courseRegistry.startUrl
+    private var selectedCourseId = preferredCourseId
+    val startUrl: String get() = courseRegistry.startUrlForCourse(selectedCourseId)
 
     init {
         vectorDatabaseManagers.forEach { (courseId, _) ->
@@ -78,6 +81,10 @@ class CaatuuAssetClient(
             return
         }
 
+        courseRegistry.courseForTrustedUrl(url)?.let { course ->
+            selectedCourseId = course.id
+            onCourseVisited?.invoke(course.id)
+        }
         view.evaluateJavascript(nativeBoundaryScript(), null)
     }
 
@@ -163,7 +170,8 @@ class CaatuuAssetClient(
         uri.scheme == "https" && uri.host == HOST && (uri.port == -1 || uri.port == 443)
 
     private fun isAppRoot(uri: Uri): Boolean =
-        isAppHost(uri) && (uri.path.isNullOrBlank() || uri.path == "/" || uri.path == "/index.html")
+        isAppHost(uri) && (uri.path.isNullOrBlank() || uri.path == "/" || uri.path == "/index.html"
+            || (courseSetupReady != null && uri.path == "/setup.html"))
 
     private fun openExternalUrl(uri: Uri) {
         if (uri.scheme !in setOf("http", "https")) return

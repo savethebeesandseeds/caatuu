@@ -42,7 +42,7 @@ function seedMarkup(harness) {
 async function mountGame({ language = "czech", syntheticBase = false, reducedMotion = false,
   fetchFails = false, unsafePath = false, invalidContent = false, speech = false,
   speechFails = false, deferSpeech = false, deferFetch = false, segmentSize = 0, mountControls = true,
-  visuals = false, visualFails = false, initialActive = true, beforeMount } = {}) {
+  visuals = false, visualFails = false, initialActive = true, beforeMount, difficulty = 1 } = {}) {
   const raw = JSON.parse(await readFile(new URL(
     "../../languages/" + language + "/static/data/games/grammar-gravity/nouns.json", import.meta.url
   ), "utf8"));
@@ -108,14 +108,8 @@ async function mountGame({ language = "czech", syntheticBase = false, reducedMot
     removeEventListener: harness.window.removeEventListener.bind(harness.window),
     location: harness.window.location,
     CaatuuI18n: createInterfaceContent(englishInterface),
-    CaatuuRuntime: { vector: { async search(query, options) {
-      visualCalls.push({ query, options });
-      if (visualFails) throw new Error("image lookup unavailable");
-      return { results: [{ sourceKind: "image_asset", documentMetadata: {
-        asset_path: "/assets/miscellaneous/noun-fixture.png"
-      } }] };
-    } } },
-    CaatuuLearning: { record: (gameId, delta) => records.push({ gameId, ...delta }) },
+    CaatuuRuntime: { vector: { search() { assert.fail("Noun images use shared artwork retrieval."); } } },
+    CaatuuLearning: { difficulty: () => difficulty, record: (gameId, delta) => records.push({ gameId, ...delta }) },
     CaatuuChrome: {
       stopSpeech: async () => { speechStops += 1; },
       speakText: async (word) => {
@@ -127,7 +121,11 @@ async function mountGame({ language = "czech", syntheticBase = false, reducedMot
     postMessage: (message, origin) => messages.push({ message, origin })
   };
   Object.assign(harness.context, core, {
-    createNounVisual, mountRobotLoadingScreen,
+    createNounVisual: options => createNounVisual({ ...options, searchImages: async (query, options) => {
+      visualCalls.push({ query, options });
+      if (visualFails) throw new Error("image lookup unavailable");
+      return { rows: [{ sourceKind: "image_asset", path: "/assets/miscellaneous/noun-fixture.png" }] };
+    } }), mountRobotLoadingScreen,
     course, shell, mountOptions: { segmentSize, mountControls, initialActive, onComplete: () => segments.push(true) },
     createNounLandingSession: (pack, options = {}) => core.createNounLandingSession(pack, { ...options, random: () => 0.999 }),
     fetchDeclaredCourseGameJson: (profile, options) => fetchDeclaredCourseGameJson(profile, {
@@ -224,7 +222,7 @@ test("the hidden noun host cannot steal the active grammar form game's clock or 
     beforeMount: (options) => mountGrammarFlight(options)
   });
   const raw = JSON.parse(await readFile(new URL(
-    "../../languages/czech/static/data/games/grammar-gravity/challenges.json", import.meta.url
+    "../../languages/czech/static/data/games/grammar-gravity/content.json", import.meta.url
   ), "utf8"));
   const pack = normalizeGrammarGravityPack(raw, { courseId: "cz", learnerBaseLanguage: "en", targetLanguage: "cs-CZ" });
   const round = buildGrammarGravityRounds(pack, 3, () => 0.999).find((candidate) => candidate.focus.kind === "adjective");
@@ -353,7 +351,7 @@ for (const language of ["czech", "spanish"]) {
     assert.equal(game.controls.options.settings, undefined);
     assert.equal(game.element("gravityNounBlock").style.transform, "translateY(0px)");
     assert.equal(game.element("gravityNounLoading").hidden, true);
-    assert.equal(game.controller.snapshot().total, game.raw.items.length);
+    assert.equal(game.controller.snapshot().total, game.raw.items.filter(item => item.difficulty === undefined || item.difficulty <= 1).length);
     assert.equal(game.fetches.length, 1);
     assert.equal(game.fetches[0].url,
       "https://caatuu.test/" + game.course.id + "/data/games/grammar-gravity/nouns.json?v=fixture-2");
@@ -826,7 +824,7 @@ test("destruction makes pending animation and speech callbacks inert", async () 
 
 test("continuous full-pack cycles credit once and restart without a completion gate or repeated boundary noun", async () => {
   for (const outcome of ["perfect", "recovered", "unresolved"]) {
-    const game = await mountGame({ reducedMotion: true });
+    const game = await mountGame({ reducedMotion: true, difficulty: 3 });
     const missedId = game.controller.snapshot().item.id;
     const outsideControl = game.outsideControl;
     const count = game.raw.items.length;
@@ -959,7 +957,7 @@ test("noun cards start below the in-arena header without changing the landing di
 });
 
 test("six-decision segments hand off without discarding the full noun pool or its bounded retry queue", async () => {
-  const game = await mountGame({ segmentSize: 6, mountControls: false });
+  const game = await mountGame({ segmentSize: 6, mountControls: false, difficulty: 3 });
   assert.equal(game.controls.mounts, 0, "the parent owns the single shared toolbar");
   const seen = new Set();
   const first = game.controller.snapshot().item;
@@ -1121,7 +1119,7 @@ test("noun visuals use the shared English retrieval API and follow the feather w
   assert.equal(game.visualCalls.length, 1);
   assert.equal(game.visualCalls[0].query, first.english);
   assert.notEqual(game.visualCalls[0].query, first.learnerBaseText);
-  assert.deepEqual(game.visualCalls[0].options, { limit: 5, sourceKinds: ["image_asset"] });
+  assert.deepEqual(game.visualCalls[0].options, { sourceKind: "image_asset" });
   assert.equal(image.getAttribute("aria-hidden"), "true");
   assert.equal(image.alt, "");
   assert.equal(image.hidden, true, "retrieved art remains hidden until its image loads");

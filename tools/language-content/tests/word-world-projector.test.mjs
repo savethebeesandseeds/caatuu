@@ -168,7 +168,7 @@ test("the shared projector accepts a target-neutral policy and non-English base 
       conceptsRuntime:
         "apps/language-runtime/static/data/english-concepts/synthetic-word-world-v1.json",
       realizationsRuntime:
-        "apps/languages/synthetic/static/data/games/word-world/starter-v1.realizations.json",
+        "apps/languages/synthetic/static/data/games/word-world/content.json",
       learnerBaseSource:
         "apps/languages/shared/learner-base-realizations/fr/synthetic-word-world-v1.json",
       learnerBaseRuntime:

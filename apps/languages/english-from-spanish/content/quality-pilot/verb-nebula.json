@@ -1,0 +1,1566 @@
+[
+  {
+    "id": "es-en.verb.be",
+    "kind": "verb",
+    "target": "be",
+    "source": "ser; estar",
+    "englishAuditText": "be",
+    "difficulty": 1,
+    "category": "actions",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.actions",
+      "context": {
+        "targetText": "I want to be a nurse.",
+        "learnerBaseText": "Quiero ser enfermera.",
+        "englishAuditText": "I want to be a nurse.",
+        "targetSpan": {
+          "start": 10,
+          "end": 12
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.be.transfer-v1",
+        "targetText": "The visitors must be quiet in the library.",
+        "learnerBaseText": "Los visitantes deben estar en silencio en la biblioteca.",
+        "englishAuditText": "The visitors must be quiet in the library.",
+        "targetSpan": {
+          "start": 18,
+          "end": 20
+        }
+      },
+      "noteBaseText": "Be corresponde a ser o estar según el contexto: una profesión frente a un estado."
+    }
+  },
+  {
+    "id": "es-en.verb.have",
+    "kind": "verb",
+    "target": "have",
+    "source": "tener",
+    "englishAuditText": "have",
+    "difficulty": 1,
+    "category": "actions",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.actions",
+      "context": {
+        "targetText": "I have a blue backpack.",
+        "learnerBaseText": "Tengo una mochila azul.",
+        "englishAuditText": "I have a blue backpack.",
+        "targetSpan": {
+          "start": 2,
+          "end": 6
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.have.transfer-v1",
+        "targetText": "Our neighbors have a spare key.",
+        "learnerBaseText": "Nuestros vecinos tienen una llave de repuesto.",
+        "englishAuditText": "Our neighbors have a spare key.",
+        "targetSpan": {
+          "start": 14,
+          "end": 18
+        }
+      },
+      "noteBaseText": "Aquí have expresa posesión; su uso como auxiliar se estudia por separado."
+    }
+  },
+  {
+    "id": "es-en.verb.do",
+    "kind": "verb",
+    "target": "do",
+    "source": "hacer",
+    "englishAuditText": "do",
+    "difficulty": 1,
+    "category": "actions",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.actions",
+      "context": {
+        "targetText": "I do my homework after dinner.",
+        "learnerBaseText": "Hago los deberes después de cenar.",
+        "englishAuditText": "I do my homework after dinner.",
+        "targetSpan": {
+          "start": 2,
+          "end": 4
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.do.transfer-v1",
+        "targetText": "We do the shopping on Saturday.",
+        "learnerBaseText": "Hacemos la compra el sábado.",
+        "englishAuditText": "We do the shopping on Saturday.",
+        "targetSpan": {
+          "start": 3,
+          "end": 5
+        }
+      },
+      "noteBaseText": "Do aparece en actividades como do homework y do the shopping; no sustituye a make en todas las expresiones."
+    }
+  },
+  {
+    "id": "es-en.verb.go",
+    "kind": "verb",
+    "target": "go",
+    "source": "ir",
+    "englishAuditText": "go",
+    "difficulty": 2,
+    "category": "direction",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.direction",
+      "context": {
+        "targetText": "I go from home to the office each morning.",
+        "learnerBaseText": "Voy de casa a la oficina cada mañana.",
+        "englishAuditText": "I go from home to the office each morning.",
+        "targetSpan": {
+          "start": 2,
+          "end": 4
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.go.transfer-v1",
+        "targetText": "We go to the airport to meet our guests.",
+        "learnerBaseText": "Vamos al aeropuerto a recibir a nuestros invitados.",
+        "englishAuditText": "We go to the airport to meet our guests.",
+        "targetSpan": {
+          "start": 3,
+          "end": 5
+        }
+      },
+      "noteBaseText": "Go presenta un desplazamiento hacia otro lugar; come toma como referencia la posición del hablante o de la persona a la que se dirige."
+    }
+  },
+  {
+    "id": "es-en.verb.come",
+    "kind": "verb",
+    "target": "come",
+    "source": "venir",
+    "englishAuditText": "come",
+    "difficulty": 2,
+    "category": "direction",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.direction",
+      "context": {
+        "targetText": "Please come here and sit next to me.",
+        "learnerBaseText": "Ven aquí y siéntate a mi lado, por favor.",
+        "englishAuditText": "Please come here and sit next to me.",
+        "targetSpan": {
+          "start": 7,
+          "end": 11
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.come.transfer-v1",
+        "targetText": "Can you come to my desk for a moment?",
+        "learnerBaseText": "¿Puedes venir a mi mesa un momento?",
+        "englishAuditText": "Can you come to my desk for a moment?",
+        "targetSpan": {
+          "start": 8,
+          "end": 12
+        }
+      },
+      "noteBaseText": "Come indica movimiento hacia el lugar de referencia, aquí el lugar donde está quien habla."
+    }
+  },
+  {
+    "id": "es-en.verb.want",
+    "kind": "verb",
+    "target": "want",
+    "source": "querer",
+    "englishAuditText": "want",
+    "difficulty": 1,
+    "category": "communication",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.communication",
+      "context": {
+        "targetText": "I want some water, please.",
+        "learnerBaseText": "Quiero un poco de agua, por favor.",
+        "englishAuditText": "I want some water, please.",
+        "targetSpan": {
+          "start": 2,
+          "end": 6
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.want.transfer-v1",
+        "targetText": "We want a table near the window.",
+        "learnerBaseText": "Queremos una mesa junto a la ventana.",
+        "englishAuditText": "We want a table near the window.",
+        "targetSpan": {
+          "start": 3,
+          "end": 7
+        }
+      },
+      "noteBaseText": "Want expresa lo que se desea. En una petición, would like suele ser una opción más cortés."
+    }
+  },
+  {
+    "id": "es-en.verb.need",
+    "kind": "verb",
+    "target": "need",
+    "source": "necesitar",
+    "englishAuditText": "need",
+    "difficulty": 1,
+    "category": "communication",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.communication",
+      "context": {
+        "targetText": "I need help with this form.",
+        "learnerBaseText": "Necesito ayuda con este formulario.",
+        "englishAuditText": "I need help with this form.",
+        "targetSpan": {
+          "start": 2,
+          "end": 6
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.need.transfer-v1",
+        "targetText": "The children need warmer coats for the trip.",
+        "learnerBaseText": "Los niños necesitan abrigos más cálidos para el viaje.",
+        "englishAuditText": "The children need warmer coats for the trip.",
+        "targetSpan": {
+          "start": 13,
+          "end": 17
+        }
+      },
+      "noteBaseText": "Need expresa una necesidad; want expresa un deseo."
+    }
+  },
+  {
+    "id": "es-en.verb.speak",
+    "kind": "verb",
+    "target": "speak",
+    "source": "hablar",
+    "englishAuditText": "speak",
+    "difficulty": 1,
+    "category": "communication",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.communication",
+      "context": {
+        "targetText": "Can you speak more slowly, please?",
+        "learnerBaseText": "¿Puedes hablar más despacio, por favor?",
+        "englishAuditText": "Can you speak more slowly, please?",
+        "targetSpan": {
+          "start": 8,
+          "end": 13
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.speak.transfer-v1",
+        "targetText": "We speak English with our visitors.",
+        "learnerBaseText": "Hablamos inglés con nuestros visitantes.",
+        "englishAuditText": "We speak English with our visitors.",
+        "targetSpan": {
+          "start": 3,
+          "end": 8
+        }
+      },
+      "noteBaseText": "Speak suele referirse a hablar o a usar un idioma; say suele introducir el mensaje que se dice, por ejemplo say hello. Algunas expresiones, como speak the truth, tienen su propio uso."
+    }
+  },
+  {
+    "id": "es-en.verb.ask",
+    "kind": "verb",
+    "target": "ask",
+    "source": "preguntar",
+    "englishAuditText": "ask",
+    "difficulty": 1,
+    "category": "communication",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.communication",
+      "context": {
+        "targetText": "Can I ask you a question?",
+        "learnerBaseText": "¿Puedo hacerte una pregunta?",
+        "englishAuditText": "Can I ask you a question?",
+        "targetSpan": {
+          "start": 6,
+          "end": 9
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.ask.transfer-v1",
+        "targetText": "We ask the receptionist where the bus stops.",
+        "learnerBaseText": "Preguntamos en recepción dónde para el autobús.",
+        "englishAuditText": "We ask the receptionist where the bus stops.",
+        "targetSpan": {
+          "start": 3,
+          "end": 6
+        }
+      },
+      "noteBaseText": "Ask a question significa hacer una pregunta. Ask for something significa pedir algo; aquí se practica preguntar."
+    }
+  },
+  {
+    "id": "es-en.verb.listen",
+    "kind": "verb",
+    "target": "listen",
+    "source": "escuchar",
+    "englishAuditText": "listen",
+    "difficulty": 1,
+    "category": "communication",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.communication",
+      "context": {
+        "targetText": "Please listen to the instructions.",
+        "learnerBaseText": "Escucha las instrucciones, por favor.",
+        "englishAuditText": "Please listen to the instructions.",
+        "targetSpan": {
+          "start": 7,
+          "end": 13
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.listen.transfer-v1",
+        "targetText": "I listen to my neighbor before I answer.",
+        "learnerBaseText": "Escucho a mi vecino antes de responder.",
+        "englishAuditText": "I listen to my neighbor before I answer.",
+        "targetSpan": {
+          "start": 2,
+          "end": 8
+        }
+      },
+      "noteBaseText": "Listen implica prestar atención; ante aquello que se escucha suele llevar to."
+    }
+  },
+  {
+    "id": "es-en.verb.see",
+    "kind": "verb",
+    "target": "see",
+    "source": "ver",
+    "englishAuditText": "see",
+    "difficulty": 1,
+    "category": "actions",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.actions",
+      "context": {
+        "targetText": "I can see the mountains from my window.",
+        "learnerBaseText": "Puedo ver las montañas desde mi ventana.",
+        "englishAuditText": "I can see the mountains from my window.",
+        "targetSpan": {
+          "start": 6,
+          "end": 9
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.see.transfer-v1",
+        "targetText": "Can you see the small sign above the door?",
+        "learnerBaseText": "¿Puedes ver el cartel pequeño que hay encima de la puerta?",
+        "englishAuditText": "Can you see the small sign above the door?",
+        "targetSpan": {
+          "start": 8,
+          "end": 11
+        }
+      },
+      "noteBaseText": "See expresa percepción visual; look at destaca la acción de dirigir la mirada."
+    }
+  },
+  {
+    "id": "es-en.verb.understand",
+    "kind": "verb",
+    "target": "understand",
+    "source": "entender",
+    "englishAuditText": "understand",
+    "difficulty": 1,
+    "category": "communication",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.communication",
+      "context": {
+        "targetText": "I understand the question now.",
+        "learnerBaseText": "Ahora entiendo la pregunta.",
+        "englishAuditText": "I understand the question now.",
+        "targetSpan": {
+          "start": 2,
+          "end": 12
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.understand.transfer-v1",
+        "targetText": "Do you understand why the train is late?",
+        "learnerBaseText": "¿Entiendes por qué el tren lleva retraso?",
+        "englishAuditText": "Do you understand why the train is late?",
+        "targetSpan": {
+          "start": 7,
+          "end": 17
+        }
+      },
+      "noteBaseText": "Understand significa comprender el sentido o la razón de algo."
+    }
+  },
+  {
+    "id": "es-en.verb.remember",
+    "kind": "verb",
+    "target": "remember",
+    "source": "recordar",
+    "englishAuditText": "remember",
+    "difficulty": 1,
+    "category": "communication",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.communication",
+      "context": {
+        "targetText": "I remember your name.",
+        "learnerBaseText": "Recuerdo tu nombre.",
+        "englishAuditText": "I remember your name.",
+        "targetSpan": {
+          "start": 2,
+          "end": 10
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.remember.transfer-v1",
+        "targetText": "We remember the route to the museum.",
+        "learnerBaseText": "Recordamos el camino al museo.",
+        "englishAuditText": "We remember the route to the museum.",
+        "targetSpan": {
+          "start": 3,
+          "end": 11
+        }
+      },
+      "noteBaseText": "Remember significa recordar; remember to do something también puede expresar acordarse de hacer algo."
+    }
+  },
+  {
+    "id": "es-en.verb.eat",
+    "kind": "verb",
+    "target": "eat",
+    "source": "comer",
+    "englishAuditText": "eat",
+    "difficulty": 1,
+    "category": "actions",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.actions",
+      "context": {
+        "targetText": "We eat soup for lunch.",
+        "learnerBaseText": "Comemos sopa para el almuerzo.",
+        "englishAuditText": "We eat soup for lunch.",
+        "targetSpan": {
+          "start": 3,
+          "end": 6
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.eat.transfer-v1",
+        "targetText": "I eat a sandwich before the evening class.",
+        "learnerBaseText": "Como un bocadillo antes de la clase de la tarde.",
+        "englishAuditText": "I eat a sandwich before the evening class.",
+        "targetSpan": {
+          "start": 2,
+          "end": 5
+        }
+      },
+      "noteBaseText": "Eat se refiere a ingerir comida; drink se usa con bebidas."
+    }
+  },
+  {
+    "id": "es-en.verb.drink",
+    "kind": "verb",
+    "target": "drink",
+    "source": "beber",
+    "englishAuditText": "drink",
+    "difficulty": 1,
+    "category": "actions",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.actions",
+      "context": {
+        "targetText": "I drink water after a run.",
+        "learnerBaseText": "Bebo agua después de correr.",
+        "englishAuditText": "I drink water after a run.",
+        "targetSpan": {
+          "start": 2,
+          "end": 7
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.drink.transfer-v1",
+        "targetText": "We drink tea while we wait for the train.",
+        "learnerBaseText": "Bebemos té mientras esperamos el tren.",
+        "englishAuditText": "We drink tea while we wait for the train.",
+        "targetSpan": {
+          "start": 3,
+          "end": 8
+        }
+      },
+      "noteBaseText": "Drink se refiere a beber; no implica necesariamente tomar alcohol."
+    }
+  },
+  {
+    "id": "es-en.verb.sleep",
+    "kind": "verb",
+    "target": "sleep",
+    "source": "dormir",
+    "englishAuditText": "sleep",
+    "difficulty": 1,
+    "category": "actions",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.actions",
+      "context": {
+        "targetText": "The children sleep for nine hours.",
+        "learnerBaseText": "Los niños duermen nueve horas.",
+        "englishAuditText": "The children sleep for nine hours.",
+        "targetSpan": {
+          "start": 13,
+          "end": 18
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.sleep.transfer-v1",
+        "targetText": "I sleep better when the room is quiet.",
+        "learnerBaseText": "Duermo mejor cuando la habitación está en silencio.",
+        "englishAuditText": "I sleep better when the room is quiet.",
+        "targetSpan": {
+          "start": 2,
+          "end": 7
+        }
+      },
+      "noteBaseText": "Sleep significa dormir; go to bed es irse a la cama, que no siempre coincide con dormirse."
+    }
+  },
+  {
+    "id": "es-en.verb.read",
+    "kind": "verb",
+    "target": "read",
+    "source": "leer",
+    "englishAuditText": "read",
+    "difficulty": 1,
+    "category": "actions",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.actions",
+      "context": {
+        "targetText": "I read the newspaper on the bus every morning.",
+        "learnerBaseText": "Leo el periódico en el autobús todas las mañanas.",
+        "englishAuditText": "I read the newspaper on the bus every morning.",
+        "targetSpan": {
+          "start": 2,
+          "end": 6
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.read.transfer-v1",
+        "targetText": "We always read the safety instructions before a hike.",
+        "learnerBaseText": "Siempre leemos las instrucciones de seguridad antes de una excursión.",
+        "englishAuditText": "We always read the safety instructions before a hike.",
+        "targetSpan": {
+          "start": 10,
+          "end": 14
+        }
+      },
+      "noteBaseText": "Aquí read está en presente; la misma escritura tiene una pronunciación diferente en pasado."
+    }
+  },
+  {
+    "id": "es-en.verb.write",
+    "kind": "verb",
+    "target": "write",
+    "source": "escribir",
+    "englishAuditText": "write",
+    "difficulty": 1,
+    "category": "actions",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.actions",
+      "context": {
+        "targetText": "I write my address on the envelope.",
+        "learnerBaseText": "Escribo mi dirección en el sobre.",
+        "englishAuditText": "I write my address on the envelope.",
+        "targetSpan": {
+          "start": 2,
+          "end": 7
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.write.transfer-v1",
+        "targetText": "We write a short message to the hotel.",
+        "learnerBaseText": "Escribimos un mensaje breve al hotel.",
+        "englishAuditText": "We write a short message to the hotel.",
+        "targetSpan": {
+          "start": 3,
+          "end": 8
+        }
+      },
+      "noteBaseText": "Write se usa para producir texto; type especifica que se escribe con un teclado."
+    }
+  },
+  {
+    "id": "es-en.verb.study",
+    "kind": "verb",
+    "target": "study",
+    "source": "estudiar",
+    "englishAuditText": "study",
+    "difficulty": 1,
+    "category": "actions",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.actions",
+      "context": {
+        "targetText": "I study biology at school.",
+        "learnerBaseText": "Estudio biología en el colegio.",
+        "englishAuditText": "I study biology at school.",
+        "targetSpan": {
+          "start": 2,
+          "end": 7
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.study.transfer-v1",
+        "targetText": "We study the map before we leave.",
+        "learnerBaseText": "Estudiamos el mapa antes de salir.",
+        "englishAuditText": "We study the map before we leave.",
+        "targetSpan": {
+          "start": 3,
+          "end": 8
+        }
+      },
+      "noteBaseText": "Study puede referirse a estudiar una asignatura o a examinar algo con atención."
+    }
+  },
+  {
+    "id": "es-en.verb.work",
+    "kind": "verb",
+    "target": "work",
+    "source": "trabajar",
+    "englishAuditText": "work",
+    "difficulty": 1,
+    "category": "actions",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.actions",
+      "context": {
+        "targetText": "I work in a hospital.",
+        "learnerBaseText": "Trabajo en un hospital.",
+        "englishAuditText": "I work in a hospital.",
+        "targetSpan": {
+          "start": 2,
+          "end": 6
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.work.transfer-v1",
+        "targetText": "My sisters work at a small bakery.",
+        "learnerBaseText": "Mis hermanas trabajan en una panadería pequeña.",
+        "englishAuditText": "My sisters work at a small bakery.",
+        "targetSpan": {
+          "start": 11,
+          "end": 15
+        }
+      },
+      "noteBaseText": "Aquí work significa trabajar. Cuando una máquina works, significa que funciona."
+    }
+  },
+  {
+    "id": "es-en.verb.play",
+    "kind": "verb",
+    "target": "play",
+    "source": "jugar",
+    "englishAuditText": "play",
+    "difficulty": 1,
+    "category": "actions",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.actions",
+      "context": {
+        "targetText": "We play soccer in the park.",
+        "learnerBaseText": "Jugamos al fútbol en el parque.",
+        "englishAuditText": "We play soccer in the park.",
+        "targetSpan": {
+          "start": 3,
+          "end": 7
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.play.transfer-v1",
+        "targetText": "The children play chess after lunch.",
+        "learnerBaseText": "Los niños juegan al ajedrez después de comer.",
+        "englishAuditText": "The children play chess after lunch.",
+        "targetSpan": {
+          "start": 13,
+          "end": 17
+        }
+      },
+      "noteBaseText": "Con deportes y juegos, play significa jugar. Con instrumentos musicales significa tocar."
+    }
+  },
+  {
+    "id": "es-en.verb.walk",
+    "kind": "verb",
+    "target": "walk",
+    "source": "caminar",
+    "englishAuditText": "walk",
+    "difficulty": 1,
+    "category": "actions",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.actions",
+      "context": {
+        "targetText": "I walk to the station every morning.",
+        "learnerBaseText": "Camino hasta la estación cada mañana.",
+        "englishAuditText": "I walk to the station every morning.",
+        "targetSpan": {
+          "start": 2,
+          "end": 6
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.walk.transfer-v1",
+        "targetText": "We walk along the river after dinner.",
+        "learnerBaseText": "Caminamos junto al río después de cenar.",
+        "englishAuditText": "We walk along the river after dinner.",
+        "targetSpan": {
+          "start": 3,
+          "end": 7
+        }
+      },
+      "noteBaseText": "Walk es desplazarse a pie; run significa correr."
+    }
+  },
+  {
+    "id": "es-en.verb.run",
+    "kind": "verb",
+    "target": "run",
+    "source": "correr",
+    "englishAuditText": "run",
+    "difficulty": 1,
+    "category": "actions",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.actions",
+      "context": {
+        "targetText": "We run around the track.",
+        "learnerBaseText": "Corremos alrededor de la pista.",
+        "englishAuditText": "We run around the track.",
+        "targetSpan": {
+          "start": 3,
+          "end": 6
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.run.transfer-v1",
+        "targetText": "I run to catch the last bus.",
+        "learnerBaseText": "Corro para coger el último autobús.",
+        "englishAuditText": "I run to catch the last bus.",
+        "targetSpan": {
+          "start": 2,
+          "end": 5
+        }
+      },
+      "noteBaseText": "Aquí run significa correr; otros usos, como run a business, requieren otro sentido."
+    }
+  },
+  {
+    "id": "es-en.verb.open",
+    "kind": "verb",
+    "target": "open",
+    "source": "abrir",
+    "englishAuditText": "open",
+    "difficulty": 1,
+    "category": "actions",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.actions",
+      "context": {
+        "targetText": "Please open the door so we can enter.",
+        "learnerBaseText": "Abre la puerta para que podamos entrar, por favor.",
+        "englishAuditText": "Please open the door so we can enter.",
+        "targetSpan": {
+          "start": 7,
+          "end": 11
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.open.transfer-v1",
+        "targetText": "We open the windows to let in fresh air.",
+        "learnerBaseText": "Abrimos las ventanas para que entre aire fresco.",
+        "englishAuditText": "We open the windows to let in fresh air.",
+        "targetSpan": {
+          "start": 3,
+          "end": 7
+        }
+      },
+      "noteBaseText": "Open describe pasar de cerrado a abierto; close expresa el cambio contrario."
+    }
+  },
+  {
+    "id": "es-en.verb.close",
+    "kind": "verb",
+    "target": "close",
+    "source": "cerrar",
+    "englishAuditText": "close",
+    "difficulty": 1,
+    "category": "actions",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.actions",
+      "context": {
+        "targetText": "Please close the gate after you enter.",
+        "learnerBaseText": "Cierra la verja después de entrar, por favor.",
+        "englishAuditText": "Please close the gate after you enter.",
+        "targetSpan": {
+          "start": 7,
+          "end": 12
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.close.transfer-v1",
+        "targetText": "We close the windows before the storm.",
+        "learnerBaseText": "Cerramos las ventanas antes de la tormenta.",
+        "englishAuditText": "We close the windows before the storm.",
+        "targetSpan": {
+          "start": 3,
+          "end": 8
+        }
+      },
+      "noteBaseText": "Como verbo, close significa cerrar. El adjetivo close puede significar cercano."
+    }
+  },
+  {
+    "id": "es-en.verb.help",
+    "kind": "verb",
+    "target": "help",
+    "source": "ayudar",
+    "englishAuditText": "help",
+    "difficulty": 1,
+    "category": "communication",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.communication",
+      "context": {
+        "targetText": "Can you help me carry this box?",
+        "learnerBaseText": "¿Puedes ayudarme a llevar esta caja?",
+        "englishAuditText": "Can you help me carry this box?",
+        "targetSpan": {
+          "start": 8,
+          "end": 12
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.help.transfer-v1",
+        "targetText": "We help our new neighbor find the pharmacy.",
+        "learnerBaseText": "Ayudamos a nuestro nuevo vecino a encontrar la farmacia.",
+        "englishAuditText": "We help our new neighbor find the pharmacy.",
+        "targetSpan": {
+          "start": 3,
+          "end": 7
+        }
+      },
+      "noteBaseText": "Help someone do something expresa ayudar a alguien a hacer algo; también es posible help someone to do something."
+    }
+  },
+  {
+    "id": "es-en.verb.buy",
+    "kind": "verb",
+    "target": "buy",
+    "source": "comprar",
+    "englishAuditText": "buy",
+    "difficulty": 2,
+    "category": "transactions",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.transactions",
+      "context": {
+        "targetText": "I buy vegetables at the market.",
+        "learnerBaseText": "Compro verduras en el mercado.",
+        "englishAuditText": "I buy vegetables at the market.",
+        "targetSpan": {
+          "start": 2,
+          "end": 5
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.buy.transfer-v1",
+        "targetText": "We buy train tickets before the price rises.",
+        "learnerBaseText": "Compramos los billetes de tren antes de que suba el precio.",
+        "englishAuditText": "We buy train tickets before the price rises.",
+        "targetSpan": {
+          "start": 3,
+          "end": 6
+        }
+      },
+      "noteBaseText": "Quien compra recibe algo a cambio de dinero; quien lo vende usa sell."
+    }
+  },
+  {
+    "id": "es-en.verb.sell",
+    "kind": "verb",
+    "target": "sell",
+    "source": "vender",
+    "englishAuditText": "sell",
+    "difficulty": 2,
+    "category": "transactions",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.transactions",
+      "context": {
+        "targetText": "They sell fresh bread in this shop.",
+        "learnerBaseText": "Venden pan recién hecho en esta tienda.",
+        "englishAuditText": "They sell fresh bread in this shop.",
+        "targetSpan": {
+          "start": 5,
+          "end": 9
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.sell.transfer-v1",
+        "targetText": "We sell our old bicycles to a neighbor.",
+        "learnerBaseText": "Vendemos nuestras bicicletas viejas a un vecino.",
+        "englishAuditText": "We sell our old bicycles to a neighbor.",
+        "targetSpan": {
+          "start": 3,
+          "end": 7
+        }
+      },
+      "noteBaseText": "Sell presenta la operación desde quien entrega el producto y recibe el dinero."
+    }
+  },
+  {
+    "id": "es-en.verb.pay",
+    "kind": "verb",
+    "target": "pay",
+    "source": "pagar",
+    "englishAuditText": "pay",
+    "difficulty": 2,
+    "category": "transactions",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.transactions",
+      "context": {
+        "targetText": "I pay for the meal with my card.",
+        "learnerBaseText": "Pago la comida con tarjeta.",
+        "englishAuditText": "I pay for the meal with my card.",
+        "targetSpan": {
+          "start": 2,
+          "end": 5
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.pay.transfer-v1",
+        "targetText": "We pay the electricity bill every month.",
+        "learnerBaseText": "Pagamos la factura de la luz todos los meses.",
+        "englishAuditText": "We pay the electricity bill every month.",
+        "targetSpan": {
+          "start": 3,
+          "end": 6
+        }
+      },
+      "noteBaseText": "Pay for something indica aquello que se paga; con bill se dice pay the bill, sin for."
+    }
+  },
+  {
+    "id": "es-en.verb.borrow",
+    "kind": "verb",
+    "target": "borrow",
+    "source": "pedir prestado",
+    "englishAuditText": "borrow",
+    "difficulty": 2,
+    "category": "direction",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.direction",
+      "context": {
+        "targetText": "Can I borrow your umbrella until tomorrow?",
+        "learnerBaseText": "¿Me prestas tu paraguas hasta mañana?",
+        "englishAuditText": "Can I borrow your umbrella until tomorrow?",
+        "targetSpan": {
+          "start": 6,
+          "end": 12
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.borrow.transfer-v1",
+        "targetText": "We borrow a ladder from our neighbor to fix the roof.",
+        "learnerBaseText": "Pedimos una escalera prestada a nuestro vecino para arreglar el tejado.",
+        "englishAuditText": "We borrow a ladder from our neighbor to fix the roof.",
+        "targetSpan": {
+          "start": 3,
+          "end": 9
+        }
+      },
+      "noteBaseText": "Borrow es recibir algo prestado de otra persona: borrow something from someone. La otra persona lo presta: lend."
+    }
+  },
+  {
+    "id": "es-en.verb.lend",
+    "kind": "verb",
+    "target": "lend",
+    "source": "prestar",
+    "englishAuditText": "lend",
+    "difficulty": 2,
+    "category": "direction",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.direction",
+      "context": {
+        "targetText": "Can you lend me your pen for a moment?",
+        "learnerBaseText": "¿Puedes prestarme tu bolígrafo un momento?",
+        "englishAuditText": "Can you lend me your pen for a moment?",
+        "targetSpan": {
+          "start": 8,
+          "end": 12
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.lend.transfer-v1",
+        "targetText": "We lend our camping stove to friends for the weekend.",
+        "learnerBaseText": "Prestamos nuestro hornillo de camping a unos amigos para el fin de semana.",
+        "englishAuditText": "We lend our camping stove to friends for the weekend.",
+        "targetSpan": {
+          "start": 3,
+          "end": 7
+        }
+      },
+      "noteBaseText": "Lend es dar algo prestado: lend someone something o lend something to someone. Borrow describe a quien lo recibe."
+    }
+  },
+  {
+    "id": "es-en.verb.bring",
+    "kind": "verb",
+    "target": "bring",
+    "source": "traer",
+    "englishAuditText": "bring",
+    "difficulty": 2,
+    "category": "direction",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.direction",
+      "context": {
+        "targetText": "Please bring the plates here to the table.",
+        "learnerBaseText": "Trae los platos aquí a la mesa, por favor.",
+        "englishAuditText": "Please bring the plates here to the table.",
+        "targetSpan": {
+          "start": 7,
+          "end": 12
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.bring.transfer-v1",
+        "targetText": "Can you bring your notebook to my desk?",
+        "learnerBaseText": "¿Puedes traer tu cuaderno a mi mesa?",
+        "englishAuditText": "Can you bring your notebook to my desk?",
+        "targetSpan": {
+          "start": 8,
+          "end": 13
+        }
+      },
+      "noteBaseText": "Bring señala movimiento hacia el lugar de referencia, aquí donde está quien habla."
+    }
+  },
+  {
+    "id": "es-en.verb.take",
+    "kind": "verb",
+    "target": "take",
+    "source": "llevar (a otro lugar)",
+    "englishAuditText": "take",
+    "difficulty": 2,
+    "category": "direction",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.direction",
+      "context": {
+        "targetText": "Please take this parcel from here to the post office.",
+        "learnerBaseText": "Lleva este paquete de aquí a Correos, por favor.",
+        "englishAuditText": "Please take this parcel from here to the post office.",
+        "targetSpan": {
+          "start": 7,
+          "end": 11
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.take.transfer-v1",
+        "targetText": "We take our recycling from home to the collection point.",
+        "learnerBaseText": "Llevamos el material para reciclar de casa al punto de recogida.",
+        "englishAuditText": "We take our recycling from home to the collection point.",
+        "targetSpan": {
+          "start": 3,
+          "end": 7
+        }
+      },
+      "noteBaseText": "Aquí take significa llevar algo desde el lugar de partida a otro lugar; bring enfoca el movimiento hacia el destino de referencia."
+    }
+  },
+  {
+    "id": "es-en.verb.leave",
+    "kind": "verb",
+    "target": "leave",
+    "source": "marcharse (de un lugar)",
+    "englishAuditText": "leave",
+    "difficulty": 2,
+    "category": "direction",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.direction",
+      "context": {
+        "targetText": "We leave the office at six and go home.",
+        "learnerBaseText": "Salimos de la oficina a las seis y vamos a casa.",
+        "englishAuditText": "We leave the office at six and go home.",
+        "targetSpan": {
+          "start": 3,
+          "end": 8
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.leave.transfer-v1",
+        "targetText": "The guests leave the hotel after breakfast.",
+        "learnerBaseText": "Los huéspedes se marchan del hotel después de desayunar.",
+        "englishAuditText": "The guests leave the hotel after breakfast.",
+        "targetSpan": {
+          "start": 11,
+          "end": 16
+        }
+      },
+      "noteBaseText": "Aquí leave significa marcharse o salir de un lugar. Leave something somewhere significa dejar algo en algún sitio."
+    }
+  },
+  {
+    "id": "es-en.verb.arrive",
+    "kind": "verb",
+    "target": "arrive",
+    "source": "llegar",
+    "englishAuditText": "arrive",
+    "difficulty": 2,
+    "category": "direction",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.direction",
+      "context": {
+        "targetText": "We arrive at the station ten minutes early.",
+        "learnerBaseText": "Llegamos a la estación con diez minutos de antelación.",
+        "englishAuditText": "We arrive at the station ten minutes early.",
+        "targetSpan": {
+          "start": 3,
+          "end": 9
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.arrive.transfer-v1",
+        "targetText": "The visitors arrive in Madrid on Friday.",
+        "learnerBaseText": "Los visitantes llegan a Madrid el viernes.",
+        "englishAuditText": "The visitors arrive in Madrid on Friday.",
+        "targetSpan": {
+          "start": 13,
+          "end": 19
+        }
+      },
+      "noteBaseText": "Se dice arrive at para un punto concreto y arrive in para una ciudad o un país."
+    }
+  },
+  {
+    "id": "es-en.verb.choose",
+    "kind": "verb",
+    "target": "choose",
+    "source": "elegir",
+    "englishAuditText": "choose",
+    "difficulty": 2,
+    "category": "transactions",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.transactions",
+      "context": {
+        "targetText": "You can choose soup or salad.",
+        "learnerBaseText": "Puedes elegir sopa o ensalada.",
+        "englishAuditText": "You can choose soup or salad.",
+        "targetSpan": {
+          "start": 8,
+          "end": 14
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.choose.transfer-v1",
+        "targetText": "We choose a quieter hotel for our next trip.",
+        "learnerBaseText": "Elegimos un hotel más tranquilo para nuestro próximo viaje.",
+        "englishAuditText": "We choose a quieter hotel for our next trip.",
+        "targetSpan": {
+          "start": 3,
+          "end": 9
+        }
+      },
+      "noteBaseText": "Choose expresa seleccionar entre alternativas; no es lo mismo que pagar o comprar."
+    }
+  },
+  {
+    "id": "es-en.verb.look-after",
+    "kind": "verb",
+    "target": "look after",
+    "source": "cuidar de",
+    "englishAuditText": "look after",
+    "difficulty": 3,
+    "category": "phrasal",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.phrasal",
+      "context": {
+        "targetText": "I look after my sister's cat while she is away.",
+        "learnerBaseText": "Cuido del gato de mi hermana mientras ella está fuera.",
+        "englishAuditText": "I look after my sister's cat while she is away.",
+        "targetSpan": {
+          "start": 2,
+          "end": 12
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.look-after.transfer-v1",
+        "targetText": "We look after our neighbor's plants during the summer.",
+        "learnerBaseText": "Cuidamos las plantas de nuestro vecino durante el verano.",
+        "englishAuditText": "We look after our neighbor's plants during the summer.",
+        "targetSpan": {
+          "start": 3,
+          "end": 13
+        }
+      },
+      "noteBaseText": "Look after significa cuidar de alguien o algo; no se interpreta como mirar después."
+    }
+  },
+  {
+    "id": "es-en.verb.find-out",
+    "kind": "verb",
+    "target": "find out",
+    "source": "averiguar",
+    "englishAuditText": "find out",
+    "difficulty": 3,
+    "category": "phrasal",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.phrasal",
+      "context": {
+        "targetText": "We need to find out why the bus route changed.",
+        "learnerBaseText": "Necesitamos averiguar por qué ha cambiado la ruta del autobús.",
+        "englishAuditText": "We need to find out why the bus route changed.",
+        "targetSpan": {
+          "start": 11,
+          "end": 19
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.find-out.transfer-v1",
+        "targetText": "Can you find out when registration closes?",
+        "learnerBaseText": "¿Puedes averiguar cuándo termina el plazo de inscripción?",
+        "englishAuditText": "Can you find out when registration closes?",
+        "targetSpan": {
+          "start": 8,
+          "end": 16
+        }
+      },
+      "noteBaseText": "Find out expresa descubrir información; find puede referirse a encontrar un objeto."
+    }
+  },
+  {
+    "id": "es-en.verb.give-up",
+    "kind": "verb",
+    "target": "give up",
+    "source": "rendirse",
+    "englishAuditText": "give up",
+    "difficulty": 3,
+    "category": "phrasal",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.phrasal",
+      "context": {
+        "targetText": "I will not give up after one mistake.",
+        "learnerBaseText": "No voy a rendirme por un solo error.",
+        "englishAuditText": "I will not give up after one mistake.",
+        "targetSpan": {
+          "start": 11,
+          "end": 18
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.give-up.transfer-v1",
+        "targetText": "We must not give up when the first plan fails.",
+        "learnerBaseText": "No debemos rendirnos cuando falla el primer plan.",
+        "englishAuditText": "We must not give up when the first plan fails.",
+        "targetSpan": {
+          "start": 12,
+          "end": 19
+        }
+      },
+      "noteBaseText": "Aquí give up significa rendirse o dejar de intentarlo. Give up a habit tiene el sentido de abandonar un hábito."
+    }
+  },
+  {
+    "id": "es-en.verb.put-off",
+    "kind": "verb",
+    "target": "put off",
+    "source": "aplazar",
+    "englishAuditText": "put off",
+    "difficulty": 3,
+    "category": "phrasal",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.phrasal",
+      "context": {
+        "targetText": "We have to put off the picnic because of the storm.",
+        "learnerBaseText": "Tenemos que aplazar el pícnic por la tormenta.",
+        "englishAuditText": "We have to put off the picnic because of the storm.",
+        "targetSpan": {
+          "start": 11,
+          "end": 18
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.put-off.transfer-v1",
+        "targetText": "Can we put off the interview until next Tuesday?",
+        "learnerBaseText": "¿Podemos aplazar la entrevista hasta el próximo martes?",
+        "englishAuditText": "Can we put off the interview until next Tuesday?",
+        "targetSpan": {
+          "start": 7,
+          "end": 14
+        }
+      },
+      "noteBaseText": "Put off significa aplazar una actividad; no equivale a cancelarla definitivamente."
+    }
+  },
+  {
+    "id": "es-en.verb.turn-down",
+    "kind": "verb",
+    "target": "turn down",
+    "source": "rechazar (una oferta o invitación)",
+    "englishAuditText": "turn down",
+    "difficulty": 3,
+    "category": "phrasal",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.phrasal",
+      "context": {
+        "targetText": "I may turn down the job offer because the hours are too long.",
+        "learnerBaseText": "Puede que rechace la oferta de trabajo porque la jornada es demasiado larga.",
+        "englishAuditText": "I may turn down the job offer because the hours are too long.",
+        "targetSpan": {
+          "start": 6,
+          "end": 15
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.turn-down.transfer-v1",
+        "targetText": "We turn down the invitation because we already have plans.",
+        "learnerBaseText": "Rechazamos la invitación porque ya tenemos planes.",
+        "englishAuditText": "We turn down the invitation because we already have plans.",
+        "targetSpan": {
+          "start": 3,
+          "end": 12
+        }
+      },
+      "noteBaseText": "Aquí turn down significa rechazar una oferta o invitación; con el volumen significa bajarlo."
+    }
+  },
+  {
+    "id": "es-en.verb.apply-for",
+    "kind": "verb",
+    "target": "apply for",
+    "source": "solicitar (formalmente)",
+    "englishAuditText": "apply for",
+    "difficulty": 3,
+    "category": "phrasal",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.phrasal",
+      "context": {
+        "targetText": "I want to apply for a scholarship.",
+        "learnerBaseText": "Quiero solicitar una beca.",
+        "englishAuditText": "I want to apply for a scholarship.",
+        "targetSpan": {
+          "start": 10,
+          "end": 19
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.apply-for.transfer-v1",
+        "targetText": "We can apply for a parking permit online.",
+        "learnerBaseText": "Podemos solicitar un permiso de aparcamiento por internet.",
+        "englishAuditText": "We can apply for a parking permit online.",
+        "targetSpan": {
+          "start": 7,
+          "end": 16
+        }
+      },
+      "noteBaseText": "Apply for se usa al solicitar formalmente un empleo, una beca o un permiso."
+    }
+  },
+  {
+    "id": "es-en.verb.agree",
+    "kind": "verb",
+    "target": "agree",
+    "source": "estar de acuerdo",
+    "englishAuditText": "agree",
+    "difficulty": 3,
+    "category": "decisions",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.decisions",
+      "context": {
+        "targetText": "I agree with your plan to start earlier.",
+        "learnerBaseText": "Estoy de acuerdo con tu plan de empezar antes.",
+        "englishAuditText": "I agree with your plan to start earlier.",
+        "targetSpan": {
+          "start": 2,
+          "end": 7
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.agree.transfer-v1",
+        "targetText": "We agree that the new route is safer.",
+        "learnerBaseText": "Estamos de acuerdo en que la nueva ruta es más segura.",
+        "englishAuditText": "We agree that the new route is safer.",
+        "targetSpan": {
+          "start": 3,
+          "end": 8
+        }
+      },
+      "noteBaseText": "Agree with se usa con una persona o una idea; agree that introduce aquello en lo que se está de acuerdo."
+    }
+  },
+  {
+    "id": "es-en.verb.suggest",
+    "kind": "verb",
+    "target": "suggest",
+    "source": "sugerir",
+    "englishAuditText": "suggest",
+    "difficulty": 3,
+    "category": "decisions",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.decisions",
+      "context": {
+        "targetText": "I suggest taking the train instead of driving.",
+        "learnerBaseText": "Sugiero ir en tren en vez de conducir.",
+        "englishAuditText": "I suggest taking the train instead of driving.",
+        "targetSpan": {
+          "start": 2,
+          "end": 9
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.suggest.transfer-v1",
+        "targetText": "We suggest a shorter meeting so everyone can attend.",
+        "learnerBaseText": "Sugerimos una reunión más corta para que todos puedan asistir.",
+        "englishAuditText": "We suggest a shorter meeting so everyone can attend.",
+        "targetSpan": {
+          "start": 3,
+          "end": 10
+        }
+      },
+      "noteBaseText": "Suggest puede ir seguido de un nombre o de una forma en -ing; no se dice suggest someone to do something."
+    }
+  },
+  {
+    "id": "es-en.verb.solve",
+    "kind": "verb",
+    "target": "solve",
+    "source": "resolver (un problema)",
+    "englishAuditText": "solve",
+    "difficulty": 3,
+    "category": "decisions",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.decisions",
+      "context": {
+        "targetText": "We can solve this problem by changing the schedule.",
+        "learnerBaseText": "Podemos resolver este problema cambiando el horario.",
+        "englishAuditText": "We can solve this problem by changing the schedule.",
+        "targetSpan": {
+          "start": 7,
+          "end": 12
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.solve.transfer-v1",
+        "targetText": "I try to solve the puzzle without looking at the answer.",
+        "learnerBaseText": "Intento resolver el acertijo sin mirar la respuesta.",
+        "englishAuditText": "I try to solve the puzzle without looking at the answer.",
+        "targetSpan": {
+          "start": 9,
+          "end": 14
+        }
+      },
+      "noteBaseText": "Solve se usa con problemas, acertijos y dificultades que requieren una solución."
+    }
+  },
+  {
+    "id": "es-en.verb.improve",
+    "kind": "verb",
+    "target": "improve",
+    "source": "mejorar",
+    "englishAuditText": "improve",
+    "difficulty": 3,
+    "category": "decisions",
+    "reviewStatus": "native-review-required",
+    "revision": 1,
+    "learning": {
+      "objectiveId": "es-en.verbs.decisions",
+      "context": {
+        "targetText": "We want to improve the bus service.",
+        "learnerBaseText": "Queremos mejorar el servicio de autobuses.",
+        "englishAuditText": "We want to improve the bus service.",
+        "targetSpan": {
+          "start": 11,
+          "end": 18
+        }
+      },
+      "transfer": {
+        "id": "es-en.verb.improve.transfer-v1",
+        "targetText": "I practice every day to improve my pronunciation.",
+        "learnerBaseText": "Practico todos los días para mejorar mi pronunciación.",
+        "englishAuditText": "I practice every day to improve my pronunciation.",
+        "targetSpan": {
+          "start": 24,
+          "end": 31
+        }
+      },
+      "noteBaseText": "Improve significa hacer que algo sea mejor o hacerse mejor; no implica alcanzar la perfección."
+    }
+  }
+]

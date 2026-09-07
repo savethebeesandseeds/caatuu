@@ -16,7 +16,7 @@ function spanishToEnglish() {
     mode: "practice",
     audio: { kind: "device-speech", locale: "en-US", reviewStatus: "unreviewed", purpose: "listening-practice" },
     provenance: {
-      sourcePath: "apps/languages/english-from-spanish/static/data/games/verb-nebula/core-vocabulary.json",
+      sourcePath: "apps/languages/english-from-spanish/static/data/games/verb-nebula/content.json",
       sourceItemIds: words.map(([word]) => word),
       selection: "Finite authored vocabulary for a language-role regression."
     },

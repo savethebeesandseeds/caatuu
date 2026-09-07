@@ -27,12 +27,12 @@ const [
   readText("apps/language-runtime/static/source/app-bootstrap.mjs"),
   readText("apps/languages/mandarin-simplified/static/source/games/naturalization-nucleus/naturalization-nucleus.js"),
   readText("apps/languages/mandarin-simplified/static/source/games/naturalization-nucleus/naturalization-nucleus.css"),
-  readJson("apps/languages/mandarin-simplified/static/data/games/naturalization-nucleus/challenges.json"),
+  readJson("apps/languages/mandarin-simplified/static/data/games/naturalization-nucleus/content.json"),
   readJson("apps/languages/mandarin-simplified/static/setup-assets.json"),
   readJson("apps/languages/czech/static/setup-assets.json"),
   readJson("apps/languages/mandarin-simplified/android-assets.json"),
   readJson("apps/language-runtime/app-assets.json"),
-  readJson("apps/languages/mandarin-simplified/static/data/games/word-world/starter-v1.reading-guides.json"),
+  readJson("apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json"),
   readdir(new URL("apps/launcher/static/assets/ships/", repoRoot))
 ]);
 
@@ -179,7 +179,7 @@ test("Nucleus uses the shared loader during content loading and retains its exis
   assert.equal(fixture.element("Interstitial").hidden, true);
   assert.equal(fixture.element("Game").getAttribute("aria-hidden"), "false");
   assert.equal(fixture.element("Deck").children.length, 5);
-  assert.deepEqual(fixture.fetchCalls, ["data/games/naturalization-nucleus/challenges.json"]);
+  assert.deepEqual(fixture.fetchCalls, ["data/games/naturalization-nucleus/content.json"]);
   fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
 });
 
@@ -537,6 +537,44 @@ test("the expanded catalog provides three balanced cumulative levels and exactly
   assert.deepEqual(catalogShipFiles, expectedShipFiles);
 });
 
+test("large content catalogs preserve validation, difficulty filtering and both round sizes", () => {
+  // Synthetic capacity data only: these borrowed readings are not curriculum.
+  const expanded = structuredClone(catalog);
+  expanded.challenges = Array.from({ length: 4096 }, (_, index) => ({
+    ...structuredClone(catalog.challenges[index % catalog.challenges.length]),
+    id: `zh.hanzi.capacity-${index}`,
+    hanzi: String.fromCodePoint(0x3400 + index)
+  }));
+  const validated = game.validateCatalog(expanded);
+  assert.equal(validated.challenges.length, expanded.challenges.length);
+  assert.equal(validated.challenges.at(-1).id, expanded.challenges.at(-1).id);
+  for (const difficulty of [1, 2, 3]) {
+    for (const pieceCount of catalog.roundSettings.pieceCounts) {
+      const round = game.createRound(validated, pieceCount, seededRandom(difficulty * 100 + pieceCount), "", difficulty);
+      assert.equal(round.pieces.length, pieceCount);
+      assert.equal(game.countConnections(round.solution), pieceCount);
+      assert.equal(new Set(round.solution.map(({ left }) => game.readingKey(left))).size, pieceCount);
+      assert.ok(round.pieces.every(({ left, right }) => left.difficulty <= difficulty && right.difficulty <= difficulty));
+    }
+  }
+
+  const malformedTail = structuredClone(expanded);
+  malformedTail.challenges.at(-1).difficulty = 4;
+  assert.throws(() => game.validateCatalog(malformedTail), /difficulty must be an integer from 1 to 3/u);
+
+  const duplicateId = structuredClone(expanded);
+  duplicateId.challenges.at(-1).id = duplicateId.challenges[0].id;
+  assert.throws(() => game.validateCatalog(duplicateId), /challenge ids must be unique/u);
+
+  const duplicateCharacter = structuredClone(expanded);
+  duplicateCharacter.challenges.at(-1).hanzi = duplicateCharacter.challenges[0].hanzi;
+  assert.throws(() => game.validateCatalog(duplicateCharacter), /challenge Hanzi must be unique/u);
+
+  const insufficient = structuredClone(catalog);
+  insufficient.challenges = insufficient.challenges.slice(0, Math.max(...catalog.roundSettings.pieceCounts) - 1);
+  assert.throws(() => game.validateCatalog(insufficient), /challenges must contain at least/u);
+});
+
 test("the catalog boundary requires explicit schema, difficulty, and honest review metadata", () => {
   const missingSchema = structuredClone(catalog);
   delete missingSchema.$schema;
@@ -856,7 +894,7 @@ test("Mandarin alone includes Naturalization Nucleus while both courses include 
   const mandarinOffline = JSON.stringify(mandarinSetup.offline.assets);
   const czechOffline = JSON.stringify(czechSetup.offline.assets);
   for (const fragment of [
-    "data/games/naturalization-nucleus/challenges.json",
+    "data/games/naturalization-nucleus/content.json",
     "source/games/naturalization-nucleus/naturalization-nucleus.js",
     "source/games/naturalization-nucleus/naturalization-nucleus.css",
     "/assets/planets/naturalization-nucleus.png"
@@ -866,7 +904,7 @@ test("Mandarin alone includes Naturalization Nucleus while both courses include 
     assert.doesNotMatch(czechOffline, pattern);
   }
   for (const path of [
-    "data/games/naturalization-nucleus/challenges.json",
+    "data/games/naturalization-nucleus/content.json",
     "source/games/naturalization-nucleus/naturalization-nucleus.js",
     "source/games/naturalization-nucleus/naturalization-nucleus.css"
   ]) assert.ok(androidAssets.files.includes(path));

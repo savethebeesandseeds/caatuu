@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "caatuu-word-world-token-meanings-v1",
+  "languageTag": "en",
+  "review": {
+    "status": "author-reviewed",
+    "reviewer": "OpenAI Codex",
+    "reviewedOn": "2026-09-07",
+    "humanApproved": false,
+    "notes": "Contextual hints only; same-author review, not independent or native approval. Original sentences and historical review evidence are preserved. See docs/WORD_WORLD_CONTEXT_REVIEW.md.",
+    "sources": ["https://dictionary.cambridge.org/dictionary/english-czech/how"]
+  },
+  "records": [
+    {
+      "id": "ww-cp-000006",
+      "expectedCs": "Jak se máš?",
+      "expectedEn": "How are you?",
+      "tokens": [{"tokenIndex": 0, "surface": "Jak", "meaning": "how (asking how someone is)"}]
+    },
+    {
+      "id": "ww-cp-000011",
+      "expectedCs": "Jak se jmenuje tato postava?",
+      "expectedEn": "What is this character's name?",
+      "tokens": [{"tokenIndex": 0, "surface": "Jak", "meaning": "how; with jmenuje se, asks what the name is"}]
+    },
+    {
+      "id": "ww-cp-000065",
+      "expectedCs": "Jak se to hláskuje?",
+      "expectedEn": "How do you spell it?",
+      "tokens": [{"tokenIndex": 0, "surface": "Jak", "meaning": "how (asking for the spelling)"}]
+    },
+    {
+      "id": "ww-cp-000093",
+      "expectedCs": "Jak to funguje?",
+      "expectedEn": "How does it work?",
+      "tokens": [{"tokenIndex": 0, "surface": "Jak", "meaning": "how (asking in what way it works)"}]
+    }
+  ]
+}

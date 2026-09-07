@@ -37,6 +37,9 @@ globalThis.window = {
     href: "https://caatuu.test/word-world"
   }
 };
+globalThis.window.top = globalThis.window;
+globalThis.window.parent = globalThis.window;
+globalThis.location = globalThis.window.location;
 globalThis.document = {};
 globalThis.CaatuuI18n = {
   locale: "en",

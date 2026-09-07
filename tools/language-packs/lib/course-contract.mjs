@@ -2266,7 +2266,7 @@ async function validatePlanetEnglishAudit(record, repoRoot, issues, checkExisten
       if (gameId === "sound-quasar" && requirement.name === "soundQuasarCatalog") {
         try {
           const document = await readJsonDocument(confined.file);
-          const expectedSource = `apps/languages/${course.directoryName}/static/data/games/verb-nebula/core-vocabulary.json`;
+          const expectedSource = `apps/languages/${course.directoryName}/static/data/games/verb-nebula/content.json`;
           if (document.provenance?.sourcePath !== expectedSource) {
             throw new Error(`provenance.sourcePath must equal ${expectedSource}.`);
           }

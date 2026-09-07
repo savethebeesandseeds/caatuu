@@ -1,5 +1,5 @@
-import { grammarFeedbackDuration, highlightedFormParts, buildMeaningChoices, validateGrammarFlight, validateGrammarStages } from "./adjective-flight-core.mjs?v=grammar-journey-1";
-import { createNounVisual } from "./noun-visual.mjs?v=noun-visual-3";
+import { grammarFeedbackDuration, highlightedFormParts, buildMeaningChoices, validateGrammarFlight, validateGrammarStages } from "./adjective-flight-core.mjs?v=grammar-journey-3";
+import { createNounVisual } from "./noun-visual.mjs?v=noun-visual-4";
 import { createSpeechIcon, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-8";
 
 const LANDING_MS = 180;
@@ -216,6 +216,7 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     const flight = current();
     if (illustration.parentElement !== arena) arena.append(illustration);
     recap.hidden = true;
+    delete arena.dataset.formResult;
     nextButton.disabled = true;
     choices.hidden = false;
     arena.dataset.state = phase;
@@ -227,7 +228,7 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     arena.setAttribute("aria-label", copy(step === "meaning" ? "choosemeaning" : step === "category" ? "choosecategory" : "choose", { anchor: flight.anchorText }));
     renderProgress();
     const { stem, ending } = highlightedFormParts(flight.answer, flight.options);
-    prompt.textContent = phase !== "preview" && stem && ending ? `${stem}…` : "\u00a0";
+    prompt.textContent = stem && ending ? `${stem}…` : "…";
     prompt.setAttribute("aria-label", copy("prompt"));
     element("gravityAdjectiveNoun").replaceChildren(flight.beforeText, prompt, flight.afterText);
     element("gravityAdjectiveMeaning").textContent = flight.learnerBaseText;
@@ -243,6 +244,7 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     }
     syncHelp();
     element("gravityAdjectiveFeedback").textContent = "";
+    element("gravityAdjectiveFeedback").classList.add("gravity-visually-hidden");
     prompt.lang = course.targetLanguage?.locale || course.targetLanguage?.id || "und";
     element("gravityAdjectiveNoun").lang = prompt.lang;
     element("gravityAdjectiveMeaning").lang = course.sourceLanguage?.locale || "en";
@@ -250,7 +252,7 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     choices.replaceChildren(...currentOptions().map((form, optionIndex) => {
       const button = document.createElement("button");
       button.type = "button";
-      button.disabled = phase === "preview";
+      button.disabled = false;
       button.className = "gravity-adjective-choice";
       if (step === "meaning") button.dataset.nounMeaning = form;
       else if (step === "category") button.dataset.grammarCategory = form;
@@ -289,6 +291,14 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
   function renderResult() {
     const flight = current();
     arena.dataset.state = correct ? "correct" : "wrong";
+    element("gravityAdjectiveFeedback").classList.add("gravity-visually-hidden");
+    if (timeout) {
+      for (const button of choices.querySelectorAll("button")) {
+        const value = step === "meaning" ? button.dataset.nounMeaning
+          : step === "category" ? button.dataset.grammarCategory : button.dataset.grammarForm;
+        button.classList.toggle("is-correct", value === answerText());
+      }
+    }
     if (step !== "form") {
       element("gravityAdjectiveNoun").textContent = flight.anchorText;
       element("gravityAdjectiveMeaning").textContent = step === "category" ? `${flight.anchorMeaning} · ${optionLabel(flight.categoryId)}` : flight.anchorMeaning;
@@ -310,7 +320,10 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
   }
   function renderRecap() {
     const flight = current();
+    element("gravityAdjectiveFeedback").classList.add("gravity-visually-hidden");
     arena.dataset.state = "recap";
+    const formMistake = mistakes.has("form");
+    arena.dataset.formResult = formMistake ? "wrong" : "correct";
     arena.setAttribute("aria-label", copy("recaplabel"));
     renderProgress();
     const label = element("gravityAdjectivePreviewLabel");
@@ -335,7 +348,8 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     restorePlayFocus(nextButton);
   }
   function choose(form, timedOut = false) {
-    if (!engaged() || phase !== "falling" || (!timedOut && !currentOptions().includes(form))) return;
+    if (!engaged() || !["preview", "falling"].includes(phase)
+        || timedOut && phase !== "falling" || !timedOut && !currentOptions().includes(form)) return;
     restoreFocus = arena.contains(document.activeElement) && !headerContains(document.activeElement);
     correct = !timedOut && form === answerText();
     timeout = timedOut;
@@ -345,18 +359,19 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     }
     if (finalStep() && correct && mistakes.size === 0) correctCount += 1;
     renderProgress();
-    landingFrom = durationMs ? Math.min(1, elapsedMs / stepDurationMs()) : 0;
+    landingFrom = phase === "preview" ? 0.5 : durationMs ? Math.min(1, elapsedMs / stepDurationMs()) : 0;
     landingMs = 0;
     feedbackMs = 0;
     phase = "landing";
+    if (timedOut) arena.dataset.state = "wrong";
     stopSpeech();
-    if (step === "form") element("gravityAdjectiveNoun").replaceChildren(current().beforeText,
-      formContent(timedOut ? current().answer : form), current().afterText);
+    if (step === "form" && !timedOut) element("gravityAdjectiveNoun").replaceChildren(current().beforeText,
+      formContent(form), current().afterText);
     for (const button of choices.querySelectorAll("button")) {
       button.disabled = true;
       const value = step === "meaning" ? button.dataset.nounMeaning : step === "category" ? button.dataset.grammarCategory : button.dataset.grammarForm;
-      button.classList.toggle("is-correct", value === answerText());
-      button.classList.toggle("is-wrong", !correct && value === form);
+      button.classList.toggle("is-correct", !timedOut && value === answerText());
+      button.classList.toggle("is-wrong", !timedOut && !correct && value === form);
     }
     cancelFrame();
     if (finalStep() && !retryMeaning() || timedOut && step === "meaning") {
@@ -446,7 +461,7 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     if (speechButton.contains(event.target) || headerContains(event.target)) return;
     if (event.ctrlKey || event.altKey || event.metaKey || event.repeat || !/^[1-6]$/u.test(event.key)) return;
     const form = currentOptions()[Number(event.key) - 1];
-    if (form && engaged() && phase === "falling") { event.preventDefault(); choose(form); }
+    if (form && engaged() && ["preview", "falling"].includes(phase)) { event.preventDefault(); choose(form); }
   });
   listen(document, "visibilitychange", syncVisibility);
   listen(speechButton, "click", () => { void speak(); });

@@ -11,7 +11,7 @@ export const SPANISH_SPAIN_WORD_WORLD_PATHS = Object.freeze({
   conceptsSource: "apps/languages/shared/english-concepts/word-world-starter-v1.json",
   realizationsSource: "apps/languages/spanish/content/word-world/starter-v1.realizations.json",
   conceptsRuntime: "apps/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
-  realizationsRuntime: "apps/languages/spanish/static/data/games/word-world/starter-v1.realizations.json",
+  realizationsRuntime: "apps/languages/spanish/static/data/games/word-world/content.json",
   manifest: "apps/languages/spanish/static/data/games/word-world/manifest.json"
 });
 

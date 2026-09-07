@@ -78,6 +78,19 @@ Every record includes:
 - an embedding-friendly scene query plus optional manually selected asset IDs;
 - source provenance and an honest review state.
 
+Contextual English token hints belong in `token-meanings.json`. This companion
+binds each hint to an existing record ID, both complete sentence texts and an
+exact annotated token position/surface. The compiler inserts only the reviewed
+`gloss` into runtime targets, leaving historical source and review receipts
+unchanged. Drift fails compilation. The companion records its own review status;
+the historical sentence review is not approval of a newly written hint.
+
+After compiling changed content, update the setup catalog's exact Word World
+`content.json?v=...` URL from the generated manifest, regenerate the static
+dictionary supplement when its corpus hash changes, and refresh setup assets.
+`apps/server/tooling/tests/word-net-standard.test.mjs` checks this exact offline
+URL; checking file hashes alone does not validate the URL used by the browser.
+
 `rubric.json` is executable policy, not prose only. Level 1 is limited to one
 tiny thought and at most five Czech and five English tokens. A courtesy or
 vocative comma does not create a second clause. Level 2 is the main learning

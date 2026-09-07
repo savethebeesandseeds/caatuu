@@ -5,6 +5,7 @@ import vm from "node:vm";
 
 import { transformSetupJs } from "../../android/tooling/build-product-assets.mjs";
 import { initializeWorkspaceAfterDictionaryProvider } from "../static/source/dictionary-provider-loader.mjs";
+import { initializeHomeCourseSetup } from "../static/source/course-setup.mjs";
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { englishInterfaceContent, installEnglishInterfaceContent } from "./helpers/english-interface-content.mjs";
 
@@ -36,7 +37,7 @@ function deferred() {
 
 const flush = () => new Promise((resolve) => setImmediate(resolve));
 
-function startHarness({ dictionary = false, failScript = "", serviceWorker = null, interfaceGate = null, nativeSetup = null } = {}) {
+function startHarness({ dictionary = false, failScript = "", serviceWorker = null, interfaceGate = null, nativeSetup = null, homeSetup = null } = {}) {
   const course = {
     id: "en-zh-Hans",
     routePrefix: "/zh",
@@ -124,6 +125,7 @@ function startHarness({ dictionary = false, failScript = "", serviceWorker = nul
     CaatuuCourse: course,
     CaatuuShellPolicy: {},
     initializeWorkspaceAfterDictionaryProvider,
+    initializeHomeCourseSetup: homeSetup ? () => homeSetup.promise : initializeHomeCourseSetup,
     loadInterfaceContent: async () => {
       if (interfaceGate) await interfaceGate.promise;
       return englishInterfaceContent;
@@ -221,6 +223,22 @@ function assertFailed(harness) {
   assert.equal(harness.navigationCalls, 0);
   assert.equal(harness.errors.length, 1);
 }
+
+test("canonical Home loads before native setup, while game and workspace imports wait for verified content", { timeout: 2_000 }, async () => {
+  const homeSetup = deferred();
+  const harness = startHarness({ homeSetup });
+  await flush();
+  assert.ok(harness.scriptUrls.some((url) => url.includes("caatuu-chrome.js")));
+  assert.equal(harness.scriptUrls.some((url) => /workspace|dictionary|naturalization/u.test(url)), false);
+  assertLoading(harness);
+  homeSetup.resolve(true);
+  await flush();
+  assert.ok(harness.scriptUrls.some((url) => url.includes("caatuu-workspace.js")));
+  assertLoading(harness);
+  harness.workspace.resolve({ ready: true });
+  await flush();
+  assertReady(harness);
+});
 
 test("bootstrap locks navigation immediately and renders ready only after workspace initialization", { timeout: 2_000 }, async () => {
   const interfaceGate = deferred();

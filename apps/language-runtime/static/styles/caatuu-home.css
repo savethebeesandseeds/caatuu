@@ -99,6 +99,7 @@ body {
   width: min(460px, 78vw);
   height: clamp(196px, 38vw, 360px);
   display: grid;
+  grid-template-rows: minmax(0, 1fr);
   place-items: center;
   isolation: isolate;
   pointer-events: none;
@@ -125,6 +126,7 @@ body {
   width: min(390px, 74vw);
   height: min(390px, 74vw);
   max-height: 100%;
+  min-height: 0;
   object-fit: contain;
   filter: drop-shadow(0 18px 28px color-mix(in srgb, var(--setup-text) 18%, transparent));
   animation: setup-float 4.6s ease-in-out infinite;
@@ -947,7 +949,51 @@ body.app-update-lock [data-caatuu-app-header] button {
   display: grid;
   justify-items: end;
   gap: 8px;
-  margin: 12px 0;
+}
+
+.setup-details-controls {
+  display: flex;
+  justify-content: flex-end;
+  margin: 16px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--setup-line);
+}
+
+.setup-details-controls:has(.setup-detail-link[hidden]) {
+  display: none;
+}
+
+.home-app-update .pwa-install-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid var(--setup-line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--setup-accent) 14%, transparent);
+  color: var(--setup-text);
+  font: inherit;
+  font-size: .88rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.home-app-update .pwa-install-action:not(:disabled):hover {
+  border-color: var(--setup-accent);
+  background: color-mix(in srgb, var(--setup-accent) 24%, transparent);
+}
+
+.home-app-update .pwa-install-action:focus-visible {
+  outline: 2px solid var(--setup-accent);
+  outline-offset: 3px;
+}
+
+.home-update-icon {
+  width: 22px;
+  height: 22px;
+  flex: none;
 }
 
 .setup-head h2 {

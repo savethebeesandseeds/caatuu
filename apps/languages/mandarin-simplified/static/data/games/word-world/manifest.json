@@ -10,9 +10,9 @@
     "wordMeanings": true
   },
   "sourceConceptCatalog": "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
-  "realizationFile": "starter-v1.realizations.json",
+  "realizationFile": "content.json",
   "targetTextGuide": {
-    "file": "starter-v1.reading-guides.json",
+    "file": "reading-guides.json",
     "system": "pinyin",
     "languageTag": "zh-Latn-pinyin",
     "status": "machine-assisted-preview",
@@ -33,7 +33,7 @@
   "review": {
     "status": "native-review-required",
     "pronunciationApproved": false,
-    "notes": "Machine-assisted development draft; qualified native Mandarin review is still required."
+    "notes": "Machine-assisted development draft; qualified native Mandarin review is still required. Contextual function-word hints corrected by Codex for location/progress, noun descriptions, expected actions and recipients; AI self-review only. See docs/WORD_WORLD_CONTEXT_REVIEW.md. Native and audio review remain outstanding."
   },
   "capabilities": {
     "llm": false,

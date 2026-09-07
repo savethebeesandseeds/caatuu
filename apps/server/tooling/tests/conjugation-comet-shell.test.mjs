@@ -13,7 +13,7 @@ const shell = await readFile(
 );
 const legacyRedirect = await readFile(new URL("conjugation-comet.html", staticRoot), "utf8");
 const verbs = JSON.parse(await readFile(
-  new URL("data/games/conjugation-comet/verbs.json", staticRoot),
+  new URL("data/games/conjugation-comet/content.json", staticRoot),
   "utf8"
 ));
 

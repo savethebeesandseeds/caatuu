@@ -220,6 +220,18 @@ executable regression, and update this runbook plus adjacent tooling details
 when behavior changes. Avoid a parallel repair script or a session-only command
 sequence. Preserve useful recovery artifacts; cleanup needs separate authority.
 
+Android 169 (`0.1.17`, source `f66f1e7f423dc87a69195ac288d489003013502a`)
+introduced selected-course delivery but also redirected every launch to a
+separate basic setup page. The follow-up restores the canonical illustrated
+Home, runs native setup inside its existing card before game imports, and
+remembers the visited course. Essential Home art stays in the APK. The shared
+setup module must also remain in Pages exports because the shared bootstrap
+imports it. Cover returning users, both Spanish course directions, interrupted
+downloads, image availability and navigation readiness with the Home setup,
+app-readiness and product-home-bootstrap tests before the next APK. A successful
+package audit alone did not detect this visible startup regression; phone update
+and first-run checks remain separate from publication.
+
 Android 168's first attempt at source `ff5003336241164cde430016e8e7983a320bbe93`
 stopped in source preflight with `missing Android-enabled catalog courses: es-en`;
 no APK build or sealed candidate existed. Synthetic package fixtures must supply

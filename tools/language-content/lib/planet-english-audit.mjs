@@ -101,10 +101,11 @@ function validateConjugationComet(document, context, issues) {
 }
 
 function validateCaseCosmos(document, context, issues) {
+  const versioned = document?.schemaVersion === "caatuu-case-cosmos-content-v2";
   for (const [challengeIndex, challenge] of requireArray(
     issues,
-    document,
-    context.location
+    versioned ? document.legacyNouns : document,
+    versioned ? `${context.location}.legacyNouns` : context.location
   ).entries()) {
     const cases = isRecord(challenge?.cases) ? Object.entries(challenge.cases) : [];
     if (!cases.length) {
@@ -115,9 +116,15 @@ function validateCaseCosmos(document, context, issues) {
       requireEnglishText(
         issues,
         caseItem,
-        `${context.location}[${challengeIndex}].cases.${caseName}`,
+        `${context.location}${versioned ? ".legacyNouns" : ""}[${challengeIndex}].cases.${caseName}`,
         { sourceLanguageId: context.sourceLanguageId }
       );
+    }
+  }
+  if (versioned) {
+    for (const [index, item] of requireArray(issues, document.contexts, `${context.location}.contexts`).entries()) {
+      requireEnglishText(issues, item, `${context.location}.contexts[${index}] (${item?.id || "missing ID"})`,
+        { sourceLanguageId: context.sourceLanguageId });
     }
   }
 }

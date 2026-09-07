@@ -49,11 +49,11 @@ test("assigns every clue image once and gives contested art to the strongest mat
 });
 
 const dictionaryUrl = new URL(
-  "../../../apps/languages/czech/static/data/games/verb-nebula/core-vocabulary.json",
+  "../../../apps/languages/czech/static/data/games/verb-nebula/content.json",
   import.meta.url
 );
 const mandarinDictionaryUrl = new URL(
-  "../../../apps/languages/mandarin-simplified/static/data/games/verb-nebula/core-vocabulary.json",
+  "../../../apps/languages/mandarin-simplified/static/data/games/verb-nebula/content.json",
   import.meta.url
 );
 const appUrl = new URL("../../../apps/language-runtime/static/source/caatuu-workspace.js", import.meta.url);
@@ -632,7 +632,7 @@ test("Verb Nebula keeps revealed solutions visible and gates the next round on c
   assert.match(app, /entry\.screen = mountRobotLoadingScreen\(/);
   assert.doesNotMatch(app, /verbRobotKeymapUrl/);
   assert.match(app, /const verbHintLookupTimeoutMillis = 6000;/);
-  assert.match(app, /const request = Promise\.race\(\[lookup, deadline\]\);/);
+  assert.match(app, /const request = Promise\.race\(\[lookup, deadline\]\)/);
   assert.doesNotMatch(app, /Picture clue for \$\{pair\.eng\}/);
   assert.match(
     app,

@@ -62,14 +62,14 @@
     "data/dictionaries/patches/reviewed-cs-en.v1.json",
     "data/embeddings/all-minilm-l6-v2-qint8-v0.1/manifest.json",
     "data/embeddings/models.json",
-    "data/games/grammar-gravity/challenges.json",
+    "data/games/grammar-gravity/content.json",
     "data/games/grammar-gravity/nouns.json",
-    "data/games/case-cosmos/challenges.json",
-    "data/games/conjugation-comet/verbs.json",
-    "data/games/sound-quasar/challenges.json",
-    "data/games/verb-nebula/core-vocabulary.json",
+    "data/games/case-cosmos/content.json",
+    "data/games/conjugation-comet/content.json",
+    "data/games/sound-quasar/content.json",
+    "data/games/verb-nebula/content.json",
     "data/games/word-world/manifest.json",
-    "data/games/word-world/standard-v0.1/records.json",
+    "data/games/word-world/content.json",
     "data/language/scripts.json"
   ],
   "launcherIconFiles": [
@@ -82,16 +82,12 @@
     "difficulty_medal_3_ui.png",
     "games_icon.png",
     "gear_icon.png",
-    "hello.png",
     "home_icon.png",
     "homebase_icon.png",
-    "icon_gem.png",
     "items_icon.png",
     "light_mode_ui.png",
     "paper_plane_submit_ui.png",
     "social_icon.png",
-    "stats_icon.png",
-    "store_icon.png",
-    "streak_icon.png"
+    "stats_icon.png"
   ]
 }

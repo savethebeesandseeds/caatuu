@@ -4,7 +4,7 @@
   "mode": "standard",
   "sessionProvider": {
     "kind": "standard-corpus",
-    "module": "source/games/word-world/word-net-standard.mjs?v=word-net-standard-5",
+    "module": "source/games/word-world/word-net-standard.mjs?v=word-net-standard-6",
     "meaningSelectorModule": "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-21"
   },
   "features": {
@@ -24,9 +24,9 @@
     "modelId": "all-minilm-l6-v2-qint8-v0.1",
     "fallback": "deterministic-lexical"
   },
-  "runtimeFile": "standard-v0.1/records.json?v=657e502666ae7aee",
+  "runtimeFile": "content.json?v=6303fd1faa21e628",
   "recordCount": 792,
-  "contentSha256": "657e502666ae7aeeede2aa19a350ad48e4cca291ae6019e42bbd4da80b427961",
+  "contentSha256": "6303fd1faa21e628bbb87579b7ebf7565b6c0e1c5ae574c070f7082fd701d184",
   "difficultyDistribution": {
     "1": 175,
     "2": 565,
@@ -56,6 +56,21 @@
     "overrideCount": 27,
     "reviewedOn": "2026-08-13",
     "humanApproved": false
+  },
+  "tokenMeanings": {
+    "file": "tools/czech-ml/data/word-world/standard-v0.1/token-meanings.json",
+    "sha256": "83074aa0802d61e2513d0ceafa652a0c5c22e0ae7cbfb959eaf4447441e2d953",
+    "recordCount": 4,
+    "review": {
+      "status": "author-reviewed",
+      "reviewer": "OpenAI Codex",
+      "reviewedOn": "2026-09-07",
+      "humanApproved": false,
+      "notes": "Contextual hints only; same-author review, not independent or native approval. Original sentences and historical review evidence are preserved. See docs/WORD_WORLD_CONTEXT_REVIEW.md.",
+      "sources": [
+        "https://dictionary.cambridge.org/dictionary/english-czech/how"
+      ]
+    }
   },
   "authoringSchema": "caatuu-word-world-record-v1"
 }

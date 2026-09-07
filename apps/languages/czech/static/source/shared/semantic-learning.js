@@ -17,7 +17,11 @@
     embeddings: "embeddings",
     meta: "meta"
   });
-  const corePromise = import("./semantic-learning-core.mjs?v=semantic-learning-core-5");
+  let coreModule = null;
+  const corePromise = import("./semantic-learning-core.mjs?v=semantic-learning-core-5").then((core) => {
+    coreModule = core;
+    return core;
+  });
   const storedAttemptNormalization = Object.freeze({
     enforceStorageLimits: false,
     allowDerivedConceptId: true
@@ -26,6 +30,16 @@
   let operationQueue = Promise.resolve();
   let lastError = "";
   let semanticWorkGeneration = 0;
+  const pendingPrefix = `${databaseName}.pending-attempt.v1.`;
+  const progressEpochStorageKey = `${databaseName}.progress-epoch.v1`;
+  const initialProgressEpoch = "semantic-progress-epoch-0";
+  const pendingLimit = 128;
+  const pendingAttempts = new Map();
+  const durablePendingIds = new Set();
+  const blockedPendingKeys = new Set();
+  let progressEpoch = initialProgressEpoch;
+  let progressEpochUnpersisted = false;
+  let progressResetGeneration = 0;
   const semanticChangeChannel = typeof window.BroadcastChannel === "function"
     ? new window.BroadcastChannel(`${databaseName}.changes`)
     : null;
@@ -130,6 +144,197 @@
     return `semantic-work-${Date.now()}-${Math.random().toString(16).slice(2)}`;
   }
 
+  function reportSaveFailure(key, error) {
+    lastError = error?.message || String(error);
+    window.CaatuuLearning?.reportSaveFailure?.(key, error);
+  }
+
+  function clearSaveFailure(key) {
+    window.CaatuuLearning?.clearSaveFailure?.(key);
+  }
+
+  const pendingKey = (id) => `${pendingPrefix}${encodeURIComponent(id)}`;
+  const pendingCommitKey = (id) => `pending-attempt-commit:${id}`;
+
+  function readProgressEpoch() {
+    if (progressEpochUnpersisted) return progressEpoch;
+    try {
+      progressEpoch = window.localStorage.getItem(progressEpochStorageKey) || initialProgressEpoch;
+    } catch (error) {
+      reportSaveFailure(progressEpochStorageKey, error);
+    }
+    return progressEpoch;
+  }
+
+  function rememberProgressEpoch(token) {
+    progressEpoch = token;
+    try {
+      window.localStorage.setItem(progressEpochStorageKey, token);
+      progressEpochUnpersisted = false;
+      clearSaveFailure(progressEpochStorageKey);
+    } catch (error) {
+      progressEpochUnpersisted = true;
+      reportSaveFailure(progressEpochStorageKey, error);
+    }
+  }
+
+  function persistPending(row) {
+    const key = pendingKey(row.attempt.id);
+    try {
+      const existing = window.localStorage.getItem(key);
+      if (existing !== null && existing !== JSON.stringify(row)) {
+        const stored = JSON.parse(existing);
+        if (!coreModule || stored.progressEpoch !== row.progressEpoch || !coreModule.semanticAttemptsEqual(stored.attempt, row.attempt)) {
+          blockedPendingKeys.add(key);
+          throw new Error("A different pending learning record already uses this id.");
+        }
+      }
+      if (existing === null) window.localStorage.setItem(key, JSON.stringify(row));
+      durablePendingIds.add(row.attempt.id);
+      return true;
+    } catch (error) {
+      // Keep the exact event in memory even if its durable fallback cannot be written.
+      reportSaveFailure(key, error);
+      return false;
+    }
+  }
+
+  function removePending(row) {
+    const key = pendingKey(row.attempt.id);
+    try {
+      window.localStorage.removeItem(key);
+      pendingAttempts.delete(row.attempt.id);
+      durablePendingIds.delete(row.attempt.id);
+      blockedPendingKeys.delete(key);
+      clearSaveFailure(key);
+      return true;
+    } catch (error) {
+      reportSaveFailure(key, error);
+      return false;
+    }
+  }
+
+  async function loadPendingAttempts() {
+    const core = await corePromise;
+    const keys = [];
+    try {
+      for (let index = 0; index < window.localStorage.length; index += 1) {
+        const key = window.localStorage.key(index);
+        if (key?.startsWith(pendingPrefix)) keys.push(key);
+      }
+      clearSaveFailure(pendingPrefix);
+    } catch (error) {
+      reportSaveFailure(pendingPrefix, error);
+      return;
+    }
+    for (const key of keys) {
+      if (blockedPendingKeys.has(key)) continue;
+      let raw;
+      try { raw = window.localStorage.getItem(key); } catch (error) {
+        reportSaveFailure(key, error);
+        continue;
+      }
+      if (raw === null) {
+        clearSaveFailure(key);
+        continue;
+      }
+      try {
+        const row = JSON.parse(raw);
+        if (row?.schemaVersion !== 1 || typeof row.progressEpoch !== "string") {
+          throw new Error("The pending learning record has an unsupported format.");
+        }
+        const attempt = core.normalizeSemanticAttempt(row.attempt);
+        if (key !== pendingKey(attempt.id)) throw new Error("The pending learning record id does not match its key.");
+        if (!pendingAttempts.has(attempt.id) && pendingAttempts.size >= pendingLimit) {
+          reportSaveFailure(pendingPrefix, new Error("The pending learning queue is full. Retry saving before continuing."));
+          break;
+        }
+        if (!pendingAttempts.has(attempt.id)) pendingAttempts.set(attempt.id, { ...row, attempt });
+        durablePendingIds.add(attempt.id);
+      } catch (error) {
+        // Preserve malformed records for recovery, but never continuously retry them.
+        blockedPendingKeys.add(key);
+        reportSaveFailure(key, error);
+      }
+    }
+  }
+
+  async function finishPending(row) {
+    const key = pendingKey(row.attempt.id);
+    if (blockedPendingKeys.has(key)) throw new Error("This pending learning record needs repair before it can be retried.");
+    // A different tab may already have committed and removed a durable row. Never
+    // recreate its stale in-memory copy; check its presence inside the IDB transaction.
+    if (!durablePendingIds.has(row.attempt.id)) persistPending(row);
+    if (blockedPendingKeys.has(key)) throw new Error("This pending learning record needs repair before it can be retried.");
+    try {
+      const result = await writeAttempt(row.attempt, {
+        progressEpoch: row.progressEpoch,
+        requirePendingEntry: durablePendingIds.has(row.attempt.id)
+      });
+      if (removePending(row)) {
+        // The transactional receipt prevents replay after a crash or failed localStorage cleanup,
+        // even after ordinary compacted attempt receipts have expired.
+        try {
+          const database = await openDatabase();
+          const transaction = database.transaction(storeNames.meta, "readwrite");
+          const finished = transactionFinished(transaction);
+          await requestResult(transaction.objectStore(storeNames.meta).delete(pendingCommitKey(row.attempt.id)));
+          await finished;
+        } catch (error) {
+          // The learning event is already committed. Receipt housekeeping must not unscore it.
+          reportSaveFailure(pendingPrefix, error);
+        }
+      }
+      return result;
+    } catch (error) {
+      if (error?.name === "StaleProgressError") {
+        removePending(row);
+      } else {
+        if (error?.name === "InvalidAttemptError") blockedPendingKeys.add(key);
+        reportSaveFailure(key, error);
+      }
+      throw error;
+    }
+  }
+
+  function retryPendingAttempts() {
+    return enqueueOperation(async () => {
+      await loadPendingAttempts();
+      try {
+        const database = await openDatabase();
+        const transaction = database.transaction(storeNames.meta, "readwrite");
+        const finished = transactionFinished(transaction);
+        const meta = transaction.objectStore(storeNames.meta);
+        const stored = await requestResult(meta.get("semantic-progress-epoch"));
+        const rows = await requestResult(meta.getAll());
+        for (const row of rows) {
+          if (!row.key?.startsWith("pending-attempt-commit:")) continue;
+          const id = row.key.slice("pending-attempt-commit:".length);
+          try {
+            if (!pendingAttempts.has(id) && window.localStorage.getItem(pendingKey(id)) === null) {
+              await requestResult(meta.delete(row.key));
+            }
+          } catch (error) {
+            reportSaveFailure(pendingPrefix, error);
+          }
+        }
+        await finished;
+        rememberProgressEpoch(stored?.token || initialProgressEpoch);
+      } catch (error) {
+        if (pendingAttempts.size) reportSaveFailure(pendingPrefix, error);
+      }
+      const failures = [];
+      for (const row of [...pendingAttempts.values()]) {
+        if (blockedPendingKeys.has(pendingKey(row.attempt.id))) continue;
+        try { await finishPending(row); } catch (error) {
+          if (error?.name !== "StaleProgressError") failures.push(error);
+        }
+      }
+      if (failures.length) throw failures[0];
+      return { pendingCount: pendingAttempts.size };
+    });
+  }
+
   function invalidateSemanticWork() {
     semanticWorkGeneration += 1;
     return semanticWorkGeneration;
@@ -176,6 +381,10 @@
   semanticChangeChannel?.addEventListener("message", (event) => {
     const reason = String(event?.data?.reason || "remote-change");
     if (reason === "progress-reset" || reason === "embedding-cache-reset") invalidateSemanticWork();
+    if (reason === "progress-reset") {
+      progressResetGeneration += 1;
+      readProgressEpoch();
+    }
     emitChange(reason, { ...(event?.data?.detail || {}), remote: true });
   });
 
@@ -354,7 +563,7 @@
     };
   }
 
-  async function writeAttempt(input) {
+  async function writeAttempt(input, options = {}) {
     const core = await corePromise;
     const suppliedId = input?.id === undefined || input?.id === null ? "" : String(input.id).trim();
     if (suppliedId && !String(input?.occurredAt || "").trim()) {
@@ -371,12 +580,41 @@
     );
     const finished = transactionFinished(transaction);
     try {
+      const meta = transaction.objectStore(storeNames.meta);
+      if (options.progressEpoch !== undefined) {
+        const epoch = await requestResult(meta.get("semantic-progress-epoch"));
+        if (options.progressEpoch !== (epoch?.token || initialProgressEpoch)) {
+          const error = new Error("This pending attempt belongs to progress that was explicitly reset.");
+          error.name = "StaleProgressError";
+          throw error;
+        }
+        if (options.requirePendingEntry && window.localStorage.getItem(pendingKey(attempt.id)) === null) {
+          const error = new Error("This pending attempt was already removed by another page.");
+          error.name = "StaleProgressError";
+          throw error;
+        }
+        const commitKey = pendingCommitKey(attempt.id);
+        const fingerprint = core.semanticAttemptFingerprint(attempt, storedAttemptNormalization);
+        const committed = await requestResult(meta.get(commitKey));
+        if (committed && committed.fingerprint !== fingerprint) {
+          const error = new Error(`Attempt id ${attempt.id} refers to a different immutable event.`);
+          error.name = "InvalidAttemptError";
+          throw error;
+        }
+        if (committed) {
+          await finished;
+          return { duplicate: true, attempt };
+        }
+        await requestResult(meta.put({ key: commitKey, fingerprint }));
+      }
       const migration = await ensureEvidenceReducerCurrentInTransaction(transaction, core);
       const attempts = transaction.objectStore(storeNames.attempts);
       const existing = await requestResult(attempts.get(attempt.id));
       if (existing) {
         if (!core.semanticAttemptsEqual(existing, attempt, storedAttemptNormalization)) {
-          throw new Error(`Attempt id ${attempt.id} refers to a different immutable event.`);
+          const error = new Error(`Attempt id ${attempt.id} refers to a different immutable event.`);
+          error.name = "InvalidAttemptError";
+          throw error;
         }
         const compaction = await compactHistoryInTransaction(transaction, core);
         await finished;
@@ -387,7 +625,9 @@
       const receipt = await requestResult(transaction.objectStore(storeNames.receipts).get(attempt.id));
       if (receipt) {
         if (receipt.fingerprint !== core.semanticAttemptFingerprint(attempt, storedAttemptNormalization)) {
-          throw new Error(`Attempt id ${attempt.id} refers to a different compacted event.`);
+          const error = new Error(`Attempt id ${attempt.id} refers to a different compacted event.`);
+          error.name = "InvalidAttemptError";
+          throw error;
         }
         const compaction = await compactHistoryInTransaction(transaction, core);
         await finished;
@@ -405,9 +645,11 @@
       const newStatementCount = [...currentByStatement.values()].filter((node) => !node).length;
       const maximumStatementKeys = core.boundedSemanticHistoryPolicy.maximumStatementKeys;
       if (newStatementCount > 0 && evidenceCount + newStatementCount > Math.max(maximumStatementKeys, evidenceCount)) {
-        throw new Error(
+        const error = new Error(
           `Semantic capability limit reached (${maximumStatementKeys}). Add new course capabilities through an explicit ledger migration.`
         );
+        error.name = "InvalidAttemptError";
+        throw error;
       }
 
       await requestResult(attempts.add(attempt));
@@ -441,7 +683,68 @@
   }
 
   function recordAttempt(input = {}) {
-    return enqueueOperation(() => writeAttempt(input));
+    const generation = progressResetGeneration;
+    const capturedEpoch = readProgressEpoch();
+    let captured;
+    let row;
+    try {
+      if (!input || typeof input !== "object" || Array.isArray(input)) throw new TypeError("Semantic attempt must be an object.");
+      const suppliedId = input?.id === undefined || input?.id === null ? "" : String(input.id).trim();
+      if (suppliedId && !String(input?.occurredAt || "").trim()) {
+        throw new Error("Semantic attempts with a caller-supplied id must include occurredAt for idempotent retries.");
+      }
+      captured = JSON.parse(JSON.stringify({ ...input, id: suppliedId || newAttemptId(), occurredAt: input.occurredAt || new Date().toISOString() }));
+      if (JSON.stringify(captured).length > 16384) throw new Error("Semantic attempt is too large to retain safely.");
+      const key = pendingKey(captured.id);
+      row = pendingAttempts.get(captured.id);
+      if (!row) {
+        let stored = null;
+        let readable = true;
+        try { stored = window.localStorage.getItem(key); } catch (error) {
+          readable = false;
+          reportSaveFailure(key, error);
+        }
+        if (stored !== null) {
+          try {
+            row = JSON.parse(stored);
+            if (row?.schemaVersion !== 1 || row.attempt?.id !== captured.id || typeof row.progressEpoch !== "string") {
+              throw new Error("The existing pending learning record has an unsupported format.");
+            }
+            durablePendingIds.add(captured.id);
+          } catch (error) {
+            blockedPendingKeys.add(key);
+            reportSaveFailure(key, error);
+            throw error;
+          }
+        }
+        if (pendingAttempts.size >= pendingLimit) throw new Error("The pending learning queue is full. Retry saving before continuing.");
+        row ||= { schemaVersion: 1, progressEpoch: capturedEpoch, attempt: captured };
+        pendingAttempts.set(captured.id, row);
+        // Capture before any Promise or IndexedDB work: closing the page immediately
+        // after an answer must still leave its immutable event available for recovery.
+        if (!durablePendingIds.has(captured.id) && readable) persistPending(row);
+      }
+    } catch (error) {
+      reportSaveFailure(pendingPrefix, error);
+      return Promise.reject(error);
+    }
+    return enqueueOperation(async () => {
+      if (generation !== progressResetGeneration) throw staleSemanticWorkError();
+      const core = await corePromise;
+      let attempt;
+      try { attempt = core.normalizeSemanticAttempt(captured); } catch (error) {
+        blockedPendingKeys.add(pendingKey(captured.id));
+        reportSaveFailure(pendingKey(captured.id), error);
+        throw error;
+      }
+      if (!core.semanticAttemptsEqual(row.attempt, attempt)) {
+        const error = new Error(`Attempt id ${attempt.id} refers to a different pending event.`);
+        reportSaveFailure(pendingKey(attempt.id), error);
+        throw error;
+      }
+      row.attempt = attempt;
+      return finishPending(row);
+    });
   }
 
   function readEvidence() {
@@ -566,7 +869,7 @@
     });
   }
 
-  function clearStores(names, reason, workEpochToken = "") {
+  function clearStores(names, reason, workEpochToken = "", resetEpochToken = "") {
     return enqueueOperation(async () => {
       const database = await openDatabase();
       const transactionNames = [...new Set([
@@ -584,7 +887,13 @@
           reason
         }));
       }
+      if (resetEpochToken) {
+        await requestResult(transaction.objectStore(storeNames.meta).put({
+          key: "semantic-progress-epoch", token: resetEpochToken
+        }));
+      }
       await finished;
+      if (resetEpochToken) rememberProgressEpoch(resetEpochToken);
       announceChange(reason, { workEpochToken });
       return { cleared: [...names], workEpochToken };
     });
@@ -592,7 +901,25 @@
 
   function resetProgress() {
     invalidateSemanticWork();
-    return clearStores(Object.values(storeNames), "progress-reset", newWorkEpochToken());
+    progressResetGeneration += 1;
+    const token = newWorkEpochToken();
+    rememberProgressEpoch(token);
+    for (const row of pendingAttempts.values()) removePending(row);
+    try {
+      const keys = [];
+      for (let index = 0; index < window.localStorage.length; index += 1) {
+        const key = window.localStorage.key(index);
+        if (key?.startsWith(pendingPrefix)) keys.push(key);
+      }
+      for (const key of keys) {
+        try {
+          window.localStorage.removeItem(key);
+          blockedPendingKeys.delete(key);
+          clearSaveFailure(key);
+        } catch (error) { reportSaveFailure(key, error); }
+      }
+    } catch (error) { reportSaveFailure(pendingPrefix, error); }
+    return clearStores(Object.values(storeNames), "progress-reset", newWorkEpochToken(), token);
   }
 
   function clearEmbeddingCache() {
@@ -993,6 +1320,7 @@
     databaseName,
     storage: Object.freeze({ databaseName, databaseVersion, ...storeNames }),
     recordAttempt,
+    retryPendingAttempts,
     readAttempts,
     readEvidence,
     rebuildEvidence,
@@ -1004,4 +1332,7 @@
     snapshot,
     whenIdle
   });
+  readProgressEpoch();
+  window.CaatuuLearning?.registerSaveRetry?.(retryPendingAttempts);
+  void retryPendingAttempts().catch(() => {});
 })();

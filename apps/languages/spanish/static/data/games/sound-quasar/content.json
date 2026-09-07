@@ -1,0 +1,352 @@
+{
+  "schemaVersion": 1,
+  "gameId": "sound-quasar",
+  "courseId": "es",
+  "targetLanguageId": "es",
+  "id": "es-sound-quasar-listening-pilot",
+  "contentRevision": "sound-quasar-retained-levels-1",
+  "mode": "practice",
+  "audio": {
+    "kind": "device-speech",
+    "locale": "es-ES",
+    "reviewStatus": "unreviewed",
+    "purpose": "listening-practice"
+  },
+  "provenance": {
+    "sourcePath": "apps/languages/spanish/static/data/games/verb-nebula/content.json",
+    "sourceItemIds": [
+      "es.verb.ser",
+      "es.verb.tener",
+      "es.verb.hacer",
+      "es.verb.ir",
+      "es.verb.venir",
+      "es.verb.querer",
+      "es.verb.necesitar",
+      "es.verb.hablar",
+      "es.verb.preguntar",
+      "es.verb.escuchar",
+      "es.verb.ver",
+      "es.verb.entender",
+      "es.verb.recordar",
+      "es.verb.comer",
+      "es.verb.beber",
+      "es.verb.dormir"
+    ],
+    "selection": "Existing vocabulary; target text and meanings copied without linguistic edits."
+  },
+  "items": [
+    {
+      "id": "es-word-1", "difficulty": 1,
+      "revision": "1",
+      "target": "ser",
+      "meaning": "be (identity)",
+      "sourceId": "es.verb.ser",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "be (identity)"
+    },
+    {
+      "id": "es-word-2", "difficulty": 1,
+      "revision": "1",
+      "target": "tener",
+      "meaning": "have",
+      "sourceId": "es.verb.tener",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "have"
+    },
+    {
+      "id": "es-word-3", "difficulty": 1,
+      "revision": "1",
+      "target": "hacer",
+      "meaning": "do or make",
+      "sourceId": "es.verb.hacer",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "do or make"
+    },
+    {
+      "id": "es-word-4", "difficulty": 1,
+      "revision": "1",
+      "target": "ir",
+      "meaning": "go",
+      "sourceId": "es.verb.ir",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "go"
+    },
+    {
+      "id": "es-word-5", "difficulty": 1,
+      "revision": "1",
+      "target": "venir",
+      "meaning": "come",
+      "sourceId": "es.verb.venir",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "come"
+    },
+    {
+      "id": "es-word-6", "difficulty": 1,
+      "revision": "1",
+      "target": "querer",
+      "meaning": "want",
+      "sourceId": "es.verb.querer",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "want"
+    },
+    {
+      "id": "es-word-7", "difficulty": 2,
+      "revision": "1",
+      "target": "necesitar",
+      "meaning": "need",
+      "sourceId": "es.verb.necesitar",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "need"
+    },
+    {
+      "id": "es-word-8", "difficulty": 1,
+      "revision": "1",
+      "target": "hablar",
+      "meaning": "speak",
+      "sourceId": "es.verb.hablar",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "speak"
+    },
+    {
+      "id": "es-word-9", "difficulty": 2,
+      "revision": "1",
+      "target": "preguntar",
+      "meaning": "ask",
+      "sourceId": "es.verb.preguntar",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "ask"
+    },
+    {
+      "id": "es-word-10", "difficulty": 1,
+      "revision": "1",
+      "target": "escuchar",
+      "meaning": "listen to",
+      "sourceId": "es.verb.escuchar",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "listen to"
+    },
+    {
+      "id": "es-word-11", "difficulty": 1,
+      "revision": "1",
+      "target": "ver",
+      "meaning": "see",
+      "sourceId": "es.verb.ver",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "see"
+    },
+    {
+      "id": "es-word-12", "difficulty": 2,
+      "revision": "1",
+      "target": "entender",
+      "meaning": "understand",
+      "sourceId": "es.verb.entender",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "understand"
+    },
+    {
+      "id": "es-word-13", "difficulty": 2,
+      "revision": "1",
+      "target": "recordar",
+      "meaning": "remember",
+      "sourceId": "es.verb.recordar",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "remember"
+    },
+    {
+      "id": "es-word-14", "difficulty": 1,
+      "revision": "1",
+      "target": "comer",
+      "meaning": "eat",
+      "sourceId": "es.verb.comer",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "eat"
+    },
+    {
+      "id": "es-word-15", "difficulty": 1,
+      "revision": "1",
+      "target": "beber",
+      "meaning": "drink",
+      "sourceId": "es.verb.beber",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "drink"
+    },
+    {
+      "id": "es-word-16", "difficulty": 1,
+      "revision": "1",
+      "target": "dormir",
+      "meaning": "sleep",
+      "sourceId": "es.verb.dormir",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "sleep"
+    }
+  ],
+  "sentenceProvenance": {
+    "sourcePath": "apps/languages/spanish/static/data/games/word-world/content.json",
+    "englishSourcePath": "apps/languages/shared/english-concepts/word-world-starter-v1.json",
+    "sourceItemIds": [
+      "ww.identity.name",
+      "ww.identity.student",
+      "ww.object.book",
+      "ww.animal.cat",
+      "ww.weather.cold-today",
+      "ww.comprehension.not-understand",
+      "ww.people.my-friend",
+      "ww.number.two-books",
+      "ww.time.what-time",
+      "ww.time.monday",
+      "ww.food.rice",
+      "ww.drink.water",
+      "ww.plan.want-school",
+      "ww.location.book-on-table",
+      "ww.weather.rain-today",
+      "ww.routine.go-home"
+    ],
+    "selection": "Sixteen existing short Word World sentences; target text, English meanings, and review status copied without linguistic edits."
+  },
+  "sentences": [
+    {
+      "id": "es-sentence-1", "difficulty": 1,
+      "revision": "1",
+      "target": "Me llamo Lin.",
+      "meaning": "My name is Lin.",
+      "sourceId": "ww.identity.name",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "My name is Lin."
+    },
+    {
+      "id": "es-sentence-2", "difficulty": 1,
+      "revision": "1",
+      "target": "Soy estudiante.",
+      "meaning": "I am a student.",
+      "sourceId": "ww.identity.student",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I am a student."
+    },
+    {
+      "id": "es-sentence-3", "difficulty": 1,
+      "revision": "1",
+      "target": "Esto es un libro.",
+      "meaning": "This is a book.",
+      "sourceId": "ww.object.book",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "This is a book."
+    },
+    {
+      "id": "es-sentence-4", "difficulty": 1,
+      "revision": "1",
+      "target": "Eso es un gato.",
+      "meaning": "That is a cat.",
+      "sourceId": "ww.animal.cat",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "That is a cat."
+    },
+    {
+      "id": "es-sentence-5", "difficulty": 1,
+      "revision": "1",
+      "target": "Hoy hace frío.",
+      "meaning": "It is cold today.",
+      "sourceId": "ww.weather.cold-today",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "It is cold today."
+    },
+    {
+      "id": "es-sentence-6", "difficulty": 1,
+      "revision": "1",
+      "target": "No entiendo.",
+      "meaning": "I do not understand.",
+      "sourceId": "ww.comprehension.not-understand",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I do not understand."
+    },
+    {
+      "id": "es-sentence-7", "difficulty": 1,
+      "revision": "1",
+      "target": "Él es mi amigo.",
+      "meaning": "He is my friend.",
+      "sourceId": "ww.people.my-friend",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "He is my friend."
+    },
+    {
+      "id": "es-sentence-8", "difficulty": 1,
+      "revision": "1",
+      "target": "Tengo dos libros.",
+      "meaning": "I have two books.",
+      "sourceId": "ww.number.two-books",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I have two books."
+    },
+    {
+      "id": "es-sentence-9", "difficulty": 2,
+      "revision": "1",
+      "target": "¿Qué hora es ahora?",
+      "meaning": "What time is it now?",
+      "sourceId": "ww.time.what-time",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "What time is it now?"
+    },
+    {
+      "id": "es-sentence-10", "difficulty": 1,
+      "revision": "1",
+      "target": "Hoy es lunes.",
+      "meaning": "Today is Monday.",
+      "sourceId": "ww.time.monday",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Today is Monday."
+    },
+    {
+      "id": "es-sentence-11", "difficulty": 2,
+      "revision": "1",
+      "target": "Me gusta comer arroz.",
+      "meaning": "I like eating rice.",
+      "sourceId": "ww.food.rice",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I like eating rice."
+    },
+    {
+      "id": "es-sentence-12", "difficulty": 2,
+      "revision": "1",
+      "target": "Bebe agua, por favor.",
+      "meaning": "Please drink water.",
+      "sourceId": "ww.drink.water",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Please drink water."
+    },
+    {
+      "id": "es-sentence-13", "difficulty": 2,
+      "revision": "1",
+      "target": "Quiero ir al colegio.",
+      "meaning": "I want to go to school.",
+      "sourceId": "ww.plan.want-school",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I want to go to school."
+    },
+    {
+      "id": "es-sentence-14", "difficulty": 2,
+      "revision": "1",
+      "target": "El libro está sobre la mesa.",
+      "meaning": "The book is on the table.",
+      "sourceId": "ww.location.book-on-table",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "The book is on the table."
+    },
+    {
+      "id": "es-sentence-15", "difficulty": 2,
+      "revision": "1",
+      "target": "Hoy está lloviendo.",
+      "meaning": "It is raining today.",
+      "sourceId": "ww.weather.rain-today",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "It is raining today."
+    },
+    {
+      "id": "es-sentence-16", "difficulty": 2,
+      "revision": "1",
+      "target": "Voy a casa por la tarde.",
+      "meaning": "I go home in the evening.",
+      "sourceId": "ww.routine.go-home",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I go home in the evening."
+    }
+  ]
+}

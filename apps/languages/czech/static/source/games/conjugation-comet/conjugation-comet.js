@@ -5,7 +5,7 @@ import { isChildFacingMacawActionAssetAllowed } from "../../shared/child-facing-
 const course = window.CaatuuCourse;
 if (!course) throw new Error("Caatuu course profile must load before Conjugation Comet.");
 
-const VERBS_URL = "data/games/conjugation-comet/verbs.json?v=conjugation-comet-verbs-4";
+const VERBS_URL = "data/games/conjugation-comet/content.json?v=conjugation-comet-verbs-4";
 const ENGLISH_SUBJECTS = Object.freeze(["you all", "he/she", "they", "you", "she", "he", "we", "it", "I"]);
 const AM_ENDINGS = Object.freeze({
   S1: "ám",

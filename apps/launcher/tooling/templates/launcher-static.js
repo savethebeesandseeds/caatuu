@@ -52,8 +52,11 @@
         "aria-label",
         `${language.label} (${language.nativeLabel})${preview ? ", Preview" : ""}`
       );
-      const choice = document.createElement("span");
-      choice.className = "language-choice language-choice-static";
+      const choice = document.createElement("a");
+      choice.className = "language-choice";
+      const entryPath = String(courseRecord.entryPath || "");
+      if (entryPath.startsWith("/") && !entryPath.startsWith("//")) choice.href = entryPath;
+      choice.setAttribute("aria-label", `Start: ${item.getAttribute("aria-label")}`);
       const flag = document.createElement("img");
       flag.className = "flag-icon";
       flag.src = versionedLauncherAsset(language.flagSrc);
@@ -62,13 +65,20 @@
       const code = document.createElement("span");
       code.className = "language-choice-code";
       code.textContent = language.shortCode;
-      choice.append(flag, code);
+      const name = document.createElement("strong");
+      name.className = "language-choice-name";
+      name.textContent = language.label;
+      choice.append(flag, name, code);
       if (preview) {
         const status = document.createElement("span");
         status.className = "language-choice-status";
         status.textContent = "Preview";
         choice.append(status);
       }
+      const start = document.createElement("span");
+      start.className = "language-choice-start";
+      start.textContent = "Start";
+      choice.append(start);
       item.append(choice);
       return item;
     }));

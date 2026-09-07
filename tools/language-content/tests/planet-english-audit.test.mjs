@@ -249,3 +249,20 @@ test("legacy Word World accepts a whole declared-root alias without changing aut
     await rm(root, { recursive: true, force: true });
   }
 });
+
+
+test("versioned Case Cosmos audits retained and new context English independently with stable ID locations", () => {
+  const document = {
+    schemaVersion: "caatuu-case-cosmos-content-v2",
+    legacyNouns: [{ cases: { Nominative: { form: "Petr", english: "Petr is reading." } } }],
+    contexts: [{ id: "cz.case.roles.read-book", form: "knihu", english: "I am reading a book." }]
+  };
+  assert.deepEqual(validatePlanetEnglishAuditDocument("case-cosmos-items-v1", document, { sourceLanguageId: "en" }), []);
+  delete document.contexts[0].english;
+  const missingNew = validatePlanetEnglishAuditDocument("case-cosmos-items-v1", document, { sourceLanguageId: "en" });
+  assert.equal(missingNew.length, 1);
+  assert.ok(missingNew[0].message.includes("contexts[0]") && missingNew[0].message.includes("cz.case.roles.read-book"));
+  document.contexts[0].english = "I am reading a book.";
+  delete document.legacyNouns[0].cases.Nominative.english;
+  assert.match(JSON.stringify(validatePlanetEnglishAuditDocument("case-cosmos-items-v1", document, { sourceLanguageId: "en" })), /legacyNouns/u);
+});

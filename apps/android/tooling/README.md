@@ -37,6 +37,19 @@ once into shared app storage, while course content remains below
 union of packaged and downloaded content. Website/single-course exports select
 full delivery explicitly.
 
+Android starts the canonical illustrated Home for the last visited bundled
+course (or the default course on a fresh installation). Its existing setup card
+and language chooser work before a course is installed. The shared bootstrap
+waits for native verification before loading course feature providers or game
+content. Only Home, the course profile and web manifest bypass the per-course
+installation gate; curriculum and native learning operations still require a
+verified installation. The legacy `/setup.html` entry redirects to Home.
+Essential Home artwork is packaged, so this first screen also renders offline.
+The smaller UI artwork preserves the original assets and logical URLs.
+Regenerate those reviewed copies with
+`docker exec -w /workspace caatuu-dev caatuu-animated-fabric python /workspace/apps/language-runtime/tooling/build-home-art.py`;
+append `--check` for a read-only reproducibility check.
+
 `build-product-assets.mjs` writes the companion folder beside the product
 output, normally `product/build/generated/assets/product-setup`. Its
 `caatuu-setup-payload.json` inventory records `{path, file, assetPath, bytes,

@@ -28,8 +28,7 @@ const DEFAULT_ENGLISH_EMBEDDING_POLICY = Object.freeze({
 });
 const LEGACY_STANDARD_PROVIDER_MODULE = "source/games/word-world/word-net-standard.mjs";
 const SHARED_STANDARD_MEANING_SELECTOR = "/language-runtime/static/source/word-net-core.mjs";
-const DEFAULT_RENDERER_MODULE = "./product-word-world.mjs?v=shared-renderer-24";
-const SCENE_NUMBERS = Object.freeze([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 33]);
+const DEFAULT_RENDERER_MODULE = "./product-word-world.mjs?v=shared-renderer-26";
 const STANDARD_USAGE_CAPACITY = 8192;
 const TARGET_TEXT_GUIDE_STATUSES = new Set(["machine-assisted-preview", "native-reviewed"]);
 const WORD_WORLD_GENERATION_IMPLEMENTATIONS = Object.freeze({
@@ -553,20 +552,10 @@ async function createSharedEnglishRanker(wordWorldManifest, options = {}) {
   return createRanker(model.runtime);
 }
 
-function stableHash(value) {
-  const source = String(value ?? "").normalize("NFC");
-  let hash = 0x811c9dc5;
-  for (let index = 0; index < source.length; index += 1) {
-    hash ^= source.charCodeAt(index);
-    hash = Math.imul(hash, 0x01000193) >>> 0;
-  }
-  return hash;
-}
-
 function sceneForRecord(record) {
-  const index = stableHash(record.conceptId || record.sceneQuery) % SCENE_NUMBERS.length;
+  // Artwork is selected by the shared image index from this English meaning.
   return {
-    src: `/assets/miscellaneous/burrow-review_${String(SCENE_NUMBERS[index]).padStart(3, "0")}.png`,
+    query: record.sceneQuery || record.englishText,
     alt: record.sceneQuery || record.englishText
   };
 }
@@ -590,9 +579,15 @@ function standardTokens(adapter, record) {
       candidate.tokenIndex === index
       || adapter.normalization.searchKey(candidate.surface) === surfaceKey
     ));
+    const hint = record.targets?.find((candidate) => (
+      candidate.tokenIndex === index && candidate.surface === segment.text
+    ));
     return {
       surface: segment.text,
-      playable: target?.playable !== false
+      playable: target?.playable !== false,
+      ...(hint?.gloss
+        ? { gloss: hint.gloss }
+        : {})
     };
   });
 }
@@ -878,6 +873,7 @@ function meaningLookup(fullDictionaryLookup) {
   return async (request) => {
     const authored = authoredGlossLookup(request);
     if (Array.isArray(request?.record?.learnerTokenMeanings)) return authored;
+    if (authored) return authored;
     if (!fullDictionaryLookup) return authored;
     try {
       return await fullDictionaryLookup(request) || authored;

@@ -125,7 +125,7 @@ test("the compatibility course profile is generated exactly from course.json", a
 
 test("the learner projection uses its runtime schema and withholds unreviewed pronunciation", async () => {
   const authoring = await json("content/word-world/starter-v1.realizations.json");
-  const projection = await json("static/data/games/word-world/starter-v1.realizations.json");
+  const projection = await json("static/data/games/word-world/content.json");
   assert.equal(projection.$schema, TARGET_REALIZATION_RUNTIME_SCHEMA);
   validateTargetRealizationRuntimeProjection(projection, {
     source: authoring,
@@ -227,11 +227,11 @@ test("setup and service-worker catalogs cover every required offline URL", async
   const nucleusModules = [...bootstrap.matchAll(/"(source\/games\/naturalization-nucleus\/naturalization-nucleus\.(?:css|js)\?v=[^"]+)"/gu)].map((match) => match[1]);
   assert.equal(nucleusModules.length, 2);
   for (const asset of [
-    "data/games/naturalization-nucleus/challenges.json",
+    "data/games/naturalization-nucleus/content.json",
     ...nucleusModules,
     "/assets/planets/naturalization-nucleus.png"
   ]) assert.ok(setup.offline.assets.includes(asset), `offline course must cache ${asset}`);
-  assert.ok(setup.offline.assets.includes("data/games/word-world/starter-v1.reading-guides.json"));
+  assert.ok(setup.offline.assets.includes("data/games/word-world/reading-guides.json"));
   assert.ok(!setup.offline.assets.some((asset) => asset.includes("product-shell.mjs")));
   assert.match(sharedWorker, /application\?\.appEntry !== CAATUU_CANONICAL_APP_ENTRY/u);
   assert.match(sharedWorker, /Deprecated mini-app documents cannot be cached/u);
@@ -377,7 +377,7 @@ test("Android allowlists remain narrow and point only to present course/shared f
   });
   assert.equal(catalog.policy.llmAssetsAllowed, false);
   assert.equal(catalog.policy.targetPronunciationMetadataAllowed, true);
-  assert.ok(catalog.files.includes("data/games/word-world/starter-v1.reading-guides.json"));
+  assert.ok(catalog.files.includes("data/games/word-world/reading-guides.json"));
   for (const file of catalog.files) await access(path.join(staticRoot, file));
   assert.equal(appAssets.schemaVersion, 1);
   assert.equal(appAssets.appEntry, "apps/language-runtime/static/app/index.html");

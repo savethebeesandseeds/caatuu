@@ -1,4 +1,4 @@
-import { createEnglishImageSearch } from "../../english-image-search.mjs?v=english-image-search-2";
+import { createEnglishImageSearch } from "../../english-image-search.mjs?v=english-image-search-3";
 
 const VISUAL_PREFIX = "/assets/miscellaneous/";
 const CACHE_LIMIT = 32;
@@ -40,8 +40,7 @@ function firstVisual(payload, origin) {
   return "";
 }
 
-// Use the course vector service when present and the shared artwork provider
-// otherwise. Both search only the independent English audit description.
+// Every course uses the same artwork index and independent English description.
 export function createNounVisual({ shell, course, image, searchImages, scope = globalThis, onLoadingChange = () => {} } = {}) {
   const cache = new Map();
   let active = true;
@@ -136,7 +135,6 @@ export function createNounVisual({ shell, course, image, searchImages, scope = g
       present(path, token, query);
       return;
     }
-    const vector = shell?.CaatuuRuntime?.vector;
     if (pending) return;
     const request = { query, token };
     pending = request;
@@ -146,9 +144,7 @@ export function createNounVisual({ shell, course, image, searchImages, scope = g
     Promise.resolve()
       .then(() => {
         if (!enabled() || epoch !== token || english !== query) return null;
-        return typeof vector?.search === "function"
-          ? vector.search(query, { limit: 5, sourceKinds: ["image_asset"] })
-          : (searchImages || sharedImageSearch(shell))(query, { sourceKind: "image_asset" });
+        return (searchImages || sharedImageSearch(shell))(query, { sourceKind: "image_asset" });
       })
       .then((payload) => {
         if (destroyed || payload === null || token === abandonedToken) return;

@@ -5,7 +5,7 @@ import {
   shuffledGrammarValues,
   validateGrammarFlight,
   validateGrammarStages
-} from "./adjective-flight-core.mjs?v=grammar-journey-1";
+} from "./adjective-flight-core.mjs?v=grammar-journey-3";
 
 export const GRAMMAR_GRAVITY_SCHEMA_VERSION = "caatuu-grammar-gravity-content-v3";
 
@@ -277,10 +277,12 @@ function validateChallenges(pack, axisIds) {
   const challengeIds = new Set();
   const exampleIds = new Set();
   const difficulties = new Set();
-  const expectedForms = new Set(axisIds);
   pack.challenges.forEach((challenge, index) => {
     const location = `challenges[${index}]`;
-    exactKeys(challenge, ["id", "revision", "difficulty", "focus", "forms"], location);
+    const scoped = Object.hasOwn(challenge, "axes") || Object.hasOwn(challenge, "gameplay");
+    exactKeys(challenge, ["id", "revision", "difficulty", "focus", "forms", ...(scoped ? ["axes", "gameplay"] : [])], location);
+    const familyAxisIds = scoped ? validateAxes(challenge.axes) : axisIds;
+    if (scoped) validateGameplay(challenge.gameplay, challenge.axes);
     const id = requiredId(challenge.id, `${location}.id`);
     if (challengeIds.has(id)) throw new Error(`Grammar Gravity repeats challenge ID ${id}.`);
     challengeIds.add(id);
@@ -292,14 +294,14 @@ function validateChallenges(pack, axisIds) {
     validateFocus(challenge.focus, `${location}.focus`);
     if (!isRecord(challenge.forms)) throw new Error(`${location}.forms must be an object.`);
     const actualForms = new Set(Object.keys(challenge.forms));
-    if (!sameMembers(actualForms, expectedForms)) {
+    if (!sameMembers(actualForms, new Set(familyAxisIds))) {
       throw new Error(`${location}.forms must contain exactly the content-declared axes.`);
     }
     const targetPhrases = new Set();
     const learnerBasePhrases = new Set();
     const formOptions = new Set();
     const formSpellings = new Map();
-    for (const axisId of axisIds) {
+    for (const axisId of familyAxisIds) {
       const formLocation = `${location}.forms.${axisId}`;
       const form = challenge.forms[axisId];
       exactKeys(form, ["displayForm", "examples"], formLocation);
@@ -329,7 +331,7 @@ function validateChallenges(pack, axisIds) {
   if (pack.gameplay.stages.includes("meaning")) {
     for (const difficulty of [1, 2, 3]) {
       const meanings = new Set(pack.challenges.filter((challenge) => challenge.difficulty <= difficulty)
-        .flatMap((challenge) => [...axisIds].flatMap((axis) => challenge.forms[axis].examples
+        .flatMap((challenge) => Object.values(challenge.forms).flatMap((form) => form.examples
           .map((example) => normalizedText(example.anchor.learnerBaseText, pack.learnerBaseLanguage)))));
       if (meanings.size < 2) throw new Error(`Difficulty ${difficulty} must provide at least two distinct authored anchor meanings.`);
     }
@@ -405,11 +407,13 @@ export function buildGrammarGravityRounds(pack, difficulty, random = Math.random
   const level = Number(difficulty);
   if (!Number.isInteger(level) || level < 1 || level > 3) throw new Error("Grammar Gravity difficulty must be 1, 2, or 3.");
   const challenges = pack.challenges.filter((challenge) => challenge.difficulty <= level);
-  const meaningPool = [...new Set(challenges.flatMap((challenge) => pack.axes.flatMap((axis) =>
-    challenge.forms[axis.id].examples.map((example) => example.anchor.learnerBaseText))))];
+  const meaningPool = [...new Set(challenges.flatMap((challenge) => Object.values(challenge.forms).flatMap((form) =>
+    form.examples.map((example) => example.anchor.learnerBaseText))))];
   const rounds = challenges.flatMap((challenge) => {
-    const options = [...new Set(pack.axes.map((axis) => challenge.forms[axis.id].displayForm))];
-    return pack.axes.flatMap((axis) => {
+    const axes = challenge.axes || pack.axes;
+    const gameplay = challenge.gameplay || pack.gameplay;
+    const options = [...new Set(axes.map((axis) => challenge.forms[axis.id].displayForm))];
+    return axes.flatMap((axis) => {
       const form = challenge.forms[axis.id];
       return form.examples.map((example) => {
         const flight = validateGrammarFlight({
@@ -423,11 +427,11 @@ export function buildGrammarGravityRounds(pack, difficulty, random = Math.random
           afterText: example.slot.afterText,
           answer: form.displayForm,
           options: shuffledGrammarValues(options, random),
-          categoryId: axis.features[pack.gameplay.categoryFeature],
-          categoryOptions: pack.gameplay.categoryOptions,
-          stages: pack.gameplay.stages,
+          categoryId: axis.features[gameplay.categoryFeature],
+          categoryOptions: gameplay.categoryOptions,
+          stages: gameplay.stages,
           meaningPool,
-          meaningOptions: pack.gameplay.stages.includes("meaning")
+          meaningOptions: gameplay.stages.includes("meaning")
             ? buildMeaningChoices(example.anchor.learnerBaseText, meaningPool, 3, random) : []
         });
         return {
@@ -437,7 +441,7 @@ export function buildGrammarGravityRounds(pack, difficulty, random = Math.random
           challengeRevision: challenge.revision,
           difficulty: challenge.difficulty,
           focus: challenge.focus,
-          stages: pack.gameplay.stages,
+          stages: gameplay.stages,
           flights: [flight]
         };
       });

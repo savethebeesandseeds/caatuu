@@ -31,7 +31,6 @@ test("static compiler closes the complete Pages payload", { timeout: 300_000 }, 
     for (const androidInstallerAsset of [
       "setup.html",
       "course-install.html",
-      "language-runtime/static/source/course-setup.mjs",
       "language-runtime/static/styles/course-setup.css"
     ]) {
       assert.ok(!manifest.files.some(({ path }) => path === androidInstallerAsset),
@@ -66,6 +65,7 @@ test("static compiler closes the complete Pages payload", { timeout: 300_000 }, 
     assert.match(chrome, /class="settings-card side-card developer-tools-card"/u);
     const serviceWorker = readFileSync(join(outputDir, "sw.js"), "utf8");
     for (const sharedAsset of [
+      "/language-runtime/static/source/course-setup.mjs",
       "/language-runtime/static/source/word-world-provider.mjs",
       "/language-runtime/static/source/product-word-world.mjs",
       "/language-runtime/static/styles/caatuu-word-world.css",

@@ -16,7 +16,7 @@ import {
 } from "../static/source/games/conjugation-comet/conjugation-comet-core.mjs";
 
 const czechCatalogUrl = new URL(
-  "../../languages/czech/static/data/games/conjugation-comet/verbs.json",
+  "../../languages/czech/static/data/games/conjugation-comet/content.json",
   import.meta.url
 );
 const sharedHostUrl = new URL(
@@ -28,7 +28,7 @@ const sharedDocumentUrl = new URL(
   import.meta.url
 );
 
-function exampleCourse(resource = "data/games/conjugation-comet/verbs.json?v=pilot-1") {
+function exampleCourse(resource = "data/games/conjugation-comet/content.json?v=pilot-1") {
   return {
     id: "es",
     routePrefix: "/es",
@@ -148,7 +148,7 @@ test("shared game resources resolve only inside the declared course game directo
   const course = exampleCourse();
   assert.equal(
     declaredCourseGameResource(course, "conjugation-comet", "conjugationCometCatalog"),
-    "data/games/conjugation-comet/verbs.json?v=pilot-1"
+    "data/games/conjugation-comet/content.json?v=pilot-1"
   );
   assert.equal(
     resolveDeclaredCourseGameResourceUrl(course, {
@@ -156,13 +156,13 @@ test("shared game resources resolve only inside the declared course game directo
       resourceName: "conjugationCometCatalog",
       runtimeHref: "http://127.0.0.1:8765/language-runtime/static/games/conjugation-comet.html"
     }),
-    "http://127.0.0.1:8765/es/data/games/conjugation-comet/verbs.json?v=pilot-1"
+    "http://127.0.0.1:8765/es/data/games/conjugation-comet/content.json?v=pilot-1"
   );
 
   for (const unsafe of [
     "../mandarin/verbs.json",
-    "data/games/grammar-gravity/challenges.json",
-    "/es/data/games/conjugation-comet/verbs.json",
+    "data/games/grammar-gravity/content.json",
+    "/es/data/games/conjugation-comet/content.json",
     "https://example.test/verbs.json",
     "data\\games\\conjugation-comet\\verbs.json",
     "data/games/conjugation-comet/%2f..%2fverbs.json",

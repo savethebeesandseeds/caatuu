@@ -1001,6 +1001,113 @@ test("shared update controls keep browser freshness checks and offline failures 
   h.window.dispatchEvent({ type: "pagehide" });
 });
 
+function progressSaveHarness({ env = "browser", status = "saved", retry = () => {} } = {}) {
+  return executeChrome({
+    runtime: { env },
+    window: {
+      CaatuuLearning: {
+        snapshot: () => ({ difficulty: 1, difficultyOption: {}, summary: {}, streak: {} }),
+        saveStatus: () => ({ status }),
+        retryPendingSaves: retry
+      }
+    }
+  });
+}
+
+for (const env of ["browser", "android"]) {
+  test(`${env} chrome surfaces a save failure that happened before chrome loaded`, () => {
+    const harness = progressSaveHarness({ env, status: "error" });
+    const notice = harness.document.querySelector("#progressSaveNotice");
+    assert.ok(notice);
+    assert.equal(notice.hidden, false);
+    assert.equal(notice.getAttribute("role"), "alert");
+    assert.equal(notice.getAttribute("aria-atomic"), "true");
+    assert.equal(notice.querySelector("span").textContent, englishInterfaceCatalog.messages["chrome.progress.savefailed"]);
+    assert.equal(notice.querySelector("button").textContent, englishInterfaceCatalog.messages["common.retry"]);
+    harness.window.dispatchEvent({ type: "pagehide" });
+  });
+}
+
+test("save retries remain visible until storage confirms success, while ordinary pending saves stay quiet", async () => {
+  let resolveRetry;
+  let retryCount = 0;
+  const retryResult = new Promise((resolve) => { resolveRetry = resolve; });
+  const harness = progressSaveHarness({ retry: () => { retryCount += 1; return retryResult; } });
+  const changeStatus = (status) => harness.window.dispatchEvent({
+    type: "caatuu:progress-save-status", detail: { status }
+  });
+  assert.equal(harness.document.querySelector("#progressSaveNotice"), null);
+  changeStatus("pending");
+  assert.equal(harness.document.querySelector("#progressSaveNotice"), null);
+  changeStatus("error");
+  const notice = harness.document.querySelector("#progressSaveNotice");
+  const retry = notice.querySelector("button");
+  retry.click();
+  retry.click();
+  assert.equal(retryCount, 1, "an in-flight retry cannot be submitted twice");
+  assert.equal(retry.disabled, true);
+  changeStatus("pending");
+  assert.equal(notice.hidden, false);
+  resolveRetry(true);
+  await new Promise(setImmediate);
+  assert.equal(retry.disabled, false);
+  assert.equal(notice.hidden, false, "a resolved retry does not itself confirm persistence");
+  changeStatus("saved");
+  assert.equal(notice.hidden, true);
+  changeStatus("error");
+  assert.equal(notice.hidden, false);
+  assert.equal(harness.document.querySelectorAll("#progressSaveNotice").length, 1);
+  harness.window.dispatchEvent({ type: "pagehide" });
+});
+
+test("failed save retries keep the warning and allow another retry", async () => {
+  for (const retry of [() => { throw new Error("storage unavailable"); }, () => Promise.reject(new Error("storage unavailable"))]) {
+    const harness = progressSaveHarness({ status: "error", retry });
+    const notice = harness.document.querySelector("#progressSaveNotice");
+    const button = notice.querySelector("button");
+    button.click();
+    await new Promise(setImmediate);
+    assert.equal(button.disabled, false);
+    assert.equal(notice.hidden, false);
+    harness.window.dispatchEvent({ type: "pagehide" });
+  }
+});
+
+test("save failures take precedence over an app refresh notice until the progress is safe", () => {
+  const harness = progressSaveHarness();
+  harness.window.dispatchEvent({ type: "caatuu:app-freshness", detail: { state: "update-ready" } });
+  const freshness = harness.document.querySelector("#appFreshnessNotice");
+  assert.equal(freshness.hidden, false);
+  harness.window.dispatchEvent({ type: "caatuu:progress-save-status", detail: { status: "error" } });
+  assert.equal(freshness.hidden, true);
+  harness.window.dispatchEvent({ type: "caatuu:app-freshness", detail: { state: "offline" } });
+  assert.equal(freshness.hidden, true, "later update events do not cover the save warning");
+  harness.window.dispatchEvent({ type: "caatuu:progress-save-status", detail: { status: "saved" } });
+  assert.equal(freshness.hidden, false);
+  assert.equal(freshness.querySelector("[data-freshness-message]").textContent, englishInterfaceCatalog.messages["chrome.freshness.offline"]);
+  harness.window.dispatchEvent({ type: "pagehide" });
+});
+
+test("a rejected progress reset reports failure without claiming completion", async () => {
+  const harness = progressSaveHarness();
+  let resetAttempts = 0;
+  let cancelled = 0;
+  harness.window.CaatuuLearning.resetProgress = () => { resetAttempts += 1; throw new Error("Storage is unavailable"); };
+  harness.window.addEventListener("caatuu:progress-reset-cancelled", () => { cancelled += 1; });
+  const reset = harness.document.createElement("button");
+  reset.id = "settingsResetCourseProgress";
+  reset.dataset.confirmArmed = "true";
+  const status = harness.document.createElement("p");
+  status.id = "learningStatus";
+  harness.document.body.append(reset, status);
+  reset.click();
+  await new Promise(setImmediate);
+  assert.equal(resetAttempts, 1);
+  assert.equal(cancelled, 1);
+  assert.equal(status.textContent, englishInterfaceCatalog.messages["progress.restart.failed"]);
+  harness.window.dispatchEvent({ type: "pagehide" });
+});
+
 test("opening Home over Backpack preserves the current screen until selection", () => {
   const { document, nav, window } = executeChromeWithHomeMenu();
   const settingsPanel = document.createElement("section");

@@ -1,10 +1,10 @@
 import {
   normalizeNounLandingPack, createNounLandingSession, startNounLanding,
   selectNounLane, advanceNounFall, landNoun, nextNoun, setNounFallDuration
-} from "./noun-landing-core.mjs?v=noun-landing-core-7";
+} from "./noun-landing-core.mjs?v=noun-landing-core-10";
 import { fetchDeclaredCourseGameJson } from "../course-game-content.mjs?v=course-game-content-1";
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-8";
-import { createNounVisual } from "./noun-visual.mjs?v=noun-visual-3";
+import { createNounVisual } from "./noun-visual.mjs?v=noun-visual-4";
 
 const LANDING_MS = 180;
 const SUCCESS_FEEDBACK_MS = LANDING_MS + 900;
@@ -283,7 +283,8 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     feedbackElapsed = 0;
     restorePlayFocus = false;
     soundError = false;
-    session = startNounLanding(createNounLandingSession(pack, { avoidFirstItemId, durationMs }));
+    const difficulty = Math.max(1, Math.min(3, Math.floor(Number(shell.CaatuuLearning?.difficulty?.()) || 1)));
+    session = startNounLanding(createNounLandingSession(pack, { avoidFirstItemId, durationMs, difficulty }));
   }
   function resumeSegment() {
     if (destroyed || !segmentWaiting) return;

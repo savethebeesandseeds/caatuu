@@ -11,7 +11,7 @@
     "status": "native-review-required",
     "reviewer": null,
     "reviewedAt": null,
-    "notes": "Editorial content pass by Codex on 2026-09-07: all 250 Spanish sentence translations and English-token hints read; contextual hints corrected. Sentence translations retain the Spanish course source wording. See apps/languages/english-from-spanish/content/REVIEW.md. No independent human review is claimed."
+    "notes": "Editorial content pass by Codex on 2026-09-07: all 250 Spanish sentence translations and English-token hints read; contextual hints corrected. Sentence translations retain the Spanish course source wording. See apps/languages/english-from-spanish/content/REVIEW.md. No independent human review is claimed. Focused context-hint correction by Codex: fixed expressions, auxiliary/possessive have, and contextual pronouns; AI author review only. See docs/WORD_WORLD_CONTEXT_REVIEW.md. Native review remains outstanding."
   },
   "license": {
     "origin": "caatuu-first-party-authored",
@@ -786,7 +786,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 1,
           "surface": "have",
-          "text": "tener; haber"
+          "text": "tengo (posesión)"
         },
         {
           "targetLanguage": "en-US",
@@ -864,7 +864,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 3,
           "surface": "it",
-          "text": "ello; pronombre neutro"
+          "text": "sujeto impersonal de la hora; se omite en español"
         },
         {
           "targetLanguage": "en-US",
@@ -1302,7 +1302,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "has",
-          "text": "tiene; ha"
+          "text": "ha (auxiliar de haber)"
         },
         {
           "targetLanguage": "en-US",
@@ -1668,7 +1668,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 3,
           "surface": "it",
-          "text": "ello; pronombre neutro"
+          "text": "lo (lo dicho)"
         },
         {
           "targetLanguage": "en-US",
@@ -1764,7 +1764,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "have",
-          "text": "tener; haber"
+          "text": "tengo (una pregunta)"
         },
         {
           "targetLanguage": "en-US",
@@ -2502,7 +2502,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "it",
-          "text": "ello; pronombre neutro"
+          "text": "lo (lo que se explica)"
         },
         {
           "targetLanguage": "en-US",
@@ -3048,7 +3048,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 3,
           "surface": "it",
-          "text": "ello; pronombre neutro"
+          "text": "lo (el artículo que se prueba)"
         },
         {
           "targetLanguage": "en-US",
@@ -4152,7 +4152,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 1,
           "surface": "can",
-          "text": "poder"
+          "text": "sabe (habilidad)"
         },
         {
           "targetLanguage": "en-US",
@@ -4404,7 +4404,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 5,
           "surface": "have",
-          "text": "tener; haber"
+          "text": "han (auxiliar de haber)"
         },
         {
           "targetLanguage": "en-US",
@@ -6288,7 +6288,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 1,
           "surface": "have",
-          "text": "tener; haber"
+          "text": "tengo"
         },
         {
           "targetLanguage": "en-US",
@@ -6324,7 +6324,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "has",
-          "text": "tiene; ha"
+          "text": "tiene"
         },
         {
           "targetLanguage": "en-US",
@@ -6924,7 +6924,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "has",
-          "text": "tiene; ha"
+          "text": "ha (auxiliar de haber)"
         },
         {
           "targetLanguage": "en-US",
@@ -7026,7 +7026,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 6,
           "surface": "it",
-          "text": "ello; pronombre neutro"
+          "text": "la (la cosa buscada, en esta traducción)"
         }
       ]
     },
@@ -7332,7 +7332,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "has",
-          "text": "tiene; ha"
+          "text": "tiene"
         },
         {
           "targetLanguage": "en-US",
@@ -7386,7 +7386,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 5,
           "surface": "it",
-          "text": "ello; pronombre neutro"
+          "text": "el alquiler (sujeto omitido en español)"
         },
         {
           "targetLanguage": "en-US",
@@ -7428,7 +7428,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 1,
           "surface": "have",
-          "text": "tener; haber"
+          "text": "he (auxiliar de haber)"
         },
         {
           "targetLanguage": "en-US",
@@ -7794,7 +7794,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 3,
           "surface": "has",
-          "text": "tiene; ha"
+          "text": "ha (auxiliar de haber)"
         },
         {
           "targetLanguage": "en-US",
@@ -8550,7 +8550,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 1,
           "surface": "it",
-          "text": "ello; pronombre neutro"
+          "text": "la ubicación compartida"
         },
         {
           "targetLanguage": "en-US",
@@ -9156,7 +9156,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 5,
           "surface": "it",
-          "text": "ello; pronombre neutro"
+          "text": "se omite en esta traducción al español"
         },
         {
           "targetLanguage": "en-US",
@@ -9192,7 +9192,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 1,
           "surface": "have",
-          "text": "tener; haber"
+          "text": "auxiliar del presente perfecto inglés"
         },
         {
           "targetLanguage": "en-US",
@@ -9240,7 +9240,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 1,
           "surface": "have",
-          "text": "tener; haber"
+          "text": "he (auxiliar de haber)"
         },
         {
           "targetLanguage": "en-US",
@@ -9600,7 +9600,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "went",
-          "text": "fui; fue"
+          "text": "fue enviado (el paquete)"
         },
         {
           "targetLanguage": "en-US",
@@ -9798,7 +9798,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 10,
           "surface": "it",
-          "text": "ello; pronombre neutro"
+          "text": "la palabra (sujeto omitido en español)"
         },
         {
           "targetLanguage": "en-US",
@@ -9900,7 +9900,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 4,
           "surface": "it",
-          "text": "ello; pronombre neutro"
+          "text": "lo (lo escuchado)"
         },
         {
           "targetLanguage": "en-US",

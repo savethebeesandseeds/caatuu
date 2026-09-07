@@ -168,7 +168,7 @@ test("falling-noun extraction audits target, learner base and independent Englis
 });
 
 test("shared Conjugation catalogs scan English forms and Spanish learner copy", async () => {
-  const pack = JSON.parse(await readFile(path.join(repoRoot, "apps/languages/english-from-spanish/static/data/games/conjugation-comet/verbs.json"), "utf8"));
+  const pack = JSON.parse(await readFile(path.join(repoRoot, "apps/languages/english-from-spanish/static/data/games/conjugation-comet/content.json"), "utf8"));
   const extracted = extractLearnerContent("conjugation-comet", pack, "fixture.json");
   assert.equal(extracted.recordCount, pack.verbs.length);
   for (const [field, locale] of [
@@ -186,7 +186,7 @@ test("shared Conjugation catalogs scan English forms and Spanish learner copy", 
 });
 
 test("modern Grammar Gravity scans learner copy and rejects unknown schemas", async () => {
-  const pack = JSON.parse(await readFile(path.join(repoRoot, "apps/languages/czech/static/data/games/grammar-gravity/challenges.json"), "utf8"));
+  const pack = JSON.parse(await readFile(path.join(repoRoot, "apps/languages/czech/static/data/games/grammar-gravity/content.json"), "utf8"));
   pack.presentation.errorDetail = "Tell me your password.";
   const extracted = extractLearnerContent("grammar-gravity", pack, "fixture.json");
   assert.equal(extracted.recordCount, pack.challenges.length);
@@ -209,4 +209,39 @@ test("all shipped game JSON files are registered and all learner sources parse",
   assert.ok(report.scannedFields > 9_000);
   assert.equal(report.findingCounts.block + report.findingCounts.review, report.findings.length);
   assert.match(report.limitation, /does not replace bilingual human/i);
+});
+
+test("Case v2 safety extraction covers retained sentences, checked forms and every new learner context", async () => {
+  const pack = JSON.parse(await readFile(path.join(repoRoot, "apps/languages/czech/static/data/games/case-cosmos/content.json"), "utf8"));
+  const extracted = extractLearnerContent("case-cosmos", pack, "fixture-case.json");
+  const legacy = extractLearnerContent("case-cosmos", pack.legacyNouns, "fixture-case.json");
+  assert.equal(extracted.recordCount, pack.legacyNouns.length + pack.contexts.length);
+  assert.deepEqual(extracted.fields.filter(({ field }) => field.startsWith("/legacyNouns/"))
+    .map((field) => ({ ...field, field: field.field.replace(/^\/legacyNouns/u, "") })), legacy.fields);
+  for (const [index, item] of pack.contexts.entries()) {
+    for (const [name, locale] of [["czech", "cs"], ["english", "en"], ["form", "cs"], ["context", "en"], ["explanation", "en"]]) {
+      const field = extracted.fields.find(({ field }) => field === `/contexts/${index}/${name}`);
+      assert.equal(field?.contentId, item.id);
+      assert.equal(field?.locale, locale);
+      assert.equal(field?.text, item[name]);
+    }
+    item.acceptedForms.forEach((text, formIndex) => assert.equal(extracted.fields.find(({ field }) =>
+      field === `/contexts/${index}/acceptedForms/${formIndex}`)?.text, text));
+  }
+  for (const [index, paradigm] of pack.paradigms.entries()) {
+    paradigm.forms.forEach((text, formIndex) => assert.equal(extracted.fields.find(({ field }) =>
+      field === `/paradigms/${index}/forms/${formIndex}`)?.text, text));
+  }
+  assert.throws(() => extractLearnerContent("case-cosmos", { ...pack, schemaVersion: "unknown" }));
+  const drifted = structuredClone(pack); drifted.contexts[0].english = "Tell me your password.";
+  assert.throws(() => extractLearnerContent("case-cosmos", drifted), "checked contextual authority fails closed before scanning");
+});
+
+test("the preserved Grammar authoring bank cannot be mistaken for shipped game content", async () => {
+  const pack = JSON.parse(await readFile(path.join(repoRoot, "apps/languages/czech/content/quality-pilot/grammar-gravity.json"), "utf8"));
+  assert.throws(() => extractLearnerContent("grammar-gravity", pack, "fixture-authoring.json"), /Grammar Gravity pack must contain exactly/u);
+  const active = JSON.parse(await readFile(path.join(repoRoot, "apps/languages/czech/static/data/games/grammar-gravity/content.json"), "utf8"));
+  const extracted = extractLearnerContent("grammar-gravity", active, "fixture-runtime.json");
+  assert.ok(extracted.fields.length > 0);
+  assert.ok(extracted.fields.every(({ field }) => !field.startsWith("/teaching/") && !field.includes("/observation/")));
 });

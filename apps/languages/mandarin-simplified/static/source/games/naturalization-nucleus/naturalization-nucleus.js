@@ -1,7 +1,7 @@
 (function installNaturalizationNucleus(global) {
   "use strict";
 
-  const DEFAULT_DATA_URL = "data/games/naturalization-nucleus/challenges.json";
+  const DEFAULT_DATA_URL = "data/games/naturalization-nucleus/content.json";
   const EXPECTED_SCHEMA_URL = "https://caatuu.org/schemas/development/naturalization-nucleus.preview.v1.json";
   const STORAGE_KEY_SUFFIX = "naturalizationNucleus.pieceCount.v1";
   const SOLVED_HOLD_MILLIS = 420;
@@ -242,7 +242,7 @@
     const review = validateReview(value.review, value.status);
     assert(Array.isArray(value.challenges), "challenges must be an array.");
     const requiredCount = Math.max(...roundSettings.pieceCounts);
-    assert(value.challenges.length >= requiredCount && value.challenges.length <= 128, `challenges must contain ${requiredCount}-128 entries.`);
+    assert(value.challenges.length >= requiredCount, `challenges must contain at least ${requiredCount} entries.`);
     const challenges = value.challenges.map(validateChallenge);
     assert(new Set(challenges.map(({ id }) => id)).size === challenges.length, "challenge ids must be unique.");
     assert(new Set(challenges.map(({ hanzi }) => hanzi)).size === challenges.length, "challenge Hanzi must be unique.");

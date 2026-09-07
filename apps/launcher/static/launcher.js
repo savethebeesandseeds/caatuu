@@ -157,8 +157,11 @@
           target: interfaceContent.languageName(language)
         })}${preview ? `, ${t("common.preview")}` : ""}`
       );
-      const choice = document.createElement("span");
-      choice.className = "language-choice language-choice-static";
+      const choice = document.createElement("a");
+      choice.className = "language-choice";
+      const entryPath = String(courseRecord.entryPath || "");
+      if (entryPath.startsWith("/") && !entryPath.startsWith("//")) choice.href = entryPath;
+      choice.setAttribute("aria-label", `${t("launcher.start")}: ${item.getAttribute("aria-label")}`);
       const flag = document.createElement("img");
       flag.className = "flag-icon";
       flag.src = versionedLauncherAsset(language.flagSrc);
@@ -167,13 +170,20 @@
       const code = document.createElement("span");
       code.className = "language-choice-code";
       code.textContent = language.shortCode;
-      choice.append(flag, code);
+      const name = document.createElement("strong");
+      name.className = "language-choice-name";
+      name.textContent = interfaceContent.languageName(language);
+      choice.append(flag, name, code);
       if (preview) {
         const status = document.createElement("span");
         status.className = "language-choice-status";
         status.textContent = t("common.preview");
         choice.append(status);
       }
+      const start = document.createElement("span");
+      start.className = "language-choice-start";
+      start.textContent = t("launcher.start");
+      choice.append(start);
       item.append(choice);
       return item;
     }));
@@ -181,7 +191,7 @@
 
   async function renderLanguages(registry) {
     const request = ++interfaceRequest;
-    const { loadLauncherInterface, launcherLocales } = await import("/language-runtime/static/source/launcher-interface.mjs?v=launcher-interface-1");
+    const { loadLauncherInterface, launcherLocales } = await import("/language-runtime/static/source/launcher-interface.mjs?v=launcher-interface-2");
     const { course, content } = await loadLauncherInterface(registry, localePreferences());
     if (request !== interfaceRequest) return;
     interfaceContent = content;

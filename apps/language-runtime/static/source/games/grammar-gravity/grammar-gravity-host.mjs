@@ -2,13 +2,13 @@ import {
   buildGrammarGravityRounds,
   validateGrammarGravityCategories,
   normalizeGrammarGravityPack
-} from "./grammar-gravity-core.mjs?v=grammar-gravity-core-5";
+} from "./grammar-gravity-core.mjs?v=grammar-gravity-core-7";
 import {
   fetchDeclaredCourseGameJson,
   readEmbeddedCourseProfile
 } from "../course-game-content.mjs?v=course-game-content-1";
-import { mountNounLanding } from "./noun-landing-host.mjs?v=noun-landing-host-18";
-import { mountGrammarFlight } from "./adjective-flight-host.mjs?v=grammar-flight-15";
+import { mountNounLanding } from "./noun-landing-host.mjs?v=noun-landing-host-22";
+import { mountGrammarFlight } from "./adjective-flight-host.mjs?v=adjective-flight-host-18";
 import { mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-8";
 
 const GAME_ID = "grammar-gravity";

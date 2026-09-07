@@ -1,4 +1,5 @@
 import { initializeWorkspaceAfterDictionaryProvider } from "./dictionary-provider-loader.mjs";
+import { initializeHomeCourseSetup } from "./course-setup.mjs";
 import {
   installInterfaceContent,
   loadInterfaceContent
@@ -497,13 +498,13 @@ async function loadCourseFeatureProviders() {
   if (naturalizationNucleus) {
     await Promise.all([
       loadStyle("source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-18"),
-      loadScript("source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-18")
+      loadScript("source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-18-files-2")
     ]);
   }
   const courseRuntime = declaredBrowserProvider("courseRuntime");
   if (courseRuntime) await loadScript(courseRuntime);
   installSharedSpeechRuntime();
-  await loadSharedScript("/language-runtime/static/source/maintenance-ui.js?v=maintenance-23");
+  await loadSharedScript("/language-runtime/static/source/maintenance-ui.js?v=maintenance-24");
   for (const providerName of ["semanticLearningProvider", "setupProgressProvider", "setupProvider"]) {
     const providerModule = declaredBrowserProvider(providerName);
     if (providerModule) await loadScript(providerModule);
@@ -515,7 +516,7 @@ async function loadCourseFeatureProviders() {
     origin: location.origin,
     routeBase,
     async initializeWorkspace() {
-      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-24");
+      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-31");
       const workspace = await globalThis.CaatuuWorkspaceReady;
       if (workspace?.ready !== true) {
         throw workspace?.error instanceof Error
@@ -544,10 +545,13 @@ async function start() {
   installInterfaceContent(interfaceContent);
   interfaceContent.apply(document);
   setCourseIdentity();
-  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-160");
+  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-162");
+  // Keep the canonical Home and its language controls available while native
+  // setup verifies the selected course. Curriculum and game artwork wait for it.
+  await initializeHomeCourseSetup(globalThis);
   configureGameRoutes();
   applyCapabilityBoundaries();
-  await import("./word-world-host.mjs?v=word-world-host-20");
+  await import("./word-world-host.mjs?v=word-world-host-23");
   await loadCourseFeatureProviders();
   if (!declaredBrowserProvider("setupProvider")) {
     renderReadyCourseHome();
@@ -567,6 +571,7 @@ async function start() {
 }
 
 start().catch((error) => {
+  if (error?.name === "AbortError") return;
   document.documentElement.dataset.caatuuAppReady = "error";
   document.documentElement.dataset.caatuuShellReady = "error";
   settleShellReady(Object.freeze({ ready: false, error }));

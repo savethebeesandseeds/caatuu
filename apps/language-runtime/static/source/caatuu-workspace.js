@@ -7,6 +7,7 @@ let dictionaryPresentationRuntimePromise = null;
 let verbNebulaCore = null;
 let verbExerciseFamilyCore = null;
 let childFacingAssets = null;
+let verbImageSearchPromise = null;
 let deferredPwaInstallPrompt = null;
 let lastAppSettingsTrigger = null;
 let nativeUpdateStatus = null;
@@ -462,7 +463,7 @@ async function loadContentData() {
   const dictionaryEnabled = courseHasCapability("dictionary");
   if (!verbsEnabled && !dictionaryEnabled) return;
 
-  const verbCatalogPath = "data/games/verb-nebula/core-vocabulary.json";
+  const verbCatalogPath = "data/games/verb-nebula/content.json";
   let verbCatalogSource = null;
   if (verbsEnabled) {
     verbCatalogSource = await loadJsonBytes(verbCatalogPath);
@@ -535,7 +536,7 @@ async function loadContentData() {
 
   if (verbsEnabled) {
     [verbNebulaCore, verbExerciseFamilyCore, childFacingAssets] = await Promise.all([
-      import("/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-12"),
+      import("/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-14"),
       import("/language-runtime/static/source/games/verb-nebula/verb-exercise-family-core.mjs?v=verb-exercise-family-core-3"),
       import("/language-runtime/static/source/child-facing-assets.mjs?v=child-facing-assets-2")
     ]);
@@ -1884,11 +1885,33 @@ async function activateVerbGuidedOpportunity() {
 function parseStoredVerbMemory(key) {
   if (!key) return null;
   try {
+    if (typeof window.CaatuuLearning?.readGameState === "function") {
+      return window.CaatuuLearning.readGameState(key, {
+        maxSchemaVersion: key === verbStorageKey ? verbMemorySchemaVersion : 2,
+        validate(value) {
+          if (value?.schemaVersion !== (key === verbStorageKey ? verbMemorySchemaVersion : 2)) return false;
+          try {
+            verbExerciseFamilyCore.migrateVerbMemoryToV3(value);
+            return true;
+          } catch {
+            return false;
+          }
+        }
+      });
+    }
     return JSON.parse(localStorage.getItem(key) || "null");
   } catch (error) {
     console.warn(`Could not parse Verb Nebula memory at ${key}`, error);
     return null;
   }
+}
+
+function persistVerbMemory(value) {
+  if (typeof window.CaatuuLearning?.writeGameState === "function") {
+    return window.CaatuuLearning.writeGameState(verbStorageKey, value);
+  }
+  localStorage.setItem(verbStorageKey, JSON.stringify(value));
+  return true;
 }
 
 function readVerbMemoryEnvelope() {
@@ -1902,7 +1925,7 @@ function readVerbMemoryEnvelope() {
   if (legacy?.schemaVersion !== 2) return null;
   const migrated = verbExerciseFamilyCore.migrateVerbMemoryToV3(legacy);
   try {
-    localStorage.setItem(verbStorageKey, JSON.stringify(migrated));
+    persistVerbMemory(migrated);
   } catch (error) {
     console.warn("Verb memory migration could not be persisted; using the migrated state in memory.", error);
   }
@@ -1953,7 +1976,7 @@ function saveVerbMemory() {
       verbExerciseFamilyCore.VERB_EXERCISE_FAMILIES.MEANING,
       migratedMeaning
     );
-    localStorage.setItem(verbStorageKey, JSON.stringify(next));
+    persistVerbMemory(next);
   } catch (error) {
     console.warn("Could not save Verb Nebula memory", error);
   }
@@ -2966,30 +2989,30 @@ function isChildSafeVerbHintAsset(assetPath, action = "") {
   return Boolean(childFacingAssets?.isChildFacingMacawActionAssetAllowed(normalizedPath, action));
 }
 
-function vectorVerbHintCandidates(pair) {
-  const englishText = verbNebulaCore.verbHintSearchText(pair);
-  let vector;
-  try {
-    vector = runtimeAdapter().vector;
-  } catch (error) {
-    return Promise.resolve([]);
+function loadVerbImageSearch() {
+  if (!verbImageSearchPromise) {
+    verbImageSearchPromise = import("/language-runtime/static/source/english-image-search.mjs?v=english-image-search-3")
+      .then(({ createEnglishImageSearch }) => createEnglishImageSearch({ timeoutMs: verbHintLookupTimeoutMillis }))
+      .catch((error) => { verbImageSearchPromise = null; throw error; });
   }
-  if (typeof vector?.search !== "function") return Promise.resolve([]);
-  return vector.search(englishText, {
-    limit: 10,
-    sourceKinds: ["macaw_action_asset"]
-  }).then((response) => (Array.isArray(response?.results) ? response.results : [])
+  return verbImageSearchPromise;
+}
+
+async function vectorVerbHintCandidates(pair) {
+  const englishText = verbNebulaCore.verbHintSearchText(pair);
+  const search = await loadVerbImageSearch();
+  const response = await search(englishText, { sourceKind: "macaw_action_asset" });
+  // Keep the existing action-name fallback for outages. Incidental words in an
+  // image description are not a substitute for a successful semantic ranking.
+  if (response.mode !== "embedding") return [];
+  return (Array.isArray(response.rows) ? response.rows : [])
     .filter((row) => row?.sourceKind === "macaw_action_asset")
     .map((row) => ({
-      assetPath: normalizeVerbHintPath(
-        row.documentMetadata?.asset_path
-          || row.chunkMetadata?.asset_path
-          || row.sourceId
-      ),
-      alt: row.text || "Picture clue",
+      assetPath: normalizeVerbHintPath(row.path),
+      alt: row.description || "Picture clue",
       score: 100 + (Number.isFinite(Number(row.score)) ? Number(row.score) : 0)
     }))
-    .filter((row) => isChildSafeVerbHintAsset(row.assetPath)));
+    .filter((row) => isChildSafeVerbHintAsset(row.assetPath));
 }
 
 async function loadVerbHintKeymap() {
@@ -3084,18 +3107,28 @@ function cachedVerbHintCandidates(pair) {
   const exactAsset = verbHintExactAssets.get(key);
   if (exactAsset) return Promise.resolve([{ ...exactAsset, score: 1000 }]);
   if (!state.verbHintCache.has(key)) {
-    const lookup = Promise.all([
-      vectorVerbHintCandidates(pair).catch(() => []),
-      fallbackVerbHintCandidates(pair)
-    ]).then(([vectorCandidates, lexicalCandidates]) => mergeVerbHintCandidates(
-      vectorCandidates,
-      lexicalCandidates
-    )).catch(() => []);
-    const deadline = new Promise((resolve) => {
-      window.setTimeout(() => resolve([]), verbHintLookupTimeoutMillis);
+    // A round asks for several clues together. Serialize model use so the other
+    // verbs do not fall back merely because the first verb is being embedded.
+    const queued = (state.verbHintSearchQueue || Promise.resolve()).then(() => {
+      let fallback = [];
+      let timer;
+      const lookup = Promise.all([
+        vectorVerbHintCandidates(pair).catch(() => []),
+        fallbackVerbHintCandidates(pair).then((candidates) => { fallback = candidates; return candidates; })
+      ]).then((groups) => mergeVerbHintCandidates(...groups)).catch(() => fallback);
+      const deadline = new Promise((resolve) => {
+        timer = window.setTimeout(() => resolve(fallback), verbHintLookupTimeoutMillis);
+      });
+      const request = Promise.race([lookup, deadline]).finally(() => window.clearTimeout(timer));
+      return request;
     });
-    const request = Promise.race([lookup, deadline]);
-    state.verbHintCache.set(key, request);
+    state.verbHintSearchQueue = queued.catch(() => []);
+    state.verbHintCache.set(key, queued);
+    void queued.then((candidates) => {
+      // A temporary model outage must not cache a missing/lexical clue forever.
+      if (!candidates.some((candidate) => candidate.score >= 100)
+          && state.verbHintCache.get(key) === queued) state.verbHintCache.delete(key);
+    });
   }
   return state.verbHintCache.get(key);
 }
@@ -3263,10 +3296,17 @@ function clearVerbMemory({ confirmed = false } = {}) {
   }
 
   try {
-    localStorage.removeItem(verbStorageKey);
-    if (verbLegacyStorageKey) localStorage.removeItem(verbLegacyStorageKey);
+    for (const key of [verbStorageKey, verbLegacyStorageKey].filter(Boolean)) {
+      if (typeof window.CaatuuLearning?.removeGameState === "function") {
+        if (!window.CaatuuLearning.removeGameState(key)) throw new Error("Verb memory could not be cleared.");
+      } else {
+        localStorage.removeItem(key);
+      }
+    }
   } catch (error) {
     console.warn("Could not clear Verb Nebula memory", error);
+    setText("#maintenanceStatus", interfaceText("progress.restart.failed"));
+    return;
   }
   cancelVerbRoundTransition();
   state.verbMemoryLoaded = false;

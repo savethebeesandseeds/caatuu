@@ -383,7 +383,7 @@ test("public catalogs use narrow runtime projection schemas and omit unreviewed 
     ).then(JSON.parse),
     readFile(
       new URL(
-        "apps/languages/mandarin-simplified/static/data/games/word-world/starter-v1.realizations.json",
+        "apps/languages/mandarin-simplified/static/data/games/word-world/content.json",
         repositoryRoot
       ),
       "utf8"

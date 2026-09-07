@@ -18,7 +18,7 @@
     "status": "native-review-required",
     "reviewer": null,
     "reviewedAt": null,
-    "notes": "Machine-assisted development draft; qualified native Mandarin review is still required."
+    "notes": "Machine-assisted development draft; qualified native Mandarin review is still required. Contextual function-word hints corrected by Codex for location/progress, noun descriptions, expected actions and recipients; AI self-review only. See docs/WORD_WORLD_CONTEXT_REVIEW.md. Native and audio review remain outstanding."
   },
   "license": {
     "origin": "caatuu-first-party-authored",
@@ -4910,7 +4910,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "be located",
           "playable": true,
           "readingUnits": [
             {
@@ -6059,7 +6059,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "at (location)",
           "playable": true,
           "readingUnits": [
             {
@@ -6837,7 +6837,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "be located",
           "playable": true,
           "readingUnits": [
             {
@@ -6955,7 +6955,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "be located",
           "playable": true,
           "readingUnits": [
             {
@@ -7073,7 +7073,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "be located",
           "playable": true,
           "readingUnits": [
             {
@@ -7396,7 +7396,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "on (location)",
           "playable": true,
           "readingUnits": [
             {
@@ -8245,7 +8245,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "in (location)",
           "playable": true,
           "readingUnits": [
             {
@@ -8618,7 +8618,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "give; for",
+          "gloss": "to (recipient)",
           "playable": true,
           "readingUnits": [
             {
@@ -10057,7 +10057,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "give; for",
+          "gloss": "give",
           "playable": true,
           "readingUnits": [
             {
@@ -10333,7 +10333,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "be located",
           "playable": true,
           "readingUnits": [
             {
@@ -10801,7 +10801,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "be located",
           "playable": true,
           "readingUnits": [
             {
@@ -10928,7 +10928,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "be located",
           "playable": true,
           "readingUnits": [
             {
@@ -11015,7 +11015,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "at (location)",
           "playable": true,
           "readingUnits": [
             {
@@ -11571,7 +11571,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "be located",
           "playable": true,
           "readingUnits": [
             {
@@ -11689,7 +11689,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "at (location)",
           "playable": true,
           "readingUnits": [
             {
@@ -12821,7 +12821,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "be located",
           "playable": true,
           "readingUnits": [
             {
@@ -14064,7 +14064,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "possessive particle",
+          "gloss": "links the location description to trees",
           "playable": true,
           "readingUnits": [
             {
@@ -14313,7 +14313,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "in (location)",
           "playable": true,
           "readingUnits": [
             {
@@ -14431,7 +14431,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "possessive particle",
+          "gloss": "links today to the sea description",
           "playable": true,
           "readingUnits": [
             {
@@ -14615,7 +14615,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "be located",
           "playable": true,
           "readingUnits": [
             {
@@ -14724,7 +14724,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "give; for",
+          "gloss": "for (the phone being charged)",
           "playable": true,
           "readingUnits": [
             {
@@ -14982,7 +14982,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "give; for",
+          "gloss": "to (message recipient)",
           "playable": true,
           "readingUnits": [
             {
@@ -15721,7 +15721,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "give; for",
+          "gloss": "marks the person being called",
           "playable": true,
           "readingUnits": [
             {
@@ -16203,7 +16203,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "be located",
           "playable": true,
           "readingUnits": [
             {
@@ -16807,7 +16807,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "possessive particle",
+          "gloss": "forms the expression the red one",
           "playable": true,
           "readingUnits": [
             {
@@ -16894,7 +16894,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "can; know how to",
+          "gloss": "will (future arrival)",
           "playable": true,
           "readingUnits": [
             {
@@ -17341,7 +17341,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "be located",
           "playable": true,
           "readingUnits": [
             {
@@ -17659,7 +17659,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "in (location)",
           "playable": true,
           "readingUnits": [
             {
@@ -18508,7 +18508,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "possessive particle",
+          "gloss": "links today to vegetables",
           "playable": true,
           "readingUnits": [
             {
@@ -18888,7 +18888,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "give; for",
+          "gloss": "give",
           "playable": true,
           "readingUnits": [
             {
@@ -19645,7 +19645,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "at (location)",
           "playable": true,
           "readingUnits": [
             {
@@ -19899,7 +19899,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "in (location)",
           "playable": true,
           "readingUnits": [
             {
@@ -20026,7 +20026,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "ongoing action marker",
           "playable": true,
           "readingUnits": [
             {
@@ -20998,7 +20998,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "be located",
           "playable": true,
           "readingUnits": [
             {
@@ -21116,7 +21116,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "be located",
           "playable": true,
           "readingUnits": [
             {
@@ -21370,7 +21370,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "be located",
           "playable": true,
           "readingUnits": [
             {
@@ -21497,7 +21497,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "be located",
           "playable": true,
           "readingUnits": [
             {
@@ -21668,7 +21668,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "be located",
           "playable": true,
           "readingUnits": [
             {
@@ -21764,7 +21764,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "be located",
           "playable": true,
           "readingUnits": [
             {
@@ -21860,7 +21860,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "be located",
           "playable": true,
           "readingUnits": [
             {
@@ -21965,7 +21965,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "be located",
           "playable": true,
           "readingUnits": [
             {
@@ -22092,7 +22092,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "be located",
           "playable": true,
           "readingUnits": [
             {
@@ -23464,7 +23464,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "can; know how to",
+          "gloss": "will (after finishing)",
           "playable": true,
           "readingUnits": [
             {
@@ -24632,7 +24632,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "at (scheduled time)",
           "playable": true,
           "readingUnits": [
             {
@@ -24997,7 +24997,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "possessive particle",
+          "gloss": "links this month to the budget",
           "playable": true,
           "readingUnits": [
             {
@@ -25230,7 +25230,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "can; know how to",
+          "gloss": "will; habitually (usual practice)",
           "playable": true,
           "readingUnits": [
             {
@@ -25652,7 +25652,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "give; for",
+          "gloss": "to (recipient)",
           "playable": true,
           "readingUnits": [
             {
@@ -26523,7 +26523,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "possessive particle",
+          "gloss": "links the description clearer to chart",
           "playable": true,
           "readingUnits": [
             {
@@ -26663,7 +26663,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "be located",
           "playable": true,
           "readingUnits": [
             {
@@ -26926,7 +26926,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "marks the online setting",
           "playable": true,
           "readingUnits": [
             {
@@ -27050,7 +27050,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "possessive particle",
+          "gloss": "links by the window to seat",
           "playable": true,
           "readingUnits": [
             {
@@ -27177,7 +27177,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "at (location)",
           "playable": true,
           "readingUnits": [
             {
@@ -27648,7 +27648,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "possessive particle",
+          "gloss": "links the security description to password",
           "playable": true,
           "readingUnits": [
             {
@@ -28764,7 +28764,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "possessive particle",
+          "gloss": "links the reuse description to bag",
           "playable": true,
           "readingUnits": [
             {
@@ -29414,7 +29414,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "be at; in progress",
+          "gloss": "ongoing action marker",
           "playable": true,
           "readingUnits": [
             {
@@ -29731,7 +29731,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "can; know how to",
+          "gloss": "will (conditional result)",
           "playable": true,
           "readingUnits": [
             {
@@ -32144,7 +32144,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "possessive particle",
+          "gloss": "links wrong to address",
           "playable": true,
           "readingUnits": [
             {
@@ -32637,7 +32637,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "possessive particle",
+          "gloss": "links not recognized to word",
           "playable": true,
           "readingUnits": [
             {
@@ -33204,7 +33204,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "can; know how to",
+          "gloss": "will; habitually (usual practice)",
           "playable": true,
           "readingUnits": [
             {
@@ -33450,7 +33450,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "possessive particle",
+          "gloss": "links different to ways of life",
           "playable": true,
           "readingUnits": [
             {

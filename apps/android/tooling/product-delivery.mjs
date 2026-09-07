@@ -10,6 +10,28 @@ import {
 
 export const SETUP_PAYLOAD_MANIFEST = "caatuu-setup-payload.json";
 export const BOOTSTRAP_SMALL_ASSET_BYTES = 128 * 1024;
+export const HOME_BOOTSTRAP_ASSET_MAX_BYTES = 256 * 1024;
+// The familiar Home, its navigation, and language selection render before any
+// selected-course download. Keep these reviewed UI images with the application;
+// larger game artwork and curriculum still belong to setup delivery.
+export const HOME_BOOTSTRAP_ARTWORK = Object.freeze([
+  "language-runtime/static/assets/caatuu-shell-512.png",
+  "assets/icons/hello.png",
+  "assets/icons/home_icon.png",
+  "assets/icons/homebase_icon.png",
+  "assets/icons/social_icon.png",
+  "assets/icons/store_icon.png",
+  "assets/icons/games_icon.png",
+  "assets/icons/backpack_icon.png",
+  "assets/icons/items_icon.png",
+  "assets/icons/stats_icon.png",
+  "assets/icons/gear_icon.png",
+  "assets/icons/icon_gem.png",
+  "assets/icons/coin_icon_ui.png",
+  "assets/icons/streak_icon.png",
+  "assets/icons/light_mode_ui.png",
+  "assets/icons/dark_mode_ui.png",
+]);
 // Separate residency and content budgets; independently delivered model and
 // dictionary binaries are not duplicated in this companion payload.
 export const PRODUCT_BOOTSTRAP_MAX_BYTES = 8_000_000;
@@ -17,6 +39,26 @@ export const PRODUCT_SETUP_PAYLOAD_MAX_BYTES = 48_000_000;
 
 const hash = (bytes) => createHash("sha256").update(bytes).digest("hex");
 const jsonBytes = (value) => Buffer.from(`${JSON.stringify(value, null, 2)}\n`, "utf8");
+
+/** Course manifests own their flags, including both directions of each pair. */
+export function homeBootstrapAssets(files, courses) {
+  const required = new Set(HOME_BOOTSTRAP_ARTWORK);
+  for (const course of courses) {
+    for (const language of [course.sourceLanguage, course.targetLanguage]) {
+      assert.equal(typeof language?.flagSrc, "string", `Home language flag is missing for ${course.id}`);
+      assert.match(language.flagSrc, /^\/assets\//u, `Home language flag must use local shared assets: ${language.flagSrc}`);
+      const path = decodeURIComponent(language.flagSrc.split(/[?#]/u)[0].slice(1));
+      assertNormalizedRelativePath(path, "Home language flag");
+      required.add(path);
+    }
+  }
+  for (const path of required) {
+    assert.ok(files.has(path), `Home bootstrap artwork is missing: ${path}`);
+    assert.ok(files.get(path).length <= HOME_BOOTSTRAP_ASSET_MAX_BYTES,
+      `Home bootstrap artwork exceeds the reviewed ${HOME_BOOTSTRAP_ASSET_MAX_BYTES}-byte UI budget: ${path}`);
+  }
+  return required;
+}
 
 /** Native managers read these descriptors directly before setup can run. */
 export function nativeBootstrapCatalogAssets(files, courseCatalog) {
@@ -50,7 +92,11 @@ export function isSetupDeliveredAsset(path, bytes, { bootstrapAssets = new Set()
   assertNormalizedRelativePath(path, "Product delivery asset");
   assert.ok(Buffer.isBuffer(bytes), `Product delivery requires exact bytes: ${path}`);
   if (providerCatalogs.has(path)) return false;
-  if (bootstrapAssets.has(path) && bytes.length <= BOOTSTRAP_SMALL_ASSET_BYTES) return false;
+  if (bootstrapAssets.has(path)) {
+    assert.ok(bytes.length <= HOME_BOOTSTRAP_ASSET_MAX_BYTES,
+      `Home bootstrap artwork exceeds the reviewed ${HOME_BOOTSTRAP_ASSET_MAX_BYTES}-byte UI budget: ${path}`);
+    return false;
+  }
   if (path.startsWith("language-runtime/static/data/interface/")) return false;
   const courseData = /^courses\/[^/]+\/data\//u.test(path);
   if (courseData && /\/(?:manifest|catalog|models)\.json$/u.test(path)

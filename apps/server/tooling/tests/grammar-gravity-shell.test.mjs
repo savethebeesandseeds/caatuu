@@ -6,7 +6,7 @@ const staticRoot = new URL("../../../../apps/languages/czech/static/", import.me
 const [controller, legacyRedirect, pack, oldCzechRedirect, oldSharedRedirect, sharedPage, thermosphereCzechRedirect, thermosphereSharedRedirect] = await Promise.all([
   readFile(new URL("../../../../apps/language-runtime/static/source/games/grammar-gravity/grammar-gravity-host.mjs", import.meta.url), "utf8"),
   readFile(new URL("grammar-gravity.html", staticRoot), "utf8"),
-  readFile(new URL("data/games/grammar-gravity/challenges.json", staticRoot), "utf8").then(JSON.parse),
+  readFile(new URL("data/games/grammar-gravity/content.json", staticRoot), "utf8").then(JSON.parse),
   readFile(new URL("agreement-aurora.html", staticRoot), "utf8"),
   readFile(new URL("../../../../apps/language-runtime/static/games/agreement-aurora.html", import.meta.url), "utf8"),
   readFile(new URL("../../../../apps/language-runtime/static/games/grammar-gravity.html", import.meta.url), "utf8"),

@@ -1,5 +1,5 @@
-// This bootstrap deliberately has no course imports or downloadable artwork.
-// The selected course's native setup must finish before the learning app loads.
+// Setup uses packaged shell metadata only. Curriculum imports wait until the
+// selected course's native installation is verified, inside the canonical Home.
 export const setupMessages = Object.freeze({
   en: Object.freeze({
     choose: "Choose your course", description: "Download only the course you choose. Shared files are reused, and installed courses work offline.",
@@ -96,6 +96,321 @@ export function createNativeSetupClient(scope) {
       if (scope.CaatuuNative === receiver) scope.CaatuuNative = previous;
     },
   };
+}
+
+const PENDING_HOME_COURSE = "caatuu.setup.pending-course.v1";
+const SELECTED_HOME_COURSE = "caatuu.setup.selected-course.v1";
+
+function retryVerifiedSetupImages(scope) {
+  for (const image of scope.document.querySelectorAll("img[src]")) {
+    const source = image.getAttribute("src");
+    let url;
+    try { url = new URL(source, scope.location.href); } catch { continue; }
+    if (!source || !["http:", "https:"].includes(url.protocol) || url.origin !== scope.location.origin) continue;
+    let retried = false;
+    const retry = () => {
+      if (!retried && image.getAttribute("src") === source && image.complete && image.naturalWidth === 0) {
+        retried = true;
+        image.setAttribute("src", source);
+      }
+    };
+    if (image.complete) retry();
+    // A response rejected just before verification may still be in flight.
+    // Retry that failure once, only if this exact image request is unchanged.
+    else image.addEventListener("error", retry, { once: true });
+  }
+}
+
+/** Prepare native product content in the existing Home, before game imports. */
+export function initializeHomeCourseSetup(scope = globalThis) {
+  const native = scope.CaatuuAndroid;
+  // The full development shell and browser already own their setup providers.
+  if (typeof native?.postMessage !== "function" || typeof native.isCourseBundled !== "function") {
+    return Promise.resolve(false);
+  }
+  const { document, CaatuuCourse: course, CaatuuI18n: content } = scope;
+  const card = document.getElementById("nativeSetup");
+  const action = document.getElementById("setupAction");
+  const cancel = document.getElementById("setupAbort");
+  const selection = document.getElementById("setupLanguageSelection");
+  const form = document.getElementById("setupLanguageForm");
+  const sourceOptions = document.getElementById("setupSourceLanguageOptions");
+  const targetOptions = document.getElementById("setupTargetLanguageOptions");
+  const targetQuestion = document.getElementById("setupTargetLanguageQuestion");
+  const submit = document.getElementById("setupLanguageContinue");
+  if (!card || !action || !cancel || !selection || !form || !sourceOptions || !targetOptions || !targetQuestion || !submit) {
+    throw new Error("The canonical Home is missing its setup controls.");
+  }
+  const courses = availableSetupCourses(course.courseSelector).filter((item) => native.isCourseBundled(item.id));
+  if (!courses.some((item) => item.id === course.id
+    && [item.entryPath, item.routePrefix, `${item.routePrefix}/`].includes(scope.location.pathname))) {
+    throw new Error("Native Home setup requires the selected bundled course route.");
+  }
+  const t = (id, parameters = {}) => content.t(id, parameters);
+  const text = (id, value) => { const node = document.getElementById(id); if (node) node.textContent = value; };
+  const hide = (id, hidden) => { const node = document.getElementById(id); if (node) node.hidden = hidden; };
+  const client = createNativeSetupClient(scope);
+  const locale = course.sourceLanguage.locale;
+  let sourceId = "";
+  let selectedId = "";
+  let closed = false;
+  let installing = false;
+  let stopping = false;
+  let generation = 0;
+  let pollTimer;
+  let finish;
+  let fail;
+  const completion = new Promise((resolve, reject) => { finish = resolve; fail = reject; });
+  let selectedIntent = false;
+  try {
+    selectedIntent = scope.localStorage.getItem(SELECTED_HOME_COURSE) === course.id;
+  } catch { /* Storage is optional. */ }
+  try {
+    selectedIntent ||= scope.sessionStorage.getItem(PENDING_HOME_COURSE) === course.id;
+    scope.sessionStorage.removeItem(PENDING_HOME_COURSE);
+  } catch { /* A blocked preference store still allows manual course preparation. */ }
+  if (selectedIntent) {
+    sourceId = course.sourceLanguage.id;
+    selectedId = course.id;
+  }
+
+  const stopPolling = () => {
+    if (pollTimer) scope.clearTimeout(pollTimer);
+    pollTimer = null;
+  };
+  const setChoosing = (choosing) => {
+    selection.hidden = !choosing;
+    card.classList.toggle("is-choosing-language", choosing);
+    document.body.classList.toggle("choosing-setup-language", choosing);
+  };
+  const setBusy = (busy) => {
+    installing = busy;
+    card.setAttribute("aria-busy", String(busy));
+    action.hidden = busy;
+    action.disabled = busy;
+    cancel.hidden = false;
+    cancel.disabled = false;
+    cancel.textContent = t(busy ? "common.cancel" : "courseselector.heading");
+    cancel.onclick = busy ? stopDownload : showChoices;
+  };
+  const setProgress = (percent, bytes = "") => {
+    const value = Math.max(0, Math.min(99, Number(percent) || 0));
+    const progress = document.getElementById("setupProgress");
+    const bar = document.getElementById("setupProgressBar");
+    progress?.setAttribute("aria-valuenow", String(Math.floor(value)));
+    progress?.setAttribute("aria-valuetext", `${Math.floor(value)}%`);
+    if (bar) bar.style.width = `${value}%`;
+    text("setupPercent", `${Math.floor(value)}%`);
+    if (bytes) text("setupBytes", bytes);
+  };
+  const showPreparing = () => {
+    setChoosing(false);
+    card.classList.remove("is-ready", "is-error");
+    text("setupTitle", t("setup.preparing"));
+    text("setupPhase", t("setup.preparing"));
+    text("setupMessage", t("setup.offlinefiles"));
+    hide("setupProgress", false);
+    card.querySelector(".setup-progress-meta")?.removeAttribute("hidden");
+  };
+  const showRecovery = (error, retry = download, { cancelled = false } = {}) => {
+    if (closed) return;
+    stopPolling();
+    showPreparing();
+    setBusy(false);
+    card.classList.toggle("is-error", !cancelled);
+    text("setupPhase", t(cancelled ? "setup.prepare" : "common.unavailable"));
+    text("setupMessage", error?.message || String(error || t("common.unavailable")));
+    action.textContent = t("common.retry");
+    action.onclick = retry;
+  };
+  const languageChoice = (language, value, name, checked, choose) => {
+    const label = document.createElement("label");
+    label.className = "language-selector-option setup-language-choice";
+    label.classList.toggle("is-selected", checked);
+    const input = document.createElement("input");
+    input.type = "radio";
+    input.name = name;
+    input.value = value;
+    input.checked = checked;
+    input.className = "setup-language-radio";
+    input.addEventListener("change", choose);
+    const flag = document.createElement("img");
+    flag.className = `language-selector-option-flag caatuu-language-flag ${language.flagClass || ""}`;
+    flag.src = language.flagSrc || "";
+    flag.alt = "";
+    flag.width = 30;
+    flag.height = 20;
+    const copy = document.createElement("span");
+    copy.className = "language-selector-option-copy";
+    const title = document.createElement("strong");
+    title.lang = language.locale;
+    title.dir = language.direction || "auto";
+    title.textContent = language.nativeLabel || language.label;
+    copy.append(title);
+    const translated = content.languageName(language);
+    if (translated !== title.textContent) {
+      const subtitle = document.createElement("small");
+      subtitle.textContent = translated;
+      copy.append(subtitle);
+    }
+    label.append(input, flag, copy);
+    return label;
+  };
+  function showChoices() {
+    if (closed || installing) return;
+    stopPolling();
+    setChoosing(true);
+    card.classList.remove("is-ready", "is-error");
+    card.setAttribute("aria-busy", "false");
+    text("setupTitle", t("courseselector.heading"));
+    action.hidden = true;
+    cancel.hidden = true;
+    const sources = [...new Map(courses.map((item) => [item.sourceLanguage.id, item.sourceLanguage])).values()];
+    sourceOptions.replaceChildren(...sources.map((language) => languageChoice(
+      language, language.id, "setup-source-language", language.id === sourceId, () => {
+        sourceId = language.id;
+        selectedId = "";
+        showChoices();
+      },
+    )));
+    targetQuestion.disabled = !sourceId;
+    targetOptions.replaceChildren(...courses.filter((item) => item.sourceLanguage.id === sourceId).map((item) => languageChoice(
+      item.targetLanguage, item.id, "setup-target-language", item.id === selectedId, () => {
+        selectedId = item.id;
+        showChoices();
+      },
+    )));
+    submit.disabled = !selectedId;
+  }
+  const chooseCourse = (event) => {
+    event.preventDefault();
+    if (closed || installing) return;
+    const selected = courses.find((item) => item.id === selectedId && item.sourceLanguage.id === sourceId);
+    if (!selected) return;
+    try { scope.localStorage.setItem(SELECTED_HOME_COURSE, selected.id); } catch { /* Optional resume preference. */ }
+    if (selected.id === course.id) { void download(); return; }
+    try { scope.sessionStorage.setItem(PENDING_HOME_COURSE, selected.id); } catch { /* Optional handoff. */ }
+    scope.location.assign(selected.entryPath);
+  };
+  const previousBack = scope.CaatuuHandleAndroidBack;
+  const handleBack = () => {
+    if (!installing) return previousBack?.() || false;
+    void stopDownload();
+    return true;
+  };
+  const cleanup = () => {
+    if (closed) return;
+    closed = true;
+    stopPolling();
+    form.removeEventListener("submit", chooseCourse);
+    scope.removeEventListener("pagehide", handlePageHide);
+    if (scope.CaatuuHandleAndroidBack === handleBack) scope.CaatuuHandleAndroidBack = previousBack;
+    action.onclick = null;
+    cancel.onclick = null;
+    client.dispose();
+  };
+  const handlePageHide = () => {
+    cleanup();
+    const error = new Error("Course setup page closed.");
+    error.name = "AbortError";
+    fail(error);
+  };
+  const ready = () => {
+    showPreparing();
+    text("setupCount", t("setup.preparing"));
+    setProgress(99);
+    action.hidden = true;
+    cancel.hidden = true;
+    // File verification unlocks imports, not navigation. The canonical bootstrap
+    // still owns CaatuuShellReady and announces ready after the workspace loads.
+    retryVerifiedSetupImages(scope);
+    cleanup();
+    finish(true);
+  };
+  const followStatus = (result, { afterDownload = false } = {}) => {
+    if (closed) return;
+    stopPolling();
+    if (result.ready === true) { ready(); return; }
+    text("setupBytes", formatSetupBytes(missingSetupBytes(result), locale));
+    if (result.setupActive === true) {
+      showPreparing();
+      setBusy(true);
+      pollTimer = scope.setTimeout(() => { void refresh({ afterDownload: true }); }, 1500);
+    } else if (afterDownload) {
+      showRecovery(t("common.unavailable"));
+    } else {
+      setBusy(false);
+      showChoices();
+    }
+  };
+  async function refresh({ afterDownload = false } = {}) {
+    const current = generation;
+    try {
+      const result = await client.request("setup_status");
+      if (closed || current !== generation) return;
+      if (!result.ready && !result.setupActive && selectedIntent) {
+        selectedIntent = false;
+        await download();
+      } else followStatus(result, { afterDownload });
+    } catch (error) {
+      if (!closed && current === generation) showRecovery(error, () => refresh({ afterDownload }));
+    }
+  }
+  async function download() {
+    if (closed || installing || stopping) return;
+    const current = ++generation;
+    stopPolling();
+    showPreparing();
+    setBusy(true);
+    setProgress(0);
+    try {
+      const result = await client.request("setup_download", (event) => {
+        if (closed || current !== generation) return;
+        const count = Math.max(0, Number(event.artifactCount) || 0);
+        const index = Math.max(1, Number(event.artifactIndex) || 1);
+        const total = Math.max(0, Number(event.totalBytes) || 0);
+        const bytes = Math.max(0, Number(event.bytes) || 0);
+        const fraction = total ? Math.min(1, bytes / total) : 0;
+        if (count) text("setupCount", `${Math.min(index, count)} / ${count}`);
+        setProgress(count ? (index - 1 + fraction) / count * 100 : fraction * 100,
+          total ? `${formatSetupBytes(bytes, locale)} / ${formatSetupBytes(total, locale)}` : "");
+      });
+      if (closed || current !== generation) return;
+      if (result.ready === true) ready();
+      else await refresh({ afterDownload: true });
+    } catch (error) {
+      if (!closed && current === generation) showRecovery(error);
+    }
+  }
+  async function stopDownload() {
+    if (closed || !installing || stopping) return;
+    stopping = true;
+    generation++;
+    stopPolling();
+    cancel.disabled = true;
+    try {
+      const result = await client.request("setup_abort");
+      if (closed) return;
+      if (result.ready === true) { ready(); return; }
+      showRecovery(setupMessages[setupLocale(locale)].cancelled, download, { cancelled: true });
+    } catch (error) { if (!closed) showRecovery(error); }
+    finally { stopping = false; }
+  }
+
+  card.hidden = false;
+  showPreparing();
+  document.body.classList.add("setup-blocked");
+  action.hidden = true;
+  cancel.hidden = true;
+  for (const id of ["setupDetailsToggle", "setupDetails", "setupReportBug"]) hide(id, true);
+  text("setupPhase", t("setup.checking"));
+  text("setupCount", t("setup.checking"));
+  setProgress(0);
+  form.addEventListener("submit", chooseCourse);
+  scope.CaatuuHandleAndroidBack = handleBack;
+  scope.addEventListener("pagehide", handlePageHide);
+  void refresh();
+  return completion;
 }
 
 export async function initializeCourseSetup(scope = globalThis) {

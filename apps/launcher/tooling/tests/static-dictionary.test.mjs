@@ -15,7 +15,7 @@ import { selectDictionaryMeaning } from "../../../language-runtime/static/source
 const testDir = dirname(fileURLToPath(import.meta.url));
 const workspaceRoot = resolve(testDir, "../../../..");
 const rows = JSON.parse(readFileSync(
-  join(workspaceRoot, "apps/languages/czech/static/data/games/verb-nebula/core-vocabulary.json"),
+  join(workspaceRoot, "apps/languages/czech/static/data/games/verb-nebula/content.json"),
   "utf8"
 ));
 const supplement = JSON.parse(readFileSync(
@@ -61,7 +61,7 @@ test("static dictionary merges duplicate teaching rows without losing meanings o
 test("static dictionary preserves inflected Word World lookups without the full database", () => {
   assert.equal(supplement.schema_name, "caatuu-static-word-world-dictionary");
   assert.equal(supplement.schema_version, 1);
-  const corpus = JSON.parse(readFileSync(join(workspaceRoot, "apps/languages/czech/static/data/games/word-world/standard-v0.1/records.json"), "utf8"));
+  const corpus = JSON.parse(readFileSync(join(workspaceRoot, "apps/languages/czech/static/data/games/word-world/content.json"), "utf8"));
   const surfaces = new Set(corpus.records.flatMap((record) => [...record.cs.normalize("NFC").matchAll(/[\p{L}\p{M}]+(?:[-'][\p{L}\p{M}]+)?|\d+/gu)].map(([surface]) => surface)));
   assert.equal(supplement.surface_count, surfaces.size);
   assert.equal(supplement.resolved_surface_count, surfaces.size - supplement.unresolved_surfaces.length);

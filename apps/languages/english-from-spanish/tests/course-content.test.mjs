@@ -73,7 +73,7 @@ test('the Spanish-to-English course owns direction, identity, resources and isol
 });
 
 test('Verb Nebula deals and completes English-to-Spanish meaning rounds with English-only image queries', async () => {
-  const rows = await json('static/data/games/verb-nebula/core-vocabulary.json');
+  const rows = await json('static/data/games/verb-nebula/content.json');
   const pairs = validateVerbNebulaCatalog(rows, { learnerBaseLanguage: 'es-ES' });
   assert.equal(pairs.length, rows.length);
   for (const [index, pair] of pairs.entries()) {
@@ -96,7 +96,7 @@ test('Verb Nebula deals and completes English-to-Spanish meaning rounds with Eng
 });
 
 test('non-English Verb Nebula data fails closed for missing audit, ambiguous meanings, and malformed learner fields', async () => {
-  const rows = await json('static/data/games/verb-nebula/core-vocabulary.json');
+  const rows = await json('static/data/games/verb-nebula/content.json');
   const options = { learnerBaseLanguage: 'es-ES' };
   for (const badAudit of [undefined, {}, 42, '']) {
     const invalid = structuredClone(rows); invalid[0].englishAuditText = badAudit;
@@ -127,7 +127,7 @@ test('English adapter segments contractions, preserves spelling and speaks en-US
 });
 
 test('English present paradigms retain Spanish cues, explicit audit and solvable repeated forms', async () => {
-  const raw = await json('static/data/games/conjugation-comet/verbs.json');
+  const raw = await json('static/data/games/conjugation-comet/content.json');
   const catalog = validateConjugationCometCatalog(raw, {
     expectedCourseId: 'es-en', expectedTargetLanguageId: 'en', expectedLearnerBaseLanguageId: 'es', expectedTargetLocale: 'en-US'
   });
@@ -150,7 +150,7 @@ test('English present paradigms retain Spanish cues, explicit audit and solvable
 
 test('English grammar uses number and subject agreement with Spanish phrase presentation', async () => {
   const options = { courseId: 'es-en', learnerBaseLanguage: 'es-ES', targetLanguage: 'en-US' };
-  const raw = await json('static/data/games/grammar-gravity/challenges.json');
+  const raw = await json('static/data/games/grammar-gravity/content.json');
   const grammar = normalizeGrammarGravityPack(raw, options);
   assert.equal(grammar.challenges.length, 6);
   assert.equal(grammar.schemaVersion, 'caatuu-grammar-gravity-content-v3');
@@ -169,8 +169,9 @@ test('English grammar uses number and subject agreement with Spanish phrase pres
     }
   }
   assert.equal(buildGrammarGravityRounds(grammar, 3).length, 24);
-  const nouns = normalizeNounLandingPack(await json('static/data/games/grammar-gravity/nouns.json'), options);
-  assert.equal(nouns.items.length, 24);
+  const nounSource = await json('static/data/games/grammar-gravity/nouns.json');
+  const nouns = normalizeNounLandingPack(nounSource, options);
+  assert.equal(nouns.items.length, nounSource.items.length);
   assert.deepEqual(nouns.lanes.map((lane) => lane.id), ['singular', 'plural']);
   assert.equal(nouns.items.find((item) => item.targetText === 'children').laneId, 'plural');
   assert.equal(nouns.items.find((item) => item.targetText === 'person').learnerBaseText, 'persona');
@@ -179,17 +180,18 @@ test('English grammar uses number and subject agreement with Spanish phrase pres
 });
 
 test('Sounds uses Spanish meanings and exact English targets with finite source provenance', async () => {
-  const raw = await json('static/data/games/sound-quasar/challenges.json');
+  const raw = await json('static/data/games/sound-quasar/content.json');
   const sounds = validateSoundQuasarCatalog(raw, { courseId: 'es-en', targetLanguageId: 'en', learnerBaseLanguage: 'es-ES' });
   assert.equal(raw.learnerBaseLanguage, 'es-ES');
   assert.equal(raw.auditLanguage, 'en');
   assert.equal(sounds.audio.locale, 'en-US');
   assert.equal(sounds.audio.reviewStatus, 'unreviewed');
-  const vocabulary = await json('static/data/games/verb-nebula/core-vocabulary.json');
+  const vocabulary = await json('static/data/games/verb-nebula/content.json');
   const byId = new Map(vocabulary.map((item) => [item.id, item]));
-  assert.equal(sounds.items.length, 16);
-  assert.equal(sounds.sentences.length, 16);
+  assert.equal(sounds.items.length, raw.items.length);
+  assert.equal(sounds.sentences.length, raw.sentences.length);
   for (const item of sounds.items) {
+    if (item.sourceKind === 'authored-listening') continue;
     const source = byId.get(item.sourceId);
     assert.equal(item.target, source.target);
     assert.equal(item.meaning, source.source);
@@ -198,6 +200,9 @@ test('Sounds uses Spanish meanings and exact English targets with finite source 
   for (const item of [...sounds.items, ...sounds.sentences]) {
     assert.notEqual(item.meaning, item.englishAuditText);
     assert.equal(item.englishAuditText, item.target);
-    assert.equal(item.sourceReviewStatus, 'native-review-required');
+    if (item.sourceKind === 'authored-listening') {
+      assert.equal(item.sourceId, item.id);
+      assert.equal(item.sourceReviewStatus, sounds.authoredProvenance.reviewStatus);
+    } else assert.equal(item.sourceReviewStatus, 'native-review-required');
   }
 });

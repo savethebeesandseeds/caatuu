@@ -20,15 +20,15 @@ from those authorities and should not be edited independently.
 
 | Game | Reviewed JSON | Findings |
 | --- | --- | --- |
-| Verb Nebula | [core-vocabulary.json](../static/data/games/verb-nebula/core-vocabulary.json) | All 16 English verbs and Spanish meanings read. The meanings are suitable basic vocabulary; `be` correctly includes both `ser` and `estar`. All entries are difficulty 1. |
+| Verb Nebula | [content.json](../static/data/games/verb-nebula/content.json) | All 16 English verbs and Spanish meanings read. The meanings are suitable basic vocabulary; `be` correctly includes both `ser` and `estar`. All entries are difficulty 1. |
 | Word World | [English concepts](../../shared/english-concepts/word-world-starter-v1.json), [English targets](word-world/starter-v1.realizations.json), [Spanish sentences and token hints](../../shared/learner-base-realizations/es-ES/word-world-starter-v1.json) | All 250 sentence pairs and their token hints read. Spanish sentence translations are usable; several word hints needed contextual corrections. English target wording needed three American-English adjustments. |
-| Conjugation Comet | [verbs.json](../static/data/games/conjugation-comet/verbs.json) | All 8 verbs, 48 person/form pairs, Spanish cues and teaching notes read. Present-tense forms and cues are correct. Repeated English forms and singular/plural `you` are deliberate and handled by answer matching. Only present simple is covered. |
-| Grammar Gravity | [challenges.json](../static/data/games/grammar-gravity/challenges.json), [nouns.json](../static/data/games/grammar-gravity/nouns.json) | All 6 families, 24 phrase examples and 24 nouns read. Demonstratives, agreement, irregular plurals, translations and answer slots are consistent. The course correctly uses number rather than assigning gender to English nouns. |
-| Sounds Quasar | [challenges.json](../static/data/games/sound-quasar/challenges.json) | All 16 words and 16 sentences read and checked against their vocabulary/Word World source IDs. Translations and targets agree. Device speech itself was not audited on a phone. |
+| Conjugation Comet | [verbs.json](../static/data/games/conjugation-comet/content.json) | All 8 verbs, 48 person/form pairs, Spanish cues and teaching notes read. Present-tense forms and cues are correct. Repeated English forms and singular/plural `you` are deliberate and handled by answer matching. Only present simple is covered. |
+| Grammar Gravity | [challenges.json](../static/data/games/grammar-gravity/content.json), [nouns.json](../static/data/games/grammar-gravity/nouns.json) | All 6 families, 24 phrase examples and 24 nouns read. Demonstratives, agreement, irregular plurals, translations and answer slots are consistent. The course correctly uses number rather than assigning gender to English nouns. |
+| Sounds Quasar | [challenges.json](../static/data/games/sound-quasar/content.json) | All 16 words and 16 sentences read and checked against their vocabulary/Word World source IDs. Translations and targets agree. Device speech itself was not audited on a phone. |
 
 Word World's served files are [manifest.json](../static/data/games/word-world/manifest.json),
-[target projection](../static/data/games/word-world/starter-v1.realizations.json)
-and [Spanish projection](../static/data/games/word-world/starter-v1.es-base.json).
+[target projection](../static/data/games/word-world/content.json)
+and [Spanish projection](../static/data/games/word-world/learner-base.json).
 The manifest also declares the shared English concept projection.
 
 ## Corrections made

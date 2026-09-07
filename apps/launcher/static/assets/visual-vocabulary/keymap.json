@@ -3342,5 +3342,9 @@
       "chunk_id": "asset-miscellaneous-337:description"
     },
     "category": "lighting"
+  },
+  "/assets/miscellaneous/calendar-days.png": {
+    "description": "A freestanding wooden desk calendar with brass details, seven teal column headers and four rows of blank cream date tiles. A teal ring marks a date and a curved arrow points to the next tile. It can represent a calendar, days of the week, dates, tomorrow, the next day, planning or a schedule.",
+    "category": "time"
   }
 }

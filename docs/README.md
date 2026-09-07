@@ -15,6 +15,13 @@ and implementation details stay beside the relevant app or tool.
 | [Component release validators](COMPONENT_RELEASE_VALIDATORS.md) | Contract ownership, executable release checks, and explicit payload-closure gaps |
 | [Language application contract](LANGUAGE_APP_CONTRACT.md) | Rules separating the shared shell from language-owned behavior |
 | [Language games and Czech planet plan](GAMES.md) | Content authority, shared game backbone, and detailed plans for the missing Czech planets |
+| [Course content quality plan](COURSE_CONTENT_QUALITY_PLAN.md) | Scope, acceptance criteria and checkpoints for improving enabled course/game content to 85/100 |
+| [Current content execution plan](COURSE_CONTENT_EXECUTION_PLAN.md) | Content-only checkpoints, preserved gameplay and unchanged scoring gates |
+| [Retained content grading review](COURSE_CONTENT_RETAINED_REVIEW.md) | Item-level grading evidence, level counts and remaining review gaps |
+| [Word World contextual hint review](WORD_WORLD_CONTEXT_REVIEW.md) | Reviewed expression and grammar hints, preservation proof and delivery checks |
+| [Course content gameplay recovery](COURSE_CONTENT_GAMEPLAY_RECOVERY.md) | Selective repair, preserved content, recovery snapshot and verification evidence |
+| [Image retrieval and databases](IMAGE_RETRIEVAL_AND_DATABASES.md) | Shared artwork embeddings, course data ownership, generation and validation |
+| [Game content catalogs](GAME_CONTENT_CATALOGS.md) | Normalized runtime filenames, difficulty selection, inventory and recovery evidence |
 | [Game ownership decision](decisions/0001-game-source-delivery-and-language-ownership.md) | Separation of authored games, generated delivery, language adapters, and Android packaging |
 | [Product readiness](PRODUCT_READINESS.md) | Current release posture and the path to a governed beta |
 | [First Android release map](RELEASE_MAP.md) | Ordered product, content, packaging, legal, business, testing, and Play gates for `v0.1.0` |

@@ -494,6 +494,12 @@ export class FakeRegistry {
 export function createMemoryStorage(initial = {}) {
   const values = new Map(Object.entries(initial).map(([key, value]) => [String(key), String(value)]));
   return {
+    get length() {
+      return values.size;
+    },
+    key(index) {
+      return [...values.keys()][index] ?? null;
+    },
     getItem(key) {
       return values.has(String(key)) ? values.get(String(key)) : null;
     },

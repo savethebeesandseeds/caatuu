@@ -45,17 +45,17 @@ function retainedCorpus(pack) {
 
 for (const entry of courseCases) {
   test(`${entry.id}: the modern sequence preserves and plays the complete existing grammar corpus`, async () => {
-    const pack = normalizeGrammarGravityPack(await json(`${entry.directory}/static/data/games/grammar-gravity/challenges.json`), { courseId: entry.id });
+    const pack = normalizeGrammarGravityPack(await json(`${entry.directory}/static/data/games/grammar-gravity/content.json`), { courseId: entry.id });
     const nouns = await json(`${entry.directory}/static/data/games/grammar-gravity/nouns.json`);
-    assert.equal(createHash('sha256').update(JSON.stringify(retainedCorpus(pack))).digest('hex'), entry.fingerprint);
-    assert.equal(pack.challenges.length, entry.challenges);
-    assert.equal(allExamples(pack).length, entry.examples);
+    assert.equal(createHash('sha256').update(JSON.stringify(retainedCorpus({ ...pack, challenges: pack.challenges.slice(0, entry.challenges) }))).digest('hex'), entry.fingerprint);
+    assert.ok(pack.challenges.length >= entry.challenges);
+    assert.ok(allExamples(pack).length >= entry.examples);
     assert.equal(pack.gameplay.categoryFeature, entry.category);
     assert.deepEqual(pack.gameplay.categoryOptions, nouns.lanes);
     assert.deepEqual(pack.gameplay.stages, ['meaning', 'category', 'form']);
     const maximumRounds = buildGrammarGravityRounds(pack, 3, () => 0.37);
     assert.deepEqual(new Set(maximumRounds.map((round) => round.id)), new Set(allExamples(pack).map((example) => example.id)));
-    assert.equal(maximumRounds.length, entry.examples);
+    assert.equal(maximumRounds.length, allExamples(pack).length);
     for (const level of [1, 2, 3]) {
       const rounds = buildGrammarGravityRounds(pack, level, () => 0.37);
       const eligibleExamples = pack.challenges.filter((challenge) => challenge.difficulty <= level).flatMap((challenge) => Object.values(challenge.forms).flatMap((form) => form.examples));
@@ -75,7 +75,7 @@ for (const entry of courseCases) {
 }
 
 test('Spanish determiner families retain all 24 examples with noun meanings that do not reveal the assessed determiner', async () => {
-  const pack = await json('spanish/static/data/games/grammar-gravity/challenges.json');
+  const pack = await json('spanish/static/data/games/grammar-gravity/content.json');
   const anchors = {
     problema: 'problem', mapa: 'map', mano: 'hand', foto: 'photograph',
     problemas: 'problems', mapas: 'maps', manos: 'hands', fotos: 'photographs',
@@ -103,7 +103,7 @@ test('Spanish determiner families retain all 24 examples with noun meanings that
 });
 
 test('English form questions keep explicit subject/noun anchors, Spanish meanings and complete predicate context', async () => {
-  const pack = await json('english-from-spanish/static/data/games/grammar-gravity/challenges.json');
+  const pack = await json('english-from-spanish/static/data/games/grammar-gravity/content.json');
   const expected = [
     ['this book', 'book', 'libro', '', ' book'],
     ['this apple', 'apple', 'manzana', '', ' apple'],

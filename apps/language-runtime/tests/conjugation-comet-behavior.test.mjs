@@ -59,7 +59,7 @@ function seedGameMarkup(harness) {
 
 async function mountGame({ language = "czech", difficulty = 3, syntheticBase = false, framed = false, syncretic = false, speech = false, autoplay = false, muted = false, speechResult, duringLoad, reducedMotion = false, localStorageValues = {} } = {}) {
   const raw = JSON.parse(await readFile(new URL(
-    `../../languages/${language}/static/data/games/conjugation-comet/verbs.json`, import.meta.url
+    `../../languages/${language}/static/data/games/conjugation-comet/content.json`, import.meta.url
   ), "utf8"));
   const czech = language === "czech";
   const course = {
@@ -75,7 +75,7 @@ async function mountGame({ language = "czech", difficulty = 3, syntheticBase = f
     capabilities: { speech },
     gameContent: {
       "conjugation-comet": {
-        conjugationCometCatalog: "data/games/conjugation-comet/verbs.json?v=test-1"
+        conjugationCometCatalog: "data/games/conjugation-comet/content.json?v=test-1"
       }
     }
   };

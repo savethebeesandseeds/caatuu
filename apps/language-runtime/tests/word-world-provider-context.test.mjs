@@ -29,8 +29,8 @@ const [
   json("../../languages/mandarin-simplified/course.json"),
   json("../../languages/mandarin-simplified/static/data/games/word-world/manifest.json"),
   json("../static/data/english-concepts/word-world-starter-v1.json"),
-  json("../../languages/mandarin-simplified/static/data/games/word-world/starter-v1.realizations.json"),
-  json("../../languages/mandarin-simplified/static/data/games/word-world/starter-v1.reading-guides.json"),
+  json("../../languages/mandarin-simplified/static/data/games/word-world/content.json"),
+  json("../../languages/mandarin-simplified/static/data/games/word-world/reading-guides.json"),
   json("../../languages/czech/static/data/games/word-world/manifest.json")
 ]);
 
@@ -48,10 +48,10 @@ function authoredJsonLoader(url) {
   if (pathname === "/language-runtime/static/data/english-concepts/word-world-starter-v1.json") {
     return structuredClone(englishCatalog);
   }
-  if (pathname === "/zh/data/games/word-world/starter-v1.realizations.json") {
+  if (pathname === "/zh/data/games/word-world/content.json") {
     return structuredClone(realizationCatalog);
   }
-  if (pathname === "/zh/data/games/word-world/starter-v1.reading-guides.json") {
+  if (pathname === "/zh/data/games/word-world/reading-guides.json") {
     return structuredClone(readingGuideCatalog);
   }
   throw new Error(`Unexpected authored fixture URL: ${url}`);
@@ -218,7 +218,8 @@ test("authored preparation exposes the complete renderer-neutral provider seam",
   assert.equal(context.selectionProvider.usage.get(selected.record.id).count, 1);
 
   const scene = context.sceneForRecord(book);
-  assert.match(scene.src, /^\/assets\/miscellaneous\/burrow-review_\d{3}\.png$/u);
+  assert.equal(scene.query, book.sceneQuery);
+  assert.equal(scene.src, undefined, "The provider supplies English meaning, not a hash-selected picture");
   assert.equal(scene.alt, book.sceneQuery);
 
   const search = await context.searchEnglish("book");

@@ -27,7 +27,7 @@ const [profileSource, indexHtml, cometHtml, cometSource, serviceWorker, verbs, w
   readFile(new URL("conjugation-comet.html", sharedGameRoot), "utf8"),
   readFile(new URL("conjugation-comet/conjugation-comet-host.mjs", sharedGameSourceRoot), "utf8"),
   readFile(new URL("setup-assets.json", staticRoot), "utf8"),
-  readFile(new URL("data/games/conjugation-comet/verbs.json", staticRoot), "utf8").then(JSON.parse),
+  readFile(new URL("data/games/conjugation-comet/content.json", staticRoot), "utf8").then(JSON.parse),
   readFile(new URL("data/games/word-world/manifest.json", staticRoot), "utf8").then(JSON.parse)
 ]);
 
@@ -53,8 +53,8 @@ test("authored data is grouped by game or shared language ownership", async () =
   for (const path of retiredRootDataPaths) {
     await assert.rejects(stat(path), (error) => error?.code === "ENOENT");
   }
-  await stat(new URL("data/games/verb-nebula/core-vocabulary.json", staticRoot));
-  await stat(new URL("data/games/conjugation-comet/verbs.json", staticRoot));
+  await stat(new URL("data/games/verb-nebula/content.json", staticRoot));
+  await stat(new URL("data/games/conjugation-comet/content.json", staticRoot));
   await stat(new URL("data/games/word-world/manifest.json", staticRoot));
   await stat(new URL("data/language/scripts.json", staticRoot));
 });
@@ -65,7 +65,7 @@ test("curated game JSON is the learner-facing content boundary", () => {
   assert.equal(typeof wordManifest.corpusVersion, "string");
   assert.equal(
     course.gameContent["conjugation-comet"].conjugationCometCatalog,
-    "data/games/conjugation-comet/verbs.json?v=conjugation-comet-verbs-4"
+    "data/games/conjugation-comet/content.json?v=conjugation-comet-verbs-4"
   );
   assert.match(cometSource, /fetchDeclaredCourseGameJson/u);
   assert.match(serviceWorker, /\.\/data\/games\/conjugation-comet\/verbs\.json\?v=conjugation-comet-verbs-4/);

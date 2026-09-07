@@ -87,6 +87,15 @@ for (const [name, script] of [['server', source], ['Pages', projectPagesLauncher
       assert.equal(app.download.hidden, false);
       assert.equal(app.download.dataset.state, 'available');
       assert.equal(app.entry.href, registry.browserSetup.entryPath);
+      const { content } = await launcherInterface.loadLauncherInterface(registry, [locale]);
+      for (const [index, card] of app.list.children.entries()) {
+        const course = registry.browserSetup.courses[index];
+        const link = card.querySelector('a');
+        assert.equal(link.href, course.entryPath, 'course cards must open their declared course');
+        assert.equal(link.querySelector('.language-choice-name').textContent, content.languageName(course.targetLanguage));
+        assert.equal(link.querySelector('.language-choice-start').textContent, content.t('launcher.start'));
+        assert.equal(Boolean(link.querySelector('.language-choice-status')), course.status === 'development');
+      }
       assert.equal(app.document.querySelector('[data-browser-entry]'), app.entry);
       assert.equal(app.document.querySelector('[data-android-download]'), app.download);
     }

@@ -11,10 +11,10 @@ import {
 } from "../static/source/games/conjugation-comet/conjugation-comet-core.mjs";
 
 const rawCzech = JSON.parse(await readFile(new URL(
-  "../../languages/czech/static/data/games/conjugation-comet/verbs.json", import.meta.url
+  "../../languages/czech/static/data/games/conjugation-comet/content.json", import.meta.url
 ), "utf8"));
 const rawSpanish = JSON.parse(await readFile(new URL(
-  "../../languages/spanish/static/data/games/conjugation-comet/verbs.json", import.meta.url
+  "../../languages/spanish/static/data/games/conjugation-comet/content.json", import.meta.url
 ), "utf8"));
 const czechAuthority = {
   expectedCourseId: "cz", expectedTargetLanguageId: "cs",

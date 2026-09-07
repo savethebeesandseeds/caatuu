@@ -7,7 +7,8 @@ import { assertEnglishCzechCourse, NOUN_POLICY, CONTEXT_POLICY }
   from "../../languages/czech/static/source/games/case-cosmos/case-cosmos-cs-policy.mjs";
 
 const root = new URL("../../languages/czech/", import.meta.url);
-const pack = JSON.parse(await readFile(new URL("static/data/games/case-cosmos/challenges.json", root), "utf8"));
+const catalog = JSON.parse(await readFile(new URL("static/data/games/case-cosmos/content.json", root), "utf8"));
+const pack = catalog.legacyNouns;
 const change = (edit) => { const candidate = structuredClone(pack); edit(candidate); return candidate; };
 
 test("all 126 authored pairs satisfy the bounded noun, form, context, and English policy", () => {
@@ -137,12 +138,15 @@ test("data and policy versions are included in browser/offline and Android packa
     readFile(new URL("static/source/shared/course-profile.js", root), "utf8"),
     readFile(new URL("static/sw.js", root), "utf8")
   ]);
-  const dataUrl = `data/games/case-cosmos/challenges.json?v=${course.resources.caseCosmosCatalog.revision}`;
+  const dataUrl = `data/games/case-cosmos/content.json?v=${course.resources.caseCosmosCatalog.revision}`;
   assert.ok(controller.includes(`"${dataUrl}"`));
   assert.ok(profile.includes(`"${dataUrl}"`));
   assert.ok(setup.offline.assets.includes(`./${dataUrl}`));
   assert.ok(sw.includes(`Offline catalog revision: ${setup.offline.cacheName}`));
-  for (const [file, version] of [["case-cosmos-content.mjs", "case-cosmos-content-2"], ["case-cosmos-cs-policy.mjs", "case-cosmos-policy-1"]]) {
+  for (const file of ["case-cosmos-content.mjs", "case-cosmos-cs-policy.mjs"]) {
+    const importUrl = `${controller}\n${content}`.match(new RegExp(`${file.replaceAll(".", "\\.")}\\?v=([^\"]+)`, "u"));
+    assert.ok(importUrl, `${file} must have a versioned import`);
+    const version = importUrl[1];
     const relative = `source/games/case-cosmos/${file}`;
     assert.ok(android.files.includes(relative));
     assert.ok(setup.offline.assets.includes(`./${relative}?v=${version}`));

@@ -74,6 +74,9 @@ class BundledCourseRegistry private constructor(
 
     fun course(courseId: String): BundledCourse? = coursesById[courseId.trim()]
 
+    fun startUrlForCourse(courseId: String?): String =
+        "$APP_ORIGIN${(course(courseId.orEmpty()) ?: defaultCourse).entryPath}"
+
     fun courseForPath(path: String): BundledCourse? {
         val normalizedPath = normalizedRequestPath(path) ?: return null
         return coursesByRoute.values.firstOrNull { course ->

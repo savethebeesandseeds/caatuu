@@ -163,7 +163,7 @@ def entry_matches_surface(entry: dict, surface: str) -> bool:
 
 
 def build(output: Path) -> dict:
-    records_path = WORD_WORLD_ROOT / "standard-v0.1/records.json"
+    records_path = WORD_WORLD_ROOT / "content.json"
     word_world_manifest_path = WORD_WORLD_ROOT / "manifest.json"
     dictionary_manifest_path = DICTIONARY_ROOT / "manifest.json"
     database_path = DICTIONARY_ROOT / "caatuu-cs-en.sqlite"

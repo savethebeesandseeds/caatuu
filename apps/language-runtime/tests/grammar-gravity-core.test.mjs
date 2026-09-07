@@ -14,11 +14,11 @@ test("authored grammar banks retain every example while separating repeated word
     ["czech", "cz", "en", "cs-CZ"], ["spanish", "es", "en", "es-ES"],
     ["english-from-spanish", "es-en", "es-ES", "en-US"]
   ]) {
-    const raw = await json(new URL(`../../languages/${language}/static/data/games/grammar-gravity/challenges.json`, import.meta.url));
+    const raw = await json(new URL(`../../languages/${language}/static/data/games/grammar-gravity/content.json`, import.meta.url));
     const pack = normalizeGrammarGravityPack(raw, { courseId, learnerBaseLanguage, targetLanguage });
     for (const difficulty of [1, 2, 3]) {
       const expected = pack.challenges.filter((challenge) => challenge.difficulty <= difficulty)
-        .flatMap((challenge) => pack.axes.flatMap((axis) => challenge.forms[axis.id].examples.map(({ id }) => id))).sort();
+        .flatMap((challenge) => Object.values(challenge.forms).flatMap((form) => form.examples.map(({ id }) => id))).sort();
       let previous = "";
       for (const sample of [0, .5, .999]) {
         const rounds = buildGrammarGravityRounds(pack, difficulty, () => sample, previous);
@@ -77,7 +77,7 @@ async function mountSequence({ language = "spanish", nounReady = true, phraseFai
   let frameId = 0;
   let now = 0;
   let finishPhrase;
-  const content = await json(new URL(`../../languages/${language}/static/data/games/grammar-gravity/challenges.json`, import.meta.url));
+  const content = await json(new URL(`../../languages/${language}/static/data/games/grammar-gravity/content.json`, import.meta.url));
   const nounContent = await json(new URL(`../../languages/${language}/static/data/games/grammar-gravity/nouns.json`, import.meta.url));
   noun.snapshot = () => nounReady ? { lanes: nounContent.lanes } : null;
   if (distinctAudit && !Array.isArray(content)) {

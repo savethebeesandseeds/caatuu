@@ -160,7 +160,11 @@ export function normalizeNounLandingPack(value, options = {}) {
   const usedLanes = new Set();
   const items = value.items.map((item, index) => {
     const location = `items[${index}]`;
-    exactKeys(item, ["id", "revision", "targetText", "learnerBaseText", "english", "laneId"], location);
+    exactKeys(item, ["id", "revision", "targetText", "learnerBaseText", "english", "laneId",
+      ...(Object.hasOwn(item, "difficulty") ? ["difficulty"] : [])], location);
+    if (Object.hasOwn(item, "difficulty") && (!Number.isInteger(item.difficulty) || item.difficulty < 1 || item.difficulty > 3)) {
+      throw new Error(`${location}.difficulty must be 1, 2, or 3.`);
+    }
     const itemId = id(item.id, `${location}.id`);
     const targetText = text(item.targetText, `${location}.targetText`);
     const learnerBaseText = text(item.learnerBaseText, `${location}.learnerBaseText`);
@@ -178,7 +182,7 @@ export function normalizeNounLandingPack(value, options = {}) {
     usedLanes.add(laneId);
     return {
       id: itemId, revision: revision(item.revision, `${location}.revision`), targetText,
-      learnerBaseText, english, laneId
+      learnerBaseText, english, laneId, ...(item.difficulty === undefined ? {} : { difficulty: item.difficulty })
     };
   });
   for (const laneId of laneIds) {
@@ -206,20 +210,23 @@ function shuffled(items, random) {
 }
 
 export function createNounLandingSession(pack, { random = Math.random, limit, avoidFirstItemId = null,
-  durationMs = FALL_DURATION_MS } = {}) {
+  durationMs = FALL_DURATION_MS, difficulty = 3 } = {}) {
   const content = normalizeNounLandingPack(pack, {
     courseId: pack?.courseId,
     learnerBaseLanguage: pack?.learnerBaseLanguage,
     targetLanguage: pack?.targetLanguage
   });
   if (typeof random !== "function") throw new Error("random must be a function.");
+  if (!Number.isInteger(difficulty) || difficulty < 1 || difficulty > 3) throw new Error("difficulty must be 1, 2, or 3.");
   if (![0, 5000, 10000, 15000, 20000].includes(durationMs)) throw new Error("durationMs must be 0 (infinite), 5000, 10000, 15000, or 20000.");
   const requestedLimit = limit === undefined ? content.items.length : limit;
   if (!Number.isInteger(requestedLimit) || requestedLimit < 1) throw new Error("limit must be a positive integer.");
   if (avoidFirstItemId !== null && typeof avoidFirstItemId !== "string") {
     throw new Error("avoidFirstItemId must be an item ID string or null.");
   }
-  const candidates = shuffled(content.items, random);
+  const eligible = content.items.filter(item => item.difficulty === undefined || item.difficulty <= difficulty);
+  if (!eligible.length) throw new Error("Noun landing needs eligible content for this difficulty.");
+  const candidates = shuffled(eligible, random);
   if (candidates[0]?.id === avoidFirstItemId) {
     const nextIndex = candidates.findIndex((item) => item.id !== avoidFirstItemId);
     if (nextIndex > 0) [candidates[0], candidates[nextIndex]] = [candidates[nextIndex], candidates[0]];

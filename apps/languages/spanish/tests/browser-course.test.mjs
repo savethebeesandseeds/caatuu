@@ -20,6 +20,7 @@ import {
 import { importBrowserLanguageAdapter } from "../../../language-runtime/tests/browser-module-loader.mjs";
 import {
   generateCourseProfileObject,
+  generateCourseSelectorAssetMappings,
   loadAndValidateCourseCatalog
 } from "../../../../tools/language-packs/lib/course-contract.mjs";
 import {
@@ -143,20 +144,20 @@ test("the generated compatibility profile is exactly the catalog projection", as
     JSON.parse(JSON.stringify(context.window.CaatuuCourse.gameContent)),
     {
       "verb-lab": {
-        verbNebulaCatalog: "data/games/verb-nebula/core-vocabulary.json"
+        verbNebulaCatalog: "data/games/verb-nebula/content.json"
       },
       "word-net": {
-        wordWorldManifest: "data/games/word-world/manifest.json"
+        wordWorldManifest: `data/games/word-world/manifest.json?v=${course.resources.wordWorldManifest.revision}`
       },
       "conjugation-comet": {
-        conjugationCometCatalog: "data/games/conjugation-comet/verbs.json?v=conjugation-comet-content-1"
+        conjugationCometCatalog: "data/games/conjugation-comet/content.json?v=conjugation-comet-content-1"
       },
       "grammar-gravity": {
-        grammarGravityCatalog: "data/games/grammar-gravity/challenges.json?v=grammar-gravity-content-3",
+        grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-3",
         grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-3"
       },
       "sound-quasar": {
-        soundQuasarCatalog: "data/games/sound-quasar/challenges.json?v=sound-quasar-items-v2"
+        soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-items-v2"
       }
     }
   );
@@ -254,7 +255,7 @@ test("Word World and embeddings keep English as the sole retrieval authority", a
 test("the projected Spanish realization catalog remains a faithful narrow view", async () => {
   const [source, projection, manifest] = await Promise.all([
     json("content/word-world/starter-v1.realizations.json"),
-    json("static/data/games/word-world/starter-v1.realizations.json"),
+    json("static/data/games/word-world/content.json"),
     json("static/data/games/word-world/manifest.json")
   ]);
   assert.equal(projection.$schema, TARGET_REALIZATION_RUNTIME_SCHEMA);
@@ -270,7 +271,7 @@ test("the projected Spanish realization catalog remains a faithful narrow view",
 });
 
 test("Verb Nebula has course-owned Spanish text and explicit English audit text", async () => {
-  const records = await json("static/data/games/verb-nebula/core-vocabulary.json");
+  const records = await json("static/data/games/verb-nebula/content.json");
   assert.ok(Array.isArray(records) && records.length > 0);
   assert.equal(new Set(records.map(({ id }) => id)).size, records.length);
   for (const record of records) {
@@ -301,11 +302,11 @@ test("setup and the service worker declare one complete Spanish offline closure"
     "source/shared/course-profile.js",
     "source/language/adapter.mjs",
     "data/embeddings/catalog.json",
-    "data/games/verb-nebula/core-vocabulary.json",
+    "data/games/verb-nebula/content.json",
     "data/games/word-world/manifest.json",
-    "data/games/word-world/starter-v1.realizations.json",
-    "data/games/conjugation-comet/verbs.json?v=conjugation-comet-content-1",
-    "data/games/grammar-gravity/challenges.json?v=grammar-gravity-content-3",
+    "data/games/word-world/content.json",
+    "data/games/conjugation-comet/content.json?v=conjugation-comet-content-1",
+    "data/games/grammar-gravity/content.json?v=grammar-gravity-content-3",
     "/language-runtime/static/games/conjugation-comet.html",
     "/language-runtime/static/games/grammar-gravity.html",
     "/language-runtime/static/source/games/course-game-content.mjs?v=course-game-content-1",
@@ -333,8 +334,11 @@ test("setup and the service worker declare one complete Spanish offline closure"
   ]) assert.ok(offlinePaths.has(asset.split("?")[0]), `Spanish offline closure is missing ${asset}`);
   assert.doesNotMatch(JSON.stringify(setup), /(?:word-world\.html|authored-word-world-provider|course-shell\.css)/u);
   assert.equal(new Set(setup.artifacts.map(({ key }) => key)).size, setup.artifacts.length);
+  const catalog = await loadAndValidateCourseCatalog({ repoRoot });
+  const selectorAssets = new Map(generateCourseSelectorAssetMappings(catalog.courses).map(row => [row.url, row.source]));
   for (const artifact of setup.artifacts) {
-    const sourcePath = resolveServedUrl(artifact.url);
+    const declared = selectorAssets.get(artifact.url.split("?")[0]);
+    const sourcePath = declared ? path.join(repoRoot, declared) : resolveServedUrl(artifact.url);
     const bytes = await readFile(sourcePath);
     assert.equal(artifact.bytes, bytes.length, `${artifact.key} byte count drifted`);
     assert.equal(artifact.sha256, sha256(bytes), `${artifact.key} digest drifted`);

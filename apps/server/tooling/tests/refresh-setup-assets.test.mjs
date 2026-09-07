@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
@@ -7,7 +8,8 @@ import test from "node:test";
 import {
   inspectSetupAssetManifest,
   refreshAllBrowserCourseSetupAssets,
-  refreshSetupAssetManifest
+  refreshSetupAssetManifest,
+  sourcePathForArtifact
 } from "../refresh-setup-assets.mjs";
 
 async function fixture({
@@ -114,6 +116,38 @@ async function fixture({
     }
   };
 }
+
+test("setup integrity uses the packaged asset mapping when a public image has a new source", async (t) => {
+  const paths = await fixture();
+  t.after(() => rm(paths.workspaceRoot, { recursive: true, force: true }));
+  const source = "apps/language-runtime/static/app/example.png";
+  const packagedBytes = "updated-packaged-image";
+  await writeFile(join(paths.workspaceRoot, source), packagedBytes);
+  const catalogPath = join(paths.sharedRuntimeDir, "app-assets.json");
+  const catalog = JSON.parse(await readFile(catalogPath, "utf8"));
+  catalog.assets.push({ source, output: "assets/images/example.png" });
+  await writeFile(catalogPath, JSON.stringify(catalog));
+  const manifest = JSON.parse(await readFile(paths.manifestPath, "utf8"));
+  manifest.offline.assets.push("/assets/images/example.png");
+  await writeFile(paths.manifestPath, JSON.stringify(manifest));
+
+  refreshSetupAssetManifest(paths);
+  const refreshed = JSON.parse(await readFile(paths.manifestPath, "utf8"));
+  const image = refreshed.artifacts.find(({ key }) => key === "shared");
+  assert.equal(image.bytes, Buffer.byteLength(packagedBytes));
+  assert.equal(image.sha256, createHash("sha256").update(packagedBytes).digest("hex"));
+  assert.equal(inspectSetupAssetManifest(paths).changes.length, 0);
+});
+
+test("mapped setup assets reject ambiguous outputs and sources outside the workspace", () => {
+  const options = {
+    workspaceRoot: "/workspace", artifact: { key: "image", url: "/assets/image.png" },
+    appAssetCatalog: { assets: [{ source: "../outside.png", output: "assets/image.png" }] }
+  };
+  assert.throws(() => sourcePathForArtifact(options), /escapes/u);
+  options.appAssetCatalog.assets.push({ source: "inside.png", output: "assets/image.png" });
+  assert.throws(() => sourcePathForArtifact(options), /ambiguous/u);
+});
 
 async function dictionaryFixture() {
   const paths = await fixture();
@@ -708,7 +742,7 @@ test("every enabled game precaches its exact revisioned course content", async (
   const paths = await fixture();
   t.after(() => rm(paths.workspaceRoot, { recursive: true, force: true }));
 
-  const relativeCatalog = "data/games/conjugation-comet/verbs.json";
+  const relativeCatalog = "data/games/conjugation-comet/content.json";
   const catalogFile = join(paths.languageStaticDir, relativeCatalog);
   await mkdir(dirname(catalogFile), { recursive: true });
   await writeFile(catalogFile, JSON.stringify({ schemaVersion: 1, verbs: [] }));
@@ -724,7 +758,7 @@ test("every enabled game precaches its exact revisioned course content", async (
 
   assert.throws(
     () => inspectSetupAssetManifest(paths),
-    /omit the exact conjugation-comet\.conjugationCometCatalog URL .*verbs\.json\?v=verbs-1/u
+    /omit the exact conjugation-comet\.conjugationCometCatalog URL .*content\.json\?v=verbs-1/u
   );
 
   const setup = JSON.parse(await readFile(paths.manifestPath, "utf8"));
@@ -732,7 +766,7 @@ test("every enabled game precaches its exact revisioned course content", async (
   await writeFile(paths.manifestPath, JSON.stringify(setup));
   assert.throws(
     () => inspectSetupAssetManifest(paths),
-    /verbs\.json\?v=verbs-1/u
+    /content\.json\?v=verbs-1/u
   );
 
   setup.offline.assets[setup.offline.assets.length - 1] = `${relativeCatalog}?v=verbs-1`;

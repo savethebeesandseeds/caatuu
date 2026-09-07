@@ -1,7 +1,14 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import test from "node:test";
-import { isSetupDeliveredAsset, nativeBootstrapCatalogAssets, planProductDelivery } from "../product-delivery.mjs";
+import {
+  HOME_BOOTSTRAP_ARTWORK,
+  HOME_BOOTSTRAP_ASSET_MAX_BYTES,
+  homeBootstrapAssets,
+  isSetupDeliveredAsset,
+  nativeBootstrapCatalogAssets,
+  planProductDelivery,
+} from "../product-delivery.mjs";
 
 const buffer = (value) => Buffer.from(typeof value === "string" ? value : JSON.stringify(value));
 const digest = (bytes) => createHash("sha256").update(bytes).digest("hex");
@@ -40,7 +47,32 @@ test("bootstrap keeps engine, provider descriptors and small interface UI, while
     "language-runtime/static/data/english-concepts/words.json"]) {
     assert.equal(isSetupDeliveredAsset(path, buffer("content"), options), true, path);
   }
-  assert.equal(isSetupDeliveredAsset("assets/icons/course.png", Buffer.alloc(200_000), options), true);
+  assert.equal(isSetupDeliveredAsset("assets/icons/course.png", Buffer.alloc(200_000), options), false);
+  assert.throws(() => isSetupDeliveredAsset("assets/icons/course.png", Buffer.alloc(HOME_BOOTSTRAP_ASSET_MAX_BYTES + 1), options),
+    /Home bootstrap artwork exceeds the reviewed/u);
+});
+
+test("Home requires its artwork and every declared course flag before selected-course setup", () => {
+  const input = fixture();
+  for (const path of HOME_BOOTSTRAP_ARTWORK) input.files.set(path, buffer("reviewed UI artwork"));
+  const flag = "assets/icons/new-language.png";
+  input.files.set(flag, buffer("course-owned flag"));
+  const courses = [{ id: "alpha", sourceLanguage: { flagSrc: `/${flag}?v=1` }, targetLanguage: { flagSrc: `/${flag}` } }];
+  const bootstrapAssets = homeBootstrapAssets(input.files, courses);
+  assert.equal(bootstrapAssets.size, HOME_BOOTSTRAP_ARTWORK.length + 1, "Repeated language flags share one bundled file");
+  const delivery = planProductDelivery({ ...input, bootstrapAssets });
+  for (const path of bootstrapAssets) {
+    assert.ok(delivery.bundledFiles.get(path).equals(input.files.get(path)), path);
+    assert.ok(!delivery.setupPayload.artifacts.some(({ assetPath }) => assetPath === path), path);
+  }
+  assert.ok(delivery.setupPayload.artifacts.some(({ assetPath }) => assetPath === "assets/planets/shared.png"));
+  assert.ok(delivery.setupPayload.artifacts.some(({ assetPath }) => assetPath === "courses/alpha/data/games/words.json"));
+  input.files.delete(flag);
+  assert.throws(() => homeBootstrapAssets(input.files, courses), /Home bootstrap artwork is missing/u);
+  input.files.set(flag, Buffer.alloc(HOME_BOOTSTRAP_ASSET_MAX_BYTES + 1));
+  assert.throws(() => homeBootstrapAssets(input.files, courses), /Home bootstrap artwork exceeds the reviewed/u);
+  courses[0].sourceLanguage.flagSrc = "/assets/../secret.png";
+  assert.throws(() => homeBootstrapAssets(input.files, courses), /normalized/u);
 });
 
 test("course selection installs only its own content and shared art has one physical object", () => {

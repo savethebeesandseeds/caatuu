@@ -11,8 +11,8 @@ export const MANDARIN_SIMPLIFIED_WORD_WORLD_PATHS = Object.freeze({
   conceptsSource: "apps/languages/shared/english-concepts/word-world-starter-v1.json",
   realizationsSource: "apps/languages/mandarin-simplified/content/word-world/starter-v1.realizations.json",
   conceptsRuntime: "apps/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
-  realizationsRuntime: "apps/languages/mandarin-simplified/static/data/games/word-world/starter-v1.realizations.json",
-  readingGuidesRuntime: "apps/languages/mandarin-simplified/static/data/games/word-world/starter-v1.reading-guides.json",
+  realizationsRuntime: "apps/languages/mandarin-simplified/static/data/games/word-world/content.json",
+  readingGuidesRuntime: "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
   manifest: "apps/languages/mandarin-simplified/static/data/games/word-world/manifest.json"
 });
 

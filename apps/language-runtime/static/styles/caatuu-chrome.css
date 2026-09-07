@@ -3375,6 +3375,20 @@ body.settings-open {
   line-height: 1.4;
 }
 
+.about-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.about-card-head .maintenance-row-control {
+  width: auto;
+  max-width: 60%;
+  flex: 0 0 auto;
+  white-space: normal;
+}
+
 .about-brand-note {
   color: var(--muted);
   font-size: 0.86rem;
@@ -3454,6 +3468,7 @@ body.settings-open {
 }
 
 .browser-refresh-action,
+.maintenance-row-control,
 .maintenance-install-actions .pwa-install-action,
 .settings-raised-action {
   min-height: 34px;
@@ -3470,6 +3485,7 @@ body.settings-open {
 }
 
 .browser-refresh-action:not(:disabled):hover,
+.maintenance-row-control:not(:disabled):hover,
 .maintenance-install-actions .pwa-install-action:not(:disabled):hover,
 .settings-raised-action:not(:disabled):hover {
   border-color: color-mix(in srgb, var(--theme-green-filled, var(--green, #376a5a)) 62%, #17251f);

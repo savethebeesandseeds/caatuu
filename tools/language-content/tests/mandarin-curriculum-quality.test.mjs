@@ -6,17 +6,17 @@ import { buildWordWorldRuntimeProjections } from "../project-word-world-runtime.
 
 const repositoryRoot = new URL("../../../", import.meta.url);
 const paths = Object.freeze({
-  verbs: "apps/languages/mandarin-simplified/static/data/games/verb-nebula/core-vocabulary.json",
+  verbs: "apps/languages/mandarin-simplified/static/data/games/verb-nebula/content.json",
   concepts: "apps/languages/shared/english-concepts/word-world-starter-v1.json",
   realizations: "apps/languages/mandarin-simplified/content/word-world/starter-v1.realizations.json",
   publicConcepts: "apps/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
   publicRealizations:
-    "apps/languages/mandarin-simplified/static/data/games/word-world/starter-v1.realizations.json",
+    "apps/languages/mandarin-simplified/static/data/games/word-world/content.json",
   readingGuides:
-    "apps/languages/mandarin-simplified/static/data/games/word-world/starter-v1.reading-guides.json",
+    "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
   manifest: "apps/languages/mandarin-simplified/static/data/games/word-world/manifest.json",
   nucleus:
-    "apps/languages/mandarin-simplified/static/data/games/naturalization-nucleus/challenges.json"
+    "apps/languages/mandarin-simplified/static/data/games/naturalization-nucleus/content.json"
 });
 
 const [
@@ -594,7 +594,7 @@ test("Word World public catalogs and preview guide are exact projections of auth
   assert.deepEqual(manifest, projected.runtimeManifest, "Word World manifest record count drifted");
 
   assert.equal(manifest.recordCount, 250);
-  assert.equal(manifest.targetTextGuide?.file, "starter-v1.reading-guides.json");
+  assert.equal(manifest.targetTextGuide?.file, "reading-guides.json");
   assert.equal(manifest.targetTextGuide?.system, "pinyin");
   assert.equal(manifest.targetTextGuide?.status, "machine-assisted-preview");
   assert.equal(manifest.review?.status, "native-review-required");

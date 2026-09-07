@@ -79,6 +79,11 @@ test("startup and resume checks are quiet and show a separate Home action only f
   homeRow.setAttribute("data-app-update-container", "");
   const home = h.document.createElement("button");
   home.setAttribute("data-app-update-control", "");
+  const icon = h.document.createElement("svg");
+  icon.setAttribute("aria-hidden", "true");
+  const label = h.document.createElement("span");
+  label.setAttribute("data-app-update-label", "");
+  home.append(icon, label);
   homeRow.append(home);
   h.document.body.append(homeRow);
   h.document.dispatchEvent({ type: "DOMContentLoaded" });
@@ -94,6 +99,8 @@ test("startup and resume checks are quiet and show a separate Home action only f
   await flush();
   assert.equal(homeRow.hidden, false);
   assert.equal(home.hidden, false);
+  assert.equal(home.querySelector("svg"), icon, "status updates preserve the Home update icon");
+  assert.ok(label.textContent.length > 0);
   assert.equal(h.document.getElementById("updateApp").hidden, false);
   assert.equal(h.document.getElementById("maintenanceStatus").textContent, "");
   assert.deepEqual(h.requests.map(({ type }) => type), ["update_app_status", "update_app_status"], "background checks never start an APK download");

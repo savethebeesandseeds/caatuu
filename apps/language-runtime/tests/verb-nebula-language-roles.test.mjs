@@ -9,7 +9,7 @@ import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 const workspace = await readFile(new URL("../static/source/caatuu-workspace.js", import.meta.url), "utf8");
 const json = async (relative) => JSON.parse(await readFile(new URL(relative, import.meta.url), "utf8"));
 const course = await json("../../languages/english-from-spanish/course.json");
-const rows = await json("../../languages/english-from-spanish/static/data/games/verb-nebula/core-vocabulary.json");
+const rows = await json("../../languages/english-from-spanish/static/data/games/verb-nebula/content.json");
 const i18n = createInterfaceContent(await json("../static/data/interface/es.v1.json"));
 const pairs = verbNebulaCore.validateVerbNebulaCatalog(rows, { learnerBaseLanguage: course.sourceLanguage.locale });
 const between = (startMarker, endMarker) => {
@@ -40,7 +40,7 @@ function harness() {
     resetVerbSelections() { state.verbSelectedCzechId = ""; state.verbSelectedEnglishId = ""; },
     verbRoundComplete: () => verbNebulaCore.isVerbRoundComplete(state.verbRound, state.verbMatchedIds),
     setVerbMatchFeedback: (message, kind) => feedback.push({ message, kind }),
-    runtimeAdapter: () => ({ vector: { search: async (query) => { searches.push(query); return { results: [] }; } } })
+    loadVerbImageSearch: async () => async (query) => { searches.push(query); return { mode: "embedding", rows: [] }; }
   });
   browser.window.CaatuuSemanticLearning = { recordAttempt: async (attempt) => { attempts.push(attempt); } };
   browser.window.CaatuuChrome = { speakText: async (text) => { speech.push(text); } };
@@ -50,7 +50,7 @@ function harness() {
     between("function createVerbMatchCard(pair, side)", "function verbMatchCardForId"),
     between("function recordVerbSemanticAttempt(pair", "async function settleVerbMatch"),
     between("async function settleVerbMatch()", "function chooseVerbMatchCard"),
-    between("function vectorVerbHintCandidates(pair)", "async function loadVerbHintKeymap"),
+    between("async function vectorVerbHintCandidates(pair)", "async function loadVerbHintKeymap"),
     between("function speakVerbCzechOnTap(verbId)", "function renderVerbMatchStats")
   ].join("\n"), browser.context);
   return { ...browser, state, attempts, searches, feedback, speech };

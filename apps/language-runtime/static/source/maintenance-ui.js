@@ -173,7 +173,8 @@
     const latestName = String(status?.latestVersionName || "").trim();
     const currentName = String(status?.currentVersionName || "").trim();
     const statusProblem = status?.serverReachable === false || Boolean(status?.updateError);
-    button.textContent = !native && !busy ? t("settings.update.title") : busy
+    const label = button.querySelector("[data-app-update-label]") || button;
+    label.textContent = !native && !busy ? t("settings.update.title") : busy
       ? t("maintenance.action.checking")
       : available && downloadState === "ready"
         ? latestName
