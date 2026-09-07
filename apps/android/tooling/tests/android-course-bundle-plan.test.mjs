@@ -113,38 +113,29 @@ function publicationRecords(input) {
 }
 
 test("the Android product bundle is the ordered projection of Android-enabled catalog courses", () => {
-  const expected = createAndroidCourseBundlePlan(currentInputs());
+  const input = currentInputs();
+  const enabled = input.courses.filter(({ course }) => course.platforms.android.enabled);
+  const expected = createAndroidCourseBundlePlan(input);
   assert.deepEqual(expected, {
-    defaultCourseId: "cz",
-    courses: [
-      { id: "cz", manifestPath: "apps/languages/czech/course.json" },
-      { id: "zh", manifestPath: "apps/languages/mandarin-simplified/course.json" },
-    ],
+    defaultCourseId: input.bundleDeclaration.defaultCourseId,
+    courses: enabled.map(({ id, manifestPath }) => ({ id, manifestPath })),
   });
   const loaded = loadAndroidCourseBundleCatalogPlan({ workspaceRoot });
   assert.deepEqual(loaded.plan, expected);
   assert.deepEqual(
     loaded.publicationPlan.courses.map(({ id, routePrefix, entryPath }) => ({ id, routePrefix, entryPath })),
-    [
-      { id: "cz", routePrefix: "/cz", entryPath: "/cz/index.html" },
-      { id: "zh", routePrefix: "/zh", entryPath: "/zh/index.html" },
-    ],
+    enabled.map(({ id, course }) => ({ id, routePrefix: course.routePrefix, entryPath: course.entryPath })),
   );
 });
 
 test("the Android publication plan admits a non-English learner base without coupling its route to its id", () => {
   const input = inputsWithThirdCourse();
   const publicationPlan = createAndroidCoursePublicationPlan(input, publicationRecords(input));
-  assert.deepEqual(publicationPlan.courses.map(({ id, routePrefix, sourceLanguage, targetLanguage }) => ({
-    id,
-    routePrefix,
-    sourceLanguage: sourceLanguage.id,
-    targetLanguage: targetLanguage.id,
-  })), [
-    { id: "cz", routePrefix: "/cz", sourceLanguage: "en", targetLanguage: "cs" },
-    { id: "zh", routePrefix: "/zh", sourceLanguage: "en", targetLanguage: "zh" },
-    { id: "fr-es", routePrefix: "/learn-spanish", sourceLanguage: "fr", targetLanguage: "es" },
-  ]);
+  assert.equal(publicationPlan.courses.length, input.bundleDeclaration.courses.length);
+  const added = publicationPlan.courses.find(({ id }) => id === "fr-es");
+  assert.equal(added.routePrefix, "/learn-spanish");
+  assert.equal(added.sourceLanguage.id, "fr");
+  assert.equal(added.targetLanguage.id, "es");
 });
 
 test("the Android bundle fails closed when it omits an enabled known course", () => {

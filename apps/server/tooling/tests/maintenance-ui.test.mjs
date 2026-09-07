@@ -10,6 +10,7 @@ const source = await readFile(
 const stored = new Map();
 const sessionStored = new Map();
 const interfaceMessages = Object.freeze({
+  ...JSON.parse(await readFile(new URL("../../../../apps/language-runtime/static/data/interface/en.v1.json", import.meta.url), "utf8")).messages,
   "maintenance.action.check": "Check for updates",
   "maintenance.action.checking": "Checking for updates...",
   "maintenance.action.downloading": "Downloading {percent}%",
@@ -374,17 +375,16 @@ test("update confirmation names the installed and available versions", () => {
   assert.equal(confirmation.action, "Update to 0.1.90");
 });
 
-test("browser and store-managed builds do not expose sideload controls", () => {
-  for (const [runtime, status] of [
-    [{ env: "browser" }, { selfUpdateEnabled: true }],
-    [{ env: "android" }, { selfUpdateEnabled: false }]
-  ]) {
-    const { button, row } = control();
-    ui.setUpdateAppControl(button, runtime, status);
-    assert.equal(button.hidden, true);
-    assert.equal(button.disabled, true);
-    assert.equal(row.hidden, true);
-  }
+test("browser refresh stays available while store-managed builds hide sideload controls", () => {
+  const { button, row } = control();
+  ui.setUpdateAppControl(button, { env: "browser" }, { selfUpdateEnabled: false });
+  assert.equal(button.hidden, false);
+  assert.equal(button.disabled, false);
+  assert.equal(button.textContent, interfaceMessages["maintenance.browser.action"]);
+  ui.setUpdateAppControl(button, { env: "android" }, { selfUpdateEnabled: false });
+  assert.equal(button.hidden, true);
+  assert.equal(button.disabled, true);
+  assert.equal(row.hidden, true);
 });
 
 test("the shared controller announces a single in-flight update check immediately", async () => {
@@ -395,6 +395,7 @@ test("the shared controller announces a single in-flight update check immediatel
   const versionNode = { textContent: "", dataset: {} };
   const browserInstall = { hidden: false };
   context.document = {
+    querySelectorAll: () => [button],
     querySelector(selector) {
       if (selector === "#updateApp") return button;
       if (selector === "#maintenanceStatus") return statusNode;
@@ -454,6 +455,7 @@ test("native update failures retain diagnostics while rendering only locale mess
     const failureContext = { CaatuuI18n: localizedInterfaceContent, window: {} };
     runInNewContext(source, failureContext, { filename: "maintenance-ui.localized.js" });
     failureContext.document = {
+      querySelectorAll: () => [button],
       querySelector(selector) {
         if (selector === "#updateApp") return button;
         if (selector === "#maintenanceStatus") return statusNode;

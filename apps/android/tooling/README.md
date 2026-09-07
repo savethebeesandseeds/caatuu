@@ -26,6 +26,9 @@ promote a course to active status or enable its Pages route.
 Image-search keymaps retain metadata for both packaged images and images in
 the validated, hash-pinned setup storage catalog. Filtering only by APK files
 would make downloaded artwork invisible to game hints and developer search.
+Use each compiler's own projected setup catalog when collecting that metadata:
+single-course website exports do not carry the Android bundle's shared
+embedding-runtime catalog.
 
 The full Gradle module selects one course with `caatuuCourseManifest`. The
 product module selects a repository-relative bundle with `caatuuCourseBundle`

@@ -183,7 +183,7 @@ function thirdCourseFixture() {
 
 test("package requirements are derived from the declared courses and native capabilities", () => {
   const { bundle, profile } = packageFixture();
-  assert.equal(assertCourseBundleContract(bundle, profile), bundle);
+  assert.equal(assertCourseBundleContract(bundle, profile, "fixture package", publicationPlanFor(bundle)), bundle);
 
   const assets = requiredAssetPaths(bundle);
   for (const asset of [
@@ -211,14 +211,14 @@ test("the package contract rejects provider escape and duplicated vendor payload
   const escaped = structuredClone(bundle);
   escaped.courses[1].nativeProviders.providers.embeddings.catalogAsset = "data/embeddings/catalog.json";
   assert.throws(
-    () => assertCourseBundleContract(escaped, profile),
+    () => assertCourseBundleContract(escaped, profile, "fixture package", publicationPlanFor(bundle)),
     /provider catalog asset must be namespaced under courses\/zh/,
   );
 
   const duplicated = structuredClone(profile);
   duplicated.assets.push("courses/cz/vendor/transformers/transformers.min.js");
   assert.throws(
-    () => assertCourseBundleContract(bundle, duplicated),
+    () => assertCourseBundleContract(bundle, duplicated, "fixture package", publicationPlanFor(bundle)),
     /must not duplicate shared Transformers\.js artifacts/,
   );
 });

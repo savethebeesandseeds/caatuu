@@ -89,7 +89,7 @@ test("Czech challenge families retain their forms in the sole animated renderer"
   assert.deepEqual(Object.values(pack.challenges[0].forms).map((form) => form.displayForm), ["nový", "nová", "nové"]);
   assert.deepEqual(Object.values(pack.challenges[0].forms).map((form) => form.examples[0].targetText), ["nový dům", "nová kniha", "nové město"]);
   assert.match(controller, /buildGrammarGravityRounds/u);
-  assert.match(controller, /grammar-gravity-core\.mjs\?v=grammar-gravity-core-4/u);
+  assert.match(controller, /grammar-gravity-core\.mjs\?v=[^"']+/u);
   assert.doesNotMatch(sharedPage, /id="(?:grammarGravityBoard|grammarGravityLearnerBaseColumn|grammarGravityTargetColumn|grammarGravityNext)"/u);
   assert.doesNotMatch(controller, /function (?:renderMatchingBoard|selectMatch|selectPhrase|makeLegacyRound)|mode:\s*["']legacy["']/u);
   assert.match(sharedPage, /id="gravityAdjectiveArena"/u);

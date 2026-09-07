@@ -883,24 +883,23 @@ export function androidBundleStorageRecords(configurations, embeddingRuntime = n
       }
     }
 
-    const setupSource = configuration.languageFileSources["setup-assets.json"];
-    assert.ok(setupSource, `Course ${course.id} Android assets must include setup-assets.json`);
-    const transform = courseAssetTransform(configuration, "setup-assets.json", embeddingRuntime);
-    const setup = requireObject(
-      JSON.parse(transform ? transform(readSourceText(setupSource)) : readSourceText(setupSource)),
-      `Course ${course.id} Android setup catalog`,
-    );
-    assert.ok(Array.isArray(setup.artifacts), `Course ${course.id} Android setup catalog must list artifacts`);
-    for (const [index, artifact] of setup.artifacts.entries()) {
-      if (artifact?.native_required !== true) continue;
-      records.push(setupStorageRecord(
-        artifact,
-        course.id,
-        `Course ${course.id} Android setup artifact ${index}`,
-      ));
-    }
+    records.push(...courseSetupStorageRecords(
+      configuration, courseAssetTransform(configuration, "setup-assets.json", embeddingRuntime),
+    ));
     return records;
   });
+}
+
+function courseSetupStorageRecords(configuration, transform) {
+  const { course } = configuration;
+  const setupSource = configuration.languageFileSources["setup-assets.json"];
+  assert.ok(setupSource, `Course ${course.id} Android assets must include setup-assets.json`);
+  const source = readSourceText(setupSource);
+  const setup = requireObject(JSON.parse(transform ? transform(source) : source),
+    `Course ${course.id} Android setup catalog`);
+  assert.ok(Array.isArray(setup.artifacts), `Course ${course.id} Android setup catalog must list artifacts`);
+  return setup.artifacts.flatMap((artifact, index) => artifact?.native_required === true
+    ? [setupStorageRecord(artifact, course.id, `Course ${course.id} Android setup artifact ${index}`)] : []);
 }
 
 export function assertAndroidBundleSharedStorage(configurations, embeddingRuntime = null) {
@@ -3020,7 +3019,10 @@ export function compileProductAssets({
     );
     copyExactFile(sourcePath, join(resolvedOutput, output));
   }
-  const sharedStorageRecords = assertAndroidBundleSharedStorage([courseConfiguration]);
+  const sharedStorageRecords = courseSetupStorageRecords(
+    courseConfiguration, singleCourseAssetTransform(courseConfiguration, "setup-assets.json"),
+  );
+  assertCompatibleSharedStorage(sharedStorageRecords);
   for (const { source, output } of courseConfiguration.appAssets) {
     const transform = sharedAppAssetTransform(output, courseConfiguration.appAssets, sharedStorageRecords);
     if (transform) {

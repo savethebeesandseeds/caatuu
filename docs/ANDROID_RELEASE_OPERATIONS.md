@@ -183,6 +183,15 @@ executable regression, and update this runbook plus adjacent tooling details
 when behavior changes. Avoid a parallel repair script or a session-only command
 sequence. Preserve useful recovery artifacts; cleanup needs separate authority.
 
+Android 168's first attempt at source `ff5003336241164cde430016e8e7983a320bbe93`
+stopped in source preflight with `missing Android-enabled catalog courses: es-en`;
+no APK build or sealed candidate existed. Synthetic package fixtures must supply
+their own publication plan, while current-catalog tests derive enabled courses
+from the manifests. The same source's CI caught a single-course compiler using
+the bundle-only embedding setup transform. The compiler now collects artwork
+storage metadata through each output's own setup projection. The package,
+course-plan, single-course compiler, and static-site suites cover these paths.
+
 Report three independent statuses:
 
 - **Published:** exact version, public manifest/APK URL, verified identity and
