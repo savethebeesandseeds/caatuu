@@ -74,6 +74,23 @@
         "bytes": 1103,
         "sha256": "c0cecbe35816f4529525fd13eacbf77f35abd882b88cd62cbd03020ef25f3c3a"
       }
+    },
+    {
+      "versionCode": 167,
+      "versionName": "0.1.15",
+      "sourceRevision": "fd9884573e791723e367cc067a9b13340aa4399d",
+      "manifest": {
+        "bytes": 1042,
+        "sha256": "9e742597e1fd6973fd1c71dd84ea5febebb8a1e21c035ee16b0f59a96b4e0857"
+      },
+      "apk": {
+        "bytes": 41606454,
+        "sha256": "a61e71bf73800810f8a71f1adddc40b4ddd50f6c8f3287e16be559de3ea98e68"
+      },
+      "receipt": {
+        "bytes": 1103,
+        "sha256": "5bb4b6ec6f55b569d31b9eaad219b79f2d8504cb5b9b3ea30d995b468b73d2a7"
+      }
     }
   ],
   "setupEntries": [
