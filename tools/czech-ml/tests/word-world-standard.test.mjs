@@ -47,7 +47,7 @@ test("normalizes Czech tokens without losing diacritics", () => {
   ]);
 });
 
-test("the checked-in corpus satisfies schema, difficulty, review, and duplicate gates", () => {
+test("historical accepted batches retain their recorded schema, review and difficulty evidence", () => {
   const validation = validateRecords(records, rubric);
   assert.equal(validation.valid, true, validation.errors.join("\n"));
   assert.equal(records.length, 792);
@@ -528,21 +528,18 @@ test("the compiler reproduces the complete checked-in runtime contract", async (
 });
 
 test("validation and coverage reports have distinct machine-readable contracts", async () => {
+  const sourcePath = "apps/languages/czech/content/word-world/content.json";
+  const source = await readJson(path.join(repoRoot, sourcePath));
   const validation = await readJson(path.join(datasetDir, "reports", "validation.json"));
   const coverage = await readJson(path.join(datasetDir, "reports", "coverage.json"));
   assert.equal(validation.schemaVersion, "caatuu-word-world-validation-v1");
   assert.equal(validation.valid, true);
-  assert.equal(validation.recordCount, records.length);
+  assert.equal(validation.recordCount, source.records.length);
   assert.equal(coverage.schemaVersion, "caatuu-word-world-coverage-v1");
-  assert.equal(coverage.records.total, records.length);
-  assert.ok(coverage.inputFiles.includes("tools/czech-ml/data/word-world/standard-v0.1/editorial-overrides.json"));
-  assert.deepEqual(coverage.editorialOverrides, {
-    file: "tools/czech-ml/data/word-world/standard-v0.1/editorial-overrides.json",
-    sha256: sha256(await fs.readFile(editorialOverridesFile)),
-    overrideCount: 27,
-    reviewedOn: "2026-08-13",
-    humanApproved: false,
-  });
+  assert.equal(coverage.records.total, source.records.length);
+  assert.deepEqual(coverage.inputFiles, [sourcePath]);
+  assert.deepEqual(validation.inputFiles, [sourcePath]);
+  assert.ok(!Object.hasOwn(coverage, "editorialOverrides"), "Historical corrections are already folded into the single source");
   assert.ok(Array.isArray(coverage.targets.perTarget));
 });
 

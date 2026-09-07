@@ -315,8 +315,8 @@ test("Czech and Mandarin resolve one authoritative Caatuu document and bootstrap
   for (const script of SHARED_SHELL_SCRIPTS) assertSingleAuthoritativeReference(html, "src", script, "canonical app");
   assert.equal(countAssetReferences(html, "src", "/language-runtime/static/source/caatuu-chrome.js"), 0);
   assertSingleAuthoritativeReference(html, "src", "/language-runtime/static/source/app-bootstrap.mjs", "canonical app");
-  const wordWorldStylesheet = "/language-runtime/static/styles/caatuu-word-world.css?v=word-net-91";
-  assert.match(html, /caatuu-word-world\.css\?v=word-net-91/u);
+  const wordWorldStylesheet = html.match(/href="([^"]*\/caatuu-word-world\.css\?v=[^"]+)"/u)?.[1];
+  assert.ok(wordWorldStylesheet, "the canonical app must declare its Word World stylesheet");
   assert.ok(czechSetup.offline.assets.includes(wordWorldStylesheet));
   assert.ok(mandarinSetup.offline.assets.includes(wordWorldStylesheet));
   assertOrderedShellHosts(html, "canonical app");

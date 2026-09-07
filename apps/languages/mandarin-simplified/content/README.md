@@ -4,10 +4,11 @@ This directory contains fresh Mandarin realizations authored in the `zh-Hans`
 script and locale. It does not reuse
 the retired Chinese trainer or its corpus.
 
-English concept records live under
-`apps/languages/shared/english-concepts/`. Only their authored English
-`embeddingText` fields may enter the English MiniLM embedder. Files here map
-those stable concept IDs to Simplified Chinese learner text, authored word
+Edit [word-world/content.json](word-world/content.json), the complete Mandarin
+Word World source. English concepts and target realizations are generated
+compatibility views of it. Only its authored English `embeddingText` fields may
+enter the English MiniLM embedder. The unified records connect stable concept
+IDs to Simplified Chinese learner text, authored word
 boundaries, and generic authored pronunciation objects. This pack explicitly
 selects `mandarin-simplified-v1`; that named policy—not the shared schema—owns
 the Hans, pinyin, and contextual polyphone checks.

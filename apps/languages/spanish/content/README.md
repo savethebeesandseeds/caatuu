@@ -6,11 +6,12 @@ Caatuu application; it does not fork game layouts or runtime behavior.
 
 ## English concept authority
 
-Word World uses
-`apps/languages/shared/english-concepts/word-world-starter-v1.json` as its
-stable concept authority. The Spanish realization pack covers all 250 concepts
-in exactly that order. Retrieval and content auditing remain English-based:
-only each shared concept's authored `embeddingText` may enter the English
+Edit [word-world/content.json](word-world/content.json), the complete Spanish
+Word World source. It holds English meanings, Spanish sentences and token hints
+together. The shared builder emits the old realization file and the course's
+English catalog as generated compatibility views. The course can grow without
+adding the same records to other courses. Retrieval and content auditing remain English-based:
+only each record's authored English `embeddingText` may enter the English
 embedding pipeline. Spanish learner text and token glosses must never replace
 that English retrieval input.
 
@@ -57,4 +58,3 @@ Spanish copy of any game.
 Runtime Word World files are projections of the authored pack and must be
 regenerated through the catalog-driven language-content projector. Do not edit
 projected runtime records as an independent Spanish source of truth.
-

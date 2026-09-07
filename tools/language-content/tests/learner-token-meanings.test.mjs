@@ -7,10 +7,11 @@ import { prepareLanguageRoleContent, prepareEnglishRankingPayload } from "../lib
 import { buildLearnerBaseRuntimeProjection, validateLearnerBaseRuntimeProjection } from "../lib/language-role-runtime.mjs";
 
 const readJson = async (path) => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
+const course = await readJson("../../../apps/languages/english-from-spanish/course.json");
 const [concepts, targets, learnerBase] = await Promise.all([
-  readJson("../../../apps/languages/shared/english-concepts/word-world-starter-v1.json"),
-  readJson("../../../apps/languages/english-from-spanish/content/word-world/starter-v1.realizations.json"),
-  readJson("../../../apps/languages/shared/learner-base-realizations/es-ES/word-world-starter-v1.json")
+  readJson(`../../../${course.publication.concepts}`),
+  readJson(`../../../${course.publication.realizations}`),
+  readJson(`../../../${course.publication.learnerBaseRealizations}`)
 ]);
 
 test("Spanish word meanings retain their own role when the English target equals the audit language", () => {

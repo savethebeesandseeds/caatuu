@@ -12,9 +12,9 @@ apps/languages/<course>/static/data/games/<game>/
 ```
 
 Only the files applicable to a game exist. Campaign reuses other games and has
-no independent content bank. Word World continues to join its shared English
-concept authority with course realizations. Its versioned authoring inputs
-remain separate from runtime output. Content IDs, corpus versions, translations,
+no independent content bank. Word World has one editable JSON per course and
+generates the existing runtime and publication formats from it. Content IDs,
+corpus versions, translations,
 review status and licensing status survive filename changes.
 
 Course manifests own the paths. Generators, browser profiles, offline manifests,
@@ -22,54 +22,84 @@ Android source asset mappings, dictionary references and maintained tests use
 those declarations. The filename contract is checked by
 [game-content-filenames.test.mjs](../tools/language-packs/tests/game-content-filenames.test.mjs).
 
-## Word World: editable sources and loaded JSON
+## Word World: one editable JSON per course
 
-**Word World does use JSON during standard/authored play in every course.**
-There are two stages: content authoring and runtime loading. The existence of a
-build step does not mean the game invents its standard sentences or obtains
-them from application code.
+All four courses use `caatuu-word-world-course-content-v1`, with one complete
+record per sentence. Edit only the corresponding authoring file:
 
-| Course | Authoritative editable content | What the app reads |
-| --- | --- | --- |
-| Czech | `tools/czech-ml/data/word-world/standard-v0.1/source/*.jsonl`, with existing editorial and token-hint JSON companions | The compiler writes `apps/languages/czech/static/data/games/word-world/content.json`; `manifest.json` identifies it and its integrity hash. |
-| Mandarin, Spanish, English from Spanish | Shared English concept JSON plus each course's `content/word-world/starter-v1.realizations.json`; English from Spanish also uses the shared Spanish learner-base JSON | The projector writes each course's `static/data/games/word-world/content.json` and the required shared concepts, learner-base or reading-guide JSON. The runtime joins matching concept IDs. |
+| Course | Editable file | Records at migration |
+| --- | --- | ---: |
+| English → Czech | [content.json](../apps/languages/czech/content/word-world/content.json) | 792 |
+| English → Mandarin | [content.json](../apps/languages/mandarin-simplified/content/word-world/content.json) | 250 |
+| English → Spanish | [content.json](../apps/languages/spanish/content/word-world/content.json) | 250 |
+| Spanish → English | [content.json](../apps/languages/english-from-spanish/content/word-world/content.json) | 250 |
 
-JSONL means one JSON object per line. It is editable structured content, not
-executable code. The Czech compiler combines those records, applies recorded
-editorial corrections, validates them, and writes the runtime JSON and manifest.
-The modern projector validates aligned meanings/translations and emits the
-JSON needed by the browser and Android source delivery. It can withhold
-unreviewed pronunciation from the main runtime file while retaining the
-separately labeled Mandarin preview guide.
+Each record holds its stable `id`, `difficulty`, `topic`, `englishText`,
+`embeddingText`, `targetText`, `tokens`, pronunciation, scene query and any
+learner-base translation. `englishAlternates`, `sceneAssetIds` and `annotations`
+retain existing Czech information; unsupported fields remain empty on providers
+that do not use them. Czech annotations preserve CEFR, learning objectives,
+grammar, provenance and review. Catalog metadata preserves review and licensing
+for English, target and learner-base roles. The format does not invent human
+review or promote any development course.
 
-For example, an English concept for asking the price, its Spanish sentence and
-its token hints are joined by one stable concept ID. That lets the learner see
-Spanish while the established retrieval system still uses the English meaning.
-The generator does not author a new translation for the standard round.
+`learnerBase` is null for English-base courses because `englishText` already
+supplies that translation. Spanish → English records include Spanish text and
+position-bound Spanish word hints there. Czech token hints are now inline in
+`tokens[].gloss`; historical editorial corrections have already been applied.
+The Czech provider uses its included English sentence for semantic ranking;
+its `embeddingText` must equal `englishText`. Modern courses retain their
+separately authored English retrieval descriptions. Image retrieval and the
+optional Czech generative mode are unchanged.
 
-Directly editing only the generated `content.json` is not the maintained
-authoring route: the next generator run would overwrite it. Edit the source
-catalogs, then run the existing generators and validation. That requires no
-interface change. Dictionary lookup and image retrieval remain separate
-supporting sources; Czech's existing optional generative mode is also separate
-from its finite standard catalog and is not included in the catalog counts.
+Run the same build command for any course, in the established container:
 
-## Remaining Case Cosmos authoring coupling
+```powershell
+docker exec -w /workspace caatuu-dev node tools/language-content/build-word-world-content.mjs --all
+docker exec -w /workspace caatuu-dev node apps/server/tooling/refresh-setup-assets.mjs --all-browser-courses
+docker exec -w /workspace caatuu-dev node tools/language-content/build-word-world-content.mjs --all --check
+```
 
-The numeric bank ceilings were removed on 2026-09-07, but that alone does not
-make every game freely extensible by JSON. Case Cosmos reads its exercises from
-`content.json` and then compares them against checked content duplicated in
-`case-cosmos-cs-policy.mjs`. Its `CHECKED_PARADIGMS` and `CHECKED_CONTEXTS` require
-exact matches; legacy nouns/forms and sentence frames also have code-owned
-allowlists. New IDs or new constructions can therefore be rejected even with
-no numeric cap.
+Use `--course cz`, `zh`, `es`, or `es-en` instead of `--all` to build one course.
+The builder validates before writing, preserves the existing game formats,
+refreshes changed course cache markers, and maintains Czech's content-addressed
+offline URL. Setup refresh updates existing integrity metadata. No APK build or
+deployment is involved.
 
-This corrects the earlier overbroad claim that all banks were ready for
-JSON-only expansion. The checked linguistic data needs a separate move into
-content authority, preserving its validation purpose, before Case's planned
-expansion can be performed exclusively through content files. The cap-removal
-work does not bypass, delete or weaken those checks and does not claim a valid
-6,000-context Case bank has been tested.
+The older `starter-v1.realizations.json`, shared concept catalogs and Spanish
+learner-base catalog are **generated compatibility views** for existing
+publication tools. The runtime `static/data/games/word-world/content.json` files,
+reading guide, manifest and learner-base file are generated too. Do not edit
+those outputs: the next build recreates them from the four authoring files.
+The old Czech JSONL batches, correction ledgers and review receipts are retained
+as historical evidence and are not inputs to normal builds. Existing Czech
+build/validation commands and the modern projector CLI now read the new files;
+explicit legacy-input tools remain available for historical import tests.
+
+Each modern course has its own generated English projection, so adding a new
+record to Spanish does not require adding it to Mandarin or English. Reusing
+an existing concept ID preserves its English meaning across courses; inventories
+and difficulty may differ. New content still needs linguistic review. The
+builder's structural checks and unchanged fixed rubric are not that review.
+
+## Case Cosmos: JSON is the content authority
+
+Following the numeric ceiling removal, the user separately authorized removal
+of the code-owned acceptance lists on 2026-09-07. All duplicate noun/form lists,
+sentence templates and exact context/paradigm copies were removed from
+`case-cosmos-cs-policy.mjs`; that file now only checks the course language pair.
+New vocabulary, IDs, translations and contexts can be supplied directly in
+the existing `content.json`, without changing JavaScript or pinning new text
+in tests.
+
+Runtime checks retain the data contract, required levels, unique IDs and
+sentences, whole-word targets, declared form pools, accepted alternatives,
+solvable choices and curriculum references/coverage. They cannot certify Czech
+grammar or translation accuracy; that belongs to content review. Tests now
+exercise these boundaries and JSON-only additions instead of enforcing a
+second copy of the curriculum. Synthetic fixtures validate 501 legacy nouns,
+201 additional paradigms and 6,000 additional contexts. These are capacity
+fixtures, not new teaching content or device-performance certification.
 
 ## Difficulty behavior
 

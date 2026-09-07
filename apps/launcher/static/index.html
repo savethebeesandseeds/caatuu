@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Learn languages. Explore new worlds. Free guided practice, games, and language tools with Caatuu.">
     <title>Caatuu · Learn languages. Explore new worlds.</title>
-    <link rel="stylesheet" href="/app.css?v=43">
-    <script src="/launcher.js?v=18" defer></script>
+    <link rel="stylesheet" href="/app.css?v=44">
+    <script src="/launcher.js?v=20" defer></script>
   </head>
   <body class="home-page landing-page">
     <a class="landing-skip" href="#learn" data-i18n="launcher.skip">Skip to content</a>
@@ -97,6 +97,23 @@ No registration, no credit cards, no cookies. Open source. Truly free.</p></div>
           <p data-i18n="launcher.about.detail">Caatuu brings guided practice, games, and language tools together in a free learning experience that also works offline.</p>
         </section>
       </main>
+      <dialog class="landing-course-dialog" data-course-dialog aria-labelledby="courseDialogTitle" aria-describedby="courseDialogPrompt">
+        <button class="landing-dialog-close" type="button" data-course-dialog-close aria-label="Close" data-i18n-aria-label="launcher.choose.close">×</button>
+        <img class="landing-dialog-flag" data-course-dialog-flag alt="" width="54" height="36">
+        <h2 id="courseDialogTitle" data-course-dialog-title></h2>
+        <p id="courseDialogPrompt" data-i18n="launcher.choose.prompt">How would you like to learn?</p>
+        <div class="landing-platform-options">
+          <a class="landing-platform-choice landing-platform-android" data-course-dialog-android aria-disabled="true">
+            <strong data-i18n="launcher.choose.android">Android app</strong>
+            <span data-i18n="launcher.choose.download">Download Caatuu</span>
+          </a>
+          <a class="landing-platform-choice landing-platform-browser" data-course-dialog-browser href="#courses" autofocus>
+            <strong data-i18n="common.browser">Browser</strong>
+            <span data-i18n="launcher.continue">Continue online</span>
+          </a>
+        </div>
+        <p class="landing-dialog-status" data-course-dialog-status role="status"></p>
+      </dialog>
       <footer class="app-footer">
         <a class="footer-brand" href="https://www.waajacu.com/" rel="noopener"><img class="footer-logo" src="/cz/icons/caatuu-czech-512.png" alt=""><span><span data-i18n="launcher.by">by Waajacu</span><sup class="brand-trademark" aria-hidden="true">™</sup></span></a>
       </footer>

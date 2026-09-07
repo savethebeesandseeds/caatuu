@@ -6,6 +6,8 @@
   const localeSelect = document.querySelector("[data-page-language]");
   const localeControl = document.querySelector("[data-language-control]");
   const localePreferenceKey = "caatuu.launcher.interfaceLocale.v1";
+  const courseDialog = document.querySelector("[data-course-dialog]");
+  const courseAndroid = document.querySelector("[data-course-dialog-android]");
   const assetRevision = new URL(document.currentScript?.src || window.location.href).searchParams.get("v") || "1";
   let channelRequest = 0;
   let registryRequest = 0;
@@ -55,6 +57,7 @@
     download.dataset.state = "checking";
     const label = download.querySelector("b");
     if (label) label.textContent = t("launcher.android.checking");
+    syncCourseDownload();
   }
 
   function setDownloadUnavailable(message = t("launcher.android.unpublished")) {
@@ -71,6 +74,7 @@
     if (channelLabel) channelLabel.textContent = t("launcher.android.temporary");
     const label = download.querySelector("b");
     if (label) label.textContent = t("launcher.android.retry");
+    syncCourseDownload();
   }
 
   function validChannelManifest(channel, manifest) {
@@ -113,6 +117,7 @@
         const preview = channel.kind === "preview";
         if (channelLabel) channelLabel.textContent = t(preview ? "launcher.android.preview" : "launcher.android.beta");
         if (label) label.textContent = t(preview ? "launcher.android.downloadpreview" : "launcher.android.downloadbeta");
+        syncCourseDownload();
         return;
       } catch (error) {
         // Try the next explicitly supported channel.
@@ -130,6 +135,33 @@
       ["active", "development"].includes(courseRecord?.status)
       && courseRecord?.targetLanguage
     ));
+  }
+
+  function syncCourseDownload() {
+    if (!courseDialog?.open || !courseAndroid) return;
+    const status = courseDialog.querySelector("[data-course-dialog-status]");
+    if (download?.dataset.state === "available") {
+      courseAndroid.href = download.href;
+      courseAndroid.setAttribute("download", "");
+      courseAndroid.removeAttribute("aria-disabled");
+      courseAndroid.removeAttribute("tabindex");
+      status.textContent = "";
+      return;
+    }
+    courseAndroid.removeAttribute("href");
+    courseAndroid.removeAttribute("download");
+    courseAndroid.setAttribute("aria-disabled", "true");
+    courseAndroid.setAttribute("tabindex", "-1");
+    status.textContent = t(download?.dataset.state === "checking"
+      ? "launcher.android.checking" : "launcher.choose.unavailable");
+  }
+
+  function showCourseChoices(courseRecord) {
+    courseDialog.querySelector("[data-course-dialog-title]").textContent = interfaceContent.languageName(courseRecord.targetLanguage);
+    courseDialog.querySelector("[data-course-dialog-flag]").src = versionedLauncherAsset(courseRecord.targetLanguage.flagSrc);
+    courseDialog.querySelector("[data-course-dialog-browser]").href = courseRecord.entryPath;
+    if (!courseDialog.open) courseDialog.showModal();
+    syncCourseDownload();
   }
 
   function renderBrowserSetup(registry, selectedCourse) {
@@ -162,6 +194,14 @@
       const entryPath = String(courseRecord.entryPath || "");
       if (entryPath.startsWith("/") && !entryPath.startsWith("//")) choice.href = entryPath;
       choice.setAttribute("aria-label", `${t("launcher.start")}: ${item.getAttribute("aria-label")}`);
+      if (courseDialog && typeof courseDialog.showModal === "function") {
+        choice.setAttribute("aria-haspopup", "dialog");
+        choice.addEventListener("click", (event) => {
+          if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button > 0) return;
+          event.preventDefault();
+          void showCourseChoices(courseRecord);
+        });
+      }
       const flag = document.createElement("img");
       flag.className = "flag-icon";
       flag.src = versionedLauncherAsset(language.flagSrc);
@@ -191,7 +231,7 @@
 
   async function renderLanguages(registry) {
     const request = ++interfaceRequest;
-    const { loadLauncherInterface, launcherLocales } = await import("/language-runtime/static/source/launcher-interface.mjs?v=launcher-interface-5");
+    const { loadLauncherInterface, launcherLocales } = await import("/language-runtime/static/source/launcher-interface.mjs?v=launcher-interface-7");
     const { course, content } = await loadLauncherInterface(registry, localePreferences());
     if (request !== interfaceRequest) return;
     interfaceContent = content;
@@ -262,6 +302,14 @@
     if (currentRegistry) void renderLanguages(currentRegistry).catch(() => {
       setDownloadUnavailable(t("launcher.android.loadfailed"));
     });
+  });
+
+  courseDialog?.querySelector("[data-course-dialog-close]")?.addEventListener("click", () => courseDialog.close());
+  courseDialog?.addEventListener("click", (event) => {
+    if (event.target === courseDialog) courseDialog.close();
+  });
+  courseAndroid?.addEventListener("click", (event) => {
+    if (courseAndroid.getAttribute("aria-disabled") === "true") event.preventDefault();
   });
 
   download?.addEventListener("click", (event) => {

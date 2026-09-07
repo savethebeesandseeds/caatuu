@@ -1,4 +1,3 @@
-import { validateAuthoredExample, validateCheckedParadigm, validateCheckedContext } from "./case-cosmos-cs-policy.mjs?v=case-cosmos-policy-2";
 import { normalizeCurriculum, normalizeCurriculumItem } from "../../../../../../language-runtime/static/source/games/curriculum-progression.mjs";
 
 export const CZECH_CASES = Object.freeze([
@@ -38,10 +37,52 @@ function exactKeys(value, keys, location) {
   }
 }
 
+// The JSON catalog owns vocabulary, sentences, translations and form pools.
+// These checks validate the contract, not membership in a second content bank.
+function identifier(value, location) {
+  requiredText(value, location, 160);
+  if (!/^[a-z0-9]+(?:[.-][a-z0-9]+)*$/u.test(value)) throw new Error(`${location} needs a stable lowercase ID.`);
+}
+
+function nounForm(value) {
+  requiredText(value, "Noun form", 48);
+  if (!/^[\p{Script=Latin}\p{M}]+$/u.test(value)) throw new Error("The target must be one Czech word.");
+}
+
+function validateParadigm(paradigm) {
+  exactKeys(paradigm, ["id", "noun", "number", "forms"], "Paradigm");
+  identifier(paradigm.id, "Paradigm ID");
+  nounForm(paradigm.noun);
+  if (!["singular", "plural"].includes(paradigm.number)) throw new Error("A paradigm needs singular or plural number.");
+  if (!Array.isArray(paradigm.forms) || !paradigm.forms.length) throw new Error("A paradigm needs a nonempty form pool.");
+  paradigm.forms.forEach(nounForm);
+  if (new Set(paradigm.forms).size !== paradigm.forms.length) throw new Error("A paradigm repeats a form.");
+}
+
+function validateContext(item) {
+  exactKeys(item, ["id", "revision", "paradigmId", "case", "form", "acceptedForms", "czech", "english",
+    "difficulty", "objectiveId", "phase", "context", "explanation"], "Context");
+  identifier(item.id, "Context ID");
+  identifier(item.paradigmId, "Context paradigm ID");
+  if (!Number.isInteger(item.revision) || item.revision < 1) throw new Error("A context needs a positive revision.");
+  if (!CZECH_CASES.some(({ case: name }) => name === item.case)) throw new Error("Unknown Czech case.");
+  targetSpan(item.czech, item.form);
+  requiredText(item.english, "English translation", 200);
+  if (!Array.isArray(item.acceptedForms)) throw new Error("A context needs an accepted-forms list.");
+  item.acceptedForms.forEach(nounForm);
+}
+
+function validateContextForms(item, paradigm) {
+  const accepted = new Set([item.form, ...item.acceptedForms]);
+  if (accepted.size !== item.acceptedForms.length + 1 || [...accepted].some((form) => !paradigm.forms.includes(form))) {
+    throw new Error(`${item.id} has an undeclared or repeated accepted form.`);
+  }
+  if (!paradigm.forms.some((form) => !accepted.has(form))) throw new Error(`${item.id} needs a genuine contrast form.`);
+}
+
 export function targetSpan(czech, form) {
   requiredText(czech, "Czech sentence", 160);
-  requiredText(form, "Target form", 48);
-  if (!/^[\p{Script=Latin}\p{M}]+$/u.test(form)) throw new Error("The target must be one Czech word.");
+  nounForm(form);
   const target = form.toLocaleLowerCase("cs-CZ");
   const tokens = [...czech.matchAll(/[\p{L}\p{M}\p{N}_]+(?:[-’'][\p{L}\p{M}\p{N}_]+)*/gu)];
   const matches = tokens.filter(([text]) => text.toLocaleLowerCase("cs-CZ") === target);
@@ -63,17 +104,17 @@ function validateLegacyPack(value) {
     if (!Number.isInteger(entry.difficulty) || entry.difficulty < 1 || entry.difficulty > 3) throw new Error(`${entry.noun} needs difficulty 1, 2, or 3.`);
     difficulties.add(entry.difficulty);
     exactKeys(entry.cases, CZECH_CASES.map(({ case: name }) => name), entry.noun);
-    const cases = Object.fromEntries(CZECH_CASES.map(({ case: name }, index) => {
+    const cases = Object.fromEntries(CZECH_CASES.map(({ case: name }) => {
       const example = entry.cases[name];
       exactKeys(example, ["form", "english", "czech"], `${entry.noun}, ${name}`);
       requiredText(example.english, "English translation", 200);
-      const span = targetSpan(example.czech, example.form);
+      targetSpan(example.czech, example.form);
       const sentenceKey = example.czech.toLocaleLowerCase("cs-CZ");
       if (allSentences.has(sentenceKey)) throw new Error(`Repeated Czech sentence: ${example.czech}`);
       allSentences.add(sentenceKey);
-      validateAuthoredExample(entry.noun, name, index, example, span);
       return [name, Object.freeze({ form: example.form, english: example.english, czech: example.czech })];
     }));
+    if (new Set(Object.values(cases).map(({ form }) => form)).size < 2) throw new Error(`${entry.noun} needs a genuine contrast form.`);
     return Object.freeze({ noun: entry.noun, difficulty: entry.difficulty, cases: Object.freeze(cases) });
   });
   if (difficulties.size !== 3) throw new Error("The noun bank must support all three difficulty levels.");
@@ -96,7 +137,7 @@ export function validatePack(value) {
   }
   const byId = new Map();
   const paradigms = value.paradigms.map((paradigm) => {
-    validateCheckedParadigm(paradigm);
+    validateParadigm(paradigm);
     if (byId.has(paradigm.id)) throw new Error("Case Cosmos repeats a paradigm ID.");
     const frozen = Object.freeze({ ...paradigm, forms: Object.freeze([...paradigm.forms]) });
     byId.set(frozen.id, frozen);
@@ -105,19 +146,12 @@ export function validatePack(value) {
   const ids = new Set();
   const sentences = new Set(legacyNouns.flatMap(({ cases }) => Object.values(cases).map(({ czech }) => czech.toLocaleLowerCase("cs-CZ"))));
   const contexts = value.contexts.map((item) => {
-    validateCheckedContext(item);
+    validateContext(item);
     if (ids.has(item.id)) throw new Error("Case Cosmos repeats a stable context ID.");
     ids.add(item.id);
     const paradigm = byId.get(item.paradigmId);
-    if (!paradigm) throw new Error(`${item.id} has no declared checked paradigm.`);
-    if (!CZECH_CASES.some(({ case: name }) => name === item.case)) throw new Error("Unknown Czech case.");
-    targetSpan(item.czech, item.form);
-    requiredText(item.english, "English translation", 200);
-    const accepted = new Set([item.form, ...item.acceptedForms]);
-    if (accepted.size !== item.acceptedForms.length + 1 || [...accepted].some((form) => !paradigm.forms.includes(form))) {
-      throw new Error(`${item.id} has an unchecked or repeated accepted form.`);
-    }
-    if (!paradigm.forms.some((form) => !accepted.has(form))) throw new Error(`${item.id} needs a genuine contrast form.`);
+    if (!paradigm) throw new Error(`${item.id} has no declared paradigm.`);
+    validateContextForms(item, paradigm);
     const sentence = item.czech.toLocaleLowerCase("cs-CZ");
     if (sentences.has(sentence)) throw new Error(`Repeated Czech sentence: ${item.czech}`);
     sentences.add(sentence);
@@ -175,8 +209,10 @@ function shuffled(values, random) {
 export function buildQuestions(round, random = Math.random) {
   if (round?.contextItem) {
     const item = round.contextItem;
-    validateCheckedContext(item);
-    validateCheckedParadigm({ id: item.paradigmId, noun: round.noun, number: round.number, forms: round.formPool });
+    validateContext(item);
+    const paradigm = { id: item.paradigmId, noun: round.noun, number: round.number, forms: round.formPool };
+    validateParadigm(paradigm);
+    validateContextForms(item, paradigm);
     const definition = CZECH_CASES.find(({ case: name }) => name === item.case);
     const target = targetSpan(item.czech, item.form);
     const accepted = new Set([item.form, ...item.acceptedForms]);
@@ -196,10 +232,10 @@ export function buildQuestions(round, random = Math.random) {
     throw new Error("A noun round must contain exactly one example of each Czech case.");
   }
   for (const example of round.matches) {
-    const caseIndex = CZECH_CASES.findIndex((entry) => entry.case === example.case);
     requiredText(example.english, "English translation", 200);
-    validateAuthoredExample(round.noun, example.case, caseIndex, example, targetSpan(example.czech, example.form));
+    targetSpan(example.czech, example.form);
   }
+  if (new Set(round.matches.map(({ form }) => form)).size < 2) throw new Error("A noun round needs a genuine contrast form.");
   return Object.freeze(shuffled(round.matches, random).map((example) => {
     const actualCase = CZECH_CASES.find((entry) => entry.case === example.case);
     const target = targetSpan(example.czech, example.form);

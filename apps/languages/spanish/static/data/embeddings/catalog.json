@@ -8,7 +8,7 @@
     "targetTextAllowed": false,
     "targetPronunciationAllowed": false
   },
-  "conceptCatalog": "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
+  "conceptCatalog": "/language-runtime/static/data/english-concepts/word-world-es-v1.json",
   "runtime": {
     "rankerModule": "/language-runtime/static/source/english-minilm-ranker.mjs",
     "sharedCatalog": "/language-runtime/embedding-runtimes.json",

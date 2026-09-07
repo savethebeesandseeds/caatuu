@@ -4,8 +4,9 @@ Revised 2026-09-07 after the user rejected the original small targets and
 explicitly authorized removing Naturalization Nucleus's catalog-size ceiling.
 The user subsequently authorized removing the remaining catalog-size ceilings.
 Those numeric ceilings are removed; the larger content banks below are proposed
-targets, not completed authoring. No new goal has been created. Case's separate
-code-owned checked-content allowlists remain an authoring blocker, recorded below.
+targets, not completed authoring. No new goal has been created. The user also
+authorized removing Case's code-owned content allowlists; that preparation is
+complete, with structural validation retained and no learning records changed.
 It follows the completed [content-readiness assessment](COURSE_CONTENT_FINAL_ASSESSMENT.md)
 and existing [catalog conventions](GAME_CONTENT_CATALOGS.md).
 
@@ -42,8 +43,8 @@ Permitted changes during a future execution:
 - Learning records and their existing content fields: target and learner-base
   text, forms, contextual hints, explanations, pronunciation units, level,
   provenance and truthful review metadata.
-- Existing shared English concepts and corresponding course realizations,
-  including the Spanish learner-base catalog needed by Spanish-to-English.
+- Each course's unified Word World JSON, including English retrieval text,
+  target sentences and Spanish learner-base text needed by Spanish-to-English.
 - Derived catalog JSON and content-delivery hashes, byte sizes and cache
   revisions required by changed data, using the established generators.
 - Batch review reports and content validation evidence under the established
@@ -59,9 +60,12 @@ the file ends in `.json`.
 The explicit capacity exceptions now cover Nucleus, both Sounds collections,
 Case's legacy nouns/checked paradigms/authored contexts, and Grammar's family
 bank. Focused tests and course cache/integrity metadata accompany those changes.
-Minimum viable bank sizes, item validation, round sizes, stage definitions and
-linguistic checks remain intact. This does not authorize unrelated game changes
-or removal of checks on correctness and reviewed content.
+Minimum viable bank sizes, item validation, round sizes and stage definitions
+remain intact. A separate explicit exception removes Case's duplicate
+code-owned content lists and literal catalog pins in tests. Case retains
+structural/relationship checks and requires linguistic review of its JSON;
+the old list comparison was not independent review. Neither exception
+authorizes unrelated game changes.
 
 Use the current formats and validators. If an entry requires an engine change,
 choose a useful entry that fits the existing game. Report an unavoidable limit
@@ -126,16 +130,16 @@ files are JSONL plus supporting JSON, compiled by the existing generator.
 | --- | --- | --- |
 | Nucleus catalog count | User-authorized upper ceiling removed; minimum and item validation retained | A synthetic 4,096-record bank validates and produces the existing 5/9-piece rounds at every difficulty. This is capacity evidence, not authored curriculum or an unlimited-memory claim. |
 | Sound Quasar collections | Upper count ceilings removed for both collections; minimum four entries and all item checks retained | Synthetic 6,000-record collections test the existing modes, difficulty filtering and choice rules. These are fixtures, not curriculum or device performance evidence. |
-| Case Cosmos | Numeric ceilings removed for legacy nouns, checked paradigms and authored contexts | Separate code-owned exact checked-content allowlists still block new content. Oversized invalid fixtures prove the remaining correctness/duplicate checks still reject them; they do not establish acceptance of a new large Case bank. |
+| Case Cosmos | Numeric ceilings and duplicate code-owned content allowlists removed | Synthetic JSON-only additions validate: 501 legacy nouns, 201 additional paradigms and 6,000 additional contexts. Structural, reference, duplicate and answer-choice checks remain. Existing rounds/choices match the pre-change baseline. Fixtures are not linguistic approval or device-performance evidence. |
 | Grammar Gravity | Family-count ceiling removed; minimum four families and form/example checks retained | A synthetic 256-family bank tests example reachability at every difficulty. The planned 48 useful families remain an editorial target, not a runtime restriction. |
 | Other banks and delivery | The small existing banks validate; the proposed larger catalogs are not yet authored or tested | Check new sizes, all-record reachability, loading and offline/Android source delivery at each milestone. Do not claim full-scale readiness based on the old inventory. |
 
-The remaining identified obstacle to JSON-only authoring is Case's checked
-content duplicated in JavaScript, not Word World's generated runtime JSON.
-See [the source-of-content explanation](GAME_CONTENT_CATALOGS.md). Move that
-checked linguistic authority to content data in a separately scoped preparation
-step before Case expansion; do not bypass the checks. Other full-size banks
-still need normal loading, selection and delivery validation as they are authored.
+Case's duplicate JavaScript content authority has now been removed through a
+separately authorized preparation. Its existing JSON is the editable content
+authority. Word World now uses one editable JSON per course and one build command;
+see [the source-of-content explanation](GAME_CONTENT_CATALOGS.md). Full-size
+banks still need linguistic review, loading, selection and delivery validation
+as they are authored.
 
 Do not discard useful concurrent additions if a bank exceeds a proposed target
 before execution. Capture the new baseline and record any resulting overage.
@@ -169,20 +173,19 @@ its 33 source hashes still matched when this plan was prepared.
    records. Reuse current passing evidence where its hashes still match.
    Establish exact content and generated-output paths before the first batch,
    map communicative functions and language-specific contrasts to the existing
-   interactions, and resolve the separately recorded Case authoring coupling.
+   interactions. Case's separately authorized authoring preparation is complete.
 2. **Complete the vocabulary banks.** Bring each Verb Nebula bank to 1,800 pairs
    and each enabled noun bank to 3,000 nouns. Work through all three levels and
    frequent practical domains; uncommon filler does not make a course stronger.
 3. **Complete structured and listening banks.** Reach the conjugation, Case,
    Grammar, Nucleus and both listening targets. Follow existing language-specific
    teaching scope: no unsupported tense, category, stage or contextual-reading
-   mode. Complete only supported banks until Case's checked-content authority
-   is moved without weakening its checks. Do not convert remaining old rubric
-   objectives into engine work.
+   mode. Content accuracy requires review; structural validation does not
+   replace it. Do not convert remaining old rubric objectives into engine work.
 4. **Complete Word World and close.** Bring all four banks to 25,000 sentences.
-   For the three modern courses, add shared concepts together with complete
-   Mandarin, Spanish, English and required Spanish learner-base realizations.
-   Czech follows its existing authoring/compiler route. Regenerate declared
+   Add complete records to each course's `content/word-world/content.json`.
+   Courses can expand independently while reused IDs retain their English
+   meaning. The shared builder preserves each existing game format. Regenerate declared
    outputs, verify delivery, publish the final counts and end the pass.
 
 This is a multi-milestone curriculum project, not a one-turn generation job.

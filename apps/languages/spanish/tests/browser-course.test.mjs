@@ -150,14 +150,14 @@ test("the generated compatibility profile is exactly the catalog projection", as
         wordWorldManifest: `data/games/word-world/manifest.json?v=${course.resources.wordWorldManifest.revision}`
       },
       "conjugation-comet": {
-        conjugationCometCatalog: "data/games/conjugation-comet/content.json?v=conjugation-comet-content-1"
+        conjugationCometCatalog: `data/games/conjugation-comet/content.json?v=${course.resources.conjugationCometCatalog.revision}`
       },
       "grammar-gravity": {
-        grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-3",
-        grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-3"
+        grammarGravityCatalog: `data/games/grammar-gravity/content.json?v=${course.resources.grammarGravityCatalog.revision}`,
+        grammarGravityNouns: `data/games/grammar-gravity/nouns.json?v=${course.resources.grammarGravityNouns.revision}`
       },
       "sound-quasar": {
-        soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-items-v2"
+        soundQuasarCatalog: `data/games/sound-quasar/content.json?v=${course.resources.soundQuasarCatalog.revision}`
       }
     }
   );

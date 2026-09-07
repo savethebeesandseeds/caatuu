@@ -109,6 +109,23 @@
 .landing-feature-safety h3 { color: #16486c; font-size: 23px; font-weight: 850; }
 .landing-feature-safety p { color: #2b5573; }
 .landing-feature-row { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.landing-course-dialog { width: min(520px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); padding: 30px; border: 1px solid #b7d3e2; border-radius: 22px; background: #fffefa; color: #12344d; box-shadow: 0 20px 70px #12344d40; }
+.landing-course-dialog::backdrop { background: #12344d80; }
+.landing-dialog-close { position: absolute; top: 10px; right: 10px; width: 38px; height: 38px; padding: 0; border: 0; border-radius: 50%; background: #edf5f8; color: #12344d; font-size: 26px; cursor: pointer; }
+.landing-dialog-flag { display: block; object-fit: contain; margin-bottom: 14px; }
+.landing-course-dialog h2 { margin: 0 28px 8px 0; font-size: 26px; }
+.landing-course-dialog p { color: #496981; line-height: 1.5; }
+.landing-platform-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 22px; }
+.landing-platform-choice { display: flex; flex-direction: column; justify-content: center; gap: 8px; min-height: 100px; padding: 18px; border: 1px solid #a3c9df; border-radius: 14px; color: #12344d; text-decoration: none; }
+.landing-platform-choice strong { font-size: 19px; }
+.landing-platform-choice span { font-size: 14px; }
+.landing-platform-android { background: #fff3db; border-color: #e7c88c; }
+.landing-platform-browser { background: #e3f3ff; }
+.landing-platform-choice[href]:hover { border-color: #286b83; }
+.landing-platform-choice:focus-visible, .landing-dialog-close:focus-visible { outline: 3px solid #28738b; outline-offset: 3px; }
+.landing-platform-choice[aria-disabled="true"] { opacity: .55; cursor: default; }
+.landing-dialog-status { margin: 16px 0 0; font-size: 13px; }
+.landing-dialog-status:empty { display: none; }
 .landing-about { max-width: 620px; margin: 20px auto 0; padding: 28px 0; text-align: center; }
 .landing-about h2 { margin: 0 0 12px; font-size: 22px; letter-spacing: -.5px; }
 .landing-about p { margin: 0; font-size: 15px; line-height: 1.7; color: var(--muted); }
@@ -173,6 +190,8 @@
 }
 
 @media (max-width: 540px) {
+  .landing-course-dialog { padding: 24px; }
+  .landing-platform-options { grid-template-columns: 1fr; }
   .landing-features { grid-template-columns: 1fr; }
 }
 

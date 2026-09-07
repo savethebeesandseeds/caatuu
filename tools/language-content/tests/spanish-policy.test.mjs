@@ -241,6 +241,7 @@ test("projector and validator CLIs select one course or every modern catalog cou
     paths: SPANISH_SPAIN_WORD_WORLD_PATHS
   });
   const spanishCourse = {
+    ...JSON.parse(await readFile(path.join(repositoryRoot, spanishCoursePath), "utf8")),
     id: "es",
     sourceLanguage: { id: "en", locale: "en" },
     publication: {
@@ -285,11 +286,17 @@ test("projector and validator CLIs select one course or every modern catalog cou
   await writeJson(temporaryRoot, SPANISH_SPAIN_WORD_WORLD_PATHS.manifest, spanishManifest);
   await writeJson(temporaryRoot, mandarinCoursePath, mandarinCourse);
   await writeJson(temporaryRoot, spanishCoursePath, spanishCourse);
-  await writeJson(temporaryRoot, legacyCoursePath, {
-    id: "cz",
-    sourceLanguage: { id: "en", locale: "en" },
-    publication: { contract: "legacy-active-v1" }
-  });
+  await writeJson(temporaryRoot, legacyCoursePath, JSON.parse(await readFile(path.join(repositoryRoot, legacyCoursePath), "utf8")));
+  for (const directory of ["czech", "mandarin-simplified", "spanish"]) {
+    const file = `apps/languages/${directory}/content/word-world/content.json`;
+    await mkdir(path.dirname(path.join(temporaryRoot, file)), { recursive: true });
+    await copyFile(path.join(repositoryRoot, file), path.join(temporaryRoot, file));
+    for (const name of ["setup-assets.json", "sw.js"]) {
+      const runtimeFile = `apps/languages/${directory}/static/${name}`;
+      await mkdir(path.dirname(path.join(temporaryRoot, runtimeFile)), { recursive: true });
+      await copyFile(path.join(repositoryRoot, runtimeFile), path.join(temporaryRoot, runtimeFile));
+    }
+  }
   await writeJson(temporaryRoot, catalogPath, {
     schemaVersion: 1,
     defaultCourseId: "cz",
@@ -332,7 +339,7 @@ test("projector and validator CLIs select one course or every modern catalog cou
     "--course", "cz", "--check", "--repo-root", temporaryRoot, "--catalog", catalogPath
   ]);
   assert.notEqual(legacyProjection.status, 0);
-  assert.match(legacyProjection.stderr, /does not use language-content-v1/u);
+  assert.match(legacyProjection.stderr, /No Word World course selected/u);
 
   const releaseValidation = run(validatorPath, [
     "--all", "--release", "--repo-root", temporaryRoot, "--catalog", catalogPath

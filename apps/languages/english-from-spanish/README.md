@@ -18,8 +18,10 @@ the shared MiniLM provider and English device speech. Draft review and provenanc
 metadata are retained; trying this preview does not require a professional
 curriculum review.
 
-Word World joins all 250 shared English concept IDs to English target
-realizations and the shared Spanish learner-base catalog. Spanish base sentences
+Word World is authored in [one course file](content/word-world/content.json),
+which holds English audit text, English target sentences and Spanish learner-base
+text together. Its runtime and older publication catalogs are generated views.
+New records can be added independently of the other courses. Spanish base sentences
 retain the existing Spanish draft wording and provenance. Spanish token meanings
 are keyed by concept, target locale, token index, and surface; English target
 token glosses remain independent audit data. English target text is never used

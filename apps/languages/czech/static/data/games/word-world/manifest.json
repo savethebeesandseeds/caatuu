@@ -72,5 +72,6 @@
       ]
     }
   },
-  "authoringSchema": "caatuu-word-world-record-v1"
+  "authoringSchema": "caatuu-word-world-course-content-v1",
+  "authoringFile": "apps/languages/czech/content/word-world/content.json"
 }

@@ -7,7 +7,7 @@
     "script": "Latn"
   },
   "derivedFrom": "apps/languages/shared/learner-base-realizations/es-ES/word-world-starter-v1.json",
-  "sourceCatalog": "apps/languages/shared/english-concepts/word-world-starter-v1.json",
+  "sourceCatalog": "apps/languages/shared/english-concepts/word-world-es-en-v1.json",
   "review": {
     "status": "native-review-required",
     "reviewer": null,

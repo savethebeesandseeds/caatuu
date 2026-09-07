@@ -11,7 +11,15 @@ const json = async path => JSON.parse(await readFile(new URL(path, root), "utf8"
 const course = await json("apps/languages/czech/course.json");
 const manifest = await json(course.resources.wordWorldManifest.path);
 const pack = await json(`${course.resources.staticRoot.path}/data/games/word-world/content.json`);
-const hints = await json("tools/czech-ml/data/word-world/standard-v0.1/token-meanings.json");
+const source = await json("apps/languages/czech/content/word-world/content.json");
+const hints = { schemaVersion: "caatuu-word-world-token-meanings-v1", languageTag: "en",
+  review: source.metadata.tokenMeaningsReview,
+  records: source.records.filter(record => record.tokens.some(token => token.gloss !== null)).map(record => ({
+    id: record.id, expectedCs: record.targetText, expectedEn: record.englishText,
+    tokens: record.tokens.filter(token => token.gloss !== null).map(token => ({
+      tokenIndex: token.tokenIndex, surface: token.surface, meaning: token.gloss
+    }))
+  })) };
 const adapter = await importBrowserLanguageAdapter(new URL(`${course.resources.staticRoot.path}/source/language/adapter.mjs`, root));
 const raw = structuredClone(pack.records);
 for (const record of raw) for (const target of record.targets) delete target.gloss;

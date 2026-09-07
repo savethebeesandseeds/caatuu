@@ -27,34 +27,36 @@ broader coverage, retained-bank progression, and observed delivery remain open.
   Each legacy record retains `noun`, `difficulty`, and seven `cases`, each with
   `form`, `english`, and `czech`.
 - [Czech policy](../apps/languages/czech/static/source/games/case-cosmos/case-cosmos-cs-policy.mjs):
-  permitted legacy singular forms and paired constructions, plus exact pilot
-  context tuples and form pools; it preserves the English-to-Czech boundary.
+  the English-to-Czech course boundary only. It contains no vocabulary,
+  sentence templates or duplicate catalog records.
 - [Content engine](../apps/languages/czech/static/source/games/case-cosmos/case-cosmos-content.mjs):
   validation, exact target spans, case definitions, contrast selection, and balancing.
 - [Screen controller](../apps/languages/czech/static/source/games/case-cosmos/case-cosmos.js):
   presentation, speech, swipes, and rewards; it consumes validated questions.
 
-The policy is a conservative acceptance list, not an exhaustive grammar. A rejected
-alternative may be perfectly grammatical but not covered by this version. In
-particular, the selected masculine dative/locative forms do not imply that other
-standard endings are wrong. Never use this policy as a free-form grammar corrector.
+On 2026-09-07 the user authorized removal of the duplicate code-owned content
+acceptance lists and tests that pinned catalog counts or exact teaching text.
+The JSON bank is now the sole authored content authority. Runtime validation
+checks its structure and internal relationships; it is not a grammar checker
+or independent evidence that a sentence and translation are correct.
 
 ## Content checks
 
 1. Reject wrong language pairs before loading the Czech bank.
 2. For legacy records, require all seven case entries and exactly the documented data fields. JSON
    property order is irrelevant. Reject repeated nouns, repeated sentences, missing
-   levels, invalid difficulty, unknown nouns, and undeclared forms.
+   levels and invalid difficulty. New nouns and constructions need no code entry.
 3. Require NFC-normalized, bounded plain text without markup, control characters,
    or invisible directional formatting. This slice supports one-word noun targets.
 4. Find exactly one complete Unicode word, case-insensitively, and preserve its
    source offsets. `Petr` must not highlight part of `Petra`, a repeated `Petr`,
    a hyphenated name, or a token with a numeric suffix.
-5. Replace that target with a placeholder **only for validation**, then require a
-   listed complete Czech construction and its paired English rendering. Reject
-   role swaps even when their visible noun forms are identical.
-6. Enforce the bounded lexical uses of `s/se`, titles, and the kitten-bowl example.
-   No general rule such as “motion means accusative” is used.
+5. For v2, require unique stable IDs, positive revisions, declared singular/plural
+   form pools, known cases and valid curriculum references. Accepted forms must
+   belong to the declared pool without duplicates and leave a contrast choice.
+6. Check objective difficulty and practice/transfer coverage. Czech grammar,
+   number agreement, semantic roles and bilingual accuracy require editorial
+   review; they are no longer approximated by matching a fixed content list.
 7. Freeze copied validated data and generated questions. A malformed bank displays
    a non-playable error instead of partially accepting content or guessing answers.
 
@@ -69,8 +71,8 @@ companions; plural roles; and natural personal address. A paradigm is a checked
 form pool, not a required seven-case chart: a window needs no invented vocative.
 Several contexts may use the same noun. Each context declares number through its
 paradigm, exact case, accepted alternatives, objective, phase, cue and explanation.
-The policy pins all those fields and rejects semantic or form drift. Such pins
-are regression checks, not independent linguistic evidence.
+Those fields are authored in JSON. No second copy in JavaScript must be edited
+when adding a context or revising a translation or explanation.
 
 ## Three-level content additions
 
@@ -146,17 +148,18 @@ the most frequent learner mistakes; calibration still needs learner testing.
    Reject ambiguous targets or contexts. Follow the fixed benchmark's separate
    review and correction/recheck requirements; record the review type accurately
    outside learner-facing JSON. Do not invent human approval.
-3. Deliberately extend the acceptance policy only for the examined noun forms and
-   bilingual constructions. Add positive and adversarial tests for that extension.
-   Do not loosen patterns until malformed examples pass.
+3. Edit the existing JSON catalog. Do not duplicate its nouns, sentences, form
+   pools or translations in code or add tests that pin the live vocabulary.
+   Record linguistic review evidence separately and preserve honest review status.
 4. Add a v2 stable-ID context and only its checked applicable form pool; assign
    the fixed objective/level and practice or reserved-transfer phase. Preserve
    legacy IDs/text. The legacy API still requires complete seven-case noun records.
    Multiword targets and different learner-base languages remain unsupported.
-5. Run the tests below; version the data, controller, and changed policy imports;
-   update the course manifest, generated course views, offline URLs/cache marker,
-   and Android file inclusion. Check the served app before handoff. Do not release
-   a mixed old/new policy and data combination.
+5. Run the tests below and refresh the existing data delivery metadata when
+   the catalog changes: course resource revision, generated course views,
+   offline URLs/cache marker and setup hashes. Existing Android inclusion points
+   at the same JSON. No controller or policy edits are needed for ordinary
+   additions using the current schema. Check the served content before handoff.
 
 From the canonical checkout, use the existing container:
 
@@ -164,14 +167,16 @@ From the canonical checkout, use the existing container:
 docker exec -w /workspace caatuu-dev node --test apps/language-runtime/tests/case-cosmos-content.test.mjs apps/language-runtime/tests/case-cosmos-curriculum.test.mjs apps/language-runtime/tests/case-cosmos-behavior.test.mjs apps/server/tooling/tests/case-cosmos-shell.test.mjs tools/language-content/tests/planet-english-audit.test.mjs
 ```
 
-The content tests check the retained pairs and 12,600 legacy sentence challenges,
+The content tests exercise every retained pair across repeated legacy challenges,
 including unique solvability, fixed surrounding text, identical-form safety,
 immutable source sentences, and invalid mutations. Behavior tests cover retries,
 animation phases, the shared robot, campaign/reward boundaries, and cancellation.
-Pilot tests also check all 30 contexts across multiple random seeds, accepted
-variants, semantic drift rejection, objective coverage, original seven-case
-round order and reachability of every added context. Shell tests verify Android/offline
-inclusion and revision alignment. Browser QA is
+Context tests check all catalog contexts across multiple random seeds, accepted
+variants, structural validation, objective coverage, original seven-case round
+order and JSON-only additions. They do not certify semantic correctness.
+Capacity tests accept synthetic banks above the former numeric limits without
+adding those fixtures to the learning catalog. Shell/content tests verify the
+declared source, Android/offline inclusion and revision alignment. Browser QA is
 still needed for rendering, speech, controls, and startup readiness.
 
 ## Reference basis

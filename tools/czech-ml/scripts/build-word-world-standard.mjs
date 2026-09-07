@@ -17,6 +17,31 @@ import {
 import { appDataRoot, caatuuRoot, fromRoot } from "./paths.mjs";
 import { applyTokenMeanings } from "./word-world-token-meanings.mjs";
 
+// Ordinary builds use the same per-course JSON as every other Word World
+// course. Explicit legacy inputs remain available for historical import tests.
+const legacyInputFlags = ["--input-file", "--input-dir", "--editorial-overrides", "--token-meanings", "--rubric"];
+if (!legacyInputFlags.some(flag => process.argv.includes(flag))) {
+  const { buildWordWorldContent, planWordWorldContent } = await import("../../language-content/build-word-world-content.mjs");
+  if (process.argv.includes("--runtime-root") || process.argv.includes("--coverage-report")) {
+    const [plan] = await planWordWorldContent({ courseId: "cz" });
+    const outputRoot = path.resolve(argValue("--runtime-root", path.join(appDataRoot, "games", "word-world")));
+    const coveragePath = path.resolve(argValue("--coverage-report", fromRoot("data", "word-world", "standard-v0.1", "reports", "coverage.json")));
+    for (const [file, bytes] of plan.outputs) {
+      const destination = file.endsWith("/reports/coverage.json") ? coveragePath
+        : file.includes("/static/data/games/word-world/") ? path.join(outputRoot, path.basename(file)) : null;
+      if (!destination) continue;
+      await fs.mkdir(path.dirname(destination), { recursive: true });
+      await fs.writeFile(destination, bytes);
+    }
+    console.log(JSON.stringify({ source: plan.sourcePath, records: plan.recordCount, outputRoot, coveragePath }));
+  } else {
+    const report = await buildWordWorldContent({ courseId: "cz", check: process.argv.includes("--check") });
+    console.log(JSON.stringify(report));
+    if (report.check && report.changes.length) process.exitCode = 1;
+  }
+  process.exit(process.exitCode ?? 0);
+}
+
 const datasetDir = fromRoot("data", "word-world", "standard-v0.1");
 const rubricFile = path.resolve(argValue("--rubric", path.join(datasetDir, "rubric.json")));
 const editorialOverridesFile = path.resolve(argValue("--editorial-overrides", path.join(datasetDir, "editorial-overrides.json")));

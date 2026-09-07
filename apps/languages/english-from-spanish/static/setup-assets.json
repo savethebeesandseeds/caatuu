@@ -7,7 +7,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-es-en-pwa-v20",
+    "cacheName": "caatuu-es-en-pwa-v21",
     "cachePrefix": "caatuu-es-en-pwa-",
     "assets": [
       "/language-runtime/static/source/image-embedding-index.mjs?v=image-index-runtime-1",
@@ -79,7 +79,9 @@
       "/language-runtime/static/styles/dictionary-word-card.css?v=dictionary-card-1",
       "/language-runtime/static/assets/caatuu-shell-512.png",
       "/language-runtime/static/data/interface/es.v1.json?v=interface-es-6",
+      "/language-runtime/static/data/english-concepts/word-world-es-en-v1.json",
       "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
+      "/language-runtime/static/data/english-concepts/word-world-es-v1.json",
       "/assets/icons/czech_flag_ui.png",
       "/assets/icons/china_flag.png",
       "/assets/icons/spain_flag.png",
@@ -451,26 +453,26 @@
     {
       "key": "english-concepts",
       "kind": "english-concept-catalog",
-      "url": "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
+      "url": "/language-runtime/static/data/english-concepts/word-world-es-en-v1.json",
       "browserRequired": true,
-      "bytes": 80814,
-      "sha256": "06dce63a6b5a905c8d3ddb22b6faf2f25d17c955c5253a278700e1a229f6c504"
+      "bytes": 80810,
+      "sha256": "d172c1c931280e131fd1c17f9e9d30d7d2ee5bd90e2e1833e626a74df2fc5aba"
     },
     {
       "key": "target-realizations",
       "kind": "target-realization-catalog",
       "url": "/es-en/data/games/word-world/content.json",
       "browserRequired": true,
-      "bytes": 182465,
-      "sha256": "b42b273a85ca4c61bb69834463f5928e640a0c81ca9072478b67df6a3a2ffe08"
+      "bytes": 182463,
+      "sha256": "dc53f817956dd73aa54302d3a78ed72f4f78b65b8df7da232f6fc9c5ed5fadf0"
     },
     {
       "key": "word-world-manifest",
       "kind": "runtime-manifest",
       "url": "/es-en/data/games/word-world/manifest.json?v=word-world-context-hints-1",
       "browserRequired": true,
-      "bytes": 1640,
-      "sha256": "47ea130252be4c96184dc3de4aec9868f3ccc547be5f84e64744a8ae198ee43d"
+      "bytes": 1638,
+      "sha256": "015868c566eb22e8f500bb30885672fc43e34dc50f856ccd350e75c015973185"
     },
     {
       "key": "verb-nebula-catalog",
@@ -485,8 +487,8 @@
       "kind": "embedding-catalog",
       "url": "/es-en/data/embeddings/catalog.json",
       "browserRequired": true,
-      "bytes": 1611,
-      "sha256": "61e2c5761b6ef8fdcf9001e461463fdf2cda9722649ef258cd1494591e2abd1a"
+      "bytes": 1609,
+      "sha256": "456b6fd0ebb2d2db1498a70715e684f49da68b56c72017377847aa078e061480"
     },
     {
       "key": "course-web-manifest",
@@ -502,7 +504,7 @@
       "url": "/es-en/sw.js",
       "browserRequired": true,
       "bytes": 140,
-      "sha256": "5140f43f8ae4dffade56380d08cbb1b3443873e397fe6776f664d8b1a6c6b752"
+      "sha256": "4a1d8140a6c55808733df4ac2c41c4aa1cf8406b651ac60cc03cd0dc0305107f"
     },
     {
       "key": "shared-course-service-worker",

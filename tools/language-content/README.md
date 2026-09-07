@@ -1,11 +1,24 @@
 # Language content contract
 
-This tooling keeps semantic meaning and target-language wording on separate,
-versioned boundaries:
+Word World has one editable source per course:
+`apps/languages/<course>/content/word-world/content.json`. Every source uses the
+same record format and contains its English meaning, target sentence, word
+hints, learner-base translation and review information together. See the
+[catalog guide](../../docs/GAME_CONTENT_CATALOGS.md#word-world-one-editable-json-per-course)
+for the four files and editing workflow.
 
-- `apps/languages/shared/english-concepts/` owns stable concepts and the only
+`build-word-world-content.mjs --all` validates those sources and generates the
+existing runtime and publication views. `--course <id>` selects one course;
+`--check` reports drift without writing. New IDs can be added to one course
+without adding them to the others. Shared IDs preserve their English meaning.
+The Czech rubric and language-specific review/token checks remain in place.
+
+The older files below are generated compatibility views, not editable sources.
+They retain separate language roles for the existing publication contracts:
+
+- `apps/languages/shared/english-concepts/` exposes stable concepts and the only
   text permitted to enter the English embedding model: `embeddingText`.
-- a course's `content/` directory owns target text, pronunciation, authored
+- a course's generated realization catalog exposes target text, pronunciation, authored
   word tokens, glosses, native review state, and content licensing state.
 - the one-to-one concept ID join happens only after both catalogs validate.
 
@@ -108,8 +121,8 @@ available for existing programmatic callers.
 
 To intentionally refresh those projections after an authority change, run the
 projector without `--check`, inspect the generated diff, then rerun the commands
-above. The projector repairs derived output only; it does not rewrite either
-authoring catalog.
+above. The projector CLI reads the unified per-course sources and repairs
+generated publication/runtime views; it never rewrites the four authoring files.
 
 Distribution validation checks release-cleared licensing. The default Mandarin
 compatibility target passes; Spanish intentionally fails that check until its

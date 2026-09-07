@@ -2,20 +2,8 @@
   "schemaVersion": "caatuu-word-world-coverage-v1",
   "corpusVersion": "standard-v0.1",
   "inputFiles": [
-    "tools/czech-ml/data/word-world/standard-v0.1/source/codex-expansion-0001-reviewed.jsonl",
-    "tools/czech-ml/data/word-world/standard-v0.1/source/codex-level3-0001-reviewed.jsonl",
-    "tools/czech-ml/data/word-world/standard-v0.1/source/codex-reflexive-0001-reviewed.jsonl",
-    "tools/czech-ml/data/word-world/standard-v0.1/source/common-phrases-pilot.jsonl",
-    "tools/czech-ml/data/word-world/standard-v0.1/editorial-overrides.json",
-    "tools/czech-ml/data/word-world/standard-v0.1/token-meanings.json"
+    "apps/languages/czech/content/word-world/content.json"
   ],
-  "editorialOverrides": {
-    "file": "tools/czech-ml/data/word-world/standard-v0.1/editorial-overrides.json",
-    "sha256": "65110154ace561d5ba5ba08fe048f4b116f3a25303eb9f0102fe9e07c2a55b54",
-    "overrideCount": 27,
-    "reviewedOn": "2026-08-13",
-    "humanApproved": false
-  },
   "validation": {
     "valid": true,
     "errors": [],

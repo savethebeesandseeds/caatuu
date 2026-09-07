@@ -9,7 +9,7 @@
   "features": {
     "wordMeanings": true
   },
-  "sourceConceptCatalog": "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
+  "sourceConceptCatalog": "/language-runtime/static/data/english-concepts/word-world-es-v1.json",
   "realizationFile": "content.json",
   "recordCount": 250,
   "targetLanguage": "es-ES",

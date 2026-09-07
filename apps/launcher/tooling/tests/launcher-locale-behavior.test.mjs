@@ -10,7 +10,7 @@ const source = await readFile(new URL('../../static/launcher.js', import.meta.ur
 const registry = JSON.parse(await readFile(new URL('../../static/languages.json', import.meta.url), 'utf8'));
 const settle = async () => { for (let index = 0; index < 3; index++) await new Promise(resolve => setImmediate(resolve)); };
 
-async function launch(script, { courses = registry, valid = true, preferences = {} } = {}) {
+async function launch(script, { courses = registry, valid = true, preferences = {}, versionCode } = {}) {
   const browser = createBrowserHarness({ localStorageValues: preferences,
     location: { href: 'https://caatuu.test/', pathname: '/' } });
   const { document, window, context } = browser;
@@ -31,13 +31,20 @@ async function launch(script, { courses = registry, valid = true, preferences = 
   label.setAttribute('data-i18n', 'launcher.language');
   const select = element('select', 'data-page-language', control);
   select.setAttribute('data-i18n-aria-label', 'launcher.language');
+  const dialog = element('dialog', 'data-course-dialog');
+  const dismiss = element('button', 'data-course-dialog-close', dialog);
+  element('h2', 'data-course-dialog-title', dialog);
+  element('img', 'data-course-dialog-flag', dialog);
+  const dialogBrowser = element('a', 'data-course-dialog-browser', dialog);
+  const dialogAndroid = element('a', 'data-course-dialog-android', dialog);
+  const dialogStatus = element('p', 'data-course-dialog-status', dialog);
   window.navigator.languages = ['es-MX', 'en'];
   const requests = [];
   context.fetch = window.fetch = async (path) => {
     requests.push(path);
     return { ok: true, json: async () => path.startsWith('/languages.json') ? structuredClone(courses) : ({
       package_name: valid ? 'com.waajacu.caatuu' : 'another.app',
-      version_code: Math.max(...courses.languages.flatMap(course => course.platforms.android.channels.map(channel => channel.minimumVersionCode))),
+      version_code: versionCode ?? Math.max(...courses.languages.flatMap(course => course.platforms.android.channels.map(channel => channel.minimumVersionCode))),
       build_type: 'release', debuggable: false
     }) };
   };
@@ -45,10 +52,52 @@ async function launch(script, { courses = registry, valid = true, preferences = 
   const executable = script.replace(/import\("\/language-runtime\/static\/source\/launcher-interface\.mjs\?[^"]+"\)/u, 'Promise.resolve(launcherInterface)');
   vm.runInContext(executable, context);
   await settle();
-  return { ...browser, list, entry, download, control, select, label, requests };
+  return { ...browser, list, entry, download, control, select, label, requests, dialog, dismiss, dialogBrowser, dialogAndroid, dialogStatus };
 }
 
 for (const [name, script] of [['server', source], ['Pages', projectPagesLauncherSource(source)]]) {
+  test(`${name}: course cards offer the selected course in the browser and a validated APK`, async () => {
+    const app = await launch(script);
+    for (const [index, course] of registry.browserSetup.courses.entries()) {
+      const link = app.list.children[index].querySelector('a');
+      link.click();
+      await settle();
+      assert.equal(app.dialog.open, true);
+      assert.equal(app.dialogBrowser.href, course.entryPath);
+      const { content } = await launcherInterface.loadLauncherInterface(registry, [app.document.documentElement.lang]);
+      assert.equal(app.dialog.querySelector('[data-course-dialog-title]').textContent, content.languageName(course.targetLanguage));
+      assert.match(app.dialogAndroid.href, /caatuu_release=/u);
+      assert.equal(app.dialogAndroid.hasAttribute('aria-disabled'), false);
+      app.dismiss.click();
+      assert.equal(app.dialog.open, false);
+    }
+  });
+
+  test(`${name}: the popup offers the main app download without choosing a learner base`, async () => {
+    const courses = structuredClone(registry);
+    const spanish = courses.languages.find(course => course.id === 'es');
+    const defaultCourse = courses.languages.find(course => course.id === courses.defaultLanguage);
+    const versionCode = defaultCourse.platforms.android.channels.find(channel => channel.kind === 'release').minimumVersionCode;
+    for (const channel of spanish.platforms.android.channels) channel.minimumVersionCode = versionCode + 100;
+    const app = await launch(script, { courses, versionCode });
+    const index = courses.browserSetup.courses.findIndex(course => course.id === 'es');
+    app.list.children[index].querySelector('a').click();
+    assert.equal(app.dialogAndroid.href, app.download.href);
+    assert.equal(app.dialogAndroid.hasAttribute('aria-disabled'), false);
+    assert.equal(app.dialogBrowser.href, courses.browserSetup.courses[index].entryPath);
+  });
+
+  test(`${name}: an unsupported APK leaves the course browser choice usable`, async () => {
+    const app = await launch(script, { versionCode: 1 });
+    app.list.children[0].querySelector('a').click();
+    await settle();
+    assert.equal(app.dialog.open, true);
+    assert.equal(app.dialogBrowser.href, registry.browserSetup.courses[0].entryPath);
+    assert.equal(app.dialogAndroid.hasAttribute('href'), false);
+    assert.equal(app.dialogAndroid.getAttribute('aria-disabled'), 'true');
+    assert.ok(app.dialogStatus.textContent);
+  });
+
   test(`${name}: development courses retain preview disclosure and an enabled Android download`, async () => {
     const courses = structuredClone(registry);
     const preview = courses.browserSetup.courses.find(course => course.status === 'development');

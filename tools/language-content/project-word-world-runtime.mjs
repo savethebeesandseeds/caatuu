@@ -692,10 +692,12 @@ async function main() {
     return;
   }
 
-  const report = await projectCatalogWordWorldRuntime({
-    repositoryRoot: options.repositoryRoot,
+  const { buildWordWorldContent } = await import("./build-word-world-content.mjs");
+  const report = await buildWordWorldContent({
+    root: options.repositoryRoot,
     catalogPath: options.catalogPath,
     courseId: options.courseId,
+    includeLegacy: false,
     check: options.check
   });
   for (const course of report.courses) {

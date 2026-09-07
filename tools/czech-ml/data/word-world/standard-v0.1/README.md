@@ -1,8 +1,12 @@
 # Word World Standard Corpus v0.1
 
-This directory is the canonical authoring source for the model-free Word World
-`Standard` content provider. It is intentionally separate from model-training
-datasets. The Standard provider must be able to show Czech text, reveal an
+The editable Czech Word World source is now
+[content.json](../../../../../apps/languages/czech/content/word-world/content.json).
+This directory retains historical batches, correction ledgers, review receipts,
+the unchanged rubric, and generated reports. Normal builds read the single
+course JSON; they no longer combine this directory's source batches or apply
+its correction ledgers. Those corrections and token hints are already included
+in the unified source. The Standard provider must be able to show Czech text, reveal an
 included English meaning, choose by difficulty, and branch from an exact Czech
 surface form without invoking a language model.
 
@@ -59,9 +63,9 @@ Word World target. The candidate, focused review, and promotion receipt use the
 authoring task; it is explicitly neither independent nor human approval, and
 qualified Czech review remains required before production linguistic approval.
 
-## Authoring contract
+## Historical import contract
 
-`schema/record.schema.json` documents the unified multilingual JSONL record.
+`schema/record.schema.json` documents the historical multilingual JSONL record.
 The canonical language fields are `languages.en` and `languages.cs`; new
 languages can be added through a later schema version without flattening or
 duplicating the learning record.
@@ -78,16 +82,18 @@ Every record includes:
 - an embedding-friendly scene query plus optional manually selected asset IDs;
 - source provenance and an honest review state.
 
-Contextual English token hints belong in `token-meanings.json`. This companion
+The historical contextual English token hints are preserved in `token-meanings.json`. This companion
 binds each hint to an existing record ID, both complete sentence texts and an
-exact annotated token position/surface. The compiler inserts only the reviewed
+exact annotated token position/surface. The historical importer inserted only the reviewed
 `gloss` into runtime targets, leaving historical source and review receipts
-unchanged. Drift fails compilation. The companion records its own review status;
+unchanged. The current authoring JSON stores those hints directly in `tokens[].gloss`.
+The companion records its own review status;
 the historical sentence review is not approval of a newly written hint.
 
-After compiling changed content, update the setup catalog's exact Word World
-`content.json?v=...` URL from the generated manifest, regenerate the static
-dictionary supplement when its corpus hash changes, and refresh setup assets.
+The shared builder updates the setup catalog's exact Word World
+`content.json?v=...` URL from the generated manifest. After changing the corpus,
+regenerate the static dictionary supplement when its corpus hash changes, and
+refresh setup assets.
 `apps/server/tooling/tests/word-net-standard.test.mjs` checks this exact offline
 URL; checking file hashes alone does not validate the URL used by the browser.
 
@@ -106,43 +112,56 @@ moved out of first contact even when they happened to be short.
 
 ## Adding independently reviewed batches
 
-Place each accepted batch in `source/` as its own JSONL file. Keep IDs and
-provenance source IDs globally unique. The validator and compiler discover all
-JSONL files recursively and sort files and records deterministically, so adding
-`source/codex-batch-0001.jsonl` does not require changing either tool. Candidate
-and rejected rows belong outside `source/` until accepted.
+Add accepted records to the course's `content/word-world/content.json` and
+write contextual hints in its `tokens[].gloss`. Keep IDs and provenance source
+IDs unique. Preserve candidates, rejected rows and independent review evidence
+separately. New learning records must not be added to these historical batches
+as a substitute for editing the current authority.
 
 For reviewed subsets, preserve the complete candidate and review report as
 immutable evidence. Promote only explicit passing verdicts, record the exact
 input and output hashes and held IDs in a promotion receipt, and require a new
-independent review before any corrected held row may enter `source/`.
+independent review before any corrected held row may enter the course content JSON.
 
 Exact English reuse across different records is allowed because formal,
 informal, gendered and morphology-focused Czech variants can share one English
 rendering. Exact Czech reuse is not allowed: equivalent Czech records must be
 merged and alternate English meanings retained in one record.
 
-## Rebuild and verify
+## Current rebuild and verification
+
+Use the existing container and the shared command:
+
+```powershell
+docker exec -w /workspace caatuu-dev node tools/language-content/build-word-world-content.mjs --course cz
+docker exec -w /workspace caatuu-dev node apps/server/tooling/refresh-setup-assets.mjs --all-browser-courses
+docker exec -w /workspace caatuu-dev node tools/language-content/build-word-world-content.mjs --course cz --check
+```
+
+The older Czech compiler and validator also default to the new file. Historical
+JSONL reconstruction is available only through explicit legacy input flags.
+
+## Historical import commands
 
 Run every command in the repository container:
 
 ```powershell
-docker compose --profile dev run --rm caatuu-dev `
+docker exec -w /workspace caatuu-dev `
   node tools/czech-ml/scripts/import-word-world-common-phrases.mjs
 
-docker compose --profile dev run --rm caatuu-dev `
+docker exec -w /workspace caatuu-dev `
   node tools/czech-ml/scripts/promote-word-world-reviewed-expansion.mjs
 
-docker compose --profile dev run --rm caatuu-dev `
+docker exec -w /workspace caatuu-dev `
   node tools/czech-ml/scripts/promote-word-world-reviewed-level3.mjs
 
-docker compose --profile dev run --rm caatuu-dev `
-  node tools/czech-ml/scripts/validate-word-world-standard.mjs
+docker exec -w /workspace caatuu-dev `
+  node tools/czech-ml/scripts/validate-word-world-standard.mjs --input-dir tools/czech-ml/data/word-world/standard-v0.1/source
 
-docker compose --profile dev run --rm caatuu-dev `
-  node tools/czech-ml/scripts/build-word-world-standard.mjs
+docker exec -w /workspace caatuu-dev `
+  node tools/czech-ml/scripts/build-word-world-standard.mjs --input-dir tools/czech-ml/data/word-world/standard-v0.1/source
 
-docker compose --profile dev run --rm caatuu-dev `
+docker exec -w /workspace caatuu-dev `
   node --test tools/czech-ml/tests/word-world-standard.test.mjs
 ```
 
@@ -150,7 +169,7 @@ The compiler emits:
 
 ```text
 apps/languages/czech/static/data/games/word-world/manifest.json
-apps/languages/czech/static/data/games/word-world/standard-v0.1/records.json
+apps/languages/czech/static/data/games/word-world/content.json
 ```
 
 The manifest's `runtimeFile` is relative to the manifest directory. The runtime

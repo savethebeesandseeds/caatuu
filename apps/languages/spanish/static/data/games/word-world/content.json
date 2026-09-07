@@ -13,7 +13,7 @@
     "speechLocale": "es-ES",
     "script": "Latn"
   },
-  "sourceCatalog": "apps/languages/shared/english-concepts/word-world-starter-v1.json",
+  "sourceCatalog": "apps/languages/shared/english-concepts/word-world-es-v1.json",
   "contentPolicy": "spanish-spain-v1",
   "review": {
     "status": "native-review-required",

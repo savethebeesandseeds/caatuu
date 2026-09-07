@@ -10,7 +10,16 @@ import {
   DEFAULT_LANGUAGE_CATALOG_PATH,
   loadCatalogLanguageContentCourses
 } from "./lib/course-content-catalog.mjs";
-import { loadAndPrepareLanguageRoleContent } from "./lib/language-role-contract.mjs";
+import { prepareLanguageRoleContent } from "./lib/language-role-contract.mjs";
+import { loadWordWorldContent, modernCatalogs } from "./lib/word-world-course-content.mjs";
+
+async function prepareCourse(record, options) {
+  const { document } = await loadWordWorldContent(record.course, { root: options.repoRoot });
+  const { concepts, realizations, learnerBase } = modernCatalogs(document, record.course);
+  prepareLanguageRoleContent(concepts, realizations, { sourceLanguage: document.sourceLanguage,
+    learnerBaseRealizations: learnerBase, release: options.release, requireNativeReview: options.requireNativeReview });
+  return { concepts, targetRealizations: realizations };
+}
 
 function usage() {
   return `Usage: node tools/language-content/validate.mjs [options]
@@ -114,15 +123,7 @@ async function main() {
     const failures = [];
     for (const record of records) {
       try {
-        const loaded = await loadAndPrepareLanguageRoleContent({
-          repoRoot: options.repoRoot,
-          conceptsPath: record.conceptsPath,
-          targetRealizationsPath: record.realizationsPath,
-          learnerBaseRealizationsPath: record.learnerBaseRealizationsPath,
-          sourceLanguage: record.sourceLanguage,
-          release: options.release,
-          requireNativeReview: options.requireNativeReview
-        });
+        const loaded = await prepareCourse(record, options);
         reports.push({
           courseId: record.id,
           concepts: loaded.concepts.concepts.length,
@@ -143,13 +144,16 @@ async function main() {
     return;
   }
 
-  const loaded = await loadAndValidateLanguageContent(options);
+  const defaultRecord = options.explicitContentPair ? null : (await loadCatalogLanguageContentCourses({
+    repositoryRoot: options.repoRoot, courseId: "zh"
+  }))[0];
+  const loaded = defaultRecord ? await prepareCourse(defaultRecord, options) : await loadAndValidateLanguageContent(options);
   const scope = options.explicitContentPair
     ? "explicit content pair"
     : "default compatibility target; use --all for catalog coverage";
   console.log(
     `Validated ${loaded.concepts.concepts.length} English concepts and `
-    + `${loaded.realizations.realizations.length} target realizations for ${mode} (${scope}).`
+    + `${(loaded.targetRealizations ?? loaded.realizations).realizations.length} target realizations for ${mode} (${scope}).`
   );
 }
 

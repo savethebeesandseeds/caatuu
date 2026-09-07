@@ -73,12 +73,12 @@
   },
   "publication": {
     "contract": "language-content-v1",
-    "concepts": "apps/languages/shared/english-concepts/word-world-starter-v1.json",
+    "concepts": "apps/languages/shared/english-concepts/word-world-es-en-v1.json",
     "realizations": "apps/languages/english-from-spanish/content/word-world/starter-v1.realizations.json",
     "learnerBaseRealizations": "apps/languages/shared/learner-base-realizations/es-ES/word-world-starter-v1.json",
     "runtimeProjection": {
       "policyId": "english-american-word-world-v1",
-      "conceptsRuntime": "apps/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
+      "conceptsRuntime": "apps/language-runtime/static/data/english-concepts/word-world-es-en-v1.json",
       "targetRealizationsRuntime": "apps/languages/english-from-spanish/static/data/games/word-world/content.json",
       "learnerBaseRuntime": "apps/languages/english-from-spanish/static/data/games/word-world/learner-base.json",
       "supplementalOutputs": {},

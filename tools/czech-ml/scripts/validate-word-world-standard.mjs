@@ -9,6 +9,20 @@ import {
 } from "./word-world-standard-lib.mjs";
 import { caatuuRoot, fromRoot } from "./paths.mjs";
 
+if (!["--input-file", "--input-dir", "--rubric"].some(flag => process.argv.includes(flag))) {
+  const { loadWordWorldContent, readRepositoryJson, czechRuntimeRecords } = await import("../../language-content/lib/word-world-course-content.mjs");
+  const course = await readRepositoryJson(caatuuRoot, "apps/languages/czech/course.json");
+  const { document, sourcePath } = await loadWordWorldContent(course);
+  const rubric = await readRepositoryJson(caatuuRoot, "tools/czech-ml/data/word-world/standard-v0.1/rubric.json");
+  const { runtime, validation } = czechRuntimeRecords(document, rubric);
+  await writeJson(path.resolve(argValue("--report", fromRoot("data", "word-world", "standard-v0.1", "reports", "validation.json"))), {
+    schemaVersion: "caatuu-word-world-validation-v1", corpusVersion: document.metadata.corpusVersion,
+    inputFiles: [sourcePath], ...validation
+  });
+  console.log(JSON.stringify({ sourcePath, recordCount: runtime.length, ...validation }));
+  process.exit(validation.valid ? 0 : 1);
+}
+
 const datasetDir = fromRoot("data", "word-world", "standard-v0.1");
 const rubricFile = path.resolve(argValue("--rubric", path.join(datasetDir, "rubric.json")));
 const reportFile = path.resolve(argValue("--report", path.join(datasetDir, "reports", "validation.json")));

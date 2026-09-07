@@ -84,6 +84,8 @@
     { "source": "apps/language-runtime/static/assets/caatuu-shell-512.png", "output": "assets/caatuu-shell-512.png" },
     { "source": "apps/language-runtime/static/data/interface/en.v1.json", "output": "language-runtime/static/data/interface/en.v1.json" },
     { "source": "apps/language-runtime/static/data/english-concepts/word-world-starter-v1.json", "output": "language-runtime/static/data/english-concepts/word-world-starter-v1.json" },
+    { "source": "apps/language-runtime/static/data/english-concepts/word-world-es-v1.json", "output": "language-runtime/static/data/english-concepts/word-world-es-v1.json" },
+    { "source": "apps/language-runtime/static/data/english-concepts/word-world-es-en-v1.json", "output": "language-runtime/static/data/english-concepts/word-world-es-en-v1.json" },
     { "source": "apps/launcher/static/assets/icons/backpack_icon.png", "output": "assets/icons/backpack_icon.png" },
     { "source": "apps/launcher/static/assets/icons/coin_icon_ui.png", "output": "assets/icons/coin_icon_ui.png" },
     { "source": "apps/launcher/static/assets/icons/clock_icon.png", "output": "assets/icons/clock_icon.png" },

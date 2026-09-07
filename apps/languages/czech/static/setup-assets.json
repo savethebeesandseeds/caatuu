@@ -6,7 +6,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-czech-pwa-v696",
+    "cacheName": "caatuu-czech-pwa-v698",
     "cachePrefix": "caatuu-czech-pwa-",
     "assets": [
       "/language-runtime/static/source/image-embedding-index.mjs?v=image-index-runtime-1",
@@ -68,6 +68,8 @@
       "/language-runtime/static/assets/caatuu-shell-512.png",
       "/language-runtime/static/data/interface/en.v1.json?v=interface-en-31",
       "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
+      "/language-runtime/static/data/english-concepts/word-world-es-v1.json",
+      "/language-runtime/static/data/english-concepts/word-world-es-en-v1.json",
       "/language-runtime/contract.mjs",
       "./source/shared/course-profile.js?v=course-64",
       "./source/language/adapter.mjs",

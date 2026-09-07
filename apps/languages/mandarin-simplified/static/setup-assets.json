@@ -7,7 +7,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-zh-hans-pwa-v165",
+    "cacheName": "caatuu-zh-hans-pwa-v166",
     "cachePrefix": "caatuu-zh-hans-pwa-",
     "assets": [
       "/language-runtime/static/source/image-embedding-index.mjs?v=image-index-runtime-1",
@@ -81,6 +81,8 @@
       "/language-runtime/static/assets/caatuu-shell-512.png",
       "/language-runtime/static/data/interface/en.v1.json?v=interface-en-31",
       "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
+      "/language-runtime/static/data/english-concepts/word-world-es-v1.json",
+      "/language-runtime/static/data/english-concepts/word-world-es-en-v1.json",
       "/assets/icons/china_flag.png",
       "/assets/icons/czech_flag_ui.png",
       "/assets/icons/english_flag.png",
@@ -534,7 +536,7 @@
       "url": "/zh/sw.js",
       "browserRequired": true,
       "bytes": 143,
-      "sha256": "3ae904d92769832f19577ae9e5dedeb541ac997919110584c4fe265dee784bba"
+      "sha256": "2b26b21466facda41f33a5a1ed7dde1d74e94c6a2ec2ce9d2108d3afc9fee092"
     },
     {
       "key": "shared-course-service-worker",

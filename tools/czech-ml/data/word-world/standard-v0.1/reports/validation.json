@@ -2,10 +2,7 @@
   "schemaVersion": "caatuu-word-world-validation-v1",
   "corpusVersion": "standard-v0.1",
   "inputFiles": [
-    "tools/czech-ml/data/word-world/standard-v0.1/source/codex-expansion-0001-reviewed.jsonl",
-    "tools/czech-ml/data/word-world/standard-v0.1/source/codex-level3-0001-reviewed.jsonl",
-    "tools/czech-ml/data/word-world/standard-v0.1/source/codex-reflexive-0001-reviewed.jsonl",
-    "tools/czech-ml/data/word-world/standard-v0.1/source/common-phrases-pilot.jsonl"
+    "apps/languages/czech/content/word-world/content.json"
   ],
   "valid": true,
   "errors": [],
