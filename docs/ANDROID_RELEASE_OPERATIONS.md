@@ -166,6 +166,15 @@ the same artifact identity and must not call the builder twice. Source CI runs
 these suites alongside the Node contracts. These simulations do not replace a
 signed-package audit, actual public-byte verification or physical-device testing.
 
+Also verify script-call scope, not only `pwsh -File`: CI invokes these scripts
+from a parent PowerShell script. Closures must capture helper scriptblocks
+explicitly rather than relying on functions being in the global scope. Use a
+fail-fast parent so missing helpers cannot print errors followed by a false pass:
+
+```powershell
+pwsh -NoProfile -Command '$ErrorActionPreference = "Stop"; & ./apps/android/tooling/tests/release-orchestration.test.ps1; & ./apps/android/tooling/tests/release-network-retry.test.ps1'
+```
+
 ## Close the loop after each incident
 
 Record the failing phase, exact error, source revision, candidate identity and

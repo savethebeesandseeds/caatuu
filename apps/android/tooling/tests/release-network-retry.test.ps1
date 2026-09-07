@@ -1,3 +1,6 @@
+[CmdletBinding()]
+param([switch]$NestedInvocation)
+
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 Import-Module (Join-Path $PSScriptRoot "../release-network-retry.psm1") -Force
@@ -22,12 +25,17 @@ function Test-Case([string]$Name, [scriptblock]$Action) {
 }
 function New-ReadFixture([object[]]$Responses) {
     $state = @{ Calls = 0; Sleeps = [System.Collections.Generic.List[int]]::new(); Messages = [System.Collections.Generic.List[string]]::new(); Deadlines = [System.Collections.Generic.List[int]]::new() }
+    # GetNewClosure creates a dynamic module. Capture the assertion itself;
+    # script-local function names are not visible there under CI's nested
+    # script invocation, even though they are visible under pwsh -File.
+    $assertReadEqual = ${function:Assert-Equal}
     return @{
         State = $state
         Execute = {
             param($Executable, $Argv, $Deadline)
-            Assert-Equal $Executable "gh" "read executable"
-            Assert-Equal @($Argv) @("api", "repos/savethebeesandseeds/caatuu/commits/main", "--jq", ".sha") "read arguments"
+            $ErrorActionPreference = "Stop"
+            & $assertReadEqual $Executable "gh" "read executable"
+            & $assertReadEqual @($Argv) @("api", "repos/savethebeesandseeds/caatuu/commits/main", "--jq", ".sha") "read arguments"
             $state.Deadlines.Add($Deadline)
             $index = $state.Calls
             $state.Calls++
@@ -55,6 +63,15 @@ Test-Case "TLS timeout before upload recovers on the same read, with bounded bac
     Assert-Equal $fixture.State.Calls 2 "read executions"
     Assert-Equal @($fixture.State.Sleeps) @(2) "backoff"
     Assert-Equal @($fixture.State.Deadlines) @(60, 60) "per-attempt timeout"
+}
+
+Test-Case "closure assertions remain active and fail on an unexpected read" {
+    $fixture = New-ReadFixture @(@{ Code = 0; Output = "must not return" })
+    Assert-Throws {
+        Invoke-CaatuuNetworkRead -File "gh" -Arguments @("repo", "view", "savethebeesandseeds/caatuu") `
+            -Execute $fixture.Execute -Sleep $fixture.Sleep -Notify $fixture.Notify
+    } "read arguments differs"
+    Assert-Equal $fixture.State.Calls 0 "unexpected read rejected before simulated response"
 }
 
 Test-Case "selected throttling and gateway failures recover but never exceed three attempts" {
@@ -251,4 +268,27 @@ Test-Case "a thrown mutation callback propagates without any automatic resend" {
     Assert-Equal $calls.Reads 0 "no assumed result after a thrown callback"
 }
 
+if (-not $NestedInvocation) {
+    Test-Case "both behavior suites pass under CI's nested-script invocation with terminating errors" {
+        $powershellPath = (Get-Process -Id $PID).Path
+        $orchestrationPath = (Join-Path $PSScriptRoot "release-orchestration.test.ps1").Replace("'", "''")
+        $networkPath = $PSCommandPath.Replace("'", "''")
+        # GitHub's pwsh runner invokes its command script with Stop set outside
+        # the two child scripts. Exercise that scope, not just -File execution.
+        # The test-only switch prevents this subprocess check recursing; every
+        # network behavior assertion still runs in the child process.
+        $expectedCount = $script:Passed
+        $command = "`$ErrorActionPreference = 'Stop'; & '$orchestrationPath'; & '$networkPath' -NestedInvocation"
+        $result = Invoke-CaatuuBoundedReadProcess -File $powershellPath -Arguments @("-NoProfile", "-Command", $command) -TimeoutSeconds 20
+        if ($result.Code -ne 0) { throw "CI-form behavior suite failed with exit $($result.Code).`n$($result.Output)" }
+        $records = @($result.Output -split "`r?`n" | Where-Object { $_.StartsWith('{"schema":"caatuu-release-network-test-result"') })
+        Assert-Equal $records.Count 1 "nested machine-readable result count"
+        $completed = $records[0] | ConvertFrom-Json
+        Assert-Equal $completed.passed $expectedCount "nested completed behavior count"
+        Assert-Equal $completed.nested $true "nested invocation result identity"
+        if ($result.Output -match 'not recognized as a name|Unexpected failure|Exception:') { throw "Nested invocation emitted an error despite its exit status.`n$($result.Output)" }
+    }
+}
+
 Write-Host "Release network behavior tests: $script:Passed passed."
+Write-Output ([ordered]@{ schema = "caatuu-release-network-test-result"; passed = $script:Passed; nested = [bool]$NestedInvocation } | ConvertTo-Json -Compress)
