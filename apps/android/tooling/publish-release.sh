@@ -224,9 +224,11 @@ read_signer_sha() {
 
 validate_and_read_existing_candidate() {
   local apk="$1" aab="$2"
-  local proof="${3:-}" challenge="${4:-}" receipt="${5:-}" setup="${6:-}"
+  local proof="${3:-}" challenge="${4:-}" receipt="${5:-}" setup="${6:-}" source_revision="${7:-}"
   local setup_arguments=()
+  local source_arguments=()
   [[ -z "$setup" ]] || setup_arguments=(--setup "$setup")
+  [[ -z "$source_revision" ]] || source_arguments=(--source-revision "$source_revision")
   if [[ -n "$proof" && -n "$challenge" && -n "$receipt" ]] && \
     node "$repo_root/apps/android/tooling/release-candidate.mjs" verify-audit-proof \
       --repo-root "$repo_root" --proof "$proof" --challenge "$challenge" --receipt "$receipt" \
@@ -237,6 +239,7 @@ validate_and_read_existing_candidate() {
       --aab "$aab" \
       --apk "$apk" \
       "${setup_arguments[@]}" \
+      "${source_arguments[@]}" \
       --apkanalyzer "$(command -v apkanalyzer)" \
       --unzip "$(command -v unzip)"
   fi
@@ -332,7 +335,7 @@ if [[ "$mode" == "adopt-existing" ]]; then
     echo "The existing APK does not match the explicitly approved SHA-256." >&2
     exit 1
   }
-  validate_and_read_existing_candidate "$source_apk" "$source_aab"
+  validate_and_read_existing_candidate "$source_apk" "$source_aab" "" "" "" "" "$expected_source_revision"
   candidate_receipt="$repo_root/artifacts/android/release-candidates/$version_code.json"
   node "$repo_root/apps/android/tooling/release-candidate.mjs" seal-existing \
     --repo-root "$repo_root" \
@@ -452,7 +455,7 @@ fi
 receipt_sha256="$(sha256sum "$staged_receipt" | awk '{print $1}')"
 assert_source_on_origin_main "$receipt_source_revision"
 validate_and_read_existing_candidate "$staged_candidate_apk" "$staged_candidate_aab" \
-  "$invocation_audit_proof" "$invocation_audit_challenge" "$staged_receipt" "$candidate_setup"
+  "$invocation_audit_proof" "$invocation_audit_challenge" "$staged_receipt" "$candidate_setup" "$receipt_source_revision"
 
 [[ "$version_code" == "$(jq -er '.identity.version_code' "$verified_receipt")" \
   && "$version_name" == "$(jq -er '.identity.version_name' "$verified_receipt")" \

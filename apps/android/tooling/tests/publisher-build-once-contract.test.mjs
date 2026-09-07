@@ -28,6 +28,16 @@ test("publication can adopt or promote an exact signed candidate without an Andr
   assert.doesNotMatch(defaultMode, /build-release-aab|mode=build-once/u);
 });
 
+test("receipt promotion binds the full audit to the verified receipt source", () => {
+  const verified = publisher.indexOf('assert_source_on_origin_main "$receipt_source_revision"');
+  const audit = publisher.indexOf('validate_and_read_existing_candidate "$staged_candidate_apk"', verified);
+  assert.ok(verified >= 0 && audit > verified);
+  assert.ok(publisher.slice(audit, publisher.indexOf("\n\n", audit)).includes('"$receipt_source_revision"'));
+  assert.ok(publisher.includes('source_arguments=(--source-revision "$source_revision")'));
+  const auditCall = publisher.slice(publisher.indexOf('node "$repo_root/apps/android/tooling/validate-product-package.mjs"'));
+  assert.ok(auditCall.slice(0, auditCall.indexOf("\n  fi")).includes('"${source_arguments[@]}"'));
+});
+
 test("a new release has one explicit build boundary and no regenerated transition", () => {
   assert.equal(publisher.match(/build-release-aab\.sh/gu)?.length, 1);
   assert.match(publisher, /if \[\[ "\$mode" == "build-once" \]\]; then/u);

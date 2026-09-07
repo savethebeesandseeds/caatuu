@@ -137,6 +137,12 @@ After finalization, use the receipt-only deployer with the receipt in
 `artifacts/android/releases/<versionCode>/`. Source changes are not permission
 to replace an existing candidate or bypass its version-floor checks.
 
+Receipt promotion audits the package against the catalog and shared source
+bytes at the receipt's full Git commit ID. These are read directly from Git
+objects in the canonical repository; no alternate checkout is created.
+Current validator security and integrity checks still apply. This allows a
+later course addition to coexist with an already sealed earlier APK.
+
 Short allowlisted metadata reads have at most three attempts: a 60-second
 process limit per attempt and 2/4-second backoff. TLS handshake timeouts,
 connection resets, HTTP 408/429 and selected 5xx errors are retryable.

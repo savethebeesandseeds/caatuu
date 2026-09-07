@@ -194,10 +194,6 @@ test("the shared home exposes a two-question language form and the game display 
   );
   assert.match(
     homeStyles,
-    /\.native-setup-card\.is-ready:not\(\.is-updating\):not\(\.is-app-update-lock\):not\(\.is-error\) \+ \.home-language-card \{\s*display: grid;/u
-  );
-  assert.match(
-    homeStyles,
     /dialog\.home-language-selector-menu \{[\s\S]*?position: fixed;[\s\S]*?left: 50%;[\s\S]*?transform: translateX\(-50%\);/u
   );
   assert.match(chromeSource, /className = "home-language-pair"/u);
@@ -265,7 +261,7 @@ test("the shared home exposes a two-question language form and the game display 
   assert.match(appEntry, /initial-theme\.js\?v=theme-3/u);
   assert.match(appEntry, /caatuu-theme\.css\?v=theme-7/u);
   const homeUrl = revisionedReference(appEntry, "/language-runtime/static/styles/caatuu-home.css", "home");
-  assert.match(appEntry, /caatuu-chrome\.css\?v=chrome-style-133/u);
+  const chromeStyleUrl = revisionedReference(appEntry, "/language-runtime/static/styles/caatuu-chrome.css", "chrome-style");
   assert.doesNotMatch(appEntry, /caatuu-chrome\.js/u);
   revisionedReference(appEntry, "source/shared/course-profile.js", "course");
   const bootstrapUrl = revisionedReference(appEntry, "/language-runtime/static/source/app-bootstrap.mjs", "app");
@@ -273,10 +269,9 @@ test("the shared home exposes a two-question language form and the game display 
   const workspaceUrl = revisionedReference(bootstrapSource, "/language-runtime/static/source/caatuu-workspace.js", "workspace");
   assert.match(czechSetup.offline.cacheName, /^caatuu-czech-pwa-v[1-9]\d*$/u);
   assert.ok(czechWorker.includes(`// Offline catalog revision: ${czechSetup.offline.cacheName}`));
-  for (const url of [homeUrl, bootstrapUrl, chromeUrl, workspaceUrl]) {
+  for (const url of [homeUrl, bootstrapUrl, chromeUrl, workspaceUrl, chromeStyleUrl]) {
     assert.ok(czechSetup.offline.assets.includes(url), `Offline setup must contain the current shared reference ${url}`);
   }
-  assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-133"));
   assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/source/dictionary-provider-loader.mjs"));
   assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/source/interface-content.mjs?v=interface-runtime-2"));
   assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-8"));

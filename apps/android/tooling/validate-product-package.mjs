@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
 import { execFileSync } from "node:child_process";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync } from "node:fs";
 import { basename, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { assertProductSourceText } from "./product-source-policy.mjs";
 import { nativeBootstrapCatalogAssets, planProductDelivery } from "./product-delivery.mjs";
 import { readSetupPayloadArchive, validateSetupPayloadForApk } from "./setup-payload.mjs";
+import { packageSourceReader, packagePublicationPlan } from "./package-source-contract.mjs";
 
 import {
   loadAndroidCourseBundleCatalogPlan,
@@ -28,12 +29,13 @@ import {
 
 const scriptPath = fileURLToPath(import.meta.url);
 const workspaceRoot = resolve(dirname(scriptPath), "../../..");
-const expectedProductPublicationPlan = loadAndroidCourseBundleCatalogPlan({ workspaceRoot }).publicationPlan;
-const appAssetCatalog = JSON.parse(readFileSync(resolve(workspaceRoot, "apps/language-runtime/app-assets.json"), "utf8"));
-const canonicalAppEntry = Buffer.from(transformIndex(
-  readFileSync(resolve(workspaceRoot, "apps/language-runtime/static/app/index.html"), "utf8"),
+let readSource = packageSourceReader(workspaceRoot);
+let expectedProductPublicationPlan = loadAndroidCourseBundleCatalogPlan({ workspaceRoot }).publicationPlan;
+let appAssetCatalog = JSON.parse(readSource("apps/language-runtime/app-assets.json").toString("utf8"));
+let canonicalAppEntry = Buffer.from(transformIndex(
+  readSource("apps/language-runtime/static/app/index.html").toString("utf8"),
 ));
-const SHARED_APP_REQUIRED_ASSET_PATHS = Object.freeze(
+let SHARED_APP_REQUIRED_ASSET_PATHS = Object.freeze(
   appAssetCatalog.assets.map(({ output }) => output),
 );
 const CAPABILITY_GATED_SHARED_APP_PATHS = new Set([
@@ -147,7 +149,7 @@ function usage() {
   console.log(
     "Usage: node apps/android/tooling/validate-product-package.mjs " +
       "--aab <caatuu.aab> --apk <aab-derived-universal.apk> " +
-      "[--setup <sealed-setup-payload.tar>] [--apkanalyzer <path>] [--unzip <path>] [--allow-transition-debug]",
+      "[--setup <sealed-setup-payload.tar>] [--source-revision <commit>] [--apkanalyzer <path>] [--unzip <path>] [--allow-transition-debug]",
   );
 }
 
@@ -160,7 +162,7 @@ function parseArguments(argv) {
       options.allowTransitionDebug = true;
       continue;
     }
-    if (!["--aab", "--apk", "--setup", "--apkanalyzer", "--unzip"].includes(argument)) {
+    if (!["--aab", "--apk", "--setup", "--source-revision", "--apkanalyzer", "--unzip"].includes(argument)) {
       throw new Error(`unknown option: ${argument}`);
     }
     const value = argv[index + 1];
@@ -317,7 +319,7 @@ function assertCanonicalCapabilityGatedSharedAssets(unzip, archive, kind, label)
   for (const assetPath of CAPABILITY_GATED_SHARED_APP_PATHS) {
     const mapping = appAssetCatalog.assets.find(({ output }) => output === assetPath);
     assert(mapping, `${label} is missing the canonical mapping for ${assetPath}`);
-    const expected = readFileSync(resolve(workspaceRoot, mapping.source));
+    const expected = readSource(mapping.source);
     const entry = archiveEntryForAsset(assetPath, kind);
     assert(
       archiveBuffer(unzip, archive, entry).equals(expected),
@@ -1397,6 +1399,13 @@ function main() {
   const aab = resolve(options.aab);
   const apk = resolve(options.apk);
   try {
+    if (options["source-revision"]) {
+      readSource = packageSourceReader(workspaceRoot, options["source-revision"]);
+      expectedProductPublicationPlan = packagePublicationPlan(readSource);
+      appAssetCatalog = JSON.parse(readSource("apps/language-runtime/app-assets.json").toString("utf8"));
+      canonicalAppEntry = Buffer.from(transformIndex(readSource("apps/language-runtime/static/app/index.html").toString("utf8")));
+      SHARED_APP_REQUIRED_ASSET_PATHS = Object.freeze(appAssetCatalog.assets.map(({ output }) => output));
+    }
     assert(existsSync(aab), `Caatuu AAB does not exist at ${aab}`);
     assert(existsSync(apk), `AAB-derived universal APK does not exist at ${apk}`);
 

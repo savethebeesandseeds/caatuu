@@ -123,13 +123,14 @@ function validateBridgeOperations(sources, issues) {
   if (typeof bridge !== "string") return;
   const dispatch = section(
     bridge,
-    'when (request.optString("type")) {',
-    "else -> throw IllegalArgumentException",
+    "fun postMessage(",
+    "\n    fun ",
   );
-  const actual = [...dispatch.matchAll(/"([a-z_]+)"\s*->/gu)].map((match) => match[1]);
+  const actual = [...dispatch.matchAll(/"([a-z_]+)"\s*->/gu)].map((match) => match[1]).sort();
+  const expected = [...PRODUCT_BRIDGE_OPERATIONS].sort();
   if (
     actual.length !== PRODUCT_BRIDGE_OPERATIONS.length
-    || actual.some((operation, index) => operation !== PRODUCT_BRIDGE_OPERATIONS[index])
+    || actual.some((operation, index) => operation !== expected[index])
   ) {
     addIssue(
       issues,

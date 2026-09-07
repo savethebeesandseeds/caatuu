@@ -169,7 +169,7 @@ function exactObjectKeys(value, expected, label) {
   assert.deepEqual(actual, [...expected].sort(), `${label} must contain exactly ${expected.join(", ")}`);
 }
 
-function resolveAndroidNativeProviders({ course, assetCatalog, resourceAssetPath }) {
+export function resolveAndroidNativeProviders({ course, assetCatalog, resourceAssetPath }) {
   const contract = requireObject(assetCatalog.nativeProviders, "Android native provider contract");
   exactObjectKeys(contract, ["schemaVersion", "providers"], "Android native provider contract");
   assert.equal(contract.schemaVersion, 1, "Android native provider contract must use schemaVersion 1");
@@ -638,7 +638,7 @@ function prefixedNativeProviders(nativeProviders, assetPrefix) {
   });
 }
 
-function courseBundleRecord(configuration) {
+export function courseBundleRecord(configuration) {
   const { course } = configuration;
   const assetPrefix = `courses/${course.id}`;
   return Object.freeze({

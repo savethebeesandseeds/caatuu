@@ -29,6 +29,16 @@ test("the validator rejects bridge expansion and unsafe product dependencies", a
   assert.ok(report.issues.some(({ code }) => code === ANDROID_PROJECT_ISSUE_CODES.FORBIDDEN_CONTRACT_PRESENT));
 });
 
+test("bridge operation validation tolerates dispatch variable names and case ordering", async () => {
+  const { sources } = await loadAndroidProjectSources();
+  const productBridge = sources.productBridge.replaceAll("requestType", "messageKind")
+    .replace("when (messageKind)", "when( messageKind )")
+    .replace(/^(\s*"[a-z_]+" ->[^\r\n]+)\r?\n(\s*"[a-z_]+" ->[^\r\n]+)/mu, "$2\n$1");
+  assert.notEqual(productBridge, sources.productBridge);
+  const report = validateAndroidProjectSources({ ...sources, productBridge });
+  assert.equal(report.valid, true, JSON.stringify(report.issues, null, 2));
+});
+
 test("the validator rejects an update pipeline that installs before re-verification", async () => {
   const { sources } = await loadAndroidProjectSources();
   const mutated = {
