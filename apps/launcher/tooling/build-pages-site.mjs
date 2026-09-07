@@ -914,7 +914,7 @@ export function projectStableAndroidChannels(android) {
   return [{ ...channel }];
 }
 
-export function enableStableAndroidCourseProfile(path, label) {
+export function enableStableAndroidCourseProfile(path, label, declaredAndroid) {
   let source = readText(path);
   const startAnchor = "      android: {";
   assert.equal(source.split(startAnchor).length - 1, 1, `${label} Android block changed`);
@@ -923,7 +923,7 @@ export function enableStableAndroidCourseProfile(path, label) {
   const end = source.indexOf(endAnchor, start);
   assert.ok(start >= 0 && end > start, `${label} platform boundary changed`);
   const profile = evaluateCourseProfile(source, label);
-  const channels = JSON.stringify(projectStableAndroidChannels(profile.platforms.android), null, 2).replaceAll("\n", "\n        ");
+  const channels = JSON.stringify(projectStableAndroidChannels(declaredAndroid ?? profile.platforms.android), null, 2).replaceAll("\n", "\n        ");
   const android = `      android: {
         enabled: true,
         channels: ${channels}
@@ -942,15 +942,18 @@ function enableAndroidSurfaces({ workspaceRoot, siteDir, languagePlan }) {
     const course = plannedById.get(language.id);
     assert.ok(course, `Pages registry contains an unplanned browser course: ${language.id}`);
     if (course.androidEnabled) {
-      language.platforms.android = { enabled: true, channels: projectStableAndroidChannels(language.platforms.android) };
+      const manifest = JSON.parse(readText(resolve(workspaceRoot, course.manifestPath)));
+      language.platforms.android = { enabled: true, channels: projectStableAndroidChannels(manifest.platforms.android) };
     }
   }
   writeJson(registryPath, registry);
 
   for (const course of languagePlan.browserCourses.filter(({ androidEnabled }) => androidEnabled)) {
+    const manifest = JSON.parse(readText(resolve(workspaceRoot, course.manifestPath)));
     enableStableAndroidCourseProfile(
       outputPath(siteDir, course.profilePath.slice(1)),
       `${course.id} course profile`,
+      manifest.platforms.android,
     );
   }
 

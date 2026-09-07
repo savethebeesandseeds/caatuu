@@ -32,7 +32,7 @@ import {
   validatePagesSite,
   validatePagesArtwork,
 } from "../build-pages-site.mjs";
-import { evaluateCourseProfile } from "../../../../tools/language-packs/lib/course-contract.mjs";
+import { evaluateCourseProfile, serializeCourseProfileSource } from "../../../../tools/language-packs/lib/course-contract.mjs";
 
 const testDir = dirname(fileURLToPath(import.meta.url));
 const workspaceRoot = resolve(testDir, "../../../..");
@@ -149,6 +149,13 @@ test("the Pages profile rewrite preserves every course APK minimum and removes p
         channels: course.platforms.android.channels.filter(({ kind }) => kind === "release"),
       });
       assert.doesNotMatch(source, /"kind": "preview"|caatuu-preview/u);
+      const browserProfile = JSON.parse(JSON.stringify(profile));
+      browserProfile.platforms.android = { enabled: false, channels: [] };
+      writeFileSync(profilePath, serializeCourseProfileSource(browserProfile));
+      enableStableAndroidCourseProfile(profilePath, `${course.id} browser-only core`, course.platforms.android);
+      const restored = evaluateCourseProfile(readFileSync(profilePath, "utf8"), `${course.id} restored profile`);
+      assert.deepEqual(JSON.parse(JSON.stringify(restored.platforms.android.channels)),
+        course.platforms.android.channels.filter(({ kind }) => kind === "release"));
     }
   } finally {
     rmSync(temporaryDirectory, { recursive: true, force: true });
