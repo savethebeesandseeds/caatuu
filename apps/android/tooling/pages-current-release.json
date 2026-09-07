@@ -108,6 +108,27 @@
         "bytes": 1103,
         "sha256": "8c30dc16f1559695b10b5322f295fa694baf3dcf2c3b415f6e79bae0776a1ab6"
       }
+    },
+    {
+      "versionCode": 169,
+      "versionName": "0.1.17",
+      "sourceRevision": "f66f1e7f423dc87a69195ac288d489003013502a",
+      "manifest": {
+        "bytes": 1041,
+        "sha256": "ab6e38f4919c84f78e9e5674e4bd31542cbf4b90974b55c48673ba54e74513de"
+      },
+      "apk": {
+        "bytes": 1437879,
+        "sha256": "2f8af0d56008e84f1539c0010df470fb6e1056c589255148ecb0acaf4a2e585c"
+      },
+      "receipt": {
+        "bytes": 1360,
+        "sha256": "c828669652875570ec27f22120f5d8a813ae7b38f81cdeae52bf97fb3f29d151"
+      },
+      "setup": {
+        "bytes": 37099520,
+        "sha256": "c9f3b2849647743cbec5d4aa4bd346baf87b7751728a0530538b7f358a79bb65"
+      }
     }
   ],
   "setupEntries": [
