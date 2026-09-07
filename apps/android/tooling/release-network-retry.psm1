@@ -52,7 +52,10 @@ function Invoke-CaatuuBoundedReadProcess {
     param([string]$File, [string[]]$Arguments, [ValidateRange(1, 120)][int]$TimeoutSeconds = 60)
     $process = [System.Diagnostics.Process]::new()
     try {
-        $process.StartInfo.FileName = (Get-Command $File -CommandType Application -ErrorAction Stop).Source
+        # Windows can expose several installations of one command on PATH.
+        # Preserve normal command precedence and pass exactly one executable.
+        $application = Get-Command $File -CommandType Application -ErrorAction Stop | Select-Object -First 1
+        $process.StartInfo.FileName = $application.Source
         $process.StartInfo.UseShellExecute = $false
         $process.StartInfo.CreateNoWindow = $true
         $process.StartInfo.RedirectStandardOutput = $true

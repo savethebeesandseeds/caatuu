@@ -219,3 +219,21 @@ was not established by those automation results.
 Implementation details remain in the
 [Android tooling README](../apps/android/tooling/README.md); website-origin and
 cutover operations remain in [`STATIC_WEB_HOSTING.md`](STATIC_WEB_HOSTING.md).
+
+### Reference incident: duplicate Windows Git discovery
+
+Android 167 (`0.1.15`), built from
+`fd9884573e791723e367cc067a9b13340aa4399d`, finalized successfully but its
+receipt-only deployment stopped during preflight: PowerShell returned two Git
+applications, and the bounded process runner combined their paths into an
+invalid executable filename. The same finalized APK resumed without a rebuild
+and passed public verification in
+[Pages run 34075703300](https://github.com/savethebeesandseeds/caatuu/actions/runs/34075703300).
+Its APK SHA-256 is
+`a61e71bf73800810f8a71f1adddc40b4ddd50f6c8f3287e16be559de3ea98e68`.
+
+The bounded runner now selects the first discovered application, preserving
+normal PATH precedence. The native network suite verifies multiple discovery
+results using the real process runner, including captured output and exit code.
+No global PATH or Git identity change is required. Device testing remains
+separate from the successful package and publication checks.

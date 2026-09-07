@@ -36,7 +36,7 @@ function evaluateProfile(source, filename) {
   return JSON.parse(JSON.stringify(context.window.CaatuuCourse));
 }
 
-test("every browser course receives one catalog-derived course-selector projection", () => {
+test("every browser course receives one catalog-derived course-selector projection", async () => {
   assert.equal(profiles.length, 4);
   assert.deepEqual(profiles.map(({ id }) => id), ["cz", "zh", "es", "es-en"]);
   const reference = profiles[0].profile.courseSelector;
@@ -65,7 +65,9 @@ test("every browser course receives one catalog-derived course-selector projecti
   assert.equal(spanishBase.targetLanguage.locale, "en-US");
   assert.equal(spanishBase.interfaceContent.locale, "es-ES");
   assert.equal(spanishBase.interfaceContent.catalog, "/language-runtime/static/data/interface/es.v1.json");
-  assert.equal(spanishBase.interfaceContent.revision, "interface-es-2");
+  const spanishBaseCourse = browserRecords.find(({ id }) => id === "es-en").course;
+  const spanishInterfaceCatalog = await readJson(spanishBaseCourse.resources.interfaceCatalog.path);
+  assert.equal(spanishBase.interfaceContent.revision, spanishInterfaceCatalog.revision);
   assert.deepEqual(launcherRegistry.languages.map(({ id }) => id), ["cz"], "the public launcher remains active-only");
 });
 

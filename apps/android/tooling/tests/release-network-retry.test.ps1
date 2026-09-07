@@ -147,6 +147,30 @@ Test-Case "real short-read process execution has a hard timeout and captures exi
     Assert-Equal $result.Output "first value error" "captured native streams"
 }
 
+Test-Case "bounded reads use the first executable when command discovery finds multiple applications" {
+    $powershellPath = (Get-Process -Id $PID).Path
+    $networkModule = Get-Module release-network-retry
+    $processSource = & $networkModule { ${function:Invoke-CaatuuBoundedReadProcess}.ToString() }
+    $runBoundedRead = [scriptblock]::Create($processSource)
+    $lookup = @{ Calls = 0 }
+    # Exercise the real process runner with deterministic command discovery.
+    # The first path works; joining it with the second path must fail.
+    function Get-Command {
+        [CmdletBinding()]
+        param([string]$Name, [string]$CommandType)
+        Assert-Equal $Name "duplicate-application" "resolved command name"
+        Assert-Equal $CommandType "Application" "native executable lookup"
+        $lookup.Calls++
+        [pscustomobject]@{ Source = $powershellPath }
+        [pscustomobject]@{ Source = "$powershellPath.unexpected-second-choice" }
+    }
+    $result = & $runBoundedRead -File "duplicate-application" `
+        -Arguments @("-NoProfile", "-Command", "[Console]::Out.Write('first executable'); exit 7") -TimeoutSeconds 10
+    Assert-Equal $lookup.Calls 1 "one command lookup"
+    Assert-Equal $result.Code 7 "first executable exit code"
+    Assert-Equal $result.Output "first executable" "first executable output"
+}
+
 # Evaluate only these pure validation functions from the actual deployer. Never
 # source its entrypoint or invoke an external command in reconciliation tests.
 $deployerPath = Join-Path $PSScriptRoot "../deploy-pages-release.ps1"

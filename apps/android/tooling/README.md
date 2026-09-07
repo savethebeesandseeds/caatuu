@@ -233,6 +233,10 @@ Release timings are printed per phase. A successful receipt skips all build
 work; deployment repair uses the same receipt. Do not promise a fixed duration:
 signing/build time, artifact transport and Pages availability are separate.
 
+Bounded Windows metadata reads select the first executable in normal PATH
+order. Multiple Git installations must never become a combined process path;
+the native network suite exercises this case with the real process runner.
+
 The release key remains the existing ignored
 `artifacts/android/caatuu-debug.keystore`, pinned by
 `apps/android/tooling/direct-release-certificate.sha256`. If either is missing
