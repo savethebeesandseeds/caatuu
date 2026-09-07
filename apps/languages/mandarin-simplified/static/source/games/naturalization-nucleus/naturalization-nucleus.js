@@ -652,6 +652,7 @@
     let transitioning = false;
     let destroyed = false;
     let active = isActive();
+    let cancelArtworkLoad = () => {};
     const roundTimers = new Set();
     const listen = (target, type, handler) => {
       target.addEventListener(type, handler);
@@ -679,6 +680,7 @@
       draggingPieceId: "",
       suppressClick: false,
       feedbackChallenge: null,
+      feedbackRevealed: false,
       newMatchSlots: [],
       errorPieceId: "",
       errorSlot: -1,
@@ -863,6 +865,7 @@
       stage.setAttribute("aria-busy", String(active));
       game.toggleAttribute("inert", active);
       game.setAttribute("aria-hidden", String(active));
+      status.parentElement.hidden = active;
     }
 
     function focusDeckPiece(pieceId) {
@@ -870,7 +873,7 @@
       global.requestAnimationFrame?.(() => {
         if (destroyed || !isActive()) return;
         [...deck.querySelectorAll("[data-naturalization-piece-id]")]
-          .find((button) => button.dataset.naturalizationPieceId === pieceId)?.focus();
+          .find((button) => button.dataset.naturalizationPieceId === pieceId)?.focus({ preventScroll: true });
       });
     }
 
@@ -878,12 +881,24 @@
       const challenge = state.feedbackChallenge;
       feedback.hidden = !challenge;
       if (!challenge) return;
-      feedbackPinyin.textContent = challenge.pinyin;
-      feedbackGlyph.textContent = challenge.hanzi;
-      feedbackReading.dataset.tone = String(challenge.tone);
-      feedbackHanzi.setAttribute("aria-label", `${challenge.hanzi}, ${challenge.pinyin}`);
+      const revealed = state.feedbackRevealed;
+      const script = roundPresentation(state.roundIndex).deck;
+      const label = revealed ? `${challenge.hanzi}, ${challenge.pinyin}` : challenge[script];
+      // An unfinished tile may show its meaning, but never the missing script
+      // or tone hints, including in screen-reader and speech-button labels.
+      feedbackPinyin.textContent = revealed ? challenge.pinyin : "";
+      feedbackPinyin.hidden = !revealed;
+      feedbackGlyph.textContent = revealed || script === "hanzi" ? challenge.hanzi : challenge.pinyin;
+      feedbackHanzi.lang = revealed || script === "hanzi" ? "zh-Hans" : "zh-Latn-pinyin";
+      feedbackHanzi.classList.toggle("has-target-text-guide", revealed);
+      feedbackHanzi.classList.toggle("has-target-text-colors", revealed);
+      if (revealed) feedbackReading.dataset.tone = String(challenge.tone);
+      else feedbackReading.removeAttribute("data-tone");
+      feedbackHanzi.setAttribute("aria-label", label);
+      feedback.dataset.state = revealed ? "matched" : "preview";
+      feedback.setAttribute("aria-label", revealed ? "Matched Mandarin word" : "Selected Mandarin word");
       feedbackMeaning.textContent = challenge.translation;
-      const playLabel = `Play ${challenge.hanzi}, ${challenge.pinyin}.`;
+      const playLabel = `Play ${label}.`;
       feedbackSound.setAttribute("aria-label", playLabel);
       feedbackSound.title = playLabel;
     }
@@ -985,6 +1000,7 @@
       for (const challenge of matches) {
         if (state.feedbackSequence !== sequence) return;
         state.feedbackChallenge = challenge;
+        state.feedbackRevealed = true;
         renderFeedback();
         await speak(challenge);
       }
@@ -1000,6 +1016,7 @@
       state.errorMessage = "";
       state.newMatchSlots = [...transition.matchSlots];
       state.feedbackChallenge = transition.matches[0] || null;
+      state.feedbackRevealed = true;
       const nextPieceId = deckPieces()[0]?.id || "";
       render(nextPieceId);
       void announceMatches(transition.matches);
@@ -1033,6 +1050,8 @@
     function selectPiece(pieceId) {
       const piece = pieceForId(pieceId);
       if (!piece || transitioning || solved() || state.placements.includes(piece.id)) return;
+      state.feedbackChallenge = piece.left;
+      state.feedbackRevealed = false;
       if (state.selectedSocketIndex >= 0) {
         tryPlacement(pieceId, state.selectedSocketIndex);
         return;
@@ -1073,6 +1092,7 @@
       state.selectedSocketIndex = -1;
       state.draggingPieceId = "";
       state.feedbackChallenge = null;
+      state.feedbackRevealed = false;
       state.newMatchSlots = [];
       state.errorPieceId = "";
       state.errorSlot = -1;
@@ -1085,6 +1105,7 @@
       transitionId += 1;
       const activeTransition = transitionId;
       clearRoundTimers();
+      cancelArtworkLoad();
       transitioning = true;
       const showInterstitial = () => {
         if (activeTransition !== transitionId) return;
@@ -1092,12 +1113,48 @@
         scheduleRoundTask(() => {
           if (activeTransition !== transitionId) return;
           startRound(pieceCount);
-          transitioning = false;
-          setRoundLoading(false);
+          waitForArtwork(() => {
+            if (activeTransition !== transitionId || destroyed) return;
+            transitioning = false;
+            setRoundLoading(false);
+            focusDeckPiece(deckPieces()[0]?.id || "");
+          });
         }, ROUND_LOADING_MILLIS);
       };
       if (holdMillis > 0) scheduleRoundTask(showInterstitial, holdMillis);
       else showInterstitial();
+    }
+
+    function waitForArtwork(ready) {
+      let finished = false;
+      let timeout;
+      const cleanup = () => {
+        global.clearTimeout(timeout);
+        artwork.removeEventListener("load", loaded);
+        artwork.removeEventListener("error", failed);
+      };
+      const finish = (visible) => {
+        if (finished) return;
+        finished = true;
+        cleanup();
+        artwork.hidden = !visible;
+        ready();
+      };
+      const failed = () => finish(false);
+      const loaded = () => {
+        if (typeof artwork.decode === "function") artwork.decode().then(() => finish(true), failed);
+        else finish(true);
+      };
+      cancelArtworkLoad = () => { finished = true; cleanup(); };
+      artwork.hidden = false;
+      artwork.addEventListener("load", loaded);
+      artwork.addEventListener("error", failed);
+      timeout = global.setTimeout(failed, 8000);
+      if (!state.imagesEnabled) finish(true);
+      else if (artwork.complete) {
+        if (artwork.naturalWidth > 0) loaded();
+        else failed();
+      }
     }
 
     function eventDeckDomino(event) {
@@ -1184,6 +1241,7 @@
         const challenge = catalog.challenges.find(({ id }) => id === review.dataset.naturalizationReviewId);
         if (!challenge) return;
         state.feedbackChallenge = challenge;
+        state.feedbackRevealed = true;
         renderFeedback();
         speak(challenge);
         return;
@@ -1280,6 +1338,7 @@
         global.clearTimeout(errorTimer);
         transitionId += 1;
         clearRoundTimers();
+        cancelArtworkLoad();
         transitioning = false;
         setRoundLoading(false);
         disposeLoading();
@@ -1320,6 +1379,7 @@
     }
     status.textContent = "";
     status.dataset.state = "loading";
+    status.parentElement.hidden = true;
     ring.replaceChildren();
     deck.replaceChildren();
     const stage = root.querySelector(".naturalization-nucleus-stage");
@@ -1397,6 +1457,7 @@
       deck.replaceChildren();
       status.textContent = "The domino puzzle could not be loaded.";
       status.dataset.state = "error";
+      status.parentElement.hidden = false;
       stage.setAttribute("aria-busy", "false");
       game.removeAttribute("inert");
       game.setAttribute("aria-hidden", "false");

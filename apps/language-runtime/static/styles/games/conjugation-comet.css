@@ -74,7 +74,7 @@ html[data-theme="dark"] .conjugation-comet-context { background: var(--theme-con
 .conjugation-comet-node:hover:not(:disabled) { text-decoration: underline; text-underline-offset: .2em; text-decoration-thickness: 1px; }
 .conjugation-comet-node:focus-visible { outline: none; text-decoration: underline double var(--theme-focus-ring); text-decoration-thickness: 2px; text-underline-offset: .3em; }
 .conjugation-comet-node[data-result="correct"] { text-decoration: underline; text-decoration-color: var(--theme-green); text-underline-offset: .25em; }
-.conjugation-comet-node[data-result="wrong"] { text-decoration: underline wavy var(--theme-red); text-decoration-thickness: 1px; text-underline-offset: .25em; }
+.conjugation-comet-node[data-result="wrong"] { text-decoration: none; color: var(--theme-red); }
 .conjugation-comet-common { color: inherit; }
 .conjugation-comet-difference { color: var(--comet-emphasis); font-weight: 600; }
 .conjugation-comet-speak { display: inline-flex; flex-shrink: 0; justify-content: center; align-items: center; width: 32px; height: 32px; padding: 4px; border: 0; border-radius: 50%; background: transparent; color: var(--theme-green-strong); }
@@ -112,3 +112,26 @@ html[data-theme="dark"] .conjugation-comet-game { --strand-subject: var(--theme-
 .conjugation-comet-card[data-illustrations="hidden"] { background: var(--theme-panel-raised); }
 .conjugation-comet-card[data-illustrations="hidden"] .conjugation-comet-backbone > :not(defs):not(.conjugation-comet-rung),
 .conjugation-comet-card[data-illustrations="hidden"] .conjugation-comet-jewels { display: none; }
+.conjugation-comet-summary {
+  width: min(92vw, 680px);
+  max-height: 88dvh;
+  overflow-y: auto;
+  padding: clamp(16px, 4vw, 30px);
+  border: 1px solid var(--theme-muted);
+  border-radius: 18px;
+  color: var(--theme-ink);
+  background: var(--theme-page-background);
+  box-shadow: 0 18px 60px #0005;
+}
+.conjugation-comet-summary::backdrop { background: #0005; }
+.conjugation-comet-summary h2 { margin: 0 0 18px; font-size: 1.25em; }
+.conjugation-comet-summary-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  padding: 10px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--theme-muted) 30%, transparent);
+}
+.conjugation-comet-summary-row span { min-width: 0; overflow-wrap: anywhere; }
+.conjugation-comet-summary-row span:last-child { font-weight: 750; }
+.conjugation-comet-summary .conjugation-comet-submit { position: static; margin: 20px 0 0 auto; width: auto; }

@@ -472,6 +472,13 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     node("quasarListen").focus();
   });
   listen(node("quasarRetryAudio"), "click", () => { void checkAudio(); });
+  listen(shell, "caatuu:learning-change", (event) => {
+    if (event.detail?.reason !== "difficulty" || !catalog || state.destroyed) return;
+    controls.close();
+    closeReport(false);
+    stopSpeech();
+    startSession();
+  });
   listen(shell, "caatuu:speech-mute-change", () => { if (muted()) { state.pendingAutoplay = false; stopSpeech(); } void checkAudio(); });
   listen(shell, "caatuu:speech-autoplay-change", () => { if (automaticAudioOff()) state.pendingAutoplay = false; syncButtons(); });
   listen(shell, "caatuu:speech-voices-refresh", () => { void checkAudio(); });

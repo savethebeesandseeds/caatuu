@@ -84,9 +84,30 @@
         },
         async updateApp(handlers = {}) {
           if (android) return nativeCall("update_app", handlers);
+          if (window.navigator?.onLine === false) return { reloaded: false, offline: true };
           const registration = await window.navigator?.serviceWorker?.getRegistration?.();
           await registration?.update();
-          return { updateAvailable: false, reloaded: false };
+          const worker = registration?.installing || registration?.waiting;
+          if (worker && worker.state !== "activated") {
+            // Do not reload into the old offline cache while the new worker installs.
+            await new Promise((resolve, reject) => {
+              const finish = (error) => {
+                window.clearTimeout(timeout);
+                worker.removeEventListener("statechange", changed);
+                if (error) reject(error); else resolve();
+              };
+              const changed = () => {
+                if (worker.state === "activated") finish();
+                else if (worker.state === "redundant") finish(new Error("Browser update did not activate"));
+                else if (worker.state === "installed") worker.postMessage({ type: "SKIP_WAITING" });
+              };
+              const timeout = window.setTimeout(() => finish(new Error("Browser update timed out")), 30_000);
+              worker.addEventListener("statechange", changed);
+              changed();
+            });
+          }
+          window.location.reload();
+          return { updateAvailable: false, reloaded: true };
         },
         clearCache(handlers = {}) {
           return android ? nativeCall("clear_cache", handlers, 120_000) : clearBrowserCache();
@@ -146,14 +167,14 @@
     const native = runtime?.env === "android";
     const selfUpdateEnabled = status?.selfUpdateEnabled !== false;
     const available = native && hasNativeAppUpdate(status);
-    const visible = native && selfUpdateEnabled;
+    const visible = !native || selfUpdateEnabled;
     const downloadState = updateDownloadState(status);
     button.hidden = !visible;
     button.disabled = busy || !visible || downloadState === "active";
     const latestName = String(status?.latestVersionName || "").trim();
     const currentName = String(status?.currentVersionName || "").trim();
     const statusProblem = status?.serverReachable === false || Boolean(status?.updateError);
-    button.textContent = busy
+    button.textContent = !native && !busy ? t("maintenance.browser.action") : busy
       ? t("maintenance.action.checking")
       : available && downloadState === "ready"
         ? latestName
@@ -183,6 +204,7 @@
       row.classList?.toggle("is-busy", busy);
       const copy = row.querySelector?.("[data-update-app-copy]");
       if (copy && visible) {
+        if (!native) { copy.textContent = t("maintenance.browser.description"); return; }
         const latestDisplay = latestName || status?.downloadedVersionName || status?.latestVersionCode || t("maintenance.version.new");
         const currentDisplay = currentName || status?.currentVersionCode || t("maintenance.version.unknownvalue");
         copy.textContent = busy
@@ -218,8 +240,8 @@
   }
 
   function createUpdateController(runtime = window.CaatuuRuntime) {
-    const button = document.querySelector("#updateApp");
-    if (!button || !runtime?.maintenance) return null;
+    const buttons = () => [...document.querySelectorAll("#updateApp, [data-app-update-control]")];
+    if (!buttons().length || !runtime?.maintenance) return null;
     let currentStatus = null;
     let checkedAt = 0;
     let inFlight = null;
@@ -242,12 +264,21 @@
     const setMessage = (message) => {
       const node = statusNode();
       if (node) node.textContent = message;
+      const homeStatus = document.querySelector("#homeUpdateStatus");
+      if (homeStatus) { homeStatus.textContent = message; homeStatus.hidden = !message; }
     };
     const render = (status = currentStatus, { busy = false } = {}) => {
       scheduleActivePoll(status);
-      setUpdateAppControl(button, runtime, status || { updateAvailable: false }, {
-        busy,
-        checked: confirmedCurrent
+      buttons().forEach((button) => {
+        // Settings is created lazily, after the Home control may already exist.
+        if (button.dataset.sharedUpdateControl !== "true") {
+          button.dataset.sharedUpdateControl = "true";
+          button.addEventListener("click", activate);
+        }
+        setUpdateAppControl(button, runtime, status || { updateAvailable: false }, {
+          busy,
+          checked: confirmedCurrent
+        });
       });
       if (runtime.env === "android") {
         setVersionNote(versionNode(), status);
@@ -308,6 +339,17 @@
 
     async function activate() {
       if (inFlight) return inFlight;
+      if (runtime.env !== "android") {
+        render(currentStatus, { busy: true });
+        setMessage(t("maintenance.action.checking"));
+        inFlight = Promise.resolve().then(() => runtime.maintenance.updateApp())
+          .then((result) => {
+            setMessage(t(result?.offline ? "maintenance.browser.offline" : "maintenance.browser.checked"));
+            return result;
+          }).catch(() => setMessage(t("maintenance.copy.checkfailed")))
+          .finally(() => { inFlight = null; render(); });
+        return inFlight;
+      }
       const status = await refresh({ force: true, announce: true });
       if (!hasNativeAppUpdate(status)) return status;
 
@@ -344,8 +386,6 @@
       return status;
     }
 
-    button.dataset.sharedUpdateControl = "true";
-    button.addEventListener("click", activate);
     render({ updateAvailable: false, selfUpdateEnabled: runtime.env === "android" });
     document.addEventListener?.("visibilitychange", () => {
       if (document.visibilityState === "hidden") {

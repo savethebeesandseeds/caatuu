@@ -85,11 +85,17 @@ test("confirmed Mandarin updates run through the native installer without a miss
   const h = harness();
   const location = h.context.location.href;
   const controller = h.ui.getUpdateController();
+  const home = h.document.createElement("button");
+  home.setAttribute("data-app-update-control", "");
+  h.document.body.append(home);
+  controller.render();
   const activated = controller.activate();
   const available = { selfUpdateEnabled: true, updateAvailable: true, currentVersionCode: 1, latestVersionCode: 2 };
   h.reply(h.requests[0], available);
   await flush();
   assert.equal(h.requests[1].type, "update_app");
+  assert.equal(home.disabled, true, "Home shares the native download lock");
+  assert.equal(home.textContent, h.document.getElementById("updateApp").textContent);
   assert.equal(h.context.location.href, location);
   assert.equal(h.ui.pendingAppUpdate(), null);
   h.context.CaatuuNative.receive({ id: h.requests[1].id, kind: "progress", phase: "download", bytes: 100, totalBytes: 200 });
@@ -102,6 +108,7 @@ test("confirmed Mandarin updates run through the native installer without a miss
   h.reply(h.requests[2], { ...available, downloadReady: true, downloadedVersionCode: 2 });
   await Promise.all([activated, second]);
   assert.equal(h.document.getElementById("updateApp").disabled, false);
+  assert.equal(home.disabled, false);
   assert.equal(h.context.location.href, location);
 });
 
@@ -131,7 +138,79 @@ test("browser cache clearing keeps other courses and saved learning progress", a
   assert.equal(result.cacheNamesDeleted.length, 2);
   assert.equal(h.context.localStorage.getItem("learning-progress"), "keep");
   assert.equal((await h.runtime.maintenance.updateStatus()).selfUpdateEnabled, false);
-  assert.equal(h.document.getElementById("updateApp").hidden, true);
+  assert.equal(h.document.getElementById("updateApp").hidden, false);
+});
+
+test("browser refresh waits for the new offline worker and preserves the page when offline", async () => {
+  const h = harness({ android: false });
+  let reloads = 0;
+  let onStateChange;
+  let removed = 0;
+  const messages = [];
+  const worker = {
+    state: "installing",
+    addEventListener(type, listener) { onStateChange = listener; },
+    removeEventListener() { removed += 1; },
+    postMessage(message) { messages.push(message); }
+  };
+  h.context.location.reload = () => { reloads += 1; };
+  h.context.navigator.serviceWorker = { getRegistration: async () => ({ update: async () => {}, installing: worker }) };
+  const updating = h.runtime.maintenance.updateApp();
+  await flush();
+  assert.equal(reloads, 0);
+  worker.state = "installed";
+  onStateChange();
+  assert.equal(messages[0].type, "SKIP_WAITING");
+  assert.equal(reloads, 0);
+  worker.state = "activated";
+  onStateChange();
+  assert.equal((await updating).reloaded, true);
+  assert.equal(reloads, 1);
+  assert.equal(removed, 1);
+  h.context.navigator.onLine = false;
+  assert.equal((await h.runtime.maintenance.updateApp()).offline, true);
+  assert.equal(reloads, 1);
+});
+
+test("Home and lazily created About update controls share status and a single browser refresh", async () => {
+  let updates = 0;
+  let finishUpdate;
+  const h = harness({ android: false, existing: { env: "browser", maintenance: {
+    updateStatus: async () => ({ selfUpdateEnabled: false }),
+    updateApp: () => { updates += 1; return new Promise((resolve) => { finishUpdate = resolve; }); }
+  } } });
+  const controller = h.ui.getUpdateController();
+  const home = h.document.createElement("button");
+  home.setAttribute("data-app-update-control", "");
+  const status = h.document.createElement("p");
+  status.id = "homeUpdateStatus";
+  h.document.body.append(home, status);
+  // Replace About with a fresh node as happens when Settings is first rendered.
+  h.document.getElementById("updateApp").remove();
+  const about = h.document.createElement("button");
+  about.id = "updateApp";
+  h.row.append(about);
+  await controller.refresh();
+  await controller.refresh();
+  assert.equal(home.hidden, false);
+  assert.equal(about.hidden, false);
+  assert.equal(home.textContent, about.textContent);
+  home.click();
+  about.click();
+  await flush();
+  assert.equal(updates, 1);
+  assert.ok(home.disabled && about.disabled);
+  finishUpdate({ offline: true });
+  await flush();
+  assert.equal(status.textContent, h.document.getElementById("maintenanceStatus").textContent);
+  assert.equal(status.textContent, englishInterfaceContent.t("maintenance.browser.offline"));
+  assert.equal(status.hidden, false);
+  assert.ok(!home.disabled && !about.disabled);
+  about.click();
+  await flush();
+  assert.equal(updates, 2, "the later About button is bound exactly once and can retry");
+  finishUpdate({});
+  await flush();
 });
 
 test("a download started by an earlier page becomes installable without reopening Settings", async () => {

@@ -223,10 +223,12 @@ test("setup and service-worker catalogs cover every required offline URL", async
     "/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-133",
     "/assets/icons/coin_icon_ui.png",
   ]) assert.ok(setup.offline.assets.some((cached) => cached.split("?")[0] === asset.split("?")[0]), `offline course must cache ${asset}`);
+  const bootstrap = await readFile(path.join(runtimeStaticRoot, "source/app-bootstrap.mjs"), "utf8");
+  const nucleusModules = [...bootstrap.matchAll(/"(source\/games\/naturalization-nucleus\/naturalization-nucleus\.(?:css|js)\?v=[^"]+)"/gu)].map((match) => match[1]);
+  assert.equal(nucleusModules.length, 2);
   for (const asset of [
     "data/games/naturalization-nucleus/challenges.json",
-    "source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-16",
-    "source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-16",
+    ...nucleusModules,
     "/assets/planets/naturalization-nucleus.png"
   ]) assert.ok(setup.offline.assets.includes(asset), `offline course must cache ${asset}`);
   assert.ok(setup.offline.assets.includes("data/games/word-world/starter-v1.reading-guides.json"));

@@ -4,11 +4,12 @@ import test from "node:test";
 import vm from "node:vm";
 
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
+import { englishInterfaceContent } from "./helpers/english-interface-content.mjs";
 import {
   buildGrammarGravityRounds, normalizeGrammarGravityPack
 } from "../static/source/games/grammar-gravity/grammar-gravity-core.mjs";
 import * as flightCore from "../static/source/games/grammar-gravity/adjective-flight-core.mjs";
-import { createSpeechIcon } from "../static/source/games/embedded-game-controls.mjs";
+import { createSpeechIcon, mountRobotLoadingScreen } from "../static/source/games/embedded-game-controls.mjs";
 
 const hostSource = await readFile(new URL(
   "../static/source/games/grammar-gravity/adjective-flight-host.mjs", import.meta.url
@@ -34,7 +35,7 @@ function seedMarkup(harness) {
   }
 }
 
-async function mountGame({ language = "czech", active = true, reducedMotion = false, speech = false, autoplay = false, meaningThenForm = false, practiceMode, focusKind } = {}) {
+async function mountGame({ language = "czech", active = true, reducedMotion = false, speech = false, autoplay = false, meaningThenForm = false, practiceMode, focusKind, delayVisual = false } = {}) {
   const czech = language === "czech";
   const english = language === "english-from-spanish";
   const course = {
@@ -58,6 +59,7 @@ async function mountGame({ language = "czech", active = true, reducedMotion = fa
     .flatMap(({ flights }) => flights).slice(0, 3).map((flight) => ({ ...flight, stages }));
   const selectedMode = practiceMode || (meaningThenForm ? "sequence" : "forms");
   const harness = createBrowserHarness({ course });
+  harness.window.CaatuuI18n = englishInterfaceContent;
   course.capabilities = { speech };
   const speechCalls = [];
   const speechState = { muted: false, autoplay, stops: 0 };
@@ -94,7 +96,7 @@ async function mountGame({ language = "czech", active = true, reducedMotion = fa
     removeEventListener: (_event, callback) => motionListeners.delete(callback)
   });
   Object.assign(harness.context, flightCore, {
-    createSpeechIcon,
+    createSpeechIcon, mountRobotLoadingScreen,
     course,
     onAttempt: (value) => attempts.push(value),
     onComplete: (value) => completions.push(value),
@@ -119,8 +121,13 @@ async function mountGame({ language = "czech", active = true, reducedMotion = fa
       wrong: "Try: " + values.phrase,
       timeout: "Time: " + values.phrase
     })[key] || key,
-    createNounVisual: ({ image }) => ({
-      update: (value) => visuals.updates.push(value),
+    createNounVisual: ({ image, onLoadingChange }) => ({
+      get loading() { return Boolean(visuals.loading); },
+      update(value) {
+        visuals.updates.push(value);
+        if (delayVisual) { visuals.loading = true; onLoadingChange(true); }
+        visuals.finish = () => { visuals.loading = false; onLoadingChange(false); };
+      },
       setActive: (value) => visuals.active.push(value),
       setVisible(value) { visuals.visible.push(value); image.hidden = !value; },
       destroy() { visuals.destroyed += 1; }
@@ -171,6 +178,23 @@ async function mountGame({ language = "czech", active = true, reducedMotion = fa
 }
 
 async function settleSpeech() { for (let index = 0; index < 8; index += 1) await Promise.resolve(); }
+
+test("the robot keeps meaning input and its clock paused until the illustration is ready", async () => {
+  const game = await mountGame({ practiceMode: "meaning", delayVisual: true });
+  assert.equal(game.arena.getAttribute("aria-busy"), "true");
+  assert.equal(game.element("gravityAdjectiveDrop").hidden, true);
+  assert.equal(game.frames.size, 0);
+  game.option().click();
+  assert.equal(game.attempts.length, 0);
+  assert.equal(game.controller.snapshot().elapsedMs, 0);
+  game.visuals.finish();
+  assert.equal(game.arena.getAttribute("aria-busy"), "false");
+  assert.equal(game.element("gravityAdjectiveDrop").hidden, false);
+  assert.equal(game.frames.size, 1);
+  game.advance(500);
+  assert.equal(game.controller.snapshot().elapsedMs, 500);
+  game.controller.destroy();
+});
 
 function assertMistakes(game, stages) {
   assert.deepEqual(Array.from(game.controller.snapshot().mistakes), stages);

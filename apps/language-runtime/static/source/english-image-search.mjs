@@ -37,14 +37,21 @@ export function normalizeImageCatalog(raw, sourceKind) {
 
 function tokens(value) { return String(value).toLowerCase().match(/[a-z0-9]+/gu) || []; }
 
+// Games and developer tools share one model; Android WebViews cannot afford a
+// separate WASM model and simultaneous inference for each image panel.
+let sharedRanking;
+
 export function createEnglishImageSearch({
   loadJson = async (path) => {
     const response = await fetch(path, { cache: "force-cache" });
     if (!response.ok) throw new Error(`Image catalog unavailable (${response.status}).`);
     return response.json();
   },
-  ranker = createEnglishMiniLmRanker()
+  ranker,
+  timeoutMs = 10000
 } = {}) {
+  const ranking = ranker ? { ranker, pending: null }
+    : (sharedRanking ||= { ranker: createEnglishMiniLmRanker(), pending: null });
   const catalogPromises = new Map();
   function loadSource(source) {
     if (!catalogPromises.has(source.kind)) {
@@ -67,13 +74,22 @@ export function createEnglishImageSearch({
     if (!rows.length) return { rows: [], mode: "embedding" };
     let scored;
     let mode = "embedding";
+    let timer;
+    const deadline = new Promise((_, reject) => {
+      timer = setTimeout(() => reject(new Error("Image ranking timed out.")), timeoutMs);
+    });
     try {
       scored = [];
       // Keep first-use WASM memory bounded for the complete global artwork catalog.
       for (let offset = 0; offset < rows.length; offset += 32) {
         signal?.throwIfAborted();
         const candidates = rows.slice(offset, offset + 32).map(({ conceptId, embeddingText }) => ({ conceptId, embeddingText }));
-        const ranked = await ranker({ inputLanguage: "en", query: { embeddingText: query }, candidates });
+        if (ranking.pending) throw new Error("Image ranking is busy.");
+        const request = Promise.resolve().then(() => ranking.ranker({ inputLanguage: "en", query: { embeddingText: query }, candidates }));
+        ranking.pending = request;
+        request.then(() => { if (ranking.pending === request) ranking.pending = null; },
+          () => { if (ranking.pending === request) ranking.pending = null; });
+        const ranked = await Promise.race([request, deadline]);
         const ids = new Set(candidates.map(({ conceptId }) => conceptId));
         if (!Array.isArray(ranked) || ranked.length !== candidates.length
             || new Set(ranked.map((row) => row?.conceptId)).size !== ids.size
@@ -88,6 +104,8 @@ export function createEnglishImageSearch({
       const queryTokens = new Set(tokens(query));
       scored = rows.map((row) => ({ conceptId: row.conceptId,
         score: [...new Set(tokens(row.description))].filter((token) => queryTokens.has(token)).length }));
+    } finally {
+      clearTimeout(timer);
     }
     signal?.throwIfAborted();
     const byId = new Map(rows.map((row) => [row.conceptId, row]));

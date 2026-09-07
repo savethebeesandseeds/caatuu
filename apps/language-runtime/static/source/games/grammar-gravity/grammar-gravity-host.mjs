@@ -2,13 +2,13 @@ import {
   buildGrammarGravityRounds,
   validateGrammarGravityCategories,
   normalizeGrammarGravityPack
-} from "./grammar-gravity-core.mjs?v=grammar-gravity-core-4";
+} from "./grammar-gravity-core.mjs?v=grammar-gravity-core-5";
 import {
   fetchDeclaredCourseGameJson,
   readEmbeddedCourseProfile
 } from "../course-game-content.mjs?v=course-game-content-1";
-import { mountNounLanding } from "./noun-landing-host.mjs?v=noun-landing-host-17";
-import { mountGrammarFlight } from "./adjective-flight-host.mjs?v=grammar-flight-14";
+import { mountNounLanding } from "./noun-landing-host.mjs?v=noun-landing-host-18";
+import { mountGrammarFlight } from "./adjective-flight-host.mjs?v=grammar-flight-15";
 import { mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-8";
 
 const GAME_ID = "grammar-gravity";
@@ -180,8 +180,8 @@ function startGrammarRound() {
   state.adjectiveGame.start(round, round.flights, { practiceMode: state.practiceMode });
 }
 
-function makeRounds() {
-  return buildGrammarGravityRounds(state.pack, state.difficulty);
+function makeRounds(previousAnchor = "") {
+  return buildGrammarGravityRounds(state.pack, state.difficulty, Math.random, previousAnchor);
 }
 
 function configureDifficulty() {
@@ -250,11 +250,8 @@ function nextRound() {
   if (state.mode !== "phrases" || state.phase !== "complete" || !state.active || document.hidden) return;
   const restoreFocus = playingFocus();
   if (state.index === state.rounds.length - 1) {
-    const previous = currentRound().flights[0].anchorText;
-    state.rounds = [...makeRounds()];
-    if (state.rounds.length > 1 && state.rounds[0].flights[0].anchorText === previous) {
-      [state.rounds[0], state.rounds[1]] = [state.rounds[1], state.rounds[0]];
-    }
+    const previous = currentRound().flights[0].anchorEnglishAuditText;
+    state.rounds = [...makeRounds(previous)];
     state.index = 0;
   } else state.index += 1;
   resetRound();

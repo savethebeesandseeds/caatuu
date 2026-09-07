@@ -268,7 +268,9 @@ export function landNoun(session) {
     attemptsByItem: { ...session.attemptsByItem, [session.item.id]: count },
     // At most one retry per missed noun: sessions always terminate, even if the
     // learner misses both attempts. "completed" tracks first-pass coverage.
-    queue: !correct && count === 1 ? [...session.queue, session.item] : session.queue,
+    // Defer review only when another word separates the attempts. A miss at
+    // the end of the bank returns in a later cycle instead of repeating now.
+    queue: !correct && count === 1 && session.queue.length ? [...session.queue, session.item] : session.queue,
     completed: session.completed + (count === 1 ? 1 : 0),
     correctCount: session.correctCount + (correct ? 1 : 0),
     streak, bestStreak: Math.max(session.bestStreak, streak)

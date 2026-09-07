@@ -232,7 +232,7 @@ function bindCampaignBridge() {
   listen(window, "message", (event) => {
     if (event.origin !== window.location.origin || event.source !== window.parent) return;
     if (event.data?.source !== "caatuu-app-shell") return;
-    if (event.data.type === "campaign-advance") nextRound();
+    if (event.data.type === "campaign-advance" && state.phase === "solved") nextRound();
     else if (event.data.type === "visibility") {
       state.active = Boolean(event.data.active);
       if (!engaged()) state.controls?.close();
@@ -317,12 +317,13 @@ function renderRound() {
     button.dataset.result = reviewed && state.answer === value ? (mistake ? "wrong" : "correct") : "";
   }
   $("#caseCosmosFeedback").hidden = !reviewed;
-  $("#caseCosmosFeedbackTitle").textContent = !reviewed ? "" : mistake ? "× Not quite — try again" : solved ? "✓ Sentence solved!" : "✓ Good catch!";
-  $("#caseCosmosActualCase").textContent = !reviewed ? "" : solved ? `${challenge.case} · ${challenge.form}` : mistake ? "Same sentence, another try" : "Trying the next noun form…";
+  $("#caseCosmosFeedbackTitle").textContent = !reviewed ? "" : mistake ? "× Not quite" : solved ? "✓ Sentence solved!" : "✓ Good catch!";
+  $("#caseCosmosActualCase").textContent = !reviewed ? "" : mistake ? challenge.czech : solved ? `${challenge.case} · ${challenge.form}` : "Trying the next noun form…";
   $("#caseCosmosExplanation").textContent = !reviewed ? "" : solved
     ? `${challenge.form} fits here: ${challenge.meaning}.`
-    : mistake ? (question.matches ? "This form fits. Choose ✓ to complete the sentence." : "This form does not fit. Choose × to try another form.")
+    : mistake ? `${question.matches ? "The sentence was already correct." : `The shown form “${question.form}” does not fit here.`} ${challenge.case}: ${challenge.form}. ${challenge.meaning}.`
       : "The sentence stays — only the highlighted noun changes.";
+  $("#caseCosmosNext").hidden = !mistake;
   syncSpeech();
   syncTransition();
 }
@@ -349,15 +350,15 @@ function chooseAnswer(answer) {
   resetSwipe();
   stopSentence();
   const correct = answer === currentQuestion().matches;
-  // Rejects and retries stay within one sentence. Only accepting its correct
-  // form completes a round or awards XP; repeated inputs are locked immediately.
+  // A mistake ends this challenge. The correction is review-only and cannot
+  // turn a failed attempt into a later success on the same sentence.
   state.answer = answer;
   state.phase = !correct ? "mistake" : answer ? "solved" : "rejecting";
   render();
   $("#caseCosmosExample").focus();
-  record({ activities: 1, attempts: 1, successes: correct ? 1 : 0, rounds: correct && answer ? 1 : 0, xp: correct && answer ? 1 : 0 });
-  if (!correct) scheduleStep(1800, reopenQuestion);
-  else if (!answer) scheduleStep(reducedMotion() ? 450 : 650, () => {
+  record({ activities: 1, attempts: 1, successes: correct ? 1 : 0, rounds: !correct || answer ? 1 : 0, xp: correct && answer ? 1 : 0 });
+  if (!correct) { $("#caseCosmosNext").focus(); return; }
+  if (!answer) scheduleStep(reducedMotion() ? 450 : 650, () => {
     state.candidateIndex += 1;
     if (!currentQuestion()) { showError(new Error("The noun alternatives ended without a solution.")); return; }
     state.phase = "entering";
@@ -378,7 +379,7 @@ function reopenQuestion() {
 }
 
 async function nextRound() {
-  if (!engaged() || state.phase !== "solved") return;
+  if (!engaged() || state.menuOpen || !["solved", "mistake"].includes(state.phase)) return;
   cancelTransition();
   const epoch = state.epoch;
   resetSwipe();
@@ -410,6 +411,7 @@ function bindUi() {
   if (boat.complete === true && boat.naturalWidth === 0) artworkFailed();
   listen($("#caseCosmosYes"), "click", () => chooseAnswer(true));
   listen($("#caseCosmosNo"), "click", () => chooseAnswer(false));
+  listen($("#caseCosmosNext"), "click", () => { void nextRound(); });
   listen($("#caseCosmosSpeak"), "click", () => { void speakSentence(); });
   listen($("#caseCosmosPanel"), "keydown", (event) => {
     if (event.repeat || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey
@@ -420,11 +422,11 @@ function bindUi() {
     event.preventDefault();
     chooseAnswer(key === "y" || key === "1");
   });
-  listen(window, "caatuu:learning-change", (event) => {
+  listen(state.shell, "caatuu:learning-change", (event) => {
     if (event.detail?.reason !== "difficulty" || !state.pack.length) return;
     configureDifficulty();
     render();
-    $("#caseCosmosExample").focus();
+    if (engaged()) $("#caseCosmosExample").focus({ preventScroll: true });
   });
   for (const event of ["caatuu:speech-mute-change", "caatuu:speech-pace-change", "caatuu:speech-voice-change"]) {
     listen(state.shell, event, stopSentence);

@@ -28,7 +28,7 @@ const DEFAULT_ENGLISH_EMBEDDING_POLICY = Object.freeze({
 });
 const LEGACY_STANDARD_PROVIDER_MODULE = "source/games/word-world/word-net-standard.mjs";
 const SHARED_STANDARD_MEANING_SELECTOR = "/language-runtime/static/source/word-net-core.mjs";
-const DEFAULT_RENDERER_MODULE = "./product-word-world.mjs?v=shared-renderer-23";
+const DEFAULT_RENDERER_MODULE = "./product-word-world.mjs?v=shared-renderer-24";
 const SCENE_NUMBERS = Object.freeze([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 33]);
 const STANDARD_USAGE_CAPACITY = 8192;
 const TARGET_TEXT_GUIDE_STATUSES = new Set(["machine-assisted-preview", "native-reviewed"]);

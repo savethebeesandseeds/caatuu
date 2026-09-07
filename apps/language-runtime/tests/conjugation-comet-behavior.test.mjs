@@ -57,7 +57,7 @@ function seedGameMarkup(harness) {
   }
 }
 
-async function mountGame({ language = "czech", syntheticBase = false, framed = false, syncretic = false, speech = false, autoplay = false, muted = false, speechResult, duringLoad, reducedMotion = false, localStorageValues = {} } = {}) {
+async function mountGame({ language = "czech", difficulty = 3, syntheticBase = false, framed = false, syncretic = false, speech = false, autoplay = false, muted = false, speechResult, duringLoad, reducedMotion = false, localStorageValues = {} } = {}) {
   const raw = JSON.parse(await readFile(new URL(
     `../../languages/${language}/static/data/games/conjugation-comet/verbs.json`, import.meta.url
   ), "utf8"));
@@ -166,7 +166,7 @@ async function mountGame({ language = "czech", syntheticBase = false, framed = f
     localStorage: harness.localStorage,
     CaatuuCourse: course,
     CaatuuI18n: languageNames,
-    CaatuuLearning: { record: (gameId, delta) => records.push({ gameId, ...delta }) },
+    CaatuuLearning: { difficulty: () => difficulty, record: (gameId, delta) => records.push({ gameId, ...delta }) },
     CaatuuChrome: {
       getSpeechAutoplay: () => autoplay,
       getSpeechMuted: () => muted,
@@ -320,8 +320,29 @@ async function settleMicrotasks() {
 
 function finishBatch(game) {
   game.submit();
-  game.advance(1600);
+  game.advance(350); game.click(game.element("conjugationCometSummaryNext"));
 }
+
+test("the completion dialog shows every correct relationship and waits for a deliberate Next", async () => {
+  const game = await mountGame();
+  game.submit();
+  game.advance(350);
+  const dialog = game.element("conjugationCometSummary");
+  assert.equal(dialog.open, true);
+  assert.equal(game.document.activeElement.id, "conjugationCometSummaryNext");
+  const rows = game.element("conjugationCometSummaryPairs").children;
+  assert.equal(rows.length, game.round().subjects.length);
+  for (const [index, subject] of game.round().subjects.entries()) {
+    assert.deepEqual(rows[index].children.map((node) => node.textContent), [subject.learnerBaseText, subject.correctFormText]);
+  }
+  assert.equal(game.messages.length, 0);
+  assert.equal(game.timers.size, 0, "the summary never auto-dismisses");
+  game.click(game.element("conjugationCometSummaryNext"));
+  game.element("conjugationCometSummaryNext").dispatchEvent({ type: "click" });
+  assert.equal(dialog.open, false);
+  assert.equal(game.messages.length, 1);
+  game.controller.destroy();
+});
 
 test("initial and between-round loading use the same accessible robot presentation", async () => {
   const game = await mountGame({ duringLoad({ document, loaderCalls }) {
@@ -373,7 +394,7 @@ test("startup autoplay introduces the target verb once and repeats only for a ne
   game.document.visibilityState = "visible";
   game.document.dispatchEvent({ type: "visibilitychange" });
   game.submit(false);
-  game.advance(1800);
+  game.advance(200);
   await settleMicrotasks();
   assert.deepEqual(game.speechCalls, [firstVerb], "navigation, resumption, and a retry do not repeat the introduction");
   game.controller.next();
@@ -691,7 +712,7 @@ test("an incorrect whole-board check grades every pair, awards no XP, and retrie
   assert.equal(game.attempts()[0].successes, 0);
   game.element("conjugationCometSubmit").dispatchEvent({ type: "click", bubbles: true });
   assert.equal(game.attempts().length, 1);
-  game.advance(1800);
+  game.advance(200);
   assert.deepEqual([game.offset("subject"), game.offset("target")], offsets);
   assert.equal(game.element("conjugationCometPairBackgrounds").querySelectorAll("[data-result]").length, 0, "retry clears every pair tint");
   assert.equal(game.element("conjugationCometSubmit").disabled, false);
@@ -700,6 +721,28 @@ test("an incorrect whole-board check grades every pair, awards no XP, and retrie
   assert.equal(game.attempts().length, 2);
   assert.equal(game.attempts()[1].xp, result.total);
   assert.equal(game.attempts()[1].successes, 1);
+  game.controller.destroy();
+});
+
+test("shell difficulty changes retire hidden feedback and resample eligible verbs without rewards", async () => {
+  const game = await mountGame({ difficulty: 3 });
+  game.submit(false);
+  const callbacks = [...game.timers.values()].map((timer) => timer.callback);
+  game.setActive(false);
+  const oldRound = game.round();
+  const earned = JSON.stringify(game.records);
+  const focusCount = game.focusCalls.length;
+  game.shell.CaatuuLearning.difficulty = () => 1;
+  game.window.dispatchEvent({ type: "caatuu:learning-change", detail: { reason: "difficulty" } });
+  assert.notEqual(game.round(), oldRound);
+  assert.equal(game.current().difficulty, 1);
+  assert.equal(game.focusCalls.length, focusCount, "hidden resets must not move focus out of Backpack");
+  const freshRound = game.round();
+  callbacks.forEach((callback) => callback());
+  assert.equal(game.round(), freshRound, "old feedback must not advance the new round");
+  assert.equal(JSON.stringify(game.records), earned);
+  game.setActive(true);
+  assert.equal(game.element("conjugationCometSubmit").disabled, false);
   game.controller.destroy();
 });
 
@@ -737,14 +780,14 @@ test("one fully aligned submission earns N XP once and continues through the rob
   assert.equal(game.element("conjugationCometSubmit").disabled, true);
   game.element("conjugationCometSubmit").dispatchEvent({ type: "click", bubbles: true });
   assert.equal(game.attempts().length, 1);
-  game.advance(1600);
+  game.advance(350); game.click(game.element("conjugationCometSummaryNext"));
   assert.equal(game.messages.length, 1);
   assert.equal(game.messages[0].message.type, "round-success");
   assert.equal(game.messages[0].message.contentId, original.id);
   assert.equal(game.messages[0].origin, "https://caatuu.test");
   assert.equal(game.records.reduce((sum, entry) => sum + (entry.rounds || 0), 0), 1);
   assert.equal(game.element("conjugationCometTransition").hidden, false);
-  assert.equal(game.element("conjugationCometSummary"), null);
+  assert.equal(game.element("conjugationCometSummary").open, false);
   game.advance(1200);
   assert.notEqual(game.current().id, original.id);
   assert.equal(game.element("conjugationCometTransition").hidden, true);
@@ -890,7 +933,7 @@ test("native Enter and Space replay audio cards while only Check submits the com
   game.click(check);
   assert.equal(game.attempts().length, 1);
   assert.equal(game.attempts()[0].xp, result.total);
-  game.advance(1600); game.advance(1200);
+  game.advance(350); game.click(game.element("conjugationCometSummaryNext")); game.advance(1200);
   const step = game.element("conjugationCometTargetNext");
   assert.equal(game.document.dispatchEvent({ type: "keydown", key: "Enter", target: step }), true);
   assert.equal(game.timers.size, 0);
@@ -983,7 +1026,7 @@ test("unavailable shared speech reports the authored failure without a browser v
 for (const phase of ["moving", "correct", "incorrect", "transition"]) {
   test(`${phase} timers pause while hidden or controls are open and resume safely`, async () => {
     const game = await mountGame();
-    const delay = phase === "moving" ? 420 : phase === "correct" ? 1600 : phase === "incorrect" ? 1800 : 1200;
+    const delay = phase === "moving" ? 420 : phase === "correct" ? 350 : phase === "incorrect" ? 200 : 1200;
     if (phase === "moving") game.click(game.element("conjugationCometSubjectNext"));
     if (phase === "correct" || phase === "incorrect") game.submit(phase === "correct");
     if (phase === "transition") finishBatch(game);
@@ -1020,7 +1063,7 @@ test("BFCache pauses result feedback and playback while retaining the live toolb
   assert.equal(game.toolbarLifecycle.destroys, 0);
   assert.ok(game.speechStops() > initialStops);
   assert.equal(game.timers.size, 0);
-  game.window.dispatchEvent({ type: "pageshow", persisted: true }); game.advance(1800);
+  game.window.dispatchEvent({ type: "pageshow", persisted: true }); game.advance(200);
   game.submit();
   assert.equal(game.toolbarCalls.length, 1);
   assert.equal(game.attempts().length, 2);
@@ -1123,7 +1166,7 @@ test("scrolling preserves zoom and horizontal gestures and respects game lifecyc
   game.submit(false);
   assert.equal(Boolean(scrollBoard(game).defaultPrevented), false);
   assert.equal(game.offset("subject"), before);
-  game.advance(1800);
+  game.advance(200);
   game.controller.destroy();
   assert.equal(Boolean(scrollBoard(game).defaultPrevented), false);
   assert.equal(game.element("conjugationCometBoard").listeners.get("wheel").size, 0);

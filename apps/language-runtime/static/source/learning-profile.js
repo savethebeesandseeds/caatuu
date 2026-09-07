@@ -500,6 +500,7 @@
 
   const setDifficulty = (value) => {
     const difficulty = normalizeDifficulty(value);
+    if (difficulty === readDifficulty()) return difficulty;
     writeJson(preferenceStorageKey, { schemaVersion, difficulty });
     announceChange("difficulty");
     return difficulty;

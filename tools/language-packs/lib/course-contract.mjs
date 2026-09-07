@@ -2155,7 +2155,7 @@ export function authoredGrammarPromotionIssues(course, gameId, catalog) {
   if (usesExactCzechLegacyPublicationException(course)) return [];
   const release = course?.status === "active"
     || course?.platforms?.browser?.pagesEnabled === true
-    || course?.platforms?.android?.enabled === true;
+    || course?.platforms?.android?.enabled === true && course?.status !== "development";
   const requireNativeReview = course?.status === "active";
   const issues = [];
   if (release && catalog?.license?.status !== "release-cleared") {
@@ -2183,7 +2183,7 @@ async function validateAuthoredGrammarPromotionEvidence(record, repoRoot, issues
   if (usesExactCzechLegacyPublicationException(course)) return;
   const release = course.status === "active"
     || course.platforms?.browser?.pagesEnabled === true
-    || course.platforms?.android?.enabled === true;
+    || course.platforms?.android?.enabled === true && course.status !== "development";
   if (!release) return;
   const declaredGames = new Set(Array.isArray(course.games) ? course.games : []);
   const grammarResources = [
@@ -2963,7 +2963,7 @@ export function generateCourseProfileObject(course, catalogCourses = [course]) {
       && course.status === "development"
       && course.platforms.browser.enabled === true
       && course.platforms.browser.pagesEnabled === false
-      && course.platforms.android.enabled === false,
+      && typeof course.platforms.android.enabled === "boolean",
     linguisticFeatures: [...(course.linguisticFeatures ?? [])],
     games: [...(course.games ?? [])],
     upcomingGames: [...(course.upcomingGames ?? [])],

@@ -2064,7 +2064,9 @@
         : enabled
           ? interfaceMessage("progress.reminders.on")
           : interfaceMessage("progress.reminders.enable");
-      button.setAttribute("aria-label", enabled
+      button.title = permission === "denied" ? interfaceMessage("progress.reminders.permissionhint") : "";
+      button.setAttribute("aria-label", permission === "denied"
+        ? interfaceMessage("progress.reminders.permissionhint") : enabled
         ? interfaceMessage("progress.reminders.turnoff")
         : interfaceMessage("progress.reminders.turnon"));
     });
@@ -3200,7 +3202,8 @@
         sources.set(sourceKey, candidate);
       }
     }
-    return Array.from(sources.values());
+    return Array.from(sources.values()).sort((left, right) =>
+      Number(right.id.split("-")[0] === "en") - Number(left.id.split("-")[0] === "en"));
   }
 
   function availableCourseSelectorRecords(sourceId = selectorLanguageKey(course.sourceLanguage)) {
@@ -4713,13 +4716,7 @@
               </div>
             </dl>
             <div class="maintenance-action-list">
-              <div class="maintenance-action-row" data-maintenance-action-row hidden>
-                <span class="maintenance-action-copy">
-                  <strong>${interfaceHtml("settings.update.title")}</strong>
-                  <small data-update-app-copy>${interfaceHtml("settings.update.description")}</small>
-                </span>
-                <button class="maintenance-row-control pwa-install-action" type="button" id="updateApp" aria-describedby="maintenanceStatus" hidden>${interfaceHtml("settings.update.action")}</button>
-              </div>
+
               <div class="maintenance-action-row">
                 <span class="maintenance-action-copy">
                   <strong>${interfaceHtml("settings.cache.title")}</strong>
@@ -4735,6 +4732,25 @@
                 <button class="maintenance-row-control settings-danger-action course-reset-action" type="button" id="settingsResetCourseProgress">${interfaceHtml("common.restart")}</button>
               </div>
             </div>
+
+
+          </section>
+              </div>
+            </details>
+          </section>
+
+          <section class="settings-card side-card about-card" aria-label="${interfaceHtml("settings.about.label")}">
+            <div class="settings-card-head side-head">
+              <p class="settings-kicker kicker">${interfaceHtml("settings.about.label")}</p>
+              <h3>${interfaceHtml("settings.about.details")}</h3>
+            </div>
+              <div class="maintenance-action-row" data-maintenance-action-row hidden>
+                <span class="maintenance-action-copy">
+                  <strong>${interfaceHtml("settings.update.title")}</strong>
+                  <small data-update-app-copy>${interfaceHtml("settings.update.description")}</small>
+                </span>
+                <button class="maintenance-row-control pwa-install-action" type="button" id="updateApp" aria-describedby="maintenanceStatus" hidden>${interfaceHtml("settings.update.action")}</button>
+              </div>
             <p class="maintenance-status" id="maintenanceStatus" role="status" aria-live="polite" aria-atomic="true"></p>
             <div class="maintenance-install-row" id="browserInstallActions">
               <span class="maintenance-action-copy">
@@ -4747,16 +4763,6 @@
               </span>
             </div>
             <p class="pwa-install-help" id="pwaInstallHelp" hidden>${interfaceHtml("settings.install.browserhelp")}</p>
-          </section>
-              </div>
-            </details>
-          </section>
-
-          <section class="settings-card side-card about-card" aria-label="${interfaceHtml("settings.about.label")}">
-            <div class="settings-card-head side-head">
-              <p class="settings-kicker kicker">${interfaceHtml("settings.about.label")}</p>
-              <h3>${interfaceHtml("settings.about.details")}</h3>
-            </div>
             <dialog class="settings-update-dialog" id="appUpdateConfirmDialog" aria-labelledby="appUpdateConfirmTitle" aria-describedby="appUpdateConfirmVersions appUpdateConfirmNote">
               <form class="settings-update-dialog-card" method="dialog">
                 <p class="settings-kicker kicker">${interfaceHtml("settings.update.app")}</p>
@@ -4839,7 +4845,7 @@
     else applySemanticSkillCompassCopy(panel);
     if (course.platforms?.android?.enabled === false) {
       panel.querySelector("#installAndroidAction")?.remove();
-      panel.querySelector("[data-maintenance-action-row]")?.remove();
+
       panel.querySelector("#appUpdateConfirmDialog")?.remove();
     }
 

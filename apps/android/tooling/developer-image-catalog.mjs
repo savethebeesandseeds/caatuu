@@ -25,7 +25,7 @@ function packagedImagePaths(assets) {
   )).filter(Boolean));
 }
 
-/** Keep authoritative entries only for safe images that the package actually contains. */
+/** Keep authoritative entries for safe bundled or validated setup-provided images. */
 export function filterPackagedImageKeymap(catalog, assets) {
   if (!catalog || typeof catalog !== "object" || Array.isArray(catalog)) {
     throw new TypeError("An image keymap must be a JSON object keyed by public asset paths.");

@@ -5,6 +5,28 @@ governed beta or stable release.
 
 ## Unreleased
 
+### Android 0.1.16 (168) and shared game improvements
+
+- Made setup preparation automatic and its checking, progress, retry, and ready
+  states clearer; added visible update controls to Home and About.
+- Included the Spanish-to-English development course for hands-on Android
+  testing, keeping its pending curriculum review visible, and placed English
+  first in the source-language chooser.
+- Restored image lookup metadata for setup-downloaded artwork so picture clues
+  and the developer image search can find those images in the APK.
+- Kept Grammar Gravity's loading robot visible until its artwork is ready and
+  prevented consecutive repetitions of the same word.
+- Ended incorrect Case Cosmos answers with a correction and a next challenge;
+  shortened Conjugation Comet retry delays, removed error underlines, and added
+  an animated completion summary with the Next button.
+- Standardized Naturalization Nucleus surfaces, loading, instructions, and
+  controls; placed dictionary cards below the orbit and hid pinyin hints on
+  unmatched Hanzi cards.
+- Reset loaded game challenges when difficulty changes without clearing saved
+  progress, and replaced alarming notification-permission wording.
+- Physical-device installation, update, offline use, and progress-preservation
+  testing remain unverified for this candidate.
+
 ### Android 0.1.15 (167) and shared course fixes
 
 - Fixed Czech setup reporting readiness before its setup provider had enabled

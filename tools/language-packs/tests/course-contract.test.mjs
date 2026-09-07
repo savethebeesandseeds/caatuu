@@ -1091,7 +1091,7 @@ test("skill-compass packs are explicit, structured, and independent from semanti
   );
 });
 
-test("learner-base preview relaxation is confined to explicitly local development delivery", () => {
+test("learner-base preview supports development APKs and stays outside active and Pages delivery", () => {
   const course = structuredClone(loaded.courses.find(({ course }) => course.id === "es-en").course);
   assert.equal(generateCourseProfileObject(course).learnerBasePreview, true);
   for (const [name, mutate] of [
@@ -1099,7 +1099,6 @@ test("learner-base preview relaxation is confined to explicitly local developmen
     ["retired course", (candidate) => { candidate.status = "retired"; }],
     ["browser disabled", (candidate) => { candidate.platforms.browser.enabled = false; }],
     ["Pages delivery", (candidate) => { candidate.platforms.browser.pagesEnabled = true; }],
-    ["Android delivery", (candidate) => { candidate.platforms.android.enabled = true; }],
     ["unspecified Pages gate", (candidate) => { delete candidate.platforms.browser.pagesEnabled; }],
     ["unspecified Android gate", (candidate) => { delete candidate.platforms.android.enabled; }],
     ["English learner base", (candidate) => {
@@ -1110,6 +1109,8 @@ test("learner-base preview relaxation is confined to explicitly local developmen
     mutate(candidate);
     assert.equal(generateCourseProfileObject(candidate).learnerBasePreview, false, name);
   }
+  course.platforms.android.enabled = true;
+  assert.equal(generateCourseProfileObject(course).learnerBasePreview, true);
 });
 
 test("launcher and course-profile compatibility views match the current consumers", async () => {
@@ -1187,7 +1188,7 @@ test("launcher and course-profile compatibility views match the current consumer
     courseRuntime: "source/shared/runtime.js?v=runtime-41",
     semanticLearningProvider: "source/shared/semantic-learning.js?v=semantic-learning-7",
     setupProgressProvider: "source/features/setup/setup-progress.js?v=setup-progress-1",
-    setupProvider: "source/features/setup/setup.js?v=setup-41"
+    setupProvider: `source/features/setup/setup.js?v=${czech.resources.setupProvider.revision}`
   });
   assert.deepEqual(
     JSON.parse(JSON.stringify(context.window.CaatuuCourse.gameContent)),
@@ -2198,7 +2199,10 @@ test("Spanish grammar catalogs independently gate preview, browser, Android, and
   pagesPreview.platforms.browser.pagesEnabled = true;
   const androidPreview = structuredClone(spanish);
   androidPreview.platforms.android.enabled = true;
-  for (const releaseCourse of [pagesPreview, androidPreview]) {
+  for (const [gameId, catalog] of pendingCatalogs) {
+    assert.deepEqual(authoredGrammarPromotionIssues(androidPreview, gameId, catalog), []);
+  }
+  for (const releaseCourse of [pagesPreview]) {
     for (const [gameId, catalog] of pendingCatalogs) {
       assert.deepEqual(
         authoredGrammarPromotionIssues(releaseCourse, gameId, catalog).map(({ code }) => code),

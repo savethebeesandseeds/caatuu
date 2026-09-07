@@ -706,17 +706,18 @@
     syncDetailsState();
 
     if (action) {
-      action.hidden = appUpdateLocked ? false : ready || setupActive;
+      action.hidden = appUpdateLocked ? false : ready || setupActive
+        || (hasNativeRuntime() && !setupAborted && !lastSetupAttention);
       action.disabled = appUpdateLocked
         ? updateRunning || ["checking", "downloading", "verifying"].includes(appUpdateUiState)
         : setupActive;
       action.textContent = appUpdateLocked
         ? updateActionLabel()
-        : setupAborted ? "Retry setup" : "Prepare Caatuu";
+        : hasNativeRuntime() || setupAborted ? "Retry setup" : "Prepare Caatuu";
     }
     if (abort) {
       abort.disabled = !setupActive || updateRunning;
-      abort.hidden = appUpdateLocked || ready;
+      abort.hidden = appUpdateLocked || ready || !setupActive;
     }
     if (report) {
       report.hidden = true;
@@ -1627,6 +1628,12 @@
     const card = $("#nativeSetup");
     if (!card) return;
     card.hidden = false;
+    setText("#setupTitle", "Checking Caatuu");
+    setText("#setupPhase", "Checking local files");
+    setText("#setupMessage", hasNativeRuntime()
+      ? "Checking this device. Missing files will be prepared automatically."
+      : "Checking your saved course and local files.");
+    setControls();
     bindNavigationLock();
     setNavigationLocked(true);
     $("#setupAction")?.addEventListener("click", () => {

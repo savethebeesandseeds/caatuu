@@ -443,7 +443,7 @@ test("Android packaging rejects leaf and intermediate physical-source aliases", 
   );
 });
 
-test("the Android product bundles Czech and Mandarin behind one shared app document", (t) => {
+test("the Android product bundles declared courses behind one shared app document", (t) => {
   const parent = mkdtempSync(join(tmpdir(), "caatuu-multicourse-product-test-"));
   const outputDir = join(parent, "product");
   t.after(() => rmSync(parent, { recursive: true, force: true }));
@@ -455,7 +455,9 @@ test("the Android product bundles Czech and Mandarin behind one shared app docum
     launcherStaticDir,
   });
   assert.equal(configuration.declaration.defaultCourseId, "cz");
-  assert.deepEqual(configuration.configurations.map(({ course }) => course.id), ["cz", "zh"]);
+  assert.deepEqual(configuration.configurations.map(({ course }) => course.id),
+    configuration.declaration.courses.map(({ manifest }) => JSON.parse(readFileSync(join(workspaceRoot, manifest), "utf8")).id));
+  assert.ok(configuration.configurations.some(({ course }) => course.id === "es-en"));
   assert.equal(
     configuration.configurations[0].appEntryPath,
     configuration.configurations[1].appEntryPath,
@@ -490,7 +492,7 @@ test("the Android product bundles Czech and Mandarin behind one shared app docum
     !result.files.some((path) => /^courses\/[^/]+\/vendor\/transformers\//u.test(path)),
     "course trees must reuse the single shared Transformers.js runtime",
   );
-  for (const courseId of ["cz", "zh"]) {
+  for (const { course: { id: courseId } } of configuration.configurations) {
     const courseProfile = readPackagedCourseProfile(join(
       outputDir,
       `courses/${courseId}/source/shared/course-profile.js`,
@@ -504,7 +506,10 @@ test("the Android product bundles Czech and Mandarin behind one shared app docum
     const selectedConfiguration = configuration.configurations.find(({ course }) => course.id === courseId);
     const interfaceCatalog = JSON.parse(readFileSync(join(workspaceRoot, selectedConfiguration.interfaceContent.sourcePath), "utf8"));
     assert.equal(courseProfile.interfaceContent.revision, interfaceCatalog.revision);
-    assert.equal(courseProfile.interfaceContent.catalog, "/language-runtime/static/data/interface/en.v1.json");
+    if (courseId === "es-en") assert.equal(courseProfile.learnerBasePreview, true,
+      "the APK can render the same honestly labelled draft Spanish translations as the local browser");
+    assert.equal(courseProfile.interfaceContent.catalog,
+      "/" + selectedConfiguration.interfaceContent.sourcePath.replace("apps/", ""));
     assert.ok(
       result.files.includes(courseProfile.interfaceContent.catalog.replace(/^\/+/, "")),
       `${courseId} selected interface catalog must be packaged in the shared app tree`,
@@ -520,6 +525,13 @@ test("the Android product bundles Czech and Mandarin behind one shared app docum
     assert.ok(!result.files.includes(`language-runtime/${artifact.path}`));
   }
   const czechSetup = JSON.parse(readFileSync(join(outputDir, "courses/cz/setup-assets.json"), "utf8"));
+  for (const catalogPath of ["assets/miscellaneous/keymap.json", "assets/macaw/actions/keymaps.json"]) {
+    const images = JSON.parse(readFileSync(join(outputDir, catalogPath), "utf8"));
+    const paths = Object.keys(images).map(decodeURIComponent);
+    const available = new Set([...result.files, ...configuration.sharedStorageRecords.map(({ declaredPath }) => declaredPath)]);
+    assert.ok(paths.every((path) => available.has(path.replace(/^\//u, ""))), "all image metadata has a bundled or verified setup source");
+    assert.ok(paths.some((path) => !result.files.includes(path.replace(/^\//u, ""))), "downloaded artwork remains searchable after setup");
+  }
   const sourceSetup = JSON.parse(readFileSync(join(languageStaticDir, "setup-assets.json"), "utf8"));
   for (const sourceArtwork of sourceSetup.artifacts.filter(({ artifact_kind }) => artifact_kind === "visual-asset")) {
     const matches = czechSetup.artifacts.filter(({ key }) => key === sourceArtwork.key);

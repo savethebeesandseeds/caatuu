@@ -1945,12 +1945,15 @@ const SHARED_APP_TRANSFORMS = Object.freeze({
   "language-runtime/static/styles/caatuu-home.css": transformHomeCss,
 });
 
-function sharedAppAssetTransform(output, assets) {
+function sharedAppAssetTransform(output, assets, storageRecords = []) {
   if (/^language-runtime\/static\/data\/interface\/[^/]+\.json$/u.test(output)) {
     return transformProductInterfaceCatalog;
   }
   if (output === "assets/miscellaneous/keymap.json" || output === "assets/macaw/actions/keymaps.json") {
-    return (input) => transformPackagedImageKeymap(input, assets);
+    // Setup downloads are part of the usable image catalog too. These records
+    // have already passed the same path, HTTPS, hash and size contracts as setup.
+    const availableAssets = [...assets, ...storageRecords.map(({ declaredPath }) => ({ output: declaredPath }))];
+    return (input) => transformPackagedImageKeymap(input, availableAssets);
   }
   return SHARED_APP_TRANSFORMS[output];
 }
@@ -2719,7 +2722,7 @@ export function validateProductAssetBundle({
   assert.deepEqual(profile, bundle.productProfile, "Default product profile must match the complete course bundle");
 
   for (const { source, output } of bundle.sharedAssets) {
-    const transform = sharedAppAssetTransform(output, bundle.sharedAssets);
+    const transform = sharedAppAssetTransform(output, bundle.sharedAssets, bundle.sharedStorageRecords);
     const expected = transform ? transform(readSourceText(source)) : readFileSync(source);
     const actual = transform ? readFileSync(join(resolvedOutput, output), "utf8") : readFileSync(join(resolvedOutput, output));
     assert.deepEqual(actual, expected, `Shared product asset drifted: ${output}`);
@@ -2933,7 +2936,7 @@ export function compileProductAssetBundle({
     }
   }
   for (const { source, output } of bundle.sharedAssets) {
-    const transform = sharedAppAssetTransform(output, bundle.sharedAssets);
+    const transform = sharedAppAssetTransform(output, bundle.sharedAssets, bundle.sharedStorageRecords);
     if (transform) {
       assert.ok(TEXT_EXTENSIONS.has(extension(output)), `Shared app transform target must be text: ${output}`);
       writeText(join(resolvedOutput, output), transform(readSourceText(source)));
@@ -3017,8 +3020,9 @@ export function compileProductAssets({
     );
     copyExactFile(sourcePath, join(resolvedOutput, output));
   }
+  const sharedStorageRecords = assertAndroidBundleSharedStorage([courseConfiguration]);
   for (const { source, output } of courseConfiguration.appAssets) {
-    const transform = sharedAppAssetTransform(output, courseConfiguration.appAssets);
+    const transform = sharedAppAssetTransform(output, courseConfiguration.appAssets, sharedStorageRecords);
     if (transform) {
       assert.ok(TEXT_EXTENSIONS.has(extension(output)), `Shared app transform target must be text: ${output}`);
       writeText(join(resolvedOutput, output), transform(readSourceText(source)));

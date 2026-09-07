@@ -25,6 +25,41 @@ function deferred() {
 
 const flushTasks = () => new Promise((resolve) => setImmediate(resolve));
 
+test("native setup offers retry only after attention, never during automatic checking or preparation", () => {
+  const harness = createBrowserHarness();
+  const { context, document } = harness;
+  const action = document.createElement("button");
+  action.id = "setupAction";
+  document.body.append(action);
+  Object.assign(context, {
+    $: (selector) => document.querySelector(selector),
+    hasNativeRuntime: () => true,
+    syncDetailsState() {},
+    setupComplete: false, setupRunning: false, nativeSetupActive: false,
+    appUpdateLocked: false, updateRunning: false, setupAborted: false,
+    lastSetupAttention: null,
+  });
+  const start = source.indexOf("  function setControls()");
+  const end = source.indexOf("  function syncDetailsState()", start);
+  assert.ok(start >= 0 && end > start);
+  vm.runInContext(source.slice(start, end), context);
+  context.setControls();
+  assert.equal(action.hidden, true, "automatic initial check");
+  context.nativeSetupActive = true;
+  context.setControls();
+  assert.equal(action.hidden, true, "preparation in progress");
+  assert.equal(action.disabled, true);
+  context.nativeSetupActive = false;
+  context.lastSetupAttention = { message: "Download failed" };
+  context.setControls();
+  assert.equal(action.hidden, false, "recoverable failure");
+  assert.equal(action.disabled, false);
+  assert.match(action.textContent, /retry/iu);
+  context.setupComplete = true;
+  context.setControls();
+  assert.equal(action.hidden, true, "already ready");
+});
+
 function setupBrowser({ shellReady = Promise.resolve({ ready: true }), preload = async () => {}, updateLocked = false } = {}) {
   const harness = createBrowserHarness();
   const { context, document, window } = harness;

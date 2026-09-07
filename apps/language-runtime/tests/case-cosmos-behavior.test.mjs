@@ -207,7 +207,7 @@ async function mountGame({ difficulty = 1, pack = catalog, status = 200, duringL
     },
     difficulty(value, reason = "difficulty") {
       selectedDifficulty = value;
-      harness.window.dispatchEvent({ type: "caatuu:learning-change", detail: { reason } });
+      shell.dispatchEvent({ type: "caatuu:learning-change", detail: { reason } });
     },
     key(key, values = {}) {
       const panel = harness.document.getElementById("caseCosmosPanel");
@@ -233,7 +233,7 @@ test("Case Cosmos has one sentence, one proposed case, and two real answer butto
   }
   assert.equal(game.element("Board").hidden, false);
   assert.equal(game.element("Feedback").hidden, true);
-  assert.equal(game.element("Next"), null);
+  assert.equal(game.element("Next").hidden, true);
   assert.equal(game.document.querySelectorAll("#caseCosmosSentence").length, 1);
   assert.equal(game.document.querySelectorAll("#caseCosmosProposedCase").length, 1);
   assert.equal(game.element("Panel").getAttribute("aria-busy"), "false");
@@ -344,7 +344,7 @@ test("swipe right answers Yes and left answers No in both illustrated and plain 
       pointer(game, "pointerup", 150 + direction * 80);
       assert.equal(game.api.state.answer, direction > 0);
       assert.equal(game.api.state.phase, direction > 0 ? "solved" : "mistake");
-      assert.equal(game.document.activeElement, game.element("Example"));
+      assert.equal(game.document.activeElement.id, game.element(direction > 0 ? "Example" : "Next").id);
       assert.equal(game.element("Board").dataset.swipeAnswer, undefined);
       assert.equal(game.records.length, 1);
       assert.equal(game.records[0].delta.successes, question.matches === (direction > 0) ? 1 : 0);
@@ -500,7 +500,7 @@ test("only accepting the correct form solves the sentence and awards once, follo
   assert.equal(game.records.length, 1);
   assert.deepEqual(game.records[0].delta, { activities: 1, attempts: 1, successes: 1, rounds: 1, xp: 1 });
   assert.equal(game.messages.length, 0, "show the result before handing off to the campaign");
-  assert.equal(game.element("Next"), null);
+  assert.equal(game.element("Next").hidden, true);
   assert.equal(game.element("Yes").disabled, true);
   assert.match(game.element("FeedbackTitle").textContent, /✓ Sentence solved/u);
   await game.tick(1799);
@@ -520,7 +520,7 @@ test("only accepting the correct form solves the sentence and awards once, follo
   assert.equal(game.records.length, 1);
 });
 
-test("mistakes are red retries on the same candidate, never an advance or a green Next", async () => {
+test("a mistake ends the challenge with its correction and cannot be converted to a win", async () => {
   for (const correctForm of [true, false]) {
     const game = await mountGame();
     const question = game.selectCandidate(correctForm);
@@ -529,13 +529,19 @@ test("mistakes are red retries on the same candidate, never an advance or a gree
     assert.equal(game.element("Board").dataset.state, "mistake");
     assert.match(game.element("FeedbackTitle").textContent, /× Not quite/u);
     assert.equal(game.element(!correctForm ? "Yes" : "No").dataset.result, "wrong");
-    assert.equal(game.element("Next"), null);
+    assert.equal(game.element("Next").hidden, false);
     assert.equal(game.records[0].delta.xp, 0);
-    assert.equal(game.records[0].delta.rounds, 0);
-    game.api.nextRound();
+    assert.equal(game.records[0].delta.rounds, 1);
+    assert.equal(game.element("ActualCase").textContent, game.api.currentChallenge().czech);
     await game.tick(1800);
     assert.equal(game.api.currentQuestion(), question);
+    game.api.chooseAnswer(correctForm);
+    assert.equal(game.records.length, 1);
+    assert.equal(game.api.state.phase, "mistake");
     assert.equal(game.api.state.questionIndex, 0);
+    game.element("Next").click();
+    await game.tick(850);
+    assert.equal(game.api.state.questionIndex, 1);
     assert.equal(game.api.state.phase, "question");
     assert.equal(game.element("Feedback").hidden, true);
     assert.equal(game.messages.length, 0);
@@ -626,7 +632,7 @@ test("animations and robot transitions pause while hidden, in menus, and in the 
       assert.equal(game.element("Board").dataset.active, "false");
       toggle(true);
       await game.tick(3000);
-      assert.equal(game.api.state.phase, "question", `${pause}/${phase} resumes`);
+      assert.equal(game.api.state.phase, phase === "mistake" ? "mistake" : "question", `${pause}/${phase} resumes`);
       assert.equal(game.records.length, 1);
     }
   }
@@ -668,7 +674,7 @@ test("reduced motion removes noun transforms without removing reject, retry, or 
   const styles = await readFile(new URL("../../languages/czech/static/source/games/case-cosmos/case-cosmos.css", import.meta.url), "utf8");
   assert.match(styles, /prefers-reduced-motion:[\s\S]*sentence mark \{ animation: none/u);
   assert.match(styles, /data-state="mistake"[^}]+--case-feedback: var\(--case-wrong\)/u);
-  assert.doesNotMatch(styles, /case-cosmos-next/u);
+  assert.match(styles, /case-cosmos-next\[hidden\]/u);
 });
 
 test("wrong candidate speech never models an incorrect sentence; a solved card speaks the correct utterance", async () => {
@@ -741,7 +747,9 @@ test("campaign advance is origin-checked, cannot skip mistakes, and cannot doubl
   game.api.chooseAnswer(false);
   dispatch();
   assert.equal(game.api.state.phase, "mistake");
-  await game.tick(1800);
+  game.element("Next").click();
+  await game.tick(850);
+  game.selectCandidate(true);
   game.api.chooseAnswer(true);
   for (const override of [{ origin: "https://outside.test" }, { source: {} },
     { data: { source: "outside", type: "campaign-advance" } }]) {
@@ -752,9 +760,9 @@ test("campaign advance is origin-checked, cannot skip mistakes, and cannot doubl
   dispatch();
   assert.equal(game.api.state.phase, "loading");
   await game.tick(850);
-  assert.equal(game.api.state.questionIndex, 1);
+  assert.equal(game.api.state.questionIndex, 2);
   assert.equal(game.api.state.phase, "question");
-  assert.equal(game.records.reduce((sum, entry) => sum + entry.delta.rounds, 0), 1);
+  assert.equal(game.records.reduce((sum, entry) => sum + entry.delta.rounds, 0), 2);
 });
 
 test("standalone success does not post a campaign message", async () => {

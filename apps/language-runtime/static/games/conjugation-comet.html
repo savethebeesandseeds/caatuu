@@ -7,7 +7,7 @@
     <title>Conjugation Comet</title>
     <link rel="stylesheet" href="../styles/caatuu-theme.css?v=theme-7">
     <link rel="stylesheet" href="../styles/games/embedded-game-controls.css?v=embedded-game-controls-8">
-    <link rel="stylesheet" href="../styles/games/conjugation-comet.css?v=conjugation-comet-shared-3">
+    <link rel="stylesheet" href="../styles/games/conjugation-comet.css?v=conjugation-comet-shared-4">
   </head>
   <body>
     <main class="conjugation-comet" id="conjugationCometRoot" aria-busy="true">
@@ -44,8 +44,13 @@
         </section>
         <section class="caatuu-game-robot-loading" id="conjugationCometTransition" role="status" hidden><img class="caatuu-game-robot-loading-art" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true"></section>
       </section>
+      <dialog class="conjugation-comet-summary" id="conjugationCometSummary" aria-labelledby="conjugationCometSummaryTitle">
+        <h2 id="conjugationCometSummaryTitle"></h2>
+        <div id="conjugationCometSummaryPairs"></div>
+        <button class="conjugation-comet-submit" id="conjugationCometSummaryNext" type="button"><span id="conjugationCometSummaryNextLabel"></span><img src="/assets/icons/paper_plane_submit_ui.png" alt="" aria-hidden="true"></button>
+      </dialog>
       <section class="conjugation-comet-error" id="conjugationCometError" role="alert" hidden><img src="/assets/planets/conjugation-comet.png" alt="" aria-hidden="true"><h1>Conjugation Comet could not start</h1><p id="conjugationCometErrorText">Return to the planets and try again.</p></section>
     </main>
-    <script type="module" src="../source/games/conjugation-comet/conjugation-comet-host.mjs?v=conjugation-comet-shared-11"></script>
+    <script type="module" src="../source/games/conjugation-comet/conjugation-comet-host.mjs?v=conjugation-comet-shared-13"></script>
   </body>
 </html>

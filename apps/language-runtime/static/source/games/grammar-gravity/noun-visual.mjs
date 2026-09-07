@@ -1,4 +1,4 @@
-import { createEnglishImageSearch } from "../../english-image-search.mjs?v=english-image-search-1";
+import { createEnglishImageSearch } from "../../english-image-search.mjs?v=english-image-search-2";
 
 const VISUAL_PREFIX = "/assets/miscellaneous/";
 const CACHE_LIMIT = 32;
@@ -42,7 +42,7 @@ function firstVisual(payload, origin) {
 
 // Use the course vector service when present and the shared artwork provider
 // otherwise. Both search only the independent English audit description.
-export function createNounVisual({ shell, course, image, searchImages } = {}) {
+export function createNounVisual({ shell, course, image, searchImages, scope = globalThis, onLoadingChange = () => {} } = {}) {
   const cache = new Map();
   let active = true;
   let visible = true;
@@ -51,8 +51,30 @@ export function createNounVisual({ shell, course, image, searchImages } = {}) {
   let currentKey = "";
   let english = "";
   let pending = null;
+  let loading = false;
+  let deadline = null;
+  let abandonedToken = -1;
   let removeImageListeners = () => {};
   const origin = shell?.location?.origin || image?.ownerDocument?.location?.origin || "";
+
+  function setLoading(value) {
+    if (loading === value) return;
+    loading = value;
+    if (deadline !== null) scope.clearTimeout(deadline);
+    deadline = null;
+    if (value) {
+      deadline = scope.setTimeout(() => {
+        // A failed search or image must not block play forever or appear late.
+        remember(english, "");
+        abandonedToken = epoch;
+        epoch += 1;
+        clearImage();
+        setLoading(false);
+      }, 15000);
+      deadline?.unref?.();
+    }
+    onLoadingChange(value);
+  }
 
   function clearImage() {
     removeImageListeners();
@@ -64,6 +86,7 @@ export function createNounVisual({ shell, course, image, searchImages } = {}) {
   function invalidate() {
     epoch += 1;
     clearImage();
+    setLoading(false);
   }
   function enabled() {
     return !destroyed && active && visible && Boolean(image) && Boolean(english)
@@ -76,17 +99,21 @@ export function createNounVisual({ shell, course, image, searchImages } = {}) {
   }
   function present(path, token, query) {
     clearImage();
-    if (!path || !enabled() || token !== epoch || query !== english) return;
+    if (!enabled() || token !== epoch || query !== english) return;
+    if (!path) { setLoading(false); return; }
     let expectedSource = path;
     const current = () => enabled() && token === epoch && query === english
       && (image.currentSrc || image.src) === expectedSource;
-    const loaded = () => {
-      if (current()) image.hidden = false;
+    const loaded = async () => {
+      try { if (typeof image.decode === "function") await image.decode(); }
+      catch { failed(); return; }
+      if (current()) { image.hidden = false; setLoading(false); }
     };
     const failed = () => {
       if (!current()) return;
       remember(query, "");
       clearImage();
+      setLoading(false);
     };
     image.addEventListener("load", loaded);
     image.addEventListener("error", failed);
@@ -100,6 +127,7 @@ export function createNounVisual({ shell, course, image, searchImages } = {}) {
   }
   function requestCurrent() {
     if (!enabled()) return;
+    setLoading(true);
     const token = epoch;
     const query = english;
     if (cache.has(query)) {
@@ -113,7 +141,8 @@ export function createNounVisual({ shell, course, image, searchImages } = {}) {
     const request = { query, token };
     pending = request;
     // The API has no cancellation contract. Keep at most one request in flight
-    // and continue with the newest noun when it settles; gameplay never waits.
+    // and continue with the newest noun when it settles. The loading deadline
+    // bounds the readiness barrier without creating overlapping model work.
     Promise.resolve()
       .then(() => {
         if (!enabled() || epoch !== token || english !== query) return null;
@@ -122,7 +151,7 @@ export function createNounVisual({ shell, course, image, searchImages } = {}) {
           : (searchImages || sharedImageSearch(shell))(query, { sourceKind: "image_asset" });
       })
       .then((payload) => {
-        if (destroyed || payload === null) return;
+        if (destroyed || payload === null || token === abandonedToken) return;
         const path = firstVisual(payload, origin);
         remember(query, path);
         if (token === epoch && query === english) present(path, token, query);
@@ -130,11 +159,11 @@ export function createNounVisual({ shell, course, image, searchImages } = {}) {
       .catch(() => {
         if (destroyed) return;
         remember(query, "");
-        if (token === epoch && query === english) clearImage();
+        if (token === epoch && query === english) { clearImage(); setLoading(false); }
       })
       .finally(() => {
         if (pending === request) pending = null;
-        if (!destroyed && (epoch !== token || english !== query)) requestCurrent();
+        if (!destroyed && loading && (epoch !== token || english !== query)) requestCurrent();
       });
   }
 
@@ -146,6 +175,7 @@ export function createNounVisual({ shell, course, image, searchImages } = {}) {
   }
   clearImage();
   return Object.freeze({
+    get loading() { return loading; },
     update(item) {
       if (destroyed) return;
       const query = typeof item?.english === "string" ? item.english.trim() : "";

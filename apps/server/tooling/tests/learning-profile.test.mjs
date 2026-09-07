@@ -109,6 +109,20 @@ test("difficulty is course-scoped, constrained to levels 1-3, and saved independ
   assert.ok(events.some((event) => event.detail.reason === "difficulty"));
 });
 
+test("only an actual difficulty change announces a reset and earned progress stays saved", () => {
+  const { learning, rows, events } = createLearningContext();
+  learning.record("word-net", { xp: 5, rounds: 1, successes: 1, attempts: 1 });
+  const performance = rows.get("caatuu-czech.learning.performance.v1");
+  events.length = 0;
+  learning.setDifficulty(1);
+  assert.equal(events.length, 0);
+  learning.setDifficulty(2);
+  learning.setDifficulty(2);
+  assert.equal(events.length, 1);
+  assert.equal(events[0].detail.reason, "difficulty");
+  assert.equal(rows.get("caatuu-czech.learning.performance.v1"), performance);
+});
+
 test("an explicit saved difficulty is preserved when the default changes", () => {
   const { learning } = createLearningContext({
     "caatuu-czech.learning.preferences.v1": JSON.stringify({ schemaVersion: 1, difficulty: 2 })

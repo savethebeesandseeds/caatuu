@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { validateGrammarGravityPack } from "../../../apps/language-runtime/static/source/games/grammar-gravity/grammar-gravity-core.mjs";
 import { validateSoundQuasarCatalog } from "../../../apps/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs";
+import { validateConjugationCometCatalog } from "../../../apps/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs";
 
 export const LEARNER_CONTENT_SAFETY_POLICY_VERSION = "caatuu-child-content-safety-v2";
 
@@ -425,7 +426,7 @@ function extractAgreement(value, file) {
 function extractModernGameText(value, file, sections, recordCount) {
   const fields = [];
   const targetLocale = requiredText(value.targetLanguage || value.targetLanguageId, `${file}/targetLanguage`).split("-")[0];
-  const baseLocale = requiredText(value.learnerBaseLanguage || "en", `${file}/learnerBaseLanguage`).split("-")[0];
+  const baseLocale = requiredText(value.learnerBaseLanguage || value.learnerBaseLanguageId || "en", `${file}/learnerBaseLanguage`).split("-")[0];
   // Scan every string in validated gameplay sections, including new UI copy.
   // Only non-displayed identity/type references are excluded.
   const technical = new Set(["id", "kind", "image", "englishAuditId", "sourceId", "categoryId", "axisId", "laneId"]);
@@ -433,8 +434,8 @@ function extractModernGameText(value, file, sections, recordCount) {
     if (typeof node === "string") {
       const name = parts.at(-1);
       if (technical.has(name)) return;
-      const locale = /^(targetText|displayForm|beforeText|afterText)$/u.test(name) ? targetLocale
-        : name === "learnerBaseText" ? baseLocale
+      const locale = /^(targetText|subjectTargetText|displayForm|beforeText|afterText)$/u.test(name) ? targetLocale
+        : /^(learnerBaseText|learnerBaseCueText|subjectBaseText|meaningChoiceBaseText|teachingNoteBaseText)$/u.test(name) || parts[0] === "copy" ? baseLocale
         : /^(englishAuditText|english|meaning)$/u.test(name) ? "en" : "und";
       addField(fields, { file, contentId, field: pointer(...parts), locale, text: node });
     } else if (node && typeof node === "object") {
@@ -486,6 +487,10 @@ function extractCases(value, file) {
 
 function extractConjugation(value, file) {
   const pack = expectObject(value, file);
+  if (pack.schemaVersion !== undefined) {
+    validateConjugationCometCatalog(pack);
+    return extractModernGameText(pack, file, ["copy", "verbs"], pack.verbs.length);
+  }
   const rows = expectArray(pack.verbs, `${file}/verbs`);
   const fields = [];
   rows.forEach((row, rowIndex) => {

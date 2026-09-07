@@ -59,7 +59,7 @@ function finishMotion(state) {
 function armPhase(state) {
   clearTimer(state);
   if (!canInteract(state) || state.waitingCampaign) return;
-  const delay = state.phase === "result" ? (state.lastCorrect ? 1600 : 1800) : PHASE_DELAYS[state.phase];
+  const delay = state.phase === "result" ? (state.lastCorrect ? 350 : 200) : PHASE_DELAYS[state.phase];
   if (!delay) return;
   const serial = state.timerSerial;
   state.timer = window.setTimeout(() => {
@@ -71,7 +71,7 @@ function armPhase(state) {
       syncInteraction(state);
       focusStrand(state, state.focusSide);
     } else if (state.phase === "result") {
-      if (state.lastCorrect) { completeBatch(state); return; }
+      if (state.lastCorrect) { showSummary(state); return; }
       state.phase = "question";
       resetResult(state);
       syncInteraction(state);
@@ -168,6 +168,7 @@ function syncInteraction(state) {
     element(id).querySelectorAll("button").forEach((node) => { node.disabled = locked; });
   }
   element("conjugationCometSubmit").disabled = locked || !state.round;
+  element("conjugationCometSummaryNext").disabled = state.phase !== "summary" || !canInteract(state);
   renderPairBackgrounds(state);
   syncSpeechButtons(state);
 }
@@ -493,11 +494,17 @@ function moveStrand(state, side, requested) {
 }
 function beginNextVerb(state) {
   if (state.destroyed) return;
+  element("conjugationCometSummary").close();
   clearTimer(state);
   cancelSpeech(state);
   finishMotion(state);
   state.waitingCampaign = false;
-  if (!state.queue.length) state.queue = buildConjugationVerbQueue(state.catalog.verbs, { previousVerbId: state.current?.id });
+  if (!state.queue.length) {
+    const level = Math.max(1, Math.min(3, Number(shellWindow().CaatuuLearning?.difficulty?.()) || 1));
+    const threshold = Math.max(level, Math.min(...state.catalog.verbs.map((verb) => verb.difficulty)));
+    state.queue = buildConjugationVerbQueue(state.catalog.verbs.filter((verb) => verb.difficulty <= threshold),
+      { previousVerbId: state.current?.id });
+  }
   state.current = state.queue.shift();
   state.round = buildConjugationHelixRound(state.catalog, state.current.id);
   state.subjectIndex = 0;
@@ -541,6 +548,44 @@ function submitHelix(state) {
   element("conjugationCometFeedback").focus({ preventScroll: true });
   armPhase(state);
 }
+function showSummary(state) {
+  clearTimer(state);
+  state.phase = "summary";
+  const dialog = element("conjugationCometSummary");
+  element("conjugationCometSummaryTitle").textContent = copy(state, "correct");
+  element("conjugationCometSummaryNextLabel").textContent = copy(state, "next");
+  const origins = [];
+  const rows = state.round.subjects.map((subject) => {
+    const row = document.createElement("div");
+    row.className = "conjugation-comet-summary-row";
+    for (const [side, text, locale] of [["subject", subject.learnerBaseText, state.sourceLocale],
+      ["target", subject.correctFormText, state.targetLocale]]) {
+      const phrase = document.createElement("span");
+      phrase.textContent = text;
+      phrase.lang = locale;
+      row.append(phrase);
+      const source = Array.from(element(side === "subject" ? "conjugationCometSubjects" : "conjugationCometTargets").children)
+        .find((node) => node.textContent === text);
+      origins.push({ phrase, source: source?.getBoundingClientRect() });
+    }
+    return row;
+  });
+  element("conjugationCometSummaryPairs").replaceChildren(...rows);
+  dialog.showModal();
+  if (!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+    for (const { phrase, source } of origins) {
+      const target = phrase.getBoundingClientRect();
+      if (!source?.width || !target.width || !phrase.animate) continue;
+      state.animations.push(phrase.animate([
+        { transform: `translate(${source.left - target.left}px, ${source.top - target.top}px)`, opacity: .35 },
+        { transform: "translate(0, 0)", opacity: 1 }
+      ], { duration: 320, easing: "ease-out" }));
+    }
+  }
+  syncInteraction(state);
+  element("conjugationCometSummaryNext").focus({ preventScroll: true });
+}
+
 function completeBatch(state) {
   if (state.batchSent || state.destroyed) return;
   clearTimer(state);
@@ -573,6 +618,13 @@ function bindUi(state) {
     state.removeListeners.push(() => state.pairResize.disconnect());
   }
   const board = element("conjugationCometBoard");
+  listen(element("conjugationCometSummary"), "cancel", (event) => event.preventDefault());
+  listen(element("conjugationCometSummaryNext"), "click", () => {
+    if (!canInteract(state) || state.phase !== "summary") return;
+    element("conjugationCometSummary").close();
+    finishMotion(state);
+    completeBatch(state);
+  });
   let wheel = { side: "", delta: 0, time: 0 };
   listen(board, "wheel", (event) => {
     if (!canInteract(state) || !["question", "moving"].includes(state.phase)
@@ -644,6 +696,12 @@ function bindLifecycle(state) {
     target.addEventListener(type, handler);
     state.removeListeners.push(() => target.removeEventListener(type, handler));
   };
+  listen(shell, "caatuu:learning-change", (event) => {
+    if (event.detail?.reason !== "difficulty" || !state.catalog || state.destroyed) return;
+    state.controls?.close();
+    state.queue = [];
+    beginNextVerb(state);
+  });
   listen(window, "message", (event) => {
     if (event.origin !== window.location.origin || event.source !== shell) return;
     const message = event.data;
@@ -675,6 +733,7 @@ function bindLifecycle(state) {
 function destroy(state) {
   if (state.destroyed) return;
   state.destroyed = true;
+  element("conjugationCometSummary").close();
   state.pendingVerbSpeech = false;
   state.loadingScreen?.destroy();
   state.transitionScreen?.destroy();

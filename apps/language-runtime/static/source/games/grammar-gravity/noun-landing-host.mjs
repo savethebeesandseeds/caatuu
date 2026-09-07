@@ -1,10 +1,10 @@
 import {
   normalizeNounLandingPack, createNounLandingSession, startNounLanding,
   selectNounLane, advanceNounFall, landNoun, nextNoun, setNounFallDuration
-} from "./noun-landing-core.mjs?v=noun-landing-core-6";
+} from "./noun-landing-core.mjs?v=noun-landing-core-7";
 import { fetchDeclaredCourseGameJson } from "../course-game-content.mjs?v=course-game-content-1";
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-8";
-import { createNounVisual } from "./noun-visual.mjs?v=noun-visual-2";
+import { createNounVisual } from "./noun-visual.mjs?v=noun-visual-3";
 
 const LANDING_MS = 180;
 const SUCCESS_FEEDBACK_MS = LANDING_MS + 900;
@@ -44,7 +44,12 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
   let clockItem = "";
   let clockTurns = 0;
   let loadingPageHidden = false;
-  const visual = createNounVisual({ shell, course, image: element("gravityNounVisual") });
+  const visual = createNounVisual({ shell, course, image: element("gravityNounVisual"), scope,
+    onLoadingChange: () => {
+      if (!session || destroyed) return;
+      syncVisualState();
+      syncClock();
+    } });
   const reducedMotion = scope.matchMedia?.("(prefers-reduced-motion: reduce)");
   const loadingScreen = mountRobotLoadingScreen({
     container: element("gravityNounLoading"), label: t("loading"), active: active && !document.hidden
@@ -65,7 +70,7 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     lastTime = null;
   }
   function engaged() {
-    return !destroyed && active && !document.hidden && !segmentWaiting;
+    return !destroyed && active && !document.hidden && !segmentWaiting && !visual.loading;
   }
   function canRun() {
     return engaged() && (session?.phase === "feedback" || session?.phase === "falling");
@@ -148,7 +153,7 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     const playing = session.phase === "falling";
     const settled = resultVisible();
     const arena = element("gravityNounArena");
-    visual.setActive(engaged());
+    visual.setActive(!destroyed && active && !document.hidden && !segmentWaiting);
     visual.update(session.item);
     arena.hidden = false;
     arena.dataset.state = session.phase === "feedback" && !settled ? "landing" : session.phase;
@@ -184,6 +189,15 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     element("gravityNounSpeak").disabled = !active || Boolean(document.hidden) || Boolean(shell.CaatuuChrome?.getSpeechMuted?.());
     speechIcon();
     positionBlock();
+    syncVisualState();
+  }
+  function syncVisualState() {
+    loadingScreen[visual.loading ? "show" : "hide"]();
+    const arena = element("gravityNounArena");
+    arena.hidden = visual.loading;
+    arena.setAttribute("aria-busy", String(visual.loading));
+    laneButtons.forEach((button) => { button.disabled = !engaged() || session?.phase !== "falling"; });
+    updateClock();
   }
   function recordLanding(previous, fraction = fallFraction(previous)) {
     if (previous.phase !== "falling" || session.phase !== "feedback") return;
@@ -470,7 +484,7 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     element("gravityNounError").hidden = false;
     element("gravityNounArena").hidden = true;
   } finally {
-    loadingScreen.hide();
+    loadingScreen[visual.loading ? "show" : "hide"]();
   }
   return Object.freeze({ next, setActive, destroy, resumeSegment, setDurationMs, setIconsVisible,
     ready: () => Boolean(session) && !destroyed, snapshot: () => session });

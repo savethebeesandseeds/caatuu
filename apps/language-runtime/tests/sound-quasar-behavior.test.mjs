@@ -265,6 +265,24 @@ test("speech must finish before choices unlock and stopping prevents a stale com
   game.controller.destroy();
 });
 
+test("shell difficulty changes reset a hidden listening round and ignore stale audio", async () => {
+  const playback = deferred();
+  const game = await mountGame({ speechResult: playback.promise, realLearning: true });
+  await game.listen();
+  const oldChoices = game.choices();
+  game.window.dispatchEvent({ type: "message", origin: game.window.location.origin, source: game.shell,
+    data: { source: "caatuu-app-shell", type: "visibility", active: false } });
+  game.shell.CaatuuLearning.setDifficulty(2);
+  await settle();
+  assert.ok(oldChoices.every((button) => !button.isConnected));
+  assert.equal(game.element("Result").hidden, true);
+  playback.resolve({ outcome: "completed" });
+  await settle();
+  assert.ok(game.choices().every((button) => button.disabled), "the new round still requires its own listen");
+  game.noCredit();
+  game.controller.destroy();
+});
+
 test("wrong answers keep the choices while correct answers show a result before advancing", async () => {
   const game = await mountGame();
   await game.listen();

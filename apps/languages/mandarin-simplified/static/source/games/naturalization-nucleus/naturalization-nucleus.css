@@ -20,10 +20,7 @@
   padding: 18px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background:
-    radial-gradient(circle at 72% 30%, rgba(44, 187, 202, 0.14), transparent 32%),
-    radial-gradient(circle at 20% 74%, rgba(245, 167, 63, 0.12), transparent 30%),
-    var(--panel);
+  background: var(--theme-panel, var(--panel));
   box-shadow: var(--shadow);
 }
 
@@ -61,14 +58,25 @@
   padding: clamp(8px, 2vw, 18px);
   border: 1px solid color-mix(in srgb, var(--line) 82%, transparent);
   border-radius: 16px;
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.23), transparent 46%),
-    color-mix(in srgb, var(--panel) 92%, #dff8f7 8%);
+  background: var(--theme-panel-raised, var(--panel));
 }
 
 .naturalization-nucleus-interstitial {
   z-index: 20;
   border-radius: inherit;
+}
+
+.naturalization-nucleus-stage[aria-busy="true"] .naturalization-nucleus-game {
+  visibility: hidden;
+}
+
+#naturalizationNucleusImageToggle > span {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  font-size: 20px;
+  line-height: 1;
 }
 
 .naturalization-nucleus-game {
@@ -85,6 +93,7 @@
   justify-items: center;
   gap: 10px;
   container: nucleus-playfield / inline-size;
+  padding-top: 56px;
 }
 
 .naturalization-nucleus-board {
@@ -174,9 +183,7 @@
   place-items: center;
   border: 1px dashed color-mix(in srgb, var(--line) 78%, var(--muted));
   border-radius: clamp(13px, 3cqi, 19px);
-  background:
-    repeating-linear-gradient(135deg, color-mix(in srgb, var(--line) 10%, transparent) 0 2px, transparent 2px 8px),
-    color-mix(in srgb, var(--panel) 78%, transparent);
+  background: var(--theme-panel, var(--panel));
   box-shadow: inset 0 2px 8px rgba(25, 47, 43, 0.08);
   transform: translate(-50%, -50%) rotate(var(--angle)) translateY(calc(-1 * var(--ring-radius)));
   transform-origin: center;
@@ -335,13 +342,9 @@
 .naturalization-nucleus-deck-panel {
   width: min(100%, 920px);
   padding: 8px;
-  border: 1px solid color-mix(in srgb, var(--line) 80%, #8c704b);
+  border: 1px solid var(--theme-line, var(--line));
   border-radius: 15px;
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.28), transparent 45%),
-    repeating-linear-gradient(8deg, rgba(94, 69, 38, 0.035) 0 1px, transparent 1px 9px),
-    color-mix(in srgb, var(--panel) 88%, #d8c8a6 12%);
-  box-shadow: inset 0 2px 7px rgba(69, 53, 34, 0.08);
+  background: var(--theme-panel, var(--panel));
 }
 
 .naturalization-nucleus-deck {
@@ -459,6 +462,16 @@
   width: fit-content;
   max-width: clamp(140px, 30vw, 184px);
   padding: 8px;
+  position: relative;
+  inset: auto;
+  margin: 0;
+}
+
+.naturalization-nucleus-dictionary {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 104px;
 }
 
 .word-net-word-translation.naturalization-nucleus-feedback .word-net-word-card-copy {
@@ -477,15 +490,13 @@
 }
 
 .naturalization-nucleus-game-footer {
-  width: min(100%, 920px);
-  padding: 5px 8px 2px;
-  border-top: 1px solid color-mix(in srgb, var(--line) 72%, transparent);
+  width: 100%;
+  padding: 0 8px;
 }
 
 #naturalizationNucleusStatus {
-  --naturalization-nucleus-status-quiet: #6b6d6c;
   margin: 0;
-  color: var(--naturalization-nucleus-status-quiet);
+  color: var(--theme-quiet, var(--muted));
   font-size: 0.68rem;
   line-height: 1.3;
 }
@@ -505,10 +516,10 @@
 }
 
 html[data-theme="dark"] .naturalization-nucleus-fused-word {
-  border-color: #9a6a32;
-  background: #59432d;
-  color: #f5ead3;
-  box-shadow: 0 2px 0 #2d2117;
+  border-color: var(--theme-green, var(--green));
+  background: color-mix(in srgb, var(--theme-green, var(--green)) 16%, var(--theme-panel-raised, var(--panel)));
+  color: var(--theme-ink, var(--ink));
+  box-shadow: 0 2px 0 var(--theme-line, var(--line));
 }
 
 html[data-theme="dark"] .naturalization-nucleus-fused-pinyin {
@@ -520,10 +531,6 @@ html[data-theme="dark"] .naturalization-nucleus-tone-2 { color: #e7bd4c; }
 html[data-theme="dark"] .naturalization-nucleus-tone-3 { color: #67c47d; }
 html[data-theme="dark"] .naturalization-nucleus-tone-4 { color: #6eb6e2; }
 html[data-theme="dark"] .naturalization-nucleus-tone-5 { color: #c0cbc7; }
-
-html[data-theme="dark"] #naturalizationNucleusStatus {
-  --naturalization-nucleus-status-quiet: #9da19f;
-}
 
 @keyframes naturalization-nucleus-fuse {
   0% { transform: rotate(var(--counter-angle)) scale(0.76); opacity: 0.3; filter: brightness(1.5); }
@@ -575,11 +582,11 @@ html[data-theme="dark"] #naturalizationNucleusStatus {
   }
 
   .naturalization-nucleus-board {
-    width: min(100%, 480px);
+    width: min(100%, 480px, 48dvh);
   }
 
   .naturalization-nucleus-board[data-piece-count="9"] {
-    width: min(100%, 440px);
+    width: min(100%, 440px, 40dvh);
   }
 
   .naturalization-nucleus-deck-item {

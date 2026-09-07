@@ -1,5 +1,5 @@
-import { IMAGE_SOURCES, createEnglishImageSearch } from "../english-image-search.mjs?v=english-image-search-1";
-export { createEnglishImageSearch, normalizeImageCatalog } from "../english-image-search.mjs?v=english-image-search-1";
+import { IMAGE_SOURCES, createEnglishImageSearch } from "../english-image-search.mjs?v=english-image-search-2";
+export { createEnglishImageSearch, normalizeImageCatalog } from "../english-image-search.mjs?v=english-image-search-2";
 
 export const messages = Object.freeze({
   "developer.images.description": "Search shared artwork using its English descriptions. The image collection is the same for every course.",

@@ -1,6 +1,6 @@
 import { grammarFeedbackDuration, highlightedFormParts, buildMeaningChoices, validateGrammarFlight, validateGrammarStages } from "./adjective-flight-core.mjs?v=grammar-journey-1";
-import { createNounVisual } from "./noun-visual.mjs?v=noun-visual-2";
-import { createSpeechIcon } from "../embedded-game-controls.mjs?v=embedded-game-controls-8";
+import { createNounVisual } from "./noun-visual.mjs?v=noun-visual-3";
+import { createSpeechIcon, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-8";
 
 const LANDING_MS = 180;
 const PREVIEW_MS = 4000;
@@ -20,7 +20,13 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
   const nextButton = element("gravityAdjectiveNext");
   const clock = element("gravityNounClock");
   const illustration = element("gravityAdjectiveVisual");
-  const visual = createNounVisual({ shell, course, image: illustration });
+  const loadingContainer = document.createElement("div");
+  loadingContainer.className = "gravity-illustration-loading";
+  arena.append(loadingContainer);
+  const loadingScreen = mountRobotLoadingScreen({ container: loadingContainer,
+    label: shell.CaatuuI18n.t("games.grammargravity.nouns.loading"), active: false });
+  loadingScreen.hide();
+  const visual = createNounVisual({ shell, course, image: illustration, scope, onLoadingChange: syncVisualState });
   const reducedMotion = scope.matchMedia?.("(prefers-reduced-motion: reduce)");
   const listeners = [];
   let active = false;
@@ -98,7 +104,16 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     target?.addEventListener?.(name, handler);
     listeners.push(() => target?.removeEventListener?.(name, handler));
   }
-  function engaged() { return active && !destroyed && !document.hidden; }
+  function engaged() { return active && !destroyed && !document.hidden && !visual.loading; }
+  function syncVisualState(loading = Boolean(visual.loading)) {
+    loadingScreen[loading ? "show" : "hide"]();
+    loadingScreen.setActive(active && !destroyed && !document.hidden);
+    arena.setAttribute("aria-busy", String(loading));
+    drop.hidden = loading;
+    choices.hidden = loading || phase === "recap";
+    if (loading) { cancelFrame(); stopSpeech(); }
+    else { syncSpeech(); position(); schedule(); }
+  }
   function headerContains(target) {
     return element("gravityGameHeader")?.contains(target) || element("gravityNounControls")?.contains(target);
   }
@@ -267,6 +282,7 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     }));
     drop.hidden = false;
     visual.update({ id: flight.id, revision: roundRevision, english: flight.anchorEnglishAuditText });
+    syncVisualState();
     syncSpeech();
     position();
   }
@@ -416,7 +432,8 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     syncHelp();
     if (!engaged()) stopSpeech();
     else syncSpeech();
-    visual.setActive(engaged());
+    visual.setActive(active && !destroyed && !document.hidden);
+    syncVisualState();
     position();
     schedule();
   }
@@ -511,6 +528,7 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
       stopSpeech();
       cancelFrame();
       visual.destroy();
+      loadingScreen.destroy();
       listeners.forEach((dispose) => dispose());
     }
   });

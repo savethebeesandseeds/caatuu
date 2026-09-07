@@ -110,11 +110,20 @@
       "backend": "static"
     },
     "android": {
-      "enabled": false,
-      "channels": []
+      "enabled": true,
+      "channels": [
+        { "kind": "release", "manifest": "/android/caatuu.json", "artifact": "/android/caatuu.apk", "minimumVersionCode": 168 },
+        { "kind": "preview", "manifest": "/android/caatuu-preview.json", "artifact": "/android/caatuu-preview.apk", "minimumVersionCode": 168 }
+      ]
     }
   },
   "resources": {
+    "androidAssetCatalog": {
+      "kind": "file",
+      "path": "apps/languages/english-from-spanish/android-assets.json",
+      "scope": "course",
+      "state": "present"
+    },
     "verbNebulaCatalog": {
       "kind": "file",
       "path": "apps/languages/english-from-spanish/static/data/games/verb-nebula/core-vocabulary.json",
@@ -145,7 +154,7 @@
       "path": "apps/language-runtime/static/data/interface/es.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-es-3"
+      "revision": "interface-es-5"
     },
     "courseProfile": {
       "kind": "file",

@@ -394,6 +394,51 @@ test("presentation takes busy ownership without a late selection release", async
   assert.equal(busy, true, "presentation remains responsible for clearing its own busy state");
 });
 
+test("difficulty changes replace a pending Word World turn and discard prepared lower-level content", async () => {
+  const source = await readFile(new URL("../static/source/product-word-world.mjs", import.meta.url), "utf8");
+  const generation = source.slice(source.indexOf("async function generateStandardFromConfiguredMode("), source.indexOf("async function showStandardPhrase("));
+  const registration = source.slice(source.indexOf('  window.addEventListener("caatuu:learning-change"'), source.indexOf("\n}\n\nasync function init()"));
+  let difficulty = 1;
+  let changed;
+  let savedQueue;
+  let backgroundCancelled = false;
+  const selections = [];
+  const presented = [];
+  const state = {
+    contentMode: "standard", generationMode: "random", phraseRequestId: 7,
+    standardProvider: {}, busy: false,
+    branchQueue: { entries: ["old-prepared-turn"], restore(entries) { this.entries = entries; } }
+  };
+  const context = vm.createContext({
+    state, providerContext: {}, console,
+    window: { addEventListener(type, listener) { changed = listener; } },
+    learningDifficulty: () => difficulty,
+    recentStandardEntryIds: () => [],
+    selectStandardTurn: (provider, options) => new Promise((resolve) => selections.push({ ...options, resolve })),
+    runOwnedSemanticSelection,
+    showStandardPhrase: async (selection) => { presented.push(selection.record.id); state.busy = false; },
+    clearTranslationTimer() {},
+    cancelBackgroundWork() { backgroundCancelled = true; },
+    savePreparedQueue() { savedQueue = [...state.branchQueue.entries]; },
+    setBusy(value) { state.busy = value; },
+    czechSpeechPace: () => ({}), cancelCzechSpeech() {}, syncDiagnostics() {}, setStatus() {},
+    interfaceText: () => "", targetLanguageLabel: "Mandarin", speechPaceLabel: () => ""
+  });
+  vm.runInContext(generation + registration, context);
+  const previous = vm.runInContext("generateStandardFromConfiguredMode()", context);
+  state.busy = true;
+  difficulty = 2;
+  changed({ detail: { reason: "difficulty" } });
+  assert.deepEqual(selections.map((selection) => selection.difficulty), [1, 2]);
+  assert.deepEqual(savedQueue, []);
+  assert.equal(backgroundCancelled, true);
+  selections[1].resolve({ record: { id: "new-level" } });
+  await new Promise((resolve) => setImmediate(resolve));
+  selections[0].resolve({ record: { id: "old-level" } });
+  await previous;
+  assert.deepEqual(presented, ["new-level"], "a late result must never replace the newly sampled challenge");
+});
+
 test("the live Next/selected controller path awaits English search and reports its mode", async () => {
   const source = await readFile(
     new URL("../static/source/product-word-world.mjs", import.meta.url),

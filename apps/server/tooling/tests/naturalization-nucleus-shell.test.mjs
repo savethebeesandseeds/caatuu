@@ -83,6 +83,8 @@ function createLoadingHarness({ fetchImpl = async () => ({ ok: true, json: async
     if (!voidTags.has(tag) && !token.endsWith("/>")) stack.push(node);
   }
   const element = (name) => harness.document.getElementById(`naturalizationNucleus${name}`);
+  element("Artwork").complete = true;
+  element("Artwork").naturalWidth = 100;
   const panel = harness.document.getElementById("trainPanelNaturalizationNucleus");
   panel.hidden = false;
   harness.document.querySelectorAll = (selector) => harness.registry.querySelectorAll(selector).filter((node) => node.isConnected);
@@ -253,6 +255,73 @@ test("retiring Nucleus during catalog loading discards the late result", async (
   assert.ok(fixture.observers.every((observer) => observer.disconnected));
 });
 
+test("Nucleus keeps its shared loader until artwork is decoded and cancels pending work on retirement", async () => {
+  const fixture = createLoadingHarness();
+  const artwork = fixture.element("Artwork");
+  artwork.complete = false;
+  let decode;
+  artwork.decode = () => new Promise((resolve) => { decode = resolve; });
+  await fixture.api.mount();
+  await fixture.advance(1600);
+  assert.equal(fixture.element("Interstitial").hidden, false);
+  assert.equal(fixture.element("Game").hasAttribute("inert"), true);
+  artwork.dispatchEvent({ type: "load" });
+  await settle();
+  assert.equal(fixture.element("Interstitial").hidden, false);
+  decode();
+  await settle();
+  assert.equal(fixture.element("Interstitial").hidden, true);
+  assert.equal(fixture.element("Status").parentElement.hidden, false);
+  fixture.document.querySelector('[data-naturalization-piece-count="9"]').click();
+  await fixture.advance(1600);
+  fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+  assert.equal(fixture.timers.size, 0);
+  artwork.dispatchEvent({ type: "load" });
+  await settle();
+  assert.equal(fixture.element("Interstitial").hidden, true);
+});
+
+test("failed artwork cannot leave Nucleus stuck behind its loader", async () => {
+  const fixture = createLoadingHarness();
+  fixture.element("Artwork").complete = false;
+  await fixture.api.mount();
+  await fixture.advance(9600);
+  assert.equal(fixture.element("Interstitial").hidden, true);
+  assert.equal(fixture.element("Artwork").hidden, true);
+  assert.equal(fixture.element("Game").getAttribute("aria-hidden"), "false");
+  fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+});
+
+test("unfinished dictionary cards conceal the answer, then reveal both scripts after matching", async () => {
+  const fixture = createLoadingHarness();
+  await fixture.api.mount();
+  await fixture.advance(1600);
+  for (const script of ["hanzi", "pinyin"]) {
+    const tile = fixture.element("Deck").querySelector("button");
+    const challenge = catalog.challenges.find((entry) => entry[script] === tile.textContent);
+    assert.ok(challenge);
+    tile.click();
+    const feedback = fixture.element("Feedback");
+    assert.equal(feedback.hidden, false);
+    assert.equal(feedback.dataset.state, "preview");
+    assert.equal(fixture.element("FeedbackMeaning").textContent, challenge.translation);
+    assert.equal(fixture.element("FeedbackPinyin").textContent, "");
+    assert.equal(fixture.element("FeedbackHanzi").getAttribute("aria-label"), challenge[script]);
+    assert.equal(fixture.element("FeedbackSound").getAttribute("aria-label"), `Play ${challenge[script]}.`);
+    assert.equal(fixture.element("FeedbackReading").hasAttribute("data-tone"), false);
+    const otherScript = script === "hanzi" ? "pinyin" : "hanzi";
+    fixture.element("Ring").querySelectorAll("button").find((button) => button.textContent === challenge[otherScript]).click();
+    assert.equal(feedback.dataset.state, "matched");
+    assert.equal(fixture.element("FeedbackPinyin").textContent, challenge.pinyin);
+    assert.equal(fixture.element("FeedbackHanzi").getAttribute("aria-label"), `${challenge.hanzi}, ${challenge.pinyin}`);
+    assert.equal(feedback.parentElement.parentElement.contains(fixture.element("Board")), true);
+    assert.equal(fixture.element("Game").contains(fixture.element("Status")), false, "instructions sit below the game surface");
+    fixture.document.querySelector('[data-naturalization-piece-count="9"]').click();
+    await fixture.advance(1600);
+  }
+  fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+});
+
 test("catalog failure dismisses the Nucleus loader and preserves the loading error", async () => {
   const fixture = createLoadingHarness({ fetchImpl: async () => ({ ok: false, status: 503 }) });
   await assert.rejects(fixture.api.mount(), /503/u);
@@ -346,8 +415,8 @@ test("the course-owned controller exposes its engine boundary and stays CSP-safe
     /const gameAvailable = \(gameId\) => \(\s*globalThis\.CaatuuShellPolicy\?\.gameAvailable\?\.\(course, gameId\) === true\s*\);/u
   );
   assert.match(bootstrap, /const naturalizationNucleus = gameAvailable\("naturalization-nucleus"\);/u);
-  assert.match(bootstrap, /naturalization-nucleus\/naturalization-nucleus\.css\?v=naturalization-nucleus-16/u);
-  assert.match(bootstrap, /naturalization-nucleus\/naturalization-nucleus\.js\?v=naturalization-nucleus-16/u);
+  assert.match(bootstrap, /naturalization-nucleus\/naturalization-nucleus\.css\?v=naturalization-nucleus-\d+/u);
+  assert.match(bootstrap, /naturalization-nucleus\/naturalization-nucleus\.js\?v=naturalization-nucleus-\d+/u);
   assert.match(controller, /CaatuuLearning\?\.record\?\.\("naturalization-nucleus"/u);
   assert.equal(typeof game.mount, "function");
   assert.equal(typeof game.createRound, "function");

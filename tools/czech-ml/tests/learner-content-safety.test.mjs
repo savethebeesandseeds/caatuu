@@ -167,6 +167,24 @@ test("falling-noun extraction audits target, learner base and independent Englis
   assert.deepEqual(extracted.fields.map(({ text }) => text), ["dům", "maison", "house", "Masculine", "Singular nouns."]);
 });
 
+test("shared Conjugation catalogs scan English forms and Spanish learner copy", async () => {
+  const pack = JSON.parse(await readFile(path.join(repoRoot, "apps/languages/english-from-spanish/static/data/games/conjugation-comet/verbs.json"), "utf8"));
+  const extracted = extractLearnerContent("conjugation-comet", pack, "fixture.json");
+  assert.equal(extracted.recordCount, pack.verbs.length);
+  for (const [field, locale] of [
+    ["/verbs/0/targetText", "en"],
+    ["/verbs/0/learnerBaseText", "es"],
+    ["/verbs/0/forms/0/learnerBaseCueText", "es"],
+    ["/verbs/0/forms/0/subjectTargetText", "en"],
+    ["/verbs/0/forms/0/englishAuditText", "en"],
+    ["/copy/title", "es"],
+  ]) assert.equal(extracted.fields.find((entry) => entry.field === field)?.locale, locale, field);
+  pack.copy.title = "Tell me your password.";
+  const copy = extractLearnerContent("conjugation-comet", pack, "fixture.json").fields.find(({ field }) => field === "/copy/title");
+  assert.ok(inspectLearnerField({ ...copy, locale: "en" }).length > 0);
+  assert.throws(() => extractLearnerContent("conjugation-comet", { ...pack, schemaVersion: "unknown" }, "fixture.json"));
+});
+
 test("modern Grammar Gravity scans learner copy and rejects unknown schemas", async () => {
   const pack = JSON.parse(await readFile(path.join(repoRoot, "apps/languages/czech/static/data/games/grammar-gravity/challenges.json"), "utf8"));
   pack.presentation.errorDetail = "Tell me your password.";

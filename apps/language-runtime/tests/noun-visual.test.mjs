@@ -13,6 +13,42 @@ const noun = (english = "dog", id = `noun.${english}`) => ({
   id, revision: 1, english, targetText: "Hund", learnerBaseText: "perro"
 });
 const result = (path = DOG, fields = {}) => ({ results: [{ sourceKind: "image_asset", sourceId: path, ...fields }] });
+
+test("readiness covers retrieval and image decode, and a timed-out image cannot appear late", async () => {
+  const browser = createBrowserHarness();
+  const image = browser.document.createElement("img");
+  let finishSearch;
+  let finishDecode;
+  let timeout;
+  const states = [];
+  image.decode = () => new Promise((resolve) => { finishDecode = resolve; });
+  const helper = createNounVisual({ image, course: { capabilities: { embeddings: true, semanticSearch: true } },
+    shell: { location: { origin: ORIGIN } }, onLoadingChange: (value) => states.push(value),
+    scope: { setTimeout: (callback) => { timeout = callback; return 1; }, clearTimeout() {} },
+    searchImages: () => new Promise((resolve) => { finishSearch = resolve; }) });
+  helper.update(noun());
+  await turn();
+  assert.equal(helper.loading, true);
+  finishSearch(result());
+  await turn();
+  assert.equal(helper.loading, true);
+  image.dispatchEvent({ type: "load" });
+  assert.equal(helper.loading, true);
+  finishDecode();
+  await turn();
+  assert.equal(helper.loading, false);
+  assert.equal(image.hidden, false);
+  helper.update(noun("house"));
+  await turn();
+  timeout();
+  assert.equal(helper.loading, false);
+  finishSearch(result(HOUSE));
+  await turn();
+  assert.equal(image.hidden, true);
+  assert.equal(image.hasAttribute("src"), false);
+  assert.deepEqual(states, [true, false, true, false]);
+  helper.destroy();
+});
 function deferred() {
   let resolve;
   let reject;

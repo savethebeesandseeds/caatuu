@@ -10,6 +10,18 @@ const vocabulary = {
 };
 const ranker = async ({ candidates }) => candidates.map(({ conceptId }, index) => ({ conceptId, score: 1 - index / 100 }));
 
+test("a stalled embedder falls back to catalog matches without launching duplicate model work", async () => {
+  let calls = 0;
+  const search = createEnglishImageSearch({ loadJson: async () => vocabulary, timeoutMs: 5,
+    ranker: () => { calls += 1; return new Promise(() => {}); } });
+  for (let index = 0; index < 2; index += 1) {
+    const result = await search("dog", { sourceKind: "image_asset" });
+    assert.equal(result.mode, "lexical");
+    assert.equal(result.rows[0].path, "/assets/miscellaneous/dog.png");
+  }
+  assert.equal(calls, 1);
+});
+
 test("a course without a vector database can search shared images without loading the unrelated action catalog", async () => {
   const loaded = [];
   const search = createEnglishImageSearch({

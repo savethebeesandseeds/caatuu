@@ -955,6 +955,35 @@ test("visible streak units refresh plural forms for current and best counts", ()
   harness.window.dispatchEvent({ type: "pagehide" });
 });
 
+test("denied notification permission has calm copy and explains that progress still works", () => {
+  const harness = createBrowserHarness({ course: fixtureCourse(), window: {
+    CaatuuRuntime: { env: "browser", registerServiceWorker: async () => true }, Notification: { permission: "denied" },
+    CaatuuLearning: { snapshot: () => ({ difficulty: 1, difficultyOption: {}, summary: {}, streak: { currentDays: 3, highestDays: 3 } }) }
+  } });
+  const button = harness.document.createElement("button");
+  button.setAttribute("data-streak-reminder-toggle", "");
+  harness.document.body.append(button);
+  runChrome(harness);
+  assert.equal(button.hidden, false);
+  assert.equal(button.disabled, true);
+  assert.equal(button.textContent, englishInterfaceCatalog.messages["progress.reminders.blocked"]);
+  assert.equal(button.getAttribute("aria-label"), englishInterfaceCatalog.messages["progress.reminders.permissionhint"]);
+  assert.equal(button.title, button.getAttribute("aria-label"));
+  harness.window.dispatchEvent({ type: "pagehide" });
+});
+
+test("About keeps update and installation controls outside Advanced", () => {
+  const harness = createBrowserHarness({ course: fixtureCourse() });
+  runChrome(harness);
+  const panel = harness.document.createElement("div");
+  harness.window.CaatuuChrome.renderSettingsPanel(panel);
+  const about = panel.innerHTML.slice(panel.innerHTML.indexOf('class="settings-card side-card about-card"'));
+  assert.match(about, /id="updateApp"/u);
+  assert.match(about, /id="browserInstallActions"/u);
+  assert.ok(about.indexOf('id="updateApp"') < about.indexOf("<details"), "updating needs no expandable section");
+  harness.window.dispatchEvent({ type: "pagehide" });
+});
+
 test("opening Home over Backpack preserves the current screen until selection", () => {
   const { document, nav, window } = executeChromeWithHomeMenu();
   const settingsPanel = document.createElement("section");
@@ -1454,6 +1483,45 @@ test("the native selector disables courses absent from the installed shell", () 
   assert.equal(preview.disabled, true);
   assert.equal(preview.href, "");
   assert.match(preview.textContent, /Browser only/u);
+});
+
+test("English stays first and bundled draft Spanish remains selectable on Android", () => {
+  const spanish = { ...french, id: "es", locale: "es", label: "Spanish", nativeLabel: "Español", shortCode: "ES" };
+  for (const currentId of ["cz", "es-en"]) {
+    const course = fixtureCourse();
+    const draft = {
+      id: "es-en", status: "development", entryPath: "/es-en/index.html",
+      sourceLanguage: spanish, targetLanguage: english,
+      storage: { learningPerformance: "caatuu-es-en.learning.performance.v1" }
+    };
+    course.courseSelector.courses.unshift(draft);
+    if (currentId === "es-en") Object.assign(course, draft);
+    const assignments = [];
+    const harness = executeChrome({
+      course,
+      runtime: { env: "android" },
+      location: { assign: (path) => assignments.push(path) },
+      window: { CaatuuAndroid: { isCourseBundled: (id) => ["cz", "es-en"].includes(id) } }
+    });
+    const trigger = harness.document.createElement("button");
+    harness.document.body.append(trigger);
+    harness.window.CaatuuChrome.renderLanguageSwitch(trigger);
+    trigger.click();
+    const menu = harness.document.querySelector("[data-language-selector-menu]");
+    const bases = menu.querySelectorAll("[data-language-base-option]");
+    assert.equal(bases[0].dataset.languageBaseOption, "en");
+    assert.ok(bases.every((button) => button.getAttribute("aria-checked") === "false"));
+    menu.querySelector('[data-language-base-option="es"]').click();
+    assert.equal(menu.querySelector('[data-language-base-option="es"]').getAttribute("aria-checked"), "true");
+    const target = menu.querySelector('[data-language-course-option="es-en"]');
+    assert.equal(target.disabled, false);
+    target.click();
+    if (currentId === "cz") {
+      menu.querySelector("[data-language-selector-review]").click();
+      menu.querySelector("[data-language-selector-confirm]").click();
+      assert.deepEqual(assignments, ["/es-en/index.html"]);
+    }
+  }
 });
 
 test("base-language switching preserves an explicitly chosen current target and checks the destination bundle", () => {

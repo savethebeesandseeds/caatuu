@@ -47,7 +47,7 @@
       schemaVersion: 1,
       locale: "es-ES",
       direction: "ltr",
-      revision: "interface-es-3",
+      revision: "interface-es-5",
       catalog: "/language-runtime/static/data/interface/es.v1.json"
     },
     learnerBasePreview: true,
@@ -148,7 +148,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-28",
+            revision: "interface-en-30",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -205,7 +205,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-28",
+            revision: "interface-en-30",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -266,7 +266,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-28",
+            revision: "interface-en-30",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -327,7 +327,7 @@
             schemaVersion: 1,
             locale: "es-ES",
             direction: "ltr",
-            revision: "interface-es-3",
+            revision: "interface-es-5",
             catalog: "/language-runtime/static/data/interface/es.v1.json"
           },
           targetLanguage: {
@@ -394,8 +394,21 @@
         backend: "static"
       },
       android: {
-        enabled: false,
-        channels: []
+        enabled: true,
+        channels: [
+          {
+            kind: "release",
+            manifest: "/android/caatuu.json",
+            artifact: "/android/caatuu.apk",
+            minimumVersionCode: 168
+          },
+          {
+            kind: "preview",
+            manifest: "/android/caatuu-preview.json",
+            artifact: "/android/caatuu-preview.apk",
+            minimumVersionCode: 168
+          }
+        ]
       }
     }
   });

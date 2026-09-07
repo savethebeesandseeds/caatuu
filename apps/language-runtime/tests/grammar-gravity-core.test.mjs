@@ -9,6 +9,30 @@ import { buildGrammarGravityRounds, validateGrammarGravityCategories, normalizeG
 import { mountGrammarFlight } from "../static/source/games/grammar-gravity/adjective-flight-host.mjs";
 async function json(url) { return JSON.parse(await readFile(url,"utf8")); }
 
+test("authored grammar banks retain every example while separating repeated words and cycle boundaries", async () => {
+  for (const [language, courseId, learnerBaseLanguage, targetLanguage] of [
+    ["czech", "cz", "en", "cs-CZ"], ["spanish", "es", "en", "es-ES"],
+    ["english-from-spanish", "es-en", "es-ES", "en-US"]
+  ]) {
+    const raw = await json(new URL(`../../languages/${language}/static/data/games/grammar-gravity/challenges.json`, import.meta.url));
+    const pack = normalizeGrammarGravityPack(raw, { courseId, learnerBaseLanguage, targetLanguage });
+    for (const difficulty of [1, 2, 3]) {
+      const expected = pack.challenges.filter((challenge) => challenge.difficulty <= difficulty)
+        .flatMap((challenge) => pack.axes.flatMap((axis) => challenge.forms[axis.id].examples.map(({ id }) => id))).sort();
+      let previous = "";
+      for (const sample of [0, .5, .999]) {
+        const rounds = buildGrammarGravityRounds(pack, difficulty, () => sample, previous);
+        assert.deepEqual(rounds.map(({ id }) => id).sort(), expected);
+        for (const round of rounds) {
+          const anchor = round.flights[0].anchorEnglishAuditText;
+          assert.notEqual(anchor, previous, `${courseId}: adjacent ${anchor}`);
+          previous = anchor;
+        }
+      }
+    }
+  }
+});
+
 async function mountSequence({ language = "spanish", nounReady = true, phraseFails = false, deferPhrase = false,
   distinctAudit = false, requestedPractice = "", invalidContent = false } = {}) {
   const spanishBase = language === "english-from-spanish";
@@ -253,10 +277,9 @@ test("finishing a bank can reorder immutable core rounds without stopping the ga
   const repeated=game.state.rounds.at(-1);
   game.state.index=game.state.rounds.length-1;
   vm.runInContext('enterMode("phrases")',game.context);
-  game.context.buildGrammarGravityRounds=()=>Object.freeze([repeated,...game.state.rounds.filter(round=>round.id!==repeated.id)]);
   game.completeRound();
   assert.equal(game.state.index,0);
-  assert.notEqual(game.state.rounds[0].id,repeated.id);
+  assert.notEqual(game.state.rounds[0].flights[0].anchorEnglishAuditText,repeated.flights[0].anchorEnglishAuditText);
   assert.equal(game.state.adjectiveGame.snapshot().step,"meaning");
   game.controller.destroy();
 });

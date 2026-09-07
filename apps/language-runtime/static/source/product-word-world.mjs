@@ -5842,6 +5842,17 @@ function bindUi() {
       return;
     }
     if (event.detail?.reason !== "difficulty") return;
+    // Retire prepared and in-flight turns from the previous level. The next
+    // selection reads the new difficulty without clearing earned progress.
+    state.phraseRequestId += 1;
+    clearTranslationTimer();
+    cancelBackgroundWork();
+    state.branchQueue.restore([]);
+    savePreparedQueue();
+    setBusy(false);
+    if (state.contentMode === "standard" && !state.guidedRequested) {
+      void generateStandardFromConfiguredMode("random");
+    }
     const pace = czechSpeechPace();
     cancelCzechSpeech();
     syncDiagnostics();

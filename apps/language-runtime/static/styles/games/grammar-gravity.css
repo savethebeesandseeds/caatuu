@@ -981,3 +981,9 @@ button {
     transition: none !important;
   }
 }
+.gravity-illustration-loading.caatuu-game-robot-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: var(--theme-panel, #f8f6ef);
+}

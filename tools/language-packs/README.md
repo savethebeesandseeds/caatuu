@@ -61,7 +61,10 @@ changing a course to `active` makes both catalog validation and launcher
 generation enforce native review and release-cleared licensing.
 That native-review requirement belongs to course activation and approved
 pronunciation, not to packaging or publishing an APK that includes a disclosed
-development course. Distribution still requires release-cleared licensing.
+development course. Development APKs may include explicitly marked draft
+catalogs for hands-on evaluation, with the same learner-base preview behavior as
+the local browser. Promotion to an active course or public Pages delivery still
+requires the recorded clearance; draft metadata is never rewritten as approval.
 The existing Czech app alone uses the confined `legacy-active-v1` migration
 marker; future courses cannot use that compatibility exception.
 

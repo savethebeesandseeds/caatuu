@@ -47,7 +47,7 @@
       schemaVersion: 1,
       locale: "en",
       direction: "ltr",
-      revision: "interface-en-28",
+      revision: "interface-en-30",
       catalog: "/language-runtime/static/data/interface/en.v1.json"
     },
     learnerBasePreview: false,
@@ -76,7 +76,7 @@
       courseRuntime: "source/shared/runtime.js?v=runtime-41",
       semanticLearningProvider: "source/shared/semantic-learning.js?v=semantic-learning-7",
       setupProgressProvider: "source/features/setup/setup-progress.js?v=setup-progress-1",
-      setupProvider: "source/features/setup/setup.js?v=setup-41"
+      setupProvider: "source/features/setup/setup.js?v=setup-42"
     },
     gameContent: {
       "verb-lab": {
@@ -173,7 +173,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-28",
+            revision: "interface-en-30",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -230,7 +230,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-28",
+            revision: "interface-en-30",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -291,7 +291,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-28",
+            revision: "interface-en-30",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -352,7 +352,7 @@
             schemaVersion: 1,
             locale: "es-ES",
             direction: "ltr",
-            revision: "interface-es-3",
+            revision: "interface-es-5",
             catalog: "/language-runtime/static/data/interface/es.v1.json"
           },
           targetLanguage: {

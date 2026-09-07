@@ -400,7 +400,7 @@ export function validateGrammarGravityPack(value, {
   return deepFreeze(value);
 }
 
-export function buildGrammarGravityRounds(pack, difficulty, random = Math.random) {
+export function buildGrammarGravityRounds(pack, difficulty, random = Math.random, previousAnchor = "") {
   validateGrammarGravityPack(pack);
   const level = Number(difficulty);
   if (!Number.isInteger(level) || level < 1 || level > 3) throw new Error("Grammar Gravity difficulty must be 1, 2, or 3.");
@@ -444,5 +444,22 @@ export function buildGrammarGravityRounds(pack, difficulty, random = Math.random
     });
   });
   if (!rounds.length) throw new Error("Grammar Gravity has no challenge at this difficulty.");
-  return deepFreeze(shuffledGrammarValues(rounds, random));
+  // Distribute authored examples by word, rather than letting several forms of
+  // the same word cluster together. Keep every example and respect cycle edges.
+  const groups = new Map();
+  for (const round of shuffledGrammarValues(rounds, random)) {
+    const key = round.flights[0].anchorEnglishAuditText;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(round);
+  }
+  const ordered = [];
+  while (groups.size) {
+    const candidates = [...groups].filter(([key]) => key !== previousAnchor);
+    const [key, remaining] = (candidates.length ? candidates : [...groups])
+      .sort((left, right) => right[1].length - left[1].length)[0];
+    ordered.push(remaining.pop());
+    previousAnchor = key;
+    if (!remaining.length) groups.delete(key);
+  }
+  return deepFreeze(ordered);
 }

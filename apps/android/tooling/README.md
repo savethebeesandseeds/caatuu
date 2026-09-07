@@ -14,10 +14,18 @@ The `product` application is a separate module and compiled asset allowlist
 with no LLM, Chat, generation, Godot, or outbound reporting capability. It is
 the canonical direct release and retains verified self-updates, shared assets,
 and the per-course capabilities declared by the manifests in
-`apps/android/course-bundle.json`. Czech and Mandarin use the same packaged app
+`apps/android/course-bundle.json`. Czech, Mandarin, and Spanish-to-English use the same packaged app
 document and shared runtime; their files live below `courses/<id>/`.
 The English MiniLM weights are not APK payload: setup downloads the hash-pinned
 shared runtime once into app-private storage, where every course reuses it.
+
+Development courses may be bundled for hands-on APK testing without claiming
+their pending curriculum reviews are complete. Android enablement does not
+promote a course to active status or enable its Pages route.
+
+Image-search keymaps retain metadata for both packaged images and images in
+the validated, hash-pinned setup storage catalog. Filtering only by APK files
+would make downloaded artwork invisible to game hints and developer search.
 
 The full Gradle module selects one course with `caatuuCourseManifest`. The
 product module selects a repository-relative bundle with `caatuuCourseBundle`

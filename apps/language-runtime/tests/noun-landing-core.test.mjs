@@ -314,8 +314,8 @@ test("an unselected timeout or early drop is a miss, never an automatic correct 
     assert.equal(missed.correct, false);
     assert.equal(missed.correctCount, 0);
     assert.equal(missed.completed, 1);
-    assert.equal(missed.queue.length, 1);
-    assert.equal(missed.queue[0].id, missed.item.id);
+    assert.equal(missed.queue.length, 0, "a final missed word cannot repeat immediately");
+    assert.equal(nextNoun(missed).phase, "complete");
   }
 });
 

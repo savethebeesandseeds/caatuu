@@ -8,12 +8,12 @@
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="/language-runtime/static/assets/caatuu-shell-512.png">
     <link rel="apple-touch-icon" href="/language-runtime/static/assets/caatuu-shell-512.png">
-    <script src="source/shared/course-profile.js?v=course-58"></script>
-    <script src="/language-runtime/static/source/learning-profile.js?v=learning-9"></script>
+    <script src="source/shared/course-profile.js?v=course-59"></script>
+    <script src="/language-runtime/static/source/learning-profile.js?v=learning-10"></script>
     <script src="/language-runtime/static/source/initial-theme.js?v=theme-3"></script>
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-theme.css?v=theme-7">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-workspace.css?v=shell-96">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-home.css?v=home-51">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-home.css?v=home-53">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-133">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-developer-tools.css?v=developer-tools-2">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-word-world.css?v=word-net-91">
@@ -104,10 +104,12 @@
                     <h2 id="setupTitle" data-i18n="setup.preparing">Preparing Caatuu</h2>
                   </div>
                   <div class="setup-head-meta">
+                    <button class="setup-detail-link" id="homeUpdateApp" type="button" data-app-update-control aria-describedby="homeUpdateStatus" hidden>Check for updates</button>
                     <button class="setup-detail-link" id="setupDetailsToggle" type="button" aria-expanded="false" aria-controls="setupDetails" data-i18n="setup.details.show">Show details</button>
                   </div>
                 </div>
-                <div class="setup-message-zone" aria-live="polite">
+                <p class="setup-update-status" id="homeUpdateStatus" role="status" aria-live="polite" hidden></p>
+                <div class="setup-message-zone" aria-live="polite" tabindex="0">
                   <p class="setup-phase" id="setupPhase" data-i18n="setup.preparing">Preparing Caatuu</p>
                   <p class="setup-message" id="setupMessage" data-i18n="setup.offlinefiles">Preparing local files for offline use.</p>
                   <button class="setup-report-link" id="setupReportBug" type="button" data-i18n="setup.reportbug" hidden>Report bug</button>
@@ -145,7 +147,7 @@
                   </section>
                 </div>
                 <div class="setup-actions">
-                  <button class="setup-action" id="setupAction" type="button" data-i18n="setup.prepare">Prepare Caatuu</button>
+                  <button class="setup-action" id="setupAction" type="button" data-i18n="setup.prepare" hidden disabled>Prepare Caatuu</button>
                   <button class="setup-small-action" id="setupAbort" type="button" data-i18n="setup.abort" disabled>Abort</button>
                 </div>
               </section>
@@ -926,31 +928,7 @@
                         </section>
                       </div>
                     </div>
-                    <aside class="word-net-word-translation naturalization-nucleus-feedback" id="naturalizationNucleusFeedback" aria-label="Matched Mandarin word" hidden>
-                      <div class="word-net-word-card-copy" role="status" aria-live="polite" aria-atomic="true">
-                        <div class="word-net-word-heading">
-                          <strong class="has-target-text-guide has-target-text-colors" id="naturalizationNucleusFeedbackHanzi" lang="zh-Hans">
-                            <span class="word-net-target-text">
-                              <ruby class="word-net-target-text-unit" id="naturalizationNucleusFeedbackReading" data-tone="5">
-                                <span class="word-net-target-text-glyph"></span>
-                                <rt class="word-net-target-text-notation" id="naturalizationNucleusFeedbackPinyin" lang="zh-Latn-pinyin" aria-hidden="true"></rt>
-                              </ruby>
-                            </span>
-                          </strong>
-                        </div>
-                        <span class="word-net-word-meaning" id="naturalizationNucleusFeedbackMeaning" lang="en"></span>
-                      </div>
-                      <button type="button" class="word-net-sound-toggle word-net-word-pronounce" id="naturalizationNucleusFeedbackSound" aria-label="Play matched Mandarin word" aria-pressed="false" title="Play matched Mandarin word">
-                        <svg class="word-net-sound-icon" data-speech-icon="play" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                          <path d="M4.5 9.25v5.5h3.25l4.75 3.75v-13L7.75 9.25H4.5Z"></path>
-                          <path d="M15.5 9.25c1.5 1.5 1.5 4 0 5.5"></path>
-                          <path d="M18.25 6.75c3 3 3 7.5 0 10.5"></path>
-                        </svg>
-                        <svg class="word-net-sound-icon" data-speech-icon="stop" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden>
-                          <rect x="7" y="7" width="10" height="10" rx="1"></rect>
-                        </svg>
-                      </button>
-                    </aside>
+
                     <div class="naturalization-nucleus-board" id="naturalizationNucleusBoard" data-piece-count="5" data-solved="false" data-chain-started="false" data-tile-selected="false">
                       <div class="naturalization-nucleus-orbit" aria-hidden="true"></div>
                       <div class="naturalization-nucleus-core" id="naturalizationNucleusCore" aria-hidden="true">
@@ -959,14 +937,41 @@
                       </div>
                       <ol class="naturalization-nucleus-ring" id="naturalizationNucleusRing" aria-label="Pinyin matching positions"></ol>
                     </div>
+                    <div class="naturalization-nucleus-dictionary">
+                      <aside class="word-net-word-translation naturalization-nucleus-feedback" id="naturalizationNucleusFeedback" aria-label="Mandarin word" hidden>
+                        <div class="word-net-word-card-copy" role="status" aria-live="polite" aria-atomic="true">
+                          <div class="word-net-word-heading">
+                            <strong class="has-target-text-guide has-target-text-colors" id="naturalizationNucleusFeedbackHanzi" lang="zh-Hans">
+                              <span class="word-net-target-text">
+                                <ruby class="word-net-target-text-unit" id="naturalizationNucleusFeedbackReading" data-tone="5">
+                                  <span class="word-net-target-text-glyph"></span>
+                                  <rt class="word-net-target-text-notation" id="naturalizationNucleusFeedbackPinyin" lang="zh-Latn-pinyin" aria-hidden="true"></rt>
+                                </ruby>
+                              </span>
+                            </strong>
+                          </div>
+                          <span class="word-net-word-meaning" id="naturalizationNucleusFeedbackMeaning" lang="en"></span>
+                        </div>
+                        <button type="button" class="word-net-sound-toggle word-net-word-pronounce" id="naturalizationNucleusFeedbackSound" aria-label="Play matched Mandarin word" aria-pressed="false" title="Play matched Mandarin word">
+                          <svg class="word-net-sound-icon" data-speech-icon="play" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M4.5 9.25v5.5h3.25l4.75 3.75v-13L7.75 9.25H4.5Z"></path>
+                            <path d="M15.5 9.25c1.5 1.5 1.5 4 0 5.5"></path>
+                            <path d="M18.25 6.75c3 3 3 7.5 0 10.5"></path>
+                          </svg>
+                          <svg class="word-net-sound-icon" data-speech-icon="stop" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden>
+                            <rect x="7" y="7" width="10" height="10" rx="1"></rect>
+                          </svg>
+                        </button>
+                      </aside>
+                    </div>
                   </div>
                   <section class="naturalization-nucleus-deck-panel" aria-label="Hanzi tiles waiting to be placed">
                     <div class="naturalization-nucleus-deck" id="naturalizationNucleusDeck" role="list" aria-label="Hanzi tiles waiting to be placed"></div>
                   </section>
-                  <footer class="naturalization-nucleus-game-footer">
-                    <p class="word-net-instructions" id="naturalizationNucleusStatus" role="status" aria-live="polite">Preparing the dominoes.</p>
-                  </footer>
                 </section>
+              </div>
+              <div class="naturalization-nucleus-game-footer">
+                <p class="word-net-instructions" id="naturalizationNucleusStatus" role="status" aria-live="polite">Preparing the dominoes.</p>
               </div>
             </section>
 
@@ -1155,6 +1160,6 @@
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true" data-i18n-aria-label="print.book.label"></section>
 
     <script src="/language-runtime/static/source/shell-policy.js?v=shell-policy-15"></script>
-    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-66"></script>
+    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-70"></script>
   </body>
 </html>

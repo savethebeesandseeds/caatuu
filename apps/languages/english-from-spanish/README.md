@@ -7,7 +7,10 @@ English audit and retrieval authority remains unchanged.
 The course contributes a manifest, English language adapter, authored content,
 and resource declarations to the shared Caatuu application. It owns no copied
 HTML shell, game controller, or stylesheet. Browser delivery is enabled locally;
-Pages and Android delivery remain disabled.
+Pages delivery remains disabled. Android includes the development course from
+version 168 for hands-on evaluation, using the shared MiniLM provider and English
+device speech. Draft review and provenance metadata are retained; trying this
+preview does not require a professional curriculum review.
 
 Word World joins all 250 shared English concept IDs to English target
 realizations and the shared Spanish learner-base catalog. Spanish base sentences
@@ -59,5 +62,5 @@ target, while the index and surface together detect tokenization drift. English
 base entries.
 
 The generated `learnerBasePreview` declaration permits pending Spanish review
-and license status only in the declared local development course. It does not
-approve the content or change the release and distribution gates.
+and license status in the declared development course, in both the local browser
+and APK. It does not approve the content or promote it to an active course.
