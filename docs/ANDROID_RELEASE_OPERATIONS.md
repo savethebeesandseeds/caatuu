@@ -196,6 +196,15 @@ keymaps for separate course exports; formatting its large Buffer mismatch
 exhausted test memory. Compare each projected keymap with its authorized image
 sources, and use bounded equality diagnostics for large binary assets.
 
+Android 168 then published successfully, but the public verifier's 30-second
+deadline repeatedly timed out downloading its 41,702,058-byte immutable APK
+(`artifacts/android/release-168-final-session.log`). The source remains
+`46845e65c3b295ffa2cf8caf5215fb8eb7a5e472`; its sealed APK was not rebuilt.
+Full APK requests now have a bounded 120-second deadline, while metadata and
+range requests retain 30 seconds. Regression tests cover slower complete
+downloads, body timeouts, and unchanged byte/hash validation. Resume with the
+same finalized receipt after a download timeout.
+
 Report three independent statuses:
 
 - **Published:** exact version, public manifest/APK URL, verified identity and

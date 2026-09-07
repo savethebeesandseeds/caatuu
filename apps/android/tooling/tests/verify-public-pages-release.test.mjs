@@ -417,6 +417,44 @@ test("public verifier rejects bytes that differ at the stable APK alias", async 
   );
 });
 
+test("complete APK downloads have a longer bounded deadline than metadata requests", async () => {
+  const data = fixture();
+  const mock = mockPublicFetch(data);
+  const delayedPaths = [];
+  const delayedFetch = async (input, options) => {
+    const path = new URL(input).pathname;
+    const response = await mock.fetchImpl(input, options);
+    if (!path.endsWith(".apk") || options.headers.range) return response;
+    delayedPaths.push(path);
+    return {
+      status: response.status,
+      ok: response.ok,
+      arrayBuffer: async () => {
+        await new Promise((resolve) => setTimeout(resolve, 30));
+        return response.arrayBuffer();
+      },
+    };
+  };
+  const result = await verifyPublicPagesRelease({
+    descriptor: data.descriptor,
+    baselineDescriptor: data.baselineDescriptor,
+    fetchImpl: delayedFetch,
+    attempts: 1,
+    requestTimeoutMs: 10,
+    apkRequestTimeoutMs: 500,
+  });
+  assert.equal(result.ok, true);
+  assert.deepEqual(delayedPaths, ["/android/releases/164/caatuu.apk", "/android/caatuu.apk"]);
+
+  await assert.rejects(verifyPublicPagesRelease({
+    descriptor: data.descriptor,
+    baselineDescriptor: data.baselineDescriptor,
+    fetchImpl: delayedFetch,
+    attempts: 1,
+    apkRequestTimeoutMs: 5,
+  }), /caatuu\.apk request timed out after 5ms/u);
+});
+
 test("baseline route injection is rejected before any request", () => {
   const data = fixture();
   data.baselineDescriptor.stable.apk.publicPaths[0] = "../outside.apk";

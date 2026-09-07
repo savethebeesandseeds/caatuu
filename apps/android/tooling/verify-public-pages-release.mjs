@@ -395,6 +395,7 @@ export async function verifyPublicPagesReleaseOnce({
   baselineDescriptor,
   fetchImpl = globalThis.fetch,
   requestTimeoutMs = 30_000,
+  apkRequestTimeoutMs = 120_000,
   androidOnly = false,
 }) {
   assert.equal(typeof fetchImpl, "function", "A fetch implementation is required");
@@ -402,10 +403,15 @@ export async function verifyPublicPagesReleaseOnce({
     Number.isSafeInteger(requestTimeoutMs) && requestTimeoutMs >= 1 && requestTimeoutMs <= 120_000,
     "requestTimeoutMs is invalid",
   );
+  assert.ok(
+    Number.isSafeInteger(apkRequestTimeoutMs) && apkRequestTimeoutMs >= 1 && apkRequestTimeoutMs <= 120_000,
+    "apkRequestTimeoutMs is invalid",
+  );
   const current = validatePagesCurrentReleaseDescriptor(descriptor);
   const baseline = validatePublicBaselineDescriptor(baselineDescriptor, current);
   const origin = current.canonicalOrigin;
   const timedFetch = withRequestTimeout(fetchImpl, requestTimeoutMs);
+  const apkFetch = withRequestTimeout(fetchImpl, apkRequestTimeoutMs);
 
   // Keep stale-cache checks cheap. Full current APK verification happens only
   // after the Pages metadata, immutable manifests, old routes, and Worker agree.
@@ -455,9 +461,9 @@ export async function verifyPublicPagesReleaseOnce({
   // An unrelated reporting service cannot block publication of immutable APKs.
   const health = androidOnly ? null : await reportingHealth(timedFetch, origin);
 
-  await exactBytes(timedFetch, origin, stable.apk, `Android ${stable.versionCode} immutable APK`);
+  await exactBytes(apkFetch, origin, stable.apk, `Android ${stable.versionCode} immutable APK`);
   await exactBytes(
-    timedFetch,
+    apkFetch,
     origin,
     { ...stable.apk, path: "/android/caatuu.apk" },
     "stable Android APK alias",
@@ -486,6 +492,7 @@ export async function verifyPublicPagesRelease({
   attempts = 31,
   retryDelayMs = 20_000,
   requestTimeoutMs = 30_000,
+  apkRequestTimeoutMs = 120_000,
   sleepImpl = sleep,
   onAttemptFailure = () => {},
   androidOnly = false,
@@ -497,7 +504,7 @@ export async function verifyPublicPagesRelease({
   let lastError;
   for (let attempt = 1; attempt <= attempts; attempt += 1) {
     try {
-      return await verifyPublicPagesReleaseOnce({ descriptor, baselineDescriptor, fetchImpl, requestTimeoutMs, androidOnly });
+      return await verifyPublicPagesReleaseOnce({ descriptor, baselineDescriptor, fetchImpl, requestTimeoutMs, apkRequestTimeoutMs, androidOnly });
     } catch (error) {
       lastError = error;
       await onAttemptFailure({ attempt, attempts, error });

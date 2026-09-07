@@ -119,6 +119,11 @@ When a finalized receipt already exists for the declared version, the wrapper
 skips the build operation and resumes receipt-only deployment. The two
 lower-level commands below remain available for inspection and recovery.
 
+Public verification allows 30 seconds for metadata and range requests, and
+120 seconds for each complete APK download, including reading its body.
+The immutable APK and stable alias must both match the receipt's exact bytes
+and SHA-256. A slow download never calls the builder or changes the release.
+
 For a new version, increment `versionCode` and `versionName`, then commit and
 push that exact source on `main`. The wrapper invokes this guarded lower-level
 command in the existing durable development container:
