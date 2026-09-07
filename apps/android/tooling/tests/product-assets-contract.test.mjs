@@ -7,6 +7,7 @@ import test from "node:test";
 import { runInNewContext } from "node:vm";
 
 import { availableGameIds } from "../../../language-runtime/static/source/shell-policy.mjs";
+import { filterPackagedImageKeymap } from "../developer-image-catalog.mjs";
 import {
   CANONICAL_APP_ENTRY_PATH,
   STORE_LANGUAGE_FILES,
@@ -871,9 +872,22 @@ test("a no-LLM embedding course compiles from its manifest without Czech diction
     outputDir: czechOutputDir,
   });
   for (const path of ["index.html", ...configuration.appAssets.map(({ output }) => output)]) {
-    assert.deepEqual(
-      readFileSync(join(outputDir, path)),
-      readFileSync(join(czechOutputDir, path)),
+    if (["assets/miscellaneous/keymap.json", "assets/macaw/actions/keymaps.json"].includes(path)) {
+      const authority = JSON.parse(readFileSync(configuration.appAssets.find(({ output }) => output === path).source, "utf8"));
+      for (const root of [outputDir, czechOutputDir]) {
+        const setup = JSON.parse(readFileSync(join(root, "setup-assets.json"), "utf8"));
+        const profile = JSON.parse(readFileSync(join(root, "caatuu-profile.json"), "utf8"));
+        const available = [...profile.assets, ...setup.artifacts.filter((artifact) => artifact.native_required)
+          .map((artifact) => artifact.asset_path)];
+        const expected = filterPackagedImageKeymap(authority, available);
+        const actual = JSON.parse(readFileSync(join(root, path), "utf8"));
+        assert.deepEqual(Object.keys(actual).sort(), Object.keys(expected).sort(), `${path} follows this course's artwork`);
+        for (const key of Object.keys(expected)) assert.deepEqual(actual[key], expected[key], `${path}: ${key}`);
+      }
+      continue;
+    }
+    assert.ok(
+      readFileSync(join(outputDir, path)).equals(readFileSync(join(czechOutputDir, path))),
       `shared Android app asset must be course-independent: ${path}`,
     );
   }

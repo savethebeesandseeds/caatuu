@@ -191,6 +191,10 @@ from the manifests. The same source's CI caught a single-course compiler using
 the bundle-only embedding setup transform. The compiler now collects artwork
 storage metadata through each output's own setup projection. The package,
 course-plan, single-course compiler, and static-site suites cover these paths.
+An additional cross-course fixture incorrectly required identical artwork
+keymaps for separate course exports; formatting its large Buffer mismatch
+exhausted test memory. Compare each projected keymap with its authorized image
+sources, and use bounded equality diagnostics for large binary assets.
 
 Report three independent statuses:
 
