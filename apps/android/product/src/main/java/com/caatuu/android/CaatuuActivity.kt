@@ -82,50 +82,54 @@ class CaatuuActivity : ComponentActivity() {
             applicationContext,
             BuildConfig.CAATUU_COURSE_BUNDLE_ASSET,
         )
+        val storageDeclarations = mutableListOf<NativeStorageArtifact>()
+        fun registerStorage(artifacts: List<NativeStorageArtifact>) {
+            synchronized(storageDeclarations) {
+                NativeArtifactContract.requireCompatibleSharedStorage(storageDeclarations + artifacts)
+                storageDeclarations.addAll(artifacts)
+            }
+        }
         val courseRuntimes = courseRegistry.courses.associate { course ->
             val providers = NativeProviderConfiguration.fromBundled(course.nativeProviders)
             providers.requireMatches(course.capabilities, course.targetLanguage.speechLocale)
-            val vectorDatabaseManager = providers.embeddings?.let { provider ->
-                VectorDatabaseManager(
-                    applicationContext,
-                    catalogAssetPath = provider.catalogAsset,
-                )
-            }
-            val dictionaryManager = providers.dictionary?.let { provider ->
-                DictionaryManager(
-                    applicationContext,
-                    catalogAssetPath = provider.catalogAsset,
-                )
-            }
-            val speechManager = providers.speech?.let { provider ->
-                AndroidSpeechManager(
-                    applicationContext,
-                    configuredLocaleTag = provider.locale,
-                    targetLanguageLabel = course.targetLanguage.label,
-                )
-            }
+            val staticManager = StaticAssetManager(
+                applicationContext,
+                manifestAssetPath = "${course.assetPrefix}/setup-assets.json",
+                courseAssetPrefix = course.assetPrefix,
+                requireNativeAssets = false,
+            )
+            registerStorage(staticManager.storageArtifacts(course.id))
             course.id to ProductCourseRuntime(
                 course = course,
-                vectorDatabaseManager = vectorDatabaseManager,
-                dictionaryManager = dictionaryManager,
-                staticAssetManager = StaticAssetManager(
-                    applicationContext,
-                    manifestAssetPath = "${course.assetPrefix}/setup-assets.json",
-                    courseAssetPrefix = course.assetPrefix,
-                    requireNativeAssets = false,
+                staticAssetManager = staticManager,
+                receiptFile = NativeArtifactContract.canonicalDescendant(
+                    applicationContext.filesDir,
+                    "course-installations/${course.id}.receipt",
+                    "Course installation receipt",
                 ),
-                speechManager = speechManager,
+                vectorFactory = {
+                    providers.embeddings?.let { provider ->
+                        VectorDatabaseManager(applicationContext, catalogAssetPath = provider.catalogAsset)
+                            .also { registerStorage(it.storageArtifacts(course.id)) }
+                    }
+                },
+                dictionaryFactory = {
+                    providers.dictionary?.let { provider ->
+                        DictionaryManager(applicationContext, catalogAssetPath = provider.catalogAsset)
+                            .also { registerStorage(it.storageArtifacts(course.id)) }
+                    }
+                },
+                speechFactory = {
+                    providers.speech?.let { provider ->
+                        AndroidSpeechManager(
+                            applicationContext,
+                            configuredLocaleTag = provider.locale,
+                            targetLanguageLabel = course.targetLanguage.label,
+                        )
+                    }
+                },
             )
         }
-        NativeArtifactContract.requireCompatibleSharedStorage(
-            courseRuntimes.values.flatMap { runtime ->
-                buildList {
-                    addAll(runtime.vectorDatabaseManager?.storageArtifacts(runtime.course.id).orEmpty())
-                    addAll(runtime.dictionaryManager?.storageArtifacts(runtime.course.id).orEmpty())
-                    addAll(runtime.staticAssetManager.storageArtifacts(runtime.course.id))
-                }
-            },
-        )
         bridge = ProductBridge(
             activity = this,
             webView = webView,
@@ -138,9 +142,12 @@ class CaatuuActivity : ComponentActivity() {
         val assetClient = CaatuuAssetClient(
             context = this,
             courseRegistry = courseRegistry,
-            vectorDatabaseManagers = courseRuntimes.mapNotNull { (courseId, runtime) ->
-                runtime.vectorDatabaseManager?.let { courseId to it }
-            }.toMap(),
+            vectorDatabaseManagerForCourse = { courseId -> courseRuntimes[courseId]?.initializedVectorManager() },
+            courseSetupReady = { courseId, adopt ->
+                courseRuntimes[courseId]?.let { runtime ->
+                    if (adopt) runtime.adoptVerifiedSetup() else runtime.isSetupCommitted()
+                } == true
+            },
             staticAssetManagers = courseRuntimes.mapValues { (_, runtime) ->
                 runtime.staticAssetManager
             },

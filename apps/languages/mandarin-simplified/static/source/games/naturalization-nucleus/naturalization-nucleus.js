@@ -1058,6 +1058,8 @@
       }
       global.clearTimeout(errorTimer);
       state.selectedPieceId = state.selectedPieceId === piece.id ? "" : piece.id;
+      state.feedbackSequence += 1;
+      if (!state.selectedPieceId) state.feedbackChallenge = null;
       state.errorPieceId = "";
       state.errorSlot = -1;
       state.errorMessage = "";
@@ -1174,6 +1176,8 @@
         event.preventDefault();
         state.selectedPieceId = "";
         state.selectedSocketIndex = -1;
+        state.feedbackSequence += 1;
+        state.feedbackChallenge = null;
         render(domino.dataset.naturalizationPieceId || "");
         return;
       }
@@ -1253,6 +1257,8 @@
         if (transitioning || solved() || state.placements[socketIndex]) return;
         global.clearTimeout(errorTimer);
         state.selectedSocketIndex = state.selectedSocketIndex === socketIndex ? -1 : socketIndex;
+        state.feedbackSequence += 1;
+        state.feedbackChallenge = null;
         state.errorPieceId = "";
         state.errorSlot = -1;
         state.errorMessage = "";
@@ -1268,6 +1274,8 @@
       event.preventDefault();
       const socketIndex = state.selectedSocketIndex;
       state.selectedSocketIndex = -1;
+      state.feedbackSequence += 1;
+      state.feedbackChallenge = null;
       render();
       ring.querySelector(`[data-naturalization-socket-index="${socketIndex}"]`)?.focus();
     });

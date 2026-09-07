@@ -298,8 +298,11 @@ test("unfinished dictionary cards conceal the answer, then reveal both scripts a
   await fixture.advance(1600);
   for (const script of ["hanzi", "pinyin"]) {
     const tile = fixture.element("Deck").querySelector("button");
-    const challenge = catalog.challenges.find((entry) => entry[script] === tile.textContent);
+    // Pinyin is not unique across the catalog: use the selected tile's identity.
+    const challengeId = tile.dataset.naturalizationPieceId.split("--")[0];
+    const challenge = catalog.challenges.find((entry) => entry.id === challengeId);
     assert.ok(challenge);
+    assert.equal(tile.textContent, challenge[script]);
     tile.click();
     const feedback = fixture.element("Feedback");
     assert.equal(feedback.hidden, false);
@@ -316,6 +319,26 @@ test("unfinished dictionary cards conceal the answer, then reveal both scripts a
     assert.equal(fixture.element("FeedbackHanzi").getAttribute("aria-label"), `${challenge.hanzi}, ${challenge.pinyin}`);
     assert.equal(feedback.parentElement.parentElement.contains(fixture.element("Board")), true);
     assert.equal(fixture.element("Game").contains(fixture.element("Status")), false, "instructions sit below the game surface");
+    fixture.document.querySelector('[data-naturalization-piece-count="9"]').click();
+    await fixture.advance(1600);
+  }
+  fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+});
+
+test("dictionary previews disappear when a tile is deselected by click or Escape", async () => {
+  const fixture = createLoadingHarness();
+  await fixture.api.mount();
+  await fixture.advance(1600);
+  for (const script of ["hanzi", "pinyin"]) {
+    const deck = fixture.element("Deck");
+    const feedback = fixture.element("Feedback");
+    deck.querySelector("button").click();
+    assert.equal(feedback.hidden, false, script);
+    deck.querySelector("button").click();
+    assert.equal(feedback.hidden, true, "clicking the selected tile again dismisses its preview");
+    deck.querySelector("button").click();
+    deck.querySelector("button").dispatchEvent({ type: "keydown", key: "Escape", bubbles: true });
+    assert.equal(feedback.hidden, true, "Escape dismisses the preview");
     fixture.document.querySelector('[data-naturalization-piece-count="9"]').click();
     await fixture.advance(1600);
   }
@@ -355,10 +378,13 @@ test("each round swaps Hanzi and pinyin without exposing the answer on either si
   assert.match(controller, /state\.roundIndex \+= 1/u);
 });
 
-test("deck tiles are compact with bold Hanzi, regular pinyin and quiet empty marks", () => {
+test("deck tiles are compact with readable Hanzi, regular pinyin and quiet empty marks", () => {
   assert.match(stylesheet, /flex:\s*0 1 104px/u);
   assert.match(stylesheet, /flex-basis:\s*88px/u);
-  assert.match(stylesheet, /font-weight:\s*800;\s*color:\s*#000/u);
+  const hanziRule = stylesheet.match(/\.naturalization-nucleus-domino-hanzi\s*\{[^}]*font-weight:\s*(\d+);/u);
+  const socketRule = stylesheet.match(/\.naturalization-nucleus-socket-pinyin\.naturalization-nucleus-script-hanzi\s*\{[^}]*font-weight:\s*(\d+);/u);
+  assert.ok(Number(hanziRule?.[1]) >= 400 && Number(hanziRule?.[1]) <= 500);
+  assert.ok(Number(socketRule?.[1]) >= 400 && Number(socketRule?.[1]) <= 500);
   assert.match(stylesheet, /background:\s*#edcf99/u);
   assert.match(stylesheet, /\.naturalization-nucleus-domino-hanzi\.naturalization-nucleus-script-pinyin\s*\{[^}]*font-weight:\s*400/u);
   assert.match(stylesheet, /\[data-state="placed"\]::after\s*\{\s*content:\s*"-"/u);

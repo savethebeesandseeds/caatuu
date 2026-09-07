@@ -137,7 +137,7 @@ test("global developer resources and declared course inspection data survive the
   const outputDir = join(parent, "product");
   t.after(() => rmSync(parent, { recursive: true, force: true }));
   const configuration = loadAndroidCourseBundleConfiguration({ workspaceRoot, courseBundlePath, launcherStaticDir, ...sourceOnlyRuntimeOptions });
-  const result = compileProductAssetBundle({ workspaceRoot, courseBundlePath, launcherStaticDir, outputDir, ...sourceOnlyRuntimeOptions });
+  const result = compileProductAssetBundle({ workspaceRoot, courseBundlePath, launcherStaticDir, outputDir, ...sourceOnlyRuntimeOptions, deliveryMode: "full" });
   const files = new Set(result.files);
   const sharedTools = [
     "language-runtime/static/source/developer-tools/developer-tools.mjs",
@@ -466,6 +466,7 @@ test("the Android product bundles declared courses behind one shared app documen
   );
 
   const result = compileProductAssetBundle({
+    deliveryMode: "full",
     ...sourceOnlyRuntimeOptions,
     workspaceRoot,
     courseBundlePath,
@@ -609,6 +610,7 @@ test("the Android product bundles declared courses behind one shared app documen
   assert.deepEqual(profile.assets, result.files.filter((path) => path !== "caatuu-profile.json").sort());
   assert.deepEqual(
     validateProductAssetBundle({
+      deliveryMode: "full",
       ...sourceOnlyRuntimeOptions,
       outputDir,
       workspaceRoot,
@@ -989,8 +991,8 @@ test("a non-Czech generative browser course compiles into the shared Standard-on
     launcherStaticDir,
     outputDir,
   };
-  const result = compileProductAssetBundle(options);
-  assert.deepEqual(validateProductAssetBundle(options), result);
+  const result = compileProductAssetBundle({ ...options, deliveryMode: "full" });
+  assert.deepEqual(validateProductAssetBundle({ ...options, deliveryMode: "full" }), result);
 
   const runtimeCatalog = JSON.parse(readFileSync(join(outputDir, PRODUCT_COURSE_BUNDLE_ASSET), "utf8"));
   const course = runtimeCatalog.courses[0];

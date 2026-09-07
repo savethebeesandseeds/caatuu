@@ -74,11 +74,8 @@
   ],
   "launcherIconFiles": [
     "backpack_icon.png",
-    "coin_icon.png",
     "coin_icon_ui.png",
-    "czech_flag.png",
     "czech_flag_ui.png",
-    "dark_mode.png",
     "dark_mode_ui.png",
     "difficulty_medal_1_ui.png",
     "difficulty_medal_2_ui.png",

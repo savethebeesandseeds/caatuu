@@ -20,10 +20,9 @@ test('American English policy owns target locale, authored tokens and review gat
   assert.equal(resolveWordWorldProjectionPolicy('english-american-v1'), englishAmericanWordWorldProjectionPolicy);
   assert.doesNotThrow(() => validateLanguageContent(concepts, target));
   assert.equal(target.targetLanguage.languageTag, 'en-US');
-  assert.equal(target.realizations.length, 250);
+  assert.equal(target.realizations.length, concepts.concepts.length);
   for (let i = 0; i < concepts.concepts.length; i++) {
     assert.equal(target.realizations[i].conceptId, concepts.concepts[i].id);
-    assert.equal(target.realizations[i].text, concepts.concepts[i].englishText);
   }
   assert.throws(() => validateLanguageContent(concepts, target, { release: true }), /release|license/u);
   for (const [mutate, expected] of [
@@ -36,6 +35,22 @@ test('American English policy owns target locale, authored tokens and review gat
     const candidate = structuredClone(target); mutate(candidate);
     assert.ok(englishAmericanContentPolicy.validate(candidate).some((issue) => issue.code === expected), expected);
   }
+});
+
+test('American target wording can differ from the shared English audit without losing Spanish token alignment', () => {
+  const targets = new Map(target.realizations.map(record => [record.conceptId, record]));
+  const audit = new Map(concepts.concepts.map(record => [record.id, record]));
+  for (const [id, targetPhrase, auditPhrase] of [
+    ['ww.hobby.football', 'playing soccer', 'playing football'],
+    ['ww.family.sister-university', 'at a university', 'at university'],
+    ['ww.problem.card-machine', 'the ATM', 'the cash machine']
+  ]) {
+    assert.ok(targets.get(id).text.includes(targetPhrase), id);
+    assert.ok(audit.get(id).englishText.includes(auditPhrase), id);
+  }
+  assert.doesNotThrow(() => prepareLanguageRoleContent(concepts, target, {
+    sourceLanguage: 'es-ES', learnerBaseRealizations: base
+  }));
 });
 
 test('Spanish base remains independent and covers every authored English token exactly', () => {

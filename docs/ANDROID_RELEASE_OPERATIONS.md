@@ -55,6 +55,16 @@ finalizes that APK, its manifest and receipt under
 `artifacts/android/releases/<versionCode>/`. The receipt binds source revision,
 package/version, signer, byte lengths and SHA-256 identities.
 
+For a bootstrap APK, the same candidate receipt also seals `artifacts.setup`:
+`artifacts/android/release-candidates/setup/<archive-sha256>.tar`. The
+compiler emits APK-resident engine/setup files and a companion inventory of
+the exact transformed curriculum and artwork bytes. The builder packages that
+inventory once, validates its complete correspondence with the APK's setup
+catalogs, and includes the archive in the pre-audit identity and sealed receipt.
+Finalization copies it to `releases/<versionCode>/caatuu-setup-payload.tar`
+before installing the final receipt or changing local download aliases.
+Legacy receipts without a setup artifact remain valid and unchanged.
+
 The wrapper checks whether the finalized files exist to choose the stage. That
 existence check is not an integrity approval: the deployer authenticates the
 receipt and artifacts before uploading. A corrupt finalized candidate fails;
@@ -87,6 +97,19 @@ Android release and updates its mutable download pointers. Missing
 content-addressed setup assets may come from the sealed APK. Existing website
 or immutable release bytes cannot be overwritten. Pages still transports a
 complete site artifact; that transport is not a website rebuild.
+
+Downloadable curriculum/artwork comes from the sealed companion archive,
+published as `caatuu-<versionCode>-setup-payload.tar` alongside the existing
+GitHub Release assets. The append-only Pages descriptor pins its hash and byte
+length. Both website builds and Android overlays retain the objects from every
+recorded companion under `/assets/setup/<sha256>/<filename>`, so older installed
+APKs keep their required content. The archive itself stays on the GitHub
+Release; Pages serves its individually verified objects. Before deployment,
+the output must contain the exact APK-pinned setup closure. Pages switches
+the complete site atomically; public verification then checks each current
+companion object against the verified APK's setup catalogs. A missing or
+changed archive/object is a failed release, never permission to regenerate
+payload from a newer checkout or publish the APK without its dependencies.
 
 ## Recovery decision table
 
@@ -153,6 +176,7 @@ When changing this pipeline, run from the canonical workspace:
 pwsh -NoProfile -File apps/android/tooling/tests/release-orchestration.test.ps1
 pwsh -NoProfile -File apps/android/tooling/tests/release-network-retry.test.ps1
 docker exec -w /workspace caatuu-dev node --test apps/android/tooling/tests/release-android-contract.test.mjs apps/android/tooling/tests/release-candidate.test.mjs apps/android/tooling/tests/publisher-build-once-contract.test.mjs apps/android/tooling/tests/release-publication-state.test.mjs apps/android/tooling/tests/deploy-pages-release-contract.test.mjs
+docker exec -w /workspace caatuu-dev node --test apps/android/tooling/tests/setup-payload.test.mjs apps/android/tooling/tests/pages-current-release.test.mjs apps/android/tooling/tests/pages-android-overlay.test.mjs apps/android/tooling/tests/pages-website-snapshot.test.mjs apps/android/tooling/tests/verify-public-pages-release.test.mjs
 docker exec -w /workspace caatuu-dev node tools/repository/check-tracked-files.mjs
 docker exec -w /workspace caatuu-dev node tools/repository/check-markdown-links.mjs
 ```

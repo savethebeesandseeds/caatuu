@@ -196,6 +196,9 @@ internal object NativeArtifactContract {
         }
     }
 
+    fun staticAssetStoragePath(assetPath: String, hash: String): String =
+        "versions/${sha256(hash, "Static asset SHA-256")}/${normalizedRelativePath(assetPath, "Static asset path")}"
+
     fun canonicalDescendant(parent: File, relativePath: String, label: String): File {
         val safePath = normalizedRelativePath(relativePath, label)
         val canonicalParent = parent.canonicalFile

@@ -128,7 +128,8 @@ function validateReceiptShape(receipt) {
   assert.equal(receipt.identity.build_type, "release");
   assert.equal(receipt.identity.signing_lineage, signingLineage);
   assert.ok(receipt.artifacts && typeof receipt.artifacts === "object", "Candidate artifacts are missing");
-  for (const key of ["apk", "aab"]) {
+  assert.ok(Object.keys(receipt.artifacts).every((key) => ["apk", "aab", "setup"].includes(key)), "Unknown candidate artifact");
+  for (const key of ["apk", "aab", ...(receipt.artifacts.setup ? ["setup"] : [])]) {
     const artifact = receipt.artifacts[key];
     assert.ok(artifact && typeof artifact === "object", `Candidate ${key.toUpperCase()} record is missing`);
     normalizeRelativePath(artifact.path, `artifacts.${key}.path`);
@@ -143,6 +144,7 @@ export function createCandidateReceipt({
   repoRoot = defaultRepoRoot,
   apk,
   aab,
+  setup,
   sourceRevision,
   packageName: candidatePackageName,
   versionCode,
@@ -170,6 +172,7 @@ export function createCandidateReceipt({
   const artifacts = {
     apk: artifactRecord(root, apk, "APK"),
     aab: artifactRecord(root, aab, "AAB"),
+    ...(setup ? { setup: artifactRecord(root, setup, "SETUP") } : {}),
   };
   if (expectedApkSha256) {
     assertHash(expectedApkSha256, "Expected APK SHA-256");
@@ -228,12 +231,12 @@ function auditContext({ repoRoot, sourceRevision, apkanalyzer, unzip, verifySour
 }
 
 /** Capture BEFORE the full audit; this is not evidence that an audit passed. */
-export function capturePackageAuditInput({ repoRoot = defaultRepoRoot, apk, aab, ...context }) {
+export function capturePackageAuditInput({ repoRoot = defaultRepoRoot, apk, aab, setup, ...context }) {
   return {
     schema_name: "caatuu-package-audit-input",
     schema_version: 1,
     context: auditContext({ repoRoot, ...context }),
-    artifacts: { apk: artifactRecord(repoRoot, apk, "APK"), aab: artifactRecord(repoRoot, aab, "AAB") },
+    artifacts: { apk: artifactRecord(repoRoot, apk, "APK"), aab: artifactRecord(repoRoot, aab, "AAB"), ...(setup ? { setup: artifactRecord(repoRoot, setup, "SETUP") } : {}) },
   };
 }
 
@@ -258,7 +261,7 @@ export function createInvocationAuditProof({ repoRoot = defaultRepoRoot, receipt
 }
 
 /** A receipt alone, or proof from another invocation, can never skip an audit. */
-export function verifyInvocationAuditProof({ repoRoot = defaultRepoRoot, proofPath, receiptPath, apk, aab, challenge, ...context }) {
+export function verifyInvocationAuditProof({ repoRoot = defaultRepoRoot, proofPath, receiptPath, apk, aab, setup, challenge, ...context }) {
   assertHash(challenge, "Fresh publication challenge");
   const proofFile = regularArtifact(repoRoot, isAbsolute(proofPath) ? slashPath(relative(repoRoot, proofPath)) : proofPath, "Invocation audit proof");
   const proof = JSON.parse(readFileSync(proofFile.absolute, "utf8"));
@@ -271,7 +274,7 @@ export function verifyInvocationAuditProof({ repoRoot = defaultRepoRoot, proofPa
   assert.equal(proof.receipt_sha256, sha256File(stored.absolute), "Package audit proof names a different sealed receipt");
   assert.deepEqual(proof.artifacts, receipt.artifacts, "Package audit proof names different artifacts");
   assert.deepEqual(proof.context, auditContext({ repoRoot, sourceRevision: receipt.source_revision, ...context }), "Package audit verifier changed since validation");
-  for (const [kind, path] of [["apk", apk], ["aab", aab]]) {
+  for (const [kind, path] of [["apk", apk], ["aab", aab], ...(receipt.artifacts.setup ? [["setup", setup || receipt.artifacts.setup.path]] : [])]) {
     const actual = artifactRecord(repoRoot, isAbsolute(path) ? slashPath(relative(repoRoot, path)) : path, kind.toUpperCase());
     assert.equal(actual.bytes, proof.artifacts[kind].bytes, `Audited ${kind.toUpperCase()} byte count changed`);
     assert.equal(actual.sha256, proof.artifacts[kind].sha256, `Audited ${kind.toUpperCase()} hash changed`);
@@ -299,7 +302,7 @@ export function verifyCandidateReceipt({
     assertHash(expectedApkSha256, "Expected APK SHA-256");
     assert.equal(value.artifacts.apk.sha256, expectedApkSha256, "Candidate receipt has the wrong APK SHA-256");
   }
-  for (const key of ["apk", "aab"]) {
+  for (const key of ["apk", "aab", ...(value.artifacts.setup ? ["setup"] : [])]) {
     const actual = artifactRecord(root, value.artifacts[key].path, key.toUpperCase());
     assert.deepEqual(actual, value.artifacts[key], `Candidate ${key.toUpperCase()} bytes changed after sealing`);
   }
@@ -369,6 +372,7 @@ async function main(argv) {
       output: required(options, "output"),
       apk: required(options, "apk"),
       aab: required(options, "aab"),
+      setup: options.setup,
       sourceRevision: required(options, "source_revision"),
       packageName: required(options, "package_name"),
       versionCode: Number(required(options, "version_code")),
@@ -388,14 +392,14 @@ async function main(argv) {
   } else if (["capture-audit-input", "emit-audit-proof", "verify-audit-proof"].includes(command)) {
     const context = { repoRoot, apkanalyzer: required(options, "apkanalyzer"), unzip: required(options, "unzip") };
     if (command === "capture-audit-input") receipt = capturePackageAuditInput({
-      ...context, apk: required(options, "apk"), aab: required(options, "aab"), sourceRevision: required(options, "source_revision"),
+      ...context, apk: required(options, "apk"), aab: required(options, "aab"), setup: options.setup, sourceRevision: required(options, "source_revision"),
     });
     else if (command === "emit-audit-proof") receipt = createInvocationAuditProof({
       ...context, receiptPath: required(options, "receipt"), challenge: required(options, "challenge"), auditInput: JSON.parse(required(options, "audit_input")),
     });
     else receipt = verifyInvocationAuditProof({
       ...context, proofPath: required(options, "proof"), receiptPath: required(options, "receipt"), challenge: required(options, "challenge"),
-      apk: required(options, "apk"), aab: required(options, "aab"),
+      apk: required(options, "apk"), aab: required(options, "aab"), setup: options.setup,
     });
   } else {
     throw new Error("Usage: release-candidate.mjs seal-existing|verify|capture-audit-input|emit-audit-proof|verify-audit-proof [options]");

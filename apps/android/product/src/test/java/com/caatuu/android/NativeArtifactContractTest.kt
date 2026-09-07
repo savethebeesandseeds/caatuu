@@ -64,6 +64,19 @@ class NativeArtifactContractTest {
     }
 
     @Test
+    fun setupArtTemporaryPathsAcceptCatalogFilenamesWithoutEscapingStorage() {
+        val root = Files.createTempDirectory("caatuu-artifact-names").toFile()
+        try {
+            val path = NativeArtifactContract.canonicalDescendant(root, "ship (1).png.download", "Setup download")
+            assertEquals(root.canonicalFile, path.parentFile)
+            assertEquals("ship (1).png.download", path.name)
+            assertThrows(IllegalArgumentException::class.java) {
+                NativeArtifactContract.canonicalDescendant(root, "../ship (1).png.download", "Setup download")
+            }
+        } finally { root.deleteRecursively() }
+    }
+
+    @Test
     fun identityMarkersBindTheCompleteAuthoritativeTuple() {
         val first = NativeArtifactContract.storageArtifact(
             "cz",

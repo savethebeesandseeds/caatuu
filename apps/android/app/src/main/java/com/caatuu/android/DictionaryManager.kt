@@ -215,16 +215,18 @@ class DictionaryManager(
             }
         }
 
-    suspend fun deleteLocalDatabase(): JSONObject =
+    suspend fun deleteLocalDatabase(preserveStoragePaths: Set<String> = emptySet()): JSONObject =
         withContext(Dispatchers.IO) {
             val root = rootDir()
-            val bytesDeleted = directorySize(root)
-            val deleted = !root.exists() || root.deleteRecursively()
+            val preserve = "dictionaries/${spec.key}" in preserveStoragePaths
+            val bytesDeleted = if (preserve) 0L else directorySize(root)
+            val deleted = preserve || !root.exists() || root.deleteRecursively()
             JSONObject()
                 .put("storageScope", "app-private filesDir/dictionaries")
                 .put("deletedOnUninstall", true)
                 .put("bytesDeleted", bytesDeleted)
                 .put("deleted", deleted)
+                .put("sharedAssetsPreserved", preserve)
                 .put("status", statusJson())
         }
 
@@ -424,7 +426,8 @@ class DictionaryManager(
         file.isFile &&
             file.length() == spec.bytes &&
             markerFile().isFile &&
-            markerFile().readText().trim() == identityMarker()
+            markerFile().readText().trim() == identityMarker() &&
+            fileVerifier.matches(file, spec.bytes, spec.sha256)
 
     private fun identityMarker(): String = NativeArtifactContract.artifactIdentityMarker(
         spec.artifactKind,
@@ -487,6 +490,7 @@ class DictionaryManager(
             .replace(Regex("\\s+"), " ")
 
     companion object {
+        private val fileVerifier = VerifiedArtifactFiles()
         private const val DOWNLOAD_ATTEMPTS = 4
         private const val CONNECT_TIMEOUT_MS = 30_000
         private const val READ_TIMEOUT_MS = 120_000

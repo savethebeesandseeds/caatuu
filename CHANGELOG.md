@@ -5,6 +5,21 @@ governed beta or stable release.
 
 ## Unreleased
 
+### Android 0.1.17 (169): smaller APK and selected-course setup
+
+- Reduced APK-resident web assets from about 47 MB to 3.77 MB. Course content
+  and shared artwork now download during setup; other courses reuse verified
+  shared files. Excluded three unused legacy icons while retaining source art.
+- Added a lightweight course picker, recoverable downloads, and verification
+  before opening a course. Versioned storage protects installed shared assets.
+- Sealed the setup payload with the APK so deployment retries reuse the same
+  bytes and older app versions retain their content URLs.
+- Included shared update-control and game-layout fixes, plus American English
+  wording and context-specific Spanish gloss corrections in the development
+  Spanish-to-English course.
+- Physical-device installation, update, offline use, and progress-preservation
+  testing remain unverified for this candidate.
+
 ### Android 0.1.16 (168) and shared game improvements
 
 - Made setup preparation automatic and its checking, progress, retry, and ready

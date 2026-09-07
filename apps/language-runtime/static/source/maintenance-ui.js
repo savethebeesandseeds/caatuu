@@ -156,7 +156,7 @@
   function hasNativeAppUpdate(status) {
     if (status?.selfUpdateEnabled === false) return false;
     const latest = Number(status?.latestVersionCode || status?.downloadedVersionCode || 0);
-    const current = Number(status.currentVersionCode || 0);
+    const current = Number(status?.currentVersionCode || 0);
     if (updateDownloadState(status) !== "idle") return latest > current;
     if (!status?.updateAvailable) return false;
     return latest > current;
@@ -165,16 +165,15 @@
   function setUpdateAppControl(button, runtime, status, { busy = false, checked = false } = {}) {
     if (!button) return;
     const native = runtime?.env === "android";
-    const selfUpdateEnabled = status?.selfUpdateEnabled !== false;
-    const available = native && hasNativeAppUpdate(status);
-    const visible = !native || selfUpdateEnabled;
+    const available = native ? hasNativeAppUpdate(status) : status?.updateAvailable === true;
+    const visible = available;
     const downloadState = updateDownloadState(status);
     button.hidden = !visible;
     button.disabled = busy || !visible || downloadState === "active";
     const latestName = String(status?.latestVersionName || "").trim();
     const currentName = String(status?.currentVersionName || "").trim();
     const statusProblem = status?.serverReachable === false || Boolean(status?.updateError);
-    button.textContent = !native && !busy ? t("maintenance.browser.action") : busy
+    button.textContent = !native && !busy ? t("settings.update.title") : busy
       ? t("maintenance.action.checking")
       : available && downloadState === "ready"
         ? latestName
@@ -198,7 +197,7 @@
     button.setAttribute("aria-disabled", button.disabled ? "true" : "false");
     button.setAttribute("aria-busy", busy ? "true" : "false");
     button.classList?.toggle("is-busy", busy);
-    const row = button.closest("[data-maintenance-action-row]");
+    const row = button.closest("[data-maintenance-action-row], [data-app-update-container]");
     if (row) {
       row.hidden = !visible;
       row.classList?.toggle("is-busy", busy);
@@ -247,6 +246,44 @@
     let inFlight = null;
     let confirmedCurrent = false;
     let activePoll = null;
+    const serviceWorker = runtime.env === "android" ? null : window.navigator?.serviceWorker;
+    let previousController = serviceWorker?.controller;
+    let browserUpdateAvailable = false;
+    const observedRegistrations = new WeakSet();
+    const observedWorkers = new WeakSet();
+
+    function browserUpdateReady() {
+      browserUpdateAvailable = true;
+      currentStatus = { ...currentStatus, updateAvailable: true };
+      render();
+    }
+
+    function observeBrowserRegistration(registration) {
+      if (!registration || observedRegistrations.has(registration)) return;
+      observedRegistrations.add(registration);
+      const observeWorker = (worker) => {
+        // The first offline installation is not an update to an existing app.
+        const installedWorker = registration.active || serviceWorker?.controller;
+        if (!worker || !installedWorker || worker === installedWorker || observedWorkers.has(worker)) return;
+        observedWorkers.add(worker);
+        const changed = () => {
+          if (worker.state === "installed" || worker.state === "activated") browserUpdateReady();
+        };
+        worker.addEventListener?.("statechange", changed);
+        changed();
+      };
+      registration.addEventListener?.("updatefound", () => observeWorker(registration.installing));
+      observeWorker(registration.installing);
+      observeWorker(registration.waiting);
+    }
+
+    async function browserUpdateStatus() {
+      const registration = await serviceWorker?.getRegistration?.();
+      observeBrowserRegistration(registration);
+      if (window.navigator?.onLine !== false) await registration?.update();
+      const status = await runtime.maintenance.updateStatus();
+      return { ...status, updateAvailable: browserUpdateAvailable || status?.updateAvailable === true };
+    }
 
     function scheduleActivePoll(status) {
       if (activePoll !== null) window.clearTimeout(activePoll);
@@ -263,7 +300,7 @@
     const versionNode = () => document.querySelector("#settingsVersion");
     const setMessage = (message) => {
       const node = statusNode();
-      if (node) node.textContent = message;
+      if (node) { node.textContent = message; node.hidden = !message; }
       const homeStatus = document.querySelector("#homeUpdateStatus");
       if (homeStatus) { homeStatus.textContent = message; homeStatus.hidden = !message; }
     };
@@ -288,20 +325,9 @@
     };
 
     async function refresh({ force = false, announce = true } = {}) {
-      if (runtime.env !== "android") {
-        render({ updateAvailable: false, selfUpdateEnabled: false });
-        try {
-          const status = await runtime.maintenance.updateStatus();
-          currentStatus = status;
-          if (status?.currentVersionName || status?.currentVersionCode) setVersionNote(versionNode(), status);
-        } catch (error) {
-          // Browser version metadata is optional.
-        }
-        return currentStatus;
-      }
       if (!force && currentStatus && Date.now() - checkedAt < UPDATE_STATUS_FRESH_MS) {
         render(currentStatus);
-        if (announce) setMessage(updateStatusLine(currentStatus));
+        if (announce && runtime.env === "android") setMessage(updateStatusLine(currentStatus));
         return currentStatus;
       }
       if (inFlight) return inFlight;
@@ -309,7 +335,7 @@
       confirmedCurrent = false;
       render(currentStatus || { updateAvailable: false, selfUpdateEnabled: true }, { busy: true });
       if (announce) setMessage(t("maintenance.status.checkingserver"));
-      inFlight = runtime.maintenance.updateStatus()
+      inFlight = (runtime.env === "android" ? runtime.maintenance.updateStatus() : browserUpdateStatus())
         .then((status) => {
           currentStatus = status;
           checkedAt = Date.now();
@@ -317,18 +343,20 @@
             && status?.serverReachable !== false
             && !status?.updateError;
           render(status);
-          if (announce) setMessage(updateStatusLine(status));
+          if (status?.currentVersionName || status?.currentVersionCode) setVersionNote(versionNode(), status);
+          if (announce && runtime.env === "android") setMessage(updateStatusLine(status));
           return status;
         })
         .catch((error) => {
           currentStatus = {
-            updateAvailable: false,
+            ...currentStatus,
+            updateAvailable: currentStatus?.updateAvailable === true || browserUpdateAvailable,
             serverReachable: false,
             updateError: error?.message || String(error)
           };
           confirmedCurrent = false;
           render(currentStatus);
-          setMessage(t("maintenance.copy.checkfailed"));
+          if (announce) setMessage(t("maintenance.copy.checkfailed"));
           return currentStatus;
         })
         .finally(() => {
@@ -340,6 +368,7 @@
     async function activate() {
       if (inFlight) return inFlight;
       if (runtime.env !== "android") {
+        if (!currentStatus?.updateAvailable) return refresh({ force: true, announce: false });
         render(currentStatus, { busy: true });
         setMessage(t("maintenance.action.checking"));
         inFlight = Promise.resolve().then(() => runtime.maintenance.updateApp())
@@ -387,12 +416,18 @@
     }
 
     render({ updateAvailable: false, selfUpdateEnabled: runtime.env === "android" });
+    serviceWorker?.addEventListener?.("controllerchange", () => {
+      const controller = serviceWorker.controller;
+      if (previousController && controller && controller !== previousController) browserUpdateReady();
+      previousController = controller;
+    });
+    window.addEventListener?.("online", () => { void refresh({ force: true, announce: false }); });
     document.addEventListener?.("visibilitychange", () => {
       if (document.visibilityState === "hidden") {
         if (activePoll !== null) window.clearTimeout(activePoll);
         activePoll = null;
-      } else if (runtime.env === "android") {
-        void refresh({ force: true, announce: true });
+      } else {
+        void refresh({ force: true, announce: false });
       }
     });
     return Object.freeze({ activate, refresh, render });
@@ -628,14 +663,14 @@
   });
 
   if (typeof document !== "undefined") {
-    const bindSharedControl = () => getUpdateController();
+    const bindSharedControl = () => { void refreshSharedUpdateControl({ announce: false }); };
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", bindSharedControl, { once: true });
     } else {
       bindSharedControl();
     }
     document.addEventListener("caatuu:settings-open", () => {
-      void refreshSharedUpdateControl({ force: true, announce: true });
+      void refreshSharedUpdateControl({ announce: false });
     });
   }
 })();

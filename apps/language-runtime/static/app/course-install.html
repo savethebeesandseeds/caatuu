@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <title>Caatuu</title>
+  <link rel="stylesheet" href="/language-runtime/static/styles/course-setup.css">
+  <script type="module" src="/language-runtime/static/source/course-setup.mjs"></script>
+</head>
+<body>
+  <main data-course-setup="install">
+    <p class="brand">Caatuu</p>
+    <h1 data-title>Prepare your course</h1>
+    <p data-description>Checking the files needed for offline learning.</p>
+    <p data-status role="status" aria-live="polite">Checking…</p>
+    <progress data-progress max="100" aria-label="Course download" hidden></progress>
+    <p class="detail" data-detail></p>
+    <div class="actions">
+      <button data-action disabled>Download course</button>
+      <button class="secondary" data-cancel hidden>Cancel</button>
+    </div>
+    <a class="back" href="/setup.html" data-back>Choose another course</a>
+  </main>
+</body>
+</html>

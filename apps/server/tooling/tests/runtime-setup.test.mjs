@@ -80,6 +80,25 @@ test("an empty required setup manifest is never ready", async () => {
   assert.equal(status.ready, false);
 });
 
+test("a newly active browser worker announces an update without reloading an in-progress page", () => {
+  const workerEvents = new Map();
+  const states = [];
+  let reloads = 0;
+  const binding = source.slice(source.indexOf("  function bindBrowserFreshnessEvents()"), source.indexOf("  function browserServiceWorkerRegistration()"));
+  runInNewContext(`${binding}\nbindBrowserFreshnessEvents();`, {
+    capabilities: { serviceWorker: true }, serviceWorkerFreshnessBound: false,
+    navigator: { serviceWorker: { controller: null, addEventListener(type, handler) { workerEvents.set(type, handler); } } },
+    document: { visibilityState: "visible", addEventListener() {} },
+    window: { addEventListener() {}, setTimeout(callback) { callback(); }, location: { reload() { reloads += 1; } } },
+    announceBrowserFreshness(state) { states.push(state); }
+  });
+  workerEvents.get("controllerchange")();
+  assert.deepEqual(states, ["current"]);
+  workerEvents.get("controllerchange")();
+  assert.deepEqual(states, ["current", "update-ready"]);
+  assert.equal(reloads, 0);
+});
+
 test("cached SHA metadata is not trusted when Web Crypto is unavailable", async () => {
   const sha256 = "a".repeat(64);
   const { runtime } = runtimeWith({

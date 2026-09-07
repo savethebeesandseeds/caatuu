@@ -693,10 +693,17 @@ function transformProductOutput(workspaceRoot, stagingDir) {
 
 function sharedAppAssetsForStatic(courseConfiguration) {
   // Reviewed artwork/keymaps are copied from their source manifest below. Keep
-  // every other explicitly mapped app asset, including shared game controls.
+  // the browser runtime complete, while the native installer remains Android-only.
+  // Its registry and installation bridge are supplied by the APK.
+  const androidInstallerAssets = new Set([
+    "setup.html",
+    "course-install.html",
+    "language-runtime/static/source/course-setup.mjs",
+    "language-runtime/static/styles/course-setup.css"
+  ]);
   const { selected } = selectedStaticArtifacts(courseConfiguration.workspaceRoot);
   const published = new Set(selected.map((artifact) => publicPathFromUrl(artifact.url, artifact.key)));
-  return courseConfiguration.appAssets.filter(({ output }) => !published.has(output));
+  return courseConfiguration.appAssets.filter(({ output }) => !published.has(output) && !androidInstallerAssets.has(output));
 }
 
 function copyProductOutput(productDir, stagingDir, courseConfiguration) {
@@ -1560,6 +1567,7 @@ export function compileStaticSite({
 
   try {
     compileProductAssets({
+      deliveryMode: "full",
       workspaceRoot: resolvedWorkspace,
       languageStaticDir,
       launcherStaticDir,

@@ -5,6 +5,8 @@ import { existsSync, readFileSync } from "node:fs";
 import { basename, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { assertProductSourceText } from "./product-source-policy.mjs";
+import { nativeBootstrapCatalogAssets, planProductDelivery } from "./product-delivery.mjs";
+import { readSetupPayloadArchive, validateSetupPayloadForApk } from "./setup-payload.mjs";
 
 import {
   loadAndroidCourseBundleCatalogPlan,
@@ -145,7 +147,7 @@ function usage() {
   console.log(
     "Usage: node apps/android/tooling/validate-product-package.mjs " +
       "--aab <caatuu.aab> --apk <aab-derived-universal.apk> " +
-      "[--apkanalyzer <path>] [--unzip <path>] [--allow-transition-debug]",
+      "[--setup <sealed-setup-payload.tar>] [--apkanalyzer <path>] [--unzip <path>] [--allow-transition-debug]",
   );
 }
 
@@ -158,7 +160,7 @@ function parseArguments(argv) {
       options.allowTransitionDebug = true;
       continue;
     }
-    if (!["--aab", "--apk", "--apkanalyzer", "--unzip"].includes(argument)) {
+    if (!["--aab", "--apk", "--setup", "--apkanalyzer", "--unzip"].includes(argument)) {
       throw new Error(`unknown option: ${argument}`);
     }
     const value = argv[index + 1];
@@ -294,9 +296,10 @@ export function requiredNativeClassNames(contract) {
   ];
 }
 
-function assertRequiredAssets(entries, kind, label, contract) {
+function assertRequiredAssets(entries, kind, label, contract, deliveredAssets = new Set()) {
   const entrySet = new Set(entries);
   for (const assetPath of requiredAssetPaths(contract)) {
+    if (deliveredAssets.has(assetPath)) continue;
     const expected = archiveEntryForAsset(assetPath, kind);
     assert(entrySet.has(expected), `${label} is missing required product asset ${expected}`);
   }
@@ -1077,25 +1080,33 @@ function assertEmbeddingConfinement(vectorSource, label) {
   }
 }
 
+function isFirstPartySource(assetPath) {
+  if (!assetPath || assetPath.startsWith("vendor/") ||
+      assetPath.startsWith("language-runtime/vendor/") ||
+      assetPath.startsWith("language-runtime/models/") ||
+      /^courses\/[^/]+\/vendor\//u.test(assetPath) ||
+      CAPABILITY_GATED_SHARED_APP_PATHS.has(assetPath)) return false;
+  return FIRST_PARTY_EXECUTABLE_EXTENSIONS.has(assetPath.slice(assetPath.lastIndexOf(".")));
+}
+
+export function assertSetupPayloadSourcePolicy(setupPayload) {
+  for (const object of setupPayload.values()) {
+    for (const path of object.assetPaths) {
+      if (isFirstPartySource(path)) assertProductSourceText(object.content.toString("utf8"), `Setup companion first-party asset ${path}`);
+    }
+  }
+}
+
 function assertNoForbiddenFirstPartySource(unzip, archive, entries, kind, label) {
   for (const entry of entries) {
     const assetPath = normalizeAssetPath(entry, kind);
-    if (
-      !assetPath ||
-      assetPath.startsWith("vendor/") ||
-      assetPath.startsWith("language-runtime/vendor/") ||
-      assetPath.startsWith("language-runtime/models/") ||
-      /^courses\/[^/]+\/vendor\//u.test(assetPath)
-    ) continue;
-    if (CAPABILITY_GATED_SHARED_APP_PATHS.has(assetPath)) continue;
-    const extension = assetPath.slice(assetPath.lastIndexOf("."));
-    if (!FIRST_PARTY_EXECUTABLE_EXTENSIONS.has(extension)) continue;
+    if (!isFirstPartySource(assetPath)) continue;
     const source = archiveText(unzip, archive, entry);
     assertProductSourceText(source, `${label} first-party asset ${entry}`);
   }
 }
 
-function assertAssetBoundary(unzip, archive, entries, kind, label) {
+function assertAssetBoundary(unzip, archive, entries, kind, label, setupPayload = new Map()) {
   assertNoForbiddenPaths(entries, label);
   const profileEntry = archiveEntryForAsset("caatuu-profile.json", kind);
   const bundleEntry = archiveEntryForAsset(PRODUCT_COURSE_BUNDLE_ASSET, kind);
@@ -1107,7 +1118,9 @@ function assertAssetBoundary(unzip, archive, entries, kind, label) {
   const defaultCourse = bundle.courses.find((course) => course.id === bundle.defaultCourseId);
   assertStoreProfile(profile, label, defaultCourse);
   assertDeclaredAssetBoundary(entries, kind, label, profile);
-  assertRequiredAssets(entries, kind, label, bundle);
+  const deliveredAssets = new Set([...setupPayload.values()].flatMap(({ assetPaths }) => assetPaths));
+  assertRequiredAssets(entries, kind, label, bundle, deliveredAssets);
+  if (setupPayload.size > 0) assertBootstrapDelivery({ unzip, archive, kind, label, bundle, profile, setupPayload });
   assertCanonicalAppEntry(unzip, archive, kind, label);
   assertCanonicalCapabilityGatedSharedAssets(unzip, archive, kind, label);
   const sharedRuntimeArtifacts = bundle.courses.some(usesSharedEmbeddingRuntime)
@@ -1215,6 +1228,26 @@ function assertAssetBoundary(unzip, archive, entries, kind, label) {
   assertPackageSharedStorage(sharedStorageRecords, label);
   assertNoForbiddenFirstPartySource(unzip, archive, entries, kind, label);
   return { bundle, profile };
+}
+
+/** Reapply the compiler's residency policy to sealed bytes, never mutable content sources. */
+function assertBootstrapDelivery({ unzip, archive, kind, label, bundle, profile, setupPayload }) {
+  const files = new Map(["caatuu-profile.json", ...profile.assets].map((path) => [path, archiveBuffer(unzip, archive, archiveEntryForAsset(path, kind))]));
+  for (const object of setupPayload.values()) {
+    for (const path of object.assetPaths) {
+      assert(!files.has(path), `${label} downloads an asset that is also packaged: ${path}`);
+      assertNoForbiddenPaths([archiveEntryForAsset(path, kind)], `${label} setup payload`);
+      files.set(path, object.content);
+    }
+  }
+  const providerCatalogs = nativeBootstrapCatalogAssets(files, bundle);
+  const delivery = planProductDelivery({ files, courseIds: bundle.courses.map(({ id }) => id), profile, providerCatalogs });
+  assert(JSON.stringify(delivery.profile.assets) === JSON.stringify(profile.assets), `${label} APK does not match the bootstrap residency policy`);
+  for (const [path, expected] of delivery.bundledFiles) {
+    assert(expected.equals(files.get(path)), `${label} bootstrap bytes differ from delivery plan: ${path}`);
+  }
+  const actual = [...setupPayload.values()].flatMap(({ path, file, assetPaths, bytes, sha256 }) => assetPaths.map((assetPath) => ({ path, file, assetPath, bytes, sha256 }))).sort((a, b) => a.assetPath.localeCompare(b.assetPath));
+  assert(JSON.stringify(actual) === JSON.stringify(delivery.setupPayload.artifacts), `${label} companion differs from the complete delivery plan`);
 }
 
 function assertApkManifest(apkanalyzerPath, apk, allowTransitionDebug = false) {
@@ -1325,12 +1358,15 @@ export function validateProductArchiveAssets({
   unzip,
   aab,
   apk,
+  setup,
   allowTransitionDebug = false,
 }) {
   const aabEntries = archiveEntries(unzip, aab);
   const apkEntries = archiveEntries(unzip, apk);
-  const aabContract = assertAssetBoundary(unzip, aab, aabEntries, "aab", "Caatuu AAB");
-  const apkContract = assertAssetBoundary(unzip, apk, apkEntries, "apk", "AAB-derived universal APK");
+  const setupPayload = setup ? validateSetupPayloadForApk(apk, readSetupPayloadArchive(setup)) : new Map();
+  assertSetupPayloadSourcePolicy(setupPayload);
+  const aabContract = assertAssetBoundary(unzip, aab, aabEntries, "aab", "Caatuu AAB", setupPayload);
+  const apkContract = assertAssetBoundary(unzip, apk, apkEntries, "apk", "AAB-derived universal APK", setupPayload);
   assert(
     JSON.stringify(aabContract) === JSON.stringify(apkContract),
     "Caatuu AAB and AAB-derived APK must declare identical product course contracts",
@@ -1368,6 +1404,7 @@ function main() {
       unzip: options.unzip,
       aab,
       apk,
+      setup: options.setup,
       allowTransitionDebug: options.allowTransitionDebug,
     });
     assertApkManifest(options.apkanalyzer, apk, options.allowTransitionDebug);

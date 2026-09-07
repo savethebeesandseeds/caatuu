@@ -442,8 +442,8 @@ val androidTargetSdk = providers.environmentVariable("CAATUU_ANDROID_TARGET_SDK"
     .orElse(36)
 val androidUpdateBaseUrl = providers.environmentVariable("CAATUU_ANDROID_UPDATE_BASE_URL")
     .orElse("https://caatuu.waajacu.com/android")
-val caatuuVersionCode = providers.gradleProperty("caatuuVersionCode").map(String::toInt).orElse(168)
-val caatuuVersionName = providers.gradleProperty("caatuuVersionName").orElse("0.1.16")
+val caatuuVersionCode = providers.gradleProperty("caatuuVersionCode").map(String::toInt).orElse(169)
+val caatuuVersionName = providers.gradleProperty("caatuuVersionName").orElse("0.1.17")
 val releaseSigningValues = listOf(
     releaseKeystorePath,
     releaseKeystorePassword,
@@ -500,6 +500,7 @@ val generateProductAssets by tasks.registering(Exec::class) {
         generatedAssetsDir.get().asFile.absolutePath,
     )
     inputs.file(assetCompiler)
+    inputs.file(workspaceRootDir.file("apps/android/tooling/product-delivery.mjs"))
     inputs.file(courseBundlePlanner)
     inputs.file(androidArtifactContract)
     val publicSetupInventory = providers.environmentVariable("CAATUU_RELEASE_PUBLIC_INVENTORY")
@@ -530,6 +531,7 @@ val generateProductAssets by tasks.registering(Exec::class) {
     inputs.dir(languageStaticDir)
     inputs.dir(launcherStaticDir)
     outputs.dir(generatedAssetsDir)
+    outputs.dir(layout.buildDirectory.dir("generated/assets/product-setup"))
 }
 
 val generateProductIconResources by tasks.registering(Sync::class) {

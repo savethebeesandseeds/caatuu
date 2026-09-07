@@ -106,6 +106,7 @@ async function candidateFixture(versionCode = nextVersionCode, { courseIds = ["c
   await mkdir(releaseDir, { recursive: true });
   const apk = storedZip([
     ["assets/caatuu-course-bundle.json", `${JSON.stringify(courseBundle(courseIds))}\n`],
+    ...courseIds.map((id) => [`assets/courses/${id}/setup-assets.json`, '{"artifacts":[]}']),
   ]);
   const sourceRevision = "a".repeat(40);
   const versionName = `0.1.${versionCode - 152}`;

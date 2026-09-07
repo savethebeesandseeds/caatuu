@@ -167,6 +167,10 @@ export function planAndroidReleaseOverlay({ preservedSite, currentRelease, readA
       const filename = kind === "apk" ? "caatuu.apk" : kind === "manifest" ? "caatuu.json" : "caatuu-release-candidate.json";
       add(`android/releases/${loaded.release.versionCode}/${filename}`, artifact, { sourcePath: loaded[`${kind}Path`] });
     }
+    for (const [path, object] of loaded.setupPayload ?? []) {
+      add(path, object, { content: object.content });
+      if (!inventory.has(path)) addedSetupPaths.push(path);
+    }
   }
   add("android/caatuu.apk", current.release.apk, { sourcePath: current.apkPath });
   add("android/caatuu.json", current.release.manifest, { sourcePath: current.manifestPath });
@@ -185,6 +189,10 @@ export function planAndroidReleaseOverlay({ preservedSite, currentRelease, readA
       // pathname must still resolve to the exact bytes required by the APK.
       assert.ok(!url.username && !url.password && !url.hash, `Setup URL must name a public file without userinfo or a fragment: ${artifact.url}`);
       const path = safePath(decodeURIComponent(url.pathname.slice(1)));
+      if (path.startsWith("assets/setup/")) {
+        assert.ok(current.setupPayload?.has(path), `APK setup object is missing from its sealed companion: ${path}`);
+        assert.ok(identityMatches(current.setupPayload.get(path), artifact), `APK setup object differs from its sealed companion: ${path}`);
+      }
       if (setupPaths.has(path)) {
         assert.ok(identityMatches(setupPaths.get(path), artifact), `Conflicting setup bytes: ${path}`);
         continue;
@@ -193,6 +201,10 @@ export function planAndroidReleaseOverlay({ preservedSite, currentRelease, readA
       const existing = inventory.get(path);
       if (existing) {
         assert.ok(identityMatches(existing, artifact), `Refusing to replace website bytes for Android setup: ${path}`);
+        continue;
+      }
+      if (writes.has(path)) {
+        assert.ok(identityMatches(writes.get(path), artifact), `Sealed companion setup bytes differ: ${path}`);
         continue;
       }
       assert.ok(!path.startsWith("android/") && path.split("/").some((part) => /^[a-f0-9]{16,64}$/u.test(part) && artifact.sha256.startsWith(part)),

@@ -28,6 +28,15 @@ test("static compiler closes the complete Pages payload", { timeout: 300_000 }, 
     assert.ok(!Object.hasOwn(manifest, "schemaName"));
     assert.ok(!Object.hasOwn(manifest, "schemaVersion"));
     assert.equal(manifest.payloadFileCount, built.fileCount - 1);
+    for (const androidInstallerAsset of [
+      "setup.html",
+      "course-install.html",
+      "language-runtime/static/source/course-setup.mjs",
+      "language-runtime/static/styles/course-setup.css"
+    ]) {
+      assert.ok(!manifest.files.some(({ path }) => path === androidInstallerAsset),
+        `${androidInstallerAsset} requires the APK registry and must not enter Pages`);
+    }
     assert.equal(built.totalBytes, manifest.files.reduce((sum, file) => sum + file.bytes, 0)
       + statSync(join(outputDir, "caatuu-web-bundle.json")).size);
     const setup = JSON.parse(readFileSync(join(outputDir, "cz/setup-assets.json"), "utf8"));

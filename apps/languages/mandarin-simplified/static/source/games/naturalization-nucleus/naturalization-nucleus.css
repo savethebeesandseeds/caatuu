@@ -438,7 +438,7 @@
 .naturalization-nucleus-domino-hanzi {
   font-family: var(--font-ui, system-ui, sans-serif);
   font-size: clamp(1.75rem, 5vw, 2.55rem);
-  font-weight: 800;
+  font-weight: 500;
   color: #000;
 }
 
@@ -449,7 +449,7 @@
 
 .naturalization-nucleus-socket-pinyin.naturalization-nucleus-script-hanzi {
   font-size: 1.8rem;
-  font-weight: 800;
+  font-weight: 500;
 }
 
 .naturalization-nucleus-tone-1 { color: #d53c3c; }

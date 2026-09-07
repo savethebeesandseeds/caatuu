@@ -264,7 +264,8 @@ export function loadPagesBaseline({
 }
 
 export function readZipEntry(zipPath, requestedEntry) {
-  const source = readFileSync(zipPath);
+  const source = Buffer.isBuffer(zipPath) ? zipPath : readFileSync(zipPath);
+  const sourceLabel = Buffer.isBuffer(zipPath) ? "verified APK bytes" : zipPath;
   const eocdSignature = 0x06054b50;
   const minimumOffset = Math.max(0, source.length - 22 - 0xffff);
   let eocdOffset = -1;
@@ -274,7 +275,7 @@ export function readZipEntry(zipPath, requestedEntry) {
       break;
     }
   }
-  assert.ok(eocdOffset >= 0, `APK is missing its ZIP directory: ${zipPath}`);
+  assert.ok(eocdOffset >= 0, `APK is missing its ZIP directory: ${sourceLabel}`);
   const entryCount = source.readUInt16LE(eocdOffset + 10);
   let offset = source.readUInt32LE(eocdOffset + 16);
   for (let index = 0; index < entryCount; index += 1) {
@@ -302,7 +303,7 @@ export function readZipEntry(zipPath, requestedEntry) {
     }
     offset += 46 + nameBytes + extraBytes + commentBytes;
   }
-  throw new Error(`APK does not contain ${requestedEntry}: ${zipPath}`);
+  throw new Error(`APK does not contain ${requestedEntry}: ${sourceLabel}`);
 }
 
 function assertFileMatches(path, file, label) {

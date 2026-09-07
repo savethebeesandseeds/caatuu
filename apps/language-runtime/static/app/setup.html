@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <title>Caatuu</title>
+  <link rel="stylesheet" href="/language-runtime/static/styles/course-setup.css">
+  <script type="module" src="/language-runtime/static/source/course-setup.mjs"></script>
+</head>
+<body>
+  <main data-course-setup="picker">
+    <p class="brand">Caatuu</p>
+    <h1 data-title>Choose your course</h1>
+    <p data-description>Download a course to learn offline.</p>
+    <label for="source-language" data-source-label>I speak</label>
+    <select id="source-language" data-source></select>
+    <ul class="courses" data-courses></ul>
+    <p data-status role="status" aria-live="polite">Loading courses…</p>
+    <button data-action hidden>Retry</button>
+  </main>
+</body>
+</html>

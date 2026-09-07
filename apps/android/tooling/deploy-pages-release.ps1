@@ -483,9 +483,10 @@ try {
             throw "Validated Pages candidate version differs from its receipt."
         }
         $expectedKinds = @("apk", "manifest", "receipt")
+        if ($script:receipt.artifacts.PSObject.Properties.Name -contains "setup") { $expectedKinds += "setup" }
         $actualKinds = @($script:candidate.assets | ForEach-Object { [string]$_.kind } | Sort-Object)
         if (($actualKinds -join ',') -ne (($expectedKinds | Sort-Object) -join ',')) {
-            throw "The release must contain exactly APK, manifest, and receipt assets."
+            throw "The release assets must exactly match its sealed APK, manifest, receipt, and optional setup payload."
         }
 
         $script:state = Get-WorktreeState
@@ -634,6 +635,9 @@ try {
             "caatuu-$versionCode.json",
             "caatuu-$versionCode-release-candidate.json"
         ) | Sort-Object
+        if ($script:receipt.artifacts.PSObject.Properties.Name -contains "setup") {
+            $expectedNames = @($expectedNames) + "caatuu-$versionCode-setup-payload.tar" | Sort-Object
+        }
         $actualNames = @($expectedAssets | ForEach-Object { [string]$_.releaseAssetName } | Sort-Object)
         if (($actualNames -join ',') -ne ($expectedNames -join ',')) { throw "Derived GitHub release asset names changed." }
 

@@ -1,11 +1,13 @@
 import assert from "node:assert/strict";
 import { assertProductSourceText } from "./product-source-policy.mjs";
 import { transformPackagedImageKeymap } from "./developer-image-catalog.mjs";
+import { nativeBootstrapCatalogAssets, planProductDelivery, SETUP_PAYLOAD_MANIFEST } from "./product-delivery.mjs";
 import {
   copyFileSync,
   existsSync,
   lstatSync,
   mkdirSync,
+  mkdtempSync,
   readFileSync,
   realpathSync,
   readdirSync,
@@ -2684,7 +2686,7 @@ function assertBundleReferences(outputDir, files, courseCatalog) {
   }
 }
 
-export function validateProductAssetBundle({
+function validateFullProductAssetBundle({
   outputDir,
   workspaceRoot = defaultWorkspaceRoot,
   courseBundlePath = DEFAULT_COURSE_BUNDLE_PATH,
@@ -2724,7 +2726,7 @@ export function validateProductAssetBundle({
     const transform = sharedAppAssetTransform(output, bundle.sharedAssets, bundle.sharedStorageRecords);
     const expected = transform ? transform(readSourceText(source)) : readFileSync(source);
     const actual = transform ? readFileSync(join(resolvedOutput, output), "utf8") : readFileSync(join(resolvedOutput, output));
-    assert.deepEqual(actual, expected, `Shared product asset drifted: ${output}`);
+    assert.ok(Buffer.from(actual).equals(Buffer.from(expected)), `Shared product asset drifted: ${output}`);
   }
   for (const courseConfiguration of bundle.configurations) {
     const courseRoot = join(resolvedOutput, `courses/${courseConfiguration.course.id}`);
@@ -2888,7 +2890,181 @@ export function validateProductAssets({
   return { outputDir: resolvedOutput, fileCount: files.length, totalBytes, files };
 }
 
-export function compileProductAssetBundle({
+/** Materialize the same reviewed transforms used by full Pages delivery. */
+function productLogicalBytes(bundle) {
+  const files = new Map();
+  const putText = (path, source) => files.set(path, Buffer.from(normalizeText(source), "utf8"));
+  putText("index.html", transformIndex(readSourceText(bundle.defaultCourse.appEntryPath)));
+  for (const configuration of bundle.configurations) {
+    for (const path of bundle.courseFilesById[configuration.course.id]) {
+      const source = configuration.languageFileSources[path];
+      const output = `courses/${configuration.course.id}/${path}`;
+      const transform = courseAssetTransform(configuration, path, bundle.embeddingRuntime);
+      if (transform) putText(output, transform(readSourceText(source)));
+      else files.set(output, readFileSync(source));
+    }
+  }
+  for (const { source, output } of bundle.sharedAssets) {
+    const transform = sharedAppAssetTransform(output, bundle.sharedAssets, bundle.sharedStorageRecords);
+    if (transform) putText(output, transform(readSourceText(source)));
+    else files.set(output, readFileSync(source));
+  }
+  putText(PRODUCT_COURSE_BUNDLE_ASSET, `${JSON.stringify(bundle.courseCatalog, null, 2)}\n`);
+  for (const { course } of bundle.configurations) {
+    const assetPrefix = `courses/${course.id}`;
+    const setupPath = `${assetPrefix}/setup-assets.json`;
+    const setup = projectBundledSetupArtifacts(JSON.parse(files.get(setupPath).toString("utf8")), {
+      assetPrefix,
+      readAsset: (path) => files.get(path) ?? null,
+      label: `${course.id} logical product setup`,
+    });
+    putText(setupPath, `${JSON.stringify(setup, null, 2)}\n`);
+  }
+  putText("caatuu-profile.json", `${JSON.stringify(bundle.productProfile, null, 2)}\n`);
+  assert.deepEqual([...files.keys()].sort(), [...bundle.outputFiles].sort(),
+    "Logical product bytes must cover the reviewed allowlist");
+  return files;
+}
+
+/** Shared with the package audit so the signed APK has one residency authority. */
+export function createAndroidProductDelivery(bundle) {
+  const logicalFiles = productLogicalBytes(bundle);
+  const providerCatalogs = nativeBootstrapCatalogAssets(logicalFiles, bundle.courseCatalog);
+  return {
+    ...planProductDelivery({
+      files: logicalFiles,
+      courseIds: bundle.courseCatalog.courses.map(({ id }) => id),
+      profile: bundle.productProfile,
+      providerCatalogs,
+    }),
+    logicalFiles,
+  };
+}
+
+function writeExactAssetMap(root, files) {
+  for (const [path, bytes] of files) {
+    const target = resolve(root, path);
+    assert.ok(isInside(root, target), `Generated delivery path escapes output: ${path}`);
+    mkdirSync(dirname(target), { recursive: true });
+    writeFileSync(target, bytes);
+  }
+}
+
+function productSourceSnapshot(bundle) {
+  const paths = new Set([
+    scriptPath, join(dirname(scriptPath), "product-delivery.mjs"),
+    join(dirname(scriptPath), "android-artifact-contract.mjs"),
+    bundle.courseBundlePath, bundle.languageCatalogPath, bundle.embeddingRuntime.catalogPath,
+    ...bundle.sharedAssets.map(({ source }) => source),
+    ...bundle.configurations.flatMap((configuration) => [
+      configuration.courseManifestPath, configuration.androidAssetCatalogPath,
+      configuration.appAssetCatalogPath, configuration.appEntryPath,
+      ...Object.values(configuration.languageFileSources),
+    ]),
+  ].filter(Boolean));
+  return new Map([...paths].sort().map((path) => [path, sha256File(path)]));
+}
+
+function withStableProductSources(bundle, operation) {
+  const before = productSourceSnapshot(bundle);
+  const assertUnchanged = () => {
+    const changed = [...before].filter(([path, digest]) => !existsSync(path) || sha256File(path) !== digest)
+      .map(([path]) => slashPath(relative(bundle.workspaceRoot, path)));
+    assert.equal(changed.length, 0,
+      `Source changed during product compilation/validation: ${changed.join(", ")}. Retry after the shared edits finish.`);
+  };
+  try {
+    const result = operation();
+    assertUnchanged();
+    return result;
+  } catch (error) {
+    assertUnchanged();
+    throw error;
+  }
+}
+
+export function validateProductAssetBundle(options) {
+  const deliveryMode = options.deliveryMode ?? "bootstrap";
+  assert.ok(["bootstrap", "full"].includes(deliveryMode), `Unsupported product delivery mode: ${deliveryMode}`);
+  if (deliveryMode === "full") return validateFullProductAssetBundle(options);
+  const bundle = options.configuration || loadAndroidCourseBundleConfiguration(options);
+  return withStableProductSources(bundle, () =>
+    validateBootstrapProductAssetBundle(options, bundle, createAndroidProductDelivery(bundle)));
+}
+
+function validateBootstrapProductAssetBundle(options, bundle, delivery) {
+  const deliveryMode = "bootstrap";
+  const resolvedOutput = resolve(options.outputDir);
+  const setupPayloadDir = resolve(options.setupPayloadDir ?? `${resolvedOutput}-setup`);
+  const files = allFiles(resolvedOutput);
+  assert.deepEqual(files, [...delivery.bundledFiles.keys()].sort(),
+    "Bootstrap APK assets must equal the exact delivery allowlist");
+  for (const [path, expected] of delivery.bundledFiles) {
+    const actual = readStagedSetupAsset(resolvedOutput, path);
+    assert.ok(actual?.equals(expected), `Bootstrap asset drifted: ${path}`);
+  }
+  assert.deepEqual(allFiles(setupPayloadDir), [SETUP_PAYLOAD_MANIFEST, ...delivery.setupObjects.keys()].sort(),
+    "Setup payload must contain exactly its immutable objects and inventory");
+  const inventory = JSON.parse(readStagedSetupAsset(setupPayloadDir, SETUP_PAYLOAD_MANIFEST).toString("utf8"));
+  assert.deepEqual(inventory, delivery.setupPayload, "Setup payload inventory drifted from the exact product bytes");
+  for (const [path, expected] of delivery.setupObjects) {
+    const actual = readStagedSetupAsset(setupPayloadDir, path);
+    assert.ok(actual?.equals(expected), `Setup payload bytes drifted: ${path}`);
+  }
+  // Reuse every existing content, executable, provider and reference check on
+  // the proven union. The temporary directory is generated validation output,
+  // not another source checkout or serving environment.
+  const closureRoot = mkdtempSync(join(dirname(resolvedOutput), ".product-closure-"));
+  try {
+    writeExactAssetMap(closureRoot, delivery.logicalFiles);
+    validateFullProductAssetBundle({ outputDir: closureRoot, configuration: bundle });
+  } finally {
+    rmSync(closureRoot, { recursive: true, force: true });
+  }
+  const sumBytes = (map) => [...map.values()].reduce((sum, bytes) => sum + bytes.length, 0);
+  return {
+    outputDir: resolvedOutput,
+    deliveryMode,
+    fileCount: files.length,
+    totalBytes: sumBytes(delivery.bundledFiles),
+    files,
+    setupPayloadDir,
+    setupBytes: sumBytes(delivery.setupObjects),
+    sharedSetupBytes: delivery.byteCounts.shared,
+    courseSetupBytes: delivery.byteCounts.courses,
+    logicalBytes: sumBytes(delivery.logicalFiles),
+    downloadedAssets: delivery.downloadedAssets,
+  };
+}
+
+export function compileProductAssetBundle(options = {}) {
+  const deliveryMode = options.deliveryMode ?? "bootstrap";
+  assert.ok(["bootstrap", "full"].includes(deliveryMode), `Unsupported product delivery mode: ${deliveryMode}`);
+  if (deliveryMode === "full") return compileFullProductAssetBundle(options);
+  const bundle = loadAndroidCourseBundleConfiguration(options);
+  const outputDir = resolve(options.outputDir ?? join(bundle.workspaceRoot, "apps/android/product/build/generated/assets/product"));
+  const setupPayloadDir = resolve(options.setupPayloadDir ?? `${outputDir}-setup`);
+  assert.notEqual(setupPayloadDir, outputDir, "Setup objects cannot be APK assets");
+  assert.ok(!isInside(outputDir, setupPayloadDir) && !isInside(setupPayloadDir, outputDir),
+    "APK and setup outputs must not contain one another");
+  for (const { languageStaticDir } of bundle.configurations) {
+    assertSafeOutputDirectory(outputDir, bundle.workspaceRoot, languageStaticDir, bundle.launcherStaticDir);
+    assertSafeOutputDirectory(setupPayloadDir, bundle.workspaceRoot, languageStaticDir, bundle.launcherStaticDir);
+  }
+  return withStableProductSources(bundle, () => {
+    const delivery = createAndroidProductDelivery(bundle);
+    rmSync(outputDir, { recursive: true, force: true });
+    rmSync(setupPayloadDir, { recursive: true, force: true });
+    mkdirSync(outputDir, { recursive: true });
+    mkdirSync(setupPayloadDir, { recursive: true });
+    writeExactAssetMap(outputDir, delivery.bundledFiles);
+    writeExactAssetMap(setupPayloadDir, delivery.setupObjects);
+    writeText(join(setupPayloadDir, SETUP_PAYLOAD_MANIFEST), `${JSON.stringify(delivery.setupPayload, null, 2)}\n`);
+    return validateBootstrapProductAssetBundle({ outputDir, setupPayloadDir }, bundle, delivery);
+  });
+}
+
+function compileFullProductAssetBundle({
   workspaceRoot = defaultWorkspaceRoot,
   courseBundlePath = DEFAULT_COURSE_BUNDLE_PATH,
   languageCatalogPath = DEFAULT_LANGUAGE_CATALOG_PATH,
@@ -2957,6 +3133,7 @@ export function compileProductAssetBundle({
   return validateProductAssetBundle({
     outputDir: resolvedOutput,
     configuration: bundle,
+    deliveryMode: "full",
   });
 }
 
@@ -2965,8 +3142,10 @@ export function compileProductAssets({
   courseManifestPath = DEFAULT_COURSE_MANIFEST_PATH,
   languageStaticDir,
   launcherStaticDir = join(workspaceRoot, "apps/launcher/static"),
-  outputDir = join(workspaceRoot, "apps/android/product/build/generated/assets/product")
+  outputDir = join(workspaceRoot, "apps/android/product/build/generated/assets/product"),
+  deliveryMode = "full",
 } = {}) {
+  assert.equal(deliveryMode, "full", "Single-course compilation is the complete Pages/test delivery surface");
   const courseConfiguration = loadAndroidCourseConfiguration({ workspaceRoot, courseManifestPath });
   const resolvedWorkspace = courseConfiguration.workspaceRoot;
   const resolvedLanguage = languageStaticDir
@@ -3062,6 +3241,8 @@ function parseArguments(argv) {
     else if (key === "--language-static" || key === "--source") options.languageStaticDir = resolve(value);
     else if (key === "--launcher-static" || key === "--launcher") options.launcherStaticDir = resolve(value);
     else if (key === "--output") options.outputDir = resolve(value);
+    else if (key === "--delivery-mode") options.deliveryMode = value;
+    else if (key === "--setup-payload-output") options.setupPayloadDir = resolve(value);
     else throw new Error(`Unknown argument: ${key}`);
   }
   return options;
@@ -3083,7 +3264,14 @@ if (process.argv[1] && resolve(process.argv[1]) === resolve(scriptPath)) {
       profile: "product",
       outputDir: result.outputDir,
       fileCount: result.fileCount,
-      totalBytes: result.totalBytes
+      totalBytes: result.totalBytes,
+      ...(result.setupPayloadDir ? {
+        setupPayloadDir: result.setupPayloadDir,
+        logicalBytes: result.logicalBytes,
+        setupBytes: result.setupBytes,
+        sharedSetupBytes: result.sharedSetupBytes,
+        courseSetupBytes: result.courseSetupBytes,
+      } : {}),
     }, null, 2)}\n`);
   }
 }

@@ -12,7 +12,7 @@
     "status": "native-review-required",
     "reviewer": null,
     "reviewedAt": null,
-    "notes": "Spanish base sentences copied without linguistic edits by concept ID from apps/languages/spanish/content/word-world/starter-v1.realizations.json. Spanish meanings of authored English tokens are a new machine-assisted development draft. Qualified native Spanish review is still required; no approval is inherited from the English authority."
+    "notes": "Editorial content pass by Codex on 2026-09-07: all 250 Spanish sentence translations and English-token hints read; contextual hints corrected. Sentence translations retain the Spanish course source wording. See apps/languages/english-from-spanish/content/REVIEW.md. No independent human review is claimed."
   },
   "license": {
     "origin": "caatuu-first-party-authored",
@@ -43,13 +43,13 @@
           "targetLanguage": "en-US",
           "tokenIndex": 0,
           "surface": "Thank",
-          "text": "agradecer"
+          "text": "dar las gracias (thank you: gracias)"
         },
         {
           "targetLanguage": "en-US",
           "tokenIndex": 1,
           "surface": "you",
-          "text": "tú; vosotros; ustedes"
+          "text": "a ti; a usted (thank you: gracias)"
         }
       ]
     },
@@ -319,19 +319,19 @@
           "targetLanguage": "en-US",
           "tokenIndex": 0,
           "surface": "You",
-          "text": "tú; vosotros; ustedes"
+          "text": "parte de you are welcome: de nada"
         },
         {
           "targetLanguage": "en-US",
           "tokenIndex": 1,
           "surface": "are",
-          "text": "eres; estamos; son"
+          "text": "parte de you are welcome: de nada"
         },
         {
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "welcome",
-          "text": "bienvenido; de nada"
+          "text": "de nada (en you are welcome)"
         }
       ]
     },
@@ -997,7 +997,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "to",
-          "text": "a; para"
+          "text": "marca el infinitivo del verbo siguiente; sin traducción directa"
         },
         {
           "targetLanguage": "en-US",
@@ -1417,7 +1417,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "down",
-          "text": "hacia abajo"
+          "text": "parte de sit down: sentarse"
         }
       ]
     },
@@ -2053,7 +2053,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 4,
           "surface": "to",
-          "text": "a; para"
+          "text": "marca el infinitivo del verbo siguiente; sin traducción directa"
         },
         {
           "targetLanguage": "en-US",
@@ -2215,7 +2215,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 5,
           "surface": "desk",
-          "text": "escritorio; mostrador"
+          "text": "pupitre; escritorio"
         }
       ]
     },
@@ -2467,7 +2467,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 1,
           "surface": "know",
-          "text": "saber; conocer"
+          "text": "saber"
         },
         {
           "targetLanguage": "en-US",
@@ -2479,7 +2479,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 3,
           "surface": "answer",
-          "text": "respuesta; responder"
+          "text": "respuesta"
         }
       ]
     },
@@ -2833,7 +2833,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 1,
           "surface": "take",
-          "text": "tomar; llevar"
+          "text": "tomarse (un descanso)"
         },
         {
           "targetLanguage": "en-US",
@@ -2845,7 +2845,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 3,
           "surface": "short",
-          "text": "corto"
+          "text": "breve"
         },
         {
           "targetLanguage": "en-US",
@@ -2911,13 +2911,13 @@
           "targetLanguage": "en-US",
           "tokenIndex": 0,
           "surface": "How",
-          "text": "cómo"
+          "text": "cuánto (con much: cuánto cuestan)"
         },
         {
           "targetLanguage": "en-US",
           "tokenIndex": 1,
           "surface": "much",
-          "text": "mucho"
+          "text": "cuánto (con how: cuánto cuestan)"
         },
         {
           "targetLanguage": "en-US",
@@ -2971,7 +2971,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "to",
-          "text": "a; para"
+          "text": "marca el infinitivo del verbo siguiente; sin traducción directa"
         },
         {
           "targetLanguage": "en-US",
@@ -3031,7 +3031,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 0,
           "surface": "May",
-          "text": "puede; permiso"
+          "text": "puedo (al pedir permiso)"
         },
         {
           "targetLanguage": "en-US",
@@ -3253,13 +3253,13 @@
           "targetLanguage": "en-US",
           "tokenIndex": 0,
           "surface": "Thank",
-          "text": "agradecer"
+          "text": "dar las gracias (thank you: gracias)"
         },
         {
           "targetLanguage": "en-US",
           "tokenIndex": 1,
           "surface": "you",
-          "text": "tú; vosotros; ustedes"
+          "text": "a ti; a usted (thank you: gracias)"
         },
         {
           "targetLanguage": "en-US",
@@ -3361,7 +3361,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 6,
           "surface": "left",
-          "text": "izquierda; dejado"
+          "text": "izquierda"
         }
       ]
     },
@@ -3385,7 +3385,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "right",
-          "text": "derecha; correcto"
+          "text": "derecha"
         },
         {
           "targetLanguage": "en-US",
@@ -3475,7 +3475,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 4,
           "surface": "take",
-          "text": "tomar; llevar"
+          "text": "tomar (un autobús)"
         },
         {
           "targetLanguage": "en-US",
@@ -3919,7 +3919,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "to",
-          "text": "a; para"
+          "text": "marca el infinitivo del verbo siguiente; sin traducción directa"
         },
         {
           "targetLanguage": "en-US",
@@ -4009,13 +4009,13 @@
           "targetLanguage": "en-US",
           "tokenIndex": 5,
           "surface": "to",
-          "text": "a; para"
+          "text": "marca el infinitivo del verbo siguiente; sin traducción directa"
         },
         {
           "targetLanguage": "en-US",
           "tokenIndex": 6,
           "surface": "take",
-          "text": "tomar; llevar"
+          "text": "tomar (un medicamento)"
         },
         {
           "targetLanguage": "en-US",
@@ -4123,13 +4123,13 @@
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "listening",
-          "text": "escuchando"
+          "text": "escuchar (después de like)"
         },
         {
           "targetLanguage": "en-US",
           "tokenIndex": 3,
           "surface": "to",
-          "text": "a; para"
+          "text": "parte de listen to: escuchar; sin preposición en español"
         },
         {
           "targetLanguage": "en-US",
@@ -4159,7 +4159,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "play",
-          "text": "jugar; tocar"
+          "text": "tocar (un instrumento)"
         },
         {
           "targetLanguage": "en-US",
@@ -4243,12 +4243,12 @@
           "targetLanguage": "en-US",
           "tokenIndex": 4,
           "surface": "playing",
-          "text": "jugando; tocando"
+          "text": "jugar (a un deporte)"
         },
         {
           "targetLanguage": "en-US",
           "tokenIndex": 5,
-          "surface": "football",
+          "surface": "soccer",
           "text": "fútbol"
         }
       ]
@@ -4591,7 +4591,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "starts",
-          "text": "empieza"
+          "text": "arranca; se inicia"
         },
         {
           "targetLanguage": "en-US",
@@ -4687,7 +4687,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "works",
-          "text": "funciona; trabaja"
+          "text": "funciona"
         },
         {
           "targetLanguage": "en-US",
@@ -4759,7 +4759,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 3,
           "surface": "too",
-          "text": "demasiado; también"
+          "text": "demasiado"
         },
         {
           "targetLanguage": "en-US",
@@ -4783,7 +4783,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 1,
           "surface": "save",
-          "text": "ahorrar; guardar"
+          "text": "guardar (un archivo)"
         },
         {
           "targetLanguage": "en-US",
@@ -4849,7 +4849,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "free",
-          "text": "libre; gratis"
+          "text": "libre; disponible"
         },
         {
           "targetLanguage": "en-US",
@@ -4885,7 +4885,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 3,
           "surface": "to",
-          "text": "a; para"
+          "text": "marca el infinitivo del verbo siguiente; sin traducción directa"
         },
         {
           "targetLanguage": "en-US",
@@ -4927,7 +4927,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 1,
           "surface": "it",
-          "text": "ello; pronombre neutro"
+          "text": "sujeto impersonal del tiempo; sin traducción directa"
         },
         {
           "targetLanguage": "en-US",
@@ -5263,13 +5263,13 @@
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "to",
-          "text": "a; para"
+          "text": "marca el infinitivo del verbo siguiente; sin traducción directa"
         },
         {
           "targetLanguage": "en-US",
           "tokenIndex": 3,
           "surface": "meet",
-          "text": "conocer; reunirse"
+          "text": "quedar con; reunirse con"
         },
         {
           "targetLanguage": "en-US",
@@ -5431,7 +5431,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "quiet",
-          "text": "tranquilo"
+          "text": "en silencio (keep quiet: guardar silencio)"
         },
         {
           "targetLanguage": "en-US",
@@ -5491,19 +5491,19 @@
           "targetLanguage": "en-US",
           "tokenIndex": 0,
           "surface": "Thank",
-          "text": "agradecer"
+          "text": "dar las gracias (thank you: gracias)"
         },
         {
           "targetLanguage": "en-US",
           "tokenIndex": 1,
           "surface": "you",
-          "text": "tú; vosotros; ustedes"
+          "text": "a ti; a usted (thank you: gracias)"
         },
         {
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "for",
-          "text": "para; durante"
+          "text": "por (al agradecer una acción)"
         },
         {
           "targetLanguage": "en-US",
@@ -5515,7 +5515,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 4,
           "surface": "for",
-          "text": "para; durante"
+          "text": "parte de wait for: esperar a"
         },
         {
           "targetLanguage": "en-US",
@@ -5569,7 +5569,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 3,
           "surface": "yours",
-          "text": "tuyo"
+          "text": "tuyo; suyo (de usted)"
         }
       ]
     },
@@ -5581,7 +5581,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 0,
           "surface": "Welcome",
-          "text": "bienvenido; de nada"
+          "text": "bienvenido; bienvenida"
         },
         {
           "targetLanguage": "en-US",
@@ -5791,7 +5791,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 0,
           "surface": "It",
-          "text": "ello; pronombre neutro"
+          "text": "sujeto impersonal del tiempo; sin traducción directa"
         },
         {
           "targetLanguage": "en-US",
@@ -5881,7 +5881,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 1,
           "surface": "take",
-          "text": "tomar; llevar"
+          "text": "llevar"
         },
         {
           "targetLanguage": "en-US",
@@ -6030,6 +6030,12 @@
         {
           "targetLanguage": "en-US",
           "tokenIndex": 5,
+          "surface": "a",
+          "text": "una"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 6,
           "surface": "university",
           "text": "universidad"
         }
@@ -6265,7 +6271,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 3,
           "surface": "kind",
-          "text": "amable; tipo"
+          "text": "amable"
         }
       ]
     },
@@ -6421,13 +6427,13 @@
           "targetLanguage": "en-US",
           "tokenIndex": 5,
           "surface": "school",
-          "text": "escuela"
+          "text": "escolar (en school bag)"
         },
         {
           "targetLanguage": "en-US",
           "tokenIndex": 6,
           "surface": "bag",
-          "text": "bolsa"
+          "text": "mochila (en school bag)"
         }
       ]
     },
@@ -6553,7 +6559,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 5,
           "surface": "right",
-          "text": "derecha; correcto"
+          "text": "derecha"
         },
         {
           "targetLanguage": "en-US",
@@ -6721,13 +6727,13 @@
           "targetLanguage": "en-US",
           "tokenIndex": 5,
           "surface": "front",
-          "text": "parte delantera"
+          "text": "parte de front desk: recepción"
         },
         {
           "targetLanguage": "en-US",
           "tokenIndex": 6,
           "surface": "desk",
-          "text": "escritorio; mostrador"
+          "text": "recepción (con front)"
         }
       ]
     },
@@ -6877,7 +6883,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "to",
-          "text": "a; para"
+          "text": "marca el infinitivo del verbo siguiente; sin traducción directa"
         },
         {
           "targetLanguage": "en-US",
@@ -7069,7 +7075,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 0,
           "surface": "Let",
-          "text": "dejar; permitir"
+          "text": "propone una acción conjunta (let us take: tomemos)"
         },
         {
           "targetLanguage": "en-US",
@@ -7123,7 +7129,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 3,
           "surface": "moving",
-          "text": "moviéndose; mudándose"
+          "text": "avanzando; moviéndose"
         },
         {
           "targetLanguage": "en-US",
@@ -7135,13 +7141,13 @@
           "targetLanguage": "en-US",
           "tokenIndex": 5,
           "surface": "because",
-          "text": "porque"
+          "text": "a causa de; por (con of)"
         },
         {
           "targetLanguage": "en-US",
           "tokenIndex": 6,
           "surface": "of",
-          "text": "de"
+          "text": "parte de because of: a causa de"
         },
         {
           "targetLanguage": "en-US",
@@ -7207,7 +7213,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 7,
           "surface": "have",
-          "text": "tener; haber"
+          "text": "hacer (un pícnic)"
         },
         {
           "targetLanguage": "en-US",
@@ -7489,7 +7495,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 5,
           "surface": "work",
-          "text": "trabajar; trabajo"
+          "text": "funcionar"
         },
         {
           "targetLanguage": "en-US",
@@ -7537,7 +7543,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "to",
-          "text": "a; para"
+          "text": "marca el infinitivo del verbo siguiente; sin traducción directa"
         },
         {
           "targetLanguage": "en-US",
@@ -7669,7 +7675,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 8,
           "surface": "window",
-          "text": "ventana"
+          "text": "ventanilla (de atención)"
         }
       ]
     },
@@ -7783,7 +7789,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "transfer",
-          "text": "transbordo; transferencia"
+          "text": "transferencia (bancaria)"
         },
         {
           "targetLanguage": "en-US",
@@ -7897,7 +7903,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 4,
           "surface": "to",
-          "text": "a; para"
+          "text": "marca el infinitivo del verbo siguiente; sin traducción directa"
         },
         {
           "targetLanguage": "en-US",
@@ -8227,13 +8233,13 @@
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "to",
-          "text": "a; para"
+          "text": "marca el infinitivo del verbo siguiente; sin traducción directa"
         },
         {
           "targetLanguage": "en-US",
           "tokenIndex": 3,
           "surface": "transfer",
-          "text": "transbordo; transferencia"
+          "text": "hacer transbordo"
         },
         {
           "targetLanguage": "en-US",
@@ -8365,7 +8371,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 3,
           "surface": "strong",
-          "text": "fuerte"
+          "text": "segura; difícil de adivinar (una contraseña)"
         },
         {
           "targetLanguage": "en-US",
@@ -8827,7 +8833,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 4,
           "surface": "save",
-          "text": "ahorrar; guardar"
+          "text": "ahorrar (energía)"
         },
         {
           "targetLanguage": "en-US",
@@ -8983,7 +8989,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 1,
           "surface": "it",
-          "text": "ello; pronombre neutro"
+          "text": "sujeto impersonal del tiempo; sin traducción directa"
         },
         {
           "targetLanguage": "en-US",
@@ -9067,7 +9073,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 4,
           "surface": "time",
-          "text": "tiempo; hora"
+          "text": "hora"
         },
         {
           "targetLanguage": "en-US",
@@ -9091,7 +9097,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 8,
           "surface": "which",
-          "text": "cuál; que"
+          "text": "qué (al elegir una ruta)"
         },
         {
           "targetLanguage": "en-US",
@@ -9103,13 +9109,13 @@
           "targetLanguage": "en-US",
           "tokenIndex": 10,
           "surface": "to",
-          "text": "a; para"
+          "text": "marca el infinitivo del verbo siguiente; sin traducción directa"
         },
         {
           "targetLanguage": "en-US",
           "tokenIndex": 11,
           "surface": "take",
-          "text": "tomar; llevar"
+          "text": "tomar; seguir (una ruta)"
         }
       ]
     },
@@ -9439,7 +9445,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 2,
           "surface": "works",
-          "text": "funciona; trabaja"
+          "text": "funciona"
         },
         {
           "targetLanguage": "en-US",
@@ -9456,24 +9462,18 @@
         {
           "targetLanguage": "en-US",
           "tokenIndex": 5,
-          "surface": "cash",
-          "text": "efectivo"
+          "surface": "ATM",
+          "text": "cajero automático"
         },
         {
           "targetLanguage": "en-US",
           "tokenIndex": 6,
-          "surface": "machine",
-          "text": "máquina"
-        },
-        {
-          "targetLanguage": "en-US",
-          "tokenIndex": 7,
           "surface": "is",
           "text": "es; está"
         },
         {
           "targetLanguage": "en-US",
-          "tokenIndex": 8,
+          "tokenIndex": 7,
           "surface": "unavailable",
           "text": "no disponible"
         }
@@ -9655,13 +9655,13 @@
           "targetLanguage": "en-US",
           "tokenIndex": 11,
           "surface": "front",
-          "text": "parte delantera"
+          "text": "parte de front desk: recepción"
         },
         {
           "targetLanguage": "en-US",
           "tokenIndex": 12,
           "surface": "desk",
-          "text": "escritorio; mostrador"
+          "text": "recepción (con front)"
         }
       ]
     },
@@ -9883,7 +9883,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 1,
           "surface": "listening",
-          "text": "escuchando"
+          "text": "escuchar (después de after)"
         },
         {
           "targetLanguage": "en-US",
@@ -10021,7 +10021,7 @@
           "targetLanguage": "en-US",
           "tokenIndex": 7,
           "surface": "to",
-          "text": "a; para"
+          "text": "parte de listen to: escuchar; sin preposición en español"
         },
         {
           "targetLanguage": "en-US",

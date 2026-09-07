@@ -19,7 +19,7 @@
     "status": "native-review-required",
     "reviewer": null,
     "reviewedAt": null,
-    "notes": "Machine-assisted American English target tokens and Spanish learner presentation for a local development preview. Shared English sentence text is reused by concept ID. Qualified native English and Spanish review is still required."
+    "notes": "Editorial content pass by Codex on 2026-09-07: all 250 sentences and authored tokens read, with American English wording corrections. See apps/languages/english-from-spanish/content/REVIEW.md for scope and remaining limitations. No independent human review is claimed."
   },
   "license": {
     "origin": "caatuu-first-party-authored",
@@ -3645,7 +3645,7 @@
     },
     {
       "conceptId": "ww.hobby.football",
-      "text": "My younger brother likes playing football.",
+      "text": "My younger brother likes playing soccer.",
       "tokens": [
         {
           "surface": "My",
@@ -3673,8 +3673,8 @@
           "playable": true
         },
         {
-          "surface": "football",
-          "gloss": "football",
+          "surface": "soccer",
+          "gloss": "soccer",
           "playable": true
         }
       ]
@@ -5177,7 +5177,7 @@
     },
     {
       "conceptId": "ww.family.sister-university",
-      "text": "My older sister studies at university.",
+      "text": "My older sister studies at a university.",
       "tokens": [
         {
           "surface": "My",
@@ -5202,6 +5202,11 @@
         {
           "surface": "at",
           "gloss": "at",
+          "playable": false
+        },
+        {
+          "surface": "a",
+          "gloss": "a",
           "playable": false
         },
         {
@@ -8102,7 +8107,7 @@
     },
     {
       "conceptId": "ww.problem.card-machine",
-      "text": "My card works, but the cash machine is unavailable.",
+      "text": "My card works, but the ATM is unavailable.",
       "tokens": [
         {
           "surface": "My",
@@ -8130,13 +8135,8 @@
           "playable": false
         },
         {
-          "surface": "cash",
-          "gloss": "cash",
-          "playable": true
-        },
-        {
-          "surface": "machine",
-          "gloss": "machine",
+          "surface": "ATM",
+          "gloss": "automated teller machine",
           "playable": true
         },
         {

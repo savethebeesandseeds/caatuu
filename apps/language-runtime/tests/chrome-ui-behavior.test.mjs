@@ -972,16 +972,33 @@ test("denied notification permission has calm copy and explains that progress st
   harness.window.dispatchEvent({ type: "pagehide" });
 });
 
-test("About keeps update and installation controls outside Advanced", () => {
+test("About preserves its content with a compact update button and install controls stay in Advanced", () => {
   const harness = createBrowserHarness({ course: fixtureCourse() });
   runChrome(harness);
   const panel = harness.document.createElement("div");
   harness.window.CaatuuChrome.renderSettingsPanel(panel);
   const about = panel.innerHTML.slice(panel.innerHTML.indexOf('class="settings-card side-card about-card"'));
   assert.match(about, /id="updateApp"/u);
-  assert.match(about, /id="browserInstallActions"/u);
+  assert.doesNotMatch(about, /id="browserInstallActions"|data-update-app-copy|data-maintenance-action-row/u);
+  assert.match(panel.innerHTML.slice(0, panel.innerHTML.indexOf('class="settings-card side-card about-card"')), /id="browserInstallActions"/u);
+  assert.match(about, /about-brand-note/u);
+  assert.match(about, /legal-notice/u);
+  assert.match(about, /legal-details/u);
   assert.ok(about.indexOf('id="updateApp"') < about.indexOf("<details"), "updating needs no expandable section");
   harness.window.dispatchEvent({ type: "pagehide" });
+});
+
+test("shared update controls keep browser freshness checks and offline failures out of the page chrome", async () => {
+  const h = createBrowserHarness({ course: fixtureCourse() });
+  h.window.CaatuuRuntime = { env: "browser", registerServiceWorker: async () => false };
+  h.window.CaatuuMaintenanceUi = { getUpdateController: () => ({}) };
+  runChrome(h);
+  await Promise.resolve();
+  for (const state of ["checking", "offline", "update-ready"]) {
+    h.window.dispatchEvent({ type: "caatuu:app-freshness", detail: { state } });
+    assert.equal(h.document.querySelector(".app-freshness-notice"), null);
+  }
+  h.window.dispatchEvent({ type: "pagehide" });
 });
 
 test("opening Home over Backpack preserves the current screen until selection", () => {

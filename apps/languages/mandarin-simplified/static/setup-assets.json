@@ -7,7 +7,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-zh-hans-pwa-v146",
+    "cacheName": "caatuu-zh-hans-pwa-v148",
     "cachePrefix": "caatuu-zh-hans-pwa-",
     "assets": [
       "/language-runtime/static/source/english-image-search.mjs?v=english-image-search-2",
@@ -18,8 +18,8 @@
       "source/language/adapter.mjs",
       "data/embeddings/catalog.json",
       "data/games/naturalization-nucleus/challenges.json",
-      "source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-17",
-      "source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-17",
+      "source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-18",
+      "source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-18",
       "data/games/verb-nebula/core-vocabulary.json",
       "data/games/word-world/manifest.json",
       "data/games/word-world/starter-v1.realizations.json",
@@ -27,7 +27,7 @@
       "/language-runtime/contract.mjs",
       "/language-runtime/embedding-runtimes.json",
       "/language-runtime/static/source/initial-theme.js?v=theme-3",
-      "/language-runtime/static/source/app-bootstrap.mjs?v=app-70",
+      "/language-runtime/static/source/app-bootstrap.mjs?v=app-72",
       "/language-runtime/static/source/interface-content.mjs?v=interface-runtime-2",
       "/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-8",
       "/language-runtime/static/source/dictionary-provider-loader.mjs",
@@ -51,8 +51,8 @@
       "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs?v=conjugation-comet-shared-13",
       "/language-runtime/static/styles/games/grammar-gravity.css?v=grammar-gravity-shared-31",
       "/language-runtime/static/styles/games/conjugation-comet.css?v=conjugation-comet-shared-4",
-      "/language-runtime/static/source/caatuu-workspace.js?v=workspace-23",
-      "/language-runtime/static/source/maintenance-ui.js?v=maintenance-22",
+      "/language-runtime/static/source/caatuu-workspace.js?v=workspace-24",
+      "/language-runtime/static/source/maintenance-ui.js?v=maintenance-23",
       "/language-runtime/static/source/child-facing-assets.mjs?v=child-facing-assets-2",
       "/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-12",
       "/language-runtime/static/source/games/verb-nebula/verb-exercise-family-core.mjs?v=verb-exercise-family-core-3",
@@ -62,7 +62,7 @@
       "/language-runtime/static/source/browser-shell.mjs?v=browser-shell-2",
       "/language-runtime/static/source/shell-policy.js?v=shell-policy-15",
       "/language-runtime/static/source/shell-policy.mjs",
-      "/language-runtime/static/source/caatuu-chrome.js?v=chrome-158",
+      "/language-runtime/static/source/caatuu-chrome.js?v=chrome-160",
       "/language-runtime/static/source/learning-profile.js?v=learning-10",
       "/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-24",
       "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-21",
@@ -71,8 +71,8 @@
       "/language-runtime/static/source/english-minilm-ranker.mjs",
       "/language-runtime/static/styles/caatuu-theme.css?v=theme-7",
       "/language-runtime/static/styles/caatuu-workspace.css?v=shell-96",
-      "/language-runtime/static/styles/caatuu-home.css?v=home-53",
-      "/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-133",
+      "/language-runtime/static/styles/caatuu-home.css?v=home-54",
+      "/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-134",
       "/language-runtime/static/styles/caatuu-word-world.css?v=word-net-91",
       "/language-runtime/static/assets/caatuu-shell-512.png",
       "/language-runtime/static/data/interface/en.v1.json?v=interface-en-30",
@@ -197,7 +197,9 @@
       "/assets/macaw/music/music%20(9).png",
       "/assets/macaw/music/music%20(10).png",
       "/assets/macaw/music/music%20(11).png",
-      "/assets/macaw/music/music%20(12).png"
+      "/assets/macaw/music/music%20(12).png",
+      "/language-runtime/static/source/course-setup.mjs",
+      "/language-runtime/static/styles/course-setup.css"
     ]
   },
   "artifacts": [
@@ -206,8 +208,8 @@
       "kind": "shared-application",
       "url": "/zh/index.html",
       "browserRequired": true,
-      "bytes": 95981,
-      "sha256": "2ffcfe62a2972a8aabf1d493b6e0fe95b918c2cddde3e4fdcdc26ab35eebd2b9"
+      "bytes": 96069,
+      "sha256": "7f4af439fe66766bd4dc09e138ec3c71cb2d23866ba431e92ea82282be0725b1"
     },
     {
       "key": "course-profile",
@@ -223,7 +225,7 @@
       "url": "/language-runtime/static/source/app-bootstrap.mjs",
       "browserRequired": true,
       "bytes": 23111,
-      "sha256": "7103eadda9cf04ce85a66d067f03e7c7d5c99f9b1c43f43a07c2a9fbae5d54af"
+      "sha256": "44295665ee5e609212240969eeea20d63c836515de5e3175aa8464b61c321e30"
     },
     {
       "key": "initial-theme",
@@ -286,8 +288,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/caatuu-workspace.js",
       "browserRequired": true,
-      "bytes": 180851,
-      "sha256": "6bfefeff68f04bf36a7d37b02ad22b1e54ab5904649fa8a706a147d720f1090f"
+      "bytes": 180764,
+      "sha256": "7d632a3981b1d0dde06856f0c76779cadf24eb12cf86eef6aebf3a8808f6c59d"
     },
     {
       "key": "child-facing-assets",
@@ -334,8 +336,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/caatuu-chrome.js",
       "browserRequired": true,
-      "bytes": 241619,
-      "sha256": "fdcd04d477176ebf6d73b10999bb4b4ea1fdf93ea021b2e2d564776cc7ea676c"
+      "bytes": 241382,
+      "sha256": "18bd81a56e3534e349749d5ebff190e4d172615190dd1b924ccb2fe23fb3898b"
     },
     {
       "key": "learning-profile",
@@ -406,16 +408,16 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/styles/caatuu-home.css",
       "browserRequired": true,
-      "bytes": 36904,
-      "sha256": "3440aee8547bf8eaef5ddc036b55a9ded415e323e4a3998d0fabc3f60918cbc3"
+      "bytes": 37009,
+      "sha256": "fa7ac5f416846472ef1b2e1eb42447559aca305a4d618c80bbc58efe1754a481"
     },
     {
       "key": "shared-chrome-style",
       "kind": "shared-interface",
       "url": "/language-runtime/static/styles/caatuu-chrome.css",
       "browserRequired": true,
-      "bytes": 107191,
-      "sha256": "cf6a051cc6d0d9790cba555b03a7d01e3738ebe69b862b48e98ce10c20926a06"
+      "bytes": 107206,
+      "sha256": "b0da48c3c445c9991e1d8ff67c5a2c45c6ad936a4af7726743aeb22ee68142d0"
     },
     {
       "key": "shared-word-world-style",
@@ -486,8 +488,8 @@
       "kind": "course-game-runtime",
       "url": "/zh/source/games/naturalization-nucleus/naturalization-nucleus.js",
       "browserRequired": true,
-      "bytes": 64819,
-      "sha256": "b89c8b904cb10d33c598056b25a6711f9a216498fd1a519e47411ce59dff7831"
+      "bytes": 65147,
+      "sha256": "582eadcf87c7a58cc600e5f12514d3b7b6f4866cb4b587acab8b1bc531233deb"
     },
     {
       "key": "naturalization-nucleus-style",
@@ -495,7 +497,7 @@
       "url": "/zh/source/games/naturalization-nucleus/naturalization-nucleus.css",
       "browserRequired": true,
       "bytes": 16801,
-      "sha256": "6a96c8fd8da29e0bbdad858b89a8fa0cb6cd1ca7ccdbff3b36207b62d64cea38"
+      "sha256": "55a2d7665f51adc0996ce91ccbe7ec211891042542f3f33e64c8b0cca34ca13c"
     },
     {
       "key": "planet-naturalization-nucleus",
@@ -527,7 +529,7 @@
       "url": "/zh/sw.js",
       "browserRequired": true,
       "bytes": 143,
-      "sha256": "474bc3993f65bb05884a3f17af76057766594eec1261296e2dc628ffbab78045"
+      "sha256": "bdee29f62d1cb286b3ccd93a80e440fe796d8a76ff89f745ea1172ae20211b1f"
     },
     {
       "key": "shared-course-service-worker",

@@ -4,8 +4,8 @@ import {
 } from "./interface-content.mjs?v=interface-runtime-2";
 
 const BOOTSTRAP_PATH = "/language-runtime/static/source/legacy-page-bootstrap.mjs";
-const CHROME_SCRIPT = "/language-runtime/static/source/caatuu-chrome.js?v=chrome-155";
-const MAINTENANCE_SCRIPT = "/language-runtime/static/source/maintenance-ui.js?v=maintenance-19";
+const CHROME_SCRIPT = "/language-runtime/static/source/caatuu-chrome.js?v=chrome-160";
+const MAINTENANCE_SCRIPT = "/language-runtime/static/source/maintenance-ui.js?v=maintenance-23";
 const FEATURE_MODULE_PATTERN = /^source\/(?:features|games)\/[a-z0-9]+(?:-[a-z0-9]+)*\/[a-z0-9]+(?:-[a-z0-9]+)*\.js\?v=[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 const ROUTE_PREFIX_PATTERN = /^\/[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 

@@ -35,6 +35,16 @@ test('Spanish word hints retain contextual senses instead of generic literal sub
   assert.match(hint('ww.routine.get-up', 'get'), /levantarse/u);
   assert.equal(hint('ww.number.three-apples', 'are'), 'hay (con there)');
   assert.equal(hint('ww.family.together', 'are'), 'somos');
+  assert.equal(hint('ww.housing.heating-contact', 'work'), 'funcionar');
+  assert.match(hint('ww.service.package-desk', 'desk'), /recepción/u);
+  assert.equal(hint('ww.travel.next-transfer', 'transfer'), 'hacer transbordo');
+  assert.match(hint('ww.plan.want-school', 'go'), /ir/u);
+  const toHints = byId.get('ww.plan.want-school').tokenMeanings.filter(token => token.surface === 'to');
+  assert.match(toHints[0].text, /infinitivo/u);
+  assert.doesNotMatch(toHints[1].text, /infinitivo/u);
+  const forHints = byId.get('ww.politeness.thanks-wait').tokenMeanings.filter(token => token.surface === 'for');
+  assert.match(forHints[0].text, /^por /u);
+  assert.match(forHints[1].text, /wait for/u);
 });
 
 test('the Spanish-to-English course owns direction, identity, resources and isolated state', async () => {
@@ -46,7 +56,7 @@ test('the Spanish-to-English course owns direction, identity, resources and isol
   assert.equal(course.routePrefix, '/es-en');
   assert.equal(course.platforms.browser.enabled, true);
   assert.equal(course.platforms.browser.pagesEnabled, false);
-  assert.equal(course.platforms.android.enabled, false);
+  assert.equal(course.platforms.android.enabled, true);
   assert.equal(course.resources.interfaceCatalog.path, 'apps/language-runtime/static/data/interface/es.v1.json');
   assert.equal(course.resources.interfaceCatalog.revision, (await json('../../language-runtime/static/data/interface/es.v1.json')).revision);
   assert.equal(course.resources.appEntry.scope, 'shared');

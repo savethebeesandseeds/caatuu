@@ -7,6 +7,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { validatePagesCurrentReleaseDescriptor } from "./pages-current-release.mjs";
+import { readZipEntry } from "./pages-baseline.mjs";
 
 const modulePath = fileURLToPath(import.meta.url);
 const moduleDirectory = dirname(modulePath);
@@ -232,6 +233,32 @@ async function exactJson(request, origin, record, label) {
   return { bytes, value };
 }
 
+/** The verified APK, rather than current repository sources, pins setup URLs. */
+export async function verifyPublicSetupPayload({ apkBytes, bundle, request, origin }) {
+  const courses = JSON.parse(readZipEntry(apkBytes, "assets/caatuu-course-bundle.json").toString("utf8"));
+  const records = new Map();
+  for (const course of courses.courses) {
+    const setup = JSON.parse(readZipEntry(apkBytes, `assets/${course.assetPrefix}/setup-assets.json`).toString("utf8"));
+    for (const artifact of setup.artifacts.filter((item) => item.native_required === true)) {
+      const url = new URL(artifact.url, origin);
+      if (!url.pathname.startsWith("/assets/setup/")) continue;
+      assert.equal(url.origin, origin, "Public setup object changed origin");
+      assert.ok(!url.search && !url.hash && !url.username && !url.password, "Public setup URL is not immutable");
+      assert.ok(url.pathname.startsWith(`/assets/setup/${artifact.sha256}/`), "Public setup URL is not content-addressed");
+      const record = { path: url.pathname, bytes: artifact.bytes, sha256: artifact.sha256 };
+      if (records.has(record.path)) assert.deepEqual(records.get(record.path), record, "Public APK requires conflicting setup bytes");
+      records.set(record.path, record);
+      inventoryRecord(bundle, record.path, record, `Android setup ${artifact.key}`);
+    }
+  }
+  const pending = [...records.values()];
+  let cursor = 0;
+  await Promise.all(Array.from({ length: Math.min(8, pending.length) }, async () => {
+    while (cursor < pending.length) { const record = pending[cursor++]; await exactBytes(request, origin, record, `Android setup ${record.path}`); }
+  }));
+  return records.size;
+}
+
 function validateAndroidManifest(value, channel, label, currentDescriptor) {
   assert.equal(value.schema_version, 1, `${label} schema changed`);
   assert.equal(value.package_name, "com.waajacu.caatuu", `${label} package changed`);
@@ -416,7 +443,7 @@ export async function verifyPublicPagesReleaseOnce({
   // Keep stale-cache checks cheap. Full current APK verification happens only
   // after the Pages metadata, immutable manifests, old routes, and Worker agree.
   const languageRegistry = androidOnly ? null : await publicLanguageRegistry(timedFetch, origin);
-  await publicBundle(timedFetch, origin, current, baseline, languageRegistry);
+  const bundle = await publicBundle(timedFetch, origin, current, baseline, languageRegistry);
   if (!androidOnly) {
     for (const path of languageRegistry.entrypoints) await htmlEntrypoint(timedFetch, origin, path);
   }
@@ -461,7 +488,8 @@ export async function verifyPublicPagesReleaseOnce({
   // An unrelated reporting service cannot block publication of immutable APKs.
   const health = androidOnly ? null : await reportingHealth(timedFetch, origin);
 
-  await exactBytes(apkFetch, origin, stable.apk, `Android ${stable.versionCode} immutable APK`);
+  const apkBytes = await exactBytes(apkFetch, origin, stable.apk, `Android ${stable.versionCode} immutable APK`);
+  if (current.stable.setup) await verifyPublicSetupPayload({ apkBytes, bundle, request: timedFetch, origin });
   await exactBytes(
     apkFetch,
     origin,

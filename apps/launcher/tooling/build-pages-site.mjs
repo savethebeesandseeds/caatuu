@@ -60,6 +60,7 @@ const sharedCourseWorkerPublicPath = "language-runtime/static/source/course-serv
 const courseCacheRevisionSentinel = "CAATUU_PAGES_CACHE_REVISION";
 const durableReleasePrefixes = [
   "/android/",
+  "/assets/setup/",
   "/cz/data/dictionaries/",
   "/cz/data/embeddings/",
   "/language-runtime/models/",
@@ -548,6 +549,16 @@ function overlayAndroidReleases({ currentRelease, siteDir }) {
       release.apk,
       `Android ${release.versionCode} APK`,
     );
+    for (const [path, object] of loaded.setupPayload ?? []) {
+      const destination = outputPath(siteDir, path);
+      if (existsSync(destination)) {
+        assert.equal(statSync(destination).size, object.bytes, `Immutable Android setup byte count changed: ${path}`);
+        assert.equal(sha256File(destination), object.sha256, `Immutable Android setup hash changed: ${path}`);
+      } else {
+        mkdirSync(dirname(destination), { recursive: true });
+        writeFileSync(destination, object.content, { flag: "wx" });
+      }
+    }
   }
 }
 

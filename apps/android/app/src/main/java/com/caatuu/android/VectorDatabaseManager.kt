@@ -376,13 +376,13 @@ class VectorDatabaseManager(
             .put("models", embeddingModelCatalogJson())
     }
 
-    suspend fun deleteLocalDatabases(): JSONObject =
+    suspend fun deleteLocalDatabases(preserveStoragePaths: Set<String> = emptySet()): JSONObject =
         withContext(Dispatchers.IO) {
             close()
             val databasesDir = databasesDir()
             var bytesDeleted = 0L
             var deleted = true
-            vectorCatalog.models.forEach { spec ->
+            vectorCatalog.models.filterNot { "vector-dbs/${it.fileName}" in preserveStoragePaths }.forEach { spec ->
                 val candidates = listOf(
                     databaseFile(spec, databasesDir),
                     markerFile(spec, databasesDir),
@@ -659,9 +659,11 @@ class VectorDatabaseManager(
         file.isFile &&
             file.length() == spec.bytes &&
             marker.isFile &&
-            marker.readText().trim() == identityMarker(spec)
+            marker.readText().trim() == identityMarker(spec) &&
+            fileVerifier.matches(file, spec.bytes, spec.sha256)
 
     companion object {
+        private val fileVerifier = VerifiedArtifactFiles()
         const val EMBEDDING_DIMENSION = 384
         const val EMBEDDING_TEXT_FIELD = "english_text"
         const val EMBEDDING_INPUT_POLICY = "english_text_only"

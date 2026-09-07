@@ -53,7 +53,7 @@ candidate_receipt="${CAATUU_RELEASE_CANDIDATE_RECEIPT:-$repo_root/artifacts/andr
 # and mutable output paths, so neither kind may build concurrently. Keep the
 # established lock filename so an invocation started by older tooling still
 # excludes this one.
-for command in git node flock mkdir; do
+for command in git node tar flock mkdir; do
   command -v "$command" >/dev/null 2>&1 || {
     echo "$command is required to coordinate a Caatuu release build." >&2
     exit 1
@@ -308,6 +308,16 @@ if [[ "$signed" == false ]]; then
 fi
 finish_phase
 
+start_phase "Seal downloadable setup payload"
+setup_output_args=(--output-dir "$repo_root/artifacts/android/release-candidates/setup")
+setup_summary="$(node "$repo_root/apps/android/tooling/setup-payload.mjs" package \
+  --repo-root "$repo_root" --input "$repo_root/apps/android/product/build/generated/assets/product-setup" \
+  "${setup_output_args[@]}")"
+setup_relative="$(node -e 'process.stdout.write(JSON.parse(process.argv[1]).path)' "$setup_summary")"
+setup_archive="$repo_root/$setup_relative"
+node "$repo_root/apps/android/tooling/setup-payload.mjs" verify --archive "$setup_archive" --apk "$output_universal_apk"
+finish_phase
+
 start_phase "Validate package boundary"
 # Only this publisher invocation may reuse the full audit below. Receipt reuse
 # exits earlier without emitting proof, so it cannot masquerade as a new audit.
@@ -322,11 +332,13 @@ if [[ "$signed" == true && -n "${CAATUU_RELEASE_AUDIT_CHALLENGE:-}" && -n "${CAA
   }
   audit_input="$(node "$repo_root/apps/android/tooling/release-candidate.mjs" capture-audit-input \
     --repo-root "$repo_root" --apk "artifacts/android/caatuu-universal.apk" --aab "artifacts/android/caatuu.aab" \
+    --setup "$setup_relative" \
     --source-revision "$source_revision" --apkanalyzer "$(command -v apkanalyzer)" --unzip "$(command -v unzip)")"
 fi
 node "$repo_root/apps/android/tooling/validate-product-package.mjs" \
   --aab "$output_aab" \
   --apk "$output_universal_apk" \
+  --setup "$setup_archive" \
   --apkanalyzer "$(command -v apkanalyzer)" \
   --unzip "$(command -v unzip)"
 finish_phase
@@ -359,6 +371,7 @@ if [[ "$signed" == true ]]; then
     --repo-root "$repo_root" \
     --apk "artifacts/android/caatuu-universal.apk" \
     --aab "artifacts/android/caatuu.aab" \
+    --setup "$setup_relative" \
     --source-revision "$source_revision" \
     --package-name "$package_name" \
     --version-code "$version_code" \

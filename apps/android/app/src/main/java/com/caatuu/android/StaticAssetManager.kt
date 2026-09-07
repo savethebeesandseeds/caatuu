@@ -13,6 +13,8 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
+import java.nio.file.Files
+import java.nio.file.StandardCopyOption
 import java.security.MessageDigest
 import kotlin.coroutines.coroutineContext
 
@@ -46,11 +48,13 @@ class StaticAssetManager(
 
     fun requiredAssetSpecs(): List<StaticAssetSpec> = requiredAssets
 
+    fun isReady(): Boolean = requiredAssets.all { verifiedLocalAsset(it) != null }
+
     internal fun storageArtifacts(courseId: String): List<NativeStorageArtifact> =
         requiredAssets.map { spec ->
             NativeArtifactContract.storageArtifact(
                 courseId,
-                "setup-assets/${spec.assetPath}",
+                "setup-assets/${NativeArtifactContract.staticAssetStoragePath(spec.assetPath, spec.sha256)}",
                 spec.url,
                 spec.assetPath,
                 spec.bytes,
@@ -71,15 +75,17 @@ class StaticAssetManager(
         requiredAssets.firstOrNull { spec -> spec.assetPath == assetPath }?.let(::verifiedLocalAsset)
 
     private fun verifiedLocalAsset(spec: StaticAssetSpec): File? {
-        val file = localAssetFile(appContext, spec.assetPath)
+        val file = versionedAssetFile(spec)
         val marker = markerFile(appContext, spec)
-        return file.takeIf {
-            it.isFile &&
-                it.length() == spec.bytes &&
-                marker.isFile &&
-                marker.readText().trim() == identityMarker(spec)
-        }
+        if (marker.isFile && marker.readText().trim() == identityMarker(spec) &&
+            fileVerifier.matches(file, spec.bytes, spec.sha256)) return file
+        // Older APK caches stay read-only. Matching bytes can be adopted without a download.
+        return localAssetFile(appContext, spec.assetPath)
+            .takeIf { fileVerifier.matches(it, spec.bytes, spec.sha256) }
     }
+
+    private fun versionedAssetFile(spec: StaticAssetSpec): File =
+        localAssetFile(appContext, NativeArtifactContract.staticAssetStoragePath(spec.assetPath, spec.sha256))
 
     fun statusJson(): JSONObject {
         val assets = JSONArray()
@@ -88,13 +94,11 @@ class StaticAssetManager(
         var expectedBytes = 0L
 
         requiredAssets.forEach { spec ->
-            val file = localAssetFile(appContext, spec.assetPath)
-            val marker = markerFile(appContext, spec)
-            val fileBytes = file.takeIf { it.isFile }?.length() ?: 0L
-            val ready = file.isFile &&
-                marker.isFile &&
-                marker.readText().trim() == identityMarker(spec) &&
-                fileBytes == spec.bytes
+            val verified = verifiedLocalAsset(spec)
+            val file = verified ?: versionedAssetFile(spec)
+            val partial = File(file.parentFile, "${file.name}.download")
+            val fileBytes = verified?.length() ?: partial.takeIf { it.isFile }?.length()?.coerceAtMost(spec.bytes) ?: 0L
+            val ready = verified != null
             if (ready) readyArtifacts += 1
             bytes += fileBytes
             expectedBytes += spec.bytes
@@ -109,10 +113,10 @@ class StaticAssetManager(
                     .put("sha256", spec.sha256)
                     .put("path", file.absolutePath)
                     .put("bytes", fileBytes)
-                    .put("downloaded", file.isFile && fileBytes == spec.bytes)
+                    .put("downloaded", ready)
                     .put("verified", ready)
                     .put("ready", ready)
-                    .put("partial", file.isFile && fileBytes != spec.bytes),
+                    .put("partial", !ready && fileBytes > 0L),
             )
         }
 
@@ -127,13 +131,14 @@ class StaticAssetManager(
 
     suspend fun ensureAsset(spec: StaticAssetSpec, onProgress: (ModelProgress) -> Unit): File =
         withContext(Dispatchers.IO) {
-            val file = localAssetFile(appContext, spec.assetPath)
+            val file = versionedAssetFile(spec)
             val marker = markerFile(appContext, spec)
             file.parentFile?.mkdirs()
 
-            if (verifiedLocalAsset(spec) != null) {
+            val existing = verifiedLocalAsset(spec)
+            if (existing != null) {
                 onProgress(ModelProgress(spec.bytes, spec.bytes))
-                return@withContext file
+                return@withContext existing
             }
             if (file.isFile && file.length() == spec.bytes && sha256(file) == spec.sha256) {
                 marker.writeText(identityMarker(spec))
@@ -144,7 +149,7 @@ class StaticAssetManager(
             file.delete()
             marker.delete()
 
-            val tmpFile = NativeArtifactContract.canonicalChild(
+            val tmpFile = NativeArtifactContract.canonicalDescendant(
                 requireNotNull(file.parentFile),
                 "${file.name}.download",
                 "Setup asset temporary download",
@@ -222,23 +227,25 @@ class StaticAssetManager(
                 throw IOException("Asset SHA-256 mismatch for ${spec.assetPath}: expected ${spec.sha256}, got $actualSha")
             }
 
-            tmpFile.copyTo(file, overwrite = true)
-            tmpFile.delete()
+            Files.move(tmpFile.toPath(), file.toPath(), StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING)
             marker.writeText(identityMarker(spec))
             onProgress(ModelProgress(spec.bytes, spec.bytes))
             file
         }
 
-    suspend fun deleteLocalAssets(): JSONObject =
+    suspend fun deleteLocalAssets(preserveAssetPaths: Set<String> = emptySet()): JSONObject =
         withContext(Dispatchers.IO) {
             val root = rootDir(appContext)
             var bytesDeleted = 0L
             var deleted = true
-            requiredAssets.forEach { spec ->
-                val file = localAssetFile(appContext, spec.assetPath)
+            requiredAssets.filterNot { it.assetPath in preserveAssetPaths }.forEach { spec ->
+                val file = versionedAssetFile(spec)
                 val download = File(file.parentFile, "${file.name}.download")
                 val marker = markerFile(appContext, spec)
-                for (candidate in listOf(file, download, marker)) {
+                val legacy = localAssetFile(appContext, spec.assetPath)
+                    .takeIf { fileVerifier.matches(it, spec.bytes, spec.sha256) }
+                val legacyFiles = legacy?.let { listOf(it, File(it.parentFile, "${it.name}.sha256"), File(it.parentFile, "${it.name}.download")) }.orEmpty()
+                for (candidate in listOf(file, download, marker) + legacyFiles) {
                     bytesDeleted += directorySize(candidate)
                     if (candidate.exists()) deleted = candidate.deleteRecursively() && deleted
                 }
@@ -354,6 +361,7 @@ class StaticAssetManager(
         private const val ASSET_ROOT = "setup-assets"
         private const val ASSET_BASE_URL = "https://caatuu.waajacu.com"
         private const val DEFAULT_SETUP_ASSET_MANIFEST = "setup-assets.json"
+        private val fileVerifier = VerifiedArtifactFiles()
         private val RETIRED_MASCOT_ASSET_DIRECTORIES = listOf(
             "assets/aliens",
             "assets/language-mascots",
@@ -387,7 +395,7 @@ class StaticAssetManager(
         private fun markerFile(context: Context, spec: StaticAssetSpec): File =
             NativeArtifactContract.canonicalDescendant(
                 rootDir(context),
-                "${spec.assetPath}.sha256",
+                "${NativeArtifactContract.staticAssetStoragePath(spec.assetPath, spec.sha256)}.sha256",
                 "Setup asset identity marker",
             )
 

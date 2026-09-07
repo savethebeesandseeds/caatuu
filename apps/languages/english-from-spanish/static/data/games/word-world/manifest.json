@@ -18,7 +18,7 @@
   "review": {
     "status": "native-review-required",
     "pronunciationApproved": false,
-    "notes": "Machine-assisted American English target tokens and Spanish learner presentation for a local development preview. Shared English sentence text is reused by concept ID. Qualified native English and Spanish review is still required."
+    "notes": "Editorial content pass by Codex on 2026-09-07: all 250 sentences and authored tokens read, with American English wording corrections. See apps/languages/english-from-spanish/content/REVIEW.md for scope and remaining limitations. No independent human review is claimed."
   },
   "capabilities": {
     "llm": false,

@@ -73,7 +73,7 @@
       module: "source/language/adapter.mjs"
     },
     browserProviders: {
-      courseRuntime: "source/shared/runtime.js?v=runtime-41",
+      courseRuntime: "source/shared/runtime.js?v=runtime-42",
       semanticLearningProvider: "source/shared/semantic-learning.js?v=semantic-learning-7",
       setupProgressProvider: "source/features/setup/setup-progress.js?v=setup-progress-1",
       setupProvider: "source/features/setup/setup.js?v=setup-42"

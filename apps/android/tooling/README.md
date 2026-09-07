@@ -19,6 +19,37 @@ document and shared runtime; their files live below `courses/<id>/`.
 The English MiniLM weights are not APK payload: setup downloads the hash-pinned
 shared runtime once into app-private storage, where every course reuses it.
 
+The product compiler's default delivery mode is a bootstrap APK. Its reviewed
+engine, setup catalogs, provider descriptors, interface strings and native shell
+stay packaged; curriculum and larger artwork use the existing selected-course
+setup download path. Logical asset paths stay the same. Shared objects install
+once into shared app storage, while course content remains below
+`courses/<id>/`. The complete runtime catalogs remain authoritative for the
+union of packaged and downloaded content. Website/single-course exports select
+full delivery explicitly.
+
+`build-product-assets.mjs` writes the companion folder beside the product
+output, normally `product/build/generated/assets/product-setup`. Its
+`caatuu-setup-payload.json` inventory records `{path, file, assetPath, bytes,
+sha256}` for every removed logical asset. Public `path` is
+`assets/setup/<sha256>/<filename>` and archive `file` is
+`objects/<sha256>/<filename>`. The payload contains transformed production
+bytes; it never re-reads a newer checkout at deployment time.
+
+The maintained builder calls `setup-payload.mjs` to create a deterministic
+regular-file ustar archive with exact inventory closure, no links or path
+escapes, and a 256 MiB transport safety limit. It verifies every object against
+the small APK-embedded course setup catalogs before sealing `artifacts.setup`
+in the existing version-1 candidate receipt. Candidate archives use their own
+SHA-256 filenames, so a repaired build can coexist with a failed attempt.
+Old receipts omit this optional
+record. The finalizer installs the version-owned archive before its completion
+receipt; retries retain the same hash. The deployer uploads the optional fourth
+GitHub Release asset and Pages retains each immutable object for every recorded
+Android version. Public verification hashes current setup objects using the
+verified APK as the authority. See the
+[release operations runbook](../../../docs/ANDROID_RELEASE_OPERATIONS.md).
+
 Development courses may be bundled for hands-on APK testing without claiming
 their pending curriculum reviews are complete. Android enablement does not
 promote a course to active status or enable its Pages route.
@@ -139,7 +170,7 @@ content release validator. Full fixture builds and website export tests belong
 to source CI, not every APK publication. The real asset compiler and final
 archive audit still enforce package capabilities and source/asset integrity.
 The publisher can reuse a fresh builder's full archive audit only within the
-same invocation, using a private challenge bound to pre-audit APK/AAB hashes,
+same invocation, using a private challenge bound to pre-audit APK/AAB and optional setup archive hashes,
 the sealed receipt, clean source revision and verifier/launcher identities.
 It still checks copied hashes, package/version/debug state and the signing pin.
 Missing or stale proof, changed inputs and adopted candidates retain the full
@@ -157,7 +188,7 @@ implementation. Browser development keeps the full hub.
 
 The builder writes a version-owned receipt under
 `artifacts/android/release-candidates/` that binds
-the APK and AAB hashes, sizes, package, version, signer, and source commit. It
+the APK, AAB and optional setup archive hashes and sizes, plus package, version, signer, and source commit. It
 then finalizes the same APK at `artifacts/android/releases/<versionCode>/`.
 
 If a valid receipt already exists, `--build-once` reuses it. A bare
@@ -225,7 +256,9 @@ existing release workflow, not alternate publication entrypoints. The live
 GitHub Releases. Explicit website publications seal a new archive automatically;
 Android publications keep that archive and every subsequent live immutable
 addition, including setup assets needed by older installed releases. They can
-add missing content-addressed setup files only from the verified sealed APK.
+add missing content-addressed setup files only from the verified sealed APK or
+its receipt-bound companion archive. Both deployment scopes retain objects
+from all earlier recorded companion archives.
 They cannot replace website files, overwrite an immutable release, or roll back
 the live stable version. GitHub Pages still requires uploading a complete site
 artifact, but that is file transport, not a source build.
@@ -233,11 +266,12 @@ artifact, but that is file transport, not a source build.
 Setup uses a packaged asset directly when its actual APK bytes match its
 catalog receipt; it does not download a second copy from the website. The
 compiler marks these entries `android_packaged`, and the final archive audit
-checks every marked entry. Remaining external downloads are checked against the
-published byte inventory during asset compilation, before signing. Changed
-external artwork must be bundled or published at its own immutable URL; never
-replace files still required by older installations. This check reads artifact
-paths and hashes, not browser copy or interface schemas.
+checks every marked entry. New curriculum and artwork downloads are checked
+against the sealed companion before signing and included in the verified site
+before the stable alias is published. Other external downloads are checked
+against the published byte inventory during asset compilation. Changed artwork
+receives its own immutable URL; never replace files still required by older
+installations. These checks use artifact paths and hashes.
 
 The one-time `pages-website-bootstrap.json` receipt preserves the last deployed
 website before snapshot support (successful run 33749970406). Its bytes were
@@ -517,7 +551,7 @@ Gradle.
 - Do not rename or copy a debug build over the stable filenames. It breaks
   signing continuity and makes an unsafe artifact look like a release.
 - Never reuse a `versionCode` for changed bytes. Candidate receipts and the
-  finalizer reject a different APK, AAB, manifest, or source commit.
+  finalizer reject a different APK, AAB, setup payload, manifest, or source commit.
 - The release publisher serializes the immutable check and final artifact moves
   through `artifacts/android/.artifact-publication.lock`; do not bypass that
   lock with manual copies.

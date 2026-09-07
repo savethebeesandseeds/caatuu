@@ -358,7 +358,7 @@
       "path": "apps/languages/czech/static/source/shared/runtime.js",
       "scope": "course",
       "state": "present",
-      "revision": "runtime-41"
+      "revision": "runtime-42"
     },
     "semanticLearningProvider": {
       "kind": "file",

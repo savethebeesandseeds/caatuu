@@ -8,9 +8,19 @@ import {
   assertGenericEmbeddingCatalog,
   assertGenericEmbeddingManifest,
   assertPackageSharedStorage,
+  assertSetupPayloadSourcePolicy,
   requiredAssetPaths,
   requiredNativeClassNames,
 } from "../validate-product-package.mjs";
+
+test("companion delivery preserves first-party source restrictions without treating media as code", () => {
+  const payload = (path, content) => new Map([[path, { assetPaths: [path], content: Buffer.from(content) }]]);
+  assertSetupPayloadSourcePolicy(payload("courses/cz/data/dictionaries/reference.html", "<p>Dictionary reference</p>"));
+  assert.throws(() => assertSetupPayloadSourcePolicy(payload("courses/cz/data/dictionaries/reference.html", '<script>nativeCall("prompt")</script>')), /forbidden product pattern/u);
+  assert.throws(() => assertSetupPayloadSourcePolicy(payload("language-runtime/static/data/features.json", '{"path":"chat.html"}')), /forbidden product pattern/u);
+  assertSetupPayloadSourcePolicy(payload("assets/art.png", "chat.html"));
+  assertSetupPayloadSourcePolicy(payload("courses/cz/vendor/module.js", "chat.html"));
+});
 
 function capabilities(overrides = {}) {
   return {

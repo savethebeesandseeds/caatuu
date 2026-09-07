@@ -89,6 +89,9 @@ class BundledCourseRegistry private constructor(
 
     fun resolveAsset(path: String): BundledAssetResolution? {
         val normalizedPath = normalizedRequestPath(path) ?: return null
+        if (normalizedPath in setOf("/setup.html", "/$DEFAULT_BUNDLE_ASSET")) {
+            return BundledAssetResolution(normalizedPath.trimStart('/'))
+        }
         if (normalizedPath.startsWith(SHARED_LANGUAGE_RUNTIME_ROUTE_PREFIX)) {
             return BundledAssetResolution(normalizedPath.trimStart('/'))
         }

@@ -151,6 +151,22 @@ test("artifact changes between the audit and sealing cannot produce reuse proof"
   assert.throws(() => createInvocationAuditProof({ repoRoot: f.repoRoot, receiptPath, auditInput: f.auditInput, challenge: f.challenge, verifyCommit, ...f.context }), /between package audit and sealing/u);
 });
 
+test("same-invocation proof seals and rechecks downloadable setup bytes", (t) => {
+  const f = auditFixture(t);
+  const setup = "artifacts/android/setup.tar";
+  writeFileSync(join(f.repoRoot, setup), "original downloadable content");
+  const setupOptions = { ...options(f.repoRoot), setup, mode: "builder-emitted" };
+  const input = capturePackageAuditInput({ ...setupOptions, ...f.context });
+  const receiptPath = "artifacts/android/release-candidates/with-setup.json";
+  sealCandidateReceipt({ ...setupOptions, output: receiptPath });
+  const proof = createInvocationAuditProof({ repoRoot: f.repoRoot, receiptPath, auditInput: input, challenge: f.challenge, verifyCommit, ...f.context });
+  writeFileSync(join(f.repoRoot, f.proofPath), JSON.stringify(proof));
+  verifyInvocationAuditProof({ ...f.verify, receiptPath, setup });
+  writeFileSync(join(f.repoRoot, setup), "mutated downloadable content");
+  assert.throws(() => verifyInvocationAuditProof({ ...f.verify, receiptPath, setup }), /SETUP.*changed/u);
+  assert.throws(() => createInvocationAuditProof({ repoRoot: f.repoRoot, receiptPath, auditInput: input, challenge: f.challenge, verifyCommit, ...f.context }), /SETUP bytes changed/u);
+});
+
 test("adoption cannot create same-invocation builder audit proof", (t) => {
   const f = auditFixture(t);
   const receiptPath = "artifacts/android/release-candidates/adopted.json";

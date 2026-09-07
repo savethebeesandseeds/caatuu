@@ -193,7 +193,7 @@ body {
   text-align: left;
 }
 
-.native-setup-card.is-ready:not(.is-updating):not(.is-app-update-lock):not(.is-error) + .home-language-card {
+.native-setup-card.is-ready:not(.is-updating):not(.is-app-update-lock):not(.is-error) ~ .home-language-card {
   display: grid;
 }
 
@@ -941,6 +941,13 @@ body.app-update-lock [data-caatuu-app-header] button {
   color: var(--setup-muted);
   font-size: .82rem;
   overflow-wrap: anywhere;
+}
+
+.home-app-update:not([hidden]) {
+  display: grid;
+  justify-items: end;
+  gap: 8px;
+  margin: 12px 0;
 }
 
 .setup-head h2 {

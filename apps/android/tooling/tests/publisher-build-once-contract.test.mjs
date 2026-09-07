@@ -235,3 +235,21 @@ test("only a fresh successful builder invocation can reuse its full package audi
   assert.match(adoption, /validate_and_read_existing_candidate "\$source_apk" "\$source_aab"/u);
   assert.doesNotMatch(adoption, /invocation_audit|emit-audit-proof/u);
 });
+
+test("downloadable payload is sealed before the audit and finalized before receipt or aliases", () => {
+  const packagePayload = builder.indexOf('setup-payload.mjs" package');
+  const validatePayload = builder.indexOf('setup-payload.mjs" verify');
+  const auditInput = builder.indexOf('release-candidate.mjs" capture-audit-input');
+  assert.ok(packagePayload > 0 && packagePayload < validatePayload && validatePayload < auditInput);
+  assert.match(builder.slice(auditInput), /--setup "\$setup_relative"/u);
+  assert.match(builder.slice(0, auditInput), /--output-dir "\$repo_root\/artifacts\/android\/release-candidates\/setup"/u);
+  assert.doesNotMatch(builder.slice(packagePayload - 350, validatePayload), /--output "\$temporary_dir\/setup-payload\.tar"/u);
+  assert.equal((builder.match(/setup_output_args=/gu) || []).length, 1, "Unsigned builds must use the same workspace-confined content-addressed payload directory");
+  const snapshot = publisher.indexOf('cp "$repo_root/$setup_relative" "$staged_setup"');
+  const validate = publisher.indexOf('setup-payload.mjs" verify --archive "$staged_setup"');
+  const install = publisher.indexOf('mv "$install_setup_tmp" "$versioned_setup"');
+  const receipt = publisher.indexOf('mv "$install_receipt_tmp" "$versioned_receipt"');
+  const aliases = publisher.indexOf('release-publication-state.mjs" assert-alias-update');
+  assert.ok(snapshot > 0 && snapshot < validate && validate < install && install < receipt && receipt < aliases);
+  assert.doesNotMatch(publisher.slice(install), /setup-payload\.mjs" package|cp "\$repo_root\/\$setup_relative"/u);
+});

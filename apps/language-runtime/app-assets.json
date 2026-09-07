@@ -2,6 +2,10 @@
   "schemaVersion": 1,
   "appEntry": "apps/language-runtime/static/app/index.html",
   "assets": [
+    { "source": "apps/language-runtime/static/app/setup.html", "output": "setup.html" },
+    { "source": "apps/language-runtime/static/app/course-install.html", "output": "course-install.html" },
+    { "source": "apps/language-runtime/static/source/course-setup.mjs", "output": "language-runtime/static/source/course-setup.mjs" },
+    { "source": "apps/language-runtime/static/styles/course-setup.css", "output": "language-runtime/static/styles/course-setup.css" },
     { "source": "apps/language-runtime/static/source/english-image-search.mjs", "output": "language-runtime/static/source/english-image-search.mjs" },
     { "source": "apps/language-runtime/static/source/learner-base-token-meanings.mjs", "output": "language-runtime/static/source/learner-base-token-meanings.mjs" },
     { "source": "apps/language-runtime/static/source/launcher-interface.mjs", "output": "language-runtime/static/source/launcher-interface.mjs" },

@@ -224,16 +224,19 @@ read_signer_sha() {
 
 validate_and_read_existing_candidate() {
   local apk="$1" aab="$2"
-  local proof="${3:-}" challenge="${4:-}" receipt="${5:-}"
+  local proof="${3:-}" challenge="${4:-}" receipt="${5:-}" setup="${6:-}"
+  local setup_arguments=()
+  [[ -z "$setup" ]] || setup_arguments=(--setup "$setup")
   if [[ -n "$proof" && -n "$challenge" && -n "$receipt" ]] && \
     node "$repo_root/apps/android/tooling/release-candidate.mjs" verify-audit-proof \
       --repo-root "$repo_root" --proof "$proof" --challenge "$challenge" --receipt "$receipt" \
-      --apk "$apk" --aab "$aab" --apkanalyzer "$(command -v apkanalyzer)" --unzip "$(command -v unzip)" >/dev/null; then
+      --apk "$apk" --aab "$aab" "${setup_arguments[@]}" --apkanalyzer "$(command -v apkanalyzer)" --unzip "$(command -v unzip)" >/dev/null; then
     echo "Reused this invocation's full package audit for the exact sealed APK/AAB; checking identity and signing again."
   else
     node "$repo_root/apps/android/tooling/validate-product-package.mjs" \
       --aab "$aab" \
       --apk "$apk" \
+      "${setup_arguments[@]}" \
       --apkanalyzer "$(command -v apkanalyzer)" \
       --unzip "$(command -v unzip)"
   fi
@@ -375,19 +378,22 @@ staged_receipt="$staging_dir/caatuu-release-candidate.json"
 verified_receipt="$staging_dir/verified-release-candidate.json"
 staged_candidate_apk="$staging_dir/caatuu.apk"
 staged_candidate_aab="$staging_dir/caatuu.aab"
+staged_setup="$staging_dir/caatuu-setup-payload.tar"
+candidate_setup=""
 staged_manifest="$staging_dir/caatuu.json"
 alias_apk_next=""
 alias_manifest_next=""
 install_apk_tmp=""
 install_manifest_tmp=""
 install_receipt_tmp=""
+install_setup_tmp=""
 cleanup() {
   cleanup_invocation_audit
   local path
   for path in \
     "$alias_apk_next" "$alias_manifest_next" \
-    "$install_apk_tmp" "$install_manifest_tmp" "$install_receipt_tmp" \
-    "$verified_receipt" "$staged_manifest" "$staged_candidate_apk" "$staged_candidate_aab" "$staged_receipt"; do
+    "$install_apk_tmp" "$install_manifest_tmp" "$install_receipt_tmp" "$install_setup_tmp" \
+    "$verified_receipt" "$staged_manifest" "$staged_candidate_apk" "$staged_candidate_aab" "$staged_receipt" "$staged_setup"; do
     [[ -z "$path" ]] || rm -f -- "$path"
   done
   rmdir "$staging_dir" 2>/dev/null || true
@@ -434,10 +440,19 @@ cp "$receipt_apk" "$staged_candidate_apk"
 cp "$receipt_aab" "$staged_candidate_aab"
 assert_file_identity "$staged_candidate_apk" "$apk_sha256" "$apk_bytes" "Sealed candidate APK"
 assert_file_identity "$staged_candidate_aab" "$aab_sha256" "$aab_bytes" "Sealed candidate AAB"
+if jq -e '.artifacts.setup' "$verified_receipt" >/dev/null; then
+  setup_relative="$(jq -er '.artifacts.setup.path' "$verified_receipt")"
+  setup_sha256="$(jq -er '.artifacts.setup.sha256' "$verified_receipt")"
+  setup_bytes="$(jq -er '.artifacts.setup.bytes' "$verified_receipt")"
+  cp "$repo_root/$setup_relative" "$staged_setup"
+  assert_file_identity "$staged_setup" "$setup_sha256" "$setup_bytes" "Sealed setup payload"
+  node "$repo_root/apps/android/tooling/setup-payload.mjs" verify --archive "$staged_setup" --apk "$staged_candidate_apk"
+  candidate_setup="$staged_setup"
+fi
 receipt_sha256="$(sha256sum "$staged_receipt" | awk '{print $1}')"
 assert_source_on_origin_main "$receipt_source_revision"
 validate_and_read_existing_candidate "$staged_candidate_apk" "$staged_candidate_aab" \
-  "$invocation_audit_proof" "$invocation_audit_challenge" "$staged_receipt"
+  "$invocation_audit_proof" "$invocation_audit_challenge" "$staged_receipt" "$candidate_setup"
 
 [[ "$version_code" == "$(jq -er '.identity.version_code' "$verified_receipt")" \
   && "$version_name" == "$(jq -er '.identity.version_name' "$verified_receipt")" \
@@ -495,7 +510,12 @@ versioned_dir="$repo_root/artifacts/android/$versioned_relative_dir"
 versioned_apk="$repo_root/artifacts/android/$versioned_relative_apk"
 versioned_manifest="$repo_root/artifacts/android/$versioned_relative_manifest"
 versioned_receipt="$repo_root/artifacts/android/$versioned_relative_receipt"
+versioned_setup="$versioned_dir/caatuu-setup-payload.tar"
 mkdir -p "$versioned_dir"
+if [[ -e "$versioned_setup" || -L "$versioned_setup" ]]; then
+  [[ -n "$candidate_setup" ]] || { echo "Unexpected immutable setup payload for this legacy receipt." >&2; exit 1; }
+  assert_file_identity "$versioned_setup" "$setup_sha256" "$setup_bytes" "Immutable setup payload for versionCode $version_code"
+fi
 if [[ -f "$versioned_apk" ]]; then
   assert_file_identity "$versioned_apk" "$apk_sha256" "$apk_bytes" "Immutable APK for versionCode $version_code" || {
     echo "Refusing to replace immutable APK bytes for versionCode $version_code." >&2
@@ -531,6 +551,13 @@ if [[ ! -f "$versioned_manifest" ]]; then
   mv "$install_manifest_tmp" "$versioned_manifest"
   install_manifest_tmp=""
 fi
+if [[ -n "$candidate_setup" && ! -f "$versioned_setup" ]]; then
+  install_setup_tmp="$(mktemp "$versioned_dir/.caatuu-setup-payload.tar.XXXXXX")"
+  cp "$candidate_setup" "$install_setup_tmp"
+  assert_file_identity "$install_setup_tmp" "$setup_sha256" "$setup_bytes" "Staged immutable setup payload"
+  mv "$install_setup_tmp" "$versioned_setup"
+  install_setup_tmp=""
+fi
 if [[ ! -f "$versioned_receipt" ]]; then
   install_receipt_tmp="$(mktemp "$versioned_dir/.caatuu-release-candidate.json.XXXXXX")"
   cp "$staged_receipt" "$install_receipt_tmp"
@@ -538,7 +565,7 @@ if [[ ! -f "$versioned_receipt" ]]; then
     echo "Staged immutable receipt changed while it was copied." >&2
     exit 1
   }
-  # Install the receipt only after the APK and manifest. The routine wrapper
+  # Install the receipt only after the APK, manifest and optional setup payload. The routine wrapper
   # treats it as the finalization signal, so a crash cannot advertise an
   # incomplete version-owned release.
   mv "$install_receipt_tmp" "$versioned_receipt"

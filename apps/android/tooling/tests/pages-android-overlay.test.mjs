@@ -161,6 +161,29 @@ test("existing matching sealed bytes are reused, including older Android paths",
   assert.ok(!plan.writes.some((item) => item.path === "android/releases/20/caatuu.apk"));
 });
 
+test("companion objects publish without APK extraction and retain earlier installed versions", (t) => {
+  const fixture = siteFixture(t);
+  const preservedSite = validatePreservedSite(fixture);
+  const content = Buffer.from("new downloadable curriculum");
+  const object = { ...identity(content), content };
+  const path = `assets/setup/${object.sha256}/lesson.json`;
+  const currentRelease = releaseFixture([{ key: "course", native_required: true, url: `/${path}`, asset_path: "data/lesson.json", ...identity(content) }]);
+  currentRelease.current.setupPayload = new Map([[path, object]]);
+  const older = Buffer.from("prior curriculum");
+  const oldPath = `assets/setup/${sha256Bytes(older)}/lesson.json`;
+  currentRelease.releases.unshift({
+    release: { versionCode: 20, apk: identity("old apk"), manifest: identity("old manifest"), receipt: identity("old receipt") },
+    apkPath: "/old/apk", manifestPath: "/old/manifest", receiptPath: "/old/receipt",
+    setupPayload: new Map([[oldPath, { ...identity(older), content: older }]]),
+  });
+  const plan = planAndroidReleaseOverlay({ preservedSite, currentRelease, readApkAsset() { throw new Error("Do not reconstruct downloadable payload from APK"); } });
+  assert.ok(plan.writes.find((write) => write.path === path).content.equals(content));
+  assert.ok(plan.writes.find((write) => write.path === oldPath).content.equals(older));
+  assert.deepEqual(new Set(plan.addedSetupPaths), new Set([path, oldPath]));
+  const missing = releaseFixture([{ key: "course", native_required: true, url: `/${path}`, asset_path: "data/lesson.json", ...identity(content) }]);
+  assert.throws(() => planAndroidReleaseOverlay({ preservedSite, currentRelease: missing, readApkAsset() { throw new Error("absent"); } }), /sealed companion/u);
+});
+
 test("native setup closure reuses exact website bytes without reading live source or APK assets", (t) => {
   const fixture = siteFixture(t);
   const path = "assets/artwork-new-name.png";

@@ -13,8 +13,8 @@
     <script src="/language-runtime/static/source/initial-theme.js?v=theme-3"></script>
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-theme.css?v=theme-7">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-workspace.css?v=shell-96">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-home.css?v=home-53">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-133">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-home.css?v=home-54">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-134">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-developer-tools.css?v=developer-tools-2">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-word-world.css?v=word-net-91">
     <link rel="stylesheet" href="/language-runtime/static/styles/games/embedded-game-controls.css?v=embedded-game-controls-8">
@@ -104,11 +104,9 @@
                     <h2 id="setupTitle" data-i18n="setup.preparing">Preparing Caatuu</h2>
                   </div>
                   <div class="setup-head-meta">
-                    <button class="setup-detail-link" id="homeUpdateApp" type="button" data-app-update-control aria-describedby="homeUpdateStatus" hidden>Check for updates</button>
                     <button class="setup-detail-link" id="setupDetailsToggle" type="button" aria-expanded="false" aria-controls="setupDetails" data-i18n="setup.details.show">Show details</button>
                   </div>
                 </div>
-                <p class="setup-update-status" id="homeUpdateStatus" role="status" aria-live="polite" hidden></p>
                 <div class="setup-message-zone" aria-live="polite" tabindex="0">
                   <p class="setup-phase" id="setupPhase" data-i18n="setup.preparing">Preparing Caatuu</p>
                   <p class="setup-message" id="setupMessage" data-i18n="setup.offlinefiles">Preparing local files for offline use.</p>
@@ -151,6 +149,10 @@
                   <button class="setup-small-action" id="setupAbort" type="button" data-i18n="setup.abort" disabled>Abort</button>
                 </div>
               </section>
+              <div class="home-app-update" data-app-update-container hidden>
+                <button class="pwa-install-action" id="homeUpdateApp" type="button" data-app-update-control aria-describedby="homeUpdateStatus" hidden>Update app</button>
+                <p class="setup-update-status" id="homeUpdateStatus" role="status" aria-live="polite" hidden></p>
+              </div>
               <section class="home-language-card" id="homeLanguageCard" aria-labelledby="homeLanguageTitle">
                 <div class="home-language-card-copy">
                   <h2 id="homeLanguageTitle" data-i18n="home.courses.title">Your courses</h2>
@@ -1160,6 +1162,6 @@
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true" data-i18n-aria-label="print.book.label"></section>
 
     <script src="/language-runtime/static/source/shell-policy.js?v=shell-policy-15"></script>
-    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-70"></script>
+    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-72"></script>
   </body>
 </html>

@@ -2,7 +2,6 @@ package com.caatuu.android
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
@@ -24,11 +23,11 @@ class CaatuuAssetClient(
         ?.let { mapOf(courseRegistry.defaultCourseId to it) }
         ?: emptyMap(),
     private val staticAssetManagers: Map<String, StaticAssetManager> = emptyMap(),
+    private val vectorDatabaseManagerForCourse: ((String) -> VectorDatabaseManager?)? = null,
+    private val courseSetupReady: ((String, Boolean) -> Boolean)? = null,
 ) : WebViewClient() {
 
-    val startUrl: String = courseRegistry.startUrl
-    @Volatile
-    private var activeCourseId: String = courseRegistry.defaultCourseId
+    val startUrl: String = if (courseSetupReady != null) "${BundledCourseRegistry.APP_ORIGIN}/setup.html" else courseRegistry.startUrl
 
     init {
         vectorDatabaseManagers.forEach { (courseId, _) ->
@@ -82,11 +81,6 @@ class CaatuuAssetClient(
         view.evaluateJavascript(nativeBoundaryScript(), null)
     }
 
-    override fun onPageStarted(view: WebView, url: String?, favicon: Bitmap?) {
-        courseRegistry.courseForTrustedUrl(url)?.let { course -> activeCourseId = course.id }
-        super.onPageStarted(view, url, favicon)
-    }
-
     private fun intercept(uri: Uri): WebResourceResponse? {
         if (!isAppHost(uri)) return forbidden()
         if (isAppRoot(uri)) return redirectToLanguageHome()
@@ -95,14 +89,20 @@ class CaatuuAssetClient(
         val assetPath = resolution.assetPath
         val relativePath = resolution.courseRelativePath
         val capabilities = resolution.course?.capabilities
+        val requestedCourse = resolution.course
+        if (courseSetupReady != null) {
+            val permittedPath = CourseInstallAccess.assetPath(resolution, courseSetupReady) ?: return notFound()
+            if (permittedPath != assetPath) return bundledAsset(permittedPath, noStore = true)
+        }
         if (relativePath?.startsWith("data/embeddings/") == true && capabilities?.isEnabled("embeddings") != true) {
             return notFound()
         }
         if (relativePath?.startsWith("data/dictionaries/") == true && capabilities?.isEnabled("dictionary") != true) {
             return notFound()
         }
-        val vectorManager = vectorDatabaseManagers[activeCourseId]
-        val staticManager = staticAssetManagers[activeCourseId]
+        val requestedCourseId = requestedCourse?.id ?: courseRegistry.defaultCourseId
+        val vectorManager = vectorDatabaseManagerForCourse?.invoke(requestedCourseId)
+            ?: vectorDatabaseManagers[requestedCourseId]
         val selectedVectorPath = vectorManager?.let { manager ->
             assetPath == manager.modelAssetPath(manager.defaultSpec())
         } == true
@@ -121,7 +121,11 @@ class CaatuuAssetClient(
         }
         if (selectedVectorPath) return notFound()
 
-        val localSetupAsset = localSetupAsset(assetPath, staticManager)
+        val assetOwners = staticAssetManagers.filterValues { it.ownsAssetPath(assetPath) }
+        val readyOwners = assetOwners.filter { (courseId, _) ->
+            courseSetupReady == null || courseSetupReady.invoke(courseId, false)
+        }
+        val localSetupAsset = readyOwners.values.firstNotNullOfOrNull { it.verifiedLocalAsset(assetPath) }
         if (localSetupAsset != null) {
             return WebResourceResponse(
                 mimeType(assetPath),
@@ -134,15 +138,19 @@ class CaatuuAssetClient(
                 )
             }
         }
-        if (staticManager?.ownsAssetPath(assetPath) == true) return notFound()
+        if (assetOwners.isNotEmpty()) return notFound()
 
+        return bundledAsset(assetPath, noStore = assetPath == "index.html" || assetPath == "setup.html")
+    }
+
+    private fun bundledAsset(assetPath: String, noStore: Boolean = false): WebResourceResponse {
         return try {
             WebResourceResponse(
                 mimeType(assetPath),
                 charsetFor(assetPath),
                 context.assets.open(assetPath),
             ).apply {
-                responseHeaders = BUNDLED_ASSET_HEADERS
+                responseHeaders = if (noStore) BUNDLED_ASSET_HEADERS + ("Cache-Control" to "no-store") else BUNDLED_ASSET_HEADERS
             }
         } catch (_: FileNotFoundException) {
             notFound()
@@ -198,14 +206,6 @@ class CaatuuAssetClient(
         return manager.verifiedDatabaseFile(spec)
     }
 
-    private fun localSetupAsset(
-        assetPath: String,
-        manager: StaticAssetManager?,
-    ): File? {
-        manager ?: return null
-        return manager.verifiedLocalAsset(assetPath)
-    }
-
     private fun notFound(): WebResourceResponse =
         WebResourceResponse(
             "text/plain",
@@ -240,7 +240,7 @@ class CaatuuAssetClient(
     private fun nativeBoundaryScript(): String =
         NATIVE_BOUNDARY_SCRIPT_TEMPLATE.replace(
             ENTRY_PATH_PLACEHOLDER,
-            JSONObject.quote(courseRegistry.defaultCourse.entryPath),
+            JSONObject.quote(Uri.parse(startUrl).path),
         )
 
     companion object {

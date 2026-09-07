@@ -18,6 +18,11 @@ class BundledCourseRegistryTest {
         assertTrue(registry.isBundled("zh"))
         assertFalse(registry.isBundled("sk"))
 
+        assertEquals("setup.html", registry.resolveAsset("/setup.html")?.assetPath)
+        assertEquals("caatuu-course-bundle.json", registry.resolveAsset("/caatuu-course-bundle.json")?.assetPath)
+        assertNull(registry.resolveAsset("/course-install.html"))
+        assertNull(registry.resolveAsset("/setup.html/other"))
+
         assertEquals("index.html", registry.resolveAsset("/cz/index.html")?.assetPath)
         assertEquals("index.html", registry.resolveAsset("/zh/index.html")?.assetPath)
         assertEquals(

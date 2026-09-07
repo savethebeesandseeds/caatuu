@@ -4,6 +4,11 @@ This local development course teaches American English (`en-US`) from Spanish
 (`es-ES`) at `/es-en/`. Its source language and interface are Spanish; the
 English audit and retrieval authority remains unchanged.
 
+The [2026-09-07 content review](content/REVIEW.md) covers every enabled game's
+JSON, the wording corrections, current sampling and difficulty behaviour, and
+remaining content work. It is a practical review of the current course, not a
+requirement to hire a professional teacher.
+
 The course contributes a manifest, English language adapter, authored content,
 and resource declarations to the shared Caatuu application. It owns no copied
 HTML shell, game controller, or stylesheet. Browser delivery is enabled locally;
@@ -41,11 +46,10 @@ Pronunciation guides, generated sentences, LLM, chat, full dictionary, Skill
 Compass, and Memory Moon are disabled. MiniLM and lexical retrieval continue to
 consume only the shared English `embeddingText` field.
 
-New target tokens, Spanish token meanings, and grammar material are
-machine-assisted development drafts. Native English/Spanish review and release
-license clearance remain pending; English source provenance does not approve the
-new bilingual material. Device speech is listening practice, not pronunciation
-assessment.
+Target tokens, Spanish token meanings and grammar material receive iterative
+editorial review. The existing metadata records no independent human review or
+separate license clearance; the practical content review above does not invent
+either. Device speech is listening practice, not pronunciation assessment.
 
 Run focused checks in the established container:
 

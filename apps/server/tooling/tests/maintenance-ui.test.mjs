@@ -132,21 +132,20 @@ function control() {
   };
 }
 
-test("native self-update control remains visible for a manual check", () => {
+test("native self-update control stays hidden until a newer version is known", () => {
   const { button, row } = control();
   ui.setUpdateAppControl(button, { env: "android" }, {
     selfUpdateEnabled: true,
     updateAvailable: false
   });
 
-  assert.equal(button.hidden, false);
-  assert.equal(button.disabled, false);
-  assert.equal(button.textContent, "Check for updates");
-  assert.equal(button.getAttribute("aria-disabled"), "false");
-  assert.equal(row.hidden, false);
+  assert.equal(button.hidden, true);
+  assert.equal(button.disabled, true);
+  assert.equal(button.getAttribute("aria-disabled"), "true");
+  assert.equal(row.hidden, true);
 });
 
-test("a successful check confirms the installed app is current on the button", () => {
+test("a current app needs no update button or explanatory card", () => {
   const { button, copy } = control();
   ui.setUpdateAppControl(button, { env: "android" }, {
     selfUpdateEnabled: true,
@@ -155,13 +154,12 @@ test("a successful check confirms the installed app is current on the button", (
     currentVersionName: "0.1.122"
   }, { checked: true });
 
-  assert.equal(button.textContent, "Up to date");
-  assert.equal(button.disabled, false);
-  assert.match(copy.textContent, /no newer release was found/i);
-  assert.match(copy.textContent, /0\.1\.122 is up to date/i);
+  assert.equal(button.hidden, true);
+  assert.equal(button.disabled, true);
+  assert.equal(copy.textContent, "");
 });
 
-test("checking state is visible in the control and accessible status", () => {
+test("checking for the first time does not show a busy update card", () => {
   const { button, copy, rowClasses, buttonClasses } = control();
   ui.setUpdateAppControl(button, { env: "android" }, {
     selfUpdateEnabled: true,
@@ -171,7 +169,8 @@ test("checking state is visible in the control and accessible status", () => {
   assert.equal(button.textContent, "Checking for updates...");
   assert.equal(button.disabled, true);
   assert.equal(button.getAttribute("aria-busy"), "true");
-  assert.equal(copy.textContent, "Contacting the update server. This can take a few seconds.");
+  assert.equal(button.hidden, true);
+  assert.equal(copy.textContent, "");
   assert.equal(rowClasses.has("is-busy"), true);
   assert.equal(buttonClasses.has("is-busy"), true);
 });
@@ -375,12 +374,15 @@ test("update confirmation names the installed and available versions", () => {
   assert.equal(confirmation.action, "Update to 0.1.90");
 });
 
-test("browser refresh stays available while store-managed builds hide sideload controls", () => {
+test("browser updates appear only when available and store-managed builds hide sideload controls", () => {
   const { button, row } = control();
   ui.setUpdateAppControl(button, { env: "browser" }, { selfUpdateEnabled: false });
+  assert.equal(button.hidden, true);
+  assert.equal(row.hidden, true);
+  ui.setUpdateAppControl(button, { env: "browser" }, { updateAvailable: true });
   assert.equal(button.hidden, false);
   assert.equal(button.disabled, false);
-  assert.equal(button.textContent, interfaceMessages["maintenance.browser.action"]);
+  assert.equal(button.textContent, interfaceMessages["settings.update.title"]);
   ui.setUpdateAppControl(button, { env: "android" }, { selfUpdateEnabled: false });
   assert.equal(button.hidden, true);
   assert.equal(button.disabled, true);
@@ -483,7 +485,8 @@ test("native update failures retain diagnostics while rendering only locale mess
 
     assert.equal(diagnosticStatus.updateError, rawFailure);
     assert.equal(button.textContent, "Reintentar");
-    assert.equal(copy.textContent, "No se pudo completar la comprobación. Inténtalo de nuevo.");
+    assert.equal(button.hidden, true);
+    assert.equal(copy.textContent, "");
     assert.equal(statusNode.textContent, rejected
       ? "No se pudo completar la comprobación. Inténtalo de nuevo."
       : "Caatuu 0.1.92 (93). No se pudo buscar actualizaciones.");

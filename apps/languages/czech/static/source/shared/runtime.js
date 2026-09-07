@@ -34,9 +34,7 @@
   const dictionaryPatchPath = "data/dictionaries/patches/reviewed-cs-en.v1.json?v=sha256-3d86c8c0ddddb0122023a1dd686aaa7c9be2c37bf6ae664c8a5bc72d384762d9";
   const webllmCdn = "https://esm.run/@mlc-ai/web-llm";
   const browserFallbackModel = "Qwen3-0.6B-q4f16_1-MLC";
-  const browserFreshnessAutoReloadWindowMs = 15 * 1000;
   const browserFreshnessVisibleRecheckMs = 60 * 1000;
-  const runtimeStartedAtMs = Date.now();
   const dictionaryGapMigrationKey = "caatuu.dictionaryGapMigration.v1";
   const nativePending = new Map();
   let activeBrowserSetupAbortController = null;
@@ -56,7 +54,6 @@
   let serviceWorkerRegistrationPromise = null;
   let serviceWorkerFreshnessCheck = null;
   let serviceWorkerFreshnessBound = false;
-  let serviceWorkerReloadStarted = false;
   let serviceWorkerLastCheckedAtMs = 0;
   const observedServiceWorkerRegistrations = new WeakSet();
 
@@ -633,15 +630,6 @@
       if (!controllerSeen) {
         controllerSeen = true;
         announceBrowserFreshness("current", { reason: "first-worker-ready" });
-        return;
-      }
-      if (serviceWorkerReloadStarted) return;
-      const safeToReloadNow = Date.now() - runtimeStartedAtMs <= browserFreshnessAutoReloadWindowMs
-        && document.visibilityState !== "hidden";
-      if (safeToReloadNow) {
-        serviceWorkerReloadStarted = true;
-        announceBrowserFreshness("refreshing", { reason: "new-worker-active" });
-        window.setTimeout(() => window.location.reload(), 60);
         return;
       }
       announceBrowserFreshness("update-ready", { reason: "new-worker-active" });

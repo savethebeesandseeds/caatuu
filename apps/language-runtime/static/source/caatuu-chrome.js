@@ -4480,6 +4480,19 @@
           </section>
 
           <section class="settings-view-panel" id="settingsViewPanel" data-settings-view-panel="settings" role="tabpanel" aria-labelledby="settingsViewTab" hidden>
+            <dl class="meta-list course-meta">
+              <div>
+                <dt>${interfaceHtml("settings.course.label")}</dt>
+                <dd>${interfaceHtml("settings.course.pair", {
+                  source: interfaceLanguageName(course.sourceLanguage),
+                  target: targetLanguageName
+                })}</dd>
+              </div>
+              <div>
+                <dt>${interfaceHtml("settings.workspace")}</dt>
+                <dd>${escapeHtmlText(course.workspaceLabel)}</dd>
+              </div>
+            </dl>
           <section class="settings-card side-card settings-section-card appearance-card" aria-label="${interfaceHtml("settings.appearance.label")}">
             <details class="settings-section-details" id="settingsAppearanceDetails" open>
               <summary class="settings-section-summary">
@@ -4702,19 +4715,6 @@
               <p class="settings-kicker kicker">${interfaceHtml("settings.app")}</p>
               <h3>${interfaceHtml("settings.storage.title")}</h3>
             </div>
-            <dl class="meta-list course-meta">
-              <div>
-                <dt>${interfaceHtml("settings.course.label")}</dt>
-                <dd>${interfaceHtml("settings.course.pair", {
-                  source: interfaceLanguageName(course.sourceLanguage),
-                  target: targetLanguageName
-                })}</dd>
-              </div>
-              <div>
-                <dt>${interfaceHtml("settings.workspace")}</dt>
-                <dd>${escapeHtmlText(course.workspaceLabel)}</dd>
-              </div>
-            </dl>
             <div class="maintenance-action-list">
 
               <div class="maintenance-action-row">
@@ -4732,26 +4732,6 @@
                 <button class="maintenance-row-control settings-danger-action course-reset-action" type="button" id="settingsResetCourseProgress">${interfaceHtml("common.restart")}</button>
               </div>
             </div>
-
-
-          </section>
-              </div>
-            </details>
-          </section>
-
-          <section class="settings-card side-card about-card" aria-label="${interfaceHtml("settings.about.label")}">
-            <div class="settings-card-head side-head">
-              <p class="settings-kicker kicker">${interfaceHtml("settings.about.label")}</p>
-              <h3>${interfaceHtml("settings.about.details")}</h3>
-            </div>
-              <div class="maintenance-action-row" data-maintenance-action-row hidden>
-                <span class="maintenance-action-copy">
-                  <strong>${interfaceHtml("settings.update.title")}</strong>
-                  <small data-update-app-copy>${interfaceHtml("settings.update.description")}</small>
-                </span>
-                <button class="maintenance-row-control pwa-install-action" type="button" id="updateApp" aria-describedby="maintenanceStatus" hidden>${interfaceHtml("settings.update.action")}</button>
-              </div>
-            <p class="maintenance-status" id="maintenanceStatus" role="status" aria-live="polite" aria-atomic="true"></p>
             <div class="maintenance-install-row" id="browserInstallActions">
               <span class="maintenance-action-copy">
                 <strong>${interfaceHtml("settings.install.title")}</strong>
@@ -4763,6 +4743,18 @@
               </span>
             </div>
             <p class="pwa-install-help" id="pwaInstallHelp" hidden>${interfaceHtml("settings.install.browserhelp")}</p>
+          </section>
+              </div>
+            </details>
+          </section>
+
+          <section class="settings-card side-card about-card" aria-label="${interfaceHtml("settings.about.label")}">
+            <div class="settings-card-head side-head">
+              <p class="settings-kicker kicker">${interfaceHtml("settings.about.label")}</p>
+              <h3>${interfaceHtml("settings.about.details")}</h3>
+            </div>
+            <button class="maintenance-row-control pwa-install-action" type="button" id="updateApp" aria-describedby="maintenanceStatus" hidden>${interfaceHtml("settings.update.action")}</button>
+            <p class="maintenance-status" id="maintenanceStatus" role="status" aria-live="polite" aria-atomic="true" hidden></p>
             <dialog class="settings-update-dialog" id="appUpdateConfirmDialog" aria-labelledby="appUpdateConfirmTitle" aria-describedby="appUpdateConfirmVersions appUpdateConfirmNote">
               <form class="settings-update-dialog-card" method="dialog">
                 <p class="settings-kicker kicker">${interfaceHtml("settings.update.app")}</p>
@@ -5402,10 +5394,11 @@
     if (appFreshnessBound || window.CaatuuRuntime?.env !== "browser") return;
     appFreshnessBound = true;
     window.addEventListener("caatuu:app-freshness", (event) => {
+      if (window.CaatuuMaintenanceUi?.getUpdateController?.()) return;
       renderAppFreshnessNotice(String(event?.detail?.state || "checking"));
     });
     void window.CaatuuRuntime.registerServiceWorker().then((reachable) => {
-      if (!reachable) renderAppFreshnessNotice("offline");
+      if (!reachable && !window.CaatuuMaintenanceUi?.getUpdateController?.()) renderAppFreshnessNotice("offline");
     });
   }
 

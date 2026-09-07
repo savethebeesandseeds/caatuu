@@ -37,7 +37,8 @@ class ProductBridge(
     private val updateMutex = Mutex()
     private val requestStateLock = Any()
     private val activeRequests = mutableMapOf<String, Job>()
-    private var activeSetupJob: Job? = null
+    @Volatile private var activeSetupJob: Job? = null
+    private val setupSession = CourseSetupSession()
 
     init {
         check(courseRuntimes.keys == courseRegistry.courses.map(BundledCourse::id).toSet()) {
@@ -82,16 +83,20 @@ class ProductBridge(
 
             try {
                 val runtime = currentCourseRuntime()
-                when (request.optString("type")) {
-                    "cancel_request" -> cancelNativeRequest(id, request)
+                val requestType = request.optString("type")
+                if (requestType in setOf("vector_search", "dictionary_search", "speech_speak")) {
+                    check(withContext(Dispatchers.IO) { runtime.isSetupCommitted() }) { "Finish installing this course before using it." }
+                }
+                when (requestType) {
+                    "cancel_request" -> cancelNativeRequest(id, request, runtime)
                     "setup_status" -> emitDone(id, setupStatusJson(runtime))
                     "storage_preflight" -> emitDone(id, storagePreflightJson(runtime))
                     "setup_download" -> runSetupDownload(id, runtime)
                     "setup_abort" -> abortSetup(id, runtime)
-                    "vector_status" -> emitDone(id, requireVectorDatabaseManager(runtime).statusJson())
+                    "vector_status" -> emitDone(id, withContext(Dispatchers.IO) { requireVectorDatabaseManager(runtime).statusJson() })
                     "vector_download" -> downloadVectorDatabase(id, runtime)
                     "vector_search" -> searchVectorDatabase(id, request, runtime)
-                    "dictionary_status" -> emitDone(id, requireDictionaryManager(runtime).statusJson())
+                    "dictionary_status" -> emitDone(id, withContext(Dispatchers.IO) { requireDictionaryManager(runtime).statusJson() })
                     "dictionary_download" -> downloadDictionary(id, runtime)
                     "dictionary_search" -> searchDictionary(id, request, runtime)
                     "speech_status" -> speechStatus(id, request, runtime)
@@ -115,18 +120,15 @@ class ProductBridge(
     }
 
     fun onPause() {
-        courseRuntimes.values.forEach { it.speechManager?.onPause() }
+        courseRuntimes.values.forEach { it.onPause() }
     }
 
     fun onResume() {
-        courseRuntimes.values.forEach { it.speechManager?.onResume() }
+        courseRuntimes.values.forEach { it.onResume() }
     }
 
     fun destroy() {
-        courseRuntimes.values.forEach { runtime ->
-            runtime.speechManager?.destroy()
-            runtime.vectorDatabaseManager?.close()
-        }
+        courseRuntimes.values.forEach { it.destroy() }
         scope.cancel()
     }
 
@@ -146,12 +148,13 @@ class ProductBridge(
     private fun requireSpeechManager(runtime: ProductCourseRuntime): AndroidSpeechManager =
         runtime.speechManager ?: throw IllegalArgumentException("Unknown native request type.")
 
-    private suspend fun cancelNativeRequest(id: String, request: JSONObject) {
+    private suspend fun cancelNativeRequest(id: String, request: JSONObject, runtime: ProductCourseRuntime) {
         val requestId = request.optString("requestId").trim()
         require(requestId.isNotBlank()) { "The native request ID to cancel is missing." }
         val job = synchronized(requestStateLock) {
             activeRequests[requestId]?.takeIf { it.isActive }
         }
+        if (job != null && job == activeSetupJob) setupSession.requireOwner(runtime.course.id)
         if (job != null && job != coroutineContext[Job]) {
             job.cancel(CancellationException("Native request cancelled after its UI deadline."))
             job.cancelAndJoin()
@@ -172,7 +175,7 @@ class ProductBridge(
                 emitProgress(id, "vector_download", progress)
             }
         }
-        emitDone(id, manager.statusJson(spec).put("path", file.absolutePath))
+        emitDone(id, withContext(Dispatchers.IO) { manager.statusJson(spec).put("path", file.absolutePath) })
     }
 
     private suspend fun searchVectorDatabase(id: String, request: JSONObject, runtime: ProductCourseRuntime) {
@@ -209,7 +212,7 @@ class ProductBridge(
                 emitProgress(id, "dictionary_download", progress)
             }
         }
-        emitDone(id, manager.statusJson().put("path", file.absolutePath))
+        emitDone(id, withContext(Dispatchers.IO) { manager.statusJson().put("path", file.absolutePath) })
     }
 
     private suspend fun searchDictionary(id: String, request: JSONObject, runtime: ProductCourseRuntime) {
@@ -222,7 +225,8 @@ class ProductBridge(
     }
 
     private suspend fun runSetupDownload(id: String, runtime: ProductCourseRuntime) {
-        activeSetupJob?.takeIf { it.isActive }?.let {
+        val currentJob = checkNotNull(coroutineContext[Job])
+        if (!setupSession.begin(runtime.course.id, currentJob)) {
             emitDone(
                 id,
                 setupStatusJson(runtime)
@@ -232,9 +236,13 @@ class ProductBridge(
             return
         }
 
-        val currentJob = coroutineContext[Job]
         activeSetupJob = currentJob
         try {
+            withContext(Dispatchers.IO) {
+                NativeArtifactContract.requireCompatibleSharedStorage(courseRuntimes.values
+                    .filter { it === runtime || it.hasInstallationReceipt() }
+                    .flatMap { it.storageArtifacts() })
+            }
             val preflight = storagePreflightJson(runtime)
             check(preflight.optBoolean("ok")) {
                 preflight.optString("message", "Not enough storage for Caatuu setup.")
@@ -244,6 +252,7 @@ class ProductBridge(
             emitError(id, Exception("Setup aborted."))
         } finally {
             if (activeSetupJob == currentJob) activeSetupJob = null
+            setupSession.finish(currentJob)
         }
     }
 
@@ -325,7 +334,7 @@ class ProductBridge(
         }
 
         runtime.dictionaryManager?.let { manager ->
-            val dictionaryStatus = manager.statusJson()
+            val dictionaryStatus = withContext(Dispatchers.IO) { manager.statusJson() }
             val dictionaryKey = dictionaryStatus.getString("key")
             val dictionaryLabel = dictionaryStatus.optString(
                 "label",
@@ -373,7 +382,7 @@ class ProductBridge(
         emitDone(id, setupStatusJson(runtime).put("setupActive", false))
     }
 
-    private fun setupStatusJson(runtime: ProductCourseRuntime): JSONObject {
+    private suspend fun setupStatusJson(runtime: ProductCourseRuntime): JSONObject = withContext(Dispatchers.IO) {
         val assetStatus = runtime.staticAssetManager.statusJson()
         val vectorStatus = runtime.vectorDatabaseManager?.statusJson()?.put("required", true)?.also { status ->
             status.put("ready", status.optBoolean("verified"))
@@ -394,9 +403,11 @@ class ProductBridge(
         val expectedBytes = assetStatus.optLong("expectedBytes") +
             optionalStatuses.sumOf { it.optLong("expectedBytes") }
 
-        return JSONObject()
-            .put("ready", readyArtifacts == artifactCount)
-            .put("setupActive", activeSetupJob?.isActive == true)
+        JSONObject()
+            .put("ready", readyArtifacts == artifactCount && runtime.adoptVerifiedSetup())
+            .put("setupActive", activeSetupJob?.isActive == true && setupSession.courseId == runtime.course.id)
+            .put("setupBusy", activeSetupJob?.isActive == true)
+            .put("setupCourseId", setupSession.courseId ?: JSONObject.NULL)
             .put("readyArtifacts", readyArtifacts)
             .put("artifactCount", artifactCount)
             .put("bytes", bytes)
@@ -408,16 +419,25 @@ class ProductBridge(
             }
     }
 
-    private fun storagePreflightJson(runtime: ProductCourseRuntime): JSONObject {
+    private suspend fun storagePreflightJson(runtime: ProductCourseRuntime): JSONObject = withContext(Dispatchers.IO) {
         val status = setupStatusJson(runtime)
         val expectedBytes = status.optLong("expectedBytes")
         val bytes = status.optLong("bytes")
-        val remainingBytes = (expectedBytes - bytes).coerceAtLeast(0L)
+        val staticAssets = status.getJSONObject("staticAssets").getJSONArray("assets")
+        val remainingStaticBytes = (0 until staticAssets.length()).sumOf { index ->
+            val asset = staticAssets.getJSONObject(index)
+            if (asset.optBoolean("ready")) 0L else asset.getLong("expectedBytes")
+        }
+        val remainingDatabaseBytes = listOf("vectorDatabase", "dictionary").sumOf { key ->
+            val asset = status.optJSONObject(key)
+            if (asset == null || asset.optBoolean("ready")) 0L else asset.getLong("expectedBytes")
+        }
+        val remainingBytes = remainingStaticBytes + remainingDatabaseBytes
         val reserveBytes = max(256L * 1024L * 1024L, expectedBytes / 8L)
         val requiredBytes = remainingBytes + reserveBytes
         val availableBytes = activity.applicationContext.filesDir.usableSpace
         val ok = availableBytes >= requiredBytes
-        return JSONObject()
+        JSONObject()
             .put("ok", ok)
             .put("available", true)
             .put("scope", "app-private filesDir")
@@ -438,7 +458,7 @@ class ProductBridge(
     }
 
     private suspend fun abortSetup(id: String, runtime: ProductCourseRuntime) {
-        val wasActive = cancelActiveSetup("Setup aborted by user.")
+        val wasActive = cancelActiveSetup("Setup aborted by user.", runtime.course.id)
         emitDone(
             id,
             setupStatusJson(runtime)
@@ -448,11 +468,21 @@ class ProductBridge(
     }
 
     private suspend fun deleteLocalPack(id: String, runtime: ProductCourseRuntime) {
-        val setupWasActive = cancelActiveSetup("Setup stopped before deleting local files.")
+        val setupWasActive = cancelActiveSetup("Setup stopped before deleting local files.", runtime.course.id)
         artifactMutex.withLock {
-            val vectorResult = runtime.vectorDatabaseManager?.deleteLocalDatabases()
-            val dictionaryResult = runtime.dictionaryManager?.deleteLocalDatabase()
-            val assetResult = runtime.staticAssetManager.deleteLocalAssets()
+            runtime.invalidateSetup()
+            val sharedPaths = courseRuntimes.values
+                .filter { it.course.id != runtime.course.id }
+                .flatMap { it.staticAssetManager.requiredAssetSpecs() }
+                .map { it.assetPath }
+                .toSet()
+            val sharedStorage = withContext(Dispatchers.IO) {
+                courseRuntimes.values.filter { it !== runtime && it.hasInstallationReceipt() }
+                    .flatMap { it.storageArtifacts() }.map { it.storagePath }.toSet()
+            }
+            val vectorResult = runtime.vectorDatabaseManager?.deleteLocalDatabases(preserveStoragePaths = sharedStorage)
+            val dictionaryResult = runtime.dictionaryManager?.deleteLocalDatabase(preserveStoragePaths = sharedStorage)
+            val assetResult = runtime.staticAssetManager.deleteLocalAssets(preserveAssetPaths = sharedPaths)
             val optionalResults = listOfNotNull(vectorResult, dictionaryResult)
             emitDone(
                 id,
@@ -594,7 +624,8 @@ class ProductBridge(
         }
     }
 
-    private suspend fun cancelActiveSetup(reason: String): Boolean {
+    private suspend fun cancelActiveSetup(reason: String, courseId: String): Boolean {
+        setupSession.requireOwner(courseId)
         val job = activeSetupJob?.takeIf { it.isActive } ?: return false
         if (job != coroutineContext[Job]) {
             job.cancel(CancellationException(reason))

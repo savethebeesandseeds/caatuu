@@ -14,6 +14,8 @@ const flush = () => new Promise((resolve) => setImmediate(resolve));
 function harness({ android = true, confirm = true, existing = null, speech = true, courseProfile = profile, timers = null, setupProvider = false } = {}) {
   const browser = createBrowserHarness();
   const { context, document } = browser;
+  // Tests trigger startup explicitly; direct controller tests control native replies.
+  document.readyState = "loading";
   // A real browser's global object and window are the same object.
   context.window = context;
   context.confirm = () => confirm;
@@ -56,8 +58,8 @@ function harness({ android = true, confirm = true, existing = null, speech = tru
 
 test("Mandarin gets update and cache operations without replacing its working speech bridge", async () => {
   const h = harness();
-  assert.equal(h.document.getElementById("updateApp").hidden, false);
-  assert.equal(h.row.hidden, false);
+  assert.equal(h.document.getElementById("updateApp").hidden, true);
+  assert.equal(h.row.hidden, true);
   const speaking = h.runtime.speech.speak("你好");
   const checking = h.ui.getUpdateController().refresh();
   const clearing = h.runtime.maintenance.clearCache();
@@ -69,6 +71,110 @@ test("Mandarin gets update and cache operations without replacing its working sp
   assert.equal((await speaking).outcome, "completed");
   await checking;
   assert.ok(h.document.getElementById("settingsVersion").textContent.includes("1.0"));
+});
+
+test("startup and resume checks are quiet and show a separate Home action only for an available APK", async () => {
+  const h = harness();
+  const homeRow = h.document.createElement("div");
+  homeRow.setAttribute("data-app-update-container", "");
+  const home = h.document.createElement("button");
+  home.setAttribute("data-app-update-control", "");
+  homeRow.append(home);
+  h.document.body.append(homeRow);
+  h.document.dispatchEvent({ type: "DOMContentLoaded" });
+  assert.equal(h.requests[0].type, "update_app_status");
+  assert.equal(homeRow.hidden, true);
+  h.reply(h.requests[0], { selfUpdateEnabled: true, currentVersionCode: 1, updateAvailable: false });
+  await flush();
+  assert.equal(homeRow.hidden, true);
+  assert.equal(h.document.getElementById("maintenanceStatus").textContent, "");
+  h.document.visibilityState = "visible";
+  h.document.dispatchEvent({ type: "visibilitychange" });
+  h.reply(h.requests[1], { selfUpdateEnabled: true, currentVersionCode: 1, latestVersionCode: 2, updateAvailable: true });
+  await flush();
+  assert.equal(homeRow.hidden, false);
+  assert.equal(home.hidden, false);
+  assert.equal(h.document.getElementById("updateApp").hidden, false);
+  assert.equal(h.document.getElementById("maintenanceStatus").textContent, "");
+  assert.deepEqual(h.requests.map(({ type }) => type), ["update_app_status", "update_app_status"], "background checks never start an APK download");
+});
+
+test("a failed background update check is silent", async () => {
+  const h = harness({ android: false, existing: { env: "browser", maintenance: {
+    updateStatus: async () => { throw new Error("Offline"); }
+  } } });
+  h.document.dispatchEvent({ type: "DOMContentLoaded" });
+  await flush();
+  assert.equal(h.document.getElementById("maintenanceStatus").textContent, "");
+  assert.equal(h.document.getElementById("updateApp").hidden, true);
+});
+
+function browserWorkers(h, { installed = false } = {}) {
+  const serviceWorker = h.document.createElement("div");
+  const registration = h.document.createElement("div");
+  const worker = () => {
+    const node = h.document.createElement("div");
+    node.state = "installing";
+    return node;
+  };
+  serviceWorker.controller = installed ? worker() : null;
+  registration.active = serviceWorker.controller;
+  registration.installing = worker();
+  registration.update = async () => {};
+  serviceWorker.getRegistration = async () => registration;
+  h.context.navigator.serviceWorker = serviceWorker;
+  return { serviceWorker, registration, worker };
+}
+
+test("browser first installation stays quiet; a later ready worker shows Update without reloading", async () => {
+  const h = harness({ android: false });
+  const { serviceWorker, registration, worker } = browserWorkers(h);
+  let reloads = 0;
+  h.context.location.reload = () => { reloads += 1; };
+  const controller = h.ui.getUpdateController();
+  await controller.refresh({ announce: false });
+  registration.installing.state = "activated";
+  registration.installing.dispatchEvent({ type: "statechange" });
+  registration.active = registration.installing;
+  registration.installing = null;
+  serviceWorker.controller = registration.active;
+  serviceWorker.dispatchEvent({ type: "controllerchange" });
+  assert.equal(h.document.getElementById("updateApp").hidden, true);
+
+  registration.installing = worker();
+  registration.dispatchEvent({ type: "updatefound" });
+  assert.equal(h.document.getElementById("updateApp").hidden, true, "an unfinished download is not offered");
+  registration.installing.state = "installed";
+  registration.installing.dispatchEvent({ type: "statechange" });
+  assert.equal(h.document.getElementById("updateApp").hidden, false);
+  assert.equal(h.document.getElementById("updateApp").textContent, englishInterfaceContent.t("settings.update.title"));
+  serviceWorker.controller = registration.installing;
+  registration.active = registration.installing;
+  registration.active.state = "activated";
+  registration.installing = null;
+  serviceWorker.dispatchEvent({ type: "controllerchange" });
+  await controller.refresh({ force: true, announce: false });
+  assert.equal(h.document.getElementById("updateApp").hidden, false, "an automatically activated worker still needs a page update");
+  assert.equal(reloads, 0);
+  await controller.activate();
+  assert.equal(reloads, 1, "only the user's Update action reloads the page");
+});
+
+test("a browser worker already waiting or newly claiming control makes the update available", async () => {
+  for (const waiting of [true, false]) {
+    const h = harness({ android: false });
+    const { serviceWorker, registration, worker } = browserWorkers(h, { installed: true });
+    registration.installing = null;
+    if (waiting) { registration.waiting = worker(); registration.waiting.state = "installed"; }
+    const controller = h.ui.getUpdateController();
+    await controller.refresh({ announce: false });
+    if (!waiting) {
+      assert.equal(h.document.getElementById("updateApp").hidden, true);
+      serviceWorker.controller = worker();
+      serviceWorker.dispatchEvent({ type: "controllerchange" });
+    }
+    assert.equal(h.document.getElementById("updateApp").hidden, false);
+  }
 });
 
 test("maintenance does not depend on speech and preserves existing course maintenance", async () => {
@@ -138,7 +244,7 @@ test("browser cache clearing keeps other courses and saved learning progress", a
   assert.equal(result.cacheNamesDeleted.length, 2);
   assert.equal(h.context.localStorage.getItem("learning-progress"), "keep");
   assert.equal((await h.runtime.maintenance.updateStatus()).selfUpdateEnabled, false);
-  assert.equal(h.document.getElementById("updateApp").hidden, false);
+  assert.equal(h.document.getElementById("updateApp").hidden, true);
 });
 
 test("browser refresh waits for the new offline worker and preserves the page when offline", async () => {
@@ -176,7 +282,7 @@ test("Home and lazily created About update controls share status and a single br
   let updates = 0;
   let finishUpdate;
   const h = harness({ android: false, existing: { env: "browser", maintenance: {
-    updateStatus: async () => ({ selfUpdateEnabled: false }),
+    updateStatus: async () => ({ selfUpdateEnabled: false, updateAvailable: true }),
     updateApp: () => { updates += 1; return new Promise((resolve) => { finishUpdate = resolve; }); }
   } } });
   const controller = h.ui.getUpdateController();

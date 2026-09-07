@@ -1247,8 +1247,7 @@ function syncAppRuntimeControls() {
   if (clearButton) clearButton.disabled = false;
 
   if (hasNativeRuntime()) {
-    setText("#maintenanceStatus", interfaceText("maintenance.status.checkingversion"));
-    void maintenanceUi().refreshSharedUpdateControl?.({ announce: true });
+    void maintenanceUi().refreshSharedUpdateControl?.({ announce: false });
     return;
   }
 

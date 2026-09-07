@@ -3576,7 +3576,7 @@ html[data-theme="light"] .about-update-region .maintenance-row-control:disabled 
   align-items: end;
 }
 
-.maintenance-card .course-meta {
+.settings-view-panel .course-meta {
   margin: 0;
   padding: 6px 8px;
   border: 1px solid color-mix(in srgb, var(--green) 14%, transparent);
@@ -3587,16 +3587,16 @@ html[data-theme="light"] .about-update-region .maintenance-row-control:disabled 
   background: color-mix(in srgb, var(--green) 3%, transparent);
 }
 
-.maintenance-card .course-meta div {
+.settings-view-panel .course-meta div {
   grid-template-columns: 1fr;
   gap: 1px;
 }
 
-.maintenance-card .course-meta dt {
+.settings-view-panel .course-meta dt {
   font-size: 0.58rem;
 }
 
-.maintenance-card .course-meta dd {
+.settings-view-panel .course-meta dd {
   font-size: 0.76rem;
 }
 
@@ -4605,7 +4605,7 @@ html[data-caatuu-runtime="android"] .settings-section-switcher {
     font-size: 0.46rem;
   }
 
-  .maintenance-card .course-meta,
+  .settings-view-panel .course-meta,
   .maintenance-action-row,
   .maintenance-install-row {
     grid-template-columns: 1fr;

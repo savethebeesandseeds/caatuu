@@ -17,6 +17,7 @@ import { fileURLToPath } from "node:url";
 
 import { readZipEntry, sha256Bytes, sha256File } from "./pages-baseline.mjs";
 import { assertSetupArtifactMetadata } from "./android-artifact-contract.mjs";
+import { readSetupPayloadArchive, validateSetupPayloadForApk } from "./setup-payload.mjs";
 
 const modulePath = fileURLToPath(import.meta.url);
 const defaultWorkspaceRoot = resolve(dirname(modulePath), "../../..");
@@ -28,6 +29,7 @@ const sourceRevisionPattern = /^[a-f0-9]{40}$/u;
 const versionNamePattern = /^[0-9A-Za-z][0-9A-Za-z._+-]{0,63}$/u;
 const initialReleaseRecordSha256 = "0e085b347390d76f0e320ef1deb46c80d6219a86ac3d5d5e4592509b8de83c5c";
 const releaseKinds = Object.freeze(["apk", "manifest", "receipt"]);
+const artifactKinds = (release) => [...releaseKinds, ...(release.setup ? ["setup"] : [])];
 const courseBundleEntry = "assets/caatuu-course-bundle.json";
 const courseBundleSchema = "https://caatuu.org/schemas/android-course-bundle-runtime.v1.schema.json";
 const courseIdPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
@@ -135,7 +137,7 @@ function validateDigestRecord(record, label) {
 }
 
 function validateStoredRelease(release, label) {
-  assertExactKeys(release, ["versionCode", "versionName", "sourceRevision", "manifest", "apk", "receipt"], label);
+  assertExactKeys(release, ["versionCode", "versionName", "sourceRevision", "manifest", "apk", "receipt", ...(release.setup ? ["setup"] : [])], label);
   assert.ok(Number.isSafeInteger(release.versionCode) && release.versionCode > 0, `${label}.versionCode is invalid`);
   assert.match(String(release.versionName || ""), versionNamePattern, `${label}.versionName is invalid`);
   assert.match(String(release.sourceRevision || ""), sourceRevisionPattern, `${label}.sourceRevision is invalid`);
@@ -146,6 +148,7 @@ function validateStoredRelease(release, label) {
     manifest: validateDigestRecord(release.manifest, `${label}.manifest`),
     apk: validateDigestRecord(release.apk, `${label}.apk`),
     receipt: validateDigestRecord(release.receipt, `${label}.receipt`),
+    ...(release.setup ? { setup: validateDigestRecord(release.setup, `${label}.setup`) } : {}),
   };
 }
 
@@ -198,11 +201,12 @@ function releaseArtifactName(versionCode, kind) {
   if (kind === "apk") return `caatuu-${versionCode}.apk`;
   if (kind === "manifest") return `caatuu-${versionCode}.json`;
   if (kind === "receipt") return `caatuu-${versionCode}-release-candidate.json`;
+  if (kind === "setup") return `caatuu-${versionCode}-setup-payload.tar`;
   throw new Error(`Unknown Android release artifact kind: ${kind}`);
 }
 
 function releaseSourcePath(versionCode, kind) {
-  const filename = kind === "apk" ? "caatuu.apk" : kind === "manifest" ? "caatuu.json" : "caatuu-release-candidate.json";
+  const filename = kind === "apk" ? "caatuu.apk" : kind === "manifest" ? "caatuu.json" : kind === "setup" ? "caatuu-setup-payload.tar" : "caatuu-release-candidate.json";
   return `artifacts/android/releases/${versionCode}/${filename}`;
 }
 
@@ -219,7 +223,7 @@ function expandRelease(release, repository) {
     sourceRevision: release.sourceRevision,
     githubRelease: { tag },
   };
-  for (const kind of releaseKinds) {
+  for (const kind of artifactKinds(release)) {
     const releaseAssetName = releaseArtifactName(release.versionCode, kind);
     expanded[kind] = {
       ...release[kind],
@@ -227,7 +231,7 @@ function expandRelease(release, repository) {
       releaseAssetName,
       downloadUrl: `https://github.com/${repository}/releases/download/${tag}/${releaseAssetName}`,
     };
-    if (kind !== "receipt") expanded[kind].publicPaths = [releasePublicPath(release.versionCode, kind)];
+    if (kind === "apk" || kind === "manifest") expanded[kind].publicPaths = [releasePublicPath(release.versionCode, kind)];
   }
   return expanded;
 }
@@ -292,7 +296,7 @@ export function pagesCurrentReleaseDownloadPlan(value) {
       versionName: release.versionName,
       tag: release.githubRelease.tag,
     })),
-    assets: descriptor.releases.flatMap((release) => releaseKinds.map((kind) => ({
+    assets: descriptor.releases.flatMap((release) => artifactKinds(release).map((kind) => ({
       versionCode: release.versionCode,
       kind,
       sourcePath: release[kind].sourcePath,
@@ -374,6 +378,21 @@ export function validatePagesReleaseFiles({ workspaceRoot, descriptor, manifestP
   assert.equal(receipt.value.audit?.product_package, "passed");
   assert.equal(value.audit?.candidate_receipt_sha256, receipt.file.sha256);
 
+  let setupFile;
+  let setupPayload = new Map();
+  assert.ok(Object.keys(receipt.value.artifacts).every((kind) => ["apk", "aab", "setup"].includes(kind)), "Unknown sealed artifact kind");
+  if (receipt.value.artifacts.setup) {
+    const identity = receipt.value.artifacts.setup;
+    assert.ok(Number.isSafeInteger(identity.bytes) && identity.bytes > 0);
+    assert.match(String(identity.sha256 || ""), sha256Pattern);
+    setupFile = assertRegularWorkspaceFile(resolve(workspaceRoot, releaseSourcePath(value.version_code, "setup")), workspaceRoot, "Finalized setup payload");
+    assert.equal(setupFile.bytes, identity.bytes, "Finalized setup payload byte count changed");
+    assert.equal(setupFile.sha256, identity.sha256, "Finalized setup payload SHA-256 changed");
+    setupPayload = readSetupPayloadArchive(setupFile.path);
+  }
+  // Legacy receipts remain valid only when their APK does not require a companion.
+  validateSetupPayloadForApk(apk.path, setupPayload);
+
   return {
     record: {
       versionCode: value.version_code,
@@ -382,12 +401,15 @@ export function validatePagesReleaseFiles({ workspaceRoot, descriptor, manifestP
       manifest: { bytes: manifest.file.bytes, sha256: manifest.file.sha256 },
       apk: { bytes: apk.bytes, sha256: apk.sha256 },
       receipt: { bytes: receipt.file.bytes, sha256: receipt.file.sha256 },
+      ...(setupFile ? { setup: { bytes: setupFile.bytes, sha256: setupFile.sha256 } } : {}),
     },
     manifest: value,
     receipt: receipt.value,
     manifestPath: manifest.file.path,
     apkPath: apk.path,
     receiptPath: receipt.file.path,
+    setupPath: setupFile?.path,
+    setupPayload,
   };
 }
 
@@ -457,6 +479,7 @@ function validateLoadedRelease({ workspaceRoot, descriptor, release }) {
       manifest: { bytes: release.manifest.bytes, sha256: release.manifest.sha256 },
       apk: { bytes: release.apk.bytes, sha256: release.apk.sha256 },
       receipt: { bytes: release.receipt.bytes, sha256: release.receipt.sha256 },
+      ...(release.setup ? { setup: { bytes: release.setup.bytes, sha256: release.setup.sha256 } } : {}),
     },
     `Android ${release.versionCode} downloaded files differ from the stored descriptor`,
   );
@@ -467,6 +490,8 @@ function validateLoadedRelease({ workspaceRoot, descriptor, release }) {
     manifestPath: inspected.manifestPath,
     apkPath: inspected.apkPath,
     receiptPath: inspected.receiptPath,
+    setupPath: inspected.setupPath,
+    setupPayload: inspected.setupPayload,
   };
 }
 
