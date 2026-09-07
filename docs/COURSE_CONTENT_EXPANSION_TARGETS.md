@@ -1,9 +1,32 @@
 # Content expansion targets
 
-Proposed 2026-09-07 at the user's request. This document plans a new, finite
-content expansion; authoring has not started and no new goal has been created.
+Revised 2026-09-07 after the user rejected the original small targets and
+explicitly authorized removing Naturalization Nucleus's catalog-size ceiling.
+The ceiling removal is implemented and tested; the larger content banks below
+are proposed targets, not completed authoring. No new goal has been created.
 It follows the completed [content-readiness assessment](COURSE_CONTENT_FINAL_ASSESSMENT.md)
 and existing [catalog conventions](GAME_CONTENT_CATALOGS.md).
+
+## Learning purpose and scale
+
+The earlier 240-verb / 1,000-sentence proposal was an incremental expansion,
+not an adequate plan for a broad course. This revision targets sustained study:
+thousands of useful lexical items and varied examples across everyday life,
+travel, services, relationships, study, work, explanations and opinions.
+
+The intended direction is independent language use. The
+[Council of Europe's CEFR global scale](https://www.coe.int/en/web/common-european-framework-reference-languages/table-1-cefr-3.3-common-reference-levels-global-scale)
+describes B1/B2 through comprehension, communication and production abilities.
+It does not prescribe the record counts in this plan. These quantities are
+editorial planning targets, not evidence of a CEFR level or a promise that
+finishing matching games establishes conversational proficiency.
+
+L1 covers frequent concrete language and simple everyday functions; L2 adds
+broader routines, descriptions, transactions and connected events; L3 adds
+precision, abstraction, nuanced meanings and more demanding constructions where
+the current game supports them. The application's three levels are not being
+renamed or certified as CEFR levels. Required learning outcomes that cannot be
+practised or assessed by an existing interaction remain documented gaps.
 
 ## Scope commitment
 
@@ -31,6 +54,12 @@ inside content JSON is also protected: editing `copy`, `gameplay`, `axes`,
 `roundSettings` or similar fields would not become content work merely because
 the file ends in `.json`.
 
+The explicit exception authorized in the latest request is removal of the
+Nucleus catalog-size ceiling, with focused regression coverage and Mandarin
+cache/integrity metadata. Its minimum viable bank size, unique characters and
+IDs, valid readings, review checks and 5/9-piece rounds remain intact. This
+exception does not authorize unrelated game changes or other cap removals.
+
 Use the current formats and validators. If an entry requires an engine change,
 choose a useful entry that fits the existing game. Report an unavoidable limit
 without changing it. A discovered gameplay bug gets reported separately; this
@@ -56,15 +85,16 @@ this plan does not enable it.
 
 | Game / catalog | English → Czech | English → Mandarin | English → Spanish | Spanish → English | Total per applicable course |
 | --- | --- | --- | --- | --- | ---: |
-| Verb Nebula — playable verb pairs | 80 : 80 : 80 | 80 : 80 : 80 | 80 : 80 : 80 | 80 : 80 : 80 | 240 |
-| Word World — sentences | 200 : 600 : 200 | 200 : 600 : 200 | 200 : 600 : 200 | 200 : 600 : 200 | 1,000 |
-| Conjugation Comet — complete verb paradigms | 20 : 20 : 20 | — | 20 : 20 : 20 | 20 : 20 : 20 | 60 |
-| Case Cosmos — playable contexts | 100 : 100 : 100 | — | — | — | 300 |
-| Grammar Gravity — challenge families | 10 : 10 : 10 | — | 10 : 10 : 10 | 10 : 10 : 10 | 30 |
-| Grammar Gravity — noun bank | 30 : 30 : 30 | — | 30 : 30 : 30 | 30 : 30 : 30 | 90 |
-| Naturalization Nucleus — characters | — | 42 : 43 : 43 | — | — | 128 |
-| Sound Quasar — words | 30 : 30 : 30 | 30 : 30 : 30 | 30 : 30 : 30 | 30 : 30 : 30 | 90 |
-| Sound Quasar — sentences | 40 : 40 : 40 | 40 : 40 : 40 | 40 : 40 : 40 | 40 : 40 : 40 | 120 |
+| Verb Nebula — playable verb pairs | 400 : 600 : 800 | 400 : 600 : 800 | 400 : 600 : 800 | 400 : 600 : 800 | 1,800 |
+| Word World — sentences | 5,000 : 15,000 : 5,000 | 5,000 : 15,000 : 5,000 | 5,000 : 15,000 : 5,000 | 5,000 : 15,000 : 5,000 | 25,000 |
+| Conjugation Comet — complete verb paradigms | 100 : 200 : 300 | — | 100 : 200 : 300 | 100 : 200 : 300 | 600 |
+| Case Cosmos — playable contexts | 1,000 : 2,000 : 3,000 | — | — | — | 6,000 |
+| Grammar Gravity — challenge families | 16 : 16 : 16 | — | 16 : 16 : 16 | 16 : 16 : 16 | 48 |
+| Grammar Gravity — bilingual examples within those families | 1,000 : 2,000 : 3,000 | — | 1,000 : 2,000 : 3,000 | 1,000 : 2,000 : 3,000 | 6,000 |
+| Grammar Gravity — noun bank | 500 : 1,000 : 1,500 | — | 500 : 1,000 : 1,500 | 500 : 1,000 : 1,500 | 3,000 |
+| Naturalization Nucleus — characters | — | 500 : 1,000 : 1,500 | — | — | 3,000 |
+| Sound Quasar — words | 500 : 1,000 : 1,500 | 500 : 1,000 : 1,500 | 500 : 1,000 : 1,500 | 500 : 1,000 : 1,500 | 3,000 |
+| Sound Quasar — sentences | 1,000 : 2,000 : 3,000 | 1,000 : 2,000 : 3,000 | 1,000 : 2,000 : 3,000 | 1,000 : 2,000 : 3,000 | 6,000 |
 
 Campaign reuses the constituent games and has no additional bank.
 
@@ -74,19 +104,34 @@ represent the same teaching volume. Every conjugation paradigm must include
 its complete currently supported subject/form set. Every grammar family must
 include the examples and distinct valid options required by its existing
 language configuration. Supporting forms and examples are recorded separately
-in the final inventory, never used to inflate the family count.
+in the final inventory, never used to inflate the family count. Grammar's
+larger target is primarily example depth within useful families. The 6,000
+examples and 48 families are nested counts, not 6,048 independent exercises.
+Do not invent redundant grammar families to reach the family ceiling.
 
-Word World's intermediate allocation preserves Czech's existing 565 level-2
-sentences without deleting or relabeling them to balance a table. Its 1,000
-target is substantial: the three modern courses each need 750 new sentences,
-and Czech needs 208. This is the largest milestone, not a quick follow-up.
+Word World's intermediate allocation preserves existing material and satisfies
+the Czech author's existing 60% minimum L2 distribution rule. It is not a claim
+that every language should universally allocate 60% of study to intermediate
+content. Each of the three modern courses needs 24,750 new sentences and Czech
+needs 24,208. Existing shared concept IDs keep their meaning; new concepts must
+have complete course and learner-base realizations. Czech's current authoring
+files are JSONL plus supporting JSON, compiled by the existing generator.
 
-Naturalization Nucleus currently accepts at most 128 challenges. Its target
-uses that existing capacity, adding eight characters to the current 120.
-Grammar Gravity's 30 families remain below its current 48-family limit, and
-Sound Quasar's 90 words and 120 sentences remain below its 500-item limit per
-collection. The relevant bounds were read directly from the current validators.
-None will be raised to achieve this plan.
+## Capacity readiness before the large expansion
+
+| Boundary | Current state | Consequence for these targets |
+| --- | --- | --- |
+| Nucleus catalog count | User-authorized upper ceiling removed; minimum and item validation retained | A synthetic 4,096-record bank validates and produces the existing 5/9-piece rounds at every difficulty. This is capacity evidence, not authored curriculum or an unlimited-memory claim. |
+| Sound Quasar collections | Still capped at 500 words and 500 sentences | The new 3,000/6,000 targets exceed these limits. A separate, explicit capacity change and its tests are required before those banks can be expanded to target. No Sounds code was changed here. |
+| Case Cosmos | Still capped at 1,500 authored contexts and 200 supporting paradigms; legacy bank has its own cap | The 6,000-context target exceeds the current authored-context limit. Its capacity preparation remains separate; no Case code was changed here. |
+| Grammar Gravity | At most 48 families; examples have a minimum but no fixed maximum in the current validator | The plan expands examples within up to 48 useful families, preserving form/category and stage contracts. Large-bank load/selection checks remain required. |
+| Other banks and delivery | The small existing banks validate; the proposed larger catalogs are not yet authored or tested | Check new sizes, all-record reachability, loading and offline/Android source delivery at each milestone. Do not claim full-scale readiness based on the old inventory. |
+
+The newly requested scale therefore cannot honestly be called entirely
+JSON-only today: Sounds and Case still have documented capacity blockers.
+Only the specifically requested Nucleus ceiling was removed in this turn.
+Do not shrink these educational targets merely to conceal those blockers,
+silently alter another validator, or pad unsupported records into authoring.
 
 Do not discard useful concurrent additions if a bank exceeds a proposed target
 before execution. Capture the new baseline and record any resulting overage.
@@ -102,34 +147,44 @@ its 33 source hashes still matched when this plan was prepared.
 
 | Catalog | Czech | Mandarin | Spanish | English from Spanish |
 | --- | ---: | ---: | ---: | ---: |
-| Verb pairs | 90 | 60 | 60 | 194 |
-| Word World sentences | 208 | 750 | 750 | 750 |
-| Conjugation paradigms | 1 | — | 49 | 52 |
-| Case contexts | 144 | — | — | — |
-| Grammar families | 8 | — | 22 | 24 |
-| Nouns | 54 | — | 50 | 50 |
-| Nucleus characters | — | 8 | — | — |
-| Listening words | 74 | 74 | 74 | 54 |
-| Listening sentences | 104 | 104 | 104 | 39 |
+| Verb pairs | 1,650 | 1,620 | 1,620 | 1,754 |
+| Word World sentences | 24,208 | 24,750 | 24,750 | 24,750 |
+| Conjugation paradigms | 541 | — | 589 | 592 |
+| Case contexts | 5,844 | — | — | — |
+| Grammar families (up to) | 26 | — | 40 | 42 |
+| Grammar examples (within families) | 5,812 | — | 5,936 | 5,976 |
+| Nouns | 2,964 | — | 2,960 | 2,960 |
+| Nucleus characters | — | 2,880 | — | — |
+| Listening words | 2,984 | 2,984 | 2,984 | 2,964 |
+| Listening sentences | 5,984 | 5,984 | 5,984 | 5,919 |
 
 ## Finite execution milestones
 
 1. **Capture the authorized baseline.** Record current catalog counts and hashes;
    protect gameplay source and configuration, the fixed rubric and existing
    records. Reuse current passing evidence where its hashes still match.
-   Establish exact content and generated-output paths before the first batch.
-2. **Complete the vocabulary banks.** Bring each Verb Nebula bank to 240 pairs
-   and each enabled noun bank to 90 nouns. Fill the largest shortfalls first,
-   notably English Verb Nebula, while assigning meaningful new L2/L3 content.
+   Establish exact content and generated-output paths before the first batch,
+   map communicative functions and language-specific contrasts to the existing
+   interactions, and record the Sounds/Case capacity blockers above.
+2. **Complete the vocabulary banks.** Bring each Verb Nebula bank to 1,800 pairs
+   and each enabled noun bank to 3,000 nouns. Work through all three levels and
+   frequent practical domains; uncommon filler does not make a course stronger.
 3. **Complete structured and listening banks.** Reach the conjugation, Case,
    Grammar, Nucleus and both listening targets. Follow existing language-specific
    teaching scope: no unsupported tense, category, stage or contextual-reading
-   mode. Do not convert remaining old rubric objectives into engine work.
-4. **Complete Word World and close.** Bring all four banks to 1,000 sentences.
+   mode. Complete only supported banks until the two remaining capacity changes
+   are separately authorized and verified. Do not convert remaining old rubric
+   objectives into engine work.
+4. **Complete Word World and close.** Bring all four banks to 25,000 sentences.
    For the three modern courses, add shared concepts together with complete
    Mandarin, Spanish, English and required Spanish learner-base realizations.
    Czech follows its existing authoring/compiler route. Regenerate declared
    outputs, verify delivery, publish the final counts and end the pass.
+
+This is a multi-milestone curriculum project, not a one-turn generation job.
+Review and hand off useful increments at roughly 25%, 50%, 75% and 100% of
+each bank target, without counting a partial handoff as completion. Fix the
+targets at execution start and do not keep expanding them during that goal.
 
 Author and review in bounded batches, typically 20–50 words/sentences or up to
 five paradigms/families. Each batch has exact IDs, level decisions, findings,
@@ -147,8 +202,10 @@ blockers; every small batch does not require a user message.
   sufficient evidence of useful breadth.
 - Run the existing affected catalog and selector checks. Verify levels 1–3,
   declared modes, categories and offered board sizes remain usable. Do not weaken
-  tests or raise runtime limits. If an old exact-count fixture needs a change,
-  disclose the precise test-only adjustment before treating it as authorized.
+  tests or raise another runtime limit implicitly. Tests with live-bank counts
+  must validate the actual catalog declarations and meaningful invariants,
+  rather than freeze today's 120 characters or 40/40/40 split. Scope any needed
+  test-only adjustment to the changed data; do not relax language/review checks.
 - Use existing projection and offline generators; verify browser catalogs and
   Android source delivery match the authoring outputs. No APK is required.
 - Compare the final diff against the permitted data paths and protected
@@ -157,6 +214,15 @@ blockers; every small batch does not require a user message.
 - Label AI self-review as self-review. Preserve native, licensing and audible
   review status truthfully. Actual listening review is reported separately from
   text validation; no unperformed review becomes a claim of approval.
+- Maintain a coverage ledger by communicative function, grammar contrast,
+  domain and lexical sense, with naturally different constructions and contexts.
+  Revisit important words and constructions across multiple situations and
+  levels instead of treating a single encounter as learning. Track near-duplicate
+  templates as well as exact text duplicates. Count individual senses honestly;
+  don't manufacture several indistinguishable verb cards to inflate totals.
+- Use held-out examples for an editorial assessment of generalization and
+  record what the current games actually assess. Do not implement new transfer
+  locks, speaking tasks or progression controls under this content authorization.
 - Finish when the agreed target banks are delivered and their content/data
   checks pass, with any unavoidable exception stated explicitly. Do not start
   extra expansion waves or invent a new completion criterion after that point.
