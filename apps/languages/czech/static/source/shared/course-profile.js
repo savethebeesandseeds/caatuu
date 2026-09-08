@@ -76,7 +76,7 @@
       courseRuntime: "source/shared/runtime.js?v=runtime-42",
       semanticLearningProvider: "source/shared/semantic-learning.js?v=semantic-learning-8",
       setupProgressProvider: "source/features/setup/setup-progress.js?v=setup-progress-1",
-      setupProvider: "source/features/setup/setup.js?v=setup-42"
+      setupProvider: "source/features/setup/setup.js?v=setup-43"
     },
     gameContent: {
       "verb-lab": {
