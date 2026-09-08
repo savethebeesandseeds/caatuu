@@ -35,7 +35,7 @@ export const HOME_BOOTSTRAP_ARTWORK = Object.freeze([
 // Separate residency and content budgets; independently delivered model and
 // dictionary binaries are not duplicated in this companion payload.
 export const PRODUCT_BOOTSTRAP_MAX_BYTES = 8_000_000;
-export const PRODUCT_SETUP_PAYLOAD_MAX_BYTES = 48_000_000;
+export const PRODUCT_SETUP_PAYLOAD_MAX_BYTES = 72_000_000;
 
 const hash = (bytes) => createHash("sha256").update(bytes).digest("hex");
 const jsonBytes = (value) => Buffer.from(`${JSON.stringify(value, null, 2)}\n`, "utf8");
