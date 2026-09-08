@@ -11,7 +11,7 @@
   },
   "sourceConceptCatalog": "/language-runtime/static/data/english-concepts/word-world-es-v1.json",
   "realizationFile": "content.json",
-  "recordCount": 250,
+  "recordCount": 471,
   "targetLanguage": "es-ES",
   "mediationLanguage": "en",
   "tokenization": "authored",

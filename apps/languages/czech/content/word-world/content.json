@@ -72401,6 +72401,4659 @@
           "notes": []
         }
       }
+    },
+    {
+      "id": "ww-cz-exp260908-001",
+      "difficulty": 1,
+      "topic": "animals",
+      "englishText": "The rabbit is hopping.",
+      "embeddingText": "The rabbit is hopping.",
+      "englishAlternates": [],
+      "targetText": "Králík poskakuje.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Králík",
+          "normalized": "králík",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "rabbit"
+        },
+        {
+          "surface": "poskakuje",
+          "normalized": "poskakuje",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "is hopping"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a small rabbit springing over soft grass",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe animals and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 1,
+            "rationale": "Tiny, self-contained language for immediate recognition and imitation. One thought, no subordinate clause, and no hidden context needed.",
+            "prerequisites": []
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "animals",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-001"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-002",
+      "difficulty": 1,
+      "topic": "nature",
+      "englishText": "The seed is growing.",
+      "embeddingText": "The seed is growing.",
+      "englishAlternates": [],
+      "targetText": "Semeno roste.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Semeno",
+          "normalized": "semeno",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "seed"
+        },
+        {
+          "surface": "roste",
+          "normalized": "roste",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "is growing"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a seed with a green sprout emerging from soil",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe nature and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 1,
+            "rationale": "Tiny, self-contained language for immediate recognition and imitation. One thought, no subordinate clause, and no hidden context needed.",
+            "prerequisites": []
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "nature",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-002"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-003",
+      "difficulty": 1,
+      "topic": "play",
+      "englishText": "My kite is blue.",
+      "embeddingText": "My kite is blue.",
+      "englishAlternates": [],
+      "targetText": "Můj drak je modrý.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Můj",
+          "normalized": "můj",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "my"
+        },
+        {
+          "surface": "drak",
+          "normalized": "drak",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "kite"
+        },
+        {
+          "surface": "je",
+          "normalized": "je",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "is"
+        },
+        {
+          "surface": "modrý",
+          "normalized": "modrý",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "blue"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a child holding a bright blue kite in a park",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe play and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 1,
+            "rationale": "Tiny, self-contained language for immediate recognition and imitation. One thought, no subordinate clause, and no hidden context needed.",
+            "prerequisites": []
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "play",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-003"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-004",
+      "difficulty": 1,
+      "topic": "music",
+      "englishText": "We clap together.",
+      "embeddingText": "We clap together.",
+      "englishAlternates": [],
+      "targetText": "Tleskáme společně.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Tleskáme",
+          "normalized": "tleskáme",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "we clap"
+        },
+        {
+          "surface": "společně",
+          "normalized": "společně",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "together"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "children standing in a circle and clapping in rhythm",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe music and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 1,
+            "rationale": "Tiny, self-contained language for immediate recognition and imitation. One thought, no subordinate clause, and no hidden context needed.",
+            "prerequisites": []
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "music",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-004"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-005",
+      "difficulty": 1,
+      "topic": "school",
+      "englishText": "Where is my crayon?",
+      "embeddingText": "Where is my crayon?",
+      "englishAlternates": [],
+      "targetText": "Kde je moje pastelka?",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Kde",
+          "normalized": "kde",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "where"
+        },
+        {
+          "surface": "je",
+          "normalized": "je",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "is"
+        },
+        {
+          "surface": "moje",
+          "normalized": "moje",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "my"
+        },
+        {
+          "surface": "pastelka",
+          "normalized": "pastelka",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "crayon"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "an open pencil case beside a coloring page and a crayon",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe school and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 1,
+            "rationale": "Tiny, self-contained language for immediate recognition and imitation. One thought, no subordinate clause, and no hidden context needed.",
+            "prerequisites": []
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "school",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "question",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-005"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-006",
+      "difficulty": 1,
+      "topic": "animals",
+      "englishText": "The turtle is sleeping.",
+      "embeddingText": "The turtle is sleeping.",
+      "englishAlternates": [],
+      "targetText": "Želva spí.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Želva",
+          "normalized": "želva",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "turtle"
+        },
+        {
+          "surface": "spí",
+          "normalized": "spí",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "is sleeping"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a sleeping turtle with its head resting beside its shell",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe animals and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 1,
+            "rationale": "Tiny, self-contained language for immediate recognition and imitation. One thought, no subordinate clause, and no hidden context needed.",
+            "prerequisites": []
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "animals",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-006"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-007",
+      "difficulty": 1,
+      "topic": "friendship",
+      "englishText": "Please join us.",
+      "embeddingText": "Please join us.",
+      "englishAlternates": [],
+      "targetText": "Prosím, přidej se k nám.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Prosím",
+          "normalized": "prosím",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "please"
+        },
+        {
+          "surface": "přidej",
+          "normalized": "přidej",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "join"
+        },
+        {
+          "surface": "se",
+          "normalized": "se",
+          "tokenIndex": 2,
+          "playable": false,
+          "gloss": "part of přidej se: join"
+        },
+        {
+          "surface": "k",
+          "normalized": "k",
+          "tokenIndex": 3,
+          "playable": false,
+          "gloss": "to; part of join us"
+        },
+        {
+          "surface": "nám",
+          "normalized": "nám",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "us"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "children making room for another child at a game table",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe friendship and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 1,
+            "rationale": "Tiny, self-contained language for immediate recognition and imitation. One thought, no subordinate clause, and no hidden context needed.",
+            "prerequisites": []
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "friendship",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "imperative",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-007"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-008",
+      "difficulty": 1,
+      "topic": "nature",
+      "englishText": "Look at the rainbow!",
+      "embeddingText": "Look at the rainbow!",
+      "englishAlternates": [],
+      "targetText": "Podívej se na duhu!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Podívej",
+          "normalized": "podívej",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "look"
+        },
+        {
+          "surface": "se",
+          "normalized": "se",
+          "tokenIndex": 1,
+          "playable": false,
+          "gloss": "part of podívej se: look"
+        },
+        {
+          "surface": "na",
+          "normalized": "na",
+          "tokenIndex": 2,
+          "playable": false,
+          "gloss": "at"
+        },
+        {
+          "surface": "duhu",
+          "normalized": "duhu",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "rainbow"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a child pointing toward a rainbow over a field",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe nature and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 1,
+            "rationale": "Tiny, self-contained language for immediate recognition and imitation. One thought, no subordinate clause, and no hidden context needed.",
+            "prerequisites": []
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "nature",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "imperative",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-008"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-009",
+      "difficulty": 2,
+      "topic": "animals",
+      "englishText": "A squirrel hides a nut under a leaf.",
+      "embeddingText": "A squirrel hides a nut under a leaf.",
+      "englishAlternates": [],
+      "targetText": "Veverka schovává oříšek pod list.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Veverka",
+          "normalized": "veverka",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "squirrel"
+        },
+        {
+          "surface": "schovává",
+          "normalized": "schovává",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "hides"
+        },
+        {
+          "surface": "oříšek",
+          "normalized": "oříšek",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "nut"
+        },
+        {
+          "surface": "pod",
+          "normalized": "pod",
+          "tokenIndex": 3,
+          "playable": false,
+          "gloss": "under (destination)"
+        },
+        {
+          "surface": "list",
+          "normalized": "list",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "leaf"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a squirrel tucking a nut under a broad autumn leaf",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe animals and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "animals",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-009"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-010",
+      "difficulty": 2,
+      "topic": "creativity",
+      "englishText": "Our cardboard rocket has three round windows.",
+      "embeddingText": "Our cardboard rocket has three round windows.",
+      "englishAlternates": [],
+      "targetText": "Naše raketa z kartonu má tři kulatá okna.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Naše",
+          "normalized": "naše",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "our"
+        },
+        {
+          "surface": "raketa",
+          "normalized": "raketa",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "rocket"
+        },
+        {
+          "surface": "z",
+          "normalized": "z",
+          "tokenIndex": 2,
+          "playable": false,
+          "gloss": "of"
+        },
+        {
+          "surface": "kartonu",
+          "normalized": "kartonu",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "cardboard"
+        },
+        {
+          "surface": "má",
+          "normalized": "má",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "has"
+        },
+        {
+          "surface": "tři",
+          "normalized": "tři",
+          "tokenIndex": 5,
+          "playable": true,
+          "gloss": "three"
+        },
+        {
+          "surface": "kulatá",
+          "normalized": "kulatá",
+          "tokenIndex": 6,
+          "playable": true,
+          "gloss": "round"
+        },
+        {
+          "surface": "okna",
+          "normalized": "okna",
+          "tokenIndex": 7,
+          "playable": true,
+          "gloss": "windows"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a cardboard rocket model with three round openings",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe creativity and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "creativity",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-010"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-011",
+      "difficulty": 2,
+      "topic": "school",
+      "englishText": "We measure the sunflower with a ruler.",
+      "embeddingText": "We measure the sunflower with a ruler.",
+      "englishAlternates": [],
+      "targetText": "Měříme slunečnici pravítkem.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Měříme",
+          "normalized": "měříme",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "we measure"
+        },
+        {
+          "surface": "slunečnici",
+          "normalized": "slunečnici",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "sunflower"
+        },
+        {
+          "surface": "pravítkem",
+          "normalized": "pravítkem",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "with a ruler"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a ruler held beside a sunflower stem",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe school and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "school",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-011"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-012",
+      "difficulty": 2,
+      "topic": "friendship",
+      "englishText": "Can you teach me that hand-clapping game?",
+      "embeddingText": "Can you teach me that hand-clapping game?",
+      "englishAlternates": [],
+      "targetText": "Naučíš mě tu hru s tleskáním?",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Naučíš",
+          "normalized": "naučíš",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "will you teach"
+        },
+        {
+          "surface": "mě",
+          "normalized": "mě",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "me"
+        },
+        {
+          "surface": "tu",
+          "normalized": "tu",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "that"
+        },
+        {
+          "surface": "hru",
+          "normalized": "hru",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "game"
+        },
+        {
+          "surface": "s",
+          "normalized": "s",
+          "tokenIndex": 4,
+          "playable": false,
+          "gloss": "with"
+        },
+        {
+          "surface": "tleskáním",
+          "normalized": "tleskáním",
+          "tokenIndex": 5,
+          "playable": true,
+          "gloss": "clapping"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "two friends demonstrating a hand-clapping pattern",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe friendship and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "friendship",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "question",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-012"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-013",
+      "difficulty": 2,
+      "topic": "nature",
+      "englishText": "Tiny footprints cross the fresh snow.",
+      "embeddingText": "Tiny footprints cross the fresh snow.",
+      "englishAlternates": [],
+      "targetText": "Drobné stopy vedou přes čerstvý sníh.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Drobné",
+          "normalized": "drobné",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "tiny"
+        },
+        {
+          "surface": "stopy",
+          "normalized": "stopy",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "footprints"
+        },
+        {
+          "surface": "vedou",
+          "normalized": "vedou",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "lead"
+        },
+        {
+          "surface": "přes",
+          "normalized": "přes",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "across"
+        },
+        {
+          "surface": "čerstvý",
+          "normalized": "čerstvý",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "fresh"
+        },
+        {
+          "surface": "sníh",
+          "normalized": "sníh",
+          "tokenIndex": 5,
+          "playable": true,
+          "gloss": "snow"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a winding line of tiny tracks across clean white snow",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe nature and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "nature",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-013"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-014",
+      "difficulty": 2,
+      "topic": "play",
+      "englishText": "The puppet bows at the end of the show.",
+      "embeddingText": "The puppet bows at the end of the show.",
+      "englishAlternates": [],
+      "targetText": "Loutka se na konci představení uklání.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Loutka",
+          "normalized": "loutka",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "puppet"
+        },
+        {
+          "surface": "se",
+          "normalized": "se",
+          "tokenIndex": 1,
+          "playable": false,
+          "gloss": "part of uklání se: bows"
+        },
+        {
+          "surface": "na",
+          "normalized": "na",
+          "tokenIndex": 2,
+          "playable": false,
+          "gloss": "at"
+        },
+        {
+          "surface": "konci",
+          "normalized": "konci",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "end"
+        },
+        {
+          "surface": "představení",
+          "normalized": "představení",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "of the show"
+        },
+        {
+          "surface": "uklání",
+          "normalized": "uklání",
+          "tokenIndex": 5,
+          "playable": true,
+          "gloss": "bows"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a puppet bending forward on a small stage as curtains close",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe play and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "play",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-014"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-015",
+      "difficulty": 2,
+      "topic": "food",
+      "englishText": "We stir the pancake batter slowly.",
+      "embeddingText": "We stir the pancake batter slowly.",
+      "englishAlternates": [],
+      "targetText": "Pomalu mícháme těsto na palačinky.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Pomalu",
+          "normalized": "pomalu",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "slowly"
+        },
+        {
+          "surface": "mícháme",
+          "normalized": "mícháme",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "we stir"
+        },
+        {
+          "surface": "těsto",
+          "normalized": "těsto",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "batter"
+        },
+        {
+          "surface": "na",
+          "normalized": "na",
+          "tokenIndex": 3,
+          "playable": false,
+          "gloss": "for"
+        },
+        {
+          "surface": "palačinky",
+          "normalized": "palačinky",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "pancakes"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a spoon making a slow circle through pancake batter",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe food and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "food",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-015"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-016",
+      "difficulty": 2,
+      "topic": "nature",
+      "englishText": "The snail leaves a shiny trail on the stone.",
+      "embeddingText": "The snail leaves a shiny trail on the stone.",
+      "englishAlternates": [],
+      "targetText": "Šnek nechává na kameni lesklou stopu.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Šnek",
+          "normalized": "šnek",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "snail"
+        },
+        {
+          "surface": "nechává",
+          "normalized": "nechává",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "leaves"
+        },
+        {
+          "surface": "na",
+          "normalized": "na",
+          "tokenIndex": 2,
+          "playable": false,
+          "gloss": "on"
+        },
+        {
+          "surface": "kameni",
+          "normalized": "kameni",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "stone"
+        },
+        {
+          "surface": "lesklou",
+          "normalized": "lesklou",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "shiny"
+        },
+        {
+          "surface": "stopu",
+          "normalized": "stopu",
+          "tokenIndex": 5,
+          "playable": true,
+          "gloss": "trail"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a snail and a silvery trail across a smooth stone",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe nature and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "nature",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-016"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-017",
+      "difficulty": 2,
+      "topic": "school",
+      "englishText": "Which magnet holds our drawing on the board?",
+      "embeddingText": "Which magnet holds our drawing on the board?",
+      "englishAlternates": [],
+      "targetText": "Který magnet drží náš obrázek na tabuli?",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Který",
+          "normalized": "který",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "which"
+        },
+        {
+          "surface": "magnet",
+          "normalized": "magnet",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "magnet"
+        },
+        {
+          "surface": "drží",
+          "normalized": "drží",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "holds"
+        },
+        {
+          "surface": "náš",
+          "normalized": "náš",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "our"
+        },
+        {
+          "surface": "obrázek",
+          "normalized": "obrázek",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "drawing"
+        },
+        {
+          "surface": "na",
+          "normalized": "na",
+          "tokenIndex": 5,
+          "playable": false,
+          "gloss": "on"
+        },
+        {
+          "surface": "tabuli",
+          "normalized": "tabuli",
+          "tokenIndex": 6,
+          "playable": true,
+          "gloss": "board"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a child's drawing held on a noticeboard by a colorful magnet",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe school and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "school",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "question",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-017"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-018",
+      "difficulty": 2,
+      "topic": "music",
+      "englishText": "My friend keeps the rhythm on a little drum.",
+      "embeddingText": "My friend keeps the rhythm on a little drum.",
+      "englishAlternates": [],
+      "targetText": "Můj kamarád drží rytmus na malém bubnu.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Můj",
+          "normalized": "můj",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "my"
+        },
+        {
+          "surface": "kamarád",
+          "normalized": "kamarád",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "friend"
+        },
+        {
+          "surface": "drží",
+          "normalized": "drží",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "keeps"
+        },
+        {
+          "surface": "rytmus",
+          "normalized": "rytmus",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "rhythm"
+        },
+        {
+          "surface": "na",
+          "normalized": "na",
+          "tokenIndex": 4,
+          "playable": false,
+          "gloss": "on"
+        },
+        {
+          "surface": "malém",
+          "normalized": "malém",
+          "tokenIndex": 5,
+          "playable": true,
+          "gloss": "little"
+        },
+        {
+          "surface": "bubnu",
+          "normalized": "bubnu",
+          "tokenIndex": 6,
+          "playable": true,
+          "gloss": "drum"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a child tapping a little drum beside friends making music",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe music and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "music",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-018"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-019",
+      "difficulty": 2,
+      "topic": "play",
+      "englishText": "We take turns looking through the telescope.",
+      "embeddingText": "We take turns looking through the telescope.",
+      "englishAlternates": [],
+      "targetText": "Střídáme se v pozorování dalekohledem.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Střídáme",
+          "normalized": "střídáme",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "we take turns"
+        },
+        {
+          "surface": "se",
+          "normalized": "se",
+          "tokenIndex": 1,
+          "playable": false,
+          "gloss": "part of střídáme se: take turns"
+        },
+        {
+          "surface": "v",
+          "normalized": "v",
+          "tokenIndex": 2,
+          "playable": false,
+          "gloss": "in"
+        },
+        {
+          "surface": "pozorování",
+          "normalized": "pozorování",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "observing"
+        },
+        {
+          "surface": "dalekohledem",
+          "normalized": "dalekohledem",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "through the telescope"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "friends waiting beside a telescope while one child looks through it",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe play and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "play",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-019"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-020",
+      "difficulty": 2,
+      "topic": "nature",
+      "englishText": "Bees carry pollen from flower to flower.",
+      "embeddingText": "Bees carry pollen from flower to flower.",
+      "englishAlternates": [],
+      "targetText": "Včely přenášejí pyl z květu na květ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Včely",
+          "normalized": "včely",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "bees"
+        },
+        {
+          "surface": "přenášejí",
+          "normalized": "přenášejí",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "carry"
+        },
+        {
+          "surface": "pyl",
+          "normalized": "pyl",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "pollen"
+        },
+        {
+          "surface": "z",
+          "normalized": "z",
+          "tokenIndex": 3,
+          "playable": false,
+          "gloss": "from"
+        },
+        {
+          "surface": "květu",
+          "normalized": "květu",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "flower"
+        },
+        {
+          "surface": "na",
+          "normalized": "na",
+          "tokenIndex": 5,
+          "playable": false,
+          "gloss": "to"
+        },
+        {
+          "surface": "květ",
+          "normalized": "květ",
+          "tokenIndex": 6,
+          "playable": true,
+          "gloss": "flower"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a bee dusted with yellow pollen visiting a flower",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe nature and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "nature",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-020"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-021",
+      "difficulty": 2,
+      "topic": "friendship",
+      "englishText": "Your idea gives our story a funny ending.",
+      "embeddingText": "Your idea gives our story a funny ending.",
+      "englishAlternates": [],
+      "targetText": "Tvůj nápad dává našemu příběhu legrační konec.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Tvůj",
+          "normalized": "tvůj",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "your"
+        },
+        {
+          "surface": "nápad",
+          "normalized": "nápad",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "idea"
+        },
+        {
+          "surface": "dává",
+          "normalized": "dává",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "gives"
+        },
+        {
+          "surface": "našemu",
+          "normalized": "našemu",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "to our"
+        },
+        {
+          "surface": "příběhu",
+          "normalized": "příběhu",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "story"
+        },
+        {
+          "surface": "legrační",
+          "normalized": "legrační",
+          "tokenIndex": 5,
+          "playable": true,
+          "gloss": "funny"
+        },
+        {
+          "surface": "konec",
+          "normalized": "konec",
+          "tokenIndex": 6,
+          "playable": true,
+          "gloss": "ending"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "two children inventing a funny final picture for a storybook",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe friendship and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "friendship",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-021"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-022",
+      "difficulty": 2,
+      "topic": "creativity",
+      "englishText": "The shadow looks like a giant dancing bear.",
+      "embeddingText": "The shadow looks like a giant dancing bear.",
+      "englishAlternates": [],
+      "targetText": "Stín vypadá jako obrovský tančící medvěd.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Stín",
+          "normalized": "stín",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "shadow"
+        },
+        {
+          "surface": "vypadá",
+          "normalized": "vypadá",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "looks"
+        },
+        {
+          "surface": "jako",
+          "normalized": "jako",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "like"
+        },
+        {
+          "surface": "obrovský",
+          "normalized": "obrovský",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "giant"
+        },
+        {
+          "surface": "tančící",
+          "normalized": "tančící",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "dancing"
+        },
+        {
+          "surface": "medvěd",
+          "normalized": "medvěd",
+          "tokenIndex": 5,
+          "playable": true,
+          "gloss": "bear"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a large bear-shaped shadow on a wall with raised paws",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe creativity and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "creativity",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-022"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-023",
+      "difficulty": 2,
+      "topic": "school",
+      "englishText": "Please leave space for everyone's name on the poster.",
+      "embeddingText": "Please leave space for everyone's name on the poster.",
+      "englishAlternates": [],
+      "targetText": "Nech prosím na plakátu místo na jména všech.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Nech",
+          "normalized": "nech",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "leave"
+        },
+        {
+          "surface": "prosím",
+          "normalized": "prosím",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "please"
+        },
+        {
+          "surface": "na",
+          "normalized": "na",
+          "tokenIndex": 2,
+          "playable": false,
+          "gloss": "on"
+        },
+        {
+          "surface": "plakátu",
+          "normalized": "plakátu",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "poster"
+        },
+        {
+          "surface": "místo",
+          "normalized": "místo",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "space"
+        },
+        {
+          "surface": "na",
+          "normalized": "na",
+          "tokenIndex": 5,
+          "playable": false,
+          "gloss": "for"
+        },
+        {
+          "surface": "jména",
+          "normalized": "jména",
+          "tokenIndex": 6,
+          "playable": true,
+          "gloss": "names"
+        },
+        {
+          "surface": "všech",
+          "normalized": "všech",
+          "tokenIndex": 7,
+          "playable": true,
+          "gloss": "of everyone"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a group poster with blank spaces for children's names",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe school and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "school",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "imperative",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-023"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-024",
+      "difficulty": 2,
+      "topic": "nature",
+      "englishText": "A feather floats gently down onto the grass.",
+      "embeddingText": "A feather floats gently down onto the grass.",
+      "englishAlternates": [],
+      "targetText": "Peříčko se lehce snáší do trávy.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Peříčko",
+          "normalized": "peříčko",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "feather"
+        },
+        {
+          "surface": "se",
+          "normalized": "se",
+          "tokenIndex": 1,
+          "playable": false,
+          "gloss": "part of snáší se: floats down"
+        },
+        {
+          "surface": "lehce",
+          "normalized": "lehce",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "gently"
+        },
+        {
+          "surface": "snáší",
+          "normalized": "snáší",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "floats down"
+        },
+        {
+          "surface": "do",
+          "normalized": "do",
+          "tokenIndex": 4,
+          "playable": false,
+          "gloss": "into"
+        },
+        {
+          "surface": "trávy",
+          "normalized": "trávy",
+          "tokenIndex": 5,
+          "playable": true,
+          "gloss": "grass"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a white feather floating just above a green lawn",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe nature and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "nature",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-024"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-025",
+      "difficulty": 2,
+      "topic": "play",
+      "englishText": "Our team invents a new rule for the game.",
+      "embeddingText": "Our team invents a new rule for the game.",
+      "englishAlternates": [],
+      "targetText": "Náš tým vymýšlí nové pravidlo pro hru.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Náš",
+          "normalized": "náš",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "our"
+        },
+        {
+          "surface": "tým",
+          "normalized": "tým",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "team"
+        },
+        {
+          "surface": "vymýšlí",
+          "normalized": "vymýšlí",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "invents"
+        },
+        {
+          "surface": "nové",
+          "normalized": "nové",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "new"
+        },
+        {
+          "surface": "pravidlo",
+          "normalized": "pravidlo",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "rule"
+        },
+        {
+          "surface": "pro",
+          "normalized": "pro",
+          "tokenIndex": 5,
+          "playable": false,
+          "gloss": "for"
+        },
+        {
+          "surface": "hru",
+          "normalized": "hru",
+          "tokenIndex": 6,
+          "playable": true,
+          "gloss": "game"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "children discussing a homemade board game together",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe play and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "play",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-025"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-026",
+      "difficulty": 2,
+      "topic": "food",
+      "englishText": "Grandpa shows us how to fold the dumplings.",
+      "embeddingText": "Grandpa shows us how to fold the dumplings.",
+      "englishAlternates": [],
+      "targetText": "Dědeček nám ukazuje, jak skládat knedlíčky.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Dědeček",
+          "normalized": "dědeček",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "grandpa"
+        },
+        {
+          "surface": "nám",
+          "normalized": "nám",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "to us"
+        },
+        {
+          "surface": "ukazuje",
+          "normalized": "ukazuje",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "shows"
+        },
+        {
+          "surface": "jak",
+          "normalized": "jak",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "how"
+        },
+        {
+          "surface": "skládat",
+          "normalized": "skládat",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "to fold"
+        },
+        {
+          "surface": "knedlíčky",
+          "normalized": "knedlíčky",
+          "tokenIndex": 5,
+          "playable": true,
+          "gloss": "dumplings"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a grandfather and children folding dough around dumpling filling",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe food and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "connected-events"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "food",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 2
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-026"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-027",
+      "difficulty": 2,
+      "topic": "creativity",
+      "englishText": "The dragon in my story collects colorful buttons.",
+      "embeddingText": "The dragon in my story collects colorful buttons.",
+      "englishAlternates": [],
+      "targetText": "Drak v mém příběhu sbírá barevné knoflíky.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Drak",
+          "normalized": "drak",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "dragon"
+        },
+        {
+          "surface": "v",
+          "normalized": "v",
+          "tokenIndex": 1,
+          "playable": false,
+          "gloss": "in"
+        },
+        {
+          "surface": "mém",
+          "normalized": "mém",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "my"
+        },
+        {
+          "surface": "příběhu",
+          "normalized": "příběhu",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "story"
+        },
+        {
+          "surface": "sbírá",
+          "normalized": "sbírá",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "collects"
+        },
+        {
+          "surface": "barevné",
+          "normalized": "barevné",
+          "tokenIndex": 5,
+          "playable": true,
+          "gloss": "colorful"
+        },
+        {
+          "surface": "knoflíky",
+          "normalized": "knoflíky",
+          "tokenIndex": 6,
+          "playable": true,
+          "gloss": "buttons"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a friendly storybook dragon sorting a box of colorful buttons",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe creativity and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "creativity",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-027"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-028",
+      "difficulty": 2,
+      "topic": "school",
+      "englishText": "We compare two leaves with a magnifying glass.",
+      "embeddingText": "We compare two leaves with a magnifying glass.",
+      "englishAlternates": [],
+      "targetText": "Porovnáváme dva listy pomocí lupy.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Porovnáváme",
+          "normalized": "porovnáváme",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "we compare"
+        },
+        {
+          "surface": "dva",
+          "normalized": "dva",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "two"
+        },
+        {
+          "surface": "listy",
+          "normalized": "listy",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "leaves"
+        },
+        {
+          "surface": "pomocí",
+          "normalized": "pomocí",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "using"
+        },
+        {
+          "surface": "lupy",
+          "normalized": "lupy",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "magnifying glass"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "two different leaves beneath a handheld magnifying glass",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe school and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "school",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-028"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-029",
+      "difficulty": 2,
+      "topic": "friendship",
+      "englishText": "I saved the last sticker for you.",
+      "embeddingText": "I saved the last sticker for you.",
+      "englishAlternates": [],
+      "targetText": "Poslední samolepku mám schovanou pro tebe.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Poslední",
+          "normalized": "poslední",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "last"
+        },
+        {
+          "surface": "samolepku",
+          "normalized": "samolepku",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "sticker"
+        },
+        {
+          "surface": "mám",
+          "normalized": "mám",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "I have"
+        },
+        {
+          "surface": "schovanou",
+          "normalized": "schovanou",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "saved"
+        },
+        {
+          "surface": "pro",
+          "normalized": "pro",
+          "tokenIndex": 4,
+          "playable": false,
+          "gloss": "for"
+        },
+        {
+          "surface": "tebe",
+          "normalized": "tebe",
+          "tokenIndex": 5,
+          "playable": true,
+          "gloss": "you"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a child offering the final sticker from a sheet to a friend",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe friendship and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "friendship",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-029"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-030",
+      "difficulty": 2,
+      "topic": "nature",
+      "englishText": "The pond reflects the clouds above the trees.",
+      "embeddingText": "The pond reflects the clouds above the trees.",
+      "englishAlternates": [],
+      "targetText": "Rybník odráží mraky nad stromy.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Rybník",
+          "normalized": "rybník",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "pond"
+        },
+        {
+          "surface": "odráží",
+          "normalized": "odráží",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "reflects"
+        },
+        {
+          "surface": "mraky",
+          "normalized": "mraky",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "clouds"
+        },
+        {
+          "surface": "nad",
+          "normalized": "nad",
+          "tokenIndex": 3,
+          "playable": false,
+          "gloss": "above"
+        },
+        {
+          "surface": "stromy",
+          "normalized": "stromy",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "trees"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "white clouds mirrored on a still pond below leafy trees",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe nature and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "nature",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-030"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-031",
+      "difficulty": 2,
+      "topic": "music",
+      "englishText": "The song gets quieter near the end.",
+      "embeddingText": "The song gets quieter near the end.",
+      "englishAlternates": [],
+      "targetText": "Píseň ke konci zní tišeji.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Píseň",
+          "normalized": "píseň",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "song"
+        },
+        {
+          "surface": "ke",
+          "normalized": "ke",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "toward"
+        },
+        {
+          "surface": "konci",
+          "normalized": "konci",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "end"
+        },
+        {
+          "surface": "zní",
+          "normalized": "zní",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "sounds"
+        },
+        {
+          "surface": "tišeji",
+          "normalized": "tišeji",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "quieter"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "children finishing a song with gentle voices and relaxed hands",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe music and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "music",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-031"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-032",
+      "difficulty": 2,
+      "topic": "play",
+      "englishText": "Can our paper bridge hold five pebbles?",
+      "embeddingText": "Can our paper bridge hold five pebbles?",
+      "englishAlternates": [],
+      "targetText": "Unese náš papírový most pět oblázků?",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Unese",
+          "normalized": "unese",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "can it hold"
+        },
+        {
+          "surface": "náš",
+          "normalized": "náš",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "our"
+        },
+        {
+          "surface": "papírový",
+          "normalized": "papírový",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "paper"
+        },
+        {
+          "surface": "most",
+          "normalized": "most",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "bridge"
+        },
+        {
+          "surface": "pět",
+          "normalized": "pět",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "five"
+        },
+        {
+          "surface": "oblázků",
+          "normalized": "oblázků",
+          "tokenIndex": 5,
+          "playable": true,
+          "gloss": "pebbles"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a folded paper bridge with five pebbles arranged beside it",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe play and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "sentence-comprehension"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "play",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "question",
+          "clauseCount": 1
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-032"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-033",
+      "difficulty": 2,
+      "topic": "friendship",
+      "englishText": "Let's ask everyone before we choose a team name.",
+      "embeddingText": "Let's ask everyone before we choose a team name.",
+      "englishAlternates": [],
+      "targetText": "Než vybereme jméno týmu, zeptáme se všech.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Než",
+          "normalized": "než",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "before"
+        },
+        {
+          "surface": "vybereme",
+          "normalized": "vybereme",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "we choose"
+        },
+        {
+          "surface": "jméno",
+          "normalized": "jméno",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "name"
+        },
+        {
+          "surface": "týmu",
+          "normalized": "týmu",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "of the team"
+        },
+        {
+          "surface": "zeptáme",
+          "normalized": "zeptáme",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "we will ask"
+        },
+        {
+          "surface": "se",
+          "normalized": "se",
+          "tokenIndex": 5,
+          "playable": false,
+          "gloss": "part of zeptáme se: ask"
+        },
+        {
+          "surface": "všech",
+          "normalized": "všech",
+          "tokenIndex": 6,
+          "playable": true,
+          "gloss": "everyone"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "children listening to suggestions around a blank team-name sign",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A1",
+        "learning": {
+          "objective": "Describe friendship and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "connected-events"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 2,
+            "rationale": "The main learning volume. Short everyday sentences that combine familiar words, one useful grammar focus, and enough context to infer meaning.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "friendship",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 2
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-033"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-034",
+      "difficulty": 3,
+      "topic": "nature",
+      "englishText": "Although the caterpillar is tiny, it leaves large holes in the leaf.",
+      "embeddingText": "Although the caterpillar is tiny, it leaves large holes in the leaf.",
+      "englishAlternates": [],
+      "targetText": "I když je housenka drobná, nechává v listu velké díry.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "normalized": "i",
+          "tokenIndex": 0,
+          "playable": false,
+          "gloss": "even"
+        },
+        {
+          "surface": "když",
+          "normalized": "když",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "though"
+        },
+        {
+          "surface": "je",
+          "normalized": "je",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "is"
+        },
+        {
+          "surface": "housenka",
+          "normalized": "housenka",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "caterpillar"
+        },
+        {
+          "surface": "drobná",
+          "normalized": "drobná",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "tiny"
+        },
+        {
+          "surface": "nechává",
+          "normalized": "nechává",
+          "tokenIndex": 5,
+          "playable": true,
+          "gloss": "leaves"
+        },
+        {
+          "surface": "v",
+          "normalized": "v",
+          "tokenIndex": 6,
+          "playable": false,
+          "gloss": "in"
+        },
+        {
+          "surface": "listu",
+          "normalized": "listu",
+          "tokenIndex": 7,
+          "playable": true,
+          "gloss": "leaf"
+        },
+        {
+          "surface": "velké",
+          "normalized": "velké",
+          "tokenIndex": 8,
+          "playable": true,
+          "gloss": "large"
+        },
+        {
+          "surface": "díry",
+          "normalized": "díry",
+          "tokenIndex": 9,
+          "playable": true,
+          "gloss": "holes"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a tiny caterpillar beside large holes in a green leaf",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A2",
+        "learning": {
+          "objective": "Describe nature and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "connected-events"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 3,
+            "rationale": "Still bounded learner language, with a little more syntax, morphology, or context. It must remain concrete enough to explain and review.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas",
+              "combine-level-2-everyday-patterns"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "nature",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 2
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-034"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-035",
+      "difficulty": 3,
+      "topic": "friendship",
+      "englishText": "If we listen to both ideas, we might find a fair solution.",
+      "embeddingText": "If we listen to both ideas, we might find a fair solution.",
+      "englishAlternates": [],
+      "targetText": "Když vyslechneme oba nápady, možná najdeme spravedlivé řešení.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Když",
+          "normalized": "když",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "if"
+        },
+        {
+          "surface": "vyslechneme",
+          "normalized": "vyslechneme",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "we listen to"
+        },
+        {
+          "surface": "oba",
+          "normalized": "oba",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "both"
+        },
+        {
+          "surface": "nápady",
+          "normalized": "nápady",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "ideas"
+        },
+        {
+          "surface": "možná",
+          "normalized": "možná",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "perhaps"
+        },
+        {
+          "surface": "najdeme",
+          "normalized": "najdeme",
+          "tokenIndex": 5,
+          "playable": true,
+          "gloss": "we find"
+        },
+        {
+          "surface": "spravedlivé",
+          "normalized": "spravedlivé",
+          "tokenIndex": 6,
+          "playable": true,
+          "gloss": "fair"
+        },
+        {
+          "surface": "řešení",
+          "normalized": "řešení",
+          "tokenIndex": 7,
+          "playable": true,
+          "gloss": "solution"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "two children sharing ideas while another sketches a shared solution",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A2",
+        "learning": {
+          "objective": "Describe friendship and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "connected-events"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 3,
+            "rationale": "Still bounded learner language, with a little more syntax, morphology, or context. It must remain concrete enough to explain and review.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas",
+              "combine-level-2-everyday-patterns"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "friendship",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 2
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-035"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-036",
+      "difficulty": 3,
+      "topic": "school",
+      "englishText": "The model fell over, so we made its base wider.",
+      "embeddingText": "The model fell over, so we made its base wider.",
+      "englishAlternates": [],
+      "targetText": "Model se převrátil, a tak jsme rozšířili jeho základnu.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Model",
+          "normalized": "model",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "model"
+        },
+        {
+          "surface": "se",
+          "normalized": "se",
+          "tokenIndex": 1,
+          "playable": false,
+          "gloss": "part of převrátil se: fell over"
+        },
+        {
+          "surface": "převrátil",
+          "normalized": "převrátil",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "fell over"
+        },
+        {
+          "surface": "a",
+          "normalized": "a",
+          "tokenIndex": 3,
+          "playable": false,
+          "gloss": "and"
+        },
+        {
+          "surface": "tak",
+          "normalized": "tak",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "so"
+        },
+        {
+          "surface": "jsme",
+          "normalized": "jsme",
+          "tokenIndex": 5,
+          "playable": false,
+          "gloss": "past-tense auxiliary: we"
+        },
+        {
+          "surface": "rozšířili",
+          "normalized": "rozšířili",
+          "tokenIndex": 6,
+          "playable": true,
+          "gloss": "widened"
+        },
+        {
+          "surface": "jeho",
+          "normalized": "jeho",
+          "tokenIndex": 7,
+          "playable": true,
+          "gloss": "its"
+        },
+        {
+          "surface": "základnu",
+          "normalized": "základnu",
+          "tokenIndex": 8,
+          "playable": true,
+          "gloss": "base"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a fallen model next to a newly widened cardboard base",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A2",
+        "learning": {
+          "objective": "Describe school and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "connected-events"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 3,
+            "rationale": "Still bounded learner language, with a little more syntax, morphology, or context. It must remain concrete enough to explain and review.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas",
+              "combine-level-2-everyday-patterns"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "school",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 2
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-036"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-037",
+      "difficulty": 3,
+      "topic": "creativity",
+      "englishText": "Instead of throwing the box away, we turned it into a puppet theater.",
+      "embeddingText": "Instead of throwing the box away, we turned it into a puppet theater.",
+      "englishAlternates": [],
+      "targetText": "Místo vyhození jsme krabici proměnili v loutkové divadlo.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Místo",
+          "normalized": "místo",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "instead of"
+        },
+        {
+          "surface": "vyhození",
+          "normalized": "vyhození",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "throwing away"
+        },
+        {
+          "surface": "jsme",
+          "normalized": "jsme",
+          "tokenIndex": 2,
+          "playable": false,
+          "gloss": "past-tense auxiliary: we"
+        },
+        {
+          "surface": "krabici",
+          "normalized": "krabici",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "box"
+        },
+        {
+          "surface": "proměnili",
+          "normalized": "proměnili",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "turned"
+        },
+        {
+          "surface": "v",
+          "normalized": "v",
+          "tokenIndex": 5,
+          "playable": false,
+          "gloss": "into"
+        },
+        {
+          "surface": "loutkové",
+          "normalized": "loutkové",
+          "tokenIndex": 6,
+          "playable": true,
+          "gloss": "puppet"
+        },
+        {
+          "surface": "divadlo",
+          "normalized": "divadlo",
+          "tokenIndex": 7,
+          "playable": true,
+          "gloss": "theater"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a reused box with curtains and friendly puppets peeking out",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A2",
+        "learning": {
+          "objective": "Describe creativity and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "connected-events"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 3,
+            "rationale": "Still bounded learner language, with a little more syntax, morphology, or context. It must remain concrete enough to explain and review.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas",
+              "combine-level-2-everyday-patterns"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "creativity",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 2
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-037"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-038",
+      "difficulty": 3,
+      "topic": "nature",
+      "englishText": "We wondered why the shadow grew longer as the sun went down.",
+      "embeddingText": "We wondered why the shadow grew longer as the sun went down.",
+      "englishAlternates": [],
+      "targetText": "Přemýšleli jsme, proč se stín prodlužuje, když slunce zapadá.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Přemýšleli",
+          "normalized": "přemýšleli",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "we wondered"
+        },
+        {
+          "surface": "jsme",
+          "normalized": "jsme",
+          "tokenIndex": 1,
+          "playable": false,
+          "gloss": "past-tense auxiliary: we"
+        },
+        {
+          "surface": "proč",
+          "normalized": "proč",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "why"
+        },
+        {
+          "surface": "se",
+          "normalized": "se",
+          "tokenIndex": 3,
+          "playable": false,
+          "gloss": "part of prodlužuje se: grows longer"
+        },
+        {
+          "surface": "stín",
+          "normalized": "stín",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "shadow"
+        },
+        {
+          "surface": "prodlužuje",
+          "normalized": "prodlužuje",
+          "tokenIndex": 5,
+          "playable": true,
+          "gloss": "grows longer"
+        },
+        {
+          "surface": "když",
+          "normalized": "když",
+          "tokenIndex": 6,
+          "playable": true,
+          "gloss": "as"
+        },
+        {
+          "surface": "slunce",
+          "normalized": "slunce",
+          "tokenIndex": 7,
+          "playable": true,
+          "gloss": "sun"
+        },
+        {
+          "surface": "zapadá",
+          "normalized": "zapadá",
+          "tokenIndex": 8,
+          "playable": true,
+          "gloss": "goes down"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "long shadows stretching across a playground at sunset",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A2",
+        "learning": {
+          "objective": "Describe nature and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "connected-events"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 3,
+            "rationale": "Still bounded learner language, with a little more syntax, morphology, or context. It must remain concrete enough to explain and review.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas",
+              "combine-level-2-everyday-patterns"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "nature",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 3
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-038"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-039",
+      "difficulty": 3,
+      "topic": "friendship",
+      "englishText": "Even though the puzzle was difficult, nobody had to solve it alone.",
+      "embeddingText": "Even though the puzzle was difficult, nobody had to solve it alone.",
+      "englishAlternates": [],
+      "targetText": "I když byla hádanka těžká, nikdo ji nemusel řešit sám.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "normalized": "i",
+          "tokenIndex": 0,
+          "playable": false,
+          "gloss": "even"
+        },
+        {
+          "surface": "když",
+          "normalized": "když",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "though"
+        },
+        {
+          "surface": "byla",
+          "normalized": "byla",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "was"
+        },
+        {
+          "surface": "hádanka",
+          "normalized": "hádanka",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "riddle"
+        },
+        {
+          "surface": "těžká",
+          "normalized": "těžká",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "difficult"
+        },
+        {
+          "surface": "nikdo",
+          "normalized": "nikdo",
+          "tokenIndex": 5,
+          "playable": true,
+          "gloss": "nobody"
+        },
+        {
+          "surface": "ji",
+          "normalized": "ji",
+          "tokenIndex": 6,
+          "playable": true,
+          "gloss": "it"
+        },
+        {
+          "surface": "nemusel",
+          "normalized": "nemusel",
+          "tokenIndex": 7,
+          "playable": true,
+          "gloss": "did not have to"
+        },
+        {
+          "surface": "řešit",
+          "normalized": "řešit",
+          "tokenIndex": 8,
+          "playable": true,
+          "gloss": "solve"
+        },
+        {
+          "surface": "sám",
+          "normalized": "sám",
+          "tokenIndex": 9,
+          "playable": true,
+          "gloss": "alone"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a group of children puzzling over a riddle card together",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A2",
+        "learning": {
+          "objective": "Describe friendship and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "connected-events"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 3,
+            "rationale": "Still bounded learner language, with a little more syntax, morphology, or context. It must remain concrete enough to explain and review.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas",
+              "combine-level-2-everyday-patterns"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "friendship",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 2
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-039"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-040",
+      "difficulty": 3,
+      "topic": "school",
+      "englishText": "Before changing our prediction, we compared it with what we had observed.",
+      "embeddingText": "Before changing our prediction, we compared it with what we had observed.",
+      "englishAlternates": [],
+      "targetText": "Než jsme změnili předpověď, porovnali jsme ji s naším pozorováním.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Než",
+          "normalized": "než",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "before"
+        },
+        {
+          "surface": "jsme",
+          "normalized": "jsme",
+          "tokenIndex": 1,
+          "playable": false,
+          "gloss": "past-tense auxiliary: we"
+        },
+        {
+          "surface": "změnili",
+          "normalized": "změnili",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "changed"
+        },
+        {
+          "surface": "předpověď",
+          "normalized": "předpověď",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "prediction"
+        },
+        {
+          "surface": "porovnali",
+          "normalized": "porovnali",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "compared"
+        },
+        {
+          "surface": "jsme",
+          "normalized": "jsme",
+          "tokenIndex": 5,
+          "playable": false,
+          "gloss": "past-tense auxiliary: we"
+        },
+        {
+          "surface": "ji",
+          "normalized": "ji",
+          "tokenIndex": 6,
+          "playable": true,
+          "gloss": "it"
+        },
+        {
+          "surface": "s",
+          "normalized": "s",
+          "tokenIndex": 7,
+          "playable": false,
+          "gloss": "with"
+        },
+        {
+          "surface": "naším",
+          "normalized": "naším",
+          "tokenIndex": 8,
+          "playable": true,
+          "gloss": "our"
+        },
+        {
+          "surface": "pozorováním",
+          "normalized": "pozorováním",
+          "tokenIndex": 9,
+          "playable": true,
+          "gloss": "observation"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "children comparing an experiment notebook with a prediction chart",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A2",
+        "learning": {
+          "objective": "Describe school and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "connected-events"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 3,
+            "rationale": "Still bounded learner language, with a little more syntax, morphology, or context. It must remain concrete enough to explain and review.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas",
+              "combine-level-2-everyday-patterns"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "school",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 2
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-040"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
+    },
+    {
+      "id": "ww-cz-exp260908-041",
+      "difficulty": 3,
+      "topic": "play",
+      "englishText": "The treasure was a thank-you note for everyone who had helped with the game.",
+      "embeddingText": "The treasure was a thank-you note for everyone who had helped with the game.",
+      "englishAlternates": [],
+      "targetText": "Pokladem byl děkovný vzkaz všem, kteří pomohli se hrou.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Pokladem",
+          "normalized": "pokladem",
+          "tokenIndex": 0,
+          "playable": true,
+          "gloss": "treasure"
+        },
+        {
+          "surface": "byl",
+          "normalized": "byl",
+          "tokenIndex": 1,
+          "playable": true,
+          "gloss": "was"
+        },
+        {
+          "surface": "děkovný",
+          "normalized": "děkovný",
+          "tokenIndex": 2,
+          "playable": true,
+          "gloss": "thank-you"
+        },
+        {
+          "surface": "vzkaz",
+          "normalized": "vzkaz",
+          "tokenIndex": 3,
+          "playable": true,
+          "gloss": "note"
+        },
+        {
+          "surface": "všem",
+          "normalized": "všem",
+          "tokenIndex": 4,
+          "playable": true,
+          "gloss": "to everyone"
+        },
+        {
+          "surface": "kteří",
+          "normalized": "kteří",
+          "tokenIndex": 5,
+          "playable": true,
+          "gloss": "who"
+        },
+        {
+          "surface": "pomohli",
+          "normalized": "pomohli",
+          "tokenIndex": 6,
+          "playable": true,
+          "gloss": "helped"
+        },
+        {
+          "surface": "se",
+          "normalized": "se",
+          "tokenIndex": 7,
+          "playable": false,
+          "gloss": "with"
+        },
+        {
+          "surface": "hrou",
+          "normalized": "hrou",
+          "tokenIndex": 8,
+          "playable": true,
+          "gloss": "game"
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "a treasure box holding a handwritten thank-you card for a group",
+      "sceneAssetIds": [],
+      "annotations": {
+        "cefr": "A2",
+        "learning": {
+          "objective": "Describe play and share observations.",
+          "skillFocus": [
+            "contextual-meaning",
+            "connected-events"
+          ],
+          "ageBand": "6-10",
+          "progression": {
+            "level": 3,
+            "rationale": "Still bounded learner language, with a little more syntax, morphology, or context. It must remain concrete enough to explain and review.",
+            "prerequisites": [
+              "recognize-level-1-words-and-formulas",
+              "combine-level-2-everyday-patterns"
+            ]
+          },
+          "support": {
+            "translationAvailable": true,
+            "imageSuitable": true,
+            "audioSuitable": true,
+            "dictionarySuitable": true
+          }
+        },
+        "grammar": {
+          "tags": [
+            "play",
+            "child-friendly-expansion"
+          ],
+          "sentenceType": "statement",
+          "clauseCount": 2
+        },
+        "provenance": {
+          "sourceName": "caatuu-content-expansion-20260908",
+          "sourceIds": [
+            "ww-cz-exp260908-041"
+          ],
+          "sourceLicense": "AGPL-3.0-only",
+          "sourceType": "authored",
+          "transformation": "Original bilingual content, explicit contextual hints and AI author self-review. No human approval."
+        },
+        "review": {
+          "status": "codex_reviewed",
+          "reviewer": "OpenAI Codex (author self-review)",
+          "reviewedOn": "2026-09-08",
+          "humanApproved": false,
+          "checks": [
+            "bilingual meaning",
+            "token alignment and hints",
+            "fixed difficulty rubric",
+            "grammar and child suitability"
+          ],
+          "notes": [
+            "AI author self-review only. Independent native and audible review remain outstanding."
+          ]
+        }
+      }
     }
   ]
 }

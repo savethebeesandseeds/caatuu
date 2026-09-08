@@ -7,7 +7,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-zh-hans-pwa-v166",
+    "cacheName": "caatuu-zh-hans-pwa-v172",
     "cachePrefix": "caatuu-zh-hans-pwa-",
     "assets": [
       "/language-runtime/static/source/image-embedding-index.mjs?v=image-index-runtime-1",
@@ -30,7 +30,7 @@
       "/language-runtime/contract.mjs",
       "/language-runtime/embedding-runtimes.json",
       "/language-runtime/static/source/initial-theme.js?v=theme-3",
-      "/language-runtime/static/source/app-bootstrap.mjs?v=app-82",
+      "/language-runtime/static/source/app-bootstrap.mjs?v=app-87",
       "/language-runtime/static/source/interface-content.mjs?v=interface-runtime-2",
       "/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-10",
       "/language-runtime/static/source/dictionary-provider-loader.mjs",
@@ -65,7 +65,7 @@
       "/language-runtime/static/source/browser-shell.mjs?v=browser-shell-2",
       "/language-runtime/static/source/shell-policy.js?v=shell-policy-15",
       "/language-runtime/static/source/shell-policy.mjs",
-      "/language-runtime/static/source/caatuu-chrome.js?v=chrome-162",
+      "/language-runtime/static/source/caatuu-chrome.js?v=chrome-167",
       "/language-runtime/static/source/learning-profile.js?v=learning-11",
       "/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-26",
       "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-21",
@@ -74,12 +74,12 @@
       "/language-runtime/static/source/english-minilm-ranker.mjs",
       "/language-runtime/static/styles/caatuu-theme.css?v=theme-7",
       "/language-runtime/static/styles/caatuu-workspace.css?v=shell-96",
-      "/language-runtime/static/styles/caatuu-home.css?v=home-57",
-      "/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-135",
+      "/language-runtime/static/styles/caatuu-home.css?v=home-59",
+      "/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-138",
       "/language-runtime/static/styles/caatuu-word-world.css?v=word-net-92",
       "/language-runtime/static/styles/dictionary-word-card.css?v=dictionary-card-1",
       "/language-runtime/static/assets/caatuu-shell-512.png",
-      "/language-runtime/static/data/interface/en.v1.json?v=interface-en-31",
+      "/language-runtime/static/data/interface/en.v1.json?v=interface-en-32",
       "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
       "/language-runtime/static/data/english-concepts/word-world-es-v1.json",
       "/language-runtime/static/data/english-concepts/word-world-es-en-v1.json",
@@ -187,8 +187,8 @@
       "/language-runtime/static/styles/caatuu-developer-tools.css?v=developer-tools-2",
       "/assets/macaw/actions/keymaps.json",
       "/language-runtime/static/games/sound-quasar.html",
-      "/language-runtime/static/source/games/sound-quasar/sound-quasar-host.mjs?v=sound-quasar-11",
-      "/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-6",
+      "/language-runtime/static/source/games/sound-quasar/sound-quasar-host.mjs?v=sound-quasar-13",
+      "/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-7",
       "/language-runtime/static/styles/games/sound-quasar.css?v=sound-quasar-6",
       "data/games/sound-quasar/content.json?v=sound-quasar-retained-levels-1",
       "/language-runtime/static/source/target-text-tones.mjs?v=target-text-tones-1",
@@ -206,7 +206,11 @@
       "/assets/macaw/music/music%20(12).png",
       "/language-runtime/static/source/course-setup.mjs",
       "/language-runtime/static/styles/course-setup.css",
-      "/assets/miscellaneous/calendar-days.png"
+      "/assets/miscellaneous/calendar-days.png",
+      "/language-runtime/static/source/music.mjs",
+      "/language-runtime/static/source/music-controls.mjs",
+      "/language-runtime/static/source/background-music.mjs",
+      "/language-runtime/static/styles/music-controls.css"
     ]
   },
   "artifacts": [
@@ -215,8 +219,8 @@
       "kind": "shared-application",
       "url": "/zh/index.html",
       "browserRequired": true,
-      "bytes": 97068,
-      "sha256": "ef0a6e4cf77798b8aeb3cacd5320004a4e4be7fb36ec312f83d716fc6de446d7"
+      "bytes": 93289,
+      "sha256": "e2c931077080b41546939edf44eda30d17206fc7a586c51a61f70f7e3cb1ca55"
     },
     {
       "key": "course-profile",
@@ -224,15 +228,15 @@
       "url": "/zh/source/shared/course-profile.js",
       "browserRequired": true,
       "bytes": 13458,
-      "sha256": "658b51c5c7fe045fd3e11f2a0564b698b3d2372504edf868fb46686019184e10"
+      "sha256": "834213f678907cabfad9b22f2a7c14f67bd0faeb3452290114fb57110fddf182"
     },
     {
       "key": "shared-app-bootstrap",
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/app-bootstrap.mjs",
       "browserRequired": true,
-      "bytes": 23434,
-      "sha256": "ea5568a977d32e13921525685fa7f4994da605359e7d111549ba8e7bbe8c3ed0"
+      "bytes": 23776,
+      "sha256": "355d5c87dde9f898d34bdfdaac99b51ca676c117b8a7e0af725400a5864f956e"
     },
     {
       "key": "initial-theme",
@@ -343,8 +347,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/caatuu-chrome.js",
       "browserRequired": true,
-      "bytes": 243403,
-      "sha256": "d0b07c4f45ae863684b59737d12f5840fd0e8fb037f8db8d781bd2480f16aa23"
+      "bytes": 243602,
+      "sha256": "90532edc7e2f0652d1e56b809d733f7b635387a6a55cd10d954bde2e5086d4ad"
     },
     {
       "key": "learning-profile",
@@ -359,8 +363,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/product-word-world.mjs",
       "browserRequired": true,
-      "bytes": 231122,
-      "sha256": "723d88c437e9a82d35cce05cefdd7e75fefb0816978ecab90ac99c3642931c57"
+      "bytes": 231330,
+      "sha256": "4c1b10b2a5e3a5fff7ae58f0cb4aedd921bde5e237be6a5cb7d505b2b546ecf1"
     },
     {
       "key": "word-net-core",
@@ -407,24 +411,24 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/styles/caatuu-workspace.css",
       "browserRequired": true,
-      "bytes": 149934,
-      "sha256": "8576ed8af5cda5594ae0414a35c05d09e464421543c91b58c075747c9c995844"
+      "bytes": 148846,
+      "sha256": "ea6189b70932197b62d864a1ba7b2709b9fa1ee6ceca4e629f313717b1eae894"
     },
     {
       "key": "shared-home-style",
       "kind": "shared-interface",
       "url": "/language-runtime/static/styles/caatuu-home.css",
       "browserRequired": true,
-      "bytes": 38054,
-      "sha256": "3782c485da85ef7672e9b2e9dca3fb8ce3f3ae1e0ea2ff5b16711b61e6414e5c"
+      "bytes": 37253,
+      "sha256": "ba5fcd57be985804a3c16363fa00bd140c99c267bc09b26132349491961fb660"
     },
     {
       "key": "shared-chrome-style",
       "kind": "shared-interface",
       "url": "/language-runtime/static/styles/caatuu-chrome.css",
       "browserRequired": true,
-      "bytes": 107509,
-      "sha256": "99e739ef1b0d5cc10df58038361ffdd2928c15bfa39830a1e648dfde5cdb4139"
+      "bytes": 107854,
+      "sha256": "fd6a29610729133012ddd85360812360c560d15c4884afaff5e773c147098e25"
     },
     {
       "key": "shared-word-world-style",
@@ -447,24 +451,24 @@
       "kind": "english-concept-catalog",
       "url": "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
       "browserRequired": true,
-      "bytes": 80814,
-      "sha256": "06dce63a6b5a905c8d3ddb22b6faf2f25d17c955c5253a278700e1a229f6c504"
+      "bytes": 187106,
+      "sha256": "94f01db72d21e531e0e208abfc1d2c25dfaa98f128cc4ac1edc870944e89214d"
     },
     {
       "key": "target-realizations",
       "kind": "target-realization-catalog",
       "url": "/zh/data/games/word-world/content.json",
       "browserRequired": true,
-      "bytes": 156450,
-      "sha256": "878103db78037977beecab316833caa164062d28f0fe39324acb924653978eb2"
+      "bytes": 494968,
+      "sha256": "1df6afe674c68f44290dbc1c3e08b4a9c17d5f02f5408f6ec470fde13732527d"
     },
     {
       "key": "target-reading-guides",
       "kind": "target-text-guide-catalog",
       "url": "/zh/data/games/word-world/reading-guides.json",
       "browserRequired": true,
-      "bytes": 282458,
-      "sha256": "25d4e7847de325a4fa95a5695a125d4049e0fbb9146cc14943284473729605da"
+      "bytes": 892381,
+      "sha256": "14abb038ed9881a1ddcee0d5ca9a80f44fa4514dae08237f9dc2dd0282a6b9c9"
     },
     {
       "key": "word-world-manifest",
@@ -472,31 +476,31 @@
       "url": "/zh/data/games/word-world/manifest.json?v=catalog-files-2",
       "browserRequired": true,
       "bytes": 2053,
-      "sha256": "f8e66e2a2a7e08a3614f58d69599f2e8f11d34d017ccaba459ca4febc5ae1395"
+      "sha256": "c1001a44787a5e9dd50e11b3e3badba3ee0491af89aea40689a8933c36d2e4d3"
     },
     {
       "key": "verb-nebula-catalog",
       "kind": "course-game-content",
       "url": "/zh/data/games/verb-nebula/content.json",
       "browserRequired": true,
-      "bytes": 32832,
-      "sha256": "1d518687b8843c6b8ab9585be43df16ed83386429d2d3c2ef8153c0d7c701b2f"
+      "bytes": 113615,
+      "sha256": "61fbf627b62e7644a935b35405a90023e1b249472c77599c3cf504947860301f"
     },
     {
       "key": "naturalization-nucleus-catalog",
       "kind": "course-game-content",
       "url": "/zh/data/games/naturalization-nucleus/content.json",
       "browserRequired": true,
-      "bytes": 29902,
-      "sha256": "de83187a2670168702cfa056c59145dd1a35bfaa70ca7b0a6f881987696c76c5"
+      "bytes": 154551,
+      "sha256": "fc9989fb99504f4bc54bccf5ac713f39c58acdd12cde5192b37820d9981c8373"
     },
     {
       "key": "naturalization-nucleus-controller",
       "kind": "course-game-runtime",
       "url": "/zh/source/games/naturalization-nucleus/naturalization-nucleus.js",
       "browserRequired": true,
-      "bytes": 65115,
-      "sha256": "20bfe678b8d5bf379345562669a4397c2ba92f5f9cb4011fcb87d935874fc852"
+      "bytes": 62995,
+      "sha256": "b333b784b4c6d274b4374308f7fd5fadfa8b71e3a25471cce10e51fdce7b6ff2"
     },
     {
       "key": "naturalization-nucleus-style",
@@ -536,15 +540,15 @@
       "url": "/zh/sw.js",
       "browserRequired": true,
       "bytes": 143,
-      "sha256": "2b26b21466facda41f33a5a1ed7dde1d74e94c6a2ec2ce9d2108d3afc9fee092"
+      "sha256": "22bc03e6298075ab363ab8afa137175128ce130636bde2d6d448c47344d58a4c"
     },
     {
       "key": "shared-course-service-worker",
       "kind": "shared-runtime",
       "url": "/language-runtime/static/source/course-service-worker.js",
       "browserRequired": true,
-      "bytes": 10189,
-      "sha256": "3cf51f93f593ab38c2d7563f22173dcb80ea4fff22bd7f0e535d3ffa6fb3bb0e"
+      "bytes": 12000,
+      "sha256": "eb39bde8321162ab798f3902124dda569a57ec80459b63b1e4e16c1c0b3c19e0"
     },
     {
       "key": "course-flag",
@@ -553,6 +557,72 @@
       "browserRequired": true,
       "bytes": 21640,
       "sha256": "2814dca64e7c80f2fd79bc3d5aa5a4c6bda878836f00800cc9e9ef71f1d763ab"
+    },
+    {
+      "key": "music-woodland-fantasy",
+      "label": "Woodland Fantasy",
+      "artifact_kind": "music",
+      "url": "/assets/music/audio/Woodland_Fantasy.mp3",
+      "asset_path": "assets/music/audio/Woodland_Fantasy.mp3",
+      "native_required": true,
+      "browser_required": true,
+      "bytes": 6012254,
+      "sha256": "87f9a9d04fdd0b924db98b90e86c2906330f4931cb8734f7b431706e2869aacd"
+    },
+    {
+      "key": "music-salt-marsh-birds",
+      "label": "Salt Marsh Birds",
+      "artifact_kind": "music",
+      "url": "/assets/music/audio/Salt_Marsh_Birds.mp3",
+      "asset_path": "assets/music/audio/Salt_Marsh_Birds.mp3",
+      "native_required": true,
+      "browser_required": true,
+      "bytes": 2858654,
+      "sha256": "0e37ee593f7c63b850cf6c20b65d241a601390194ac95c31a31fbddbd31292d0"
+    },
+    {
+      "key": "music-town-theme-rpg",
+      "label": "Town Theme RPG",
+      "artifact_kind": "music",
+      "url": "/assets/music/audio/Town_Theme_RPG.mp3",
+      "asset_path": "assets/music/audio/Town_Theme_RPG.mp3",
+      "native_required": true,
+      "browser_required": true,
+      "bytes": 1316581,
+      "sha256": "2657861d5107d4a3c01ef81cb6a4d61ddd5e7a054b6da57e658373d79d0c3466"
+    },
+    {
+      "key": "music-music-credits",
+      "label": "Music credits",
+      "artifact_kind": "music-license",
+      "url": "/assets/music/MUSIC_CREDITS.txt",
+      "asset_path": "assets/music/MUSIC_CREDITS.txt",
+      "native_required": true,
+      "browser_required": true,
+      "bytes": 792,
+      "sha256": "9bf96b1078af9dd36f742ca6d0e5afe715940611bfcd32b781437f2eae1acbee"
+    },
+    {
+      "key": "music-cc-by-3.0",
+      "label": "Music license: CC-BY-3.0",
+      "artifact_kind": "music-license",
+      "url": "/assets/music/licenses/CC-BY-3.0.txt",
+      "asset_path": "assets/music/licenses/CC-BY-3.0.txt",
+      "native_required": true,
+      "browser_required": true,
+      "bytes": 19467,
+      "sha256": "e6bc9e9c474700b708f568bac9e5a8a9bcb2b1dad53442f5ba449fcb848b8e76"
+    },
+    {
+      "key": "music-cc0-1.0",
+      "label": "Music license: CC0-1.0",
+      "artifact_kind": "music-license",
+      "url": "/assets/music/licenses/CC0-1.0.txt",
+      "asset_path": "assets/music/licenses/CC0-1.0.txt",
+      "native_required": true,
+      "browser_required": true,
+      "bytes": 7048,
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
     }
   ]
 }

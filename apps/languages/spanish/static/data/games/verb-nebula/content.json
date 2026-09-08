@@ -1,182 +1,4637 @@
 [
-  {"id":"es.verb.ser","kind":"verb","target":"ser","source":"be (identity)","difficulty":1,"category":"identity-modality","reviewStatus":"native-review-required"},
-  {"id":"es.verb.estar","kind":"verb","target":"estar","source":"be (state or location)","difficulty":1,"category":"identity-modality","reviewStatus":"native-review-required"},
-  {"id":"es.verb.tener","kind":"verb","target":"tener","source":"have","difficulty":1,"category":"identity-modality","reviewStatus":"native-review-required"},
-  {"id":"es.verb.hacer","kind":"verb","target":"hacer","source":"do or make","difficulty":1,"category":"identity-modality","reviewStatus":"native-review-required"},
-  {"id":"es.verb.ir","kind":"verb","target":"ir","source":"go","difficulty":1,"category":"movement-travel","reviewStatus":"native-review-required"},
-  {"id":"es.verb.venir","kind":"verb","target":"venir","source":"come","difficulty":1,"category":"movement-travel","reviewStatus":"native-review-required"},
-  {"id":"es.verb.querer","kind":"verb","target":"querer","source":"want","difficulty":1,"category":"identity-modality","reviewStatus":"native-review-required"},
-  {"id":"es.verb.poder","kind":"verb","target":"poder","source":"be able to","difficulty":1,"category":"identity-modality","reviewStatus":"native-review-required"},
-  {"id":"es.verb.deber","kind":"verb","target":"deber","source":"should or owe","difficulty":1,"category":"identity-modality","reviewStatus":"native-review-required"},
-  {"id":"es.verb.necesitar","kind":"verb","target":"necesitar","source":"need","difficulty":1,"category":"identity-modality","reviewStatus":"native-review-required"},
-  {"id":"es.verb.decir","kind":"verb","target":"decir","source":"say or tell","difficulty":1,"category":"communication-social","reviewStatus":"native-review-required"},
-  {"id":"es.verb.hablar","kind":"verb","target":"hablar","source":"speak","difficulty":1,"category":"communication-social","reviewStatus":"native-review-required"},
-  {"id":"es.verb.preguntar","kind":"verb","target":"preguntar","source":"ask","difficulty":1,"category":"communication-social","reviewStatus":"native-review-required"},
-  {"id":"es.verb.responder","kind":"verb","target":"responder","source":"answer","difficulty":1,"category":"communication-social","reviewStatus":"native-review-required"},
-  {"id":"es.verb.escuchar","kind":"verb","target":"escuchar","source":"listen to","difficulty":1,"category":"perception-cognition","reviewStatus":"native-review-required"},
-  {"id":"es.verb.oir","kind":"verb","target":"oír","source":"hear","difficulty":1,"category":"perception-cognition","reviewStatus":"native-review-required"},
-  {"id":"es.verb.ver","kind":"verb","target":"ver","source":"see","difficulty":1,"category":"perception-cognition","reviewStatus":"native-review-required"},
-  {"id":"es.verb.mirar","kind":"verb","target":"mirar","source":"look at","difficulty":1,"category":"perception-cognition","reviewStatus":"native-review-required"},
-  {"id":"es.verb.saber","kind":"verb","target":"saber","source":"know a fact or how to","difficulty":1,"category":"perception-cognition","reviewStatus":"native-review-required"},
-  {"id":"es.verb.conocer","kind":"verb","target":"conocer","source":"know or be acquainted with","difficulty":1,"category":"perception-cognition","reviewStatus":"native-review-required"},
-  {"id":"es.verb.entender","kind":"verb","target":"entender","source":"understand","difficulty":1,"category":"perception-cognition","reviewStatus":"native-review-required"},
-  {"id":"es.verb.recordar","kind":"verb","target":"recordar","source":"remember","difficulty":1,"category":"perception-cognition","reviewStatus":"native-review-required"},
-  {"id":"es.verb.olvidar","kind":"verb","target":"olvidar","source":"forget","difficulty":1,"category":"perception-cognition","reviewStatus":"native-review-required"},
-  {"id":"es.verb.gustar","kind":"verb","target":"gustar","source":"like; be pleasing to","difficulty":1,"category":"perception-cognition","reviewStatus":"native-review-required"},
-  {"id":"es.verb.comer","kind":"verb","target":"comer","source":"eat","difficulty":1,"category":"food-shopping-services","reviewStatus":"native-review-required"},
-  {"id":"es.verb.beber","kind":"verb","target":"beber","source":"drink","difficulty":1,"category":"food-shopping-services","reviewStatus":"native-review-required"},
-  {"id":"es.verb.dormir","kind":"verb","target":"dormir","source":"sleep","difficulty":1,"category":"home-routines","reviewStatus":"native-review-required"},
-  {"id":"es.verb.levantarse","kind":"verb","target":"levantarse","source":"get up","difficulty":1,"category":"home-routines","reviewStatus":"native-review-required"},
-  {"id":"es.verb.lavarse","kind":"verb","target":"lavarse","source":"wash oneself","difficulty":1,"category":"home-routines","reviewStatus":"native-review-required"},
-  {"id":"es.verb.vestirse","kind":"verb","target":"vestirse","source":"get dressed","difficulty":1,"category":"home-routines","reviewStatus":"native-review-required"},
-  {"id":"es.verb.abrir","kind":"verb","target":"abrir","source":"open","difficulty":1,"category":"home-routines","reviewStatus":"native-review-required"},
-  {"id":"es.verb.cerrar","kind":"verb","target":"cerrar","source":"close","difficulty":1,"category":"home-routines","reviewStatus":"native-review-required"},
-  {"id":"es.verb.esperar","kind":"verb","target":"esperar","source":"wait or hope","difficulty":1,"category":"home-routines","reviewStatus":"native-review-required"},
-  {"id":"es.verb.descansar","kind":"verb","target":"descansar","source":"rest","difficulty":1,"category":"home-routines","reviewStatus":"native-review-required"},
-  {"id":"es.verb.comprar","kind":"verb","target":"comprar","source":"buy","difficulty":1,"category":"food-shopping-services","reviewStatus":"native-review-required"},
-  {"id":"es.verb.vender","kind":"verb","target":"vender","source":"sell","difficulty":1,"category":"food-shopping-services","reviewStatus":"native-review-required"},
-  {"id":"es.verb.pagar","kind":"verb","target":"pagar","source":"pay","difficulty":1,"category":"food-shopping-services","reviewStatus":"native-review-required"},
-  {"id":"es.verb.cocinar","kind":"verb","target":"cocinar","source":"cook","difficulty":1,"category":"food-shopping-services","reviewStatus":"native-review-required"},
-  {"id":"es.verb.elegir","kind":"verb","target":"elegir","source":"choose","difficulty":1,"category":"food-shopping-services","reviewStatus":"native-review-required"},
-  {"id":"es.verb.estudiar","kind":"verb","target":"estudiar","source":"study","difficulty":1,"category":"school-work-creation","reviewStatus":"native-review-required"},
-  {"id":"es.verb.leer","kind":"verb","target":"leer","source":"read","difficulty":1,"category":"school-work-creation","reviewStatus":"native-review-required"},
-  {"id":"es.verb.escribir","kind":"verb","target":"escribir","source":"write","difficulty":1,"category":"school-work-creation","reviewStatus":"native-review-required"},
-  {"id":"es.verb.dibujar","kind":"verb","target":"dibujar","source":"draw","difficulty":1,"category":"school-work-creation","reviewStatus":"native-review-required"},
-  {"id":"es.verb.cantar","kind":"verb","target":"cantar","source":"sing","difficulty":1,"category":"school-work-creation","reviewStatus":"native-review-required"},
-  {"id":"es.verb.trabajar","kind":"verb","target":"trabajar","source":"work","difficulty":1,"category":"school-work-creation","reviewStatus":"native-review-required"},
-  {"id":"es.verb.ayudar","kind":"verb","target":"ayudar","source":"help","difficulty":1,"category":"community-help-safety","reviewStatus":"native-review-required"},
-  {"id":"es.verb.cuidar","kind":"verb","target":"cuidar","source":"care for","difficulty":1,"category":"community-help-safety","reviewStatus":"native-review-required"},
-  {"id":"es.verb.caminar","kind":"verb","target":"caminar","source":"walk","difficulty":1,"category":"movement-travel","reviewStatus":"native-review-required"},
-  {"id":"es.verb.correr","kind":"verb","target":"correr","source":"run","difficulty":1,"category":"movement-travel","reviewStatus":"native-review-required"},
-  {"id":"es.verb.sentarse","kind":"verb","target":"sentarse","source":"sit down","difficulty":1,"category":"movement-travel","reviewStatus":"native-review-required"},
-  {"id":"es.verb.ponerse-de-pie","kind":"verb","target":"ponerse de pie","source":"stand up","difficulty":1,"category":"movement-travel","reviewStatus":"native-review-required"},
-  {"id":"es.verb.entrar","kind":"verb","target":"entrar","source":"enter","difficulty":1,"category":"movement-travel","reviewStatus":"native-review-required"},
-  {"id":"es.verb.salir","kind":"verb","target":"salir","source":"go out or leave","difficulty":1,"category":"movement-travel","reviewStatus":"native-review-required"},
-  {"id":"es.verb.volver","kind":"verb","target":"volver","source":"return","difficulty":1,"category":"movement-travel","reviewStatus":"native-review-required"},
-  {"id":"es.verb.llamar","kind":"verb","target":"llamar","source":"call","difficulty":1,"category":"communication-social","reviewStatus":"native-review-required"},
-  {"id":"es.verb.jugar","kind":"verb","target":"jugar","source":"play","difficulty":1,"category":"home-routines","reviewStatus":"native-review-required"},
-  {"id":"es.verb.vivir","kind":"verb","target":"vivir","source":"live","difficulty":1,"category":"identity-modality","reviewStatus":"native-review-required"},
-  {"id":"es.verb.dar","kind":"verb","target":"dar","source":"give","difficulty":1,"category":"community-help-safety","reviewStatus":"native-review-required"},
-  {"id":"es.verb.llevar","kind":"verb","target":"llevar","source":"carry, take, or wear","difficulty":1,"category":"movement-travel","reviewStatus":"native-review-required"},
-  {"id":"es.verb.poner","kind":"verb","target":"poner","source":"put","difficulty":1,"category":"home-routines","reviewStatus":"native-review-required"},
-  {"id":"es.verb.quitar","kind":"verb","target":"quitar","source":"remove","difficulty":2,"category":"home-routines","reviewStatus":"native-review-required"},
-  {"id":"es.verb.permitir","kind":"verb","target":"permitir","source":"allow","difficulty":2,"category":"identity-modality","reviewStatus":"native-review-required"},
-  {"id":"es.verb.pertenecer","kind":"verb","target":"pertenecer","source":"belong to","difficulty":2,"category":"identity-modality","reviewStatus":"native-review-required"},
-  {"id":"es.verb.presentar","kind":"verb","target":"presentar","source":"introduce or present","difficulty":2,"category":"communication-social","reviewStatus":"native-review-required"},
-  {"id":"es.verb.explicar","kind":"verb","target":"explicar","source":"explain","difficulty":2,"category":"communication-social","reviewStatus":"native-review-required"},
-  {"id":"es.verb.conversar","kind":"verb","target":"conversar","source":"chat or converse","difficulty":2,"category":"communication-social","reviewStatus":"native-review-required"},
-  {"id":"es.verb.discutir","kind":"verb","target":"discutir","source":"discuss or argue","difficulty":2,"category":"communication-social","reviewStatus":"native-review-required"},
-  {"id":"es.verb.estar-de-acuerdo","kind":"verb","target":"estar de acuerdo","source":"agree","difficulty":2,"category":"communication-social","reviewStatus":"native-review-required"},
-  {"id":"es.verb.discrepar","kind":"verb","target":"discrepar","source":"disagree","difficulty":2,"category":"communication-social","reviewStatus":"native-review-required"},
-  {"id":"es.verb.invitar","kind":"verb","target":"invitar","source":"invite","difficulty":2,"category":"communication-social","reviewStatus":"native-review-required"},
-  {"id":"es.verb.sugerir","kind":"verb","target":"sugerir","source":"suggest","difficulty":2,"category":"communication-social","reviewStatus":"native-review-required"},
-  {"id":"es.verb.contactar","kind":"verb","target":"contactar","source":"contact","difficulty":2,"category":"communication-social","reviewStatus":"native-review-required"},
-  {"id":"es.verb.felicitar","kind":"verb","target":"felicitar","source":"congratulate","difficulty":2,"category":"communication-social","reviewStatus":"native-review-required"},
-  {"id":"es.verb.disculparse","kind":"verb","target":"disculparse","source":"apologize","difficulty":2,"category":"communication-social","reviewStatus":"native-review-required"},
-  {"id":"es.verb.pensar","kind":"verb","target":"pensar","source":"think","difficulty":2,"category":"perception-cognition","reviewStatus":"native-review-required"},
-  {"id":"es.verb.creer","kind":"verb","target":"creer","source":"believe","difficulty":2,"category":"perception-cognition","reviewStatus":"native-review-required"},
-  {"id":"es.verb.sentir","kind":"verb","target":"sentir","source":"feel","difficulty":2,"category":"perception-cognition","reviewStatus":"native-review-required"},
-  {"id":"es.verb.notar","kind":"verb","target":"notar","source":"notice","difficulty":2,"category":"perception-cognition","reviewStatus":"native-review-required"},
-  {"id":"es.verb.descubrir","kind":"verb","target":"descubrir","source":"discover","difficulty":2,"category":"perception-cognition","reviewStatus":"native-review-required"},
-  {"id":"es.verb.comprobar","kind":"verb","target":"comprobar","source":"check or verify","difficulty":2,"category":"perception-cognition","reviewStatus":"native-review-required"},
-  {"id":"es.verb.aprender","kind":"verb","target":"aprender","source":"learn","difficulty":2,"category":"school-work-creation","reviewStatus":"native-review-required"},
-  {"id":"es.verb.ensenar","kind":"verb","target":"enseñar","source":"teach","difficulty":2,"category":"school-work-creation","reviewStatus":"native-review-required"},
-  {"id":"es.verb.practicar","kind":"verb","target":"practicar","source":"practice","difficulty":2,"category":"school-work-creation","reviewStatus":"native-review-required"},
-  {"id":"es.verb.repetir","kind":"verb","target":"repetir","source":"repeat","difficulty":2,"category":"school-work-creation","reviewStatus":"native-review-required"},
-  {"id":"es.verb.resumir","kind":"verb","target":"resumir","source":"summarize","difficulty":2,"category":"school-work-creation","reviewStatus":"native-review-required"},
-  {"id":"es.verb.comparar","kind":"verb","target":"comparar","source":"compare","difficulty":2,"category":"perception-cognition","reviewStatus":"native-review-required"},
-  {"id":"es.verb.buscar","kind":"verb","target":"buscar","source":"look for","difficulty":2,"category":"perception-cognition","reviewStatus":"native-review-required"},
-  {"id":"es.verb.encontrar","kind":"verb","target":"encontrar","source":"find","difficulty":2,"category":"perception-cognition","reviewStatus":"native-review-required"},
-  {"id":"es.verb.perder","kind":"verb","target":"perder","source":"lose","difficulty":2,"category":"identity-modality","reviewStatus":"native-review-required"},
-  {"id":"es.verb.ganar","kind":"verb","target":"ganar","source":"win or earn","difficulty":2,"category":"identity-modality","reviewStatus":"native-review-required"},
-  {"id":"es.verb.llegar","kind":"verb","target":"llegar","source":"arrive","difficulty":2,"category":"movement-travel","reviewStatus":"native-review-required"},
-  {"id":"es.verb.partir","kind":"verb","target":"partir","source":"depart","difficulty":2,"category":"movement-travel","reviewStatus":"native-review-required"},
-  {"id":"es.verb.subir","kind":"verb","target":"subir","source":"go up or get on","difficulty":2,"category":"movement-travel","reviewStatus":"native-review-required"},
-  {"id":"es.verb.bajar","kind":"verb","target":"bajar","source":"go down or get off","difficulty":2,"category":"movement-travel","reviewStatus":"native-review-required"},
-  {"id":"es.verb.cruzar","kind":"verb","target":"cruzar","source":"cross","difficulty":2,"category":"movement-travel","reviewStatus":"native-review-required"},
-  {"id":"es.verb.visitar","kind":"verb","target":"visitar","source":"visit","difficulty":2,"category":"movement-travel","reviewStatus":"native-review-required"},
-  {"id":"es.verb.pasear","kind":"verb","target":"pasear","source":"take a walk","difficulty":2,"category":"movement-travel","reviewStatus":"native-review-required"},
-  {"id":"es.verb.viajar","kind":"verb","target":"viajar","source":"travel","difficulty":2,"category":"movement-travel","reviewStatus":"native-review-required"},
-  {"id":"es.verb.conducir","kind":"verb","target":"conducir","source":"drive","difficulty":2,"category":"movement-travel","reviewStatus":"native-review-required"},
-  {"id":"es.verb.montar","kind":"verb","target":"montar","source":"ride or assemble","difficulty":2,"category":"movement-travel","reviewStatus":"native-review-required"},
-  {"id":"es.verb.cepillarse-los-dientes","kind":"verb","target":"cepillarse los dientes","source":"brush one's teeth","difficulty":2,"category":"home-routines","reviewStatus":"native-review-required"},
-  {"id":"es.verb.ducharse","kind":"verb","target":"ducharse","source":"take a shower","difficulty":2,"category":"home-routines","reviewStatus":"native-review-required"},
-  {"id":"es.verb.peinarse","kind":"verb","target":"peinarse","source":"comb one's hair","difficulty":2,"category":"home-routines","reviewStatus":"native-review-required"},
-  {"id":"es.verb.limpiar","kind":"verb","target":"limpiar","source":"clean","difficulty":2,"category":"home-routines","reviewStatus":"native-review-required"},
-  {"id":"es.verb.ordenar","kind":"verb","target":"ordenar","source":"tidy up or order","difficulty":2,"category":"home-routines","reviewStatus":"native-review-required"},
-  {"id":"es.verb.tender-la-ropa","kind":"verb","target":"tender la ropa","source":"hang clothes to dry","difficulty":2,"category":"home-routines","reviewStatus":"native-review-required"},
-  {"id":"es.verb.hacer-la-compra","kind":"verb","target":"hacer la compra","source":"shop for groceries","difficulty":2,"category":"food-shopping-services","reviewStatus":"native-review-required"},
-  {"id":"es.verb.hacer-ejercicio","kind":"verb","target":"hacer ejercicio","source":"exercise","difficulty":2,"category":"home-routines","reviewStatus":"native-review-required"},
-  {"id":"es.verb.mudarse","kind":"verb","target":"mudarse","source":"move house","difficulty":2,"category":"home-routines","reviewStatus":"native-review-required"},
-  {"id":"es.verb.reservar","kind":"verb","target":"reservar","source":"make a reservation","difficulty":2,"category":"food-shopping-services","reviewStatus":"native-review-required"},
-  {"id":"es.verb.pedir-comida","kind":"verb","target":"pedir comida","source":"order food","difficulty":2,"category":"food-shopping-services","reviewStatus":"native-review-required"},
-  {"id":"es.verb.pagar-la-cuenta","kind":"verb","target":"pagar la cuenta","source":"pay the bill","difficulty":2,"category":"food-shopping-services","reviewStatus":"native-review-required"},
-  {"id":"es.verb.devolver","kind":"verb","target":"devolver","source":"return a purchase or give back","difficulty":2,"category":"food-shopping-services","reviewStatus":"native-review-required"},
-  {"id":"es.verb.cambiar-un-articulo","kind":"verb","target":"cambiar un artículo","source":"exchange an item","difficulty":2,"category":"food-shopping-services","reviewStatus":"native-review-required"},
-  {"id":"es.verb.probarse-ropa","kind":"verb","target":"probarse ropa","source":"try on clothes","difficulty":2,"category":"food-shopping-services","reviewStatus":"native-review-required"},
-  {"id":"es.verb.empaquetar","kind":"verb","target":"empaquetar","source":"pack","difficulty":2,"category":"food-shopping-services","reviewStatus":"native-review-required"},
-  {"id":"es.verb.calentar","kind":"verb","target":"calentar","source":"heat up","difficulty":2,"category":"food-shopping-services","reviewStatus":"native-review-required"},
-  {"id":"es.verb.hornear","kind":"verb","target":"hornear","source":"bake","difficulty":2,"category":"food-shopping-services","reviewStatus":"native-review-required"},
-  {"id":"es.verb.repasar","kind":"verb","target":"repasar","source":"review lessons","difficulty":2,"category":"school-work-creation","reviewStatus":"native-review-required"},
-  {"id":"es.verb.hacer-los-deberes","kind":"verb","target":"hacer los deberes","source":"do homework","difficulty":2,"category":"school-work-creation","reviewStatus":"native-review-required"},
-  {"id":"es.verb.crear","kind":"verb","target":"crear","source":"create","difficulty":2,"category":"school-work-creation","reviewStatus":"native-review-required"},
-  {"id":"es.verb.construir","kind":"verb","target":"construir","source":"build","difficulty":2,"category":"school-work-creation","reviewStatus":"native-review-required"},
-  {"id":"es.verb.usar","kind":"verb","target":"usar","source":"use","difficulty":2,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.enviar","kind":"verb","target":"enviar","source":"send","difficulty":2,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.recibir","kind":"verb","target":"recibir","source":"receive","difficulty":2,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.guardar","kind":"verb","target":"guardar","source":"save or store","difficulty":2,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.encender","kind":"verb","target":"encender","source":"turn on","difficulty":2,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.apagar","kind":"verb","target":"apagar","source":"turn off","difficulty":2,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.cargar","kind":"verb","target":"cargar","source":"charge or load","difficulty":2,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.iniciar-sesion","kind":"verb","target":"iniciar sesión","source":"sign in","difficulty":2,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.teclear","kind":"verb","target":"teclear","source":"type on a keyboard","difficulty":3,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.proteger","kind":"verb","target":"proteger","source":"protect","difficulty":3,"category":"community-help-safety","reviewStatus":"native-review-required"},
-  {"id":"es.verb.prestar","kind":"verb","target":"prestar","source":"lend","difficulty":3,"category":"community-help-safety","reviewStatus":"native-review-required"},
-  {"id":"es.verb.pedir-prestado","kind":"verb","target":"pedir prestado","source":"borrow","difficulty":3,"category":"community-help-safety","reviewStatus":"native-review-required"},
-  {"id":"es.verb.arreglar","kind":"verb","target":"arreglar","source":"fix","difficulty":3,"category":"home-routines","reviewStatus":"native-review-required"},
-  {"id":"es.verb.organizar","kind":"verb","target":"organizar","source":"organize","difficulty":3,"category":"planning-collaboration","reviewStatus":"native-review-required"},
-  {"id":"es.verb.planificar","kind":"verb","target":"planificar","source":"plan","difficulty":3,"category":"planning-collaboration","reviewStatus":"native-review-required"},
-  {"id":"es.verb.decidir","kind":"verb","target":"decidir","source":"decide","difficulty":3,"category":"planning-collaboration","reviewStatus":"native-review-required"},
-  {"id":"es.verb.confirmar","kind":"verb","target":"confirmar","source":"confirm","difficulty":3,"category":"planning-collaboration","reviewStatus":"native-review-required"},
-  {"id":"es.verb.avisar","kind":"verb","target":"avisar","source":"notify or warn","difficulty":3,"category":"planning-collaboration","reviewStatus":"native-review-required"},
-  {"id":"es.verb.colaborar","kind":"verb","target":"colaborar","source":"collaborate","difficulty":3,"category":"planning-collaboration","reviewStatus":"native-review-required"},
-  {"id":"es.verb.resolver","kind":"verb","target":"resolver","source":"solve","difficulty":3,"category":"planning-collaboration","reviewStatus":"native-review-required"},
-  {"id":"es.verb.mejorar","kind":"verb","target":"mejorar","source":"improve","difficulty":3,"category":"planning-collaboration","reviewStatus":"native-review-required"},
-  {"id":"es.verb.completar","kind":"verb","target":"completar","source":"complete","difficulty":3,"category":"planning-collaboration","reviewStatus":"native-review-required"},
-  {"id":"es.verb.entregar","kind":"verb","target":"entregar","source":"deliver or submit","difficulty":3,"category":"planning-collaboration","reviewStatus":"native-review-required"},
-  {"id":"es.verb.asistir","kind":"verb","target":"asistir","source":"attend","difficulty":3,"category":"planning-collaboration","reviewStatus":"native-review-required"},
-  {"id":"es.verb.programar","kind":"verb","target":"programar","source":"schedule or program","difficulty":3,"category":"planning-collaboration","reviewStatus":"native-review-required"},
-  {"id":"es.verb.aplazar","kind":"verb","target":"aplazar","source":"postpone","difficulty":3,"category":"planning-collaboration","reviewStatus":"native-review-required"},
-  {"id":"es.verb.cancelar","kind":"verb","target":"cancelar","source":"cancel","difficulty":3,"category":"planning-collaboration","reviewStatus":"native-review-required"},
-  {"id":"es.verb.alquilar","kind":"verb","target":"alquilar","source":"rent","difficulty":3,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.incluir","kind":"verb","target":"incluir","source":"include","difficulty":3,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.excluir","kind":"verb","target":"excluir","source":"exclude","difficulty":3,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.reparar","kind":"verb","target":"reparar","source":"repair","difficulty":3,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.mantener","kind":"verb","target":"mantener","source":"maintain","difficulty":3,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.gestionar","kind":"verb","target":"gestionar","source":"manage","difficulty":3,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.presupuestar","kind":"verb","target":"presupuestar","source":"budget","difficulty":3,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.ahorrar","kind":"verb","target":"ahorrar","source":"save money or resources","difficulty":3,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.gastar","kind":"verb","target":"gastar","source":"spend","difficulty":3,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.transferir","kind":"verb","target":"transferir","source":"transfer","difficulty":3,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.solicitar","kind":"verb","target":"solicitar","source":"apply for or request","difficulty":3,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.renovar","kind":"verb","target":"renovar","source":"renew","difficulty":3,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.identificar","kind":"verb","target":"identificar","source":"identify","difficulty":3,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.verificar","kind":"verb","target":"verificar","source":"verify","difficulty":3,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.compartir","kind":"verb","target":"compartir","source":"share","difficulty":3,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.hacer-copias-de-seguridad","kind":"verb","target":"hacer copias de seguridad de archivos","source":"back up files","difficulty":3,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.actualizar","kind":"verb","target":"actualizar","source":"update","difficulty":3,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.descargar","kind":"verb","target":"descargar","source":"download","difficulty":3,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.adjuntar","kind":"verb","target":"adjuntar","source":"attach","difficulty":3,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.seleccionar","kind":"verb","target":"seleccionar","source":"select","difficulty":3,"category":"digital-admin-adult-life","reviewStatus":"native-review-required"},
-  {"id":"es.verb.separar","kind":"verb","target":"separar","source":"separate or sort","difficulty":3,"category":"environment-community","reviewStatus":"native-review-required"},
-  {"id":"es.verb.reciclar","kind":"verb","target":"reciclar","source":"recycle","difficulty":3,"category":"environment-community","reviewStatus":"native-review-required"},
-  {"id":"es.verb.reutilizar","kind":"verb","target":"reutilizar","source":"reuse","difficulty":3,"category":"environment-community","reviewStatus":"native-review-required"},
-  {"id":"es.verb.plantar","kind":"verb","target":"plantar","source":"plant","difficulty":3,"category":"environment-community","reviewStatus":"native-review-required"},
-  {"id":"es.verb.conservar","kind":"verb","target":"conservar","source":"conserve","difficulty":3,"category":"environment-community","reviewStatus":"native-review-required"},
-  {"id":"es.verb.reducir","kind":"verb","target":"reducir","source":"reduce","difficulty":3,"category":"environment-community","reviewStatus":"native-review-required"},
-  {"id":"es.verb.respetar","kind":"verb","target":"respetar","source":"respect","difficulty":3,"category":"community-help-safety","reviewStatus":"native-review-required"},
-  {"id":"es.verb.debatir","kind":"verb","target":"debatir","source":"debate","difficulty":3,"category":"communication-social","reviewStatus":"native-review-required"},
-  {"id":"es.verb.opinar","kind":"verb","target":"opinar","source":"express an opinion","difficulty":3,"category":"communication-social","reviewStatus":"native-review-required"},
-  {"id":"es.verb.recomendar","kind":"verb","target":"recomendar","source":"recommend","difficulty":3,"category":"communication-social","reviewStatus":"native-review-required"},
-  {"id":"es.verb.prometer","kind":"verb","target":"prometer","source":"promise","difficulty":3,"category":"communication-social","reviewStatus":"native-review-required"}
+  {
+    "id": "es.verb.ser",
+    "kind": "verb",
+    "target": "ser",
+    "source": "be (identity)",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.estar",
+    "kind": "verb",
+    "target": "estar",
+    "source": "be (state or location)",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.tener",
+    "kind": "verb",
+    "target": "tener",
+    "source": "have",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.hacer",
+    "kind": "verb",
+    "target": "hacer",
+    "source": "do or make",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.ir",
+    "kind": "verb",
+    "target": "ir",
+    "source": "go",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.venir",
+    "kind": "verb",
+    "target": "venir",
+    "source": "come",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.querer",
+    "kind": "verb",
+    "target": "querer",
+    "source": "want",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.poder",
+    "kind": "verb",
+    "target": "poder",
+    "source": "be able to",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.deber",
+    "kind": "verb",
+    "target": "deber",
+    "source": "should or owe",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.necesitar",
+    "kind": "verb",
+    "target": "necesitar",
+    "source": "need",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.decir",
+    "kind": "verb",
+    "target": "decir",
+    "source": "say or tell",
+    "difficulty": 1,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.hablar",
+    "kind": "verb",
+    "target": "hablar",
+    "source": "speak",
+    "difficulty": 1,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.preguntar",
+    "kind": "verb",
+    "target": "preguntar",
+    "source": "ask",
+    "difficulty": 1,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.responder",
+    "kind": "verb",
+    "target": "responder",
+    "source": "answer",
+    "difficulty": 1,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.escuchar",
+    "kind": "verb",
+    "target": "escuchar",
+    "source": "listen to",
+    "difficulty": 1,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.oir",
+    "kind": "verb",
+    "target": "oír",
+    "source": "hear",
+    "difficulty": 1,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.ver",
+    "kind": "verb",
+    "target": "ver",
+    "source": "see",
+    "difficulty": 1,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.mirar",
+    "kind": "verb",
+    "target": "mirar",
+    "source": "look at",
+    "difficulty": 1,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.saber",
+    "kind": "verb",
+    "target": "saber",
+    "source": "know a fact or how to",
+    "difficulty": 1,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.conocer",
+    "kind": "verb",
+    "target": "conocer",
+    "source": "know or be acquainted with",
+    "difficulty": 1,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.entender",
+    "kind": "verb",
+    "target": "entender",
+    "source": "understand",
+    "difficulty": 1,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.recordar",
+    "kind": "verb",
+    "target": "recordar",
+    "source": "remember",
+    "difficulty": 1,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.olvidar",
+    "kind": "verb",
+    "target": "olvidar",
+    "source": "forget",
+    "difficulty": 1,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.gustar",
+    "kind": "verb",
+    "target": "gustar",
+    "source": "like; be pleasing to",
+    "difficulty": 1,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.comer",
+    "kind": "verb",
+    "target": "comer",
+    "source": "eat",
+    "difficulty": 1,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.beber",
+    "kind": "verb",
+    "target": "beber",
+    "source": "drink",
+    "difficulty": 1,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.dormir",
+    "kind": "verb",
+    "target": "dormir",
+    "source": "sleep",
+    "difficulty": 1,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.levantarse",
+    "kind": "verb",
+    "target": "levantarse",
+    "source": "get up",
+    "difficulty": 1,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.lavarse",
+    "kind": "verb",
+    "target": "lavarse",
+    "source": "wash oneself",
+    "difficulty": 1,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.vestirse",
+    "kind": "verb",
+    "target": "vestirse",
+    "source": "get dressed",
+    "difficulty": 1,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.abrir",
+    "kind": "verb",
+    "target": "abrir",
+    "source": "open",
+    "difficulty": 1,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.cerrar",
+    "kind": "verb",
+    "target": "cerrar",
+    "source": "close",
+    "difficulty": 1,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.esperar",
+    "kind": "verb",
+    "target": "esperar",
+    "source": "wait or hope",
+    "difficulty": 1,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.descansar",
+    "kind": "verb",
+    "target": "descansar",
+    "source": "rest",
+    "difficulty": 1,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.comprar",
+    "kind": "verb",
+    "target": "comprar",
+    "source": "buy",
+    "difficulty": 1,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.vender",
+    "kind": "verb",
+    "target": "vender",
+    "source": "sell",
+    "difficulty": 1,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pagar",
+    "kind": "verb",
+    "target": "pagar",
+    "source": "pay",
+    "difficulty": 1,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.cocinar",
+    "kind": "verb",
+    "target": "cocinar",
+    "source": "cook",
+    "difficulty": 1,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.elegir",
+    "kind": "verb",
+    "target": "elegir",
+    "source": "choose",
+    "difficulty": 1,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.estudiar",
+    "kind": "verb",
+    "target": "estudiar",
+    "source": "study",
+    "difficulty": 1,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.leer",
+    "kind": "verb",
+    "target": "leer",
+    "source": "read",
+    "difficulty": 1,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.escribir",
+    "kind": "verb",
+    "target": "escribir",
+    "source": "write",
+    "difficulty": 1,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.dibujar",
+    "kind": "verb",
+    "target": "dibujar",
+    "source": "draw",
+    "difficulty": 1,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.cantar",
+    "kind": "verb",
+    "target": "cantar",
+    "source": "sing",
+    "difficulty": 1,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.trabajar",
+    "kind": "verb",
+    "target": "trabajar",
+    "source": "work",
+    "difficulty": 1,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.ayudar",
+    "kind": "verb",
+    "target": "ayudar",
+    "source": "help",
+    "difficulty": 1,
+    "category": "community-help-safety",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.cuidar",
+    "kind": "verb",
+    "target": "cuidar",
+    "source": "care for",
+    "difficulty": 1,
+    "category": "community-help-safety",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.caminar",
+    "kind": "verb",
+    "target": "caminar",
+    "source": "walk",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.correr",
+    "kind": "verb",
+    "target": "correr",
+    "source": "run",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.sentarse",
+    "kind": "verb",
+    "target": "sentarse",
+    "source": "sit down",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.ponerse-de-pie",
+    "kind": "verb",
+    "target": "ponerse de pie",
+    "source": "stand up",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.entrar",
+    "kind": "verb",
+    "target": "entrar",
+    "source": "enter",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.salir",
+    "kind": "verb",
+    "target": "salir",
+    "source": "go out or leave",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.volver",
+    "kind": "verb",
+    "target": "volver",
+    "source": "return",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.llamar",
+    "kind": "verb",
+    "target": "llamar",
+    "source": "call",
+    "difficulty": 1,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.jugar",
+    "kind": "verb",
+    "target": "jugar",
+    "source": "play",
+    "difficulty": 1,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.vivir",
+    "kind": "verb",
+    "target": "vivir",
+    "source": "live",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.dar",
+    "kind": "verb",
+    "target": "dar",
+    "source": "give",
+    "difficulty": 1,
+    "category": "community-help-safety",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.llevar",
+    "kind": "verb",
+    "target": "llevar",
+    "source": "carry, take, or wear",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.poner",
+    "kind": "verb",
+    "target": "poner",
+    "source": "put",
+    "difficulty": 1,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.quitar",
+    "kind": "verb",
+    "target": "quitar",
+    "source": "remove",
+    "difficulty": 2,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.permitir",
+    "kind": "verb",
+    "target": "permitir",
+    "source": "allow",
+    "difficulty": 2,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pertenecer",
+    "kind": "verb",
+    "target": "pertenecer",
+    "source": "belong to",
+    "difficulty": 2,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.presentar",
+    "kind": "verb",
+    "target": "presentar",
+    "source": "introduce or present",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.explicar",
+    "kind": "verb",
+    "target": "explicar",
+    "source": "explain",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.conversar",
+    "kind": "verb",
+    "target": "conversar",
+    "source": "chat or converse",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.discutir",
+    "kind": "verb",
+    "target": "discutir",
+    "source": "discuss or argue",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.estar-de-acuerdo",
+    "kind": "verb",
+    "target": "estar de acuerdo",
+    "source": "agree",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.discrepar",
+    "kind": "verb",
+    "target": "discrepar",
+    "source": "disagree",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.invitar",
+    "kind": "verb",
+    "target": "invitar",
+    "source": "invite",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.sugerir",
+    "kind": "verb",
+    "target": "sugerir",
+    "source": "suggest",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.contactar",
+    "kind": "verb",
+    "target": "contactar",
+    "source": "contact",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.felicitar",
+    "kind": "verb",
+    "target": "felicitar",
+    "source": "congratulate",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.disculparse",
+    "kind": "verb",
+    "target": "disculparse",
+    "source": "apologize",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pensar",
+    "kind": "verb",
+    "target": "pensar",
+    "source": "think",
+    "difficulty": 2,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.creer",
+    "kind": "verb",
+    "target": "creer",
+    "source": "believe",
+    "difficulty": 2,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.sentir",
+    "kind": "verb",
+    "target": "sentir",
+    "source": "feel",
+    "difficulty": 2,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.notar",
+    "kind": "verb",
+    "target": "notar",
+    "source": "notice",
+    "difficulty": 2,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.descubrir",
+    "kind": "verb",
+    "target": "descubrir",
+    "source": "discover",
+    "difficulty": 2,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.comprobar",
+    "kind": "verb",
+    "target": "comprobar",
+    "source": "check or verify",
+    "difficulty": 2,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.aprender",
+    "kind": "verb",
+    "target": "aprender",
+    "source": "learn",
+    "difficulty": 2,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.ensenar",
+    "kind": "verb",
+    "target": "enseñar",
+    "source": "teach",
+    "difficulty": 2,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.practicar",
+    "kind": "verb",
+    "target": "practicar",
+    "source": "practice",
+    "difficulty": 2,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.repetir",
+    "kind": "verb",
+    "target": "repetir",
+    "source": "repeat",
+    "difficulty": 2,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.resumir",
+    "kind": "verb",
+    "target": "resumir",
+    "source": "summarize",
+    "difficulty": 2,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.comparar",
+    "kind": "verb",
+    "target": "comparar",
+    "source": "compare",
+    "difficulty": 2,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.buscar",
+    "kind": "verb",
+    "target": "buscar",
+    "source": "look for",
+    "difficulty": 2,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.encontrar",
+    "kind": "verb",
+    "target": "encontrar",
+    "source": "find",
+    "difficulty": 2,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.perder",
+    "kind": "verb",
+    "target": "perder",
+    "source": "lose",
+    "difficulty": 2,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.ganar",
+    "kind": "verb",
+    "target": "ganar",
+    "source": "win or earn",
+    "difficulty": 2,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.llegar",
+    "kind": "verb",
+    "target": "llegar",
+    "source": "arrive",
+    "difficulty": 2,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.partir",
+    "kind": "verb",
+    "target": "partir",
+    "source": "depart",
+    "difficulty": 2,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.subir",
+    "kind": "verb",
+    "target": "subir",
+    "source": "go up or get on",
+    "difficulty": 2,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.bajar",
+    "kind": "verb",
+    "target": "bajar",
+    "source": "go down or get off",
+    "difficulty": 2,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.cruzar",
+    "kind": "verb",
+    "target": "cruzar",
+    "source": "cross",
+    "difficulty": 2,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.visitar",
+    "kind": "verb",
+    "target": "visitar",
+    "source": "visit",
+    "difficulty": 2,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pasear",
+    "kind": "verb",
+    "target": "pasear",
+    "source": "take a walk",
+    "difficulty": 2,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.viajar",
+    "kind": "verb",
+    "target": "viajar",
+    "source": "travel",
+    "difficulty": 2,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.conducir",
+    "kind": "verb",
+    "target": "conducir",
+    "source": "drive",
+    "difficulty": 2,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.montar",
+    "kind": "verb",
+    "target": "montar",
+    "source": "ride or assemble",
+    "difficulty": 2,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.cepillarse-los-dientes",
+    "kind": "verb",
+    "target": "cepillarse los dientes",
+    "source": "brush one's teeth",
+    "difficulty": 2,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.ducharse",
+    "kind": "verb",
+    "target": "ducharse",
+    "source": "take a shower",
+    "difficulty": 2,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.peinarse",
+    "kind": "verb",
+    "target": "peinarse",
+    "source": "comb one's hair",
+    "difficulty": 2,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.limpiar",
+    "kind": "verb",
+    "target": "limpiar",
+    "source": "clean",
+    "difficulty": 2,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.ordenar",
+    "kind": "verb",
+    "target": "ordenar",
+    "source": "tidy up or order",
+    "difficulty": 2,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.tender-la-ropa",
+    "kind": "verb",
+    "target": "tender la ropa",
+    "source": "hang clothes to dry",
+    "difficulty": 2,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.hacer-la-compra",
+    "kind": "verb",
+    "target": "hacer la compra",
+    "source": "shop for groceries",
+    "difficulty": 2,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.hacer-ejercicio",
+    "kind": "verb",
+    "target": "hacer ejercicio",
+    "source": "exercise",
+    "difficulty": 2,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.mudarse",
+    "kind": "verb",
+    "target": "mudarse",
+    "source": "move house",
+    "difficulty": 2,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.reservar",
+    "kind": "verb",
+    "target": "reservar",
+    "source": "make a reservation",
+    "difficulty": 2,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pedir-comida",
+    "kind": "verb",
+    "target": "pedir comida",
+    "source": "order food",
+    "difficulty": 2,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pagar-la-cuenta",
+    "kind": "verb",
+    "target": "pagar la cuenta",
+    "source": "pay the bill",
+    "difficulty": 2,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.devolver",
+    "kind": "verb",
+    "target": "devolver",
+    "source": "return a purchase or give back",
+    "difficulty": 2,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.cambiar-un-articulo",
+    "kind": "verb",
+    "target": "cambiar un artículo",
+    "source": "exchange an item",
+    "difficulty": 2,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.probarse-ropa",
+    "kind": "verb",
+    "target": "probarse ropa",
+    "source": "try on clothes",
+    "difficulty": 2,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.empaquetar",
+    "kind": "verb",
+    "target": "empaquetar",
+    "source": "pack",
+    "difficulty": 2,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.calentar",
+    "kind": "verb",
+    "target": "calentar",
+    "source": "heat up",
+    "difficulty": 2,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.hornear",
+    "kind": "verb",
+    "target": "hornear",
+    "source": "bake",
+    "difficulty": 2,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.repasar",
+    "kind": "verb",
+    "target": "repasar",
+    "source": "review lessons",
+    "difficulty": 2,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.hacer-los-deberes",
+    "kind": "verb",
+    "target": "hacer los deberes",
+    "source": "do homework",
+    "difficulty": 2,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.crear",
+    "kind": "verb",
+    "target": "crear",
+    "source": "create",
+    "difficulty": 2,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.construir",
+    "kind": "verb",
+    "target": "construir",
+    "source": "build",
+    "difficulty": 2,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.usar",
+    "kind": "verb",
+    "target": "usar",
+    "source": "use",
+    "difficulty": 2,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.enviar",
+    "kind": "verb",
+    "target": "enviar",
+    "source": "send",
+    "difficulty": 2,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.recibir",
+    "kind": "verb",
+    "target": "recibir",
+    "source": "receive",
+    "difficulty": 2,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.guardar",
+    "kind": "verb",
+    "target": "guardar",
+    "source": "save or store",
+    "difficulty": 2,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.encender",
+    "kind": "verb",
+    "target": "encender",
+    "source": "turn on",
+    "difficulty": 2,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.apagar",
+    "kind": "verb",
+    "target": "apagar",
+    "source": "turn off",
+    "difficulty": 2,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.cargar",
+    "kind": "verb",
+    "target": "cargar",
+    "source": "charge or load",
+    "difficulty": 2,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.iniciar-sesion",
+    "kind": "verb",
+    "target": "iniciar sesión",
+    "source": "sign in",
+    "difficulty": 2,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.teclear",
+    "kind": "verb",
+    "target": "teclear",
+    "source": "type on a keyboard",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.proteger",
+    "kind": "verb",
+    "target": "proteger",
+    "source": "protect",
+    "difficulty": 3,
+    "category": "community-help-safety",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.prestar",
+    "kind": "verb",
+    "target": "prestar",
+    "source": "lend",
+    "difficulty": 3,
+    "category": "community-help-safety",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pedir-prestado",
+    "kind": "verb",
+    "target": "pedir prestado",
+    "source": "borrow",
+    "difficulty": 3,
+    "category": "community-help-safety",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.arreglar",
+    "kind": "verb",
+    "target": "arreglar",
+    "source": "fix",
+    "difficulty": 3,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.organizar",
+    "kind": "verb",
+    "target": "organizar",
+    "source": "organize",
+    "difficulty": 3,
+    "category": "planning-collaboration",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.planificar",
+    "kind": "verb",
+    "target": "planificar",
+    "source": "plan",
+    "difficulty": 3,
+    "category": "planning-collaboration",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.decidir",
+    "kind": "verb",
+    "target": "decidir",
+    "source": "decide",
+    "difficulty": 3,
+    "category": "planning-collaboration",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.confirmar",
+    "kind": "verb",
+    "target": "confirmar",
+    "source": "confirm",
+    "difficulty": 3,
+    "category": "planning-collaboration",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.avisar",
+    "kind": "verb",
+    "target": "avisar",
+    "source": "notify or warn",
+    "difficulty": 3,
+    "category": "planning-collaboration",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.colaborar",
+    "kind": "verb",
+    "target": "colaborar",
+    "source": "collaborate",
+    "difficulty": 3,
+    "category": "planning-collaboration",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.resolver",
+    "kind": "verb",
+    "target": "resolver",
+    "source": "solve",
+    "difficulty": 3,
+    "category": "planning-collaboration",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.mejorar",
+    "kind": "verb",
+    "target": "mejorar",
+    "source": "improve",
+    "difficulty": 3,
+    "category": "planning-collaboration",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.completar",
+    "kind": "verb",
+    "target": "completar",
+    "source": "complete",
+    "difficulty": 3,
+    "category": "planning-collaboration",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.entregar",
+    "kind": "verb",
+    "target": "entregar",
+    "source": "deliver or submit",
+    "difficulty": 3,
+    "category": "planning-collaboration",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.asistir",
+    "kind": "verb",
+    "target": "asistir",
+    "source": "attend",
+    "difficulty": 3,
+    "category": "planning-collaboration",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.programar",
+    "kind": "verb",
+    "target": "programar",
+    "source": "schedule or program",
+    "difficulty": 3,
+    "category": "planning-collaboration",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.aplazar",
+    "kind": "verb",
+    "target": "aplazar",
+    "source": "postpone",
+    "difficulty": 3,
+    "category": "planning-collaboration",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.cancelar",
+    "kind": "verb",
+    "target": "cancelar",
+    "source": "cancel",
+    "difficulty": 3,
+    "category": "planning-collaboration",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.alquilar",
+    "kind": "verb",
+    "target": "alquilar",
+    "source": "rent",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.incluir",
+    "kind": "verb",
+    "target": "incluir",
+    "source": "include",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.excluir",
+    "kind": "verb",
+    "target": "excluir",
+    "source": "exclude",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.reparar",
+    "kind": "verb",
+    "target": "reparar",
+    "source": "repair",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.mantener",
+    "kind": "verb",
+    "target": "mantener",
+    "source": "maintain",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.gestionar",
+    "kind": "verb",
+    "target": "gestionar",
+    "source": "manage",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.presupuestar",
+    "kind": "verb",
+    "target": "presupuestar",
+    "source": "budget",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.ahorrar",
+    "kind": "verb",
+    "target": "ahorrar",
+    "source": "save money or resources",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.gastar",
+    "kind": "verb",
+    "target": "gastar",
+    "source": "spend",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.transferir",
+    "kind": "verb",
+    "target": "transferir",
+    "source": "transfer",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.solicitar",
+    "kind": "verb",
+    "target": "solicitar",
+    "source": "apply for or request",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.renovar",
+    "kind": "verb",
+    "target": "renovar",
+    "source": "renew",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.identificar",
+    "kind": "verb",
+    "target": "identificar",
+    "source": "identify",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.verificar",
+    "kind": "verb",
+    "target": "verificar",
+    "source": "verify",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.compartir",
+    "kind": "verb",
+    "target": "compartir",
+    "source": "share",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.hacer-copias-de-seguridad",
+    "kind": "verb",
+    "target": "hacer copias de seguridad de archivos",
+    "source": "back up files",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.actualizar",
+    "kind": "verb",
+    "target": "actualizar",
+    "source": "update",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.descargar",
+    "kind": "verb",
+    "target": "descargar",
+    "source": "download",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.adjuntar",
+    "kind": "verb",
+    "target": "adjuntar",
+    "source": "attach",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.seleccionar",
+    "kind": "verb",
+    "target": "seleccionar",
+    "source": "select",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.separar",
+    "kind": "verb",
+    "target": "separar",
+    "source": "separate or sort",
+    "difficulty": 3,
+    "category": "environment-community",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.reciclar",
+    "kind": "verb",
+    "target": "reciclar",
+    "source": "recycle",
+    "difficulty": 3,
+    "category": "environment-community",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.reutilizar",
+    "kind": "verb",
+    "target": "reutilizar",
+    "source": "reuse",
+    "difficulty": 3,
+    "category": "environment-community",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.plantar",
+    "kind": "verb",
+    "target": "plantar",
+    "source": "plant",
+    "difficulty": 3,
+    "category": "environment-community",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.conservar",
+    "kind": "verb",
+    "target": "conservar",
+    "source": "conserve",
+    "difficulty": 3,
+    "category": "environment-community",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.reducir",
+    "kind": "verb",
+    "target": "reducir",
+    "source": "reduce",
+    "difficulty": 3,
+    "category": "environment-community",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.respetar",
+    "kind": "verb",
+    "target": "respetar",
+    "source": "respect",
+    "difficulty": 3,
+    "category": "community-help-safety",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.debatir",
+    "kind": "verb",
+    "target": "debatir",
+    "source": "debate",
+    "difficulty": 3,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.opinar",
+    "kind": "verb",
+    "target": "opinar",
+    "source": "express an opinion",
+    "difficulty": 3,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.recomendar",
+    "kind": "verb",
+    "target": "recomendar",
+    "source": "recommend",
+    "difficulty": 3,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.prometer",
+    "kind": "verb",
+    "target": "prometer",
+    "source": "promise",
+    "difficulty": 3,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.jump",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "saltar",
+    "source": "jump",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.swim",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "nadar",
+    "source": "swim",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.dance",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "bailar",
+    "source": "dance",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.smile",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "sonreír",
+    "source": "smile",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.laugh",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "reír",
+    "source": "laugh",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.cry",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "llorar",
+    "source": "cry",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.count",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "contar",
+    "source": "count",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.touch",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "tocar",
+    "source": "touch",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.hold",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "sujetar",
+    "source": "hold",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.wash",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "lavar",
+    "source": "wash",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.sit",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "estar sentado",
+    "source": "sit",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.stand",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "estar de pie",
+    "source": "stand",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.wake-up",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "despertarse",
+    "source": "wake up",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.fly",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "volar",
+    "source": "fly",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.grow",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "crecer",
+    "source": "grow",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.smell",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "oler",
+    "source": "smell",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.taste",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "saborear",
+    "source": "taste",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.hug",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "abrazar",
+    "source": "hug",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.wave",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "saludar con la mano",
+    "source": "wave",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.clap",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "aplaudir",
+    "source": "clap",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.kick",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "chutar",
+    "source": "kick",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.catch",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "atrapar",
+    "source": "catch",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.throw",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "lanzar",
+    "source": "throw",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.crawl",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "gatear",
+    "source": "crawl",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.whisper",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "susurrar",
+    "source": "whisper",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.shout",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "gritar",
+    "source": "shout",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.hum",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "tararear",
+    "source": "hum",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.whistle",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "silbar",
+    "source": "whistle",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.bark",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "ladrar",
+    "source": "bark",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.meow",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "maullar",
+    "source": "meow",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.hop",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "saltar a la pata coja",
+    "source": "hop",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.slide",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "deslizarse",
+    "source": "slide",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.roll",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "hacer rodar",
+    "source": "roll",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.float",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "flotar",
+    "source": "float",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.splash",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "salpicar",
+    "source": "splash",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.bounce",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "botar",
+    "source": "bounce",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.fold",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "doblar",
+    "source": "fold",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.unfold",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "desplegar",
+    "source": "unfold",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.decorate",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "decorar",
+    "source": "decorate",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.glue",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "pegar",
+    "source": "glue",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.weave",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "tejer",
+    "source": "weave",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.knead",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "amasar",
+    "source": "knead",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.stir",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "remover",
+    "source": "stir",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.pour",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "verter",
+    "source": "pour",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.peel",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "pelar",
+    "source": "peel",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.water",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "regar",
+    "source": "water",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.sprout",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "brotar",
+    "source": "sprout",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.bloom",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "florecer",
+    "source": "bloom",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.collect",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "coleccionar",
+    "source": "collect",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.measure",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "medir",
+    "source": "measure",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.weigh",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "pesar",
+    "source": "weigh",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.guess",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "adivinar",
+    "source": "guess",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.explore",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "explorar",
+    "source": "explore",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.imagine",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "imaginar",
+    "source": "imagine",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.pretend",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "fingir",
+    "source": "pretend",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.celebrate",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "celebrar",
+    "source": "celebrate",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.thank",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "agradecer",
+    "source": "thank",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.welcome",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "dar la bienvenida",
+    "source": "welcome",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.cheer",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "animar",
+    "source": "cheer",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.forgive",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "perdonar",
+    "source": "forgive",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.comfort",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "consolar",
+    "source": "comfort",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.balance",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "mantener el equilibrio",
+    "source": "balance",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.cooperate",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "cooperar",
+    "source": "cooperate",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.negotiate",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "negociar",
+    "source": "negotiate",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.persuade",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "convencer",
+    "source": "persuade",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.reassure",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "tranquilizar",
+    "source": "reassure",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.appreciate",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "apreciar",
+    "source": "appreciate",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.admire",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "admirar",
+    "source": "admire",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.wonder",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "preguntarse",
+    "source": "wonder",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.reflect",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "reflexionar",
+    "source": "reflect",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.concentrate",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "concentrarse",
+    "source": "concentrate",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.persevere",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "perseverar",
+    "source": "persevere",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.hesitate",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "dudar",
+    "source": "hesitate",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.anticipate",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "anticipar",
+    "source": "anticipate",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.investigate",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "investigar",
+    "source": "investigate",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.observe",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "observar",
+    "source": "observe",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.distinguish",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "distinguir",
+    "source": "distinguish",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.estimate",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "estimar",
+    "source": "estimate",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.interpret",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "interpretar",
+    "source": "interpret",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.justify",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "justificar",
+    "source": "justify",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.demonstrate",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "demostrar",
+    "source": "demonstrate",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.invent",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "inventar",
+    "source": "invent",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.transform",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "transformar",
+    "source": "transform",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.combine",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "combinar",
+    "source": "combine",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.adapt",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "adaptarse",
+    "source": "adapt",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.restore",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "restaurar",
+    "source": "restore",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.preserve",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "preservar",
+    "source": "preserve",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.exp260908.contribute",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "contribuir",
+    "source": "contribute",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.pintar",
+    "kind": "verb",
+    "target": "pintar",
+    "source": "paint",
+    "difficulty": 1,
+    "category": "art-play",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.cortar",
+    "kind": "verb",
+    "target": "cortar",
+    "source": "cut",
+    "difficulty": 1,
+    "category": "crafts",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.tirar",
+    "kind": "verb",
+    "target": "tirar",
+    "source": "pull",
+    "difficulty": 1,
+    "category": "movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.empujar",
+    "kind": "verb",
+    "target": "empujar",
+    "source": "push",
+    "difficulty": 1,
+    "category": "movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.intentar",
+    "kind": "verb",
+    "target": "intentar",
+    "source": "try",
+    "difficulty": 1,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.traer",
+    "kind": "verb",
+    "target": "traer",
+    "source": "bring",
+    "difficulty": 1,
+    "category": "everyday",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.recoger",
+    "kind": "verb",
+    "target": "recoger",
+    "source": "pick up",
+    "difficulty": 1,
+    "category": "home",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.dejar",
+    "kind": "verb",
+    "target": "dejar",
+    "source": "leave behind",
+    "difficulty": 1,
+    "category": "everyday",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.llenar",
+    "kind": "verb",
+    "target": "llenar",
+    "source": "fill",
+    "difficulty": 1,
+    "category": "home",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.vaciar",
+    "kind": "verb",
+    "target": "vaciar",
+    "source": "empty",
+    "difficulty": 1,
+    "category": "home",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.secar",
+    "kind": "verb",
+    "target": "secar",
+    "source": "dry",
+    "difficulty": 1,
+    "category": "home",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.mojar",
+    "kind": "verb",
+    "target": "mojar",
+    "source": "wet",
+    "difficulty": 1,
+    "category": "nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.tapar",
+    "kind": "verb",
+    "target": "tapar",
+    "source": "cover",
+    "difficulty": 1,
+    "category": "home",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.destapar",
+    "kind": "verb",
+    "target": "destapar",
+    "source": "uncover",
+    "difficulty": 1,
+    "category": "home",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.romper",
+    "kind": "verb",
+    "target": "romper",
+    "source": "break",
+    "difficulty": 1,
+    "category": "everyday",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.sonar",
+    "kind": "verb",
+    "target": "sonar",
+    "source": "sound",
+    "difficulty": 1,
+    "category": "music",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.brillar",
+    "kind": "verb",
+    "target": "brillar",
+    "source": "shine",
+    "difficulty": 1,
+    "category": "nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.rodar",
+    "kind": "verb",
+    "target": "rodar",
+    "source": "roll along",
+    "difficulty": 1,
+    "category": "movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.parar",
+    "kind": "verb",
+    "target": "parar",
+    "source": "stop",
+    "difficulty": 1,
+    "category": "movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.empezar",
+    "kind": "verb",
+    "target": "empezar",
+    "source": "start",
+    "difficulty": 1,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.terminar",
+    "kind": "verb",
+    "target": "terminar",
+    "source": "finish",
+    "difficulty": 1,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.seguir",
+    "kind": "verb",
+    "target": "seguir",
+    "source": "follow",
+    "difficulty": 1,
+    "category": "movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.pasar",
+    "kind": "verb",
+    "target": "pasar",
+    "source": "pass",
+    "difficulty": 1,
+    "category": "play",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.agitar",
+    "kind": "verb",
+    "target": "agitar",
+    "source": "shake",
+    "difficulty": 2,
+    "category": "movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.estirar",
+    "kind": "verb",
+    "target": "estirar",
+    "source": "stretch",
+    "difficulty": 2,
+    "category": "movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.encoger",
+    "kind": "verb",
+    "target": "encoger",
+    "source": "shrink",
+    "difficulty": 2,
+    "category": "nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.girar",
+    "kind": "verb",
+    "target": "girar",
+    "source": "turn",
+    "difficulty": 2,
+    "category": "movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.torcer",
+    "kind": "verb",
+    "target": "torcer",
+    "source": "twist",
+    "difficulty": 2,
+    "category": "movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.inclinar",
+    "kind": "verb",
+    "target": "inclinar",
+    "source": "tilt",
+    "difficulty": 2,
+    "category": "movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.balancearse",
+    "kind": "verb",
+    "target": "balancearse",
+    "source": "sway",
+    "difficulty": 2,
+    "category": "movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.mecer",
+    "kind": "verb",
+    "target": "mecer",
+    "source": "rock",
+    "difficulty": 2,
+    "category": "home",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.patinar",
+    "kind": "verb",
+    "target": "patinar",
+    "source": "skate",
+    "difficulty": 2,
+    "category": "play",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.pedalear",
+    "kind": "verb",
+    "target": "pedalear",
+    "source": "pedal",
+    "difficulty": 2,
+    "category": "play",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.trepar",
+    "kind": "verb",
+    "target": "trepar",
+    "source": "climb",
+    "difficulty": 2,
+    "category": "animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.arrastrar",
+    "kind": "verb",
+    "target": "arrastrar",
+    "source": "drag",
+    "difficulty": 2,
+    "category": "movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.despegar",
+    "kind": "verb",
+    "target": "despegar",
+    "source": "take off",
+    "difficulty": 2,
+    "category": "travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.aterrizar",
+    "kind": "verb",
+    "target": "aterrizar",
+    "source": "land",
+    "difficulty": 2,
+    "category": "travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.navegar",
+    "kind": "verb",
+    "target": "navegar",
+    "source": "sail",
+    "difficulty": 2,
+    "category": "travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.remar",
+    "kind": "verb",
+    "target": "remar",
+    "source": "row",
+    "difficulty": 2,
+    "category": "play",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.acampar",
+    "kind": "verb",
+    "target": "acampar",
+    "source": "camp",
+    "difficulty": 2,
+    "category": "nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.orientarse",
+    "kind": "verb",
+    "target": "orientarse",
+    "source": "find one's way",
+    "difficulty": 2,
+    "category": "travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.apuntar",
+    "kind": "verb",
+    "target": "apuntar",
+    "source": "point",
+    "difficulty": 2,
+    "category": "movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.senalar",
+    "kind": "verb",
+    "target": "señalar",
+    "source": "point out",
+    "difficulty": 2,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.acariciar",
+    "kind": "verb",
+    "target": "acariciar",
+    "source": "stroke",
+    "difficulty": 2,
+    "category": "animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.ronronear",
+    "kind": "verb",
+    "target": "ronronear",
+    "source": "purr",
+    "difficulty": 2,
+    "category": "animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.relinchar",
+    "kind": "verb",
+    "target": "relinchar",
+    "source": "neigh",
+    "difficulty": 2,
+    "category": "animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.cacarear",
+    "kind": "verb",
+    "target": "cacarear",
+    "source": "cluck",
+    "difficulty": 2,
+    "category": "animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.piar",
+    "kind": "verb",
+    "target": "piar",
+    "source": "chirp",
+    "difficulty": 2,
+    "category": "animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.zumbar",
+    "kind": "verb",
+    "target": "zumbar",
+    "source": "buzz",
+    "difficulty": 2,
+    "category": "animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.croar",
+    "kind": "verb",
+    "target": "croar",
+    "source": "croak",
+    "difficulty": 2,
+    "category": "animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.aullar",
+    "kind": "verb",
+    "target": "aullar",
+    "source": "howl",
+    "difficulty": 2,
+    "category": "animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.mugir",
+    "kind": "verb",
+    "target": "mugir",
+    "source": "moo",
+    "difficulty": 2,
+    "category": "animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.pastar",
+    "kind": "verb",
+    "target": "pastar",
+    "source": "graze",
+    "difficulty": 2,
+    "category": "animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.anidar",
+    "kind": "verb",
+    "target": "anidar",
+    "source": "nest",
+    "difficulty": 2,
+    "category": "animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.incubar",
+    "kind": "verb",
+    "target": "incubar",
+    "source": "incubate",
+    "difficulty": 2,
+    "category": "animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.aletear",
+    "kind": "verb",
+    "target": "aletear",
+    "source": "flap",
+    "difficulty": 2,
+    "category": "animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.olfatear",
+    "kind": "verb",
+    "target": "olfatear",
+    "source": "sniff",
+    "difficulty": 2,
+    "category": "animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.masticar",
+    "kind": "verb",
+    "target": "masticar",
+    "source": "chew",
+    "difficulty": 2,
+    "category": "food",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.lamer",
+    "kind": "verb",
+    "target": "lamer",
+    "source": "lick",
+    "difficulty": 2,
+    "category": "animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.morder",
+    "kind": "verb",
+    "target": "morder",
+    "source": "bite",
+    "difficulty": 2,
+    "category": "animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.bostezar",
+    "kind": "verb",
+    "target": "bostezar",
+    "source": "yawn",
+    "difficulty": 2,
+    "category": "everyday",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.estornudar",
+    "kind": "verb",
+    "target": "estornudar",
+    "source": "sneeze",
+    "difficulty": 2,
+    "category": "everyday",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.toser",
+    "kind": "verb",
+    "target": "toser",
+    "source": "cough",
+    "difficulty": 2,
+    "category": "everyday",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.respirar",
+    "kind": "verb",
+    "target": "respirar",
+    "source": "breathe",
+    "difficulty": 2,
+    "category": "everyday",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.parpadear",
+    "kind": "verb",
+    "target": "parpadear",
+    "source": "blink",
+    "difficulty": 2,
+    "category": "everyday",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.guinar",
+    "kind": "verb",
+    "target": "guiñar",
+    "source": "wink",
+    "difficulty": 2,
+    "category": "everyday",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.asentir",
+    "kind": "verb",
+    "target": "asentir",
+    "source": "nod",
+    "difficulty": 2,
+    "category": "friendship",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.suspirar",
+    "kind": "verb",
+    "target": "suspirar",
+    "source": "sigh",
+    "difficulty": 2,
+    "category": "feelings",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.temblar",
+    "kind": "verb",
+    "target": "temblar",
+    "source": "tremble",
+    "difficulty": 2,
+    "category": "feelings",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.abrigarse",
+    "kind": "verb",
+    "target": "abrigarse",
+    "source": "wrap up warmly",
+    "difficulty": 2,
+    "category": "home",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.abrochar",
+    "kind": "verb",
+    "target": "abrochar",
+    "source": "fasten",
+    "difficulty": 2,
+    "category": "clothes",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.desabrochar",
+    "kind": "verb",
+    "target": "desabrochar",
+    "source": "unfasten",
+    "difficulty": 2,
+    "category": "clothes",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.atar",
+    "kind": "verb",
+    "target": "atar",
+    "source": "tie",
+    "difficulty": 2,
+    "category": "crafts",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.desatar",
+    "kind": "verb",
+    "target": "desatar",
+    "source": "untie",
+    "difficulty": 2,
+    "category": "crafts",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.enrollar",
+    "kind": "verb",
+    "target": "enrollar",
+    "source": "roll up",
+    "difficulty": 2,
+    "category": "crafts",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.desenrollar",
+    "kind": "verb",
+    "target": "desenrollar",
+    "source": "unroll",
+    "difficulty": 2,
+    "category": "crafts",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.envolver",
+    "kind": "verb",
+    "target": "envolver",
+    "source": "wrap",
+    "difficulty": 2,
+    "category": "crafts",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.desenvolver",
+    "kind": "verb",
+    "target": "desenvolver",
+    "source": "unwrap",
+    "difficulty": 2,
+    "category": "crafts",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.coser",
+    "kind": "verb",
+    "target": "coser",
+    "source": "sew",
+    "difficulty": 2,
+    "category": "crafts",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.bordar",
+    "kind": "verb",
+    "target": "bordar",
+    "source": "embroider",
+    "difficulty": 2,
+    "category": "crafts",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.recortar",
+    "kind": "verb",
+    "target": "recortar",
+    "source": "cut out",
+    "difficulty": 2,
+    "category": "crafts",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.colorear",
+    "kind": "verb",
+    "target": "colorear",
+    "source": "color",
+    "difficulty": 2,
+    "category": "art-play",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.borrar",
+    "kind": "verb",
+    "target": "borrar",
+    "source": "erase",
+    "difficulty": 2,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.subrayar",
+    "kind": "verb",
+    "target": "subrayar",
+    "source": "underline",
+    "difficulty": 2,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.trazar",
+    "kind": "verb",
+    "target": "trazar",
+    "source": "trace",
+    "difficulty": 2,
+    "category": "art-play",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.calcar",
+    "kind": "verb",
+    "target": "calcar",
+    "source": "trace over",
+    "difficulty": 2,
+    "category": "art-play",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.modelar",
+    "kind": "verb",
+    "target": "modelar",
+    "source": "model",
+    "difficulty": 2,
+    "category": "art-play",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.moldear",
+    "kind": "verb",
+    "target": "moldear",
+    "source": "mold",
+    "difficulty": 2,
+    "category": "crafts",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.esculpir",
+    "kind": "verb",
+    "target": "esculpir",
+    "source": "sculpt",
+    "difficulty": 2,
+    "category": "art-play",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.ilustrar",
+    "kind": "verb",
+    "target": "ilustrar",
+    "source": "illustrate",
+    "difficulty": 2,
+    "category": "art-play",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.fotografiar",
+    "kind": "verb",
+    "target": "fotografiar",
+    "source": "photograph",
+    "difficulty": 2,
+    "category": "art-play",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.filmar",
+    "kind": "verb",
+    "target": "filmar",
+    "source": "film",
+    "difficulty": 2,
+    "category": "art-play",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.grabar",
+    "kind": "verb",
+    "target": "grabar",
+    "source": "record",
+    "difficulty": 2,
+    "category": "music",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.afinar",
+    "kind": "verb",
+    "target": "afinar",
+    "source": "tune",
+    "difficulty": 2,
+    "category": "music",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.ensayar",
+    "kind": "verb",
+    "target": "ensayar",
+    "source": "rehearse",
+    "difficulty": 2,
+    "category": "music",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.actuar",
+    "kind": "verb",
+    "target": "actuar",
+    "source": "act",
+    "difficulty": 2,
+    "category": "art-play",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.imitar",
+    "kind": "verb",
+    "target": "imitar",
+    "source": "imitate",
+    "difficulty": 2,
+    "category": "play",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.rimar",
+    "kind": "verb",
+    "target": "rimar",
+    "source": "rhyme",
+    "difficulty": 2,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.deletrear",
+    "kind": "verb",
+    "target": "deletrear",
+    "source": "spell",
+    "difficulty": 2,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.pronunciar",
+    "kind": "verb",
+    "target": "pronunciar",
+    "source": "pronounce",
+    "difficulty": 2,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.traducir",
+    "kind": "verb",
+    "target": "traducir",
+    "source": "translate",
+    "difficulty": 2,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.narrar",
+    "kind": "verb",
+    "target": "narrar",
+    "source": "narrate",
+    "difficulty": 2,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.describir",
+    "kind": "verb",
+    "target": "describir",
+    "source": "describe",
+    "difficulty": 2,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.nombrar",
+    "kind": "verb",
+    "target": "nombrar",
+    "source": "name",
+    "difficulty": 2,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.enumerar",
+    "kind": "verb",
+    "target": "enumerar",
+    "source": "list",
+    "difficulty": 2,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.sumar",
+    "kind": "verb",
+    "target": "sumar",
+    "source": "add",
+    "difficulty": 2,
+    "category": "math",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.restar",
+    "kind": "verb",
+    "target": "restar",
+    "source": "subtract",
+    "difficulty": 2,
+    "category": "math",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.multiplicar",
+    "kind": "verb",
+    "target": "multiplicar",
+    "source": "multiply",
+    "difficulty": 2,
+    "category": "math",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.dividir",
+    "kind": "verb",
+    "target": "dividir",
+    "source": "divide",
+    "difficulty": 2,
+    "category": "math",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.agrupar",
+    "kind": "verb",
+    "target": "agrupar",
+    "source": "group",
+    "difficulty": 2,
+    "category": "math",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.clasificar",
+    "kind": "verb",
+    "target": "clasificar",
+    "source": "classify",
+    "difficulty": 2,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.mezclar",
+    "kind": "verb",
+    "target": "mezclar",
+    "source": "mix",
+    "difficulty": 2,
+    "category": "food",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.batir",
+    "kind": "verb",
+    "target": "batir",
+    "source": "whisk",
+    "difficulty": 2,
+    "category": "food",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.rallar",
+    "kind": "verb",
+    "target": "rallar",
+    "source": "grate",
+    "difficulty": 2,
+    "category": "food",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.exprimir",
+    "kind": "verb",
+    "target": "exprimir",
+    "source": "squeeze",
+    "difficulty": 2,
+    "category": "food",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.untar",
+    "kind": "verb",
+    "target": "untar",
+    "source": "spread",
+    "difficulty": 2,
+    "category": "food",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.repartir",
+    "kind": "verb",
+    "target": "repartir",
+    "source": "hand out",
+    "difficulty": 2,
+    "category": "friendship",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.servir",
+    "kind": "verb",
+    "target": "servir",
+    "source": "serve",
+    "difficulty": 2,
+    "category": "food",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.merendar",
+    "kind": "verb",
+    "target": "merendar",
+    "source": "snack",
+    "difficulty": 2,
+    "category": "food",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.desayunar",
+    "kind": "verb",
+    "target": "desayunar",
+    "source": "eat breakfast",
+    "difficulty": 2,
+    "category": "food",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.almorzar",
+    "kind": "verb",
+    "target": "almorzar",
+    "source": "eat lunch",
+    "difficulty": 2,
+    "category": "food",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.cenar",
+    "kind": "verb",
+    "target": "cenar",
+    "source": "dine",
+    "difficulty": 2,
+    "category": "food",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.probar",
+    "kind": "verb",
+    "target": "probar",
+    "source": "try out",
+    "difficulty": 2,
+    "category": "discovery",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.pescar",
+    "kind": "verb",
+    "target": "pescar",
+    "source": "fish",
+    "difficulty": 2,
+    "category": "nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.cosechar",
+    "kind": "verb",
+    "target": "cosechar",
+    "source": "harvest",
+    "difficulty": 2,
+    "category": "nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.sembrar",
+    "kind": "verb",
+    "target": "sembrar",
+    "source": "sow",
+    "difficulty": 2,
+    "category": "nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.desherbar",
+    "kind": "verb",
+    "target": "desherbar",
+    "source": "weed",
+    "difficulty": 2,
+    "category": "nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.podar",
+    "kind": "verb",
+    "target": "podar",
+    "source": "prune",
+    "difficulty": 2,
+    "category": "nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.abonar",
+    "kind": "verb",
+    "target": "abonar",
+    "source": "fertilize",
+    "difficulty": 2,
+    "category": "nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.germinar",
+    "kind": "verb",
+    "target": "germinar",
+    "source": "germinate",
+    "difficulty": 2,
+    "category": "nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.madurar",
+    "kind": "verb",
+    "target": "madurar",
+    "source": "ripen",
+    "difficulty": 2,
+    "category": "nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.nevar",
+    "kind": "verb",
+    "target": "nevar",
+    "source": "snow",
+    "difficulty": 2,
+    "category": "weather",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.llover",
+    "kind": "verb",
+    "target": "llover",
+    "source": "rain",
+    "difficulty": 2,
+    "category": "weather",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.granizar",
+    "kind": "verb",
+    "target": "granizar",
+    "source": "hail",
+    "difficulty": 2,
+    "category": "weather",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.tronar",
+    "kind": "verb",
+    "target": "tronar",
+    "source": "thunder",
+    "difficulty": 2,
+    "category": "weather",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.lloviznar",
+    "kind": "verb",
+    "target": "lloviznar",
+    "source": "drizzle",
+    "difficulty": 2,
+    "category": "weather",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.derretirse",
+    "kind": "verb",
+    "target": "derretirse",
+    "source": "melt",
+    "difficulty": 2,
+    "category": "nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.congelarse",
+    "kind": "verb",
+    "target": "congelarse",
+    "source": "freeze",
+    "difficulty": 2,
+    "category": "nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.gotear",
+    "kind": "verb",
+    "target": "gotear",
+    "source": "drip",
+    "difficulty": 2,
+    "category": "nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.empaparse",
+    "kind": "verb",
+    "target": "empaparse",
+    "source": "get soaked",
+    "difficulty": 2,
+    "category": "weather",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.despejarse",
+    "kind": "verb",
+    "target": "despejarse",
+    "source": "clear up",
+    "difficulty": 2,
+    "category": "weather",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.deducir",
+    "kind": "verb",
+    "target": "deducir",
+    "source": "deduce",
+    "difficulty": 3,
+    "category": "reasoning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.inferir",
+    "kind": "verb",
+    "target": "inferir",
+    "source": "infer",
+    "difficulty": 3,
+    "category": "reasoning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.relacionar",
+    "kind": "verb",
+    "target": "relacionar",
+    "source": "relate",
+    "difficulty": 3,
+    "category": "reasoning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.asociar",
+    "kind": "verb",
+    "target": "asociar",
+    "source": "associate",
+    "difficulty": 3,
+    "category": "reasoning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.contrastar",
+    "kind": "verb",
+    "target": "contrastar",
+    "source": "contrast",
+    "difficulty": 3,
+    "category": "reasoning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.diferenciar",
+    "kind": "verb",
+    "target": "diferenciar",
+    "source": "differentiate",
+    "difficulty": 3,
+    "category": "reasoning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.evaluar",
+    "kind": "verb",
+    "target": "evaluar",
+    "source": "evaluate",
+    "difficulty": 3,
+    "category": "reasoning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.valorar",
+    "kind": "verb",
+    "target": "valorar",
+    "source": "value",
+    "difficulty": 3,
+    "category": "friendship",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.cuestionar",
+    "kind": "verb",
+    "target": "cuestionar",
+    "source": "question",
+    "difficulty": 3,
+    "category": "reasoning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.argumentar",
+    "kind": "verb",
+    "target": "argumentar",
+    "source": "argue",
+    "difficulty": 3,
+    "category": "reasoning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.razonar",
+    "kind": "verb",
+    "target": "razonar",
+    "source": "reason",
+    "difficulty": 3,
+    "category": "reasoning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.aclarar",
+    "kind": "verb",
+    "target": "aclarar",
+    "source": "clarify",
+    "difficulty": 3,
+    "category": "friendship",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.precisar",
+    "kind": "verb",
+    "target": "precisar",
+    "source": "specify",
+    "difficulty": 3,
+    "category": "reasoning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.reformular",
+    "kind": "verb",
+    "target": "reformular",
+    "source": "rephrase",
+    "difficulty": 3,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.sintetizar",
+    "kind": "verb",
+    "target": "sintetizar",
+    "source": "synthesize",
+    "difficulty": 3,
+    "category": "reasoning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.generalizar",
+    "kind": "verb",
+    "target": "generalizar",
+    "source": "generalize",
+    "difficulty": 3,
+    "category": "reasoning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.ejemplificar",
+    "kind": "verb",
+    "target": "ejemplificar",
+    "source": "exemplify",
+    "difficulty": 3,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.representar",
+    "kind": "verb",
+    "target": "representar",
+    "source": "represent",
+    "difficulty": 3,
+    "category": "art-play",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.simbolizar",
+    "kind": "verb",
+    "target": "simbolizar",
+    "source": "symbolize",
+    "difficulty": 3,
+    "category": "art-play",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.visualizar",
+    "kind": "verb",
+    "target": "visualizar",
+    "source": "visualize",
+    "difficulty": 3,
+    "category": "reasoning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.reconocer",
+    "kind": "verb",
+    "target": "reconocer",
+    "source": "recognize",
+    "difficulty": 3,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.reconsiderar",
+    "kind": "verb",
+    "target": "reconsiderar",
+    "source": "reconsider",
+    "difficulty": 3,
+    "category": "reasoning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.rectificar",
+    "kind": "verb",
+    "target": "rectificar",
+    "source": "rectify",
+    "difficulty": 3,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.revisar",
+    "kind": "verb",
+    "target": "revisar",
+    "source": "revise",
+    "difficulty": 3,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.corregir",
+    "kind": "verb",
+    "target": "corregir",
+    "source": "correct",
+    "difficulty": 3,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.perfeccionar",
+    "kind": "verb",
+    "target": "perfeccionar",
+    "source": "refine",
+    "difficulty": 3,
+    "category": "art-play",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.simplificar",
+    "kind": "verb",
+    "target": "simplificar",
+    "source": "simplify",
+    "difficulty": 3,
+    "category": "reasoning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.ampliar",
+    "kind": "verb",
+    "target": "ampliar",
+    "source": "expand",
+    "difficulty": 3,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.profundizar",
+    "kind": "verb",
+    "target": "profundizar",
+    "source": "deepen",
+    "difficulty": 3,
+    "category": "reasoning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.priorizar",
+    "kind": "verb",
+    "target": "priorizar",
+    "source": "prioritize",
+    "difficulty": 3,
+    "category": "planning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.coordinar",
+    "kind": "verb",
+    "target": "coordinar",
+    "source": "coordinate",
+    "difficulty": 3,
+    "category": "friendship",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.distribuir",
+    "kind": "verb",
+    "target": "distribuir",
+    "source": "distribute",
+    "difficulty": 3,
+    "category": "planning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.equilibrar",
+    "kind": "verb",
+    "target": "equilibrar",
+    "source": "balance out",
+    "difficulty": 3,
+    "category": "planning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.alternar",
+    "kind": "verb",
+    "target": "alternar",
+    "source": "alternate",
+    "difficulty": 3,
+    "category": "friendship",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.intercambiar",
+    "kind": "verb",
+    "target": "intercambiar",
+    "source": "exchange",
+    "difficulty": 3,
+    "category": "friendship",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.consensuar",
+    "kind": "verb",
+    "target": "consensuar",
+    "source": "reach consensus",
+    "difficulty": 3,
+    "category": "friendship",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.reconciliarse",
+    "kind": "verb",
+    "target": "reconciliarse",
+    "source": "make up",
+    "difficulty": 3,
+    "category": "friendship",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.empatizar",
+    "kind": "verb",
+    "target": "empatizar",
+    "source": "empathize",
+    "difficulty": 3,
+    "category": "friendship",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.comprender",
+    "kind": "verb",
+    "target": "comprender",
+    "source": "comprehend",
+    "difficulty": 3,
+    "category": "reasoning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.tolerar",
+    "kind": "verb",
+    "target": "tolerar",
+    "source": "tolerate",
+    "difficulty": 3,
+    "category": "friendship",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.acompanar",
+    "kind": "verb",
+    "target": "acompañar",
+    "source": "accompany",
+    "difficulty": 3,
+    "category": "friendship",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.apoyar",
+    "kind": "verb",
+    "target": "apoyar",
+    "source": "support",
+    "difficulty": 3,
+    "category": "friendship",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.alentar",
+    "kind": "verb",
+    "target": "alentar",
+    "source": "encourage",
+    "difficulty": 3,
+    "category": "friendship",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.inspirar",
+    "kind": "verb",
+    "target": "inspirar",
+    "source": "inspire",
+    "difficulty": 3,
+    "category": "art-play",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.motivar",
+    "kind": "verb",
+    "target": "motivar",
+    "source": "motivate",
+    "difficulty": 3,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.reconfortar",
+    "kind": "verb",
+    "target": "reconfortar",
+    "source": "console",
+    "difficulty": 3,
+    "category": "friendship",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.involucrar",
+    "kind": "verb",
+    "target": "involucrar",
+    "source": "involve",
+    "difficulty": 3,
+    "category": "friendship",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.integrar",
+    "kind": "verb",
+    "target": "integrar",
+    "source": "integrate",
+    "difficulty": 3,
+    "category": "friendship",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.participar",
+    "kind": "verb",
+    "target": "participar",
+    "source": "participate",
+    "difficulty": 3,
+    "category": "friendship",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.comprometerse",
+    "kind": "verb",
+    "target": "comprometerse",
+    "source": "commit oneself",
+    "difficulty": 3,
+    "category": "friendship",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.responsabilizarse",
+    "kind": "verb",
+    "target": "responsabilizarse",
+    "source": "take responsibility",
+    "difficulty": 3,
+    "category": "friendship",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.beneficiar",
+    "kind": "verb",
+    "target": "beneficiar",
+    "source": "benefit",
+    "difficulty": 3,
+    "category": "nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.enriquecer",
+    "kind": "verb",
+    "target": "enriquecer",
+    "source": "enrich",
+    "difficulty": 3,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.facilitar",
+    "kind": "verb",
+    "target": "facilitar",
+    "source": "facilitate",
+    "difficulty": 3,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.posibilitar",
+    "kind": "verb",
+    "target": "posibilitar",
+    "source": "enable",
+    "difficulty": 3,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.prevenir",
+    "kind": "verb",
+    "target": "prevenir",
+    "source": "prevent",
+    "difficulty": 3,
+    "category": "planning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.evitar",
+    "kind": "verb",
+    "target": "evitar",
+    "source": "avoid",
+    "difficulty": 3,
+    "category": "planning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.prever",
+    "kind": "verb",
+    "target": "prever",
+    "source": "foresee",
+    "difficulty": 3,
+    "category": "planning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.predecir",
+    "kind": "verb",
+    "target": "predecir",
+    "source": "predict",
+    "difficulty": 3,
+    "category": "science",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.calcular",
+    "kind": "verb",
+    "target": "calcular",
+    "source": "calculate",
+    "difficulty": 3,
+    "category": "math",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.aproximar",
+    "kind": "verb",
+    "target": "aproximar",
+    "source": "approximate",
+    "difficulty": 3,
+    "category": "math",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.redondear",
+    "kind": "verb",
+    "target": "redondear",
+    "source": "round off",
+    "difficulty": 3,
+    "category": "math",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.proporcionar",
+    "kind": "verb",
+    "target": "proporcionar",
+    "source": "provide",
+    "difficulty": 3,
+    "category": "planning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.obtener",
+    "kind": "verb",
+    "target": "obtener",
+    "source": "obtain",
+    "difficulty": 3,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.alcanzar",
+    "kind": "verb",
+    "target": "alcanzar",
+    "source": "reach",
+    "difficulty": 3,
+    "category": "movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.superar",
+    "kind": "verb",
+    "target": "superar",
+    "source": "overcome",
+    "difficulty": 3,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.persistir",
+    "kind": "verb",
+    "target": "persistir",
+    "source": "persist",
+    "difficulty": 3,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.retomar",
+    "kind": "verb",
+    "target": "retomar",
+    "source": "resume",
+    "difficulty": 3,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.continuar",
+    "kind": "verb",
+    "target": "continuar",
+    "source": "continue",
+    "difficulty": 3,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.interrumpir",
+    "kind": "verb",
+    "target": "interrumpir",
+    "source": "interrupt",
+    "difficulty": 3,
+    "category": "friendship",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.sustituir",
+    "kind": "verb",
+    "target": "sustituir",
+    "source": "replace",
+    "difficulty": 3,
+    "category": "planning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.renunciar",
+    "kind": "verb",
+    "target": "renunciar",
+    "source": "renounce",
+    "difficulty": 3,
+    "category": "reasoning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.desarrollar",
+    "kind": "verb",
+    "target": "desarrollar",
+    "source": "develop",
+    "difficulty": 3,
+    "category": "school",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.evolucionar",
+    "kind": "verb",
+    "target": "evolucionar",
+    "source": "evolve",
+    "difficulty": 3,
+    "category": "nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.modificar",
+    "kind": "verb",
+    "target": "modificar",
+    "source": "modify",
+    "difficulty": 3,
+    "category": "crafts",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.ajustar",
+    "kind": "verb",
+    "target": "ajustar",
+    "source": "adjust",
+    "difficulty": 3,
+    "category": "crafts",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.ensamblar",
+    "kind": "verb",
+    "target": "ensamblar",
+    "source": "assemble",
+    "difficulty": 3,
+    "category": "crafts",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.desmontar",
+    "kind": "verb",
+    "target": "desmontar",
+    "source": "take apart",
+    "difficulty": 3,
+    "category": "crafts",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.reconstruir",
+    "kind": "verb",
+    "target": "reconstruir",
+    "source": "reconstruct",
+    "difficulty": 3,
+    "category": "crafts",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.disenar",
+    "kind": "verb",
+    "target": "diseñar",
+    "source": "design",
+    "difficulty": 3,
+    "category": "art-play",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.componer",
+    "kind": "verb",
+    "target": "componer",
+    "source": "compose",
+    "difficulty": 3,
+    "category": "music",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.improvisar",
+    "kind": "verb",
+    "target": "improvisar",
+    "source": "improvise",
+    "difficulty": 3,
+    "category": "music",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.armonizar",
+    "kind": "verb",
+    "target": "armonizar",
+    "source": "harmonize",
+    "difficulty": 3,
+    "category": "music",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.resonar",
+    "kind": "verb",
+    "target": "resonar",
+    "source": "resonate",
+    "difficulty": 3,
+    "category": "music",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.reverberar",
+    "kind": "verb",
+    "target": "reverberar",
+    "source": "reverberate",
+    "difficulty": 3,
+    "category": "science",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.vibrar",
+    "kind": "verb",
+    "target": "vibrar",
+    "source": "vibrate",
+    "difficulty": 3,
+    "category": "science",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.oscilar",
+    "kind": "verb",
+    "target": "oscilar",
+    "source": "oscillate",
+    "difficulty": 3,
+    "category": "science",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.rotar",
+    "kind": "verb",
+    "target": "rotar",
+    "source": "rotate",
+    "difficulty": 3,
+    "category": "science",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.orbitar",
+    "kind": "verb",
+    "target": "orbitar",
+    "source": "orbit",
+    "difficulty": 3,
+    "category": "science",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.gravitar",
+    "kind": "verb",
+    "target": "gravitar",
+    "source": "gravitate",
+    "difficulty": 3,
+    "category": "science",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.refractar",
+    "kind": "verb",
+    "target": "refractar",
+    "source": "refract",
+    "difficulty": 3,
+    "category": "science",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.absorber",
+    "kind": "verb",
+    "target": "absorber",
+    "source": "absorb",
+    "difficulty": 3,
+    "category": "science",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.disolver",
+    "kind": "verb",
+    "target": "disolver",
+    "source": "dissolve",
+    "difficulty": 3,
+    "category": "science",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.evaporarse",
+    "kind": "verb",
+    "target": "evaporarse",
+    "source": "evaporate",
+    "difficulty": 3,
+    "category": "science",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.condensarse",
+    "kind": "verb",
+    "target": "condensarse",
+    "source": "condense",
+    "difficulty": 3,
+    "category": "science",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.filtrar",
+    "kind": "verb",
+    "target": "filtrar",
+    "source": "filter",
+    "difficulty": 3,
+    "category": "science",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.oxidar",
+    "kind": "verb",
+    "target": "oxidar",
+    "source": "oxidize",
+    "difficulty": 3,
+    "category": "science",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.cristalizar",
+    "kind": "verb",
+    "target": "cristalizar",
+    "source": "crystallize",
+    "difficulty": 3,
+    "category": "science",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.erosionar",
+    "kind": "verb",
+    "target": "erosionar",
+    "source": "erode",
+    "difficulty": 3,
+    "category": "nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.polinizar",
+    "kind": "verb",
+    "target": "polinizar",
+    "source": "pollinate",
+    "difficulty": 3,
+    "category": "nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.migrar",
+    "kind": "verb",
+    "target": "migrar",
+    "source": "migrate",
+    "difficulty": 3,
+    "category": "animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.hibernar",
+    "kind": "verb",
+    "target": "hibernar",
+    "source": "hibernate",
+    "difficulty": 3,
+    "category": "animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.camuflarse",
+    "kind": "verb",
+    "target": "camuflarse",
+    "source": "camouflage oneself",
+    "difficulty": 3,
+    "category": "animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.regenerar",
+    "kind": "verb",
+    "target": "regenerar",
+    "source": "regenerate",
+    "difficulty": 3,
+    "category": "nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.reforestar",
+    "kind": "verb",
+    "target": "reforestar",
+    "source": "reforest",
+    "difficulty": 3,
+    "category": "nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "es.verb.pair260908.compostar",
+    "kind": "verb",
+    "target": "compostar",
+    "source": "compost",
+    "difficulty": 3,
+    "category": "nature",
+    "reviewStatus": "native-review-required"
+  }
 ]

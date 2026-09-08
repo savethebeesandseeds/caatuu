@@ -148,6 +148,40 @@ test("speech pace migrates from the course key and subsequent choices use global
   assert.equal(browser.storedValue(legacyPaceKey), "slow", "migration must not rewrite course-owned history");
 });
 
+for (const backend of ["browser", "android"]) {
+  test(`${backend} applies the independent logarithmic voice volume and suppresses synthesis at zero`, async () => {
+    const musicPreference = JSON.stringify({ volume: 0.42, trackId: "woodland-fantasy" });
+    const browser = browserSpeechContext({ "caatuu.music.v1": musicPreference });
+    const nativeCalls = [];
+    if (backend === "android") browser.context.CaatuuRuntime = {
+      env: "android", speech: {
+        async speak(_text, options) { nativeCalls.push(options); return { outcome: "completed" }; },
+        async stop() { return { stopped: true }; }
+      }
+    };
+    vm.runInNewContext(chromeSource, browser.context);
+    const speech = browser.context.CaatuuChrome;
+    assert.equal(speech.getSpeechVolume(), 1, "existing audible speech keeps its full-volume default");
+    for (const [volume, gain] of [[0.25, 10 ** -1.5], [0.5, 0.1], [0.75, 10 ** -0.5], [1, 1]]) {
+      speech.setSpeechVolume(volume);
+      await speech.speakText("你好");
+      const actual = backend === "android" ? nativeCalls.at(-1).volume : browser.spokenUtterance().volume;
+      assert.ok(Math.abs(actual - gain) < 1e-12);
+      assert.equal(browser.storedValue("caatuu.speech.volume.v1"), String(volume));
+      assert.equal(browser.storedValue("caatuu.music.v1"), musicPreference);
+    }
+    speech.setSpeechVolume(0.35);
+    speech.setSpeechMuted(true);
+    assert.equal((await speech.speakText("你好")).muted, true);
+    assert.equal(backend === "android" ? nativeCalls.length : browser.synthesisSpeakCount(), 4);
+    speech.setSpeechMuted(false);
+    assert.equal(speech.getSpeechVolume(), 0.35, "unmuting restores the chosen voice level");
+    assert.equal(speech.setSpeechVolume(NaN), 0.35);
+    assert.equal(speech.setSpeechVolume(3), 1);
+    assert.equal(speech.setSpeechVolume(-1), 0);
+  });
+}
+
 test("master mute gates browser and native synthesis until sound is restored", async () => {
   const muteKey = "caatuu.speech.muted.v1";
   const browser = browserSpeechContext({ [muteKey]: "true" });
@@ -280,12 +314,13 @@ test("Mandarin native speech uses zh-CN without loading the Czech LLM course run
   });
   assert.equal((await statusPromise).locale, "zh-CN");
 
-  const speakPromise = nativeContext.CaatuuRuntime.speech.speak("你好", { locale: "cs-CZ", rate: 0.75 });
+  const speakPromise = nativeContext.CaatuuRuntime.speech.speak("你好", { locale: "cs-CZ", rate: 0.75, volume: 0.1 });
   const speakRequest = nativeRequests.shift();
   assert.equal(speakRequest.type, "speech_speak");
   assert.equal(speakRequest.locale, "zh-CN");
   assert.equal(speakRequest.text, "你好");
   assert.equal(speakRequest.rate, 0.75, "the Android bridge request must preserve the selected rate");
+  assert.equal(speakRequest.volume, 0.1, "the native bridge preserves the voice gain without applying a second taper");
   nativeContext.CaatuuNative.receive({
     id: speakRequest.id,
     kind: "done",

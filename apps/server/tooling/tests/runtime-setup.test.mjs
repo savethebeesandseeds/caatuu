@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { runInNewContext } from "node:vm";
 import test from "node:test";
+import { createHash, webcrypto } from "node:crypto";
 
 const staticRoot = new URL("../../../../apps/languages/czech/static/", import.meta.url);
 const [profileSource, source] = await Promise.all([
@@ -9,7 +10,7 @@ const [profileSource, source] = await Promise.all([
   readFile(new URL("source/shared/runtime.js", staticRoot), "utf8")
 ]);
 
-function runtimeWith({ manifest, match = async () => null, fetchArtifact } = {}) {
+function runtimeWith({ manifest, match = async () => null, fetchArtifact, sharedCaches = null, crypto = undefined } = {}) {
   let cacheWrites = 0;
   const cache = {
     match,
@@ -18,7 +19,15 @@ function runtimeWith({ manifest, match = async () => null, fetchArtifact } = {})
     }
   };
   const caches = {
-    async open() {
+    async open(name) {
+      if (sharedCaches) {
+        if (!sharedCaches.has(name)) sharedCaches.set(name, new Map());
+        const entries = sharedCaches.get(name);
+        return {
+          async match(url) { return entries.get(url)?.clone(); },
+          async put(url, response) { cacheWrites += 1; entries.set(url, response.clone()); }
+        };
+      }
       return cache;
     },
     async keys() {
@@ -33,10 +42,13 @@ function runtimeWith({ manifest, match = async () => null, fetchArtifact } = {})
     caches,
     WebAssembly,
     addEventListener() {},
+    CustomEvent: class { constructor(type) { this.type = type; } },
+    dispatchEvent(event) { events.push(event.type); },
     setTimeout() {
       return 0;
     }
   };
+  const events = [];
   const context = {
     AbortController,
     DOMException,
@@ -44,6 +56,7 @@ function runtimeWith({ manifest, match = async () => null, fetchArtifact } = {})
     URL,
     WebAssembly,
     caches,
+    crypto,
     document: {
       visibilityState: "visible",
       addEventListener() {}
@@ -65,6 +78,7 @@ function runtimeWith({ manifest, match = async () => null, fetchArtifact } = {})
   runInNewContext(source, context, { filename: "runtime.js" });
   return {
     runtime: window.CaatuuRuntime,
+    events,
     cacheWrites: () => cacheWrites
   };
 }
@@ -78,6 +92,30 @@ test("an empty required setup manifest is never ready", async () => {
   assert.equal(status.artifactCount, 0);
   assert.equal(status.readyArtifacts, 0);
   assert.equal(status.ready, false);
+});
+
+test("music downloads are verified once and reused across course setup caches", async () => {
+  const audio = new Uint8Array([1, 4, 9, 16]);
+  const sha256 = createHash("sha256").update(audio).digest("hex");
+  const artifact = { key: "music", label: "Music", artifact_kind: "music", browser_required: true,
+    url: "/assets/music/audio/fixture.mp3", bytes: audio.length, sha256 };
+  const sharedCaches = new Map();
+  let downloads = 0;
+  const first = runtimeWith({ manifest: { cache_name: "course-one", artifacts: [artifact] }, sharedCaches,
+    crypto: webcrypto, fetchArtifact: async () => { downloads += 1; return new Response(audio); } });
+  assert.equal((await first.runtime.setup.start()).ready, true);
+  assert.equal(downloads, 1);
+  assert.equal(sharedCaches.get("caatuu-music-v1").size, 1);
+  assert.equal(sharedCaches.has("course-one"), false);
+  assert.deepEqual(first.events, ["caatuu:music-assets-ready"]);
+  const second = runtimeWith({ manifest: { cache_name: "course-two", artifacts: [artifact] }, sharedCaches,
+    crypto: webcrypto, fetchArtifact: async () => { throw new Error("offline"); } });
+  assert.equal((await second.runtime.setup.status()).ready, true);
+  assert.equal((await second.runtime.setup.start()).ready, true);
+  assert.equal(second.cacheWrites(), 0);
+  assert.equal(sharedCaches.has("course-two"), false);
+  sharedCaches.get("caatuu-music-v1").set(artifact.url, new Response(new Uint8Array([2, 4, 9, 16])));
+  assert.equal((await second.runtime.setup.status()).ready, false, "Corrupt cached music must require repair");
 });
 
 test("a newly active browser worker announces an update without reloading an in-progress page", () => {

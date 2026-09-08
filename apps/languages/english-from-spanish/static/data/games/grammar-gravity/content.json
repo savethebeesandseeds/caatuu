@@ -88,6 +88,150 @@
                 "learnerBaseText": "manzana",
                 "englishAuditText": "apple"
               }
+            },
+            {
+              "id": "es-en.agreement.near.singular.exp260908",
+              "revision": 1,
+              "learnerBaseText": "esta pluma",
+              "englishAuditText": "this feather",
+              "targetText": "this feather",
+              "slot": {
+                "beforeText": "",
+                "afterText": " feather"
+              },
+              "anchor": {
+                "targetText": "feather",
+                "learnerBaseText": "pluma",
+                "englishAuditText": "feather"
+              }
+            },
+            {
+              "id": "es-en.agreement.near.pair260908.1.singular",
+              "revision": 1,
+              "learnerBaseText": "esta linterna",
+              "englishAuditText": "this flashlight",
+              "targetText": "this flashlight",
+              "slot": {
+                "beforeText": "",
+                "afterText": " flashlight"
+              },
+              "anchor": {
+                "targetText": "flashlight",
+                "learnerBaseText": "linterna",
+                "englishAuditText": "flashlight"
+              }
+            },
+            {
+              "id": "es-en.agreement.near.pair260908.2.singular",
+              "revision": 1,
+              "learnerBaseText": "este cuenco",
+              "englishAuditText": "this bowl",
+              "targetText": "this bowl",
+              "slot": {
+                "beforeText": "",
+                "afterText": " bowl"
+              },
+              "anchor": {
+                "targetText": "bowl",
+                "learnerBaseText": "cuenco",
+                "englishAuditText": "bowl"
+              }
+            },
+            {
+              "id": "es-en.agreement.near.pair260908.3.singular",
+              "revision": 1,
+              "learnerBaseText": "esta cometa",
+              "englishAuditText": "this kite",
+              "targetText": "this kite",
+              "slot": {
+                "beforeText": "",
+                "afterText": " kite"
+              },
+              "anchor": {
+                "targetText": "kite",
+                "learnerBaseText": "cometa",
+                "englishAuditText": "kite"
+              }
+            },
+            {
+              "id": "es-en.agreement.near.pair260908.4.singular",
+              "revision": 1,
+              "learnerBaseText": "esta concha",
+              "englishAuditText": "this shell",
+              "targetText": "this shell",
+              "slot": {
+                "beforeText": "",
+                "afterText": " shell"
+              },
+              "anchor": {
+                "targetText": "shell",
+                "learnerBaseText": "concha",
+                "englishAuditText": "shell"
+              }
+            },
+            {
+              "id": "es-en.agreement.near.pair260908.5.singular",
+              "revision": 1,
+              "learnerBaseText": "este dibujo",
+              "englishAuditText": "this drawing",
+              "targetText": "this drawing",
+              "slot": {
+                "beforeText": "",
+                "afterText": " drawing"
+              },
+              "anchor": {
+                "targetText": "drawing",
+                "learnerBaseText": "dibujo",
+                "englishAuditText": "drawing"
+              }
+            },
+            {
+              "id": "es-en.agreement.near.pair260908.6.singular",
+              "revision": 1,
+              "learnerBaseText": "esta galleta",
+              "englishAuditText": "this cookie",
+              "targetText": "this cookie",
+              "slot": {
+                "beforeText": "",
+                "afterText": " cookie"
+              },
+              "anchor": {
+                "targetText": "cookie",
+                "learnerBaseText": "galleta",
+                "englishAuditText": "cookie"
+              }
+            },
+            {
+              "id": "es-en.agreement.near.pair260908.7.singular",
+              "revision": 1,
+              "learnerBaseText": "este guante",
+              "englishAuditText": "this glove",
+              "targetText": "this glove",
+              "slot": {
+                "beforeText": "",
+                "afterText": " glove"
+              },
+              "anchor": {
+                "targetText": "glove",
+                "learnerBaseText": "guante",
+                "englishAuditText": "glove"
+              }
+            },
+            {
+              "id": "es-en.agreement.near.pair260908.8.singular",
+              "revision": 1,
+              "learnerBaseText": "este silbato",
+              "englishAuditText": "this whistle",
+              "targetText": "this whistle",
+              "slot": {
+                "beforeText": "",
+                "afterText": " whistle"
+              },
+              "anchor": {
+                "targetText": "whistle",
+                "learnerBaseText": "silbato",
+                "englishAuditText": "whistle"
+              }
             }
           ]
         },
@@ -124,6 +268,150 @@
                 "targetText": "apples",
                 "learnerBaseText": "manzanas",
                 "englishAuditText": "apples"
+              }
+            },
+            {
+              "id": "es-en.agreement.near.plural.exp260908",
+              "revision": 1,
+              "learnerBaseText": "estas huellas",
+              "englishAuditText": "these footprints",
+              "targetText": "these footprints",
+              "slot": {
+                "beforeText": "",
+                "afterText": " footprints"
+              },
+              "anchor": {
+                "targetText": "footprints",
+                "learnerBaseText": "huellas",
+                "englishAuditText": "footprints"
+              }
+            },
+            {
+              "id": "es-en.agreement.near.pair260908.1.plural",
+              "revision": 1,
+              "learnerBaseText": "estas linternas",
+              "englishAuditText": "these flashlights",
+              "targetText": "these flashlights",
+              "slot": {
+                "beforeText": "",
+                "afterText": " flashlights"
+              },
+              "anchor": {
+                "targetText": "flashlights",
+                "learnerBaseText": "linternas",
+                "englishAuditText": "flashlights"
+              }
+            },
+            {
+              "id": "es-en.agreement.near.pair260908.2.plural",
+              "revision": 1,
+              "learnerBaseText": "estos cuencos",
+              "englishAuditText": "these bowls",
+              "targetText": "these bowls",
+              "slot": {
+                "beforeText": "",
+                "afterText": " bowls"
+              },
+              "anchor": {
+                "targetText": "bowls",
+                "learnerBaseText": "cuencos",
+                "englishAuditText": "bowls"
+              }
+            },
+            {
+              "id": "es-en.agreement.near.pair260908.3.plural",
+              "revision": 1,
+              "learnerBaseText": "estas cometas",
+              "englishAuditText": "these kites",
+              "targetText": "these kites",
+              "slot": {
+                "beforeText": "",
+                "afterText": " kites"
+              },
+              "anchor": {
+                "targetText": "kites",
+                "learnerBaseText": "cometas",
+                "englishAuditText": "kites"
+              }
+            },
+            {
+              "id": "es-en.agreement.near.pair260908.4.plural",
+              "revision": 1,
+              "learnerBaseText": "estas conchas",
+              "englishAuditText": "these shells",
+              "targetText": "these shells",
+              "slot": {
+                "beforeText": "",
+                "afterText": " shells"
+              },
+              "anchor": {
+                "targetText": "shells",
+                "learnerBaseText": "conchas",
+                "englishAuditText": "shells"
+              }
+            },
+            {
+              "id": "es-en.agreement.near.pair260908.5.plural",
+              "revision": 1,
+              "learnerBaseText": "estos dibujos",
+              "englishAuditText": "these drawings",
+              "targetText": "these drawings",
+              "slot": {
+                "beforeText": "",
+                "afterText": " drawings"
+              },
+              "anchor": {
+                "targetText": "drawings",
+                "learnerBaseText": "dibujos",
+                "englishAuditText": "drawings"
+              }
+            },
+            {
+              "id": "es-en.agreement.near.pair260908.6.plural",
+              "revision": 1,
+              "learnerBaseText": "estas galletas",
+              "englishAuditText": "these cookies",
+              "targetText": "these cookies",
+              "slot": {
+                "beforeText": "",
+                "afterText": " cookies"
+              },
+              "anchor": {
+                "targetText": "cookies",
+                "learnerBaseText": "galletas",
+                "englishAuditText": "cookies"
+              }
+            },
+            {
+              "id": "es-en.agreement.near.pair260908.7.plural",
+              "revision": 1,
+              "learnerBaseText": "estos guantes",
+              "englishAuditText": "these gloves",
+              "targetText": "these gloves",
+              "slot": {
+                "beforeText": "",
+                "afterText": " gloves"
+              },
+              "anchor": {
+                "targetText": "gloves",
+                "learnerBaseText": "guantes",
+                "englishAuditText": "gloves"
+              }
+            },
+            {
+              "id": "es-en.agreement.near.pair260908.8.plural",
+              "revision": 1,
+              "learnerBaseText": "estos silbatos",
+              "englishAuditText": "these whistles",
+              "targetText": "these whistles",
+              "slot": {
+                "beforeText": "",
+                "afterText": " whistles"
+              },
+              "anchor": {
+                "targetText": "whistles",
+                "learnerBaseText": "silbatos",
+                "englishAuditText": "whistles"
               }
             }
           ]
@@ -176,6 +464,134 @@
                 "learnerBaseText": "ventana",
                 "englishAuditText": "window"
               }
+            },
+            {
+              "id": "es-en.agreement.far.singular.exp260908",
+              "revision": 1,
+              "learnerBaseText": "aquel faro",
+              "englishAuditText": "that lighthouse",
+              "targetText": "that lighthouse",
+              "slot": {
+                "beforeText": "",
+                "afterText": " lighthouse"
+              },
+              "anchor": {
+                "targetText": "lighthouse",
+                "learnerBaseText": "faro",
+                "englishAuditText": "lighthouse"
+              }
+            },
+            {
+              "id": "es-en.agreement.far.pair260908.9.singular",
+              "revision": 1,
+              "learnerBaseText": "ese molino",
+              "englishAuditText": "that mill",
+              "targetText": "that mill",
+              "slot": {
+                "beforeText": "",
+                "afterText": " mill"
+              },
+              "anchor": {
+                "targetText": "mill",
+                "learnerBaseText": "molino",
+                "englishAuditText": "mill"
+              }
+            },
+            {
+              "id": "es-en.agreement.far.pair260908.10.singular",
+              "revision": 1,
+              "learnerBaseText": "esa colina",
+              "englishAuditText": "that hill",
+              "targetText": "that hill",
+              "slot": {
+                "beforeText": "",
+                "afterText": " hill"
+              },
+              "anchor": {
+                "targetText": "hill",
+                "learnerBaseText": "colina",
+                "englishAuditText": "hill"
+              }
+            },
+            {
+              "id": "es-en.agreement.far.pair260908.12.singular",
+              "revision": 1,
+              "learnerBaseText": "esa cabaña",
+              "englishAuditText": "that cabin",
+              "targetText": "that cabin",
+              "slot": {
+                "beforeText": "",
+                "afterText": " cabin"
+              },
+              "anchor": {
+                "targetText": "cabin",
+                "learnerBaseText": "cabaña",
+                "englishAuditText": "cabin"
+              }
+            },
+            {
+              "id": "es-en.agreement.far.pair260908.13.singular",
+              "revision": 1,
+              "learnerBaseText": "ese velero",
+              "englishAuditText": "that sailboat",
+              "targetText": "that sailboat",
+              "slot": {
+                "beforeText": "",
+                "afterText": " sailboat"
+              },
+              "anchor": {
+                "targetText": "sailboat",
+                "learnerBaseText": "velero",
+                "englishAuditText": "sailboat"
+              }
+            },
+            {
+              "id": "es-en.agreement.far.pair260908.14.singular",
+              "revision": 1,
+              "learnerBaseText": "ese ciervo",
+              "englishAuditText": "that deer",
+              "targetText": "that deer",
+              "slot": {
+                "beforeText": "",
+                "afterText": " deer"
+              },
+              "anchor": {
+                "targetText": "deer",
+                "learnerBaseText": "ciervo",
+                "englishAuditText": "deer"
+              }
+            },
+            {
+              "id": "es-en.agreement.far.pair260908.15.singular",
+              "revision": 1,
+              "learnerBaseText": "esa montaña",
+              "englishAuditText": "that mountain",
+              "targetText": "that mountain",
+              "slot": {
+                "beforeText": "",
+                "afterText": " mountain"
+              },
+              "anchor": {
+                "targetText": "mountain",
+                "learnerBaseText": "montaña",
+                "englishAuditText": "mountain"
+              }
+            },
+            {
+              "id": "es-en.agreement.far.pair260908.16.singular",
+              "revision": 1,
+              "learnerBaseText": "esa gaviota",
+              "englishAuditText": "that seagull",
+              "targetText": "that seagull",
+              "slot": {
+                "beforeText": "",
+                "afterText": " seagull"
+              },
+              "anchor": {
+                "targetText": "seagull",
+                "learnerBaseText": "gaviota",
+                "englishAuditText": "seagull"
+              }
             }
           ]
         },
@@ -212,6 +628,134 @@
                 "targetText": "windows",
                 "learnerBaseText": "ventanas",
                 "englishAuditText": "windows"
+              }
+            },
+            {
+              "id": "es-en.agreement.far.plural.exp260908",
+              "revision": 1,
+              "learnerBaseText": "aquellas montañas",
+              "englishAuditText": "those mountains",
+              "targetText": "those mountains",
+              "slot": {
+                "beforeText": "",
+                "afterText": " mountains"
+              },
+              "anchor": {
+                "targetText": "mountains",
+                "learnerBaseText": "montañas",
+                "englishAuditText": "mountains"
+              }
+            },
+            {
+              "id": "es-en.agreement.far.pair260908.9.plural",
+              "revision": 1,
+              "learnerBaseText": "esos molinos",
+              "englishAuditText": "those mills",
+              "targetText": "those mills",
+              "slot": {
+                "beforeText": "",
+                "afterText": " mills"
+              },
+              "anchor": {
+                "targetText": "mills",
+                "learnerBaseText": "molinos",
+                "englishAuditText": "mills"
+              }
+            },
+            {
+              "id": "es-en.agreement.far.pair260908.10.plural",
+              "revision": 1,
+              "learnerBaseText": "esas colinas",
+              "englishAuditText": "those hills",
+              "targetText": "those hills",
+              "slot": {
+                "beforeText": "",
+                "afterText": " hills"
+              },
+              "anchor": {
+                "targetText": "hills",
+                "learnerBaseText": "colinas",
+                "englishAuditText": "hills"
+              }
+            },
+            {
+              "id": "es-en.agreement.far.pair260908.11.plural",
+              "revision": 1,
+              "learnerBaseText": "esos faros",
+              "englishAuditText": "those lighthouses",
+              "targetText": "those lighthouses",
+              "slot": {
+                "beforeText": "",
+                "afterText": " lighthouses"
+              },
+              "anchor": {
+                "targetText": "lighthouses",
+                "learnerBaseText": "faros",
+                "englishAuditText": "lighthouses"
+              }
+            },
+            {
+              "id": "es-en.agreement.far.pair260908.12.plural",
+              "revision": 1,
+              "learnerBaseText": "esas cabañas",
+              "englishAuditText": "those cabins",
+              "targetText": "those cabins",
+              "slot": {
+                "beforeText": "",
+                "afterText": " cabins"
+              },
+              "anchor": {
+                "targetText": "cabins",
+                "learnerBaseText": "cabañas",
+                "englishAuditText": "cabins"
+              }
+            },
+            {
+              "id": "es-en.agreement.far.pair260908.13.plural",
+              "revision": 1,
+              "learnerBaseText": "esos veleros",
+              "englishAuditText": "those sailboats",
+              "targetText": "those sailboats",
+              "slot": {
+                "beforeText": "",
+                "afterText": " sailboats"
+              },
+              "anchor": {
+                "targetText": "sailboats",
+                "learnerBaseText": "veleros",
+                "englishAuditText": "sailboats"
+              }
+            },
+            {
+              "id": "es-en.agreement.far.pair260908.14.plural",
+              "revision": 1,
+              "learnerBaseText": "esos ciervos",
+              "englishAuditText": "those deer",
+              "targetText": "those deer",
+              "slot": {
+                "beforeText": "",
+                "afterText": " deer"
+              },
+              "anchor": {
+                "targetText": "deer",
+                "learnerBaseText": "ciervos",
+                "englishAuditText": "deer"
+              }
+            },
+            {
+              "id": "es-en.agreement.far.pair260908.16.plural",
+              "revision": 1,
+              "learnerBaseText": "esas gaviotas",
+              "englishAuditText": "those seagulls",
+              "targetText": "those seagulls",
+              "slot": {
+                "beforeText": "",
+                "afterText": " seagulls"
+              },
+              "anchor": {
+                "targetText": "seagulls",
+                "learnerBaseText": "gaviotas",
+                "englishAuditText": "seagulls"
               }
             }
           ]
@@ -264,6 +808,150 @@
                 "learnerBaseText": "La habitación",
                 "englishAuditText": "The room"
               }
+            },
+            {
+              "id": "es-en.agreement.present-be.singular.exp260908",
+              "revision": 1,
+              "learnerBaseText": "La mariposa está en la flor.",
+              "englishAuditText": "The butterfly is on the flower.",
+              "targetText": "The butterfly is on the flower.",
+              "slot": {
+                "beforeText": "The butterfly ",
+                "afterText": " on the flower."
+              },
+              "anchor": {
+                "targetText": "butterfly",
+                "learnerBaseText": "mariposa",
+                "englishAuditText": "butterfly"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-be.pair260908.17.singular",
+              "revision": 1,
+              "learnerBaseText": "La linterna está junto a la tienda de campaña.",
+              "englishAuditText": "The flashlight is beside the tent.",
+              "targetText": "The flashlight is beside the tent.",
+              "slot": {
+                "beforeText": "The flashlight ",
+                "afterText": " beside the tent."
+              },
+              "anchor": {
+                "targetText": "flashlight",
+                "learnerBaseText": "linterna",
+                "englishAuditText": "flashlight"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-be.pair260908.18.singular",
+              "revision": 1,
+              "learnerBaseText": "La plántula está lista para el jardín.",
+              "englishAuditText": "The seedling is ready for the garden.",
+              "targetText": "The seedling is ready for the garden.",
+              "slot": {
+                "beforeText": "The seedling ",
+                "afterText": " ready for the garden."
+              },
+              "anchor": {
+                "targetText": "seedling",
+                "learnerBaseText": "plántula",
+                "englishAuditText": "seedling"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-be.pair260908.19.singular",
+              "revision": 1,
+              "learnerBaseText": "La oveja está cerca de la valla.",
+              "englishAuditText": "The sheep is near the fence.",
+              "targetText": "The sheep is near the fence.",
+              "slot": {
+                "beforeText": "The sheep ",
+                "afterText": " near the fence."
+              },
+              "anchor": {
+                "targetText": "sheep",
+                "learnerBaseText": "oveja",
+                "englishAuditText": "sheep"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-be.pair260908.20.singular",
+              "revision": 1,
+              "learnerBaseText": "El ratón está dentro del tronco hueco.",
+              "englishAuditText": "The mouse is inside the hollow log.",
+              "targetText": "The mouse is inside the hollow log.",
+              "slot": {
+                "beforeText": "The mouse ",
+                "afterText": " inside the hollow log."
+              },
+              "anchor": {
+                "targetText": "mouse",
+                "learnerBaseText": "ratón",
+                "englishAuditText": "mouse"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-be.pair260908.21.singular",
+              "revision": 1,
+              "learnerBaseText": "El pincel está limpio otra vez.",
+              "englishAuditText": "The paintbrush is clean again.",
+              "targetText": "The paintbrush is clean again.",
+              "slot": {
+                "beforeText": "The paintbrush ",
+                "afterText": " clean again."
+              },
+              "anchor": {
+                "targetText": "paintbrush",
+                "learnerBaseText": "pincel",
+                "englishAuditText": "paintbrush"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-be.pair260908.22.singular",
+              "revision": 1,
+              "learnerBaseText": "El arándano está maduro.",
+              "englishAuditText": "The blueberry is ripe.",
+              "targetText": "The blueberry is ripe.",
+              "slot": {
+                "beforeText": "The blueberry ",
+                "afterText": " ripe."
+              },
+              "anchor": {
+                "targetText": "blueberry",
+                "learnerBaseText": "arándano",
+                "englishAuditText": "blueberry"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-be.pair260908.23.singular",
+              "revision": 1,
+              "learnerBaseText": "El niño está orgulloso del mural.",
+              "englishAuditText": "The child is proud of the mural.",
+              "targetText": "The child is proud of the mural.",
+              "slot": {
+                "beforeText": "The child ",
+                "afterText": " proud of the mural."
+              },
+              "anchor": {
+                "targetText": "child",
+                "learnerBaseText": "niño",
+                "englishAuditText": "child"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-be.pair260908.24.singular",
+              "revision": 1,
+              "learnerBaseText": "El pan está fresco esta mañana.",
+              "englishAuditText": "The bread is fresh this morning.",
+              "targetText": "The bread is fresh this morning.",
+              "slot": {
+                "beforeText": "The bread ",
+                "afterText": " fresh this morning."
+              },
+              "anchor": {
+                "targetText": "bread",
+                "learnerBaseText": "pan",
+                "englishAuditText": "bread"
+              }
             }
           ]
         },
@@ -300,6 +988,150 @@
                 "targetText": "The rooms",
                 "learnerBaseText": "Las habitaciones",
                 "englishAuditText": "The rooms"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-be.plural.exp260908",
+              "revision": 1,
+              "learnerBaseText": "Los farolillos están encima del escenario.",
+              "englishAuditText": "The lanterns are above the stage.",
+              "targetText": "The lanterns are above the stage.",
+              "slot": {
+                "beforeText": "The lanterns ",
+                "afterText": " above the stage."
+              },
+              "anchor": {
+                "targetText": "lanterns",
+                "learnerBaseText": "farolillos",
+                "englishAuditText": "lanterns"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-be.pair260908.17.plural",
+              "revision": 1,
+              "learnerBaseText": "Las linternas están junto a la tienda de campaña.",
+              "englishAuditText": "The flashlights are beside the tent.",
+              "targetText": "The flashlights are beside the tent.",
+              "slot": {
+                "beforeText": "The flashlights ",
+                "afterText": " beside the tent."
+              },
+              "anchor": {
+                "targetText": "flashlights",
+                "learnerBaseText": "linternas",
+                "englishAuditText": "flashlights"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-be.pair260908.18.plural",
+              "revision": 1,
+              "learnerBaseText": "Las plántulas están listas para el jardín.",
+              "englishAuditText": "The seedlings are ready for the garden.",
+              "targetText": "The seedlings are ready for the garden.",
+              "slot": {
+                "beforeText": "The seedlings ",
+                "afterText": " ready for the garden."
+              },
+              "anchor": {
+                "targetText": "seedlings",
+                "learnerBaseText": "plántulas",
+                "englishAuditText": "seedlings"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-be.pair260908.19.plural",
+              "revision": 1,
+              "learnerBaseText": "Las ovejas están cerca de la valla.",
+              "englishAuditText": "The sheep are near the fence.",
+              "targetText": "The sheep are near the fence.",
+              "slot": {
+                "beforeText": "The sheep ",
+                "afterText": " near the fence."
+              },
+              "anchor": {
+                "targetText": "sheep",
+                "learnerBaseText": "ovejas",
+                "englishAuditText": "sheep"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-be.pair260908.20.plural",
+              "revision": 1,
+              "learnerBaseText": "Los ratones están dentro del tronco hueco.",
+              "englishAuditText": "The mice are inside the hollow log.",
+              "targetText": "The mice are inside the hollow log.",
+              "slot": {
+                "beforeText": "The mice ",
+                "afterText": " inside the hollow log."
+              },
+              "anchor": {
+                "targetText": "mice",
+                "learnerBaseText": "ratones",
+                "englishAuditText": "mice"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-be.pair260908.21.plural",
+              "revision": 1,
+              "learnerBaseText": "Los pinceles están limpios otra vez.",
+              "englishAuditText": "The paintbrushes are clean again.",
+              "targetText": "The paintbrushes are clean again.",
+              "slot": {
+                "beforeText": "The paintbrushes ",
+                "afterText": " clean again."
+              },
+              "anchor": {
+                "targetText": "paintbrushes",
+                "learnerBaseText": "pinceles",
+                "englishAuditText": "paintbrushes"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-be.pair260908.22.plural",
+              "revision": 1,
+              "learnerBaseText": "Los arándanos están maduros.",
+              "englishAuditText": "The blueberries are ripe.",
+              "targetText": "The blueberries are ripe.",
+              "slot": {
+                "beforeText": "The blueberries ",
+                "afterText": " ripe."
+              },
+              "anchor": {
+                "targetText": "blueberries",
+                "learnerBaseText": "arándanos",
+                "englishAuditText": "blueberries"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-be.pair260908.23.plural",
+              "revision": 1,
+              "learnerBaseText": "Los niños están orgullosos del mural.",
+              "englishAuditText": "The children are proud of the mural.",
+              "targetText": "The children are proud of the mural.",
+              "slot": {
+                "beforeText": "The children ",
+                "afterText": " proud of the mural."
+              },
+              "anchor": {
+                "targetText": "children",
+                "learnerBaseText": "niños",
+                "englishAuditText": "children"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-be.pair260908.24.plural",
+              "revision": 1,
+              "learnerBaseText": "Los panecillos están frescos esta mañana.",
+              "englishAuditText": "The rolls are fresh this morning.",
+              "targetText": "The rolls are fresh this morning.",
+              "slot": {
+                "beforeText": "The rolls ",
+                "afterText": " fresh this morning."
+              },
+              "anchor": {
+                "targetText": "rolls",
+                "learnerBaseText": "panecillos",
+                "englishAuditText": "rolls"
               }
             }
           ]
@@ -352,6 +1184,150 @@
                 "learnerBaseText": "El profesor",
                 "englishAuditText": "The teacher"
               }
+            },
+            {
+              "id": "es-en.agreement.present-have.singular.exp260908",
+              "revision": 1,
+              "learnerBaseText": "El telescopio tiene una lente nueva.",
+              "englishAuditText": "The telescope has a new lens.",
+              "targetText": "The telescope has a new lens.",
+              "slot": {
+                "beforeText": "The telescope ",
+                "afterText": " a new lens."
+              },
+              "anchor": {
+                "targetText": "telescope",
+                "learnerBaseText": "telescopio",
+                "englishAuditText": "telescope"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-have.pair260908.25.singular",
+              "revision": 1,
+              "learnerBaseText": "La marioneta tiene un sombrero diminuto.",
+              "englishAuditText": "The puppet has a tiny hat.",
+              "targetText": "The puppet has a tiny hat.",
+              "slot": {
+                "beforeText": "The puppet ",
+                "afterText": " a tiny hat."
+              },
+              "anchor": {
+                "targetText": "puppet",
+                "learnerBaseText": "marioneta",
+                "englishAuditText": "puppet"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-have.pair260908.26.singular",
+              "revision": 1,
+              "learnerBaseText": "El zorro tiene la cola tupida.",
+              "englishAuditText": "The fox has a bushy tail.",
+              "targetText": "The fox has a bushy tail.",
+              "slot": {
+                "beforeText": "The fox ",
+                "afterText": " a bushy tail."
+              },
+              "anchor": {
+                "targetText": "fox",
+                "learnerBaseText": "zorro",
+                "englishAuditText": "fox"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-have.pair260908.27.singular",
+              "revision": 1,
+              "learnerBaseText": "El autobús tiene una rampa.",
+              "englishAuditText": "The bus has a ramp.",
+              "targetText": "The bus has a ramp.",
+              "slot": {
+                "beforeText": "The bus ",
+                "afterText": " a ramp."
+              },
+              "anchor": {
+                "targetText": "bus",
+                "learnerBaseText": "autobús",
+                "englishAuditText": "bus"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-have.pair260908.28.singular",
+              "revision": 1,
+              "learnerBaseText": "El libro tiene ilustraciones plegables.",
+              "englishAuditText": "The book has foldout illustrations.",
+              "targetText": "The book has foldout illustrations.",
+              "slot": {
+                "beforeText": "The book ",
+                "afterText": " foldout illustrations."
+              },
+              "anchor": {
+                "targetText": "book",
+                "learnerBaseText": "libro",
+                "englishAuditText": "book"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-have.pair260908.29.singular",
+              "revision": 1,
+              "learnerBaseText": "El robot tiene una rueda nueva.",
+              "englishAuditText": "The robot has a new wheel.",
+              "targetText": "The robot has a new wheel.",
+              "slot": {
+                "beforeText": "The robot ",
+                "afterText": " a new wheel."
+              },
+              "anchor": {
+                "targetText": "robot",
+                "learnerBaseText": "robot",
+                "englishAuditText": "robot"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-have.pair260908.30.singular",
+              "revision": 1,
+              "learnerBaseText": "La bicicleta tiene una cesta.",
+              "englishAuditText": "The bicycle has a basket.",
+              "targetText": "The bicycle has a basket.",
+              "slot": {
+                "beforeText": "The bicycle ",
+                "afterText": " a basket."
+              },
+              "anchor": {
+                "targetText": "bicycle",
+                "learnerBaseText": "bicicleta",
+                "englishAuditText": "bicycle"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-have.pair260908.31.singular",
+              "revision": 1,
+              "learnerBaseText": "La hoja tiene el borde dentado.",
+              "englishAuditText": "The leaf has a jagged edge.",
+              "targetText": "The leaf has a jagged edge.",
+              "slot": {
+                "beforeText": "The leaf ",
+                "afterText": " a jagged edge."
+              },
+              "anchor": {
+                "targetText": "leaf",
+                "learnerBaseText": "hoja",
+                "englishAuditText": "leaf"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-have.pair260908.32.singular",
+              "revision": 1,
+              "learnerBaseText": "La persona tiene un papel en el proyecto.",
+              "englishAuditText": "The person has a role in the project.",
+              "targetText": "The person has a role in the project.",
+              "slot": {
+                "beforeText": "The person ",
+                "afterText": " a role in the project."
+              },
+              "anchor": {
+                "targetText": "person",
+                "learnerBaseText": "persona",
+                "englishAuditText": "person"
+              }
             }
           ]
         },
@@ -388,6 +1364,150 @@
                 "targetText": "The teachers",
                 "learnerBaseText": "Los profesores",
                 "englishAuditText": "The teachers"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-have.plural.exp260908",
+              "revision": 1,
+              "learnerBaseText": "Los inventores tienen un plan ingenioso.",
+              "englishAuditText": "The inventors have a clever plan.",
+              "targetText": "The inventors have a clever plan.",
+              "slot": {
+                "beforeText": "The inventors ",
+                "afterText": " a clever plan."
+              },
+              "anchor": {
+                "targetText": "inventors",
+                "learnerBaseText": "inventores",
+                "englishAuditText": "inventors"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-have.pair260908.25.plural",
+              "revision": 1,
+              "learnerBaseText": "Las marionetas tienen sombreros diminutos.",
+              "englishAuditText": "The puppets have tiny hats.",
+              "targetText": "The puppets have tiny hats.",
+              "slot": {
+                "beforeText": "The puppets ",
+                "afterText": " tiny hats."
+              },
+              "anchor": {
+                "targetText": "puppets",
+                "learnerBaseText": "marionetas",
+                "englishAuditText": "puppets"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-have.pair260908.26.plural",
+              "revision": 1,
+              "learnerBaseText": "Los zorros tienen la cola tupida.",
+              "englishAuditText": "The foxes have bushy tails.",
+              "targetText": "The foxes have bushy tails.",
+              "slot": {
+                "beforeText": "The foxes ",
+                "afterText": " bushy tails."
+              },
+              "anchor": {
+                "targetText": "foxes",
+                "learnerBaseText": "zorros",
+                "englishAuditText": "foxes"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-have.pair260908.27.plural",
+              "revision": 1,
+              "learnerBaseText": "Los autobuses tienen rampas.",
+              "englishAuditText": "The buses have ramps.",
+              "targetText": "The buses have ramps.",
+              "slot": {
+                "beforeText": "The buses ",
+                "afterText": " ramps."
+              },
+              "anchor": {
+                "targetText": "buses",
+                "learnerBaseText": "autobuses",
+                "englishAuditText": "buses"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-have.pair260908.28.plural",
+              "revision": 1,
+              "learnerBaseText": "Los libros tienen ilustraciones plegables.",
+              "englishAuditText": "The books have foldout illustrations.",
+              "targetText": "The books have foldout illustrations.",
+              "slot": {
+                "beforeText": "The books ",
+                "afterText": " foldout illustrations."
+              },
+              "anchor": {
+                "targetText": "books",
+                "learnerBaseText": "libros",
+                "englishAuditText": "books"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-have.pair260908.29.plural",
+              "revision": 1,
+              "learnerBaseText": "Los robots tienen ruedas nuevas.",
+              "englishAuditText": "The robots have new wheels.",
+              "targetText": "The robots have new wheels.",
+              "slot": {
+                "beforeText": "The robots ",
+                "afterText": " new wheels."
+              },
+              "anchor": {
+                "targetText": "robots",
+                "learnerBaseText": "robots",
+                "englishAuditText": "robots"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-have.pair260908.30.plural",
+              "revision": 1,
+              "learnerBaseText": "Las bicicletas tienen cestas.",
+              "englishAuditText": "The bicycles have baskets.",
+              "targetText": "The bicycles have baskets.",
+              "slot": {
+                "beforeText": "The bicycles ",
+                "afterText": " baskets."
+              },
+              "anchor": {
+                "targetText": "bicycles",
+                "learnerBaseText": "bicicletas",
+                "englishAuditText": "bicycles"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-have.pair260908.31.plural",
+              "revision": 1,
+              "learnerBaseText": "Las hojas tienen el borde dentado.",
+              "englishAuditText": "The leaves have jagged edges.",
+              "targetText": "The leaves have jagged edges.",
+              "slot": {
+                "beforeText": "The leaves ",
+                "afterText": " jagged edges."
+              },
+              "anchor": {
+                "targetText": "leaves",
+                "learnerBaseText": "hojas",
+                "englishAuditText": "leaves"
+              }
+            },
+            {
+              "id": "es-en.agreement.present-have.pair260908.32.plural",
+              "revision": 1,
+              "learnerBaseText": "Las personas tienen papeles en el proyecto.",
+              "englishAuditText": "The people have roles in the project.",
+              "targetText": "The people have roles in the project.",
+              "slot": {
+                "beforeText": "The people ",
+                "afterText": " roles in the project."
+              },
+              "anchor": {
+                "targetText": "people",
+                "learnerBaseText": "personas",
+                "englishAuditText": "people"
               }
             }
           ]
@@ -440,6 +1560,150 @@
                 "learnerBaseText": "El estudiante",
                 "englishAuditText": "The student"
               }
+            },
+            {
+              "id": "es-en.agreement.past-be.singular.exp260908",
+              "revision": 1,
+              "learnerBaseText": "La constelación era fácil de encontrar.",
+              "englishAuditText": "The constellation was easy to find.",
+              "targetText": "The constellation was easy to find.",
+              "slot": {
+                "beforeText": "The constellation ",
+                "afterText": " easy to find."
+              },
+              "anchor": {
+                "targetText": "constellation",
+                "learnerBaseText": "constelación",
+                "englishAuditText": "constellation"
+              }
+            },
+            {
+              "id": "es-en.agreement.past-be.pair260908.33.singular",
+              "revision": 1,
+              "learnerBaseText": "La maqueta estuvo en la exposición ayer.",
+              "englishAuditText": "The model was at the exhibition yesterday.",
+              "targetText": "The model was at the exhibition yesterday.",
+              "slot": {
+                "beforeText": "The model ",
+                "afterText": " at the exhibition yesterday."
+              },
+              "anchor": {
+                "targetText": "model",
+                "learnerBaseText": "maqueta",
+                "englishAuditText": "model"
+              }
+            },
+            {
+              "id": "es-en.agreement.past-be.pair260908.34.singular",
+              "revision": 1,
+              "learnerBaseText": "La huella era visible antes de la lluvia.",
+              "englishAuditText": "The footprint was visible before the rain.",
+              "targetText": "The footprint was visible before the rain.",
+              "slot": {
+                "beforeText": "The footprint ",
+                "afterText": " visible before the rain."
+              },
+              "anchor": {
+                "targetText": "footprint",
+                "learnerBaseText": "huella",
+                "englishAuditText": "footprint"
+              }
+            },
+            {
+              "id": "es-en.agreement.past-be.pair260908.35.singular",
+              "revision": 1,
+              "learnerBaseText": "El ganso estaba junto al arroyo.",
+              "englishAuditText": "The goose was beside the stream.",
+              "targetText": "The goose was beside the stream.",
+              "slot": {
+                "beforeText": "The goose ",
+                "afterText": " beside the stream."
+              },
+              "anchor": {
+                "targetText": "goose",
+                "learnerBaseText": "ganso",
+                "englishAuditText": "goose"
+              }
+            },
+            {
+              "id": "es-en.agreement.past-be.pair260908.36.singular",
+              "revision": 1,
+              "learnerBaseText": "La ilustración estaba casi terminada.",
+              "englishAuditText": "The illustration was nearly finished.",
+              "targetText": "The illustration was nearly finished.",
+              "slot": {
+                "beforeText": "The illustration ",
+                "afterText": " nearly finished."
+              },
+              "anchor": {
+                "targetText": "illustration",
+                "learnerBaseText": "ilustración",
+                "englishAuditText": "illustration"
+              }
+            },
+            {
+              "id": "es-en.agreement.past-be.pair260908.37.singular",
+              "revision": 1,
+              "learnerBaseText": "La respuesta fue útil durante el debate.",
+              "englishAuditText": "The answer was useful during the discussion.",
+              "targetText": "The answer was useful during the discussion.",
+              "slot": {
+                "beforeText": "The answer ",
+                "afterText": " useful during the discussion."
+              },
+              "anchor": {
+                "targetText": "answer",
+                "learnerBaseText": "respuesta",
+                "englishAuditText": "answer"
+              }
+            },
+            {
+              "id": "es-en.agreement.past-be.pair260908.38.singular",
+              "revision": 1,
+              "learnerBaseText": "La semilla estaba seca antes de plantarla.",
+              "englishAuditText": "The seed was dry before planting.",
+              "targetText": "The seed was dry before planting.",
+              "slot": {
+                "beforeText": "The seed ",
+                "afterText": " dry before planting."
+              },
+              "anchor": {
+                "targetText": "seed",
+                "learnerBaseText": "semilla",
+                "englishAuditText": "seed"
+              }
+            },
+            {
+              "id": "es-en.agreement.past-be.pair260908.39.singular",
+              "revision": 1,
+              "learnerBaseText": "El niño estaba entusiasmado con el viaje.",
+              "englishAuditText": "The child was excited about the trip.",
+              "targetText": "The child was excited about the trip.",
+              "slot": {
+                "beforeText": "The child ",
+                "afterText": " excited about the trip."
+              },
+              "anchor": {
+                "targetText": "child",
+                "learnerBaseText": "niño",
+                "englishAuditText": "child"
+              }
+            },
+            {
+              "id": "es-en.agreement.past-be.pair260908.40.singular",
+              "revision": 1,
+              "learnerBaseText": "La información era correcta.",
+              "englishAuditText": "The information was correct.",
+              "targetText": "The information was correct.",
+              "slot": {
+                "beforeText": "The information ",
+                "afterText": " correct."
+              },
+              "anchor": {
+                "targetText": "information",
+                "learnerBaseText": "información",
+                "englishAuditText": "information"
+              }
             }
           ]
         },
@@ -476,6 +1740,150 @@
                 "targetText": "The students",
                 "learnerBaseText": "Los estudiantes",
                 "englishAuditText": "The students"
+              }
+            },
+            {
+              "id": "es-en.agreement.past-be.plural.exp260908",
+              "revision": 1,
+              "learnerBaseText": "Las instrucciones eran claras.",
+              "englishAuditText": "The instructions were clear.",
+              "targetText": "The instructions were clear.",
+              "slot": {
+                "beforeText": "The instructions ",
+                "afterText": " clear."
+              },
+              "anchor": {
+                "targetText": "instructions",
+                "learnerBaseText": "instrucciones",
+                "englishAuditText": "instructions"
+              }
+            },
+            {
+              "id": "es-en.agreement.past-be.pair260908.33.plural",
+              "revision": 1,
+              "learnerBaseText": "Las maquetas estuvieron en la exposición ayer.",
+              "englishAuditText": "The models were at the exhibition yesterday.",
+              "targetText": "The models were at the exhibition yesterday.",
+              "slot": {
+                "beforeText": "The models ",
+                "afterText": " at the exhibition yesterday."
+              },
+              "anchor": {
+                "targetText": "models",
+                "learnerBaseText": "maquetas",
+                "englishAuditText": "models"
+              }
+            },
+            {
+              "id": "es-en.agreement.past-be.pair260908.34.plural",
+              "revision": 1,
+              "learnerBaseText": "Las huellas eran visibles antes de la lluvia.",
+              "englishAuditText": "The footprints were visible before the rain.",
+              "targetText": "The footprints were visible before the rain.",
+              "slot": {
+                "beforeText": "The footprints ",
+                "afterText": " visible before the rain."
+              },
+              "anchor": {
+                "targetText": "footprints",
+                "learnerBaseText": "huellas",
+                "englishAuditText": "footprints"
+              }
+            },
+            {
+              "id": "es-en.agreement.past-be.pair260908.35.plural",
+              "revision": 1,
+              "learnerBaseText": "Los gansos estaban junto al arroyo.",
+              "englishAuditText": "The geese were beside the stream.",
+              "targetText": "The geese were beside the stream.",
+              "slot": {
+                "beforeText": "The geese ",
+                "afterText": " beside the stream."
+              },
+              "anchor": {
+                "targetText": "geese",
+                "learnerBaseText": "gansos",
+                "englishAuditText": "geese"
+              }
+            },
+            {
+              "id": "es-en.agreement.past-be.pair260908.36.plural",
+              "revision": 1,
+              "learnerBaseText": "Las ilustraciones estaban casi terminadas.",
+              "englishAuditText": "The illustrations were nearly finished.",
+              "targetText": "The illustrations were nearly finished.",
+              "slot": {
+                "beforeText": "The illustrations ",
+                "afterText": " nearly finished."
+              },
+              "anchor": {
+                "targetText": "illustrations",
+                "learnerBaseText": "ilustraciones",
+                "englishAuditText": "illustrations"
+              }
+            },
+            {
+              "id": "es-en.agreement.past-be.pair260908.37.plural",
+              "revision": 1,
+              "learnerBaseText": "Las respuestas fueron útiles durante el debate.",
+              "englishAuditText": "The answers were useful during the discussion.",
+              "targetText": "The answers were useful during the discussion.",
+              "slot": {
+                "beforeText": "The answers ",
+                "afterText": " useful during the discussion."
+              },
+              "anchor": {
+                "targetText": "answers",
+                "learnerBaseText": "respuestas",
+                "englishAuditText": "answers"
+              }
+            },
+            {
+              "id": "es-en.agreement.past-be.pair260908.38.plural",
+              "revision": 1,
+              "learnerBaseText": "Las semillas estaban secas antes de plantarlas.",
+              "englishAuditText": "The seeds were dry before planting.",
+              "targetText": "The seeds were dry before planting.",
+              "slot": {
+                "beforeText": "The seeds ",
+                "afterText": " dry before planting."
+              },
+              "anchor": {
+                "targetText": "seeds",
+                "learnerBaseText": "semillas",
+                "englishAuditText": "seeds"
+              }
+            },
+            {
+              "id": "es-en.agreement.past-be.pair260908.39.plural",
+              "revision": 1,
+              "learnerBaseText": "Los niños estaban entusiasmados con el viaje.",
+              "englishAuditText": "The children were excited about the trip.",
+              "targetText": "The children were excited about the trip.",
+              "slot": {
+                "beforeText": "The children ",
+                "afterText": " excited about the trip."
+              },
+              "anchor": {
+                "targetText": "children",
+                "learnerBaseText": "niños",
+                "englishAuditText": "children"
+              }
+            },
+            {
+              "id": "es-en.agreement.past-be.pair260908.40.plural",
+              "revision": 1,
+              "learnerBaseText": "Los detalles eran correctos.",
+              "englishAuditText": "The details were correct.",
+              "targetText": "The details were correct.",
+              "slot": {
+                "beforeText": "The details ",
+                "afterText": " correct."
+              },
+              "anchor": {
+                "targetText": "details",
+                "learnerBaseText": "detalles",
+                "englishAuditText": "details"
               }
             }
           ]
@@ -528,6 +1936,150 @@
                 "learnerBaseText": "El autobús",
                 "englishAuditText": "The bus"
               }
+            },
+            {
+              "id": "es-en.agreement.negative-do.singular.exp260908",
+              "revision": 1,
+              "learnerBaseText": "La observación no respalda nuestra predicción.",
+              "englishAuditText": "The observation does not support our prediction.",
+              "targetText": "The observation does not support our prediction.",
+              "slot": {
+                "beforeText": "The observation ",
+                "afterText": " support our prediction."
+              },
+              "anchor": {
+                "targetText": "observation",
+                "learnerBaseText": "observación",
+                "englishAuditText": "observation"
+              }
+            },
+            {
+              "id": "es-en.agreement.negative-do.pair260908.41.singular",
+              "revision": 1,
+              "learnerBaseText": "El caracol no se mueve deprisa.",
+              "englishAuditText": "The snail does not move quickly.",
+              "targetText": "The snail does not move quickly.",
+              "slot": {
+                "beforeText": "The snail ",
+                "afterText": " move quickly."
+              },
+              "anchor": {
+                "targetText": "snail",
+                "learnerBaseText": "caracol",
+                "englishAuditText": "snail"
+              }
+            },
+            {
+              "id": "es-en.agreement.negative-do.pair260908.42.singular",
+              "revision": 1,
+              "learnerBaseText": "El imán no atrae la madera.",
+              "englishAuditText": "The magnet does not attract wood.",
+              "targetText": "The magnet does not attract wood.",
+              "slot": {
+                "beforeText": "The magnet ",
+                "afterText": " attract wood."
+              },
+              "anchor": {
+                "targetText": "magnet",
+                "learnerBaseText": "imán",
+                "englishAuditText": "magnet"
+              }
+            },
+            {
+              "id": "es-en.agreement.negative-do.pair260908.43.singular",
+              "revision": 1,
+              "learnerBaseText": "La marioneta no necesita pilas.",
+              "englishAuditText": "The puppet does not need batteries.",
+              "targetText": "The puppet does not need batteries.",
+              "slot": {
+                "beforeText": "The puppet ",
+                "afterText": " need batteries."
+              },
+              "anchor": {
+                "targetText": "puppet",
+                "learnerBaseText": "marioneta",
+                "englishAuditText": "puppet"
+              }
+            },
+            {
+              "id": "es-en.agreement.negative-do.pair260908.44.singular",
+              "revision": 1,
+              "learnerBaseText": "El pingüino no vuela.",
+              "englishAuditText": "The penguin does not fly.",
+              "targetText": "The penguin does not fly.",
+              "slot": {
+                "beforeText": "The penguin ",
+                "afterText": " fly."
+              },
+              "anchor": {
+                "targetText": "penguin",
+                "learnerBaseText": "pingüino",
+                "englishAuditText": "penguin"
+              }
+            },
+            {
+              "id": "es-en.agreement.negative-do.pair260908.45.singular",
+              "revision": 1,
+              "learnerBaseText": "La bicicleta no usa gasolina.",
+              "englishAuditText": "The bicycle does not use gasoline.",
+              "targetText": "The bicycle does not use gasoline.",
+              "slot": {
+                "beforeText": "The bicycle ",
+                "afterText": " use gasoline."
+              },
+              "anchor": {
+                "targetText": "bicycle",
+                "learnerBaseText": "bicicleta",
+                "englishAuditText": "bicycle"
+              }
+            },
+            {
+              "id": "es-en.agreement.negative-do.pair260908.46.singular",
+              "revision": 1,
+              "learnerBaseText": "El niño no interrumpe el cuento.",
+              "englishAuditText": "The child does not interrupt the story.",
+              "targetText": "The child does not interrupt the story.",
+              "slot": {
+                "beforeText": "The child ",
+                "afterText": " interrupt the story."
+              },
+              "anchor": {
+                "targetText": "child",
+                "learnerBaseText": "niño",
+                "englishAuditText": "child"
+              }
+            },
+            {
+              "id": "es-en.agreement.negative-do.pair260908.47.singular",
+              "revision": 1,
+              "learnerBaseText": "El ciervo no se queda cerca de la carretera.",
+              "englishAuditText": "The deer does not stay near the road.",
+              "targetText": "The deer does not stay near the road.",
+              "slot": {
+                "beforeText": "The deer ",
+                "afterText": " stay near the road."
+              },
+              "anchor": {
+                "targetText": "deer",
+                "learnerBaseText": "ciervo",
+                "englishAuditText": "deer"
+              }
+            },
+            {
+              "id": "es-en.agreement.negative-do.pair260908.48.singular",
+              "revision": 1,
+              "learnerBaseText": "La pintura no se seca inmediatamente.",
+              "englishAuditText": "The paint does not dry immediately.",
+              "targetText": "The paint does not dry immediately.",
+              "slot": {
+                "beforeText": "The paint ",
+                "afterText": " dry immediately."
+              },
+              "anchor": {
+                "targetText": "paint",
+                "learnerBaseText": "pintura",
+                "englishAuditText": "paint"
+              }
             }
           ]
         },
@@ -564,6 +2116,990 @@
                 "targetText": "The buses",
                 "learnerBaseText": "Los autobuses",
                 "englishAuditText": "The buses"
+              }
+            },
+            {
+              "id": "es-en.agreement.negative-do.plural.exp260908",
+              "revision": 1,
+              "learnerBaseText": "Las medidas no coinciden.",
+              "englishAuditText": "The measurements do not match.",
+              "targetText": "The measurements do not match.",
+              "slot": {
+                "beforeText": "The measurements ",
+                "afterText": " match."
+              },
+              "anchor": {
+                "targetText": "measurements",
+                "learnerBaseText": "medidas",
+                "englishAuditText": "measurements"
+              }
+            },
+            {
+              "id": "es-en.agreement.negative-do.pair260908.41.plural",
+              "revision": 1,
+              "learnerBaseText": "Los caracoles no se mueven deprisa.",
+              "englishAuditText": "The snails do not move quickly.",
+              "targetText": "The snails do not move quickly.",
+              "slot": {
+                "beforeText": "The snails ",
+                "afterText": " move quickly."
+              },
+              "anchor": {
+                "targetText": "snails",
+                "learnerBaseText": "caracoles",
+                "englishAuditText": "snails"
+              }
+            },
+            {
+              "id": "es-en.agreement.negative-do.pair260908.42.plural",
+              "revision": 1,
+              "learnerBaseText": "Los imanes no atraen la madera.",
+              "englishAuditText": "The magnets do not attract wood.",
+              "targetText": "The magnets do not attract wood.",
+              "slot": {
+                "beforeText": "The magnets ",
+                "afterText": " attract wood."
+              },
+              "anchor": {
+                "targetText": "magnets",
+                "learnerBaseText": "imanes",
+                "englishAuditText": "magnets"
+              }
+            },
+            {
+              "id": "es-en.agreement.negative-do.pair260908.43.plural",
+              "revision": 1,
+              "learnerBaseText": "Las marionetas no necesitan pilas.",
+              "englishAuditText": "The puppets do not need batteries.",
+              "targetText": "The puppets do not need batteries.",
+              "slot": {
+                "beforeText": "The puppets ",
+                "afterText": " need batteries."
+              },
+              "anchor": {
+                "targetText": "puppets",
+                "learnerBaseText": "marionetas",
+                "englishAuditText": "puppets"
+              }
+            },
+            {
+              "id": "es-en.agreement.negative-do.pair260908.44.plural",
+              "revision": 1,
+              "learnerBaseText": "Los pingüinos no vuelan.",
+              "englishAuditText": "The penguins do not fly.",
+              "targetText": "The penguins do not fly.",
+              "slot": {
+                "beforeText": "The penguins ",
+                "afterText": " fly."
+              },
+              "anchor": {
+                "targetText": "penguins",
+                "learnerBaseText": "pingüinos",
+                "englishAuditText": "penguins"
+              }
+            },
+            {
+              "id": "es-en.agreement.negative-do.pair260908.45.plural",
+              "revision": 1,
+              "learnerBaseText": "Las bicicletas no usan gasolina.",
+              "englishAuditText": "The bicycles do not use gasoline.",
+              "targetText": "The bicycles do not use gasoline.",
+              "slot": {
+                "beforeText": "The bicycles ",
+                "afterText": " use gasoline."
+              },
+              "anchor": {
+                "targetText": "bicycles",
+                "learnerBaseText": "bicicletas",
+                "englishAuditText": "bicycles"
+              }
+            },
+            {
+              "id": "es-en.agreement.negative-do.pair260908.46.plural",
+              "revision": 1,
+              "learnerBaseText": "Los niños no interrumpen el cuento.",
+              "englishAuditText": "The children do not interrupt the story.",
+              "targetText": "The children do not interrupt the story.",
+              "slot": {
+                "beforeText": "The children ",
+                "afterText": " interrupt the story."
+              },
+              "anchor": {
+                "targetText": "children",
+                "learnerBaseText": "niños",
+                "englishAuditText": "children"
+              }
+            },
+            {
+              "id": "es-en.agreement.negative-do.pair260908.47.plural",
+              "revision": 1,
+              "learnerBaseText": "Los ciervos no se quedan cerca de la carretera.",
+              "englishAuditText": "The deer do not stay near the road.",
+              "targetText": "The deer do not stay near the road.",
+              "slot": {
+                "beforeText": "The deer ",
+                "afterText": " stay near the road."
+              },
+              "anchor": {
+                "targetText": "deer",
+                "learnerBaseText": "ciervos",
+                "englishAuditText": "deer"
+              }
+            },
+            {
+              "id": "es-en.agreement.negative-do.pair260908.48.plural",
+              "revision": 1,
+              "learnerBaseText": "Las capas no se secan inmediatamente.",
+              "englishAuditText": "The layers do not dry immediately.",
+              "targetText": "The layers do not dry immediately.",
+              "slot": {
+                "beforeText": "The layers ",
+                "afterText": " dry immediately."
+              },
+              "anchor": {
+                "targetText": "layers",
+                "learnerBaseText": "capas",
+                "englishAuditText": "layers"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "es-en.agreement.pair260908.existential",
+      "revision": 1,
+      "difficulty": 1,
+      "focus": {
+        "kind": "existential",
+        "label": "Hay: singular y plural",
+        "targetText": "there is · there are",
+        "resultTitle": "Hay: singular y plural",
+        "summary": "Usa there is ante un nombre singular y there are ante un nombre plural."
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "there is",
+          "examples": [
+            {
+              "id": "es-en.agreement.pair260908.existential.pair260908.49.singular",
+              "revision": 1,
+              "learnerBaseText": "En el jardín hay un petirrojo.",
+              "englishAuditText": "In the garden, there is a robin.",
+              "targetText": "In the garden, there is a robin.",
+              "slot": {
+                "beforeText": "In the garden, ",
+                "afterText": " a robin."
+              },
+              "anchor": {
+                "targetText": "robin",
+                "learnerBaseText": "petirrojo",
+                "englishAuditText": "robin"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.existential.pair260908.50.singular",
+              "revision": 1,
+              "learnerBaseText": "Dentro de la caja hay una brújula.",
+              "englishAuditText": "Inside the box, there is a compass.",
+              "targetText": "Inside the box, there is a compass.",
+              "slot": {
+                "beforeText": "Inside the box, ",
+                "afterText": " a compass."
+              },
+              "anchor": {
+                "targetText": "compass",
+                "learnerBaseText": "brújula",
+                "englishAuditText": "compass"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.existential.pair260908.51.singular",
+              "revision": 1,
+              "learnerBaseText": "En la pared hay un mosaico.",
+              "englishAuditText": "On the wall, there is a mosaic.",
+              "targetText": "On the wall, there is a mosaic.",
+              "slot": {
+                "beforeText": "On the wall, ",
+                "afterText": " a mosaic."
+              },
+              "anchor": {
+                "targetText": "mosaic",
+                "learnerBaseText": "mosaico",
+                "englishAuditText": "mosaic"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.existential.pair260908.52.singular",
+              "revision": 1,
+              "learnerBaseText": "Debajo del banco hay una manopla.",
+              "englishAuditText": "Under the bench, there is a mitten.",
+              "targetText": "Under the bench, there is a mitten.",
+              "slot": {
+                "beforeText": "Under the bench, ",
+                "afterText": " a mitten."
+              },
+              "anchor": {
+                "targetText": "mitten",
+                "learnerBaseText": "manopla",
+                "englishAuditText": "mitten"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.existential.pair260908.53.singular",
+              "revision": 1,
+              "learnerBaseText": "Junto al sendero hay un helecho.",
+              "englishAuditText": "Beside the trail, there is a fern.",
+              "targetText": "Beside the trail, there is a fern.",
+              "slot": {
+                "beforeText": "Beside the trail, ",
+                "afterText": " a fern."
+              },
+              "anchor": {
+                "targetText": "fern",
+                "learnerBaseText": "helecho",
+                "englishAuditText": "fern"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.existential.pair260908.54.singular",
+              "revision": 1,
+              "learnerBaseText": "En el charco hay un reflejo.",
+              "englishAuditText": "In the puddle, there is a reflection.",
+              "targetText": "In the puddle, there is a reflection.",
+              "slot": {
+                "beforeText": "In the puddle, ",
+                "afterText": " a reflection."
+              },
+              "anchor": {
+                "targetText": "reflection",
+                "learnerBaseText": "reflejo",
+                "englishAuditText": "reflection"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.existential.pair260908.55.singular",
+              "revision": 1,
+              "learnerBaseText": "En la página siguiente hay una adivinanza.",
+              "englishAuditText": "On the next page, there is a riddle.",
+              "targetText": "On the next page, there is a riddle.",
+              "slot": {
+                "beforeText": "On the next page, ",
+                "afterText": " a riddle."
+              },
+              "anchor": {
+                "targetText": "riddle",
+                "learnerBaseText": "adivinanza",
+                "englishAuditText": "riddle"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.existential.pair260908.56.singular",
+              "revision": 1,
+              "learnerBaseText": "En la repisa hay una pluma.",
+              "englishAuditText": "On the shelf, there is a feather.",
+              "targetText": "On the shelf, there is a feather.",
+              "slot": {
+                "beforeText": "On the shelf, ",
+                "afterText": " a feather."
+              },
+              "anchor": {
+                "targetText": "feather",
+                "learnerBaseText": "pluma",
+                "englishAuditText": "feather"
+              }
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "there are",
+          "examples": [
+            {
+              "id": "es-en.agreement.pair260908.existential.pair260908.49.plural",
+              "revision": 1,
+              "learnerBaseText": "En el jardín hay varios petirrojos.",
+              "englishAuditText": "In the garden, there are several robins.",
+              "targetText": "In the garden, there are several robins.",
+              "slot": {
+                "beforeText": "In the garden, ",
+                "afterText": " several robins."
+              },
+              "anchor": {
+                "targetText": "robins",
+                "learnerBaseText": "petirrojos",
+                "englishAuditText": "robins"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.existential.pair260908.50.plural",
+              "revision": 1,
+              "learnerBaseText": "Dentro de la caja hay dos brújulas.",
+              "englishAuditText": "Inside the box, there are two compasses.",
+              "targetText": "Inside the box, there are two compasses.",
+              "slot": {
+                "beforeText": "Inside the box, ",
+                "afterText": " two compasses."
+              },
+              "anchor": {
+                "targetText": "compasses",
+                "learnerBaseText": "brújulas",
+                "englishAuditText": "compasses"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.existential.pair260908.51.plural",
+              "revision": 1,
+              "learnerBaseText": "En la pared hay tres mosaicos.",
+              "englishAuditText": "On the wall, there are three mosaics.",
+              "targetText": "On the wall, there are three mosaics.",
+              "slot": {
+                "beforeText": "On the wall, ",
+                "afterText": " three mosaics."
+              },
+              "anchor": {
+                "targetText": "mosaics",
+                "learnerBaseText": "mosaicos",
+                "englishAuditText": "mosaics"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.existential.pair260908.52.plural",
+              "revision": 1,
+              "learnerBaseText": "Debajo del banco hay dos manoplas.",
+              "englishAuditText": "Under the bench, there are two mittens.",
+              "targetText": "Under the bench, there are two mittens.",
+              "slot": {
+                "beforeText": "Under the bench, ",
+                "afterText": " two mittens."
+              },
+              "anchor": {
+                "targetText": "mittens",
+                "learnerBaseText": "manoplas",
+                "englishAuditText": "mittens"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.existential.pair260908.53.plural",
+              "revision": 1,
+              "learnerBaseText": "Junto al sendero hay varios helechos.",
+              "englishAuditText": "Beside the trail, there are several ferns.",
+              "targetText": "Beside the trail, there are several ferns.",
+              "slot": {
+                "beforeText": "Beside the trail, ",
+                "afterText": " several ferns."
+              },
+              "anchor": {
+                "targetText": "ferns",
+                "learnerBaseText": "helechos",
+                "englishAuditText": "ferns"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.existential.pair260908.54.plural",
+              "revision": 1,
+              "learnerBaseText": "En el charco hay dos reflejos.",
+              "englishAuditText": "In the puddle, there are two reflections.",
+              "targetText": "In the puddle, there are two reflections.",
+              "slot": {
+                "beforeText": "In the puddle, ",
+                "afterText": " two reflections."
+              },
+              "anchor": {
+                "targetText": "reflections",
+                "learnerBaseText": "reflejos",
+                "englishAuditText": "reflections"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.existential.pair260908.55.plural",
+              "revision": 1,
+              "learnerBaseText": "En la página siguiente hay tres adivinanzas.",
+              "englishAuditText": "On the next page, there are three riddles.",
+              "targetText": "On the next page, there are three riddles.",
+              "slot": {
+                "beforeText": "On the next page, ",
+                "afterText": " three riddles."
+              },
+              "anchor": {
+                "targetText": "riddles",
+                "learnerBaseText": "adivinanzas",
+                "englishAuditText": "riddles"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.existential.pair260908.56.plural",
+              "revision": 1,
+              "learnerBaseText": "En la repisa hay varias plumas.",
+              "englishAuditText": "On the shelf, there are several feathers.",
+              "targetText": "On the shelf, there are several feathers.",
+              "slot": {
+                "beforeText": "On the shelf, ",
+                "afterText": " several feathers."
+              },
+              "anchor": {
+                "targetText": "feathers",
+                "learnerBaseText": "plumas",
+                "englishAuditText": "feathers"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "es-en.agreement.pair260908.negative-be",
+      "revision": 1,
+      "difficulty": 2,
+      "focus": {
+        "kind": "verb",
+        "label": "Negación en presente con be",
+        "targetText": "is not · are not",
+        "resultTitle": "Negación en presente con be",
+        "summary": "Usa is not con un sujeto singular de tercera persona y are not con un sujeto plural."
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "is not",
+          "examples": [
+            {
+              "id": "es-en.agreement.pair260908.negative-be.pair260908.57.singular",
+              "revision": 1,
+              "learnerBaseText": "La bufanda aún no está seca.",
+              "englishAuditText": "The scarf is not dry yet.",
+              "targetText": "The scarf is not dry yet.",
+              "slot": {
+                "beforeText": "The scarf ",
+                "afterText": " dry yet."
+              },
+              "anchor": {
+                "targetText": "scarf",
+                "learnerBaseText": "bufanda",
+                "englishAuditText": "scarf"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.negative-be.pair260908.58.singular",
+              "revision": 1,
+              "learnerBaseText": "La cometa no está por encima del árbol.",
+              "englishAuditText": "The kite is not above the tree.",
+              "targetText": "The kite is not above the tree.",
+              "slot": {
+                "beforeText": "The kite ",
+                "afterText": " above the tree."
+              },
+              "anchor": {
+                "targetText": "kite",
+                "learnerBaseText": "cometa",
+                "englishAuditText": "kite"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.negative-be.pair260908.59.singular",
+              "revision": 1,
+              "learnerBaseText": "El jarrón no está vacío.",
+              "englishAuditText": "The vase is not empty.",
+              "targetText": "The vase is not empty.",
+              "slot": {
+                "beforeText": "The vase ",
+                "afterText": " empty."
+              },
+              "anchor": {
+                "targetText": "vase",
+                "learnerBaseText": "jarrón",
+                "englishAuditText": "vase"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.negative-be.pair260908.60.singular",
+              "revision": 1,
+              "learnerBaseText": "La oveja no está perdida.",
+              "englishAuditText": "The sheep is not lost.",
+              "targetText": "The sheep is not lost.",
+              "slot": {
+                "beforeText": "The sheep ",
+                "afterText": " lost."
+              },
+              "anchor": {
+                "targetText": "sheep",
+                "learnerBaseText": "oveja",
+                "englishAuditText": "sheep"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.negative-be.pair260908.61.singular",
+              "revision": 1,
+              "learnerBaseText": "La guitarra no está afinada.",
+              "englishAuditText": "The guitar is not in tune.",
+              "targetText": "The guitar is not in tune.",
+              "slot": {
+                "beforeText": "The guitar ",
+                "afterText": " in tune."
+              },
+              "anchor": {
+                "targetText": "guitar",
+                "learnerBaseText": "guitarra",
+                "englishAuditText": "guitar"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.negative-be.pair260908.62.singular",
+              "revision": 1,
+              "learnerBaseText": "La galleta no está caliente.",
+              "englishAuditText": "The cookie is not hot.",
+              "targetText": "The cookie is not hot.",
+              "slot": {
+                "beforeText": "The cookie ",
+                "afterText": " hot."
+              },
+              "anchor": {
+                "targetText": "cookie",
+                "learnerBaseText": "galleta",
+                "englishAuditText": "cookie"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.negative-be.pair260908.63.singular",
+              "revision": 1,
+              "learnerBaseText": "La respuesta todavía no está clara.",
+              "englishAuditText": "The answer is not clear yet.",
+              "targetText": "The answer is not clear yet.",
+              "slot": {
+                "beforeText": "The answer ",
+                "afterText": " clear yet."
+              },
+              "anchor": {
+                "targetText": "answer",
+                "learnerBaseText": "respuesta",
+                "englishAuditText": "answer"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.negative-be.pair260908.64.singular",
+              "revision": 1,
+              "learnerBaseText": "El agua no está fría.",
+              "englishAuditText": "The water is not cold.",
+              "targetText": "The water is not cold.",
+              "slot": {
+                "beforeText": "The water ",
+                "afterText": " cold."
+              },
+              "anchor": {
+                "targetText": "water",
+                "learnerBaseText": "agua",
+                "englishAuditText": "water"
+              }
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "are not",
+          "examples": [
+            {
+              "id": "es-en.agreement.pair260908.negative-be.pair260908.57.plural",
+              "revision": 1,
+              "learnerBaseText": "Las bufandas aún no están secas.",
+              "englishAuditText": "The scarves are not dry yet.",
+              "targetText": "The scarves are not dry yet.",
+              "slot": {
+                "beforeText": "The scarves ",
+                "afterText": " dry yet."
+              },
+              "anchor": {
+                "targetText": "scarves",
+                "learnerBaseText": "bufandas",
+                "englishAuditText": "scarves"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.negative-be.pair260908.58.plural",
+              "revision": 1,
+              "learnerBaseText": "Las cometas no están por encima del árbol.",
+              "englishAuditText": "The kites are not above the tree.",
+              "targetText": "The kites are not above the tree.",
+              "slot": {
+                "beforeText": "The kites ",
+                "afterText": " above the tree."
+              },
+              "anchor": {
+                "targetText": "kites",
+                "learnerBaseText": "cometas",
+                "englishAuditText": "kites"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.negative-be.pair260908.59.plural",
+              "revision": 1,
+              "learnerBaseText": "Los jarrones no están vacíos.",
+              "englishAuditText": "The vases are not empty.",
+              "targetText": "The vases are not empty.",
+              "slot": {
+                "beforeText": "The vases ",
+                "afterText": " empty."
+              },
+              "anchor": {
+                "targetText": "vases",
+                "learnerBaseText": "jarrones",
+                "englishAuditText": "vases"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.negative-be.pair260908.60.plural",
+              "revision": 1,
+              "learnerBaseText": "Las ovejas no están perdidas.",
+              "englishAuditText": "The sheep are not lost.",
+              "targetText": "The sheep are not lost.",
+              "slot": {
+                "beforeText": "The sheep ",
+                "afterText": " lost."
+              },
+              "anchor": {
+                "targetText": "sheep",
+                "learnerBaseText": "ovejas",
+                "englishAuditText": "sheep"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.negative-be.pair260908.61.plural",
+              "revision": 1,
+              "learnerBaseText": "Las guitarras no están afinadas.",
+              "englishAuditText": "The guitars are not in tune.",
+              "targetText": "The guitars are not in tune.",
+              "slot": {
+                "beforeText": "The guitars ",
+                "afterText": " in tune."
+              },
+              "anchor": {
+                "targetText": "guitars",
+                "learnerBaseText": "guitarras",
+                "englishAuditText": "guitars"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.negative-be.pair260908.62.plural",
+              "revision": 1,
+              "learnerBaseText": "Las galletas no están calientes.",
+              "englishAuditText": "The cookies are not hot.",
+              "targetText": "The cookies are not hot.",
+              "slot": {
+                "beforeText": "The cookies ",
+                "afterText": " hot."
+              },
+              "anchor": {
+                "targetText": "cookies",
+                "learnerBaseText": "galletas",
+                "englishAuditText": "cookies"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.negative-be.pair260908.63.plural",
+              "revision": 1,
+              "learnerBaseText": "Las respuestas todavía no están claras.",
+              "englishAuditText": "The answers are not clear yet.",
+              "targetText": "The answers are not clear yet.",
+              "slot": {
+                "beforeText": "The answers ",
+                "afterText": " clear yet."
+              },
+              "anchor": {
+                "targetText": "answers",
+                "learnerBaseText": "respuestas",
+                "englishAuditText": "answers"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.negative-be.pair260908.64.plural",
+              "revision": 1,
+              "learnerBaseText": "Las bebidas no están frías.",
+              "englishAuditText": "The drinks are not cold.",
+              "targetText": "The drinks are not cold.",
+              "slot": {
+                "beforeText": "The drinks ",
+                "afterText": " cold."
+              },
+              "anchor": {
+                "targetText": "drinks",
+                "learnerBaseText": "bebidas",
+                "englishAuditText": "drinks"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "es-en.agreement.pair260908.small-quantity",
+      "revision": 1,
+      "difficulty": 3,
+      "focus": {
+        "kind": "quantifier",
+        "label": "Cantidades pequeñas",
+        "targetText": "a little · a few",
+        "resultTitle": "Cantidades pequeñas",
+        "summary": "A little acompaña a nombres no contables; a few acompaña a nombres contables en plural."
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "a little",
+          "examples": [
+            {
+              "id": "es-en.agreement.pair260908.small-quantity.pair260908.65.singular",
+              "revision": 1,
+              "learnerBaseText": "Necesitamos un poco de pegamento.",
+              "englishAuditText": "We need a little glue.",
+              "targetText": "We need a little glue.",
+              "slot": {
+                "beforeText": "We need ",
+                "afterText": " glue."
+              },
+              "anchor": {
+                "targetText": "glue",
+                "learnerBaseText": "pegamento",
+                "englishAuditText": "glue"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.small-quantity.pair260908.66.singular",
+              "revision": 1,
+              "learnerBaseText": "Queda un poco de sopa.",
+              "englishAuditText": "There is a little soup left.",
+              "targetText": "There is a little soup left.",
+              "slot": {
+                "beforeText": "There is ",
+                "afterText": " soup left."
+              },
+              "anchor": {
+                "targetText": "soup",
+                "learnerBaseText": "sopa",
+                "englishAuditText": "soup"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.small-quantity.pair260908.67.singular",
+              "revision": 1,
+              "learnerBaseText": "Ella añadió un poco de canela.",
+              "englishAuditText": "She added a little cinnamon.",
+              "targetText": "She added a little cinnamon.",
+              "slot": {
+                "beforeText": "She added ",
+                "afterText": " cinnamon."
+              },
+              "anchor": {
+                "targetText": "cinnamon",
+                "learnerBaseText": "canela",
+                "englishAuditText": "cinnamon"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.small-quantity.pair260908.68.singular",
+              "revision": 1,
+              "learnerBaseText": "Guardamos un poco de arcilla.",
+              "englishAuditText": "We saved a little clay.",
+              "targetText": "We saved a little clay.",
+              "slot": {
+                "beforeText": "We saved ",
+                "afterText": " clay."
+              },
+              "anchor": {
+                "targetText": "clay",
+                "learnerBaseText": "arcilla",
+                "englishAuditText": "clay"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.small-quantity.pair260908.69.singular",
+              "revision": 1,
+              "learnerBaseText": "La planta necesita un poco de agua.",
+              "englishAuditText": "The plant needs a little water.",
+              "targetText": "The plant needs a little water.",
+              "slot": {
+                "beforeText": "The plant needs ",
+                "afterText": " water."
+              },
+              "anchor": {
+                "targetText": "water",
+                "learnerBaseText": "agua",
+                "englishAuditText": "water"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.small-quantity.pair260908.70.singular",
+              "revision": 1,
+              "learnerBaseText": "Me queda un poco de tiempo.",
+              "englishAuditText": "I have a little time left.",
+              "targetText": "I have a little time left.",
+              "slot": {
+                "beforeText": "I have ",
+                "afterText": " time left."
+              },
+              "anchor": {
+                "targetText": "time",
+                "learnerBaseText": "tiempo",
+                "englishAuditText": "time"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.small-quantity.pair260908.71.singular",
+              "revision": 1,
+              "learnerBaseText": "El cocinero usó un poco de harina.",
+              "englishAuditText": "The cook used a little flour.",
+              "targetText": "The cook used a little flour.",
+              "slot": {
+                "beforeText": "The cook used ",
+                "afterText": " flour."
+              },
+              "anchor": {
+                "targetText": "flour",
+                "learnerBaseText": "harina",
+                "englishAuditText": "flour"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.small-quantity.pair260908.72.singular",
+              "revision": 1,
+              "learnerBaseText": "La escritora pidió un poco de ayuda.",
+              "englishAuditText": "The writer asked for a little help.",
+              "targetText": "The writer asked for a little help.",
+              "slot": {
+                "beforeText": "The writer asked for ",
+                "afterText": " help."
+              },
+              "anchor": {
+                "targetText": "help",
+                "learnerBaseText": "ayuda",
+                "englishAuditText": "help"
+              }
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "a few",
+          "examples": [
+            {
+              "id": "es-en.agreement.pair260908.small-quantity.pair260908.65.plural",
+              "revision": 1,
+              "learnerBaseText": "Necesitamos unas pocas pegatinas.",
+              "englishAuditText": "We need a few stickers.",
+              "targetText": "We need a few stickers.",
+              "slot": {
+                "beforeText": "We need ",
+                "afterText": " stickers."
+              },
+              "anchor": {
+                "targetText": "stickers",
+                "learnerBaseText": "pegatinas",
+                "englishAuditText": "stickers"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.small-quantity.pair260908.66.plural",
+              "revision": 1,
+              "learnerBaseText": "Quedan unas pocas zanahorias.",
+              "englishAuditText": "There are a few carrots left.",
+              "targetText": "There are a few carrots left.",
+              "slot": {
+                "beforeText": "There are ",
+                "afterText": " carrots left."
+              },
+              "anchor": {
+                "targetText": "carrots",
+                "learnerBaseText": "zanahorias",
+                "englishAuditText": "carrots"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.small-quantity.pair260908.67.plural",
+              "revision": 1,
+              "learnerBaseText": "Ella añadió unas pocas pasas.",
+              "englishAuditText": "She added a few raisins.",
+              "targetText": "She added a few raisins.",
+              "slot": {
+                "beforeText": "She added ",
+                "afterText": " raisins."
+              },
+              "anchor": {
+                "targetText": "raisins",
+                "learnerBaseText": "pasas",
+                "englishAuditText": "raisins"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.small-quantity.pair260908.68.plural",
+              "revision": 1,
+              "learnerBaseText": "Guardamos unos pocos recortes.",
+              "englishAuditText": "We saved a few scraps.",
+              "targetText": "We saved a few scraps.",
+              "slot": {
+                "beforeText": "We saved ",
+                "afterText": " scraps."
+              },
+              "anchor": {
+                "targetText": "scraps",
+                "learnerBaseText": "recortes",
+                "englishAuditText": "scraps"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.small-quantity.pair260908.69.plural",
+              "revision": 1,
+              "learnerBaseText": "La planta necesita unas pocas gotas.",
+              "englishAuditText": "The plant needs a few drops.",
+              "targetText": "The plant needs a few drops.",
+              "slot": {
+                "beforeText": "The plant needs ",
+                "afterText": " drops."
+              },
+              "anchor": {
+                "targetText": "drops",
+                "learnerBaseText": "gotas",
+                "englishAuditText": "drops"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.small-quantity.pair260908.70.plural",
+              "revision": 1,
+              "learnerBaseText": "Me quedan unos pocos minutos.",
+              "englishAuditText": "I have a few minutes left.",
+              "targetText": "I have a few minutes left.",
+              "slot": {
+                "beforeText": "I have ",
+                "afterText": " minutes left."
+              },
+              "anchor": {
+                "targetText": "minutes",
+                "learnerBaseText": "minutos",
+                "englishAuditText": "minutes"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.small-quantity.pair260908.71.plural",
+              "revision": 1,
+              "learnerBaseText": "El cocinero usó unos pocos huevos.",
+              "englishAuditText": "The cook used a few eggs.",
+              "targetText": "The cook used a few eggs.",
+              "slot": {
+                "beforeText": "The cook used ",
+                "afterText": " eggs."
+              },
+              "anchor": {
+                "targetText": "eggs",
+                "learnerBaseText": "huevos",
+                "englishAuditText": "eggs"
+              }
+            },
+            {
+              "id": "es-en.agreement.pair260908.small-quantity.pair260908.72.plural",
+              "revision": 1,
+              "learnerBaseText": "La escritora pidió unas pocas sugerencias.",
+              "englishAuditText": "The writer asked for a few suggestions.",
+              "targetText": "The writer asked for a few suggestions.",
+              "slot": {
+                "beforeText": "The writer asked for ",
+                "afterText": " suggestions."
+              },
+              "anchor": {
+                "targetText": "suggestions",
+                "learnerBaseText": "sugerencias",
+                "englishAuditText": "suggestions"
               }
             }
           ]

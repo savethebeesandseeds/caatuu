@@ -293,6 +293,12 @@ function directChildIdentity(node) {
 }
 
 function removeApprovedWordWorldExtensions(node) {
+  if (node.attributes.get("id") === "wordNetAudioMenu") {
+    const music = findAll(node, (child) => child.attributes.has("data-music-controls"));
+    assert.equal(music.length, 1, "The audio menu mounts one shared music control.");
+    assert.equal(music[0].tag, "div");
+    assert.equal(music[0].children.length, 0, "The shared music module owns the control contents.");
+  }
   const approvedIds = new Set([
     "wordNetTargetTextSettings",
     "wordNetImageToggle",
@@ -453,7 +459,7 @@ function normalizeApprovedInterfaceAnnotations(root) {
   }
 
   const ticks = findOne(root,
-    (node) => node.attributes.get("id") === "wordNetAudioSpeedTicks",
+    (node) => hasClass(node, "caatuu-audio-speed-ticks"),
     "shared audio speed ticks");
   assert.equal(ticks.children.length, 3, "Audio speed ticks must retain three ordered labels.");
   const messages = [
@@ -559,15 +565,12 @@ test("the live shared Word World subtree exactly preserves the Czech component s
     "shared challenge prompt settings"
   );
   assert.equal(findAll(challengePromptSettings, (node) => node.attributes.has("data-challenge-prompt-mode")).length, 3);
-  const audioMute = findOne(
+  findOne(
     root,
-    (node) => node.attributes.get("id") === "wordNetAudioMute",
-    "shared Word World global mute control"
+    (node) => node.attributes.has("data-voice-controls"),
+    "shared Word World voice volume host"
   );
-  assert.equal(audioMute.attributes.get("role"), "switch");
-  assert.equal(audioMute.attributes.get("aria-checked"), "false");
-  assert.equal(audioMute.attributes.get("data-speech-mute-toggle"), "");
-  assert.equal(findAll(audioMute, (node) => node.attributes.has("data-speech-mute-label")).length, 1);
+  findOne(root, (node) => node.attributes.has("data-music-controls"), "shared Word World music volume host");
 
   assert.equal(
     findAll(shared, (node) => node.tag === "template" && (
@@ -607,6 +610,15 @@ test("the live shared Word World subtree exactly preserves the Czech component s
   normalizeApprovedInterfaceAnnotations(root);
   normalizeSharedRobotLoading(root, goldenGame);
   normalizeSharedDictionaryCard(root);
+
+  // The shared volume menu replaces the historical voice picker; its hosts,
+  // slider and translations are checked above and behavior has dedicated tests.
+  const audio = findOne(root, (node) => node.attributes.get("id") === "wordNetAudioMenu", "shared audio menu");
+  const goldenAudio = findOne(goldenGame, (node) => node.attributes.get("id") === "wordNetAudioMenu", "historical audio menu");
+  const speed = findOne(audio, (node) => node.attributes.get("id") === "wordNetAudioSpeed", "voice speed slider");
+  assert.equal(speed.attributes.get("type"), "range");
+  audio.attributes = new Map(goldenAudio.attributes);
+  audio.children = goldenAudio.children;
 
   assertSameComponentTree(root.children[0], goldenGame, "#wordWorldRoot > .word-net-game");
   assertSameComponentTree(

@@ -5,7 +5,7 @@ governed beta or stable release.
 
 ## Unreleased
 
-### Android 0.1.18 (170): restore the established Home
+### Android 0.1.18 (170): Home, expanded courses and shared audio controls
 
 - Restored the illustrated Home and its existing language chooser. Selected-course
   downloads run in Home's setup card before learning content initializes.
@@ -14,6 +14,11 @@ governed beta or stable release.
 - Include English-to-Spanish alongside Czech, Mandarin and Spanish-to-English.
 - Keep essential Home artwork in the APK, with smaller copies of the same art,
   while curriculum and larger game assets remain selected-course downloads.
+- Expand practice content across the four courses while retaining development
+  course review labels.
+- Add shared background music, independent music and voice volume controls,
+  and setup-downloaded tracks that remain available offline.
+- Add the landing-page platform chooser and interactive course navigation arrows.
 - Physical-device update, offline use and progress-preservation testing remain
   unverified until this candidate is installed and checked on a phone.
 

@@ -21,49 +21,3437 @@
   },
   "scope": "Singular nouns with masculine or feminine grammatical gender. Spanish nouns do not use a neuter lane. Endings alone are not a reliable answer rule.",
   "lanes": [
-    { "id": "masculine", "label": "Masculine", "image": "/assets/micelaneous/male_gender.png" },
-    { "id": "feminine", "label": "Feminine", "image": "/assets/micelaneous/female_gender.png" }
+    {
+      "id": "masculine",
+      "label": "Masculine",
+      "image": "/assets/micelaneous/male_gender.png"
+    },
+    {
+      "id": "feminine",
+      "label": "Feminine",
+      "image": "/assets/micelaneous/female_gender.png"
+    }
   ],
   "items": [
-    { "id": "es.gravity.noun.libro", "difficulty": 1, "revision": 1, "targetText": "libro", "learnerBaseText": "book", "english": "book", "laneId": "masculine" },
-    { "id": "es.gravity.noun.casa", "difficulty": 1, "revision": 1, "targetText": "casa", "learnerBaseText": "house", "english": "house", "laneId": "feminine" },
-    { "id": "es.gravity.noun.jardin", "difficulty": 2, "revision": 1, "targetText": "jardín", "learnerBaseText": "garden", "english": "garden", "laneId": "masculine" },
-    { "id": "es.gravity.noun.cancion", "difficulty": 2, "revision": 1, "targetText": "canción", "learnerBaseText": "song", "english": "song", "laneId": "feminine" },
-    { "id": "es.gravity.noun.perro", "difficulty": 1, "revision": 1, "targetText": "perro", "learnerBaseText": "dog", "english": "dog", "laneId": "masculine" },
-    { "id": "es.gravity.noun.mesa", "difficulty": 1, "revision": 1, "targetText": "mesa", "learnerBaseText": "table", "english": "table", "laneId": "feminine" },
-    { "id": "es.gravity.noun.pueblo", "difficulty": 1, "revision": 1, "targetText": "pueblo", "learnerBaseText": "town", "english": "town", "laneId": "masculine" },
-    { "id": "es.gravity.noun.tienda", "difficulty": 1, "revision": 1, "targetText": "tienda", "learnerBaseText": "shop", "english": "shop", "laneId": "feminine" },
-    { "id": "es.gravity.noun.problema", "difficulty": 3, "revision": 1, "targetText": "problema", "learnerBaseText": "problem", "english": "problem", "laneId": "masculine" },
-    { "id": "es.gravity.noun.mano", "difficulty": 3, "revision": 1, "targetText": "mano", "learnerBaseText": "hand", "english": "hand", "laneId": "feminine" },
-    { "id": "es.gravity.noun.mapa", "difficulty": 3, "revision": 1, "targetText": "mapa", "learnerBaseText": "map", "english": "map", "laneId": "masculine" },
-    { "id": "es.gravity.noun.foto", "difficulty": 3, "revision": 1, "targetText": "foto", "learnerBaseText": "photograph", "english": "photograph", "laneId": "feminine" },
-    { "id": "es.gravity.noun.coche", "difficulty": 2, "revision": 1, "targetText": "coche", "learnerBaseText": "car", "english": "car", "laneId": "masculine" },
-    { "id": "es.gravity.noun.calle", "difficulty": 2, "revision": 1, "targetText": "calle", "learnerBaseText": "street", "english": "street", "laneId": "feminine" },
-    { "id": "es.gravity.noun.alumno", "difficulty": 1, "revision": 1, "targetText": "alumno", "learnerBaseText": "male student", "english": "male student", "laneId": "masculine" },
-    { "id": "es.gravity.noun.alumna", "difficulty": 1, "revision": 1, "targetText": "alumna", "learnerBaseText": "female student", "english": "female student", "laneId": "feminine" },
-    { "id": "es.gravity.noun.medico", "difficulty": 1, "revision": 1, "targetText": "médico", "learnerBaseText": "male doctor", "english": "male doctor", "laneId": "masculine" },
-    { "id": "es.gravity.noun.medica", "difficulty": 1, "revision": 1, "targetText": "médica", "learnerBaseText": "female doctor", "english": "female doctor", "laneId": "feminine" },
-    { "id": "es.gravity.noun.vestido", "difficulty": 1, "revision": 1, "targetText": "vestido", "learnerBaseText": "dress", "english": "dress", "laneId": "masculine" },
-    { "id": "es.gravity.noun.camisa", "difficulty": 1, "revision": 1, "targetText": "camisa", "learnerBaseText": "shirt", "english": "shirt", "laneId": "feminine" },
-    { "id": "es.gravity.noun.dia", "difficulty": 3, "revision": 1, "targetText": "día", "learnerBaseText": "day", "english": "day", "laneId": "masculine" },
-    { "id": "es.gravity.noun.puerta", "difficulty": 1, "revision": 1, "targetText": "puerta", "learnerBaseText": "door", "english": "door", "laneId": "feminine" },
-    { "id": "es.gravity.noun.idioma", "difficulty": 3, "revision": 1, "targetText": "idioma", "learnerBaseText": "language", "english": "language", "laneId": "masculine" },
-    { "id": "es.gravity.noun.noche", "difficulty": 2, "revision": 1, "targetText": "noche", "learnerBaseText": "night", "english": "night", "laneId": "feminine" },
-    { "id": "es.gravity.noun.nino", "difficulty": 1, "revision": 1, "targetText": "niño", "learnerBaseText": "boy", "english": "boy", "laneId": "masculine" },
-    { "id": "es.gravity.noun.clase", "difficulty": 2, "revision": 1, "targetText": "clase", "learnerBaseText": "class", "english": "class", "laneId": "feminine" },
-    { "id": "es.gravity.noun.nina", "difficulty": 1, "revision": 1, "targetText": "niña", "learnerBaseText": "girl", "english": "girl", "laneId": "feminine" },
-    { "id": "es.gravity.noun.familia", "difficulty": 1, "revision": 1, "targetText": "familia", "learnerBaseText": "family", "english": "family", "laneId": "feminine" },
-    { "id": "es.gravity.noun.gato", "difficulty": 1, "revision": 1, "targetText": "gato", "learnerBaseText": "cat", "english": "cat", "laneId": "masculine" },
-    { "id": "es.gravity.noun.manzana", "difficulty": 1, "revision": 1, "targetText": "manzana", "learnerBaseText": "apple", "english": "apple", "laneId": "feminine" },
-    { "id": "es.gravity.noun.archivo", "difficulty": 2, "revision": 1, "targetText": "archivo", "learnerBaseText": "file", "english": "file", "laneId": "masculine" },
-    { "id": "es.gravity.noun.silla", "difficulty": 1, "revision": 1, "targetText": "silla", "learnerBaseText": "chair", "english": "chair", "laneId": "feminine" },
-    { "id": "es.gravity.noun.horario", "difficulty": 2, "revision": 1, "targetText": "horario", "learnerBaseText": "schedule", "english": "schedule", "laneId": "masculine" },
-    { "id": "es.gravity.noun.ventana", "difficulty": 1, "revision": 1, "targetText": "ventana", "learnerBaseText": "window", "english": "window", "laneId": "feminine" },
-    { "id": "es.gravity.noun.recibo", "difficulty": 2, "revision": 1, "targetText": "recibo", "learnerBaseText": "receipt", "english": "receipt", "laneId": "masculine" },
-    { "id": "es.gravity.noun.oficina", "difficulty": 2, "revision": 1, "targetText": "oficina", "learnerBaseText": "office", "english": "office", "laneId": "feminine" },
-    { "id": "es.gravity.noun.tren", "difficulty": 2, "revision": 1, "targetText": "tren", "learnerBaseText": "train", "english": "train", "laneId": "masculine" },
-    { "id": "es.gravity.noun.reunion", "difficulty": 2, "revision": 1, "targetText": "reunión", "learnerBaseText": "meeting", "english": "meeting", "laneId": "feminine" },
-    { "id": "es.gravity.noun.billete", "difficulty": 2, "revision": 1, "targetText": "billete", "learnerBaseText": "ticket", "english": "ticket", "laneId": "masculine" },
-    { "id": "es.gravity.noun.estacion", "difficulty": 2, "revision": 1, "targetText": "estación", "learnerBaseText": "station", "english": "station", "laneId": "feminine" }
+    {
+      "id": "es.gravity.noun.libro",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "libro",
+      "learnerBaseText": "book",
+      "english": "book",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.casa",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "casa",
+      "learnerBaseText": "house",
+      "english": "house",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.jardin",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "jardín",
+      "learnerBaseText": "garden",
+      "english": "garden",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.cancion",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "canción",
+      "learnerBaseText": "song",
+      "english": "song",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.perro",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "perro",
+      "learnerBaseText": "dog",
+      "english": "dog",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.mesa",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "mesa",
+      "learnerBaseText": "table",
+      "english": "table",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pueblo",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "pueblo",
+      "learnerBaseText": "town",
+      "english": "town",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.tienda",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "tienda",
+      "learnerBaseText": "shop",
+      "english": "shop",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.problema",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "problema",
+      "learnerBaseText": "problem",
+      "english": "problem",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.mano",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "mano",
+      "learnerBaseText": "hand",
+      "english": "hand",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.mapa",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "mapa",
+      "learnerBaseText": "map",
+      "english": "map",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.foto",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "foto",
+      "learnerBaseText": "photograph",
+      "english": "photograph",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.coche",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "coche",
+      "learnerBaseText": "car",
+      "english": "car",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.calle",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "calle",
+      "learnerBaseText": "street",
+      "english": "street",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.alumno",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "alumno",
+      "learnerBaseText": "male student",
+      "english": "male student",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.alumna",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "alumna",
+      "learnerBaseText": "female student",
+      "english": "female student",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.medico",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "médico",
+      "learnerBaseText": "male doctor",
+      "english": "male doctor",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.medica",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "médica",
+      "learnerBaseText": "female doctor",
+      "english": "female doctor",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.vestido",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "vestido",
+      "learnerBaseText": "dress",
+      "english": "dress",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.camisa",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "camisa",
+      "learnerBaseText": "shirt",
+      "english": "shirt",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.dia",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "día",
+      "learnerBaseText": "day",
+      "english": "day",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.puerta",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "puerta",
+      "learnerBaseText": "door",
+      "english": "door",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.idioma",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "idioma",
+      "learnerBaseText": "language",
+      "english": "language",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.noche",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "noche",
+      "learnerBaseText": "night",
+      "english": "night",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.nino",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "niño",
+      "learnerBaseText": "boy",
+      "english": "boy",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.clase",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "clase",
+      "learnerBaseText": "class",
+      "english": "class",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.nina",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "niña",
+      "learnerBaseText": "girl",
+      "english": "girl",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.familia",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "familia",
+      "learnerBaseText": "family",
+      "english": "family",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.gato",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "gato",
+      "learnerBaseText": "cat",
+      "english": "cat",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.manzana",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "manzana",
+      "learnerBaseText": "apple",
+      "english": "apple",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.archivo",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "archivo",
+      "learnerBaseText": "file",
+      "english": "file",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.silla",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "silla",
+      "learnerBaseText": "chair",
+      "english": "chair",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.horario",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "horario",
+      "learnerBaseText": "schedule",
+      "english": "schedule",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.ventana",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "ventana",
+      "learnerBaseText": "window",
+      "english": "window",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.recibo",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "recibo",
+      "learnerBaseText": "receipt",
+      "english": "receipt",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.oficina",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "oficina",
+      "learnerBaseText": "office",
+      "english": "office",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.tren",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "tren",
+      "learnerBaseText": "train",
+      "english": "train",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.reunion",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "reunión",
+      "learnerBaseText": "meeting",
+      "english": "meeting",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.billete",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "billete",
+      "learnerBaseText": "ticket",
+      "english": "ticket",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.estacion",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "estación",
+      "learnerBaseText": "station",
+      "english": "station",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.ball",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "pelota",
+      "learnerBaseText": "ball",
+      "english": "ball",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.rabbit",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "conejo",
+      "learnerBaseText": "rabbit",
+      "english": "rabbit",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.duck",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "pato",
+      "learnerBaseText": "duck",
+      "english": "duck",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.fish",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "pez",
+      "learnerBaseText": "fish",
+      "english": "fish",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.horse",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "caballo",
+      "learnerBaseText": "horse",
+      "english": "horse",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.bear",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "oso",
+      "learnerBaseText": "bear",
+      "english": "bear",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.bee",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "abeja",
+      "learnerBaseText": "bee",
+      "english": "bee",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.butterfly",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "mariposa",
+      "learnerBaseText": "butterfly",
+      "english": "butterfly",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.flower",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "flor",
+      "learnerBaseText": "flower",
+      "english": "flower",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.sun",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "sol",
+      "learnerBaseText": "sun",
+      "english": "sun",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.moon",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "luna",
+      "learnerBaseText": "moon",
+      "english": "moon",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.star",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "estrella",
+      "learnerBaseText": "star",
+      "english": "star",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.cloud",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "nube",
+      "learnerBaseText": "cloud",
+      "english": "cloud",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.rain",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "lluvia",
+      "learnerBaseText": "rain",
+      "english": "rain",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.snow",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "nieve",
+      "learnerBaseText": "snow",
+      "english": "snow",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.pencil",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "lápiz",
+      "learnerBaseText": "pencil",
+      "english": "pencil",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.crayon",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "lápiz de cera",
+      "learnerBaseText": "crayon",
+      "english": "crayon",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.notebook",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "cuaderno",
+      "learnerBaseText": "notebook",
+      "english": "notebook",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.backpack",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "mochila",
+      "learnerBaseText": "backpack",
+      "english": "backpack",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.bicycle",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "bicicleta",
+      "learnerBaseText": "bicycle",
+      "english": "bicycle",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.boat",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "barco",
+      "learnerBaseText": "boat",
+      "english": "boat",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.hat",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "sombrero",
+      "learnerBaseText": "hat",
+      "english": "hat",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.sock",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "calcetín",
+      "learnerBaseText": "sock",
+      "english": "sock",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.shoe",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "zapato",
+      "learnerBaseText": "shoe",
+      "english": "shoe",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.spoon",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "cuchara",
+      "learnerBaseText": "spoon",
+      "english": "spoon",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.plate",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "plato",
+      "learnerBaseText": "plate",
+      "english": "plate",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.cup",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "taza",
+      "learnerBaseText": "cup",
+      "english": "cup",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.bread",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "pan",
+      "learnerBaseText": "bread",
+      "english": "bread",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.cheese",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "queso",
+      "learnerBaseText": "cheese",
+      "english": "cheese",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.egg",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "huevo",
+      "learnerBaseText": "egg",
+      "english": "egg",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.hedgehog",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "erizo",
+      "learnerBaseText": "hedgehog",
+      "english": "hedgehog",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.squirrel",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "ardilla",
+      "learnerBaseText": "squirrel",
+      "english": "squirrel",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.owl",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "búho",
+      "learnerBaseText": "owl",
+      "english": "owl",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.turtle",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "tortuga",
+      "learnerBaseText": "turtle",
+      "english": "turtle",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.snail",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "caracol",
+      "learnerBaseText": "snail",
+      "english": "snail",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.whale",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "ballena",
+      "learnerBaseText": "whale",
+      "english": "whale",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.dolphin",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "delfín",
+      "learnerBaseText": "dolphin",
+      "english": "dolphin",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.penguin",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "pingüino",
+      "learnerBaseText": "penguin",
+      "english": "penguin",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.nest",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "nido",
+      "learnerBaseText": "nest",
+      "english": "nest",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.feather",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "pluma",
+      "learnerBaseText": "feather",
+      "english": "feather",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.seed",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "semilla",
+      "learnerBaseText": "seed",
+      "english": "seed",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.root",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "raíz",
+      "learnerBaseText": "root",
+      "english": "root",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.branch",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "rama",
+      "learnerBaseText": "branch",
+      "english": "branch",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.pond",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "estanque",
+      "learnerBaseText": "pond",
+      "english": "pond",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.meadow",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "pradera",
+      "learnerBaseText": "meadow",
+      "english": "meadow",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.waterfall",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "cascada",
+      "learnerBaseText": "waterfall",
+      "english": "waterfall",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.rainbow",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "arcoíris",
+      "learnerBaseText": "rainbow",
+      "english": "rainbow",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.island",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "isla",
+      "learnerBaseText": "island",
+      "english": "island",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.shell",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "concha",
+      "learnerBaseText": "shell",
+      "english": "shell",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.pebble",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "guijarro",
+      "learnerBaseText": "pebble",
+      "english": "pebble",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.puppet",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "marioneta",
+      "learnerBaseText": "puppet",
+      "english": "puppet",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.costume",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "disfraz",
+      "learnerBaseText": "costume",
+      "english": "costume",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.stage",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "escenario",
+      "learnerBaseText": "stage",
+      "english": "stage",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.drum",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "tambor",
+      "learnerBaseText": "drum",
+      "english": "drum",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.flute",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "flauta",
+      "learnerBaseText": "flute",
+      "english": "flute",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.riddle",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "adivinanza",
+      "learnerBaseText": "riddle",
+      "english": "riddle",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.compass",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "brújula",
+      "learnerBaseText": "compass",
+      "english": "compass",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.telescope",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "telescopio",
+      "learnerBaseText": "telescope",
+      "english": "telescope",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.rocket",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "cohete",
+      "learnerBaseText": "rocket",
+      "english": "rocket",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.planet",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "planeta",
+      "learnerBaseText": "planet",
+      "english": "planet",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.patience",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "paciencia",
+      "learnerBaseText": "patience",
+      "english": "patience",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.kindness",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "amabilidad",
+      "learnerBaseText": "kindness",
+      "english": "kindness",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.courage",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "valentía",
+      "learnerBaseText": "courage",
+      "english": "courage",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.curiosity",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "curiosidad",
+      "learnerBaseText": "curiosity",
+      "english": "curiosity",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.imagination",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "imaginación",
+      "learnerBaseText": "imagination",
+      "english": "imagination",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.friendship",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "amistad",
+      "learnerBaseText": "friendship",
+      "english": "friendship",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.cooperation",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "cooperación",
+      "learnerBaseText": "cooperation",
+      "english": "cooperation",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.agreement",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "acuerdo",
+      "learnerBaseText": "agreement",
+      "english": "agreement",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.difference",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "diferencia",
+      "learnerBaseText": "difference",
+      "english": "difference",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.similarity",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "semejanza",
+      "learnerBaseText": "similarity",
+      "english": "similarity",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.evidence",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "prueba",
+      "learnerBaseText": "evidence",
+      "english": "evidence",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.explanation",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "explicación",
+      "learnerBaseText": "explanation",
+      "english": "explanation",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.solution",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "solución",
+      "learnerBaseText": "solution",
+      "english": "solution",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.discovery",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "descubrimiento",
+      "learnerBaseText": "discovery",
+      "english": "discovery",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.invention",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "invento",
+      "learnerBaseText": "invention",
+      "english": "invention",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.experiment",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "experimento",
+      "learnerBaseText": "experiment",
+      "english": "experiment",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.observation",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "observación",
+      "learnerBaseText": "observation",
+      "english": "observation",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.prediction",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "predicción",
+      "learnerBaseText": "prediction",
+      "english": "prediction",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.possibility",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "posibilidad",
+      "learnerBaseText": "possibility",
+      "english": "possibility",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.responsibility",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "responsabilidad",
+      "learnerBaseText": "responsibility",
+      "english": "responsibility",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.permission",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "permiso",
+      "learnerBaseText": "permission",
+      "english": "permission",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.decision",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "decisión",
+      "learnerBaseText": "decision",
+      "english": "decision",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.achievement",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "logro",
+      "learnerBaseText": "achievement",
+      "english": "achievement",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.challenge",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "reto",
+      "learnerBaseText": "challenge",
+      "english": "challenge",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.effort",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "esfuerzo",
+      "learnerBaseText": "effort",
+      "english": "effort",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.balance",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "equilibrio",
+      "learnerBaseText": "balance",
+      "english": "balance",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.habitat",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "hábitat",
+      "learnerBaseText": "habitat",
+      "english": "habitat",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.pollination",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "polinización",
+      "learnerBaseText": "pollination",
+      "english": "pollination",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.constellation",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "constelación",
+      "learnerBaseText": "constellation",
+      "english": "constellation",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.exp260908.reflection",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "reflejo",
+      "learnerBaseText": "reflection",
+      "english": "reflection",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.leon",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "león",
+      "learnerBaseText": "lion",
+      "english": "lion",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.tigre",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "tigre",
+      "learnerBaseText": "tiger",
+      "english": "tiger",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.elefante",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "elefante",
+      "learnerBaseText": "elephant",
+      "english": "elephant",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.jirafa",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "jirafa",
+      "learnerBaseText": "giraffe",
+      "english": "giraffe",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.cebra",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "cebra",
+      "learnerBaseText": "zebra",
+      "english": "zebra",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.mono",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "mono",
+      "learnerBaseText": "monkey",
+      "english": "monkey",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.vaca",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "vaca",
+      "learnerBaseText": "cow",
+      "english": "cow",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.cerdo",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "cerdo",
+      "learnerBaseText": "pig",
+      "english": "pig",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.oveja",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "oveja",
+      "learnerBaseText": "sheep",
+      "english": "sheep",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.cabra",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "cabra",
+      "learnerBaseText": "goat",
+      "english": "goat",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.gallina",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "gallina",
+      "learnerBaseText": "hen",
+      "english": "hen",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.gallo",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "gallo",
+      "learnerBaseText": "rooster",
+      "english": "rooster",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.pollito",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "pollito",
+      "learnerBaseText": "chick",
+      "english": "chick",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.burro",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "burro",
+      "learnerBaseText": "donkey",
+      "english": "donkey",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.raton",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "ratón",
+      "learnerBaseText": "mouse",
+      "english": "mouse",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.pajaro",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "pájaro",
+      "learnerBaseText": "bird",
+      "english": "bird",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.hormiga",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "hormiga",
+      "learnerBaseText": "ant",
+      "english": "ant",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.arana",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "araña",
+      "learnerBaseText": "spider",
+      "english": "spider",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.rana",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "rana",
+      "learnerBaseText": "frog",
+      "english": "frog",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.gusano",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "gusano",
+      "learnerBaseText": "worm",
+      "english": "worm",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.arbol",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "árbol",
+      "learnerBaseText": "tree",
+      "english": "tree",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.hoja",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "hoja",
+      "learnerBaseText": "leaf",
+      "english": "leaf",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.piedra",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "piedra",
+      "learnerBaseText": "stone",
+      "english": "stone",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.rio",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "río",
+      "learnerBaseText": "river",
+      "english": "river",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.montana",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "montaña",
+      "learnerBaseText": "mountain",
+      "english": "mountain",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.playa",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "playa",
+      "learnerBaseText": "beach",
+      "english": "beach",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.bosque",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "bosque",
+      "learnerBaseText": "forest",
+      "english": "forest",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.naranja",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "naranja",
+      "learnerBaseText": "orange",
+      "english": "orange",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.platano",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "plátano",
+      "learnerBaseText": "banana",
+      "english": "banana",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.pera",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "pera",
+      "learnerBaseText": "pear",
+      "english": "pear",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.fresa",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "fresa",
+      "learnerBaseText": "strawberry",
+      "english": "strawberry",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.uva",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "uva",
+      "learnerBaseText": "grape",
+      "english": "grape",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.limon",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "limón",
+      "learnerBaseText": "lemon",
+      "english": "lemon",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.tomate",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "tomate",
+      "learnerBaseText": "tomato",
+      "english": "tomato",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.patata",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "patata",
+      "learnerBaseText": "potato",
+      "english": "potato",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.zanahoria",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "zanahoria",
+      "learnerBaseText": "carrot",
+      "english": "carrot",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.galleta",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "galleta",
+      "learnerBaseText": "cookie",
+      "english": "cookie",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.bocadillo",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "bocadillo",
+      "learnerBaseText": "sandwich",
+      "english": "sandwich",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.helado",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "helado",
+      "learnerBaseText": "ice cream",
+      "english": "ice cream",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.botella",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "botella",
+      "learnerBaseText": "bottle",
+      "english": "bottle",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.vaso",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "vaso",
+      "learnerBaseText": "drinking glass",
+      "english": "drinking glass",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.tenedor",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "tenedor",
+      "learnerBaseText": "fork",
+      "english": "fork",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.cuenco",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "cuenco",
+      "learnerBaseText": "bowl",
+      "english": "bowl",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.servilleta",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "servilleta",
+      "learnerBaseText": "napkin",
+      "english": "napkin",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.cama",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "cama",
+      "learnerBaseText": "bed",
+      "english": "bed",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.almohada",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "almohada",
+      "learnerBaseText": "pillow",
+      "english": "pillow",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.manta",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "manta",
+      "learnerBaseText": "blanket",
+      "english": "blanket",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.sofa",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "sofá",
+      "learnerBaseText": "sofa",
+      "english": "sofa",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.lampara",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "lámpara",
+      "learnerBaseText": "lamp",
+      "english": "lamp",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.reloj",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "reloj",
+      "learnerBaseText": "clock",
+      "english": "clock",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.caja",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "caja",
+      "learnerBaseText": "box",
+      "english": "box",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.juguete",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "juguete",
+      "learnerBaseText": "toy",
+      "english": "toy",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.muneca",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "muñeca",
+      "learnerBaseText": "doll",
+      "english": "doll",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.globo",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "globo",
+      "learnerBaseText": "balloon",
+      "english": "balloon",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.regalo",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "regalo",
+      "learnerBaseText": "gift",
+      "english": "gift",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.cometa",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "cometa",
+      "learnerBaseText": "kite",
+      "english": "kite",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.columpio",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "columpio",
+      "learnerBaseText": "swing",
+      "english": "swing",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.tobogan",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "tobogán",
+      "learnerBaseText": "slide",
+      "english": "slide",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.autobus",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "autobús",
+      "learnerBaseText": "bus",
+      "english": "bus",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.avion",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "avión",
+      "learnerBaseText": "airplane",
+      "english": "airplane",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.zorro",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "zorro",
+      "learnerBaseText": "fox",
+      "english": "fox",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.lobo",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "lobo",
+      "learnerBaseText": "wolf",
+      "english": "wolf",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.ciervo",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "ciervo",
+      "learnerBaseText": "deer",
+      "english": "deer",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.reno",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "reno",
+      "learnerBaseText": "reindeer",
+      "english": "reindeer",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.alce",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "alce",
+      "learnerBaseText": "moose",
+      "english": "moose",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.castor",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "castor",
+      "learnerBaseText": "beaver",
+      "english": "beaver",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.nutria",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "nutria",
+      "learnerBaseText": "otter",
+      "english": "otter",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.mapache",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "mapache",
+      "learnerBaseText": "raccoon",
+      "english": "raccoon",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.tejon",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "tejón",
+      "learnerBaseText": "badger",
+      "english": "badger",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.murcielago",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "murciélago",
+      "learnerBaseText": "bat",
+      "english": "bat",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.foca",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "foca",
+      "learnerBaseText": "seal",
+      "english": "seal",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.morsa",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "morsa",
+      "learnerBaseText": "walrus",
+      "english": "walrus",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.canguro",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "canguro",
+      "learnerBaseText": "kangaroo",
+      "english": "kangaroo",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.koala",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "koala",
+      "learnerBaseText": "koala",
+      "english": "koala",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.panda",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "panda",
+      "learnerBaseText": "panda",
+      "english": "panda",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.camello",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "camello",
+      "learnerBaseText": "camel",
+      "english": "camel",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.hipopotamo",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "hipopótamo",
+      "learnerBaseText": "hippopotamus",
+      "english": "hippopotamus",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.rinoceronte",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "rinoceronte",
+      "learnerBaseText": "rhinoceros",
+      "english": "rhinoceros",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.cocodrilo",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "cocodrilo",
+      "learnerBaseText": "crocodile",
+      "english": "crocodile",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.lagarto",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "lagarto",
+      "learnerBaseText": "lizard",
+      "english": "lizard",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.serpiente",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "serpiente",
+      "learnerBaseText": "snake",
+      "english": "snake",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.pulpo",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "pulpo",
+      "learnerBaseText": "octopus",
+      "english": "octopus",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.calamar",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "calamar",
+      "learnerBaseText": "squid",
+      "english": "squid",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.cangrejo",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "cangrejo",
+      "learnerBaseText": "crab",
+      "english": "crab",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.medusa",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "medusa",
+      "learnerBaseText": "jellyfish",
+      "english": "jellyfish",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.tiburon",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "tiburón",
+      "learnerBaseText": "shark",
+      "english": "shark",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.caballito-de-mar",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "caballito de mar",
+      "learnerBaseText": "seahorse",
+      "english": "seahorse",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.estrella-de-mar",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "estrella de mar",
+      "learnerBaseText": "starfish",
+      "english": "starfish",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.tarantula",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "tarántula",
+      "learnerBaseText": "tarantula",
+      "english": "tarantula",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.mariquita",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "mariquita",
+      "learnerBaseText": "ladybug",
+      "english": "ladybug",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.escarabajo",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "escarabajo",
+      "learnerBaseText": "beetle",
+      "english": "beetle",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.saltamontes",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "saltamontes",
+      "learnerBaseText": "grasshopper",
+      "english": "grasshopper",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.grillo",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "grillo",
+      "learnerBaseText": "cricket",
+      "english": "cricket",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.libelula",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "libélula",
+      "learnerBaseText": "dragonfly",
+      "english": "dragonfly",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.oruga",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "oruga",
+      "learnerBaseText": "caterpillar",
+      "english": "caterpillar",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.capullo",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "capullo",
+      "learnerBaseText": "cocoon",
+      "english": "cocoon",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.aguila",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "águila",
+      "learnerBaseText": "eagle",
+      "english": "eagle",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.loro",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "loro",
+      "learnerBaseText": "parrot",
+      "english": "parrot",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.cisne",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "cisne",
+      "learnerBaseText": "swan",
+      "english": "swan",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.ganso",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "ganso",
+      "learnerBaseText": "goose",
+      "english": "goose",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.pavo",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "pavo",
+      "learnerBaseText": "turkey",
+      "english": "turkey",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.pavo-real",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "pavo real",
+      "learnerBaseText": "peacock",
+      "english": "peacock",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.golondrina",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "golondrina",
+      "learnerBaseText": "swallow",
+      "english": "swallow",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.petirrojo",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "petirrojo",
+      "learnerBaseText": "robin",
+      "english": "robin",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.gorrion",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "gorrión",
+      "learnerBaseText": "sparrow",
+      "english": "sparrow",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.flamenco",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "flamenco",
+      "learnerBaseText": "flamingo",
+      "english": "flamingo",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.gaviota",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "gaviota",
+      "learnerBaseText": "seagull",
+      "english": "seagull",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.pelicano",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "pelícano",
+      "learnerBaseText": "pelican",
+      "english": "pelican",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.colibri",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "colibrí",
+      "learnerBaseText": "hummingbird",
+      "english": "hummingbird",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.ciguena",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "cigüeña",
+      "learnerBaseText": "stork",
+      "english": "stork",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.tronco",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "tronco",
+      "learnerBaseText": "tree trunk",
+      "english": "tree trunk",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.corteza",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "corteza",
+      "learnerBaseText": "tree bark",
+      "english": "tree bark",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.bellota",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "bellota",
+      "learnerBaseText": "acorn",
+      "english": "acorn",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.pina",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "piña",
+      "learnerBaseText": "pine cone",
+      "english": "pine cone",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.petalo",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "pétalo",
+      "learnerBaseText": "petal",
+      "english": "petal",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.espina",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "espina",
+      "learnerBaseText": "thorn",
+      "english": "thorn",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.tallo",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "tallo",
+      "learnerBaseText": "stem",
+      "english": "stem",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.brote",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "brote",
+      "learnerBaseText": "sprout",
+      "english": "sprout",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.arbusto",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "arbusto",
+      "learnerBaseText": "shrub",
+      "english": "shrub",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.helecho",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "helecho",
+      "learnerBaseText": "fern",
+      "english": "fern",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.musgo",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "musgo",
+      "learnerBaseText": "moss",
+      "english": "moss",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.seta",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "seta",
+      "learnerBaseText": "mushroom",
+      "english": "mushroom",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.roble",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "roble",
+      "learnerBaseText": "oak",
+      "english": "oak",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.pino",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "pino",
+      "learnerBaseText": "pine tree",
+      "english": "pine tree",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.abedul",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "abedul",
+      "learnerBaseText": "birch",
+      "english": "birch",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.sauce",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "sauce",
+      "learnerBaseText": "willow",
+      "english": "willow",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.girasol",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "girasol",
+      "learnerBaseText": "sunflower",
+      "english": "sunflower",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.margarita",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "margarita",
+      "learnerBaseText": "daisy",
+      "english": "daisy",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.tulipan",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "tulipán",
+      "learnerBaseText": "tulip",
+      "english": "tulip",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.amapola",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "amapola",
+      "learnerBaseText": "poppy",
+      "english": "poppy",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.duna",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "duna",
+      "learnerBaseText": "sand dune",
+      "english": "sand dune",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.acantilado",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "acantilado",
+      "learnerBaseText": "cliff",
+      "english": "cliff",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.cueva",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "cueva",
+      "learnerBaseText": "cave",
+      "english": "cave",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.valle",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "valle",
+      "learnerBaseText": "valley",
+      "english": "valley",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.colina",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "colina",
+      "learnerBaseText": "hill",
+      "english": "hill",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.sendero",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "sendero",
+      "learnerBaseText": "trail",
+      "english": "trail",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.arroyo",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "arroyo",
+      "learnerBaseText": "stream",
+      "english": "stream",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.lago",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "lago",
+      "learnerBaseText": "lake",
+      "english": "lake",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.volcan",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "volcán",
+      "learnerBaseText": "volcano",
+      "english": "volcano",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.desierto",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "desierto",
+      "learnerBaseText": "desert",
+      "english": "desert",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.oasis",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "oasis",
+      "learnerBaseText": "oasis",
+      "english": "oasis",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.glaciar",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "glaciar",
+      "learnerBaseText": "glacier",
+      "english": "glacier",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.iceberg",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "iceberg",
+      "learnerBaseText": "iceberg",
+      "english": "iceberg",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.charco",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "charco",
+      "learnerBaseText": "puddle",
+      "english": "puddle",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.copo-de-nieve",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "copo de nieve",
+      "learnerBaseText": "snowflake",
+      "english": "snowflake",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.gota",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "gota",
+      "learnerBaseText": "drop",
+      "english": "drop",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.ola",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "ola",
+      "learnerBaseText": "wave",
+      "english": "wave",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.brisa",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "brisa",
+      "learnerBaseText": "breeze",
+      "english": "breeze",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.tormenta",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "tormenta",
+      "learnerBaseText": "storm",
+      "english": "storm",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.relampago",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "relámpago",
+      "learnerBaseText": "lightning flash",
+      "english": "lightning flash",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.trueno",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "trueno",
+      "learnerBaseText": "thunderclap",
+      "english": "thunderclap",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.linterna",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "linterna",
+      "learnerBaseText": "flashlight",
+      "english": "flashlight",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.lupa",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "lupa",
+      "learnerBaseText": "magnifying glass",
+      "english": "magnifying glass",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.microscopio",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "microscopio",
+      "learnerBaseText": "microscope",
+      "english": "microscope",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.regla",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "regla",
+      "learnerBaseText": "ruler",
+      "english": "ruler",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.balanza",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "balanza",
+      "learnerBaseText": "balance scale",
+      "english": "balance scale",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.termometro",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "termómetro",
+      "learnerBaseText": "thermometer",
+      "english": "thermometer",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.iman",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "imán",
+      "learnerBaseText": "magnet",
+      "english": "magnet",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.pila",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "pila",
+      "learnerBaseText": "battery",
+      "english": "battery",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.bombilla",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "bombilla",
+      "learnerBaseText": "light bulb",
+      "english": "light bulb",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.interruptor",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "interruptor",
+      "learnerBaseText": "light switch",
+      "english": "light switch",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.rueda",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "rueda",
+      "learnerBaseText": "wheel",
+      "english": "wheel",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.eje",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "eje",
+      "learnerBaseText": "axle",
+      "english": "axle",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.engranaje",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "engranaje",
+      "learnerBaseText": "gear",
+      "english": "gear",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.polea",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "polea",
+      "learnerBaseText": "pulley",
+      "english": "pulley",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.rampa",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "rampa",
+      "learnerBaseText": "ramp",
+      "english": "ramp",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.puente",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "puente",
+      "learnerBaseText": "bridge",
+      "english": "bridge",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.tunel",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "túnel",
+      "learnerBaseText": "tunnel",
+      "english": "tunnel",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.faro",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "faro",
+      "learnerBaseText": "lighthouse",
+      "english": "lighthouse",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.molino",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "molino",
+      "learnerBaseText": "mill",
+      "english": "mill",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.invernadero",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "invernadero",
+      "learnerBaseText": "greenhouse",
+      "english": "greenhouse",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.biblioteca",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "biblioteca",
+      "learnerBaseText": "library",
+      "english": "library",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.museo",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "museo",
+      "learnerBaseText": "museum",
+      "english": "museum",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.acuario",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "acuario",
+      "learnerBaseText": "aquarium",
+      "english": "aquarium",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.teatro",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "teatro",
+      "learnerBaseText": "theater",
+      "english": "theater",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.auditorio",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "auditorio",
+      "learnerBaseText": "auditorium",
+      "english": "auditorium",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.pincel",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "pincel",
+      "learnerBaseText": "paintbrush",
+      "english": "paintbrush",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.paleta",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "paleta",
+      "learnerBaseText": "paint palette",
+      "english": "paint palette",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.lienzo",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "lienzo",
+      "learnerBaseText": "canvas",
+      "english": "canvas",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.acuarela",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "acuarela",
+      "learnerBaseText": "watercolor painting",
+      "english": "watercolor painting",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.caballete",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "caballete",
+      "learnerBaseText": "easel",
+      "english": "easel",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.mosaico",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "mosaico",
+      "learnerBaseText": "mosaic",
+      "english": "mosaic",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.escultura",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "escultura",
+      "learnerBaseText": "sculpture",
+      "english": "sculpture",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.mascara",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "máscara",
+      "learnerBaseText": "mask",
+      "english": "mask",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.violin",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "violín",
+      "learnerBaseText": "violin",
+      "english": "violin",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.guitarra",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "guitarra",
+      "learnerBaseText": "guitar",
+      "english": "guitar",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.piano",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "piano",
+      "learnerBaseText": "piano",
+      "english": "piano",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.trompeta",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "trompeta",
+      "learnerBaseText": "trumpet",
+      "english": "trumpet",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.xilofono",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "xilófono",
+      "learnerBaseText": "xylophone",
+      "english": "xylophone",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.pandereta",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "pandereta",
+      "learnerBaseText": "tambourine",
+      "english": "tambourine",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.hipotesis",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "hipótesis",
+      "learnerBaseText": "hypothesis",
+      "english": "hypothesis",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.analisis",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "análisis",
+      "learnerBaseText": "analysis",
+      "english": "analysis",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.conclusion",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "conclusión",
+      "learnerBaseText": "conclusion",
+      "english": "conclusion",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.criterio",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "criterio",
+      "learnerBaseText": "criterion",
+      "english": "criterion",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.fenomeno",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "fenómeno",
+      "learnerBaseText": "phenomenon",
+      "english": "phenomenon",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.secuencia",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "secuencia",
+      "learnerBaseText": "sequence",
+      "english": "sequence",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.patron",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "patrón",
+      "learnerBaseText": "pattern",
+      "english": "pattern",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.simetria",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "simetría",
+      "learnerBaseText": "symmetry",
+      "english": "symmetry",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.proporcion",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "proporción",
+      "learnerBaseText": "proportion",
+      "english": "proportion",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.fraccion",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "fracción",
+      "learnerBaseText": "fraction",
+      "english": "fraction",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.denominador",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "denominador",
+      "learnerBaseText": "denominator",
+      "english": "denominator",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.numerador",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "numerador",
+      "learnerBaseText": "numerator",
+      "english": "numerator",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.porcentaje",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "porcentaje",
+      "learnerBaseText": "percentage",
+      "english": "percentage",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.probabilidad",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "probabilidad",
+      "learnerBaseText": "probability",
+      "english": "probability",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.variable",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "variable",
+      "learnerBaseText": "variable",
+      "english": "variable",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.estimacion",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "estimación",
+      "learnerBaseText": "estimate",
+      "english": "estimate",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.medicion",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "medición",
+      "learnerBaseText": "measurement",
+      "english": "measurement",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.unidad",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "unidad",
+      "learnerBaseText": "unit",
+      "english": "unit",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.escala",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "escala",
+      "learnerBaseText": "scale",
+      "english": "scale",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.distancia",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "distancia",
+      "learnerBaseText": "distance",
+      "english": "distance",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.velocidad",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "velocidad",
+      "learnerBaseText": "speed",
+      "english": "speed",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.aceleracion",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "aceleración",
+      "learnerBaseText": "acceleration",
+      "english": "acceleration",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.gravedad",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "gravedad",
+      "learnerBaseText": "gravity",
+      "english": "gravity",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.energia",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "energía",
+      "learnerBaseText": "energy",
+      "english": "energy",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.electricidad",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "electricidad",
+      "learnerBaseText": "electricity",
+      "english": "electricity",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.magnetismo",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "magnetismo",
+      "learnerBaseText": "magnetism",
+      "english": "magnetism",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.friccion",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "fricción",
+      "learnerBaseText": "friction",
+      "english": "friction",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.densidad",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "densidad",
+      "learnerBaseText": "density",
+      "english": "density",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.temperatura",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "temperatura",
+      "learnerBaseText": "temperature",
+      "english": "temperature",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.humedad",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "humedad",
+      "learnerBaseText": "humidity",
+      "english": "humidity",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.evaporacion",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "evaporación",
+      "learnerBaseText": "evaporation",
+      "english": "evaporation",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.condensacion",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "condensación",
+      "learnerBaseText": "condensation",
+      "english": "condensation",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.erosion",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "erosión",
+      "learnerBaseText": "erosion",
+      "english": "erosion",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.biodiversidad",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "biodiversidad",
+      "learnerBaseText": "biodiversity",
+      "english": "biodiversity",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.ecosistema",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "ecosistema",
+      "learnerBaseText": "ecosystem",
+      "english": "ecosystem",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.adaptacion",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "adaptación",
+      "learnerBaseText": "adaptation",
+      "english": "adaptation",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.migracion",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "migración",
+      "learnerBaseText": "migration",
+      "english": "migration",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.hibernacion",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "hibernación",
+      "learnerBaseText": "hibernation",
+      "english": "hibernation",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.metamorfosis",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "metamorfosis",
+      "learnerBaseText": "metamorphosis",
+      "english": "metamorphosis",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.ciclo",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "ciclo",
+      "learnerBaseText": "cycle",
+      "english": "cycle",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.orbita",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "órbita",
+      "learnerBaseText": "orbit",
+      "english": "orbit",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.satelite",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "satélite",
+      "learnerBaseText": "satellite",
+      "english": "satellite",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.asteroide",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "asteroide",
+      "learnerBaseText": "asteroid",
+      "english": "asteroid",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.meteorito",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "meteorito",
+      "learnerBaseText": "meteorite",
+      "english": "meteorite",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.galaxia",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "galaxia",
+      "learnerBaseText": "galaxy",
+      "english": "galaxy",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.nebulosa",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "nebulosa",
+      "learnerBaseText": "nebula",
+      "english": "nebula",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.eclipse",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "eclipse",
+      "learnerBaseText": "eclipse",
+      "english": "eclipse",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.equinoccio",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "equinoccio",
+      "learnerBaseText": "equinox",
+      "english": "equinox",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.solsticio",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "solsticio",
+      "learnerBaseText": "solstice",
+      "english": "solstice",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.atmosfera",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "atmósfera",
+      "learnerBaseText": "atmosphere",
+      "english": "atmosphere",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.solidaridad",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "solidaridad",
+      "learnerBaseText": "solidarity",
+      "english": "solidarity",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.empatia",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "empatía",
+      "learnerBaseText": "empathy",
+      "english": "empathy",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.generosidad",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "generosidad",
+      "learnerBaseText": "generosity",
+      "english": "generosity",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.honestidad",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "honestidad",
+      "learnerBaseText": "honesty",
+      "english": "honesty",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.confianza",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "confianza",
+      "learnerBaseText": "trust",
+      "english": "trust",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.gratitud",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "gratitud",
+      "learnerBaseText": "gratitude",
+      "english": "gratitude",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.respeto",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "respeto",
+      "learnerBaseText": "respect",
+      "english": "respect",
+      "laneId": "masculine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.iniciativa",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "iniciativa",
+      "learnerBaseText": "initiative",
+      "english": "initiative",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.autonomia",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "autonomía",
+      "learnerBaseText": "autonomy",
+      "english": "autonomy",
+      "laneId": "feminine"
+    },
+    {
+      "id": "es.gravity.noun.pair260908.perseverancia",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "perseverancia",
+      "learnerBaseText": "perseverance",
+      "english": "perseverance",
+      "laneId": "feminine"
+    }
   ]
 }

@@ -98,6 +98,8 @@ export function isSetupDeliveredAsset(path, bytes, { bootstrapAssets = new Set()
     return false;
   }
   if (path.startsWith("language-runtime/static/data/interface/")) return false;
+  // Keep music and its attribution together in the shared setup download.
+  if (path.startsWith("assets/music/")) return true;
   const courseData = /^courses\/[^/]+\/data\//u.test(path);
   if (courseData && /\/(?:manifest|catalog|models)\.json$/u.test(path)
       && bytes.length <= BOOTSTRAP_SMALL_ASSET_BYTES) return false;

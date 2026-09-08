@@ -8,41 +8,45 @@
     "valid": true,
     "errors": [],
     "warnings": [],
-    "recordCount": 792,
-    "level2Share": 0.713384,
+    "recordCount": 833,
+    "level2Share": 0.708283,
     "duplicateEnglishGroups": 0
   },
   "records": {
-    "total": 792,
+    "total": 833,
     "byDifficulty": {
-      "1": 175,
-      "2": 565,
-      "3": 52
+      "1": 183,
+      "2": 590,
+      "3": 60
     },
     "difficultyShare": {
-      "1": 0.22096,
-      "2": 0.713384,
-      "3": 0.065657
+      "1": 0.219688,
+      "2": 0.708283,
+      "3": 0.072029
     },
     "byCefr": {
-      "A1": 565,
+      "A1": 598,
       "A1/A2": 34,
-      "A2": 18,
+      "A2": 26,
       "Pre-A1/A1": 175
     },
     "byTopic": {
+      "animals": 3,
       "conversation": 144,
+      "creativity": 4,
       "daily-life": 4,
       "feelings": 5,
-      "food": 48,
+      "food": 50,
+      "friendship": 7,
       "home": 55,
       "location": 51,
-      "nature": 6,
+      "music": 3,
+      "nature": 15,
       "people": 81,
       "plans": 4,
-      "play": 54,
+      "play": 60,
       "routine": 49,
-      "school": 60,
+      "school": 67,
       "shopping": 26,
       "technology": 53,
       "time": 48,
@@ -51,7 +55,7 @@
       "weather": 52
     },
     "byReviewStatus": {
-      "codex_reviewed": 792
+      "codex_reviewed": 833
     }
   },
   "guidance": {
@@ -63,6 +67,8 @@
       "concession clause": 1,
       "conditional clause": 3,
       "connect meaning across a richer sentence": 52,
+      "connected-events": 10,
+      "contextual-meaning": 41,
       "contrast clause": 5,
       "contrast phrase": 1,
       "coordinated clauses": 3,
@@ -142,6 +148,7 @@
       "relative location clause": 1,
       "result clause": 3,
       "routine present": 3,
+      "sentence-comprehension": 31,
       "short formula": 207,
       "time clause": 17,
       "time expression": 6,
@@ -154,6 +161,7 @@
     },
     "grammarTags": {
       "adjective_agreement": 1,
+      "animals": 3,
       "be_present": 129,
       "category_choices_opinions": 25,
       "category_classroom_learning": 25,
@@ -175,6 +183,7 @@
       "category_time_calendar": 25,
       "category_travel_transport": 25,
       "category_weather_clothing": 25,
+      "child-friendly-expansion": 41,
       "clitic_placement": 32,
       "codex_authored": 303,
       "common_phrase": 489,
@@ -188,6 +197,7 @@
       "coordinated_infinitives": 1,
       "copular_adjective": 36,
       "copular_genitive": 1,
+      "creativity": 4,
       "dative_experiencer": 2,
       "dative_object": 1,
       "event": 5,
@@ -199,6 +209,8 @@
       "family_tesit-se": 4,
       "family_ucit-se": 4,
       "family_vracet-se": 4,
+      "food": 2,
+      "friendship": 7,
       "function_ask_and_give_directions": 25,
       "function_ask_for_help": 25,
       "function_be_polite": 23,
@@ -254,6 +266,8 @@
       "modal_present": 1,
       "modal_question": 3,
       "modal_reflexive": 2,
+      "music": 3,
+      "nature": 9,
       "negative": 28,
       "negative_imperative": 1,
       "negative_possessive": 1,
@@ -263,6 +277,7 @@
       "past_feminine": 1,
       "past_masculine": 4,
       "past_neuter": 1,
+      "play": 6,
       "possessive": 65,
       "possessive_copular": 3,
       "possessive_location": 1,
@@ -289,6 +304,7 @@
       "relative_location_clause": 1,
       "result_clause": 3,
       "routine_present": 3,
+      "school": 7,
       "short_formula": 207,
       "time_clause": 17,
       "time_expression": 6,
@@ -314,24 +330,24 @@
       "weather_present": 2
     },
     "support": {
-      "translationAvailable": 792,
-      "imageSuitable": 719,
-      "audioSuitable": 792,
-      "dictionarySuitable": 788
+      "translationAvailable": 833,
+      "imageSuitable": 760,
+      "audioSuitable": 833,
+      "dictionarySuitable": 829
     }
   },
   "targets": {
-    "uniquePlayable": 593,
-    "singleton": 226,
+    "uniquePlayable": 753,
+    "singleton": 359,
     "branchable": {
       "minimumRecords": 2,
-      "targetCount": 367,
-      "share": 0.618887
+      "targetCount": 394,
+      "share": 0.52324
     },
     "strong": {
       "minimumRecords": 5,
-      "targetCount": 26,
-      "share": 0.043845
+      "targetCount": 27,
+      "share": 0.035857
     },
     "perTarget": [
       {
@@ -480,6 +496,22 @@
         ],
         "topics": [
           "food"
+        ]
+      },
+      {
+        "normalized": "barevné",
+        "surfaces": [
+          "barevné"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-027"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "creativity"
         ]
       },
       {
@@ -708,6 +740,22 @@
         ]
       },
       {
+        "normalized": "bubnu",
+        "surfaces": [
+          "bubnu"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-018"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "music"
+        ]
+      },
+      {
         "normalized": "budeme",
         "surfaces": [
           "budeme"
@@ -765,10 +813,11 @@
         "surfaces": [
           "byl"
         ],
-        "recordCount": 2,
+        "recordCount": 3,
         "recordIds": [
           "ww-codex-l3-0001-0053",
-          "ww-cp-000021"
+          "ww-cp-000021",
+          "ww-cz-exp260908-041"
         ],
         "difficulties": [
           2,
@@ -776,7 +825,8 @@
         ],
         "topics": [
           "conversation",
-          "feelings"
+          "feelings",
+          "play"
         ]
       },
       {
@@ -785,16 +835,19 @@
           "byla",
           "Byla"
         ],
-        "recordCount": 3,
+        "recordCount": 4,
         "recordIds": [
           "ww-cp-000073",
           "ww-cp-000184",
-          "ww-cp-000324"
+          "ww-cp-000324",
+          "ww-cz-exp260908-039"
         ],
         "difficulties": [
-          2
+          2,
+          3
         ],
         "topics": [
+          "friendship",
           "play",
           "school",
           "time"
@@ -1009,15 +1062,17 @@
         "surfaces": [
           "čerstvý"
         ],
-        "recordCount": 1,
+        "recordCount": 2,
         "recordIds": [
-          "ww-cp-000240"
+          "ww-cp-000240",
+          "ww-cz-exp260908-013"
         ],
         "difficulties": [
           2
         ],
         "topics": [
-          "food"
+          "food",
+          "nature"
         ]
       },
       {
@@ -1138,6 +1193,38 @@
         ]
       },
       {
+        "normalized": "dalekohledem",
+        "surfaces": [
+          "dalekohledem"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-019"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "play"
+        ]
+      },
+      {
+        "normalized": "dává",
+        "surfaces": [
+          "dává"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-021"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "friendship"
+        ]
+      },
+      {
         "normalized": "dávej",
         "surfaces": [
           "Dávej"
@@ -1162,18 +1249,21 @@
           "dědeček",
           "Dědeček"
         ],
-        "recordCount": 3,
+        "recordCount": 4,
         "recordIds": [
           "ww-codex-l3-0001-0055",
           "ww-cp-000131",
-          "ww-cp-000146"
+          "ww-cp-000146",
+          "ww-cz-exp260908-026"
         ],
         "difficulties": [
           1,
+          2,
           3
         ],
         "topics": [
           "feelings",
+          "food",
           "people"
         ]
       },
@@ -1193,6 +1283,22 @@
         "topics": [
           "home",
           "shopping"
+        ]
+      },
+      {
+        "normalized": "děkovný",
+        "surfaces": [
+          "děkovný"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-041"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "play"
         ]
       },
       {
@@ -1329,6 +1435,38 @@
         ],
         "topics": [
           "play"
+        ]
+      },
+      {
+        "normalized": "díry",
+        "surfaces": [
+          "díry"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-034"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
+        "normalized": "divadlo",
+        "surfaces": [
+          "divadlo"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-037"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "creativity"
         ]
       },
       {
@@ -1696,18 +1834,57 @@
         ]
       },
       {
-        "normalized": "drobné",
+        "normalized": "drak",
         "surfaces": [
-          "drobné"
+          "drak",
+          "Drak"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-cz-exp260908-003",
+          "ww-cz-exp260908-027"
+        ],
+        "difficulties": [
+          1,
+          2
+        ],
+        "topics": [
+          "creativity",
+          "play"
+        ]
+      },
+      {
+        "normalized": "drobná",
+        "surfaces": [
+          "drobná"
         ],
         "recordCount": 1,
         "recordIds": [
-          "ww-cp-000256"
+          "ww-cz-exp260908-034"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
+        "normalized": "drobné",
+        "surfaces": [
+          "drobné",
+          "Drobné"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-cp-000256",
+          "ww-cz-exp260908-013"
         ],
         "difficulties": [
           2
         ],
         "topics": [
+          "nature",
           "shopping"
         ]
       },
@@ -1728,18 +1905,54 @@
         ]
       },
       {
-        "normalized": "dva",
+        "normalized": "drží",
         "surfaces": [
-          "dva"
+          "drží"
         ],
-        "recordCount": 1,
+        "recordCount": 2,
         "recordIds": [
-          "ww-cp-000252"
+          "ww-cz-exp260908-017",
+          "ww-cz-exp260908-018"
         ],
         "difficulties": [
           2
         ],
         "topics": [
+          "music",
+          "school"
+        ]
+      },
+      {
+        "normalized": "duhu",
+        "surfaces": [
+          "duhu"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-008"
+        ],
+        "difficulties": [
+          1
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
+        "normalized": "dva",
+        "surfaces": [
+          "dva"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-cp-000252",
+          "ww-cz-exp260908-028"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "school",
           "shopping"
         ]
       },
@@ -1897,6 +2110,22 @@
         ],
         "topics": [
           "conversation"
+        ]
+      },
+      {
+        "normalized": "hádanka",
+        "surfaces": [
+          "hádanka"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-039"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "friendship"
         ]
       },
       {
@@ -2200,6 +2429,22 @@
         ]
       },
       {
+        "normalized": "housenka",
+        "surfaces": [
+          "housenka"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-034"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
         "normalized": "hra",
         "surfaces": [
           "hra"
@@ -2283,6 +2528,40 @@
         ],
         "topics": [
           "food"
+        ]
+      },
+      {
+        "normalized": "hrou",
+        "surfaces": [
+          "hrou"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-041"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "play"
+        ]
+      },
+      {
+        "normalized": "hru",
+        "surfaces": [
+          "hru"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-cz-exp260908-012",
+          "ww-cz-exp260908-025"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "friendship",
+          "play"
         ]
       },
       {
@@ -2541,14 +2820,16 @@
       {
         "normalized": "jak",
         "surfaces": [
+          "jak",
           "Jak"
         ],
-        "recordCount": 4,
+        "recordCount": 5,
         "recordIds": [
           "ww-cp-000006",
           "ww-cp-000011",
           "ww-cp-000065",
-          "ww-cp-000093"
+          "ww-cp-000093",
+          "ww-cz-exp260908-026"
         ],
         "difficulties": [
           1,
@@ -2556,7 +2837,24 @@
         ],
         "topics": [
           "conversation",
+          "food",
           "school"
+        ]
+      },
+      {
+        "normalized": "jako",
+        "surfaces": [
+          "jako"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-022"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "creativity"
         ]
       },
       {
@@ -2650,6 +2948,27 @@
         ]
       },
       {
+        "normalized": "je",
+        "surfaces": [
+          "je"
+        ],
+        "recordCount": 3,
+        "recordIds": [
+          "ww-cz-exp260908-003",
+          "ww-cz-exp260908-005",
+          "ww-cz-exp260908-034"
+        ],
+        "difficulties": [
+          1,
+          3
+        ],
+        "topics": [
+          "nature",
+          "play",
+          "school"
+        ]
+      },
+      {
         "normalized": "jeď",
         "surfaces": [
           "Jeď"
@@ -2684,6 +3003,22 @@
         ]
       },
       {
+        "normalized": "jeho",
+        "surfaces": [
+          "jeho"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-036"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "school"
+        ]
+      },
+      {
         "normalized": "ještě",
         "surfaces": [
           "Ještě"
@@ -2702,6 +3037,24 @@
           "conversation",
           "people",
           "time"
+        ]
+      },
+      {
+        "normalized": "ji",
+        "surfaces": [
+          "ji"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-cz-exp260908-039",
+          "ww-cz-exp260908-040"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "friendship",
+          "school"
         ]
       },
       {
@@ -2775,18 +3128,37 @@
         ]
       },
       {
+        "normalized": "jména",
+        "surfaces": [
+          "jména"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-023"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "school"
+        ]
+      },
+      {
         "normalized": "jméno",
         "surfaces": [
           "jméno"
         ],
-        "recordCount": 1,
+        "recordCount": 2,
         "recordIds": [
-          "ww-cp-000056"
+          "ww-cp-000056",
+          "ww-cz-exp260908-033"
         ],
         "difficulties": [
-          1
+          1,
+          2
         ],
         "topics": [
+          "friendship",
           "school"
         ]
       },
@@ -2866,16 +3238,19 @@
         "surfaces": [
           "kamarád"
         ],
-        "recordCount": 2,
+        "recordCount": 3,
         "recordIds": [
           "ww-cp-000013",
-          "ww-cp-000133"
+          "ww-cp-000133",
+          "ww-cz-exp260908-018"
         ],
         "difficulties": [
-          1
+          1,
+          2
         ],
         "topics": [
           "conversation",
+          "music",
           "people"
         ]
       },
@@ -2901,11 +3276,43 @@
         ]
       },
       {
+        "normalized": "kameni",
+        "surfaces": [
+          "kameni"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-016"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
+        "normalized": "kartonu",
+        "surfaces": [
+          "kartonu"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-010"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "creativity"
+        ]
+      },
+      {
         "normalized": "kde",
         "surfaces": [
           "Kde"
         ],
-        "recordCount": 8,
+        "recordCount": 9,
         "recordIds": [
           "ww-cp-000085",
           "ww-cp-000134",
@@ -2914,7 +3321,8 @@
           "ww-cp-000221",
           "ww-cp-000267",
           "ww-cp-000371",
-          "ww-cp-000376"
+          "ww-cp-000376",
+          "ww-cz-exp260908-005"
         ],
         "difficulties": [
           1,
@@ -2925,6 +3333,7 @@
           "home",
           "location",
           "people",
+          "school",
           "shopping",
           "transport"
         ]
@@ -2943,6 +3352,43 @@
         ],
         "topics": [
           "people"
+        ]
+      },
+      {
+        "normalized": "když",
+        "surfaces": [
+          "když",
+          "Když"
+        ],
+        "recordCount": 4,
+        "recordIds": [
+          "ww-cz-exp260908-034",
+          "ww-cz-exp260908-035",
+          "ww-cz-exp260908-038",
+          "ww-cz-exp260908-039"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "friendship",
+          "nature"
+        ]
+      },
+      {
+        "normalized": "ke",
+        "surfaces": [
+          "ke"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-031"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "music"
         ]
       },
       {
@@ -3016,6 +3462,22 @@
         ]
       },
       {
+        "normalized": "knedlíčky",
+        "surfaces": [
+          "knedlíčky"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-026"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "food"
+        ]
+      },
+      {
         "normalized": "knihu",
         "surfaces": [
           "knihu"
@@ -3034,6 +3496,22 @@
         "topics": [
           "people",
           "school"
+        ]
+      },
+      {
+        "normalized": "knoflíky",
+        "surfaces": [
+          "knoflíky"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-027"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "creativity"
         ]
       },
       {
@@ -3110,6 +3588,40 @@
           "location",
           "people",
           "transport"
+        ]
+      },
+      {
+        "normalized": "konci",
+        "surfaces": [
+          "konci"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-cz-exp260908-014",
+          "ww-cz-exp260908-031"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "music",
+          "play"
+        ]
+      },
+      {
+        "normalized": "konec",
+        "surfaces": [
+          "konec"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-021"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "friendship"
         ]
       },
       {
@@ -3231,6 +3743,22 @@
         ]
       },
       {
+        "normalized": "krabici",
+        "surfaces": [
+          "krabici"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-037"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "creativity"
+        ]
+      },
+      {
         "normalized": "krabicí",
         "surfaces": [
           "krabicí"
@@ -3245,6 +3773,22 @@
         ],
         "topics": [
           "location"
+        ]
+      },
+      {
+        "normalized": "králík",
+        "surfaces": [
+          "Králík"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-001"
+        ],
+        "difficulties": [
+          1
+        ],
+        "topics": [
+          "animals"
         ]
       },
       {
@@ -3280,6 +3824,70 @@
         ]
       },
       {
+        "normalized": "který",
+        "surfaces": [
+          "Který"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-017"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "school"
+        ]
+      },
+      {
+        "normalized": "kteří",
+        "surfaces": [
+          "kteří"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-041"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "play"
+        ]
+      },
+      {
+        "normalized": "kulatá",
+        "surfaces": [
+          "kulatá"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-010"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "creativity"
+        ]
+      },
+      {
+        "normalized": "květ",
+        "surfaces": [
+          "květ"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-020"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
         "normalized": "květinu",
         "surfaces": [
           "květinu"
@@ -3298,6 +3906,22 @@
         "topics": [
           "nature",
           "play"
+        ]
+      },
+      {
+        "normalized": "květu",
+        "surfaces": [
+          "květu"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-020"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "nature"
         ]
       },
       {
@@ -3321,15 +3945,33 @@
         "surfaces": [
           "legrační"
         ],
-        "recordCount": 1,
+        "recordCount": 2,
         "recordIds": [
-          "ww-cp-000439"
+          "ww-cp-000439",
+          "ww-cz-exp260908-021"
         ],
         "difficulties": [
           2
         ],
         "topics": [
-          "conversation"
+          "conversation",
+          "friendship"
+        ]
+      },
+      {
+        "normalized": "lehce",
+        "surfaces": [
+          "lehce"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-024"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "nature"
         ]
       },
       {
@@ -3364,6 +4006,22 @@
         ],
         "topics": [
           "conversation"
+        ]
+      },
+      {
+        "normalized": "lesklou",
+        "surfaces": [
+          "lesklou"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-016"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "nature"
         ]
       },
       {
@@ -3423,6 +4081,22 @@
         ]
       },
       {
+        "normalized": "list",
+        "surfaces": [
+          "list"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-009"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "animals"
+        ]
+      },
+      {
         "normalized": "lístek",
         "surfaces": [
           "lístek",
@@ -3438,6 +4112,38 @@
         ],
         "topics": [
           "transport"
+        ]
+      },
+      {
+        "normalized": "listu",
+        "surfaces": [
+          "listu"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-034"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
+        "normalized": "listy",
+        "surfaces": [
+          "listy"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-028"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "school"
         ]
       },
       {
@@ -3475,6 +4181,54 @@
         ]
       },
       {
+        "normalized": "loutka",
+        "surfaces": [
+          "Loutka"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-014"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "play"
+        ]
+      },
+      {
+        "normalized": "loutkové",
+        "surfaces": [
+          "loutkové"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-037"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "creativity"
+        ]
+      },
+      {
+        "normalized": "lupy",
+        "surfaces": [
+          "lupy"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-028"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "school"
+        ]
+      },
+      {
         "normalized": "lžíci",
         "surfaces": [
           "lžíci"
@@ -3489,6 +4243,38 @@
         ],
         "topics": [
           "food"
+        ]
+      },
+      {
+        "normalized": "má",
+        "surfaces": [
+          "má"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-010"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "creativity"
+        ]
+      },
+      {
+        "normalized": "magnet",
+        "surfaces": [
+          "magnet"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-017"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "school"
         ]
       },
       {
@@ -3524,6 +4310,22 @@
         ]
       },
       {
+        "normalized": "malém",
+        "surfaces": [
+          "malém"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-018"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "music"
+        ]
+      },
+      {
         "normalized": "malý",
         "surfaces": [
           "malý"
@@ -3546,7 +4348,7 @@
           "mám",
           "Mám"
         ],
-        "recordCount": 14,
+        "recordCount": 15,
         "recordIds": [
           "ww-cp-000007",
           "ww-cp-000023",
@@ -3561,7 +4363,8 @@
           "ww-cp-000125",
           "ww-cp-000193",
           "ww-cp-000288",
-          "ww-cp-000289"
+          "ww-cp-000289",
+          "ww-cz-exp260908-029"
         ],
         "difficulties": [
           1,
@@ -3569,6 +4372,7 @@
         ],
         "topics": [
           "conversation",
+          "friendship",
           "people",
           "time",
           "weather"
@@ -3647,6 +4451,38 @@
         ]
       },
       {
+        "normalized": "mě",
+        "surfaces": [
+          "mě"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-012"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "friendship"
+        ]
+      },
+      {
+        "normalized": "medvěd",
+        "surfaces": [
+          "medvěd"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-022"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "creativity"
+        ]
+      },
+      {
         "normalized": "měj",
         "surfaces": [
           "Měj"
@@ -3680,6 +4516,22 @@
         ]
       },
       {
+        "normalized": "mém",
+        "surfaces": [
+          "mém"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-027"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "creativity"
+        ]
+      },
+      {
         "normalized": "méně",
         "surfaces": [
           "méně"
@@ -3693,6 +4545,22 @@
         ],
         "topics": [
           "shopping"
+        ]
+      },
+      {
+        "normalized": "měříme",
+        "surfaces": [
+          "Měříme"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-011"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "school"
         ]
       },
       {
@@ -3730,6 +4598,22 @@
         ],
         "topics": [
           "play"
+        ]
+      },
+      {
+        "normalized": "mícháme",
+        "surfaces": [
+          "mícháme"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-015"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "food"
         ]
       },
       {
@@ -3814,6 +4698,26 @@
         ],
         "topics": [
           "time"
+        ]
+      },
+      {
+        "normalized": "místo",
+        "surfaces": [
+          "místo",
+          "Místo"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-cz-exp260908-023",
+          "ww-cz-exp260908-037"
+        ],
+        "difficulties": [
+          2,
+          3
+        ],
+        "topics": [
+          "creativity",
+          "school"
         ]
       },
       {
@@ -3918,6 +4822,22 @@
         ]
       },
       {
+        "normalized": "model",
+        "surfaces": [
+          "Model"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-036"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "school"
+        ]
+      },
+      {
         "normalized": "modrá",
         "surfaces": [
           "modrá"
@@ -3932,6 +4852,38 @@
         ],
         "topics": [
           "weather"
+        ]
+      },
+      {
+        "normalized": "modrý",
+        "surfaces": [
+          "modrý"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-003"
+        ],
+        "difficulties": [
+          1
+        ],
+        "topics": [
+          "play"
+        ]
+      },
+      {
+        "normalized": "moje",
+        "surfaces": [
+          "moje"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-005"
+        ],
+        "difficulties": [
+          1
+        ],
+        "topics": [
+          "school"
         ]
       },
       {
@@ -3987,20 +4939,40 @@
         ]
       },
       {
-        "normalized": "možná",
+        "normalized": "most",
         "surfaces": [
-          "Možná"
+          "most"
         ],
-        "recordCount": 2,
+        "recordCount": 1,
         "recordIds": [
-          "ww-cp-000418",
-          "ww-cp-000428"
+          "ww-cz-exp260908-032"
         ],
         "difficulties": [
           2
         ],
         "topics": [
-          "conversation"
+          "play"
+        ]
+      },
+      {
+        "normalized": "možná",
+        "surfaces": [
+          "možná",
+          "Možná"
+        ],
+        "recordCount": 3,
+        "recordIds": [
+          "ww-cp-000418",
+          "ww-cp-000428",
+          "ww-cz-exp260908-035"
+        ],
+        "difficulties": [
+          2,
+          3
+        ],
+        "topics": [
+          "conversation",
+          "friendship"
         ]
       },
       {
@@ -4017,6 +4989,41 @@
         ],
         "topics": [
           "conversation"
+        ]
+      },
+      {
+        "normalized": "mraky",
+        "surfaces": [
+          "mraky"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-030"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
+        "normalized": "můj",
+        "surfaces": [
+          "Můj"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-cz-exp260908-003",
+          "ww-cz-exp260908-018"
+        ],
+        "difficulties": [
+          1,
+          2
+        ],
+        "topics": [
+          "music",
+          "play"
         ]
       },
       {
@@ -4257,6 +5264,22 @@
         ]
       },
       {
+        "normalized": "najdeme",
+        "surfaces": [
+          "najdeme"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-035"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "friendship"
+        ]
+      },
+      {
         "normalized": "najdi",
         "surfaces": [
           "Najdi"
@@ -4330,19 +5353,56 @@
         ]
       },
       {
+        "normalized": "nám",
+        "surfaces": [
+          "nám"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-cz-exp260908-007",
+          "ww-cz-exp260908-026"
+        ],
+        "difficulties": [
+          1,
+          2
+        ],
+        "topics": [
+          "food",
+          "friendship"
+        ]
+      },
+      {
         "normalized": "nápad",
         "surfaces": [
           "nápad"
         ],
-        "recordCount": 1,
+        "recordCount": 2,
         "recordIds": [
-          "ww-cp-000424"
+          "ww-cp-000424",
+          "ww-cz-exp260908-021"
         ],
         "difficulties": [
           2
         ],
         "topics": [
-          "conversation"
+          "conversation",
+          "friendship"
+        ]
+      },
+      {
+        "normalized": "nápady",
+        "surfaces": [
+          "nápady"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-035"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "friendship"
         ]
       },
       {
@@ -4415,17 +5475,86 @@
       {
         "normalized": "náš",
         "surfaces": [
+          "náš",
           "Náš"
         ],
-        "recordCount": 1,
+        "recordCount": 4,
         "recordIds": [
-          "ww-cp-000322"
+          "ww-cp-000322",
+          "ww-cz-exp260908-017",
+          "ww-cz-exp260908-025",
+          "ww-cz-exp260908-032"
         ],
         "difficulties": [
           2
         ],
         "topics": [
-          "play"
+          "play",
+          "school"
+        ]
+      },
+      {
+        "normalized": "naše",
+        "surfaces": [
+          "Naše"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-010"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "creativity"
+        ]
+      },
+      {
+        "normalized": "našemu",
+        "surfaces": [
+          "našemu"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-021"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "friendship"
+        ]
+      },
+      {
+        "normalized": "naším",
+        "surfaces": [
+          "naším"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-040"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "school"
+        ]
+      },
+      {
+        "normalized": "naučíš",
+        "surfaces": [
+          "Naučíš"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-012"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "friendship"
         ]
       },
       {
@@ -4530,15 +5659,35 @@
         "surfaces": [
           "Nech"
         ],
-        "recordCount": 1,
+        "recordCount": 2,
         "recordIds": [
-          "ww-cp-000099"
+          "ww-cp-000099",
+          "ww-cz-exp260908-023"
         ],
         "difficulties": [
           2
         ],
         "topics": [
-          "conversation"
+          "conversation",
+          "school"
+        ]
+      },
+      {
+        "normalized": "nechává",
+        "surfaces": [
+          "nechává"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-cz-exp260908-016",
+          "ww-cz-exp260908-034"
+        ],
+        "difficulties": [
+          2,
+          3
+        ],
+        "topics": [
+          "nature"
         ]
       },
       {
@@ -4674,6 +5823,22 @@
           "food",
           "people",
           "time"
+        ]
+      },
+      {
+        "normalized": "nemusel",
+        "surfaces": [
+          "nemusel"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-039"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "friendship"
         ]
       },
       {
@@ -4956,6 +6121,57 @@
         ]
       },
       {
+        "normalized": "než",
+        "surfaces": [
+          "Než"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-cz-exp260908-033",
+          "ww-cz-exp260908-040"
+        ],
+        "difficulties": [
+          2,
+          3
+        ],
+        "topics": [
+          "friendship",
+          "school"
+        ]
+      },
+      {
+        "normalized": "nikdo",
+        "surfaces": [
+          "nikdo"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-039"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "friendship"
+        ]
+      },
+      {
+        "normalized": "nové",
+        "surfaces": [
+          "nové"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-025"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "play"
+        ]
+      },
+      {
         "normalized": "nudím",
         "surfaces": [
           "Nudím"
@@ -4969,6 +6185,22 @@
         ],
         "topics": [
           "people"
+        ]
+      },
+      {
+        "normalized": "oba",
+        "surfaces": [
+          "oba"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-035"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "friendship"
         ]
       },
       {
@@ -5020,6 +6252,22 @@
         ],
         "topics": [
           "shopping"
+        ]
+      },
+      {
+        "normalized": "oblázků",
+        "surfaces": [
+          "oblázků"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-032"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "play"
         ]
       },
       {
@@ -5111,11 +6359,12 @@
         "surfaces": [
           "obrázek"
         ],
-        "recordCount": 3,
+        "recordCount": 4,
         "recordIds": [
           "ww-codex-exp-0001-0013",
           "ww-cp-000313",
-          "ww-cp-000488"
+          "ww-cp-000488",
+          "ww-cz-exp260908-017"
         ],
         "difficulties": [
           2
@@ -5123,6 +6372,7 @@
         "topics": [
           "people",
           "play",
+          "school",
           "technology"
         ]
       },
@@ -5143,6 +6393,22 @@
         ],
         "topics": [
           "technology"
+        ]
+      },
+      {
+        "normalized": "obrovský",
+        "surfaces": [
+          "obrovský"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-022"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "creativity"
         ]
       },
       {
@@ -5282,6 +6548,38 @@
         ]
       },
       {
+        "normalized": "odráží",
+        "surfaces": [
+          "odráží"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-030"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
+        "normalized": "okna",
+        "surfaces": [
+          "okna"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-010"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "creativity"
+        ]
+      },
+      {
         "normalized": "okno",
         "surfaces": [
           "okno"
@@ -5362,6 +6660,22 @@
         ],
         "topics": [
           "conversation"
+        ]
+      },
+      {
+        "normalized": "oříšek",
+        "surfaces": [
+          "oříšek"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-009"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "animals"
         ]
       },
       {
@@ -5455,6 +6769,22 @@
         ]
       },
       {
+        "normalized": "palačinky",
+        "surfaces": [
+          "palačinky"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-015"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "food"
+        ]
+      },
+      {
         "normalized": "pamatuji",
         "surfaces": [
           "Pamatuji"
@@ -5468,6 +6798,22 @@
         ],
         "topics": [
           "conversation"
+        ]
+      },
+      {
+        "normalized": "papírový",
+        "surfaces": [
+          "papírový"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-032"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "play"
         ]
       },
       {
@@ -5509,6 +6855,22 @@
         ]
       },
       {
+        "normalized": "pastelka",
+        "surfaces": [
+          "pastelka"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-005"
+        ],
+        "difficulties": [
+          1
+        ],
+        "topics": [
+          "school"
+        ]
+      },
+      {
         "normalized": "peníze",
         "surfaces": [
           "peníze"
@@ -5527,20 +6889,54 @@
         ]
       },
       {
-        "normalized": "pět",
+        "normalized": "peříčko",
         "surfaces": [
-          "pět"
+          "Peříčko"
         ],
-        "recordCount": 2,
+        "recordCount": 1,
         "recordIds": [
-          "ww-cp-000192",
-          "ww-cp-000198"
+          "ww-cz-exp260908-024"
         ],
         "difficulties": [
           2
         ],
         "topics": [
+          "nature"
+        ]
+      },
+      {
+        "normalized": "pět",
+        "surfaces": [
+          "pět"
+        ],
+        "recordCount": 3,
+        "recordIds": [
+          "ww-cp-000192",
+          "ww-cp-000198",
+          "ww-cz-exp260908-032"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "play",
           "time"
+        ]
+      },
+      {
+        "normalized": "píseň",
+        "surfaces": [
+          "Píseň"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-031"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "music"
         ]
       },
       {
@@ -5578,6 +6974,22 @@
         ],
         "topics": [
           "food"
+        ]
+      },
+      {
+        "normalized": "plakátu",
+        "surfaces": [
+          "plakátu"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-023"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "school"
         ]
       },
       {
@@ -5730,17 +7142,20 @@
         "surfaces": [
           "Podívej"
         ],
-        "recordCount": 3,
+        "recordCount": 4,
         "recordIds": [
           "ww-cp-000058",
           "ww-cp-000205",
-          "ww-cp-000335"
+          "ww-cp-000335",
+          "ww-cz-exp260908-008"
         ],
         "difficulties": [
+          1,
           2
         ],
         "topics": [
           "location",
+          "nature",
           "routine",
           "school"
         ]
@@ -5871,6 +7286,22 @@
         ]
       },
       {
+        "normalized": "pokladem",
+        "surfaces": [
+          "Pokladem"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-041"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "play"
+        ]
+      },
+      {
         "normalized": "pokoj",
         "surfaces": [
           "pokoj",
@@ -5945,13 +7376,15 @@
       {
         "normalized": "pomalu",
         "surfaces": [
-          "pomalu"
+          "pomalu",
+          "Pomalu"
         ],
-        "recordCount": 3,
+        "recordCount": 4,
         "recordIds": [
           "ww-cp-000082",
           "ww-cp-000373",
-          "ww-cp-000391"
+          "ww-cp-000391",
+          "ww-cz-exp260908-015"
         ],
         "difficulties": [
           1,
@@ -5959,6 +7392,7 @@
         ],
         "topics": [
           "conversation",
+          "food",
           "home",
           "transport"
         ]
@@ -6003,6 +7437,22 @@
         ]
       },
       {
+        "normalized": "pomocí",
+        "surfaces": [
+          "pomocí"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-028"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "school"
+        ]
+      },
+      {
         "normalized": "pomoct",
         "surfaces": [
           "pomoct"
@@ -6016,6 +7466,22 @@
         ],
         "topics": [
           "conversation"
+        ]
+      },
+      {
+        "normalized": "pomohli",
+        "surfaces": [
+          "pomohli"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-041"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "play"
         ]
       },
       {
@@ -6102,6 +7568,38 @@
         ]
       },
       {
+        "normalized": "porovnali",
+        "surfaces": [
+          "porovnali"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-040"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "school"
+        ]
+      },
+      {
+        "normalized": "porovnáváme",
+        "surfaces": [
+          "Porovnáváme"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-028"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "school"
+        ]
+      },
+      {
         "normalized": "pořádku",
         "surfaces": [
           "pořádku"
@@ -6137,6 +7635,38 @@
         ],
         "topics": [
           "home"
+        ]
+      },
+      {
+        "normalized": "poskakuje",
+        "surfaces": [
+          "poskakuje"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-001"
+        ],
+        "difficulties": [
+          1
+        ],
+        "topics": [
+          "animals"
+        ]
+      },
+      {
+        "normalized": "poslední",
+        "surfaces": [
+          "Poslední"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-029"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "friendship"
         ]
       },
       {
@@ -6395,6 +7925,38 @@
         ]
       },
       {
+        "normalized": "pozorování",
+        "surfaces": [
+          "pozorování"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-019"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "play"
+        ]
+      },
+      {
+        "normalized": "pozorováním",
+        "surfaces": [
+          "pozorováním"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-040"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "school"
+        ]
+      },
+      {
         "normalized": "práce",
         "surfaces": [
           "práce"
@@ -6448,19 +8010,87 @@
         ]
       },
       {
-        "normalized": "proč",
+        "normalized": "pravidlo",
         "surfaces": [
-          "Proč"
+          "pravidlo"
         ],
         "recordCount": 1,
         "recordIds": [
-          "ww-cp-000092"
+          "ww-cz-exp260908-025"
         ],
         "difficulties": [
-          1
+          2
         ],
         "topics": [
-          "conversation"
+          "play"
+        ]
+      },
+      {
+        "normalized": "pravítkem",
+        "surfaces": [
+          "pravítkem"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-011"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "school"
+        ]
+      },
+      {
+        "normalized": "proč",
+        "surfaces": [
+          "proč",
+          "Proč"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-cp-000092",
+          "ww-cz-exp260908-038"
+        ],
+        "difficulties": [
+          1,
+          3
+        ],
+        "topics": [
+          "conversation",
+          "nature"
+        ]
+      },
+      {
+        "normalized": "prodlužuje",
+        "surfaces": [
+          "prodlužuje"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-038"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
+        "normalized": "proměnili",
+        "surfaces": [
+          "proměnili"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-037"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "creativity"
         ]
       },
       {
@@ -6485,7 +8115,7 @@
           "prosím",
           "Prosím"
         ],
-        "recordCount": 11,
+        "recordCount": 13,
         "recordIds": [
           "ww-cp-000026",
           "ww-cp-000040",
@@ -6497,7 +8127,9 @@
           "ww-cp-000241",
           "ww-cp-000330",
           "ww-cp-000337",
-          "ww-cp-000420"
+          "ww-cp-000420",
+          "ww-cz-exp260908-007",
+          "ww-cz-exp260908-023"
         ],
         "difficulties": [
           1,
@@ -6506,8 +8138,10 @@
         "topics": [
           "conversation",
           "food",
+          "friendship",
           "location",
-          "routine"
+          "routine",
+          "school"
         ]
       },
       {
@@ -6567,6 +8201,38 @@
         ]
       },
       {
+        "normalized": "předpověď",
+        "surfaces": [
+          "předpověď"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-040"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "school"
+        ]
+      },
+      {
+        "normalized": "představení",
+        "surfaces": [
+          "představení"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-014"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "play"
+        ]
+      },
+      {
         "normalized": "přejdi",
         "surfaces": [
           "Přejdi"
@@ -6584,6 +8250,54 @@
         ]
       },
       {
+        "normalized": "přemýšleli",
+        "surfaces": [
+          "Přemýšleli"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-038"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
+        "normalized": "přenášejí",
+        "surfaces": [
+          "přenášejí"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-020"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
+        "normalized": "přes",
+        "surfaces": [
+          "přes"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-013"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
         "normalized": "přestávku",
         "surfaces": [
           "přestávku"
@@ -6597,6 +8311,22 @@
         ],
         "topics": [
           "people"
+        ]
+      },
+      {
+        "normalized": "převrátil",
+        "surfaces": [
+          "převrátil"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-036"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "school"
         ]
       },
       {
@@ -6617,6 +8347,40 @@
         ],
         "topics": [
           "play"
+        ]
+      },
+      {
+        "normalized": "příběhu",
+        "surfaces": [
+          "příběhu"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-cz-exp260908-021",
+          "ww-cz-exp260908-027"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "creativity",
+          "friendship"
+        ]
+      },
+      {
+        "normalized": "přidej",
+        "surfaces": [
+          "přidej"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-007"
+        ],
+        "difficulties": [
+          1
+        ],
+        "topics": [
+          "friendship"
         ]
       },
       {
@@ -6810,6 +8574,22 @@
         ]
       },
       {
+        "normalized": "pyl",
+        "surfaces": [
+          "pyl"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-020"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
         "normalized": "ráda",
         "surfaces": [
           "ráda"
@@ -6844,6 +8624,22 @@
         "topics": [
           "conversation",
           "people"
+        ]
+      },
+      {
+        "normalized": "raketa",
+        "surfaces": [
+          "raketa"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-010"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "creativity"
         ]
       },
       {
@@ -6940,6 +8736,22 @@
         ]
       },
       {
+        "normalized": "roste",
+        "surfaces": [
+          "roste"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-002"
+        ],
+        "difficulties": [
+          1
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
         "normalized": "rostlinu",
         "surfaces": [
           "rostlinu"
@@ -7007,6 +8819,22 @@
         ],
         "topics": [
           "home"
+        ]
+      },
+      {
+        "normalized": "rozšířili",
+        "surfaces": [
+          "rozšířili"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-036"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "school"
         ]
       },
       {
@@ -7094,6 +8922,22 @@
         ]
       },
       {
+        "normalized": "rybník",
+        "surfaces": [
+          "Rybník"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-030"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
         "normalized": "rychle",
         "surfaces": [
           "rychle"
@@ -7107,6 +8951,22 @@
         ],
         "topics": [
           "food"
+        ]
+      },
+      {
+        "normalized": "rytmus",
+        "surfaces": [
+          "rytmus"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-018"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "music"
         ]
       },
       {
@@ -7161,6 +9021,38 @@
         ]
       },
       {
+        "normalized": "řešení",
+        "surfaces": [
+          "řešení"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-035"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "friendship"
+        ]
+      },
+      {
+        "normalized": "řešit",
+        "surfaces": [
+          "řešit"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-039"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "friendship"
+        ]
+      },
+      {
         "normalized": "říct",
         "surfaces": [
           "říct"
@@ -7174,6 +9066,38 @@
         ],
         "topics": [
           "conversation"
+        ]
+      },
+      {
+        "normalized": "sám",
+        "surfaces": [
+          "sám"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-039"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "friendship"
+        ]
+      },
+      {
+        "normalized": "samolepku",
+        "surfaces": [
+          "samolepku"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-029"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "friendship"
         ]
       },
       {
@@ -7206,6 +9130,22 @@
         ],
         "topics": [
           "routine"
+        ]
+      },
+      {
+        "normalized": "sbírá",
+        "surfaces": [
+          "sbírá"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-027"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "creativity"
         ]
       },
       {
@@ -7349,6 +9289,22 @@
         ]
       },
       {
+        "normalized": "semeno",
+        "surfaces": [
+          "Semeno"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-002"
+        ],
+        "difficulties": [
+          1
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
         "normalized": "sestra",
         "surfaces": [
           "sestra"
@@ -7433,6 +9389,54 @@
         "topics": [
           "conversation",
           "shopping"
+        ]
+      },
+      {
+        "normalized": "schovanou",
+        "surfaces": [
+          "schovanou"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-029"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "friendship"
+        ]
+      },
+      {
+        "normalized": "schovává",
+        "surfaces": [
+          "schovává"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-009"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "animals"
+        ]
+      },
+      {
+        "normalized": "skládat",
+        "surfaces": [
+          "skládat"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-026"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "food"
         ]
       },
       {
@@ -7538,6 +9542,38 @@
         "topics": [
           "play",
           "weather"
+        ]
+      },
+      {
+        "normalized": "slunce",
+        "surfaces": [
+          "slunce"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-038"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
+        "normalized": "slunečnici",
+        "surfaces": [
+          "slunečnici"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-011"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "school"
         ]
       },
       {
@@ -7670,6 +9706,22 @@
         ]
       },
       {
+        "normalized": "snáší",
+        "surfaces": [
+          "snáší"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-024"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
         "normalized": "sněží",
         "surfaces": [
           "sněží",
@@ -7726,6 +9778,22 @@
         ],
         "topics": [
           "food"
+        ]
+      },
+      {
+        "normalized": "sníh",
+        "surfaces": [
+          "sníh"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-013"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "nature"
         ]
       },
       {
@@ -7787,16 +9855,35 @@
         "surfaces": [
           "spí"
         ],
-        "recordCount": 2,
+        "recordCount": 3,
         "recordIds": [
           "ww-codex-exp-0001-0023",
-          "ww-cp-000141"
+          "ww-cp-000141",
+          "ww-cz-exp260908-006"
         ],
         "difficulties": [
+          1,
           2
         ],
         "topics": [
+          "animals",
           "people"
+        ]
+      },
+      {
+        "normalized": "společně",
+        "surfaces": [
+          "společně"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-004"
+        ],
+        "difficulties": [
+          1
+        ],
+        "topics": [
+          "music"
         ]
       },
       {
@@ -7834,6 +9921,22 @@
         ],
         "topics": [
           "people"
+        ]
+      },
+      {
+        "normalized": "spravedlivé",
+        "surfaces": [
+          "spravedlivé"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-035"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "friendship"
         ]
       },
       {
@@ -7901,6 +10004,26 @@
         ]
       },
       {
+        "normalized": "stín",
+        "surfaces": [
+          "stín",
+          "Stín"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-cz-exp260908-022",
+          "ww-cz-exp260908-038"
+        ],
+        "difficulties": [
+          2,
+          3
+        ],
+        "topics": [
+          "creativity",
+          "nature"
+        ]
+      },
+      {
         "normalized": "stiskni",
         "surfaces": [
           "Stiskni"
@@ -7954,6 +10077,38 @@
         ]
       },
       {
+        "normalized": "stopu",
+        "surfaces": [
+          "stopu"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-016"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
+        "normalized": "stopy",
+        "surfaces": [
+          "stopy"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-013"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
         "normalized": "strany",
         "surfaces": [
           "strany"
@@ -7967,6 +10122,38 @@
         ],
         "topics": [
           "routine"
+        ]
+      },
+      {
+        "normalized": "stromy",
+        "surfaces": [
+          "stromy"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-030"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
+        "normalized": "střídáme",
+        "surfaces": [
+          "Střídáme"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-019"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "play"
         ]
       },
       {
@@ -8202,6 +10389,22 @@
         ]
       },
       {
+        "normalized": "šnek",
+        "surfaces": [
+          "Šnek"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-016"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
         "normalized": "špatné",
         "surfaces": [
           "špatné"
@@ -8275,9 +10478,10 @@
         "surfaces": [
           "tabuli"
         ],
-        "recordCount": 1,
+        "recordCount": 2,
         "recordIds": [
-          "ww-cp-000058"
+          "ww-cp-000058",
+          "ww-cz-exp260908-017"
         ],
         "difficulties": [
           2
@@ -8325,15 +10529,18 @@
         "surfaces": [
           "tak"
         ],
-        "recordCount": 1,
+        "recordCount": 2,
         "recordIds": [
-          "ww-cp-000092"
+          "ww-cp-000092",
+          "ww-cz-exp260908-036"
         ],
         "difficulties": [
-          1
+          1,
+          3
         ],
         "topics": [
-          "conversation"
+          "conversation",
+          "school"
         ]
       },
       {
@@ -8428,6 +10635,22 @@
         ]
       },
       {
+        "normalized": "tančící",
+        "surfaces": [
+          "tančící"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-022"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "creativity"
+        ]
+      },
+      {
         "normalized": "tašce",
         "surfaces": [
           "tašce"
@@ -8508,17 +10731,19 @@
         "surfaces": [
           "tebe"
         ],
-        "recordCount": 2,
+        "recordCount": 3,
         "recordIds": [
           "ww-cp-000046",
-          "ww-cp-000047"
+          "ww-cp-000047",
+          "ww-cz-exp260908-029"
         ],
         "difficulties": [
           1,
           2
         ],
         "topics": [
-          "conversation"
+          "conversation",
+          "friendship"
         ]
       },
       {
@@ -8619,6 +10844,22 @@
         ]
       },
       {
+        "normalized": "těsto",
+        "surfaces": [
+          "těsto"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-015"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "food"
+        ]
+      },
+      {
         "normalized": "těší",
         "surfaces": [
           "těší",
@@ -8676,6 +10917,22 @@
         ]
       },
       {
+        "normalized": "těžká",
+        "surfaces": [
+          "těžká"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-039"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "friendship"
+        ]
+      },
+      {
         "normalized": "těžké",
         "surfaces": [
           "těžké"
@@ -8724,6 +10981,22 @@
         ]
       },
       {
+        "normalized": "tišeji",
+        "surfaces": [
+          "tišeji"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-031"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "music"
+        ]
+      },
+      {
         "normalized": "tlačítko",
         "surfaces": [
           "tlačítko"
@@ -8738,6 +11011,38 @@
         ],
         "topics": [
           "technology"
+        ]
+      },
+      {
+        "normalized": "tleskáme",
+        "surfaces": [
+          "Tleskáme"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-004"
+        ],
+        "difficulties": [
+          1
+        ],
+        "topics": [
+          "music"
+        ]
+      },
+      {
+        "normalized": "tleskáním",
+        "surfaces": [
+          "tleskáním"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-012"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "friendship"
         ]
       },
       {
@@ -8796,6 +11101,22 @@
         ]
       },
       {
+        "normalized": "trávy",
+        "surfaces": [
+          "trávy"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-024"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
         "normalized": "trochu",
         "surfaces": [
           "trochu"
@@ -8813,6 +11134,22 @@
         ]
       },
       {
+        "normalized": "tři",
+        "surfaces": [
+          "tři"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-010"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "creativity"
+        ]
+      },
+      {
         "normalized": "třída",
         "surfaces": [
           "třída"
@@ -8827,6 +11164,22 @@
         ],
         "topics": [
           "location"
+        ]
+      },
+      {
+        "normalized": "tu",
+        "surfaces": [
+          "tu"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-012"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "friendship"
         ]
       },
       {
@@ -8864,6 +11217,22 @@
         ]
       },
       {
+        "normalized": "tvůj",
+        "surfaces": [
+          "Tvůj"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-021"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "friendship"
+        ]
+      },
+      {
         "normalized": "týden",
         "surfaces": [
           "týden",
@@ -8887,14 +11256,15 @@
         "surfaces": [
           "tým"
         ],
-        "recordCount": 6,
+        "recordCount": 7,
         "recordIds": [
           "ww-codex-exp-0001-0017",
           "ww-codex-exp-0001-0125",
           "ww-codex-l3-0001-0008",
           "ww-cp-000140",
           "ww-cp-000322",
-          "ww-cp-000323"
+          "ww-cp-000323",
+          "ww-cz-exp260908-025"
         ],
         "difficulties": [
           1,
@@ -8904,6 +11274,22 @@
         "topics": [
           "people",
           "play"
+        ]
+      },
+      {
+        "normalized": "týmu",
+        "surfaces": [
+          "týmu"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-033"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "friendship"
         ]
       },
       {
@@ -9043,6 +11429,22 @@
         ]
       },
       {
+        "normalized": "ukazuje",
+        "surfaces": [
+          "ukazuje"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-026"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "food"
+        ]
+      },
+      {
         "normalized": "ukaž",
         "surfaces": [
           "ukaž"
@@ -9056,6 +11458,22 @@
         ],
         "topics": [
           "conversation"
+        ]
+      },
+      {
+        "normalized": "uklání",
+        "surfaces": [
+          "uklání"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-014"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "play"
         ]
       },
       {
@@ -9225,6 +11643,22 @@
         ]
       },
       {
+        "normalized": "unese",
+        "surfaces": [
+          "Unese"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-032"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "play"
+        ]
+      },
+      {
         "normalized": "ustel",
         "surfaces": [
           "Ustel"
@@ -9334,6 +11768,22 @@
         ]
       },
       {
+        "normalized": "včely",
+        "surfaces": [
+          "Včely"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-020"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
         "normalized": "včera",
         "surfaces": [
           "Včera"
@@ -9425,6 +11875,22 @@
         ]
       },
       {
+        "normalized": "vedou",
+        "surfaces": [
+          "vedou"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-013"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "nature"
+        ]
+      },
+      {
         "normalized": "velká",
         "surfaces": [
           "velká"
@@ -9447,14 +11913,17 @@
         "surfaces": [
           "velké"
         ],
-        "recordCount": 1,
+        "recordCount": 2,
         "recordIds": [
-          "ww-cp-000264"
+          "ww-cp-000264",
+          "ww-cz-exp260908-034"
         ],
         "difficulties": [
-          2
+          2,
+          3
         ],
         "topics": [
+          "nature",
           "shopping"
         ]
       },
@@ -9526,6 +11995,22 @@
         ],
         "topics": [
           "school"
+        ]
+      },
+      {
+        "normalized": "veverka",
+        "surfaces": [
+          "Veverka"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-009"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "animals"
         ]
       },
       {
@@ -9866,6 +12351,24 @@
         ]
       },
       {
+        "normalized": "všech",
+        "surfaces": [
+          "všech"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-cz-exp260908-023",
+          "ww-cz-exp260908-033"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "friendship",
+          "school"
+        ]
+      },
+      {
         "normalized": "všechno",
         "surfaces": [
           "Všechno"
@@ -9879,6 +12382,22 @@
         ],
         "topics": [
           "routine"
+        ]
+      },
+      {
+        "normalized": "všem",
+        "surfaces": [
+          "všem"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-041"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "play"
         ]
       },
       {
@@ -9898,6 +12417,22 @@
         ],
         "topics": [
           "play"
+        ]
+      },
+      {
+        "normalized": "vybereme",
+        "surfaces": [
+          "vybereme"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-033"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "friendship"
         ]
       },
       {
@@ -9985,6 +12520,22 @@
         ]
       },
       {
+        "normalized": "vyhození",
+        "surfaces": [
+          "vyhození"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-037"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "creativity"
+        ]
+      },
+      {
         "normalized": "vyhrál",
         "surfaces": [
           "vyhrál"
@@ -9993,6 +12544,22 @@
         "recordIds": [
           "ww-cp-000322",
           "ww-cp-000323"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "play"
+        ]
+      },
+      {
+        "normalized": "vymýšlí",
+        "surfaces": [
+          "vymýšlí"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-025"
         ],
         "difficulties": [
           2
@@ -10037,18 +12604,21 @@
       {
         "normalized": "vypadá",
         "surfaces": [
+          "vypadá",
           "Vypadá"
         ],
-        "recordCount": 2,
+        "recordCount": 3,
         "recordIds": [
           "ww-cp-000410",
-          "ww-cp-000411"
+          "ww-cp-000411",
+          "ww-cz-exp260908-022"
         ],
         "difficulties": [
           2
         ],
         "topics": [
-          "conversation"
+          "conversation",
+          "creativity"
         ]
       },
       {
@@ -10106,6 +12676,22 @@
         ]
       },
       {
+        "normalized": "vyslechneme",
+        "surfaces": [
+          "vyslechneme"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-035"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "friendship"
+        ]
+      },
+      {
         "normalized": "vystoupit",
         "surfaces": [
           "vystoupit"
@@ -10158,6 +12744,22 @@
         ],
         "topics": [
           "shopping"
+        ]
+      },
+      {
+        "normalized": "vzkaz",
+        "surfaces": [
+          "vzkaz"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-041"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "play"
         ]
       },
       {
@@ -10311,6 +12913,22 @@
         ]
       },
       {
+        "normalized": "základnu",
+        "surfaces": [
+          "základnu"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-036"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "school"
+        ]
+      },
+      {
         "normalized": "zalij",
         "surfaces": [
           "Zalij"
@@ -10342,6 +12960,22 @@
         ],
         "topics": [
           "home"
+        ]
+      },
+      {
+        "normalized": "zapadá",
+        "surfaces": [
+          "zapadá"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-038"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "nature"
         ]
       },
       {
@@ -10540,6 +13174,22 @@
         ]
       },
       {
+        "normalized": "zeptáme",
+        "surfaces": [
+          "zeptáme"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-033"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "friendship"
+        ]
+      },
+      {
         "normalized": "zeptat",
         "surfaces": [
           "zeptat"
@@ -10709,6 +13359,22 @@
         ]
       },
       {
+        "normalized": "změnili",
+        "surfaces": [
+          "změnili"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-040"
+        ],
+        "difficulties": [
+          3
+        ],
+        "topics": [
+          "school"
+        ]
+      },
+      {
         "normalized": "znám",
         "surfaces": [
           "Znám"
@@ -10738,6 +13404,22 @@
         ],
         "topics": [
           "school"
+        ]
+      },
+      {
+        "normalized": "zní",
+        "surfaces": [
+          "zní"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-031"
+        ],
+        "difficulties": [
+          2
+        ],
+        "topics": [
+          "music"
         ]
       },
       {
@@ -10948,6 +13630,22 @@
         ],
         "topics": [
           "technology"
+        ]
+      },
+      {
+        "normalized": "želva",
+        "surfaces": [
+          "Želva"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-exp260908-006"
+        ],
+        "difficulties": [
+          1
+        ],
+        "topics": [
+          "animals"
         ]
       },
       {

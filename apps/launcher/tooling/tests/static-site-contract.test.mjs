@@ -41,6 +41,10 @@ test("static compiler closes the complete Pages payload", { timeout: 300_000 }, 
     const setup = JSON.parse(readFileSync(join(outputDir, "cz/setup-assets.json"), "utf8"));
     const sourceSetup = JSON.parse(readFileSync(new URL("../../../languages/czech/static/setup-assets.json", import.meta.url), "utf8"));
     const required = setup.artifacts.filter((artifact) => artifact.browser_required);
+    const sourceMusic = sourceSetup.artifacts.filter(({ asset_path }) => asset_path?.startsWith("assets/music/"));
+    const projectedMusic = setup.artifacts.filter(({ asset_path }) => asset_path?.startsWith("assets/music/"));
+    assert.deepEqual(projectedMusic, sourceMusic.map(artifact => ({ ...artifact, native_required: false })),
+      "Website setup keeps each song and its attribution hash-pinned and required");
     assert.equal(manifest.requiredSetupArtifacts, required.length);
     assert.equal(built.setupRequiredBytes, required.reduce((sum, artifact) => sum + artifact.bytes, 0));
     assert.equal(manifest.publishedVisualAssets, sourceSetup.artifacts.filter((artifact) => artifact.artifact_kind === "visual-asset").length);
@@ -64,6 +68,10 @@ test("static compiler closes the complete Pages payload", { timeout: 300_000 }, 
     const chrome = readFileSync(join(outputDir, "language-runtime/static/source/caatuu-chrome.js"), "utf8");
     assert.match(chrome, /class="settings-card side-card developer-tools-card"/u);
     const serviceWorker = readFileSync(join(outputDir, "sw.js"), "utf8");
+    for (const artifact of projectedMusic) {
+      assert.ok(!serviceWorker.includes(JSON.stringify(artifact.url)),
+        "Music must download during setup instead of root worker precache");
+    }
     for (const sharedAsset of [
       "/language-runtime/static/source/course-setup.mjs",
       "/language-runtime/static/source/word-world-provider.mjs",

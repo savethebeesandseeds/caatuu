@@ -626,8 +626,6 @@
     const optionsToggle = root.querySelector("#naturalizationNucleusOptionsToggle");
     const optionsMenu = root.querySelector("#naturalizationNucleusOptionsMenu");
     const audioSpeed = root.querySelector("#naturalizationNucleusAudioSpeed");
-    const audioVoice = root.querySelector("#naturalizationNucleusAudioVoice");
-    const audioVoiceStatus = root.querySelector("#naturalizationNucleusAudioVoiceStatus");
     const feedback = root.querySelector("#naturalizationNucleusFeedback");
     const feedbackPinyin = root.querySelector("#naturalizationNucleusFeedbackPinyin");
     const feedbackHanzi = root.querySelector("#naturalizationNucleusFeedbackHanzi");
@@ -639,7 +637,7 @@
     assert(
       stage && game && interstitial && interstitialRobot && board && ring && deck && artwork && status && pieceCount
       && displayToggle && displayMenu && audioToggle && audioMenu && optionsToggle && optionsMenu && imageToggle && core
-      && audioSpeed && audioVoice && audioVoiceStatus
+      && audioSpeed
       && feedback && feedbackPinyin && feedbackHanzi && feedbackReading && feedbackGlyph && feedbackMeaning && feedbackSound,
       "the game shell is incomplete."
     );
@@ -734,42 +732,6 @@
       audioToggle.title = label;
     }
 
-    async function refreshAudioVoiceOptions() {
-      const api = global.CaatuuChrome;
-      if (!api?.listSpeechVoiceOptions) return;
-      audioVoice.disabled = true;
-      audioVoiceStatus.textContent = "Checking Mandarin voices...";
-      try {
-        const result = api.getSpeechVoiceControlState
-          ? await api.getSpeechVoiceControlState()
-          : await api.listSpeechVoiceOptions();
-        const documentRef = board.ownerDocument || global.document;
-        const automatic = documentRef.createElement("option");
-        automatic.value = "";
-        automatic.textContent = "Automatic (recommended)";
-        const options = [automatic];
-        for (const voice of result?.voices || []) {
-          const option = documentRef.createElement("option");
-          option.value = voice.value || "";
-          option.textContent = `${voice.name}${voice.locale ? ` · ${voice.locale}` : ""}`;
-          options.push(option);
-        }
-        audioVoice.replaceChildren(...options);
-        const preferred = api.getSpeechVoicePreference?.() || "";
-        const matching = [...audioVoice.options].find((option) => (
-          option.value === preferred || option.value.endsWith(`:${preferred}`)
-        ));
-        audioVoice.value = matching?.value || "";
-        audioVoice.disabled = result?.available === false && !(result?.voices || []).length;
-        audioVoiceStatus.textContent = api.describeSpeechVoiceState
-          ? api.describeSpeechVoiceState(result)
-          : (result?.available ? "Mandarin voice ready." : "Mandarin voice unavailable.");
-      } catch (_error) {
-        audioVoice.disabled = true;
-        audioVoiceStatus.textContent = "Unable to check Mandarin voices.";
-      }
-    }
-
     function closeToolbarMenu(entry, { restoreFocus = false } = {}) {
       global.CaatuuChrome?.releaseToolbarPopover?.(entry.menu);
       entry.menu.hidden = true;
@@ -788,7 +750,6 @@
       if (entry.menu === displayMenu) syncDisplayControls();
       if (entry.menu === audioMenu) {
         syncAudioControls();
-        void refreshAudioVoiceOptions();
       }
       entry.menu.hidden = false;
       entry.toggle.setAttribute("aria-expanded", "true");
@@ -1305,10 +1266,6 @@
       syncAudioControls();
     });
     listen(audioSpeed, "change", () => {
-      void previewAudio();
-    });
-    listen(audioVoice, "change", () => {
-      global.CaatuuChrome?.setSpeechVoicePreference?.(audioVoice.value);
       void previewAudio();
     });
     listen(displayMenu, "click", () => global.requestAnimationFrame?.(syncDisplayControls));

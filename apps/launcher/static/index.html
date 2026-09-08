@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Learn languages. Explore new worlds. Free guided practice, games, and language tools with Caatuu.">
     <title>Caatuu · Learn languages. Explore new worlds.</title>
-    <link rel="stylesheet" href="/app.css?v=44">
-    <script src="/launcher.js?v=20" defer></script>
+    <link rel="stylesheet" href="/app.css?v=47">
+    <link rel="stylesheet" href="/language-runtime/static/styles/music-controls.css">
+    <script type="module" src="/language-runtime/static/source/music.mjs"></script>
+    <script src="/launcher.js?v=23" defer></script>
   </head>
   <body class="home-page landing-page">
     <a class="landing-skip" href="#learn" data-i18n="launcher.skip">Skip to content</a>
@@ -25,10 +27,18 @@
             <a href="#about" data-i18n="launcher.nav.about">About</a>
           </nav>
         </div>
-        <label class="launcher-language-control" data-language-control hidden>
-          <span class="launcher-language-symbol" aria-hidden="true"><span>a</span><span>&#x3042;</span></span>
-          <select data-page-language aria-label="Page language" data-i18n-aria-label="launcher.language"></select>
-        </label>
+        <div class="landing-header-controls">
+          <details class="launcher-audio-menu" data-audio-menu>
+            <summary aria-label="Audio settings" title="Audio settings" data-i18n-aria-label="common.audio.settings" data-i18n-title="common.audio.settings">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4 6 8H3v8h3l5 4zM15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg>
+            </summary>
+            <div class="launcher-audio-panel" data-music-controls></div>
+          </details>
+          <label class="launcher-language-control" data-language-control hidden>
+            <span class="launcher-language-symbol" aria-hidden="true"><span>a</span><span>&#x3042;</span></span>
+            <select data-page-language aria-label="Page language" data-i18n-aria-label="launcher.language"></select>
+          </label>
+        </div>
       </header>
       <main>
         <section class="landing-hero" id="learn" aria-labelledby="homeTitle">
@@ -41,9 +51,10 @@
         <section class="landing-courses" id="courses" aria-labelledby="coursesTitle">
           <div class="landing-section-heading">
             <h2 id="coursesTitle"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m16 8-2 6-6 2 2-6z"/></svg><span data-i18n="launcher.available">Available courses</span></h2>
-            <span class="landing-course-hint" data-i18n="launcher.viewcourses">Explore the courses</span>
           </div>
-          <ul class="language-list" data-language-list>
+          <div class="landing-course-carousel">
+          <button class="landing-course-arrow landing-course-previous" type="button" data-course-previous aria-label="Previous courses" data-i18n-aria-label="launcher.courses.previous" aria-controls="courseList"><span aria-hidden="true">‹</span></button>
+          <ul class="language-list" id="courseList" data-language-list>
               <li aria-label="Czech (Čeština)" data-language-id="cz">
                 <a class="language-choice" href="/cz/index.html">
                   <img class="flag-icon" src="/assets/icons/czech_flag_ui.png?caatuu_asset=11" alt="" decoding="async">
@@ -68,6 +79,8 @@
                   <span class="language-choice-status">Preview</span>
                 <span class="language-choice-start" data-i18n="launcher.start">Start</span></a></li>
             </ul>
+          <button class="landing-course-arrow landing-course-next" type="button" data-course-next aria-label="Next courses" data-i18n-aria-label="launcher.courses.next" aria-controls="courseList"><span aria-hidden="true">›</span></button>
+          </div>
         </section>
         <nav class="entry-options" aria-label="App entry options" data-i18n-aria-label="launcher.entryoptions">
           <a class="entry-option entry-download" data-android-download aria-disabled="true">

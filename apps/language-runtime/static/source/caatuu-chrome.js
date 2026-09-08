@@ -47,6 +47,7 @@
   const legacySpeechPaceStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.speech.pace.v1`;
   const speechPaceStorageKey = "caatuu.speech.pace.v1";
   const speechMutedStorageKey = "caatuu.speech.muted.v1";
+  const speechVolumeStorageKey = "caatuu.speech.volume.v1";
   const speechAutoplayStorageKey = "caatuu.speech.autoplay.v1";
   const backpackViewStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.navigation.backpack-view.v1`;
   const navigationRequestStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.navigation.request.v1`;
@@ -75,7 +76,8 @@
   let progressSaveFailed = false;
   let browserSpeechVoiceEventsBound = false;
   let activeBrowserSpeechSession = null;
-  let speechMutedFallback = false;
+  let speechVolumeFallback = 1;
+  let lastAudibleSpeechVolume = 1;
   let speechAutoplayFallback = true;
   let activeLanguageSelectorHost = null;
   let languageSelectorSequence = 0;
@@ -1231,12 +1233,35 @@
     return writeStoredSpeechPace(value);
   }
 
-  function getSpeechMuted() {
+  function getSpeechVolume() {
     try {
-      return localStorage.getItem(speechMutedStorageKey) === "true";
+      const stored = localStorage.getItem(speechVolumeStorageKey);
+      if (stored !== null && stored.trim() !== "" && Number.isFinite(Number(stored))) {
+        return clampSpeechControl(stored, 0, 1, 1);
+      }
+      return localStorage.getItem(speechMutedStorageKey) === "true" ? 0 : 1;
     } catch (error) {
-      return speechMutedFallback;
+      return speechVolumeFallback;
     }
+  }
+
+  function getSpeechMuted() { return getSpeechVolume() === 0; }
+
+  function setSpeechVolume(value) {
+    const previous = getSpeechVolume();
+    const volume = clampSpeechControl(value, 0, 1, previous);
+    if (previous > 0) lastAudibleSpeechVolume = previous;
+    if (volume > 0) lastAudibleSpeechVolume = volume;
+    speechVolumeFallback = volume;
+    try {
+      localStorage.setItem(speechVolumeStorageKey, String(volume));
+      // Keep older speech-only consumers in sync during the volume migration.
+      localStorage.setItem(speechMutedStorageKey, String(volume === 0));
+    } catch { /* Retain the session preference when storage is unavailable. */ }
+    if (volume === 0) void stopSpeech();
+    window.dispatchEvent(new CustomEvent("caatuu:speech-volume-change", { detail: { volume } }));
+    window.dispatchEvent(new CustomEvent("caatuu:speech-mute-change", { detail: { muted: volume === 0 } }));
+    return volume;
   }
 
   function getSpeechAutoplay() {
@@ -1288,18 +1313,8 @@
   }
 
   function setSpeechMuted(value) {
-    const muted = Boolean(value);
-    speechMutedFallback = muted;
-    try {
-      localStorage.setItem(speechMutedStorageKey, String(muted));
-    } catch (error) {
-      // The preference remains active only where storage is unavailable.
-    }
-    if (muted) void stopSpeech();
-    window.dispatchEvent(new CustomEvent("caatuu:speech-mute-change", {
-      detail: { muted }
-    }));
-    return muted;
+    setSpeechVolume(value ? 0 : getSpeechVolume() || lastAudibleSpeechVolume);
+    return getSpeechMuted();
   }
 
   function updateSpeechPaceControls(root = document) {
@@ -1325,16 +1340,6 @@
       }));
       slider.dataset.paceSource = pace.source;
     });
-    const status = root.querySelector("#settingsSpeechPaceStatus");
-    if (status) {
-      status.textContent = pace.source === "badge"
-        ? interfaceMessage("speech.pace.badgestatus", {
-          badge: pace.badge,
-          pace: pace.label,
-          rate: pace.rate
-        })
-        : interfaceMessage("speech.pace.manualstatus", { pace: pace.label, rate: pace.rate });
-    }
     return pace;
   }
 
@@ -1607,6 +1612,8 @@
       callSpeechCallback(options.onEnd, result);
       return result;
     }
+    const volume = getSpeechVolume() || (options.allowWhileMuted === true ? lastAudibleSpeechVolume : 0);
+    const gain = volume === 0 ? 0 : 10 ** ((volume - 1) * 2);
     if (speechVoiceBackend() === "android") {
       const speech = window.CaatuuRuntime?.speech;
       if (!speech?.speak) {
@@ -1616,7 +1623,7 @@
       }
       const result = await speech.speak(
         normalizedText,
-        { locale, rate, pitch, voice },
+        { locale, rate, pitch, voice, volume: gain },
         {
           onEvent(event) {
             if (event?.kind === "speech" && event?.phase === "started") {
@@ -1640,6 +1647,7 @@
     utterance.lang = locale;
     utterance.rate = rate;
     utterance.pitch = pitch;
+    utterance.volume = gain;
     let activeVoice = null;
     if (typeof synthesis.getVoices === "function") {
       const voiceOptions = browserSpeechVoiceOptions();
@@ -2947,6 +2955,7 @@
     window.addEventListener("caatuu:speech-mute-change", refresh);
     window.addEventListener("caatuu:speech-pace-change", () => updateSpeechPaceControls(panel));
     window.addEventListener("caatuu:speech-voice-change", refresh);
+    if (!isNativeShell()) window.speechSynthesis?.addEventListener?.("voiceschanged", refresh);
     document.addEventListener("click", (event) => {
       if (menu.open && !menu.contains(event.target)) menu.open = false;
     }, true);
@@ -2994,9 +3003,10 @@
         }));
         return;
       }
-      if (key === speechMutedStorageKey) {
+      if (key === speechMutedStorageKey || key === speechVolumeStorageKey || key === "") {
         const muted = getSpeechMuted();
         if (muted) void stopSpeech();
+        window.dispatchEvent(new CustomEvent("caatuu:speech-volume-change", { detail: { volume: getSpeechVolume() } }));
         window.dispatchEvent(new CustomEvent("caatuu:speech-mute-change", {
           detail: { muted }
         }));
@@ -4505,8 +4515,7 @@
                 <small>${interfaceHtml("settings.appearance.summary")}</small>
               </summary>
               <div class="settings-section-body appearance-settings-body">
-                <p class="settings-summary appearance-settings-intro">${interfaceHtml("settings.appearance.description")}</p>
-                <div class="appearance-controls">
+                <div class="settings-card side-card appearance-controls">
               <div class="appearance-control-row">
                 <span class="appearance-control-label">
                   <strong>${interfaceHtml("settings.theme.label")}</strong>
@@ -4548,58 +4557,56 @@
             </details>
           </section>
 
-          <section class="settings-card side-card settings-section-card speech-settings-card" aria-label="${interfaceHtml("speech.pronunciation.label", { language: targetLanguageName })}">
-            <details class="settings-section-details" id="settingsSpeechDetails">
+          <section class="settings-card side-card settings-section-card audio-settings-card" aria-label="${interfaceHtml("speech.audio.label")}">
+            <details class="settings-section-details" id="settingsAudioDetails" open>
               <summary class="settings-section-summary">
                 <span class="settings-section-title">
                   <span class="settings-kicker kicker">${interfaceHtml("speech.audio.label")}</span>
-                  <strong>${interfaceHtml("speech.voice.label", { language: targetLanguageName })}</strong>
+                  <strong>${interfaceHtml("settings.advanced.label")}</strong>
                 </span>
-                <small>${interfaceHtml("speech.summary")}</small>
+                <small>${interfaceHtml("music.settings")} · ${interfaceHtml("common.voice")}</small>
               </summary>
-              <div class="settings-section-body speech-settings-body">
-                <button class="speech-master-mute" type="button" role="switch" aria-checked="false" data-speech-mute-toggle>
-                  <span>
-                    <b data-speech-mute-label>${interfaceHtml("speech.audio.muteall")}</b>
-                    <small data-speech-mute-status>${interfaceHtml("speech.audio.onstatus")}</small>
-                  </span>
-                  <i aria-hidden="true"></i>
-                </button>
+              <div class="settings-section-body audio-settings-body">
+                <div class="settings-card side-card audio-controls">
+                <div class="music-settings-card" id="settingsMusicDetails">
+                  <div class="music-settings-body" data-music-controls data-music-song-selection></div>
+                </div>
+                <div class="speech-settings-card" id="settingsSpeechDetails">
+                  <div class="speech-settings-body">
+                    <div data-voice-controls></div>
                 <div class="speech-voice-row">
+              <div class="speech-voice-heading">
               <label class="speech-voice-label" for="settingsSpeechVoice">
-                <b>${interfaceHtml("speech.voice.label", { language: targetLanguageName })}</b>
-                <small>${interfaceHtml("speech.voice.source")}</small>
+                <b>${interfaceHtml("common.voice")}</b>
               </label>
+              <button class="settings-raised-action speech-voice-test" type="button" id="settingsSpeechVoiceTest" disabled>${interfaceHtml("common.test")}</button>
+              </div>
               <div class="speech-voice-controls">
-                <select id="settingsSpeechVoice" aria-describedby="settingsSpeechVoiceStatus" disabled>
+                <select id="settingsSpeechVoice" disabled>
                   <option value="">${interfaceHtml("speech.voice.automaticrecommended")}</option>
                 </select>
-                <button class="settings-raised-action speech-voice-test" type="button" id="settingsSpeechVoiceTest" aria-describedby="settingsSpeechVoiceStatus" disabled>${interfaceHtml("common.test")}</button>
-                <button class="settings-raised-action speech-voice-install" type="button" id="settingsSpeechVoiceInstall" aria-describedby="settingsSpeechVoiceStatus" hidden>${interfaceHtml("speech.voice.install", { language: targetLanguageName })}</button>
-                <p class="settings-summary" id="settingsSpeechVoiceStatus" role="status" aria-live="polite" aria-atomic="true">${interfaceHtml("speech.voice.automaticbest", { language: targetLanguageName })}</p>
+                <button class="settings-raised-action speech-voice-install" type="button" id="settingsSpeechVoiceInstall" hidden>${interfaceHtml("speech.voice.install", { language: targetLanguageName })}</button>
+                <p id="settingsSpeechVoiceStatus" hidden></p>
               </div>
             </div>
             <div class="speech-rate-row">
               <span class="speech-voice-label">
-                <b>${interfaceHtml("speech.pace.label")}</b>
-                <small>${interfaceHtml("settings.choosepace")}</small>
+                <b>${interfaceHtml("common.speechspeed")}</b>
               </span>
               <div class="speech-rate-controls">
                 <div class="speech-pace-control" role="group" aria-label="${interfaceHtml("speech.pace.language", { language: targetLanguageName })}">
-                  <input type="range" min="0" max="2" step="1" value="0" data-speech-pace-slider aria-label="${interfaceHtml("speech.pace.language", { language: targetLanguageName })}" aria-describedby="settingsSpeechPaceStatus">
+                  <input type="range" min="0" max="2" step="1" value="0" data-speech-pace-slider aria-label="${interfaceHtml("speech.pace.language", { language: targetLanguageName })}">
                   <span class="speech-pace-ticks" aria-hidden="true">
-                    <span><b>${interfaceHtml("speech.pace.slower")}</b><small>0.5×</small></span>
-                    <span><b>${interfaceHtml("speech.pace.slow")}</b><small>0.6×</small></span>
-                    <span><b>${interfaceHtml("speech.pace.normal")}</b><small>1×</small></span>
+                    <span><b>0.5×</b></span>
+                    <span><b>0.6×</b></span>
+                    <span><b>1×</b></span>
                   </span>
                 </div>
-                <p class="settings-summary" id="settingsSpeechPaceStatus" role="status" aria-live="polite" aria-atomic="true">${interfaceHtml("speech.pace.badgestatus", {
-                  badge: interfaceMessage("settings.backpack.explorer"),
-                  pace: interfaceMessage("speech.pace.slower"),
-                  rate: 0.5
-                })}</p>
               </div>
             </div>
+                  </div>
+                </div>
+                </div>
               </div>
             </details>
           </section>
@@ -4799,6 +4806,7 @@
                     <dd>${interfaceHtml("settings.legal.courseresourceterms")}</dd>
                   </div>
                 </dl>
+                <div class="music-license-credits" data-music-credits></div>
               </div>
             </details>
           </section>
@@ -4851,6 +4859,7 @@
     bindSpeechVoiceControl(panel);
     bindSpeechPaceControl(panel);
     renderLearningControls(panel);
+    window.CaatuuMusicUi?.mountAll(panel);
     updateThemeControls(readStoredTheme());
     updateFontSizeControls(readStoredFontSize());
     setSettingsView(panel, readRememberedBackpackView(), { persist: false });
@@ -5483,6 +5492,7 @@
     getSpeechVoicePreference,
     getSpeechPacePreference,
     getSpeechMuted,
+    getSpeechVolume,
     getSpeechAutoplay,
     listSpeechVoiceOptions,
     getSpeechVoiceControlState,
@@ -5491,6 +5501,7 @@
     formatCompactRewardCount,
     setSpeechPacePreference,
     setSpeechMuted,
+    setSpeechVolume,
     setSpeechAutoplay,
     setSpeechVoicePreference,
     updateSpeechMuteControls,

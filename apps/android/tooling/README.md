@@ -37,6 +37,17 @@ once into shared app storage, while course content remains below
 union of packaged and downloaded content. Website/single-course exports select
 full delivery explicitly.
 
+Background music follows that shared setup delivery: all three tracks and their
+credits/license texts are hash-pinned in each course's setup catalog and reuse
+one shared installed copy. No music audio is bundled in either the bootstrap
+product APK or the full development APK; the full asset sync also checks its
+final output directory for accidental audio inclusion.
+Browser setup verifies the same songs into the origin-wide `caatuu-music-v1`
+cache, outside individual course precaches; changing or reinstalling a course
+reuses those bytes. The music player reads that cache without initiating a
+download. Native WebView and browser service-worker responses support byte
+ranges from verified music so offline seeking and looping remain local.
+
 Android starts the canonical illustrated Home for the last visited bundled
 course (or the default course on a fresh installation). Its existing setup card
 and language chooser work before a course is installed. The shared bootstrap

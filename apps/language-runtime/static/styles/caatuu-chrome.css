@@ -5,7 +5,7 @@ html[data-speech-muted="true"] .word-net-audio-menu > .word-net-audio-setting,
 html[data-speech-muted="true"] .word-net-audio-menu > .word-net-audio-autoplay:not([data-speech-mute-toggle]),
 html[data-speech-muted="true"] #verbSpeakOnTap,
 html[data-speech-muted="true"] #verbAudioSettings,
-html[data-speech-muted="true"] .speech-settings-body > :not([data-speech-mute-toggle]) {
+html[data-speech-muted="true"] .speech-settings-body > :not([data-speech-mute-toggle]):not([data-music-controls]):not([data-voice-controls]) {
   display: none !important;
 }
 
@@ -1437,6 +1437,11 @@ body.games-menu-open {
   background: var(--panel);
 }
 
+.audio-settings-body { gap: 8px; }
+.audio-controls > .speech-settings-card { border-top: 1px solid var(--line); padding-top: 5px; }
+.audio-settings-body .speech-settings-body { display: grid; gap: 7px; padding-top: 5px; }
+.music-license-credits h4 { margin: 10px 0 6px; font-size: 0.8rem; }
+
 .settings-card-head h3 {
   margin: 2px 0 0;
   font-size: 0.92rem;
@@ -1458,25 +1463,15 @@ body.games-menu-open {
   box-shadow: 0 8px 18px color-mix(in srgb, var(--theme-ink, #17241f) 5%, transparent);
 }
 
-.appearance-settings-intro {
-  margin: 0;
-}
-
 .appearance-controls {
   min-width: 0;
   width: 100%;
-  display: grid;
   grid-template-columns: 1fr;
-  gap: 0;
-  border: 1px solid color-mix(in srgb, var(--green) 16%, var(--line));
-  border-radius: 10px;
-  overflow: hidden;
-  background: color-mix(in srgb, var(--theme-panel-raised, var(--panel)) 54%, transparent);
 }
 
 .appearance-control-row {
   min-width: 0;
-  padding: 10px;
+  padding: 4px 0;
   border: 0;
   border-radius: 0;
   display: grid;
@@ -1774,6 +1769,10 @@ html[data-theme="dark"] .theme-control button:not(.is-active):not(:disabled):hov
 .speech-pace-ticks b {
   color: var(--theme-green-strong, var(--green-dark, var(--green)));
   font-size: 0.56rem;
+}
+
+#settingsSpeechDetails .speech-pace-ticks b {
+  font-size: 0.68rem;
 }
 
 .speech-pace-ticks small {
@@ -3077,15 +3076,13 @@ body.settings-open {
 .speech-rate-row {
   min-width: 0;
   display: grid;
-  grid-template-columns: minmax(110px, 0.7fr) minmax(0, 1.8fr);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
   align-items: start;
   gap: 12px;
 }
 
 .speech-rate-row {
   margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid color-mix(in srgb, var(--green) 16%, var(--line));
 }
 
 .speech-master-mute {
@@ -3173,7 +3170,7 @@ body.settings-open {
 
 .speech-voice-label b {
   color: var(--ink);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
 }
 
 .speech-voice-label small {
@@ -3182,7 +3179,7 @@ body.settings-open {
   line-height: 1.24;
 }
 
-.speech-voice-controls {
+.speech-voice-heading {
   min-width: 0;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -3190,9 +3187,21 @@ body.settings-open {
   gap: 6px;
 }
 
+.speech-voice-controls {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 6px;
+}
+
 .speech-voice-controls .settings-summary {
   grid-column: 1 / -1;
   margin: 0;
+}
+
+#settingsSpeechVoiceStatus {
+  display: none;
 }
 
 .speech-voice-install {
@@ -3496,13 +3505,20 @@ body.settings-open {
   opacity: 0.58;
 }
 
-.speech-voice-controls select {
+.speech-voice-controls select,
+.caatuu-music-song select {
   min-width: 0;
   min-height: 34px;
   border-color: color-mix(in srgb, var(--theme-amber-strong, #9b782d) 62%, var(--line));
   border-bottom-width: 3px;
   border-bottom-color: color-mix(in srgb, var(--theme-amber-strong, #9b782d) 78%, var(--line));
   background-color: color-mix(in srgb, var(--theme-amber, #d9bd79) 12%, var(--theme-control-bg, var(--control-bg, #ffffff)));
+}
+
+#settingsSpeechVoice {
+  appearance: auto;
+  background-image: none;
+  padding-right: 8px;
 }
 
 .maintenance-update-row {

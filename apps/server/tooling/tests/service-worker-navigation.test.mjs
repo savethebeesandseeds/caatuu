@@ -53,6 +53,7 @@ function serviceWorkerContext({
     URL,
     Request: FakeRequest,
     Response,
+    Headers,
     fetch: fetchImplementation,
     caches: {
       async match(request) {
@@ -115,6 +116,44 @@ async function fetchThroughWorker(worker, request, config) {
   assert.ok(response, "the worker must handle the managed request");
   return response;
 }
+
+test("verified setup music plays offline with full, bounded, open and suffix byte requests", async () => {
+  const url = "https://caatuu.test/assets/music/audio/fixture.mp3";
+  for (const [range, status, body, contentRange] of [
+    [null, 200, "0123456789", null],
+    ["bytes=2-5", 206, "2345", "bytes 2-5/10"],
+    ["bytes=7-", 206, "789", "bytes 7-9/10"],
+    ["bytes=-3", 206, "789", "bytes 7-9/10"],
+    ["bytes=0-999", 206, "0123456789", "bytes 0-9/10"],
+    ["bytes=10-", 416, "", "bytes */10"],
+    ["bytes=5-2", 416, "", "bytes */10"],
+    ["bytes=-0", 416, "", "bytes */10"],
+    ["bytes=0-1,4-5", 200, "0123456789", null],
+  ]) {
+    const worker = serviceWorkerContext({ cachedResponses: new Map([[url, new Response("0123456789", {
+      headers: { "content-type": "audio/mpeg", "content-length": "10", "x-caatuu-setup-sha256": "a".repeat(64) }
+    })]]) });
+    const config = validatedConfig(worker.context);
+    const headers = new Headers(range ? { range } : {});
+    const response = await fetchThroughWorker(worker, new FakeRequest(url, { headers }), config);
+    assert.equal(response.status, status, range);
+    assert.equal(response.headers.get("content-type"), "audio/mpeg");
+    assert.equal(response.headers.get("content-range"), contentRange, range);
+    assert.equal(await response.text(), body, range);
+  }
+});
+
+test("music bypasses course precaches and never trusts an unverified cache entry", async () => {
+  const url = "https://caatuu.test/assets/music/audio/fixture.mp3";
+  let networkRequests = 0;
+  const worker = serviceWorkerContext({ cachedResponses: new Map([[url, new Response("unverified")]]),
+    fetchImplementation: async () => { networkRequests += 1; return new Response("network"); } });
+  const config = validatedConfig(worker.context);
+  const response = await fetchThroughWorker(worker, new FakeRequest(url, { headers: new Headers() }), config);
+  assert.equal(await response.text(), "network");
+  assert.equal(networkRequests, 1);
+  assert.deepEqual(worker.puts, []);
+});
 
 test("shared bootstrap bypasses HTTP caches when updating the course worker", async () => {
   const bootstrap = await readFile(

@@ -271,6 +271,11 @@ function installBrowserEnvironment(course, authorityHtml) {
     button.setAttribute("data-content-mode", mode);
   }
   const root = registry.element("wordWorldRoot");
+  // Seeded markup is flat; reproduce the toolbar ancestor used by outside-click dismissal.
+  const toolbar = registry.create("div");
+  toolbar.className = "word-net-panel-actions";
+  root.append(toolbar);
+  toolbar.append(registry.element("wordNetSound"), registry.element("wordNetAudioMenu"));
   const documentElement = registry.create("html");
   documentElement.dataset.theme = "dark";
   documentElement.dataset.fontSize = "largest";
@@ -581,8 +586,8 @@ async function runScenario(name) {
   ]);
   if (spanishEnglish) {
     englishCatalog.concepts = englishCatalog.concepts.filter(({ id }) => id === "ww.object.book");
-    activeManifest.recordCount = englishCatalog.concepts.length;
   }
+  activeManifest.recordCount = englishCatalog.concepts.length;
   const realizations = thirdLanguageRealizations(englishCatalog);
   const learnerBase = thirdLanguageLearnerBase(englishCatalog);
   if (spanishEnglish) {
@@ -663,6 +668,16 @@ async function runScenario(name) {
   const phraseSound = environment.registry.element("wordNetPhraseSound");
   const wordSound = environment.registry.element("wordNetSelectedWordSound");
   const globalSound = environment.registry.element("wordNetSound");
+  let musicMenuAccessible = false;
+  let musicMenuState;
+  if (!capabilities.speech) {
+    globalSound.click();
+    musicMenuState = { hidden: globalSound.hidden, expanded: globalSound.getAttribute("aria-expanded"), menuHidden: environment.registry.element("wordNetAudioMenu").hidden };
+    musicMenuAccessible = !globalSound.hidden
+      && globalSound.getAttribute("aria-expanded") === "true"
+      && environment.registry.element("wordNetAudioMenu").hidden === false;
+    globalSound.click();
+  }
   const generative = environment.registry.querySelector('[data-content-mode="generative"]');
   const generativeDialog = environment.registry.element("wordNetGenerativeDialog");
   const reconstruction = environment.registry.element("wordNetReconstruction");
@@ -737,6 +752,8 @@ async function runScenario(name) {
       rate: options.rate
     })),
     speechHidden: [globalSound.hidden, phraseSound.hidden, wordSound.hidden],
+    musicMenuAccessible,
+    musicMenuState,
     generationHidden: generative?.hidden,
     generationAriaDisabled: generative?.getAttribute("aria-disabled"),
     generativeDialogHidden: generativeDialog.hidden,
@@ -848,7 +865,7 @@ if (process.argv[2] === CHILD_FLAG) {
     assert.ok(result.semanticAttempts.length >= 1);
     assert.equal(result.selectedEnglishQuery, "Hello!", "the renderer must submit the immutable English audit text");
     for (const attempt of result.semanticAttempts) {
-      assert.match(attempt.itemId, /^word-world:es-test:third-language-test-v1:ww\./u);
+      assert.equal(attempt.itemId, `word-world:es-test:third-language-test-v1:${attempt.item.conceptId}`);
       assert.equal(attempt.item.courseId, "es-test");
       assert.equal(attempt.item.targetLanguageTag, "es-ES");
       assert.match(attempt.item.targetText, /^¡Hola, amigo \d+!$/u);
@@ -887,7 +904,8 @@ if (process.argv[2] === CHILD_FLAG) {
     assert.equal(result.semanticPolicy, false);
     assert.equal(result.searchMode, "lexical");
     assert.equal(result.rankerCalls, 0);
-    assert.deepEqual(result.speechHidden, [true, true, true]);
+    assert.deepEqual(result.speechHidden, [false, true, true]);
+    assert.equal(result.musicMenuAccessible, true, `music settings remain accessible when pronunciation is unavailable: ${JSON.stringify(result.musicMenuState)}`);
     assert.equal(result.generationHidden, true);
     assert.equal(result.generativeDialogHidden, true);
     assert.equal(result.reconstructionHidden, false, "the unfinished reconstruction is visibly active");

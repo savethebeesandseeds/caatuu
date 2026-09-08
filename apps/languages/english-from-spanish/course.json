@@ -164,7 +164,7 @@
       "path": "apps/language-runtime/static/data/interface/es.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-es-6"
+      "revision": "interface-es-7"
     },
     "courseProfile": {
       "kind": "file",

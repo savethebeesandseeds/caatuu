@@ -741,23 +741,13 @@ body.choosing-setup-language .workspace {
   right: calc(clamp(12px, 2.5vw, 28px) + 52px);
 }
 
-#setupAudioControls { display: grid; gap: 10px; }
-#setupAudioControls [data-speech-mute-toggle] { width: 100%; }
-#setupAudioControls select { width: 100%; }
-#setupAudioControls select {
-  min-height: 36px;
-  padding: 6px;
-  border: 1px solid var(--theme-control-border, var(--line));
-  border-radius: 6px;
-  background: var(--theme-control-bg, var(--panel));
-  color: var(--theme-ink, var(--ink));
-  font: inherit;
-  font-size: 0.64rem;
-  font-weight: 500;
+#setupAudioMenu > .verb-audio-popover {
+  right: -52px;
+  width: min(400px, calc(100vw - 42px));
+  max-height: calc(100dvh - 230px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
-#setupAudioControls input[type="range"] { width: 100%; accent-color: var(--theme-green, #22594d); }
-#setupAudioControls [hidden] { display: none !important; }
-#setupAudioControls [data-speech-control="VoiceStatus"] { color: var(--theme-quiet, #767b78); font-size: 0.7rem; line-height: 1.4; }
 
 .setup-language-selection {
   display: grid;
@@ -949,18 +939,6 @@ body.app-update-lock [data-caatuu-app-header] button {
   display: grid;
   justify-items: end;
   gap: 8px;
-}
-
-.setup-details-controls {
-  display: flex;
-  justify-content: flex-end;
-  margin: 16px 0 0;
-  padding-top: 14px;
-  border-top: 1px solid var(--setup-line);
-}
-
-.setup-details-controls:has(.setup-detail-link[hidden]) {
-  display: none;
 }
 
 .home-app-update .pwa-install-action {

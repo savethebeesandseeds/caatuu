@@ -246,9 +246,51 @@ function modeItems(catalog, mode) {
   return items;
 }
 
+function wordShape(item) {
+  const spelling = item.reading?.system === "pinyin"
+    ? item.reading.tokens.flatMap(token => token.units.map(unit => unit.notation)).join("")
+    : item.target;
+  const letters = Array.from(spelling.toLowerCase().normalize("NFC").replace(/[^\p{L}\p{M}]/gu, ""));
+  // Detect accented vowels by their base letter, but compare the original accents.
+  const vowels = letters.filter(letter => /^[aeiouy]/u.test(letter.normalize("NFD")));
+  return { letters, vowels };
+}
+
+function letterSimilarity(first, second) {
+  const length = Math.max(first.length, second.length);
+  if (length === 0) return 1;
+  let row = Array.from({ length: second.length + 1 }, (_, index) => index);
+  for (let i = 0; i < first.length; i += 1) {
+    const next = [i + 1];
+    for (let j = 0; j < second.length; j += 1) {
+      next[j + 1] = Math.min(next[j] + 1, row[j + 1] + 1, row[j] + (first[i] === second[j] ? 0 : 1));
+    }
+    row = next;
+  }
+  return 1 - row[second.length] / length;
+}
+
+function similarWordDistractors(candidates, answer, count, random) {
+  const target = wordShape(answer);
+  const ranked = candidates.map(item => {
+    const candidate = wordShape(item);
+    const length = Math.max(target.letters.length, candidate.letters.length, 1);
+    const lengthSimilarity = 1 - Math.abs(target.letters.length - candidate.letters.length) / length;
+    const score = 0.6 * letterSimilarity(target.letters, candidate.letters)
+      + 0.25 * letterSimilarity(target.vowels, candidate.vowels) + 0.15 * lengthSimilarity;
+    return { item, score };
+  }).sort((first, second) => second.score - first.score);
+  // Candidates are already shuffled, so ties and the final nearby options vary.
+  const nearby = ranked.slice(0, count * 2).map(({ item }) => item);
+  return shuffled(nearby, random).slice(0, count);
+}
+
 function makeRound(items, answer, random, choiceCount, mode) {
   integer(choiceCount, "choiceCount", 2, items.length);
-  const distractors = shuffled(items.filter(({ id }) => id !== answer.id), random).slice(0, choiceCount - 1);
+  const candidates = shuffled(items.filter(({ id }) => id !== answer.id), random);
+  const distractors = mode === "words"
+    ? similarWordDistractors(candidates, answer, choiceCount - 1, random)
+    : candidates.slice(0, choiceCount - 1);
   const choices = shuffled([answer, ...distractors], random).map(({ id, target, meaning, reading }) => Object.freeze({ id, target, meaning, ...(reading ? { reading } : {}) }));
   return Object.freeze({
     id: answer.id,

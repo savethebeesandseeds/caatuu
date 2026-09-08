@@ -1,208 +1,4718 @@
 [
-  { "id": "zh.verb.shi", "kind": "verb", "target": "是", "source": "be (identity)", "difficulty": 1, "category": "identity-modality", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.you", "kind": "verb", "target": "有", "source": "have", "difficulty": 1, "category": "identity-modality", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.jiao", "kind": "verb", "target": "叫", "source": "be called", "difficulty": 1, "category": "identity-modality", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.xiang", "kind": "verb", "target": "想", "source": "want to", "difficulty": 1, "category": "identity-modality", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.neng", "kind": "verb", "target": "能", "source": "be able to", "difficulty": 1, "category": "identity-modality", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.hui", "kind": "verb", "target": "会", "source": "know how to", "difficulty": 1, "category": "identity-modality", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.xuyao", "kind": "verb", "target": "需要", "source": "need", "difficulty": 1, "category": "identity-modality", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.shuo", "kind": "verb", "target": "说", "source": "say", "difficulty": 1, "category": "communication-social", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.shuohua", "kind": "verb", "target": "说话", "source": "speak", "difficulty": 1, "category": "communication-social", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.wen", "kind": "verb", "target": "问", "source": "ask", "difficulty": 1, "category": "communication-social", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.huida", "kind": "verb", "target": "回答", "source": "answer", "difficulty": 1, "category": "communication-social", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.gaosu", "kind": "verb", "target": "告诉", "source": "tell", "difficulty": 1, "category": "communication-social", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.xiexie", "kind": "verb", "target": "谢谢", "source": "thank", "difficulty": 1, "category": "communication-social", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.dadianhua", "kind": "verb", "target": "打电话", "source": "make a phone call", "difficulty": 1, "category": "communication-social", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.liaotian", "kind": "verb", "target": "聊天", "source": "chat", "difficulty": 1, "category": "communication-social", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.xihuan", "kind": "verb", "target": "喜欢", "source": "like", "difficulty": 1, "category": "perception-cognition", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.kan", "kind": "verb", "target": "看", "source": "look at", "difficulty": 1, "category": "perception-cognition", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.ting", "kind": "verb", "target": "听", "source": "listen", "difficulty": 1, "category": "perception-cognition", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.zhidao", "kind": "verb", "target": "知道", "source": "know", "difficulty": 1, "category": "perception-cognition", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.mingbai", "kind": "verb", "target": "明白", "source": "understand", "difficulty": 1, "category": "perception-cognition", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.jide", "kind": "verb", "target": "记得", "source": "remember", "difficulty": 1, "category": "perception-cognition", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.qu", "kind": "verb", "target": "去", "source": "go", "difficulty": 1, "category": "movement-travel", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.lai", "kind": "verb", "target": "来", "source": "come", "difficulty": 1, "category": "movement-travel", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.zoulu", "kind": "verb", "target": "走路", "source": "walk", "difficulty": 1, "category": "movement-travel", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.paobu", "kind": "verb", "target": "跑步", "source": "run", "difficulty": 1, "category": "movement-travel", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.zuoxia", "kind": "verb", "target": "坐下", "source": "sit down", "difficulty": 1, "category": "movement-travel", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.zhanqilai", "kind": "verb", "target": "站起来", "source": "stand up", "difficulty": 1, "category": "movement-travel", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.jinqu", "kind": "verb", "target": "进去", "source": "go inside", "difficulty": 1, "category": "movement-travel", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.huilai", "kind": "verb", "target": "回来", "source": "come back", "difficulty": 1, "category": "movement-travel", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.chi", "kind": "verb", "target": "吃", "source": "eat", "difficulty": 1, "category": "home-routines", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.he", "kind": "verb", "target": "喝", "source": "drink", "difficulty": 1, "category": "home-routines", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.shuijiao", "kind": "verb", "target": "睡觉", "source": "sleep", "difficulty": 1, "category": "home-routines", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.qichuang", "kind": "verb", "target": "起床", "source": "get up", "difficulty": 1, "category": "home-routines", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.xi", "kind": "verb", "target": "洗", "source": "wash", "difficulty": 1, "category": "home-routines", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.chuanyifu", "kind": "verb", "target": "穿衣服", "source": "get dressed", "difficulty": 1, "category": "home-routines", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.dakai", "kind": "verb", "target": "打开", "source": "open", "difficulty": 1, "category": "home-routines", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.guanshang", "kind": "verb", "target": "关上", "source": "close", "difficulty": 1, "category": "home-routines", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.deng", "kind": "verb", "target": "等", "source": "wait", "difficulty": 1, "category": "home-routines", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.xiuxi", "kind": "verb", "target": "休息", "source": "rest", "difficulty": 1, "category": "home-routines", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.mai-buy", "kind": "verb", "target": "买", "source": "buy", "difficulty": 1, "category": "food-shopping-services", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.mai-sell", "kind": "verb", "target": "卖", "source": "sell", "difficulty": 1, "category": "food-shopping-services", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.fuqian", "kind": "verb", "target": "付钱", "source": "pay", "difficulty": 1, "category": "food-shopping-services", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.diancai", "kind": "verb", "target": "点菜", "source": "order food", "difficulty": 1, "category": "food-shopping-services", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.zuofan", "kind": "verb", "target": "做饭", "source": "cook", "difficulty": 1, "category": "food-shopping-services", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.chang-taste", "kind": "verb", "target": "尝", "source": "taste", "difficulty": 1, "category": "food-shopping-services", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.xuanze", "kind": "verb", "target": "选择", "source": "choose", "difficulty": 1, "category": "food-shopping-services", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.xuexi", "kind": "verb", "target": "学习", "source": "study", "difficulty": 1, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.du", "kind": "verb", "target": "读", "source": "read", "difficulty": 1, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.xie", "kind": "verb", "target": "写", "source": "write", "difficulty": 1, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.zuozuoye", "kind": "verb", "target": "做作业", "source": "do homework", "difficulty": 1, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.hua", "kind": "verb", "target": "画", "source": "draw", "difficulty": 1, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.changge", "kind": "verb", "target": "唱歌", "source": "sing", "difficulty": 1, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.gongzuo", "kind": "verb", "target": "工作", "source": "work", "difficulty": 1, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.bangzhu", "kind": "verb", "target": "帮助", "source": "help", "difficulty": 1, "category": "community-help-safety", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.zhaogu", "kind": "verb", "target": "照顾", "source": "care for", "difficulty": 1, "category": "community-help-safety", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.zhuyi", "kind": "verb", "target": "注意", "source": "pay attention", "difficulty": 1, "category": "community-help-safety", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.baohu", "kind": "verb", "target": "保护", "source": "protect", "difficulty": 1, "category": "community-help-safety", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.dazi", "kind": "verb", "target": "打字", "source": "type", "difficulty": 1, "category": "digital-admin-adult-life", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.baocun", "kind": "verb", "target": "保存", "source": "save a file", "difficulty": 1, "category": "digital-admin-adult-life", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.denglu", "kind": "verb", "target": "登录", "source": "sign in", "difficulty": 1, "category": "digital-admin-adult-life", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.keyi", "kind": "verb", "target": "可以", "source": "may", "difficulty": 2, "category": "identity-modality", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.yinggai", "kind": "verb", "target": "应该", "source": "should", "difficulty": 2, "category": "identity-modality", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.bixu", "kind": "verb", "target": "必须", "source": "must", "difficulty": 2, "category": "identity-modality", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.shuyu", "kind": "verb", "target": "属于", "source": "belong to", "difficulty": 2, "category": "identity-modality", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.jieshao", "kind": "verb", "target": "介绍", "source": "introduce", "difficulty": 2, "category": "communication-social", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.jieshi", "kind": "verb", "target": "解释", "source": "explain", "difficulty": 2, "category": "communication-social", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.taolun", "kind": "verb", "target": "讨论", "source": "discuss", "difficulty": 2, "category": "communication-social", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.tongyi", "kind": "verb", "target": "同意", "source": "agree", "difficulty": 2, "category": "communication-social", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.butongyi", "kind": "verb", "target": "不同意", "source": "disagree", "difficulty": 2, "category": "communication-social", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.yaoqing", "kind": "verb", "target": "邀请", "source": "invite", "difficulty": 2, "category": "communication-social", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.jianyi", "kind": "verb", "target": "建议", "source": "suggest", "difficulty": 2, "category": "communication-social", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.lianxi-contact", "kind": "verb", "target": "联系", "source": "contact", "difficulty": 2, "category": "communication-social", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.zhuhe", "kind": "verb", "target": "祝贺", "source": "congratulate", "difficulty": 2, "category": "communication-social", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.daoqian", "kind": "verb", "target": "道歉", "source": "apologize", "difficulty": 2, "category": "communication-social", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.kanjian", "kind": "verb", "target": "看见", "source": "see", "difficulty": 2, "category": "perception-cognition", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.tingjian", "kind": "verb", "target": "听见", "source": "hear", "difficulty": 2, "category": "perception-cognition", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.juede", "kind": "verb", "target": "觉得", "source": "feel that", "difficulty": 2, "category": "perception-cognition", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.renwei", "kind": "verb", "target": "认为", "source": "think that", "difficulty": 2, "category": "perception-cognition", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.wangji", "kind": "verb", "target": "忘记", "source": "forget", "difficulty": 2, "category": "perception-cognition", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.xuehui", "kind": "verb", "target": "学会", "source": "learn how to", "difficulty": 2, "category": "perception-cognition", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.faxian", "kind": "verb", "target": "发现", "source": "discover", "difficulty": 2, "category": "perception-cognition", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.jiancha", "kind": "verb", "target": "检查", "source": "check", "difficulty": 2, "category": "perception-cognition", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.zhuyidao", "kind": "verb", "target": "注意到", "source": "notice", "difficulty": 2, "category": "perception-cognition", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.chufa", "kind": "verb", "target": "出发", "source": "set off", "difficulty": 2, "category": "movement-travel", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.daoda", "kind": "verb", "target": "到达", "source": "arrive", "difficulty": 2, "category": "movement-travel", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.likai", "kind": "verb", "target": "离开", "source": "leave", "difficulty": 2, "category": "movement-travel", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.shangche", "kind": "verb", "target": "上车", "source": "get on a vehicle", "difficulty": 2, "category": "movement-travel", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.xiache", "kind": "verb", "target": "下车", "source": "get off a vehicle", "difficulty": 2, "category": "movement-travel", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.huancheng", "kind": "verb", "target": "换乘", "source": "transfer on public transit", "difficulty": 2, "category": "movement-travel", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.guomalu", "kind": "verb", "target": "过马路", "source": "cross the street", "difficulty": 2, "category": "movement-travel", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.canguan", "kind": "verb", "target": "参观", "source": "visit a place", "difficulty": 2, "category": "movement-travel", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.sanbu", "kind": "verb", "target": "散步", "source": "take a walk", "difficulty": 2, "category": "movement-travel", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.shuaya", "kind": "verb", "target": "刷牙", "source": "brush teeth", "difficulty": 2, "category": "home-routines", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.xizao", "kind": "verb", "target": "洗澡", "source": "take a bath or shower", "difficulty": 2, "category": "home-routines", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.shutou", "kind": "verb", "target": "梳头", "source": "comb hair", "difficulty": 2, "category": "home-routines", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.dasao", "kind": "verb", "target": "打扫", "source": "clean", "difficulty": 2, "category": "home-routines", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.zhengli", "kind": "verb", "target": "整理", "source": "tidy up", "difficulty": 2, "category": "home-routines", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.liangyifu", "kind": "verb", "target": "晾衣服", "source": "hang clothes to dry", "difficulty": 2, "category": "home-routines", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.gouwu", "kind": "verb", "target": "购物", "source": "shop", "difficulty": 2, "category": "home-routines", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.duanlian", "kind": "verb", "target": "锻炼", "source": "exercise", "difficulty": 2, "category": "home-routines", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.banjia", "kind": "verb", "target": "搬家", "source": "move house", "difficulty": 2, "category": "home-routines", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.yuding", "kind": "verb", "target": "预订", "source": "make a reservation", "difficulty": 2, "category": "food-shopping-services", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.jiezhang", "kind": "verb", "target": "结账", "source": "pay the bill", "difficulty": 2, "category": "food-shopping-services", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.tuihuo", "kind": "verb", "target": "退货", "source": "return a purchase", "difficulty": 2, "category": "food-shopping-services", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.huanhuo", "kind": "verb", "target": "换货", "source": "exchange a purchase", "difficulty": 2, "category": "food-shopping-services", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.shichuan", "kind": "verb", "target": "试穿", "source": "try on clothes", "difficulty": 2, "category": "food-shopping-services", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.dabao", "kind": "verb", "target": "打包", "source": "pack food to go", "difficulty": 2, "category": "food-shopping-services", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.jiare", "kind": "verb", "target": "加热", "source": "heat up", "difficulty": 2, "category": "food-shopping-services", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.hongbei", "kind": "verb", "target": "烘焙", "source": "bake", "difficulty": 2, "category": "food-shopping-services", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.fuxi", "kind": "verb", "target": "复习", "source": "review", "difficulty": 2, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.lianxi-practice", "kind": "verb", "target": "练习", "source": "practice", "difficulty": 2, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.zhunbei", "kind": "verb", "target": "准备", "source": "prepare", "difficulty": 2, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.wancheng", "kind": "verb", "target": "完成", "source": "complete a task", "difficulty": 2, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.kaishi", "kind": "verb", "target": "开始", "source": "begin", "difficulty": 2, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.jieshu", "kind": "verb", "target": "结束", "source": "end an activity", "difficulty": 2, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.jiao-teach", "kind": "verb", "target": "教", "source": "teach", "difficulty": 2, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.sheji", "kind": "verb", "target": "设计", "source": "design", "difficulty": 2, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.zhizuo", "kind": "verb", "target": "制作", "source": "make something", "difficulty": 2, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.xiuli", "kind": "verb", "target": "修理", "source": "repair", "difficulty": 2, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.hezuo", "kind": "verb", "target": "合作", "source": "cooperate", "difficulty": 2, "category": "community-help-safety", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.fenxiang", "kind": "verb", "target": "分享", "source": "share", "difficulty": 2, "category": "community-help-safety", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.paidui", "kind": "verb", "target": "排队", "source": "queue up", "difficulty": 2, "category": "community-help-safety", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.zunshou", "kind": "verb", "target": "遵守", "source": "follow rules", "difficulty": 2, "category": "community-help-safety", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.tixing", "kind": "verb", "target": "提醒", "source": "remind", "difficulty": 2, "category": "community-help-safety", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.xiazai", "kind": "verb", "target": "下载", "source": "download", "difficulty": 2, "category": "digital-admin-adult-life", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.shangchuan", "kind": "verb", "target": "上传", "source": "upload", "difficulty": 2, "category": "digital-admin-adult-life", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.sousuo", "kind": "verb", "target": "搜索", "source": "search", "difficulty": 2, "category": "digital-admin-adult-life", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.zhuce", "kind": "verb", "target": "注册", "source": "register", "difficulty": 2, "category": "digital-admin-adult-life", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.yuyue", "kind": "verb", "target": "预约", "source": "make an appointment", "difficulty": 2, "category": "digital-admin-adult-life", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.tianxie", "kind": "verb", "target": "填写", "source": "fill in a form", "difficulty": 2, "category": "digital-admin-adult-life", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.zhide", "kind": "verb", "target": "值得", "source": "be worth", "difficulty": 3, "category": "identity-modality", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.qujueyu", "kind": "verb", "target": "取决于", "source": "depend on", "difficulty": 3, "category": "identity-modality", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.chengqing", "kind": "verb", "target": "澄清", "source": "clarify", "difficulty": 3, "category": "communication-social", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.zongjie", "kind": "verb", "target": "总结", "source": "summarize", "difficulty": 3, "category": "communication-social", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.miaoshu", "kind": "verb", "target": "描述", "source": "describe", "difficulty": 3, "category": "communication-social", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.biaoda", "kind": "verb", "target": "表达", "source": "express", "difficulty": 3, "category": "communication-social", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.xieshang", "kind": "verb", "target": "协商", "source": "negotiate", "difficulty": 3, "category": "communication-social", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.guli", "kind": "verb", "target": "鼓励", "source": "encourage", "difficulty": 3, "category": "communication-social", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.jujue", "kind": "verb", "target": "拒绝", "source": "refuse", "difficulty": 3, "category": "communication-social", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.bijiao", "kind": "verb", "target": "比较", "source": "compare", "difficulty": 3, "category": "perception-cognition", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.fenxi", "kind": "verb", "target": "分析", "source": "analyze", "difficulty": 3, "category": "perception-cognition", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.panduan", "kind": "verb", "target": "判断", "source": "make a judgment", "difficulty": 3, "category": "perception-cognition", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.jueding", "kind": "verb", "target": "决定", "source": "decide", "difficulty": 3, "category": "perception-cognition", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.jihua", "kind": "verb", "target": "计划", "source": "plan", "difficulty": 3, "category": "perception-cognition", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.yuce", "kind": "verb", "target": "预测", "source": "predict", "difficulty": 3, "category": "perception-cognition", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.jiejue", "kind": "verb", "target": "解决", "source": "solve", "difficulty": 3, "category": "perception-cognition", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.gaijin", "kind": "verb", "target": "改进", "source": "improve", "difficulty": 3, "category": "perception-cognition", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.shiying", "kind": "verb", "target": "适应", "source": "adapt", "difficulty": 3, "category": "perception-cognition", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.daohang", "kind": "verb", "target": "导航", "source": "navigate", "difficulty": 3, "category": "movement-travel", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.raoxing", "kind": "verb", "target": "绕行", "source": "take a detour", "difficulty": 3, "category": "movement-travel", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.yanwu", "kind": "verb", "target": "延误", "source": "delay", "difficulty": 3, "category": "movement-travel", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.tongqin", "kind": "verb", "target": "通勤", "source": "commute", "difficulty": 3, "category": "movement-travel", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.baoyang", "kind": "verb", "target": "保养", "source": "maintain", "difficulty": 3, "category": "home-routines", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.buzhi", "kind": "verb", "target": "布置", "source": "set up a room", "difficulty": 3, "category": "home-routines", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.fenlei", "kind": "verb", "target": "分类", "source": "sort into groups", "difficulty": 3, "category": "home-routines", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.huishou", "kind": "verb", "target": "回收", "source": "recycle", "difficulty": 3, "category": "home-routines", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.bijia", "kind": "verb", "target": "比价", "source": "compare prices", "difficulty": 3, "category": "food-shopping-services", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.tuikuan", "kind": "verb", "target": "申请退款", "source": "request a refund", "difficulty": 3, "category": "food-shopping-services", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.tousu", "kind": "verb", "target": "投诉", "source": "make a complaint", "difficulty": 3, "category": "food-shopping-services", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.peisong", "kind": "verb", "target": "配送", "source": "deliver an order", "difficulty": 3, "category": "food-shopping-services", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.yusuan", "kind": "verb", "target": "做预算", "source": "make a budget", "difficulty": 3, "category": "food-shopping-services", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.yanjiu", "kind": "verb", "target": "研究", "source": "research", "difficulty": 3, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.bianji", "kind": "verb", "target": "编辑", "source": "edit", "difficulty": 3, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.xiugai", "kind": "verb", "target": "修改", "source": "revise", "difficulty": 3, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.shenqing", "kind": "verb", "target": "申请", "source": "apply for something", "difficulty": 3, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.anpai", "kind": "verb", "target": "安排", "source": "arrange", "difficulty": 3, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.guanli", "kind": "verb", "target": "管理", "source": "manage", "difficulty": 3, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.zuzhi", "kind": "verb", "target": "组织", "source": "organize", "difficulty": 3, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.jilu", "kind": "verb", "target": "记录", "source": "record", "difficulty": 3, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.pinggu", "kind": "verb", "target": "评估", "source": "evaluate", "difficulty": 3, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.chuangzuo", "kind": "verb", "target": "创作", "source": "create original work", "difficulty": 3, "category": "school-work-creation", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.zuozhiyuanzhe", "kind": "verb", "target": "做志愿者", "source": "volunteer", "difficulty": 3, "category": "community-help-safety", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.zhichi", "kind": "verb", "target": "支持", "source": "support", "difficulty": 3, "category": "community-help-safety", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.zunzhong", "kind": "verb", "target": "尊重", "source": "respect", "difficulty": 3, "category": "community-help-safety", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.tiaojie", "kind": "verb", "target": "调解", "source": "mediate", "difficulty": 3, "category": "community-help-safety", "reviewStatus": "native-review-required" },
-
-  { "id": "zh.verb.gengxin", "kind": "verb", "target": "更新", "source": "update", "difficulty": 3, "category": "digital-admin-adult-life", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.beifen", "kind": "verb", "target": "备份", "source": "back up", "difficulty": 3, "category": "digital-admin-adult-life", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.yanzheng", "kind": "verb", "target": "验证", "source": "verify", "difficulty": 3, "category": "digital-admin-adult-life", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.xuding", "kind": "verb", "target": "续订", "source": "renew a subscription", "difficulty": 3, "category": "digital-admin-adult-life", "reviewStatus": "native-review-required" },
-  { "id": "zh.verb.zhuanzhang", "kind": "verb", "target": "转账", "source": "transfer money", "difficulty": 3, "category": "digital-admin-adult-life", "reviewStatus": "native-review-required" }
+  {
+    "id": "zh.verb.shi",
+    "kind": "verb",
+    "target": "是",
+    "source": "be (identity)",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.you",
+    "kind": "verb",
+    "target": "有",
+    "source": "have",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.jiao",
+    "kind": "verb",
+    "target": "叫",
+    "source": "be called",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.xiang",
+    "kind": "verb",
+    "target": "想",
+    "source": "want to",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.neng",
+    "kind": "verb",
+    "target": "能",
+    "source": "be able to",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.hui",
+    "kind": "verb",
+    "target": "会",
+    "source": "know how to",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.xuyao",
+    "kind": "verb",
+    "target": "需要",
+    "source": "need",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.shuo",
+    "kind": "verb",
+    "target": "说",
+    "source": "say",
+    "difficulty": 1,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.shuohua",
+    "kind": "verb",
+    "target": "说话",
+    "source": "speak",
+    "difficulty": 1,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.wen",
+    "kind": "verb",
+    "target": "问",
+    "source": "ask",
+    "difficulty": 1,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.huida",
+    "kind": "verb",
+    "target": "回答",
+    "source": "answer",
+    "difficulty": 1,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.gaosu",
+    "kind": "verb",
+    "target": "告诉",
+    "source": "tell",
+    "difficulty": 1,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.xiexie",
+    "kind": "verb",
+    "target": "谢谢",
+    "source": "thank",
+    "difficulty": 1,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.dadianhua",
+    "kind": "verb",
+    "target": "打电话",
+    "source": "make a phone call",
+    "difficulty": 1,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.liaotian",
+    "kind": "verb",
+    "target": "聊天",
+    "source": "chat",
+    "difficulty": 1,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.xihuan",
+    "kind": "verb",
+    "target": "喜欢",
+    "source": "like",
+    "difficulty": 1,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.kan",
+    "kind": "verb",
+    "target": "看",
+    "source": "look at",
+    "difficulty": 1,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.ting",
+    "kind": "verb",
+    "target": "听",
+    "source": "listen",
+    "difficulty": 1,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.zhidao",
+    "kind": "verb",
+    "target": "知道",
+    "source": "know",
+    "difficulty": 1,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.mingbai",
+    "kind": "verb",
+    "target": "明白",
+    "source": "understand",
+    "difficulty": 1,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.jide",
+    "kind": "verb",
+    "target": "记得",
+    "source": "remember",
+    "difficulty": 1,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.qu",
+    "kind": "verb",
+    "target": "去",
+    "source": "go",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.lai",
+    "kind": "verb",
+    "target": "来",
+    "source": "come",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.zoulu",
+    "kind": "verb",
+    "target": "走路",
+    "source": "walk",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.paobu",
+    "kind": "verb",
+    "target": "跑步",
+    "source": "run",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.zuoxia",
+    "kind": "verb",
+    "target": "坐下",
+    "source": "sit down",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.zhanqilai",
+    "kind": "verb",
+    "target": "站起来",
+    "source": "stand up",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.jinqu",
+    "kind": "verb",
+    "target": "进去",
+    "source": "go inside",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.huilai",
+    "kind": "verb",
+    "target": "回来",
+    "source": "come back",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.chi",
+    "kind": "verb",
+    "target": "吃",
+    "source": "eat",
+    "difficulty": 1,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.he",
+    "kind": "verb",
+    "target": "喝",
+    "source": "drink",
+    "difficulty": 1,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.shuijiao",
+    "kind": "verb",
+    "target": "睡觉",
+    "source": "sleep",
+    "difficulty": 1,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.qichuang",
+    "kind": "verb",
+    "target": "起床",
+    "source": "get up",
+    "difficulty": 1,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.xi",
+    "kind": "verb",
+    "target": "洗",
+    "source": "wash",
+    "difficulty": 1,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.chuanyifu",
+    "kind": "verb",
+    "target": "穿衣服",
+    "source": "get dressed",
+    "difficulty": 1,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.dakai",
+    "kind": "verb",
+    "target": "打开",
+    "source": "open",
+    "difficulty": 1,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.guanshang",
+    "kind": "verb",
+    "target": "关上",
+    "source": "close",
+    "difficulty": 1,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.deng",
+    "kind": "verb",
+    "target": "等",
+    "source": "wait",
+    "difficulty": 1,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.xiuxi",
+    "kind": "verb",
+    "target": "休息",
+    "source": "rest",
+    "difficulty": 1,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.mai-buy",
+    "kind": "verb",
+    "target": "买",
+    "source": "buy",
+    "difficulty": 1,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.mai-sell",
+    "kind": "verb",
+    "target": "卖",
+    "source": "sell",
+    "difficulty": 1,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.fuqian",
+    "kind": "verb",
+    "target": "付钱",
+    "source": "pay",
+    "difficulty": 1,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.diancai",
+    "kind": "verb",
+    "target": "点菜",
+    "source": "order food",
+    "difficulty": 1,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.zuofan",
+    "kind": "verb",
+    "target": "做饭",
+    "source": "cook",
+    "difficulty": 1,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.chang-taste",
+    "kind": "verb",
+    "target": "尝",
+    "source": "taste",
+    "difficulty": 1,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.xuanze",
+    "kind": "verb",
+    "target": "选择",
+    "source": "choose",
+    "difficulty": 1,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.xuexi",
+    "kind": "verb",
+    "target": "学习",
+    "source": "study",
+    "difficulty": 1,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.du",
+    "kind": "verb",
+    "target": "读",
+    "source": "read",
+    "difficulty": 1,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.xie",
+    "kind": "verb",
+    "target": "写",
+    "source": "write",
+    "difficulty": 1,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.zuozuoye",
+    "kind": "verb",
+    "target": "做作业",
+    "source": "do homework",
+    "difficulty": 1,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.hua",
+    "kind": "verb",
+    "target": "画",
+    "source": "draw",
+    "difficulty": 1,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.changge",
+    "kind": "verb",
+    "target": "唱歌",
+    "source": "sing",
+    "difficulty": 1,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.gongzuo",
+    "kind": "verb",
+    "target": "工作",
+    "source": "work",
+    "difficulty": 1,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.bangzhu",
+    "kind": "verb",
+    "target": "帮助",
+    "source": "help",
+    "difficulty": 1,
+    "category": "community-help-safety",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.zhaogu",
+    "kind": "verb",
+    "target": "照顾",
+    "source": "care for",
+    "difficulty": 1,
+    "category": "community-help-safety",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.zhuyi",
+    "kind": "verb",
+    "target": "注意",
+    "source": "pay attention",
+    "difficulty": 1,
+    "category": "community-help-safety",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.baohu",
+    "kind": "verb",
+    "target": "保护",
+    "source": "protect",
+    "difficulty": 1,
+    "category": "community-help-safety",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.dazi",
+    "kind": "verb",
+    "target": "打字",
+    "source": "type",
+    "difficulty": 1,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.baocun",
+    "kind": "verb",
+    "target": "保存",
+    "source": "save a file",
+    "difficulty": 1,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.denglu",
+    "kind": "verb",
+    "target": "登录",
+    "source": "sign in",
+    "difficulty": 1,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.keyi",
+    "kind": "verb",
+    "target": "可以",
+    "source": "may",
+    "difficulty": 2,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.yinggai",
+    "kind": "verb",
+    "target": "应该",
+    "source": "should",
+    "difficulty": 2,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.bixu",
+    "kind": "verb",
+    "target": "必须",
+    "source": "must",
+    "difficulty": 2,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.shuyu",
+    "kind": "verb",
+    "target": "属于",
+    "source": "belong to",
+    "difficulty": 2,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.jieshao",
+    "kind": "verb",
+    "target": "介绍",
+    "source": "introduce",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.jieshi",
+    "kind": "verb",
+    "target": "解释",
+    "source": "explain",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.taolun",
+    "kind": "verb",
+    "target": "讨论",
+    "source": "discuss",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.tongyi",
+    "kind": "verb",
+    "target": "同意",
+    "source": "agree",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.butongyi",
+    "kind": "verb",
+    "target": "不同意",
+    "source": "disagree",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.yaoqing",
+    "kind": "verb",
+    "target": "邀请",
+    "source": "invite",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.jianyi",
+    "kind": "verb",
+    "target": "建议",
+    "source": "suggest",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.lianxi-contact",
+    "kind": "verb",
+    "target": "联系",
+    "source": "contact",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.zhuhe",
+    "kind": "verb",
+    "target": "祝贺",
+    "source": "congratulate",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.daoqian",
+    "kind": "verb",
+    "target": "道歉",
+    "source": "apologize",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.kanjian",
+    "kind": "verb",
+    "target": "看见",
+    "source": "see",
+    "difficulty": 2,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.tingjian",
+    "kind": "verb",
+    "target": "听见",
+    "source": "hear",
+    "difficulty": 2,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.juede",
+    "kind": "verb",
+    "target": "觉得",
+    "source": "feel that",
+    "difficulty": 2,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.renwei",
+    "kind": "verb",
+    "target": "认为",
+    "source": "think that",
+    "difficulty": 2,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.wangji",
+    "kind": "verb",
+    "target": "忘记",
+    "source": "forget",
+    "difficulty": 2,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.xuehui",
+    "kind": "verb",
+    "target": "学会",
+    "source": "learn how to",
+    "difficulty": 2,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.faxian",
+    "kind": "verb",
+    "target": "发现",
+    "source": "discover",
+    "difficulty": 2,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.jiancha",
+    "kind": "verb",
+    "target": "检查",
+    "source": "check",
+    "difficulty": 2,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.zhuyidao",
+    "kind": "verb",
+    "target": "注意到",
+    "source": "notice",
+    "difficulty": 2,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.chufa",
+    "kind": "verb",
+    "target": "出发",
+    "source": "set off",
+    "difficulty": 2,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.daoda",
+    "kind": "verb",
+    "target": "到达",
+    "source": "arrive",
+    "difficulty": 2,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.likai",
+    "kind": "verb",
+    "target": "离开",
+    "source": "leave",
+    "difficulty": 2,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.shangche",
+    "kind": "verb",
+    "target": "上车",
+    "source": "get on a vehicle",
+    "difficulty": 2,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.xiache",
+    "kind": "verb",
+    "target": "下车",
+    "source": "get off a vehicle",
+    "difficulty": 2,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.huancheng",
+    "kind": "verb",
+    "target": "换乘",
+    "source": "transfer on public transit",
+    "difficulty": 2,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.guomalu",
+    "kind": "verb",
+    "target": "过马路",
+    "source": "cross the street",
+    "difficulty": 2,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.canguan",
+    "kind": "verb",
+    "target": "参观",
+    "source": "visit a place",
+    "difficulty": 2,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.sanbu",
+    "kind": "verb",
+    "target": "散步",
+    "source": "take a walk",
+    "difficulty": 2,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.shuaya",
+    "kind": "verb",
+    "target": "刷牙",
+    "source": "brush teeth",
+    "difficulty": 2,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.xizao",
+    "kind": "verb",
+    "target": "洗澡",
+    "source": "take a bath or shower",
+    "difficulty": 2,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.shutou",
+    "kind": "verb",
+    "target": "梳头",
+    "source": "comb hair",
+    "difficulty": 2,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.dasao",
+    "kind": "verb",
+    "target": "打扫",
+    "source": "clean",
+    "difficulty": 2,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.zhengli",
+    "kind": "verb",
+    "target": "整理",
+    "source": "tidy up",
+    "difficulty": 2,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.liangyifu",
+    "kind": "verb",
+    "target": "晾衣服",
+    "source": "hang clothes to dry",
+    "difficulty": 2,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.gouwu",
+    "kind": "verb",
+    "target": "购物",
+    "source": "shop",
+    "difficulty": 2,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.duanlian",
+    "kind": "verb",
+    "target": "锻炼",
+    "source": "exercise",
+    "difficulty": 2,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.banjia",
+    "kind": "verb",
+    "target": "搬家",
+    "source": "move house",
+    "difficulty": 2,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.yuding",
+    "kind": "verb",
+    "target": "预订",
+    "source": "make a reservation",
+    "difficulty": 2,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.jiezhang",
+    "kind": "verb",
+    "target": "结账",
+    "source": "pay the bill",
+    "difficulty": 2,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.tuihuo",
+    "kind": "verb",
+    "target": "退货",
+    "source": "return a purchase",
+    "difficulty": 2,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.huanhuo",
+    "kind": "verb",
+    "target": "换货",
+    "source": "exchange a purchase",
+    "difficulty": 2,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.shichuan",
+    "kind": "verb",
+    "target": "试穿",
+    "source": "try on clothes",
+    "difficulty": 2,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.dabao",
+    "kind": "verb",
+    "target": "打包",
+    "source": "pack food to go",
+    "difficulty": 2,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.jiare",
+    "kind": "verb",
+    "target": "加热",
+    "source": "heat up",
+    "difficulty": 2,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.hongbei",
+    "kind": "verb",
+    "target": "烘焙",
+    "source": "bake",
+    "difficulty": 2,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.fuxi",
+    "kind": "verb",
+    "target": "复习",
+    "source": "review",
+    "difficulty": 2,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.lianxi-practice",
+    "kind": "verb",
+    "target": "练习",
+    "source": "practice",
+    "difficulty": 2,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.zhunbei",
+    "kind": "verb",
+    "target": "准备",
+    "source": "prepare",
+    "difficulty": 2,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.wancheng",
+    "kind": "verb",
+    "target": "完成",
+    "source": "complete a task",
+    "difficulty": 2,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.kaishi",
+    "kind": "verb",
+    "target": "开始",
+    "source": "begin",
+    "difficulty": 2,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.jieshu",
+    "kind": "verb",
+    "target": "结束",
+    "source": "end an activity",
+    "difficulty": 2,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.jiao-teach",
+    "kind": "verb",
+    "target": "教",
+    "source": "teach",
+    "difficulty": 2,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.sheji",
+    "kind": "verb",
+    "target": "设计",
+    "source": "design",
+    "difficulty": 2,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.zhizuo",
+    "kind": "verb",
+    "target": "制作",
+    "source": "make something",
+    "difficulty": 2,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.xiuli",
+    "kind": "verb",
+    "target": "修理",
+    "source": "repair",
+    "difficulty": 2,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.hezuo",
+    "kind": "verb",
+    "target": "合作",
+    "source": "cooperate",
+    "difficulty": 2,
+    "category": "community-help-safety",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.fenxiang",
+    "kind": "verb",
+    "target": "分享",
+    "source": "share",
+    "difficulty": 2,
+    "category": "community-help-safety",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.paidui",
+    "kind": "verb",
+    "target": "排队",
+    "source": "queue up",
+    "difficulty": 2,
+    "category": "community-help-safety",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.zunshou",
+    "kind": "verb",
+    "target": "遵守",
+    "source": "follow rules",
+    "difficulty": 2,
+    "category": "community-help-safety",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.tixing",
+    "kind": "verb",
+    "target": "提醒",
+    "source": "remind",
+    "difficulty": 2,
+    "category": "community-help-safety",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.xiazai",
+    "kind": "verb",
+    "target": "下载",
+    "source": "download",
+    "difficulty": 2,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.shangchuan",
+    "kind": "verb",
+    "target": "上传",
+    "source": "upload",
+    "difficulty": 2,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.sousuo",
+    "kind": "verb",
+    "target": "搜索",
+    "source": "search",
+    "difficulty": 2,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.zhuce",
+    "kind": "verb",
+    "target": "注册",
+    "source": "register",
+    "difficulty": 2,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.yuyue",
+    "kind": "verb",
+    "target": "预约",
+    "source": "make an appointment",
+    "difficulty": 2,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.tianxie",
+    "kind": "verb",
+    "target": "填写",
+    "source": "fill in a form",
+    "difficulty": 2,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.zhide",
+    "kind": "verb",
+    "target": "值得",
+    "source": "be worth",
+    "difficulty": 3,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.qujueyu",
+    "kind": "verb",
+    "target": "取决于",
+    "source": "depend on",
+    "difficulty": 3,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.chengqing",
+    "kind": "verb",
+    "target": "澄清",
+    "source": "clarify",
+    "difficulty": 3,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.zongjie",
+    "kind": "verb",
+    "target": "总结",
+    "source": "summarize",
+    "difficulty": 3,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.miaoshu",
+    "kind": "verb",
+    "target": "描述",
+    "source": "describe",
+    "difficulty": 3,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.biaoda",
+    "kind": "verb",
+    "target": "表达",
+    "source": "express",
+    "difficulty": 3,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.xieshang",
+    "kind": "verb",
+    "target": "协商",
+    "source": "negotiate",
+    "difficulty": 3,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.guli",
+    "kind": "verb",
+    "target": "鼓励",
+    "source": "encourage",
+    "difficulty": 3,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.jujue",
+    "kind": "verb",
+    "target": "拒绝",
+    "source": "refuse",
+    "difficulty": 3,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.bijiao",
+    "kind": "verb",
+    "target": "比较",
+    "source": "compare",
+    "difficulty": 3,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.fenxi",
+    "kind": "verb",
+    "target": "分析",
+    "source": "analyze",
+    "difficulty": 3,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.panduan",
+    "kind": "verb",
+    "target": "判断",
+    "source": "make a judgment",
+    "difficulty": 3,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.jueding",
+    "kind": "verb",
+    "target": "决定",
+    "source": "decide",
+    "difficulty": 3,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.jihua",
+    "kind": "verb",
+    "target": "计划",
+    "source": "plan",
+    "difficulty": 3,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.yuce",
+    "kind": "verb",
+    "target": "预测",
+    "source": "predict",
+    "difficulty": 3,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.jiejue",
+    "kind": "verb",
+    "target": "解决",
+    "source": "solve",
+    "difficulty": 3,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.gaijin",
+    "kind": "verb",
+    "target": "改进",
+    "source": "improve",
+    "difficulty": 3,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.shiying",
+    "kind": "verb",
+    "target": "适应",
+    "source": "adapt",
+    "difficulty": 3,
+    "category": "perception-cognition",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.daohang",
+    "kind": "verb",
+    "target": "导航",
+    "source": "navigate",
+    "difficulty": 3,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.raoxing",
+    "kind": "verb",
+    "target": "绕行",
+    "source": "take a detour",
+    "difficulty": 3,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.yanwu",
+    "kind": "verb",
+    "target": "延误",
+    "source": "delay",
+    "difficulty": 3,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.tongqin",
+    "kind": "verb",
+    "target": "通勤",
+    "source": "commute",
+    "difficulty": 3,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.baoyang",
+    "kind": "verb",
+    "target": "保养",
+    "source": "maintain",
+    "difficulty": 3,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.buzhi",
+    "kind": "verb",
+    "target": "布置",
+    "source": "set up a room",
+    "difficulty": 3,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.fenlei",
+    "kind": "verb",
+    "target": "分类",
+    "source": "sort into groups",
+    "difficulty": 3,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.huishou",
+    "kind": "verb",
+    "target": "回收",
+    "source": "recycle",
+    "difficulty": 3,
+    "category": "home-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.bijia",
+    "kind": "verb",
+    "target": "比价",
+    "source": "compare prices",
+    "difficulty": 3,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.tuikuan",
+    "kind": "verb",
+    "target": "申请退款",
+    "source": "request a refund",
+    "difficulty": 3,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.tousu",
+    "kind": "verb",
+    "target": "投诉",
+    "source": "make a complaint",
+    "difficulty": 3,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.peisong",
+    "kind": "verb",
+    "target": "配送",
+    "source": "deliver an order",
+    "difficulty": 3,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.yusuan",
+    "kind": "verb",
+    "target": "做预算",
+    "source": "make a budget",
+    "difficulty": 3,
+    "category": "food-shopping-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.yanjiu",
+    "kind": "verb",
+    "target": "研究",
+    "source": "research",
+    "difficulty": 3,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.bianji",
+    "kind": "verb",
+    "target": "编辑",
+    "source": "edit",
+    "difficulty": 3,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.xiugai",
+    "kind": "verb",
+    "target": "修改",
+    "source": "revise",
+    "difficulty": 3,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.shenqing",
+    "kind": "verb",
+    "target": "申请",
+    "source": "apply for something",
+    "difficulty": 3,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.anpai",
+    "kind": "verb",
+    "target": "安排",
+    "source": "arrange",
+    "difficulty": 3,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.guanli",
+    "kind": "verb",
+    "target": "管理",
+    "source": "manage",
+    "difficulty": 3,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.zuzhi",
+    "kind": "verb",
+    "target": "组织",
+    "source": "organize",
+    "difficulty": 3,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.jilu",
+    "kind": "verb",
+    "target": "记录",
+    "source": "record",
+    "difficulty": 3,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.pinggu",
+    "kind": "verb",
+    "target": "评估",
+    "source": "evaluate",
+    "difficulty": 3,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.chuangzuo",
+    "kind": "verb",
+    "target": "创作",
+    "source": "create original work",
+    "difficulty": 3,
+    "category": "school-work-creation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.zuozhiyuanzhe",
+    "kind": "verb",
+    "target": "做志愿者",
+    "source": "volunteer",
+    "difficulty": 3,
+    "category": "community-help-safety",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.zhichi",
+    "kind": "verb",
+    "target": "支持",
+    "source": "support",
+    "difficulty": 3,
+    "category": "community-help-safety",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.zunzhong",
+    "kind": "verb",
+    "target": "尊重",
+    "source": "respect",
+    "difficulty": 3,
+    "category": "community-help-safety",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.tiaojie",
+    "kind": "verb",
+    "target": "调解",
+    "source": "mediate",
+    "difficulty": 3,
+    "category": "community-help-safety",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.gengxin",
+    "kind": "verb",
+    "target": "更新",
+    "source": "update",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.beifen",
+    "kind": "verb",
+    "target": "备份",
+    "source": "back up",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.yanzheng",
+    "kind": "verb",
+    "target": "验证",
+    "source": "verify",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.xuding",
+    "kind": "verb",
+    "target": "续订",
+    "source": "renew a subscription",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.zhuanzhang",
+    "kind": "verb",
+    "target": "转账",
+    "source": "transfer money",
+    "difficulty": 3,
+    "category": "digital-admin-adult-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.jump",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "跳",
+    "source": "jump",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.swim",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "游泳",
+    "source": "swim",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.dance",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "跳舞",
+    "source": "dance",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.smile",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "微笑",
+    "source": "smile",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.laugh",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "笑",
+    "source": "laugh",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.cry",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "哭",
+    "source": "cry",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.count",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "数",
+    "source": "count",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.touch",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "摸",
+    "source": "touch",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.hold",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "拿着",
+    "source": "hold",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.carry",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "搬",
+    "source": "carry",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.give",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "给",
+    "source": "give",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.sit",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "坐",
+    "source": "sit",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.stand",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "站",
+    "source": "stand",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.wake-up",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "醒来",
+    "source": "wake up",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.fly",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "飞",
+    "source": "fly",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.grow",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "生长",
+    "source": "grow",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.smell",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "闻",
+    "source": "smell",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.hug",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "拥抱",
+    "source": "hug",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.wave",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "挥手",
+    "source": "wave",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.clap",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "鼓掌",
+    "source": "clap",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.kick",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "踢",
+    "source": "kick",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.catch",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "接住",
+    "source": "catch",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.throw",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "扔",
+    "source": "throw",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.crawl",
+    "difficulty": 1,
+    "kind": "verb",
+    "target": "爬",
+    "source": "crawl",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.whisper",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "小声说",
+    "source": "whisper",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.shout",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "喊",
+    "source": "shout",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.hum",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "哼",
+    "source": "hum",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.whistle",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "吹口哨",
+    "source": "whistle",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.bark",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "吠",
+    "source": "bark",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.meow",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "喵喵叫",
+    "source": "meow",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.hop",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "单脚跳",
+    "source": "hop",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.slide",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "滑",
+    "source": "slide",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.roll",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "滚动",
+    "source": "roll",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.float",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "漂浮",
+    "source": "float",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.splash",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "泼水",
+    "source": "splash",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.bounce",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "弹跳",
+    "source": "bounce",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.fold",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "折叠",
+    "source": "fold",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.unfold",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "展开",
+    "source": "unfold",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.decorate",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "装饰",
+    "source": "decorate",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.glue",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "粘贴",
+    "source": "glue",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.weave",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "编织",
+    "source": "weave",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.knead",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "揉",
+    "source": "knead",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.stir",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "搅拌",
+    "source": "stir",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.pour",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "倒",
+    "source": "pour",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.peel",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "削皮",
+    "source": "peel",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.water",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "浇水",
+    "source": "water",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.sprout",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "发芽",
+    "source": "sprout",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.bloom",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "开花",
+    "source": "bloom",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.collect",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "收集",
+    "source": "collect",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.measure",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "测量",
+    "source": "measure",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.weigh",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "称重",
+    "source": "weigh",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.guess",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "猜",
+    "source": "guess",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.explore",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "探索",
+    "source": "explore",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.imagine",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "想象",
+    "source": "imagine",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.pretend",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "假装",
+    "source": "pretend",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.celebrate",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "庆祝",
+    "source": "celebrate",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.welcome",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "欢迎",
+    "source": "welcome",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.cheer",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "加油",
+    "source": "cheer",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.forgive",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "原谅",
+    "source": "forgive",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.comfort",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "安慰",
+    "source": "comfort",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.promise",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "承诺",
+    "source": "promise",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.balance",
+    "difficulty": 2,
+    "kind": "verb",
+    "target": "保持平衡",
+    "source": "balance",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.persuade",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "说服",
+    "source": "persuade",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.reassure",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "宽慰",
+    "source": "reassure",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.appreciate",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "欣赏",
+    "source": "appreciate",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.admire",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "钦佩",
+    "source": "admire",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.wonder",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "纳闷",
+    "source": "wonder",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.reflect",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "反思",
+    "source": "reflect",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.concentrate",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "专心",
+    "source": "concentrate",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.persevere",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "坚持",
+    "source": "persevere",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.hesitate",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "犹豫",
+    "source": "hesitate",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.anticipate",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "预料",
+    "source": "anticipate",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.investigate",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "调查",
+    "source": "investigate",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.observe",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "观察",
+    "source": "observe",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.distinguish",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "区分",
+    "source": "distinguish",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.estimate",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "估计",
+    "source": "estimate",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.interpret",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "解读",
+    "source": "interpret",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.justify",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "论证",
+    "source": "justify",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.demonstrate",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "演示",
+    "source": "demonstrate",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.invent",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "发明",
+    "source": "invent",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.transform",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "转变",
+    "source": "transform",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.combine",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "结合",
+    "source": "combine",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.restore",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "恢复",
+    "source": "restore",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.contribute",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "贡献",
+    "source": "contribute",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.exp260908.include",
+    "difficulty": 3,
+    "kind": "verb",
+    "target": "包含",
+    "source": "include",
+    "category": "nature-play-cooperation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.002",
+    "kind": "verb",
+    "target": "拿",
+    "source": "take; pick up",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.003",
+    "kind": "verb",
+    "target": "放",
+    "source": "put; place",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.004",
+    "kind": "verb",
+    "target": "找",
+    "source": "look for",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.005",
+    "kind": "verb",
+    "target": "带",
+    "source": "bring; take along",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.006",
+    "kind": "verb",
+    "target": "用",
+    "source": "use",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.007",
+    "kind": "verb",
+    "target": "做",
+    "source": "do; make",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.008",
+    "kind": "verb",
+    "target": "玩",
+    "source": "play",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.011",
+    "kind": "verb",
+    "target": "进",
+    "source": "enter",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.012",
+    "kind": "verb",
+    "target": "出",
+    "source": "exit; come out",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.013",
+    "kind": "verb",
+    "target": "回",
+    "source": "return; go back",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.014",
+    "kind": "verb",
+    "target": "送",
+    "source": "give as a gift; deliver",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.015",
+    "kind": "verb",
+    "target": "借",
+    "source": "borrow",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.016",
+    "kind": "verb",
+    "target": "还",
+    "source": "return something borrowed",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.017",
+    "kind": "verb",
+    "target": "穿",
+    "source": "wear; put on clothing",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.018",
+    "kind": "verb",
+    "target": "脱",
+    "source": "take off clothing",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.019",
+    "kind": "verb",
+    "target": "戴",
+    "source": "wear an accessory",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.020",
+    "kind": "verb",
+    "target": "收",
+    "source": "put away; collect in",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.021",
+    "kind": "verb",
+    "target": "擦",
+    "source": "wipe",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.022",
+    "kind": "verb",
+    "target": "推",
+    "source": "push",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.023",
+    "kind": "verb",
+    "target": "拉",
+    "source": "pull",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.024",
+    "kind": "verb",
+    "target": "提",
+    "source": "carry by a handle",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.025",
+    "kind": "verb",
+    "target": "抱",
+    "source": "hold in one's arms",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.026",
+    "kind": "verb",
+    "target": "拍",
+    "source": "pat; tap",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.027",
+    "kind": "verb",
+    "target": "吹",
+    "source": "blow air",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.028",
+    "kind": "verb",
+    "target": "煮",
+    "source": "cook in water",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.029",
+    "kind": "verb",
+    "target": "停",
+    "source": "stop moving",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.030",
+    "kind": "verb",
+    "target": "试",
+    "source": "try",
+    "difficulty": 1,
+    "category": "everyday-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.031",
+    "kind": "verb",
+    "target": "爱",
+    "source": "love",
+    "difficulty": 1,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.032",
+    "kind": "verb",
+    "target": "怕",
+    "source": "fear; be afraid of",
+    "difficulty": 1,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.034",
+    "kind": "verb",
+    "target": "讲",
+    "source": "tell; speak about",
+    "difficulty": 1,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.038",
+    "kind": "verb",
+    "target": "点头",
+    "source": "nod",
+    "difficulty": 1,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.039",
+    "kind": "verb",
+    "target": "摇头",
+    "source": "shake one's head",
+    "difficulty": 1,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.040",
+    "kind": "verb",
+    "target": "跳绳",
+    "source": "skip rope",
+    "difficulty": 1,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.041",
+    "kind": "verb",
+    "target": "骑",
+    "source": "ride",
+    "difficulty": 1,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.042",
+    "kind": "verb",
+    "target": "蹲",
+    "source": "squat down",
+    "difficulty": 1,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.043",
+    "kind": "verb",
+    "target": "躺",
+    "source": "lie down",
+    "difficulty": 1,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.045",
+    "kind": "verb",
+    "target": "弯腰",
+    "source": "bend at the waist",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.046",
+    "kind": "verb",
+    "target": "转身",
+    "source": "turn around",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.047",
+    "kind": "verb",
+    "target": "踏步",
+    "source": "march in place",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.048",
+    "kind": "verb",
+    "target": "踮脚",
+    "source": "stand on tiptoe",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.049",
+    "kind": "verb",
+    "target": "跨",
+    "source": "step across",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.050",
+    "kind": "verb",
+    "target": "迈",
+    "source": "take a step",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.051",
+    "kind": "verb",
+    "target": "滑冰",
+    "source": "ice skate",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.052",
+    "kind": "verb",
+    "target": "滑雪",
+    "source": "ski",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.053",
+    "kind": "verb",
+    "target": "划船",
+    "source": "row a boat",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.055",
+    "kind": "verb",
+    "target": "滑行",
+    "source": "glide along a surface",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.056",
+    "kind": "verb",
+    "target": "滑翔",
+    "source": "glide through the air",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.057",
+    "kind": "verb",
+    "target": "旋转",
+    "source": "rotate",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.058",
+    "kind": "verb",
+    "target": "摇摆",
+    "source": "swing back and forth",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.059",
+    "kind": "verb",
+    "target": "摇晃",
+    "source": "rock; sway unsteadily",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.060",
+    "kind": "verb",
+    "target": "弹",
+    "source": "play a stringed or keyboard instrument",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.061",
+    "kind": "verb",
+    "target": "演奏",
+    "source": "perform music",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.062",
+    "kind": "verb",
+    "target": "朗读",
+    "source": "read aloud",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.063",
+    "kind": "verb",
+    "target": "朗诵",
+    "source": "recite expressively",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.064",
+    "kind": "verb",
+    "target": "排练",
+    "source": "rehearse",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.065",
+    "kind": "verb",
+    "target": "表演",
+    "source": "perform for an audience",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.066",
+    "kind": "verb",
+    "target": "伴奏",
+    "source": "accompany with music",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.067",
+    "kind": "verb",
+    "target": "合唱",
+    "source": "sing in a choir",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.068",
+    "kind": "verb",
+    "target": "敲",
+    "source": "knock; tap on",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.069",
+    "kind": "verb",
+    "target": "抛",
+    "source": "toss",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.071",
+    "kind": "verb",
+    "target": "蹦",
+    "source": "leap; bounce up",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.072",
+    "kind": "verb",
+    "target": "追赶",
+    "source": "chase; try to catch up",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.073",
+    "kind": "verb",
+    "target": "躲藏",
+    "source": "hide oneself",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.074",
+    "kind": "verb",
+    "target": "钻",
+    "source": "crawl through a narrow space",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.075",
+    "kind": "verb",
+    "target": "越过",
+    "source": "cross over",
+    "difficulty": 2,
+    "category": "play-movement",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.076",
+    "kind": "verb",
+    "target": "种",
+    "source": "plant; cultivate",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.077",
+    "kind": "verb",
+    "target": "播种",
+    "source": "sow seeds",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.078",
+    "kind": "verb",
+    "target": "移植",
+    "source": "transplant",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.079",
+    "kind": "verb",
+    "target": "松土",
+    "source": "loosen soil",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.080",
+    "kind": "verb",
+    "target": "拔草",
+    "source": "pull weeds",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.081",
+    "kind": "verb",
+    "target": "采摘",
+    "source": "pick fruit or flowers",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.082",
+    "kind": "verb",
+    "target": "收获",
+    "source": "harvest",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.083",
+    "kind": "verb",
+    "target": "喂",
+    "source": "feed",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.084",
+    "kind": "verb",
+    "target": "孵化",
+    "source": "hatch",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.085",
+    "kind": "verb",
+    "target": "筑巢",
+    "source": "build a nest",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.086",
+    "kind": "verb",
+    "target": "啄",
+    "source": "peck",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.087",
+    "kind": "verb",
+    "target": "啃",
+    "source": "gnaw; nibble",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.088",
+    "kind": "verb",
+    "target": "舔",
+    "source": "lick",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.090",
+    "kind": "verb",
+    "target": "抚摸",
+    "source": "stroke gently",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.092",
+    "kind": "verb",
+    "target": "盛开",
+    "source": "be in full bloom",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.093",
+    "kind": "verb",
+    "target": "结冰",
+    "source": "freeze into ice",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.094",
+    "kind": "verb",
+    "target": "融化",
+    "source": "melt",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.095",
+    "kind": "verb",
+    "target": "流动",
+    "source": "flow; circulate",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.096",
+    "kind": "verb",
+    "target": "飘落",
+    "source": "drift down",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.097",
+    "kind": "verb",
+    "target": "下雨",
+    "source": "rain",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.098",
+    "kind": "verb",
+    "target": "下雪",
+    "source": "snow",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.099",
+    "kind": "verb",
+    "target": "发光",
+    "source": "emit light",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.100",
+    "kind": "verb",
+    "target": "闪烁",
+    "source": "twinkle; flicker",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.101",
+    "kind": "verb",
+    "target": "照亮",
+    "source": "illuminate",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.102",
+    "kind": "verb",
+    "target": "遮挡",
+    "source": "block from view or light",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.103",
+    "kind": "verb",
+    "target": "出现",
+    "source": "appear",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.104",
+    "kind": "verb",
+    "target": "消失",
+    "source": "disappear",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.105",
+    "kind": "verb",
+    "target": "落下",
+    "source": "fall; descend",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.106",
+    "kind": "verb",
+    "target": "升起",
+    "source": "rise into view",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.107",
+    "kind": "verb",
+    "target": "晒",
+    "source": "dry or warm in the sun",
+    "difficulty": 2,
+    "category": "nature-care",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.108",
+    "kind": "verb",
+    "target": "挤",
+    "source": "squeeze",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.109",
+    "kind": "verb",
+    "target": "拧",
+    "source": "twist; wring",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.110",
+    "kind": "verb",
+    "target": "揉搓",
+    "source": "rub between the hands",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.111",
+    "kind": "verb",
+    "target": "搓",
+    "source": "rub back and forth",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.112",
+    "kind": "verb",
+    "target": "捏",
+    "source": "pinch; shape with fingers",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.113",
+    "kind": "verb",
+    "target": "擀",
+    "source": "roll out dough",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.114",
+    "kind": "verb",
+    "target": "筛",
+    "source": "sift",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.115",
+    "kind": "verb",
+    "target": "蒸",
+    "source": "steam food",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.116",
+    "kind": "verb",
+    "target": "烤",
+    "source": "bake; roast",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.117",
+    "kind": "verb",
+    "target": "拌",
+    "source": "mix ingredients together",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.118",
+    "kind": "verb",
+    "target": "盛",
+    "source": "serve food into a container",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.119",
+    "kind": "verb",
+    "target": "舀",
+    "source": "scoop with a ladle",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.120",
+    "kind": "verb",
+    "target": "蘸",
+    "source": "dip into sauce or liquid",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.121",
+    "kind": "verb",
+    "target": "沥",
+    "source": "drain off liquid",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.122",
+    "kind": "verb",
+    "target": "泡",
+    "source": "soak",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.123",
+    "kind": "verb",
+    "target": "冲洗",
+    "source": "rinse",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.125",
+    "kind": "verb",
+    "target": "打磨",
+    "source": "sand; polish a surface",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.126",
+    "kind": "verb",
+    "target": "缝",
+    "source": "sew",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.127",
+    "kind": "verb",
+    "target": "绣",
+    "source": "embroider",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.128",
+    "kind": "verb",
+    "target": "缝补",
+    "source": "mend with stitches",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.129",
+    "kind": "verb",
+    "target": "拼",
+    "source": "piece together",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.130",
+    "kind": "verb",
+    "target": "叠",
+    "source": "fold; stack",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.131",
+    "kind": "verb",
+    "target": "捆",
+    "source": "bundle; tie together",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.132",
+    "kind": "verb",
+    "target": "绑",
+    "source": "tie; fasten",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.133",
+    "kind": "verb",
+    "target": "系",
+    "source": "tie a knot or bow",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.134",
+    "kind": "verb",
+    "target": "挂",
+    "source": "hang something",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.135",
+    "kind": "verb",
+    "target": "晾",
+    "source": "hang out to dry",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.137",
+    "kind": "verb",
+    "target": "熨",
+    "source": "iron clothing",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.138",
+    "kind": "verb",
+    "target": "盖",
+    "source": "cover; put a lid on",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.139",
+    "kind": "verb",
+    "target": "扣",
+    "source": "fasten a button or clasp",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.140",
+    "kind": "verb",
+    "target": "锁",
+    "source": "lock",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.141",
+    "kind": "verb",
+    "target": "拆",
+    "source": "take apart",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.142",
+    "kind": "verb",
+    "target": "组装",
+    "source": "assemble",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.143",
+    "kind": "verb",
+    "target": "安装",
+    "source": "install",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.144",
+    "kind": "verb",
+    "target": "拆卸",
+    "source": "dismantle",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.145",
+    "kind": "verb",
+    "target": "收拾",
+    "source": "tidy; clear away",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.147",
+    "kind": "verb",
+    "target": "清理",
+    "source": "clear out; clean up",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.148",
+    "kind": "verb",
+    "target": "布展",
+    "source": "arrange an exhibition",
+    "difficulty": 2,
+    "category": "home-craft",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.149",
+    "kind": "verb",
+    "target": "陪伴",
+    "source": "keep company",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.151",
+    "kind": "verb",
+    "target": "赞美",
+    "source": "praise",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.153",
+    "kind": "verb",
+    "target": "问候",
+    "source": "send greetings",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.154",
+    "kind": "verb",
+    "target": "告别",
+    "source": "say farewell",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.155",
+    "kind": "verb",
+    "target": "拜访",
+    "source": "visit someone",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.156",
+    "kind": "verb",
+    "target": "相遇",
+    "source": "meet by chance",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.157",
+    "kind": "verb",
+    "target": "认识",
+    "source": "get to know; recognize a person",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.158",
+    "kind": "verb",
+    "target": "听说",
+    "source": "hear about",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.159",
+    "kind": "verb",
+    "target": "询问",
+    "source": "inquire",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.160",
+    "kind": "verb",
+    "target": "提问",
+    "source": "ask a question",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.161",
+    "kind": "verb",
+    "target": "举手",
+    "source": "raise a hand",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.162",
+    "kind": "verb",
+    "target": "举",
+    "source": "lift; raise",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.163",
+    "kind": "verb",
+    "target": "传递",
+    "source": "pass along",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.164",
+    "kind": "verb",
+    "target": "递",
+    "source": "hand over",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.165",
+    "kind": "verb",
+    "target": "交换",
+    "source": "exchange with one another",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.166",
+    "kind": "verb",
+    "target": "商量",
+    "source": "discuss to reach a decision",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.167",
+    "kind": "verb",
+    "target": "参加",
+    "source": "take part",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.168",
+    "kind": "verb",
+    "target": "报名",
+    "source": "sign up for an activity",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.169",
+    "kind": "verb",
+    "target": "投票",
+    "source": "vote",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.170",
+    "kind": "verb",
+    "target": "轮换",
+    "source": "rotate roles",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.171",
+    "kind": "verb",
+    "target": "平分",
+    "source": "divide equally",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.172",
+    "kind": "verb",
+    "target": "让步",
+    "source": "make a concession",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.173",
+    "kind": "verb",
+    "target": "谦让",
+    "source": "yield courteously",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.174",
+    "kind": "verb",
+    "target": "体谅",
+    "source": "show understanding for",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.175",
+    "kind": "verb",
+    "target": "信任",
+    "source": "trust",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.176",
+    "kind": "verb",
+    "target": "担心",
+    "source": "worry",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.177",
+    "kind": "verb",
+    "target": "期待",
+    "source": "look forward to",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.178",
+    "kind": "verb",
+    "target": "希望",
+    "source": "hope",
+    "difficulty": 2,
+    "category": "communication-social",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.179",
+    "kind": "verb",
+    "target": "理解",
+    "source": "comprehend",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.180",
+    "kind": "verb",
+    "target": "思考",
+    "source": "think carefully",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.181",
+    "kind": "verb",
+    "target": "考虑",
+    "source": "consider",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.182",
+    "kind": "verb",
+    "target": "推理",
+    "source": "reason logically",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.183",
+    "kind": "verb",
+    "target": "推断",
+    "source": "infer",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.184",
+    "kind": "verb",
+    "target": "推测",
+    "source": "conjecture",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.185",
+    "kind": "verb",
+    "target": "假设",
+    "source": "hypothesize",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.186",
+    "kind": "verb",
+    "target": "检验",
+    "source": "test against a standard",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.187",
+    "kind": "verb",
+    "target": "核对",
+    "source": "check against a record",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.188",
+    "kind": "verb",
+    "target": "证明",
+    "source": "prove",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.189",
+    "kind": "verb",
+    "target": "证实",
+    "source": "confirm with evidence",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.190",
+    "kind": "verb",
+    "target": "确认",
+    "source": "confirm",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.191",
+    "kind": "verb",
+    "target": "辨认",
+    "source": "identify; recognize",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.193",
+    "kind": "verb",
+    "target": "辨别",
+    "source": "tell apart",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.194",
+    "kind": "verb",
+    "target": "归纳",
+    "source": "generalize from examples",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.195",
+    "kind": "verb",
+    "target": "概括",
+    "source": "sum up the main points",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.196",
+    "kind": "verb",
+    "target": "提炼",
+    "source": "distill essential points",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.197",
+    "kind": "verb",
+    "target": "联想",
+    "source": "associate ideas",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.198",
+    "kind": "verb",
+    "target": "设想",
+    "source": "envisage",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.199",
+    "kind": "verb",
+    "target": "构思",
+    "source": "conceive a plan or story",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.200",
+    "kind": "verb",
+    "target": "斟酌",
+    "source": "weigh up carefully",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.201",
+    "kind": "verb",
+    "target": "反省",
+    "source": "examine one's own conduct",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.202",
+    "kind": "verb",
+    "target": "领悟",
+    "source": "grasp an insight",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.203",
+    "kind": "verb",
+    "target": "回忆",
+    "source": "recall memories",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.204",
+    "kind": "verb",
+    "target": "回顾",
+    "source": "look back over",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.205",
+    "kind": "verb",
+    "target": "复述",
+    "source": "retell",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.206",
+    "kind": "verb",
+    "target": "转述",
+    "source": "report what someone else said",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.207",
+    "kind": "verb",
+    "target": "引用",
+    "source": "quote; cite",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.208",
+    "kind": "verb",
+    "target": "举例",
+    "source": "give an example",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.209",
+    "kind": "verb",
+    "target": "补充",
+    "source": "supplement; add missing information",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.210",
+    "kind": "verb",
+    "target": "纠正",
+    "source": "correct an error",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.212",
+    "kind": "verb",
+    "target": "标注",
+    "source": "annotate; label",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.213",
+    "kind": "verb",
+    "target": "注明",
+    "source": "state in a note",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.214",
+    "kind": "verb",
+    "target": "省略",
+    "source": "omit",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.215",
+    "kind": "verb",
+    "target": "保留",
+    "source": "retain",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.216",
+    "kind": "verb",
+    "target": "删减",
+    "source": "cut down written content",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.217",
+    "kind": "verb",
+    "target": "扩展",
+    "source": "expand in scope",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.218",
+    "kind": "verb",
+    "target": "延伸",
+    "source": "extend",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.219",
+    "kind": "verb",
+    "target": "简化",
+    "source": "simplify",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.220",
+    "kind": "verb",
+    "target": "细化",
+    "source": "make more detailed",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.221",
+    "kind": "verb",
+    "target": "改写",
+    "source": "rewrite",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.222",
+    "kind": "verb",
+    "target": "续写",
+    "source": "continue a piece of writing",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.223",
+    "kind": "verb",
+    "target": "润色",
+    "source": "polish writing",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.224",
+    "kind": "verb",
+    "target": "翻译",
+    "source": "translate",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.225",
+    "kind": "verb",
+    "target": "模仿",
+    "source": "imitate",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.226",
+    "kind": "verb",
+    "target": "演绎",
+    "source": "interpret through performance",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.227",
+    "kind": "verb",
+    "target": "阐述",
+    "source": "explain in detail",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.228",
+    "kind": "verb",
+    "target": "提议",
+    "source": "propose",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.229",
+    "kind": "verb",
+    "target": "辩论",
+    "source": "debate",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.230",
+    "kind": "verb",
+    "target": "质疑",
+    "source": "question a claim",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.231",
+    "kind": "verb",
+    "target": "追问",
+    "source": "ask a follow-up question",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.232",
+    "kind": "verb",
+    "target": "回应",
+    "source": "respond",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.233",
+    "kind": "verb",
+    "target": "倾听",
+    "source": "listen attentively",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.234",
+    "kind": "verb",
+    "target": "误解",
+    "source": "misunderstand",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.235",
+    "kind": "verb",
+    "target": "弥补",
+    "source": "make up for",
+    "difficulty": 3,
+    "category": "thinking-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.236",
+    "kind": "verb",
+    "target": "调整",
+    "source": "adjust",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.237",
+    "kind": "verb",
+    "target": "制定",
+    "source": "formulate a plan",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.238",
+    "kind": "verb",
+    "target": "实施",
+    "source": "implement",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.240",
+    "kind": "verb",
+    "target": "执行",
+    "source": "carry out instructions",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.241",
+    "kind": "verb",
+    "target": "分配",
+    "source": "allocate",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.242",
+    "kind": "verb",
+    "target": "协调",
+    "source": "coordinate",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.243",
+    "kind": "verb",
+    "target": "配合",
+    "source": "work in concert with",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.244",
+    "kind": "verb",
+    "target": "统筹",
+    "source": "plan as a whole",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.245",
+    "kind": "verb",
+    "target": "筹备",
+    "source": "make preparations for",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.247",
+    "kind": "verb",
+    "target": "展示",
+    "source": "display",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.248",
+    "kind": "verb",
+    "target": "呈现",
+    "source": "present; make visible",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.250",
+    "kind": "verb",
+    "target": "运用",
+    "source": "apply in practice",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.251",
+    "kind": "verb",
+    "target": "利用",
+    "source": "make use of",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.252",
+    "kind": "verb",
+    "target": "节省",
+    "source": "use less of; conserve",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.253",
+    "kind": "verb",
+    "target": "减少",
+    "source": "reduce",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.254",
+    "kind": "verb",
+    "target": "增加",
+    "source": "increase",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.255",
+    "kind": "verb",
+    "target": "积累",
+    "source": "accumulate gradually",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.256",
+    "kind": "verb",
+    "target": "储存",
+    "source": "store",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.257",
+    "kind": "verb",
+    "target": "保管",
+    "source": "keep safe; look after property",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.258",
+    "kind": "verb",
+    "target": "维护",
+    "source": "keep in good working order",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.259",
+    "kind": "verb",
+    "target": "修复",
+    "source": "restore something damaged",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.260",
+    "kind": "verb",
+    "target": "改造",
+    "source": "remodel",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.261",
+    "kind": "verb",
+    "target": "替换",
+    "source": "replace with an alternative",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.262",
+    "kind": "verb",
+    "target": "循环",
+    "source": "cycle; circulate repeatedly",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.263",
+    "kind": "verb",
+    "target": "分解",
+    "source": "break down into parts",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.264",
+    "kind": "verb",
+    "target": "融合",
+    "source": "blend into a whole",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.265",
+    "kind": "verb",
+    "target": "连接",
+    "source": "connect",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.266",
+    "kind": "verb",
+    "target": "衔接",
+    "source": "link stages smoothly",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.267",
+    "kind": "verb",
+    "target": "转换",
+    "source": "convert",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.268",
+    "kind": "verb",
+    "target": "传达",
+    "source": "convey",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.269",
+    "kind": "verb",
+    "target": "传播",
+    "source": "spread information or ideas",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.270",
+    "kind": "verb",
+    "target": "吸引",
+    "source": "attract",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.271",
+    "kind": "verb",
+    "target": "启发",
+    "source": "inspire understanding",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.272",
+    "kind": "verb",
+    "target": "激发",
+    "source": "arouse interest or energy",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.273",
+    "kind": "verb",
+    "target": "培养",
+    "source": "develop a skill or habit",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.274",
+    "kind": "verb",
+    "target": "引导",
+    "source": "guide",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.275",
+    "kind": "verb",
+    "target": "促进",
+    "source": "promote; further",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.276",
+    "kind": "verb",
+    "target": "巩固",
+    "source": "consolidate learning",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.278",
+    "kind": "verb",
+    "target": "克服",
+    "source": "overcome a difficulty",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.279",
+    "kind": "verb",
+    "target": "应对",
+    "source": "respond to a challenge",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.280",
+    "kind": "verb",
+    "target": "尝试",
+    "source": "attempt; try out",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.281",
+    "kind": "verb",
+    "target": "实践",
+    "source": "put knowledge into practice",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "zh.verb.m260908.282",
+    "kind": "verb",
+    "target": "珍惜",
+    "source": "cherish",
+    "difficulty": 3,
+    "category": "planning-making",
+    "reviewStatus": "native-review-required"
+  }
 ]

@@ -11,6 +11,7 @@ import org.json.JSONObject
 import java.io.ByteArrayInputStream
 import java.io.File
 import java.io.FileNotFoundException
+import java.io.FilterInputStream
 
 class CaatuuAssetClient(
     private val context: Context,
@@ -64,7 +65,10 @@ class CaatuuAssetClient(
     override fun shouldInterceptRequest(
         view: WebView,
         request: WebResourceRequest,
-    ): WebResourceResponse? = intercept(request.url)
+    ): WebResourceResponse? = intercept(
+        request.url,
+        request.requestHeaders.entries.firstOrNull { it.key.equals("Range", ignoreCase = true) }?.value,
+    )
 
     override fun onPageFinished(view: WebView, url: String?) {
         super.onPageFinished(view, url)
@@ -88,7 +92,7 @@ class CaatuuAssetClient(
         view.evaluateJavascript(nativeBoundaryScript(), null)
     }
 
-    private fun intercept(uri: Uri): WebResourceResponse? {
+    private fun intercept(uri: Uri, rangeHeader: String? = null): WebResourceResponse? {
         if (!isAppHost(uri)) return forbidden()
         if (isAppRoot(uri)) return redirectToLanguageHome()
 
@@ -134,6 +138,9 @@ class CaatuuAssetClient(
         }
         val localSetupAsset = readyOwners.values.firstNotNullOfOrNull { it.verifiedLocalAsset(assetPath) }
         if (localSetupAsset != null) {
+            if (assetPath.startsWith("assets/music/audio/")) {
+                return localMusicAsset(assetPath, localSetupAsset, rangeHeader)
+            }
             return WebResourceResponse(
                 mimeType(assetPath),
                 charsetFor(assetPath),
@@ -148,6 +155,63 @@ class CaatuuAssetClient(
         if (assetOwners.isNotEmpty()) return notFound()
 
         return bundledAsset(assetPath, noStore = assetPath == "index.html" || assetPath == "setup.html")
+    }
+
+    // Chromium seeks in and loops downloaded audio using HTTP byte ranges.
+    // Serve only the already verified setup file, without buffering the song.
+    private fun localMusicAsset(assetPath: String, file: File, rangeHeader: String?): WebResourceResponse {
+        val size = file.length()
+        val headers = mutableMapOf(
+            "Access-Control-Allow-Origin" to "*",
+            "Cache-Control" to "no-store",
+            "Accept-Ranges" to "bytes",
+            "Content-Length" to size.toString(),
+        )
+        val match = rangeHeader?.trim()?.let { Regex("bytes=(\\d*)-(\\d*)").matchEntire(it) }
+        var start = 0L
+        var end = size - 1
+        val partial = match != null && match.groupValues.drop(1).any { it.isNotEmpty() }
+        if (partial) {
+            val first = match!!.groupValues[1]
+            val last = match.groupValues[2]
+            if (first.isEmpty()) {
+                val suffix = last.toLongOrNull() ?: 0L
+                start = if (suffix > 0) (size - suffix).coerceAtLeast(0L) else size
+            } else {
+                start = first.toLongOrNull() ?: size
+                end = if (last.isEmpty()) size - 1 else (last.toLongOrNull() ?: -1L).coerceAtMost(size - 1)
+            }
+            if (start >= size || end < start) {
+                headers["Content-Range"] = "bytes */$size"
+                headers["Content-Length"] = "0"
+                return WebResourceResponse(mimeType(assetPath), null, 416, "Range Not Satisfiable", headers, ByteArrayInputStream(byteArrayOf()))
+            }
+        }
+        val length = (end - start + 1).coerceAtLeast(0L)
+        headers["Content-Length"] = length.toString()
+        if (partial) headers["Content-Range"] = "bytes $start-$end/$size"
+        val input = file.inputStream()
+        input.channel.position(start)
+        val bounded = object : FilterInputStream(input) {
+            private var remaining = length
+            override fun read(): Int {
+                if (remaining <= 0) return -1
+                val value = `in`.read()
+                if (value >= 0) remaining -= 1
+                return value
+            }
+            override fun read(buffer: ByteArray, offset: Int, count: Int): Int {
+                if (count == 0) return 0
+                if (remaining <= 0) return -1
+                val read = `in`.read(buffer, offset, minOf(count.toLong(), remaining).toInt())
+                if (read > 0) remaining -= read.toLong()
+                return read
+            }
+            override fun available(): Int = minOf(`in`.available().toLong(), remaining).toInt()
+            override fun skip(count: Long): Long = `in`.skip(minOf(count.coerceAtLeast(0L), remaining)).also { remaining -= it }
+        }
+        return WebResourceResponse(mimeType(assetPath), null, if (partial) 206 else 200,
+            if (partial) "Partial Content" else "OK", headers, bounded)
     }
 
     private fun bundledAsset(assetPath: String, noStore: Boolean = false): WebResourceResponse {
@@ -231,6 +295,8 @@ class CaatuuAssetClient(
             "jpg", "jpeg" -> "image/jpeg"
             "js", "mjs" -> "text/javascript"
             "json" -> "application/json"
+            "mp3" -> "audio/mpeg"
+            "txt" -> "text/plain"
             "png" -> "image/png"
             "sqlite", "db" -> "application/vnd.sqlite3"
             "svg" -> "image/svg+xml"

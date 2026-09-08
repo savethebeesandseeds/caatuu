@@ -86,13 +86,14 @@ class MainActivity : ComponentActivity() {
             applicationContext,
             catalogAssetPath = "data/dictionaries/catalog.json",
         )
+        val staticAssetManager = StaticAssetManager(applicationContext)
         bridge = CaatuuBridge(
             activity = this,
             webView = webView,
             modelManager = ModelManager(applicationContext),
             vectorDatabaseManager = vectorDatabaseManager,
             dictionaryManager = dictionaryManager,
-            staticAssetManager = StaticAssetManager(applicationContext),
+            staticAssetManager = staticAssetManager,
             appUpdateManager = AppUpdateManager(applicationContext),
             speechManager = AndroidSpeechManager(applicationContext),
             model = NativeCzechModel(applicationContext),
@@ -102,6 +103,7 @@ class MainActivity : ComponentActivity() {
         webView.webViewClient = CaatuuAssetClient(
             context = this,
             vectorDatabaseManager = vectorDatabaseManager,
+            staticAssetManagers = mapOf(BuildConfig.CAATUU_LANGUAGE_ID to staticAssetManager),
         )
         webView.addJavascriptInterface(bridge, "CaatuuAndroid")
         webView.loadUrl(CaatuuAssetClient.START_URL)
@@ -231,6 +233,11 @@ class MainActivity : ComponentActivity() {
                 finish()
             }
         }
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (::bridge.isInitialized) bridge.onWindowFocusChanged(hasFocus)
     }
 
     override fun onPause() {

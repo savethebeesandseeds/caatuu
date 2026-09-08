@@ -1,10 +1,13 @@
 (() => {
   const registryPath = "/languages.json";
   const languageList = document.querySelector("[data-language-list]");
+  const previousCourses = document.querySelector("[data-course-previous]");
+  const nextCourses = document.querySelector("[data-course-next]");
   const browserEntry = document.querySelector("[data-browser-entry]");
   const download = document.querySelector("[data-android-download]");
   const localeSelect = document.querySelector("[data-page-language]");
   const localeControl = document.querySelector("[data-language-control]");
+  const audioMenu = document.querySelector("[data-audio-menu]");
   const localePreferenceKey = "caatuu.launcher.interfaceLocale.v1";
   const courseDialog = document.querySelector("[data-course-dialog]");
   const courseAndroid = document.querySelector("[data-course-dialog-android]");
@@ -15,9 +18,30 @@
   let interfaceRequest = 0;
   let interfaceContent = null;
   let currentRegistry = null;
+  let courseBounce = null;
 
   function t(messageId, parameters = {}) {
     return interfaceContent?.t(messageId, parameters) || "";
+  }
+
+  function scrollCourses(direction) {
+    if (!languageList) return;
+    const rtl = document.documentElement.dir === "rtl" ? -1 : 1;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const position = Math.abs(languageList.scrollLeft);
+    const atEdge = direction < 0 ? position <= 1
+      : position >= languageList.scrollWidth - languageList.clientWidth - 1;
+    courseBounce?.cancel();
+    if (atEdge) {
+      if (!reducedMotion) courseBounce = languageList.animate([
+        { transform: "translateX(0)" },
+        { transform: `translateX(${-direction * rtl * 12}px)`, offset: 0.35 },
+        { transform: "translateX(0)" }
+      ], { duration: 320, easing: "ease-out" });
+      return;
+    }
+    languageList.scrollBy({ left: direction * rtl * languageList.clientWidth,
+      behavior: reducedMotion ? "instant" : "smooth" });
   }
 
   function localePreferences() {
@@ -231,13 +255,15 @@
 
   async function renderLanguages(registry) {
     const request = ++interfaceRequest;
-    const { loadLauncherInterface, launcherLocales } = await import("/language-runtime/static/source/launcher-interface.mjs?v=launcher-interface-7");
+    const { loadLauncherInterface, launcherLocales } = await import("/language-runtime/static/source/launcher-interface.mjs?v=launcher-interface-9");
     const { course, content } = await loadLauncherInterface(registry, localePreferences());
     if (request !== interfaceRequest) return;
     interfaceContent = content;
     document.documentElement.lang = content.locale;
     document.documentElement.dir = content.direction;
     content.apply(document);
+    window.CaatuuLauncherInterface = content;
+    window.dispatchEvent(new CustomEvent("caatuu:interfacechange", { detail: { content } }));
     if (localeSelect) {
       localeSelect.replaceChildren(...launcherLocales.map((source) => {
         const option = document.createElement("option");
@@ -283,6 +309,18 @@
       loadRegistry();
     }, Math.max(0, delay));
   }
+
+  previousCourses?.addEventListener("click", () => scrollCourses(-1));
+  nextCourses?.addEventListener("click", () => scrollCourses(1));
+  document.addEventListener("click", (event) => {
+    if (audioMenu?.open && !audioMenu.contains(event.target)) audioMenu.open = false;
+  });
+  audioMenu?.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || !audioMenu.open) return;
+    event.preventDefault();
+    audioMenu.open = false;
+    audioMenu.querySelector("summary")?.focus();
+  });
 
   async function removeLegacyRootServiceWorker() {
     if (!("serviceWorker" in navigator) || !navigator.serviceWorker.getRegistrations) return;

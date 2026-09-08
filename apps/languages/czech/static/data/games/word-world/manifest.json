@@ -24,27 +24,27 @@
     "modelId": "all-minilm-l6-v2-qint8-v0.1",
     "fallback": "deterministic-lexical"
   },
-  "runtimeFile": "content.json?v=6303fd1faa21e628",
-  "recordCount": 792,
-  "contentSha256": "6303fd1faa21e628bbb87579b7ebf7565b6c0e1c5ae574c070f7082fd701d184",
+  "runtimeFile": "content.json?v=b154ef48960191c1",
+  "recordCount": 833,
+  "contentSha256": "b154ef48960191c169e1a1886cc66f33c567e88cbb017f1498ecfce21a8e39ed",
   "difficultyDistribution": {
-    "1": 175,
-    "2": 565,
-    "3": 52
+    "1": 183,
+    "2": 590,
+    "3": 60
   },
   "difficultyShare": {
-    "1": 0.22096,
-    "2": 0.713384,
-    "3": 0.065657
+    "1": 0.219688,
+    "2": 0.708283,
+    "3": 0.072029
   },
   "minimumLevel2Share": 0.6,
   "minimumLevel3Records": 50,
-  "playableTargets": 593,
+  "playableTargets": 753,
   "branchability": {
     "branchableMinimumRecords": 2,
-    "branchableTargets": 367,
+    "branchableTargets": 394,
     "strongMinimumRecords": 5,
-    "strongTargets": 26
+    "strongTargets": 27
   },
   "translationIncluded": true,
   "sceneQueriesIncluded": true,

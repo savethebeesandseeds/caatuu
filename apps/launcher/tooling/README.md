@@ -46,9 +46,11 @@ learning games, and all
 662 reviewed visual assets. A 2.5 MB static supplement preserves exact
 dictionary matches for every Standard Word World surface resolved by the
 existing pinned full dictionary (1,195 of 1,277 surfaces); its 82 source
-dictionary misses retain the existing local gap behavior. Only the three
-transformed keymaps are required during first setup; the larger visual catalog
-is downloaded and cached as it is used.
+dictionary misses retain the existing local gap behavior. First setup requires
+the transformed keymaps and the three shared music tracks with their credits
+and license texts. Music uses the same verified `caatuu-music-v1` cache across
+courses and is excluded from worker precaches; the larger visual catalog is
+downloaded and cached as it is used.
 
 The browser core deliberately excludes Chat, language-model inference,
 embedding models and databases, SQL/WASM model runtimes, the full server-backed

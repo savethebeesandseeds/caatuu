@@ -274,6 +274,11 @@ class CaatuuActivity : ComponentActivity() {
         }
     }
 
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (::bridge.isInitialized) bridge.onWindowFocusChanged(hasFocus)
+    }
+
     override fun onPause() {
         if (::bridge.isInitialized) bridge.onPause()
         super.onPause()

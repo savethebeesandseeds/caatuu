@@ -13,7 +13,7 @@ function fixture({ speech = true, layout = true, settings = false, settingsIcon,
   const parent = createBrowserHarness();
   const frame = createBrowserHarness();
   const shell = parent.window;
-  const preferences = { muted: false, autoplay: true, pace: "slower", voice: "", stops: 0, layouts: [] };
+  const preferences = { muted: false, volume: 1, autoplay: true, pace: "slower", voice: "", stops: 0, layouts: [] };
   shell.CaatuuI18n = i18n;
   shell.document.documentElement.dataset.theme = "light";
   shell.document.documentElement.dataset.fontSize = "largest";
@@ -30,7 +30,9 @@ function fixture({ speech = true, layout = true, settings = false, settingsIcon,
     getSpeechMuted: () => preferences.muted,
     getSpeechAutoplay: () => preferences.autoplay,
     setSpeechAutoplay(value) { preferences.autoplay = value; shell.dispatchEvent({ type: "caatuu:speech-autoplay-change" }); },
-    setSpeechMuted(value) { preferences.muted = value; },
+    setSpeechMuted(value) { preferences.muted = value; shell.dispatchEvent({ type: "caatuu:speech-mute-change" }); },
+    getSpeechVolume: () => preferences.volume,
+    setSpeechVolume(value) { preferences.volume = value; shell.dispatchEvent({ type: "caatuu:speech-volume-change" }); },
     resolveSpeechPace: () => ({ key: preferences.pace, label: preferences.pace, rate: 0.5 }),
     setSpeechPacePreference(value) { preferences.pace = value; },
     getSpeechVoicePreference: () => preferences.voice,
@@ -86,6 +88,59 @@ test("the boxes settings icon opens the same accessible game settings menu", () 
   controller.destroy();
 });
 
+test("a left-anchored audio menu stays inside its frame and follows viewport resizing", () => {
+  const { container, frame, controller } = fixture({ layout: false });
+  const toggle = container.querySelector('[aria-label="Audio settings"]');
+  const panel = container.querySelectorAll(".caatuu-game-controls-popover")
+    .find((item) => item.getAttribute("aria-label") === "Audio settings");
+  frame.window.innerWidth = 360;
+  frame.window.innerHeight = 800;
+  let anchorLeft = -70;
+  panel.getBoundingClientRect = () => ({ left: anchorLeft, top: 70, width: 288, height: 420 });
+  toggle.click();
+  assert.equal(panel.style.left, "16px", "the left edge must remain visible inside the iframe");
+  assert.equal(panel.style.width, "288px");
+  assert.equal(panel.hidden, false);
+  assert.equal(toggle.getAttribute("aria-expanded"), "true");
+
+  frame.window.innerWidth = 260;
+  frame.window.dispatchEvent({ type: "resize" });
+  assert.equal(panel.style.left, "16px");
+  assert.equal(panel.style.width, "228px", "small viewports must fit the complete control width");
+
+  frame.window.innerWidth = 1200;
+  anchorLeft = 500;
+  frame.window.dispatchEvent({ type: "resize" });
+  assert.equal(panel.style.left, "500px", "a resized menu returns to its natural toolbar anchor");
+  assert.equal(panel.style.width, "288px");
+  controller.destroy();
+  anchorLeft = -70;
+  frame.window.dispatchEvent({ type: "resize" });
+  assert.equal(panel.style.left, "500px", "destroyed controls release viewport listeners");
+});
+
+test("right-edge and short-viewport clamping preserve an open accessible menu in RTL layouts", () => {
+  const { container, frame, controller } = fixture({ layout: false });
+  const toggle = container.querySelector('[aria-label="Audio settings"]');
+  const panel = container.querySelectorAll(".caatuu-game-controls-popover")
+    .find((item) => item.getAttribute("aria-label") === "Audio settings");
+  frame.document.documentElement.dir = "rtl";
+  frame.window.innerWidth = 400;
+  frame.window.innerHeight = 300;
+  panel.getBoundingClientRect = () => ({ left: 330, top: 260, width: 288, height: 420 });
+  toggle.click();
+  assert.ok(Number.parseFloat(panel.style.left) >= 16);
+  assert.equal(Number.parseFloat(panel.style.left) + Number.parseFloat(panel.style.width), 384);
+  assert.ok(Number.parseFloat(panel.style.top) >= 16);
+  assert.ok(Number.parseFloat(panel.style.top) + Number.parseFloat(panel.style.maxHeight) <= 284);
+  assert.equal(panel.getAttribute("role"), "dialog");
+  assert.equal(panel.hidden, false);
+  frame.document.dispatchEvent({ type: "keydown", key: "Escape" });
+  assert.equal(panel.hidden, true);
+  assert.equal(frame.document.activeElement, toggle);
+  controller.destroy();
+});
+
 test("controls share shell appearance and speech preferences without their own storage", async () => {
   const setup = fixture();
   const { container, frame, shell, preferences } = setup;
@@ -96,43 +151,42 @@ test("controls share shell appearance and speech preferences without their own s
   assert.equal(frame.document.documentElement.dataset.fontSize, "large");
   container.querySelector('[data-value="stacked"]').click();
   assert.deepEqual(preferences.layouts, ["stacked"]);
-  container.querySelector('[role="switch"]').click();
+  shell.CaatuuChrome.setSpeechMuted(true);
   assert.equal(preferences.muted, true);
-  assert.equal(container.querySelector('[role="switch"]').getAttribute("aria-checked"), "true");
-  container.querySelector('[role="switch"]').click();
-  const speed = container.querySelector("input");
+  assert.equal(frame.document.documentElement.dataset.speechMuted, "true");
+  shell.CaatuuChrome.setSpeechMuted(false);
+  const speed = container.querySelector('.caatuu-audio-speed input');
   speed.value = "2";
   speed.dispatchEvent({ type: "input" });
   assert.equal(preferences.pace, "normal");
   assert.equal(preferences.stops, 1);
   preferences.muted = false;
   shell.dispatchEvent({ type: "caatuu:speech-mute-change" });
-  assert.equal(container.querySelector('[role="switch"]').getAttribute("aria-checked"), "false");
+  assert.equal(frame.document.documentElement.dataset.speechMuted, "false");
   assert.deepEqual(frame.localStorage.snapshot(), {});
 });
 
-test("global mute hides dependent audio settings and slashes the settings icon without changing preferences", async () => {
+test("global mute slashes the settings icon while volume and pace preferences remain editable", async () => {
   const { container, shell, frame, preferences } = fixture({ layout: false });
   const toggle = container.querySelector('[aria-label="Audio settings"]');
-  const mute = container.querySelector('[role="switch"]');
-  const options = container.querySelector(".caatuu-game-audio-options");
+  const options = container.querySelector(".caatuu-audio-controls");
   toggle.click();
   await Promise.resolve();
   assert.equal(options.hidden, false);
-  mute.click();
-  assert.equal(options.hidden, true);
-  assert.equal(mute.hidden, false);
+  shell.CaatuuChrome.setSpeechMuted(true);
+  assert.equal(options.hidden, false);
   assert.equal(frame.document.documentElement.dataset.speechMuted, "true");
   assert.equal(toggle.querySelector("svg").getAttribute("data-speech-icon"), "muted");
   assert.equal(toggle.querySelector(".caatuu-game-sound-slash").getAttribute("d"), "M3 3 21 21");
-  const speed = options.querySelector("input");
-  assert.equal(speed.disabled, true);
+  const speed = options.querySelector('.caatuu-audio-speed input');
+  assert.equal(speed.disabled, false);
   speed.value = "2";
   speed.dispatchEvent({ type: "input" });
-  const voice = options.querySelector("select");
-  voice.value = "browser:cs";
-  voice.dispatchEvent({ type: "change" });
-  assert.equal(preferences.pace, "slower");
+  const voice = options.querySelector('.caatuu-voice-controls input');
+  voice.value = "35";
+  voice.dispatchEvent({ type: "input" });
+  assert.equal(preferences.pace, "normal");
+  assert.equal(preferences.volume, 0.35);
   assert.equal(preferences.voice, "");
   preferences.muted = false;
   shell.dispatchEvent({ type: "caatuu:speech-mute-change" });
@@ -145,9 +199,9 @@ test("global mute hides dependent audio settings and slashes the settings icon w
   assert.equal(frame.document.documentElement.dataset.speechMuted, "false");
 });
 
-test("optional autoplay uses the shared setting and disappears with the other options when muted", () => {
+test("optional autoplay uses the shared setting and is disabled when muted", () => {
   const { container, shell, preferences } = fixture({ autoplay: true });
-  const options = container.querySelector(".caatuu-game-audio-options");
+  const options = container.querySelector(".caatuu-audio-controls");
   const autoplay = options.querySelector('[role="switch"]');
   assert.equal(autoplay.textContent, "Autoplay audio");
   assert.equal(autoplay.getAttribute("aria-checked"), "true");
@@ -155,23 +209,22 @@ test("optional autoplay uses the shared setting and disappears with the other op
   assert.equal(preferences.autoplay, false);
   shell.CaatuuChrome.setSpeechAutoplay(true);
   assert.equal(autoplay.getAttribute("aria-checked"), "true");
-  container.querySelector('[role="switch"]').click();
-  assert.equal(options.hidden, true);
+  shell.CaatuuChrome.setSpeechMuted(true);
+  assert.equal(options.hidden, false);
   assert.equal(autoplay.disabled, true);
   autoplay.click();
   assert.equal(preferences.autoplay, true);
 });
 
-test("muting invalidates pending voice discovery and never reopens its hidden settings", async () => {
+test("volume-only audio menu does not start voice discovery", async () => {
   const { container, shell } = fixture({ layout: false });
-  let finish;
-  shell.CaatuuChrome.getSpeechVoiceControlState = () => new Promise((resolve) => { finish = resolve; });
+  let discoveries = 0;
+  shell.CaatuuChrome.getSpeechVoiceControlState = async () => { discoveries += 1; return { available: true, voices: [] }; };
   container.querySelector('[aria-label="Audio settings"]').click();
-  container.querySelector('[role="switch"]').click();
-  finish({ available: true, voices: [{ name: "Late voice", value: "late" }] });
+  shell.CaatuuChrome.setSpeechMuted(true);
   await Promise.resolve();
-  assert.equal(container.querySelector(".caatuu-game-audio-options").hidden, true);
-  assert.equal(container.querySelector("select").children.length, 0);
+  assert.equal(discoveries, 0);
+  assert.equal(container.querySelector("select"), null);
 });
 
 test("text-size choices show scaled Aa previews above their existing accessible labels", async () => {
@@ -410,23 +463,24 @@ test("game settings reject missing labels or foreign content before creating con
   assert.equal(container.children.length, count);
 });
 
-test("voice menu uses shell voice state and renders voice names as inert text", async () => {
-  const { container, preferences } = fixture();
+test("voice volume uses shared shell state without changing the selected voice", async () => {
+  const { container, preferences, shell } = fixture();
   container.querySelector('[aria-label="Audio settings"]').click();
   await Promise.resolve();
-  const voice = container.querySelector("select");
-  assert.equal(voice.children[1].textContent, 'A <voice> & "one" · cs');
-  assert.equal(voice.querySelector("voice"), null);
-  voice.value = "browser:cs";
-  voice.dispatchEvent({ type: "change" });
+  const voice = container.querySelector('.caatuu-voice-controls input');
+  voice.value = "40";
+  voice.dispatchEvent({ type: "input" });
   await Promise.resolve();
-  assert.equal(preferences.voice, "browser:cs");
-  assert.equal(preferences.stops, 1);
+  assert.equal(preferences.volume, 0.4);
+  assert.equal(preferences.voice, "");
+  shell.CaatuuChrome.setSpeechVolume(0.7);
+  assert.equal(voice.value, "70");
 });
 
-test("speech capability and a layout callback are required for their respective controls", () => {
+test("music menu remains available without speech while speech and layout controls stay capability gated", () => {
   const { container } = fixture({ speech: false, layout: false });
-  assert.equal(container.querySelectorAll(".caatuu-game-control-toggle").length, 1);
+  assert.equal(container.querySelectorAll(".caatuu-game-control-toggle").length, 2);
+  assert.ok(container.querySelector('[aria-label="Audio settings"]'));
   assert.equal(container.querySelector("select"), null);
   assert.equal(container.querySelector('[data-value="stacked"]'), null);
 });

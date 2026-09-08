@@ -111,6 +111,22 @@
                 "learnerBaseText": "student",
                 "englishAuditText": "student"
               }
+            },
+            {
+              "id": "cz.agreement.novy.masculine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "new backpack",
+              "englishAuditText": "new backpack",
+              "targetText": "nový batoh",
+              "slot": {
+                "beforeText": "",
+                "afterText": " batoh"
+              },
+              "anchor": {
+                "targetText": "batoh",
+                "learnerBaseText": "backpack",
+                "englishAuditText": "backpack"
+              }
             }
           ]
         },
@@ -164,6 +180,22 @@
                 "learnerBaseText": "question",
                 "englishAuditText": "question"
               }
+            },
+            {
+              "id": "cz.agreement.novy.feminine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "new construction set",
+              "englishAuditText": "new construction set",
+              "targetText": "nová stavebnice",
+              "slot": {
+                "beforeText": "",
+                "afterText": " stavebnice"
+              },
+              "anchor": {
+                "targetText": "stavebnice",
+                "learnerBaseText": "construction set",
+                "englishAuditText": "construction set"
+              }
             }
           ]
         },
@@ -216,6 +248,22 @@
                 "targetText": "okno",
                 "learnerBaseText": "window",
                 "englishAuditText": "window"
+              }
+            },
+            {
+              "id": "cz.agreement.novy.neuter.exp260908",
+              "revision": 1,
+              "learnerBaseText": "new playground",
+              "englishAuditText": "new playground",
+              "targetText": "nové hřiště",
+              "slot": {
+                "beforeText": "",
+                "afterText": " hřiště"
+              },
+              "anchor": {
+                "targetText": "hřiště",
+                "learnerBaseText": "playground",
+                "englishAuditText": "playground"
               }
             }
           ]
@@ -284,6 +332,22 @@
                 "learnerBaseText": "shop",
                 "englishAuditText": "shop"
               }
+            },
+            {
+              "id": "cz.agreement.maly.masculine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "small rabbit",
+              "englishAuditText": "small rabbit",
+              "targetText": "malý králík",
+              "slot": {
+                "beforeText": "",
+                "afterText": " králík"
+              },
+              "anchor": {
+                "targetText": "králík",
+                "learnerBaseText": "rabbit",
+                "englishAuditText": "rabbit"
+              }
             }
           ]
         },
@@ -337,6 +401,22 @@
                 "learnerBaseText": "café",
                 "englishAuditText": "café"
               }
+            },
+            {
+              "id": "cz.agreement.maly.feminine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "small shell",
+              "englishAuditText": "small shell",
+              "targetText": "malá mušle",
+              "slot": {
+                "beforeText": "",
+                "afterText": " mušle"
+              },
+              "anchor": {
+                "targetText": "mušle",
+                "learnerBaseText": "shell",
+                "englishAuditText": "shell"
+              }
             }
           ]
         },
@@ -389,6 +469,22 @@
                 "targetText": "kolo",
                 "learnerBaseText": "bicycle",
                 "englishAuditText": "bicycle"
+              }
+            },
+            {
+              "id": "cz.agreement.maly.neuter.exp260908",
+              "revision": 1,
+              "learnerBaseText": "small feather",
+              "englishAuditText": "small feather",
+              "targetText": "malé peříčko",
+              "slot": {
+                "beforeText": "",
+                "afterText": " peříčko"
+              },
+              "anchor": {
+                "targetText": "peříčko",
+                "learnerBaseText": "feather",
+                "englishAuditText": "feather"
               }
             }
           ]
@@ -457,6 +553,22 @@
                 "learnerBaseText": "friend",
                 "englishAuditText": "friend"
               }
+            },
+            {
+              "id": "cz.agreement.dobry.masculine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "good teammate",
+              "englishAuditText": "good teammate",
+              "targetText": "dobrý spoluhráč",
+              "slot": {
+                "beforeText": "",
+                "afterText": " spoluhráč"
+              },
+              "anchor": {
+                "targetText": "spoluhráč",
+                "learnerBaseText": "teammate",
+                "englishAuditText": "teammate"
+              }
             }
           ]
         },
@@ -510,6 +622,22 @@
                 "learnerBaseText": "answer",
                 "englishAuditText": "answer"
               }
+            },
+            {
+              "id": "cz.agreement.dobry.feminine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "good advice",
+              "englishAuditText": "good advice",
+              "targetText": "dobrá rada",
+              "slot": {
+                "beforeText": "",
+                "afterText": " rada"
+              },
+              "anchor": {
+                "targetText": "rada",
+                "learnerBaseText": "piece of advice",
+                "englishAuditText": "piece of advice"
+              }
             }
           ]
         },
@@ -562,6 +690,22 @@
                 "targetText": "počasí",
                 "learnerBaseText": "weather",
                 "englishAuditText": "weather"
+              }
+            },
+            {
+              "id": "cz.agreement.dobry.neuter.exp260908",
+              "revision": 1,
+              "learnerBaseText": "good solution",
+              "englishAuditText": "good solution",
+              "targetText": "dobré řešení",
+              "slot": {
+                "beforeText": "",
+                "afterText": " řešení"
+              },
+              "anchor": {
+                "targetText": "řešení",
+                "learnerBaseText": "solution",
+                "englishAuditText": "solution"
               }
             }
           ]
@@ -630,6 +774,22 @@
                 "learnerBaseText": "castle",
                 "englishAuditText": "castle"
               }
+            },
+            {
+              "id": "cz.agreement.cesky.masculine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "Czech story",
+              "englishAuditText": "Czech story",
+              "targetText": "český příběh",
+              "slot": {
+                "beforeText": "",
+                "afterText": " příběh"
+              },
+              "anchor": {
+                "targetText": "příběh",
+                "learnerBaseText": "story",
+                "englishAuditText": "story"
+              }
             }
           ]
         },
@@ -683,6 +843,22 @@
                 "learnerBaseText": "village",
                 "englishAuditText": "village"
               }
+            },
+            {
+              "id": "cz.agreement.cesky.feminine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "Czech fairy tale",
+              "englishAuditText": "Czech fairy tale",
+              "targetText": "česká pohádka",
+              "slot": {
+                "beforeText": "",
+                "afterText": " pohádka"
+              },
+              "anchor": {
+                "targetText": "pohádka",
+                "learnerBaseText": "fairy tale",
+                "englishAuditText": "fairy tale"
+              }
             }
           ]
         },
@@ -735,6 +911,22 @@
                 "targetText": "sklo",
                 "learnerBaseText": "glass",
                 "englishAuditText": "glass"
+              }
+            },
+            {
+              "id": "cz.agreement.cesky.neuter.exp260908",
+              "revision": 1,
+              "learnerBaseText": "Czech puppetry",
+              "englishAuditText": "Czech puppetry",
+              "targetText": "české loutkářství",
+              "slot": {
+                "beforeText": "",
+                "afterText": " loutkářství"
+              },
+              "anchor": {
+                "targetText": "loutkářství",
+                "learnerBaseText": "puppetry",
+                "englishAuditText": "puppetry"
               }
             }
           ]
@@ -803,6 +995,22 @@
                 "learnerBaseText": "problem",
                 "englishAuditText": "problem"
               }
+            },
+            {
+              "id": "cz.agreement.velky.masculine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "big elephant",
+              "englishAuditText": "big elephant",
+              "targetText": "velký slon",
+              "slot": {
+                "beforeText": "",
+                "afterText": " slon"
+              },
+              "anchor": {
+                "targetText": "slon",
+                "learnerBaseText": "elephant",
+                "englishAuditText": "elephant"
+              }
             }
           ]
         },
@@ -856,6 +1064,22 @@
                 "learnerBaseText": "map",
                 "englishAuditText": "map"
               }
+            },
+            {
+              "id": "cz.agreement.velky.feminine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "big whale",
+              "englishAuditText": "big whale",
+              "targetText": "velká velryba",
+              "slot": {
+                "beforeText": "",
+                "afterText": " velryba"
+              },
+              "anchor": {
+                "targetText": "velryba",
+                "learnerBaseText": "whale",
+                "englishAuditText": "whale"
+              }
             }
           ]
         },
@@ -908,6 +1132,22 @@
                 "targetText": "jezero",
                 "learnerBaseText": "lake",
                 "englishAuditText": "lake"
+              }
+            },
+            {
+              "id": "cz.agreement.velky.neuter.exp260908",
+              "revision": 1,
+              "learnerBaseText": "big airplane",
+              "englishAuditText": "big airplane",
+              "targetText": "velké letadlo",
+              "slot": {
+                "beforeText": "",
+                "afterText": " letadlo"
+              },
+              "anchor": {
+                "targetText": "letadlo",
+                "learnerBaseText": "airplane",
+                "englishAuditText": "airplane"
               }
             }
           ]
@@ -976,6 +1216,22 @@
                 "learnerBaseText": "phone",
                 "englishAuditText": "phone"
               }
+            },
+            {
+              "id": "cz.agreement.stary.masculine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "old oak tree",
+              "englishAuditText": "old oak tree",
+              "targetText": "starý dub",
+              "slot": {
+                "beforeText": "",
+                "afterText": " dub"
+              },
+              "anchor": {
+                "targetText": "dub",
+                "learnerBaseText": "oak tree",
+                "englishAuditText": "oak tree"
+              }
             }
           ]
         },
@@ -1029,6 +1285,22 @@
                 "learnerBaseText": "photograph",
                 "englishAuditText": "photograph"
               }
+            },
+            {
+              "id": "cz.agreement.stary.feminine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "old chest",
+              "englishAuditText": "old chest",
+              "targetText": "stará truhla",
+              "slot": {
+                "beforeText": "",
+                "afterText": " truhla"
+              },
+              "anchor": {
+                "targetText": "truhla",
+                "learnerBaseText": "chest",
+                "englishAuditText": "chest"
+              }
             }
           ]
         },
@@ -1081,6 +1353,22 @@
                 "targetText": "rádio",
                 "learnerBaseText": "radio",
                 "englishAuditText": "radio"
+              }
+            },
+            {
+              "id": "cz.agreement.stary.neuter.exp260908",
+              "revision": 1,
+              "learnerBaseText": "old nest",
+              "englishAuditText": "old nest",
+              "targetText": "staré hnízdo",
+              "slot": {
+                "beforeText": "",
+                "afterText": " hnízdo"
+              },
+              "anchor": {
+                "targetText": "hnízdo",
+                "learnerBaseText": "nest",
+                "englishAuditText": "nest"
               }
             }
           ]
@@ -1149,6 +1437,22 @@
                 "learnerBaseText": "day",
                 "englishAuditText": "day"
               }
+            },
+            {
+              "id": "cz.agreement.dlouhy.masculine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "long tail",
+              "englishAuditText": "long tail",
+              "targetText": "dlouhý ocas",
+              "slot": {
+                "beforeText": "",
+                "afterText": " ocas"
+              },
+              "anchor": {
+                "targetText": "ocas",
+                "learnerBaseText": "tail",
+                "englishAuditText": "tail"
+              }
             }
           ]
         },
@@ -1202,6 +1506,22 @@
                 "learnerBaseText": "river",
                 "englishAuditText": "river"
               }
+            },
+            {
+              "id": "cz.agreement.dlouhy.feminine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "long ribbon",
+              "englishAuditText": "long ribbon",
+              "targetText": "dlouhá stuha",
+              "slot": {
+                "beforeText": "",
+                "afterText": " stuha"
+              },
+              "anchor": {
+                "targetText": "stuha",
+                "learnerBaseText": "ribbon",
+                "englishAuditText": "ribbon"
+              }
             }
           ]
         },
@@ -1254,6 +1574,22 @@
                 "targetText": "čekání",
                 "learnerBaseText": "wait",
                 "englishAuditText": "wait"
+              }
+            },
+            {
+              "id": "cz.agreement.dlouhy.neuter.exp260908",
+              "revision": 1,
+              "learnerBaseText": "long narrative",
+              "englishAuditText": "long narrative",
+              "targetText": "dlouhé vyprávění",
+              "slot": {
+                "beforeText": "",
+                "afterText": " vyprávění"
+              },
+              "anchor": {
+                "targetText": "vyprávění",
+                "learnerBaseText": "narrative",
+                "englishAuditText": "narrative"
               }
             }
           ]
@@ -1322,6 +1658,22 @@
                 "learnerBaseText": "male doctor",
                 "englishAuditText": "male doctor"
               }
+            },
+            {
+              "id": "cz.agreement.mlady.masculine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "young penguin",
+              "englishAuditText": "young penguin",
+              "targetText": "mladý tučňák",
+              "slot": {
+                "beforeText": "",
+                "afterText": " tučňák"
+              },
+              "anchor": {
+                "targetText": "tučňák",
+                "learnerBaseText": "penguin",
+                "englishAuditText": "penguin"
+              }
             }
           ]
         },
@@ -1374,6 +1726,22 @@
                 "targetText": "lékařka",
                 "learnerBaseText": "female doctor",
                 "englishAuditText": "female doctor"
+              }
+            },
+            {
+              "id": "cz.agreement.mlady.feminine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "young fox",
+              "englishAuditText": "young fox",
+              "targetText": "mladá liška",
+              "slot": {
+                "beforeText": "",
+                "afterText": " liška"
+              },
+              "anchor": {
+                "targetText": "liška",
+                "learnerBaseText": "fox",
+                "englishAuditText": "fox"
               }
             }
           ]
@@ -1548,6 +1916,22 @@
                 "learnerBaseText": "transport",
                 "englishAuditText": "transport"
               }
+            },
+            {
+              "id": "cz.agreement.rychly.feminine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "fast squirrel",
+              "englishAuditText": "fast squirrel",
+              "targetText": "rychlá veverka",
+              "slot": {
+                "beforeText": "",
+                "afterText": " veverka"
+              },
+              "anchor": {
+                "targetText": "veverka",
+                "learnerBaseText": "squirrel",
+                "englishAuditText": "squirrel"
+              }
             }
           ]
         },
@@ -1600,6 +1984,22 @@
                 "targetText": "řešení",
                 "learnerBaseText": "solution",
                 "englishAuditText": "solution"
+              }
+            },
+            {
+              "id": "cz.agreement.rychly.neuter.exp260908",
+              "revision": 1,
+              "learnerBaseText": "quick counting",
+              "englishAuditText": "quick counting",
+              "targetText": "rychlé počítání",
+              "slot": {
+                "beforeText": "",
+                "afterText": " počítání"
+              },
+              "anchor": {
+                "targetText": "počítání",
+                "learnerBaseText": "counting",
+                "englishAuditText": "counting"
               }
             }
           ]
@@ -1668,6 +2068,22 @@
                 "learnerBaseText": "computer",
                 "englishAuditText": "computer"
               }
+            },
+            {
+              "id": "cz.agreement.pomaly.masculine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "slow snail",
+              "englishAuditText": "slow snail",
+              "targetText": "pomalý šnek",
+              "slot": {
+                "beforeText": "",
+                "afterText": " šnek"
+              },
+              "anchor": {
+                "targetText": "šnek",
+                "learnerBaseText": "snail",
+                "englishAuditText": "snail"
+              }
             }
           ]
         },
@@ -1720,6 +2136,22 @@
                 "targetText": "doprava",
                 "learnerBaseText": "traffic",
                 "englishAuditText": "traffic"
+              }
+            },
+            {
+              "id": "cz.agreement.pomaly.feminine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "slow turtle",
+              "englishAuditText": "slow turtle",
+              "targetText": "pomalá želva",
+              "slot": {
+                "beforeText": "",
+                "afterText": " želva"
+              },
+              "anchor": {
+                "targetText": "želva",
+                "learnerBaseText": "turtle",
+                "englishAuditText": "turtle"
               }
             }
           ]
@@ -1841,6 +2273,22 @@
                 "learnerBaseText": "view",
                 "englishAuditText": "view"
               }
+            },
+            {
+              "id": "cz.agreement.krasny.masculine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "beautiful sunset",
+              "englishAuditText": "beautiful sunset",
+              "targetText": "krásný západ slunce",
+              "slot": {
+                "beforeText": "",
+                "afterText": " západ slunce"
+              },
+              "anchor": {
+                "targetText": "západ slunce",
+                "learnerBaseText": "sunset",
+                "englishAuditText": "sunset"
+              }
             }
           ]
         },
@@ -1894,6 +2342,22 @@
                 "learnerBaseText": "photograph",
                 "englishAuditText": "photograph"
               }
+            },
+            {
+              "id": "cz.agreement.krasny.feminine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "beautiful rainbow",
+              "englishAuditText": "beautiful rainbow",
+              "targetText": "krásná duha",
+              "slot": {
+                "beforeText": "",
+                "afterText": " duha"
+              },
+              "anchor": {
+                "targetText": "duha",
+                "learnerBaseText": "rainbow",
+                "englishAuditText": "rainbow"
+              }
             }
           ]
         },
@@ -1946,6 +2410,22 @@
                 "targetText": "místo",
                 "learnerBaseText": "place",
                 "englishAuditText": "place"
+              }
+            },
+            {
+              "id": "cz.agreement.krasny.neuter.exp260908",
+              "revision": 1,
+              "learnerBaseText": "beautiful performance",
+              "englishAuditText": "beautiful performance",
+              "targetText": "krásné představení",
+              "slot": {
+                "beforeText": "",
+                "afterText": " představení"
+              },
+              "anchor": {
+                "targetText": "představení",
+                "learnerBaseText": "performance",
+                "englishAuditText": "performance"
               }
             }
           ]
@@ -2014,6 +2494,22 @@
                 "learnerBaseText": "day",
                 "englishAuditText": "day"
               }
+            },
+            {
+              "id": "cz.agreement.teply.masculine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "warm scarf",
+              "englishAuditText": "warm scarf",
+              "targetText": "teplý šátek",
+              "slot": {
+                "beforeText": "",
+                "afterText": " šátek"
+              },
+              "anchor": {
+                "targetText": "šátek",
+                "learnerBaseText": "scarf",
+                "englishAuditText": "scarf"
+              }
             }
           ]
         },
@@ -2067,6 +2563,22 @@
                 "learnerBaseText": "jacket",
                 "englishAuditText": "jacket"
               }
+            },
+            {
+              "id": "cz.agreement.teply.feminine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "warm blanket",
+              "englishAuditText": "warm blanket",
+              "targetText": "teplá deka",
+              "slot": {
+                "beforeText": "",
+                "afterText": " deka"
+              },
+              "anchor": {
+                "targetText": "deka",
+                "learnerBaseText": "blanket",
+                "englishAuditText": "blanket"
+              }
             }
           ]
         },
@@ -2119,6 +2631,22 @@
                 "targetText": "počasí",
                 "learnerBaseText": "weather",
                 "englishAuditText": "weather"
+              }
+            },
+            {
+              "id": "cz.agreement.teply.neuter.exp260908",
+              "revision": 1,
+              "learnerBaseText": "warm cocoa",
+              "englishAuditText": "warm cocoa",
+              "targetText": "teplé kakao",
+              "slot": {
+                "beforeText": "",
+                "afterText": " kakao"
+              },
+              "anchor": {
+                "targetText": "kakao",
+                "learnerBaseText": "cocoa",
+                "englishAuditText": "cocoa"
               }
             }
           ]
@@ -2187,6 +2715,22 @@
                 "learnerBaseText": "conversation",
                 "englishAuditText": "conversation"
               }
+            },
+            {
+              "id": "cz.agreement.zajimavy.masculine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "interesting experiment",
+              "englishAuditText": "interesting experiment",
+              "targetText": "zajímavý pokus",
+              "slot": {
+                "beforeText": "",
+                "afterText": " pokus"
+              },
+              "anchor": {
+                "targetText": "pokus",
+                "learnerBaseText": "experiment",
+                "englishAuditText": "experiment"
+              }
             }
           ]
         },
@@ -2240,6 +2784,22 @@
                 "learnerBaseText": "thought",
                 "englishAuditText": "thought"
               }
+            },
+            {
+              "id": "cz.agreement.zajimavy.feminine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "interesting question about the story",
+              "englishAuditText": "interesting question about the story",
+              "targetText": "zajímavá otázka k příběhu",
+              "slot": {
+                "beforeText": "",
+                "afterText": " otázka k příběhu"
+              },
+              "anchor": {
+                "targetText": "otázka",
+                "learnerBaseText": "question",
+                "englishAuditText": "question"
+              }
             }
           ]
         },
@@ -2292,6 +2852,22 @@
                 "targetText": "jméno",
                 "learnerBaseText": "name",
                 "englishAuditText": "name"
+              }
+            },
+            {
+              "id": "cz.agreement.zajimavy.neuter.exp260908",
+              "revision": 1,
+              "learnerBaseText": "interesting observation",
+              "englishAuditText": "interesting observation",
+              "targetText": "zajímavé pozorování",
+              "slot": {
+                "beforeText": "",
+                "afterText": " pozorování"
+              },
+              "anchor": {
+                "targetText": "pozorování",
+                "learnerBaseText": "observation",
+                "englishAuditText": "observation"
               }
             }
           ]
@@ -2360,6 +2936,22 @@
                 "learnerBaseText": "call",
                 "englishAuditText": "call"
               }
+            },
+            {
+              "id": "cz.agreement.dulezity.masculine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "important piece of evidence",
+              "englishAuditText": "important piece of evidence",
+              "targetText": "důležitý důkaz",
+              "slot": {
+                "beforeText": "",
+                "afterText": " důkaz"
+              },
+              "anchor": {
+                "targetText": "důkaz",
+                "learnerBaseText": "piece of evidence",
+                "englishAuditText": "piece of evidence"
+              }
             }
           ]
         },
@@ -2412,6 +3004,22 @@
                 "targetText": "zpráva",
                 "learnerBaseText": "message",
                 "englishAuditText": "message"
+              }
+            },
+            {
+              "id": "cz.agreement.dulezity.feminine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "important agreement",
+              "englishAuditText": "important agreement",
+              "targetText": "důležitá dohoda",
+              "slot": {
+                "beforeText": "",
+                "afterText": " dohoda"
+              },
+              "anchor": {
+                "targetText": "dohoda",
+                "learnerBaseText": "agreement",
+                "englishAuditText": "agreement"
               }
             }
           ]
@@ -2533,6 +3141,22 @@
                 "learnerBaseText": "helper",
                 "englishAuditText": "helper"
               }
+            },
+            {
+              "id": "cz.agreement.chytry.masculine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "clever invention",
+              "englishAuditText": "clever invention",
+              "targetText": "chytrý vynález",
+              "slot": {
+                "beforeText": "",
+                "afterText": " vynález"
+              },
+              "anchor": {
+                "targetText": "vynález",
+                "learnerBaseText": "invention",
+                "englishAuditText": "invention"
+              }
             }
           ]
         },
@@ -2586,6 +3210,22 @@
                 "learnerBaseText": "idea",
                 "englishAuditText": "idea"
               }
+            },
+            {
+              "id": "cz.agreement.chytry.feminine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "clever hint",
+              "englishAuditText": "clever hint",
+              "targetText": "chytrá nápověda",
+              "slot": {
+                "beforeText": "",
+                "afterText": " nápověda"
+              },
+              "anchor": {
+                "targetText": "nápověda",
+                "learnerBaseText": "hint",
+                "englishAuditText": "hint"
+              }
             }
           ]
         },
@@ -2638,6 +3278,22 @@
                 "targetText": "město",
                 "learnerBaseText": "city",
                 "englishAuditText": "city"
+              }
+            },
+            {
+              "id": "cz.agreement.chytry.neuter.exp260908",
+              "revision": 1,
+              "learnerBaseText": "clever use of a box",
+              "englishAuditText": "clever use of a box",
+              "targetText": "chytré využití krabice",
+              "slot": {
+                "beforeText": "",
+                "afterText": " využití krabice"
+              },
+              "anchor": {
+                "targetText": "využití",
+                "learnerBaseText": "use",
+                "englishAuditText": "use"
               }
             }
           ]
@@ -2706,6 +3362,22 @@
                 "learnerBaseText": "evening",
                 "englishAuditText": "evening"
               }
+            },
+            {
+              "id": "cz.agreement.studeny.masculine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "cold spring",
+              "englishAuditText": "cold spring",
+              "targetText": "studený pramen",
+              "slot": {
+                "beforeText": "",
+                "afterText": " pramen"
+              },
+              "anchor": {
+                "targetText": "pramen",
+                "learnerBaseText": "spring (water source)",
+                "englishAuditText": "spring (water source)"
+              }
             }
           ]
         },
@@ -2759,6 +3431,22 @@
                 "learnerBaseText": "night",
                 "englishAuditText": "night"
               }
+            },
+            {
+              "id": "cz.agreement.studeny.feminine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "cold dew",
+              "englishAuditText": "cold dew",
+              "targetText": "studená rosa",
+              "slot": {
+                "beforeText": "",
+                "afterText": " rosa"
+              },
+              "anchor": {
+                "targetText": "rosa",
+                "learnerBaseText": "dew",
+                "englishAuditText": "dew"
+              }
             }
           ]
         },
@@ -2811,6 +3499,22 @@
                 "targetText": "moře",
                 "learnerBaseText": "sea",
                 "englishAuditText": "sea"
+              }
+            },
+            {
+              "id": "cz.agreement.studeny.neuter.exp260908",
+              "revision": 1,
+              "learnerBaseText": "cold railing",
+              "englishAuditText": "cold railing",
+              "targetText": "studené zábradlí",
+              "slot": {
+                "beforeText": "",
+                "afterText": " zábradlí"
+              },
+              "anchor": {
+                "targetText": "zábradlí",
+                "learnerBaseText": "railing",
+                "englishAuditText": "railing"
               }
             }
           ]
@@ -2879,6 +3583,22 @@
                 "learnerBaseText": "fence",
                 "englishAuditText": "fence"
               }
+            },
+            {
+              "id": "cz.agreement.vysoky.masculine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "tall mast",
+              "englishAuditText": "tall mast",
+              "targetText": "vysoký stožár",
+              "slot": {
+                "beforeText": "",
+                "afterText": " stožár"
+              },
+              "anchor": {
+                "targetText": "stožár",
+                "learnerBaseText": "mast",
+                "englishAuditText": "mast"
+              }
             }
           ]
         },
@@ -2932,6 +3652,22 @@
                 "learnerBaseText": "price",
                 "englishAuditText": "price"
               }
+            },
+            {
+              "id": "cz.agreement.vysoky.feminine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "tall observation tower",
+              "englishAuditText": "tall observation tower",
+              "targetText": "vysoká rozhledna",
+              "slot": {
+                "beforeText": "",
+                "afterText": " rozhledna"
+              },
+              "anchor": {
+                "targetText": "rozhledna",
+                "learnerBaseText": "observation tower",
+                "englishAuditText": "observation tower"
+              }
             }
           ]
         },
@@ -2984,6 +3720,22 @@
                 "targetText": "pohoří",
                 "learnerBaseText": "mountain range",
                 "englishAuditText": "mountain range"
+              }
+            },
+            {
+              "id": "cz.agreement.vysoky.neuter.exp260908",
+              "revision": 1,
+              "learnerBaseText": "high score",
+              "englishAuditText": "high score",
+              "targetText": "vysoké skóre",
+              "slot": {
+                "beforeText": "",
+                "afterText": " skóre"
+              },
+              "anchor": {
+                "targetText": "skóre",
+                "learnerBaseText": "score",
+                "englishAuditText": "score"
               }
             }
           ]
@@ -3158,6 +3910,22 @@
                 "learnerBaseText": "wait",
                 "englishAuditText": "wait"
               }
+            },
+            {
+              "id": "cz.agreement.kratky.neuter.exp260908",
+              "revision": 1,
+              "learnerBaseText": "short explanation",
+              "englishAuditText": "short explanation",
+              "targetText": "krátké vysvětlení",
+              "slot": {
+                "beforeText": "",
+                "afterText": " vysvětlení"
+              },
+              "anchor": {
+                "targetText": "vysvětlení",
+                "learnerBaseText": "explanation",
+                "englishAuditText": "explanation"
+              }
             }
           ]
         }
@@ -3209,6 +3977,22 @@
                 "beforeText": "",
                 "afterText": " telefon"
               }
+            },
+            {
+              "id": "cz.agreement.ten.masculine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "that drum",
+              "englishAuditText": "that drum",
+              "targetText": "ten buben",
+              "slot": {
+                "beforeText": "",
+                "afterText": " buben"
+              },
+              "anchor": {
+                "targetText": "buben",
+                "learnerBaseText": "drum",
+                "englishAuditText": "drum"
+              }
             }
           ]
         },
@@ -3246,6 +4030,22 @@
                 "beforeText": "",
                 "afterText": " mapa"
               }
+            },
+            {
+              "id": "cz.agreement.ten.feminine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "that star",
+              "englishAuditText": "that star",
+              "targetText": "ta hvězda",
+              "slot": {
+                "beforeText": "",
+                "afterText": " hvězda"
+              },
+              "anchor": {
+                "targetText": "hvězda",
+                "learnerBaseText": "star",
+                "englishAuditText": "star"
+              }
             }
           ]
         },
@@ -3282,6 +4082,22 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " kolo"
+              }
+            },
+            {
+              "id": "cz.agreement.ten.neuter.exp260908",
+              "revision": 1,
+              "learnerBaseText": "that egg",
+              "englishAuditText": "that egg",
+              "targetText": "to vejce",
+              "slot": {
+                "beforeText": "",
+                "afterText": " vejce"
+              },
+              "anchor": {
+                "targetText": "vejce",
+                "learnerBaseText": "egg",
+                "englishAuditText": "egg"
               }
             }
           ]
@@ -3334,6 +4150,22 @@
                 "beforeText": "",
                 "afterText": " klíč"
               }
+            },
+            {
+              "id": "cz.agreement.muj.masculine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "my compass",
+              "englishAuditText": "my compass",
+              "targetText": "můj kompas",
+              "slot": {
+                "beforeText": "",
+                "afterText": " kompas"
+              },
+              "anchor": {
+                "targetText": "kompas",
+                "learnerBaseText": "compass",
+                "englishAuditText": "compass"
+              }
             }
           ]
         },
@@ -3371,6 +4203,22 @@
                 "beforeText": "",
                 "afterText": " rodina"
               }
+            },
+            {
+              "id": "cz.agreement.muj.feminine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "my collection",
+              "englishAuditText": "my collection",
+              "targetText": "moje sbírka",
+              "slot": {
+                "beforeText": "",
+                "afterText": " sbírka"
+              },
+              "anchor": {
+                "targetText": "sbírka",
+                "learnerBaseText": "collection",
+                "englishAuditText": "collection"
+              }
             }
           ]
         },
@@ -3407,6 +4255,22 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " město"
+              }
+            },
+            {
+              "id": "cz.agreement.muj.neuter.exp260908",
+              "revision": 1,
+              "learnerBaseText": "my wish",
+              "englishAuditText": "my wish",
+              "targetText": "moje přání",
+              "slot": {
+                "beforeText": "",
+                "afterText": " přání"
+              },
+              "anchor": {
+                "targetText": "přání",
+                "learnerBaseText": "wish",
+                "englishAuditText": "wish"
               }
             }
           ]
@@ -3459,6 +4323,22 @@
                 "beforeText": "",
                 "afterText": " učitelé"
               }
+            },
+            {
+              "id": "cz.agreement.novy-plural.masculine-animate.exp260908",
+              "revision": 1,
+              "learnerBaseText": "new teammates",
+              "englishAuditText": "new teammates",
+              "targetText": "noví spoluhráči",
+              "slot": {
+                "beforeText": "",
+                "afterText": " spoluhráči"
+              },
+              "anchor": {
+                "targetText": "spoluhráči",
+                "learnerBaseText": "teammates",
+                "englishAuditText": "teammates"
+              }
             }
           ]
         },
@@ -3495,6 +4375,22 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " telefony"
+              }
+            },
+            {
+              "id": "cz.agreement.novy-plural.masculine-inanimate.exp260908",
+              "revision": 1,
+              "learnerBaseText": "new telescopes",
+              "englishAuditText": "new telescopes",
+              "targetText": "nové dalekohledy",
+              "slot": {
+                "beforeText": "",
+                "afterText": " dalekohledy"
+              },
+              "anchor": {
+                "targetText": "dalekohledy",
+                "learnerBaseText": "telescopes",
+                "englishAuditText": "telescopes"
               }
             }
           ]
@@ -3533,6 +4429,22 @@
                 "beforeText": "",
                 "afterText": " školy"
               }
+            },
+            {
+              "id": "cz.agreement.novy-plural.feminine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "new puppets",
+              "englishAuditText": "new puppets",
+              "targetText": "nové loutky",
+              "slot": {
+                "beforeText": "",
+                "afterText": " loutky"
+              },
+              "anchor": {
+                "targetText": "loutky",
+                "learnerBaseText": "puppets",
+                "englishAuditText": "puppets"
+              }
             }
           ]
         },
@@ -3569,6 +4481,22 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " letadla"
+              }
+            },
+            {
+              "id": "cz.agreement.novy-plural.neuter.exp260908",
+              "revision": 1,
+              "learnerBaseText": "new rules",
+              "englishAuditText": "new rules",
+              "targetText": "nová pravidla",
+              "slot": {
+                "beforeText": "",
+                "afterText": " pravidla"
+              },
+              "anchor": {
+                "targetText": "pravidla",
+                "learnerBaseText": "rules",
+                "englishAuditText": "rules"
               }
             }
           ]
@@ -3682,6 +4610,22 @@
                 "beforeText": "",
                 "afterText": " stoly"
               }
+            },
+            {
+              "id": "cz.agreement.dva.masculine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "two pebbles",
+              "englishAuditText": "two pebbles",
+              "targetText": "dva oblázky",
+              "slot": {
+                "beforeText": "",
+                "afterText": " oblázky"
+              },
+              "anchor": {
+                "targetText": "oblázky",
+                "learnerBaseText": "pebbles",
+                "englishAuditText": "pebbles"
+              }
             }
           ]
         },
@@ -3719,6 +4663,22 @@
                 "beforeText": "",
                 "afterText": " židle"
               }
+            },
+            {
+              "id": "cz.agreement.dva.feminine.exp260908",
+              "revision": 1,
+              "learnerBaseText": "two tracks",
+              "englishAuditText": "two tracks",
+              "targetText": "dvě stopy",
+              "slot": {
+                "beforeText": "",
+                "afterText": " stopy"
+              },
+              "anchor": {
+                "targetText": "stopy",
+                "learnerBaseText": "tracks",
+                "englishAuditText": "tracks"
+              }
             }
           ]
         },
@@ -3755,6 +4715,22 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " okna"
+              }
+            },
+            {
+              "id": "cz.agreement.dva.neuter.exp260908",
+              "revision": 1,
+              "learnerBaseText": "two wings",
+              "englishAuditText": "two wings",
+              "targetText": "dvě křídla",
+              "slot": {
+                "beforeText": "",
+                "afterText": " křídla"
+              },
+              "anchor": {
+                "targetText": "křídla",
+                "learnerBaseText": "wings",
+                "englishAuditText": "wings"
               }
             }
           ]

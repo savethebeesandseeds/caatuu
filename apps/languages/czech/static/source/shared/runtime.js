@@ -312,6 +312,13 @@
       : [];
   }
 
+  async function browserArtifactCache(manifest, artifact) {
+    // Music is identical in every course. The verified setup downloader owns
+    // one origin-wide copy; course cache refreshes must not duplicate it.
+    const sharedMusic = String(artifact.url || "").startsWith("/assets/music/");
+    return caches.open(sharedMusic ? "caatuu-music-v1" : (manifest.cache_name || fallbackSetupCacheName));
+  }
+
   function setupReserveBytes(expectedBytes) {
     return Math.max(128 * 1024 * 1024, Math.ceil(Number(expectedBytes || 0) * 0.12));
   }
@@ -435,9 +442,9 @@
   async function browserSetupStatus(manifest = null) {
     const setupManifest = manifest || await fetchJson(setupManifestPath, { cache: "reload" });
     const artifacts = browserArtifacts(setupManifest);
-    const cache = await caches.open(setupManifest.cache_name || fallbackSetupCacheName);
     const statuses = [];
     for (const artifact of artifacts) {
+      const cache = await browserArtifactCache(setupManifest, artifact);
       statuses.push(await browserArtifactStatus(cache, artifact));
     }
     const readyArtifacts = statuses.filter((item) => item.ready).length;
@@ -560,11 +567,11 @@
       const manifest = await fetchJson(setupManifestPath, { cache: "reload" });
       assertBrowserSetupActive(generation);
       const artifacts = browserArtifacts(manifest);
-      const cache = await caches.open(manifest.cache_name || fallbackSetupCacheName);
       assertBrowserSetupActive(generation);
       for (let index = 0; index < artifacts.length; index += 1) {
         assertBrowserSetupActive(generation);
         const artifact = artifacts[index];
+        const cache = await browserArtifactCache(manifest, artifact);
         const status = await browserArtifactStatus(cache, artifact);
         assertBrowserSetupActive(generation);
         if (status.ready) {
@@ -582,7 +589,11 @@
         await cacheBrowserArtifact(cache, artifact, index + 1, artifacts.length, handlers.onEvent, generation);
         assertBrowserSetupActive(generation);
       }
-      return await browserSetupStatus(manifest);
+      const status = await browserSetupStatus(manifest);
+      if (status.ready && typeof window.CustomEvent === "function") {
+        window.dispatchEvent(new window.CustomEvent("caatuu:music-assets-ready"));
+      }
+      return status;
     } finally {
       if (generation === browserSetupGeneration) activeBrowserSetupAbortController = null;
     }
@@ -755,6 +766,9 @@
       await Promise.all(deleteNames.map(async (name) => {
         if (await caches.delete(name)) result.cacheNamesDeleted.push(name);
       }));
+      if (result.cacheNamesDeleted.includes("caatuu-music-v1") && typeof window.CustomEvent === "function") {
+        window.dispatchEvent(new window.CustomEvent("caatuu:music-assets-cleared"));
+      }
     }
 
     if (window.indexedDB && typeof indexedDB.databases === "function") {
@@ -1520,6 +1534,7 @@
             locale: options.locale || course.targetLanguage.speechLocale || course.targetLanguage.locale,
             rate: Number.isFinite(rate) ? Math.max(0.5, Math.min(1.5, rate)) : 0.6,
             pitch: Number.isFinite(pitch) ? Math.max(0.5, Math.min(1.5, pitch)) : 1,
+            volume: Number.isFinite(Number(options.volume)) ? Math.max(0, Math.min(1, Number(options.volume))) : 1,
             voice
           },
           {

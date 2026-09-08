@@ -387,9 +387,13 @@ val syncLanguageAssets by tasks.registering(Sync::class) {
         exclude("data/dictionaries/**/*.sqlite")
         exclude("icons/*-1024.png")
     }
-    from(launcherStaticDir.dir("assets/icons")) {
-        include(*androidLauncherIconFiles.filterNot { "assets/icons/$it" in sharedAppAssetOutputs }.toTypedArray())
-        into("assets/icons")
+    val remainingLauncherIcons = androidLauncherIconFiles.filterNot { "assets/icons/$it" in sharedAppAssetOutputs }
+    // An empty Gradle include list includes the entire source directory.
+    if (remainingLauncherIcons.isNotEmpty()) {
+        from(launcherStaticDir.dir("assets/icons")) {
+            include(*remainingLauncherIcons.toTypedArray())
+            into("assets/icons")
+        }
     }
     from(launcherStaticDir.dir("assets/loading-animation")) {
         include("animations_manifest.json")
@@ -398,7 +402,9 @@ val syncLanguageAssets by tasks.registering(Sync::class) {
     from(appEntryFile) {
         rename { "index.html" }
     }
-    for ((source, outputPath) in sharedAppAssets) {
+    // The full development shell uses the same setup-downloaded songs as the
+    // product APK. Keep catalog metadata and credits, never the audio payload.
+    for ((source, outputPath) in sharedAppAssets.filterNot { (_, output) -> output.startsWith("assets/music/audio/") }) {
         from(workspaceRootDir.file(source)) {
             into(outputPath.substringBeforeLast('/', ""))
             rename { outputPath.substringAfterLast('/') }
@@ -412,6 +418,12 @@ val syncLanguageAssets by tasks.registering(Sync::class) {
         }
     }
     into(generatedLanguageAssetsDir)
+    doLast {
+        val audioDirectory = generatedLanguageAssetsDir.get().dir("assets/music/audio").asFile
+        check(!audioDirectory.exists() || audioDirectory.walkTopDown().none { it.isFile }) {
+            "Music audio must be downloaded during setup, never bundled in the full APK."
+        }
+    }
 }
 
 android {

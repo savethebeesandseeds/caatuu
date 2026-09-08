@@ -21,46 +21,1156 @@
   },
   "scope": "Singular nominative nouns. Masculine animate and inanimate nouns share one lane in this introductory activity; this is not a lesson in case endings or adjective agreement.",
   "lanes": [
-    { "id": "masculine", "label": "Masculine", "image": "/assets/micelaneous/male_gender.png" },
-    { "id": "neuter", "label": "Neuter", "image": "/assets/micelaneous/neutral_gender.png" },
-    { "id": "feminine", "label": "Feminine", "image": "/assets/micelaneous/female_gender.png" }
+    {
+      "id": "masculine",
+      "label": "Masculine",
+      "image": "/assets/micelaneous/male_gender.png"
+    },
+    {
+      "id": "neuter",
+      "label": "Neuter",
+      "image": "/assets/micelaneous/neutral_gender.png"
+    },
+    {
+      "id": "feminine",
+      "label": "Feminine",
+      "image": "/assets/micelaneous/female_gender.png"
+    }
   ],
   "items": [
-    { "id": "cz.gravity.noun.dum", "difficulty": 1, "revision": 1, "targetText": "dům", "learnerBaseText": "house", "english": "house", "laneId": "masculine" },
-    { "id": "cz.gravity.noun.kniha", "difficulty": 1, "revision": 1, "targetText": "kniha", "learnerBaseText": "book", "english": "book", "laneId": "feminine" },
-    { "id": "cz.gravity.noun.mesto", "difficulty": 1, "revision": 1, "targetText": "město", "learnerBaseText": "city", "english": "city", "laneId": "neuter" },
-    { "id": "cz.gravity.noun.telefon", "difficulty": 1, "revision": 1, "targetText": "telefon", "learnerBaseText": "phone", "english": "phone", "laneId": "masculine" },
-    { "id": "cz.gravity.noun.skola", "difficulty": 1, "revision": 1, "targetText": "škola", "learnerBaseText": "school", "english": "school", "laneId": "feminine" },
-    { "id": "cz.gravity.noun.auto", "difficulty": 1, "revision": 1, "targetText": "auto", "learnerBaseText": "car", "english": "car", "laneId": "neuter" },
-    { "id": "cz.gravity.noun.stul", "difficulty": 1, "revision": 1, "targetText": "stůl", "learnerBaseText": "table", "english": "table", "laneId": "masculine" },
-    { "id": "cz.gravity.noun.otazka", "difficulty": 1, "revision": 1, "targetText": "otázka", "learnerBaseText": "question", "english": "question", "laneId": "feminine" },
-    { "id": "cz.gravity.noun.okno", "difficulty": 1, "revision": 1, "targetText": "okno", "learnerBaseText": "window", "english": "window", "laneId": "neuter" },
-    { "id": "cz.gravity.noun.pes", "difficulty": 1, "revision": 1, "targetText": "pes", "learnerBaseText": "dog", "english": "dog", "laneId": "masculine" },
-    { "id": "cz.gravity.noun.taska", "difficulty": 1, "revision": 1, "targetText": "taška", "learnerBaseText": "bag", "english": "bag", "laneId": "feminine" },
-    { "id": "cz.gravity.noun.dite", "difficulty": 3, "revision": 1, "targetText": "dítě", "learnerBaseText": "child", "english": "child", "laneId": "neuter" },
-    { "id": "cz.gravity.noun.obchod", "difficulty": 1, "revision": 1, "targetText": "obchod", "learnerBaseText": "shop", "english": "shop", "laneId": "masculine" },
-    { "id": "cz.gravity.noun.zahrada", "difficulty": 1, "revision": 1, "targetText": "zahrada", "learnerBaseText": "garden", "english": "garden", "laneId": "feminine" },
-    { "id": "cz.gravity.noun.namesti", "difficulty": 3, "revision": 1, "targetText": "náměstí", "learnerBaseText": "square", "english": "square", "laneId": "neuter" },
-    { "id": "cz.gravity.noun.napad", "difficulty": 2, "revision": 1, "targetText": "nápad", "learnerBaseText": "idea", "english": "idea", "laneId": "masculine" },
-    { "id": "cz.gravity.noun.kavarna", "difficulty": 2, "revision": 1, "targetText": "kavárna", "learnerBaseText": "café", "english": "café", "laneId": "feminine" },
-    { "id": "cz.gravity.noun.kolo", "difficulty": 1, "revision": 1, "targetText": "kolo", "learnerBaseText": "bicycle", "english": "bicycle", "laneId": "neuter" },
-    { "id": "cz.gravity.noun.film", "difficulty": 1, "revision": 1, "targetText": "film", "learnerBaseText": "film", "english": "film", "laneId": "masculine" },
-    { "id": "cz.gravity.noun.odpoved", "difficulty": 3, "revision": 1, "targetText": "odpověď", "learnerBaseText": "answer", "english": "answer", "laneId": "feminine" },
-    { "id": "cz.gravity.noun.jidlo", "difficulty": 1, "revision": 1, "targetText": "jídlo", "learnerBaseText": "food", "english": "food", "laneId": "neuter" },
-    { "id": "cz.gravity.noun.jazyk", "difficulty": 2, "revision": 1, "targetText": "jazyk", "learnerBaseText": "language", "english": "language", "laneId": "masculine" },
-    { "id": "cz.gravity.noun.hudba", "difficulty": 2, "revision": 1, "targetText": "hudba", "learnerBaseText": "music", "english": "music", "laneId": "feminine" },
-    { "id": "cz.gravity.noun.misto", "difficulty": 1, "revision": 1, "targetText": "místo", "learnerBaseText": "place", "english": "place", "laneId": "neuter" },
-    { "id": "cz.gravity.noun.hrad", "difficulty": 2, "revision": 1, "targetText": "hrad", "learnerBaseText": "castle", "english": "castle", "laneId": "masculine" },
-    { "id": "cz.gravity.noun.vesnice", "difficulty": 2, "revision": 1, "targetText": "vesnice", "learnerBaseText": "village", "english": "village", "laneId": "feminine" },
-    { "id": "cz.gravity.noun.slovo", "difficulty": 2, "revision": 1, "targetText": "slovo", "learnerBaseText": "word", "english": "word", "laneId": "neuter" },
-    { "id": "cz.gravity.noun.pokoj", "difficulty": 2, "revision": 1, "targetText": "pokoj", "learnerBaseText": "room", "english": "room", "laneId": "masculine" },
-    { "id": "cz.gravity.noun.rodina", "difficulty": 1, "revision": 1, "targetText": "rodina", "learnerBaseText": "family", "english": "family", "laneId": "feminine" },
-    { "id": "cz.gravity.noun.letiste", "difficulty": 3, "revision": 1, "targetText": "letiště", "learnerBaseText": "airport", "english": "airport", "laneId": "neuter" },
-    { "id": "cz.gravity.noun.strom", "difficulty": 2, "revision": 1, "targetText": "strom", "learnerBaseText": "tree", "english": "tree", "laneId": "masculine" },
-    { "id": "cz.gravity.noun.mapa", "difficulty": 2, "revision": 1, "targetText": "mapa", "learnerBaseText": "map", "english": "map", "laneId": "feminine" },
-    { "id": "cz.gravity.noun.jezero", "difficulty": 2, "revision": 1, "targetText": "jezero", "learnerBaseText": "lake", "english": "lake", "laneId": "neuter" },
-    { "id": "cz.gravity.noun.most", "difficulty": 2, "revision": 1, "targetText": "most", "learnerBaseText": "bridge", "english": "bridge", "laneId": "masculine" },
-    { "id": "cz.gravity.noun.fotografie", "difficulty": 3, "revision": 1, "targetText": "fotografie", "learnerBaseText": "photograph", "english": "photograph", "laneId": "feminine" },
-    { "id": "cz.gravity.noun.nadrazi", "difficulty": 3, "revision": 1, "targetText": "nádraží", "learnerBaseText": "station", "english": "station", "laneId": "neuter" }
+    {
+      "id": "cz.gravity.noun.dum",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "dům",
+      "learnerBaseText": "house",
+      "english": "house",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.kniha",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "kniha",
+      "learnerBaseText": "book",
+      "english": "book",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.mesto",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "město",
+      "learnerBaseText": "city",
+      "english": "city",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.telefon",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "telefon",
+      "learnerBaseText": "phone",
+      "english": "phone",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.skola",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "škola",
+      "learnerBaseText": "school",
+      "english": "school",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.auto",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "auto",
+      "learnerBaseText": "car",
+      "english": "car",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.stul",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "stůl",
+      "learnerBaseText": "table",
+      "english": "table",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.otazka",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "otázka",
+      "learnerBaseText": "question",
+      "english": "question",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.okno",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "okno",
+      "learnerBaseText": "window",
+      "english": "window",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.pes",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "pes",
+      "learnerBaseText": "dog",
+      "english": "dog",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.taska",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "taška",
+      "learnerBaseText": "bag",
+      "english": "bag",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.dite",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "dítě",
+      "learnerBaseText": "child",
+      "english": "child",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.obchod",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "obchod",
+      "learnerBaseText": "shop",
+      "english": "shop",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.zahrada",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "zahrada",
+      "learnerBaseText": "garden",
+      "english": "garden",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.namesti",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "náměstí",
+      "learnerBaseText": "square",
+      "english": "square",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.napad",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "nápad",
+      "learnerBaseText": "idea",
+      "english": "idea",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.kavarna",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "kavárna",
+      "learnerBaseText": "café",
+      "english": "café",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.kolo",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "kolo",
+      "learnerBaseText": "bicycle",
+      "english": "bicycle",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.film",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "film",
+      "learnerBaseText": "film",
+      "english": "film",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.odpoved",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "odpověď",
+      "learnerBaseText": "answer",
+      "english": "answer",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.jidlo",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "jídlo",
+      "learnerBaseText": "food",
+      "english": "food",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.jazyk",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "jazyk",
+      "learnerBaseText": "language",
+      "english": "language",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.hudba",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "hudba",
+      "learnerBaseText": "music",
+      "english": "music",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.misto",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "místo",
+      "learnerBaseText": "place",
+      "english": "place",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.hrad",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "hrad",
+      "learnerBaseText": "castle",
+      "english": "castle",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.vesnice",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "vesnice",
+      "learnerBaseText": "village",
+      "english": "village",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.slovo",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "slovo",
+      "learnerBaseText": "word",
+      "english": "word",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.pokoj",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "pokoj",
+      "learnerBaseText": "room",
+      "english": "room",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.rodina",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "rodina",
+      "learnerBaseText": "family",
+      "english": "family",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.letiste",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "letiště",
+      "learnerBaseText": "airport",
+      "english": "airport",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.strom",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "strom",
+      "learnerBaseText": "tree",
+      "english": "tree",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.mapa",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "mapa",
+      "learnerBaseText": "map",
+      "english": "map",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.jezero",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "jezero",
+      "learnerBaseText": "lake",
+      "english": "lake",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.most",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "most",
+      "learnerBaseText": "bridge",
+      "english": "bridge",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.fotografie",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "fotografie",
+      "learnerBaseText": "photograph",
+      "english": "photograph",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.nadrazi",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "nádraží",
+      "learnerBaseText": "station",
+      "english": "station",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.ball",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "míč",
+      "learnerBaseText": "ball",
+      "english": "ball",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.rabbit",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "králík",
+      "learnerBaseText": "rabbit",
+      "english": "rabbit",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.duck",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "kachna",
+      "learnerBaseText": "duck",
+      "english": "duck",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.fish",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "ryba",
+      "learnerBaseText": "fish",
+      "english": "fish",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.horse",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "kůň",
+      "learnerBaseText": "horse",
+      "english": "horse",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.bear",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "medvěd",
+      "learnerBaseText": "bear",
+      "english": "bear",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.bee",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "včela",
+      "learnerBaseText": "bee",
+      "english": "bee",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.butterfly",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "motýl",
+      "learnerBaseText": "butterfly",
+      "english": "butterfly",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.flower",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "květina",
+      "learnerBaseText": "flower",
+      "english": "flower",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.sun",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "slunce",
+      "learnerBaseText": "sun",
+      "english": "sun",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.moon",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "měsíc",
+      "learnerBaseText": "moon",
+      "english": "moon",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.star",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "hvězda",
+      "learnerBaseText": "star",
+      "english": "star",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.cloud",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "mrak",
+      "learnerBaseText": "cloud",
+      "english": "cloud",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.rain",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "déšť",
+      "learnerBaseText": "rain",
+      "english": "rain",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.snow",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "sníh",
+      "learnerBaseText": "snow",
+      "english": "snow",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.pencil",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "tužka",
+      "learnerBaseText": "pencil",
+      "english": "pencil",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.crayon",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "pastelka",
+      "learnerBaseText": "crayon",
+      "english": "crayon",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.notebook",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "sešit",
+      "learnerBaseText": "notebook",
+      "english": "notebook",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.backpack",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "batoh",
+      "learnerBaseText": "backpack",
+      "english": "backpack",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.bicycle",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "jízdní kolo",
+      "learnerBaseText": "bicycle",
+      "english": "bicycle",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.boat",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "loď",
+      "learnerBaseText": "boat",
+      "english": "boat",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.hat",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "klobouk",
+      "learnerBaseText": "hat",
+      "english": "hat",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.sock",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "ponožka",
+      "learnerBaseText": "sock",
+      "english": "sock",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.shoe",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "bota",
+      "learnerBaseText": "shoe",
+      "english": "shoe",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.spoon",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "lžíce",
+      "learnerBaseText": "spoon",
+      "english": "spoon",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.plate",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "talíř",
+      "learnerBaseText": "plate",
+      "english": "plate",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.cup",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "hrnek",
+      "learnerBaseText": "cup",
+      "english": "cup",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.bread",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "chléb",
+      "learnerBaseText": "bread",
+      "english": "bread",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.cheese",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "sýr",
+      "learnerBaseText": "cheese",
+      "english": "cheese",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.egg",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "vejce",
+      "learnerBaseText": "egg",
+      "english": "egg",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.hedgehog",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "ježek",
+      "learnerBaseText": "hedgehog",
+      "english": "hedgehog",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.squirrel",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "veverka",
+      "learnerBaseText": "squirrel",
+      "english": "squirrel",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.owl",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "sova",
+      "learnerBaseText": "owl",
+      "english": "owl",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.turtle",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "želva",
+      "learnerBaseText": "turtle",
+      "english": "turtle",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.snail",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "šnek",
+      "learnerBaseText": "snail",
+      "english": "snail",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.whale",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "velryba",
+      "learnerBaseText": "whale",
+      "english": "whale",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.dolphin",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "delfín",
+      "learnerBaseText": "dolphin",
+      "english": "dolphin",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.penguin",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "tučňák",
+      "learnerBaseText": "penguin",
+      "english": "penguin",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.nest",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "hnízdo",
+      "learnerBaseText": "nest",
+      "english": "nest",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.feather",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "peříčko",
+      "learnerBaseText": "feather",
+      "english": "feather",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.seed",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "semeno",
+      "learnerBaseText": "seed",
+      "english": "seed",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.root",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "kořen",
+      "learnerBaseText": "root",
+      "english": "root",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.branch",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "větev",
+      "learnerBaseText": "branch",
+      "english": "branch",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.pond",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "rybník",
+      "learnerBaseText": "pond",
+      "english": "pond",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.meadow",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "louka",
+      "learnerBaseText": "meadow",
+      "english": "meadow",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.waterfall",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "vodopád",
+      "learnerBaseText": "waterfall",
+      "english": "waterfall",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.rainbow",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "duha",
+      "learnerBaseText": "rainbow",
+      "english": "rainbow",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.island",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "ostrov",
+      "learnerBaseText": "island",
+      "english": "island",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.shell",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "mušle",
+      "learnerBaseText": "shell",
+      "english": "shell",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.pebble",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "oblázek",
+      "learnerBaseText": "pebble",
+      "english": "pebble",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.puppet",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "loutka",
+      "learnerBaseText": "puppet",
+      "english": "puppet",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.costume",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "kostým",
+      "learnerBaseText": "costume",
+      "english": "costume",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.stage",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "jeviště",
+      "learnerBaseText": "stage",
+      "english": "stage",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.drum",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "buben",
+      "learnerBaseText": "drum",
+      "english": "drum",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.flute",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "flétna",
+      "learnerBaseText": "flute",
+      "english": "flute",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.riddle",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "hádanka",
+      "learnerBaseText": "riddle",
+      "english": "riddle",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.compass",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "kompas",
+      "learnerBaseText": "compass",
+      "english": "compass",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.telescope",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "dalekohled",
+      "learnerBaseText": "telescope",
+      "english": "telescope",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.rocket",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "raketa",
+      "learnerBaseText": "rocket",
+      "english": "rocket",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.planet",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "planeta",
+      "learnerBaseText": "planet",
+      "english": "planet",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.patience",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "trpělivost",
+      "learnerBaseText": "patience",
+      "english": "patience",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.kindness",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "laskavost",
+      "learnerBaseText": "kindness",
+      "english": "kindness",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.courage",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "odvaha",
+      "learnerBaseText": "courage",
+      "english": "courage",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.curiosity",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "zvědavost",
+      "learnerBaseText": "curiosity",
+      "english": "curiosity",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.imagination",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "představivost",
+      "learnerBaseText": "imagination",
+      "english": "imagination",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.friendship",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "přátelství",
+      "learnerBaseText": "friendship",
+      "english": "friendship",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.cooperation",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "spolupráce",
+      "learnerBaseText": "cooperation",
+      "english": "cooperation",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.agreement",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "dohoda",
+      "learnerBaseText": "agreement",
+      "english": "agreement",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.difference",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "rozdíl",
+      "learnerBaseText": "difference",
+      "english": "difference",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.similarity",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "podobnost",
+      "learnerBaseText": "similarity",
+      "english": "similarity",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.evidence",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "důkaz",
+      "learnerBaseText": "evidence",
+      "english": "evidence",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.explanation",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "vysvětlení",
+      "learnerBaseText": "explanation",
+      "english": "explanation",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.solution",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "řešení",
+      "learnerBaseText": "solution",
+      "english": "solution",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.discovery",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "objev",
+      "learnerBaseText": "discovery",
+      "english": "discovery",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.invention",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "vynález",
+      "learnerBaseText": "invention",
+      "english": "invention",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.experiment",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "pokus",
+      "learnerBaseText": "experiment",
+      "english": "experiment",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.observation",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "pozorování",
+      "learnerBaseText": "observation",
+      "english": "observation",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.prediction",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "předpověď",
+      "learnerBaseText": "prediction",
+      "english": "prediction",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.possibility",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "možnost",
+      "learnerBaseText": "possibility",
+      "english": "possibility",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.responsibility",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "odpovědnost",
+      "learnerBaseText": "responsibility",
+      "english": "responsibility",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.permission",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "svolení",
+      "learnerBaseText": "permission",
+      "english": "permission",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.decision",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "rozhodnutí",
+      "learnerBaseText": "decision",
+      "english": "decision",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.achievement",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "úspěch",
+      "learnerBaseText": "achievement",
+      "english": "achievement",
+      "laneId": "masculine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.challenge",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "výzva",
+      "learnerBaseText": "challenge",
+      "english": "challenge",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.effort",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "úsilí",
+      "learnerBaseText": "effort",
+      "english": "effort",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.balance",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "rovnováha",
+      "learnerBaseText": "balance",
+      "english": "balance",
+      "laneId": "feminine"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.habitat",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "přirozené prostředí",
+      "learnerBaseText": "habitat",
+      "english": "habitat",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.pollination",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "opylování",
+      "learnerBaseText": "pollination",
+      "english": "pollination",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.constellation",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "souhvězdí",
+      "learnerBaseText": "constellation",
+      "english": "constellation",
+      "laneId": "neuter"
+    },
+    {
+      "id": "cz.gravity.noun.exp260908.reflection",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "odraz",
+      "learnerBaseText": "reflection",
+      "english": "reflection",
+      "laneId": "masculine"
+    }
   ]
 }

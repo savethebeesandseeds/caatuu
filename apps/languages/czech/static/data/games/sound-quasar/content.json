@@ -30,13 +30,100 @@
       "/23",
       "/24",
       "/25",
-      "/26"
+      "/26",
+      "cz.verb.exp260908.jump",
+      "cz.verb.exp260908.swim",
+      "cz.verb.exp260908.dance",
+      "cz.verb.exp260908.smile",
+      "cz.verb.exp260908.sing",
+      "cz.verb.exp260908.draw",
+      "cz.verb.exp260908.count",
+      "cz.verb.exp260908.touch",
+      "cz.verb.exp260908.hold",
+      "cz.verb.exp260908.grow",
+      "cz.verb.exp260908.smell",
+      "cz.verb.exp260908.taste",
+      "cz.verb.exp260908.hug",
+      "cz.verb.exp260908.wave",
+      "cz.verb.exp260908.clap",
+      "cz.verb.exp260908.kick",
+      "cz.verb.exp260908.catch",
+      "cz.verb.exp260908.throw",
+      "cz.verb.exp260908.crawl",
+      "cz.verb.exp260908.whisper",
+      "cz.verb.exp260908.shout",
+      "cz.verb.exp260908.hum",
+      "cz.verb.exp260908.whistle",
+      "cz.verb.exp260908.bark",
+      "cz.verb.exp260908.meow",
+      "cz.verb.exp260908.hop",
+      "cz.verb.exp260908.slide",
+      "cz.verb.exp260908.roll",
+      "cz.verb.exp260908.float",
+      "cz.verb.exp260908.splash",
+      "cz.verb.exp260908.bounce",
+      "cz.verb.exp260908.fold",
+      "cz.verb.exp260908.unfold",
+      "cz.verb.exp260908.decorate",
+      "cz.verb.exp260908.glue",
+      "cz.verb.exp260908.weave",
+      "cz.verb.exp260908.knead",
+      "cz.verb.exp260908.stir",
+      "cz.verb.exp260908.pour",
+      "cz.verb.exp260908.peel",
+      "cz.verb.exp260908.water",
+      "cz.verb.exp260908.sprout",
+      "cz.verb.exp260908.bloom",
+      "cz.verb.exp260908.collect",
+      "cz.verb.exp260908.measure",
+      "cz.verb.exp260908.weigh",
+      "cz.verb.exp260908.guess",
+      "cz.verb.exp260908.explore",
+      "cz.verb.exp260908.imagine",
+      "cz.verb.exp260908.pretend",
+      "cz.verb.exp260908.celebrate",
+      "cz.verb.exp260908.welcome",
+      "cz.verb.exp260908.cheer",
+      "cz.verb.exp260908.forgive",
+      "cz.verb.exp260908.comfort",
+      "cz.verb.exp260908.promise",
+      "cz.verb.exp260908.notice",
+      "cz.verb.exp260908.balance",
+      "cz.verb.exp260908.cooperate",
+      "cz.verb.exp260908.negotiate",
+      "cz.verb.exp260908.persuade",
+      "cz.verb.exp260908.reassure",
+      "cz.verb.exp260908.appreciate",
+      "cz.verb.exp260908.admire",
+      "cz.verb.exp260908.wonder",
+      "cz.verb.exp260908.reflect",
+      "cz.verb.exp260908.concentrate",
+      "cz.verb.exp260908.persevere",
+      "cz.verb.exp260908.hesitate",
+      "cz.verb.exp260908.anticipate",
+      "cz.verb.exp260908.investigate",
+      "cz.verb.exp260908.observe",
+      "cz.verb.exp260908.distinguish",
+      "cz.verb.exp260908.estimate",
+      "cz.verb.exp260908.interpret",
+      "cz.verb.exp260908.justify",
+      "cz.verb.exp260908.demonstrate",
+      "cz.verb.exp260908.invent",
+      "cz.verb.exp260908.transform",
+      "cz.verb.exp260908.combine",
+      "cz.verb.exp260908.adapt",
+      "cz.verb.exp260908.restore",
+      "cz.verb.exp260908.preserve",
+      "cz.verb.exp260908.contribute",
+      "cz.verb.exp260908.include",
+      "cz.verb.exp260908.summarize"
     ],
     "selection": "Existing vocabulary; target text and meanings copied without linguistic edits."
   },
   "items": [
     {
-      "id": "cz-word-1", "difficulty": 1,
+      "id": "cz-word-1",
+      "difficulty": 1,
       "revision": "1",
       "target": "ano",
       "meaning": "yes",
@@ -45,7 +132,8 @@
       "englishAuditText": "yes"
     },
     {
-      "id": "cz-word-2", "difficulty": 1,
+      "id": "cz-word-2",
+      "difficulty": 1,
       "revision": "1",
       "target": "ne",
       "meaning": "no",
@@ -54,7 +142,8 @@
       "englishAuditText": "no"
     },
     {
-      "id": "cz-word-3", "difficulty": 1,
+      "id": "cz-word-3",
+      "difficulty": 1,
       "revision": "1",
       "target": "prosím",
       "meaning": "please / here you are",
@@ -63,7 +152,8 @@
       "englishAuditText": "please / here you are"
     },
     {
-      "id": "cz-word-4", "difficulty": 1,
+      "id": "cz-word-4",
+      "difficulty": 1,
       "revision": "1",
       "target": "děkuji",
       "meaning": "thank you",
@@ -72,7 +162,8 @@
       "englishAuditText": "thank you"
     },
     {
-      "id": "cz-word-5", "difficulty": 1,
+      "id": "cz-word-5",
+      "difficulty": 1,
       "revision": "1",
       "target": "ahoj",
       "meaning": "hi / bye",
@@ -81,7 +172,8 @@
       "englishAuditText": "hi / bye"
     },
     {
-      "id": "cz-word-6", "difficulty": 1,
+      "id": "cz-word-6",
+      "difficulty": 1,
       "revision": "1",
       "target": "pardon",
       "meaning": "sorry / pardon",
@@ -90,7 +182,8 @@
       "englishAuditText": "sorry / pardon"
     },
     {
-      "id": "cz-word-7", "difficulty": 1,
+      "id": "cz-word-7",
+      "difficulty": 1,
       "revision": "1",
       "target": "dobře",
       "meaning": "okay / well",
@@ -99,7 +192,8 @@
       "englishAuditText": "okay / well"
     },
     {
-      "id": "cz-word-8", "difficulty": 1,
+      "id": "cz-word-8",
+      "difficulty": 1,
       "revision": "1",
       "target": "špatně",
       "meaning": "badly / wrong",
@@ -108,7 +202,8 @@
       "englishAuditText": "badly / wrong"
     },
     {
-      "id": "cz-word-9", "difficulty": 1,
+      "id": "cz-word-9",
+      "difficulty": 1,
       "revision": "1",
       "target": "možná",
       "meaning": "maybe",
@@ -117,7 +212,8 @@
       "englishAuditText": "maybe"
     },
     {
-      "id": "cz-word-10", "difficulty": 2,
+      "id": "cz-word-10",
+      "difficulty": 2,
       "revision": "1",
       "target": "samozřejmě",
       "meaning": "of course",
@@ -126,7 +222,8 @@
       "englishAuditText": "of course"
     },
     {
-      "id": "cz-word-11", "difficulty": 2,
+      "id": "cz-word-11",
+      "difficulty": 2,
       "revision": "1",
       "target": "bohužel",
       "meaning": "unfortunately",
@@ -135,7 +232,8 @@
       "englishAuditText": "unfortunately"
     },
     {
-      "id": "cz-word-12", "difficulty": 1,
+      "id": "cz-word-12",
+      "difficulty": 1,
       "revision": "1",
       "target": "trochu",
       "meaning": "a little",
@@ -144,7 +242,8 @@
       "englishAuditText": "a little"
     },
     {
-      "id": "cz-word-13", "difficulty": 1,
+      "id": "cz-word-13",
+      "difficulty": 1,
       "revision": "1",
       "target": "pomalu",
       "meaning": "slowly",
@@ -153,7 +252,8 @@
       "englishAuditText": "slowly"
     },
     {
-      "id": "cz-word-14", "difficulty": 1,
+      "id": "cz-word-14",
+      "difficulty": 1,
       "revision": "1",
       "target": "česky",
       "meaning": "in Czech",
@@ -162,7 +262,8 @@
       "englishAuditText": "in Czech"
     },
     {
-      "id": "cz-word-15", "difficulty": 2,
+      "id": "cz-word-15",
+      "difficulty": 2,
       "revision": "1",
       "target": "anglicky",
       "meaning": "in English",
@@ -171,13 +272,874 @@
       "englishAuditText": "in English"
     },
     {
-      "id": "cz-word-16", "difficulty": 2,
+      "id": "cz-word-16",
+      "difficulty": 2,
       "revision": "1",
       "target": "nerozumím",
       "meaning": "I do not understand",
       "sourceId": "/26",
       "sourceReviewStatus": "not-declared",
       "englishAuditText": "I do not understand"
+    },
+    {
+      "id": "cz-exp260908-items-17",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "skákat",
+      "meaning": "jump",
+      "sourceId": "cz.verb.exp260908.jump",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "jump"
+    },
+    {
+      "id": "cz-exp260908-items-18",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "plavat",
+      "meaning": "swim",
+      "sourceId": "cz.verb.exp260908.swim",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "swim"
+    },
+    {
+      "id": "cz-exp260908-items-19",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "tančit",
+      "meaning": "dance",
+      "sourceId": "cz.verb.exp260908.dance",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "dance"
+    },
+    {
+      "id": "cz-exp260908-items-20",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "usmívat se",
+      "meaning": "smile",
+      "sourceId": "cz.verb.exp260908.smile",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "smile"
+    },
+    {
+      "id": "cz-exp260908-items-21",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "zpívat",
+      "meaning": "sing",
+      "sourceId": "cz.verb.exp260908.sing",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "sing"
+    },
+    {
+      "id": "cz-exp260908-items-22",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "kreslit",
+      "meaning": "draw",
+      "sourceId": "cz.verb.exp260908.draw",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "draw"
+    },
+    {
+      "id": "cz-exp260908-items-23",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "počítat",
+      "meaning": "count",
+      "sourceId": "cz.verb.exp260908.count",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "count"
+    },
+    {
+      "id": "cz-exp260908-items-24",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "dotýkat se",
+      "meaning": "touch",
+      "sourceId": "cz.verb.exp260908.touch",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "touch"
+    },
+    {
+      "id": "cz-exp260908-items-25",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "držet",
+      "meaning": "hold",
+      "sourceId": "cz.verb.exp260908.hold",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "hold"
+    },
+    {
+      "id": "cz-exp260908-items-26",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "růst",
+      "meaning": "grow",
+      "sourceId": "cz.verb.exp260908.grow",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "grow"
+    },
+    {
+      "id": "cz-exp260908-items-27",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "čichat",
+      "meaning": "smell",
+      "sourceId": "cz.verb.exp260908.smell",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "smell"
+    },
+    {
+      "id": "cz-exp260908-items-28",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "ochutnávat",
+      "meaning": "taste",
+      "sourceId": "cz.verb.exp260908.taste",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "taste"
+    },
+    {
+      "id": "cz-exp260908-items-29",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "objímat",
+      "meaning": "hug",
+      "sourceId": "cz.verb.exp260908.hug",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "hug"
+    },
+    {
+      "id": "cz-exp260908-items-30",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "mávat",
+      "meaning": "wave",
+      "sourceId": "cz.verb.exp260908.wave",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "wave"
+    },
+    {
+      "id": "cz-exp260908-items-31",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "tleskat",
+      "meaning": "clap",
+      "sourceId": "cz.verb.exp260908.clap",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "clap"
+    },
+    {
+      "id": "cz-exp260908-items-32",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "kopat",
+      "meaning": "kick",
+      "sourceId": "cz.verb.exp260908.kick",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "kick"
+    },
+    {
+      "id": "cz-exp260908-items-33",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "chytat",
+      "meaning": "catch",
+      "sourceId": "cz.verb.exp260908.catch",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "catch"
+    },
+    {
+      "id": "cz-exp260908-items-34",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "házet",
+      "meaning": "throw",
+      "sourceId": "cz.verb.exp260908.throw",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "throw"
+    },
+    {
+      "id": "cz-exp260908-items-35",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "lézt",
+      "meaning": "crawl",
+      "sourceId": "cz.verb.exp260908.crawl",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "crawl"
+    },
+    {
+      "id": "cz-exp260908-items-36",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "šeptat",
+      "meaning": "whisper",
+      "sourceId": "cz.verb.exp260908.whisper",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "whisper"
+    },
+    {
+      "id": "cz-exp260908-items-37",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "křičet",
+      "meaning": "shout",
+      "sourceId": "cz.verb.exp260908.shout",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "shout"
+    },
+    {
+      "id": "cz-exp260908-items-38",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "broukat si",
+      "meaning": "hum",
+      "sourceId": "cz.verb.exp260908.hum",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "hum"
+    },
+    {
+      "id": "cz-exp260908-items-39",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "pískat",
+      "meaning": "whistle",
+      "sourceId": "cz.verb.exp260908.whistle",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "whistle"
+    },
+    {
+      "id": "cz-exp260908-items-40",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "štěkat",
+      "meaning": "bark",
+      "sourceId": "cz.verb.exp260908.bark",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "bark"
+    },
+    {
+      "id": "cz-exp260908-items-41",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "mňoukat",
+      "meaning": "meow",
+      "sourceId": "cz.verb.exp260908.meow",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "meow"
+    },
+    {
+      "id": "cz-exp260908-items-42",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "poskakovat",
+      "meaning": "hop",
+      "sourceId": "cz.verb.exp260908.hop",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "hop"
+    },
+    {
+      "id": "cz-exp260908-items-43",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "klouzat",
+      "meaning": "slide",
+      "sourceId": "cz.verb.exp260908.slide",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "slide"
+    },
+    {
+      "id": "cz-exp260908-items-44",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "kutálet",
+      "meaning": "roll",
+      "sourceId": "cz.verb.exp260908.roll",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "roll"
+    },
+    {
+      "id": "cz-exp260908-items-45",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "plout",
+      "meaning": "float",
+      "sourceId": "cz.verb.exp260908.float",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "float"
+    },
+    {
+      "id": "cz-exp260908-items-46",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "cákat",
+      "meaning": "splash",
+      "sourceId": "cz.verb.exp260908.splash",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "splash"
+    },
+    {
+      "id": "cz-exp260908-items-47",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "odrážet se",
+      "meaning": "bounce",
+      "sourceId": "cz.verb.exp260908.bounce",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "bounce"
+    },
+    {
+      "id": "cz-exp260908-items-48",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "skládat",
+      "meaning": "fold",
+      "sourceId": "cz.verb.exp260908.fold",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "fold"
+    },
+    {
+      "id": "cz-exp260908-items-49",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "rozkládat",
+      "meaning": "unfold",
+      "sourceId": "cz.verb.exp260908.unfold",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "unfold"
+    },
+    {
+      "id": "cz-exp260908-items-50",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "zdobit",
+      "meaning": "decorate",
+      "sourceId": "cz.verb.exp260908.decorate",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "decorate"
+    },
+    {
+      "id": "cz-exp260908-items-51",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "lepit",
+      "meaning": "glue",
+      "sourceId": "cz.verb.exp260908.glue",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "glue"
+    },
+    {
+      "id": "cz-exp260908-items-52",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "tkát",
+      "meaning": "weave",
+      "sourceId": "cz.verb.exp260908.weave",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "weave"
+    },
+    {
+      "id": "cz-exp260908-items-53",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "hníst",
+      "meaning": "knead",
+      "sourceId": "cz.verb.exp260908.knead",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "knead"
+    },
+    {
+      "id": "cz-exp260908-items-54",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "míchat",
+      "meaning": "stir",
+      "sourceId": "cz.verb.exp260908.stir",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "stir"
+    },
+    {
+      "id": "cz-exp260908-items-55",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "nalévat",
+      "meaning": "pour",
+      "sourceId": "cz.verb.exp260908.pour",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "pour"
+    },
+    {
+      "id": "cz-exp260908-items-56",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "loupat",
+      "meaning": "peel",
+      "sourceId": "cz.verb.exp260908.peel",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "peel"
+    },
+    {
+      "id": "cz-exp260908-items-57",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "zalévat",
+      "meaning": "water",
+      "sourceId": "cz.verb.exp260908.water",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "water"
+    },
+    {
+      "id": "cz-exp260908-items-58",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "klíčit",
+      "meaning": "sprout",
+      "sourceId": "cz.verb.exp260908.sprout",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "sprout"
+    },
+    {
+      "id": "cz-exp260908-items-59",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "kvést",
+      "meaning": "bloom",
+      "sourceId": "cz.verb.exp260908.bloom",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "bloom"
+    },
+    {
+      "id": "cz-exp260908-items-60",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "sbírat",
+      "meaning": "collect",
+      "sourceId": "cz.verb.exp260908.collect",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "collect"
+    },
+    {
+      "id": "cz-exp260908-items-61",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "měřit",
+      "meaning": "measure",
+      "sourceId": "cz.verb.exp260908.measure",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "measure"
+    },
+    {
+      "id": "cz-exp260908-items-62",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "vážit",
+      "meaning": "weigh",
+      "sourceId": "cz.verb.exp260908.weigh",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "weigh"
+    },
+    {
+      "id": "cz-exp260908-items-63",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "hádat",
+      "meaning": "guess",
+      "sourceId": "cz.verb.exp260908.guess",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "guess"
+    },
+    {
+      "id": "cz-exp260908-items-64",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "zkoumat",
+      "meaning": "explore",
+      "sourceId": "cz.verb.exp260908.explore",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "explore"
+    },
+    {
+      "id": "cz-exp260908-items-65",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "představovat si",
+      "meaning": "imagine",
+      "sourceId": "cz.verb.exp260908.imagine",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "imagine"
+    },
+    {
+      "id": "cz-exp260908-items-66",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "předstírat",
+      "meaning": "pretend",
+      "sourceId": "cz.verb.exp260908.pretend",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "pretend"
+    },
+    {
+      "id": "cz-exp260908-items-67",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "slavit",
+      "meaning": "celebrate",
+      "sourceId": "cz.verb.exp260908.celebrate",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "celebrate"
+    },
+    {
+      "id": "cz-exp260908-items-68",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "vítat",
+      "meaning": "welcome",
+      "sourceId": "cz.verb.exp260908.welcome",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "welcome"
+    },
+    {
+      "id": "cz-exp260908-items-69",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "fandit",
+      "meaning": "cheer",
+      "sourceId": "cz.verb.exp260908.cheer",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "cheer"
+    },
+    {
+      "id": "cz-exp260908-items-70",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "odpouštět",
+      "meaning": "forgive",
+      "sourceId": "cz.verb.exp260908.forgive",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "forgive"
+    },
+    {
+      "id": "cz-exp260908-items-71",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "utěšovat",
+      "meaning": "comfort",
+      "sourceId": "cz.verb.exp260908.comfort",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "comfort"
+    },
+    {
+      "id": "cz-exp260908-items-72",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "slibovat",
+      "meaning": "promise",
+      "sourceId": "cz.verb.exp260908.promise",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "promise"
+    },
+    {
+      "id": "cz-exp260908-items-73",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "všímat si",
+      "meaning": "notice",
+      "sourceId": "cz.verb.exp260908.notice",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "notice"
+    },
+    {
+      "id": "cz-exp260908-items-74",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "balancovat",
+      "meaning": "balance",
+      "sourceId": "cz.verb.exp260908.balance",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "balance"
+    },
+    {
+      "id": "cz-exp260908-items-75",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "spolupracovat",
+      "meaning": "cooperate",
+      "sourceId": "cz.verb.exp260908.cooperate",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "cooperate"
+    },
+    {
+      "id": "cz-exp260908-items-76",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "vyjednávat",
+      "meaning": "negotiate",
+      "sourceId": "cz.verb.exp260908.negotiate",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "negotiate"
+    },
+    {
+      "id": "cz-exp260908-items-77",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "přesvědčovat",
+      "meaning": "persuade",
+      "sourceId": "cz.verb.exp260908.persuade",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "persuade"
+    },
+    {
+      "id": "cz-exp260908-items-78",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "uklidňovat",
+      "meaning": "reassure",
+      "sourceId": "cz.verb.exp260908.reassure",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "reassure"
+    },
+    {
+      "id": "cz-exp260908-items-79",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "oceňovat",
+      "meaning": "appreciate",
+      "sourceId": "cz.verb.exp260908.appreciate",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "appreciate"
+    },
+    {
+      "id": "cz-exp260908-items-80",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "obdivovat",
+      "meaning": "admire",
+      "sourceId": "cz.verb.exp260908.admire",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "admire"
+    },
+    {
+      "id": "cz-exp260908-items-81",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "divit se",
+      "meaning": "wonder",
+      "sourceId": "cz.verb.exp260908.wonder",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "wonder"
+    },
+    {
+      "id": "cz-exp260908-items-82",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "uvažovat",
+      "meaning": "reflect",
+      "sourceId": "cz.verb.exp260908.reflect",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "reflect"
+    },
+    {
+      "id": "cz-exp260908-items-83",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "soustředit se",
+      "meaning": "concentrate",
+      "sourceId": "cz.verb.exp260908.concentrate",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "concentrate"
+    },
+    {
+      "id": "cz-exp260908-items-84",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "vytrvat",
+      "meaning": "persevere",
+      "sourceId": "cz.verb.exp260908.persevere",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "persevere"
+    },
+    {
+      "id": "cz-exp260908-items-85",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "váhat",
+      "meaning": "hesitate",
+      "sourceId": "cz.verb.exp260908.hesitate",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "hesitate"
+    },
+    {
+      "id": "cz-exp260908-items-86",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "předvídat",
+      "meaning": "anticipate",
+      "sourceId": "cz.verb.exp260908.anticipate",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "anticipate"
+    },
+    {
+      "id": "cz-exp260908-items-87",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "prozkoumat",
+      "meaning": "investigate",
+      "sourceId": "cz.verb.exp260908.investigate",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "investigate"
+    },
+    {
+      "id": "cz-exp260908-items-88",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "pozorovat",
+      "meaning": "observe",
+      "sourceId": "cz.verb.exp260908.observe",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "observe"
+    },
+    {
+      "id": "cz-exp260908-items-89",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "rozlišovat",
+      "meaning": "distinguish",
+      "sourceId": "cz.verb.exp260908.distinguish",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "distinguish"
+    },
+    {
+      "id": "cz-exp260908-items-90",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "odhadovat",
+      "meaning": "estimate",
+      "sourceId": "cz.verb.exp260908.estimate",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "estimate"
+    },
+    {
+      "id": "cz-exp260908-items-91",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "vykládat",
+      "meaning": "interpret",
+      "sourceId": "cz.verb.exp260908.interpret",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "interpret"
+    },
+    {
+      "id": "cz-exp260908-items-92",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "zdůvodňovat",
+      "meaning": "justify",
+      "sourceId": "cz.verb.exp260908.justify",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "justify"
+    },
+    {
+      "id": "cz-exp260908-items-93",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "předvádět",
+      "meaning": "demonstrate",
+      "sourceId": "cz.verb.exp260908.demonstrate",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "demonstrate"
+    },
+    {
+      "id": "cz-exp260908-items-94",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "vynalézat",
+      "meaning": "invent",
+      "sourceId": "cz.verb.exp260908.invent",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "invent"
+    },
+    {
+      "id": "cz-exp260908-items-95",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "proměňovat",
+      "meaning": "transform",
+      "sourceId": "cz.verb.exp260908.transform",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "transform"
+    },
+    {
+      "id": "cz-exp260908-items-96",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "kombinovat",
+      "meaning": "combine",
+      "sourceId": "cz.verb.exp260908.combine",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "combine"
+    },
+    {
+      "id": "cz-exp260908-items-97",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "přizpůsobovat se",
+      "meaning": "adapt",
+      "sourceId": "cz.verb.exp260908.adapt",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "adapt"
+    },
+    {
+      "id": "cz-exp260908-items-98",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "obnovovat",
+      "meaning": "restore",
+      "sourceId": "cz.verb.exp260908.restore",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "restore"
+    },
+    {
+      "id": "cz-exp260908-items-99",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "uchovávat",
+      "meaning": "preserve",
+      "sourceId": "cz.verb.exp260908.preserve",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "preserve"
+    },
+    {
+      "id": "cz-exp260908-items-100",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "přispívat",
+      "meaning": "contribute",
+      "sourceId": "cz.verb.exp260908.contribute",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "contribute"
+    },
+    {
+      "id": "cz-exp260908-items-101",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "zahrnovat",
+      "meaning": "include",
+      "sourceId": "cz.verb.exp260908.include",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "include"
+    },
+    {
+      "id": "cz-exp260908-items-102",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "shrnovat",
+      "meaning": "summarize",
+      "sourceId": "cz.verb.exp260908.summarize",
+      "sourceReviewStatus": "not-declared",
+      "englishAuditText": "summarize"
     }
   ],
   "sentenceProvenance": {
@@ -199,13 +1161,55 @@
       "ww-codex-exp-0001-0004",
       "ww-codex-exp-0001-0005",
       "ww-codex-exp-0001-0027",
-      "ww-codex-exp-0001-0028"
+      "ww-codex-exp-0001-0028",
+      "ww-cz-exp260908-001",
+      "ww-cz-exp260908-002",
+      "ww-cz-exp260908-003",
+      "ww-cz-exp260908-004",
+      "ww-cz-exp260908-005",
+      "ww-cz-exp260908-006",
+      "ww-cz-exp260908-007",
+      "ww-cz-exp260908-008",
+      "ww-cz-exp260908-009",
+      "ww-cz-exp260908-010",
+      "ww-cz-exp260908-011",
+      "ww-cz-exp260908-012",
+      "ww-cz-exp260908-013",
+      "ww-cz-exp260908-014",
+      "ww-cz-exp260908-015",
+      "ww-cz-exp260908-016",
+      "ww-cz-exp260908-017",
+      "ww-cz-exp260908-018",
+      "ww-cz-exp260908-019",
+      "ww-cz-exp260908-020",
+      "ww-cz-exp260908-021",
+      "ww-cz-exp260908-022",
+      "ww-cz-exp260908-023",
+      "ww-cz-exp260908-024",
+      "ww-cz-exp260908-025",
+      "ww-cz-exp260908-026",
+      "ww-cz-exp260908-027",
+      "ww-cz-exp260908-028",
+      "ww-cz-exp260908-029",
+      "ww-cz-exp260908-030",
+      "ww-cz-exp260908-031",
+      "ww-cz-exp260908-032",
+      "ww-cz-exp260908-033",
+      "ww-cz-exp260908-034",
+      "ww-cz-exp260908-035",
+      "ww-cz-exp260908-036",
+      "ww-cz-exp260908-037",
+      "ww-cz-exp260908-038",
+      "ww-cz-exp260908-039",
+      "ww-cz-exp260908-040",
+      "ww-cz-exp260908-041"
     ],
     "selection": "Sixteen existing short Word World sentences; target text, English meanings, and review status copied without linguistic edits."
   },
   "sentences": [
     {
-      "id": "cz-sentence-1", "difficulty": 2,
+      "id": "cz-sentence-1",
+      "difficulty": 2,
       "revision": "1",
       "target": "Můj bratr běhá.",
       "meaning": "My brother runs.",
@@ -214,7 +1218,8 @@
       "englishAuditText": "My brother runs."
     },
     {
-      "id": "cz-sentence-2", "difficulty": 1,
+      "id": "cz-sentence-2",
+      "difficulty": 1,
       "revision": "1",
       "target": "Tady je klíč.",
       "meaning": "Here is the key.",
@@ -223,7 +1228,8 @@
       "englishAuditText": "Here is the key."
     },
     {
-      "id": "cz-sentence-3", "difficulty": 2,
+      "id": "cz-sentence-3",
+      "difficulty": 2,
       "revision": "1",
       "target": "Banány jsou žluté.",
       "meaning": "Bananas are yellow.",
@@ -232,7 +1238,8 @@
       "englishAuditText": "Bananas are yellow."
     },
     {
-      "id": "cz-sentence-4", "difficulty": 2,
+      "id": "cz-sentence-4",
+      "difficulty": 2,
       "revision": "1",
       "target": "Vezmi si tužku.",
       "meaning": "Take a pencil.",
@@ -241,7 +1248,8 @@
       "englishAuditText": "Take a pencil."
     },
     {
-      "id": "cz-sentence-5", "difficulty": 2,
+      "id": "cz-sentence-5",
+      "difficulty": 2,
       "revision": "1",
       "target": "Mám dva fotbalové míče.",
       "meaning": "I have two soccer balls.",
@@ -250,7 +1258,8 @@
       "englishAuditText": "I have two soccer balls."
     },
     {
-      "id": "cz-sentence-6", "difficulty": 1,
+      "id": "cz-sentence-6",
+      "difficulty": 1,
       "revision": "1",
       "target": "Auto je modré.",
       "meaning": "The car is blue.",
@@ -259,7 +1268,8 @@
       "englishAuditText": "The car is blue."
     },
     {
-      "id": "cz-sentence-7", "difficulty": 1,
+      "id": "cz-sentence-7",
+      "difficulty": 1,
       "revision": "1",
       "target": "Škola je blízko.",
       "meaning": "The school is nearby.",
@@ -268,7 +1278,8 @@
       "englishAuditText": "The school is nearby."
     },
     {
-      "id": "cz-sentence-8", "difficulty": 2,
+      "id": "cz-sentence-8",
+      "difficulty": 2,
       "revision": "1",
       "target": "Deštník je mokrý.",
       "meaning": "The umbrella is wet.",
@@ -277,7 +1288,8 @@
       "englishAuditText": "The umbrella is wet."
     },
     {
-      "id": "cz-sentence-9", "difficulty": 2,
+      "id": "cz-sentence-9",
+      "difficulty": 2,
       "revision": "1",
       "target": "Je právě dvanáct.",
       "meaning": "It is exactly twelve.",
@@ -286,7 +1298,8 @@
       "englishAuditText": "It is exactly twelve."
     },
     {
-      "id": "cz-sentence-10", "difficulty": 2,
+      "id": "cz-sentence-10",
+      "difficulty": 2,
       "revision": "1",
       "target": "Baterie je nabitá.",
       "meaning": "The battery is charged.",
@@ -295,7 +1308,8 @@
       "englishAuditText": "The battery is charged."
     },
     {
-      "id": "cz-sentence-11", "difficulty": 1,
+      "id": "cz-sentence-11",
+      "difficulty": 1,
       "revision": "1",
       "target": "Mám peníze.",
       "meaning": "I have money.",
@@ -304,7 +1318,8 @@
       "englishAuditText": "I have money."
     },
     {
-      "id": "cz-sentence-12", "difficulty": 2,
+      "id": "cz-sentence-12",
+      "difficulty": 2,
       "revision": "1",
       "target": "Vstávám brzy.",
       "meaning": "I get up early.",
@@ -313,7 +1328,8 @@
       "englishAuditText": "I get up early."
     },
     {
-      "id": "cz-sentence-13", "difficulty": 2,
+      "id": "cz-sentence-13",
+      "difficulty": 2,
       "revision": "1",
       "target": "Cítím se dobře.",
       "meaning": "I feel good.",
@@ -322,7 +1338,8 @@
       "englishAuditText": "I feel good."
     },
     {
-      "id": "cz-sentence-14", "difficulty": 2,
+      "id": "cz-sentence-14",
+      "difficulty": 2,
       "revision": "1",
       "target": "Po škole mám hlad.",
       "meaning": "After school I am hungry.",
@@ -331,7 +1348,8 @@
       "englishAuditText": "After school I am hungry."
     },
     {
-      "id": "cz-sentence-15", "difficulty": 1,
+      "id": "cz-sentence-15",
+      "difficulty": 1,
       "revision": "1",
       "target": "Taška je těžká.",
       "meaning": "The bag is heavy.",
@@ -340,13 +1358,424 @@
       "englishAuditText": "The bag is heavy."
     },
     {
-      "id": "cz-sentence-16", "difficulty": 1,
+      "id": "cz-sentence-16",
+      "difficulty": 1,
       "revision": "1",
       "target": "Stůl je čistý.",
       "meaning": "The table is clean.",
       "sourceId": "ww-codex-exp-0001-0028",
       "sourceReviewStatus": "codex_reviewed",
       "englishAuditText": "The table is clean."
+    },
+    {
+      "id": "cz-exp260908-sentences-17",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "Králík poskakuje.",
+      "meaning": "The rabbit is hopping.",
+      "sourceId": "ww-cz-exp260908-001",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "The rabbit is hopping."
+    },
+    {
+      "id": "cz-exp260908-sentences-18",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "Semeno roste.",
+      "meaning": "The seed is growing.",
+      "sourceId": "ww-cz-exp260908-002",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "The seed is growing."
+    },
+    {
+      "id": "cz-exp260908-sentences-19",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "Můj drak je modrý.",
+      "meaning": "My kite is blue.",
+      "sourceId": "ww-cz-exp260908-003",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "My kite is blue."
+    },
+    {
+      "id": "cz-exp260908-sentences-20",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "Tleskáme společně.",
+      "meaning": "We clap together.",
+      "sourceId": "ww-cz-exp260908-004",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "We clap together."
+    },
+    {
+      "id": "cz-exp260908-sentences-21",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "Kde je moje pastelka?",
+      "meaning": "Where is my crayon?",
+      "sourceId": "ww-cz-exp260908-005",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "Where is my crayon?"
+    },
+    {
+      "id": "cz-exp260908-sentences-22",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "Želva spí.",
+      "meaning": "The turtle is sleeping.",
+      "sourceId": "ww-cz-exp260908-006",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "The turtle is sleeping."
+    },
+    {
+      "id": "cz-exp260908-sentences-23",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "Prosím, přidej se k nám.",
+      "meaning": "Please join us.",
+      "sourceId": "ww-cz-exp260908-007",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "Please join us."
+    },
+    {
+      "id": "cz-exp260908-sentences-24",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "Podívej se na duhu!",
+      "meaning": "Look at the rainbow!",
+      "sourceId": "ww-cz-exp260908-008",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "Look at the rainbow!"
+    },
+    {
+      "id": "cz-exp260908-sentences-25",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Veverka schovává oříšek pod list.",
+      "meaning": "A squirrel hides a nut under a leaf.",
+      "sourceId": "ww-cz-exp260908-009",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "A squirrel hides a nut under a leaf."
+    },
+    {
+      "id": "cz-exp260908-sentences-26",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Naše raketa z kartonu má tři kulatá okna.",
+      "meaning": "Our cardboard rocket has three round windows.",
+      "sourceId": "ww-cz-exp260908-010",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "Our cardboard rocket has three round windows."
+    },
+    {
+      "id": "cz-exp260908-sentences-27",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Měříme slunečnici pravítkem.",
+      "meaning": "We measure the sunflower with a ruler.",
+      "sourceId": "ww-cz-exp260908-011",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "We measure the sunflower with a ruler."
+    },
+    {
+      "id": "cz-exp260908-sentences-28",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Naučíš mě tu hru s tleskáním?",
+      "meaning": "Can you teach me that hand-clapping game?",
+      "sourceId": "ww-cz-exp260908-012",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "Can you teach me that hand-clapping game?"
+    },
+    {
+      "id": "cz-exp260908-sentences-29",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Drobné stopy vedou přes čerstvý sníh.",
+      "meaning": "Tiny footprints cross the fresh snow.",
+      "sourceId": "ww-cz-exp260908-013",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "Tiny footprints cross the fresh snow."
+    },
+    {
+      "id": "cz-exp260908-sentences-30",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Loutka se na konci představení uklání.",
+      "meaning": "The puppet bows at the end of the show.",
+      "sourceId": "ww-cz-exp260908-014",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "The puppet bows at the end of the show."
+    },
+    {
+      "id": "cz-exp260908-sentences-31",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Pomalu mícháme těsto na palačinky.",
+      "meaning": "We stir the pancake batter slowly.",
+      "sourceId": "ww-cz-exp260908-015",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "We stir the pancake batter slowly."
+    },
+    {
+      "id": "cz-exp260908-sentences-32",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Šnek nechává na kameni lesklou stopu.",
+      "meaning": "The snail leaves a shiny trail on the stone.",
+      "sourceId": "ww-cz-exp260908-016",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "The snail leaves a shiny trail on the stone."
+    },
+    {
+      "id": "cz-exp260908-sentences-33",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Který magnet drží náš obrázek na tabuli?",
+      "meaning": "Which magnet holds our drawing on the board?",
+      "sourceId": "ww-cz-exp260908-017",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "Which magnet holds our drawing on the board?"
+    },
+    {
+      "id": "cz-exp260908-sentences-34",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Můj kamarád drží rytmus na malém bubnu.",
+      "meaning": "My friend keeps the rhythm on a little drum.",
+      "sourceId": "ww-cz-exp260908-018",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "My friend keeps the rhythm on a little drum."
+    },
+    {
+      "id": "cz-exp260908-sentences-35",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Střídáme se v pozorování dalekohledem.",
+      "meaning": "We take turns looking through the telescope.",
+      "sourceId": "ww-cz-exp260908-019",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "We take turns looking through the telescope."
+    },
+    {
+      "id": "cz-exp260908-sentences-36",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Včely přenášejí pyl z květu na květ.",
+      "meaning": "Bees carry pollen from flower to flower.",
+      "sourceId": "ww-cz-exp260908-020",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "Bees carry pollen from flower to flower."
+    },
+    {
+      "id": "cz-exp260908-sentences-37",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Tvůj nápad dává našemu příběhu legrační konec.",
+      "meaning": "Your idea gives our story a funny ending.",
+      "sourceId": "ww-cz-exp260908-021",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "Your idea gives our story a funny ending."
+    },
+    {
+      "id": "cz-exp260908-sentences-38",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Stín vypadá jako obrovský tančící medvěd.",
+      "meaning": "The shadow looks like a giant dancing bear.",
+      "sourceId": "ww-cz-exp260908-022",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "The shadow looks like a giant dancing bear."
+    },
+    {
+      "id": "cz-exp260908-sentences-39",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Nech prosím na plakátu místo na jména všech.",
+      "meaning": "Please leave space for everyone's name on the poster.",
+      "sourceId": "ww-cz-exp260908-023",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "Please leave space for everyone's name on the poster."
+    },
+    {
+      "id": "cz-exp260908-sentences-40",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Peříčko se lehce snáší do trávy.",
+      "meaning": "A feather floats gently down onto the grass.",
+      "sourceId": "ww-cz-exp260908-024",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "A feather floats gently down onto the grass."
+    },
+    {
+      "id": "cz-exp260908-sentences-41",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Náš tým vymýšlí nové pravidlo pro hru.",
+      "meaning": "Our team invents a new rule for the game.",
+      "sourceId": "ww-cz-exp260908-025",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "Our team invents a new rule for the game."
+    },
+    {
+      "id": "cz-exp260908-sentences-42",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Dědeček nám ukazuje, jak skládat knedlíčky.",
+      "meaning": "Grandpa shows us how to fold the dumplings.",
+      "sourceId": "ww-cz-exp260908-026",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "Grandpa shows us how to fold the dumplings."
+    },
+    {
+      "id": "cz-exp260908-sentences-43",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Drak v mém příběhu sbírá barevné knoflíky.",
+      "meaning": "The dragon in my story collects colorful buttons.",
+      "sourceId": "ww-cz-exp260908-027",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "The dragon in my story collects colorful buttons."
+    },
+    {
+      "id": "cz-exp260908-sentences-44",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Porovnáváme dva listy pomocí lupy.",
+      "meaning": "We compare two leaves with a magnifying glass.",
+      "sourceId": "ww-cz-exp260908-028",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "We compare two leaves with a magnifying glass."
+    },
+    {
+      "id": "cz-exp260908-sentences-45",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Poslední samolepku mám schovanou pro tebe.",
+      "meaning": "I saved the last sticker for you.",
+      "sourceId": "ww-cz-exp260908-029",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "I saved the last sticker for you."
+    },
+    {
+      "id": "cz-exp260908-sentences-46",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Rybník odráží mraky nad stromy.",
+      "meaning": "The pond reflects the clouds above the trees.",
+      "sourceId": "ww-cz-exp260908-030",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "The pond reflects the clouds above the trees."
+    },
+    {
+      "id": "cz-exp260908-sentences-47",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Píseň ke konci zní tišeji.",
+      "meaning": "The song gets quieter near the end.",
+      "sourceId": "ww-cz-exp260908-031",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "The song gets quieter near the end."
+    },
+    {
+      "id": "cz-exp260908-sentences-48",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Unese náš papírový most pět oblázků?",
+      "meaning": "Can our paper bridge hold five pebbles?",
+      "sourceId": "ww-cz-exp260908-032",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "Can our paper bridge hold five pebbles?"
+    },
+    {
+      "id": "cz-exp260908-sentences-49",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "Než vybereme jméno týmu, zeptáme se všech.",
+      "meaning": "Let's ask everyone before we choose a team name.",
+      "sourceId": "ww-cz-exp260908-033",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "Let's ask everyone before we choose a team name."
+    },
+    {
+      "id": "cz-exp260908-sentences-50",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "I když je housenka drobná, nechává v listu velké díry.",
+      "meaning": "Although the caterpillar is tiny, it leaves large holes in the leaf.",
+      "sourceId": "ww-cz-exp260908-034",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "Although the caterpillar is tiny, it leaves large holes in the leaf."
+    },
+    {
+      "id": "cz-exp260908-sentences-51",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "Když vyslechneme oba nápady, možná najdeme spravedlivé řešení.",
+      "meaning": "If we listen to both ideas, we might find a fair solution.",
+      "sourceId": "ww-cz-exp260908-035",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "If we listen to both ideas, we might find a fair solution."
+    },
+    {
+      "id": "cz-exp260908-sentences-52",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "Model se převrátil, a tak jsme rozšířili jeho základnu.",
+      "meaning": "The model fell over, so we made its base wider.",
+      "sourceId": "ww-cz-exp260908-036",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "The model fell over, so we made its base wider."
+    },
+    {
+      "id": "cz-exp260908-sentences-53",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "Místo vyhození jsme krabici proměnili v loutkové divadlo.",
+      "meaning": "Instead of throwing the box away, we turned it into a puppet theater.",
+      "sourceId": "ww-cz-exp260908-037",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "Instead of throwing the box away, we turned it into a puppet theater."
+    },
+    {
+      "id": "cz-exp260908-sentences-54",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "Přemýšleli jsme, proč se stín prodlužuje, když slunce zapadá.",
+      "meaning": "We wondered why the shadow grew longer as the sun went down.",
+      "sourceId": "ww-cz-exp260908-038",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "We wondered why the shadow grew longer as the sun went down."
+    },
+    {
+      "id": "cz-exp260908-sentences-55",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "I když byla hádanka těžká, nikdo ji nemusel řešit sám.",
+      "meaning": "Even though the puzzle was difficult, nobody had to solve it alone.",
+      "sourceId": "ww-cz-exp260908-039",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "Even though the puzzle was difficult, nobody had to solve it alone."
+    },
+    {
+      "id": "cz-exp260908-sentences-56",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "Než jsme změnili předpověď, porovnali jsme ji s naším pozorováním.",
+      "meaning": "Before changing our prediction, we compared it with what we had observed.",
+      "sourceId": "ww-cz-exp260908-040",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "Before changing our prediction, we compared it with what we had observed."
+    },
+    {
+      "id": "cz-exp260908-sentences-57",
+      "difficulty": 3,
+      "revision": "1",
+      "target": "Pokladem byl děkovný vzkaz všem, kteří pomohli se hrou.",
+      "meaning": "The treasure was a thank-you note for everyone who had helped with the game.",
+      "sourceId": "ww-cz-exp260908-041",
+      "sourceReviewStatus": "codex_reviewed",
+      "englishAuditText": "The treasure was a thank-you note for everyone who had helped with the game."
     }
   ]
 }

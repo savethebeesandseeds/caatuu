@@ -1,5 +1,6 @@
 import { initializeWorkspaceAfterDictionaryProvider } from "./dictionary-provider-loader.mjs";
 import { initializeHomeCourseSetup } from "./course-setup.mjs";
+import { installMusic } from "./music.mjs";
 import {
   installInterfaceContent,
   loadInterfaceContent
@@ -215,7 +216,8 @@ function installSharedSpeechRuntime() {
             locale: selectedLocale,
             voice: String(options.voice || "").trim().slice(0, 256),
             rate: Number.isFinite(Number(options.rate)) ? Math.max(0.5, Math.min(1.5, Number(options.rate))) : 0.6,
-            pitch: Number.isFinite(Number(options.pitch)) ? Math.max(0.5, Math.min(1.5, Number(options.pitch))) : 1
+            pitch: Number.isFinite(Number(options.pitch)) ? Math.max(0.5, Math.min(1.5, Number(options.pitch))) : 1,
+            volume: Number.isFinite(Number(options.volume)) ? Math.max(0, Math.min(1, Number(options.volume))) : 1
           }, handlers);
         },
         stop() { return nativeSpeechCall("speech_stop", {}, { timeoutMs: 3_000 }); },
@@ -252,6 +254,7 @@ function installSharedSpeechRuntime() {
           locale,
           rate: Number.isFinite(rate) ? Math.max(0.5, Math.min(1.5, rate)) : 0.6,
           pitch: Number.isFinite(pitch) ? Math.max(0.5, Math.min(1.5, pitch)) : 1,
+          volume: Number.isFinite(Number(options.volume)) ? Math.max(0, Math.min(1, Number(options.volume))) : 1,
           voice: String(options.voice || "").trim().slice(0, 256)
         },
         {
@@ -544,8 +547,10 @@ async function start() {
   const interfaceContent = await loadInterfaceContent(course);
   installInterfaceContent(interfaceContent);
   interfaceContent.apply(document);
+  installMusic(globalThis);
   setCourseIdentity();
-  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-162");
+  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-167");
+  globalThis.CaatuuMusicUi?.mountAll();
   // Keep the canonical Home and its language controls available while native
   // setup verifies the selected course. Curriculum and game artwork wait for it.
   await initializeHomeCourseSetup(globalThis);

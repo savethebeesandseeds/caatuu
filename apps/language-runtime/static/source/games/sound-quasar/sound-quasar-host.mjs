@@ -1,5 +1,5 @@
 import { readEmbeddedCourseProfile, fetchDeclaredCourseGameJson } from "../course-game-content.mjs?v=course-game-content-1";
-import { validateSoundQuasarCatalog, createSoundQuasarSession, evaluateSoundQuasarChoice, soundQuasarItemsForDifficulty } from "./sound-quasar-core.mjs?v=sound-quasar-6";
+import { validateSoundQuasarCatalog, createSoundQuasarSession, evaluateSoundQuasarChoice, soundQuasarItemsForDifficulty } from "./sound-quasar-core.mjs?v=sound-quasar-7";
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-8";
 import { appendTargetToneText } from "../../target-text-tones.mjs?v=target-text-tones-1";
 
@@ -39,7 +39,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
   node("quasarSkip").title = t("soundquasar.skip");
   let catalog;
   const state = {
-    rounds: [], index: 0, missed: new Set(), resolved: false,
+    rounds: [], index: 0, missed: new Set(), resolved: false, resultCorrect: false,
     skipped: false, heard: false, playing: false, audioReady: false,
     active: !scope.frameElement?.closest?.("[data-train-panel]")?.hidden,
     finished: false, destroyed: false, speechRequest: 0, voiceRequest: 0,
@@ -115,7 +115,8 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     if (!canAdvance()) return;
     const request = state.advanceRequest;
     const round = current();
-    const delay = Math.min(8000, Math.max(state.mode === "sentences" ? 4500 : 3000, round.meaning.length * 55 + 1000));
+    const delay = state.resultCorrect ? (state.mode === "sentences" ? 1800 : 1200)
+      : Math.min(8000, Math.max(state.mode === "sentences" ? 4500 : 3000, round.meaning.length * 55 + 1000));
     state.advanceTimer = scope.setTimeout(() => {
       if (request !== state.advanceRequest || current() !== round || !canAdvance()) return;
       state.advanceTimer = null;
@@ -124,6 +125,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
   }
   function showResult(correct = true) {
     const round = current();
+    state.resultCorrect = correct;
     feedback();
     node("quasarChoices").setAttribute("aria-hidden", "true");
     node("quasarAnswerArea").classList.add("is-result");
@@ -190,6 +192,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
   }
   function beginWord() {
     state.resolved = false;
+    state.resultCorrect = false;
     state.skipped = false;
     state.pendingAutoplay = false;
     stopSpeech();

@@ -39,6 +39,34 @@ class ProductBridge(
     private val activeRequests = mutableMapOf<String, Job>()
     @Volatile private var activeSetupJob: Job? = null
     private val setupSession = CourseSetupSession()
+    @Volatile private var appResumed = false
+    @Volatile private var appWindowFocused = false
+
+    @JavascriptInterface
+    fun isAppFocused(): Boolean = appResumed && appWindowFocused
+
+    @JavascriptInterface
+    fun isMusicReady(): Boolean = courseRuntimes.values.any { runtime ->
+        SharedMusicReadiness.isReady(
+            runtime.staticAssetManager.requiredAssetSpecs(),
+            // Receipt identity is cached; do not rehash the complete course on focus.
+            ownerReady = runtime::isSetupCommitted,
+            assetVerified = { runtime.staticAssetManager.verifiedLocalAsset(it) != null },
+        )
+    }
+
+    fun onWindowFocusChanged(focused: Boolean) {
+        appWindowFocused = focused
+        publishAppFocus()
+    }
+
+    private fun publishAppFocus() {
+        // A newly loaded document reads isAppFocused(); live documents use events.
+        webView.evaluateJavascript(
+            "window.dispatchEvent(new CustomEvent('caatuu:app-focus-change', {detail:{focused:${isAppFocused()}}}));",
+            null,
+        )
+    }
 
     init {
         check(courseRuntimes.keys == courseRegistry.courses.map(BundledCourse::id).toSet()) {
@@ -120,10 +148,14 @@ class ProductBridge(
     }
 
     fun onPause() {
+        appResumed = false
+        publishAppFocus()
         courseRuntimes.values.forEach { it.onPause() }
     }
 
     fun onResume() {
+        appResumed = true
+        publishAppFocus()
         courseRuntimes.values.forEach { it.onResume() }
     }
 
@@ -537,11 +569,13 @@ class ProductBridge(
         val locale = request.optString("locale").trim().ifBlank { runtime.course.targetLanguage.speechLocale }
         val rate = request.optDouble("rate", 0.9).toFloat()
         val pitch = request.optDouble("pitch", 1.0).toFloat()
+        val volume = request.optDouble("volume", 1.0).toFloat()
         val voice = request.optString("voice").trim()
         require(rate.isFinite()) { "Speech rate is invalid." }
         require(pitch.isFinite()) { "Speech pitch is invalid." }
+        require(volume.isFinite()) { "Speech volume is invalid." }
         require(voice.length <= MAX_SPEECH_VOICE_CHARACTERS) { "Speech voice name is too long." }
-        val result = manager.speak(text, locale, rate, pitch, voice) { utteranceId ->
+        val result = manager.speak(text, locale, rate, pitch, voice, volume) { utteranceId ->
             emit(
                 id,
                 "speech",

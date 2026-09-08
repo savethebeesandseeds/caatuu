@@ -1,5 +1,6 @@
 // Shared embedded-game presentation controls. The shell remains the only owner
 // of persisted appearance, speech preferences, voices, and speech execution.
+import { mountMusicControls, mountVoiceControls } from "../music-controls.mjs";
 const SVG_NS = "http://www.w3.org/2000/svg";
 const SPEECH_PATHS = Object.freeze([
   "M4.5 9.25v5.5h3.25l4.75 3.75v-13L7.75 9.25H4.5Z",
@@ -7,6 +8,7 @@ const SPEECH_PATHS = Object.freeze([
   "M18.25 6.75c3 3 3 7.5 0 10.5"
 ]);
 const PACE_KEYS = Object.freeze(["slower", "slow", "normal"]);
+let audioMenuSequence = 0;
 
 function svgElement(document, name, attributes = {}) {
   const node = document.createElementNS(SVG_NS, name);
@@ -141,16 +143,10 @@ export function mountEmbeddedGameControls({ container, shell, course, onLayoutCh
   const layoutButtons = [];
   let layout = "columns";
   let destroyed = false;
-  let voiceRequest = 0;
-  let mute;
   let autoplayToggle;
   let speed;
-  let voice;
-  let voiceStatus;
-  let install;
   let audioPanel;
   let audioToggle;
-  let audioOptions;
   let speechMuted;
   let menuOpen = false;
 
@@ -190,6 +186,36 @@ export function mountEmbeddedGameControls({ container, shell, course, onLayoutCh
     hidePanels(options);
     notifyOpenChange();
   }
+  function constrainPopover(panel) {
+    if (panel.hidden || destroyed) return;
+    // Measure the normal toolbar anchor before clamping to this frame's viewport.
+    // The parent shell's dimensions are different from an embedded game's.
+    panel.classList.remove("is-viewport-constrained");
+    for (const property of ["left", "top", "width", "maxHeight"]) panel.style[property] = "";
+    const viewport = document.defaultView;
+    const visual = viewport.visualViewport;
+    const margin = 16;
+    const viewportWidth = visual?.width || viewport.innerWidth;
+    const viewportHeight = visual?.height || viewport.innerHeight;
+    const leftEdge = (visual?.offsetLeft || 0) + margin;
+    const topEdge = (visual?.offsetTop || 0) + margin;
+    const rightEdge = leftEdge + viewportWidth - margin * 2;
+    const bottomEdge = topEdge + viewportHeight - margin * 2;
+    const natural = panel.getBoundingClientRect();
+    const width = Math.min(natural.width, Math.max(1, rightEdge - leftEdge));
+    const maxHeight = Math.max(1, Math.min(480, viewportHeight * 0.65, bottomEdge - topEdge));
+    const height = Math.min(natural.height, maxHeight);
+    const left = Math.min(Math.max(natural.left, leftEdge), rightEdge - width);
+    const top = Math.min(Math.max(natural.top, topEdge), bottomEdge - height);
+    panel.classList.add("is-viewport-constrained");
+    panel.style.left = `${Math.round(left)}px`;
+    panel.style.top = `${Math.round(top)}px`;
+    panel.style.width = `${Math.round(width)}px`;
+    panel.style.maxHeight = `${Math.floor(Math.min(maxHeight, bottomEdge - top))}px`;
+  }
+  function constrainOpenPopovers() {
+    panels.forEach(({ panel }) => constrainPopover(panel));
+  }
   function createMenu(key, icon) {
     const toggle = node("button", "caatuu-game-control-toggle");
     toggle.type = "button";
@@ -214,9 +240,9 @@ export function mountEmbeddedGameControls({ container, shell, course, onLayoutCh
       }
       sync();
       panel.hidden = false;
+      constrainPopover(panel);
       toggle.setAttribute("aria-expanded", "true");
       notifyOpenChange();
-      if (panel === audioPanel) void refreshVoices();
       panel.querySelector("button:not(:disabled), input:not(:disabled), select:not(:disabled)")?.focus();
     });
     return panel;
@@ -276,77 +302,65 @@ export function mountEmbeddedGameControls({ container, shell, course, onLayoutCh
     }, layoutButtons));
   }
 
+  audioPanel = createMenu("common.audio.settings", createSpeechIcon(document));
+  audioPanel.classList.add("caatuu-audio-menu");
+  audioToggle = panels[panels.length - 1].toggle;
+  const audioContents = node("div", "caatuu-audio-controls");
+  audioPanel.append(node("span", "caatuu-audio-title", t("common.audio")), audioContents);
+  const musicGroup = node("div", "caatuu-audio-group");
+  const musicHost = node("div");
+  musicGroup.append(musicHost);
+  audioContents.append(musicGroup);
+  const musicControl = mountMusicControls({ container: musicHost, player: shell.CaatuuMusic, i18n });
+  if (musicControl) disposers.push(() => musicControl.destroy());
   if (course?.capabilities?.speech === true) {
-    audioPanel = createMenu("common.audio.settings", createSpeechIcon(document));
-    audioToggle = panels[panels.length - 1].toggle;
-    mute = node("button", "caatuu-game-control-mute");
-    mute.type = "button";
-    mute.setAttribute("role", "switch");
-    mute.textContent = t("common.audio.muteall");
-    audioPanel.append(mute);
-    listen(mute, "click", () => { api.setSpeechMuted(!api.getSpeechMuted()); sync(); });
-    audioOptions = node("div", "caatuu-game-audio-options");
-    audioPanel.append(audioOptions);
-    if (autoplay && typeof api.getSpeechAutoplay === "function" && typeof api.setSpeechAutoplay === "function") {
-      autoplayToggle = node("button", "caatuu-game-control-mute", t("common.audio.autoplay"));
-      autoplayToggle.type = "button";
-      autoplayToggle.setAttribute("role", "switch");
-      audioOptions.append(autoplayToggle);
-      listen(autoplayToggle, "click", () => {
-        if (!api.getSpeechMuted()) api.setSpeechAutoplay(!api.getSpeechAutoplay());
-        sync();
-      });
-    }
-    const speeds = group(audioOptions, "common.speed");
+    const voiceGroup = node("div", "caatuu-audio-group");
+    const voiceHost = node("div");
+    voiceGroup.append(voiceHost);
+    audioContents.append(voiceGroup);
+    const voiceControl = mountVoiceControls({ container: voiceHost, api, host: shell, i18n });
+    if (voiceControl) disposers.push(() => voiceControl.destroy());
+    const speeds = node("div", "caatuu-audio-speed");
+    const speedLabel = node("label", "", t("common.speechspeed"));
+    const speedControl = node("div", "caatuu-audio-speed-control");
     speed = node("input");
+    speed.id = `caatuu-game-voice-speed-${++audioMenuSequence}`;
+    speedLabel.setAttribute("for", speed.id);
     speed.type = "range";
     speed.min = "0";
     speed.max = "2";
     speed.step = "1";
     speed.setAttribute("aria-label", t("common.speechspeed"));
-    speeds.append(speed);
-    const ticks = node("div", "caatuu-game-speed-labels");
+    const ticks = node("div", "caatuu-audio-speed-ticks");
     ticks.setAttribute("aria-hidden", "true");
-    PACE_KEYS.forEach((key) => ticks.append(node("span", "", t(`common.${key}`))));
-    speeds.append(ticks);
+    PACE_KEYS.forEach((key, index) => {
+      const tick = node("span");
+      tick.append(node("span", "", t(`common.${key}`)), node("small", "", ["0.5×", "0.6×", "1×"][index]));
+      ticks.append(tick);
+    });
+    speedControl.append(speed, ticks);
+    speeds.append(speedLabel, speedControl);
+    voiceGroup.append(speeds);
     listen(speed, "input", () => {
       const value = PACE_KEYS[Number(speed.value)];
-      if (!value || api.getSpeechMuted()) return;
+      if (!value) return;
       void api.stopSpeech();
       api.setSpeechPacePreference(value);
       sync();
     });
-    const voices = group(audioOptions, "common.voice");
-    voice = node("select");
-    voice.setAttribute("aria-label", t("common.voice"));
-    voices.append(voice);
-    voiceStatus = node("p", "caatuu-game-voice-status");
-    voiceStatus.setAttribute("role", "status");
-    voices.append(voiceStatus);
-    install = node("button", "caatuu-game-control-option", t("wordworld.audio.installvoice"));
-    install.type = "button";
-    install.hidden = true;
-    voices.append(install);
-    listen(voice, "change", () => {
-      if (api.getSpeechMuted()) return;
-      void api.stopSpeech();
-      api.setSpeechVoicePreference(voice.value);
-      void refreshVoices();
-    });
-    listen(install, "click", async () => {
-      if (api.getSpeechMuted()) return;
-      install.disabled = true;
-      try {
-        await api.installSpeechData();
-        if (!destroyed) await refreshVoices();
-      } catch {
-        if (!destroyed) voiceStatus.textContent = t("speech.voices.checkfailed", { language: targetName() });
-      } finally {
-        if (!destroyed) install.disabled = false;
-      }
-    });
+    if (autoplay && typeof api.getSpeechAutoplay === "function" && typeof api.setSpeechAutoplay === "function") {
+      const extras = node("div", "caatuu-audio-extras");
+      autoplayToggle = node("button", "caatuu-audio-extra", t("common.audio.autoplay"));
+      autoplayToggle.type = "button";
+      autoplayToggle.setAttribute("role", "switch");
+      extras.append(autoplayToggle);
+      audioContents.append(extras);
+      listen(autoplayToggle, "click", () => {
+        if (!api.getSpeechMuted()) api.setSpeechAutoplay(!api.getSpeechAutoplay());
+        sync();
+      });
+    }
   }
-
   if (illustrations) {
     const icon = node("span", "caatuu-game-illustration-icon", "🪶");
     icon.setAttribute("aria-hidden", "true");
@@ -388,36 +402,6 @@ export function mountEmbeddedGameControls({ container, shell, course, onLayoutCh
     contentMenu(settings, icon);
   }
 
-  function targetName() {
-    return i18n.languageName(course.targetLanguage);
-  }
-  async function refreshVoices() {
-    if (!voice || destroyed || api.getSpeechMuted()) return;
-    const request = ++voiceRequest;
-    voice.disabled = true;
-    voiceStatus.textContent = t("speech.voices.checking", { language: targetName() });
-    try {
-      const result = await api.getSpeechVoiceControlState();
-      if (destroyed || request !== voiceRequest) return;
-      const automatic = node("option", "", t("common.automatic.recommended"));
-      automatic.value = "";
-      const options = (result.voices || []).map((entry) => {
-        const value = node("option", "", `${entry.name}${entry.locale ? ` · ${entry.locale}` : ""}`);
-        value.value = entry.value;
-        return value;
-      });
-      voice.replaceChildren(automatic, ...options);
-      const preferred = api.getSpeechVoicePreference();
-      voice.value = options.find((item) => item.value === preferred || item.value.endsWith(`:${preferred}`))?.value || "";
-      voice.disabled = result.available === false && !options.length;
-      voiceStatus.textContent = api.describeSpeechVoiceState(result);
-      install.hidden = result.backend !== "android" || result.canInstallVoice !== true;
-    } catch {
-      if (destroyed || request !== voiceRequest) return;
-      voiceStatus.textContent = t("speech.voices.checkfailed", { language: targetName() });
-      install.hidden = true;
-    }
-  }
   function sync() {
     if (destroyed) return;
     const theme = shell.document.documentElement.dataset.theme || "dark";
@@ -427,20 +411,16 @@ export function mountEmbeddedGameControls({ container, shell, course, onLayoutCh
     [[themeButtons, theme], [sizeButtons, fontSize], [layoutButtons, layout]].forEach(([buttons, value]) => {
       buttons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.value === value)));
     });
-    if (mute) {
+    if (course?.capabilities?.speech === true) {
       const muted = Boolean(api.getSpeechMuted());
-      mute.setAttribute("aria-checked", String(muted));
-      audioOptions.hidden = muted;
       document.documentElement.dataset.speechMuted = String(muted);
       if (speechMuted !== muted) {
         speechMuted = muted;
         audioToggle.replaceChildren(createSpeechIcon(document, { muted }));
-        if (muted) voiceRequest += 1;
-        else if (!audioPanel.hidden) void refreshVoices();
       }
     }
     if (speed) {
-      speed.disabled = speechMuted;
+      speed.disabled = false;
       const pace = api.resolveSpeechPace();
       speed.value = String(Math.max(0, PACE_KEYS.indexOf(pace.key)));
       speed.setAttribute("aria-valuetext", t("speech.pace.valuetext", { pace: pace.label, rate: pace.rate }));
@@ -452,6 +432,10 @@ export function mountEmbeddedGameControls({ container, shell, course, onLayoutCh
   }
 
   listen(document, "click", (event) => { if (!root.contains(event.target)) close(); });
+  listen(document.defaultView, "resize", constrainOpenPopovers);
+  listen(document.defaultView, "scroll", constrainOpenPopovers);
+  listen(document.defaultView.visualViewport, "resize", constrainOpenPopovers);
+  listen(document.defaultView.visualViewport, "scroll", constrainOpenPopovers);
   if (shell.document !== document) listen(shell.document, "click", () => close());
   listen(document, "keydown", (event) => {
     if (event.key !== "Escape" || !panels.some(({ panel }) => !panel.hidden)) return;
@@ -459,9 +443,6 @@ export function mountEmbeddedGameControls({ container, shell, course, onLayoutCh
     close({ restoreFocus: true });
   });
   ["caatuu:speech-mute-change", "caatuu:speech-pace-change", "caatuu:speech-autoplay-change", "caatuu:learning-change"].forEach((name) => listen(shell, name, sync));
-  ["caatuu:speech-voice-change", "caatuu:speech-voices-refresh"].forEach((name) => listen(shell, name, () => {
-    if (audioPanel && !audioPanel.hidden) void refreshVoices();
-  }));
   const Observer = shell.MutationObserver;
   if (Observer) {
     const observer = new Observer(sync);
@@ -477,7 +458,6 @@ export function mountEmbeddedGameControls({ container, shell, course, onLayoutCh
       if (destroyed) return;
       close();
       destroyed = true;
-      voiceRequest += 1;
       disposers.forEach((dispose) => dispose());
       root.remove();
     }

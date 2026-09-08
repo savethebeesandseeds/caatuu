@@ -3,6 +3,7 @@
   const languageList = document.querySelector("[data-language-list]");
   const browserEntry = document.querySelector("[data-browser-entry]");
   const androidEntry = document.querySelector("[data-android-download]");
+  const audioMenu = document.querySelector("[data-audio-menu]");
   const assetRevision = new URL(document.currentScript?.src || window.location.href).searchParams.get("v") || "1";
 
   function versionedLauncherAsset(path) {
@@ -109,6 +110,16 @@
       updateViaCache: "none"
     });
   }
+
+  document.addEventListener("click", (event) => {
+    if (audioMenu?.open && !audioMenu.contains(event.target)) audioMenu.open = false;
+  });
+  audioMenu?.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || !audioMenu.open) return;
+    event.preventDefault();
+    audioMenu.open = false;
+    audioMenu.querySelector("summary")?.focus();
+  });
 
   setAndroidSeparate();
   void loadRegistry();

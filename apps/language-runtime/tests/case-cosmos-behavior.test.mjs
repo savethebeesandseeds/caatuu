@@ -59,7 +59,7 @@ async function settle() {
 }
 
 async function mountGame({ difficulty = 1, pack = catalog, status = 200, duringLoad, embedded = true,
-  speech = true, muted = false, pendingSpeech = false, parentOrigin = "https://caatuu.test", courseOverride = {} } = {}) {
+  speech = true, muted = false, pendingSpeech = false, parentOrigin = "https://caatuu.test", courseOverride = {}, musicPlayer } = {}) {
   let selectedDifficulty = difficulty;
   const records = [];
   const messages = [];
@@ -94,6 +94,7 @@ async function mountGame({ difficulty = 1, pack = catalog, status = 200, duringL
     const preferences = { muted, pace: "normal", voice: "", stops: 0, calls: [], pendingStop: null };
     const observers = [];
     chromeStates.set(scope, preferences);
+    if (musicPlayer) scope.CaatuuMusic = musicPlayer;
     scope.CaatuuI18n = englishInterfaceContent;
     scope.document.documentElement.dataset.theme = "light";
     scope.document.documentElement.dataset.fontSize = "largest";
@@ -273,11 +274,18 @@ test("symbol-only answers retain accessible names, the question, and keyboard sh
   assert.equal(answers.getAttribute("aria-describedby"), "caseCosmosProposedCase");
 });
 
-test("the boat frames the live card while decisions stay below it, and the original asset is packaged offline", async () => {
+test("the boat frames the live card with random variations packaged offline", async () => {
   const game = await mountGame();
   const vessel = game.document.querySelector(".case-cosmos-vessel");
   const boat = game.element("Boat");
-  assert.equal(boat.getAttribute("src"), "/assets/micelaneous/floating_boat.png");
+  const artworkPaths = [...source.matchAll(/"(\/assets\/macaw\/cases\/[^"\n]+)"/gu)].map(match => match[1]);
+  const firstArtwork = boat.getAttribute("src");
+  assert.ok(artworkPaths.includes(firstArtwork));
+  game.api.render();
+  assert.equal(boat.getAttribute("src"), firstArtwork, "rendering the same challenge keeps its artwork");
+  game.difficulty(2);
+  assert.ok(artworkPaths.includes(boat.getAttribute("src")));
+  assert.notEqual(boat.getAttribute("src"), firstArtwork, "a new challenge avoids the previous image");
   assert.equal(boat.getAttribute("aria-hidden"), "true");
   assert.equal(boat.getAttribute("alt"), "");
   for (const id of ["Example", "Feedback"]) {
@@ -288,17 +296,19 @@ test("the boat frames the live card while decisions stay below it, and the origi
     assert.ok(game.element("Board").contains(game.element(id)));
   }
   const assetMap = JSON.parse(await readFile(new URL("../app-assets.json", import.meta.url), "utf8"));
-  assert.ok(assetMap.assets.some((asset) => asset.source === "apps/launcher/static/assets/micelaneous/floating_boat.png"
-    && asset.output === "assets/micelaneous/floating_boat.png"));
   const setup = JSON.parse(await readFile(new URL("../../languages/czech/static/setup-assets.json", import.meta.url), "utf8"));
-  assert.ok(setup.offline.assets.includes(boat.getAttribute("src")));
-  const png = await readFile(new URL("../../launcher/static/assets/micelaneous/floating_boat.png", import.meta.url));
-  assert.deepEqual([png.readUInt32BE(16), png.readUInt32BE(20)], [1189, 1323], "frame coordinates match the source image");
+  for (const path of artworkPaths) {
+    const output = decodeURIComponent(new URL(path, "https://caatuu.test").pathname).slice(1);
+    assert.ok(assetMap.assets.some(asset => asset.output === output && asset.source === `apps/launcher/static/${output}`));
+    assert.ok(setup.offline.assets.includes(path));
+    const png = await readFile(new URL(`../../launcher/static/${output}`, import.meta.url));
+    assert.deepEqual([png.readUInt32BE(16), png.readUInt32BE(20)], [Number(boat.getAttribute("width")), Number(boat.getAttribute("height"))]);
+  }
 });
 
 test("the responsive boat preserves the full artwork instead of enlarging and cropping it", async () => {
   const styles = await readFile(new URL("../../languages/czech/static/source/games/case-cosmos/case-cosmos.css", import.meta.url), "utf8");
-  assert.match(styles, /aspect-ratio:\s*1189\s*\/\s*1323/u);
+  assert.match(styles, /aspect-ratio:\s*1216\s*\/\s*1445/u);
   const artworkRules = [...styles.matchAll(/\.case-cosmos-boat\s*\{([^}]+)\}/gu)].map((match) => match[1]);
   assert.equal(artworkRules.length, 2, "one hidden default and one full-frame illustrated rule, without zoom overrides");
   assert.match(artworkRules[1], /inset:\s*0;/u);
@@ -679,12 +689,12 @@ test("reduced motion removes noun transforms without removing reject, retry, or 
   assert.match(styles, /case-cosmos-next\[hidden\]/u);
 });
 
-test("wrong candidate speech never models an incorrect sentence; a solved card speaks the correct utterance", async () => {
+test("candidate speech reads the whole displayed sentence, including an incorrect form", async () => {
   const game = await mountGame();
   const wrong = game.selectCandidate(false);
   game.element("Speak").click();
   await settle();
-  assert.equal(game.preferences.calls[0].text, wrong.form);
+  assert.equal(game.preferences.calls[0].text, wrong.czech);
   game.selectCandidate(true);
   game.api.chooseAnswer(true);
   game.element("Speak").click();
@@ -882,17 +892,17 @@ test("answer shortcuts do not intercept keyboard use inside the shared controls"
   assert.equal(game.records.length, 0);
 });
 
-test("pronunciation is manual, speaks the candidate word, and offers stop and replay", async () => {
+test("manual pronunciation reads the whole sentence and offers stop and replay", async () => {
   const game = await mountGame({ pendingSpeech: true });
   assert.equal(game.preferences.calls.length, 0);
   game.api.chooseAnswer(game.api.currentQuestion().matches);
   game.api.nextRound();
   game.difficulty(2);
   await settle();
-  assert.equal(game.preferences.calls.length, 0, "answers, new cards, and difficulty changes never autoplay");
+  assert.equal(game.preferences.calls.length, 0, "cards stay silent without autoplay enabled");
   assert.equal(game.preferences.stops, 0, "idle gameplay does not stop another game's audio");
   const speaker = game.element("Speak");
-  const sentence = game.api.currentQuestion().form;
+  const sentence = game.api.currentQuestion().czech;
   speaker.click();
   await settle();
   assert.equal(game.preferences.calls.length, 1);
@@ -921,8 +931,7 @@ test("mute is shared and prevents manual speech until the user unmutes", async (
   speaker.click();
   await settle();
   const stops = game.preferences.stops;
-  const mute = game.element("Controls").querySelector('[role="switch"]');
-  mute.click();
+  game.shell.CaatuuChrome.setSpeechMuted(true);
   assert.equal(game.preferences.muted, true);
   assert.equal(game.preferences.stops, stops + 1);
   assert.equal(game.api.state.speaking, false);
@@ -930,7 +939,7 @@ test("mute is shared and prevents manual speech until the user unmutes", async (
   speaker.click();
   await settle();
   assert.equal(game.preferences.calls.length, 1);
-  mute.click();
+  game.shell.CaatuuChrome.setSpeechMuted(false);
   assert.equal(game.preferences.muted, false);
   assert.equal(speaker.disabled, false);
   speaker.click();
@@ -955,9 +964,7 @@ test("pace and voice controls cancel the current manual pronunciation and retain
   assert.equal(game.api.state.speaking, false);
   game.element("Speak").click();
   await settle();
-  const voice = controls.querySelector("select");
-  voice.value = "browser:cs";
-  voice.dispatchEvent({ type: "change" });
+  game.shell.CaatuuChrome.setSpeechVoicePreference("browser:cs");
   await settle();
   assert.equal(game.preferences.voice, "browser:cs");
   assert.equal(game.api.state.speaking, false);
@@ -1054,10 +1061,27 @@ test("back-forward cache pauses speech without destroying controls; final pagehi
   assert.equal(game.records.length, 0);
 });
 
-test("unsupported speech hides the speaker and audio menu while preserving the exercise", async () => {
-  const game = await mountGame({ speech: false });
+test("unsupported speech hides pronunciation while preserving the music volume menu and exercise", async () => {
+  let volume = 0.1;
+  const musicPlayer = {
+    getState: () => ({ ready: true, trackId: "woodland-fantasy", volume }),
+    subscribe() { return () => {}; },
+    setVolume(value) { volume = value; }
+  };
+  const game = await mountGame({ speech: false, musicPlayer });
   assert.equal(game.element("Speak").hidden, true);
-  assert.equal(game.element("Controls").querySelectorAll(".caatuu-game-control-toggle").length, 2);
+  const controls = game.element("Controls");
+  const audio = controls.querySelectorAll(".caatuu-game-control-toggle")
+    .find((button) => button.getAttribute("aria-label") === englishInterfaceContent.t("common.audio.settings"));
+  assert.ok(audio);
+  audio.click();
+  const slider = controls.querySelector(".caatuu-music-slider");
+  assert.equal(slider.value, "10");
+  slider.value = "25";
+  slider.dispatchEvent({ type: "input" });
+  assert.equal(volume, 0.25);
+  assert.equal(controls.querySelector(".caatuu-game-audio-options"), null);
+  audio.click();
   game.element("Speak").click();
   await settle();
   assert.equal(game.preferences.calls.length, 0);

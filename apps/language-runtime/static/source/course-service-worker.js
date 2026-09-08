@@ -1,6 +1,6 @@
 "use strict";
 
-// Contract revision 6: course notifications return to a safe page inside their owning course.
+// Contract revision 7: verified setup music is shared across courses and supports offline byte ranges.
 
 const CAATUU_CANONICAL_APP_ENTRY = "apps/language-runtime/static/app/index.html";
 const CAATUU_SHARED_WORKER_URL = "/language-runtime/static/source/course-service-worker.js";
@@ -90,6 +90,10 @@ self.addEventListener("notificationclick", (event) => {
 
 self.addEventListener("fetch", (event) => {
   const request = event.request;
+  if (request.method === "GET" && request.cache !== "no-store" && isSharedMusicUrl(new URL(request.url))) {
+    event.respondWith(sharedMusicResponse(request));
+    return;
+  }
   if (request.method !== "GET" || request.headers.has("range")) return;
 
   event.respondWith((async () => {
@@ -117,6 +121,37 @@ self.addEventListener("fetch", (event) => {
     return cacheFirst(request, config);
   })());
 });
+
+function isSharedMusicUrl(url) {
+  return url.origin === self.location.origin && url.pathname.startsWith("/assets/music/") && !url.search;
+}
+
+async function sharedMusicResponse(request) {
+  const cache = await caches.open("caatuu-music-v1");
+  const cached = await cache.match(request.url);
+  // The setup downloader verifies hashes before writing this cache. Avoid
+  // treating a worker's opportunistic precache as an installed music file.
+  if (!cached?.headers.get("x-caatuu-setup-sha256")) return fetch(request);
+  const range = request.headers.get("range");
+  if (!range) return cached;
+  const match = /^bytes=(\d*)-(\d*)$/u.exec(range.trim());
+  if (!match || (!match[1] && !match[2])) return cached;
+  const bytes = await cached.arrayBuffer();
+  const size = bytes.byteLength;
+  let start = match[1] ? Number(match[1]) : Math.max(0, size - Number(match[2]));
+  const end = match[1] && match[2] ? Math.min(Number(match[2]), size - 1) : size - 1;
+  if (!match[1] && Number(match[2]) === 0) start = size;
+  const headers = new Headers(cached.headers);
+  headers.set("accept-ranges", "bytes");
+  if (!Number.isSafeInteger(start) || !Number.isSafeInteger(end) || start >= size || end < start) {
+    headers.set("content-range", `bytes */${size}`);
+    headers.set("content-length", "0");
+    return new Response(null, { status: 416, statusText: "Range Not Satisfiable", headers });
+  }
+  headers.set("content-range", `bytes ${start}-${end}/${size}`);
+  headers.set("content-length", String(end - start + 1));
+  return new Response(bytes.slice(start, end + 1), { status: 206, statusText: "Partial Content", headers });
+}
 
 function courseScopeUrl() {
   const scope = new URL(self.registration.scope);

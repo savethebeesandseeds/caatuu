@@ -116,14 +116,14 @@ body.case-cosmos-page.case-cosmos-embedded > .app-shell > .app-footer { display:
 .case-cosmos-error h1,
 .case-cosmos-error p { margin: 0; font-size: 0.85rem; line-height: 1.5; }
 .case-cosmos-error a { color: var(--case-accent); }
-/* The original artwork stays intact. Its opening is x 25–68%, y 53.5–75.5%. */
+/* Normalized artwork shares a 1216 × 1445 canvas; the window is at 298,730 with size 512 × 291. */
 .case-cosmos-boat-layout { position: relative; padding: 12px; }
 .case-cosmos-boat-layout .case-cosmos-controls { position: absolute; top: 12px; right: 12px; }
 .case-cosmos-boat-layout .case-cosmos-board { width: 100%; }
-.case-cosmos-boat-layout .case-cosmos-vessel { position: relative; container-type: inline-size; display: block; width: min(100%, calc((100dvh - 205px) * 0.8987)); max-width: 720px; aspect-ratio: 1189 / 1323; margin: 0 auto; }
+.case-cosmos-boat-layout .case-cosmos-vessel { position: relative; container-type: inline-size; display: block; width: min(100%, calc((100dvh - 205px) * 0.8415)); max-width: 720px; aspect-ratio: 1216 / 1445; margin: 0 auto; }
 .case-cosmos-boat-layout .case-cosmos-boat { display: block; position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; user-select: none; }
 .case-cosmos-boat-layout .case-cosmos-example {
-  position: absolute; left: 25%; top: 53.5%; width: 43%; height: 22%;
+  position: absolute; left: 24.67%; top: 50.66%; width: 41.78%; height: 19.86%;
   display: flex; flex-direction: column; justify-content: space-between;
   min-height: 0; gap: 8px; padding: 10px 12px;
   border: 0; border-radius: 10% / 16%;

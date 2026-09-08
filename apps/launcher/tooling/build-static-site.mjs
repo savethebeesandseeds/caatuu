@@ -759,7 +759,7 @@ function selectedStaticArtifacts(workspaceRoot) {
   assertSafeSourceFile(manifestPath, languageStaticDir);
   const sourceManifest = JSON.parse(readSafeText(manifestPath, languageStaticDir));
   const selected = (sourceManifest.artifacts || []).filter((artifact) =>
-    ["visual-asset", "asset-keymap"].includes(artifact?.artifact_kind)
+    ["visual-asset", "asset-keymap", "music", "music-license"].includes(artifact?.artifact_kind)
   );
   const artifactKeys = selected.map((artifact) => String(artifact.key || ""));
   assert.ok(artifactKeys.every(Boolean), "Every published artifact must have a key");
@@ -781,7 +781,7 @@ function selectedStaticArtifacts(workspaceRoot) {
   return { launcherStaticDir, languageStaticDir, sourceManifest, selected, publishedVisualPaths };
 }
 
-function expectedStaticSetupManifest(workspaceRoot) {
+export function expectedStaticSetupManifest(workspaceRoot = defaultWorkspaceRoot) {
   const {
     launcherStaticDir,
     languageStaticDir,
@@ -791,7 +791,8 @@ function expectedStaticSetupManifest(workspaceRoot) {
   } = selectedStaticArtifacts(workspaceRoot);
   const artifacts = selected.map((artifact) => {
     if (artifact.artifact_kind !== "asset-keymap") {
-      return { ...artifact, native_required: false, browser_required: false };
+      return { ...artifact, native_required: false,
+        browser_required: ["music", "music-license"].includes(artifact.artifact_kind) };
     }
     const sourcePath = sourcePathForArtifact({
       artifact,
@@ -852,7 +853,7 @@ function copyPublishedAssets(workspaceRoot, stagingDir) {
     }
     const bytes = statSync(destination).size;
     const sha256 = sha256File(destination);
-    if (artifact.artifact_kind === "visual-asset") {
+    if (["visual-asset", "music", "music-license"].includes(artifact.artifact_kind)) {
       assert.equal(bytes, Number(artifact.bytes), `${artifact.key} byte count changed`);
       assert.equal(sha256, String(artifact.sha256).toLowerCase(), `${artifact.key} hash changed`);
     }
@@ -861,7 +862,7 @@ function copyPublishedAssets(workspaceRoot, stagingDir) {
       bytes,
       sha256,
       native_required: false,
-      browser_required: artifact.artifact_kind === "asset-keymap"
+      browser_required: ["asset-keymap", "music", "music-license"].includes(artifact.artifact_kind)
     });
   }
 
@@ -899,7 +900,7 @@ function coreAssetPaths(stagingDir, setupManifest) {
   return [...paths].sort();
 }
 
-function serviceWorkerSource(coreAssets, cacheDigest) {
+export function serviceWorkerSource(coreAssets, cacheDigest) {
   return `const WORKER_POLICY_VERSION = ${staticWorkerPolicyVersion};
 const CACHE_NAME = "caatuu-czech-web-static-${cacheDigest}";
 const CACHE_PREFIX = "caatuu-czech-web-static-";
@@ -944,6 +945,12 @@ self.addEventListener("fetch", (event) => {
 });
 
 async function cachedResponse(request) {
+  const url = new URL(typeof request === "string" ? request : request.url);
+  if (url.pathname.startsWith("/assets/music/") && !url.search) {
+    const shared = await caches.open("caatuu-music-v1");
+    const cached = await shared.match(request);
+    return cached?.headers.get("x-caatuu-setup-sha256") ? cached : undefined;
+  }
   const current = await caches.open(CACHE_NAME);
   return current.match(request, { ignoreSearch: true });
 }
@@ -975,6 +982,8 @@ async function networkThenCache(request) {
 }
 
 async function cacheResponse(request, response) {
+  const url = new URL(typeof request === "string" ? request : request.url);
+  if (url.pathname.startsWith("/assets/music/")) return;
   if (!response || response.status !== 200) return;
   try {
     const cache = await caches.open(CACHE_NAME);
@@ -1290,10 +1299,12 @@ function assertSetupManifest(outputDir, manifest) {
   assert.equal(manifest.cache_name, "caatuu-czech-setup-v1");
   const visual = manifest.artifacts.filter((artifact) => artifact.artifact_kind === "visual-asset");
   const keymaps = manifest.artifacts.filter((artifact) => artifact.artifact_kind === "asset-keymap");
-  assert.equal(manifest.artifacts.length, visual.length + keymaps.length,
-    "Static setup may contain only source-declared visuals and keymaps");
+  const music = manifest.artifacts.filter((artifact) => ["music", "music-license"].includes(artifact.artifact_kind));
+  assert.equal(manifest.artifacts.length, visual.length + keymaps.length + music.length,
+    "Static setup may contain only source-declared visuals, keymaps and music");
   assert.ok(visual.every((artifact) => artifact.browser_required === false && artifact.native_required === false));
   assert.ok(keymaps.every((artifact) => artifact.browser_required === true && artifact.native_required === false));
+  assert.ok(music.every((artifact) => artifact.browser_required === true && artifact.native_required === false));
   for (const artifact of manifest.artifacts) {
     const path = outputPath(outputDir, publicPathFromUrl(artifact.url, artifact.key));
     assert.ok(existsSync(path) && statSync(path).isFile(), `${artifact.key} is not published`);

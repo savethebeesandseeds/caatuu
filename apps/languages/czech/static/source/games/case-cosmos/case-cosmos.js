@@ -4,6 +4,17 @@ import { CZECH_CASES, validatePack, buildRounds, buildQuestions } from "./case-c
 import { assertEnglishCzechCourse } from "./case-cosmos-cs-policy.mjs?v=case-cosmos-policy-2";
 
 const DATA_URL = "data/games/case-cosmos/content.json?v=case-cosmos-data-8";
+const BOAT_ARTWORK = [
+  "/assets/macaw/cases/floating_boat%20(1).png?v=cases-2",
+  "/assets/macaw/cases/floating_boat%20(2).png?v=cases-2",
+  "/assets/macaw/cases/floating_boat%20(3).png?v=cases-2",
+  "/assets/macaw/cases/floating_boat%20(4).png?v=cases-2",
+  "/assets/macaw/cases/floating_boat%20(5).png?v=cases-2",
+  "/assets/macaw/cases/floating_boat%20(6).png?v=cases-2",
+  "/assets/macaw/cases/floating_boat%20(7).png?v=cases-2",
+  "/assets/macaw/cases/floating_boat%20(8).png?v=cases-2",
+  "/assets/macaw/cases/floating_boat%20(9).png?v=cases-2"
+];
 const $ = (selector) => document.querySelector(selector);
 const state = {
   pack: [],
@@ -18,12 +29,14 @@ const state = {
   shell: null,
   controls: null,
   loadingScreen: null,
-  active: true,
+  active: !window.frameElement?.closest?.("[data-train-panel]")?.hidden,
   pageHidden: false,
   destroyed: false,
   illustrations: true,
   artworkAvailable: true,
+  artwork: "",
   speaking: false,
+  pendingAutoplay: false,
   speechRequest: 0,
   transition: null,
   epoch: 0,
@@ -76,7 +89,7 @@ function scheduleStep(milliseconds, callback) {
 
 function syncActivity() {
   if (!engaged() || state.menuOpen) { resetSwipe(); stopSentence(); }
-  else syncSpeech();
+  else { syncSpeech(); maybeAutoplay(); }
   syncTransition();
 }
 
@@ -146,8 +159,7 @@ function syncSpeech() {
 }
 
 function speechText() {
-  // Do not pronounce an intentionally incorrect sentence as a model utterance.
-  return state.phase === "solved" ? currentChallenge()?.czech || "" : currentQuestion()?.form || "";
+  return currentQuestion()?.czech || "";
 }
 
 function stopSentence() {
@@ -167,6 +179,7 @@ async function speakSentence() {
   if (!engaged() || state.menuOpen || !["question", "solved"].includes(state.phase)
       || state.shell?.CaatuuCourse?.capabilities?.speech !== true
       || api?.getSpeechMuted?.() || !currentQuestion()?.czech) return;
+  state.pendingAutoplay = false;
   if (state.speaking) { stopSentence(); return; }
   const request = ++state.speechRequest;
   const text = speechText();
@@ -185,10 +198,24 @@ async function speakSentence() {
   }
 }
 
+function maybeAutoplay() {
+  if (!state.pendingAutoplay || state.phase !== "question" || state.speaking
+      || !engaged() || state.menuOpen || !state.shell?.CaatuuChrome?.getSpeechAutoplay?.()
+      || state.shell.CaatuuChrome.getSpeechMuted?.()
+      || state.shell.CaatuuCourse?.capabilities?.speech !== true) return;
+  void speakSentence();
+}
+
 function syncIllustrations() {
   resetSwipe();
   $("#caseCosmosPanel").classList.toggle("case-cosmos-illustrations-off", !state.illustrations);
   $("#caseCosmosPanel").classList.toggle("case-cosmos-boat-layout", state.illustrations && state.artworkAvailable);
+}
+
+function selectBoatArtwork() {
+  const options = BOAT_ARTWORK.filter(path => path !== state.artwork);
+  state.artwork = options[Math.floor(Math.random() * options.length)];
+  $("#caseCosmosBoat").setAttribute("src", state.artwork);
 }
 
 function mountControls() {
@@ -203,6 +230,7 @@ function mountControls() {
   });
   state.controls = mountEmbeddedGameControls({
     container: $("#caseCosmosControls"), shell, course: shell.CaatuuCourse,
+    autoplay: true,
     onOpenChange(open) { state.menuOpen = open; syncActivity(); },
     illustrations: {
       labelKey: "games.grammargravity.controls.illustrations", pressed: state.illustrations,
@@ -278,6 +306,8 @@ function configureDifficulty() {
   delete $("#caseCosmosSentence").dataset.challenge;
   state.phase = "question";
   state.answer = null;
+  state.pendingAutoplay = true;
+  selectBoatArtwork();
 }
 
 function renderSentence(question) {
@@ -326,6 +356,7 @@ function renderRound() {
   $("#caseCosmosNext").hidden = !mistake;
   syncSpeech();
   syncTransition();
+  maybeAutoplay();
 }
 
 function render() {
@@ -374,6 +405,7 @@ function chooseAnswer(answer) {
 function reopenQuestion() {
   state.answer = null;
   state.phase = "question";
+  state.pendingAutoplay = true;
   render();
   $("#caseCosmosExample").focus();
 }
@@ -386,6 +418,7 @@ async function nextRound() {
   stopSentence();
   state.phase = "loading";
   render();
+  selectBoatArtwork();
   await state.loadingScreen.minimumVisible(850);
   if (state.destroyed || epoch !== state.epoch) return;
   state.questionIndex += 1;
@@ -398,6 +431,7 @@ async function nextRound() {
   delete $("#caseCosmosSentence").dataset.challenge;
   state.answer = null;
   state.phase = "question";
+  state.pendingAutoplay = true;
   render();
   $("#caseCosmosExample").focus();
 }
@@ -408,6 +442,9 @@ function bindUi() {
   const boat = $("#caseCosmosBoat");
   const artworkFailed = () => { state.artworkAvailable = false; syncIllustrations(); };
   listen(boat, "error", artworkFailed);
+  listen(boat, "load", () => {
+    if (!state.artworkAvailable) { state.artworkAvailable = true; syncIllustrations(); }
+  });
   if (boat.complete === true && boat.naturalWidth === 0) artworkFailed();
   listen($("#caseCosmosYes"), "click", () => chooseAnswer(true));
   listen($("#caseCosmosNo"), "click", () => chooseAnswer(false));
@@ -429,8 +466,13 @@ function bindUi() {
     if (engaged()) $("#caseCosmosExample").focus({ preventScroll: true });
   });
   for (const event of ["caatuu:speech-mute-change", "caatuu:speech-pace-change", "caatuu:speech-voice-change"]) {
-    listen(state.shell, event, stopSentence);
+    listen(state.shell, event, () => { stopSentence(); maybeAutoplay(); });
   }
+  listen(state.shell, "caatuu:speech-autoplay-change", () => {
+    state.pendingAutoplay = state.shell.CaatuuChrome.getSpeechAutoplay();
+    if (state.pendingAutoplay) maybeAutoplay();
+    else stopSentence();
+  });
   listen(document, "visibilitychange", () => {
     if (!engaged()) state.controls?.close();
     syncActivity();

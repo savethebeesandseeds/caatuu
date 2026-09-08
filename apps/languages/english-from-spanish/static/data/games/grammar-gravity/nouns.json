@@ -390,6 +390,3039 @@
       "english": "many questions",
       "laneId": "plural",
       "difficulty": 3
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.ball",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "ball",
+      "learnerBaseText": "pelota",
+      "english": "ball",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.rabbit",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "rabbit",
+      "learnerBaseText": "conejo",
+      "english": "rabbit",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.duck",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "duck",
+      "learnerBaseText": "pato",
+      "english": "duck",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.fish",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "fish",
+      "learnerBaseText": "pez",
+      "english": "fish",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.horse",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "horse",
+      "learnerBaseText": "caballo",
+      "english": "horse",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.bear",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "bear",
+      "learnerBaseText": "oso",
+      "english": "bear",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.bee",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "bee",
+      "learnerBaseText": "abeja",
+      "english": "bee",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.butterfly",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "butterfly",
+      "learnerBaseText": "mariposa",
+      "english": "butterfly",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.flower",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "flower",
+      "learnerBaseText": "flor",
+      "english": "flower",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.sun",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "sun",
+      "learnerBaseText": "sol",
+      "english": "sun",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.moon",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "moon",
+      "learnerBaseText": "luna",
+      "english": "moon",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.star",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "star",
+      "learnerBaseText": "estrella",
+      "english": "star",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.cloud",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "cloud",
+      "learnerBaseText": "nube",
+      "english": "cloud",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.rain",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "rain",
+      "learnerBaseText": "lluvia",
+      "english": "rain",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.snow",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "snow",
+      "learnerBaseText": "nieve",
+      "english": "snow",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.pencil",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "pencil",
+      "learnerBaseText": "lápiz",
+      "english": "pencil",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.crayon",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "crayon",
+      "learnerBaseText": "lápiz de cera",
+      "english": "crayon",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.notebook",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "notebook",
+      "learnerBaseText": "cuaderno",
+      "english": "notebook",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.backpack",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "backpack",
+      "learnerBaseText": "mochila",
+      "english": "backpack",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.bicycle",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "bicycle",
+      "learnerBaseText": "bicicleta",
+      "english": "bicycle",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.boat",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "boat",
+      "learnerBaseText": "barco",
+      "english": "boat",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.hat",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "hat",
+      "learnerBaseText": "sombrero",
+      "english": "hat",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.sock",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "sock",
+      "learnerBaseText": "calcetín",
+      "english": "sock",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.shoe",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "shoe",
+      "learnerBaseText": "zapato",
+      "english": "shoe",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.spoon",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "spoon",
+      "learnerBaseText": "cuchara",
+      "english": "spoon",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.plate",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "plate",
+      "learnerBaseText": "plato",
+      "english": "plate",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.cup",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "cup",
+      "learnerBaseText": "taza",
+      "english": "cup",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.bread",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "bread",
+      "learnerBaseText": "pan",
+      "english": "bread",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.cheese",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "cheese",
+      "learnerBaseText": "queso",
+      "english": "cheese",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.egg",
+      "difficulty": 1,
+      "revision": 1,
+      "targetText": "egg",
+      "learnerBaseText": "huevo",
+      "english": "egg",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.hedgehog",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "hedgehog",
+      "learnerBaseText": "erizo",
+      "english": "hedgehog",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.squirrel",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "squirrel",
+      "learnerBaseText": "ardilla",
+      "english": "squirrel",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.owl",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "owl",
+      "learnerBaseText": "búho",
+      "english": "owl",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.turtle",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "turtle",
+      "learnerBaseText": "tortuga",
+      "english": "turtle",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.snail",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "snail",
+      "learnerBaseText": "caracol",
+      "english": "snail",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.whale",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "whale",
+      "learnerBaseText": "ballena",
+      "english": "whale",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.dolphin",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "dolphin",
+      "learnerBaseText": "delfín",
+      "english": "dolphin",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.penguin",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "penguin",
+      "learnerBaseText": "pingüino",
+      "english": "penguin",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.nest",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "nest",
+      "learnerBaseText": "nido",
+      "english": "nest",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.feather",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "feather",
+      "learnerBaseText": "pluma",
+      "english": "feather",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.seed",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "seed",
+      "learnerBaseText": "semilla",
+      "english": "seed",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.root",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "root",
+      "learnerBaseText": "raíz",
+      "english": "root",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.branch",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "branch",
+      "learnerBaseText": "rama",
+      "english": "branch",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.pond",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "pond",
+      "learnerBaseText": "estanque",
+      "english": "pond",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.meadow",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "meadow",
+      "learnerBaseText": "pradera",
+      "english": "meadow",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.waterfall",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "waterfall",
+      "learnerBaseText": "cascada",
+      "english": "waterfall",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.rainbow",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "rainbow",
+      "learnerBaseText": "arcoíris",
+      "english": "rainbow",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.island",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "island",
+      "learnerBaseText": "isla",
+      "english": "island",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.shell",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "shell",
+      "learnerBaseText": "concha",
+      "english": "shell",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.pebble",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "pebble",
+      "learnerBaseText": "guijarro",
+      "english": "pebble",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.puppet",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "puppet",
+      "learnerBaseText": "marioneta",
+      "english": "puppet",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.costume",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "costume",
+      "learnerBaseText": "disfraz",
+      "english": "costume",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.stage",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "stage",
+      "learnerBaseText": "escenario",
+      "english": "stage",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.drum",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "drum",
+      "learnerBaseText": "tambor",
+      "english": "drum",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.flute",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "flute",
+      "learnerBaseText": "flauta",
+      "english": "flute",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.riddle",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "riddle",
+      "learnerBaseText": "adivinanza",
+      "english": "riddle",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.compass",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "compass",
+      "learnerBaseText": "brújula",
+      "english": "compass",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.telescope",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "telescope",
+      "learnerBaseText": "telescopio",
+      "english": "telescope",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.rocket",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "rocket",
+      "learnerBaseText": "cohete",
+      "english": "rocket",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.planet",
+      "difficulty": 2,
+      "revision": 1,
+      "targetText": "planet",
+      "learnerBaseText": "planeta",
+      "english": "planet",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.patience",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "patience",
+      "learnerBaseText": "paciencia",
+      "english": "patience",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.kindness",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "kindness",
+      "learnerBaseText": "amabilidad",
+      "english": "kindness",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.courage",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "courage",
+      "learnerBaseText": "valentía",
+      "english": "courage",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.curiosity",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "curiosity",
+      "learnerBaseText": "curiosidad",
+      "english": "curiosity",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.imagination",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "imagination",
+      "learnerBaseText": "imaginación",
+      "english": "imagination",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.friendship",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "friendship",
+      "learnerBaseText": "amistad",
+      "english": "friendship",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.cooperation",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "cooperation",
+      "learnerBaseText": "cooperación",
+      "english": "cooperation",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.agreement",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "agreement",
+      "learnerBaseText": "acuerdo",
+      "english": "agreement",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.difference",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "difference",
+      "learnerBaseText": "diferencia",
+      "english": "difference",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.similarity",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "similarity",
+      "learnerBaseText": "semejanza",
+      "english": "similarity",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.evidence",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "evidence",
+      "learnerBaseText": "prueba",
+      "english": "evidence",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.explanation",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "explanation",
+      "learnerBaseText": "explicación",
+      "english": "explanation",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.solution",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "solution",
+      "learnerBaseText": "solución",
+      "english": "solution",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.discovery",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "discovery",
+      "learnerBaseText": "descubrimiento",
+      "english": "discovery",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.invention",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "invention",
+      "learnerBaseText": "invento",
+      "english": "invention",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.experiment",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "experiment",
+      "learnerBaseText": "experimento",
+      "english": "experiment",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.observation",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "observation",
+      "learnerBaseText": "observación",
+      "english": "observation",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.prediction",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "prediction",
+      "learnerBaseText": "predicción",
+      "english": "prediction",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.possibility",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "possibility",
+      "learnerBaseText": "posibilidad",
+      "english": "possibility",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.responsibility",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "responsibility",
+      "learnerBaseText": "responsabilidad",
+      "english": "responsibility",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.permission",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "permission",
+      "learnerBaseText": "permiso",
+      "english": "permission",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.decision",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "decision",
+      "learnerBaseText": "decisión",
+      "english": "decision",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.achievement",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "achievement",
+      "learnerBaseText": "logro",
+      "english": "achievement",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.challenge",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "challenge",
+      "learnerBaseText": "reto",
+      "english": "challenge",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.effort",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "effort",
+      "learnerBaseText": "esfuerzo",
+      "english": "effort",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.balance",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "balance",
+      "learnerBaseText": "equilibrio",
+      "english": "balance",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.habitat",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "habitat",
+      "learnerBaseText": "hábitat",
+      "english": "habitat",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.pollination",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "pollination",
+      "learnerBaseText": "polinización",
+      "english": "pollination",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.constellation",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "constellation",
+      "learnerBaseText": "constelación",
+      "english": "constellation",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.exp260908.reflection",
+      "difficulty": 3,
+      "revision": 1,
+      "targetText": "reflection",
+      "learnerBaseText": "reflejo",
+      "english": "reflection",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.lion",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "lion",
+      "learnerBaseText": "león",
+      "english": "lion",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.tigers",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "tigers",
+      "learnerBaseText": "tigres",
+      "english": "tigers",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.elephant",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "elephant",
+      "learnerBaseText": "elefante",
+      "english": "elephant",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.giraffes",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "giraffes",
+      "learnerBaseText": "jirafas",
+      "english": "giraffes",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.zebra",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "zebra",
+      "learnerBaseText": "cebra",
+      "english": "zebra",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.monkeys",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "monkeys",
+      "learnerBaseText": "monos",
+      "english": "monkeys",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.cow",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "cow",
+      "learnerBaseText": "vaca",
+      "english": "cow",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.pigs",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "pigs",
+      "learnerBaseText": "cerdos",
+      "english": "pigs",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.sheep",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "sheep",
+      "learnerBaseText": "oveja",
+      "english": "sheep",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.goats",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "goats",
+      "learnerBaseText": "cabras",
+      "english": "goats",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.hen",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "hen",
+      "learnerBaseText": "gallina",
+      "english": "hen",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.roosters",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "roosters",
+      "learnerBaseText": "gallos",
+      "english": "roosters",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.chick",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "chick",
+      "learnerBaseText": "pollito",
+      "english": "chick",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.donkeys",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "donkeys",
+      "learnerBaseText": "burros",
+      "english": "donkeys",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.birds",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "birds",
+      "learnerBaseText": "pájaros",
+      "english": "birds",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.ant",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "ant",
+      "learnerBaseText": "hormiga",
+      "english": "ant",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.spiders",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "spiders",
+      "learnerBaseText": "arañas",
+      "english": "spiders",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.frog",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "frog",
+      "learnerBaseText": "rana",
+      "english": "frog",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.worms",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "worms",
+      "learnerBaseText": "gusanos",
+      "english": "worms",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.tree",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "tree",
+      "learnerBaseText": "árbol",
+      "english": "tree",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.leaves",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "leaves",
+      "learnerBaseText": "hojas",
+      "english": "leaves",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.stone",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "stone",
+      "learnerBaseText": "piedra",
+      "english": "stone",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.rivers",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "rivers",
+      "learnerBaseText": "ríos",
+      "english": "rivers",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.mountain",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "mountain",
+      "learnerBaseText": "montaña",
+      "english": "mountain",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.beaches",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "beaches",
+      "learnerBaseText": "playas",
+      "english": "beaches",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.forest",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "forest",
+      "learnerBaseText": "bosque",
+      "english": "forest",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.oranges",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "oranges",
+      "learnerBaseText": "naranjas",
+      "english": "oranges",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.banana",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "banana",
+      "learnerBaseText": "plátano",
+      "english": "banana",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.pears",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "pears",
+      "learnerBaseText": "peras",
+      "english": "pears",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.strawberry",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "strawberry",
+      "learnerBaseText": "fresa",
+      "english": "strawberry",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.grapes",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "grapes",
+      "learnerBaseText": "uvas",
+      "english": "grapes",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.lemon",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "lemon",
+      "learnerBaseText": "limón",
+      "english": "lemon",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.tomatoes",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "tomatoes",
+      "learnerBaseText": "tomates",
+      "english": "tomatoes",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.potato",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "potato",
+      "learnerBaseText": "patata",
+      "english": "potato",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.carrots",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "carrots",
+      "learnerBaseText": "zanahorias",
+      "english": "carrots",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.cookie",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "cookie",
+      "learnerBaseText": "galleta",
+      "english": "cookie",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.sandwiches",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "sandwiches",
+      "learnerBaseText": "bocadillos",
+      "english": "sandwiches",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.ice-cream",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "ice cream",
+      "learnerBaseText": "helado",
+      "english": "ice cream",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.bottles",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "bottles",
+      "learnerBaseText": "botellas",
+      "english": "bottles",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.drinking-glass",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "drinking glass",
+      "learnerBaseText": "vaso",
+      "english": "drinking glass",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.forks",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "forks",
+      "learnerBaseText": "tenedores",
+      "english": "forks",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.bowl",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "bowl",
+      "learnerBaseText": "cuenco",
+      "english": "bowl",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.napkins",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "napkins",
+      "learnerBaseText": "servilletas",
+      "english": "napkins",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.bed",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "bed",
+      "learnerBaseText": "cama",
+      "english": "bed",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.pillows",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "pillows",
+      "learnerBaseText": "almohadas",
+      "english": "pillows",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.blanket",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "blanket",
+      "learnerBaseText": "manta",
+      "english": "blanket",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.sofas",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "sofas",
+      "learnerBaseText": "sofás",
+      "english": "sofas",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.lamp",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "lamp",
+      "learnerBaseText": "lámpara",
+      "english": "lamp",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.clocks",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "clocks",
+      "learnerBaseText": "relojes",
+      "english": "clocks",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.toys",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "toys",
+      "learnerBaseText": "juguetes",
+      "english": "toys",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.doll",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "doll",
+      "learnerBaseText": "muñeca",
+      "english": "doll",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.balloons",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "balloons",
+      "learnerBaseText": "globos",
+      "english": "balloons",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.gift",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "gift",
+      "learnerBaseText": "regalo",
+      "english": "gift",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.kites",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "kites",
+      "learnerBaseText": "cometas",
+      "english": "kites",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.swing",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "swing",
+      "learnerBaseText": "columpio",
+      "english": "swing",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.slides",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "slides",
+      "learnerBaseText": "toboganes",
+      "english": "slides",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.airplanes",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "airplanes",
+      "learnerBaseText": "aviones",
+      "english": "airplanes",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.fox",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "fox",
+      "learnerBaseText": "zorro",
+      "english": "fox",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.wolves",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "wolves",
+      "learnerBaseText": "lobos",
+      "english": "wolves",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.deer",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "deer",
+      "learnerBaseText": "ciervo",
+      "english": "deer",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.two-reindeer",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "two reindeer",
+      "learnerBaseText": "dos renos",
+      "english": "two reindeer",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.moose",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "moose",
+      "learnerBaseText": "alce",
+      "english": "moose",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.beavers",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "beavers",
+      "learnerBaseText": "castores",
+      "english": "beavers",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.otter",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "otter",
+      "learnerBaseText": "nutria",
+      "english": "otter",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.raccoons",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "raccoons",
+      "learnerBaseText": "mapaches",
+      "english": "raccoons",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.badger",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "badger",
+      "learnerBaseText": "tejón",
+      "english": "badger",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.bats",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "bats",
+      "learnerBaseText": "murciélagos",
+      "english": "bats",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.seal",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "seal",
+      "learnerBaseText": "foca",
+      "english": "seal",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.walruses",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "walruses",
+      "learnerBaseText": "morsas",
+      "english": "walruses",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.kangaroo",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "kangaroo",
+      "learnerBaseText": "canguro",
+      "english": "kangaroo",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.koalas",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "koalas",
+      "learnerBaseText": "koalas",
+      "english": "koalas",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.panda",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "panda",
+      "learnerBaseText": "panda",
+      "english": "panda",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.camels",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "camels",
+      "learnerBaseText": "camellos",
+      "english": "camels",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.hippopotamus",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "hippopotamus",
+      "learnerBaseText": "hipopótamo",
+      "english": "hippopotamus",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.rhinoceroses",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "rhinoceroses",
+      "learnerBaseText": "rinocerontes",
+      "english": "rhinoceroses",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.crocodile",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "crocodile",
+      "learnerBaseText": "cocodrilo",
+      "english": "crocodile",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.lizards",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "lizards",
+      "learnerBaseText": "lagartos",
+      "english": "lizards",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.snake",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "snake",
+      "learnerBaseText": "serpiente",
+      "english": "snake",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.octopuses",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "octopuses",
+      "learnerBaseText": "pulpos",
+      "english": "octopuses",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.squid",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "squid",
+      "learnerBaseText": "calamar",
+      "english": "squid",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.crabs",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "crabs",
+      "learnerBaseText": "cangrejos",
+      "english": "crabs",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.jellyfish",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "jellyfish",
+      "learnerBaseText": "medusa",
+      "english": "jellyfish",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.sharks",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "sharks",
+      "learnerBaseText": "tiburones",
+      "english": "sharks",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.seahorse",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "seahorse",
+      "learnerBaseText": "caballito de mar",
+      "english": "seahorse",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.two-starfish",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "two starfish",
+      "learnerBaseText": "dos estrellas de mar",
+      "english": "two starfish",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.tarantula",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "tarantula",
+      "learnerBaseText": "tarántula",
+      "english": "tarantula",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.ladybugs",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "ladybugs",
+      "learnerBaseText": "mariquitas",
+      "english": "ladybugs",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.beetle",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "beetle",
+      "learnerBaseText": "escarabajo",
+      "english": "beetle",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.grasshoppers",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "grasshoppers",
+      "learnerBaseText": "saltamontes",
+      "english": "grasshoppers",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.cricket",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "cricket",
+      "learnerBaseText": "grillo",
+      "english": "cricket",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.dragonflies",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "dragonflies",
+      "learnerBaseText": "libélulas",
+      "english": "dragonflies",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.caterpillar",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "caterpillar",
+      "learnerBaseText": "oruga",
+      "english": "caterpillar",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.cocoons",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "cocoons",
+      "learnerBaseText": "capullos",
+      "english": "cocoons",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.eagle",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "eagle",
+      "learnerBaseText": "águila",
+      "english": "eagle",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.parrots",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "parrots",
+      "learnerBaseText": "loros",
+      "english": "parrots",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.swan",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "swan",
+      "learnerBaseText": "cisne",
+      "english": "swan",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.geese",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "geese",
+      "learnerBaseText": "gansos",
+      "english": "geese",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.turkey",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "turkey",
+      "learnerBaseText": "pavo",
+      "english": "turkey",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.peacocks",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "peacocks",
+      "learnerBaseText": "pavos reales",
+      "english": "peacocks",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.swallow",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "swallow",
+      "learnerBaseText": "golondrina",
+      "english": "swallow",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.robins",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "robins",
+      "learnerBaseText": "petirrojos",
+      "english": "robins",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.sparrow",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "sparrow",
+      "learnerBaseText": "gorrión",
+      "english": "sparrow",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.flamingos",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "flamingos",
+      "learnerBaseText": "flamencos",
+      "english": "flamingos",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.seagull",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "seagull",
+      "learnerBaseText": "gaviota",
+      "english": "seagull",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.pelicans",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "pelicans",
+      "learnerBaseText": "pelícanos",
+      "english": "pelicans",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.hummingbird",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "hummingbird",
+      "learnerBaseText": "colibrí",
+      "english": "hummingbird",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.storks",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "storks",
+      "learnerBaseText": "cigüeñas",
+      "english": "storks",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.tree-trunk",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "tree trunk",
+      "learnerBaseText": "tronco",
+      "english": "tree trunk",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.tree-bark",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "tree bark",
+      "learnerBaseText": "corteza",
+      "english": "tree bark",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.acorn",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "acorn",
+      "learnerBaseText": "bellota",
+      "english": "acorn",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.pine-cones",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "pine cones",
+      "learnerBaseText": "piñas",
+      "english": "pine cones",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.petal",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "petal",
+      "learnerBaseText": "pétalo",
+      "english": "petal",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.thorns",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "thorns",
+      "learnerBaseText": "espinas",
+      "english": "thorns",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.stem",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "stem",
+      "learnerBaseText": "tallo",
+      "english": "stem",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.shoots",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "shoots",
+      "learnerBaseText": "brotes",
+      "english": "shoots",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.shrub",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "shrub",
+      "learnerBaseText": "arbusto",
+      "english": "shrub",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.ferns",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "ferns",
+      "learnerBaseText": "helechos",
+      "english": "ferns",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.moss",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "moss",
+      "learnerBaseText": "musgo",
+      "english": "moss",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.mushrooms",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "mushrooms",
+      "learnerBaseText": "setas",
+      "english": "mushrooms",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.oak",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "oak",
+      "learnerBaseText": "roble",
+      "english": "oak",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.pine-trees",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "pine trees",
+      "learnerBaseText": "pinos",
+      "english": "pine trees",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.birch",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "birch",
+      "learnerBaseText": "abedul",
+      "english": "birch",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.willows",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "willows",
+      "learnerBaseText": "sauces",
+      "english": "willows",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.sunflower",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "sunflower",
+      "learnerBaseText": "girasol",
+      "english": "sunflower",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.daisies",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "daisies",
+      "learnerBaseText": "margaritas",
+      "english": "daisies",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.tulip",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "tulip",
+      "learnerBaseText": "tulipán",
+      "english": "tulip",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.poppies",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "poppies",
+      "learnerBaseText": "amapolas",
+      "english": "poppies",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.sand-dune",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "sand dune",
+      "learnerBaseText": "duna",
+      "english": "sand dune",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.cliffs",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "cliffs",
+      "learnerBaseText": "acantilados",
+      "english": "cliffs",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.cave",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "cave",
+      "learnerBaseText": "cueva",
+      "english": "cave",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.valleys",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "valleys",
+      "learnerBaseText": "valles",
+      "english": "valleys",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.hill",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "hill",
+      "learnerBaseText": "colina",
+      "english": "hill",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.trails",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "trails",
+      "learnerBaseText": "senderos",
+      "english": "trails",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.stream",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "stream",
+      "learnerBaseText": "arroyo",
+      "english": "stream",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.lakes",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "lakes",
+      "learnerBaseText": "lagos",
+      "english": "lakes",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.volcano",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "volcano",
+      "learnerBaseText": "volcán",
+      "english": "volcano",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.deserts",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "deserts",
+      "learnerBaseText": "desiertos",
+      "english": "deserts",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.oasis",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "oasis",
+      "learnerBaseText": "oasis",
+      "english": "oasis",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.glaciers",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "glaciers",
+      "learnerBaseText": "glaciares",
+      "english": "glaciers",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.iceberg",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "iceberg",
+      "learnerBaseText": "iceberg",
+      "english": "iceberg",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.puddles",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "puddles",
+      "learnerBaseText": "charcos",
+      "english": "puddles",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.snowflake",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "snowflake",
+      "learnerBaseText": "copo de nieve",
+      "english": "snowflake",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.drops",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "drops",
+      "learnerBaseText": "gotas",
+      "english": "drops",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.wave",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "wave",
+      "learnerBaseText": "ola",
+      "english": "wave",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.breezes",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "breezes",
+      "learnerBaseText": "brisas",
+      "english": "breezes",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.storm",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "storm",
+      "learnerBaseText": "tormenta",
+      "english": "storm",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.lightning-flashes",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "lightning flashes",
+      "learnerBaseText": "relámpagos",
+      "english": "lightning flashes",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.thunderclap",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "thunderclap",
+      "learnerBaseText": "trueno",
+      "english": "thunderclap",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.flashlights",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "flashlights",
+      "learnerBaseText": "linternas",
+      "english": "flashlights",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.magnifying-glass",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "magnifying glass",
+      "learnerBaseText": "lupa",
+      "english": "magnifying glass",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.microscopes",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "microscopes",
+      "learnerBaseText": "microscopios",
+      "english": "microscopes",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.ruler",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "ruler",
+      "learnerBaseText": "regla",
+      "english": "ruler",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.balance-scales",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "balance scales",
+      "learnerBaseText": "balanzas",
+      "english": "balance scales",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.thermometer",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "thermometer",
+      "learnerBaseText": "termómetro",
+      "english": "thermometer",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.magnets",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "magnets",
+      "learnerBaseText": "imanes",
+      "english": "magnets",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.battery",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "battery",
+      "learnerBaseText": "pila",
+      "english": "battery",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.light-bulbs",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "light bulbs",
+      "learnerBaseText": "bombillas",
+      "english": "light bulbs",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.light-switch",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "light switch",
+      "learnerBaseText": "interruptor",
+      "english": "light switch",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.wheels",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "wheels",
+      "learnerBaseText": "ruedas",
+      "english": "wheels",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.axle",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "axle",
+      "learnerBaseText": "eje",
+      "english": "axle",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.gears",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "gears",
+      "learnerBaseText": "engranajes",
+      "english": "gears",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.pulley",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "pulley",
+      "learnerBaseText": "polea",
+      "english": "pulley",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.ramps",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "ramps",
+      "learnerBaseText": "rampas",
+      "english": "ramps",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.bridge",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "bridge",
+      "learnerBaseText": "puente",
+      "english": "bridge",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.tunnels",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "tunnels",
+      "learnerBaseText": "túneles",
+      "english": "tunnels",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.lighthouse",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "lighthouse",
+      "learnerBaseText": "faro",
+      "english": "lighthouse",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.mills",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "mills",
+      "learnerBaseText": "molinos",
+      "english": "mills",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.greenhouse",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "greenhouse",
+      "learnerBaseText": "invernadero",
+      "english": "greenhouse",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.libraries",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "libraries",
+      "learnerBaseText": "bibliotecas",
+      "english": "libraries",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.museum",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "museum",
+      "learnerBaseText": "museo",
+      "english": "museum",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.aquariums",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "aquariums",
+      "learnerBaseText": "acuarios",
+      "english": "aquariums",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.theater",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "theater",
+      "learnerBaseText": "teatro",
+      "english": "theater",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.auditoriums",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "auditoriums",
+      "learnerBaseText": "auditorios",
+      "english": "auditoriums",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.paintbrush",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "paintbrush",
+      "learnerBaseText": "pincel",
+      "english": "paintbrush",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.paint-palettes",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "paint palettes",
+      "learnerBaseText": "paletas",
+      "english": "paint palettes",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.canvas",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "canvas",
+      "learnerBaseText": "lienzo",
+      "english": "canvas",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.watercolor-paintings",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "watercolor paintings",
+      "learnerBaseText": "acuarelas",
+      "english": "watercolor paintings",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.easel",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "easel",
+      "learnerBaseText": "caballete",
+      "english": "easel",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.mosaics",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "mosaics",
+      "learnerBaseText": "mosaicos",
+      "english": "mosaics",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.sculpture",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "sculpture",
+      "learnerBaseText": "escultura",
+      "english": "sculpture",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.masks",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "masks",
+      "learnerBaseText": "máscaras",
+      "english": "masks",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.violin",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "violin",
+      "learnerBaseText": "violín",
+      "english": "violin",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.guitars",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "guitars",
+      "learnerBaseText": "guitarras",
+      "english": "guitars",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.piano",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "piano",
+      "learnerBaseText": "piano",
+      "english": "piano",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.trumpets",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "trumpets",
+      "learnerBaseText": "trompetas",
+      "english": "trumpets",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.xylophone",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "xylophone",
+      "learnerBaseText": "xilófono",
+      "english": "xylophone",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.tambourines",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "tambourines",
+      "learnerBaseText": "panderetas",
+      "english": "tambourines",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.hypothesis",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "hypothesis",
+      "learnerBaseText": "hipótesis",
+      "english": "hypothesis",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.analyses",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "analyses",
+      "learnerBaseText": "análisis",
+      "english": "analyses",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.conclusion",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "conclusion",
+      "learnerBaseText": "conclusión",
+      "english": "conclusion",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.criteria",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "criteria",
+      "learnerBaseText": "criterios",
+      "english": "criteria",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.phenomenon",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "phenomenon",
+      "learnerBaseText": "fenómeno",
+      "english": "phenomenon",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.sequences",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "sequences",
+      "learnerBaseText": "secuencias",
+      "english": "sequences",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.pattern",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "pattern",
+      "learnerBaseText": "patrón",
+      "english": "pattern",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.symmetries",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "symmetries",
+      "learnerBaseText": "simetrías",
+      "english": "symmetries",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.proportion",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "proportion",
+      "learnerBaseText": "proporción",
+      "english": "proportion",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.fractions",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "fractions",
+      "learnerBaseText": "fracciones",
+      "english": "fractions",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.denominator",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "denominator",
+      "learnerBaseText": "denominador",
+      "english": "denominator",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.numerators",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "numerators",
+      "learnerBaseText": "numeradores",
+      "english": "numerators",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.percentage",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "percentage",
+      "learnerBaseText": "porcentaje",
+      "english": "percentage",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.probabilities",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "probabilities",
+      "learnerBaseText": "probabilidades",
+      "english": "probabilities",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.variable",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "variable",
+      "learnerBaseText": "variable",
+      "english": "variable",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.estimates",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "estimates",
+      "learnerBaseText": "estimaciones",
+      "english": "estimates",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.measurement",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "measurement",
+      "learnerBaseText": "medición",
+      "english": "measurement",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.units",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "units",
+      "learnerBaseText": "unidades",
+      "english": "units",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.scale",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "scale",
+      "learnerBaseText": "escala",
+      "english": "scale",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.distances",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "distances",
+      "learnerBaseText": "distancias",
+      "english": "distances",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.speed",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "speed",
+      "learnerBaseText": "velocidad",
+      "english": "speed",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.accelerations",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "accelerations",
+      "learnerBaseText": "aceleraciones",
+      "english": "accelerations",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.gravity",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "gravity",
+      "learnerBaseText": "gravedad",
+      "english": "gravity",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.energy",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "energy",
+      "learnerBaseText": "energía",
+      "english": "energy",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.electricity",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "electricity",
+      "learnerBaseText": "electricidad",
+      "english": "electricity",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.magnetism",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "magnetism",
+      "learnerBaseText": "magnetismo",
+      "english": "magnetism",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.friction",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "friction",
+      "learnerBaseText": "fricción",
+      "english": "friction",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.densities",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "densities",
+      "learnerBaseText": "densidades",
+      "english": "densities",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.temperature",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "temperature",
+      "learnerBaseText": "temperatura",
+      "english": "temperature",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.humidity",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "humidity",
+      "learnerBaseText": "humedad",
+      "english": "humidity",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.evaporation",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "evaporation",
+      "learnerBaseText": "evaporación",
+      "english": "evaporation",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.condensation",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "condensation",
+      "learnerBaseText": "condensación",
+      "english": "condensation",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.erosion",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "erosion",
+      "learnerBaseText": "erosión",
+      "english": "erosion",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.biodiversity",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "biodiversity",
+      "learnerBaseText": "biodiversidad",
+      "english": "biodiversity",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.ecosystem",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "ecosystem",
+      "learnerBaseText": "ecosistema",
+      "english": "ecosystem",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.adaptations",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "adaptations",
+      "learnerBaseText": "adaptaciones",
+      "english": "adaptations",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.migration",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "migration",
+      "learnerBaseText": "migración",
+      "english": "migration",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.hibernation",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "hibernation",
+      "learnerBaseText": "hibernación",
+      "english": "hibernation",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.metamorphosis",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "metamorphosis",
+      "learnerBaseText": "metamorfosis",
+      "english": "metamorphosis",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.cycles",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "cycles",
+      "learnerBaseText": "ciclos",
+      "english": "cycles",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.orbit",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "orbit",
+      "learnerBaseText": "órbita",
+      "english": "orbit",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.satellites",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "satellites",
+      "learnerBaseText": "satélites",
+      "english": "satellites",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.asteroid",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "asteroid",
+      "learnerBaseText": "asteroide",
+      "english": "asteroid",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.meteorites",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "meteorites",
+      "learnerBaseText": "meteoritos",
+      "english": "meteorites",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.galaxy",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "galaxy",
+      "learnerBaseText": "galaxia",
+      "english": "galaxy",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.nebulae",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "nebulae",
+      "learnerBaseText": "nebulosas",
+      "english": "nebulae",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.eclipse",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "eclipse",
+      "learnerBaseText": "eclipse",
+      "english": "eclipse",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.equinoxes",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "equinoxes",
+      "learnerBaseText": "equinoccios",
+      "english": "equinoxes",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.solstice",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "solstice",
+      "learnerBaseText": "solsticio",
+      "english": "solstice",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.atmospheres",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "atmospheres",
+      "learnerBaseText": "atmósferas",
+      "english": "atmospheres",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.solidarity",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "solidarity",
+      "learnerBaseText": "solidaridad",
+      "english": "solidarity",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.empathy",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "empathy",
+      "learnerBaseText": "empatía",
+      "english": "empathy",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.generosity",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "generosity",
+      "learnerBaseText": "generosidad",
+      "english": "generosity",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.honesty",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "honesty",
+      "learnerBaseText": "honestidad",
+      "english": "honesty",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.trust",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "trust",
+      "learnerBaseText": "confianza",
+      "english": "trust",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.gratitude",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "gratitude",
+      "learnerBaseText": "gratitud",
+      "english": "gratitude",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.respect",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "respect",
+      "learnerBaseText": "respeto",
+      "english": "respect",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.initiatives",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "initiatives",
+      "learnerBaseText": "iniciativas",
+      "english": "initiatives",
+      "laneId": "plural"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.autonomy",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "autonomy",
+      "learnerBaseText": "autonomía",
+      "english": "autonomy",
+      "laneId": "singular"
+    },
+    {
+      "id": "es-en.gravity.noun.pair260908.perseverance",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "perseverance",
+      "learnerBaseText": "perseverancia",
+      "english": "perseverance",
+      "laneId": "singular"
     }
   ]
 }

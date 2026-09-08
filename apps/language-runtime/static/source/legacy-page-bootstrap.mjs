@@ -4,8 +4,9 @@ import {
 } from "./interface-content.mjs?v=interface-runtime-2";
 
 const BOOTSTRAP_PATH = "/language-runtime/static/source/legacy-page-bootstrap.mjs";
-const CHROME_SCRIPT = "/language-runtime/static/source/caatuu-chrome.js?v=chrome-162";
+const CHROME_SCRIPT = "/language-runtime/static/source/caatuu-chrome.js?v=chrome-167";
 const MAINTENANCE_SCRIPT = "/language-runtime/static/source/maintenance-ui.js?v=maintenance-24";
+const MUSIC_STYLE = "/language-runtime/static/styles/music-controls.css";
 const FEATURE_MODULE_PATTERN = /^source\/(?:features|games)\/[a-z0-9]+(?:-[a-z0-9]+)*\/[a-z0-9]+(?:-[a-z0-9]+)*\.js\?v=[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 const ROUTE_PREFIX_PATTERN = /^\/[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 
@@ -78,6 +79,12 @@ export async function bootstrapLegacyPage({
     documentRef,
     origin: new URL(locationHref).origin
   }),
+  initializeMusic = async () => {
+    // Import after the locale and chrome so direct routes inherit saved audio
+    // preferences; embedded routes reuse the top document's existing player.
+    const { installMusic } = await import("./music.mjs");
+    return installMusic(documentRef.defaultView || globalThis);
+  },
   importFeature = (url) => import(url)
 } = {}) {
   if (!course || typeof course !== "object") {
@@ -94,9 +101,19 @@ export async function bootstrapLegacyPage({
   documentRef.documentElement.lang = course.sourceLanguage?.locale || course.sourceLanguage?.id || "en";
   documentRef.documentElement.dir = course.sourceLanguage?.direction || "ltr";
   await loadShared(CHROME_SCRIPT);
+  if (!documentRef.querySelector("link[data-caatuu-music-styles]")) {
+    const style = documentRef.createElement("link");
+    style.rel = "stylesheet";
+    style.href = MUSIC_STYLE;
+    style.setAttribute("data-caatuu-music-styles", "");
+    documentRef.head.append(style);
+  }
+  await initializeMusic();
   await loadShared(MAINTENANCE_SCRIPT);
   await importFeature(featureUrl);
   documentRef.documentElement.dataset.caatuuLegacyPageReady = "true";
+  const EventConstructor = documentRef.defaultView?.CustomEvent || globalThis.CustomEvent;
+  documentRef.dispatchEvent(new EventConstructor("caatuu:legacy-page-ready"));
 }
 
 if (typeof document !== "undefined") {

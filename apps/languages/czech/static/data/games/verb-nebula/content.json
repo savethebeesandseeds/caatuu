@@ -7071,5 +7071,865 @@
     "kind": "N m.in>hrad",
     "cue": "A:názor",
     "use": "Jaký máte názor?"
+  },
+  {
+    "id": "cz.verb.exp260908.jump",
+    "difficulty": 1,
+    "cat": "Core verbs",
+    "cs": "skákat",
+    "en": "jump",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.swim",
+    "difficulty": 1,
+    "cat": "Core verbs",
+    "cs": "plavat",
+    "en": "swim",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.dance",
+    "difficulty": 1,
+    "cat": "Core verbs",
+    "cs": "tančit",
+    "en": "dance",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.smile",
+    "difficulty": 1,
+    "cat": "Core verbs",
+    "cs": "usmívat se",
+    "en": "smile",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.sing",
+    "difficulty": 1,
+    "cat": "Core verbs",
+    "cs": "zpívat",
+    "en": "sing",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.draw",
+    "difficulty": 1,
+    "cat": "Core verbs",
+    "cs": "kreslit",
+    "en": "draw",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.count",
+    "difficulty": 1,
+    "cat": "Core verbs",
+    "cs": "počítat",
+    "en": "count",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.touch",
+    "difficulty": 1,
+    "cat": "Core verbs",
+    "cs": "dotýkat se",
+    "en": "touch",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.hold",
+    "difficulty": 1,
+    "cat": "Core verbs",
+    "cs": "držet",
+    "en": "hold",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.grow",
+    "difficulty": 1,
+    "cat": "Core verbs",
+    "cs": "růst",
+    "en": "grow",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.smell",
+    "difficulty": 1,
+    "cat": "Core verbs",
+    "cs": "čichat",
+    "en": "smell",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.taste",
+    "difficulty": 1,
+    "cat": "Core verbs",
+    "cs": "ochutnávat",
+    "en": "taste",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.hug",
+    "difficulty": 1,
+    "cat": "Core verbs",
+    "cs": "objímat",
+    "en": "hug",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.wave",
+    "difficulty": 1,
+    "cat": "Core verbs",
+    "cs": "mávat",
+    "en": "wave",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.clap",
+    "difficulty": 1,
+    "cat": "Core verbs",
+    "cs": "tleskat",
+    "en": "clap",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.kick",
+    "difficulty": 1,
+    "cat": "Core verbs",
+    "cs": "kopat",
+    "en": "kick",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.catch",
+    "difficulty": 1,
+    "cat": "Core verbs",
+    "cs": "chytat",
+    "en": "catch",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.throw",
+    "difficulty": 1,
+    "cat": "Core verbs",
+    "cs": "házet",
+    "en": "throw",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.crawl",
+    "difficulty": 1,
+    "cat": "Core verbs",
+    "cs": "lézt",
+    "en": "crawl",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.whisper",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "šeptat",
+    "en": "whisper",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.shout",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "křičet",
+    "en": "shout",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.hum",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "broukat si",
+    "en": "hum",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.whistle",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "pískat",
+    "en": "whistle",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.bark",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "štěkat",
+    "en": "bark",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.meow",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "mňoukat",
+    "en": "meow",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.hop",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "poskakovat",
+    "en": "hop",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.slide",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "klouzat",
+    "en": "slide",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.roll",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "kutálet",
+    "en": "roll",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.float",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "plout",
+    "en": "float",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.splash",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "cákat",
+    "en": "splash",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.bounce",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "odrážet se",
+    "en": "bounce",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.fold",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "skládat",
+    "en": "fold",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.unfold",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "rozkládat",
+    "en": "unfold",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.decorate",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "zdobit",
+    "en": "decorate",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.glue",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "lepit",
+    "en": "glue",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.weave",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "tkát",
+    "en": "weave",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.knead",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "hníst",
+    "en": "knead",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.stir",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "míchat",
+    "en": "stir",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.pour",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "nalévat",
+    "en": "pour",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.peel",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "loupat",
+    "en": "peel",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.water",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "zalévat",
+    "en": "water",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.sprout",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "klíčit",
+    "en": "sprout",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.bloom",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "kvést",
+    "en": "bloom",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.collect",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "sbírat",
+    "en": "collect",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.measure",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "měřit",
+    "en": "measure",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.weigh",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "vážit",
+    "en": "weigh",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.guess",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "hádat",
+    "en": "guess",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.explore",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "zkoumat",
+    "en": "explore",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.imagine",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "představovat si",
+    "en": "imagine",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.pretend",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "předstírat",
+    "en": "pretend",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.celebrate",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "slavit",
+    "en": "celebrate",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.welcome",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "vítat",
+    "en": "welcome",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.cheer",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "fandit",
+    "en": "cheer",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.forgive",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "odpouštět",
+    "en": "forgive",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.comfort",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "utěšovat",
+    "en": "comfort",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.promise",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "slibovat",
+    "en": "promise",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.notice",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "všímat si",
+    "en": "notice",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.balance",
+    "difficulty": 2,
+    "cat": "Core verbs",
+    "cs": "balancovat",
+    "en": "balance",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.cooperate",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "spolupracovat",
+    "en": "cooperate",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.negotiate",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "vyjednávat",
+    "en": "negotiate",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.persuade",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "přesvědčovat",
+    "en": "persuade",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.reassure",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "uklidňovat",
+    "en": "reassure",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.appreciate",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "oceňovat",
+    "en": "appreciate",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.admire",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "obdivovat",
+    "en": "admire",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.wonder",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "divit se",
+    "en": "wonder",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.reflect",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "uvažovat",
+    "en": "reflect",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.concentrate",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "soustředit se",
+    "en": "concentrate",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.persevere",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "vytrvat",
+    "en": "persevere",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.hesitate",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "váhat",
+    "en": "hesitate",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.anticipate",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "předvídat",
+    "en": "anticipate",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.investigate",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "prozkoumat",
+    "en": "investigate",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.observe",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "pozorovat",
+    "en": "observe",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.distinguish",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "rozlišovat",
+    "en": "distinguish",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.estimate",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "odhadovat",
+    "en": "estimate",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.interpret",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "vykládat",
+    "en": "interpret",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.justify",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "zdůvodňovat",
+    "en": "justify",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.demonstrate",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "předvádět",
+    "en": "demonstrate",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.invent",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "vynalézat",
+    "en": "invent",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.transform",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "proměňovat",
+    "en": "transform",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.combine",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "kombinovat",
+    "en": "combine",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.adapt",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "přizpůsobovat se",
+    "en": "adapt",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.restore",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "obnovovat",
+    "en": "restore",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.preserve",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "uchovávat",
+    "en": "preserve",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.contribute",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "přispívat",
+    "en": "contribute",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.include",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "zahrnovat",
+    "en": "include",
+    "kind": "V",
+    "cue": "",
+    "use": ""
+  },
+  {
+    "id": "cz.verb.exp260908.summarize",
+    "difficulty": 3,
+    "cat": "Core verbs",
+    "cs": "shrnovat",
+    "en": "summarize",
+    "kind": "V",
+    "cue": "",
+    "use": ""
   }
 ]

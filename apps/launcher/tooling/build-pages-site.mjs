@@ -238,9 +238,10 @@ export function projectPagesLanguageRegistry({ registry, languagePlan }) {
 }
 
 function launcherFallbackCourseIds(source, label = "launcher fallback") {
-  const open = '<ul class="language-list" data-language-list>';
-  assert.equal(source.split(open).length - 1, 1, `${label} list anchor changed`);
-  const start = source.indexOf(open) + open.length;
+  const lists = [...source.matchAll(/<ul\b(?=[^>]*\bclass="language-list")(?=[^>]*\bdata-language-list(?:\s|=|>))[^>]*>/gu)];
+  assert.equal(lists.length, 1, `${label} list anchor changed`);
+  const open = lists[0][0];
+  const start = lists[0].index + open.length;
   const end = source.indexOf("</ul>", start);
   assert.ok(end > start, `${label} list has no closing tag`);
   const body = source.slice(start, end);

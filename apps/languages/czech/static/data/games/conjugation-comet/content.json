@@ -2,7 +2,8 @@
   "language": "cs",
   "verbs": [
     {
-      "verb": "být", "difficulty": 1,
+      "verb": "být",
+      "difficulty": 1,
       "meaning": "be",
       "hint": "Imperfective. Irregular. Pattern: jsem / jsi / je.",
       "forms": [
@@ -39,7 +40,8 @@
       ]
     },
     {
-      "verb": "mít", "difficulty": 1,
+      "verb": "mít",
+      "difficulty": 1,
       "meaning": "have",
       "hint": "Imperfective. High-frequency. Pattern: -ám.",
       "forms": [
@@ -76,7 +78,8 @@
       ]
     },
     {
-      "verb": "dělat", "difficulty": 1,
+      "verb": "dělat",
+      "difficulty": 1,
       "meaning": "do / make",
       "hint": "Imperfective. Forms begin with děl- and follow the surface family -ám, -áš, -á, -áme, -áte, -ají.",
       "forms": [
@@ -113,7 +116,8 @@
       ]
     },
     {
-      "verb": "potřebovat", "difficulty": 1,
+      "verb": "potřebovat",
+      "difficulty": 1,
       "meaning": "need",
       "hint": "Imperfective. Formal and spoken variants. Pattern: -uji / -uju.",
       "forms": [
@@ -156,7 +160,8 @@
       ]
     },
     {
-      "verb": "hledat", "difficulty": 1,
+      "verb": "hledat",
+      "difficulty": 1,
       "meaning": "look for",
       "hint": "Imperfective. Forms begin with hled- and follow the -ám surface family; this verb commonly takes the accusative.",
       "forms": [
@@ -193,7 +198,8 @@
       ]
     },
     {
-      "verb": "čekat", "difficulty": 1,
+      "verb": "čekat",
+      "difficulty": 1,
       "meaning": "wait",
       "hint": "Imperfective. Forms begin with ček- and follow the -ám surface family; čekat na takes the accusative.",
       "forms": [
@@ -230,7 +236,8 @@
       ]
     },
     {
-      "verb": "dát", "difficulty": 3,
+      "verb": "dát",
+      "difficulty": 3,
       "meaning": "give / put",
       "hint": "Perfective. Short perfective helper. Pattern: dám.",
       "forms": [
@@ -267,7 +274,8 @@
       ]
     },
     {
-      "verb": "vzít", "difficulty": 3,
+      "verb": "vzít",
+      "difficulty": 3,
       "meaning": "take",
       "hint": "Perfective. Stem vezm-. Pattern: vezmu.",
       "forms": [
@@ -304,7 +312,8 @@
       ]
     },
     {
-      "verb": "začít", "difficulty": 3,
+      "verb": "začít",
+      "difficulty": 3,
       "meaning": "start",
       "hint": "Perfective. Stem začn-. Pattern: začnu.",
       "forms": [
@@ -341,7 +350,8 @@
       ]
     },
     {
-      "verb": "zůstat", "difficulty": 3,
+      "verb": "zůstat",
+      "difficulty": 3,
       "meaning": "stay",
       "hint": "Perfective. Future/result form. Pattern: zůstanu.",
       "forms": [
@@ -378,7 +388,8 @@
       ]
     },
     {
-      "verb": "znamenat", "difficulty": 2,
+      "verb": "znamenat",
+      "difficulty": 2,
       "meaning": "mean",
       "hint": "Imperfective. Forms begin with znamen- and follow the -ám surface family; the third-person form znamená is especially common.",
       "forms": [
@@ -415,7 +426,8 @@
       ]
     },
     {
-      "verb": "chtít", "difficulty": 1,
+      "verb": "chtít",
+      "difficulty": 1,
       "meaning": "want",
       "hint": "Imperfective. Common helper. Pattern: chci.",
       "forms": [
@@ -452,7 +464,8 @@
       ]
     },
     {
-      "verb": "muset", "difficulty": 1,
+      "verb": "muset",
+      "difficulty": 1,
       "meaning": "must / have to",
       "hint": "Imperfective. + infinitive. Pattern: -ím.",
       "forms": [
@@ -489,7 +502,8 @@
       ]
     },
     {
-      "verb": "moci", "difficulty": 2,
+      "verb": "moci",
+      "difficulty": 2,
       "meaning": "can / be able",
       "hint": "Imperfective. Spoken můžu forms. Pattern: můžu / mohu.",
       "forms": [
@@ -532,7 +546,8 @@
       ]
     },
     {
-      "verb": "umět", "difficulty": 2,
+      "verb": "umět",
+      "difficulty": 2,
       "meaning": "know how to",
       "hint": "Imperfective. + infinitive. Pattern: -ím.",
       "forms": [
@@ -569,7 +584,8 @@
       ]
     },
     {
-      "verb": "jít", "difficulty": 2,
+      "verb": "jít",
+      "difficulty": 2,
       "meaning": "go by foot",
       "hint": "Imperfective motion. Now / one direction. Pattern: jdu.",
       "forms": [
@@ -606,7 +622,8 @@
       ]
     },
     {
-      "verb": "jet", "difficulty": 2,
+      "verb": "jet",
+      "difficulty": 2,
       "meaning": "go by vehicle",
       "hint": "Imperfective motion. Now / one direction. Pattern: jedu.",
       "forms": [
@@ -643,7 +660,8 @@
       ]
     },
     {
-      "verb": "chodit", "difficulty": 2,
+      "verb": "chodit",
+      "difficulty": 2,
       "meaning": "go regularly / walk",
       "hint": "Imperfective motion. Habitual foot motion. Pattern: -ím.",
       "forms": [
@@ -680,7 +698,8 @@
       ]
     },
     {
-      "verb": "jezdit", "difficulty": 2,
+      "verb": "jezdit",
+      "difficulty": 2,
       "meaning": "go by vehicle regularly",
       "hint": "Imperfective motion. Habitual vehicle motion. Pattern: -ím.",
       "forms": [
@@ -717,7 +736,8 @@
       ]
     },
     {
-      "verb": "přijít", "difficulty": 3,
+      "verb": "přijít",
+      "difficulty": 3,
       "meaning": "come / arrive by foot",
       "hint": "Perfective motion. Future/result form. Pattern: přijdu.",
       "forms": [
@@ -754,7 +774,8 @@
       ]
     },
     {
-      "verb": "přijet", "difficulty": 3,
+      "verb": "přijet",
+      "difficulty": 3,
       "meaning": "arrive by vehicle",
       "hint": "Perfective motion. Future/result form. Pattern: přijedu.",
       "forms": [
@@ -791,7 +812,8 @@
       ]
     },
     {
-      "verb": "odejít", "difficulty": 3,
+      "verb": "odejít",
+      "difficulty": 3,
       "meaning": "leave by foot",
       "hint": "Perfective motion. Future/result form. Pattern: odejdu.",
       "forms": [
@@ -828,7 +850,8 @@
       ]
     },
     {
-      "verb": "odjet", "difficulty": 3,
+      "verb": "odjet",
+      "difficulty": 3,
       "meaning": "leave by vehicle",
       "hint": "Perfective motion. Future/result form. Pattern: odjedu.",
       "forms": [
@@ -865,7 +888,8 @@
       ]
     },
     {
-      "verb": "vrátit se", "difficulty": 3,
+      "verb": "vrátit se",
+      "difficulty": 3,
       "meaning": "return",
       "hint": "Perfective motion. Reflexive. Pattern: -ím se.",
       "forms": [
@@ -902,7 +926,8 @@
       ]
     },
     {
-      "verb": "dostat se", "difficulty": 3,
+      "verb": "dostat se",
+      "difficulty": 3,
       "meaning": "get somewhere",
       "hint": "Perfective motion. Reflexive result. Pattern: dostanu se.",
       "forms": [
@@ -939,7 +964,8 @@
       ]
     },
     {
-      "verb": "pracovat", "difficulty": 1,
+      "verb": "pracovat",
+      "difficulty": 1,
       "meaning": "work",
       "hint": "Imperfective. Formal and spoken variants. Pattern: -uji / -uju.",
       "forms": [
@@ -982,7 +1008,8 @@
       ]
     },
     {
-      "verb": "studovat", "difficulty": 2,
+      "verb": "studovat",
+      "difficulty": 2,
       "meaning": "study",
       "hint": "Imperfective. Formal and spoken variants. Pattern: -uji / -uju.",
       "forms": [
@@ -1025,7 +1052,8 @@
       ]
     },
     {
-      "verb": "učit se", "difficulty": 2,
+      "verb": "učit se",
+      "difficulty": 2,
       "meaning": "learn",
       "hint": "Imperfective. Reflexive. Pattern: -ím se.",
       "forms": [
@@ -1062,7 +1090,8 @@
       ]
     },
     {
-      "verb": "bydlet", "difficulty": 1,
+      "verb": "bydlet",
+      "difficulty": 1,
       "meaning": "live / reside",
       "hint": "Imperfective. Place verb. Pattern: -ím.",
       "forms": [
@@ -1099,7 +1128,8 @@
       ]
     },
     {
-      "verb": "jíst", "difficulty": 1,
+      "verb": "jíst",
+      "difficulty": 1,
       "meaning": "eat",
       "hint": "Imperfective. Stem changes. Pattern: jím / jedí.",
       "forms": [
@@ -1136,7 +1166,8 @@
       ]
     },
     {
-      "verb": "pít", "difficulty": 1,
+      "verb": "pít",
+      "difficulty": 1,
       "meaning": "drink",
       "hint": "Imperfective. Spoken and formal variants. Pattern: piju / piji.",
       "forms": [
@@ -1179,7 +1210,8 @@
       ]
     },
     {
-      "verb": "spát", "difficulty": 1,
+      "verb": "spát",
+      "difficulty": 1,
       "meaning": "sleep",
       "hint": "Imperfective. Short high-frequency verb. Pattern: -ím.",
       "forms": [
@@ -1216,7 +1248,8 @@
       ]
     },
     {
-      "verb": "vařit", "difficulty": 1,
+      "verb": "vařit",
+      "difficulty": 1,
       "meaning": "cook",
       "hint": "Imperfective. Regular -ím. Pattern: -ím.",
       "forms": [
@@ -1253,7 +1286,8 @@
       ]
     },
     {
-      "verb": "platit", "difficulty": 1,
+      "verb": "platit",
+      "difficulty": 1,
       "meaning": "pay",
       "hint": "Imperfective. Regular -ím. Pattern: -ím.",
       "forms": [
@@ -1290,7 +1324,8 @@
       ]
     },
     {
-      "verb": "koupit", "difficulty": 3,
+      "verb": "koupit",
+      "difficulty": 3,
       "meaning": "buy",
       "hint": "Perfective. Result form. Pattern: -ím.",
       "forms": [
@@ -1327,7 +1362,8 @@
       ]
     },
     {
-      "verb": "číst", "difficulty": 1,
+      "verb": "číst",
+      "difficulty": 1,
       "meaning": "read",
       "hint": "Imperfective. Stem čt-. Pattern: čtu.",
       "forms": [
@@ -1364,7 +1400,8 @@
       ]
     },
     {
-      "verb": "otevřít", "difficulty": 3,
+      "verb": "otevřít",
+      "difficulty": 3,
       "meaning": "open",
       "hint": "Perfective. Result form. Pattern: otevřu.",
       "forms": [
@@ -1401,7 +1438,8 @@
       ]
     },
     {
-      "verb": "zavřít", "difficulty": 3,
+      "verb": "zavřít",
+      "difficulty": 3,
       "meaning": "close",
       "hint": "Perfective. Result form. Pattern: zavřu.",
       "forms": [
@@ -1438,7 +1476,8 @@
       ]
     },
     {
-      "verb": "vidět", "difficulty": 1,
+      "verb": "vidět",
+      "difficulty": 1,
       "meaning": "see",
       "hint": "Imperfective. Regular -ím. Pattern: -ím.",
       "forms": [
@@ -1475,7 +1514,8 @@
       ]
     },
     {
-      "verb": "slyšet", "difficulty": 1,
+      "verb": "slyšet",
+      "difficulty": 1,
       "meaning": "hear",
       "hint": "Imperfective. Regular -ím. Pattern: -ím.",
       "forms": [
@@ -1512,7 +1552,8 @@
       ]
     },
     {
-      "verb": "vědět", "difficulty": 2,
+      "verb": "vědět",
+      "difficulty": 2,
       "meaning": "know a fact",
       "hint": "Imperfective. Irregular. Pattern: vím / vědí.",
       "forms": [
@@ -1549,7 +1590,8 @@
       ]
     },
     {
-      "verb": "znát", "difficulty": 2,
+      "verb": "znát",
+      "difficulty": 2,
       "meaning": "know / be familiar with",
       "hint": "Imperfective. Forms begin with zn- and follow the -ám surface family; this verb commonly takes the accusative.",
       "forms": [
@@ -1586,7 +1628,8 @@
       ]
     },
     {
-      "verb": "rozumět", "difficulty": 2,
+      "verb": "rozumět",
+      "difficulty": 2,
       "meaning": "understand",
       "hint": "Imperfective. Takes dative. Pattern: -ím.",
       "forms": [
@@ -1623,7 +1666,8 @@
       ]
     },
     {
-      "verb": "cítit se", "difficulty": 2,
+      "verb": "cítit se",
+      "difficulty": 2,
       "meaning": "feel",
       "hint": "Imperfective. Reflexive. Pattern: -ím se.",
       "forms": [
@@ -1660,7 +1704,8 @@
       ]
     },
     {
-      "verb": "mluvit", "difficulty": 1,
+      "verb": "mluvit",
+      "difficulty": 1,
       "meaning": "speak",
       "hint": "Imperfective. Regular -ím. Pattern: -ím.",
       "forms": [
@@ -1697,7 +1742,8 @@
       ]
     },
     {
-      "verb": "říct", "difficulty": 3,
+      "verb": "říct",
+      "difficulty": 3,
       "meaning": "say / tell",
       "hint": "Perfective. Result form. Pattern: řeknu.",
       "forms": [
@@ -1734,7 +1780,8 @@
       ]
     },
     {
-      "verb": "psát", "difficulty": 2,
+      "verb": "psát",
+      "difficulty": 2,
       "meaning": "write",
       "hint": "Imperfective. Stem píš-. Pattern: píšu / píši.",
       "forms": [
@@ -1777,7 +1824,8 @@
       ]
     },
     {
-      "verb": "ptát se", "difficulty": 2,
+      "verb": "ptát se",
+      "difficulty": 2,
       "meaning": "ask",
       "hint": "Imperfective. Reflexive. Pattern: -ám se.",
       "forms": [
@@ -1814,7 +1862,8 @@
       ]
     },
     {
-      "verb": "zeptat se", "difficulty": 3,
+      "verb": "zeptat se",
+      "difficulty": 3,
       "meaning": "ask once",
       "hint": "Perfective. Result form. Pattern: zeptám se.",
       "forms": [
@@ -1851,7 +1900,8 @@
       ]
     },
     {
-      "verb": "volat", "difficulty": 1,
+      "verb": "volat",
+      "difficulty": 1,
       "meaning": "call",
       "hint": "Imperfective. Forms begin with vol- and follow the surface family -ám, -áš, -á, -áme, -áte, -ají.",
       "forms": [
@@ -1888,7 +1938,8 @@
       ]
     },
     {
-      "verb": "pomoci", "difficulty": 3,
+      "verb": "pomoci",
+      "difficulty": 3,
       "meaning": "help",
       "hint": "Perfective. Spoken pomoct also common. Pattern: pomůžu / pomohu.",
       "forms": [
@@ -1931,7 +1982,8 @@
       ]
     },
     {
-      "verb": "ukázat", "difficulty": 3,
+      "verb": "ukázat",
+      "difficulty": 3,
       "meaning": "show",
       "hint": "Perfective. Result form. Pattern: ukážu.",
       "forms": [
@@ -1974,7 +2026,8 @@
       ]
     },
     {
-      "verb": "objednat", "difficulty": 3,
+      "verb": "objednat",
+      "difficulty": 3,
       "meaning": "order / book",
       "hint": "Perfective. Result form. Pattern: -ám.",
       "forms": [
@@ -2011,7 +2064,8 @@
       ]
     },
     {
-      "verb": "děkovat", "difficulty": 2,
+      "verb": "děkovat",
+      "difficulty": 2,
       "meaning": "thank",
       "hint": "Imperfective. Formal and spoken variants. Pattern: -uji / -uju.",
       "forms": [
@@ -2054,7 +2108,8 @@
       ]
     },
     {
-      "verb": "omluvit se", "difficulty": 3,
+      "verb": "omluvit se",
+      "difficulty": 3,
       "meaning": "apologize",
       "hint": "Perfective. Reflexive result. Pattern: -ím se.",
       "forms": [
@@ -2091,7 +2146,8 @@
       ]
     },
     {
-      "verb": "těšit se", "difficulty": 2,
+      "verb": "těšit se",
+      "difficulty": 2,
       "meaning": "look forward",
       "hint": "Imperfective. Reflexive. Pattern: -ím se.",
       "forms": [
@@ -2128,7 +2184,8 @@
       ]
     },
     {
-      "verb": "bát se", "difficulty": 2,
+      "verb": "bát se",
+      "difficulty": 2,
       "meaning": "be afraid",
       "hint": "Imperfective. Irregular stem boj-. Pattern: bojím se.",
       "forms": [
@@ -2165,7 +2222,8 @@
       ]
     },
     {
-      "verb": "smát se", "difficulty": 2,
+      "verb": "smát se",
+      "difficulty": 2,
       "meaning": "laugh / smile",
       "hint": "Imperfective. Spoken and formal variants. Pattern: směju se.",
       "forms": [
@@ -2208,7 +2266,8 @@
       ]
     },
     {
-      "verb": "plakat", "difficulty": 2,
+      "verb": "plakat",
+      "difficulty": 2,
       "meaning": "cry",
       "hint": "Imperfective. Stem pláč-. Pattern: pláču.",
       "forms": [
@@ -2241,6 +2300,576 @@
           "label": "P3",
           "form": "pláčou",
           "cue": "they cry"
+        }
+      ]
+    },
+    {
+      "verb": "skákat",
+      "difficulty": 1,
+      "meaning": "jump",
+      "hint": "Imperfective present. The stem changes from skák- to skáč-.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "skáču",
+          "cue": "I jump"
+        },
+        {
+          "label": "S2",
+          "form": "skáčeš",
+          "cue": "you jump"
+        },
+        {
+          "label": "S3",
+          "form": "skáče",
+          "cue": "he/she jumps"
+        },
+        {
+          "label": "P1",
+          "form": "skáčeme",
+          "cue": "we jump"
+        },
+        {
+          "label": "P2",
+          "form": "skáčete",
+          "cue": "you all jump"
+        },
+        {
+          "label": "P3",
+          "form": "skáčou",
+          "cue": "they jump"
+        }
+      ]
+    },
+    {
+      "verb": "plavat",
+      "difficulty": 1,
+      "meaning": "swim",
+      "hint": "Imperfective present: plavu, plaveš.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "plavu",
+          "cue": "I swim"
+        },
+        {
+          "label": "S2",
+          "form": "plaveš",
+          "cue": "you swim"
+        },
+        {
+          "label": "S3",
+          "form": "plave",
+          "cue": "he/she swims"
+        },
+        {
+          "label": "P1",
+          "form": "plaveme",
+          "cue": "we swim"
+        },
+        {
+          "label": "P2",
+          "form": "plavete",
+          "cue": "you all swim"
+        },
+        {
+          "label": "P3",
+          "form": "plavou",
+          "cue": "they swim"
+        }
+      ]
+    },
+    {
+      "verb": "zpívat",
+      "difficulty": 1,
+      "meaning": "sing",
+      "hint": "Imperfective present. Keep the long í in the stem.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "zpívám",
+          "cue": "I sing"
+        },
+        {
+          "label": "S2",
+          "form": "zpíváš",
+          "cue": "you sing"
+        },
+        {
+          "label": "S3",
+          "form": "zpívá",
+          "cue": "he/she sings"
+        },
+        {
+          "label": "P1",
+          "form": "zpíváme",
+          "cue": "we sing"
+        },
+        {
+          "label": "P2",
+          "form": "zpíváte",
+          "cue": "you all sing"
+        },
+        {
+          "label": "P3",
+          "form": "zpívají",
+          "cue": "they sing"
+        }
+      ]
+    },
+    {
+      "verb": "hrát",
+      "difficulty": 1,
+      "meaning": "play",
+      "hint": "Imperfective present. Hraji and hrají are also standard variants; this paradigm consistently uses hraju and hrajou.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "hraju",
+          "cue": "I play"
+        },
+        {
+          "label": "S2",
+          "form": "hraješ",
+          "cue": "you play"
+        },
+        {
+          "label": "S3",
+          "form": "hraje",
+          "cue": "he/she plays"
+        },
+        {
+          "label": "P1",
+          "form": "hrajeme",
+          "cue": "we play"
+        },
+        {
+          "label": "P2",
+          "form": "hrajete",
+          "cue": "you all play"
+        },
+        {
+          "label": "P3",
+          "form": "hrajou",
+          "cue": "they play"
+        }
+      ]
+    },
+    {
+      "verb": "kreslit",
+      "difficulty": 1,
+      "meaning": "draw",
+      "hint": "Imperfective present. Third-person singular and plural both use kreslí.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "kreslím",
+          "cue": "I draw"
+        },
+        {
+          "label": "S2",
+          "form": "kreslíš",
+          "cue": "you draw"
+        },
+        {
+          "label": "S3",
+          "form": "kreslí",
+          "cue": "he/she draws"
+        },
+        {
+          "label": "P1",
+          "form": "kreslíme",
+          "cue": "we draw"
+        },
+        {
+          "label": "P2",
+          "form": "kreslíte",
+          "cue": "you all draw"
+        },
+        {
+          "label": "P3",
+          "form": "kreslí",
+          "cue": "they draw"
+        }
+      ]
+    },
+    {
+      "verb": "tančit",
+      "difficulty": 2,
+      "meaning": "dance",
+      "hint": "Imperfective present. Third-person singular and plural share tančí.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "tančím",
+          "cue": "I dance"
+        },
+        {
+          "label": "S2",
+          "form": "tančíš",
+          "cue": "you dance"
+        },
+        {
+          "label": "S3",
+          "form": "tančí",
+          "cue": "he/she dances"
+        },
+        {
+          "label": "P1",
+          "form": "tančíme",
+          "cue": "we dance"
+        },
+        {
+          "label": "P2",
+          "form": "tančíte",
+          "cue": "you all dance"
+        },
+        {
+          "label": "P3",
+          "form": "tančí",
+          "cue": "they dance"
+        }
+      ]
+    },
+    {
+      "verb": "malovat",
+      "difficulty": 2,
+      "meaning": "paint",
+      "hint": "Imperfective present. Maluji and malují are also standard; the authored set uses maluju and malujou.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "maluju",
+          "cue": "I paint"
+        },
+        {
+          "label": "S2",
+          "form": "maluješ",
+          "cue": "you paint"
+        },
+        {
+          "label": "S3",
+          "form": "maluje",
+          "cue": "he/she paints"
+        },
+        {
+          "label": "P1",
+          "form": "malujeme",
+          "cue": "we paint"
+        },
+        {
+          "label": "P2",
+          "form": "malujete",
+          "cue": "you all paint"
+        },
+        {
+          "label": "P3",
+          "form": "malujou",
+          "cue": "they paint"
+        }
+      ]
+    },
+    {
+      "verb": "sbírat",
+      "difficulty": 2,
+      "meaning": "collect",
+      "hint": "Imperfective present. Keep the long í in sbír-.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "sbírám",
+          "cue": "I collect"
+        },
+        {
+          "label": "S2",
+          "form": "sbíráš",
+          "cue": "you collect"
+        },
+        {
+          "label": "S3",
+          "form": "sbírá",
+          "cue": "he/she collects"
+        },
+        {
+          "label": "P1",
+          "form": "sbíráme",
+          "cue": "we collect"
+        },
+        {
+          "label": "P2",
+          "form": "sbíráte",
+          "cue": "you all collect"
+        },
+        {
+          "label": "P3",
+          "form": "sbírají",
+          "cue": "they collect"
+        }
+      ]
+    },
+    {
+      "verb": "stavět",
+      "difficulty": 2,
+      "meaning": "build",
+      "hint": "Imperfective present. The third-person plural is stavějí; staví is also standard.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "stavím",
+          "cue": "I build"
+        },
+        {
+          "label": "S2",
+          "form": "stavíš",
+          "cue": "you build"
+        },
+        {
+          "label": "S3",
+          "form": "staví",
+          "cue": "he/she builds"
+        },
+        {
+          "label": "P1",
+          "form": "stavíme",
+          "cue": "we build"
+        },
+        {
+          "label": "P2",
+          "form": "stavíte",
+          "cue": "you all build"
+        },
+        {
+          "label": "P3",
+          "form": "stavějí",
+          "cue": "they build"
+        }
+      ]
+    },
+    {
+      "verb": "péct",
+      "difficulty": 2,
+      "meaning": "bake",
+      "hint": "Imperfective present with the stem peč-.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "peču",
+          "cue": "I bake"
+        },
+        {
+          "label": "S2",
+          "form": "pečeš",
+          "cue": "you bake"
+        },
+        {
+          "label": "S3",
+          "form": "peče",
+          "cue": "he/she bakes"
+        },
+        {
+          "label": "P1",
+          "form": "pečeme",
+          "cue": "we bake"
+        },
+        {
+          "label": "P2",
+          "form": "pečete",
+          "cue": "you all bake"
+        },
+        {
+          "label": "P3",
+          "form": "pečou",
+          "cue": "they bake"
+        }
+      ]
+    },
+    {
+      "verb": "pozorovat",
+      "difficulty": 3,
+      "meaning": "observe",
+      "hint": "Imperfective present. Pozoruji and pozorují are also standard variants.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "pozoruju",
+          "cue": "I observe"
+        },
+        {
+          "label": "S2",
+          "form": "pozoruješ",
+          "cue": "you observe"
+        },
+        {
+          "label": "S3",
+          "form": "pozoruje",
+          "cue": "he/she observes"
+        },
+        {
+          "label": "P1",
+          "form": "pozorujeme",
+          "cue": "we observe"
+        },
+        {
+          "label": "P2",
+          "form": "pozorujete",
+          "cue": "you all observe"
+        },
+        {
+          "label": "P3",
+          "form": "pozorujou",
+          "cue": "they observe"
+        }
+      ]
+    },
+    {
+      "verb": "navrhovat",
+      "difficulty": 3,
+      "meaning": "propose",
+      "hint": "Imperfective present. Navrhuji and navrhují are also standard variants.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "navrhuju",
+          "cue": "I propose"
+        },
+        {
+          "label": "S2",
+          "form": "navrhuješ",
+          "cue": "you propose"
+        },
+        {
+          "label": "S3",
+          "form": "navrhuje",
+          "cue": "he/she proposes"
+        },
+        {
+          "label": "P1",
+          "form": "navrhujeme",
+          "cue": "we propose"
+        },
+        {
+          "label": "P2",
+          "form": "navrhujete",
+          "cue": "you all propose"
+        },
+        {
+          "label": "P3",
+          "form": "navrhujou",
+          "cue": "they propose"
+        }
+      ]
+    },
+    {
+      "verb": "přispívat",
+      "difficulty": 3,
+      "meaning": "contribute",
+      "hint": "Imperfective present. Preserve both long í and á.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "přispívám",
+          "cue": "I contribute"
+        },
+        {
+          "label": "S2",
+          "form": "přispíváš",
+          "cue": "you contribute"
+        },
+        {
+          "label": "S3",
+          "form": "přispívá",
+          "cue": "he/she contributes"
+        },
+        {
+          "label": "P1",
+          "form": "přispíváme",
+          "cue": "we contribute"
+        },
+        {
+          "label": "P2",
+          "form": "přispíváte",
+          "cue": "you all contribute"
+        },
+        {
+          "label": "P3",
+          "form": "přispívají",
+          "cue": "they contribute"
+        }
+      ]
+    },
+    {
+      "verb": "rozlišovat",
+      "difficulty": 3,
+      "meaning": "distinguish",
+      "hint": "Imperfective present. Rozlišuji and rozlišují are also standard variants.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "rozlišuju",
+          "cue": "I distinguish"
+        },
+        {
+          "label": "S2",
+          "form": "rozlišuješ",
+          "cue": "you distinguish"
+        },
+        {
+          "label": "S3",
+          "form": "rozlišuje",
+          "cue": "he/she distinguishes"
+        },
+        {
+          "label": "P1",
+          "form": "rozlišujeme",
+          "cue": "we distinguish"
+        },
+        {
+          "label": "P2",
+          "form": "rozlišujete",
+          "cue": "you all distinguish"
+        },
+        {
+          "label": "P3",
+          "form": "rozlišujou",
+          "cue": "they distinguish"
+        }
+      ]
+    },
+    {
+      "verb": "odhadovat",
+      "difficulty": 3,
+      "meaning": "estimate",
+      "hint": "Imperfective present. Odhaduji and odhadují are also standard variants.",
+      "forms": [
+        {
+          "label": "S1",
+          "form": "odhaduju",
+          "cue": "I estimate"
+        },
+        {
+          "label": "S2",
+          "form": "odhaduješ",
+          "cue": "you estimate"
+        },
+        {
+          "label": "S3",
+          "form": "odhaduje",
+          "cue": "he/she estimates"
+        },
+        {
+          "label": "P1",
+          "form": "odhadujeme",
+          "cue": "we estimate"
+        },
+        {
+          "label": "P2",
+          "form": "odhadujete",
+          "cue": "you all estimate"
+        },
+        {
+          "label": "P3",
+          "form": "odhadujou",
+          "cue": "they estimate"
         }
       ]
     }

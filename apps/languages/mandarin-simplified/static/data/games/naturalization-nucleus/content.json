@@ -1373,6 +1373,5762 @@
       "sourceConceptIds": [
         "ww.travel.park-near-hotel"
       ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-5154",
+      "hanzi": "兔",
+      "pinyin": "tù",
+      "tone": 4,
+      "translation": "rabbit",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-exp260908-001"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-8272",
+      "hanzi": "色",
+      "pinyin": "sè",
+      "tone": 4,
+      "translation": "color",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-exp260908-003",
+        "ww.shopping.blue-shirt",
+        "ww.choice.red-one",
+        "ww-exp260908-027"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-84dd",
+      "hanzi": "蓝",
+      "pinyin": "lán",
+      "tone": 2,
+      "translation": "blue",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-exp260908-003",
+        "ww.shopping.blue-shirt",
+        "ww.nature.blue-sea"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-7b14",
+      "hanzi": "笔",
+      "pinyin": "bǐ",
+      "tone": 3,
+      "translation": "pen; writing tool",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-exp260908-005",
+        "ww.location.pen-in-bag"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-9f9f",
+      "hanzi": "龟",
+      "pinyin": "guī",
+      "tone": 1,
+      "translation": "turtle",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-exp260908-006"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-7761",
+      "hanzi": "睡",
+      "pinyin": "shuì",
+      "tone": 4,
+      "translation": "sleep",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-exp260908-006",
+        "ww.routine.read-before-sleep",
+        "ww.wellbeing.slept-well"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-5165",
+      "hanzi": "入",
+      "pinyin": "rù",
+      "tone": 4,
+      "translation": "enter",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-exp260908-007",
+        "ww.transit.subway-left"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-53f6",
+      "hanzi": "叶",
+      "pinyin": "yè",
+      "tone": 4,
+      "translation": "leaf",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-009",
+        "ww-exp260908-028",
+        "ww-exp260908-034"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-96ea",
+      "hanzi": "雪",
+      "pinyin": "xuě",
+      "tone": 3,
+      "translation": "snow",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-013"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-718a",
+      "hanzi": "熊",
+      "pinyin": "xióng",
+      "tone": 2,
+      "translation": "bear",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-022"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-8349",
+      "hanzi": "草",
+      "pinyin": "cǎo",
+      "tone": 3,
+      "translation": "grass",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-024"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-77f3",
+      "hanzi": "石",
+      "pinyin": "shí",
+      "tone": 2,
+      "translation": "stone",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-016",
+        "ww-exp260908-032"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-4e91",
+      "hanzi": "云",
+      "pinyin": "yún",
+      "tone": 2,
+      "translation": "cloud",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-030"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-7403",
+      "hanzi": "球",
+      "pinyin": "qiú",
+      "tone": 2,
+      "translation": "ball",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.hobby.football"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-677e",
+      "hanzi": "松",
+      "pinyin": "sōng",
+      "tone": 1,
+      "translation": "pine tree",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-009"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-9f20",
+      "hanzi": "鼠",
+      "pinyin": "shǔ",
+      "tone": 3,
+      "translation": "mouse; rat",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-009"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-7eb8",
+      "hanzi": "纸",
+      "pinyin": "zhǐ",
+      "tone": 3,
+      "translation": "paper",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.family.grandfather-paper",
+        "ww-exp260908-010",
+        "ww-exp260908-029",
+        "ww-exp260908-032"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-677f",
+      "hanzi": "板",
+      "pinyin": "bǎn",
+      "tone": 3,
+      "translation": "board",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.school.board-writing",
+        "ww-exp260908-010",
+        "ww-exp260908-017"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-5706",
+      "hanzi": "圆",
+      "pinyin": "yuán",
+      "tone": 2,
+      "translation": "round",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-010"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-5c3a",
+      "hanzi": "尺",
+      "pinyin": "chǐ",
+      "tone": 3,
+      "translation": "ruler",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.shopping.right-size",
+        "ww-exp260908-011"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-8475",
+      "hanzi": "葵",
+      "pinyin": "kuí",
+      "tone": 2,
+      "translation": "sunflower; mallow",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-011"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-6e38",
+      "hanzi": "游",
+      "pinyin": "yóu",
+      "tone": 2,
+      "translation": "swim",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-012",
+        "ww-exp260908-025",
+        "ww-exp260908-041"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-620f",
+      "hanzi": "戏",
+      "pinyin": "xì",
+      "tone": 4,
+      "translation": "play; drama",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-012",
+        "ww-exp260908-025",
+        "ww-exp260908-041"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-811a",
+      "hanzi": "脚",
+      "pinyin": "jiǎo",
+      "tone": 3,
+      "translation": "foot",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-013"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-5370",
+      "hanzi": "印",
+      "pinyin": "yìn",
+      "tone": 4,
+      "translation": "print; mark",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-013"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-6728",
+      "hanzi": "木",
+      "pinyin": "mù",
+      "tone": 4,
+      "translation": "wood",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-014",
+        "ww-exp260908-037"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-9f13",
+      "hanzi": "鼓",
+      "pinyin": "gǔ",
+      "tone": 3,
+      "translation": "drum",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-004",
+        "ww-exp260908-018"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-955c",
+      "hanzi": "镜",
+      "pinyin": "jìng",
+      "tone": 4,
+      "translation": "mirror; lens",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-019",
+        "ww-exp260908-028"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-8702",
+      "hanzi": "蜂",
+      "pinyin": "fēng",
+      "tone": 1,
+      "translation": "bee",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-020"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-7c89",
+      "hanzi": "粉",
+      "pinyin": "fěn",
+      "tone": 3,
+      "translation": "powder",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-020"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-5f71",
+      "hanzi": "影",
+      "pinyin": "yǐng",
+      "tone": 3,
+      "translation": "shadow",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-022",
+        "ww-exp260908-038"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-7fbd",
+      "hanzi": "羽",
+      "pinyin": "yǔ",
+      "tone": 3,
+      "translation": "feather",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-024"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-6865",
+      "hanzi": "桥",
+      "pinyin": "qiáo",
+      "tone": 2,
+      "translation": "bridge",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-032"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-89c4",
+      "hanzi": "规",
+      "pinyin": "guī",
+      "tone": 1,
+      "translation": "rule",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-exp260908-025"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-5219",
+      "hanzi": "则",
+      "pinyin": "zé",
+      "tone": 2,
+      "translation": "rule; principle",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-exp260908-025"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-6bd4",
+      "hanzi": "比",
+      "pinyin": "bǐ",
+      "tone": 3,
+      "translation": "compare",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.compare.bus-walking",
+        "ww.compare.tea-water",
+        "ww.compare.light-bag",
+        "ww-exp260908-028"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-8f83",
+      "hanzi": "较",
+      "pinyin": "jiào",
+      "tone": 4,
+      "translation": "compare",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.compare.light-bag",
+        "ww-exp260908-028",
+        "ww.budget.compare-prices",
+        "ww.reason.quiet-room"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-6620",
+      "hanzi": "映",
+      "pinyin": "yìng",
+      "tone": 4,
+      "translation": "reflect; shine",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-exp260908-030"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-5bdf",
+      "hanzi": "察",
+      "pinyin": "chá",
+      "tone": 2,
+      "translation": "observe; examine",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-exp260908-019",
+        "ww-exp260908-040"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-578b",
+      "hanzi": "型",
+      "pinyin": "xíng",
+      "tone": 2,
+      "translation": "model; type",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-exp260908-036"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-5e95",
+      "hanzi": "底",
+      "pinyin": "dǐ",
+      "tone": 3,
+      "translation": "bottom; base",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-exp260908-036"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-5bbd",
+      "hanzi": "宽",
+      "pinyin": "kuān",
+      "tone": 1,
+      "translation": "wide",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-exp260908-036"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-5267",
+      "hanzi": "剧",
+      "pinyin": "jù",
+      "tone": 4,
+      "translation": "drama; play",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-exp260908-037"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-72ec",
+      "hanzi": "独",
+      "pinyin": "dú",
+      "tone": 2,
+      "translation": "alone",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-exp260908-039"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-89e3",
+      "hanzi": "解",
+      "pinyin": "jiě",
+      "tone": 3,
+      "translation": "solve; untie",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.school.explain-again",
+        "ww.work.find-solution",
+        "ww.language.word-difference",
+        "ww-exp260908-039"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-6d4b",
+      "hanzi": "测",
+      "pinyin": "cè",
+      "tone": 4,
+      "translation": "measure; survey",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-exp260908-040"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-5b9d",
+      "hanzi": "宝",
+      "pinyin": "bǎo",
+      "tone": 3,
+      "translation": "treasure",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-exp260908-041"
+      ]
+    },
+    {
+      "id": "zh.hanzi.exp260908-4fe1",
+      "hanzi": "信",
+      "pinyin": "xìn",
+      "tone": 4,
+      "translation": "letter",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-exp260908-041"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6797",
+      "hanzi": "林",
+      "pinyin": "lín",
+      "tone": 2,
+      "translation": "woods; grove",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-079"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-751f",
+      "hanzi": "生",
+      "pinyin": "shēng",
+      "tone": 1,
+      "translation": "grow; life",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-exp260908-002"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-53ea",
+      "hanzi": "只",
+      "pinyin": "zhī",
+      "tone": 1,
+      "translation": "counter for animals",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww.animal.cat"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4eca",
+      "hanzi": "今",
+      "pinyin": "jīn",
+      "tone": 1,
+      "translation": "now; present",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww.weather.cold-today"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-660e",
+      "hanzi": "明",
+      "pinyin": "míng",
+      "tone": 2,
+      "translation": "bright; clear",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww.comprehension.not-understand"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-767d",
+      "hanzi": "白",
+      "pinyin": "bái",
+      "tone": 2,
+      "translation": "white",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-115"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5ba2",
+      "hanzi": "客",
+      "pinyin": "kè",
+      "tone": 4,
+      "translation": "guest",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww.politeness.welcome"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6c14",
+      "hanzi": "气",
+      "pinyin": "qì",
+      "tone": 4,
+      "translation": "air; gas",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.weather.sunny-afternoon"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-540d",
+      "hanzi": "名",
+      "pinyin": "míng",
+      "tone": 2,
+      "translation": "name",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww.identity.your-name"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5b57",
+      "hanzi": "字",
+      "pinyin": "zì",
+      "tone": 4,
+      "translation": "written character",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.school.board-writing"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5988",
+      "hanzi": "妈",
+      "pinyin": "mā",
+      "tone": 1,
+      "translation": "mother",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww.family.mother"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7238",
+      "hanzi": "爸",
+      "pinyin": "bà",
+      "tone": 4,
+      "translation": "father",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww.family.father"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4f1a",
+      "hanzi": "会",
+      "pinyin": "huì",
+      "tone": 4,
+      "translation": "know how to; can",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww.language.speak-chinese"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4e2d",
+      "hanzi": "中",
+      "pinyin": "zhōng",
+      "tone": 1,
+      "translation": "middle; center",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww.language.speak-chinese"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6587",
+      "hanzi": "文",
+      "pinyin": "wén",
+      "tone": 2,
+      "translation": "writing; language",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww.language.speak-chinese"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-62fc",
+      "hanzi": "拼",
+      "pinyin": "pīn",
+      "tone": 1,
+      "translation": "piece together",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.language.learn-pinyin"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-97f3",
+      "hanzi": "音",
+      "pinyin": "yīn",
+      "tone": 1,
+      "translation": "sound",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww.language.learn-pinyin"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4e2a",
+      "hanzi": "个",
+      "pinyin": "gè",
+      "tone": 4,
+      "translation": "general counter for things",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-043"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8bcd",
+      "hanzi": "词",
+      "pinyin": "cí",
+      "tone": 2,
+      "translation": "word",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.language.easy-word"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7b80",
+      "hanzi": "简",
+      "pinyin": "jiǎn",
+      "tone": 3,
+      "translation": "simple",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.language.easy-word"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5355",
+      "hanzi": "单",
+      "pinyin": "dān",
+      "tone": 1,
+      "translation": "single",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww.language.easy-word"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4e24",
+      "hanzi": "两",
+      "pinyin": "liǎng",
+      "tone": 3,
+      "translation": "two",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww.number.two-books"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-82f9",
+      "hanzi": "苹",
+      "pinyin": "píng",
+      "tone": 2,
+      "translation": "apple (word part)",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww.number.three-apples"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-73b0",
+      "hanzi": "现",
+      "pinyin": "xiàn",
+      "tone": 4,
+      "translation": "appear; present",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.time.what-time"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-51e0",
+      "hanzi": "几",
+      "pinyin": "jǐ",
+      "tone": 3,
+      "translation": "how many; a few",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww.time.what-time"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-70b9",
+      "hanzi": "点",
+      "pinyin": "diǎn",
+      "tone": 3,
+      "translation": "dot; point",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww.time.what-time"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-661f",
+      "hanzi": "星",
+      "pinyin": "xīng",
+      "tone": 1,
+      "translation": "star",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww.time.monday"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-671f",
+      "hanzi": "期",
+      "pinyin": "qī",
+      "tone": 1,
+      "translation": "period of time",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.time.monday"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-559c",
+      "hanzi": "喜",
+      "pinyin": "xǐ",
+      "tone": 3,
+      "translation": "joy; like",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww.food.rice"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6b22",
+      "hanzi": "欢",
+      "pinyin": "huān",
+      "tone": 1,
+      "translation": "joyful",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.community.welcome"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6821",
+      "hanzi": "校",
+      "pinyin": "xiào",
+      "tone": 4,
+      "translation": "school",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww.plan.want-school"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5b50",
+      "hanzi": "子",
+      "pinyin": "zǐ",
+      "tone": 3,
+      "translation": "child; son",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-158"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9762",
+      "hanzi": "面",
+      "pinyin": "miàn",
+      "tone": 4,
+      "translation": "surface; face",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww.location.cat-under-chair"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7a97",
+      "hanzi": "窗",
+      "pinyin": "chuāng",
+      "tone": 1,
+      "translation": "window",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww.home.closed-window"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8d77",
+      "hanzi": "起",
+      "pinyin": "qǐ",
+      "tone": 3,
+      "translation": "rise; begin",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww.routine.get-up"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-56de",
+      "hanzi": "回",
+      "pinyin": "huí",
+      "tone": 2,
+      "translation": "return",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww.routine.go-home"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-54ea",
+      "hanzi": "哪",
+      "pinyin": "nǎ",
+      "tone": 3,
+      "translation": "which",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-exp260908-005"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9898",
+      "hanzi": "题",
+      "pinyin": "tí",
+      "tone": 2,
+      "translation": "question; topic",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.question.one-more"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5237",
+      "hanzi": "刷",
+      "pinyin": "shuā",
+      "tone": 1,
+      "translation": "brush",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-040"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7259",
+      "hanzi": "牙",
+      "pinyin": "yá",
+      "tone": 2,
+      "translation": "tooth",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-040"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-89c9",
+      "hanzi": "觉",
+      "pinyin": "jiào",
+      "tone": 4,
+      "translation": "sleep",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-006"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5e72",
+      "hanzi": "干",
+      "pinyin": "gān",
+      "tone": 1,
+      "translation": "dry",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-041"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-65c1",
+      "hanzi": "旁",
+      "pinyin": "páng",
+      "tone": 2,
+      "translation": "beside",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-056"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8fb9",
+      "hanzi": "边",
+      "pinyin": "biān",
+      "tone": 1,
+      "translation": "side; edge",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-010"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5230",
+      "hanzi": "到",
+      "pinyin": "dào",
+      "tone": 4,
+      "translation": "arrive; reach",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-054"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6bcf",
+      "hanzi": "每",
+      "pinyin": "měi",
+      "tone": 3,
+      "translation": "each; every",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-040"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-516c",
+      "hanzi": "公",
+      "pinyin": "gōng",
+      "tone": 1,
+      "translation": "public; shared",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-057"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-628a",
+      "hanzi": "把",
+      "pinyin": "bǎ",
+      "tone": 3,
+      "translation": "grasp; object marker",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-025"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7ed9",
+      "hanzi": "给",
+      "pinyin": "gěi",
+      "tone": 3,
+      "translation": "give; to",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-025"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8981",
+      "hanzi": "要",
+      "pinyin": "yào",
+      "tone": 4,
+      "translation": "want; need",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-032"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-65e5",
+      "hanzi": "日",
+      "pinyin": "rì",
+      "tone": 4,
+      "translation": "sun; day",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-058"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5fc3",
+      "hanzi": "心",
+      "pinyin": "xīn",
+      "tone": 1,
+      "translation": "heart; mind",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-052"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-706b",
+      "hanzi": "火",
+      "pinyin": "huǒ",
+      "tone": 3,
+      "translation": "fire",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-047"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-51fa",
+      "hanzi": "出",
+      "pinyin": "chū",
+      "tone": 1,
+      "translation": "go out",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-013"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7b49",
+      "hanzi": "等",
+      "pinyin": "děng",
+      "tone": 3,
+      "translation": "wait",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-057"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-56fe",
+      "hanzi": "图",
+      "pinyin": "tú",
+      "tone": 2,
+      "translation": "picture; diagram",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-030"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6761",
+      "hanzi": "条",
+      "pinyin": "tiáo",
+      "tone": 2,
+      "translation": "strip; counter for long things",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-017"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7d2f",
+      "hanzi": "累",
+      "pinyin": "lèi",
+      "tone": 4,
+      "translation": "tired",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.wellbeing.tired"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5934",
+      "hanzi": "头",
+      "pinyin": "tóu",
+      "tone": 2,
+      "translation": "head",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.wellbeing.headache"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-753b",
+      "hanzi": "画",
+      "pinyin": "huà",
+      "tone": 4,
+      "translation": "draw; picture",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-045"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-653e",
+      "hanzi": "放",
+      "pinyin": "fàng",
+      "tone": 4,
+      "translation": "put; place",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-049"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9ad8",
+      "hanzi": "高",
+      "pinyin": "gāo",
+      "tone": 1,
+      "translation": "tall; high",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-054"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-624b",
+      "hanzi": "手",
+      "pinyin": "shǒu",
+      "tone": 3,
+      "translation": "hand",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-048"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-592a",
+      "hanzi": "太",
+      "pinyin": "tài",
+      "tone": 4,
+      "translation": "too; very",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-013"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7a7a",
+      "hanzi": "空",
+      "pinyin": "kōng",
+      "tone": 1,
+      "translation": "empty",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-035"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-676f",
+      "hanzi": "杯",
+      "pinyin": "bēi",
+      "tone": 1,
+      "translation": "cup",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-035"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5305",
+      "hanzi": "包",
+      "pinyin": "bāo",
+      "tone": 1,
+      "translation": "bag; wrap",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-036"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8f7b",
+      "hanzi": "轻",
+      "pinyin": "qīng",
+      "tone": 1,
+      "translation": "light in weight",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-043"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7ea2",
+      "hanzi": "红",
+      "pinyin": "hóng",
+      "tone": 2,
+      "translation": "red",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-005"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-961f",
+      "hanzi": "队",
+      "pinyin": "duì",
+      "tone": 4,
+      "translation": "team",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-050"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7897",
+      "hanzi": "碗",
+      "pinyin": "wǎn",
+      "tone": 3,
+      "translation": "bowl",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-038"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6d17",
+      "hanzi": "洗",
+      "pinyin": "xǐ",
+      "tone": 3,
+      "translation": "wash",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-038"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4e9b",
+      "hanzi": "些",
+      "pinyin": "xiē",
+      "tone": 1,
+      "translation": "some",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-033"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-56e2",
+      "hanzi": "团",
+      "pinyin": "tuán",
+      "tone": 2,
+      "translation": "group; round mass",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-050"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-522b",
+      "hanzi": "别",
+      "pinyin": "bié",
+      "tone": 2,
+      "translation": "do not; other",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-052"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-79cd",
+      "hanzi": "种",
+      "pinyin": "zhǒng",
+      "tone": 3,
+      "translation": "kind; seed",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-002"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8282",
+      "hanzi": "节",
+      "pinyin": "jié",
+      "tone": 2,
+      "translation": "section; festival",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-047"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4ea4",
+      "hanzi": "交",
+      "pinyin": "jiāo",
+      "tone": 1,
+      "translation": "hand over; associate",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-057"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5668",
+      "hanzi": "器",
+      "pinyin": "qì",
+      "tone": 4,
+      "translation": "device; utensil",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-048"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-81ea",
+      "hanzi": "自",
+      "pinyin": "zì",
+      "tone": 4,
+      "translation": "self; from",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-026"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5df1",
+      "hanzi": "己",
+      "pinyin": "jǐ",
+      "tone": 3,
+      "translation": "oneself",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-026"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8df3",
+      "hanzi": "跳",
+      "pinyin": "tiào",
+      "tone": 4,
+      "translation": "jump",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-exp260908-001"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-957f",
+      "hanzi": "长",
+      "pinyin": "cháng",
+      "tone": 2,
+      "translation": "long",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-009"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-638c",
+      "hanzi": "掌",
+      "pinyin": "zhǎng",
+      "tone": 3,
+      "translation": "palm of the hand",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-004"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4e4c",
+      "hanzi": "乌",
+      "pinyin": "wū",
+      "tone": 1,
+      "translation": "crow; black",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-006"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-52a0",
+      "hanzi": "加",
+      "pinyin": "jiā",
+      "tone": 1,
+      "translation": "add",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-exp260908-007"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5f69",
+      "hanzi": "彩",
+      "pinyin": "cǎi",
+      "tone": 3,
+      "translation": "color; colorful",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-exp260908-008"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8679",
+      "hanzi": "虹",
+      "pinyin": "hóng",
+      "tone": 2,
+      "translation": "rainbow",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-008"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4eae",
+      "hanzi": "亮",
+      "pinyin": "liàng",
+      "tone": 4,
+      "translation": "bright",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-016"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5757",
+      "hanzi": "块",
+      "pinyin": "kuài",
+      "tone": 4,
+      "translation": "piece; chunk",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-021"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8f6e",
+      "hanzi": "轮",
+      "pinyin": "lún",
+      "tone": 2,
+      "translation": "wheel; turn",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-044"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6d41",
+      "hanzi": "流",
+      "pinyin": "liú",
+      "tone": 2,
+      "translation": "flow",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-044"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6735",
+      "hanzi": "朵",
+      "pinyin": "duǒ",
+      "tone": 3,
+      "translation": "counter for flowers",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-016"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6b63",
+      "hanzi": "正",
+      "pinyin": "zhèng",
+      "tone": 4,
+      "translation": "upright; correct",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-007"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7247",
+      "hanzi": "片",
+      "pinyin": "piàn",
+      "tone": 4,
+      "translation": "slice; piece",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-030"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6bdb",
+      "hanzi": "毛",
+      "pinyin": "máo",
+      "tone": 2,
+      "translation": "hair; fur",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-039"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6c60",
+      "hanzi": "池",
+      "pinyin": "chí",
+      "tone": 2,
+      "translation": "pool; pond",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-003"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5858",
+      "hanzi": "塘",
+      "pinyin": "táng",
+      "tone": 2,
+      "translation": "pond",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-003"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9633",
+      "hanzi": "阳",
+      "pinyin": "yáng",
+      "tone": 2,
+      "translation": "sun; sunny",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-013"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8f6f",
+      "hanzi": "软",
+      "pinyin": "ruǎn",
+      "tone": 3,
+      "translation": "soft",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-001"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8033",
+      "hanzi": "耳",
+      "pinyin": "ěr",
+      "tone": 3,
+      "translation": "ear",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-001"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7231",
+      "hanzi": "爱",
+      "pinyin": "ài",
+      "tone": 4,
+      "translation": "love",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-002"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-80e1",
+      "hanzi": "胡",
+      "pinyin": "hú",
+      "tone": 2,
+      "translation": "beard; mustache",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-002"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-841d",
+      "hanzi": "萝",
+      "pinyin": "luó",
+      "tone": 2,
+      "translation": "trailing plant; vine",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-002"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9e2d",
+      "hanzi": "鸭",
+      "pinyin": "yā",
+      "tone": 1,
+      "translation": "duck",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-003"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9c7c",
+      "hanzi": "鱼",
+      "pinyin": "yú",
+      "tone": 2,
+      "translation": "fish",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-004"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9f3b",
+      "hanzi": "鼻",
+      "pinyin": "bí",
+      "tone": 2,
+      "translation": "nose",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-005"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9752",
+      "hanzi": "青",
+      "pinyin": "qīng",
+      "tone": 1,
+      "translation": "green; blue-green",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-006"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-86d9",
+      "hanzi": "蛙",
+      "pinyin": "wā",
+      "tone": 1,
+      "translation": "frog",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-006"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9a6c",
+      "hanzi": "马",
+      "pinyin": "mǎ",
+      "tone": 3,
+      "translation": "horse",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-007"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8776",
+      "hanzi": "蝶",
+      "pinyin": "dié",
+      "tone": 2,
+      "translation": "butterfly",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-008"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8c61",
+      "hanzi": "象",
+      "pinyin": "xiàng",
+      "tone": 4,
+      "translation": "elephant",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-009"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7f8a",
+      "hanzi": "羊",
+      "pinyin": "yáng",
+      "tone": 2,
+      "translation": "sheep; goat",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-010"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-62b1",
+      "hanzi": "抱",
+      "pinyin": "bào",
+      "tone": 4,
+      "translation": "hold in the arms",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-011"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7af9",
+      "hanzi": "竹",
+      "pinyin": "zhú",
+      "tone": 2,
+      "translation": "bamboo",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-011"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9e21",
+      "hanzi": "鸡",
+      "pinyin": "jī",
+      "tone": 1,
+      "translation": "chicken",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-012"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9ec4",
+      "hanzi": "黄",
+      "pinyin": "huáng",
+      "tone": 2,
+      "translation": "yellow",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-016"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6cb3",
+      "hanzi": "河",
+      "pinyin": "hé",
+      "tone": 2,
+      "translation": "river",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-017"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-978b",
+      "hanzi": "鞋",
+      "pinyin": "xié",
+      "tone": 2,
+      "translation": "shoe",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-018"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6c99",
+      "hanzi": "沙",
+      "pinyin": "shā",
+      "tone": 1,
+      "translation": "sand",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-018"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7eff",
+      "hanzi": "绿",
+      "pinyin": "lǜ",
+      "tone": 4,
+      "translation": "green",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-019"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5916",
+      "hanzi": "外",
+      "pinyin": "wài",
+      "tone": 4,
+      "translation": "outside",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-020"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5149",
+      "hanzi": "光",
+      "pinyin": "guāng",
+      "tone": 1,
+      "translation": "light",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-021"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6ed1",
+      "hanzi": "滑",
+      "pinyin": "huá",
+      "tone": 2,
+      "translation": "slide; slippery",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-021"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-94c5",
+      "hanzi": "铅",
+      "pinyin": "qiān",
+      "tone": 1,
+      "translation": "lead (the metal)",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-023"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-77ed",
+      "hanzi": "短",
+      "pinyin": "duǎn",
+      "tone": 3,
+      "translation": "short",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-023"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6a61",
+      "hanzi": "橡",
+      "pinyin": "xiàng",
+      "tone": 4,
+      "translation": "oak; rubber (word part)",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-024"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-76ae",
+      "hanzi": "皮",
+      "pinyin": "pí",
+      "tone": 2,
+      "translation": "skin; outer covering",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-024"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9012",
+      "hanzi": "递",
+      "pinyin": "dì",
+      "tone": 4,
+      "translation": "hand over",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-025"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7f8e",
+      "hanzi": "美",
+      "pinyin": "měi",
+      "tone": 3,
+      "translation": "beautiful",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-027"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-672f",
+      "hanzi": "术",
+      "pinyin": "shù",
+      "tone": 4,
+      "translation": "art; technique",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-027"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5fae",
+      "hanzi": "微",
+      "pinyin": "wēi",
+      "tone": 1,
+      "translation": "tiny; slight",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-028"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7b11",
+      "hanzi": "笑",
+      "pinyin": "xiào",
+      "tone": 4,
+      "translation": "laugh; smile",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-028"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6c64",
+      "hanzi": "汤",
+      "pinyin": "tāng",
+      "tone": 1,
+      "translation": "soup",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-031"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6e29",
+      "hanzi": "温",
+      "pinyin": "wēn",
+      "tone": 1,
+      "translation": "warm",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-031"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6839",
+      "hanzi": "根",
+      "pinyin": "gēn",
+      "tone": 1,
+      "translation": "root",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-032"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9999",
+      "hanzi": "香",
+      "pinyin": "xiāng",
+      "tone": 1,
+      "translation": "fragrant",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-032"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8549",
+      "hanzi": "蕉",
+      "pinyin": "jiāo",
+      "tone": 1,
+      "translation": "banana (word part)",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-032"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-751c",
+      "hanzi": "甜",
+      "pinyin": "tián",
+      "tone": 2,
+      "translation": "sweet",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-033"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-52fa",
+      "hanzi": "勺",
+      "pinyin": "sháo",
+      "tone": 2,
+      "translation": "spoon",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-034"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-95fb",
+      "hanzi": "闻",
+      "pinyin": "wén",
+      "tone": 2,
+      "translation": "smell; hear of",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-036"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-716e",
+      "hanzi": "煮",
+      "pinyin": "zhǔ",
+      "tone": 3,
+      "translation": "cook in water",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-037"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5dfe",
+      "hanzi": "巾",
+      "pinyin": "jīn",
+      "tone": 1,
+      "translation": "cloth; towel",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-039"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-67b6",
+      "hanzi": "架",
+      "pinyin": "jià",
+      "tone": 4,
+      "translation": "rack; frame",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-039"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-889c",
+      "hanzi": "袜",
+      "pinyin": "wà",
+      "tone": 4,
+      "translation": "sock",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-041"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5e3d",
+      "hanzi": "帽",
+      "pinyin": "mào",
+      "tone": 4,
+      "translation": "hat",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-042"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-73a9",
+      "hanzi": "玩",
+      "pinyin": "wán",
+      "tone": 2,
+      "translation": "play",
+      "difficulty": 1,
+      "sourceConceptIds": [
+        "ww-zh-m260908-047"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5177",
+      "hanzi": "具",
+      "pinyin": "jù",
+      "tone": 4,
+      "translation": "tool; utensil",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-047"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-53a2",
+      "hanzi": "厢",
+      "pinyin": "xiāng",
+      "tone": 1,
+      "translation": "compartment",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-047"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6325",
+      "hanzi": "挥",
+      "pinyin": "huī",
+      "tone": 1,
+      "translation": "wave; swing",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-048"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-79ef",
+      "hanzi": "积",
+      "pinyin": "jī",
+      "tone": 1,
+      "translation": "accumulate; pile up",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-049"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-62c5",
+      "hanzi": "担",
+      "pinyin": "dān",
+      "tone": 1,
+      "translation": "carry; bear",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-052"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5174",
+      "hanzi": "兴",
+      "pinyin": "xìng",
+      "tone": 4,
+      "translation": "interest; enjoyment",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-054"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-65f6",
+      "hanzi": "时",
+      "pinyin": "shí",
+      "tone": 2,
+      "translation": "time",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.question.when-come"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5348",
+      "hanzi": "午",
+      "pinyin": "wǔ",
+      "tone": 3,
+      "translation": "noon",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.routine.afternoon-home"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-505a",
+      "hanzi": "做",
+      "pinyin": "zuò",
+      "tone": 4,
+      "translation": "do; make",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.routine.homework-after-dinner"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4f5c",
+      "hanzi": "作",
+      "pinyin": "zuò",
+      "tone": 4,
+      "translation": "do; compose",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.routine.homework-after-dinner"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4e1a",
+      "hanzi": "业",
+      "pinyin": "yè",
+      "tone": 4,
+      "translation": "work; occupation",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.routine.homework-after-dinner"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-95f4",
+      "hanzi": "间",
+      "pinyin": "jiān",
+      "tone": 1,
+      "translation": "space between; room",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.home.room-is-clean"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-51c0",
+      "hanzi": "净",
+      "pinyin": "jìng",
+      "tone": 4,
+      "translation": "clean",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.home.room-is-clean"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8863",
+      "hanzi": "衣",
+      "pinyin": "yī",
+      "tone": 1,
+      "translation": "clothing",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.home.clothes-in-wardrobe"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-670d",
+      "hanzi": "服",
+      "pinyin": "fú",
+      "tone": 2,
+      "translation": "clothing; serve",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.service.identity-document"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-67dc",
+      "hanzi": "柜",
+      "pinyin": "guì",
+      "tone": 4,
+      "translation": "cabinet",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.home.clothes-in-wardrobe"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7ffb",
+      "hanzi": "翻",
+      "pinyin": "fān",
+      "tone": 1,
+      "translation": "turn over",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.school.open-page-ten"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7b2c",
+      "hanzi": "第",
+      "pinyin": "dì",
+      "tone": 4,
+      "translation": "marks an ordinal number",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.school.open-page-ten"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9875",
+      "hanzi": "页",
+      "pinyin": "yè",
+      "tone": 4,
+      "translation": "page",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.school.open-page-ten"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9ed1",
+      "hanzi": "黑",
+      "pinyin": "hēi",
+      "tone": 1,
+      "translation": "black",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.school.board-writing"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8ba4",
+      "hanzi": "认",
+      "pinyin": "rèn",
+      "tone": 4,
+      "translation": "recognize",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.school.listen-carefully"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-771f",
+      "hanzi": "真",
+      "pinyin": "zhēn",
+      "tone": 1,
+      "translation": "real; true",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.school.listen-carefully"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7ec3",
+      "hanzi": "练",
+      "pinyin": "liàn",
+      "tone": 4,
+      "translation": "practice",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.school.practice-characters"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4e60",
+      "hanzi": "习",
+      "pinyin": "xí",
+      "tone": 2,
+      "translation": "practice; learn",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.school.practice-characters"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6c49",
+      "hanzi": "汉",
+      "pinyin": "hàn",
+      "tone": 4,
+      "translation": "Han; Chinese (word part)",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.school.practice-characters"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-96be",
+      "hanzi": "难",
+      "pinyin": "nán",
+      "tone": 2,
+      "translation": "difficult",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.school.hard-question"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-77e5",
+      "hanzi": "知",
+      "pinyin": "zhī",
+      "tone": 1,
+      "translation": "know",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.school.know-answer"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9053",
+      "hanzi": "道",
+      "pinyin": "dào",
+      "tone": 4,
+      "translation": "path; way",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.school.know-answer"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7b54",
+      "hanzi": "答",
+      "pinyin": "dá",
+      "tone": 2,
+      "translation": "answer",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.school.know-answer"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6848",
+      "hanzi": "案",
+      "pinyin": "àn",
+      "tone": 4,
+      "translation": "proposal; case",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.school.know-answer"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-91ca",
+      "hanzi": "释",
+      "pinyin": "shì",
+      "tone": 4,
+      "translation": "explain; release",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.school.explain-again"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-529e",
+      "hanzi": "办",
+      "pinyin": "bàn",
+      "tone": 4,
+      "translation": "handle; do",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.work.office"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5ba4",
+      "hanzi": "室",
+      "pinyin": "shì",
+      "tone": 4,
+      "translation": "room",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.work.office"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-59cb",
+      "hanzi": "始",
+      "pinyin": "shǐ",
+      "tone": 3,
+      "translation": "begin",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.work.start-nine"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4ef6",
+      "hanzi": "件",
+      "pinyin": "jiàn",
+      "tone": 4,
+      "translation": "counter for items or matters",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.work.send-file"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-53d1",
+      "hanzi": "发",
+      "pinyin": "fā",
+      "tone": 1,
+      "translation": "send out; develop",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.work.send-file"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8bae",
+      "hanzi": "议",
+      "pinyin": "yì",
+      "tone": 4,
+      "translation": "discuss",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.work.meeting-ten"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4efb",
+      "hanzi": "任",
+      "pinyin": "rèn",
+      "tone": 4,
+      "translation": "undertake; responsibility",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.work.task-nearly-done"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-52a1",
+      "hanzi": "务",
+      "pinyin": "wù",
+      "tone": 4,
+      "translation": "affair; task",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-193"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5b8c",
+      "hanzi": "完",
+      "pinyin": "wán",
+      "tone": 2,
+      "translation": "finish",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.work.task-nearly-done"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9700",
+      "hanzi": "需",
+      "pinyin": "xū",
+      "tone": 1,
+      "translation": "need",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.work.more-time"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-66f4",
+      "hanzi": "更",
+      "pinyin": "gèng",
+      "tone": 4,
+      "translation": "more; even more",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.work.more-time"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-67e5",
+      "hanzi": "查",
+      "pinyin": "chá",
+      "tone": 2,
+      "translation": "check; investigate",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.work.check-schedule"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7a0b",
+      "hanzi": "程",
+      "pinyin": "chéng",
+      "tone": 2,
+      "translation": "journey; procedure",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.work.check-schedule"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-540c",
+      "hanzi": "同",
+      "pinyin": "tóng",
+      "tone": 2,
+      "translation": "same; together",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.work.coworker-help"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5e2e",
+      "hanzi": "帮",
+      "pinyin": "bāng",
+      "tone": 1,
+      "translation": "help",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.work.coworker-help"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4f11",
+      "hanzi": "休",
+      "pinyin": "xiū",
+      "tone": 1,
+      "translation": "rest",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.work.short-break"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6210",
+      "hanzi": "成",
+      "pinyin": "chéng",
+      "tone": 2,
+      "translation": "become; succeed",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.work.finish-before-home"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5c11",
+      "hanzi": "少",
+      "pinyin": "shǎo",
+      "tone": 3,
+      "translation": "few; less",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-130"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-65a4",
+      "hanzi": "斤",
+      "pinyin": "jīn",
+      "tone": 1,
+      "translation": "half a kilogram",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.shopping.apple-price"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-886c",
+      "hanzi": "衬",
+      "pinyin": "chèn",
+      "tone": 4,
+      "translation": "line; set off",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.shopping.blue-shirt"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-886b",
+      "hanzi": "衫",
+      "pinyin": "shān",
+      "tone": 1,
+      "translation": "shirt; garment",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.shopping.blue-shirt"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7801",
+      "hanzi": "码",
+      "pinyin": "mǎ",
+      "tone": 3,
+      "translation": "code; clothing size",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.shopping.right-size"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5408",
+      "hanzi": "合",
+      "pinyin": "hé",
+      "tone": 2,
+      "translation": "join; fit",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.shopping.right-size"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9002",
+      "hanzi": "适",
+      "pinyin": "shì",
+      "tone": 4,
+      "translation": "suitable",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.shopping.right-size"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8bd5",
+      "hanzi": "试",
+      "pinyin": "shì",
+      "tone": 4,
+      "translation": "try; test",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.shopping.try-on"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7a7f",
+      "hanzi": "穿",
+      "pinyin": "chuān",
+      "tone": 1,
+      "translation": "wear; pass through",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.shopping.try-on"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7968",
+      "hanzi": "票",
+      "pinyin": "piào",
+      "tone": 4,
+      "translation": "ticket",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.shopping.receipt"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6536",
+      "hanzi": "收",
+      "pinyin": "shōu",
+      "tone": 1,
+      "translation": "receive; put away",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.shopping.checkout"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-53f0",
+      "hanzi": "台",
+      "pinyin": "tái",
+      "tone": 2,
+      "translation": "platform; counter for machines",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.shopping.checkout"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7528",
+      "hanzi": "用",
+      "pinyin": "yòng",
+      "tone": 4,
+      "translation": "use",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.shopping.pay-card"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4ed8",
+      "hanzi": "付",
+      "pinyin": "fù",
+      "tone": 4,
+      "translation": "pay; hand over",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.shopping.pay-card"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6b3e",
+      "hanzi": "款",
+      "pinyin": "kuǎn",
+      "tone": 3,
+      "translation": "sum of money",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.shopping.pay-card"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4fbf",
+      "hanzi": "便",
+      "pinyin": "biàn",
+      "tone": 4,
+      "translation": "convenient",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-220"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5171",
+      "hanzi": "共",
+      "pinyin": "gòng",
+      "tone": 4,
+      "translation": "together; shared",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.transit.bus-stop-ahead"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6c7d",
+      "hanzi": "汽",
+      "pinyin": "qì",
+      "tone": 4,
+      "translation": "steam; vapor",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.transit.bus-stop-ahead"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5730",
+      "hanzi": "地",
+      "pinyin": "dì",
+      "tone": 4,
+      "translation": "earth; ground",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.transit.subway-left"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-53e3",
+      "hanzi": "口",
+      "pinyin": "kǒu",
+      "tone": 3,
+      "translation": "mouth; opening",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.transit.subway-left"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-76f4",
+      "hanzi": "直",
+      "pinyin": "zhí",
+      "tone": 2,
+      "translation": "straight",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.direction.walk-five"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5206",
+      "hanzi": "分",
+      "pinyin": "fēn",
+      "tone": 1,
+      "translation": "divide; minute",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.direction.walk-five"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-949f",
+      "hanzi": "钟",
+      "pinyin": "zhōng",
+      "tone": 1,
+      "translation": "clock; bell",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.direction.walk-five"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5e02",
+      "hanzi": "市",
+      "pinyin": "shì",
+      "tone": 4,
+      "translation": "city; market",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.transit.which-bus"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-56ed",
+      "hanzi": "园",
+      "pinyin": "yuán",
+      "tone": 2,
+      "translation": "garden; park",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.travel.park-near-hotel"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6628",
+      "hanzi": "昨",
+      "pinyin": "zuó",
+      "tone": 2,
+      "translation": "yesterday (word part)",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.wellbeing.slept-well"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6240",
+      "hanzi": "所",
+      "pinyin": "suǒ",
+      "tone": 3,
+      "translation": "place; that which",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.wellbeing.clinic-nearby"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9644",
+      "hanzi": "附",
+      "pinyin": "fù",
+      "tone": 4,
+      "translation": "attach; near",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.wellbeing.clinic-nearby"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6563",
+      "hanzi": "散",
+      "pinyin": "sàn",
+      "tone": 4,
+      "translation": "disperse; stroll (word part)",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.wellbeing.walk-health"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6b65",
+      "hanzi": "步",
+      "pinyin": "bù",
+      "tone": 4,
+      "translation": "step",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.wellbeing.walk-health"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5bf9",
+      "hanzi": "对",
+      "pinyin": "duì",
+      "tone": 4,
+      "translation": "correct; toward",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.wellbeing.walk-health"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8eab",
+      "hanzi": "身",
+      "pinyin": "shēn",
+      "tone": 1,
+      "translation": "body",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.wellbeing.walk-health"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4f53",
+      "hanzi": "体",
+      "pinyin": "tǐ",
+      "tone": 3,
+      "translation": "body; form",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.wellbeing.walk-health"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4e50",
+      "hanzi": "乐",
+      "pinyin": "yuè",
+      "tone": 4,
+      "translation": "music",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.hobby.music"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5f39",
+      "hanzi": "弹",
+      "pinyin": "tán",
+      "tone": 2,
+      "translation": "play a stringed or keyboard instrument",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.hobby.piano"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-94a2",
+      "hanzi": "钢",
+      "pinyin": "gāng",
+      "tone": 1,
+      "translation": "steel",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.hobby.piano"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7434",
+      "hanzi": "琴",
+      "pinyin": "qín",
+      "tone": 2,
+      "translation": "stringed instrument",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.hobby.piano"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5468",
+      "hanzi": "周",
+      "pinyin": "zhōu",
+      "tone": 1,
+      "translation": "week; around",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.hobby.drawing"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-672b",
+      "hanzi": "末",
+      "pinyin": "mò",
+      "tone": 4,
+      "translation": "end",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.hobby.drawing"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5f1f",
+      "hanzi": "弟",
+      "pinyin": "dì",
+      "tone": 4,
+      "translation": "younger brother",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.hobby.football"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8e22",
+      "hanzi": "踢",
+      "pinyin": "tī",
+      "tone": 1,
+      "translation": "kick",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.hobby.football"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8db3",
+      "hanzi": "足",
+      "pinyin": "zú",
+      "tone": 2,
+      "translation": "foot; sufficient",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.hobby.football"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5b89",
+      "hanzi": "安",
+      "pinyin": "ān",
+      "tone": 1,
+      "translation": "peaceful; safe",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.culture.quiet-library"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9759",
+      "hanzi": "静",
+      "pinyin": "jìng",
+      "tone": 4,
+      "translation": "quiet; still",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.culture.quiet-library"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-535a",
+      "hanzi": "博",
+      "pinyin": "bó",
+      "tone": 2,
+      "translation": "broad; extensive",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.culture.museum-open"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7269",
+      "hanzi": "物",
+      "pinyin": "wù",
+      "tone": 4,
+      "translation": "thing; object",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.culture.museum-open"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5145",
+      "hanzi": "充",
+      "pinyin": "chōng",
+      "tone": 1,
+      "translation": "fill",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.tech.charge-phone"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8111",
+      "hanzi": "脑",
+      "pinyin": "nǎo",
+      "tone": 3,
+      "translation": "brain",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.tech.slow-computer"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-542f",
+      "hanzi": "启",
+      "pinyin": "qǐ",
+      "tone": 3,
+      "translation": "open; begin",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.tech.slow-computer"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-52a8",
+      "hanzi": "动",
+      "pinyin": "dòng",
+      "tone": 4,
+      "translation": "move",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.tech.slow-computer"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6d88",
+      "hanzi": "消",
+      "pinyin": "xiāo",
+      "tone": 1,
+      "translation": "disappear; diminish",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.tech.send-message"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-90ae",
+      "hanzi": "邮",
+      "pinyin": "yóu",
+      "tone": 2,
+      "translation": "post; mail",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.tech.received-email"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-58f0",
+      "hanzi": "声",
+      "pinyin": "shēng",
+      "tone": 1,
+      "translation": "sound; voice",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.tech.volume-high"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4fdd",
+      "hanzi": "保",
+      "pinyin": "bǎo",
+      "tone": 3,
+      "translation": "protect; keep",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.tech.save-file"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5b58",
+      "hanzi": "存",
+      "pinyin": "cún",
+      "tone": 2,
+      "translation": "store; exist",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.tech.save-file"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5982",
+      "hanzi": "如",
+      "pinyin": "rú",
+      "tone": 2,
+      "translation": "like; as",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.plan.rain-stay-home"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9009",
+      "hanzi": "选",
+      "pinyin": "xuǎn",
+      "tone": 3,
+      "translation": "choose",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.choice.red-one"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-62e9",
+      "hanzi": "择",
+      "pinyin": "zé",
+      "tone": 2,
+      "translation": "choose; select",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.choice.red-one"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5c40",
+      "hanzi": "局",
+      "pinyin": "jú",
+      "tone": 2,
+      "translation": "office; situation",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.community.ask-post-office"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6ca1",
+      "hanzi": "没",
+      "pinyin": "méi",
+      "tone": 2,
+      "translation": "not have; did not",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.politeness.no-problem"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6392",
+      "hanzi": "排",
+      "pinyin": "pái",
+      "tone": 2,
+      "translation": "row; arrange in a line",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.community.line-up"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6301",
+      "hanzi": "持",
+      "pinyin": "chí",
+      "tone": 2,
+      "translation": "hold; maintain",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.community.library-quiet"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8ba9",
+      "hanzi": "让",
+      "pinyin": "ràng",
+      "tone": 4,
+      "translation": "let; yield",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.community.offer-help"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5148",
+      "hanzi": "先",
+      "pinyin": "xiān",
+      "tone": 1,
+      "translation": "first; before",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.politeness.after-you"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5ea7",
+      "hanzi": "座",
+      "pinyin": "zuò",
+      "tone": 4,
+      "translation": "seat; counter for buildings",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.community.your-seat"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4f4d",
+      "hanzi": "位",
+      "pinyin": "wèi",
+      "tone": 4,
+      "translation": "position; polite counter for people",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.community.your-seat"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8fce",
+      "hanzi": "迎",
+      "pinyin": "yíng",
+      "tone": 2,
+      "translation": "welcome; meet",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.community.welcome"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-793e",
+      "hanzi": "社",
+      "pinyin": "shè",
+      "tone": 4,
+      "translation": "community; society",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.community.welcome"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-533a",
+      "hanzi": "区",
+      "pinyin": "qū",
+      "tone": 1,
+      "translation": "area; district",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.community.welcome"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-51c6",
+      "hanzi": "准",
+      "pinyin": "zhǔn",
+      "tone": 3,
+      "translation": "accurate; allow",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.food.breakfast-ready"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5907",
+      "hanzi": "备",
+      "pinyin": "bèi",
+      "tone": 4,
+      "translation": "prepare",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.food.breakfast-ready"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9c9c",
+      "hanzi": "鲜",
+      "pinyin": "xiān",
+      "tone": 1,
+      "translation": "fresh",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.food.fresh-vegetables"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8fa3",
+      "hanzi": "辣",
+      "pinyin": "là",
+      "tone": 4,
+      "translation": "spicy",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.food.not-spicy"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6717",
+      "hanzi": "朗",
+      "pinyin": "lǎng",
+      "tone": 3,
+      "translation": "clear; bright",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.weather.sunny-afternoon"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5e26",
+      "hanzi": "带",
+      "pinyin": "dài",
+      "tone": 4,
+      "translation": "bring; belt",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.weather.take-umbrella"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4f1e",
+      "hanzi": "伞",
+      "pinyin": "sǎn",
+      "tone": 3,
+      "translation": "umbrella",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.weather.take-umbrella"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-51ac",
+      "hanzi": "冬",
+      "pinyin": "dōng",
+      "tone": 1,
+      "translation": "winter",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.weather.cold-winter"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-59d0",
+      "hanzi": "姐",
+      "pinyin": "jiě",
+      "tone": 3,
+      "translation": "older sister",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.family.sister-university"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5c81",
+      "hanzi": "岁",
+      "pinyin": "suì",
+      "tone": 4,
+      "translation": "year of age",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.family.brother-ten"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-53a8",
+      "hanzi": "厨",
+      "pinyin": "chú",
+      "tone": 2,
+      "translation": "kitchen; cooking",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.family.grandmother-cooks"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7237",
+      "hanzi": "爷",
+      "pinyin": "yé",
+      "tone": 2,
+      "translation": "grandfather (word part)",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.family.grandfather-paper"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-62a5",
+      "hanzi": "报",
+      "pinyin": "bào",
+      "tone": 4,
+      "translation": "report; newspaper",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.family.grandfather-paper"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4eb2",
+      "hanzi": "亲",
+      "pinyin": "qīn",
+      "tone": 1,
+      "translation": "close; dear",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.people.kind-teacher"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-90bb",
+      "hanzi": "邻",
+      "pinyin": "lín",
+      "tone": 2,
+      "translation": "neighbor",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.people.neighbor-dog"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5c45",
+      "hanzi": "居",
+      "pinyin": "jū",
+      "tone": 1,
+      "translation": "reside",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.people.neighbor-dog"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-59e8",
+      "hanzi": "姨",
+      "pinyin": "yí",
+      "tone": 2,
+      "translation": "aunt",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.family.visit-aunt"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-68af",
+      "hanzi": "梯",
+      "pinyin": "tī",
+      "tone": 1,
+      "translation": "ladder; stairs",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.location.elevator-hall"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5eca",
+      "hanzi": "廊",
+      "pinyin": "láng",
+      "tone": 2,
+      "translation": "corridor",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.location.elevator-hall"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-706f",
+      "hanzi": "灯",
+      "pinyin": "dēng",
+      "tone": 1,
+      "translation": "lamp; light",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.location.light-switch"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-884c",
+      "hanzi": "行",
+      "pinyin": "xíng",
+      "tone": 2,
+      "translation": "walk; work; be acceptable",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-215"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-573a",
+      "hanzi": "场",
+      "pinyin": "chǎng",
+      "tone": 3,
+      "translation": "open area; field",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.location.market-station"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5fd8",
+      "hanzi": "忘",
+      "pinyin": "wàng",
+      "tone": 4,
+      "translation": "forget",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.problem.forgot-umbrella"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-627e",
+      "hanzi": "找",
+      "pinyin": "zhǎo",
+      "tone": 3,
+      "translation": "look for",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.problem.missing-key"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-95ed",
+      "hanzi": "闭",
+      "pinyin": "bì",
+      "tone": 4,
+      "translation": "close; shut",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.problem.road-closed"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-53e6",
+      "hanzi": "另",
+      "pinyin": "lìng",
+      "tone": 4,
+      "translation": "another",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.plan.other-road"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-56e0",
+      "hanzi": "因",
+      "pinyin": "yīn",
+      "tone": 1,
+      "translation": "cause; because",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.reason.rain-slow"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-91ce",
+      "hanzi": "野",
+      "pinyin": "yě",
+      "tone": 3,
+      "translation": "wild; open countryside",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.plan.sunny-picnic"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9910",
+      "hanzi": "餐",
+      "pinyin": "cān",
+      "tone": 1,
+      "translation": "meal",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.plan.sunny-picnic"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-544a",
+      "hanzi": "告",
+      "pinyin": "gào",
+      "tone": 4,
+      "translation": "tell; inform",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.request.tell-result"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7ed3",
+      "hanzi": "结",
+      "pinyin": "jié",
+      "tone": 2,
+      "translation": "tie; conclude",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww.request.tell-result"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5957",
+      "hanzi": "套",
+      "pinyin": "tào",
+      "tone": 4,
+      "translation": "cover; set",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-104"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4f46",
+      "hanzi": "但",
+      "pinyin": "dàn",
+      "tone": 4,
+      "translation": "but",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-174"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-80fd",
+      "hanzi": "能",
+      "pinyin": "néng",
+      "tone": 2,
+      "translation": "can; ability",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-012"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7ba1",
+      "hanzi": "管",
+      "pinyin": "guǎn",
+      "tone": 3,
+      "translation": "tube; manage",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-134"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7406",
+      "hanzi": "理",
+      "pinyin": "lǐ",
+      "tone": 3,
+      "translation": "reason; put in order",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-134"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5458",
+      "hanzi": "员",
+      "pinyin": "yuán",
+      "tone": 2,
+      "translation": "member; person with a role",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-134"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8ba1",
+      "hanzi": "计",
+      "pinyin": "jì",
+      "tone": 4,
+      "translation": "count; plan",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-208"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-642c",
+      "hanzi": "搬",
+      "pinyin": "bān",
+      "tone": 1,
+      "translation": "carry; move",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-076"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9884",
+      "hanzi": "预",
+      "pinyin": "yù",
+      "tone": 4,
+      "translation": "in advance",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-108"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4efd",
+      "hanzi": "份",
+      "pinyin": "fèn",
+      "tone": 4,
+      "translation": "portion; share",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-203"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4e1c",
+      "hanzi": "东",
+      "pinyin": "dōng",
+      "tone": 1,
+      "translation": "east",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-169"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-897f",
+      "hanzi": "西",
+      "pinyin": "xī",
+      "tone": 1,
+      "translation": "west",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-112"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-683c",
+      "hanzi": "格",
+      "pinyin": "gé",
+      "tone": 2,
+      "translation": "square; pattern",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-158"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6570",
+      "hanzi": "数",
+      "pinyin": "shǔ",
+      "tone": 3,
+      "translation": "count",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-164"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-53d8",
+      "hanzi": "变",
+      "pinyin": "biàn",
+      "tone": 4,
+      "translation": "change",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-031"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5316",
+      "hanzi": "化",
+      "pinyin": "huà",
+      "tone": 4,
+      "translation": "transform",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-227"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-51b3",
+      "hanzi": "决",
+      "pinyin": "jué",
+      "tone": 2,
+      "translation": "decide",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-129"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6cd5",
+      "hanzi": "法",
+      "pinyin": "fǎ",
+      "tone": 3,
+      "translation": "method; rule",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-127"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6e05",
+      "hanzi": "清",
+      "pinyin": "qīng",
+      "tone": 1,
+      "translation": "clear; clean",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-193"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8868",
+      "hanzi": "表",
+      "pinyin": "biǎo",
+      "tone": 3,
+      "translation": "table; express",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-014"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-62a4",
+      "hanzi": "护",
+      "pinyin": "hù",
+      "tone": 4,
+      "translation": "protect",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-085"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7167",
+      "hanzi": "照",
+      "pinyin": "zhào",
+      "tone": 4,
+      "translation": "shine; reflect",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-116"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-73ed",
+      "hanzi": "班",
+      "pinyin": "bān",
+      "tone": 1,
+      "translation": "class; shift",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-129"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6362",
+      "hanzi": "换",
+      "pinyin": "huàn",
+      "tone": 4,
+      "translation": "change; replace",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-188"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5168",
+      "hanzi": "全",
+      "pinyin": "quán",
+      "tone": 2,
+      "translation": "whole; complete",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-129"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9a8c",
+      "hanzi": "验",
+      "pinyin": "yàn",
+      "tone": 4,
+      "translation": "test; verify",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-132"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-68c0",
+      "hanzi": "检",
+      "pinyin": "jiǎn",
+      "tone": 3,
+      "translation": "check; inspect",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-127"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5b9a",
+      "hanzi": "定",
+      "pinyin": "dìng",
+      "tone": 4,
+      "translation": "settle; decide",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-exp260908-017"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-91cd",
+      "hanzi": "重",
+      "pinyin": "zhòng",
+      "tone": 4,
+      "translation": "heavy",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.digital.backup-files"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-548c",
+      "hanzi": "和",
+      "pinyin": "hé",
+      "tone": 2,
+      "translation": "and; harmony",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-138"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-590d",
+      "hanzi": "复",
+      "pinyin": "fù",
+      "tone": 4,
+      "translation": "repeat; return",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-234"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-888b",
+      "hanzi": "袋",
+      "pinyin": "dài",
+      "tone": 4,
+      "translation": "bag",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-217"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9f99",
+      "hanzi": "龙",
+      "pinyin": "lóng",
+      "tone": 2,
+      "translation": "dragon",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-027"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-57ce",
+      "hanzi": "城",
+      "pinyin": "chéng",
+      "tone": 2,
+      "translation": "city; town",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-092"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-65b9",
+      "hanzi": "方",
+      "pinyin": "fāng",
+      "tone": 1,
+      "translation": "square; direction",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-030"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-53d6",
+      "hanzi": "取",
+      "pinyin": "qǔ",
+      "tone": 3,
+      "translation": "take; obtain",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-171"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-505c",
+      "hanzi": "停",
+      "pinyin": "tíng",
+      "tone": 2,
+      "translation": "stop",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-079"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6539",
+      "hanzi": "改",
+      "pinyin": "gǎi",
+      "tone": 3,
+      "translation": "change; revise",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-097"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9519",
+      "hanzi": "错",
+      "pinyin": "cuò",
+      "tone": 4,
+      "translation": "wrong; mistake",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-159"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-501f",
+      "hanzi": "借",
+      "pinyin": "jiè",
+      "tone": 4,
+      "translation": "borrow; lend",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-122"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-610f",
+      "hanzi": "意",
+      "pinyin": "yì",
+      "tone": 4,
+      "translation": "meaning; intention",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.language.ask-meaning"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7ec4",
+      "hanzi": "组",
+      "pinyin": "zǔ",
+      "tone": 3,
+      "translation": "group; organize",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-125"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-575a",
+      "hanzi": "坚",
+      "pinyin": "jiān",
+      "tone": 1,
+      "translation": "firm; strong",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-exp260908-009"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-85cf",
+      "hanzi": "藏",
+      "pinyin": "cáng",
+      "tone": 2,
+      "translation": "hide; store",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-009"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-91cf",
+      "hanzi": "量",
+      "pinyin": "liáng",
+      "tone": 2,
+      "translation": "measure",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-011"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5411",
+      "hanzi": "向",
+      "pinyin": "xiàng",
+      "tone": 4,
+      "translation": "toward; direction",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-011"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6559",
+      "hanzi": "教",
+      "pinyin": "jiāo",
+      "tone": 1,
+      "translation": "teach",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-012"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-62cd",
+      "hanzi": "拍",
+      "pinyin": "pāi",
+      "tone": 1,
+      "translation": "pat; clap",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-012"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5076",
+      "hanzi": "偶",
+      "pinyin": "ǒu",
+      "tone": 3,
+      "translation": "puppet; pair",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-014"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6f14",
+      "hanzi": "演",
+      "pinyin": "yǎn",
+      "tone": 3,
+      "translation": "perform",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-014"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-675f",
+      "hanzi": "束",
+      "pinyin": "shù",
+      "tone": 4,
+      "translation": "bundle; bind",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-014"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6405",
+      "hanzi": "搅",
+      "pinyin": "jiǎo",
+      "tone": 3,
+      "translation": "stir",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-015"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-62cc",
+      "hanzi": "拌",
+      "pinyin": "bàn",
+      "tone": 4,
+      "translation": "mix",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-015"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-997c",
+      "hanzi": "饼",
+      "pinyin": "bǐng",
+      "tone": 3,
+      "translation": "cake; flatbread",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-015"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-725b",
+      "hanzi": "牛",
+      "pinyin": "niú",
+      "tone": 2,
+      "translation": "cow; ox",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-016"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7559",
+      "hanzi": "留",
+      "pinyin": "liú",
+      "tone": 2,
+      "translation": "stay; leave behind",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-016"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-78c1",
+      "hanzi": "磁",
+      "pinyin": "cí",
+      "tone": 2,
+      "translation": "magnetism",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-exp260908-017"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-56fa",
+      "hanzi": "固",
+      "pinyin": "gù",
+      "tone": 4,
+      "translation": "firm; solid",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-exp260908-017"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-671b",
+      "hanzi": "望",
+      "pinyin": "wàng",
+      "tone": 4,
+      "translation": "look into the distance; hope",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-exp260908-019"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8fdc",
+      "hanzi": "远",
+      "pinyin": "yuǎn",
+      "tone": 3,
+      "translation": "far",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-019"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-89c2",
+      "hanzi": "观",
+      "pinyin": "guān",
+      "tone": 1,
+      "translation": "observe; view",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-exp260908-019"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-871c",
+      "hanzi": "蜜",
+      "pinyin": "mì",
+      "tone": 4,
+      "translation": "honey",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-020"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4ece",
+      "hanzi": "从",
+      "pinyin": "cóng",
+      "tone": 2,
+      "translation": "from; follow",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-020"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4e3b",
+      "hanzi": "主",
+      "pinyin": "zhǔ",
+      "tone": 3,
+      "translation": "main; host",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-exp260908-021"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6545",
+      "hanzi": "故",
+      "pinyin": "gù",
+      "tone": 4,
+      "translation": "reason; former",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-exp260908-021"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8da3",
+      "hanzi": "趣",
+      "pinyin": "qù",
+      "tone": 4,
+      "translation": "interest; fun",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-exp260908-021"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5c3e",
+      "hanzi": "尾",
+      "pinyin": "wěi",
+      "tone": 3,
+      "translation": "tail; end",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-021"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-50cf",
+      "hanzi": "像",
+      "pinyin": "xiàng",
+      "tone": 4,
+      "translation": "resemble; image",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-022"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-821e",
+      "hanzi": "舞",
+      "pinyin": "wǔ",
+      "tone": 3,
+      "translation": "dance",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-022"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-98d8",
+      "hanzi": "飘",
+      "pinyin": "piāo",
+      "tone": 1,
+      "translation": "float in the air",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-024"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-843d",
+      "hanzi": "落",
+      "pinyin": "luò",
+      "tone": 4,
+      "translation": "fall; land",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-024"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-96c6",
+      "hanzi": "集",
+      "pinyin": "jí",
+      "tone": 2,
+      "translation": "gather",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-exp260908-027"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7ebd",
+      "hanzi": "纽",
+      "pinyin": "niǔ",
+      "tone": 3,
+      "translation": "button; link",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-027"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6263",
+      "hanzi": "扣",
+      "pinyin": "kòu",
+      "tone": 4,
+      "translation": "fasten; button",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-027"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8d34",
+      "hanzi": "贴",
+      "pinyin": "tiē",
+      "tone": 1,
+      "translation": "stick on",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-029"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6b4c",
+      "hanzi": "歌",
+      "pinyin": "gē",
+      "tone": 1,
+      "translation": "song",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-031"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4f4f",
+      "hanzi": "住",
+      "pinyin": "zhù",
+      "tone": 4,
+      "translation": "live; stay",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-032"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-866b",
+      "hanzi": "虫",
+      "pinyin": "chóng",
+      "tone": 2,
+      "translation": "insect",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-064"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5e73",
+      "hanzi": "平",
+      "pinyin": "píng",
+      "tone": 2,
+      "translation": "flat; even",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-170"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6a21",
+      "hanzi": "模",
+      "pinyin": "mó",
+      "tone": 2,
+      "translation": "model; pattern",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-238"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-76d2",
+      "hanzi": "盒",
+      "pinyin": "hé",
+      "tone": 2,
+      "translation": "box",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-136"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5c01",
+      "hanzi": "封",
+      "pinyin": "fēng",
+      "tone": 1,
+      "translation": "seal; counter for letters",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-218"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-611f",
+      "hanzi": "感",
+      "pinyin": "gǎn",
+      "tone": 3,
+      "translation": "feel; sense",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-176"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5fd9",
+      "hanzi": "忙",
+      "pinyin": "máng",
+      "tone": 2,
+      "translation": "busy",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-135"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8fdb",
+      "hanzi": "进",
+      "pinyin": "jìn",
+      "tone": 4,
+      "translation": "enter; advance",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-exp260908-042"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-571f",
+      "hanzi": "土",
+      "pinyin": "tǔ",
+      "tone": 3,
+      "translation": "soil; earth",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-066"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8c46",
+      "hanzi": "豆",
+      "pinyin": "dòu",
+      "tone": 4,
+      "translation": "bean",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-061"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-82d7",
+      "hanzi": "苗",
+      "pinyin": "miáo",
+      "tone": 2,
+      "translation": "seedling",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-068"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5357",
+      "hanzi": "南",
+      "pinyin": "nán",
+      "tone": 2,
+      "translation": "south",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-070"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-74dc",
+      "hanzi": "瓜",
+      "pinyin": "guā",
+      "tone": 1,
+      "translation": "melon; gourd",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-070"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-624d",
+      "hanzi": "才",
+      "pinyin": "cái",
+      "tone": 2,
+      "translation": "only then; talent",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-071"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5f80",
+      "hanzi": "往",
+      "pinyin": "wǎng",
+      "tone": 3,
+      "translation": "toward; go to",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-071"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-722c",
+      "hanzi": "爬",
+      "pinyin": "pá",
+      "tone": 2,
+      "translation": "crawl; climb",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-071"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6ce5",
+      "hanzi": "泥",
+      "pinyin": "ní",
+      "tone": 2,
+      "translation": "mud",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-072"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6478",
+      "hanzi": "摸",
+      "pinyin": "mō",
+      "tone": 1,
+      "translation": "touch; feel",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-072"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-62d4",
+      "hanzi": "拔",
+      "pinyin": "bá",
+      "tone": 2,
+      "translation": "pull out",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-073"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7bb1",
+      "hanzi": "箱",
+      "pinyin": "xiāng",
+      "tone": 1,
+      "translation": "box; trunk",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-074"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7a9d",
+      "hanzi": "窝",
+      "pinyin": "wō",
+      "tone": 1,
+      "translation": "nest; animal home",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-076"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9e7f",
+      "hanzi": "鹿",
+      "pinyin": "lù",
+      "tone": 4,
+      "translation": "deer",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-079"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-98df",
+      "hanzi": "食",
+      "pinyin": "shí",
+      "tone": 2,
+      "translation": "food; eat",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-080"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-690d",
+      "hanzi": "植",
+      "pinyin": "zhí",
+      "tone": 2,
+      "translation": "plant; grow",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-085"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6eaa",
+      "hanzi": "溪",
+      "pinyin": "xī",
+      "tone": 1,
+      "translation": "stream",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-089"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6361",
+      "hanzi": "捡",
+      "pinyin": "jiǎn",
+      "tone": 3,
+      "translation": "pick up",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-090"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8d1d",
+      "hanzi": "贝",
+      "pinyin": "bèi",
+      "tone": 4,
+      "translation": "shell",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-094"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7d2b",
+      "hanzi": "紫",
+      "pinyin": "zǐ",
+      "tone": 3,
+      "translation": "purple",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-094"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6bcd",
+      "hanzi": "母",
+      "pinyin": "mǔ",
+      "tone": 3,
+      "translation": "mother; female",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-096"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8239",
+      "hanzi": "船",
+      "pinyin": "chuán",
+      "tone": 2,
+      "translation": "boat",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-100"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5439",
+      "hanzi": "吹",
+      "pinyin": "chuī",
+      "tone": 1,
+      "translation": "blow air",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-101"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-51b0",
+      "hanzi": "冰",
+      "pinyin": "bīng",
+      "tone": 1,
+      "translation": "ice",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-107"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-96f7",
+      "hanzi": "雷",
+      "pinyin": "léi",
+      "tone": 2,
+      "translation": "thunder",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-110"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-79cb",
+      "hanzi": "秋",
+      "pinyin": "qiū",
+      "tone": 1,
+      "translation": "autumn",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-113"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-53c8",
+      "hanzi": "又",
+      "pinyin": "yòu",
+      "tone": 4,
+      "translation": "again; also",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-117"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8bb0",
+      "hanzi": "记",
+      "pinyin": "jì",
+      "tone": 4,
+      "translation": "remember; record",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-119"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-534a",
+      "hanzi": "半",
+      "pinyin": "bàn",
+      "tone": 4,
+      "translation": "half",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-124"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6015",
+      "hanzi": "怕",
+      "pinyin": "pà",
+      "tone": 4,
+      "translation": "fear; be afraid",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-137"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-773c",
+      "hanzi": "眼",
+      "pinyin": "yǎn",
+      "tone": 3,
+      "translation": "eye",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-140"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5e03",
+      "hanzi": "布",
+      "pinyin": "bù",
+      "tone": 4,
+      "translation": "cloth",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-146"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-62c9",
+      "hanzi": "拉",
+      "pinyin": "lā",
+      "tone": 1,
+      "translation": "pull",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-146"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-88c5",
+      "hanzi": "装",
+      "pinyin": "zhuāng",
+      "tone": 1,
+      "translation": "pack; install",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-148"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9996",
+      "hanzi": "首",
+      "pinyin": "shǒu",
+      "tone": 3,
+      "translation": "head; first",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-149"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-89d2",
+      "hanzi": "角",
+      "pinyin": "jiǎo",
+      "tone": 3,
+      "translation": "corner; angle",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-151"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5531",
+      "hanzi": "唱",
+      "pinyin": "chàng",
+      "tone": 4,
+      "translation": "sing",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-153"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-529b",
+      "hanzi": "力",
+      "pinyin": "lì",
+      "tone": 4,
+      "translation": "strength; force",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-180"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-795d",
+      "hanzi": "祝",
+      "pinyin": "zhù",
+      "tone": 4,
+      "translation": "wish well",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-180"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-68a8",
+      "hanzi": "梨",
+      "pinyin": "lí",
+      "tone": 2,
+      "translation": "pear",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-198"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-591c",
+      "hanzi": "夜",
+      "pinyin": "yè",
+      "tone": 4,
+      "translation": "night",
+      "difficulty": 2,
+      "sourceConceptIds": [
+        "ww-zh-m260908-235"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7ec6",
+      "hanzi": "细",
+      "pinyin": "xì",
+      "tone": 4,
+      "translation": "fine; detailed",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-239"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4fee",
+      "hanzi": "修",
+      "pinyin": "xiū",
+      "tone": 1,
+      "translation": "repair; improve",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.housing.repair-appointment"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8bc1",
+      "hanzi": "证",
+      "pinyin": "zhèng",
+      "tone": 4,
+      "translation": "proof; evidence",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.service.identity-document"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-786e",
+      "hanzi": "确",
+      "pinyin": "què",
+      "tone": 4,
+      "translation": "certain; true",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.work.confirm-data"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-636e",
+      "hanzi": "据",
+      "pinyin": "jù",
+      "tone": 4,
+      "translation": "evidence; according to",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.work.confirm-data"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-901a",
+      "hanzi": "通",
+      "pinyin": "tōng",
+      "tone": 1,
+      "translation": "go through; connect",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.work.notify-change"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-9760",
+      "hanzi": "靠",
+      "pinyin": "kào",
+      "tone": 4,
+      "translation": "lean on; depend on",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.travel.reserve-window"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6599",
+      "hanzi": "料",
+      "pinyin": "liào",
+      "tone": 4,
+      "translation": "material; expect",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.environment.sort-materials"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6e90",
+      "hanzi": "源",
+      "pinyin": "yuán",
+      "tone": 2,
+      "translation": "source",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.environment.save-energy"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5e38",
+      "hanzi": "常",
+      "pinyin": "cháng",
+      "tone": 2,
+      "translation": "often; ordinary",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.reason.rain-museum"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8bef",
+      "hanzi": "误",
+      "pinyin": "wù",
+      "tone": 4,
+      "translation": "mistake; misunderstand",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.delivery.wrong-address"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-601d",
+      "hanzi": "思",
+      "pinyin": "sī",
+      "tone": 1,
+      "translation": "think",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-284"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6d3b",
+      "hanzi": "活",
+      "pinyin": "huó",
+      "tone": 2,
+      "translation": "alive; live",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.culture.respect-habits"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5f0f",
+      "hanzi": "式",
+      "pinyin": "shì",
+      "tone": 4,
+      "translation": "style; form",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.culture.respect-habits"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8bba",
+      "hanzi": "论",
+      "pinyin": "lùn",
+      "tone": 4,
+      "translation": "discuss; theory",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww.social.listen-before-discussion"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8bb8",
+      "hanzi": "许",
+      "pinyin": "xǔ",
+      "tone": 3,
+      "translation": "allow; perhaps",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-exp260908-035"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8bed",
+      "hanzi": "语",
+      "pinyin": "yǔ",
+      "tone": 3,
+      "translation": "language; speech",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-exp260908-039"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6838",
+      "hanzi": "核",
+      "pinyin": "hé",
+      "tone": 2,
+      "translation": "core; check",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-243"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5224",
+      "hanzi": "判",
+      "pinyin": "pàn",
+      "tone": 4,
+      "translation": "judge; determine",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-249"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5dee",
+      "hanzi": "差",
+      "pinyin": "chā",
+      "tone": 1,
+      "translation": "difference",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-252"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5c1d",
+      "hanzi": "尝",
+      "pinyin": "cháng",
+      "tone": 2,
+      "translation": "taste; try",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-253"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7565",
+      "hanzi": "略",
+      "pinyin": "lüè",
+      "tone": 4,
+      "translation": "brief; omit",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-254"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5f7c",
+      "hanzi": "彼",
+      "pinyin": "bǐ",
+      "tone": 3,
+      "translation": "that; the other",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-257"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7531",
+      "hanzi": "由",
+      "pinyin": "yóu",
+      "tone": 2,
+      "translation": "from; reason",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-257"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8fbe",
+      "hanzi": "达",
+      "pinyin": "dá",
+      "tone": 2,
+      "translation": "reach",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-257"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-81f4",
+      "hanzi": "致",
+      "pinyin": "zhì",
+      "tone": 4,
+      "translation": "lead to; send",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-257"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8003",
+      "hanzi": "考",
+      "pinyin": "kǎo",
+      "tone": 3,
+      "translation": "examine; consider",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-262"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4f8b",
+      "hanzi": "例",
+      "pinyin": "lì",
+      "tone": 4,
+      "translation": "example",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-262"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5473",
+      "hanzi": "味",
+      "pinyin": "wèi",
+      "tone": 4,
+      "translation": "taste; meaning",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-263"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8865",
+      "hanzi": "补",
+      "pinyin": "bǔ",
+      "tone": 3,
+      "translation": "mend; make up for",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-266"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-914d",
+      "hanzi": "配",
+      "pinyin": "pèi",
+      "tone": 4,
+      "translation": "match; allocate",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-267"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6574",
+      "hanzi": "整",
+      "pinyin": "zhěng",
+      "tone": 3,
+      "translation": "whole; put in order",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-268"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6298",
+      "hanzi": "折",
+      "pinyin": "zhé",
+      "tone": 2,
+      "translation": "fold; bend",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-270"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4e61",
+      "hanzi": "乡",
+      "pinyin": "xiāng",
+      "tone": 1,
+      "translation": "countryside; home region",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-272"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8d4f",
+      "hanzi": "赏",
+      "pinyin": "shǎng",
+      "tone": 3,
+      "translation": "appreciate; reward",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-273"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-61c2",
+      "hanzi": "懂",
+      "pinyin": "dǒng",
+      "tone": 3,
+      "translation": "understand",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-276"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5fc6",
+      "hanzi": "忆",
+      "pinyin": "yì",
+      "tone": 4,
+      "translation": "remember",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-277"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-68a6",
+      "hanzi": "梦",
+      "pinyin": "mèng",
+      "tone": 4,
+      "translation": "dream",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-278"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-613f",
+      "hanzi": "愿",
+      "pinyin": "yuàn",
+      "tone": 4,
+      "translation": "wish; be willing",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-279"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-63a2",
+      "hanzi": "探",
+      "pinyin": "tàn",
+      "tone": 4,
+      "translation": "explore; seek",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-279"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-7d22",
+      "hanzi": "索",
+      "pinyin": "suǒ",
+      "tone": 3,
+      "translation": "seek; rope",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-279"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-666f",
+      "hanzi": "景",
+      "pinyin": "jǐng",
+      "tone": 3,
+      "translation": "scenery; scene",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-282"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8bb2",
+      "hanzi": "讲",
+      "pinyin": "jiǎng",
+      "tone": 3,
+      "translation": "tell; explain",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-283"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-8ff0",
+      "hanzi": "述",
+      "pinyin": "shù",
+      "tone": 4,
+      "translation": "narrate; state",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-283"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-4e16",
+      "hanzi": "世",
+      "pinyin": "shì",
+      "tone": 4,
+      "translation": "world; generation",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-285"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-6750",
+      "hanzi": "材",
+      "pinyin": "cái",
+      "tone": 2,
+      "translation": "material; talent",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-286"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-73cd",
+      "hanzi": "珍",
+      "pinyin": "zhēn",
+      "tone": 1,
+      "translation": "precious",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-286"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-51cf",
+      "hanzi": "减",
+      "pinyin": "jiǎn",
+      "tone": 3,
+      "translation": "reduce; subtract",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-287"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5f15",
+      "hanzi": "引",
+      "pinyin": "yǐn",
+      "tone": 3,
+      "translation": "lead; attract",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-288"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5229",
+      "hanzi": "利",
+      "pinyin": "lì",
+      "tone": 4,
+      "translation": "benefit; useful",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-297"
+      ]
+    },
+    {
+      "id": "zh.hanzi.m260908-5236",
+      "hanzi": "制",
+      "pinyin": "zhì",
+      "tone": 4,
+      "translation": "make; establish",
+      "difficulty": 3,
+      "sourceConceptIds": [
+        "ww-zh-m260908-300"
+      ]
     }
   ]
 }

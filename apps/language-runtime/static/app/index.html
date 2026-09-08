@@ -13,8 +13,9 @@
     <script src="/language-runtime/static/source/initial-theme.js?v=theme-3"></script>
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-theme.css?v=theme-7">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-workspace.css?v=shell-96">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-home.css?v=home-57">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-135">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-home.css?v=home-59">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-138">
+    <link rel="stylesheet" href="/language-runtime/static/styles/music-controls.css">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-developer-tools.css?v=developer-tools-2">
     <link rel="stylesheet" href="/language-runtime/static/styles/dictionary-word-card.css?v=dictionary-card-1">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-word-world.css?v=word-net-92">
@@ -64,29 +65,25 @@
                   <path d="M18.25 6.75c3 3 3 7.5 0 10.5"></path>
                 </svg>
               </summary>
-              <div class="verb-audio-popover" role="dialog" aria-label="Audio settings" data-i18n-aria-label="common.audio.settings">
-                <span class="verb-popover-label" data-i18n="common.audio">Audio</span>
-                <div class="speech-settings-body" id="setupAudioControls">
-                  <button type="button" role="switch" aria-checked="false" data-speech-mute-toggle>
-                    <span data-speech-mute-label data-i18n="common.audio.muteall">Mute all audio</span><i aria-hidden="true"></i>
-                  </button>
-                  <section class="verb-popover-setting">
-                    <label class="verb-popover-setting-title" for="setupAudioSpeed" data-i18n="common.speed">Speed</label>
-                    <input id="setupAudioSpeed" type="range" min="0" max="2" step="1" data-speech-pace-slider aria-label="Speech speed" data-i18n-aria-label="common.speechspeed">
-                    <div class="verb-audio-speed-ticks" aria-hidden="true">
-                      <span><span data-i18n="common.slower">Slower</span> <small>0.5×</small></span>
-                      <span><span data-i18n="common.slow">Slow</span> <small>0.6×</small></span>
-                      <span><span data-i18n="common.normal">Normal</span> <small>1×</small></span>
+              <div class="caatuu-audio-menu verb-audio-popover" role="dialog" aria-label="Audio settings" data-i18n-aria-label="common.audio.settings">
+                <span class="caatuu-audio-title" data-i18n="common.audio">Audio</span>
+                <div class="caatuu-audio-controls" id="setupAudioControls">
+                  <div class="caatuu-audio-group"><div data-music-controls></div></div>
+                  <div class="caatuu-audio-group">
+                    <div data-voice-controls></div>
+                    <div class="caatuu-audio-speed">
+                      <label for="setupAudioSpeed" data-i18n="common.speechspeed">Voice speed</label>
+                      <div class="caatuu-audio-speed-control">
+                        <input id="setupAudioSpeed" type="range" min="0" max="2" step="1" value="0" data-speech-pace-slider aria-label="Voice speed" data-i18n-aria-label="common.speechspeed">
+                        <div class="caatuu-audio-speed-ticks" aria-hidden="true">
+                          <span><span data-i18n="common.slower">Slower</span><small>0.5×</small></span>
+                          <span><span data-i18n="common.slow">Slow</span><small>0.6×</small></span>
+                          <span><span data-i18n="common.normal">Normal</span><small>1×</small></span>
+                        </div>
+                      </div>
                     </div>
-                  </section>
-                  <section class="verb-popover-setting">
-                    <label class="verb-popover-setting-title" for="setupAudioVoice" data-i18n="common.voice">Voice</label>
-                    <select id="setupAudioVoice" data-speech-control="Voice" disabled>
-                      <option value="" data-i18n="common.automatic.recommended">Automatic (recommended)</option>
-                    </select>
-                    <small data-speech-control="VoiceStatus" role="status" aria-live="polite"></small>
-                    <button type="button" data-speech-control="VoiceInstall" hidden data-i18n="wordworld.audio.installvoice">Install target-language voice</button>
-                  </section>
+                  </div>
+
                 </div>
               </div>
             </details>
@@ -105,6 +102,7 @@
                     <h2 id="setupTitle" data-i18n="setup.preparing">Preparing Caatuu</h2>
                   </div>
                   <div class="setup-head-meta">
+                    <button class="setup-detail-link" id="setupDetailsToggle" type="button" aria-expanded="false" aria-controls="setupDetails" data-i18n="setup.details.show">Show details</button>
                     <div class="home-app-update" data-app-update-container hidden>
                       <button class="pwa-install-action" id="homeUpdateApp" type="button" data-app-update-control aria-describedby="homeUpdateStatus" hidden>
                         <svg class="home-update-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 12a9 9 0 0 1 15.36-6.36L21 8m0-5v5h-5M21 12a9 9 0 0 1-15.36 6.36L3 16m0 5v-5h5"/></svg>
@@ -154,9 +152,6 @@
                 <div class="setup-actions">
                   <button class="setup-action" id="setupAction" type="button" data-i18n="setup.prepare" hidden disabled>Prepare Caatuu</button>
                   <button class="setup-small-action" id="setupAbort" type="button" data-i18n="setup.abort" disabled>Abort</button>
-                </div>
-                <div class="setup-details-controls">
-                  <button class="setup-detail-link" id="setupDetailsToggle" type="button" aria-expanded="false" aria-controls="setupDetails" data-i18n="setup.details.show">Show details</button>
                 </div>
               </section>
               <section class="home-language-card" id="homeLanguageCard" aria-labelledby="homeLanguageTitle">
@@ -377,36 +372,26 @@
                           <path d="M18.25 6.75c3 3 3 7.5 0 10.5"></path>
                         </svg>
                       </summary>
-                      <div class="verb-audio-popover" role="dialog" aria-label="Target-language audio settings" data-i18n-aria-label="verbnebula.audio.settings">
-                        <span class="verb-popover-label" data-i18n="common.audio">Audio</span>
-                        <button id="verbAudioMute" type="button" role="switch" aria-checked="false" data-speech-mute-toggle>
-                          <span data-speech-mute-label data-i18n="common.audio.muteall">Mute all audio</span>
-                          <i aria-hidden="true"></i>
-                        </button>
-                        <button id="verbSpeakOnTap" type="button" role="switch" aria-checked="false">
-                          <span id="verbSpeakOnTapLabel" data-i18n="verbnebula.audio.speakontap">Speak on tap</span>
-                          <i aria-hidden="true"></i>
-                        </button>
-                        <div class="verb-audio-settings" id="verbAudioSettings" hidden>
-                          <section class="verb-popover-setting" aria-labelledby="verbAudioSpeedLabel">
-                            <span class="verb-popover-setting-title" id="verbAudioSpeedLabel" data-i18n="common.speed">Speed</span>
-                            <input id="verbAudioSpeed" type="range" min="0" max="2" step="1" value="0" aria-label="Target-language speech speed" aria-valuetext="Slower, 0.5 times" data-i18n-aria-label="verbnebula.audio.speed" data-i18n-aria-valuetext="common.speed.slowerhalf">
-                            <div class="verb-audio-speed-ticks" aria-hidden="true">
-                              <span><span data-i18n="common.slower">Slower</span> <small>0.5×</small></span>
-                              <span><span data-i18n="common.slow">Slow</span> <small>0.6×</small></span>
-                              <span><span data-i18n="common.normal">Normal</span> <small>1×</small></span>
-                            </div>
-                          </section>
-                          <section class="verb-popover-setting verb-audio-voice-setting" aria-labelledby="verbAudioVoiceLabel">
-                            <label for="verbAudioVoice">
-                              <span class="verb-popover-setting-title" id="verbAudioVoiceLabel" data-i18n="common.voice">Voice</span>
-                              <select id="verbAudioVoice">
-                                <option value="" data-i18n="common.automatic.recommended">Automatic (recommended)</option>
-                              </select>
-                            </label>
-                            <small id="verbAudioVoiceStatus" role="status" aria-live="polite" aria-atomic="true" data-i18n="verbnebula.audio.voiceschecking">Checking target-language voices...</small>
-                          </section>
+                      <div class="caatuu-audio-menu verb-audio-popover" role="dialog" aria-label="Target-language audio settings" data-i18n-aria-label="verbnebula.audio.settings">
+                <span class="caatuu-audio-title" data-i18n="common.audio">Audio</span>
+                <div class="caatuu-audio-controls">
+                  <div class="caatuu-audio-group"><div data-music-controls></div></div>
+                  <div class="caatuu-audio-group">
+                    <div data-voice-controls></div>
+                    <div class="caatuu-audio-speed">
+                      <label for="verbAudioSpeed" data-i18n="common.speechspeed">Voice speed</label>
+                      <div class="caatuu-audio-speed-control">
+                        <input id="verbAudioSpeed" type="range" min="0" max="2" step="1" value="0" aria-label="Voice speed" data-i18n-aria-label="common.speechspeed">
+                        <div class="caatuu-audio-speed-ticks" aria-hidden="true">
+                          <span><span data-i18n="common.slower">Slower</span><small>0.5×</small></span>
+                          <span><span data-i18n="common.slow">Slow</span><small>0.6×</small></span>
+                          <span><span data-i18n="common.normal">Normal</span><small>1×</small></span>
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="caatuu-audio-extras"><button class="caatuu-audio-extra" id="verbSpeakOnTap" type="button" role="switch" aria-checked="false"><span id="verbSpeakOnTapLabel" data-i18n="verbnebula.audio.speakontap">Speak on tap</span></button></div>
+                </div>
                       </div>
                     </details>
 
@@ -541,33 +526,26 @@
                         <button class="word-net-icon-button word-net-image-toggle is-active" id="wordNetImageToggle" type="button" aria-label="Hide picture clues" aria-pressed="true" aria-controls="wordNetScene" title="Hide picture clues">
                           <span aria-hidden="true">🪶</span>
                         </button>
-                        <div class="word-net-audio-menu" id="wordNetAudioMenu" role="dialog" aria-label="Audio settings" data-i18n-aria-label="common.audio.settings" hidden>
-                          <span class="word-net-audio-menu-label" data-i18n="common.audio">Audio</span>
-                          <button class="word-net-audio-autoplay" id="wordNetAudioMute" type="button" role="switch" aria-checked="false" data-speech-mute-toggle>
-                            <span data-speech-mute-label data-i18n="common.audio.muteall">Mute all audio</span>
-                          </button>
-                          <button class="word-net-audio-autoplay" id="wordNetAudioAutoplay" type="button" role="switch" aria-checked="true">
-                            <span data-i18n="wordworld.audio.autoplay">Autoplay sentences</span>
-                          </button>
-                          <section class="word-net-audio-setting word-net-audio-speed" aria-labelledby="wordNetAudioSpeedLabel">
-                            <span class="word-net-audio-setting-title" id="wordNetAudioSpeedLabel" data-i18n="common.speed">Speed</span>
-                            <input id="wordNetAudioSpeed" type="range" min="0" max="2" step="1" value="0" aria-label="Speech speed" aria-valuetext="Slower, 0.5 times" data-i18n-aria-label="common.speechspeed" data-i18n-aria-valuetext="common.speed.slowerhalf">
-                            <div class="word-net-audio-speed-ticks" id="wordNetAudioSpeedTicks" aria-hidden="true">
-                              <span><span data-i18n="common.slower">Slower</span> <small>0.5×</small></span>
-                              <span><span data-i18n="common.slow">Slow</span> <small>0.6×</small></span>
-                              <span><span data-i18n="common.normal">Normal</span> <small>1×</small></span>
-                            </div>
-                          </section>
-                          <section class="word-net-audio-setting word-net-audio-voice-setting" aria-labelledby="wordNetAudioVoiceLabel">
-                            <label class="word-net-audio-voice" for="wordNetAudioVoice">
-                              <span class="word-net-audio-setting-title" id="wordNetAudioVoiceLabel" data-i18n="common.voice">Voice</span>
-                              <select id="wordNetAudioVoice">
-                                <option value="" data-i18n="common.automatic.recommended">Automatic (recommended)</option>
-                              </select>
-                            </label>
-                            <p class="word-net-audio-status" id="wordNetAudioVoiceStatus" role="status" aria-live="polite" aria-atomic="true" data-i18n="wordworld.audio.voiceschecking">Checking target-language voices...</p>
-                            <button class="word-net-audio-install" id="wordNetAudioInstallVoice" type="button" data-i18n="wordworld.audio.installvoice" hidden>Install target-language voice</button>
-                          </section>
+                        <div class="caatuu-audio-menu word-net-audio-menu" id="wordNetAudioMenu" role="dialog" aria-label="Audio settings" data-i18n-aria-label="common.audio.settings" hidden>
+                <span class="caatuu-audio-title" data-i18n="common.audio">Audio</span>
+                <div class="caatuu-audio-controls">
+                  <div class="caatuu-audio-group"><div data-music-controls></div></div>
+                  <div class="caatuu-audio-group">
+                    <div data-voice-controls></div>
+                    <div class="caatuu-audio-speed">
+                      <label for="wordNetAudioSpeed" data-i18n="common.speechspeed">Voice speed</label>
+                      <div class="caatuu-audio-speed-control">
+                        <input id="wordNetAudioSpeed" type="range" min="0" max="2" step="1" value="0" aria-label="Voice speed" data-i18n-aria-label="common.speechspeed">
+                        <div class="caatuu-audio-speed-ticks" aria-hidden="true">
+                          <span><span data-i18n="common.slower">Slower</span><small>0.5×</small></span>
+                          <span><span data-i18n="common.slow">Slow</span><small>0.6×</small></span>
+                          <span><span data-i18n="common.normal">Normal</span><small>1×</small></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="caatuu-audio-extras"><button class="caatuu-audio-extra" id="wordNetAudioAutoplay" type="button" role="switch" aria-checked="true"><span data-i18n="wordworld.audio.autoplay">Autoplay sentences</span></button></div>
+                </div>
                         </div>
                         <button class="word-net-icon-button word-net-translation-toggle" id="wordNetTranslationToggle" type="button" aria-label="Challenge type, target text, and dictionary settings" aria-haspopup="menu" aria-controls="wordNetTranslationMenu" aria-expanded="false" data-i18n-aria-label="wordworld.challenge.settings">
                           <span class="word-net-translate-icon" aria-hidden="true">Aa</span>
@@ -896,29 +874,26 @@
                           <path d="M18.25 6.75c3 3 3 7.5 0 10.5"></path>
                         </svg>
                       </button>
-                      <div class="word-net-audio-menu naturalization-nucleus-toolbar-menu" id="naturalizationNucleusAudioMenu" role="dialog" aria-label="Mandarin audio settings" hidden>
-                        <span class="word-net-audio-menu-label">Audio</span>
-                        <button class="word-net-audio-autoplay" id="naturalizationNucleusAudioMute" type="button" role="switch" aria-checked="false" data-speech-mute-toggle>
-                          <span data-speech-mute-label>Mute all audio</span>
-                        </button>
-                        <section class="word-net-audio-setting word-net-audio-speed" aria-labelledby="naturalizationNucleusAudioSpeedLabel">
-                          <span class="word-net-audio-setting-title" id="naturalizationNucleusAudioSpeedLabel">Speed</span>
-                          <input id="naturalizationNucleusAudioSpeed" type="range" min="0" max="2" step="1" value="0" data-pace-index="0" aria-label="Mandarin speech speed" aria-valuetext="Slower, 0.5 times">
-                          <div class="word-net-audio-speed-ticks" aria-hidden="true">
-                            <span>Slower <small>0.5×</small></span>
-                            <span>Slow <small>0.6×</small></span>
-                            <span>Normal <small>1×</small></span>
-                          </div>
-                        </section>
-                        <section class="word-net-audio-setting word-net-audio-voice-setting" aria-labelledby="naturalizationNucleusAudioVoiceLabel">
-                          <label class="word-net-audio-voice" for="naturalizationNucleusAudioVoice">
-                            <span class="word-net-audio-setting-title" id="naturalizationNucleusAudioVoiceLabel">Voice</span>
-                            <select id="naturalizationNucleusAudioVoice">
-                              <option value="">Automatic (recommended)</option>
-                            </select>
-                          </label>
-                          <p class="word-net-audio-status" id="naturalizationNucleusAudioVoiceStatus" role="status" aria-live="polite" aria-atomic="true">Checking Mandarin voices...</p>
-                        </section>
+                      <div class="caatuu-audio-menu word-net-audio-menu naturalization-nucleus-toolbar-menu" id="naturalizationNucleusAudioMenu" role="dialog" aria-label="Mandarin audio settings" hidden>
+                <span class="caatuu-audio-title" data-i18n="common.audio">Audio</span>
+                <div class="caatuu-audio-controls">
+                  <div class="caatuu-audio-group"><div data-music-controls></div></div>
+                  <div class="caatuu-audio-group">
+                    <div data-voice-controls></div>
+                    <div class="caatuu-audio-speed">
+                      <label for="naturalizationNucleusAudioSpeed" data-i18n="common.speechspeed">Voice speed</label>
+                      <div class="caatuu-audio-speed-control">
+                        <input id="naturalizationNucleusAudioSpeed" type="range" min="0" max="2" step="1" value="0" aria-label="Voice speed" data-i18n-aria-label="common.speechspeed">
+                        <div class="caatuu-audio-speed-ticks" aria-hidden="true">
+                          <span><span data-i18n="common.slower">Slower</span><small>0.5×</small></span>
+                          <span><span data-i18n="common.slow">Slow</span><small>0.6×</small></span>
+                          <span><span data-i18n="common.normal">Normal</span><small>1×</small></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
                       </div>
                       <button class="word-net-icon-button word-net-image-toggle is-active" id="naturalizationNucleusImageToggle" type="button" aria-label="Hide picture clues" aria-pressed="true" aria-controls="naturalizationNucleusCore" title="Hide picture clues">
                         <span aria-hidden="true">🪶</span>
@@ -1168,6 +1143,6 @@
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true" data-i18n-aria-label="print.book.label"></section>
 
     <script src="/language-runtime/static/source/shell-policy.js?v=shell-policy-15"></script>
-    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-82"></script>
+    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-87"></script>
   </body>
 </html>

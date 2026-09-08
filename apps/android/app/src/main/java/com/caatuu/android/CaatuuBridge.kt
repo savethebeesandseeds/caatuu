@@ -67,6 +67,32 @@ class CaatuuBridge(
     private val updateMutex = Mutex()
     private val bugReportMutex = Mutex()
     private val dictionaryGapReportMutex = Mutex()
+    @Volatile private var appResumed = false
+    @Volatile private var appWindowFocused = false
+
+    @JavascriptInterface
+    fun isAppFocused(): Boolean = appResumed && appWindowFocused
+
+    @JavascriptInterface
+    fun isMusicReady(): Boolean = SharedMusicReadiness.isReady(
+        staticAssetManager.requiredAssetSpecs(),
+        ownerReady = { true }, // The development shell serves individually verified setup files.
+        assetVerified = { staticAssetManager.verifiedLocalAsset(it) != null },
+    )
+
+    fun onWindowFocusChanged(focused: Boolean) {
+        appWindowFocused = focused
+        publishAppFocus()
+    }
+
+    private fun publishAppFocus() {
+        // The synchronous bridge method supplies initial state after navigation;
+        // this event covers backgrounding, lock screen, and native window changes.
+        webView.evaluateJavascript(
+            "window.dispatchEvent(new CustomEvent('caatuu:app-focus-change', {detail:{focused:${isAppFocused()}}}));",
+            null,
+        )
+    }
 
     @JavascriptInterface
     fun setTheme(theme: String) {
@@ -161,10 +187,14 @@ class CaatuuBridge(
     }
 
     fun onPause() {
+        appResumed = false
+        publishAppFocus()
         speechManager.onPause()
     }
 
     fun onResume() {
+        appResumed = true
+        publishAppFocus()
         speechManager.onResume()
     }
 
@@ -180,11 +210,13 @@ class CaatuuBridge(
         val locale = request.optString("locale", "cs-CZ")
         val rate = request.optDouble("rate", 0.9).toFloat()
         val pitch = request.optDouble("pitch", 1.0).toFloat()
+        val volume = request.optDouble("volume", 1.0).toFloat()
         val voice = request.optString("voice").trim()
         require(rate.isFinite()) { "Speech rate is invalid." }
         require(pitch.isFinite()) { "Speech pitch is invalid." }
+        require(volume.isFinite()) { "Speech volume is invalid." }
         require(voice.length <= MAX_SPEECH_VOICE_CHARACTERS) { "Speech voice name is too long." }
-        val result = speechManager.speak(text, locale, rate, pitch, voice) { utteranceId ->
+        val result = speechManager.speak(text, locale, rate, pitch, voice, volume) { utteranceId ->
             emit(
                 id,
                 "speech",

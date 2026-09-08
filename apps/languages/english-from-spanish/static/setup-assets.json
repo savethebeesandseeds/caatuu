@@ -7,7 +7,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-es-en-pwa-v21",
+    "cacheName": "caatuu-es-en-pwa-v26",
     "cachePrefix": "caatuu-es-en-pwa-",
     "assets": [
       "/language-runtime/static/source/image-embedding-index.mjs?v=image-index-runtime-1",
@@ -29,7 +29,7 @@
       "/language-runtime/contract.mjs",
       "/language-runtime/embedding-runtimes.json",
       "/language-runtime/static/source/initial-theme.js?v=theme-3",
-      "/language-runtime/static/source/app-bootstrap.mjs?v=app-82",
+      "/language-runtime/static/source/app-bootstrap.mjs?v=app-87",
       "/language-runtime/static/source/interface-content.mjs?v=interface-runtime-2",
       "/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-10",
       "/language-runtime/static/source/dictionary-provider-loader.mjs",
@@ -64,7 +64,7 @@
       "/language-runtime/static/source/browser-shell.mjs?v=browser-shell-2",
       "/language-runtime/static/source/shell-policy.js?v=shell-policy-15",
       "/language-runtime/static/source/shell-policy.mjs",
-      "/language-runtime/static/source/caatuu-chrome.js?v=chrome-162",
+      "/language-runtime/static/source/caatuu-chrome.js?v=chrome-167",
       "/language-runtime/static/source/learning-profile.js?v=learning-11",
       "/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-26",
       "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-21",
@@ -73,12 +73,12 @@
       "/language-runtime/static/source/english-minilm-ranker.mjs",
       "/language-runtime/static/styles/caatuu-theme.css?v=theme-7",
       "/language-runtime/static/styles/caatuu-workspace.css?v=shell-96",
-      "/language-runtime/static/styles/caatuu-home.css?v=home-57",
-      "/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-135",
+      "/language-runtime/static/styles/caatuu-home.css?v=home-59",
+      "/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-138",
       "/language-runtime/static/styles/caatuu-word-world.css?v=word-net-92",
       "/language-runtime/static/styles/dictionary-word-card.css?v=dictionary-card-1",
       "/language-runtime/static/assets/caatuu-shell-512.png",
-      "/language-runtime/static/data/interface/es.v1.json?v=interface-es-6",
+      "/language-runtime/static/data/interface/es.v1.json?v=interface-es-7",
       "/language-runtime/static/data/english-concepts/word-world-es-en-v1.json",
       "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
       "/language-runtime/static/data/english-concepts/word-world-es-v1.json",
@@ -186,8 +186,8 @@
       "/language-runtime/static/styles/caatuu-developer-tools.css?v=developer-tools-2",
       "/assets/macaw/actions/keymaps.json",
       "/language-runtime/static/games/sound-quasar.html",
-      "/language-runtime/static/source/games/sound-quasar/sound-quasar-host.mjs?v=sound-quasar-11",
-      "/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-6",
+      "/language-runtime/static/source/games/sound-quasar/sound-quasar-host.mjs?v=sound-quasar-13",
+      "/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-7",
       "/language-runtime/static/styles/games/sound-quasar.css?v=sound-quasar-6",
       "data/games/sound-quasar/content.json?v=sound-quasar-items-v3",
       "/language-runtime/static/source/target-text-tones.mjs?v=target-text-tones-1",
@@ -206,7 +206,11 @@
       "data/games/word-world/learner-base.json",
       "/language-runtime/static/source/course-setup.mjs",
       "/language-runtime/static/styles/course-setup.css",
-      "/assets/miscellaneous/calendar-days.png"
+      "/assets/miscellaneous/calendar-days.png",
+      "/language-runtime/static/source/music.mjs",
+      "/language-runtime/static/source/music-controls.mjs",
+      "/language-runtime/static/source/background-music.mjs",
+      "/language-runtime/static/styles/music-controls.css"
     ]
   },
   "artifacts": [
@@ -215,16 +219,16 @@
       "kind": "course-game-content",
       "url": "/es-en/data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-3",
       "browserRequired": true,
-      "bytes": 10025,
-      "sha256": "094cbed312fa7228c942266bfa377b8ab29331336c5a0c8e0177b32d836247c2"
+      "bytes": 88460,
+      "sha256": "ad9b1357275d0bfc175c9bbbcc0fa294a19ee24296755a9d3efbaf0a98b241e7"
     },
     {
       "key": "app-entry",
       "kind": "shared-application",
       "url": "/es-en/index.html",
       "browserRequired": true,
-      "bytes": 97068,
-      "sha256": "ef0a6e4cf77798b8aeb3cacd5320004a4e4be7fb36ec312f83d716fc6de446d7"
+      "bytes": 93289,
+      "sha256": "e2c931077080b41546939edf44eda30d17206fc7a586c51a61f70f7e3cb1ca55"
     },
     {
       "key": "course-profile",
@@ -232,15 +236,15 @@
       "url": "/es-en/source/shared/course-profile.js",
       "browserRequired": true,
       "bytes": 13820,
-      "sha256": "f5c2dfa3a0ac89fe7ed8390cb432b9e1352d5df66627b6d7c0f64584be399983"
+      "sha256": "0a47ac85b1cd70bcdbab8c87acfac0ac264cece719de000c63bb72f5c6071877"
     },
     {
       "key": "shared-app-bootstrap",
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/app-bootstrap.mjs",
       "browserRequired": true,
-      "bytes": 23434,
-      "sha256": "ea5568a977d32e13921525685fa7f4994da605359e7d111549ba8e7bbe8c3ed0"
+      "bytes": 23776,
+      "sha256": "355d5c87dde9f898d34bdfdaac99b51ca676c117b8a7e0af725400a5864f956e"
     },
     {
       "key": "initial-theme",
@@ -351,8 +355,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/caatuu-chrome.js",
       "browserRequired": true,
-      "bytes": 243403,
-      "sha256": "d0b07c4f45ae863684b59737d12f5840fd0e8fb037f8db8d781bd2480f16aa23"
+      "bytes": 243602,
+      "sha256": "90532edc7e2f0652d1e56b809d733f7b635387a6a55cd10d954bde2e5086d4ad"
     },
     {
       "key": "learning-profile",
@@ -367,8 +371,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/product-word-world.mjs",
       "browserRequired": true,
-      "bytes": 231122,
-      "sha256": "723d88c437e9a82d35cce05cefdd7e75fefb0816978ecab90ac99c3642931c57"
+      "bytes": 231330,
+      "sha256": "4c1b10b2a5e3a5fff7ae58f0cb4aedd921bde5e237be6a5cb7d505b2b546ecf1"
     },
     {
       "key": "word-net-core",
@@ -415,24 +419,24 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/styles/caatuu-workspace.css",
       "browserRequired": true,
-      "bytes": 149934,
-      "sha256": "8576ed8af5cda5594ae0414a35c05d09e464421543c91b58c075747c9c995844"
+      "bytes": 148846,
+      "sha256": "ea6189b70932197b62d864a1ba7b2709b9fa1ee6ceca4e629f313717b1eae894"
     },
     {
       "key": "shared-home-style",
       "kind": "shared-interface",
       "url": "/language-runtime/static/styles/caatuu-home.css",
       "browserRequired": true,
-      "bytes": 38054,
-      "sha256": "3782c485da85ef7672e9b2e9dca3fb8ce3f3ae1e0ea2ff5b16711b61e6414e5c"
+      "bytes": 37253,
+      "sha256": "ba5fcd57be985804a3c16363fa00bd140c99c267bc09b26132349491961fb660"
     },
     {
       "key": "shared-chrome-style",
       "kind": "shared-interface",
       "url": "/language-runtime/static/styles/caatuu-chrome.css",
       "browserRequired": true,
-      "bytes": 107509,
-      "sha256": "99e739ef1b0d5cc10df58038361ffdd2928c15bfa39830a1e648dfde5cdb4139"
+      "bytes": 107854,
+      "sha256": "fd6a29610729133012ddd85360812360c560d15c4884afaff5e773c147098e25"
     },
     {
       "key": "shared-word-world-style",
@@ -455,16 +459,16 @@
       "kind": "english-concept-catalog",
       "url": "/language-runtime/static/data/english-concepts/word-world-es-en-v1.json",
       "browserRequired": true,
-      "bytes": 80810,
-      "sha256": "d172c1c931280e131fd1c17f9e9d30d7d2ee5bd90e2e1833e626a74df2fc5aba"
+      "bytes": 153126,
+      "sha256": "3718fbb3ac25658e8c7eb2716cff7a9df5d43f478fbec04e9bc3655aed03dfd1"
     },
     {
       "key": "target-realizations",
       "kind": "target-realization-catalog",
       "url": "/es-en/data/games/word-world/content.json",
       "browserRequired": true,
-      "bytes": 182463,
-      "sha256": "dc53f817956dd73aa54302d3a78ed72f4f78b65b8df7da232f6fc9c5ed5fadf0"
+      "bytes": 400419,
+      "sha256": "b865933560f60e001331765420a39efb3062396a1fc8fa35ce92590781f5f4ab"
     },
     {
       "key": "word-world-manifest",
@@ -472,15 +476,15 @@
       "url": "/es-en/data/games/word-world/manifest.json?v=word-world-context-hints-1",
       "browserRequired": true,
       "bytes": 1638,
-      "sha256": "015868c566eb22e8f500bb30885672fc43e34dc50f856ccd350e75c015973185"
+      "sha256": "1680a55d4dbfa68372ba295275f7779557c1362493a15b84db16b370169466d7"
     },
     {
       "key": "verb-nebula-catalog",
       "kind": "course-game-content",
       "url": "/es-en/data/games/verb-nebula/content.json",
       "browserRequired": true,
-      "bytes": 11777,
-      "sha256": "57d4cc45e9ebf984db994430fff2195914b41b0e58f79db0a459ec6db31e7920"
+      "bytes": 102599,
+      "sha256": "c14d4566b83eabb7472e5c5d0d48242593058630849d61d3f6f641b2298d1bfc"
     },
     {
       "key": "embedding-catalog",
@@ -504,15 +508,15 @@
       "url": "/es-en/sw.js",
       "browserRequired": true,
       "bytes": 140,
-      "sha256": "4a1d8140a6c55808733df4ac2c41c4aa1cf8406b651ac60cc03cd0dc0305107f"
+      "sha256": "efec535cd7084eba01c0a61755594ba4ceb85035d09715d562d7f46e7843fb2e"
     },
     {
       "key": "shared-course-service-worker",
       "kind": "shared-runtime",
       "url": "/language-runtime/static/source/course-service-worker.js",
       "browserRequired": true,
-      "bytes": 10189,
-      "sha256": "3cf51f93f593ab38c2d7563f22173dcb80ea4fff22bd7f0e535d3ffa6fb3bb0e"
+      "bytes": 12000,
+      "sha256": "eb39bde8321162ab798f3902124dda569a57ec80459b63b1e4e16c1c0b3c19e0"
     },
     {
       "key": "course-flag",
@@ -521,6 +525,72 @@
       "browserRequired": true,
       "bytes": 42713,
       "sha256": "e9ea0e7e2cbae05e5f5b8bd1244adeec06bef3bd3b0a69429c2f523c3dd20854"
+    },
+    {
+      "key": "music-woodland-fantasy",
+      "label": "Woodland Fantasy",
+      "artifact_kind": "music",
+      "url": "/assets/music/audio/Woodland_Fantasy.mp3",
+      "asset_path": "assets/music/audio/Woodland_Fantasy.mp3",
+      "native_required": true,
+      "browser_required": true,
+      "bytes": 6012254,
+      "sha256": "87f9a9d04fdd0b924db98b90e86c2906330f4931cb8734f7b431706e2869aacd"
+    },
+    {
+      "key": "music-salt-marsh-birds",
+      "label": "Salt Marsh Birds",
+      "artifact_kind": "music",
+      "url": "/assets/music/audio/Salt_Marsh_Birds.mp3",
+      "asset_path": "assets/music/audio/Salt_Marsh_Birds.mp3",
+      "native_required": true,
+      "browser_required": true,
+      "bytes": 2858654,
+      "sha256": "0e37ee593f7c63b850cf6c20b65d241a601390194ac95c31a31fbddbd31292d0"
+    },
+    {
+      "key": "music-town-theme-rpg",
+      "label": "Town Theme RPG",
+      "artifact_kind": "music",
+      "url": "/assets/music/audio/Town_Theme_RPG.mp3",
+      "asset_path": "assets/music/audio/Town_Theme_RPG.mp3",
+      "native_required": true,
+      "browser_required": true,
+      "bytes": 1316581,
+      "sha256": "2657861d5107d4a3c01ef81cb6a4d61ddd5e7a054b6da57e658373d79d0c3466"
+    },
+    {
+      "key": "music-music-credits",
+      "label": "Music credits",
+      "artifact_kind": "music-license",
+      "url": "/assets/music/MUSIC_CREDITS.txt",
+      "asset_path": "assets/music/MUSIC_CREDITS.txt",
+      "native_required": true,
+      "browser_required": true,
+      "bytes": 792,
+      "sha256": "9bf96b1078af9dd36f742ca6d0e5afe715940611bfcd32b781437f2eae1acbee"
+    },
+    {
+      "key": "music-cc-by-3.0",
+      "label": "Music license: CC-BY-3.0",
+      "artifact_kind": "music-license",
+      "url": "/assets/music/licenses/CC-BY-3.0.txt",
+      "asset_path": "assets/music/licenses/CC-BY-3.0.txt",
+      "native_required": true,
+      "browser_required": true,
+      "bytes": 19467,
+      "sha256": "e6bc9e9c474700b708f568bac9e5a8a9bcb2b1dad53442f5ba449fcb848b8e76"
+    },
+    {
+      "key": "music-cc0-1.0",
+      "label": "Music license: CC0-1.0",
+      "artifact_kind": "music-license",
+      "url": "/assets/music/licenses/CC0-1.0.txt",
+      "asset_path": "assets/music/licenses/CC0-1.0.txt",
+      "native_required": true,
+      "browser_required": true,
+      "bytes": 7048,
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
     }
   ]
 }

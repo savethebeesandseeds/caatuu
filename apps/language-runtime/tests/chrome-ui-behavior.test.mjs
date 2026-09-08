@@ -27,7 +27,8 @@ test("the games sheet grows with available viewport height instead of a 320px sc
 test("muted audio settings use a grey backslash and hide their inactive options", () => {
   assert.match(chromeStyles, /html\[data-speech-muted="true"\] \.word-net-audio-toggle,[^}]+color:\s*var\(--theme-quiet/u);
   assert.match(chromeStyles, /\.verb-audio-menu > summary::after\s*\{[^}]+transform:\s*rotate\(45deg\)/u);
-  assert.match(chromeStyles, /\.speech-settings-body > :not\(\[data-speech-mute-toggle\]\)\s*\{\s*display:\s*none !important/u);
+  assert.match(chromeStyles, /\.speech-settings-body > :not\(\[data-speech-mute-toggle\]\):not\(\[data-music-controls\]\):not\(\[data-voice-controls\]\)\s*\{\s*display:\s*none !important/u,
+    "global mute keeps independent voice and music volume preferences editable");
 });
 const englishInterfaceCatalog = JSON.parse(await readFile(
   new URL("../static/data/interface/en.v1.json", import.meta.url),
@@ -303,6 +304,47 @@ test("Home audio controls reuse global mute and speed, and dismiss on Escape or 
   menu.open = true;
   harness.document.dispatchEvent({ type: "click", target: harness.document.body });
   assert.equal(menu.open, false);
+});
+
+test("an open Home voice picker updates when browser voices finish loading", async () => {
+  const listeners = [];
+  let voices = [];
+  const harness = createBrowserHarness({
+    course: fixtureCourse(),
+    window: {
+      SpeechSynthesisUtterance: function () {},
+      speechSynthesis: {
+        getVoices: () => voices,
+        speak() {}, cancel() {},
+        addEventListener(type, listener) { if (type === "voiceschanged") listeners.push(listener); }
+      }
+    }
+  });
+  const menu = harness.document.createElement("details");
+  menu.id = "setupAudioMenu";
+  const panel = harness.document.createElement("div");
+  panel.id = "setupAudioControls";
+  const select = harness.document.createElement("select");
+  select.dataset.speechControl = "Voice";
+  const status = harness.document.createElement("small");
+  status.dataset.speechControl = "VoiceStatus";
+  panel.append(select, status);
+  menu.append(panel);
+  harness.document.body.append(menu);
+  runChrome(harness);
+  menu.open = true;
+  menu.dispatchEvent({ type: "toggle" });
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(select.dataset.voiceCount, "0");
+
+  voices = [{ voiceURI: "test-cs", name: "Test voice", lang: "cs-CZ", localService: true }];
+  listeners.forEach((listener) => listener());
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(select.dataset.voiceCount, "1");
+  assert.equal(select.disabled, false);
+  assert.ok(select.querySelectorAll("option").some((option) => option.value === "browser:test-cs"));
+  assert.match(status.textContent, /Test voice/u);
+  assert.equal(menu.open, true);
 });
 
 test("stored appearance is applied and real controls persist immediate changes", () => {

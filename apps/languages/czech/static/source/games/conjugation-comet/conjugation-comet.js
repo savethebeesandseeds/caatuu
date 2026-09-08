@@ -559,93 +559,60 @@ function createSpeakerIcon(kind = "play") {
 }
 
 function createAudioMenu(index) {
-  const suffix = `conjugation-audio-${index}`;
+  const t = (key) => window.CaatuuI18n.t(key);
   const menu = element("details", "verb-toolbar-menu verb-audio-menu");
   const summary = element("summary");
-  summary.setAttribute("aria-label", "Czech audio settings");
-  summary.title = "Czech audio settings";
+  summary.setAttribute("aria-label", t("common.audio.settings"));
+  summary.title = t("common.audio.settings");
   summary.append(createSpeakerIcon());
-
-  const popover = element("div", "verb-audio-popover");
+  const popover = element("div", "verb-audio-popover caatuu-audio-menu");
   popover.setAttribute("role", "dialog");
-  popover.setAttribute("aria-label", "Czech audio settings");
-  popover.append(element("span", "verb-popover-label", "Audio"));
-
-  const speakOnSelect = element("button");
-  speakOnSelect.type = "button";
-  speakOnSelect.dataset.conjugationSpeakOnSelect = "";
-  speakOnSelect.setAttribute("role", "switch");
-  speakOnSelect.setAttribute("aria-checked", "false");
-  speakOnSelect.append(element("span", "", "Speak Czech when selected"), element("i"));
-  speakOnSelect.lastElementChild.setAttribute("aria-hidden", "true");
-  popover.append(speakOnSelect);
-
-  const mute = element("button");
-  mute.type = "button";
-  mute.dataset.speechMuteToggle = "";
-  mute.setAttribute("role", "switch");
-  mute.setAttribute("aria-checked", "false");
-  const muteLabel = element("span", "", "Mute all audio");
-  muteLabel.dataset.speechMuteLabel = "";
-  mute.append(muteLabel, element("i"));
-  mute.lastElementChild.setAttribute("aria-hidden", "true");
-  popover.append(mute);
-
-  const settings = element("div", "verb-audio-settings");
-  settings.dataset.conjugationAudioSettings = "";
-  settings.hidden = true;
-
-  const speedLabelId = `${suffix}-speed-label`;
-  const speedSection = element("section", "verb-popover-setting");
-  speedSection.setAttribute("aria-labelledby", speedLabelId);
-  const speedLabel = element("span", "verb-popover-setting-title", "Speed");
-  speedLabel.id = speedLabelId;
+  popover.setAttribute("aria-label", t("common.audio.settings"));
+  const controls = element("div", "caatuu-audio-controls");
+  popover.append(element("span", "caatuu-audio-title", t("common.audio")), controls);
+  const musicGroup = element("div", "caatuu-audio-group");
+  const musicHost = element("div");
+  musicHost.dataset.musicControls = "";
+  musicGroup.append(musicHost);
+  const voiceGroup = element("div", "caatuu-audio-group");
+  const voiceHost = element("div");
+  voiceHost.dataset.voiceControls = "";
+  voiceGroup.append(voiceHost);
+  const speedSection = element("div", "caatuu-audio-speed");
+  const speedLabel = element("label", "", t("common.speechspeed"));
+  const speedControl = element("div", "caatuu-audio-speed-control");
   const speed = element("input");
+  speed.id = `conjugation-audio-${index}-speed`;
+  speedLabel.setAttribute("for", speed.id);
   speed.type = "range";
   speed.min = "0";
   speed.max = "2";
   speed.step = "1";
   speed.value = "0";
   speed.dataset.conjugationAudioSpeed = "";
-  speed.setAttribute("aria-label", "Czech speech speed");
-  speed.setAttribute("aria-valuetext", "Slower, 0.5 times");
-  const ticks = element("div", "verb-audio-speed-ticks");
+  speed.setAttribute("aria-label", t("common.speechspeed"));
+  const ticks = element("div", "caatuu-audio-speed-ticks");
   ticks.setAttribute("aria-hidden", "true");
-  [["Slower", "0.5×"], ["Slow", "0.6×"], ["Normal", "1×"]].forEach(([label, rate]) => {
-    const tick = element("span", "", `${label} `);
-    tick.append(element("small", "", rate));
+  [["slower", "0.5×"], ["slow", "0.6×"], ["normal", "1×"]].forEach(([label, rate]) => {
+    const tick = element("span");
+    tick.append(element("span", "", t(`common.${label}`)), element("small", "", rate));
     ticks.append(tick);
   });
-  speedSection.append(speedLabel, speed, ticks);
-
-  const voiceLabelId = `${suffix}-voice-label`;
-  const voiceSelectId = `${suffix}-voice`;
-  const voiceSection = element("section", "verb-popover-setting verb-audio-voice-setting");
-  voiceSection.setAttribute("aria-labelledby", voiceLabelId);
-  const voiceLabel = element("label");
-  voiceLabel.setAttribute("for", voiceSelectId);
-  const voiceTitle = element("span", "verb-popover-setting-title", "Voice");
-  voiceTitle.id = voiceLabelId;
-  const voice = element("select");
-  voice.id = voiceSelectId;
-  voice.dataset.conjugationAudioVoice = "";
-  const automatic = element("option", "", "Automatic (recommended)");
-  automatic.value = "";
-  voice.append(automatic);
-  voiceLabel.append(voiceTitle, voice);
-  const voiceStatus = element("small", "", "Checking Czech voices...");
-  voiceStatus.dataset.conjugationAudioVoiceStatus = "";
-  voiceStatus.setAttribute("role", "status");
-  voiceStatus.setAttribute("aria-live", "polite");
-  voiceStatus.setAttribute("aria-atomic", "true");
-  voiceSection.append(voiceLabel, voiceStatus);
-
-  settings.append(speedSection, voiceSection);
-  popover.append(settings);
+  speedControl.append(speed, ticks);
+  speedSection.append(speedLabel, speedControl);
+  voiceGroup.append(speedSection);
+  const extras = element("div", "caatuu-audio-extras");
+  const speakOnSelect = element("button", "caatuu-audio-extra");
+  speakOnSelect.type = "button";
+  speakOnSelect.dataset.conjugationSpeakOnSelect = "";
+  speakOnSelect.setAttribute("role", "switch");
+  speakOnSelect.setAttribute("aria-checked", "false");
+  speakOnSelect.append(element("span", "", "Speak Czech when selected"));
+  extras.append(speakOnSelect);
+  controls.append(musicGroup, voiceGroup, extras);
   menu.append(summary, popover);
   return menu;
 }
-
 function renderAudioControls() {
   const paceOrder = ["slower", "slow", "normal"];
   const pace = window.CaatuuChrome?.resolveSpeechPace?.();
@@ -710,6 +677,7 @@ function installAudioMenus() {
   document.querySelectorAll("[data-conjugation-audio-control]").forEach((slot, index) => {
     slot.replaceWith(createAudioMenu(index));
   });
+  window.CaatuuMusicUi?.mountAll(document);
   renderAudioControls();
 }
 

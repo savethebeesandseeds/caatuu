@@ -151,6 +151,7 @@ class AndroidSpeechManager(
         rate: Float,
         pitch: Float,
         requestedVoiceName: String,
+        volume: Float = 1f,
         onStarted: (utteranceId: String) -> Unit,
     ): JSONObject {
         val requestGeneration = synchronized(stateLock) {
@@ -160,6 +161,7 @@ class AndroidSpeechManager(
             lifecycleGeneration
         }
         val sentence = text.trim()
+        require(volume.isFinite()) { "Speech volume is invalid." }
         require(sentence.isNotBlank()) { "Speech text is empty." }
         require(sentence.length <= MAX_SENTENCE_CHARACTERS) { "Speech text is too long." }
         require(sentence.length <= TextToSpeech.getMaxSpeechInputLength()) {
@@ -225,6 +227,7 @@ class AndroidSpeechManager(
                     locale.toLanguageTag(),
                     selectedVoice,
                     requestGeneration,
+                    volume.coerceIn(0f, 1f),
                     onStarted,
                 )
             }
@@ -330,6 +333,7 @@ class AndroidSpeechManager(
         localeTag: String,
         voice: Voice?,
         requestGeneration: Long,
+        volume: Float,
         onStarted: (String) -> Unit,
     ): JSONObject = suspendCancellableCoroutine { continuation ->
         val utteranceId = UUID.randomUUID().toString()
@@ -352,7 +356,7 @@ class AndroidSpeechManager(
             val result = currentEngine.speak(
                 sentence,
                 TextToSpeech.QUEUE_FLUSH,
-                Bundle(),
+                Bundle().apply { putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, volume) },
                 utteranceId,
             )
             if (result == TextToSpeech.ERROR) {

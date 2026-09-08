@@ -2016,6 +2016,1774 @@
       "sceneQuery": "one person speaking in a seated discussion circle while everyone else listens",
       "topic": "language-culture-social",
       "difficulty": 3
+    },
+    {
+      "id": "ww-exp260908-001",
+      "englishText": "The rabbit is hopping.",
+      "embeddingText": "A rabbit moves forward in little hops.",
+      "sceneQuery": "a small rabbit springing over soft grass",
+      "topic": "animals",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-exp260908-002",
+      "englishText": "The seed is growing.",
+      "embeddingText": "A young plant develops from a seed.",
+      "sceneQuery": "a seed with a green sprout emerging from soil",
+      "topic": "nature",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-exp260908-003",
+      "englishText": "My kite is blue.",
+      "embeddingText": "Someone describes the blue color of their kite.",
+      "sceneQuery": "a child holding a bright blue kite in a park",
+      "topic": "play",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-exp260908-004",
+      "englishText": "We clap together.",
+      "embeddingText": "Friends clap their hands at the same time.",
+      "sceneQuery": "children standing in a circle and clapping in rhythm",
+      "topic": "music",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-exp260908-005",
+      "englishText": "Where is my crayon?",
+      "embeddingText": "A child asks where a missing crayon has gone.",
+      "sceneQuery": "an open pencil case beside a coloring page and a crayon",
+      "topic": "school",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-exp260908-006",
+      "englishText": "The turtle is sleeping.",
+      "embeddingText": "A turtle rests quietly while asleep.",
+      "sceneQuery": "a sleeping turtle with its head resting beside its shell",
+      "topic": "animals",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-exp260908-007",
+      "englishText": "Please join us.",
+      "embeddingText": "Friends invite another person to join their activity.",
+      "sceneQuery": "children making room for another child at a game table",
+      "topic": "friendship",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-exp260908-008",
+      "englishText": "Look at the rainbow!",
+      "embeddingText": "Someone draws attention to a rainbow in the sky.",
+      "sceneQuery": "a child pointing toward a rainbow over a field",
+      "topic": "nature",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-exp260908-009",
+      "englishText": "A squirrel hides a nut under a leaf.",
+      "embeddingText": "A squirrel stores a nut beneath a fallen leaf.",
+      "sceneQuery": "a squirrel tucking a nut under a broad autumn leaf",
+      "topic": "animals",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-010",
+      "englishText": "Our cardboard rocket has three round windows.",
+      "embeddingText": "A homemade cardboard spacecraft has three circular windows.",
+      "sceneQuery": "a cardboard rocket model with three round openings",
+      "topic": "creativity",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-011",
+      "englishText": "We measure the sunflower with a ruler.",
+      "embeddingText": "Children use a ruler to discover how tall a sunflower is.",
+      "sceneQuery": "a ruler held beside a sunflower stem",
+      "topic": "school",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-012",
+      "englishText": "Can you teach me that hand-clapping game?",
+      "embeddingText": "A learner asks a friend to explain a game played by clapping hands.",
+      "sceneQuery": "two friends demonstrating a hand-clapping pattern",
+      "topic": "friendship",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-013",
+      "englishText": "Tiny footprints cross the fresh snow.",
+      "embeddingText": "Small animal tracks run across newly fallen snow.",
+      "sceneQuery": "a winding line of tiny tracks across clean white snow",
+      "topic": "nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-014",
+      "englishText": "The puppet bows at the end of the show.",
+      "embeddingText": "A puppet takes a bow when its performance finishes.",
+      "sceneQuery": "a puppet bending forward on a small stage as curtains close",
+      "topic": "play",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-015",
+      "englishText": "We stir the pancake batter slowly.",
+      "embeddingText": "Pancake mixture is stirred gently in a mixing bowl.",
+      "sceneQuery": "a spoon making a slow circle through pancake batter",
+      "topic": "food",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-016",
+      "englishText": "The snail leaves a shiny trail on the stone.",
+      "embeddingText": "A snail makes a glossy track as it travels over a rock.",
+      "sceneQuery": "a snail and a silvery trail across a smooth stone",
+      "topic": "nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-017",
+      "englishText": "Which magnet holds our drawing on the board?",
+      "embeddingText": "Someone identifies the magnet fastening a picture to a board.",
+      "sceneQuery": "a child's drawing held on a noticeboard by a colorful magnet",
+      "topic": "school",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-018",
+      "englishText": "My friend keeps the rhythm on a little drum.",
+      "embeddingText": "A friend uses a small drum to maintain the musical beat.",
+      "sceneQuery": "a child tapping a little drum beside friends making music",
+      "topic": "music",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-019",
+      "englishText": "We take turns looking through the telescope.",
+      "embeddingText": "Children share a telescope by using it one after another.",
+      "sceneQuery": "friends waiting beside a telescope while one child looks through it",
+      "topic": "play",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-020",
+      "englishText": "Bees carry pollen from flower to flower.",
+      "embeddingText": "Pollinating bees transport pollen between different blossoms.",
+      "sceneQuery": "a bee dusted with yellow pollen visiting a flower",
+      "topic": "nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-021",
+      "englishText": "Your idea gives our story a funny ending.",
+      "embeddingText": "A friend's suggestion makes the conclusion of a story amusing.",
+      "sceneQuery": "two children inventing a funny final picture for a storybook",
+      "topic": "friendship",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-022",
+      "englishText": "The shadow looks like a giant dancing bear.",
+      "embeddingText": "An oversized animal-shaped shadow appears to dance.",
+      "sceneQuery": "a large bear-shaped shadow on a wall with raised paws",
+      "topic": "creativity",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-023",
+      "englishText": "Please leave space for everyone's name on the poster.",
+      "embeddingText": "A poster needs enough room to include the names of every participant.",
+      "sceneQuery": "a group poster with blank spaces for children's names",
+      "topic": "school",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-024",
+      "englishText": "A feather floats gently down onto the grass.",
+      "embeddingText": "A light feather drifts through the air and settles on grass.",
+      "sceneQuery": "a white feather floating just above a green lawn",
+      "topic": "nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-025",
+      "englishText": "Our team invents a new rule for the game.",
+      "embeddingText": "Teammates come up with an additional rule for their shared game.",
+      "sceneQuery": "children discussing a homemade board game together",
+      "topic": "play",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-026",
+      "englishText": "Grandpa shows us how to fold the dumplings.",
+      "embeddingText": "A grandfather demonstrates how to fold dumpling wrappers.",
+      "sceneQuery": "a grandfather and children folding dough around dumpling filling",
+      "topic": "food",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-027",
+      "englishText": "The dragon in my story collects colorful buttons.",
+      "embeddingText": "An imaginary dragon enjoys collecting brightly colored buttons.",
+      "sceneQuery": "a friendly storybook dragon sorting a box of colorful buttons",
+      "topic": "creativity",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-028",
+      "englishText": "We compare two leaves with a magnifying glass.",
+      "embeddingText": "A magnifier helps children compare details of two leaves.",
+      "sceneQuery": "two different leaves beneath a handheld magnifying glass",
+      "topic": "school",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-029",
+      "englishText": "I saved the last sticker for you.",
+      "embeddingText": "A person keeps one remaining sticker to give to a friend.",
+      "sceneQuery": "a child offering the final sticker from a sheet to a friend",
+      "topic": "friendship",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-030",
+      "englishText": "The pond reflects the clouds above the trees.",
+      "embeddingText": "Clouds and nearby treetops appear as reflections in pond water.",
+      "sceneQuery": "white clouds mirrored on a still pond below leafy trees",
+      "topic": "nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-031",
+      "englishText": "The song gets quieter near the end.",
+      "embeddingText": "Music gradually becomes softer as a song approaches its conclusion.",
+      "sceneQuery": "children finishing a song with gentle voices and relaxed hands",
+      "topic": "music",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-032",
+      "englishText": "Can our paper bridge hold five pebbles?",
+      "embeddingText": "Children wonder whether a paper bridge can support five small stones.",
+      "sceneQuery": "a folded paper bridge with five pebbles arranged beside it",
+      "topic": "play",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-033",
+      "englishText": "Let's ask everyone before we choose a team name.",
+      "embeddingText": "A group consults every member before deciding what to call their team.",
+      "sceneQuery": "children listening to suggestions around a blank team-name sign",
+      "topic": "friendship",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-exp260908-034",
+      "englishText": "Although the caterpillar is tiny, it leaves large holes in the leaf.",
+      "embeddingText": "A very small caterpillar creates surprisingly large gaps in a leaf.",
+      "sceneQuery": "a tiny caterpillar beside large holes in a green leaf",
+      "topic": "nature",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-exp260908-035",
+      "englishText": "If we listen to both ideas, we might find a fair solution.",
+      "embeddingText": "Listening to two different proposals can help friends reach a fair agreement.",
+      "sceneQuery": "two children sharing ideas while another sketches a shared solution",
+      "topic": "friendship",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-exp260908-036",
+      "englishText": "The model fell over, so we made its base wider.",
+      "embeddingText": "After a model tips over, children widen its support to improve stability.",
+      "sceneQuery": "a fallen model next to a newly widened cardboard base",
+      "topic": "school",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-exp260908-037",
+      "englishText": "Instead of throwing the box away, we turned it into a puppet theater.",
+      "embeddingText": "An unwanted cardboard box becomes a stage for puppet performances.",
+      "sceneQuery": "a reused box with curtains and friendly puppets peeking out",
+      "topic": "creativity",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-exp260908-038",
+      "englishText": "We wondered why the shadow grew longer as the sun went down.",
+      "embeddingText": "Children notice a lengthening shadow and connect it with the setting sun.",
+      "sceneQuery": "long shadows stretching across a playground at sunset",
+      "topic": "nature",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-exp260908-039",
+      "englishText": "Even though the puzzle was difficult, nobody had to solve it alone.",
+      "embeddingText": "Friends tackle a challenging riddle together so nobody has to work alone.",
+      "sceneQuery": "a group of children puzzling over a riddle card together",
+      "topic": "friendship",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-exp260908-040",
+      "englishText": "Before changing our prediction, we compared it with what we had observed.",
+      "embeddingText": "Learners compare their earlier prediction with observations before revising it.",
+      "sceneQuery": "children comparing an experiment notebook with a prediction chart",
+      "topic": "school",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-exp260908-041",
+      "englishText": "The treasure was a thank-you note for everyone who had helped with the game.",
+      "embeddingText": "The reward at the end of a game is a note thanking all the helpers.",
+      "sceneQuery": "a treasure box holding a handwritten thank-you card for a group",
+      "topic": "play",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-001",
+      "englishText": "The otter holds a pebble.",
+      "embeddingText": "Otter beside a stream holding a small smooth stone.",
+      "sceneQuery": "Otter beside a stream holding a small smooth stone.",
+      "topic": "animals",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-002",
+      "englishText": "Two goats cross the bridge.",
+      "embeddingText": "Pair of goats walking across a wooden bridge.",
+      "sceneQuery": "Pair of goats walking across a wooden bridge.",
+      "topic": "animals",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-003",
+      "englishText": "My kite has a long tail.",
+      "embeddingText": "Bright kite with a long ribbon tail against blue sky.",
+      "sceneQuery": "Bright kite with a long ribbon tail against blue sky.",
+      "topic": "art",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-004",
+      "englishText": "We peel a banana.",
+      "embeddingText": "Hands peeling a ripe yellow banana at a picnic.",
+      "sceneQuery": "Hands peeling a ripe yellow banana at a picnic.",
+      "topic": "food",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-005",
+      "englishText": "The crayons are in the box.",
+      "embeddingText": "Open box containing colorful wax crayons.",
+      "sceneQuery": "Open box containing colorful wax crayons.",
+      "topic": "school",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-006",
+      "englishText": "A leaf falls into the pond.",
+      "embeddingText": "Autumn leaf landing on the surface of a quiet pond.",
+      "sceneQuery": "Autumn leaf landing on the surface of a quiet pond.",
+      "topic": "nature",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-007",
+      "englishText": "The blanket feels soft.",
+      "embeddingText": "Soft knitted blanket draped over a cozy chair.",
+      "sceneQuery": "Soft knitted blanket draped over a cozy chair.",
+      "topic": "home",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-008",
+      "englishText": "I hear a little bell.",
+      "embeddingText": "Small silver bell ringing in a music classroom.",
+      "sceneQuery": "Small silver bell ringing in a music classroom.",
+      "topic": "music",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-009",
+      "englishText": "The red balloon floats.",
+      "embeddingText": "Single red balloon floating above a grassy park.",
+      "sceneQuery": "Single red balloon floating above a grassy park.",
+      "topic": "play",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-010",
+      "englishText": "Our friend brings oranges.",
+      "embeddingText": "Friend arriving at a picnic with a basket of oranges.",
+      "sceneQuery": "Friend arriving at a picnic with a basket of oranges.",
+      "topic": "friendship",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-011",
+      "englishText": "The snow covers the bench.",
+      "embeddingText": "Empty park bench under a fresh layer of snow.",
+      "sceneQuery": "Empty park bench under a fresh layer of snow.",
+      "topic": "weather",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-012",
+      "englishText": "The chick follows the hen.",
+      "embeddingText": "Tiny chick walking behind its mother hen in a farmyard.",
+      "sceneQuery": "Tiny chick walking behind its mother hen in a farmyard.",
+      "topic": "animals",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-013",
+      "englishText": "The beaver carries a branch to the stream.",
+      "embeddingText": "Beaver dragging a leafy branch toward flowing water.",
+      "sceneQuery": "Beaver dragging a leafy branch toward flowing water.",
+      "topic": "animals",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-014",
+      "englishText": "An owl watches the meadow from an old oak.",
+      "embeddingText": "Owl perched in an old oak overlooking an open meadow.",
+      "sceneQuery": "Owl perched in an old oak overlooking an open meadow.",
+      "topic": "animals",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-015",
+      "englishText": "The turtle rests on a warm rock after swimming.",
+      "embeddingText": "Turtle drying on a sunlit rock beside a pond.",
+      "sceneQuery": "Turtle drying on a sunlit rock beside a pond.",
+      "topic": "animals",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-016",
+      "englishText": "A caterpillar follows the edge of a leaf.",
+      "embeddingText": "Green caterpillar moving along the curved edge of a broad leaf.",
+      "sceneQuery": "Green caterpillar moving along the curved edge of a broad leaf.",
+      "topic": "animals",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-017",
+      "englishText": "We compare the shapes of three fallen leaves.",
+      "embeddingText": "Three differently shaped autumn leaves arranged for observation.",
+      "sceneQuery": "Three differently shaped autumn leaves arranged for observation.",
+      "topic": "nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-018",
+      "englishText": "The sunflower turns toward the bright window.",
+      "embeddingText": "Potted sunflower leaning toward daylight through a window.",
+      "sceneQuery": "Potted sunflower leaning toward daylight through a window.",
+      "topic": "nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-019",
+      "englishText": "Moss makes a green carpet around the tree roots.",
+      "embeddingText": "Soft green moss covering the ground around exposed tree roots.",
+      "sceneQuery": "Soft green moss covering the ground around exposed tree roots.",
+      "topic": "nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-020",
+      "englishText": "We watch the storm from inside the library.",
+      "embeddingText": "Children safely indoors looking through library windows at rain.",
+      "sceneQuery": "Children safely indoors looking through library windows at rain.",
+      "topic": "weather",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-021",
+      "englishText": "Raindrops make circles on the surface of the pond.",
+      "embeddingText": "Concentric ripples where raindrops touch a still pond.",
+      "sceneQuery": "Concentric ripples where raindrops touch a still pond.",
+      "topic": "weather",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-022",
+      "englishText": "The wind lifts the ribbons on our kite.",
+      "embeddingText": "Kite ribbons streaming sideways in a steady breeze.",
+      "sceneQuery": "Kite ribbons streaming sideways in a steady breeze.",
+      "topic": "weather",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-023",
+      "englishText": "We mix yellow and blue to paint a green dragon.",
+      "embeddingText": "Paint palette with yellow and blue beside a friendly green dragon drawing.",
+      "sceneQuery": "Paint palette with yellow and blue beside a friendly green dragon drawing.",
+      "topic": "art",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-024",
+      "englishText": "My puppet bows when the curtain opens.",
+      "embeddingText": "Wooden puppet taking a bow on a small theater stage.",
+      "sceneQuery": "Wooden puppet taking a bow on a small theater stage.",
+      "topic": "art",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-025",
+      "englishText": "The clay bowl dries on a shelf by the window.",
+      "embeddingText": "Handmade clay bowl drying on a shelf near daylight.",
+      "sceneQuery": "Handmade clay bowl drying on a shelf near daylight.",
+      "topic": "art",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-026",
+      "englishText": "She draws a map for our imaginary island.",
+      "embeddingText": "Colorful hand-drawn island map with forests and a friendly village.",
+      "sceneQuery": "Colorful hand-drawn island map with forests and a friendly village.",
+      "topic": "art",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-027",
+      "englishText": "The drummer starts slowly and then plays faster.",
+      "embeddingText": "Young drummer practicing a rhythm with a changing tempo.",
+      "sceneQuery": "Young drummer practicing a rhythm with a changing tempo.",
+      "topic": "music",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-028",
+      "englishText": "We clap the rhythm before singing the song.",
+      "embeddingText": "Music class clapping together before beginning a song.",
+      "sceneQuery": "Music class clapping together before beginning a song.",
+      "topic": "music",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-029",
+      "englishText": "A soft flute melody fills the quiet room.",
+      "embeddingText": "Flute player performing a gentle melody in a calm room.",
+      "sceneQuery": "Flute player performing a gentle melody in a calm room.",
+      "topic": "music",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-030",
+      "englishText": "We sort the buttons by size instead of color.",
+      "embeddingText": "Buttons arranged into size groups on a classroom table.",
+      "sceneQuery": "Buttons arranged into size groups on a classroom table.",
+      "topic": "school",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-031",
+      "englishText": "The class measures the shadow every hour.",
+      "embeddingText": "Students recording the changing length of a stick's shadow.",
+      "sceneQuery": "Students recording the changing length of a stick's shadow.",
+      "topic": "school",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-032",
+      "englishText": "I underline the clue that helps solve the riddle.",
+      "embeddingText": "Pencil underlining an important clue in a printed riddle.",
+      "sceneQuery": "Pencil underlining an important clue in a printed riddle.",
+      "topic": "school",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-033",
+      "englishText": "The librarian recommends a book about sea turtles.",
+      "embeddingText": "Librarian showing a child an illustrated sea turtle book.",
+      "sceneQuery": "Librarian showing a child an illustrated sea turtle book.",
+      "topic": "school",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-034",
+      "englishText": "We sprinkle cinnamon over the warm oatmeal.",
+      "embeddingText": "Bowl of warm oatmeal with cinnamon being sprinkled on top.",
+      "sceneQuery": "Bowl of warm oatmeal with cinnamon being sprinkled on top.",
+      "topic": "food",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-035",
+      "englishText": "The pear is ripe enough to eat.",
+      "embeddingText": "Ripe pear sliced on a small plate beside a fruit bowl.",
+      "sceneQuery": "Ripe pear sliced on a small plate beside a fruit bowl.",
+      "topic": "food",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-036",
+      "englishText": "We share the last sandwich fairly.",
+      "embeddingText": "Sandwich divided into equal portions for friends at a picnic.",
+      "sceneQuery": "Sandwich divided into equal portions for friends at a picnic.",
+      "topic": "food",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-037",
+      "englishText": "He folds the blanket and puts it in the basket.",
+      "embeddingText": "Folded blanket being placed into a woven storage basket.",
+      "sceneQuery": "Folded blanket being placed into a woven storage basket.",
+      "topic": "home",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-038",
+      "englishText": "We put muddy boots on a tray near the door.",
+      "embeddingText": "Muddy rain boots resting on a tray inside an entrance.",
+      "sceneQuery": "Muddy rain boots resting on a tray inside an entrance.",
+      "topic": "home",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-039",
+      "englishText": "The cat curls up inside an empty cardboard box.",
+      "embeddingText": "Cozy cat curled into a small empty cardboard box.",
+      "sceneQuery": "Cozy cat curled into a small empty cardboard box.",
+      "topic": "home",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-040",
+      "englishText": "We take turns choosing the next board game.",
+      "embeddingText": "Friends choosing from board games while taking turns.",
+      "sceneQuery": "Friends choosing from board games while taking turns.",
+      "topic": "friendship",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-041",
+      "englishText": "My teammate explains the rules to a new player.",
+      "embeddingText": "Teammate welcoming a newcomer and explaining a tabletop game.",
+      "sceneQuery": "Teammate welcoming a newcomer and explaining a tabletop game.",
+      "topic": "friendship",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-042",
+      "englishText": "We leave enough space for everyone in the circle.",
+      "embeddingText": "Children making a roomy circle so another friend can join.",
+      "sceneQuery": "Children making a roomy circle so another friend can join.",
+      "topic": "friendship",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-043",
+      "englishText": "The train passes a field full of sunflowers.",
+      "embeddingText": "Passenger train traveling beside a field of blooming sunflowers.",
+      "sceneQuery": "Passenger train traveling beside a field of blooming sunflowers.",
+      "topic": "travel",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-044",
+      "englishText": "Our map shows a short path to the museum.",
+      "embeddingText": "Town map showing a walking route to a museum.",
+      "sceneQuery": "Town map showing a walking route to a museum.",
+      "topic": "travel",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-045",
+      "englishText": "We wait behind the line until the bus stops.",
+      "embeddingText": "Passengers waiting safely behind a marked line as a bus arrives.",
+      "sceneQuery": "Passengers waiting safely behind a marked line as a bus arrives.",
+      "topic": "travel",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-046",
+      "englishText": "The friendly dragon collects shiny buttons instead of treasure.",
+      "embeddingText": "Friendly dragon admiring a collection of colorful shiny buttons.",
+      "sceneQuery": "Friendly dragon admiring a collection of colorful shiny buttons.",
+      "topic": "imagination",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-047",
+      "englishText": "Our cardboard spaceship has a window for every astronaut.",
+      "embeddingText": "Children's cardboard spaceship with several cutout windows.",
+      "sceneQuery": "Children's cardboard spaceship with several cutout windows.",
+      "topic": "imagination",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-048",
+      "englishText": "The tiny robot waters the garden with a teacup.",
+      "embeddingText": "Small friendly robot pouring water from a teacup onto flowers.",
+      "sceneQuery": "Small friendly robot pouring water from a teacup onto flowers.",
+      "topic": "imagination",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-049",
+      "englishText": "Although the stones look alike, their surfaces feel different.",
+      "embeddingText": "Two similar stones being compared for smooth and rough textures.",
+      "sceneQuery": "Two similar stones being compared for smooth and rough textures.",
+      "topic": "science",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-050",
+      "englishText": "The experiment suggests that sunlight affects the seedlings.",
+      "embeddingText": "Seedlings placed in different lighting conditions for a classroom experiment.",
+      "sceneQuery": "Seedlings placed in different lighting conditions for a classroom experiment.",
+      "topic": "science",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-051",
+      "englishText": "We record what happened before drawing a conclusion.",
+      "embeddingText": "Observation notebook beside a simple classroom experiment.",
+      "sceneQuery": "Observation notebook beside a simple classroom experiment.",
+      "topic": "science",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-052",
+      "englishText": "If the pond freezes, the reflection disappears beneath the ice.",
+      "embeddingText": "Icy pond surface obscuring a reflection of nearby trees.",
+      "sceneQuery": "Icy pond surface obscuring a reflection of nearby trees.",
+      "topic": "nature",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-053",
+      "englishText": "The garden attracts more insects when different flowers bloom.",
+      "embeddingText": "Diverse flowering garden visited by bees and butterflies.",
+      "sceneQuery": "Diverse flowering garden visited by bees and butterflies.",
+      "topic": "nature",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-054",
+      "englishText": "Even when we disagree, we can explain our ideas calmly.",
+      "embeddingText": "Friends calmly discussing different ideas for a shared project.",
+      "sceneQuery": "Friends calmly discussing different ideas for a shared project.",
+      "topic": "friendship",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-055",
+      "englishText": "She thanked her teammate for noticing a mistake before the game.",
+      "embeddingText": "Teammates reviewing a plan together and appreciating helpful feedback.",
+      "sceneQuery": "Teammates reviewing a plan together and appreciating helpful feedback.",
+      "topic": "friendship",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-056",
+      "englishText": "The mural combines real animals with creatures from our imagination.",
+      "embeddingText": "Collaborative wall painting mixing wildlife and friendly invented creatures.",
+      "sceneQuery": "Collaborative wall painting mixing wildlife and friendly invented creatures.",
+      "topic": "art",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-057",
+      "englishText": "We changed the plan so that everyone could contribute.",
+      "embeddingText": "Group adapting a project plan to give each member a useful role.",
+      "sceneQuery": "Group adapting a project plan to give each member a useful role.",
+      "topic": "planning",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-058",
+      "englishText": "The bridge model needs support wherever the cardboard bends.",
+      "embeddingText": "Cardboard bridge model with supports added under bending sections.",
+      "sceneQuery": "Cardboard bridge model with supports added under bending sections.",
+      "topic": "planning",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-059",
+      "englishText": "The robot would rather repair old toys than replace them.",
+      "embeddingText": "Friendly robot repairing a worn wooden toy at a workbench.",
+      "sceneQuery": "Friendly robot repairing a worn wooden toy at a workbench.",
+      "topic": "imagination",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-060",
+      "englishText": "A convincing explanation connects each claim with an observation.",
+      "embeddingText": "Classroom display linking observations to clear written explanations.",
+      "sceneQuery": "Classroom display linking observations to clear written explanations.",
+      "topic": "reasoning",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-061",
+      "englishText": "This ruler is shorter.",
+      "embeddingText": "Short ruler placed beside a longer one on a desk.",
+      "sceneQuery": "Short ruler placed beside a longer one on a desk.",
+      "topic": "school",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-062",
+      "englishText": "The soup smells good.",
+      "embeddingText": "Steaming bowl of vegetable soup on a kitchen table.",
+      "sceneQuery": "Steaming bowl of vegetable soup on a kitchen table.",
+      "topic": "food",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-063",
+      "englishText": "The lizard opens one eye.",
+      "embeddingText": "Resting lizard opening one eye on a warm garden rock.",
+      "sceneQuery": "Resting lizard opening one eye on a warm garden rock.",
+      "topic": "animals",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-064",
+      "englishText": "We roll the ball slowly.",
+      "embeddingText": "Children gently rolling a ball across a smooth floor.",
+      "sceneQuery": "Children gently rolling a ball across a smooth floor.",
+      "topic": "play",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-065",
+      "englishText": "The basket is almost empty.",
+      "embeddingText": "Woven basket with only one small apple remaining inside.",
+      "sceneQuery": "Woven basket with only one small apple remaining inside.",
+      "topic": "home",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-066",
+      "englishText": "I want a little water.",
+      "embeddingText": "Small glass of water beside a pitcher.",
+      "sceneQuery": "Small glass of water beside a pitcher.",
+      "topic": "food",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-067",
+      "englishText": "The river is very wide.",
+      "embeddingText": "Broad river stretching between two green riverbanks.",
+      "sceneQuery": "Broad river stretching between two green riverbanks.",
+      "topic": "nature",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-068",
+      "englishText": "These boots are too big.",
+      "embeddingText": "Large rain boots beside a smaller pair.",
+      "sceneQuery": "Large rain boots beside a smaller pair.",
+      "topic": "clothes",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-069",
+      "englishText": "Your drum is loud.",
+      "embeddingText": "Child playing a drum with a strong clear beat.",
+      "sceneQuery": "Child playing a drum with a strong clear beat.",
+      "topic": "music",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-070",
+      "englishText": "I need more blue paint.",
+      "embeddingText": "Nearly empty blue paint pot beside an unfinished picture.",
+      "sceneQuery": "Nearly empty blue paint pot beside an unfinished picture.",
+      "topic": "art",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-071",
+      "englishText": "There is room for you.",
+      "embeddingText": "Friends leaving an empty place for another child at a table.",
+      "sceneQuery": "Friends leaving an empty place for another child at a table.",
+      "topic": "friendship",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-072",
+      "englishText": "The fox has white paws.",
+      "embeddingText": "Red fox standing on grass with clearly visible white paws.",
+      "sceneQuery": "Red fox standing on grass with clearly visible white paws.",
+      "topic": "animals",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-073",
+      "englishText": "Could you explain the second step again?",
+      "embeddingText": "Child asking for help with the second step of a classroom activity.",
+      "sceneQuery": "Child asking for help with the second step of a classroom activity.",
+      "topic": "school",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-074",
+      "englishText": "Which shape has exactly three sides?",
+      "embeddingText": "Triangle among several geometric shapes on a classroom board.",
+      "sceneQuery": "Triangle among several geometric shapes on a classroom board.",
+      "topic": "school",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-075",
+      "englishText": "We found the answer by comparing both diagrams.",
+      "embeddingText": "Two diagrams being compared side by side in a notebook.",
+      "sceneQuery": "Two diagrams being compared side by side in a notebook.",
+      "topic": "school",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-076",
+      "englishText": "I have not finished the last page yet.",
+      "embeddingText": "Open workbook with one final page still being completed.",
+      "sceneQuery": "Open workbook with one final page still being completed.",
+      "topic": "school",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-077",
+      "englishText": "Please pass me the book with the purple cover.",
+      "embeddingText": "Purple-covered book being passed across a study table.",
+      "sceneQuery": "Purple-covered book being passed across a study table.",
+      "topic": "school",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-078",
+      "englishText": "The magnifying glass makes the tiny letters easier to see.",
+      "embeddingText": "Magnifying glass enlarging small printed letters on a page.",
+      "sceneQuery": "Magnifying glass enlarging small printed letters on a page.",
+      "topic": "school",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-079",
+      "englishText": "Some objects float, but this pebble sinks.",
+      "embeddingText": "Basin of water showing floating cork and a sunken pebble.",
+      "sceneQuery": "Basin of water showing floating cork and a sunken pebble.",
+      "topic": "science",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-080",
+      "englishText": "The magnet attracts the paper clip through the paper.",
+      "embeddingText": "Magnet moving a paper clip through a sheet of paper.",
+      "sceneQuery": "Magnet moving a paper clip through a sheet of paper.",
+      "topic": "science",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-081",
+      "englishText": "We mark the water level before adding the stone.",
+      "embeddingText": "Water level marks on a measuring jug beside a small stone.",
+      "sceneQuery": "Water level marks on a measuring jug beside a small stone.",
+      "topic": "science",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-082",
+      "englishText": "The shadow becomes shorter as the sun rises.",
+      "embeddingText": "Series of shadow outlines becoming shorter during the morning.",
+      "sceneQuery": "Series of shadow outlines becoming shorter during the morning.",
+      "topic": "science",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-083",
+      "englishText": "We stay on the path to protect the young plants.",
+      "embeddingText": "Walkers staying on a marked trail beside delicate young plants.",
+      "sceneQuery": "Walkers staying on a marked trail beside delicate young plants.",
+      "topic": "nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-084",
+      "englishText": "The acorn is smaller than the oak leaf.",
+      "embeddingText": "Acorn and broad oak leaf arranged side by side.",
+      "sceneQuery": "Acorn and broad oak leaf arranged side by side.",
+      "topic": "nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-085",
+      "englishText": "A rainbow appears when sunshine meets the falling rain.",
+      "embeddingText": "Rainbow arching through a sunlit rain shower over a meadow.",
+      "sceneQuery": "Rainbow arching through a sunlit rain shower over a meadow.",
+      "topic": "nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-086",
+      "englishText": "We can see tiny roots through the clear jar.",
+      "embeddingText": "Seedling roots visible against the inside of a transparent jar.",
+      "sceneQuery": "Seedling roots visible against the inside of a transparent jar.",
+      "topic": "nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-087",
+      "englishText": "The penguins huddle together to keep warm.",
+      "embeddingText": "Penguins standing close together on a snowy shore.",
+      "sceneQuery": "Penguins standing close together on a snowy shore.",
+      "topic": "animals",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-088",
+      "englishText": "The squirrel buries an acorn beside the old fence.",
+      "embeddingText": "Squirrel hiding an acorn in soil beside a wooden fence.",
+      "sceneQuery": "Squirrel hiding an acorn in soil beside a wooden fence.",
+      "topic": "animals",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-089",
+      "englishText": "The duck shakes water off its feathers.",
+      "embeddingText": "Duck shaking droplets from its wet feathers at a pond's edge.",
+      "sceneQuery": "Duck shaking droplets from its wet feathers at a pond's edge.",
+      "topic": "animals",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-090",
+      "englishText": "At dusk, bats fly out to look for insects.",
+      "embeddingText": "Bats emerging into a dusky sky above a meadow.",
+      "sceneQuery": "Bats emerging into a dusky sky above a meadow.",
+      "topic": "animals",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-091",
+      "englishText": "We keep the fruit salad cool until lunchtime.",
+      "embeddingText": "Covered fruit salad chilling on a refrigerator shelf.",
+      "sceneQuery": "Covered fruit salad chilling on a refrigerator shelf.",
+      "topic": "food",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-092",
+      "englishText": "Would you like the larger slice or the smaller one?",
+      "embeddingText": "Two differently sized portions of cake on a serving plate.",
+      "sceneQuery": "Two differently sized portions of cake on a serving plate.",
+      "topic": "food",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-093",
+      "englishText": "The dough feels sticky until we add more flour.",
+      "embeddingText": "Sticky bread dough being dusted with a little flour.",
+      "sceneQuery": "Sticky bread dough being dusted with a little flour.",
+      "topic": "food",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-094",
+      "englishText": "Someone left a mitten under the garden bench.",
+      "embeddingText": "Lost mitten lying beneath an outdoor garden bench.",
+      "sceneQuery": "Lost mitten lying beneath an outdoor garden bench.",
+      "topic": "home",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-095",
+      "englishText": "We hang the wet towels where the air can circulate.",
+      "embeddingText": "Wet towels hanging apart on a drying rack in an airy room.",
+      "sceneQuery": "Wet towels hanging apart on a drying rack in an airy room.",
+      "topic": "home",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-096",
+      "englishText": "This lid fits the round container perfectly.",
+      "embeddingText": "Round storage container with its matching lid.",
+      "sceneQuery": "Round storage container with its matching lid.",
+      "topic": "home",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-097",
+      "englishText": "I felt nervous, so my friend practiced with me.",
+      "embeddingText": "Two friends rehearsing together to build confidence.",
+      "sceneQuery": "Two friends rehearsing together to build confidence.",
+      "topic": "friendship",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-098",
+      "englishText": "We listen without interrupting when someone tells a story.",
+      "embeddingText": "Small group listening attentively to a friend telling a story.",
+      "sceneQuery": "Small group listening attentively to a friend telling a story.",
+      "topic": "friendship",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-099",
+      "englishText": "You can join our game even if you are new.",
+      "embeddingText": "Children inviting a newcomer to join a cooperative game.",
+      "sceneQuery": "Children inviting a newcomer to join a cooperative game.",
+      "topic": "friendship",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-100",
+      "englishText": "The puzzle piece belongs near the bottom corner.",
+      "embeddingText": "Hand placing a puzzle piece near a lower corner.",
+      "sceneQuery": "Hand placing a puzzle piece near a lower corner.",
+      "topic": "play",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-101",
+      "englishText": "Our marble stops before reaching the end of the ramp.",
+      "embeddingText": "Marble resting partway along a cardboard ramp.",
+      "sceneQuery": "Marble resting partway along a cardboard ramp.",
+      "topic": "play",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-102",
+      "englishText": "We move one square forward after each correct answer.",
+      "embeddingText": "Board game tokens moving along a path of squares.",
+      "sceneQuery": "Board game tokens moving along a path of squares.",
+      "topic": "play",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-103",
+      "englishText": "The museum closes earlier on Sundays.",
+      "embeddingText": "Museum entrance with a sign showing shorter Sunday opening hours.",
+      "sceneQuery": "Museum entrance with a sign showing shorter Sunday opening hours.",
+      "topic": "travel",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-104",
+      "englishText": "We recognize our stop by the tall clock tower.",
+      "embeddingText": "Bus stop beside a distinctive tall clock tower.",
+      "sceneQuery": "Bus stop beside a distinctive tall clock tower.",
+      "topic": "travel",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-105",
+      "englishText": "The ferry carries bicycles as well as passengers.",
+      "embeddingText": "Small ferry carrying travelers and their bicycles across a river.",
+      "sceneQuery": "Small ferry carrying travelers and their bicycles across a river.",
+      "topic": "travel",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-106",
+      "englishText": "The moon gardener plants silver flowers in round pots.",
+      "embeddingText": "Imaginary moon gardener tending silver flowers in round planters.",
+      "sceneQuery": "Imaginary moon gardener tending silver flowers in round planters.",
+      "topic": "imagination",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-107",
+      "englishText": "A polite giant asks before borrowing our umbrella.",
+      "embeddingText": "Friendly giant politely requesting a small umbrella from village friends.",
+      "sceneQuery": "Friendly giant politely requesting a small umbrella from village friends.",
+      "topic": "imagination",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-108",
+      "englishText": "The cloud train stops whenever a star needs a ride.",
+      "embeddingText": "Whimsical train traveling on clouds and picking up friendly stars.",
+      "sceneQuery": "Whimsical train traveling on clouds and picking up friendly stars.",
+      "topic": "imagination",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-109",
+      "englishText": "A larger sample would make our comparison more reliable.",
+      "embeddingText": "Several collections of leaves arranged for a careful comparison.",
+      "sceneQuery": "Several collections of leaves arranged for a careful comparison.",
+      "topic": "reasoning",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-110",
+      "englishText": "The pattern continues even though the colors change.",
+      "embeddingText": "Repeating shape pattern using a different color in each group.",
+      "sceneQuery": "Repeating shape pattern using a different color in each group.",
+      "topic": "reasoning",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-111",
+      "englishText": "We distinguish an observation from a guess by checking the evidence.",
+      "embeddingText": "Classroom chart separating recorded observations from tentative guesses.",
+      "sceneQuery": "Classroom chart separating recorded observations from tentative guesses.",
+      "topic": "reasoning",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-112",
+      "englishText": "Water evaporates gradually, even when it is not boiling.",
+      "embeddingText": "Shallow water tray with level marks showing gradual evaporation.",
+      "sceneQuery": "Shallow water tray with level marks showing gradual evaporation.",
+      "topic": "science",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-113",
+      "englishText": "The instructions explain why only one variable should change.",
+      "embeddingText": "Experiment plan highlighting one changed variable and several constants.",
+      "sceneQuery": "Experiment plan highlighting one changed variable and several constants.",
+      "topic": "science",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-114",
+      "englishText": "As the habitat recovers, more kinds of birds return.",
+      "embeddingText": "Restored wetland welcoming several kinds of birds.",
+      "sceneQuery": "Restored wetland welcoming several kinds of birds.",
+      "topic": "nature",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-115",
+      "englishText": "We can acknowledge a mistake without giving up on the project.",
+      "embeddingText": "Children correcting a mistake in a shared craft project.",
+      "sceneQuery": "Children correcting a mistake in a shared craft project.",
+      "topic": "friendship",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-116",
+      "englishText": "A fair compromise considers what matters to each teammate.",
+      "embeddingText": "Team combining different preferences into one agreed project plan.",
+      "sceneQuery": "Team combining different preferences into one agreed project plan.",
+      "topic": "friendship",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-117",
+      "englishText": "Unless we label the samples, we may confuse them later.",
+      "embeddingText": "Collection of small samples with clear labels being attached.",
+      "sceneQuery": "Collection of small samples with clear labels being attached.",
+      "topic": "planning",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-118",
+      "englishText": "The artist left part of the canvas blank to suggest mist.",
+      "embeddingText": "Watercolor landscape using unpainted areas to suggest soft mist.",
+      "sceneQuery": "Watercolor landscape using unpainted areas to suggest soft mist.",
+      "topic": "art",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-119",
+      "englishText": "The melody remains recognizable despite the slower rhythm.",
+      "embeddingText": "Musicians comparing a familiar melody at two different tempos.",
+      "sceneQuery": "Musicians comparing a familiar melody at two different tempos.",
+      "topic": "music",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-120",
+      "englishText": "Had the robot checked the map, it would have found the library sooner.",
+      "embeddingText": "Friendly robot discovering a library after studying a town map.",
+      "sceneQuery": "Friendly robot discovering a library after studying a town map.",
+      "topic": "imagination",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-121",
+      "englishText": "The rabbit's ears are long.",
+      "embeddingText": "Rabbit with long upright ears sitting in grass.",
+      "sceneQuery": "Rabbit with long upright ears sitting in grass.",
+      "topic": "animals",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-122",
+      "englishText": "I can read this word.",
+      "embeddingText": "Child reading one clearly printed word on a card.",
+      "sceneQuery": "Child reading one clearly printed word on a card.",
+      "topic": "school",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-123",
+      "englishText": "We have three clean cups.",
+      "embeddingText": "Three freshly washed cups lined up beside a sink.",
+      "sceneQuery": "Three freshly washed cups lined up beside a sink.",
+      "topic": "home",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-124",
+      "englishText": "The sand feels warm.",
+      "embeddingText": "Sunlit beach sand with shallow footprints.",
+      "sceneQuery": "Sunlit beach sand with shallow footprints.",
+      "topic": "nature",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-125",
+      "englishText": "Dark clouds gather above us.",
+      "embeddingText": "Dark clouds gathering overhead before a rain shower.",
+      "sceneQuery": "Dark clouds gathering overhead before a rain shower.",
+      "topic": "weather",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-126",
+      "englishText": "This picture makes me smile.",
+      "embeddingText": "Cheerful drawing bringing a smile to a child's face.",
+      "sceneQuery": "Cheerful drawing bringing a smile to a child's face.",
+      "topic": "art",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-127",
+      "englishText": "The strawberries taste sweet.",
+      "embeddingText": "Fresh ripe strawberries arranged in a small bowl.",
+      "sceneQuery": "Fresh ripe strawberries arranged in a small bowl.",
+      "topic": "food",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-128",
+      "englishText": "We sing softly together.",
+      "embeddingText": "Small group singing a gentle song together.",
+      "sceneQuery": "Small group singing a gentle song together.",
+      "topic": "music",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-129",
+      "englishText": "The green team goes first.",
+      "embeddingText": "Board game with green team tokens ready for the first turn.",
+      "sceneQuery": "Board game with green team tokens ready for the first turn.",
+      "topic": "play",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-130",
+      "englishText": "I like your idea.",
+      "embeddingText": "Two friends smiling over a suggested craft idea.",
+      "sceneQuery": "Two friends smiling over a suggested craft idea.",
+      "topic": "friendship",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-131",
+      "englishText": "My scarf is still wet.",
+      "embeddingText": "Damp scarf hanging on a drying rack.",
+      "sceneQuery": "Damp scarf hanging on a drying rack.",
+      "topic": "clothes",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-132",
+      "englishText": "The moon looks round tonight.",
+      "embeddingText": "Round full moon glowing above rooftops after dark.",
+      "sceneQuery": "Round full moon glowing above rooftops after dark.",
+      "topic": "nature",
+      "difficulty": 1
+    },
+    {
+      "id": "ww-pair260908-133",
+      "englishText": "Yesterday we made a timeline of the story.",
+      "embeddingText": "Story events arranged in order along a classroom timeline.",
+      "sceneQuery": "Story events arranged in order along a classroom timeline.",
+      "topic": "school",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-134",
+      "englishText": "Tomorrow our class will visit the science museum.",
+      "embeddingText": "Class calendar marking an upcoming visit to a science museum.",
+      "sceneQuery": "Class calendar marking an upcoming visit to a science museum.",
+      "topic": "school",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-135",
+      "englishText": "I wrote the title above the drawing.",
+      "embeddingText": "Handwritten title positioned above a colorful school drawing.",
+      "sceneQuery": "Handwritten title positioned above a colorful school drawing.",
+      "topic": "school",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-136",
+      "englishText": "We checked our answers before handing in the worksheet.",
+      "embeddingText": "Completed worksheet being checked before submission.",
+      "sceneQuery": "Completed worksheet being checked before submission.",
+      "topic": "school",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-137",
+      "englishText": "The teacher asked us to explain how we knew.",
+      "embeddingText": "Teacher inviting pupils to explain the reasoning behind an answer.",
+      "sceneQuery": "Teacher inviting pupils to explain the reasoning behind an answer.",
+      "topic": "school",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-138",
+      "englishText": "There are fewer counters in this row than in that one.",
+      "embeddingText": "Two rows of counters with visibly different quantities.",
+      "sceneQuery": "Two rows of counters with visibly different quantities.",
+      "topic": "school",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-139",
+      "englishText": "Half of the paper is covered with blue squares.",
+      "embeddingText": "Sheet of paper with blue squares covering exactly one half.",
+      "sceneQuery": "Sheet of paper with blue squares covering exactly one half.",
+      "topic": "math",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-140",
+      "englishText": "We need four equal pieces for the four players.",
+      "embeddingText": "Paper circle divided into four equal portions for four players.",
+      "sceneQuery": "Paper circle divided into four equal portions for four players.",
+      "topic": "math",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-141",
+      "englishText": "The missing number belongs between twelve and fourteen.",
+      "embeddingText": "Number line showing a blank position between twelve and fourteen.",
+      "sceneQuery": "Number line showing a blank position between twelve and fourteen.",
+      "topic": "math",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-142",
+      "englishText": "Our thermometer showed a lower temperature this morning.",
+      "embeddingText": "Outdoor thermometer beside morning temperature notes.",
+      "sceneQuery": "Outdoor thermometer beside morning temperature notes.",
+      "topic": "science",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-143",
+      "englishText": "The wheel turns smoothly after we straighten the axle.",
+      "embeddingText": "Simple model wheel spinning on a straightened axle.",
+      "sceneQuery": "Simple model wheel spinning on a straightened axle.",
+      "topic": "science",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-144",
+      "englishText": "We use a ruler to keep the lines parallel.",
+      "embeddingText": "Ruler guiding two neat parallel pencil lines.",
+      "sceneQuery": "Ruler guiding two neat parallel pencil lines.",
+      "topic": "science",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-145",
+      "englishText": "Last spring, birds built a nest under this roof.",
+      "embeddingText": "Bird nest tucked under the eaves of a roof in spring.",
+      "sceneQuery": "Bird nest tucked under the eaves of a roof in spring.",
+      "topic": "nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-146",
+      "englishText": "The pond was quieter before the frogs began croaking.",
+      "embeddingText": "Frogs calling from reeds around a twilight pond.",
+      "sceneQuery": "Frogs calling from reeds around a twilight pond.",
+      "topic": "nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-147",
+      "englishText": "We will plant the seedlings after the last frost.",
+      "embeddingText": "Tray of seedlings waiting indoors for warmer spring weather.",
+      "sceneQuery": "Tray of seedlings waiting indoors for warmer spring weather.",
+      "topic": "nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-148",
+      "englishText": "The footprints became harder to see as the snow melted.",
+      "embeddingText": "Fading footprints in a thinning layer of melting snow.",
+      "sceneQuery": "Fading footprints in a thinning layer of melting snow.",
+      "topic": "nature",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-149",
+      "englishText": "The parrot copied the sound of the doorbell.",
+      "embeddingText": "Parrot tilting its head near a household doorbell.",
+      "sceneQuery": "Parrot tilting its head near a household doorbell.",
+      "topic": "animals",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-150",
+      "englishText": "We watched a butterfly emerge from its chrysalis.",
+      "embeddingText": "New butterfly unfolding its wings beside an empty chrysalis.",
+      "sceneQuery": "New butterfly unfolding its wings beside an empty chrysalis.",
+      "topic": "animals",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-151",
+      "englishText": "The hedgehog will leave when the garden becomes quiet.",
+      "embeddingText": "Hedgehog waiting near garden shrubs in the evening.",
+      "sceneQuery": "Hedgehog waiting near garden shrubs in the evening.",
+      "topic": "animals",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-152",
+      "englishText": "A seal surfaced beside the boat and disappeared again.",
+      "embeddingText": "Seal briefly surfacing beside a small boat on calm water.",
+      "sceneQuery": "Seal briefly surfacing beside a small boat on calm water.",
+      "topic": "animals",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-153",
+      "englishText": "I have saved the scraps for another collage.",
+      "embeddingText": "Colorful paper scraps stored beside a partly finished collage.",
+      "sceneQuery": "Colorful paper scraps stored beside a partly finished collage.",
+      "topic": "art",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-154",
+      "englishText": "We painted the background before adding the animals.",
+      "embeddingText": "Landscape background being prepared for animal illustrations.",
+      "sceneQuery": "Landscape background being prepared for animal illustrations.",
+      "topic": "art",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-155",
+      "englishText": "The puppet's hat fell off during the final bow.",
+      "embeddingText": "Puppet taking a bow as its little hat drops onto the stage.",
+      "sceneQuery": "Puppet taking a bow as its little hat drops onto the stage.",
+      "topic": "art",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-156",
+      "englishText": "We have practiced the difficult part three times.",
+      "embeddingText": "Music score with a difficult passage marked for repeated practice.",
+      "sceneQuery": "Music score with a difficult passage marked for repeated practice.",
+      "topic": "music",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-157",
+      "englishText": "The choir grew quieter at the end of the song.",
+      "embeddingText": "Children's choir finishing a song with a gentle quiet ending.",
+      "sceneQuery": "Children's choir finishing a song with a gentle quiet ending.",
+      "topic": "music",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-158",
+      "englishText": "Our tower fell, but we found a wider base.",
+      "embeddingText": "Fallen toy tower being rebuilt on a broader base.",
+      "sceneQuery": "Fallen toy tower being rebuilt on a broader base.",
+      "topic": "play",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-159",
+      "englishText": "We will try a different route through the maze.",
+      "embeddingText": "Maze drawing showing a newly chosen path toward the exit.",
+      "sceneQuery": "Maze drawing showing a newly chosen path toward the exit.",
+      "topic": "play",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-160",
+      "englishText": "Nobody has found the missing puzzle piece yet.",
+      "embeddingText": "Almost completed jigsaw puzzle with one empty space.",
+      "sceneQuery": "Almost completed jigsaw puzzle with one empty space.",
+      "topic": "play",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-161",
+      "englishText": "I apologized because I had interrupted the story.",
+      "embeddingText": "Child apologizing kindly to a friend who was telling a story.",
+      "sceneQuery": "Child apologizing kindly to a friend who was telling a story.",
+      "topic": "friendship",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-162",
+      "englishText": "We promised to return the borrowed game tomorrow.",
+      "embeddingText": "Borrowed board game packed carefully for return the next day.",
+      "sceneQuery": "Borrowed board game packed carefully for return the next day.",
+      "topic": "friendship",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-163",
+      "englishText": "Everyone cheered when our shy friend finished the poem.",
+      "embeddingText": "Supportive friends applauding a completed poetry reading.",
+      "sceneQuery": "Supportive friends applauding a completed poetry reading.",
+      "topic": "friendship",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-164",
+      "englishText": "We have already watered the plants on the balcony.",
+      "embeddingText": "Freshly watered plants on a balcony beside an empty watering can.",
+      "sceneQuery": "Freshly watered plants on a balcony beside an empty watering can.",
+      "topic": "home",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-165",
+      "englishText": "The next bus will arrive in ten minutes.",
+      "embeddingText": "Bus stop display showing a ten-minute wait.",
+      "sceneQuery": "Bus stop display showing a ten-minute wait.",
+      "topic": "travel",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-166",
+      "englishText": "We missed the turn and walked back to the fountain.",
+      "embeddingText": "Walkers returning to a town fountain after passing a turn.",
+      "sceneQuery": "Walkers returning to a town fountain after passing a turn.",
+      "topic": "travel",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-167",
+      "englishText": "The dragon had lost its glasses behind the library shelves.",
+      "embeddingText": "Friendly dragon looking for glasses behind library shelves.",
+      "sceneQuery": "Friendly dragon looking for glasses behind library shelves.",
+      "topic": "imagination",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-168",
+      "englishText": "Tomorrow the tiny captain will sail across the bathtub.",
+      "embeddingText": "Toy captain aboard a little boat in a bathtub sea.",
+      "sceneQuery": "Toy captain aboard a little boat in a bathtub sea.",
+      "topic": "imagination",
+      "difficulty": 2
+    },
+    {
+      "id": "ww-pair260908-169",
+      "englishText": "Changing the example does not necessarily change the rule.",
+      "embeddingText": "Different example cards illustrating the same underlying rule.",
+      "sceneQuery": "Different example cards illustrating the same underlying rule.",
+      "topic": "reasoning",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-170",
+      "englishText": "We revised our prediction after noticing a new detail.",
+      "embeddingText": "Prediction note being updated beside a newly observed detail.",
+      "sceneQuery": "Prediction note being updated beside a newly observed detail.",
+      "topic": "reasoning",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-171",
+      "englishText": "The result would be misleading if the measurements used different units.",
+      "embeddingText": "Measurements in different units being checked before comparison.",
+      "sceneQuery": "Measurements in different units being checked before comparison.",
+      "topic": "science",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-172",
+      "englishText": "Repeating the experiment helps us discover whether the result is consistent.",
+      "embeddingText": "Repeated classroom experiment results recorded in matching columns.",
+      "sceneQuery": "Repeated classroom experiment results recorded in matching columns.",
+      "topic": "science",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-173",
+      "englishText": "The wetland stores rainwater and provides shelter for many species.",
+      "embeddingText": "Wetland with water channels, reeds, birds, and sheltered wildlife.",
+      "sceneQuery": "Wetland with water channels, reeds, birds, and sheltered wildlife.",
+      "topic": "nature",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-174",
+      "englishText": "Protecting a single tree also protects the life that depends on it.",
+      "embeddingText": "Tree supporting birds, insects, fungi, and other small living things.",
+      "sceneQuery": "Tree supporting birds, insects, fungi, and other small living things.",
+      "topic": "nature",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-175",
+      "englishText": "Being patient gives other people time to find their words.",
+      "embeddingText": "Friends waiting attentively while someone gathers their thoughts.",
+      "sceneQuery": "Friends waiting attentively while someone gathers their thoughts.",
+      "topic": "friendship",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-176",
+      "englishText": "The group succeeded because each person contributed a different strength.",
+      "embeddingText": "Team completing a model using different members' skills.",
+      "sceneQuery": "Team completing a model using different members' skills.",
+      "topic": "friendship",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-177",
+      "englishText": "We chose materials that could be reused after the exhibition.",
+      "embeddingText": "Exhibition model made from reusable cardboard and wooden pieces.",
+      "sceneQuery": "Exhibition model made from reusable cardboard and wooden pieces.",
+      "topic": "planning",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-178",
+      "englishText": "The illustrator uses contrast to draw attention to the smallest character.",
+      "embeddingText": "Illustration using strong color contrast around a tiny story character.",
+      "sceneQuery": "Illustration using strong color contrast around a tiny story character.",
+      "topic": "art",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-179",
+      "englishText": "Once everyone had found the beat, the rhythm became steadier.",
+      "embeddingText": "Group musicians settling into a steady shared beat.",
+      "sceneQuery": "Group musicians settling into a steady shared beat.",
+      "topic": "music",
+      "difficulty": 3
+    },
+    {
+      "id": "ww-pair260908-180",
+      "englishText": "The dragon discovered that asking for help could be an act of courage.",
+      "embeddingText": "Friendly dragon bravely asking companions for help with a task.",
+      "sceneQuery": "Friendly dragon bravely asking companions for help with a task.",
+      "topic": "imagination",
+      "difficulty": 3
     }
   ],
   "derivedFrom": "apps/languages/shared/english-concepts/word-world-es-v1.json"

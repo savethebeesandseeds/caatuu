@@ -106,6 +106,118 @@
                 "learnerBaseText": "a garden",
                 "englishAuditText": "a garden"
               }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.masculine-singular.exp260908",
+              "revision": 1,
+              "learnerBaseText": "a pretty drawing",
+              "englishAuditText": "a pretty drawing",
+              "targetText": "un dibujo bonito",
+              "slot": {
+                "beforeText": "un dibujo ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "dibujo",
+                "learnerBaseText": "drawing",
+                "englishAuditText": "drawing"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.pair260908.masculine-singular.mosaico",
+              "revision": 1,
+              "learnerBaseText": "a pretty mosaic",
+              "englishAuditText": "a pretty mosaic",
+              "targetText": "un mosaico bonito",
+              "slot": {
+                "beforeText": "un mosaico ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "mosaico",
+                "learnerBaseText": "mosaic",
+                "englishAuditText": "mosaic"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.pair260908.masculine-singular.paisaje",
+              "revision": 1,
+              "learnerBaseText": "a pretty landscape",
+              "englishAuditText": "a pretty landscape",
+              "targetText": "un paisaje bonito",
+              "slot": {
+                "beforeText": "un paisaje ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "paisaje",
+                "learnerBaseText": "landscape",
+                "englishAuditText": "landscape"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.pair260908.masculine-singular.bordado",
+              "revision": 1,
+              "learnerBaseText": "a pretty embroidery",
+              "englishAuditText": "a pretty embroidery",
+              "targetText": "un bordado bonito",
+              "slot": {
+                "beforeText": "un bordado ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "bordado",
+                "learnerBaseText": "embroidery",
+                "englishAuditText": "embroidery"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.pair260908.masculine-singular.collar",
+              "revision": 1,
+              "learnerBaseText": "a pretty necklace",
+              "englishAuditText": "a pretty necklace",
+              "targetText": "un collar bonito",
+              "slot": {
+                "beforeText": "un collar ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "collar",
+                "learnerBaseText": "necklace",
+                "englishAuditText": "necklace"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.pair260908.masculine-singular.ramo",
+              "revision": 1,
+              "learnerBaseText": "a pretty bouquet",
+              "englishAuditText": "a pretty bouquet",
+              "targetText": "un ramo bonito",
+              "slot": {
+                "beforeText": "un ramo ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "ramo",
+                "learnerBaseText": "bouquet",
+                "englishAuditText": "bouquet"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.pair260908.masculine-singular.atardecer",
+              "revision": 1,
+              "learnerBaseText": "a pretty sunset",
+              "englishAuditText": "a pretty sunset",
+              "targetText": "un atardecer bonito",
+              "slot": {
+                "beforeText": "un atardecer ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "atardecer",
+                "learnerBaseText": "sunset",
+                "englishAuditText": "sunset"
+              }
             }
           ]
         },
@@ -142,6 +254,118 @@
                 "targetText": "una canción",
                 "learnerBaseText": "a song",
                 "englishAuditText": "a song"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.feminine-singular.exp260908",
+              "revision": 1,
+              "learnerBaseText": "a pretty butterfly",
+              "englishAuditText": "a pretty butterfly",
+              "targetText": "una mariposa bonita",
+              "slot": {
+                "beforeText": "una mariposa ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "mariposa",
+                "learnerBaseText": "butterfly",
+                "englishAuditText": "butterfly"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.pair260908.feminine-singular.acuarela",
+              "revision": 1,
+              "learnerBaseText": "a pretty watercolor painting",
+              "englishAuditText": "a pretty watercolor painting",
+              "targetText": "una acuarela bonita",
+              "slot": {
+                "beforeText": "una acuarela ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "acuarela",
+                "learnerBaseText": "watercolor painting",
+                "englishAuditText": "watercolor painting"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.pair260908.feminine-singular.melodia",
+              "revision": 1,
+              "learnerBaseText": "a pretty melody",
+              "englishAuditText": "a pretty melody",
+              "targetText": "una melodía bonita",
+              "slot": {
+                "beforeText": "una melodía ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "melodía",
+                "learnerBaseText": "melody",
+                "englishAuditText": "melody"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.pair260908.feminine-singular.vidriera",
+              "revision": 1,
+              "learnerBaseText": "a pretty stained-glass window",
+              "englishAuditText": "a pretty stained-glass window",
+              "targetText": "una vidriera bonita",
+              "slot": {
+                "beforeText": "una vidriera ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "vidriera",
+                "learnerBaseText": "stained-glass window",
+                "englishAuditText": "stained-glass window"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.pair260908.feminine-singular.postal",
+              "revision": 1,
+              "learnerBaseText": "a pretty postcard",
+              "englishAuditText": "a pretty postcard",
+              "targetText": "una postal bonita",
+              "slot": {
+                "beforeText": "una postal ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "postal",
+                "learnerBaseText": "postcard",
+                "englishAuditText": "postcard"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.pair260908.feminine-singular.guirnalda",
+              "revision": 1,
+              "learnerBaseText": "a pretty garland",
+              "englishAuditText": "a pretty garland",
+              "targetText": "una guirnalda bonita",
+              "slot": {
+                "beforeText": "una guirnalda ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "guirnalda",
+                "learnerBaseText": "garland",
+                "englishAuditText": "garland"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.pair260908.feminine-singular.ilustracion",
+              "revision": 1,
+              "learnerBaseText": "a pretty illustration",
+              "englishAuditText": "a pretty illustration",
+              "targetText": "una ilustración bonita",
+              "slot": {
+                "beforeText": "una ilustración ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "ilustración",
+                "learnerBaseText": "illustration",
+                "englishAuditText": "illustration"
               }
             }
           ]
@@ -180,6 +404,118 @@
                 "learnerBaseText": "some gardens",
                 "englishAuditText": "some gardens"
               }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.masculine-plural.exp260908",
+              "revision": 1,
+              "learnerBaseText": "some pretty bows",
+              "englishAuditText": "some pretty bows",
+              "targetText": "unos lazos bonitos",
+              "slot": {
+                "beforeText": "unos lazos ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "lazos",
+                "learnerBaseText": "bows",
+                "englishAuditText": "bows"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.pair260908.masculine-plural.mosaicos",
+              "revision": 1,
+              "learnerBaseText": "some pretty mosaics",
+              "englishAuditText": "some pretty mosaics",
+              "targetText": "unos mosaicos bonitos",
+              "slot": {
+                "beforeText": "unos mosaicos ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "mosaicos",
+                "learnerBaseText": "mosaics",
+                "englishAuditText": "mosaics"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.pair260908.masculine-plural.paisajes",
+              "revision": 1,
+              "learnerBaseText": "some pretty landscapes",
+              "englishAuditText": "some pretty landscapes",
+              "targetText": "unos paisajes bonitos",
+              "slot": {
+                "beforeText": "unos paisajes ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "paisajes",
+                "learnerBaseText": "landscapes",
+                "englishAuditText": "landscapes"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.pair260908.masculine-plural.bordados",
+              "revision": 1,
+              "learnerBaseText": "some pretty embroideries",
+              "englishAuditText": "some pretty embroideries",
+              "targetText": "unos bordados bonitos",
+              "slot": {
+                "beforeText": "unos bordados ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "bordados",
+                "learnerBaseText": "embroideries",
+                "englishAuditText": "embroideries"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.pair260908.masculine-plural.collares",
+              "revision": 1,
+              "learnerBaseText": "some pretty necklaces",
+              "englishAuditText": "some pretty necklaces",
+              "targetText": "unos collares bonitos",
+              "slot": {
+                "beforeText": "unos collares ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "collares",
+                "learnerBaseText": "necklaces",
+                "englishAuditText": "necklaces"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.pair260908.masculine-plural.ramos",
+              "revision": 1,
+              "learnerBaseText": "some pretty bouquets",
+              "englishAuditText": "some pretty bouquets",
+              "targetText": "unos ramos bonitos",
+              "slot": {
+                "beforeText": "unos ramos ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "ramos",
+                "learnerBaseText": "bouquets",
+                "englishAuditText": "bouquets"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.pair260908.masculine-plural.atardeceres",
+              "revision": 1,
+              "learnerBaseText": "some pretty sunsets",
+              "englishAuditText": "some pretty sunsets",
+              "targetText": "unos atardeceres bonitos",
+              "slot": {
+                "beforeText": "unos atardeceres ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "atardeceres",
+                "learnerBaseText": "sunsets",
+                "englishAuditText": "sunsets"
+              }
             }
           ]
         },
@@ -216,6 +552,118 @@
                 "targetText": "unas canciones",
                 "learnerBaseText": "some songs",
                 "englishAuditText": "some songs"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.feminine-plural.exp260908",
+              "revision": 1,
+              "learnerBaseText": "some pretty shells",
+              "englishAuditText": "some pretty shells",
+              "targetText": "unas conchas bonitas",
+              "slot": {
+                "beforeText": "unas conchas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "conchas",
+                "learnerBaseText": "shells",
+                "englishAuditText": "shells"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.pair260908.feminine-plural.acuarelas",
+              "revision": 1,
+              "learnerBaseText": "some pretty watercolor paintings",
+              "englishAuditText": "some pretty watercolor paintings",
+              "targetText": "unas acuarelas bonitas",
+              "slot": {
+                "beforeText": "unas acuarelas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "acuarelas",
+                "learnerBaseText": "watercolor paintings",
+                "englishAuditText": "watercolor paintings"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.pair260908.feminine-plural.melodias",
+              "revision": 1,
+              "learnerBaseText": "some pretty melodies",
+              "englishAuditText": "some pretty melodies",
+              "targetText": "unas melodías bonitas",
+              "slot": {
+                "beforeText": "unas melodías ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "melodías",
+                "learnerBaseText": "melodies",
+                "englishAuditText": "melodies"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.pair260908.feminine-plural.vidrieras",
+              "revision": 1,
+              "learnerBaseText": "some pretty stained-glass windows",
+              "englishAuditText": "some pretty stained-glass windows",
+              "targetText": "unas vidrieras bonitas",
+              "slot": {
+                "beforeText": "unas vidrieras ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "vidrieras",
+                "learnerBaseText": "stained-glass windows",
+                "englishAuditText": "stained-glass windows"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.pair260908.feminine-plural.postales",
+              "revision": 1,
+              "learnerBaseText": "some pretty postcards",
+              "englishAuditText": "some pretty postcards",
+              "targetText": "unas postales bonitas",
+              "slot": {
+                "beforeText": "unas postales ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "postales",
+                "learnerBaseText": "postcards",
+                "englishAuditText": "postcards"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.pair260908.feminine-plural.guirnaldas",
+              "revision": 1,
+              "learnerBaseText": "some pretty garlands",
+              "englishAuditText": "some pretty garlands",
+              "targetText": "unas guirnaldas bonitas",
+              "slot": {
+                "beforeText": "unas guirnaldas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "guirnaldas",
+                "learnerBaseText": "garlands",
+                "englishAuditText": "garlands"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-bonito.pair260908.feminine-plural.ilustraciones",
+              "revision": 1,
+              "learnerBaseText": "some pretty illustrations",
+              "englishAuditText": "some pretty illustrations",
+              "targetText": "unas ilustraciones bonitas",
+              "slot": {
+                "beforeText": "unas ilustraciones ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "ilustraciones",
+                "learnerBaseText": "illustrations",
+                "englishAuditText": "illustrations"
               }
             }
           ]
@@ -268,6 +716,118 @@
                 "learnerBaseText": "a town",
                 "englishAuditText": "a town"
               }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.masculine-singular.exp260908",
+              "revision": 1,
+              "learnerBaseText": "a small hedgehog",
+              "englishAuditText": "a small hedgehog",
+              "targetText": "un erizo pequeño",
+              "slot": {
+                "beforeText": "un erizo ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "erizo",
+                "learnerBaseText": "hedgehog",
+                "englishAuditText": "hedgehog"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.pair260908.masculine-singular.boton",
+              "revision": 1,
+              "learnerBaseText": "a small button",
+              "englishAuditText": "a small button",
+              "targetText": "un botón pequeño",
+              "slot": {
+                "beforeText": "un botón ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "botón",
+                "learnerBaseText": "button",
+                "englishAuditText": "button"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.pair260908.masculine-singular.dedal",
+              "revision": 1,
+              "learnerBaseText": "a small thimble",
+              "englishAuditText": "a small thimble",
+              "targetText": "un dedal pequeño",
+              "slot": {
+                "beforeText": "un dedal ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "dedal",
+                "learnerBaseText": "thimble",
+                "englishAuditText": "thimble"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.pair260908.masculine-singular.iman",
+              "revision": 1,
+              "learnerBaseText": "a small magnet",
+              "englishAuditText": "a small magnet",
+              "targetText": "un imán pequeño",
+              "slot": {
+                "beforeText": "un imán ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "imán",
+                "learnerBaseText": "magnet",
+                "englishAuditText": "magnet"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.pair260908.masculine-singular.tornillo",
+              "revision": 1,
+              "learnerBaseText": "a small screw",
+              "englishAuditText": "a small screw",
+              "targetText": "un tornillo pequeño",
+              "slot": {
+                "beforeText": "un tornillo ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "tornillo",
+                "learnerBaseText": "screw",
+                "englishAuditText": "screw"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.pair260908.masculine-singular.charco",
+              "revision": 1,
+              "learnerBaseText": "a small puddle",
+              "englishAuditText": "a small puddle",
+              "targetText": "un charco pequeño",
+              "slot": {
+                "beforeText": "un charco ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "charco",
+                "learnerBaseText": "puddle",
+                "englishAuditText": "puddle"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.pair260908.masculine-singular.invernadero",
+              "revision": 1,
+              "learnerBaseText": "a small greenhouse",
+              "englishAuditText": "a small greenhouse",
+              "targetText": "un invernadero pequeño",
+              "slot": {
+                "beforeText": "un invernadero ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "invernadero",
+                "learnerBaseText": "greenhouse",
+                "englishAuditText": "greenhouse"
+              }
             }
           ]
         },
@@ -304,6 +864,102 @@
                 "targetText": "una tienda",
                 "learnerBaseText": "a shop",
                 "englishAuditText": "a shop"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.feminine-singular.exp260908",
+              "revision": 1,
+              "learnerBaseText": "a small seed",
+              "englishAuditText": "a small seed",
+              "targetText": "una semilla pequeña",
+              "slot": {
+                "beforeText": "una semilla ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "semilla",
+                "learnerBaseText": "seed",
+                "englishAuditText": "seed"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.pair260908.feminine-singular.huella",
+              "revision": 1,
+              "learnerBaseText": "a small footprint",
+              "englishAuditText": "a small footprint",
+              "targetText": "una huella pequeña",
+              "slot": {
+                "beforeText": "una huella ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "huella",
+                "learnerBaseText": "footprint",
+                "englishAuditText": "footprint"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.pair260908.feminine-singular.concha",
+              "revision": 1,
+              "learnerBaseText": "a small shell",
+              "englishAuditText": "a small shell",
+              "targetText": "una concha pequeña",
+              "slot": {
+                "beforeText": "una concha ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "concha",
+                "learnerBaseText": "shell",
+                "englishAuditText": "shell"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.pair260908.feminine-singular.linterna",
+              "revision": 1,
+              "learnerBaseText": "a small flashlight",
+              "englishAuditText": "a small flashlight",
+              "targetText": "una linterna pequeña",
+              "slot": {
+                "beforeText": "una linterna ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "linterna",
+                "learnerBaseText": "flashlight",
+                "englishAuditText": "flashlight"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.pair260908.feminine-singular.maceta",
+              "revision": 1,
+              "learnerBaseText": "a small plant pot",
+              "englishAuditText": "a small plant pot",
+              "targetText": "una maceta pequeña",
+              "slot": {
+                "beforeText": "una maceta ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "maceta",
+                "learnerBaseText": "plant pot",
+                "englishAuditText": "plant pot"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.pair260908.feminine-singular.campana",
+              "revision": 1,
+              "learnerBaseText": "a small bell",
+              "englishAuditText": "a small bell",
+              "targetText": "una campana pequeña",
+              "slot": {
+                "beforeText": "una campana ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "campana",
+                "learnerBaseText": "bell",
+                "englishAuditText": "bell"
               }
             }
           ]
@@ -342,6 +998,118 @@
                 "learnerBaseText": "some towns",
                 "englishAuditText": "some towns"
               }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.masculine-plural.exp260908",
+              "revision": 1,
+              "learnerBaseText": "some small drums",
+              "englishAuditText": "some small drums",
+              "targetText": "unos tambores pequeños",
+              "slot": {
+                "beforeText": "unos tambores ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "tambores",
+                "learnerBaseText": "drums",
+                "englishAuditText": "drums"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.pair260908.masculine-plural.botones",
+              "revision": 1,
+              "learnerBaseText": "some small buttons",
+              "englishAuditText": "some small buttons",
+              "targetText": "unos botones pequeños",
+              "slot": {
+                "beforeText": "unos botones ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "botones",
+                "learnerBaseText": "buttons",
+                "englishAuditText": "buttons"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.pair260908.masculine-plural.dedales",
+              "revision": 1,
+              "learnerBaseText": "some small thimbles",
+              "englishAuditText": "some small thimbles",
+              "targetText": "unos dedales pequeños",
+              "slot": {
+                "beforeText": "unos dedales ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "dedales",
+                "learnerBaseText": "thimbles",
+                "englishAuditText": "thimbles"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.pair260908.masculine-plural.imanes",
+              "revision": 1,
+              "learnerBaseText": "some small magnets",
+              "englishAuditText": "some small magnets",
+              "targetText": "unos imanes pequeños",
+              "slot": {
+                "beforeText": "unos imanes ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "imanes",
+                "learnerBaseText": "magnets",
+                "englishAuditText": "magnets"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.pair260908.masculine-plural.tornillos",
+              "revision": 1,
+              "learnerBaseText": "some small screws",
+              "englishAuditText": "some small screws",
+              "targetText": "unos tornillos pequeños",
+              "slot": {
+                "beforeText": "unos tornillos ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "tornillos",
+                "learnerBaseText": "screws",
+                "englishAuditText": "screws"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.pair260908.masculine-plural.charcos",
+              "revision": 1,
+              "learnerBaseText": "some small puddles",
+              "englishAuditText": "some small puddles",
+              "targetText": "unos charcos pequeños",
+              "slot": {
+                "beforeText": "unos charcos ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "charcos",
+                "learnerBaseText": "puddles",
+                "englishAuditText": "puddles"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.pair260908.masculine-plural.invernaderos",
+              "revision": 1,
+              "learnerBaseText": "some small greenhouses",
+              "englishAuditText": "some small greenhouses",
+              "targetText": "unos invernaderos pequeños",
+              "slot": {
+                "beforeText": "unos invernaderos ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "invernaderos",
+                "learnerBaseText": "greenhouses",
+                "englishAuditText": "greenhouses"
+              }
             }
           ]
         },
@@ -378,6 +1146,102 @@
                 "targetText": "unas tiendas",
                 "learnerBaseText": "some shops",
                 "englishAuditText": "some shops"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.feminine-plural.exp260908",
+              "revision": 1,
+              "learnerBaseText": "some small footprints",
+              "englishAuditText": "some small footprints",
+              "targetText": "unas huellas pequeñas",
+              "slot": {
+                "beforeText": "unas huellas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "huellas",
+                "learnerBaseText": "footprints",
+                "englishAuditText": "footprints"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.pair260908.feminine-plural.semillas",
+              "revision": 1,
+              "learnerBaseText": "some small seeds",
+              "englishAuditText": "some small seeds",
+              "targetText": "unas semillas pequeñas",
+              "slot": {
+                "beforeText": "unas semillas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "semillas",
+                "learnerBaseText": "seeds",
+                "englishAuditText": "seeds"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.pair260908.feminine-plural.conchas",
+              "revision": 1,
+              "learnerBaseText": "some small shells",
+              "englishAuditText": "some small shells",
+              "targetText": "unas conchas pequeñas",
+              "slot": {
+                "beforeText": "unas conchas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "conchas",
+                "learnerBaseText": "shells",
+                "englishAuditText": "shells"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.pair260908.feminine-plural.linternas",
+              "revision": 1,
+              "learnerBaseText": "some small flashlights",
+              "englishAuditText": "some small flashlights",
+              "targetText": "unas linternas pequeñas",
+              "slot": {
+                "beforeText": "unas linternas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "linternas",
+                "learnerBaseText": "flashlights",
+                "englishAuditText": "flashlights"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.pair260908.feminine-plural.macetas",
+              "revision": 1,
+              "learnerBaseText": "some small plant pots",
+              "englishAuditText": "some small plant pots",
+              "targetText": "unas macetas pequeñas",
+              "slot": {
+                "beforeText": "unas macetas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "macetas",
+                "learnerBaseText": "plant pots",
+                "englishAuditText": "plant pots"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-pequeno.pair260908.feminine-plural.campanas",
+              "revision": 1,
+              "learnerBaseText": "some small bells",
+              "englishAuditText": "some small bells",
+              "targetText": "unas campanas pequeñas",
+              "slot": {
+                "beforeText": "unas campanas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "campanas",
+                "learnerBaseText": "bells",
+                "englishAuditText": "bells"
               }
             }
           ]
@@ -430,6 +1294,118 @@
                 "learnerBaseText": "map",
                 "englishAuditText": "map"
               }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.masculine-singular.exp260908",
+              "revision": 1,
+              "learnerBaseText": "the planet",
+              "englishAuditText": "the planet",
+              "targetText": "el planeta",
+              "slot": {
+                "beforeText": "",
+                "afterText": " planeta"
+              },
+              "anchor": {
+                "targetText": "planeta",
+                "learnerBaseText": "planet",
+                "englishAuditText": "planet"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-singular.sofa",
+              "revision": 1,
+              "learnerBaseText": "the sofa",
+              "englishAuditText": "the sofa",
+              "targetText": "el sofá",
+              "slot": {
+                "beforeText": "",
+                "afterText": " sofá"
+              },
+              "anchor": {
+                "targetText": "sofá",
+                "learnerBaseText": "sofa",
+                "englishAuditText": "sofa"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-singular.pijama",
+              "revision": 1,
+              "learnerBaseText": "the pair of pajamas",
+              "englishAuditText": "the pair of pajamas",
+              "targetText": "el pijama",
+              "slot": {
+                "beforeText": "",
+                "afterText": " pijama"
+              },
+              "anchor": {
+                "targetText": "pijama",
+                "learnerBaseText": "pair of pajamas",
+                "englishAuditText": "pair of pajamas"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-singular.poema",
+              "revision": 1,
+              "learnerBaseText": "the poem",
+              "englishAuditText": "the poem",
+              "targetText": "el poema",
+              "slot": {
+                "beforeText": "",
+                "afterText": " poema"
+              },
+              "anchor": {
+                "targetText": "poema",
+                "learnerBaseText": "poem",
+                "englishAuditText": "poem"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-singular.cometa",
+              "revision": 1,
+              "learnerBaseText": "the comet",
+              "englishAuditText": "the comet",
+              "targetText": "el cometa",
+              "slot": {
+                "beforeText": "",
+                "afterText": " cometa"
+              },
+              "anchor": {
+                "targetText": "cometa",
+                "learnerBaseText": "comet",
+                "englishAuditText": "comet"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-singular.cristal",
+              "revision": 1,
+              "learnerBaseText": "the crystal",
+              "englishAuditText": "the crystal",
+              "targetText": "el cristal",
+              "slot": {
+                "beforeText": "",
+                "afterText": " cristal"
+              },
+              "anchor": {
+                "targetText": "cristal",
+                "learnerBaseText": "crystal",
+                "englishAuditText": "crystal"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-singular.paisaje",
+              "revision": 1,
+              "learnerBaseText": "the landscape",
+              "englishAuditText": "the landscape",
+              "targetText": "el paisaje",
+              "slot": {
+                "beforeText": "",
+                "afterText": " paisaje"
+              },
+              "anchor": {
+                "targetText": "paisaje",
+                "learnerBaseText": "landscape",
+                "englishAuditText": "landscape"
+              }
             }
           ]
         },
@@ -466,6 +1442,118 @@
                 "targetText": "foto",
                 "learnerBaseText": "photograph",
                 "englishAuditText": "photograph"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.feminine-singular.exp260908",
+              "revision": 1,
+              "learnerBaseText": "the cloud",
+              "englishAuditText": "the cloud",
+              "targetText": "la nube",
+              "slot": {
+                "beforeText": "",
+                "afterText": " nube"
+              },
+              "anchor": {
+                "targetText": "nube",
+                "learnerBaseText": "cloud",
+                "englishAuditText": "cloud"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-singular.cometa",
+              "revision": 1,
+              "learnerBaseText": "the kite",
+              "englishAuditText": "the kite",
+              "targetText": "la cometa",
+              "slot": {
+                "beforeText": "",
+                "afterText": " cometa"
+              },
+              "anchor": {
+                "targetText": "cometa",
+                "learnerBaseText": "kite",
+                "englishAuditText": "kite"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-singular.radio",
+              "revision": 1,
+              "learnerBaseText": "the radio",
+              "englishAuditText": "the radio",
+              "targetText": "la radio",
+              "slot": {
+                "beforeText": "",
+                "afterText": " radio"
+              },
+              "anchor": {
+                "targetText": "radio",
+                "learnerBaseText": "radio",
+                "englishAuditText": "radio"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-singular.moto",
+              "revision": 1,
+              "learnerBaseText": "the motorcycle",
+              "englishAuditText": "the motorcycle",
+              "targetText": "la moto",
+              "slot": {
+                "beforeText": "",
+                "afterText": " moto"
+              },
+              "anchor": {
+                "targetText": "moto",
+                "learnerBaseText": "motorcycle",
+                "englishAuditText": "motorcycle"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-singular.llave",
+              "revision": 1,
+              "learnerBaseText": "the key",
+              "englishAuditText": "the key",
+              "targetText": "la llave",
+              "slot": {
+                "beforeText": "",
+                "afterText": " llave"
+              },
+              "anchor": {
+                "targetText": "llave",
+                "learnerBaseText": "key",
+                "englishAuditText": "key"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-singular.sal",
+              "revision": 1,
+              "learnerBaseText": "the salt",
+              "englishAuditText": "the salt",
+              "targetText": "la sal",
+              "slot": {
+                "beforeText": "",
+                "afterText": " sal"
+              },
+              "anchor": {
+                "targetText": "sal",
+                "learnerBaseText": "salt",
+                "englishAuditText": "salt"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-singular.flor",
+              "revision": 1,
+              "learnerBaseText": "the flower",
+              "englishAuditText": "the flower",
+              "targetText": "la flor",
+              "slot": {
+                "beforeText": "",
+                "afterText": " flor"
+              },
+              "anchor": {
+                "targetText": "flor",
+                "learnerBaseText": "flower",
+                "englishAuditText": "flower"
               }
             }
           ]
@@ -504,6 +1592,118 @@
                 "learnerBaseText": "maps",
                 "englishAuditText": "maps"
               }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.masculine-plural.exp260908",
+              "revision": 1,
+              "learnerBaseText": "the pencils",
+              "englishAuditText": "the pencils",
+              "targetText": "los lápices",
+              "slot": {
+                "beforeText": "",
+                "afterText": " lápices"
+              },
+              "anchor": {
+                "targetText": "lápices",
+                "learnerBaseText": "pencils",
+                "englishAuditText": "pencils"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-plural.sofas",
+              "revision": 1,
+              "learnerBaseText": "the sofas",
+              "englishAuditText": "the sofas",
+              "targetText": "los sofás",
+              "slot": {
+                "beforeText": "",
+                "afterText": " sofás"
+              },
+              "anchor": {
+                "targetText": "sofás",
+                "learnerBaseText": "sofas",
+                "englishAuditText": "sofas"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-plural.pijamas",
+              "revision": 1,
+              "learnerBaseText": "the pairs of pajamas",
+              "englishAuditText": "the pairs of pajamas",
+              "targetText": "los pijamas",
+              "slot": {
+                "beforeText": "",
+                "afterText": " pijamas"
+              },
+              "anchor": {
+                "targetText": "pijamas",
+                "learnerBaseText": "pairs of pajamas",
+                "englishAuditText": "pairs of pajamas"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-plural.poemas",
+              "revision": 1,
+              "learnerBaseText": "the poems",
+              "englishAuditText": "the poems",
+              "targetText": "los poemas",
+              "slot": {
+                "beforeText": "",
+                "afterText": " poemas"
+              },
+              "anchor": {
+                "targetText": "poemas",
+                "learnerBaseText": "poems",
+                "englishAuditText": "poems"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-plural.cometas",
+              "revision": 1,
+              "learnerBaseText": "the comets",
+              "englishAuditText": "the comets",
+              "targetText": "los cometas",
+              "slot": {
+                "beforeText": "",
+                "afterText": " cometas"
+              },
+              "anchor": {
+                "targetText": "cometas",
+                "learnerBaseText": "comets",
+                "englishAuditText": "comets"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-plural.cristales",
+              "revision": 1,
+              "learnerBaseText": "the crystals",
+              "englishAuditText": "the crystals",
+              "targetText": "los cristales",
+              "slot": {
+                "beforeText": "",
+                "afterText": " cristales"
+              },
+              "anchor": {
+                "targetText": "cristales",
+                "learnerBaseText": "crystals",
+                "englishAuditText": "crystals"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-plural.paisajes",
+              "revision": 1,
+              "learnerBaseText": "the landscapes",
+              "englishAuditText": "the landscapes",
+              "targetText": "los paisajes",
+              "slot": {
+                "beforeText": "",
+                "afterText": " paisajes"
+              },
+              "anchor": {
+                "targetText": "paisajes",
+                "learnerBaseText": "landscapes",
+                "englishAuditText": "landscapes"
+              }
             }
           ]
         },
@@ -540,6 +1740,102 @@
                 "targetText": "fotos",
                 "learnerBaseText": "photographs",
                 "englishAuditText": "photographs"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.feminine-plural.exp260908",
+              "revision": 1,
+              "learnerBaseText": "the flowers",
+              "englishAuditText": "the flowers",
+              "targetText": "las flores",
+              "slot": {
+                "beforeText": "",
+                "afterText": " flores"
+              },
+              "anchor": {
+                "targetText": "flores",
+                "learnerBaseText": "flowers",
+                "englishAuditText": "flowers"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-plural.cometas",
+              "revision": 1,
+              "learnerBaseText": "the kites",
+              "englishAuditText": "the kites",
+              "targetText": "las cometas",
+              "slot": {
+                "beforeText": "",
+                "afterText": " cometas"
+              },
+              "anchor": {
+                "targetText": "cometas",
+                "learnerBaseText": "kites",
+                "englishAuditText": "kites"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-plural.radios",
+              "revision": 1,
+              "learnerBaseText": "the radios",
+              "englishAuditText": "the radios",
+              "targetText": "las radios",
+              "slot": {
+                "beforeText": "",
+                "afterText": " radios"
+              },
+              "anchor": {
+                "targetText": "radios",
+                "learnerBaseText": "radios",
+                "englishAuditText": "radios"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-plural.motos",
+              "revision": 1,
+              "learnerBaseText": "the motorcycles",
+              "englishAuditText": "the motorcycles",
+              "targetText": "las motos",
+              "slot": {
+                "beforeText": "",
+                "afterText": " motos"
+              },
+              "anchor": {
+                "targetText": "motos",
+                "learnerBaseText": "motorcycles",
+                "englishAuditText": "motorcycles"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-plural.llaves",
+              "revision": 1,
+              "learnerBaseText": "the keys",
+              "englishAuditText": "the keys",
+              "targetText": "las llaves",
+              "slot": {
+                "beforeText": "",
+                "afterText": " llaves"
+              },
+              "anchor": {
+                "targetText": "llaves",
+                "learnerBaseText": "keys",
+                "englishAuditText": "keys"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-plural.sales",
+              "revision": 1,
+              "learnerBaseText": "the salts",
+              "englishAuditText": "the salts",
+              "targetText": "las sales",
+              "slot": {
+                "beforeText": "",
+                "afterText": " sales"
+              },
+              "anchor": {
+                "targetText": "sales",
+                "learnerBaseText": "salts",
+                "englishAuditText": "salts"
               }
             }
           ]
@@ -592,6 +1888,118 @@
                 "learnerBaseText": "car",
                 "englishAuditText": "car"
               }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.masculine-singular.exp260908",
+              "revision": 1,
+              "learnerBaseText": "this rainbow",
+              "englishAuditText": "this rainbow",
+              "targetText": "este arcoíris",
+              "slot": {
+                "beforeText": "",
+                "afterText": " arcoíris"
+              },
+              "anchor": {
+                "targetText": "arcoíris",
+                "learnerBaseText": "rainbow",
+                "englishAuditText": "rainbow"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-singular.sendero",
+              "revision": 1,
+              "learnerBaseText": "this trail",
+              "englishAuditText": "this trail",
+              "targetText": "este sendero",
+              "slot": {
+                "beforeText": "",
+                "afterText": " sendero"
+              },
+              "anchor": {
+                "targetText": "sendero",
+                "learnerBaseText": "trail",
+                "englishAuditText": "trail"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-singular.telescopio",
+              "revision": 1,
+              "learnerBaseText": "this telescope",
+              "englishAuditText": "this telescope",
+              "targetText": "este telescopio",
+              "slot": {
+                "beforeText": "",
+                "afterText": " telescopio"
+              },
+              "anchor": {
+                "targetText": "telescopio",
+                "learnerBaseText": "telescope",
+                "englishAuditText": "telescope"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-singular.acuario",
+              "revision": 1,
+              "learnerBaseText": "this aquarium",
+              "englishAuditText": "this aquarium",
+              "targetText": "este acuario",
+              "slot": {
+                "beforeText": "",
+                "afterText": " acuario"
+              },
+              "anchor": {
+                "targetText": "acuario",
+                "learnerBaseText": "aquarium",
+                "englishAuditText": "aquarium"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-singular.violin",
+              "revision": 1,
+              "learnerBaseText": "this violin",
+              "englishAuditText": "this violin",
+              "targetText": "este violín",
+              "slot": {
+                "beforeText": "",
+                "afterText": " violín"
+              },
+              "anchor": {
+                "targetText": "violín",
+                "learnerBaseText": "violin",
+                "englishAuditText": "violin"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-singular.cuenco",
+              "revision": 1,
+              "learnerBaseText": "this bowl",
+              "englishAuditText": "this bowl",
+              "targetText": "este cuenco",
+              "slot": {
+                "beforeText": "",
+                "afterText": " cuenco"
+              },
+              "anchor": {
+                "targetText": "cuenco",
+                "learnerBaseText": "bowl",
+                "englishAuditText": "bowl"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-singular.faro",
+              "revision": 1,
+              "learnerBaseText": "this lighthouse",
+              "englishAuditText": "this lighthouse",
+              "targetText": "este faro",
+              "slot": {
+                "beforeText": "",
+                "afterText": " faro"
+              },
+              "anchor": {
+                "targetText": "faro",
+                "learnerBaseText": "lighthouse",
+                "englishAuditText": "lighthouse"
+              }
             }
           ]
         },
@@ -628,6 +2036,102 @@
                 "targetText": "calle",
                 "learnerBaseText": "street",
                 "englishAuditText": "street"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.feminine-singular.exp260908",
+              "revision": 1,
+              "learnerBaseText": "this compass",
+              "englishAuditText": "this compass",
+              "targetText": "esta brújula",
+              "slot": {
+                "beforeText": "",
+                "afterText": " brújula"
+              },
+              "anchor": {
+                "targetText": "brújula",
+                "learnerBaseText": "compass",
+                "englishAuditText": "compass"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-singular.escultura",
+              "revision": 1,
+              "learnerBaseText": "this sculpture",
+              "englishAuditText": "this sculpture",
+              "targetText": "esta escultura",
+              "slot": {
+                "beforeText": "",
+                "afterText": " escultura"
+              },
+              "anchor": {
+                "targetText": "escultura",
+                "learnerBaseText": "sculpture",
+                "englishAuditText": "sculpture"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-singular.mascara",
+              "revision": 1,
+              "learnerBaseText": "this mask",
+              "englishAuditText": "this mask",
+              "targetText": "esta máscara",
+              "slot": {
+                "beforeText": "",
+                "afterText": " máscara"
+              },
+              "anchor": {
+                "targetText": "máscara",
+                "learnerBaseText": "mask",
+                "englishAuditText": "mask"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-singular.fuente",
+              "revision": 1,
+              "learnerBaseText": "this fountain",
+              "englishAuditText": "this fountain",
+              "targetText": "esta fuente",
+              "slot": {
+                "beforeText": "",
+                "afterText": " fuente"
+              },
+              "anchor": {
+                "targetText": "fuente",
+                "learnerBaseText": "fountain",
+                "englishAuditText": "fountain"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-singular.lupa",
+              "revision": 1,
+              "learnerBaseText": "this magnifying glass",
+              "englishAuditText": "this magnifying glass",
+              "targetText": "esta lupa",
+              "slot": {
+                "beforeText": "",
+                "afterText": " lupa"
+              },
+              "anchor": {
+                "targetText": "lupa",
+                "learnerBaseText": "magnifying glass",
+                "englishAuditText": "magnifying glass"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-singular.cabana",
+              "revision": 1,
+              "learnerBaseText": "this cabin",
+              "englishAuditText": "this cabin",
+              "targetText": "esta cabaña",
+              "slot": {
+                "beforeText": "",
+                "afterText": " cabaña"
+              },
+              "anchor": {
+                "targetText": "cabaña",
+                "learnerBaseText": "cabin",
+                "englishAuditText": "cabin"
               }
             }
           ]
@@ -666,6 +2170,118 @@
                 "learnerBaseText": "cars",
                 "englishAuditText": "cars"
               }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.masculine-plural.exp260908",
+              "revision": 1,
+              "learnerBaseText": "these costumes",
+              "englishAuditText": "these costumes",
+              "targetText": "estos disfraces",
+              "slot": {
+                "beforeText": "",
+                "afterText": " disfraces"
+              },
+              "anchor": {
+                "targetText": "disfraces",
+                "learnerBaseText": "costumes",
+                "englishAuditText": "costumes"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-plural.senderos",
+              "revision": 1,
+              "learnerBaseText": "these trails",
+              "englishAuditText": "these trails",
+              "targetText": "estos senderos",
+              "slot": {
+                "beforeText": "",
+                "afterText": " senderos"
+              },
+              "anchor": {
+                "targetText": "senderos",
+                "learnerBaseText": "trails",
+                "englishAuditText": "trails"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-plural.telescopios",
+              "revision": 1,
+              "learnerBaseText": "these telescopes",
+              "englishAuditText": "these telescopes",
+              "targetText": "estos telescopios",
+              "slot": {
+                "beforeText": "",
+                "afterText": " telescopios"
+              },
+              "anchor": {
+                "targetText": "telescopios",
+                "learnerBaseText": "telescopes",
+                "englishAuditText": "telescopes"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-plural.acuarios",
+              "revision": 1,
+              "learnerBaseText": "these aquariums",
+              "englishAuditText": "these aquariums",
+              "targetText": "estos acuarios",
+              "slot": {
+                "beforeText": "",
+                "afterText": " acuarios"
+              },
+              "anchor": {
+                "targetText": "acuarios",
+                "learnerBaseText": "aquariums",
+                "englishAuditText": "aquariums"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-plural.violines",
+              "revision": 1,
+              "learnerBaseText": "these violins",
+              "englishAuditText": "these violins",
+              "targetText": "estos violines",
+              "slot": {
+                "beforeText": "",
+                "afterText": " violines"
+              },
+              "anchor": {
+                "targetText": "violines",
+                "learnerBaseText": "violins",
+                "englishAuditText": "violins"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-plural.cuencos",
+              "revision": 1,
+              "learnerBaseText": "these bowls",
+              "englishAuditText": "these bowls",
+              "targetText": "estos cuencos",
+              "slot": {
+                "beforeText": "",
+                "afterText": " cuencos"
+              },
+              "anchor": {
+                "targetText": "cuencos",
+                "learnerBaseText": "bowls",
+                "englishAuditText": "bowls"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-plural.faros",
+              "revision": 1,
+              "learnerBaseText": "these lighthouses",
+              "englishAuditText": "these lighthouses",
+              "targetText": "estos faros",
+              "slot": {
+                "beforeText": "",
+                "afterText": " faros"
+              },
+              "anchor": {
+                "targetText": "faros",
+                "learnerBaseText": "lighthouses",
+                "englishAuditText": "lighthouses"
+              }
             }
           ]
         },
@@ -702,6 +2318,118 @@
                 "targetText": "calles",
                 "learnerBaseText": "streets",
                 "englishAuditText": "streets"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.feminine-plural.exp260908",
+              "revision": 1,
+              "learnerBaseText": "these roots",
+              "englishAuditText": "these roots",
+              "targetText": "estas raíces",
+              "slot": {
+                "beforeText": "",
+                "afterText": " raíces"
+              },
+              "anchor": {
+                "targetText": "raíces",
+                "learnerBaseText": "roots",
+                "englishAuditText": "roots"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-plural.brujulas",
+              "revision": 1,
+              "learnerBaseText": "these compasses",
+              "englishAuditText": "these compasses",
+              "targetText": "estas brújulas",
+              "slot": {
+                "beforeText": "",
+                "afterText": " brújulas"
+              },
+              "anchor": {
+                "targetText": "brújulas",
+                "learnerBaseText": "compasses",
+                "englishAuditText": "compasses"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-plural.esculturas",
+              "revision": 1,
+              "learnerBaseText": "these sculptures",
+              "englishAuditText": "these sculptures",
+              "targetText": "estas esculturas",
+              "slot": {
+                "beforeText": "",
+                "afterText": " esculturas"
+              },
+              "anchor": {
+                "targetText": "esculturas",
+                "learnerBaseText": "sculptures",
+                "englishAuditText": "sculptures"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-plural.mascaras",
+              "revision": 1,
+              "learnerBaseText": "these masks",
+              "englishAuditText": "these masks",
+              "targetText": "estas máscaras",
+              "slot": {
+                "beforeText": "",
+                "afterText": " máscaras"
+              },
+              "anchor": {
+                "targetText": "máscaras",
+                "learnerBaseText": "masks",
+                "englishAuditText": "masks"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-plural.fuentes",
+              "revision": 1,
+              "learnerBaseText": "these fountains",
+              "englishAuditText": "these fountains",
+              "targetText": "estas fuentes",
+              "slot": {
+                "beforeText": "",
+                "afterText": " fuentes"
+              },
+              "anchor": {
+                "targetText": "fuentes",
+                "learnerBaseText": "fountains",
+                "englishAuditText": "fountains"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-plural.lupas",
+              "revision": 1,
+              "learnerBaseText": "these magnifying glasses",
+              "englishAuditText": "these magnifying glasses",
+              "targetText": "estas lupas",
+              "slot": {
+                "beforeText": "",
+                "afterText": " lupas"
+              },
+              "anchor": {
+                "targetText": "lupas",
+                "learnerBaseText": "magnifying glasses",
+                "englishAuditText": "magnifying glasses"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-plural.cabanas",
+              "revision": 1,
+              "learnerBaseText": "these cabins",
+              "englishAuditText": "these cabins",
+              "targetText": "estas cabañas",
+              "slot": {
+                "beforeText": "",
+                "afterText": " cabañas"
+              },
+              "anchor": {
+                "targetText": "cabañas",
+                "learnerBaseText": "cabins",
+                "englishAuditText": "cabins"
               }
             }
           ]
@@ -754,6 +2482,102 @@
                 "learnerBaseText": "a male doctor",
                 "englishAuditText": "a male doctor"
               }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.masculine-singular.exp260908",
+              "revision": 1,
+              "learnerBaseText": "a hardworking gardener",
+              "englishAuditText": "a hardworking gardener",
+              "targetText": "un jardinero trabajador",
+              "slot": {
+                "beforeText": "un jardinero ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "jardinero",
+                "learnerBaseText": "gardener",
+                "englishAuditText": "gardener"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.pair260908.masculine-singular.panadero",
+              "revision": 1,
+              "learnerBaseText": "a hardworking baker",
+              "englishAuditText": "a hardworking baker",
+              "targetText": "un panadero trabajador",
+              "slot": {
+                "beforeText": "un panadero ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "panadero",
+                "learnerBaseText": "baker",
+                "englishAuditText": "baker"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.pair260908.masculine-singular.bibliotecario",
+              "revision": 1,
+              "learnerBaseText": "a hardworking librarian",
+              "englishAuditText": "a hardworking librarian",
+              "targetText": "un bibliotecario trabajador",
+              "slot": {
+                "beforeText": "un bibliotecario ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "bibliotecario",
+                "learnerBaseText": "librarian",
+                "englishAuditText": "librarian"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.pair260908.masculine-singular.carpintero",
+              "revision": 1,
+              "learnerBaseText": "a hardworking carpenter",
+              "englishAuditText": "a hardworking carpenter",
+              "targetText": "un carpintero trabajador",
+              "slot": {
+                "beforeText": "un carpintero ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "carpintero",
+                "learnerBaseText": "carpenter",
+                "englishAuditText": "carpenter"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.pair260908.masculine-singular.voluntario",
+              "revision": 1,
+              "learnerBaseText": "a hardworking volunteer",
+              "englishAuditText": "a hardworking volunteer",
+              "targetText": "un voluntario trabajador",
+              "slot": {
+                "beforeText": "un voluntario ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "voluntario",
+                "learnerBaseText": "volunteer",
+                "englishAuditText": "volunteer"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.pair260908.masculine-singular.monitor",
+              "revision": 1,
+              "learnerBaseText": "a hardworking activity leader",
+              "englishAuditText": "a hardworking activity leader",
+              "targetText": "un monitor trabajador",
+              "slot": {
+                "beforeText": "un monitor ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "monitor",
+                "learnerBaseText": "activity leader",
+                "englishAuditText": "activity leader"
+              }
             }
           ]
         },
@@ -790,6 +2614,118 @@
                 "targetText": "una médica",
                 "learnerBaseText": "a female doctor",
                 "englishAuditText": "a female doctor"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.feminine-singular.exp260908",
+              "revision": 1,
+              "learnerBaseText": "a hardworking female inventor",
+              "englishAuditText": "a hardworking female inventor",
+              "targetText": "una inventora trabajadora",
+              "slot": {
+                "beforeText": "una inventora ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "inventora",
+                "learnerBaseText": "female inventor",
+                "englishAuditText": "female inventor"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.pair260908.feminine-singular.jardinera",
+              "revision": 1,
+              "learnerBaseText": "a hardworking female gardener",
+              "englishAuditText": "a hardworking female gardener",
+              "targetText": "una jardinera trabajadora",
+              "slot": {
+                "beforeText": "una jardinera ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "jardinera",
+                "learnerBaseText": "female gardener",
+                "englishAuditText": "female gardener"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.pair260908.feminine-singular.panadera",
+              "revision": 1,
+              "learnerBaseText": "a hardworking female baker",
+              "englishAuditText": "a hardworking female baker",
+              "targetText": "una panadera trabajadora",
+              "slot": {
+                "beforeText": "una panadera ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "panadera",
+                "learnerBaseText": "female baker",
+                "englishAuditText": "female baker"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.pair260908.feminine-singular.bibliotecaria",
+              "revision": 1,
+              "learnerBaseText": "a hardworking female librarian",
+              "englishAuditText": "a hardworking female librarian",
+              "targetText": "una bibliotecaria trabajadora",
+              "slot": {
+                "beforeText": "una bibliotecaria ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "bibliotecaria",
+                "learnerBaseText": "female librarian",
+                "englishAuditText": "female librarian"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.pair260908.feminine-singular.carpintera",
+              "revision": 1,
+              "learnerBaseText": "a hardworking female carpenter",
+              "englishAuditText": "a hardworking female carpenter",
+              "targetText": "una carpintera trabajadora",
+              "slot": {
+                "beforeText": "una carpintera ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "carpintera",
+                "learnerBaseText": "female carpenter",
+                "englishAuditText": "female carpenter"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.pair260908.feminine-singular.voluntaria",
+              "revision": 1,
+              "learnerBaseText": "a hardworking female volunteer",
+              "englishAuditText": "a hardworking female volunteer",
+              "targetText": "una voluntaria trabajadora",
+              "slot": {
+                "beforeText": "una voluntaria ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "voluntaria",
+                "learnerBaseText": "female volunteer",
+                "englishAuditText": "female volunteer"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.pair260908.feminine-singular.monitora",
+              "revision": 1,
+              "learnerBaseText": "a hardworking female activity leader",
+              "englishAuditText": "a hardworking female activity leader",
+              "targetText": "una monitora trabajadora",
+              "slot": {
+                "beforeText": "una monitora ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "monitora",
+                "learnerBaseText": "female activity leader",
+                "englishAuditText": "female activity leader"
               }
             }
           ]
@@ -828,6 +2764,118 @@
                 "learnerBaseText": "some male doctors",
                 "englishAuditText": "some male doctors"
               }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.masculine-plural.exp260908",
+              "revision": 1,
+              "learnerBaseText": "some hardworking teammates",
+              "englishAuditText": "some hardworking teammates",
+              "targetText": "unos compañeros trabajadores",
+              "slot": {
+                "beforeText": "unos compañeros ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "compañeros",
+                "learnerBaseText": "teammates",
+                "englishAuditText": "teammates"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.pair260908.masculine-plural.jardineros",
+              "revision": 1,
+              "learnerBaseText": "some hardworking gardeners",
+              "englishAuditText": "some hardworking gardeners",
+              "targetText": "unos jardineros trabajadores",
+              "slot": {
+                "beforeText": "unos jardineros ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "jardineros",
+                "learnerBaseText": "gardeners",
+                "englishAuditText": "gardeners"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.pair260908.masculine-plural.panaderos",
+              "revision": 1,
+              "learnerBaseText": "some hardworking bakers",
+              "englishAuditText": "some hardworking bakers",
+              "targetText": "unos panaderos trabajadores",
+              "slot": {
+                "beforeText": "unos panaderos ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "panaderos",
+                "learnerBaseText": "bakers",
+                "englishAuditText": "bakers"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.pair260908.masculine-plural.bibliotecarios",
+              "revision": 1,
+              "learnerBaseText": "some hardworking librarians",
+              "englishAuditText": "some hardworking librarians",
+              "targetText": "unos bibliotecarios trabajadores",
+              "slot": {
+                "beforeText": "unos bibliotecarios ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "bibliotecarios",
+                "learnerBaseText": "librarians",
+                "englishAuditText": "librarians"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.pair260908.masculine-plural.carpinteros",
+              "revision": 1,
+              "learnerBaseText": "some hardworking carpenters",
+              "englishAuditText": "some hardworking carpenters",
+              "targetText": "unos carpinteros trabajadores",
+              "slot": {
+                "beforeText": "unos carpinteros ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "carpinteros",
+                "learnerBaseText": "carpenters",
+                "englishAuditText": "carpenters"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.pair260908.masculine-plural.voluntarios",
+              "revision": 1,
+              "learnerBaseText": "some hardworking volunteers",
+              "englishAuditText": "some hardworking volunteers",
+              "targetText": "unos voluntarios trabajadores",
+              "slot": {
+                "beforeText": "unos voluntarios ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "voluntarios",
+                "learnerBaseText": "volunteers",
+                "englishAuditText": "volunteers"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.pair260908.masculine-plural.monitores",
+              "revision": 1,
+              "learnerBaseText": "some hardworking activity leaders",
+              "englishAuditText": "some hardworking activity leaders",
+              "targetText": "unos monitores trabajadores",
+              "slot": {
+                "beforeText": "unos monitores ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "monitores",
+                "learnerBaseText": "activity leaders",
+                "englishAuditText": "activity leaders"
+              }
             }
           ]
         },
@@ -864,6 +2912,118 @@
                 "targetText": "unas médicas",
                 "learnerBaseText": "some female doctors",
                 "englishAuditText": "some female doctors"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.feminine-plural.exp260908",
+              "revision": 1,
+              "learnerBaseText": "some hardworking female researchers",
+              "englishAuditText": "some hardworking female researchers",
+              "targetText": "unas investigadoras trabajadoras",
+              "slot": {
+                "beforeText": "unas investigadoras ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "investigadoras",
+                "learnerBaseText": "female researchers",
+                "englishAuditText": "female researchers"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.pair260908.feminine-plural.jardineras",
+              "revision": 1,
+              "learnerBaseText": "some hardworking female gardeners",
+              "englishAuditText": "some hardworking female gardeners",
+              "targetText": "unas jardineras trabajadoras",
+              "slot": {
+                "beforeText": "unas jardineras ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "jardineras",
+                "learnerBaseText": "female gardeners",
+                "englishAuditText": "female gardeners"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.pair260908.feminine-plural.panaderas",
+              "revision": 1,
+              "learnerBaseText": "some hardworking female bakers",
+              "englishAuditText": "some hardworking female bakers",
+              "targetText": "unas panaderas trabajadoras",
+              "slot": {
+                "beforeText": "unas panaderas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "panaderas",
+                "learnerBaseText": "female bakers",
+                "englishAuditText": "female bakers"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.pair260908.feminine-plural.bibliotecarias",
+              "revision": 1,
+              "learnerBaseText": "some hardworking female librarians",
+              "englishAuditText": "some hardworking female librarians",
+              "targetText": "unas bibliotecarias trabajadoras",
+              "slot": {
+                "beforeText": "unas bibliotecarias ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "bibliotecarias",
+                "learnerBaseText": "female librarians",
+                "englishAuditText": "female librarians"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.pair260908.feminine-plural.carpinteras",
+              "revision": 1,
+              "learnerBaseText": "some hardworking female carpenters",
+              "englishAuditText": "some hardworking female carpenters",
+              "targetText": "unas carpinteras trabajadoras",
+              "slot": {
+                "beforeText": "unas carpinteras ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "carpinteras",
+                "learnerBaseText": "female carpenters",
+                "englishAuditText": "female carpenters"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.pair260908.feminine-plural.voluntarias",
+              "revision": 1,
+              "learnerBaseText": "some hardworking female volunteers",
+              "englishAuditText": "some hardworking female volunteers",
+              "targetText": "unas voluntarias trabajadoras",
+              "slot": {
+                "beforeText": "unas voluntarias ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "voluntarias",
+                "learnerBaseText": "female volunteers",
+                "englishAuditText": "female volunteers"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-trabajador.pair260908.feminine-plural.monitoras",
+              "revision": 1,
+              "learnerBaseText": "some hardworking female activity leaders",
+              "englishAuditText": "some hardworking female activity leaders",
+              "targetText": "unas monitoras trabajadoras",
+              "slot": {
+                "beforeText": "unas monitoras ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "monitoras",
+                "learnerBaseText": "female activity leaders",
+                "englishAuditText": "female activity leaders"
               }
             }
           ]
@@ -916,6 +3076,118 @@
                 "learnerBaseText": "a dress",
                 "englishAuditText": "a dress"
               }
+            },
+            {
+              "id": "es.agreement.adjective-verde.masculine-singular.exp260908",
+              "revision": 1,
+              "learnerBaseText": "a green sprout",
+              "englishAuditText": "a green sprout",
+              "targetText": "un brote verde",
+              "slot": {
+                "beforeText": "un brote ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "brote",
+                "learnerBaseText": "sprout",
+                "englishAuditText": "sprout"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-verde.pair260908.masculine-singular.pepino",
+              "revision": 1,
+              "learnerBaseText": "a green cucumber",
+              "englishAuditText": "a green cucumber",
+              "targetText": "un pepino verde",
+              "slot": {
+                "beforeText": "un pepino ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "pepino",
+                "learnerBaseText": "cucumber",
+                "englishAuditText": "cucumber"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-verde.pair260908.masculine-singular.guisante",
+              "revision": 1,
+              "learnerBaseText": "a green pea",
+              "englishAuditText": "a green pea",
+              "targetText": "un guisante verde",
+              "slot": {
+                "beforeText": "un guisante ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "guisante",
+                "learnerBaseText": "pea",
+                "englishAuditText": "pea"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-verde.pair260908.masculine-singular.pimiento",
+              "revision": 1,
+              "learnerBaseText": "a green pepper",
+              "englishAuditText": "a green pepper",
+              "targetText": "un pimiento verde",
+              "slot": {
+                "beforeText": "un pimiento ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "pimiento",
+                "learnerBaseText": "pepper",
+                "englishAuditText": "pepper"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-verde.pair260908.masculine-singular.lagarto",
+              "revision": 1,
+              "learnerBaseText": "a green lizard",
+              "englishAuditText": "a green lizard",
+              "targetText": "un lagarto verde",
+              "slot": {
+                "beforeText": "un lagarto ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "lagarto",
+                "learnerBaseText": "lizard",
+                "englishAuditText": "lizard"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-verde.pair260908.masculine-singular.globo",
+              "revision": 1,
+              "learnerBaseText": "a green balloon",
+              "englishAuditText": "a green balloon",
+              "targetText": "un globo verde",
+              "slot": {
+                "beforeText": "un globo ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "globo",
+                "learnerBaseText": "balloon",
+                "englishAuditText": "balloon"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-verde.pair260908.masculine-singular.delantal",
+              "revision": 1,
+              "learnerBaseText": "a green apron",
+              "englishAuditText": "a green apron",
+              "targetText": "un delantal verde",
+              "slot": {
+                "beforeText": "un delantal ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "delantal",
+                "learnerBaseText": "apron",
+                "englishAuditText": "apron"
+              }
             }
           ]
         },
@@ -952,6 +3224,102 @@
                 "targetText": "una puerta",
                 "learnerBaseText": "a door",
                 "englishAuditText": "a door"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-verde.feminine-singular.exp260908",
+              "revision": 1,
+              "learnerBaseText": "a green kite",
+              "englishAuditText": "a green kite",
+              "targetText": "una cometa verde",
+              "slot": {
+                "beforeText": "una cometa ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "cometa",
+                "learnerBaseText": "kite",
+                "englishAuditText": "kite"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-verde.pair260908.feminine-singular.bufanda",
+              "revision": 1,
+              "learnerBaseText": "a green scarf",
+              "englishAuditText": "a green scarf",
+              "targetText": "una bufanda verde",
+              "slot": {
+                "beforeText": "una bufanda ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "bufanda",
+                "learnerBaseText": "scarf",
+                "englishAuditText": "scarf"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-verde.pair260908.feminine-singular.taza",
+              "revision": 1,
+              "learnerBaseText": "a green cup",
+              "englishAuditText": "a green cup",
+              "targetText": "una taza verde",
+              "slot": {
+                "beforeText": "una taza ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "taza",
+                "learnerBaseText": "cup",
+                "englishAuditText": "cup"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-verde.pair260908.feminine-singular.sudadera",
+              "revision": 1,
+              "learnerBaseText": "a green sweatshirt",
+              "englishAuditText": "a green sweatshirt",
+              "targetText": "una sudadera verde",
+              "slot": {
+                "beforeText": "una sudadera ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "sudadera",
+                "learnerBaseText": "sweatshirt",
+                "englishAuditText": "sweatshirt"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-verde.pair260908.feminine-singular.cinta",
+              "revision": 1,
+              "learnerBaseText": "a green ribbon",
+              "englishAuditText": "a green ribbon",
+              "targetText": "una cinta verde",
+              "slot": {
+                "beforeText": "una cinta ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "cinta",
+                "learnerBaseText": "ribbon",
+                "englishAuditText": "ribbon"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-verde.pair260908.feminine-singular.bota",
+              "revision": 1,
+              "learnerBaseText": "a green boot",
+              "englishAuditText": "a green boot",
+              "targetText": "una bota verde",
+              "slot": {
+                "beforeText": "una bota ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "bota",
+                "learnerBaseText": "boot",
+                "englishAuditText": "boot"
               }
             }
           ]
@@ -990,6 +3358,102 @@
                 "learnerBaseText": "some dresses",
                 "englishAuditText": "some dresses"
               }
+            },
+            {
+              "id": "es.agreement.adjective-verde.masculine-plural.exp260908",
+              "revision": 1,
+              "learnerBaseText": "some green peas",
+              "englishAuditText": "some green peas",
+              "targetText": "unos guisantes verdes",
+              "slot": {
+                "beforeText": "unos guisantes ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "guisantes",
+                "learnerBaseText": "peas",
+                "englishAuditText": "peas"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-verde.pair260908.masculine-plural.pepinos",
+              "revision": 1,
+              "learnerBaseText": "some green cucumbers",
+              "englishAuditText": "some green cucumbers",
+              "targetText": "unos pepinos verdes",
+              "slot": {
+                "beforeText": "unos pepinos ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "pepinos",
+                "learnerBaseText": "cucumbers",
+                "englishAuditText": "cucumbers"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-verde.pair260908.masculine-plural.pimientos",
+              "revision": 1,
+              "learnerBaseText": "some green peppers",
+              "englishAuditText": "some green peppers",
+              "targetText": "unos pimientos verdes",
+              "slot": {
+                "beforeText": "unos pimientos ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "pimientos",
+                "learnerBaseText": "peppers",
+                "englishAuditText": "peppers"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-verde.pair260908.masculine-plural.lagartos",
+              "revision": 1,
+              "learnerBaseText": "some green lizards",
+              "englishAuditText": "some green lizards",
+              "targetText": "unos lagartos verdes",
+              "slot": {
+                "beforeText": "unos lagartos ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "lagartos",
+                "learnerBaseText": "lizards",
+                "englishAuditText": "lizards"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-verde.pair260908.masculine-plural.globos",
+              "revision": 1,
+              "learnerBaseText": "some green balloons",
+              "englishAuditText": "some green balloons",
+              "targetText": "unos globos verdes",
+              "slot": {
+                "beforeText": "unos globos ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "globos",
+                "learnerBaseText": "balloons",
+                "englishAuditText": "balloons"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-verde.pair260908.masculine-plural.delantales",
+              "revision": 1,
+              "learnerBaseText": "some green aprons",
+              "englishAuditText": "some green aprons",
+              "targetText": "unos delantales verdes",
+              "slot": {
+                "beforeText": "unos delantales ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "delantales",
+                "learnerBaseText": "aprons",
+                "englishAuditText": "aprons"
+              }
             }
           ]
         },
@@ -1026,6 +3490,118 @@
                 "targetText": "unas puertas",
                 "learnerBaseText": "some doors",
                 "englishAuditText": "some doors"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-verde.feminine-plural.exp260908",
+              "revision": 1,
+              "learnerBaseText": "some green hills",
+              "englishAuditText": "some green hills",
+              "targetText": "unas colinas verdes",
+              "slot": {
+                "beforeText": "unas colinas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "colinas",
+                "learnerBaseText": "hills",
+                "englishAuditText": "hills"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-verde.pair260908.feminine-plural.bufandas",
+              "revision": 1,
+              "learnerBaseText": "some green scarves",
+              "englishAuditText": "some green scarves",
+              "targetText": "unas bufandas verdes",
+              "slot": {
+                "beforeText": "unas bufandas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "bufandas",
+                "learnerBaseText": "scarves",
+                "englishAuditText": "scarves"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-verde.pair260908.feminine-plural.tazas",
+              "revision": 1,
+              "learnerBaseText": "some green cups",
+              "englishAuditText": "some green cups",
+              "targetText": "unas tazas verdes",
+              "slot": {
+                "beforeText": "unas tazas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "tazas",
+                "learnerBaseText": "cups",
+                "englishAuditText": "cups"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-verde.pair260908.feminine-plural.sudaderas",
+              "revision": 1,
+              "learnerBaseText": "some green sweatshirts",
+              "englishAuditText": "some green sweatshirts",
+              "targetText": "unas sudaderas verdes",
+              "slot": {
+                "beforeText": "unas sudaderas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "sudaderas",
+                "learnerBaseText": "sweatshirts",
+                "englishAuditText": "sweatshirts"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-verde.pair260908.feminine-plural.cintas",
+              "revision": 1,
+              "learnerBaseText": "some green ribbons",
+              "englishAuditText": "some green ribbons",
+              "targetText": "unas cintas verdes",
+              "slot": {
+                "beforeText": "unas cintas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "cintas",
+                "learnerBaseText": "ribbons",
+                "englishAuditText": "ribbons"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-verde.pair260908.feminine-plural.cometas",
+              "revision": 1,
+              "learnerBaseText": "some green kites",
+              "englishAuditText": "some green kites",
+              "targetText": "unas cometas verdes",
+              "slot": {
+                "beforeText": "unas cometas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "cometas",
+                "learnerBaseText": "kites",
+                "englishAuditText": "kites"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-verde.pair260908.feminine-plural.botas",
+              "revision": 1,
+              "learnerBaseText": "some green boots",
+              "englishAuditText": "some green boots",
+              "targetText": "unas botas verdes",
+              "slot": {
+                "beforeText": "unas botas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "botas",
+                "learnerBaseText": "boots",
+                "englishAuditText": "boots"
               }
             }
           ]
@@ -1078,6 +3654,118 @@
                 "learnerBaseText": "language",
                 "englishAuditText": "language"
               }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.masculine-singular.exp260908",
+              "revision": 1,
+              "learnerBaseText": "a habitat",
+              "englishAuditText": "a habitat",
+              "targetText": "un hábitat",
+              "slot": {
+                "beforeText": "",
+                "afterText": " hábitat"
+              },
+              "anchor": {
+                "targetText": "hábitat",
+                "learnerBaseText": "habitat",
+                "englishAuditText": "habitat"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.pair260908.masculine-singular.experimento",
+              "revision": 1,
+              "learnerBaseText": "an experiment",
+              "englishAuditText": "an experiment",
+              "targetText": "un experimento",
+              "slot": {
+                "beforeText": "",
+                "afterText": " experimento"
+              },
+              "anchor": {
+                "targetText": "experimento",
+                "learnerBaseText": "experiment",
+                "englishAuditText": "experiment"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.pair260908.masculine-singular.invento",
+              "revision": 1,
+              "learnerBaseText": "an invention",
+              "englishAuditText": "an invention",
+              "targetText": "un invento",
+              "slot": {
+                "beforeText": "",
+                "afterText": " invento"
+              },
+              "anchor": {
+                "targetText": "invento",
+                "learnerBaseText": "invention",
+                "englishAuditText": "invention"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.pair260908.masculine-singular.engranaje",
+              "revision": 1,
+              "learnerBaseText": "a gear",
+              "englishAuditText": "a gear",
+              "targetText": "un engranaje",
+              "slot": {
+                "beforeText": "",
+                "afterText": " engranaje"
+              },
+              "anchor": {
+                "targetText": "engranaje",
+                "learnerBaseText": "gear",
+                "englishAuditText": "gear"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.pair260908.masculine-singular.asteroide",
+              "revision": 1,
+              "learnerBaseText": "an asteroid",
+              "englishAuditText": "an asteroid",
+              "targetText": "un asteroide",
+              "slot": {
+                "beforeText": "",
+                "afterText": " asteroide"
+              },
+              "anchor": {
+                "targetText": "asteroide",
+                "learnerBaseText": "asteroid",
+                "englishAuditText": "asteroid"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.pair260908.masculine-singular.eclipse",
+              "revision": 1,
+              "learnerBaseText": "an eclipse",
+              "englishAuditText": "an eclipse",
+              "targetText": "un eclipse",
+              "slot": {
+                "beforeText": "",
+                "afterText": " eclipse"
+              },
+              "anchor": {
+                "targetText": "eclipse",
+                "learnerBaseText": "eclipse",
+                "englishAuditText": "eclipse"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.pair260908.masculine-singular.microscopio",
+              "revision": 1,
+              "learnerBaseText": "a microscope",
+              "englishAuditText": "a microscope",
+              "targetText": "un microscopio",
+              "slot": {
+                "beforeText": "",
+                "afterText": " microscopio"
+              },
+              "anchor": {
+                "targetText": "microscopio",
+                "learnerBaseText": "microscope",
+                "englishAuditText": "microscope"
+              }
             }
           ]
         },
@@ -1114,6 +3802,118 @@
                 "targetText": "clase",
                 "learnerBaseText": "class",
                 "englishAuditText": "class"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.feminine-singular.exp260908",
+              "revision": 1,
+              "learnerBaseText": "a solution",
+              "englishAuditText": "a solution",
+              "targetText": "una solución",
+              "slot": {
+                "beforeText": "",
+                "afterText": " solución"
+              },
+              "anchor": {
+                "targetText": "solución",
+                "learnerBaseText": "solution",
+                "englishAuditText": "solution"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.pair260908.feminine-singular.hipotesis",
+              "revision": 1,
+              "learnerBaseText": "a hypothesis",
+              "englishAuditText": "a hypothesis",
+              "targetText": "una hipótesis",
+              "slot": {
+                "beforeText": "",
+                "afterText": " hipótesis"
+              },
+              "anchor": {
+                "targetText": "hipótesis",
+                "learnerBaseText": "hypothesis",
+                "englishAuditText": "hypothesis"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.pair260908.feminine-singular.prediccion",
+              "revision": 1,
+              "learnerBaseText": "a prediction",
+              "englishAuditText": "a prediction",
+              "targetText": "una predicción",
+              "slot": {
+                "beforeText": "",
+                "afterText": " predicción"
+              },
+              "anchor": {
+                "targetText": "predicción",
+                "learnerBaseText": "prediction",
+                "englishAuditText": "prediction"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.pair260908.feminine-singular.constelacion",
+              "revision": 1,
+              "learnerBaseText": "a constellation",
+              "englishAuditText": "a constellation",
+              "targetText": "una constelación",
+              "slot": {
+                "beforeText": "",
+                "afterText": " constelación"
+              },
+              "anchor": {
+                "targetText": "constelación",
+                "learnerBaseText": "constellation",
+                "englishAuditText": "constellation"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.pair260908.feminine-singular.galaxia",
+              "revision": 1,
+              "learnerBaseText": "a galaxy",
+              "englishAuditText": "a galaxy",
+              "targetText": "una galaxia",
+              "slot": {
+                "beforeText": "",
+                "afterText": " galaxia"
+              },
+              "anchor": {
+                "targetText": "galaxia",
+                "learnerBaseText": "galaxy",
+                "englishAuditText": "galaxy"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.pair260908.feminine-singular.polea",
+              "revision": 1,
+              "learnerBaseText": "a pulley",
+              "englishAuditText": "a pulley",
+              "targetText": "una polea",
+              "slot": {
+                "beforeText": "",
+                "afterText": " polea"
+              },
+              "anchor": {
+                "targetText": "polea",
+                "learnerBaseText": "pulley",
+                "englishAuditText": "pulley"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.pair260908.feminine-singular.orbita",
+              "revision": 1,
+              "learnerBaseText": "an orbit",
+              "englishAuditText": "an orbit",
+              "targetText": "una órbita",
+              "slot": {
+                "beforeText": "",
+                "afterText": " órbita"
+              },
+              "anchor": {
+                "targetText": "órbita",
+                "learnerBaseText": "orbit",
+                "englishAuditText": "orbit"
               }
             }
           ]
@@ -1152,6 +3952,118 @@
                 "learnerBaseText": "languages",
                 "englishAuditText": "languages"
               }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.masculine-plural.exp260908",
+              "revision": 1,
+              "learnerBaseText": "some discoveries",
+              "englishAuditText": "some discoveries",
+              "targetText": "unos descubrimientos",
+              "slot": {
+                "beforeText": "",
+                "afterText": " descubrimientos"
+              },
+              "anchor": {
+                "targetText": "descubrimientos",
+                "learnerBaseText": "discoveries",
+                "englishAuditText": "discoveries"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.pair260908.masculine-plural.experimentos",
+              "revision": 1,
+              "learnerBaseText": "some experiments",
+              "englishAuditText": "some experiments",
+              "targetText": "unos experimentos",
+              "slot": {
+                "beforeText": "",
+                "afterText": " experimentos"
+              },
+              "anchor": {
+                "targetText": "experimentos",
+                "learnerBaseText": "experiments",
+                "englishAuditText": "experiments"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.pair260908.masculine-plural.inventos",
+              "revision": 1,
+              "learnerBaseText": "some inventions",
+              "englishAuditText": "some inventions",
+              "targetText": "unos inventos",
+              "slot": {
+                "beforeText": "",
+                "afterText": " inventos"
+              },
+              "anchor": {
+                "targetText": "inventos",
+                "learnerBaseText": "inventions",
+                "englishAuditText": "inventions"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.pair260908.masculine-plural.engranajes",
+              "revision": 1,
+              "learnerBaseText": "some gears",
+              "englishAuditText": "some gears",
+              "targetText": "unos engranajes",
+              "slot": {
+                "beforeText": "",
+                "afterText": " engranajes"
+              },
+              "anchor": {
+                "targetText": "engranajes",
+                "learnerBaseText": "gears",
+                "englishAuditText": "gears"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.pair260908.masculine-plural.asteroides",
+              "revision": 1,
+              "learnerBaseText": "some asteroids",
+              "englishAuditText": "some asteroids",
+              "targetText": "unos asteroides",
+              "slot": {
+                "beforeText": "",
+                "afterText": " asteroides"
+              },
+              "anchor": {
+                "targetText": "asteroides",
+                "learnerBaseText": "asteroids",
+                "englishAuditText": "asteroids"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.pair260908.masculine-plural.eclipses",
+              "revision": 1,
+              "learnerBaseText": "some eclipses",
+              "englishAuditText": "some eclipses",
+              "targetText": "unos eclipses",
+              "slot": {
+                "beforeText": "",
+                "afterText": " eclipses"
+              },
+              "anchor": {
+                "targetText": "eclipses",
+                "learnerBaseText": "eclipses",
+                "englishAuditText": "eclipses"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.pair260908.masculine-plural.microscopios",
+              "revision": 1,
+              "learnerBaseText": "some microscopes",
+              "englishAuditText": "some microscopes",
+              "targetText": "unos microscopios",
+              "slot": {
+                "beforeText": "",
+                "afterText": " microscopios"
+              },
+              "anchor": {
+                "targetText": "microscopios",
+                "learnerBaseText": "microscopes",
+                "englishAuditText": "microscopes"
+              }
             }
           ]
         },
@@ -1188,6 +4100,118 @@
                 "targetText": "clases",
                 "learnerBaseText": "classes",
                 "englishAuditText": "classes"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.feminine-plural.exp260908",
+              "revision": 1,
+              "learnerBaseText": "some possibilities",
+              "englishAuditText": "some possibilities",
+              "targetText": "unas posibilidades",
+              "slot": {
+                "beforeText": "",
+                "afterText": " posibilidades"
+              },
+              "anchor": {
+                "targetText": "posibilidades",
+                "learnerBaseText": "possibilities",
+                "englishAuditText": "possibilities"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.pair260908.feminine-plural.hipotesis",
+              "revision": 1,
+              "learnerBaseText": "some hypotheses",
+              "englishAuditText": "some hypotheses",
+              "targetText": "unas hipótesis",
+              "slot": {
+                "beforeText": "",
+                "afterText": " hipótesis"
+              },
+              "anchor": {
+                "targetText": "hipótesis",
+                "learnerBaseText": "hypotheses",
+                "englishAuditText": "hypotheses"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.pair260908.feminine-plural.predicciones",
+              "revision": 1,
+              "learnerBaseText": "some predictions",
+              "englishAuditText": "some predictions",
+              "targetText": "unas predicciones",
+              "slot": {
+                "beforeText": "",
+                "afterText": " predicciones"
+              },
+              "anchor": {
+                "targetText": "predicciones",
+                "learnerBaseText": "predictions",
+                "englishAuditText": "predictions"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.pair260908.feminine-plural.constelaciones",
+              "revision": 1,
+              "learnerBaseText": "some constellations",
+              "englishAuditText": "some constellations",
+              "targetText": "unas constelaciones",
+              "slot": {
+                "beforeText": "",
+                "afterText": " constelaciones"
+              },
+              "anchor": {
+                "targetText": "constelaciones",
+                "learnerBaseText": "constellations",
+                "englishAuditText": "constellations"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.pair260908.feminine-plural.galaxias",
+              "revision": 1,
+              "learnerBaseText": "some galaxies",
+              "englishAuditText": "some galaxies",
+              "targetText": "unas galaxias",
+              "slot": {
+                "beforeText": "",
+                "afterText": " galaxias"
+              },
+              "anchor": {
+                "targetText": "galaxias",
+                "learnerBaseText": "galaxies",
+                "englishAuditText": "galaxies"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.pair260908.feminine-plural.poleas",
+              "revision": 1,
+              "learnerBaseText": "some pulleys",
+              "englishAuditText": "some pulleys",
+              "targetText": "unas poleas",
+              "slot": {
+                "beforeText": "",
+                "afterText": " poleas"
+              },
+              "anchor": {
+                "targetText": "poleas",
+                "learnerBaseText": "pulleys",
+                "englishAuditText": "pulleys"
+              }
+            },
+            {
+              "id": "es.agreement.determiner-indefinite.pair260908.feminine-plural.orbitas",
+              "revision": 1,
+              "learnerBaseText": "some orbits",
+              "englishAuditText": "some orbits",
+              "targetText": "unas órbitas",
+              "slot": {
+                "beforeText": "",
+                "afterText": " órbitas"
+              },
+              "anchor": {
+                "targetText": "órbitas",
+                "learnerBaseText": "orbits",
+                "englishAuditText": "orbits"
               }
             }
           ]
@@ -1240,6 +4264,118 @@
                 "learnerBaseText": "a day",
                 "englishAuditText": "a day"
               }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.masculine-singular.exp260908",
+              "revision": 1,
+              "learnerBaseText": "a happy ending",
+              "englishAuditText": "a happy ending",
+              "targetText": "un final feliz",
+              "slot": {
+                "beforeText": "un final ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "final",
+                "learnerBaseText": "ending",
+                "englishAuditText": "ending"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.pair260908.masculine-singular.excursionista",
+              "revision": 1,
+              "learnerBaseText": "a happy male hiker",
+              "englishAuditText": "a happy male hiker",
+              "targetText": "un excursionista feliz",
+              "slot": {
+                "beforeText": "un excursionista ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "excursionista",
+                "learnerBaseText": "male hiker",
+                "englishAuditText": "male hiker"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.pair260908.masculine-singular.musico",
+              "revision": 1,
+              "learnerBaseText": "a happy male musician",
+              "englishAuditText": "a happy male musician",
+              "targetText": "un músico feliz",
+              "slot": {
+                "beforeText": "un músico ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "músico",
+                "learnerBaseText": "male musician",
+                "englishAuditText": "male musician"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.pair260908.masculine-singular.ganador",
+              "revision": 1,
+              "learnerBaseText": "a happy male winner",
+              "englishAuditText": "a happy male winner",
+              "targetText": "un ganador feliz",
+              "slot": {
+                "beforeText": "un ganador ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "ganador",
+                "learnerBaseText": "male winner",
+                "englishAuditText": "male winner"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.pair260908.masculine-singular.lector",
+              "revision": 1,
+              "learnerBaseText": "a happy male reader",
+              "englishAuditText": "a happy male reader",
+              "targetText": "un lector feliz",
+              "slot": {
+                "beforeText": "un lector ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "lector",
+                "learnerBaseText": "male reader",
+                "englishAuditText": "male reader"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.pair260908.masculine-singular.anfitrion",
+              "revision": 1,
+              "learnerBaseText": "a happy male host",
+              "englishAuditText": "a happy male host",
+              "targetText": "un anfitrión feliz",
+              "slot": {
+                "beforeText": "un anfitrión ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "anfitrión",
+                "learnerBaseText": "male host",
+                "englishAuditText": "male host"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.pair260908.masculine-singular.companero",
+              "revision": 1,
+              "learnerBaseText": "a happy male teammate",
+              "englishAuditText": "a happy male teammate",
+              "targetText": "un compañero feliz",
+              "slot": {
+                "beforeText": "un compañero ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "compañero",
+                "learnerBaseText": "male teammate",
+                "englishAuditText": "male teammate"
+              }
             }
           ]
         },
@@ -1276,6 +4412,118 @@
                 "targetText": "una familia",
                 "learnerBaseText": "a family",
                 "englishAuditText": "a family"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.feminine-singular.exp260908",
+              "revision": 1,
+              "learnerBaseText": "a happy childhood",
+              "englishAuditText": "a happy childhood",
+              "targetText": "una infancia feliz",
+              "slot": {
+                "beforeText": "una infancia ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "infancia",
+                "learnerBaseText": "childhood",
+                "englishAuditText": "childhood"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.pair260908.feminine-singular.excursionista",
+              "revision": 1,
+              "learnerBaseText": "a happy female hiker",
+              "englishAuditText": "a happy female hiker",
+              "targetText": "una excursionista feliz",
+              "slot": {
+                "beforeText": "una excursionista ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "excursionista",
+                "learnerBaseText": "female hiker",
+                "englishAuditText": "female hiker"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.pair260908.feminine-singular.musica",
+              "revision": 1,
+              "learnerBaseText": "a happy female musician",
+              "englishAuditText": "a happy female musician",
+              "targetText": "una música feliz",
+              "slot": {
+                "beforeText": "una música ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "música",
+                "learnerBaseText": "female musician",
+                "englishAuditText": "female musician"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.pair260908.feminine-singular.ganadora",
+              "revision": 1,
+              "learnerBaseText": "a happy female winner",
+              "englishAuditText": "a happy female winner",
+              "targetText": "una ganadora feliz",
+              "slot": {
+                "beforeText": "una ganadora ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "ganadora",
+                "learnerBaseText": "female winner",
+                "englishAuditText": "female winner"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.pair260908.feminine-singular.lectora",
+              "revision": 1,
+              "learnerBaseText": "a happy female reader",
+              "englishAuditText": "a happy female reader",
+              "targetText": "una lectora feliz",
+              "slot": {
+                "beforeText": "una lectora ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "lectora",
+                "learnerBaseText": "female reader",
+                "englishAuditText": "female reader"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.pair260908.feminine-singular.anfitriona",
+              "revision": 1,
+              "learnerBaseText": "a happy female host",
+              "englishAuditText": "a happy female host",
+              "targetText": "una anfitriona feliz",
+              "slot": {
+                "beforeText": "una anfitriona ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "anfitriona",
+                "learnerBaseText": "female host",
+                "englishAuditText": "female host"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.pair260908.feminine-singular.companera",
+              "revision": 1,
+              "learnerBaseText": "a happy female teammate",
+              "englishAuditText": "a happy female teammate",
+              "targetText": "una compañera feliz",
+              "slot": {
+                "beforeText": "una compañera ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "compañera",
+                "learnerBaseText": "female teammate",
+                "englishAuditText": "female teammate"
               }
             }
           ]
@@ -1314,6 +4562,118 @@
                 "learnerBaseText": "some days",
                 "englishAuditText": "some days"
               }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.masculine-plural.exp260908",
+              "revision": 1,
+              "learnerBaseText": "some happy memories",
+              "englishAuditText": "some happy memories",
+              "targetText": "unos recuerdos felices",
+              "slot": {
+                "beforeText": "unos recuerdos ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "recuerdos",
+                "learnerBaseText": "memories",
+                "englishAuditText": "memories"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.pair260908.masculine-plural.excursionistas",
+              "revision": 1,
+              "learnerBaseText": "some happy male hikers",
+              "englishAuditText": "some happy male hikers",
+              "targetText": "unos excursionistas felices",
+              "slot": {
+                "beforeText": "unos excursionistas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "excursionistas",
+                "learnerBaseText": "male hikers",
+                "englishAuditText": "male hikers"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.pair260908.masculine-plural.musicos",
+              "revision": 1,
+              "learnerBaseText": "some happy male musicians",
+              "englishAuditText": "some happy male musicians",
+              "targetText": "unos músicos felices",
+              "slot": {
+                "beforeText": "unos músicos ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "músicos",
+                "learnerBaseText": "male musicians",
+                "englishAuditText": "male musicians"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.pair260908.masculine-plural.ganadores",
+              "revision": 1,
+              "learnerBaseText": "some happy male winners",
+              "englishAuditText": "some happy male winners",
+              "targetText": "unos ganadores felices",
+              "slot": {
+                "beforeText": "unos ganadores ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "ganadores",
+                "learnerBaseText": "male winners",
+                "englishAuditText": "male winners"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.pair260908.masculine-plural.lectores",
+              "revision": 1,
+              "learnerBaseText": "some happy male readers",
+              "englishAuditText": "some happy male readers",
+              "targetText": "unos lectores felices",
+              "slot": {
+                "beforeText": "unos lectores ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "lectores",
+                "learnerBaseText": "male readers",
+                "englishAuditText": "male readers"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.pair260908.masculine-plural.anfitriones",
+              "revision": 1,
+              "learnerBaseText": "some happy male hosts",
+              "englishAuditText": "some happy male hosts",
+              "targetText": "unos anfitriones felices",
+              "slot": {
+                "beforeText": "unos anfitriones ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "anfitriones",
+                "learnerBaseText": "male hosts",
+                "englishAuditText": "male hosts"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.pair260908.masculine-plural.companeros",
+              "revision": 1,
+              "learnerBaseText": "some happy male teammates",
+              "englishAuditText": "some happy male teammates",
+              "targetText": "unos compañeros felices",
+              "slot": {
+                "beforeText": "unos compañeros ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "compañeros",
+                "learnerBaseText": "male teammates",
+                "englishAuditText": "male teammates"
+              }
             }
           ]
         },
@@ -1350,6 +4710,1372 @@
                 "targetText": "unas familias",
                 "learnerBaseText": "some families",
                 "englishAuditText": "some families"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.feminine-plural.exp260908",
+              "revision": 1,
+              "learnerBaseText": "some happy coincidences",
+              "englishAuditText": "some happy coincidences",
+              "targetText": "unas coincidencias felices",
+              "slot": {
+                "beforeText": "unas coincidencias ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "coincidencias",
+                "learnerBaseText": "coincidences",
+                "englishAuditText": "coincidences"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.pair260908.feminine-plural.excursionistas",
+              "revision": 1,
+              "learnerBaseText": "some happy female hikers",
+              "englishAuditText": "some happy female hikers",
+              "targetText": "unas excursionistas felices",
+              "slot": {
+                "beforeText": "unas excursionistas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "excursionistas",
+                "learnerBaseText": "female hikers",
+                "englishAuditText": "female hikers"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.pair260908.feminine-plural.musicas",
+              "revision": 1,
+              "learnerBaseText": "some happy female musicians",
+              "englishAuditText": "some happy female musicians",
+              "targetText": "unas músicas felices",
+              "slot": {
+                "beforeText": "unas músicas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "músicas",
+                "learnerBaseText": "female musicians",
+                "englishAuditText": "female musicians"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.pair260908.feminine-plural.ganadoras",
+              "revision": 1,
+              "learnerBaseText": "some happy female winners",
+              "englishAuditText": "some happy female winners",
+              "targetText": "unas ganadoras felices",
+              "slot": {
+                "beforeText": "unas ganadoras ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "ganadoras",
+                "learnerBaseText": "female winners",
+                "englishAuditText": "female winners"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.pair260908.feminine-plural.lectoras",
+              "revision": 1,
+              "learnerBaseText": "some happy female readers",
+              "englishAuditText": "some happy female readers",
+              "targetText": "unas lectoras felices",
+              "slot": {
+                "beforeText": "unas lectoras ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "lectoras",
+                "learnerBaseText": "female readers",
+                "englishAuditText": "female readers"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.pair260908.feminine-plural.anfitrionas",
+              "revision": 1,
+              "learnerBaseText": "some happy female hosts",
+              "englishAuditText": "some happy female hosts",
+              "targetText": "unas anfitrionas felices",
+              "slot": {
+                "beforeText": "unas anfitrionas ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "anfitrionas",
+                "learnerBaseText": "female hosts",
+                "englishAuditText": "female hosts"
+              }
+            },
+            {
+              "id": "es.agreement.adjective-feliz.pair260908.feminine-plural.companeras",
+              "revision": 1,
+              "learnerBaseText": "some happy female teammates",
+              "englishAuditText": "some happy female teammates",
+              "targetText": "unas compañeras felices",
+              "slot": {
+                "beforeText": "unas compañeras ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "compañeras",
+                "learnerBaseText": "female teammates",
+                "englishAuditText": "female teammates"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "es.agreement.pair260908.nuestro",
+      "revision": 1,
+      "difficulty": 2,
+      "focus": {
+        "kind": "possessive",
+        "label": "Our: agreement with the possessed noun",
+        "targetText": "nuestro · nuestra · nuestros · nuestras",
+        "resultTitle": "Our: agreement with the possessed noun",
+        "summary": "Nuestro agrees with the thing possessed, not with the gender of the people who own it."
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "nuestro",
+          "examples": [
+            {
+              "id": "es.agreement.pair260908.nuestro.pair260908.masculine-singular.huerto",
+              "revision": 1,
+              "learnerBaseText": "our vegetable garden",
+              "englishAuditText": "our vegetable garden",
+              "targetText": "nuestro huerto",
+              "slot": {
+                "beforeText": "",
+                "afterText": " huerto"
+              },
+              "anchor": {
+                "targetText": "huerto",
+                "learnerBaseText": "vegetable garden",
+                "englishAuditText": "vegetable garden"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.nuestro.pair260908.masculine-singular.proyecto",
+              "revision": 1,
+              "learnerBaseText": "our project",
+              "englishAuditText": "our project",
+              "targetText": "nuestro proyecto",
+              "slot": {
+                "beforeText": "",
+                "afterText": " proyecto"
+              },
+              "anchor": {
+                "targetText": "proyecto",
+                "learnerBaseText": "project",
+                "englishAuditText": "project"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.nuestro.pair260908.masculine-singular.refugio",
+              "revision": 1,
+              "learnerBaseText": "our shelter",
+              "englishAuditText": "our shelter",
+              "targetText": "nuestro refugio",
+              "slot": {
+                "beforeText": "",
+                "afterText": " refugio"
+              },
+              "anchor": {
+                "targetText": "refugio",
+                "learnerBaseText": "shelter",
+                "englishAuditText": "shelter"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.nuestro.pair260908.masculine-singular.equipo",
+              "revision": 1,
+              "learnerBaseText": "our team",
+              "englishAuditText": "our team",
+              "targetText": "nuestro equipo",
+              "slot": {
+                "beforeText": "",
+                "afterText": " equipo"
+              },
+              "anchor": {
+                "targetText": "equipo",
+                "learnerBaseText": "team",
+                "englishAuditText": "team"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.nuestro.pair260908.masculine-singular.barrio",
+              "revision": 1,
+              "learnerBaseText": "our neighborhood",
+              "englishAuditText": "our neighborhood",
+              "targetText": "nuestro barrio",
+              "slot": {
+                "beforeText": "",
+                "afterText": " barrio"
+              },
+              "anchor": {
+                "targetText": "barrio",
+                "learnerBaseText": "neighborhood",
+                "englishAuditText": "neighborhood"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.nuestro.pair260908.masculine-singular.escenario",
+              "revision": 1,
+              "learnerBaseText": "our stage",
+              "englishAuditText": "our stage",
+              "targetText": "nuestro escenario",
+              "slot": {
+                "beforeText": "",
+                "afterText": " escenario"
+              },
+              "anchor": {
+                "targetText": "escenario",
+                "learnerBaseText": "stage",
+                "englishAuditText": "stage"
+              }
+            }
+          ]
+        },
+        "feminine-singular": {
+          "displayForm": "nuestra",
+          "examples": [
+            {
+              "id": "es.agreement.pair260908.nuestro.pair260908.feminine-singular.maqueta",
+              "revision": 1,
+              "learnerBaseText": "our model",
+              "englishAuditText": "our model",
+              "targetText": "nuestra maqueta",
+              "slot": {
+                "beforeText": "",
+                "afterText": " maqueta"
+              },
+              "anchor": {
+                "targetText": "maqueta",
+                "learnerBaseText": "model",
+                "englishAuditText": "model"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.nuestro.pair260908.feminine-singular.coleccion",
+              "revision": 1,
+              "learnerBaseText": "our collection",
+              "englishAuditText": "our collection",
+              "targetText": "nuestra colección",
+              "slot": {
+                "beforeText": "",
+                "afterText": " colección"
+              },
+              "anchor": {
+                "targetText": "colección",
+                "learnerBaseText": "collection",
+                "englishAuditText": "collection"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.nuestro.pair260908.feminine-singular.orquesta",
+              "revision": 1,
+              "learnerBaseText": "our orchestra",
+              "englishAuditText": "our orchestra",
+              "targetText": "nuestra orquesta",
+              "slot": {
+                "beforeText": "",
+                "afterText": " orquesta"
+              },
+              "anchor": {
+                "targetText": "orquesta",
+                "learnerBaseText": "orchestra",
+                "englishAuditText": "orchestra"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.nuestro.pair260908.feminine-singular.biblioteca",
+              "revision": 1,
+              "learnerBaseText": "our library",
+              "englishAuditText": "our library",
+              "targetText": "nuestra biblioteca",
+              "slot": {
+                "beforeText": "",
+                "afterText": " biblioteca"
+              },
+              "anchor": {
+                "targetText": "biblioteca",
+                "learnerBaseText": "library",
+                "englishAuditText": "library"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.nuestro.pair260908.feminine-singular.exposicion",
+              "revision": 1,
+              "learnerBaseText": "our exhibition",
+              "englishAuditText": "our exhibition",
+              "targetText": "nuestra exposición",
+              "slot": {
+                "beforeText": "",
+                "afterText": " exposición"
+              },
+              "anchor": {
+                "targetText": "exposición",
+                "learnerBaseText": "exhibition",
+                "englishAuditText": "exhibition"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.nuestro.pair260908.feminine-singular.aventura",
+              "revision": 1,
+              "learnerBaseText": "our adventure",
+              "englishAuditText": "our adventure",
+              "targetText": "nuestra aventura",
+              "slot": {
+                "beforeText": "",
+                "afterText": " aventura"
+              },
+              "anchor": {
+                "targetText": "aventura",
+                "learnerBaseText": "adventure",
+                "englishAuditText": "adventure"
+              }
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "nuestros",
+          "examples": [
+            {
+              "id": "es.agreement.pair260908.nuestro.pair260908.masculine-plural.huertos",
+              "revision": 1,
+              "learnerBaseText": "our vegetable gardens",
+              "englishAuditText": "our vegetable gardens",
+              "targetText": "nuestros huertos",
+              "slot": {
+                "beforeText": "",
+                "afterText": " huertos"
+              },
+              "anchor": {
+                "targetText": "huertos",
+                "learnerBaseText": "vegetable gardens",
+                "englishAuditText": "vegetable gardens"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.nuestro.pair260908.masculine-plural.proyectos",
+              "revision": 1,
+              "learnerBaseText": "our projects",
+              "englishAuditText": "our projects",
+              "targetText": "nuestros proyectos",
+              "slot": {
+                "beforeText": "",
+                "afterText": " proyectos"
+              },
+              "anchor": {
+                "targetText": "proyectos",
+                "learnerBaseText": "projects",
+                "englishAuditText": "projects"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.nuestro.pair260908.masculine-plural.refugios",
+              "revision": 1,
+              "learnerBaseText": "our shelters",
+              "englishAuditText": "our shelters",
+              "targetText": "nuestros refugios",
+              "slot": {
+                "beforeText": "",
+                "afterText": " refugios"
+              },
+              "anchor": {
+                "targetText": "refugios",
+                "learnerBaseText": "shelters",
+                "englishAuditText": "shelters"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.nuestro.pair260908.masculine-plural.equipos",
+              "revision": 1,
+              "learnerBaseText": "our teams",
+              "englishAuditText": "our teams",
+              "targetText": "nuestros equipos",
+              "slot": {
+                "beforeText": "",
+                "afterText": " equipos"
+              },
+              "anchor": {
+                "targetText": "equipos",
+                "learnerBaseText": "teams",
+                "englishAuditText": "teams"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.nuestro.pair260908.masculine-plural.barrios",
+              "revision": 1,
+              "learnerBaseText": "our neighborhoods",
+              "englishAuditText": "our neighborhoods",
+              "targetText": "nuestros barrios",
+              "slot": {
+                "beforeText": "",
+                "afterText": " barrios"
+              },
+              "anchor": {
+                "targetText": "barrios",
+                "learnerBaseText": "neighborhoods",
+                "englishAuditText": "neighborhoods"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.nuestro.pair260908.masculine-plural.escenarios",
+              "revision": 1,
+              "learnerBaseText": "our stages",
+              "englishAuditText": "our stages",
+              "targetText": "nuestros escenarios",
+              "slot": {
+                "beforeText": "",
+                "afterText": " escenarios"
+              },
+              "anchor": {
+                "targetText": "escenarios",
+                "learnerBaseText": "stages",
+                "englishAuditText": "stages"
+              }
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "nuestras",
+          "examples": [
+            {
+              "id": "es.agreement.pair260908.nuestro.pair260908.feminine-plural.maquetas",
+              "revision": 1,
+              "learnerBaseText": "our models",
+              "englishAuditText": "our models",
+              "targetText": "nuestras maquetas",
+              "slot": {
+                "beforeText": "",
+                "afterText": " maquetas"
+              },
+              "anchor": {
+                "targetText": "maquetas",
+                "learnerBaseText": "models",
+                "englishAuditText": "models"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.nuestro.pair260908.feminine-plural.colecciones",
+              "revision": 1,
+              "learnerBaseText": "our collections",
+              "englishAuditText": "our collections",
+              "targetText": "nuestras colecciones",
+              "slot": {
+                "beforeText": "",
+                "afterText": " colecciones"
+              },
+              "anchor": {
+                "targetText": "colecciones",
+                "learnerBaseText": "collections",
+                "englishAuditText": "collections"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.nuestro.pair260908.feminine-plural.orquestas",
+              "revision": 1,
+              "learnerBaseText": "our orchestras",
+              "englishAuditText": "our orchestras",
+              "targetText": "nuestras orquestas",
+              "slot": {
+                "beforeText": "",
+                "afterText": " orquestas"
+              },
+              "anchor": {
+                "targetText": "orquestas",
+                "learnerBaseText": "orchestras",
+                "englishAuditText": "orchestras"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.nuestro.pair260908.feminine-plural.bibliotecas",
+              "revision": 1,
+              "learnerBaseText": "our libraries",
+              "englishAuditText": "our libraries",
+              "targetText": "nuestras bibliotecas",
+              "slot": {
+                "beforeText": "",
+                "afterText": " bibliotecas"
+              },
+              "anchor": {
+                "targetText": "bibliotecas",
+                "learnerBaseText": "libraries",
+                "englishAuditText": "libraries"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.nuestro.pair260908.feminine-plural.exposiciones",
+              "revision": 1,
+              "learnerBaseText": "our exhibitions",
+              "englishAuditText": "our exhibitions",
+              "targetText": "nuestras exposiciones",
+              "slot": {
+                "beforeText": "",
+                "afterText": " exposiciones"
+              },
+              "anchor": {
+                "targetText": "exposiciones",
+                "learnerBaseText": "exhibitions",
+                "englishAuditText": "exhibitions"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.nuestro.pair260908.feminine-plural.aventuras",
+              "revision": 1,
+              "learnerBaseText": "our adventures",
+              "englishAuditText": "our adventures",
+              "targetText": "nuestras aventuras",
+              "slot": {
+                "beforeText": "",
+                "afterText": " aventuras"
+              },
+              "anchor": {
+                "targetText": "aventuras",
+                "learnerBaseText": "adventures",
+                "englishAuditText": "adventures"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "es.agreement.pair260908.primer",
+      "revision": 1,
+      "difficulty": 2,
+      "focus": {
+        "kind": "ordinal",
+        "label": "First: forms before a noun",
+        "targetText": "primer · primera · primeros · primeras",
+        "resultTitle": "First: forms before a noun",
+        "summary": "Before a masculine singular noun, primero shortens to primer. The other forms here are primera, primeros and primeras."
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "primer",
+          "examples": [
+            {
+              "id": "es.agreement.pair260908.primer.pair260908.masculine-singular.intento",
+              "revision": 1,
+              "learnerBaseText": "the first attempt",
+              "englishAuditText": "the first attempt",
+              "targetText": "el primer intento",
+              "slot": {
+                "beforeText": "el ",
+                "afterText": " intento"
+              },
+              "anchor": {
+                "targetText": "intento",
+                "learnerBaseText": "attempt",
+                "englishAuditText": "attempt"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.primer.pair260908.masculine-singular.ensayo",
+              "revision": 1,
+              "learnerBaseText": "the first rehearsal",
+              "englishAuditText": "the first rehearsal",
+              "targetText": "el primer ensayo",
+              "slot": {
+                "beforeText": "el ",
+                "afterText": " ensayo"
+              },
+              "anchor": {
+                "targetText": "ensayo",
+                "learnerBaseText": "rehearsal",
+                "englishAuditText": "rehearsal"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.primer.pair260908.masculine-singular.capitulo",
+              "revision": 1,
+              "learnerBaseText": "the first chapter",
+              "englishAuditText": "the first chapter",
+              "targetText": "el primer capítulo",
+              "slot": {
+                "beforeText": "el ",
+                "afterText": " capítulo"
+              },
+              "anchor": {
+                "targetText": "capítulo",
+                "learnerBaseText": "chapter",
+                "englishAuditText": "chapter"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.primer.pair260908.masculine-singular.borrador",
+              "revision": 1,
+              "learnerBaseText": "the first draft",
+              "englishAuditText": "the first draft",
+              "targetText": "el primer borrador",
+              "slot": {
+                "beforeText": "el ",
+                "afterText": " borrador"
+              },
+              "anchor": {
+                "targetText": "borrador",
+                "learnerBaseText": "draft",
+                "englishAuditText": "draft"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.primer.pair260908.masculine-singular.brote",
+              "revision": 1,
+              "learnerBaseText": "the first sprout",
+              "englishAuditText": "the first sprout",
+              "targetText": "el primer brote",
+              "slot": {
+                "beforeText": "el ",
+                "afterText": " brote"
+              },
+              "anchor": {
+                "targetText": "brote",
+                "learnerBaseText": "sprout",
+                "englishAuditText": "sprout"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.primer.pair260908.masculine-singular.aplauso",
+              "revision": 1,
+              "learnerBaseText": "the first round of applause",
+              "englishAuditText": "the first round of applause",
+              "targetText": "el primer aplauso",
+              "slot": {
+                "beforeText": "el ",
+                "afterText": " aplauso"
+              },
+              "anchor": {
+                "targetText": "aplauso",
+                "learnerBaseText": "round of applause",
+                "englishAuditText": "round of applause"
+              }
+            }
+          ]
+        },
+        "feminine-singular": {
+          "displayForm": "primera",
+          "examples": [
+            {
+              "id": "es.agreement.pair260908.primer.pair260908.feminine-singular.pagina",
+              "revision": 1,
+              "learnerBaseText": "the first page",
+              "englishAuditText": "the first page",
+              "targetText": "la primera página",
+              "slot": {
+                "beforeText": "la ",
+                "afterText": " página"
+              },
+              "anchor": {
+                "targetText": "página",
+                "learnerBaseText": "page",
+                "englishAuditText": "page"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.primer.pair260908.feminine-singular.huella",
+              "revision": 1,
+              "learnerBaseText": "the first footprint",
+              "englishAuditText": "the first footprint",
+              "targetText": "la primera huella",
+              "slot": {
+                "beforeText": "la ",
+                "afterText": " huella"
+              },
+              "anchor": {
+                "targetText": "huella",
+                "learnerBaseText": "footprint",
+                "englishAuditText": "footprint"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.primer.pair260908.feminine-singular.version",
+              "revision": 1,
+              "learnerBaseText": "the first version",
+              "englishAuditText": "the first version",
+              "targetText": "la primera versión",
+              "slot": {
+                "beforeText": "la ",
+                "afterText": " versión"
+              },
+              "anchor": {
+                "targetText": "versión",
+                "learnerBaseText": "version",
+                "englishAuditText": "version"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.primer.pair260908.feminine-singular.medalla",
+              "revision": 1,
+              "learnerBaseText": "the first medal",
+              "englishAuditText": "the first medal",
+              "targetText": "la primera medalla",
+              "slot": {
+                "beforeText": "la ",
+                "afterText": " medalla"
+              },
+              "anchor": {
+                "targetText": "medalla",
+                "learnerBaseText": "medal",
+                "englishAuditText": "medal"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.primer.pair260908.feminine-singular.cosecha",
+              "revision": 1,
+              "learnerBaseText": "the first harvest",
+              "englishAuditText": "the first harvest",
+              "targetText": "la primera cosecha",
+              "slot": {
+                "beforeText": "la ",
+                "afterText": " cosecha"
+              },
+              "anchor": {
+                "targetText": "cosecha",
+                "learnerBaseText": "harvest",
+                "englishAuditText": "harvest"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.primer.pair260908.feminine-singular.visita",
+              "revision": 1,
+              "learnerBaseText": "the first visit",
+              "englishAuditText": "the first visit",
+              "targetText": "la primera visita",
+              "slot": {
+                "beforeText": "la ",
+                "afterText": " visita"
+              },
+              "anchor": {
+                "targetText": "visita",
+                "learnerBaseText": "visit",
+                "englishAuditText": "visit"
+              }
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "primeros",
+          "examples": [
+            {
+              "id": "es.agreement.pair260908.primer.pair260908.masculine-plural.intentos",
+              "revision": 1,
+              "learnerBaseText": "the first attempts",
+              "englishAuditText": "the first attempts",
+              "targetText": "los primeros intentos",
+              "slot": {
+                "beforeText": "los ",
+                "afterText": " intentos"
+              },
+              "anchor": {
+                "targetText": "intentos",
+                "learnerBaseText": "attempts",
+                "englishAuditText": "attempts"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.primer.pair260908.masculine-plural.ensayos",
+              "revision": 1,
+              "learnerBaseText": "the first rehearsals",
+              "englishAuditText": "the first rehearsals",
+              "targetText": "los primeros ensayos",
+              "slot": {
+                "beforeText": "los ",
+                "afterText": " ensayos"
+              },
+              "anchor": {
+                "targetText": "ensayos",
+                "learnerBaseText": "rehearsals",
+                "englishAuditText": "rehearsals"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.primer.pair260908.masculine-plural.capitulos",
+              "revision": 1,
+              "learnerBaseText": "the first chapters",
+              "englishAuditText": "the first chapters",
+              "targetText": "los primeros capítulos",
+              "slot": {
+                "beforeText": "los ",
+                "afterText": " capítulos"
+              },
+              "anchor": {
+                "targetText": "capítulos",
+                "learnerBaseText": "chapters",
+                "englishAuditText": "chapters"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.primer.pair260908.masculine-plural.borradores",
+              "revision": 1,
+              "learnerBaseText": "the first drafts",
+              "englishAuditText": "the first drafts",
+              "targetText": "los primeros borradores",
+              "slot": {
+                "beforeText": "los ",
+                "afterText": " borradores"
+              },
+              "anchor": {
+                "targetText": "borradores",
+                "learnerBaseText": "drafts",
+                "englishAuditText": "drafts"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.primer.pair260908.masculine-plural.brotes",
+              "revision": 1,
+              "learnerBaseText": "the first sprouts",
+              "englishAuditText": "the first sprouts",
+              "targetText": "los primeros brotes",
+              "slot": {
+                "beforeText": "los ",
+                "afterText": " brotes"
+              },
+              "anchor": {
+                "targetText": "brotes",
+                "learnerBaseText": "sprouts",
+                "englishAuditText": "sprouts"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.primer.pair260908.masculine-plural.aplausos",
+              "revision": 1,
+              "learnerBaseText": "the first rounds of applause",
+              "englishAuditText": "the first rounds of applause",
+              "targetText": "los primeros aplausos",
+              "slot": {
+                "beforeText": "los ",
+                "afterText": " aplausos"
+              },
+              "anchor": {
+                "targetText": "aplausos",
+                "learnerBaseText": "rounds of applause",
+                "englishAuditText": "rounds of applause"
+              }
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "primeras",
+          "examples": [
+            {
+              "id": "es.agreement.pair260908.primer.pair260908.feminine-plural.paginas",
+              "revision": 1,
+              "learnerBaseText": "the first pages",
+              "englishAuditText": "the first pages",
+              "targetText": "las primeras páginas",
+              "slot": {
+                "beforeText": "las ",
+                "afterText": " páginas"
+              },
+              "anchor": {
+                "targetText": "páginas",
+                "learnerBaseText": "pages",
+                "englishAuditText": "pages"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.primer.pair260908.feminine-plural.huellas",
+              "revision": 1,
+              "learnerBaseText": "the first footprints",
+              "englishAuditText": "the first footprints",
+              "targetText": "las primeras huellas",
+              "slot": {
+                "beforeText": "las ",
+                "afterText": " huellas"
+              },
+              "anchor": {
+                "targetText": "huellas",
+                "learnerBaseText": "footprints",
+                "englishAuditText": "footprints"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.primer.pair260908.feminine-plural.versiones",
+              "revision": 1,
+              "learnerBaseText": "the first versions",
+              "englishAuditText": "the first versions",
+              "targetText": "las primeras versiones",
+              "slot": {
+                "beforeText": "las ",
+                "afterText": " versiones"
+              },
+              "anchor": {
+                "targetText": "versiones",
+                "learnerBaseText": "versions",
+                "englishAuditText": "versions"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.primer.pair260908.feminine-plural.medallas",
+              "revision": 1,
+              "learnerBaseText": "the first medals",
+              "englishAuditText": "the first medals",
+              "targetText": "las primeras medallas",
+              "slot": {
+                "beforeText": "las ",
+                "afterText": " medallas"
+              },
+              "anchor": {
+                "targetText": "medallas",
+                "learnerBaseText": "medals",
+                "englishAuditText": "medals"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.primer.pair260908.feminine-plural.cosechas",
+              "revision": 1,
+              "learnerBaseText": "the first harvests",
+              "englishAuditText": "the first harvests",
+              "targetText": "las primeras cosechas",
+              "slot": {
+                "beforeText": "las ",
+                "afterText": " cosechas"
+              },
+              "anchor": {
+                "targetText": "cosechas",
+                "learnerBaseText": "harvests",
+                "englishAuditText": "harvests"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.primer.pair260908.feminine-plural.visitas",
+              "revision": 1,
+              "learnerBaseText": "the first visits",
+              "englishAuditText": "the first visits",
+              "targetText": "las primeras visitas",
+              "slot": {
+                "beforeText": "las ",
+                "afterText": " visitas"
+              },
+              "anchor": {
+                "targetText": "visitas",
+                "learnerBaseText": "visits",
+                "englishAuditText": "visits"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "es.agreement.pair260908.mejor",
+      "revision": 1,
+      "difficulty": 3,
+      "focus": {
+        "kind": "comparative",
+        "label": "Better: number agreement",
+        "targetText": "mejor · mejores",
+        "resultTitle": "Better: number agreement",
+        "summary": "Mejor has the same form for masculine and feminine nouns. Use mejores with plural nouns."
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "mejor",
+          "examples": [
+            {
+              "id": "es.agreement.pair260908.mejor.pair260908.masculine-singular.resultado",
+              "revision": 1,
+              "learnerBaseText": "a better result",
+              "englishAuditText": "a better result",
+              "targetText": "un mejor resultado",
+              "slot": {
+                "beforeText": "un ",
+                "afterText": " resultado"
+              },
+              "anchor": {
+                "targetText": "resultado",
+                "learnerBaseText": "result",
+                "englishAuditText": "result"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.mejor.pair260908.masculine-singular.metodo",
+              "revision": 1,
+              "learnerBaseText": "a better method",
+              "englishAuditText": "a better method",
+              "targetText": "un mejor método",
+              "slot": {
+                "beforeText": "un ",
+                "afterText": " método"
+              },
+              "anchor": {
+                "targetText": "método",
+                "learnerBaseText": "method",
+                "englishAuditText": "method"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.mejor.pair260908.masculine-singular.argumento",
+              "revision": 1,
+              "learnerBaseText": "a better argument",
+              "englishAuditText": "a better argument",
+              "targetText": "un mejor argumento",
+              "slot": {
+                "beforeText": "un ",
+                "afterText": " argumento"
+              },
+              "anchor": {
+                "targetText": "argumento",
+                "learnerBaseText": "argument",
+                "englishAuditText": "argument"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.mejor.pair260908.masculine-singular.resumen",
+              "revision": 1,
+              "learnerBaseText": "a better summary",
+              "englishAuditText": "a better summary",
+              "targetText": "un mejor resumen",
+              "slot": {
+                "beforeText": "un ",
+                "afterText": " resumen"
+              },
+              "anchor": {
+                "targetText": "resumen",
+                "learnerBaseText": "summary",
+                "englishAuditText": "summary"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.mejor.pair260908.masculine-singular.diseno",
+              "revision": 1,
+              "learnerBaseText": "a better design",
+              "englishAuditText": "a better design",
+              "targetText": "un mejor diseño",
+              "slot": {
+                "beforeText": "un ",
+                "afterText": " diseño"
+              },
+              "anchor": {
+                "targetText": "diseño",
+                "learnerBaseText": "design",
+                "englishAuditText": "design"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.mejor.pair260908.masculine-singular.ejemplo",
+              "revision": 1,
+              "learnerBaseText": "a better example",
+              "englishAuditText": "a better example",
+              "targetText": "un mejor ejemplo",
+              "slot": {
+                "beforeText": "un ",
+                "afterText": " ejemplo"
+              },
+              "anchor": {
+                "targetText": "ejemplo",
+                "learnerBaseText": "example",
+                "englishAuditText": "example"
+              }
+            }
+          ]
+        },
+        "feminine-singular": {
+          "displayForm": "mejor",
+          "examples": [
+            {
+              "id": "es.agreement.pair260908.mejor.pair260908.feminine-singular.solucion",
+              "revision": 1,
+              "learnerBaseText": "a better solution",
+              "englishAuditText": "a better solution",
+              "targetText": "una mejor solución",
+              "slot": {
+                "beforeText": "una ",
+                "afterText": " solución"
+              },
+              "anchor": {
+                "targetText": "solución",
+                "learnerBaseText": "solution",
+                "englishAuditText": "solution"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.mejor.pair260908.feminine-singular.explicacion",
+              "revision": 1,
+              "learnerBaseText": "a better explanation",
+              "englishAuditText": "a better explanation",
+              "targetText": "una mejor explicación",
+              "slot": {
+                "beforeText": "una ",
+                "afterText": " explicación"
+              },
+              "anchor": {
+                "targetText": "explicación",
+                "learnerBaseText": "explanation",
+                "englishAuditText": "explanation"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.mejor.pair260908.feminine-singular.estrategia",
+              "revision": 1,
+              "learnerBaseText": "a better strategy",
+              "englishAuditText": "a better strategy",
+              "targetText": "una mejor estrategia",
+              "slot": {
+                "beforeText": "una ",
+                "afterText": " estrategia"
+              },
+              "anchor": {
+                "targetText": "estrategia",
+                "learnerBaseText": "strategy",
+                "englishAuditText": "strategy"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.mejor.pair260908.feminine-singular.propuesta",
+              "revision": 1,
+              "learnerBaseText": "a better proposal",
+              "englishAuditText": "a better proposal",
+              "targetText": "una mejor propuesta",
+              "slot": {
+                "beforeText": "una ",
+                "afterText": " propuesta"
+              },
+              "anchor": {
+                "targetText": "propuesta",
+                "learnerBaseText": "proposal",
+                "englishAuditText": "proposal"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.mejor.pair260908.feminine-singular.interpretacion",
+              "revision": 1,
+              "learnerBaseText": "a better interpretation",
+              "englishAuditText": "a better interpretation",
+              "targetText": "una mejor interpretación",
+              "slot": {
+                "beforeText": "una ",
+                "afterText": " interpretación"
+              },
+              "anchor": {
+                "targetText": "interpretación",
+                "learnerBaseText": "interpretation",
+                "englishAuditText": "interpretation"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.mejor.pair260908.feminine-singular.alternativa",
+              "revision": 1,
+              "learnerBaseText": "a better alternative",
+              "englishAuditText": "a better alternative",
+              "targetText": "una mejor alternativa",
+              "slot": {
+                "beforeText": "una ",
+                "afterText": " alternativa"
+              },
+              "anchor": {
+                "targetText": "alternativa",
+                "learnerBaseText": "alternative",
+                "englishAuditText": "alternative"
+              }
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "mejores",
+          "examples": [
+            {
+              "id": "es.agreement.pair260908.mejor.pair260908.masculine-plural.resultados",
+              "revision": 1,
+              "learnerBaseText": "some better results",
+              "englishAuditText": "some better results",
+              "targetText": "unos mejores resultados",
+              "slot": {
+                "beforeText": "unos ",
+                "afterText": " resultados"
+              },
+              "anchor": {
+                "targetText": "resultados",
+                "learnerBaseText": "results",
+                "englishAuditText": "results"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.mejor.pair260908.masculine-plural.metodos",
+              "revision": 1,
+              "learnerBaseText": "some better methods",
+              "englishAuditText": "some better methods",
+              "targetText": "unos mejores métodos",
+              "slot": {
+                "beforeText": "unos ",
+                "afterText": " métodos"
+              },
+              "anchor": {
+                "targetText": "métodos",
+                "learnerBaseText": "methods",
+                "englishAuditText": "methods"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.mejor.pair260908.masculine-plural.argumentos",
+              "revision": 1,
+              "learnerBaseText": "some better arguments",
+              "englishAuditText": "some better arguments",
+              "targetText": "unos mejores argumentos",
+              "slot": {
+                "beforeText": "unos ",
+                "afterText": " argumentos"
+              },
+              "anchor": {
+                "targetText": "argumentos",
+                "learnerBaseText": "arguments",
+                "englishAuditText": "arguments"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.mejor.pair260908.masculine-plural.resumenes",
+              "revision": 1,
+              "learnerBaseText": "some better summaries",
+              "englishAuditText": "some better summaries",
+              "targetText": "unos mejores resúmenes",
+              "slot": {
+                "beforeText": "unos ",
+                "afterText": " resúmenes"
+              },
+              "anchor": {
+                "targetText": "resúmenes",
+                "learnerBaseText": "summaries",
+                "englishAuditText": "summaries"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.mejor.pair260908.masculine-plural.disenos",
+              "revision": 1,
+              "learnerBaseText": "some better designs",
+              "englishAuditText": "some better designs",
+              "targetText": "unos mejores diseños",
+              "slot": {
+                "beforeText": "unos ",
+                "afterText": " diseños"
+              },
+              "anchor": {
+                "targetText": "diseños",
+                "learnerBaseText": "designs",
+                "englishAuditText": "designs"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.mejor.pair260908.masculine-plural.ejemplos",
+              "revision": 1,
+              "learnerBaseText": "some better examples",
+              "englishAuditText": "some better examples",
+              "targetText": "unos mejores ejemplos",
+              "slot": {
+                "beforeText": "unos ",
+                "afterText": " ejemplos"
+              },
+              "anchor": {
+                "targetText": "ejemplos",
+                "learnerBaseText": "examples",
+                "englishAuditText": "examples"
+              }
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "mejores",
+          "examples": [
+            {
+              "id": "es.agreement.pair260908.mejor.pair260908.feminine-plural.soluciones",
+              "revision": 1,
+              "learnerBaseText": "some better solutions",
+              "englishAuditText": "some better solutions",
+              "targetText": "unas mejores soluciones",
+              "slot": {
+                "beforeText": "unas ",
+                "afterText": " soluciones"
+              },
+              "anchor": {
+                "targetText": "soluciones",
+                "learnerBaseText": "solutions",
+                "englishAuditText": "solutions"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.mejor.pair260908.feminine-plural.explicaciones",
+              "revision": 1,
+              "learnerBaseText": "some better explanations",
+              "englishAuditText": "some better explanations",
+              "targetText": "unas mejores explicaciones",
+              "slot": {
+                "beforeText": "unas ",
+                "afterText": " explicaciones"
+              },
+              "anchor": {
+                "targetText": "explicaciones",
+                "learnerBaseText": "explanations",
+                "englishAuditText": "explanations"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.mejor.pair260908.feminine-plural.estrategias",
+              "revision": 1,
+              "learnerBaseText": "some better strategies",
+              "englishAuditText": "some better strategies",
+              "targetText": "unas mejores estrategias",
+              "slot": {
+                "beforeText": "unas ",
+                "afterText": " estrategias"
+              },
+              "anchor": {
+                "targetText": "estrategias",
+                "learnerBaseText": "strategies",
+                "englishAuditText": "strategies"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.mejor.pair260908.feminine-plural.propuestas",
+              "revision": 1,
+              "learnerBaseText": "some better proposals",
+              "englishAuditText": "some better proposals",
+              "targetText": "unas mejores propuestas",
+              "slot": {
+                "beforeText": "unas ",
+                "afterText": " propuestas"
+              },
+              "anchor": {
+                "targetText": "propuestas",
+                "learnerBaseText": "proposals",
+                "englishAuditText": "proposals"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.mejor.pair260908.feminine-plural.interpretaciones",
+              "revision": 1,
+              "learnerBaseText": "some better interpretations",
+              "englishAuditText": "some better interpretations",
+              "targetText": "unas mejores interpretaciones",
+              "slot": {
+                "beforeText": "unas ",
+                "afterText": " interpretaciones"
+              },
+              "anchor": {
+                "targetText": "interpretaciones",
+                "learnerBaseText": "interpretations",
+                "englishAuditText": "interpretations"
+              }
+            },
+            {
+              "id": "es.agreement.pair260908.mejor.pair260908.feminine-plural.alternativas",
+              "revision": 1,
+              "learnerBaseText": "some better alternatives",
+              "englishAuditText": "some better alternatives",
+              "targetText": "unas mejores alternativas",
+              "slot": {
+                "beforeText": "unas ",
+                "afterText": " alternativas"
+              },
+              "anchor": {
+                "targetText": "alternativas",
+                "learnerBaseText": "alternatives",
+                "englishAuditText": "alternatives"
               }
             }
           ]

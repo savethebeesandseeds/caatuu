@@ -5934,10 +5934,12 @@ function applyWordWorldCapabilities(root) {
   const generativeDialog = root.querySelector("#wordNetGenerativeDialog");
   if (generativeDialog) generativeDialog.hidden = !generationSupported;
   const speechAvailable = capabilities.speech === true;
-  for (const id of ["#wordNetSound", "#wordNetPhraseSound", "#wordNetSelectedWordSound"]) {
+  for (const id of ["#wordNetPhraseSound", "#wordNetSelectedWordSound"]) {
     const node = root.querySelector(id);
     if (node) node.hidden = !speechAvailable;
   }
+  const audioMenu = root.querySelector("#wordNetAudioMenu");
+  if (!speechAvailable) audioMenu?.querySelectorAll("[data-voice-controls], .caatuu-audio-speed, .caatuu-audio-extras").forEach((node) => { node.hidden = true; });
 }
 
 function requirePreparedContext(value) {
