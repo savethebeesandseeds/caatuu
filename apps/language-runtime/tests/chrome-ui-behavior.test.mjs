@@ -806,6 +806,7 @@ test("the shared chooser opens the declared Sounds Quasar game", () => {
   assert.equal(option.dataset.gameState, "playable");
   assert.equal(option.classList.contains("is-upcoming"), false);
   assert.equal(option.querySelector("strong").textContent, "Sounds Quasar");
+  assert.equal(document.querySelectorAll("[data-game-menu-target]").at(-1).dataset.gameMenuTarget, "memory-moon");
   option.click();
   assert.equal(selections, 1);
   assert.equal(document.querySelector("#gamesMenuPanel").hidden, true);

@@ -527,6 +527,7 @@ const state = {
   nativeSpeechRequestedVoiceAvailable: true,
   nativeSpeechStatusPending: false,
   nativeSpeechStatusRequestId: 0,
+  pendingSpeechAutoplayFingerprint: "",
   sceneCandidates: [],
   sceneRequestId: 0,
   history: loadHistory(),
@@ -1418,9 +1419,15 @@ function maybeAutoplayCurrentSentence({ force = false } = {}) {
     || state.busy
     || !targetSentenceSpeechAllowed()
     || !fingerprint
-    || !speechControlSupported()
     || (!force && fingerprint === state.lastAutoplayFingerprint)
   ) return;
+  if (!speechControlSupported()) {
+    if (androidSpeechRuntime() && state.nativeSpeechStatusPending) {
+      state.pendingSpeechAutoplayFingerprint = fingerprint;
+    }
+    return;
+  }
+  state.pendingSpeechAutoplayFingerprint = "";
   state.lastAutoplayFingerprint = fingerprint;
   toggleCzechSpeech(state.currentSentence, "sentence");
 }
@@ -1455,7 +1462,28 @@ async function refreshAndroidSpeechStatus({ force = false } = {}) {
     if (requestId === state.nativeSpeechStatusRequestId) {
       state.nativeSpeechStatusPending = false;
       syncSpeechControl();
+      const pendingAutoplay = state.pendingSpeechAutoplayFingerprint;
+      if (state.nativeSpeechAvailable) state.pendingSpeechAutoplayFingerprint = "";
+      // A cold Android voice can become ready after the first sentence is shown.
+      // Resume only that pending sentence while its game is still visible.
+      if (state.nativeSpeechAvailable && pendingAutoplay
+        && pendingAutoplay === sentenceFingerprint(state.currentSentence)
+        && state.loadingActive && !state.loadingPageHidden
+        && !state.speechSession && state.speechState !== "speaking"
+        && document.visibilityState !== "hidden") {
+        maybeAutoplayCurrentSentence();
+      }
     }
+  }
+}
+
+function resumeSpeechControl() {
+  syncSpeechControl();
+  if (state.loadingActive && !state.loadingPageHidden && document.visibilityState !== "hidden"
+    && androidSpeechRuntime() && !state.nativeSpeechAvailable
+    && !state.speechSession && state.speechState !== "speaking") {
+    // Retry a failed first check when the learner returns, without polling.
+    void refreshAndroidSpeechStatus();
   }
 }
 
@@ -6026,7 +6054,7 @@ export async function mountProductWordWorld(root, preparedContext, options = {})
       state.loadingActive = true;
       syncRobotLoadingActivity();
       syncDisplaySettingsControl();
-      syncSpeechControl();
+      resumeSpeechControl();
       if (!state.busy && state.currentSentence) {
         if (state.translationMode !== "off" && !state.currentTranslation) void enrichCurrentPhrase();
         else schedulePrefetch(state.currentSentence, 180);

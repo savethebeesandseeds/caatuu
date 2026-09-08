@@ -53,6 +53,54 @@ export function missingSetupBytes(status) {
     : Math.max(0, (Number(status?.expectedBytes) || 0) - (status?.ready ? Number(status.bytes) || 0 : 0));
 }
 
+/** Track the whole selected course; file order and file size must not change the denominator. */
+export function createSetupDownloadProgress() {
+  let artifacts = [];
+  let latest = {};
+  const bytes = (value) => Number.isFinite(Number(value)) ? Math.max(0, Number(value)) : 0;
+  const key = (item) => `${item.artifactKind || ""}:${item.artifactKey || item.key || item.modelKey || ""}`;
+  const snapshot = () => {
+    const totalBytes = artifacts.length
+      ? artifacts.reduce((sum, item) => sum + item.expectedBytes, 0) : bytes(latest.expectedBytes);
+    const downloadedBytes = artifacts.length
+      ? artifacts.reduce((sum, item) => sum + item.bytes, 0) : Math.min(bytes(latest.bytes), totalBytes);
+    return {
+      bytes: downloadedBytes,
+      totalBytes,
+      percent: latest.ready === true ? 100 : Math.min(99, totalBytes ? downloadedBytes / totalBytes * 100 : 0),
+    };
+  };
+  return {
+    reset(status = {}) {
+      latest = status;
+      artifacts = [
+        ...(status.staticAssets?.assets || []),
+        status.vectorDatabase && { artifactKind: "embedding-vector-db", ...status.vectorDatabase },
+        status.dictionary && { artifactKind: "dictionary-database", ...status.dictionary },
+      ].filter(Boolean).map((item) => ({
+        ...item,
+        expectedBytes: bytes(item.expectedBytes),
+        bytes: item.ready === true ? bytes(item.expectedBytes) : Math.min(bytes(item.bytes), bytes(item.expectedBytes)),
+      }));
+      return snapshot();
+    },
+    update(event = {}) {
+      const item = event.artifactKey
+        ? artifacts.find((candidate) => key(candidate) === key(event))
+        : artifacts[Number(event.artifactIndex) - 1];
+      if (item) {
+        if (event.ready === true || event.verified === true || /^(asset|vector|dictionary)_ready$/u.test(event.phase || "")) {
+          item.bytes = item.expectedBytes;
+        } else if (Number.isFinite(Number(event.bytes))) {
+          item.bytes = Math.min(bytes(event.bytes), item.expectedBytes);
+        }
+      }
+      return snapshot();
+    },
+    snapshot,
+  };
+}
+
 export function createNativeSetupClient(scope) {
   if (typeof scope.CaatuuAndroid?.postMessage !== "function") throw new Error("Native setup is unavailable.");
   const pending = new Map();
@@ -162,6 +210,7 @@ export function initializeHomeCourseSetup(scope = globalThis) {
   let fail;
   const completion = new Promise((resolve, reject) => { finish = resolve; fail = reject; });
   let selectedIntent = false;
+  const downloadProgress = createSetupDownloadProgress();
   try {
     selectedIntent = scope.localStorage.getItem(SELECTED_HOME_COURSE) === course.id;
   } catch { /* Storage is optional. */ }
@@ -203,6 +252,8 @@ export function initializeHomeCourseSetup(scope = globalThis) {
     text("setupPercent", `${Math.floor(value)}%`);
     if (bytes) text("setupBytes", bytes);
   };
+  const renderDownloadProgress = (progress) => setProgress(progress.percent,
+    `${formatSetupBytes(progress.bytes, locale)} / ${formatSetupBytes(progress.totalBytes, locale)}`);
   const showPreparing = () => {
     setChoosing(false);
     card.classList.remove("is-ready", "is-error");
@@ -316,6 +367,7 @@ export function initializeHomeCourseSetup(scope = globalThis) {
     fail(error);
   };
   const ready = () => {
+    try { scope.localStorage.setItem(SELECTED_HOME_COURSE, course.id); } catch { /* Optional resume preference. */ }
     showPreparing();
     text("setupCount", t("setup.preparing"));
     setProgress(99);
@@ -331,7 +383,7 @@ export function initializeHomeCourseSetup(scope = globalThis) {
     if (closed) return;
     stopPolling();
     if (result.ready === true) { ready(); return; }
-    text("setupBytes", formatSetupBytes(missingSetupBytes(result), locale));
+    renderDownloadProgress(downloadProgress.reset(result));
     if (result.setupActive === true) {
       showPreparing();
       setBusy(true);
@@ -348,6 +400,7 @@ export function initializeHomeCourseSetup(scope = globalThis) {
     try {
       const result = await client.request("setup_status");
       if (closed || current !== generation) return;
+      downloadProgress.reset(result);
       if (!result.ready && !result.setupActive && selectedIntent) {
         selectedIntent = false;
         await download();
@@ -362,18 +415,14 @@ export function initializeHomeCourseSetup(scope = globalThis) {
     stopPolling();
     showPreparing();
     setBusy(true);
-    setProgress(0);
+    renderDownloadProgress(downloadProgress.snapshot());
     try {
       const result = await client.request("setup_download", (event) => {
         if (closed || current !== generation) return;
         const count = Math.max(0, Number(event.artifactCount) || 0);
         const index = Math.max(1, Number(event.artifactIndex) || 1);
-        const total = Math.max(0, Number(event.totalBytes) || 0);
-        const bytes = Math.max(0, Number(event.bytes) || 0);
-        const fraction = total ? Math.min(1, bytes / total) : 0;
         if (count) text("setupCount", `${Math.min(index, count)} / ${count}`);
-        setProgress(count ? (index - 1 + fraction) / count * 100 : fraction * 100,
-          total ? `${formatSetupBytes(bytes, locale)} / ${formatSetupBytes(total, locale)}` : "");
+        renderDownloadProgress(downloadProgress.update(event));
       });
       if (closed || current !== generation) return;
       if (result.ready === true) ready();
@@ -392,6 +441,7 @@ export function initializeHomeCourseSetup(scope = globalThis) {
       const result = await client.request("setup_abort");
       if (closed) return;
       if (result.ready === true) { ready(); return; }
+      renderDownloadProgress(downloadProgress.reset(result));
       showRecovery(setupMessages[setupLocale(locale)].cancelled, download, { cancelled: true });
     } catch (error) { if (!closed) showRecovery(error); }
     finally { stopping = false; }
@@ -483,6 +533,12 @@ export async function initializeCourseSetup(scope = globalThis) {
     let installing = false;
     let cancelled = false;
     let latest;
+    const downloadProgress = createSetupDownloadProgress();
+    const renderDownloadProgress = (value) => {
+      progress.value = value.percent;
+      progress.setAttribute("aria-valuetext", `${Math.floor(value.percent)}%`);
+      detail.textContent = `${Math.floor(value.percent)}% · ${formatSetupBytes(value.bytes, locale)} / ${formatSetupBytes(value.totalBytes, locale)}`;
+    };
     let refreshTimer;
     let closed = false;
     const stopRefresh = () => {
@@ -497,6 +553,7 @@ export async function initializeCourseSetup(scope = globalThis) {
     };
     const showStatus = (result) => {
       latest = result;
+      renderDownloadProgress(downloadProgress.reset(result));
       stopRefresh();
       if (closed) return;
       if (result.ready === true) {
@@ -507,9 +564,7 @@ export async function initializeCourseSetup(scope = globalThis) {
       if (result.setupActive === true) {
         setBusy(true);
         progress.hidden = false;
-        progress.removeAttribute("value");
         status.textContent = messages.downloading;
-        detail.textContent = `${messages.required}: ${formatSetupBytes(missingSetupBytes(result), locale)}`;
         refreshTimer = scope.setTimeout(() => { void refresh(); }, 1500);
         return;
       }
@@ -539,19 +594,12 @@ export async function initializeCourseSetup(scope = globalThis) {
       cancelled = false;
       setBusy(true);
       progress.hidden = false;
-      progress.removeAttribute("value");
+      renderDownloadProgress(downloadProgress.snapshot());
       status.textContent = messages.downloading;
       try {
         const result = await client.request("setup_download", (event) => {
           status.textContent = messages.downloading;
-          const index = Math.max(0, Number(event.artifactIndex) || 0);
-          const count = Math.max(0, Number(event.artifactCount) || 0);
-          if (count) detail.textContent = `${Math.min(index + 1, count)} / ${count}`;
-          const read = Number(event.bytes);
-          const total = Number(event.totalBytes);
-          if (total > 0 && Number.isFinite(read)) {
-            progress.value = Math.max(0, Math.min(100, read / total * 100));
-          } else progress.removeAttribute("value");
+          renderDownloadProgress(downloadProgress.update(event));
         });
         if (!cancelled) {
           status.textContent = messages.verifying;
@@ -572,6 +620,7 @@ export async function initializeCourseSetup(scope = globalThis) {
       stopRefresh();
       try {
         latest = await client.request("setup_abort");
+        downloadProgress.reset(latest);
         status.textContent = messages.cancelled;
         detail.textContent = `${messages.required}: ${formatSetupBytes(missingSetupBytes(latest), locale)}`;
       } catch (error) { status.textContent = error.message || messages.unavailable; }

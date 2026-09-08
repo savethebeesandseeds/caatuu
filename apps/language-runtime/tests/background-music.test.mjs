@@ -73,13 +73,13 @@ function fixture({ native = false, nativeFocused = true, appReady = false, setup
 }
 const settle = async () => { for (let i = 0; i < 12; i++) await Promise.resolve(); };
 
-test("defaults to Woodland Fantasy at ten percent and never fetches uninstalled music", async () => {
+test("defaults to Woodland Fantasy at fifty percent and never fetches uninstalled music", async () => {
   const f = fixture();
   f.scope.fetch = () => assert.fail("Music cannot download itself.");
   const music = installMusicPlayer(f.scope);
   await settle();
   assert.equal(music.getState().trackId, "woodland-fantasy");
-  assert.equal(music.getState().volume, 0.1);
+  assert.equal(music.getState().volume, 0.5);
   assert.equal(music.getState().ready, false);
   assert.equal(f.audio.plays, 0);
   assert.equal(f.audio.src, "");
@@ -291,8 +291,8 @@ test("corrupt preferences and storage failures remain usable", () => {
   const f = fixture({ localStorage: { getItem() { throw new Error("Private mode"); }, setItem() { throw new Error("Private mode"); } } });
   Object.defineProperty(f.scope, "sessionStorage", { get() { throw new Error("Storage getter is blocked"); } });
   const music = installMusicPlayer(f.scope);
-  assert.equal(music.getState().volume, 0.1);
-  assert.equal(music.setVolume(NaN), 0.1);
+  assert.equal(music.getState().volume, 0.5);
+  assert.equal(music.setVolume(NaN), 0.5);
   assert.equal(music.setVolume(5), 1);
   assert.equal(music.setVolume(-5), 0);
   assert.equal(music.setTrack("salt-marsh-birds"), "salt-marsh-birds");
@@ -314,7 +314,7 @@ test("voice mute and volume preferences never silence or alter music", async () 
   for (const callback of f.scope.listeners.get("storage")) callback({ key: "caatuu.speech.volume.v1" });
   await settle();
   assert.equal(music.getState().playing, true);
-  assert.equal(music.getState().volume, 0.1);
+  assert.equal(music.getState().volume, 0.5);
   assert.equal(f.audio.plays, plays, "voice changes must not restart the music");
 });
 

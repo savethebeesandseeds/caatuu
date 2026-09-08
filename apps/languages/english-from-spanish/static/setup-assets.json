@@ -29,7 +29,7 @@
       "/language-runtime/contract.mjs",
       "/language-runtime/embedding-runtimes.json",
       "/language-runtime/static/source/initial-theme.js?v=theme-3",
-      "/language-runtime/static/source/app-bootstrap.mjs?v=app-87",
+      "/language-runtime/static/source/app-bootstrap.mjs?v=app-88",
       "/language-runtime/static/source/interface-content.mjs?v=interface-runtime-2",
       "/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-10",
       "/language-runtime/static/source/dictionary-provider-loader.mjs",
@@ -53,7 +53,7 @@
       "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs?v=conjugation-comet-shared-13",
       "/language-runtime/static/styles/games/grammar-gravity.css?v=grammar-gravity-shared-37",
       "/language-runtime/static/styles/games/conjugation-comet.css?v=conjugation-comet-shared-5",
-      "/language-runtime/static/source/caatuu-workspace.js?v=workspace-31",
+      "/language-runtime/static/source/caatuu-workspace.js?v=workspace-32",
       "/language-runtime/static/source/maintenance-ui.js?v=maintenance-24",
       "/language-runtime/static/source/child-facing-assets.mjs?v=child-facing-assets-2",
       "/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-14",
@@ -64,16 +64,16 @@
       "/language-runtime/static/source/browser-shell.mjs?v=browser-shell-2",
       "/language-runtime/static/source/shell-policy.js?v=shell-policy-15",
       "/language-runtime/static/source/shell-policy.mjs",
-      "/language-runtime/static/source/caatuu-chrome.js?v=chrome-167",
+      "/language-runtime/static/source/caatuu-chrome.js?v=chrome-168",
       "/language-runtime/static/source/learning-profile.js?v=learning-11",
-      "/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-26",
+      "/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-27",
       "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-21",
       "/language-runtime/static/source/word-net-queue.mjs?v=word-net-queue-6",
       "/language-runtime/static/source/embedding-runtime-contract.mjs",
       "/language-runtime/static/source/english-minilm-ranker.mjs",
       "/language-runtime/static/styles/caatuu-theme.css?v=theme-7",
       "/language-runtime/static/styles/caatuu-workspace.css?v=shell-96",
-      "/language-runtime/static/styles/caatuu-home.css?v=home-59",
+      "/language-runtime/static/styles/caatuu-home.css?v=home-60",
       "/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-138",
       "/language-runtime/static/styles/caatuu-word-world.css?v=word-net-92",
       "/language-runtime/static/styles/dictionary-word-card.css?v=dictionary-card-1",
@@ -210,7 +210,17 @@
       "/language-runtime/static/source/music.mjs",
       "/language-runtime/static/source/music-controls.mjs",
       "/language-runtime/static/source/background-music.mjs",
-      "/language-runtime/static/styles/music-controls.css"
+      "/language-runtime/static/styles/music-controls.css",
+      "/language-runtime/static/source/license-catalog.mjs",
+      "/language-runtime/static/legal/CAATUU-LICENSE.txt",
+      "/language-runtime/static/legal/ONNX-RUNTIME-LICENSE.txt",
+      "/language-runtime/static/legal/ANDROID-NOTICES.txt",
+      "/language-runtime/static/legal/android-dependencies.json",
+      "/language-runtime/static/legal/SQL-JS-LICENSE.txt",
+      "/language-runtime/static/legal/CZECH-WORD-WORLD-NOTICE.txt",
+      "/language-runtime/static/legal/CZECH-DICTIONARY-ATTRIBUTION.txt",
+      "/language-runtime/static/legal/CC-BY-SA-4.0.txt",
+      "/language-runtime/static/legal/APACHE-2.0-LICENSE.txt"
     ]
   },
   "artifacts": [
@@ -228,7 +238,7 @@
       "url": "/es-en/index.html",
       "browserRequired": true,
       "bytes": 93289,
-      "sha256": "e2c931077080b41546939edf44eda30d17206fc7a586c51a61f70f7e3cb1ca55"
+      "sha256": "00b55f39a51a565c53a1fd9c0e54648c9bca05b471de869465c6c40849cb34ca"
     },
     {
       "key": "course-profile",
@@ -243,8 +253,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/app-bootstrap.mjs",
       "browserRequired": true,
-      "bytes": 23776,
-      "sha256": "355d5c87dde9f898d34bdfdaac99b51ca676c117b8a7e0af725400a5864f956e"
+      "bytes": 24928,
+      "sha256": "0231db35515ac1552f0ec52547499661067461b95980d80fcb2b92d45b62e5f9"
     },
     {
       "key": "initial-theme",
@@ -307,8 +317,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/caatuu-workspace.js",
       "browserRequired": true,
-      "bytes": 182887,
-      "sha256": "a073f72fe48ba05ef413a5a71be65f6c178e6e715bfd24cdf1ac9d3485b5aa9e"
+      "bytes": 181656,
+      "sha256": "d463a3503e915a7967f33bc2334e91dda6f79d37ae69faf6a67d92880929d929"
     },
     {
       "key": "child-facing-assets",
@@ -348,15 +358,15 @@
       "url": "/language-runtime/static/source/word-world-provider.mjs",
       "browserRequired": true,
       "bytes": 46837,
-      "sha256": "3c032677ad294c2701b8e413c9219c893aaae281100964d3eae7244b65634eb3"
+      "sha256": "c6170f280da4a7450454bef7dba4ac8ee2ed2d9dfb27c3c19ab5727e859a2cdc"
     },
     {
       "key": "shared-chrome",
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/caatuu-chrome.js",
       "browserRequired": true,
-      "bytes": 243602,
-      "sha256": "90532edc7e2f0652d1e56b809d733f7b635387a6a55cd10d954bde2e5086d4ad"
+      "bytes": 243709,
+      "sha256": "b245d744592f9c79d97ef5b959d9d4d2ac3c5d1766059dda725fbceba0e8fa6c"
     },
     {
       "key": "learning-profile",
@@ -371,8 +381,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/product-word-world.mjs",
       "browserRequired": true,
-      "bytes": 231330,
-      "sha256": "4c1b10b2a5e3a5fff7ae58f0cb4aedd921bde5e237be6a5cb7d505b2b546ecf1"
+      "bytes": 232645,
+      "sha256": "05c0631d024fa7993d1349f558ee9590c078f6de5d074de83d4ae99483893c05"
     },
     {
       "key": "word-net-core",
@@ -428,7 +438,7 @@
       "url": "/language-runtime/static/styles/caatuu-home.css",
       "browserRequired": true,
       "bytes": 37253,
-      "sha256": "ba5fcd57be985804a3c16363fa00bd140c99c267bc09b26132349491961fb660"
+      "sha256": "01a1eb799a3bfc94f09133553540a10721ec0b5e0cd72a371c06e6ecb742c4c0"
     },
     {
       "key": "shared-chrome-style",

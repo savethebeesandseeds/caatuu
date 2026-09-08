@@ -166,14 +166,22 @@ test("native course Home aliases preserve course identity without accepting anot
 });
 
 test("integrated progress waits for verified completion, exposes retry after failures and keeps incomplete content locked", async () => {
-  const fixture = home();
+  const fixture = home({ status: { ready: false, staticAssets: { assets: [
+    { key: "art", artifactKind: "visual-asset", expectedBytes: 10_000_000, bytes: 10_000_000, ready: true },
+    { key: "model", artifactKind: "embedding-runtime", expectedBytes: 90_000_000, bytes: 0 },
+  ] } } });
   await flush();
   fixture.select("en", "cz");
   fixture.submit();
   const download = fixture.requests.at(-1);
   assert.equal(download.type, "setup_download");
-  fixture.window.CaatuuNative.receive({ id: download.id, kind: "progress", artifactIndex: 2, artifactCount: 4, bytes: 50, totalBytes: 100 });
-  assert.equal(fixture.nodes.setupProgress.getAttribute("aria-valuenow"), "37");
+  fixture.window.CaatuuNative.receive({ id: download.id, kind: "progress", artifactKey: "model", artifactKind: "embedding-runtime", artifactIndex: 2, artifactCount: 2, bytes: 45_000_000, totalBytes: 90_000_000 });
+  assert.equal(fixture.nodes.setupProgress.getAttribute("aria-valuenow"), "55");
+  assert.equal(fixture.nodes.setupPercent.textContent, "55%");
+  assert.ok(Math.abs(Number.parseFloat(fixture.nodes.setupProgressBar.style.width) - 55) < 0.01);
+  assert.equal(fixture.nodes.setupBytes.textContent, "55 MB / 100 MB");
+  fixture.window.CaatuuNative.receive({ id: download.id, kind: "status", phase: "asset_ready", artifactKey: "model", artifactKind: "embedding-runtime" });
+  assert.equal(fixture.nodes.setupProgress.getAttribute("aria-valuenow"), "99");
   assert.equal(fixture.settled(), false);
   fixture.reply(download, "Hash verification failed", "error");
   await flush();
@@ -212,10 +220,12 @@ test("Android Back cancels an active download and late completion cannot unlock 
 });
 
 test("reopening an active selected-course download polls without launching a duplicate", async () => {
-  const fixture = home({ status: { ready: false, setupActive: true } });
+  const fixture = home({ status: { ready: false, setupActive: true, expectedBytes: 100_000_000, bytes: 30_000_000 } });
   await flush();
   assert.equal(fixture.polling.size, 1);
   assert.equal(fixture.nodes.setupAction.disabled, true);
+  assert.equal(fixture.nodes.setupPercent.textContent, "30%");
+  assert.equal(fixture.nodes.setupBytes.textContent, "30 MB / 100 MB");
   fixture.setStatus({ ready: true });
   [...fixture.polling.values()][0]();
   assert.equal(await fixture.completion, true);
@@ -285,6 +295,20 @@ test("a confirmed partial course resumes on restart without resetting its langua
   resumed.reply(resumed.requests.at(-1), { ready: true });
   await resumed.completion;
   assert.equal(resumed.localStorage.getItem("caatuu.setup.selected-course.v1"), "es-en");
+});
+
+test("revisiting an installed course remembers it for a later update that needs more files", async () => {
+  const installed = home({ id: "zh", rememberedCourse: "cz", status: { ready: true } });
+  await installed.completion;
+  assert.equal(installed.nodes.setupLanguageSelection.hidden, true);
+  const rememberedCourse = installed.localStorage.getItem("caatuu.setup.selected-course.v1");
+  assert.equal(rememberedCourse, "zh");
+  const updated = home({ id: "zh", rememberedCourse, status: { ready: false, bytes: 20, expectedBytes: 100 } });
+  await flush();
+  assert.deepEqual(updated.requests.map(({ type }) => type), ["setup_status", "setup_download"]);
+  assert.equal(updated.nodes.setupLanguageSelection.hidden, true);
+  updated.reply(updated.requests.at(-1), { ready: true });
+  await updated.completion;
 });
 
 test("browser and full development shells retain their existing setup controller", async () => {

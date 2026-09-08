@@ -161,7 +161,7 @@ for (const backend of ["browser", "android"]) {
     };
     vm.runInNewContext(chromeSource, browser.context);
     const speech = browser.context.CaatuuChrome;
-    assert.equal(speech.getSpeechVolume(), 1, "existing audible speech keeps its full-volume default");
+    assert.equal(speech.getSpeechVolume(), 0.5, "fresh voice preferences default to half volume");
     for (const [volume, gain] of [[0.25, 10 ** -1.5], [0.5, 0.1], [0.75, 10 ** -0.5], [1, 1]]) {
       speech.setSpeechVolume(volume);
       await speech.speakText("你好");
@@ -181,6 +181,17 @@ for (const backend of ["browser", "android"]) {
     assert.equal(speech.setSpeechVolume(-1), 0);
   });
 }
+
+test("the new default preserves saved voice levels and legacy mute", () => {
+  for (const volume of [0, 0.27, 1]) {
+    const browser = browserSpeechContext({ "caatuu.speech.volume.v1": volume });
+    vm.runInNewContext(chromeSource, browser.context);
+    assert.equal(browser.context.CaatuuChrome.getSpeechVolume(), volume);
+  }
+  const muted = browserSpeechContext({ "caatuu.speech.muted.v1": "true" });
+  vm.runInNewContext(chromeSource, muted.context);
+  assert.equal(muted.context.CaatuuChrome.getSpeechVolume(), 0);
+});
 
 test("master mute gates browser and native synthesis until sound is restored", async () => {
   const muteKey = "caatuu.speech.muted.v1";

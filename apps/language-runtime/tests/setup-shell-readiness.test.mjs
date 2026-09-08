@@ -96,6 +96,7 @@ function setupBrowser({ shellReady = Promise.resolve({ ready: true }), preload =
       messages.push({ selector, value });
     },
     setProgress() {},
+    renderArtifacts() {},
     pushLog: (...entry) => logs.push(entry),
     stopSetupMessageCycle() {},
     startSetupMessageCycle() {},

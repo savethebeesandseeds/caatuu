@@ -3,9 +3,18 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
 import { normalizeGameId } from "../static/source/shell-policy.mjs";
+import * as licenseCatalog from "../static/source/license-catalog.mjs";
 
 const promotedUrl = new URL("../static/source/caatuu-workspace.js", import.meta.url);
-const promoted = await readFile(promotedUrl, "utf8");
+// Resolve the browser's absolute module URL to its real exports in this VM.
+const promoted = (await readFile(promotedUrl, "utf8")).replace(
+  'import("/language-runtime/static/source/license-catalog.mjs")',
+  "Promise.resolve(globalThis.licenseCatalog)"
+);
+const embeddingNotices = JSON.parse(await readFile(new URL("../models/all-minilm-l6-v2-qint8-v0.1/runtime/THIRD_PARTY_NOTICES.json", import.meta.url), "utf8"));
+const englishConcepts = JSON.parse(await readFile(new URL("../static/data/english-concepts/word-world-starter-v1.json", import.meta.url), "utf8"));
+const corpusFetch = { url: "https://local.test/fixture-word-world/data/games/word-world/manifest.json", cache: "reload" };
+const runtimeNoticeFetch = { url: "https://local.test/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/THIRD_PARTY_NOTICES.json", cache: "reload" };
 const appEntry = await readFile(new URL("../static/app/index.html", import.meta.url), "utf8");
 
 const interfaceMessages = Object.freeze({
@@ -171,6 +180,7 @@ function wordWorldOnlyBrowser(options = {}) {
       memory: false
     },
     games: ["word-net"],
+    gameContent: { "word-net": { wordWorldManifest: "data/games/word-world/manifest.json" } },
     linguisticFeatures: [],
     routes: { wordWorld: "index.html?game=word-net" },
     storage: {
@@ -274,6 +284,7 @@ function wordWorldOnlyBrowser(options = {}) {
   if (options.wordWorldHost === false) window.CaatuuWordWorldHost = undefined;
   window.window = window;
   const context = vm.createContext({
+    licenseCatalog,
     CaatuuI18n: options.interfaceContent === false ? undefined : interfaceContent,
     URL,
     Uint8Array,
@@ -290,6 +301,12 @@ function wordWorldOnlyBrowser(options = {}) {
     document,
     fetch(url, fetchOptions = {}) {
       fetches.push({ url: String(url), cache: fetchOptions.cache || "default" });
+      const legalResource = new Map([
+        [corpusFetch.url, { corpusVersion: "fixture-v1", recordCount: 2 }],
+        [runtimeNoticeFetch.url, embeddingNotices],
+        ["https://local.test/language-runtime/static/data/english-concepts/word-world-starter-v1.json", englishConcepts]
+      ]).get(String(url));
+      if (legalResource) return Promise.resolve({ ok: true, json: async () => structuredClone(legalResource) });
       if (options.embeddingCatalog
           && String(url) === "https://local.test/fixture-word-world/data/embeddings/catalog.json") {
         return Promise.resolve({
@@ -454,7 +471,7 @@ test("a Word-World-only course initializes and navigates without unrelated cours
   await new Promise((resolve) => setImmediate(resolve));
   const workspaceReady = await browser.window.CaatuuWorkspaceReady;
 
-  assert.deepEqual(browser.fetches, []);
+  assert.deepEqual(browser.fetches, [corpusFetch]);
   assert.deepEqual(browser.errors, []);
   assert.deepEqual(JSON.parse(JSON.stringify(workspaceReady)), { ready: true });
   assert.equal(browser.shellPolicyReads.campaignGameIds, 1);
@@ -482,7 +499,7 @@ test("a Word-World-only course initializes and navigates without unrelated cours
   assert.equal(browser.window.CaatuuWorkspaceShell.state().trainTab, "galaxy");
   assert.match(browser.launchpadShip.src, /^\/assets\/ships\/ship%20\((?:[1-9]|1\d|2[0-8])\)\.png$/u);
   assert.equal(browser.hostCalls.gamesMenuClicks, 1, "returning to the launchpad must open the planet chooser");
-  assert.deepEqual(browser.fetches, []);
+  assert.deepEqual(browser.fetches, [corpusFetch]);
 });
 
 test("Home recovery deactivates Word World and returning to Games restores its visibility", async () => {
@@ -599,7 +616,7 @@ test("an embedding-enabled course loads its declared static license catalog with
     {
       url: "https://local.test/fixture-word-world/data/embeddings/catalog.json",
       cache: "reload"
-    }
+    }, runtimeNoticeFetch, corpusFetch
   ]);
 });
 
@@ -645,7 +662,10 @@ test("a course embedding selection is accepted by schema while preserving Englis
   assert.deepEqual(browser.fetches, [{
     url: "https://local.test/fixture-word-world/data/embeddings/catalog.json",
     cache: "reload"
-  }]);
+  }, runtimeNoticeFetch, {
+    url: "https://local.test/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
+    cache: "reload"
+  }, corpusFetch]);
 
   embeddingCatalog.embeddingPolicy.inputLanguage = "fr";
   const unsafeBrowser = wordWorldOnlyBrowser({

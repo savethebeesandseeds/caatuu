@@ -48,6 +48,34 @@ reuses those bytes. The music player reads that cache without initiating a
 download. Native WebView and browser service-worker responses support byte
 ranges from verified music so offline seeking and looping remain local.
 
+## About and offline license notices
+
+The product compiler must preserve the shared About markup and its message keys.
+Course-specific lists come from the pinned runtime and current content manifests;
+Android adds its own native dependency graph. Never replace the detailed list with
+a generic embedding notice or imply that optional models are all in use.
+See the [audit and remaining review boundaries](../../../docs/ABOUT_LICENSE_AUDIT.md).
+
+After a product dependency change, refresh the inventory in the existing container:
+
+```powershell
+docker exec -w /workspace caatuu-dev bash -lc 'python3 apps/android/tooling/refresh-license-notices.py'
+docker exec -w /workspace caatuu-dev node apps/server/tooling/refresh-setup-assets.mjs --all-browser-courses
+docker exec -w /workspace/apps/android caatuu-dev bash -lc 'gradle -PcaatuuDistributionProfile=product :product:verifyProductDependencyNotices --offline --no-daemon --console=plain'
+docker exec -w /workspace caatuu-dev node --test apps/language-runtime/tests/license-catalog.test.mjs apps/language-runtime/tests/workspace-shell-controller.test.mjs
+docker exec -w /workspace caatuu-dev node --test apps/android/tooling/tests/license-delivery.test.mjs
+```
+
+The Python command resolves dependency metadata without an APK build. It records
+cached POM evidence, preserves embedded LICENSE/NOTICE files, and stops for an
+unrecognized license. Review generated changes before release. Asset generation
+depends on the Gradle inventory check, so new or stale coordinates fail the build.
+First-party and scoped corpus notices are exact copies of tracked authorities.
+Supplemental upstream texts retain their provenance in the audit; never rewrite
+already-published, hash-pinned runtime objects to add a notice.
+
+## Startup and setup delivery
+
 Android starts the canonical illustrated Home for the last visited bundled
 course (or the default course on a fresh installation). Its existing setup card
 and language chooser work before a course is installed. The shared bootstrap

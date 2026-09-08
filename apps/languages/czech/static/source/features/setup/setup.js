@@ -978,22 +978,15 @@
     if (!container) return;
     const rows = displayArtifactRows();
     if (!rows.length) {
-      const empty = document.createElement("div");
-      const icon = document.createElement("i");
-      const title = document.createElement("strong");
-      const meta = document.createElement("span");
-      empty.className = "setup-artifact";
-      empty.dataset.ready = "false";
-      empty.dataset.kind = "manifest";
-      empty.style.setProperty("--artifact-progress", "0%");
-      icon.className = "setup-artifact-icon";
-      icon.textContent = "!";
-      title.textContent = "Setup manifest";
-      meta.textContent = "0%";
-      empty.append(icon, title, meta);
-      container.replaceChildren(empty);
-      return;
+      rows.push({ label: "Setup manifest", kind: "manifest", ready: false });
     }
+    // This final checklist item is UI state, never part of the byte totals.
+    rows.push({
+      label: window.CaatuuI18n?.t("settings.controls.app") || "App controls",
+      kind: "app-controls",
+      ready: setupComplete,
+      active: !setupComplete
+    });
     container.replaceChildren(...rows.map((item) => {
       const row = document.createElement("div");
       const icon = document.createElement("i");
@@ -1010,6 +1003,11 @@
       title.textContent = item.itemCount > 1 ? `${item.label} (${item.readyItems}/${item.itemCount})` : item.label || item.key || "Artifact";
       meta.textContent = item.ready ? `${percent.toFixed(0)}% ready` : `${percent.toFixed(0)}%`;
       meta.title = `${formatBytes(item.bytes)} / ${formatBytes(item.expectedBytes || item.bytes)}`;
+      if (item.kind === "app-controls") {
+        meta.textContent = window.CaatuuI18n?.t(item.ready ? "common.ready" : "setup.checking")
+          || (item.ready ? "Ready" : "Checking");
+        meta.removeAttribute("title");
+      }
       if (item.error) row.title = item.error;
       row.append(icon, title, meta);
       return row;
@@ -1096,6 +1094,7 @@
     if (!Boolean(status?.ready) || !totalReady()) return;
     setupComplete = false;
     $("#nativeSetup")?.classList.remove("is-ready");
+    renderArtifacts();
     setNavigationLocked(true);
     stopSetupMessageCycle();
     setText("#setupTitle", "Preparing Caatuu");

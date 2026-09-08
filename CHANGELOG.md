@@ -5,6 +5,23 @@ governed beta or stable release.
 
 ## Unreleased
 
+### Android 0.1.19 (171): first-course setup and complete license notices
+
+- Install required shared artwork and embedding assets when any course is chosen
+  first, without requiring a visit to Czech. Resume Word World pronunciation
+  when Android's voice service becomes available after the first sentence loads.
+- Show total download progress by bytes, remember the selected installed course,
+  and report readiness only after app controls and navigation have initialized.
+- Default music and voice volume to 50%, preserving existing saved settings.
+  Place Memory Moon last in the games menu and indent setup event details.
+- Preserve the full shared About section in the APK. Add Caatuu's own license,
+  current course attribution, offline legal texts, and native dependency notices.
+  A build guard checks the Android dependency notice inventory for omissions.
+- Keep pending artwork and development-course provenance reviews explicit;
+  this update does not promote those courses or declare beta/stable readiness.
+- Physical-device first installation, update, offline use, and saved-progress
+  checks remain unverified for this candidate.
+
 ### Android 0.1.18 (170): Home, expanded courses and shared audio controls
 
 - Restored the illustrated Home and its existing language chooser. Selected-course

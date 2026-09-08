@@ -76,8 +76,9 @@
   let progressSaveFailed = false;
   let browserSpeechVoiceEventsBound = false;
   let activeBrowserSpeechSession = null;
-  let speechVolumeFallback = 1;
-  let lastAudibleSpeechVolume = 1;
+  const defaultSpeechVolume = 0.5;
+  let speechVolumeFallback = defaultSpeechVolume;
+  let lastAudibleSpeechVolume = defaultSpeechVolume;
   let speechAutoplayFallback = true;
   let activeLanguageSelectorHost = null;
   let languageSelectorSequence = 0;
@@ -285,16 +286,16 @@
       iconSrc: "/assets/planets/naturalization-nucleus.png",
       href: "index.html"
     }),
-    "memory-moon": Object.freeze({
-      titleId: "games.memorymoon.title",
-      summaryId: "games.memorymoon.summary",
-      iconSrc: "/assets/planets/memory-moon.png",
-      href: "index.html"
-    }),
     "sound-quasar": Object.freeze({
       titleId: "games.soundsquasar.title",
       summaryId: "games.soundsquasar.summary",
       iconSrc: "/assets/planets/sounds-quasar.png",
+      href: "index.html"
+    }),
+    "memory-moon": Object.freeze({
+      titleId: "games.memorymoon.title",
+      summaryId: "games.memorymoon.summary",
+      iconSrc: "/assets/planets/memory-moon.png",
       href: "index.html"
     })
   });
@@ -1237,9 +1238,9 @@
     try {
       const stored = localStorage.getItem(speechVolumeStorageKey);
       if (stored !== null && stored.trim() !== "" && Number.isFinite(Number(stored))) {
-        return clampSpeechControl(stored, 0, 1, 1);
+        return clampSpeechControl(stored, 0, 1, defaultSpeechVolume);
       }
-      return localStorage.getItem(speechMutedStorageKey) === "true" ? 0 : 1;
+      return localStorage.getItem(speechMutedStorageKey) === "true" ? 0 : defaultSpeechVolume;
     } catch (error) {
       return speechVolumeFallback;
     }

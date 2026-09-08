@@ -1385,7 +1385,7 @@ body.app-update-lock [data-caatuu-app-header] button {
 
 .setup-log span {
   min-width: 0;
-  margin-inline-start: 28px;
+  margin-inline-start: 40px;
   color: var(--setup-quiet);
   font-size: 0.76rem;
   font-weight: 760;

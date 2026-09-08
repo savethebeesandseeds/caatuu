@@ -6,6 +6,7 @@ import vm from "node:vm";
 import { transformSetupJs } from "../../android/tooling/build-product-assets.mjs";
 import { initializeWorkspaceAfterDictionaryProvider } from "../static/source/dictionary-provider-loader.mjs";
 import { initializeHomeCourseSetup } from "../static/source/course-setup.mjs";
+import { installMusic } from "../static/source/music.mjs";
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { englishInterfaceContent, installEnglishInterfaceContent } from "./helpers/english-interface-content.mjs";
 
@@ -125,6 +126,10 @@ function startHarness({ dictionary = false, failScript = "", serviceWorker = nul
     CaatuuCourse: course,
     CaatuuShellPolicy: {},
     initializeWorkspaceAfterDictionaryProvider,
+    installMusic,
+    addEventListener: harness.window.addEventListener.bind(harness.window),
+    removeEventListener: harness.window.removeEventListener.bind(harness.window),
+    dispatchEvent: harness.window.dispatchEvent.bind(harness.window),
     initializeHomeCourseSetup: homeSetup ? () => homeSetup.promise : initializeHomeCourseSetup,
     loadInterfaceContent: async () => {
       if (interfaceGate) await interfaceGate.promise;
@@ -200,6 +205,7 @@ function assertReady(harness) {
   assert.equal(harness.document.body.classList.contains("setup-blocked"), false);
   assert.equal(harness.card.classList.contains("is-ready"), true);
   assert.equal(harness.document.getElementById("setupTitle").textContent, englishInterfaceContent.t("setup.readytitle"));
+  assert.equal(harness.document.querySelector('#setupArtifacts [data-kind="app-controls"]').dataset.ready, "true");
   assert.equal(harness.nav.hasAttribute("inert"), false);
   assert.notEqual(harness.nav.getAttribute("aria-busy"), "true");
   assert.equal(harness.readyEvents, 1);
@@ -252,6 +258,10 @@ test("bootstrap locks navigation immediately and renders ready only after worksp
   assertLoading(harness);
   assert.equal(harness.card.hidden, false);
   assert.equal(harness.document.getElementById("setupTitle").textContent, englishInterfaceContent.t("setup.preparing"));
+  const controls = harness.document.querySelector('#setupArtifacts [data-kind="app-controls"]');
+  assert.equal(controls.dataset.ready, "false", "downloaded files do not imply working app controls");
+  assert.equal(controls.dataset.status, "active");
+  assert.equal(harness.document.getElementById("setupDetails").hidden, false);
 
   harness.workspace.resolve({ ready: true });
   const result = await harness.context.CaatuuShellReady;
@@ -284,6 +294,7 @@ test("Android's model-free profile leaves readiness and details with its setup p
   assert.equal(games.hasAttribute("aria-disabled"), false);
   assert.equal(nav.dataset.setupLocked, "false");
   assert.equal(document.getElementById("setupTitle").textContent, englishInterfaceContent.t("setup.readytitle"));
+  assert.equal(document.querySelector('#setupArtifacts [data-kind="app-controls"]').dataset.ready, "true");
   assert.equal(details.hidden, true);
   document.dispatchEvent({ type: "click", target: toggle });
   assert.equal(details.hidden, false);
@@ -292,6 +303,20 @@ test("Android's model-free profile leaves readiness and details with its setup p
   harness.clickNavigation();
   assert.equal(harness.navigationCalls, 1);
   assert.deepEqual(harness.errors, []);
+});
+
+test("verified native files retain a pending app-controls row until the workspace is interactive", { timeout: 2_000 }, async () => {
+  const nativeSetup = deferred();
+  nativeSetup.resolve({ ready: true, staticAssets: { assets: [{ key: "course", ready: true, bytes: 1 }] } });
+  const harness = startHarness({ nativeSetup });
+  await flush();
+  assertLoading(harness);
+  const controls = () => harness.document.querySelector('#setupArtifacts [data-kind="app-controls"]');
+  assert.equal(controls().dataset.ready, "false");
+  harness.workspace.resolve({ ready: true });
+  await flush();
+  assert.equal(controls().dataset.ready, "true");
+  assertReady(harness);
 });
 
 test("a loaded workspace script cannot report ready when initialization fails", { timeout: 2_000 }, async () => {

@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
-  availableSetupCourses, createNativeSetupClient, initializeCourseSetup,
+  availableSetupCourses, createNativeSetupClient, createSetupDownloadProgress, initializeCourseSetup,
   missingSetupBytes, setupCourseForPath, setupMessages,
 } from "../static/source/course-setup.mjs";
 
@@ -27,7 +27,7 @@ class Element {
   removeAttribute(name) { this.attributes.delete(name); }
 }
 
-function screen(mode, { pathname = "/setup.html", ready = false, setupActive = false } = {}) {
+function screen(mode, { pathname = "/setup.html", ready = false, setupActive = false, setupStatus = null } = {}) {
   const elements = Object.fromEntries([
     "title", "description", "source-label", "source", "courses", "status", "action", "back", "cancel", "progress", "detail",
   ].map((name) => [`[data-${name}]`, new Element()]));
@@ -50,7 +50,7 @@ function screen(mode, { pathname = "/setup.html", ready = false, setupActive = f
       const request = JSON.parse(raw);
       requests.push(request);
       if (request.type === "setup_status") queueMicrotask(() => scope.CaatuuNative.receive({
-        id: request.id, kind: "done", result: { ready, setupActive, staticAssets: { assets: [{ expectedBytes: 1234, ready }] } },
+        id: request.id, kind: "done", result: setupStatus || { ready, setupActive, staticAssets: { assets: [{ expectedBytes: 1234, ready }] } },
       }));
     } },
   };
@@ -74,7 +74,10 @@ test("picker reads only bundled metadata and makes no native course requests", a
 });
 
 test("installer checks only selected trusted course and waits for an explicit download", async () => {
-  const fixture = screen("install", { pathname: "/es-en/index.html" });
+  const fixture = screen("install", { pathname: "/es-en/index.html", setupStatus: { ready: false, staticAssets: { assets: [
+    { key: "small", artifactKind: "visual-asset", expectedBytes: 1_000_000 },
+    { key: "large", artifactKind: "embedding-runtime", expectedBytes: 99_000_000 },
+  ] } } });
   await initializeCourseSetup(fixture.scope);
   assert.deepEqual(fixture.requests.map(({ type }) => type), ["setup_status"]);
   assert.equal(fixture.reloads(), 0);
@@ -82,8 +85,9 @@ test("installer checks only selected trusted course and waits for an explicit do
   const downloading = fixture.elements["[data-action]"].onclick();
   const request = fixture.requests.at(-1);
   assert.equal(request.type, "setup_download");
-  fixture.scope.CaatuuNative.receive({ id: request.id, kind: "progress", bytes: 60, totalBytes: 100, artifactIndex: 0, artifactCount: 3 });
-  assert.equal(fixture.elements["[data-progress]"].value, 60);
+  fixture.scope.CaatuuNative.receive({ id: request.id, kind: "progress", artifactKey: "small", artifactKind: "visual-asset", bytes: 500_000, totalBytes: 1_000_000, artifactIndex: 1, artifactCount: 2 });
+  assert.equal(fixture.elements["[data-progress]"].value, 0.5);
+  assert.equal(fixture.elements["[data-detail]"].textContent, "0% · 0,5 MB / 100 MB");
   assert.equal(fixture.elements["[data-back]"].hidden, true);
   fixture.scope.CaatuuNative.receive({ id: request.id, kind: "done", result: { ready: true } });
   await downloading;
@@ -137,6 +141,32 @@ test("download estimates exclude verified shared files and include unverified fu
     { expectedBytes: 500, bytes: 500, ready: true },
     { expectedBytes: 200, bytes: 200, ready: false },
   ] }, dictionary: { expectedBytes: 300, ready: false } }), 500);
+});
+
+test("total progress includes saved files and weights native databases by bytes regardless of download order", () => {
+  const progress = createSetupDownloadProgress();
+  assert.deepEqual(progress.reset({ staticAssets: { assets: [
+    { key: "shared", artifactKind: "visual-asset", expectedBytes: 10, ready: true },
+    { key: "loading-art", artifactKind: "visual-asset", expectedBytes: 20 },
+  ] }, vectorDatabase: { modelKey: "model", expectedBytes: 60, bytes: 12 },
+  dictionary: { key: "dictionary", expectedBytes: 10 } }), { bytes: 22, totalBytes: 100, percent: 22 });
+  assert.equal(progress.update({ phase: "asset", artifactKey: "loading-art", artifactKind: "visual-asset", artifactIndex: 1 }).bytes, 22);
+  assert.equal(progress.update({ artifactKey: "loading-art", artifactKind: "visual-asset", bytes: 10, totalBytes: 20 }).percent, 32);
+  assert.equal(progress.update({ phase: "asset_ready", artifactKey: "loading-art", artifactKind: "visual-asset" }).percent, 42);
+  assert.equal(progress.update({ artifactKey: "model", artifactKind: "embedding-vector-db", bytes: 30, totalBytes: 60 }).percent, 60);
+  assert.equal(progress.update({ phase: "vector_ready", artifactKey: "model", artifactKind: "embedding-vector-db" }).percent, 90);
+  assert.equal(progress.update({ phase: "dictionary_ready", artifactKey: "dictionary", artifactKind: "dictionary-database" }).percent, 99);
+  assert.equal(progress.snapshot().bytes, 100);
+  assert.equal(progress.reset({ ready: true, bytes: 100, expectedBytes: 100 }).percent, 100);
+});
+
+test("retries replace the current partial byte count without double counting or completing unverified setup", () => {
+  const progress = createSetupDownloadProgress();
+  progress.reset({ staticAssets: { assets: [{ key: "model", artifactKind: "embedding-runtime", expectedBytes: 100, bytes: 80 }] } });
+  assert.equal(progress.update({ artifactKey: "model", artifactKind: "embedding-runtime", bytes: 20, totalBytes: 100 }).percent, 20);
+  assert.equal(progress.update({ artifactKey: "model", artifactKind: "embedding-runtime", bytes: 20, totalBytes: 100 }).percent, 20);
+  assert.equal(progress.update({ artifactKey: "model", artifactKind: "embedding-runtime", bytes: 200, totalBytes: 200 }).percent, 99);
+  assert.equal(progress.snapshot().totalBytes, 100, "The verified catalog owns the total, not response headers");
 });
 
 test("reopening an active installer follows its status without starting another download", async () => {

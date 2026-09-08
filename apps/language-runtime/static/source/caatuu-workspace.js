@@ -203,96 +203,7 @@ const supportedModelKeys = new Set([
   "qwen3-1.7b-translation-cs-en-001",
   "cstinyllama-1.2b-czech-word-sentence-001"
 ]);
-const wordWorldStandardArtifact = Object.freeze({
-  key: "caatuu-word-world-standard-v0.1",
-  label: "Word World Standard Corpus",
-  sourceLabel: "Caatuu-authored and Codex-authored reviewed bilingual learning sentences",
-  sourceUrl: "data/games/word-world/manifest.json",
-  license: "MIT source license",
-  intendedUse: "Standard Word World guided offline sentences. Corpus standard-v0.1 · 792 rows · L1 175 · L2 565 · L3 52 · codex_reviewed · humanApproved=false.",
-  artifactKind: "guided-learning-corpus",
-  runtime: "Compiled bilingual JSON data pack",
-  status: "active",
-  entryCount: 792,
-  usageScope: "standard_word_world_offline"
-});
-
-let modelLicenseCatalog = [
-  {
-    key: "qwen3-lora-003-hard",
-    label: "Caatuu CZ LoRA",
-    repoId: "Qwen/Qwen3-1.7B",
-    license: "Base Apache-2.0; derived artifact review pending",
-    intendedUse: "General Czech assistant and spelling checks.",
-    deprecated: true,
-    status: "deprecated",
-    replacementStatus: "Pending curriculum LoRA GGUF publication."
-  },
-  {
-    key: "cstinyllama-1.2b-base",
-    label: "CSTinyLlama CZ Base",
-    repoId: "BUT-FIT/CSTinyLlama-1.2B",
-    license: "Apache-2.0",
-    intendedUse: "Czech-native game/example generation experiments.",
-    deprecated: true,
-    status: "deprecated",
-    replacementStatus: "Keep only as an unfine-tuned baseline."
-  },
-  {
-    key: "cstinyllama-1.2b-planet-wordnet-002-copy",
-    label: "Planet Word World CZ",
-    repoId: "BUT-FIT/CSTinyLlama-1.2B",
-    license: "Base Apache-2.0; derived artifact review pending",
-    intendedUse: "Planet of Word World: generate one natural Czech sentence using the selected word or a natural Czech inflection of it.",
-    deprecated: true,
-    status: "deprecated",
-    replacementStatus: "Pending curriculum word-sentence LoRA GGUF publication."
-  },
-  {
-    key: "cstinyllama-1.2b-translation-cs-en-001",
-    label: "Czech to English (CSTinyLlama)",
-    repoId: "BUT-FIT/CSTinyLlama-1.2B",
-    license: "Base Apache-2.0; derived artifact review pending",
-    intendedUse: "Translate one simple Czech sentence into simple English for Caatuu learning activities.",
-    deprecated: true,
-    status: "deprecated",
-    replacementStatus: "Replaced by qwen3-1.7b-translation-cs-en-001."
-  },
-  {
-    key: "qwen3-1.7b-translation-cs-en-001",
-    label: "Czech to English Qwen",
-    repoId: "Qwen/Qwen3-1.7B",
-    license: "Base Apache-2.0; derived artifact review pending",
-    intendedUse: "Translate one simple Czech sentence into simple English for Caatuu learning activities.",
-    deprecated: false,
-    status: "active",
-    replacementStatus: ""
-  },
-  {
-    key: "cstinyllama-1.2b-czech-word-sentence-001",
-    label: "Word Sentence CZ",
-    repoId: "BUT-FIT/CSTinyLlama-1.2B",
-    license: "Base Apache-2.0; derived artifact review pending",
-    intendedUse: "Given one Czech target word, generate one short ordinary Czech sentence for Planet of Word World.",
-    deprecated: false,
-    status: "active",
-    replacementStatus: ""
-  },
-  {
-    key: "caatuu-local-hash-v0.1",
-    label: "Caatuu Curriculum and Asset Embeddings",
-    sourceLabel: "Caatuu curated curriculum corpus and manual image descriptions",
-    sourceUrl: "data/embeddings/README.md",
-    license: "Curriculum and asset provenance review pending",
-    licenseUrl: "",
-    intendedUse: "Local curriculum retrieval, duplicate review, game selection, distractor search, and manually described image asset lookup.",
-    artifactKind: "embedding-vector-db",
-    runtime: "SQLite vector database with local hash embedder",
-    embeddingTextField: "english_text",
-    embeddingInputPolicy: "english_text_only"
-  },
-  wordWorldStandardArtifact
-];
+let modelLicenseCatalog = [];
 const generationPresets = {
   fast: {
     label: "Fast",
@@ -808,8 +719,8 @@ function normalizeEmbeddingCatalogArtifacts(catalog) {
 }
 
 async function loadArtifactLicenseCatalog() {
-  if (!courseUsesArtifactCatalogs()) return;
-  const nextCatalog = [];
+  const legal = await import("/language-runtime/static/source/license-catalog.mjs");
+  const nextCatalog = legal.firstPartyLicenseArtifacts();
   const runtime = courseUsesModels() ? runtimeAdapter() : null;
   if (courseUsesModels()) {
     const modelCatalog = await runtime.models.catalog();
@@ -817,25 +728,64 @@ async function loadArtifactLicenseCatalog() {
       modelCatalog.models.forEach((model) => {
         if (model.key) supportedModelKeys.add(model.key);
       });
-      nextCatalog.push(...modelCatalog.models.map(normalizeCatalogModel));
+      nextCatalog.push(...modelCatalog.models.map((model) => ({
+        ...normalizeCatalogModel(model),
+        status: model.deprecated ? "Legacy option" : "Optional generation model"
+      })));
     }
   }
 
   if (courseHasCapability("embeddings")) {
     const embeddingCatalog = await loadJson(requiredEmbeddingCatalogPath());
-    nextCatalog.push(...normalizeEmbeddingCatalogArtifacts(embeddingCatalog));
+    const artifacts = normalizeEmbeddingCatalogArtifacts(embeddingCatalog);
+    // Modern course notices describe the shared runtime. Use its pinned notice
+    // document once; legacy vector databases retain their own content terms.
+    nextCatalog.push(...artifacts.filter((item) => item.artifactKind !== "embedding-runtime-dependency"));
+    const notices = await loadJson("/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/THIRD_PARTY_NOTICES.json");
+    nextCatalog.push(...legal.embeddingRuntimeLicenseArtifacts(notices));
+    if (embeddingCatalog.conceptCatalog) {
+      nextCatalog.push(legal.conceptLicenseArtifact(await loadJson(embeddingCatalog.conceptCatalog), embeddingCatalog.conceptCatalog));
+    }
+    if (embeddingCatalog.version === 1) {
+      nextCatalog.push({
+        key: "sql.js", label: "sql.js 1.13.0", license: "MIT",
+        sourceLabel: "Upstream source", sourceUrl: "https://github.com/sql-js/sql.js/tree/v1.13.0",
+        licenseUrl: "/language-runtime/static/legal/SQL-JS-LICENSE.txt",
+        intendedUse: "SQLite access for the browser vector database; also retained in the Android offline course files.",
+        artifactKind: "database-runtime"
+      });
+    }
   }
 
   if (courseHasCapability("dictionary")) {
     if (!dictionaryCatalogDocument || !Array.isArray(dictionaryCatalogDocument.dictionaries)) {
       throw new Error("Dictionary catalog was not prepared before model-license rendering.");
     }
-    nextCatalog.push(...dictionaryCatalogDocument.dictionaries.map(normalizeCatalogModel));
+    nextCatalog.push(...dictionaryCatalogDocument.dictionaries.map((model) => ({
+      ...normalizeCatalogModel(model),
+      ...(model.key === "kaikki-cs-en-2026-07-09" ? {
+        license: "CC-BY-SA-4.0 (redistribution choice)",
+        licenseUrl: "/language-runtime/static/legal/CC-BY-SA-4.0.txt",
+        sourceUrl: "/language-runtime/static/legal/CZECH-DICTIONARY-ATTRIBUTION.txt",
+        sourceLabel: "Wiktionary via Kaikki/Wiktextract · attribution and modifications"
+      } : {})
+    })));
   }
 
-  if (courseHasCapability("wordWorld") && !nextCatalog.some(({ key }) => key === wordWorldStandardArtifact.key)) {
-    nextCatalog.push(wordWorldStandardArtifact);
+  if (courseHasCapability("wordWorld")) {
+    const path = course.gameContent?.["word-net"]?.wordWorldManifest;
+    if (!path) throw new Error("Word World must declare its course manifest for attribution.");
+    nextCatalog.push(legal.wordWorldLicenseArtifact(await loadJson(path), { courseId: course.id, sourceUrl: path }));
   }
+  if (window.CaatuuAndroid) {
+    nextCatalog.push(...legal.nativeLicenseArtifacts(await loadJson("/language-runtime/static/legal/android-dependencies.json")));
+  }
+  nextCatalog.push({
+    key: "platform-speech", label: window.CaatuuAndroid ? "Android text-to-speech voices" : "Browser text-to-speech voices",
+    sourceLabel: "Device or browser speech provider", license: "Provider-specific terms",
+    intendedUse: "Pronunciation is supplied by the selected device or browser voice service. These voice models are not bundled or licensed by Caatuu.",
+    artifactKind: "platform-service"
+  });
   if (nextCatalog.length) {
     const runtimeArtifactKeys = new Set(nextCatalog.map((artifact) => artifact.key));
     modelLicenseCatalog = [...runtimeArtifactKeys].length === nextCatalog.length
@@ -4956,10 +4906,10 @@ async function init() {
       applyVerbLanguageCopy();
       await initializeVerbGuidedMode();
     }
-    if (courseUsesArtifactCatalogs()) await loadArtifactLicenseCatalog();
+    await loadArtifactLicenseCatalog();
     applyTheme(readStoredTheme(), { persist: false });
     bindUi();
-    if (courseUsesArtifactCatalogs()) renderModelLicenseList();
+    renderModelLicenseList();
     if (courseUsesModels()) {
       syncGenerationSettingsUi();
     }

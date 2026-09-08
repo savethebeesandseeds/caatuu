@@ -1811,31 +1811,8 @@ export function transformChromeJs(input) {
     "",
     "chrome language model settings"
   );
-  source = replaceBetween(
-    source,
-    '            <div class="legal-notice" role="note">',
-    '            <details class="settings-details model-details legal-details">',
-    "",
-    "chrome AI notice"
-  );
-  source = exactReplace(
-    source,
-    'interfaceHtml("settings.legal.contentterms")',
-    'interfaceHtml("settings.product.legal.contentterms")',
-    "chrome legal scope"
-  );
-  source = replaceBetween(
-    source,
-    '                <dl class="meta-list model-license-list" id="modelLicenseList">',
-    "                </dl>",
-    `                <dl class="meta-list model-license-list" id="embeddingLicenseList">
-                  <div>
-                    <dt>\${interfaceHtml("settings.product.legal.embeddingstitle")}</dt>
-                    <dd>\${interfaceHtml("settings.product.legal.embeddingsterms")}</dd>
-                  </div>
-`,
-    "chrome artifact licenses"
-  );
+  // About and legal notices use the same renderer and capability-aware data on
+  // every platform. Removing generation controls must never remove attribution.
   return source;
 }
 

@@ -317,20 +317,20 @@ function setHomeText(selector, value) {
   if (node) node.textContent = value;
 }
 
-function readyArtifactRow(label, kind) {
+function readyArtifactRow(label, kind, ready = true) {
   const row = document.createElement("div");
   const icon = document.createElement("i");
   const title = document.createElement("strong");
   const meta = document.createElement("span");
   row.className = "setup-artifact";
-  row.dataset.ready = "true";
+  row.dataset.ready = String(ready);
   row.dataset.kind = kind;
-  row.dataset.status = "ready";
-  row.style.setProperty("--artifact-progress", "100%");
+  row.dataset.status = ready ? "ready" : "active";
+  row.style.setProperty("--artifact-progress", ready ? "100%" : "0%");
   icon.className = "setup-artifact-icon";
-  icon.textContent = "\u2713";
+  icon.textContent = ready ? "\u2713" : "\u2022";
   title.textContent = label;
-  meta.textContent = t("common.ready");
+  meta.textContent = t(ready ? "common.ready" : "setup.checking");
   row.append(icon, title, meta);
   return row;
 }
@@ -386,6 +386,7 @@ function renderReadyCourseHome() {
     if (course.capabilities?.embeddings === true) {
       rows.push(readyArtifactRow(t("setup.englishembeddings"), "embedding-vector-db"));
     }
+    rows.push(readyArtifactRow(t("settings.controls.app"), "app-controls"));
     artifacts.replaceChildren(...rows);
   }
 
@@ -421,13 +422,26 @@ function renderStartingCourseHome() {
   card.classList.remove("is-ready", "is-error");
   card.setAttribute("aria-busy", "true");
   setHomeText("#setupTitle", t("setup.preparing"));
-  setHomeText("#setupPhase", t("setup.checking"));
+  setHomeText("#setupPhase", t("settings.controls.app"));
   setHomeText("#setupMessage", t("setup.preparing"));
-  for (const id of ["setupAction", "setupAbort", "setupDetailsToggle", "setupProgress"]) {
+  for (const id of ["setupAction", "setupAbort", "setupProgress"]) {
     const control = document.getElementById(id);
     if (control) control.hidden = true;
   }
   card.querySelector(".setup-progress-meta")?.setAttribute("hidden", "");
+  document.getElementById("setupArtifacts")?.replaceChildren(
+    readyArtifactRow(t("settings.controls.app"), "app-controls", false)
+  );
+  const details = document.getElementById("setupDetails");
+  if (details) details.hidden = false;
+  card.classList.add("details-open");
+  const toggle = document.getElementById("setupDetailsToggle");
+  if (toggle) {
+    toggle.hidden = false;
+    toggle.setAttribute("aria-expanded", "true");
+    toggle.textContent = t("common.hidedetails");
+  }
+  bindReadyHomeDetails(card);
 }
 
 function configureGameRoutes() {
@@ -519,7 +533,7 @@ async function loadCourseFeatureProviders() {
     origin: location.origin,
     routeBase,
     async initializeWorkspace() {
-      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-31");
+      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-32");
       const workspace = await globalThis.CaatuuWorkspaceReady;
       if (workspace?.ready !== true) {
         throw workspace?.error instanceof Error
@@ -547,9 +561,10 @@ async function start() {
   const interfaceContent = await loadInterfaceContent(course);
   installInterfaceContent(interfaceContent);
   interfaceContent.apply(document);
+  if (!declaredBrowserProvider("setupProvider")) renderStartingCourseHome();
   installMusic(globalThis);
   setCourseIdentity();
-  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-167");
+  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-168");
   globalThis.CaatuuMusicUi?.mountAll();
   // Keep the canonical Home and its language controls available while native
   // setup verifies the selected course. Curriculum and game artwork wait for it.
@@ -558,17 +573,18 @@ async function start() {
   applyCapabilityBoundaries();
   await import("./word-world-host.mjs?v=word-world-host-23");
   await loadCourseFeatureProviders();
-  if (!declaredBrowserProvider("setupProvider")) {
-    renderReadyCourseHome();
-    document.getElementById("nativeSetup")?.removeAttribute("aria-busy");
-    document.body.classList.remove("setup-blocked");
-  }
   document.documentElement.dataset.caatuuShellReady = "true";
   document.body.classList.remove("app-starting");
   document.querySelectorAll("[data-caatuu-bottom-nav]").forEach((nav) => {
     nav.removeAttribute("inert");
     nav.removeAttribute("aria-busy");
   });
+  if (!declaredBrowserProvider("setupProvider")) {
+    document.body.classList.remove("setup-blocked");
+    document.getElementById("nativeSetup")?.removeAttribute("aria-busy");
+    // Publish the ready title and final checklist only after controls are usable.
+    renderReadyCourseHome();
+  }
   settleShellReady(Object.freeze({ ready: true }));
   document.documentElement.dataset.caatuuAppReady = "true";
   document.dispatchEvent(new CustomEvent("caatuu:app-ready", { detail: Object.freeze({ courseId: course.id }) }));
@@ -587,6 +603,13 @@ start().catch((error) => {
     card.classList.remove("is-ready");
     card.classList.add("is-error");
     card.removeAttribute("aria-busy");
+  }
+  const controls = document.querySelector('#setupArtifacts [data-kind="app-controls"]');
+  if (controls) {
+    controls.dataset.ready = "false";
+    controls.dataset.status = "error";
+    controls.querySelector("i").textContent = "!";
+    controls.querySelector("span").textContent = t("common.unavailable");
   }
   const home = document.querySelector("#view-home .home-main");
   const notice = document.createElement("p");

@@ -442,8 +442,8 @@ val androidTargetSdk = providers.environmentVariable("CAATUU_ANDROID_TARGET_SDK"
     .orElse(36)
 val androidUpdateBaseUrl = providers.environmentVariable("CAATUU_ANDROID_UPDATE_BASE_URL")
     .orElse("https://caatuu.waajacu.com/android")
-val caatuuVersionCode = providers.gradleProperty("caatuuVersionCode").map(String::toInt).orElse(170)
-val caatuuVersionName = providers.gradleProperty("caatuuVersionName").orElse("0.1.18")
+val caatuuVersionCode = providers.gradleProperty("caatuuVersionCode").map(String::toInt).orElse(171)
+val caatuuVersionName = providers.gradleProperty("caatuuVersionName").orElse("0.1.19")
 val releaseSigningValues = listOf(
     releaseKeystorePath,
     releaseKeystorePassword,
@@ -485,7 +485,31 @@ val packagedCourseCapabilities = linkedMapOf(
     "wordWorldStandardOnly" to courseWordWorldEnabled,
 )
 
+val verifyProductDependencyNotices by tasks.registering {
+    group = "verification"
+    description = "Require legal notice coverage for the exact product runtime dependency graph."
+    doLast {
+        val inventory = groovy.json.JsonSlurper().parse(
+            workspaceRootDir.file("apps/language-runtime/static/legal/android-dependencies.json").asFile
+        ) as Map<*, *>
+        val recorded = (inventory["components"] as List<*>).map {
+            (it as Map<*, *>)["id"].toString()
+        }.toSet()
+        val resolved = configurations.getByName("releaseRuntimeClasspath")
+            .incoming.resolutionResult.allComponents.mapNotNull {
+                (it.id as? org.gradle.api.artifacts.component.ModuleComponentIdentifier)?.let { id ->
+                    "${id.group}:${id.module}:${id.version}"
+                }
+            }.toSet()
+        check(recorded == resolved) {
+            "Android legal inventory drift. Missing: ${resolved - recorded}; stale: ${recorded - resolved}. " +
+                "Run python3 apps/android/tooling/refresh-license-notices.py in caatuu-dev and review the changes."
+        }
+    }
+}
+
 val generateProductAssets by tasks.registering(Exec::class) {
+    dependsOn(verifyProductDependencyNotices)
     group = "build setup"
     description = "Compile the allowlisted multilingual, non-generative Caatuu product assets."
     workingDir(workspaceRootDir)

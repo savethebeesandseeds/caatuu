@@ -151,19 +151,41 @@ export function planProductDelivery({ files, courseIds, profile, bootstrapAssets
   }
   const sharedRecords = records.filter(({ assetPath }) => !assetPath.startsWith("courses/"));
   const artifactKinds = new Map();
+  const sharedDownloads = new Map();
+  const sharedDownloadOwnership = [];
   for (const courseId of courseIds) {
     const setup = JSON.parse(files.get(`courses/${courseId}/setup-assets.json`).toString("utf8"));
     for (const artifact of setup.artifacts) {
       const path = logicalArtifactPath(artifact, courseId);
       if (path && artifact.artifact_kind && !artifactKinds.has(path)) artifactKinds.set(path, artifact.artifact_kind);
+      // These objects already live in public setup storage, so they never enter
+      // the APK file map above. Shared picture catalogs still reference them.
+      // Installing any first course must install the same required library.
+      if (artifact.native_required === true && path && !path.startsWith("courses/") && !files.has(path)) {
+        sharedDownloadOwnership.push(setupStorageRecord(artifact, courseId, `${courseId} shared download ${artifact.key}`));
+        if (!sharedDownloads.has(path)) sharedDownloads.set(path, artifact);
+      }
     }
   }
+  assertCompatibleSharedStorage(sharedDownloadOwnership, "Product shared downloads");
   const ownership = [];
   for (const courseId of courseIds) {
     const assetPrefix = `courses/${courseId}/`;
     const setupPath = `${assetPrefix}setup-assets.json`;
     assert.ok(bundledFiles.has(setupPath), `Product bootstrap requires ${setupPath}`);
     const setup = JSON.parse(bundledFiles.get(setupPath).toString("utf8"));
+    const declared = new Set(setup.artifacts.map((artifact) => logicalArtifactPath(artifact, courseId)));
+    setup.artifacts = setup.artifacts.map((artifact) => {
+      const shared = sharedDownloads.get(logicalArtifactPath(artifact, courseId));
+      return shared && artifact.native_required !== true ? { ...shared, key: artifact.key } : artifact;
+    });
+    for (const [path, artifact] of sharedDownloads) {
+      if (!declared.has(path)) setup.artifacts.push({
+        ...artifact,
+        key: `product-shared-${hash(path).slice(0, 24)}`,
+        browser_required: false,
+      });
+    }
     const courseRecords = [...sharedRecords, ...records.filter(({ assetPath }) => assetPath.startsWith(assetPrefix))];
     const byAsset = new Map(courseRecords.map((record) => [record.assetPath, record]));
     const consumed = new Set();

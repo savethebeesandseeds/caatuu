@@ -8,6 +8,7 @@ export const MUSIC_TRACKS = Object.freeze([
 const PREFERENCE_KEY = "caatuu.music.v1";
 const POSITION_KEY = "caatuu.music.position.v1";
 const CACHE_NAME = "caatuu-music-v1";
+const DEFAULT_VOLUME = 0.5;
 const trackFor = (id) => MUSIC_TRACKS.find((track) => track.id === id);
 const clampVolume = (value) => Math.min(1, Math.max(0, value));
 // The saved percentage is the slider position: equal steps span -40 to 0 dB.
@@ -40,7 +41,7 @@ export function installMusicPlayer(scope = globalThis) {
   audio.preload = "none";
   const saved = readJson(owner, PREFERENCE_KEY);
   let trackId = trackFor(saved?.trackId)?.id || MUSIC_TRACKS[0].id;
-  let volume = Number.isFinite(saved?.volume) ? clampVolume(saved.volume) : 0.1;
+  let volume = Number.isFinite(saved?.volume) ? clampVolume(saved.volume) : DEFAULT_VOLUME;
   let ready = false;
   let masterMuted = false;
   let blocked = false;
@@ -270,7 +271,7 @@ export function installMusicPlayer(scope = globalThis) {
     const preference = readJson(owner, PREFERENCE_KEY);
     const nextTrack = trackFor(preference?.trackId)?.id || MUSIC_TRACKS[0].id;
     if (nextTrack !== trackId) { pause(); trackId = nextTrack; resumePosition = null; }
-    volume = Number.isFinite(preference?.volume) ? clampVolume(preference.volume) : 0.1;
+    volume = Number.isFinite(preference?.volume) ? clampVolume(preference.volume) : DEFAULT_VOLUME;
     sync();
   });
   listen(audio, "loadedmetadata", () => {

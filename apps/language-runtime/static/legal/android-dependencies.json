@@ -1,0 +1,356 @@
+{
+  "schemaVersion": 1,
+  "configuration": "product:releaseRuntimeClasspath",
+  "components": [
+    {
+      "id": "androidx.activity:activity:1.12.2",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.activity:activity:1.12.2",
+      "pomSha256": "89c72299ea3b8efb43f631b2198a44c0b3121e61110628640ae9696cdd592d1c",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "https://cs.android.com/androidx/platform/frameworks/support",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.annotation:annotation-experimental:1.4.1",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.annotation:annotation-experimental:1.4.1",
+      "pomSha256": "fe57b228417f4d7c677903dc61fb4a7cf993d603499de26d8d8113e477cc4f1b",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "https://cs.android.com/androidx/platform/frameworks/support",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.annotation:annotation-jvm:1.9.1",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.annotation:annotation-jvm:1.9.1",
+      "pomSha256": "89b99c218d60019316b50aab79816707bc21696c896a030e1b1ae038961bcb8e",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "https://cs.android.com/androidx/platform/frameworks/support",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.annotation:annotation:1.9.1",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.annotation:annotation:1.9.1",
+      "pomSha256": "c733881c2e17d5f7c8661cc02a9159cb160b7b2094a27d593916c87d3e250636",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "https://cs.android.com/androidx/platform/frameworks/support",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.arch.core:core-common:2.2.0",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.arch.core:core-common:2.2.0",
+      "pomSha256": "1e17d4af8d6425be2a69f8af4d654a87e0456259a9eef1542869bcb023547e28",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "https://cs.android.com/androidx/platform/frameworks/support",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.arch.core:core-runtime:2.2.0",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.arch.core:core-runtime:2.2.0",
+      "pomSha256": "0f953706598140d9d8735cdd5aeb1fa35933f4e2f31c0bf3eb81a053a4c8c1a5",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "https://cs.android.com/androidx/platform/frameworks/support",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.collection:collection-jvm:1.4.2",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.collection:collection-jvm:1.4.2",
+      "pomSha256": "adbb379e2b160f08e63e341ad04bbcc7033f6d868ec51ac11e4334642a4e39ef",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "https://cs.android.com/androidx/platform/frameworks/support",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.collection:collection:1.4.2",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.collection:collection:1.4.2",
+      "pomSha256": "4f2615a17aeacfe12b68298214a19f2a19c68c66d590075bdbbfb659ebce2b7f",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "https://cs.android.com/androidx/platform/frameworks/support",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.compose.runtime:runtime-annotation-android:1.9.0",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.compose.runtime:runtime-annotation-android:1.9.0",
+      "pomSha256": "c2d8cbd8ecbefdfd193cd3dc68a3d03086544354c584b80c8148c97f13068383",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "https://cs.android.com/androidx/platform/frameworks/support",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.compose.runtime:runtime-annotation:1.9.0",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.compose.runtime:runtime-annotation:1.9.0",
+      "pomSha256": "d158a7ff9aa4d8214e085f9d5c79dd0002a32d1816a023aa9faa26b9c46d83a7",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "https://cs.android.com/androidx/platform/frameworks/support",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.concurrent:concurrent-futures:1.1.0",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.concurrent:concurrent-futures:1.1.0",
+      "pomSha256": "748a34eb5d13d19d187adecaea82667fded5f1b0b98a655e13ed2e4a8b3d8ae6",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "http://source.android.com",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.core:core-ktx:1.17.0",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.core:core-ktx:1.17.0",
+      "pomSha256": "0233d8d0a2ce8ff383502c8c64a42fc1673016402c923795465b6444eacd9939",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "https://cs.android.com/androidx/platform/frameworks/support",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.core:core-viewtree:1.0.0",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.core:core-viewtree:1.0.0",
+      "pomSha256": "d4f2ed1176fa8c5612b80f74c952a8799142a9ed36022a1a238fde5b140580d9",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "https://cs.android.com/androidx/platform/frameworks/support",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.core:core:1.17.0",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.core:core:1.17.0",
+      "pomSha256": "8b63b18ff4e3474ef1e9428ed022d7994e9e69adfcdaee7e59c7e52dc3cf75b0",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "https://cs.android.com/androidx/platform/frameworks/support",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.interpolator:interpolator:1.0.0",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.interpolator:interpolator:1.0.0",
+      "pomSha256": "0ddc07cc39699f48ecd9ec894b5830c0f09e22e82959294edf37217224c88b7b",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "http://source.android.com",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.lifecycle:lifecycle-common:2.6.2",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.lifecycle:lifecycle-common:2.6.2",
+      "pomSha256": "57304cdac4da289a6ecdd0738e16b1d8858f1ef8e9fabe2d65a963719fd81dba",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "https://cs.android.com/androidx/platform/frameworks/support",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.lifecycle:lifecycle-livedata-core:2.6.2",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.lifecycle:lifecycle-livedata-core:2.6.2",
+      "pomSha256": "1faf8ebf53f28b2f0ae2c2095371ae67d0ca16ac328fce7f163609a43214b5a4",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "https://cs.android.com/androidx/platform/frameworks/support",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.lifecycle:lifecycle-runtime:2.6.2",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.lifecycle:lifecycle-runtime:2.6.2",
+      "pomSha256": "8175255546e2a5f510865f84ace680660954730240b1905d9175b4345beda977",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "https://cs.android.com/androidx/platform/frameworks/support",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.2",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.2",
+      "pomSha256": "7fc854440644cf52c35894d58d946b208e42769e8517d71a5efcba17865432de",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "https://cs.android.com/androidx/platform/frameworks/support",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.lifecycle:lifecycle-viewmodel:2.6.2",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.lifecycle:lifecycle-viewmodel:2.6.2",
+      "pomSha256": "a9fb0b39a8360beef7bdc8f3953d4d78f3d85304fc80adac3c8eaf530d758050",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "https://cs.android.com/androidx/platform/frameworks/support",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.navigationevent:navigationevent-android:1.0.1",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.navigationevent:navigationevent-android:1.0.1",
+      "pomSha256": "e390907e065ef8c342cb88b3974ea57272d822124dc45d33b9fa7947c489e50d",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "https://cs.android.com/androidx/platform/frameworks/support",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.navigationevent:navigationevent:1.0.1",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.navigationevent:navigationevent:1.0.1",
+      "pomSha256": "87db83dc104cf4178a9e8bf75b2e389db9176b5883a13b8d7a2a84106906f7d9",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "https://cs.android.com/androidx/platform/frameworks/support",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.profileinstaller:profileinstaller:1.4.0",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.profileinstaller:profileinstaller:1.4.0",
+      "pomSha256": "d5fe39981a3b4b7c39585130da0bfc93835054c834a438d3e63e065e5f78be55",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "https://cs.android.com/androidx/platform/frameworks/support",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.savedstate:savedstate:1.2.1",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.savedstate:savedstate:1.2.1",
+      "pomSha256": "0d33bc285df1e12f22780f1624a6f0b38ea2a6181b0955ec6641caf620c50cbf",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "https://cs.android.com/androidx/platform/frameworks/support",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.startup:startup-runtime:1.1.1",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.startup:startup-runtime:1.1.1",
+      "pomSha256": "f4114b5c6859bb1bc3caf281cb6d6f25998fa7f7292c64ceaea74a93210e746b",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "https://cs.android.com/androidx/platform/frameworks/support",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.tracing:tracing:1.2.0",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.tracing:tracing:1.2.0",
+      "pomSha256": "f34bec4eb58871d31002901377108aaa1ebfe77fa6d882b8b86200b158e26ea1",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "https://cs.android.com/androidx/platform/frameworks/support",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "androidx.versionedparcelable:versionedparcelable:1.1.1",
+      "license": "Apache-2.0",
+      "licenseEvidence": "androidx.versionedparcelable:versionedparcelable:1.1.1",
+      "pomSha256": "5f51e65873ca612de3838fa90d2ee95b8d040efd31b9c390a19bf94d615cdb2f",
+      "author": "The Android Open Source Project",
+      "sourceUrl": "http://source.android.com",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "com.google.guava:listenablefuture:1.0",
+      "license": "Apache-2.0",
+      "licenseEvidence": "com.google.guava:guava-parent:26.0-android",
+      "pomSha256": "f8698ab46ca996ce889c1afc8ca4f25eb8ac6b034dc898d4583742360016cc04",
+      "author": "Kevin Bourrillion",
+      "sourceUrl": "https://github.com/google/guava",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "org.jetbrains.kotlin:kotlin-stdlib:2.3.0",
+      "license": "Apache-2.0",
+      "licenseEvidence": "org.jetbrains.kotlin:kotlin-stdlib:2.3.0",
+      "pomSha256": "4d5256d3e4844e656b0ca405f6350d6f21795c24375b3452526c5467dd99b5a2",
+      "author": "Kotlin Team",
+      "sourceUrl": "https://github.com/JetBrains/kotlin",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2",
+      "license": "Apache-2.0",
+      "licenseEvidence": "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2",
+      "pomSha256": "b92d3672e7f9e8f4c4e2ab187c3e31fecc506496396f4a5f27ee1c957a42b319",
+      "author": "JetBrains Team",
+      "sourceUrl": "https://github.com/Kotlin/kotlinx.coroutines",
+      "upstreamLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.10.2",
+      "license": "Apache-2.0",
+      "licenseEvidence": "org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.10.2",
+      "pomSha256": "faf0c6538e53ddc0499a63664d8e763c216580b2e18e722ccbdf1b431a6afe26",
+      "author": "JetBrains Team",
+      "sourceUrl": "https://github.com/Kotlin/kotlinx.coroutines",
+      "upstreamLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.10.2",
+      "license": "Apache-2.0",
+      "licenseEvidence": "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.10.2",
+      "pomSha256": "658f576b96c832e7382406adb197d64d8e2e97de10e96dfa3700decfa2a60def",
+      "author": "JetBrains Team",
+      "sourceUrl": "https://github.com/Kotlin/kotlinx.coroutines",
+      "upstreamLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2",
+      "license": "Apache-2.0",
+      "licenseEvidence": "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2",
+      "pomSha256": "519da5400096f3462a4dae80783ad050413d4bc81ec7ae53fae76aef0ccbed4c",
+      "author": "JetBrains Team",
+      "sourceUrl": "https://github.com/Kotlin/kotlinx.coroutines",
+      "upstreamLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "org.jetbrains:annotations:23.0.0",
+      "license": "Apache-2.0",
+      "licenseEvidence": "org.jetbrains:annotations:23.0.0",
+      "pomSha256": "c9490f655132328df2cfbcfdf743f53fc3916d6c1d10437175a6ca6e3a67771c",
+      "author": "JetBrains Team",
+      "sourceUrl": "https://github.com/JetBrains/java-annotations",
+      "upstreamLicenseUrl": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "id": "org.jspecify:jspecify:1.0.0",
+      "license": "Apache-2.0",
+      "licenseEvidence": "org.jspecify:jspecify:1.0.0",
+      "pomSha256": "cdab929a3b95211f43d2090c5e2d0dfe8465960e378bc32b35841dab324433a6",
+      "author": "Kevin Bourrillion",
+      "sourceUrl": "https://github.com/jspecify/jspecify/",
+      "upstreamLicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "licenseUrl": "/language-runtime/static/legal/ANDROID-NOTICES.txt"
+    }
+  ]
+}

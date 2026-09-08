@@ -953,11 +953,12 @@ test("product transforms fail closed when an expected development anchor drifts"
   const productChrome = transformChromeJs(chromeSource);
   assert.doesNotMatch(productChrome, /href: routes\.chat, label: "debug-chat"/u);
   assert.doesNotMatch(productChrome, /<section class="settings-card side-card ai-settings-card"/u);
-  assert.doesNotMatch(productChrome, /id="modelLicenseList"/u);
+  assert.match(productChrome, /id="modelLicenseList"/u);
   assert.match(productChrome, /interfaceHtml\("settings\.product\.summary"\)/u);
-  assert.match(productChrome, /interfaceHtml\("settings\.product\.legal\.contentterms"\)/u);
-  assert.match(productChrome, /interfaceHtml\("settings\.product\.legal\.embeddingstitle"\)/u);
-  assert.match(productChrome, /interfaceHtml\("settings\.product\.legal\.embeddingsterms"\)/u);
+  assert.match(productChrome, /interfaceHtml\("settings\.legal\.contentterms"\)/u);
+  const aboutSection = (source) => source.slice(source.indexOf('<section class="settings-card side-card about-card"'), source.indexOf('<footer class="settings-sheet-footer"'));
+  assert.equal(aboutSection(productChrome), aboutSection(chromeSource), "Product packaging must preserve the complete About component");
+  assert.doesNotMatch(productChrome, /id="embeddingLicenseList"/u);
   assert.doesNotMatch(productChrome, /Storage and app controls|Caatuu Curriculum and Asset Embeddings/u);
   assert.throws(
     () => transformChromeJs(chromeSource.replace(

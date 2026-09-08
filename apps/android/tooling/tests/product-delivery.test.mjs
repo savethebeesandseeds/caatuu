@@ -110,6 +110,39 @@ test("immutable records pin exact transformed bytes and are deterministic across
   for (const [path, bytes] of result.bundledFiles) assert.ok(bytes.equals(reordered.bundledFiles.get(path)), path);
 });
 
+test("a first course installs shared external pictures without another course's content", () => {
+  const input = fixture();
+  const shared = {
+    key: "picture-clue", label: "Shared picture clue", artifact_kind: "visual-asset",
+    url: "/assets/pictures/clue.png", asset_path: "assets/pictures/clue.png",
+    bytes: 10, sha256: "a".repeat(64), native_required: true, browser_required: true,
+  };
+  const local = { ...shared, key: "course-db", url: "/alpha/data/learning.sqlite",
+    asset_path: "data/learning.sqlite", artifact_kind: "course-content" };
+  const optional = { ...shared, key: "optional-picture", url: "/assets/pictures/optional.png",
+    asset_path: "assets/pictures/optional.png", native_required: false };
+  const setup = JSON.parse(input.files.get("courses/alpha/setup-assets.json"));
+  setup.artifacts.push(shared, local, optional);
+  input.files.set("courses/alpha/setup-assets.json", buffer(setup));
+  const result = planProductDelivery(input);
+  const beta = JSON.parse(result.bundledFiles.get("courses/beta/setup-assets.json"));
+  const installed = beta.artifacts.find(({ asset_path }) => asset_path === shared.asset_path);
+  assert.ok(installed?.native_required, "A clean beta installation must fetch the picture itself");
+  for (const field of ["url", "asset_path", "bytes", "sha256", "artifact_kind"]) {
+    assert.equal(installed[field], shared[field], field);
+  }
+  assert.ok(!beta.artifacts.some(({ asset_path }) => [local.asset_path, optional.asset_path].includes(asset_path)),
+    "Course databases and optional assets are not shared prerequisites");
+  assert.ok(!result.setupPayload.artifacts.some(({ assetPath }) => assetPath === shared.asset_path),
+    "An existing public download is not duplicated in the companion payload");
+  assert.ok(!JSON.parse(input.files.get("courses/beta/setup-assets.json")).artifacts.length,
+    "Planning preserves the authored source catalog");
+
+  input.files.set("courses/beta/setup-assets.json", buffer({ artifacts: [{ ...shared, sha256: "b".repeat(64) }] }));
+  assert.throws(() => planProductDelivery(input), /shared storage path .* conflicting sha256/u,
+    "Conflicting shared bytes must fail before choosing either course's receipt");
+});
+
 test("delivery rejects unsafe paths and duplicate logical setup ownership", () => {
   assert.throws(() => isSetupDeliveredAsset("assets/../secret.png", buffer("x")), /normalized/u);
   const input = fixture();

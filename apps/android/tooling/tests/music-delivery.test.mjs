@@ -59,7 +59,7 @@ test("the selectable songs exactly cover the source audio and verified shared se
   }
 });
 
-test("the real bootstrap product excludes music and every course installs one identical shared object", (t) => {
+test("each first course installs shared music and every advertised picture without another course", (t) => {
   const configuration = loadAndroidCourseBundleConfiguration({ allowMissingSetupDeliveredRuntimeFiles: true });
   const delivery = createAndroidProductDelivery(configuration);
   const musicAssets = configuration.sharedAssets.filter(({ output }) => output.startsWith("assets/music/"));
@@ -82,5 +82,45 @@ test("the real bootstrap product excludes music and every course installs one id
       assert.ok(!delivery.logicalFiles.has(`courses/${course.id}/${output}`));
     }
   }
+  const keymapPaths = ["assets/macaw/actions/keymaps.json", "assets/miscellaneous/keymap.json"];
+  const imagePaths = keymapPaths.flatMap((path) => Object.keys(JSON.parse(delivery.logicalFiles.get(path)))
+    .map((path) => decodeURIComponent(path).slice(1)));
+  assert.ok(imagePaths.length > 0, "The real image catalogs must remain usable");
+  for (const { course } of configuration.configurations) {
+    const setup = JSON.parse(delivery.bundledFiles.get(`courses/${course.id}/setup-assets.json`));
+    // Model an empty installation: only APK bytes plus this selected course's
+    // required downloads can satisfy a game, never another course's catalog.
+    const available = new Set(delivery.bundledFiles.keys());
+    for (const artifact of setup.artifacts.filter(({ native_required }) => native_required)) {
+      const path = artifact.asset_path;
+      available.add(/^(assets|language-runtime)\//u.test(path) ? path : `courses/${course.id}/${path}`);
+    }
+    for (const path of [...keymapPaths, "language-runtime/static/data/image-embeddings/minilm-v1.json", ...imagePaths]) {
+      assert.ok(available.has(path), `${course.id} first install is missing ${path}`);
+    }
+    if (course.capabilities.embeddings) {
+      for (const runtime of configuration.embeddingRuntime.catalog.runtimes) {
+        for (const expected of runtime.artifacts) {
+          const path = `language-runtime/${expected.path}`;
+          const artifact = setup.artifacts.find(({ asset_path }) => asset_path === path);
+          assert.ok(available.has(path), `${course.id} first install is missing ${runtime.id}: ${path}`);
+          assert.ok(artifact, `${course.id} must pin runtime artifact ${path}`);
+          assert.equal(artifact.bytes, expected.bytes, path);
+          assert.equal(artifact.sha256, expected.sha256, path);
+        }
+      }
+    }
+    const externalShared = configuration.sharedStorageRecords.filter(({ declaredPath }) => (
+      declaredPath.startsWith("assets/") && !delivery.logicalFiles.has(declaredPath)
+    ));
+    for (const expected of externalShared) {
+      const artifact = setup.artifacts.find(({ asset_path }) => asset_path === expected.declaredPath);
+      assert.ok(artifact?.native_required, `${course.id}: ${expected.declaredPath}`);
+      assert.equal(artifact.bytes, expected.bytes);
+      assert.equal(artifact.sha256, expected.sha256);
+      assert.equal(new URL(artifact.url, "https://caatuu.waajacu.com").href, expected.source);
+    }
+  }
+  t.diagnostic(`Each of ${configuration.configurations.length} first-course installations covers ${imagePaths.length} advertised pictures.`);
   t.diagnostic(`Bootstrap assets ${delivery.byteCounts.bootstrap} bytes; setup ${delivery.byteCounts.setup} bytes; music ${musicAssets.reduce((sum, { source }) => sum + readFileSync(source).length, 0)} bytes.`);
 });
