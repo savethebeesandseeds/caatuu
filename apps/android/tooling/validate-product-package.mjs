@@ -5,7 +5,7 @@ import { existsSync } from "node:fs";
 import { basename, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { assertProductSourceText } from "./product-source-policy.mjs";
-import { nativeBootstrapCatalogAssets, planProductDelivery } from "./product-delivery.mjs";
+import { homeBootstrapAssets, nativeBootstrapCatalogAssets, planProductDelivery } from "./product-delivery.mjs";
 import { readSetupPayloadArchive, validateSetupPayloadForApk } from "./setup-payload.mjs";
 import { packageSourceReader, packagePublicationPlan } from "./package-source-contract.mjs";
 
@@ -1232,7 +1232,16 @@ function assertAssetBoundary(unzip, archive, entries, kind, label, setupPayload 
   return { bundle, profile };
 }
 
-/** Reapply the compiler's residency policy to sealed bytes, never mutable content sources. */
+/** Source-pinned declarations select residency; all asset bytes come from the sealed package. */
+export function packageBootstrapAssets(files, publicationPlan = expectedProductPublicationPlan, sourceReader = readSource) {
+  // Historical releases predate resident Home art and retain their original policy.
+  const policySource = sourceReader("apps/android/tooling/product-delivery.mjs").toString("utf8");
+  if (!policySource.includes("export const HOME_BOOTSTRAP_ARTWORK")) return new Set();
+  return homeBootstrapAssets(files, publicationPlan.courses.map(({ manifestPath }) =>
+    JSON.parse(sourceReader(manifestPath).toString("utf8"))));
+}
+
+/** Reapply the compiler's residency policy to sealed bytes. */
 function assertBootstrapDelivery({ unzip, archive, kind, label, bundle, profile, setupPayload }) {
   const files = new Map(["caatuu-profile.json", ...profile.assets].map((path) => [path, archiveBuffer(unzip, archive, archiveEntryForAsset(path, kind))]));
   for (const object of setupPayload.values()) {
@@ -1243,7 +1252,8 @@ function assertBootstrapDelivery({ unzip, archive, kind, label, bundle, profile,
     }
   }
   const providerCatalogs = nativeBootstrapCatalogAssets(files, bundle);
-  const delivery = planProductDelivery({ files, courseIds: bundle.courses.map(({ id }) => id), profile, providerCatalogs });
+  const bootstrapAssets = packageBootstrapAssets(files);
+  const delivery = planProductDelivery({ files, courseIds: bundle.courses.map(({ id }) => id), profile, providerCatalogs, bootstrapAssets });
   assert(JSON.stringify(delivery.profile.assets) === JSON.stringify(profile.assets), `${label} APK does not match the bootstrap residency policy`);
   for (const [path, expected] of delivery.bundledFiles) {
     assert(expected.equals(files.get(path)), `${label} bootstrap bytes differ from delivery plan: ${path}`);

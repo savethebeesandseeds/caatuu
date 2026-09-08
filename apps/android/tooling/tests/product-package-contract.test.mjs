@@ -11,7 +11,22 @@ import {
   assertSetupPayloadSourcePolicy,
   requiredAssetPaths,
   requiredNativeClassNames,
+  packageBootstrapAssets,
 } from "../validate-product-package.mjs";
+import { HOME_BOOTSTRAP_ARTWORK, HOME_BOOTSTRAP_ASSET_MAX_BYTES } from "../product-delivery.mjs";
+
+test("package audit uses source-pinned Home residency while retaining historical release policy", () => {
+  const flag = "assets/icons/example.png";
+  const files = new Map([...HOME_BOOTSTRAP_ARTWORK, flag].map(path => [path, Buffer.from("image")]));
+  const plan = { courses: [{ manifestPath: "apps/languages/example/course.json" }] };
+  const source = path => Buffer.from(path.endsWith("product-delivery.mjs")
+    ? "export const HOME_BOOTSTRAP_ARTWORK = [];"
+    : JSON.stringify({ sourceLanguage: { flagSrc: `/${flag}` }, targetLanguage: { flagSrc: `/${flag}` } }));
+  assert.deepEqual([...packageBootstrapAssets(files, plan, source)].sort(), [...files.keys()].sort());
+  assert.equal(packageBootstrapAssets(files, plan, () => Buffer.from("historical policy")).size, 0);
+  files.set(flag, Buffer.alloc(HOME_BOOTSTRAP_ASSET_MAX_BYTES + 1));
+  assert.throws(() => packageBootstrapAssets(files, plan, source), /Home bootstrap artwork exceeds/u);
+});
 
 test("companion delivery preserves first-party source restrictions without treating media as code", () => {
   const payload = (path, content) => new Map([[path, { assetPaths: [path], content: Buffer.from(content) }]]);
