@@ -933,13 +933,13 @@
       "annotations": {}
     },
     {
-      "id": "ww.identity.your-name",
+      "id": "ww.identity.her-name",
       "difficulty": 1,
       "topic": "identity-people-family",
-      "englishText": "What is your name?",
-      "embeddingText": "Politely asking how another person is called.",
+      "englishText": "What is her name?",
+      "embeddingText": "Asking the name of another girl or woman.",
       "englishAlternates": [],
-      "targetText": "What is your name?",
+      "targetText": "What is her name?",
       "pronunciation": null,
       "tokens": [
         {
@@ -955,9 +955,9 @@
           "playable": false
         },
         {
-          "surface": "your",
+          "surface": "her",
           "pronunciation": null,
-          "gloss": "your",
+          "gloss": "her",
           "playable": false
         },
         {
@@ -968,7 +968,7 @@
         }
       ],
       "learnerBase": {
-        "text": "¿Cómo te llamas?",
+        "text": "¿Cómo se llama ella?",
         "tokenMeanings": [
           {
             "targetLanguage": "en-US",
@@ -985,8 +985,8 @@
           {
             "targetLanguage": "en-US",
             "tokenIndex": 2,
-            "surface": "your",
-            "text": "tu; vuestro"
+            "surface": "her",
+            "text": "su; de ella"
           },
           {
             "targetLanguage": "en-US",

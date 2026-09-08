@@ -390,8 +390,8 @@
       ]
     },
     {
-      "conceptId": "ww.identity.your-name",
-      "text": "¿Cómo te llamas?",
+      "conceptId": "ww.identity.her-name",
+      "text": "¿Cómo se llama ella?",
       "tokenMeanings": [
         {
           "targetLanguage": "en-US",
@@ -408,8 +408,8 @@
         {
           "targetLanguage": "en-US",
           "tokenIndex": 2,
-          "surface": "your",
-          "text": "tu; vuestro"
+          "surface": "her",
+          "text": "su; de ella"
         },
         {
           "targetLanguage": "en-US",

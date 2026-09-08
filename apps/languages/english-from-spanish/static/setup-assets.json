@@ -7,7 +7,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-es-en-pwa-v26",
+    "cacheName": "caatuu-es-en-pwa-v27",
     "cachePrefix": "caatuu-es-en-pwa-",
     "assets": [
       "/language-runtime/static/source/image-embedding-index.mjs?v=image-index-runtime-1",
@@ -219,8 +219,8 @@
       "kind": "course-game-content",
       "url": "/es-en/data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-3",
       "browserRequired": true,
-      "bytes": 88460,
-      "sha256": "ad9b1357275d0bfc175c9bbbcc0fa294a19ee24296755a9d3efbaf0a98b241e7"
+      "bytes": 88462,
+      "sha256": "5cd058550a7310b50f406b8b65bcd54c448830e1e0c18740952ca10b1fe9bf22"
     },
     {
       "key": "app-entry",
@@ -459,16 +459,16 @@
       "kind": "english-concept-catalog",
       "url": "/language-runtime/static/data/english-concepts/word-world-es-en-v1.json",
       "browserRequired": true,
-      "bytes": 153126,
-      "sha256": "3718fbb3ac25658e8c7eb2716cff7a9df5d43f478fbec04e9bc3655aed03dfd1"
+      "bytes": 153120,
+      "sha256": "b98111a11967f74b3e489ef91e6f2d00186eb1074e7eb5350cb3b5e5b3e588c9"
     },
     {
       "key": "target-realizations",
       "kind": "target-realization-catalog",
       "url": "/es-en/data/games/word-world/content.json",
       "browserRequired": true,
-      "bytes": 400419,
-      "sha256": "b865933560f60e001331765420a39efb3062396a1fc8fa35ce92590781f5f4ab"
+      "bytes": 400415,
+      "sha256": "6a660bb844256e7a21c3e3c47f3dff1178fd948e11860f271a0ed570bb36e8fb"
     },
     {
       "key": "word-world-manifest",
@@ -508,7 +508,7 @@
       "url": "/es-en/sw.js",
       "browserRequired": true,
       "bytes": 140,
-      "sha256": "efec535cd7084eba01c0a61755594ba4ceb85035d09715d562d7f46e7843fb2e"
+      "sha256": "b9a536ed0c69e6ae80d4e47cde8f752311fad446f887a62d5864ca7eaee81965"
     },
     {
       "key": "shared-course-service-worker",

@@ -411,8 +411,8 @@
       ]
     },
     {
-      "conceptId": "ww.identity.your-name",
-      "text": "What is your name?",
+      "conceptId": "ww.identity.her-name",
+      "text": "What is her name?",
       "pronunciation": null,
       "tokens": [
         {
@@ -428,9 +428,9 @@
           "playable": false
         },
         {
-          "surface": "your",
+          "surface": "her",
           "pronunciation": null,
-          "gloss": "your",
+          "gloss": "her",
           "playable": false
         },
         {

@@ -138,9 +138,9 @@
       "difficulty": 1
     },
     {
-      "id": "ww.identity.your-name",
-      "englishText": "What is your name?",
-      "embeddingText": "Politely asking how another person is called.",
+      "id": "ww.identity.her-name",
+      "englishText": "What is her name?",
+      "embeddingText": "Asking the name of another girl or woman.",
       "sceneQuery": "two new classmates introducing themselves",
       "topic": "identity-people-family",
       "difficulty": 1

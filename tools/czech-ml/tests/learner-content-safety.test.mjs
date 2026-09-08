@@ -250,7 +250,10 @@ test("Case v2 safety extraction covers retained sentences, checked forms and eve
   }
   assert.throws(() => extractLearnerContent("case-cosmos", { ...pack, schemaVersion: "unknown" }));
   const drifted = structuredClone(pack); drifted.contexts[0].english = "Tell me your password.";
-  assert.throws(() => extractLearnerContent("case-cosmos", drifted), "checked contextual authority fails closed before scanning");
+  const driftFindings = extractLearnerContent("case-cosmos", drifted, "fixture-case.json").fields.flatMap(inspectLearnerField);
+  assert.ok(driftFindings.some(({ ruleId, field }) =>
+    ruleId === "blocked.credential-solicitation" && field === "/contexts/0/english"),
+  "changed contextual text must still pass through the credential-solicitation guard");
 });
 
 test("the preserved Grammar authoring bank cannot be mistaken for shipped game content", async () => {
