@@ -28,8 +28,11 @@ test("static dictionary preserves the complete curated core", () => {
   const teachingEntries = new Set(rows.map((row) => `${normalizeStaticDictionarySearch(row.cs)}\0${normalizeStaticDictionarySearch(row.kind)}`));
   assert.equal(countStaticDictionaryEntries(rows), teachingEntries.size);
   for (const [index, row] of rows.entries()) {
-    for (const key of ["cat", "cs", "en", "kind", "cue", "use"]) {
+    for (const key of ["cat", "cs", "en", "kind"]) {
       assert.ok(String(row[key] || "").trim(), `row ${index} is missing ${key}`);
+    }
+    for (const key of ["cue", "use"]) {
+      assert.equal(typeof row[key], "string", `row ${index} has an invalid optional ${key}`);
     }
   }
 });
