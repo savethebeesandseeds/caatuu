@@ -129,11 +129,33 @@
         "bytes": 37099520,
         "sha256": "c9f3b2849647743cbec5d4aa4bd346baf87b7751728a0530538b7f358a79bb65"
       }
+    },
+    {
+      "versionCode": 170,
+      "versionName": "0.1.18",
+      "sourceRevision": "b643ef0555c7ce1b63acdf6fc1d36b9271d9ddb8",
+      "manifest": {
+        "bytes": 1041,
+        "sha256": "0e172d6494b58be3beffdf5fc8a8c5f7efd783c1fd81b5c0d9d86c3f2efd3973"
+      },
+      "apk": {
+        "bytes": 3107931,
+        "sha256": "be78086c323d64ffd1875d3bf63a43f83eb51f6b61d128b3c63ab7adea171f3f"
+      },
+      "receipt": {
+        "bytes": 1360,
+        "sha256": "f9d8474477b0ee2b2dbc2337278acf0c5037d33fa17af99f753cd32772a8abd8"
+      },
+      "setup": {
+        "bytes": 66027520,
+        "sha256": "c22ff30c5b9a22b4953420d8358de71f4f990c4a711e77d8adbd6bd18f4e4d82"
+      }
     }
   ],
   "setupEntries": [
     "assets/courses/cz/setup-assets.json",
     "assets/courses/zh/setup-assets.json",
+    "assets/courses/es/setup-assets.json",
     "assets/courses/es-en/setup-assets.json"
   ]
 }
