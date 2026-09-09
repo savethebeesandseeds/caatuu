@@ -1,10 +1,12 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import vm from "node:vm";
 import { initializeHomeCourseSetup } from "../static/source/course-setup.mjs";
 import { createInterfaceContent } from "../static/source/interface-content.mjs";
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 
+const chromeSource = await readFile(new URL("../static/source/caatuu-chrome.js", import.meta.url), "utf8");
 const catalogs = Object.fromEntries(await Promise.all(["en", "es"].map(async (locale) => [
   locale, createInterfaceContent(JSON.parse(await readFile(new URL(`../static/data/interface/${locale}.v1.json`, import.meta.url), "utf8"))),
 ])));
@@ -14,13 +16,14 @@ const language = (id, locale, label, nativeLabel = label) => ({
 const english = language("en", "en-US", "English");
 const spanish = language("es", "es-ES", "Spanish", "Español");
 const course = (id, sourceLanguage, targetLanguage) => ({
-  id, routePrefix: `/${id}`, entryPath: `/${id}/index.html`, sourceLanguage, targetLanguage,
+  id, status: "active", routePrefix: `/${id}`, entryPath: `/${id}/index.html`, sourceLanguage, targetLanguage,
 });
 const courses = [
   course("cz", english, language("cs", "cs-CZ", "Czech", "Čeština")),
   course("zh", english, language("zh", "zh-Hans", "Chinese", "中文")),
   course("es", english, spanish),
   course("es-en", spanish, english),
+  course("nb", english, language("nb", "nb-NO", "Norwegian", "Norsk bokmål")),
 ];
 const flush = () => new Promise((resolve) => setImmediate(resolve));
 
@@ -144,6 +147,55 @@ test("Spanish to English selection reaches only its trusted route and hands off 
   assert.equal(selected.window.CaatuuNative, selected.priorReceiver);
   assert.equal(selected.nodes.nativeSetup.classList.contains("is-ready"), false, "content readiness cannot prematurely enable games");
   await initial.close();
+});
+
+test("confirming a new native course in Home prepares that course without a second language picker", async () => {
+  for (const target of courses) {
+    const current = courses.find((item) => item.id !== target.id);
+    const assignments = [];
+    const chooser = createBrowserHarness({
+      course: {
+        ...current, capabilities: {}, games: [],
+        routes: { home: current.entryPath, games: current.entryPath, settings: current.entryPath },
+        storage: { namespace: `caatuu-${current.id}`, theme: "test.theme", fontSize: "test.font-size" },
+        courseSelector: { schemaVersion: 1, courses },
+      },
+      localStorageValues: { "caatuu.setup.selected-course.v1": current.id },
+      location: { pathname: current.entryPath, assign: (path) => assignments.push(path) },
+      window: { CaatuuAndroid: { postMessage() {}, isCourseBundled: (id) => courses.some((item) => item.id === id) } },
+    });
+    chooser.context.CaatuuI18n = chooser.window.CaatuuI18n = current.sourceLanguage.id === "es" ? catalogs.es : catalogs.en;
+    const trigger = chooser.document.createElement("button");
+    trigger.dataset.caatuuLanguageSwitch = "";
+    trigger.dataset.languageSwitchVariant = "home";
+    chooser.document.body.append(trigger);
+    vm.runInContext(chromeSource, chooser.context, { filename: "caatuu-chrome.js" });
+    trigger.click();
+    const menu = chooser.document.querySelector("[data-language-selector-menu]");
+    menu.querySelector(`[data-language-base-option="${target.sourceLanguage.locale.toLowerCase()}"]`).click();
+    menu.querySelector(`[data-language-course-option="${target.id}"]`).click();
+    menu.querySelector("[data-language-selector-review]").click();
+    menu.querySelector("[data-language-selector-confirm]").click();
+    assert.deepEqual(assignments, [target.entryPath]);
+
+    const selected = home({
+      id: target.id,
+      pendingCourse: chooser.sessionStorage.getItem("caatuu.setup.pending-course.v1"),
+      rememberedCourse: chooser.localStorage.getItem("caatuu.setup.selected-course.v1"),
+    });
+    try {
+      await flush();
+      assert.deepEqual(selected.requests.map(({ type }) => type), ["setup_status", "setup_download"], target.id);
+      assert.equal(selected.nodes.setupLanguageSelection.hidden, true, target.id);
+      assert.equal(selected.settled(), false, "course imports still wait for verified content");
+      assert.equal(selected.document.body.classList.contains("setup-blocked"), true);
+      assert.equal(selected.sessionStorage.getItem("caatuu.setup.pending-course.v1"), null);
+      selected.reply(selected.requests.at(-1), { ready: true });
+      assert.equal(await selected.completion, true);
+    } finally {
+      await selected.close();
+    }
+  }
 });
 
 test("verified saved courses continue without downloads and without awaiting the later shell barrier", async () => {

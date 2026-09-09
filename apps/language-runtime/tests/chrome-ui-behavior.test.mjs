@@ -1462,6 +1462,94 @@ test("the Home language form is wired at startup and confirms a course switch", 
   });
 });
 
+function courseSwitchHarness({ native = true, localStorageValues = {}, sessionStorageValues = {}, onNavigate = () => {} } = {}) {
+  const assignments = [];
+  const harness = createBrowserHarness({
+    course: fixtureCourse(),
+    localStorageValues,
+    sessionStorageValues,
+    runtime: { env: native ? "android" : "browser" },
+    window: native ? {
+      CaatuuAndroid: { isCourseBundled: () => true, postMessage() {} }
+    } : {},
+    location: { assign(path) { onNavigate(harness); assignments.push(path); } }
+  });
+  const trigger = harness.document.createElement("button");
+  trigger.dataset.caatuuLanguageSwitch = "";
+  trigger.dataset.languageSwitchVariant = "home";
+  harness.document.body.append(trigger);
+  runChrome(harness);
+  const menu = harness.document.querySelector("[data-language-selector-menu]");
+  const choose = () => {
+    trigger.click();
+    menu.querySelector('[data-language-base-option="en"]').click();
+    menu.querySelector('[data-language-course-option="zh"]').click();
+    menu.querySelector("[data-language-selector-review]").click();
+  };
+  return { ...harness, assignments, choose, menu };
+}
+
+test("confirmed native course switching hands the chosen course to setup before navigation", () => {
+  const selectedKey = "caatuu.setup.selected-course.v1";
+  const pendingKey = "caatuu.setup.pending-course.v1";
+  const harness = courseSwitchHarness({
+    localStorageValues: { [selectedKey]: "cz", "caatuu-czech.learning.performance.v1": "saved-progress" },
+    onNavigate(browser) {
+      assert.equal(browser.localStorage.getItem(selectedKey), "zh");
+      assert.equal(browser.sessionStorage.getItem(pendingKey), "zh");
+    }
+  });
+  harness.choose();
+  assert.equal(harness.localStorage.getItem(selectedKey), "cz", "review does not commit the draft");
+  assert.equal(harness.sessionStorage.getItem(pendingKey), null);
+  assert.deepEqual(harness.assignments, []);
+  harness.menu.querySelector("[data-language-selector-confirm]").click();
+  assert.deepEqual(harness.assignments, ["/zh/index.html"]);
+  assert.equal(harness.localStorage.getItem("caatuu-czech.learning.performance.v1"), "saved-progress");
+});
+
+test("cancelling a native course draft preserves the previous setup selection", () => {
+  const selectedKey = "caatuu.setup.selected-course.v1";
+  const pendingKey = "caatuu.setup.pending-course.v1";
+  const harness = courseSwitchHarness({
+    localStorageValues: { [selectedKey]: "cz" },
+    sessionStorageValues: { [pendingKey]: "cz" }
+  });
+  harness.choose();
+  harness.menu.querySelector("[data-language-selector-back]").click();
+  harness.menu.querySelector("[data-language-selector-cancel]").click();
+  assert.deepEqual(harness.assignments, []);
+  assert.equal(harness.localStorage.getItem(selectedKey), "cz");
+  assert.equal(harness.sessionStorage.getItem(pendingKey), "cz");
+});
+
+test("native course confirmation still navigates when either or both preference stores are blocked", () => {
+  for (const blocked of [["localStorage"], ["sessionStorage"], ["localStorage", "sessionStorage"]]) {
+    const harness = courseSwitchHarness();
+    harness.choose();
+    for (const name of blocked) {
+      harness[name].setItem = () => { throw new Error("Storage blocked"); };
+    }
+    assert.doesNotThrow(() => harness.menu.querySelector("[data-language-selector-confirm]").click());
+    assert.deepEqual(harness.assignments, ["/zh/index.html"]);
+    if (!blocked.includes("localStorage")) {
+      assert.equal(harness.localStorage.getItem("caatuu.setup.selected-course.v1"), "zh");
+    }
+    if (!blocked.includes("sessionStorage")) {
+      assert.equal(harness.sessionStorage.getItem("caatuu.setup.pending-course.v1"), "zh");
+    }
+  }
+});
+
+test("browser course confirmation keeps its existing navigation and setup preferences", () => {
+  const harness = courseSwitchHarness({ native: false });
+  harness.choose();
+  harness.menu.querySelector("[data-language-selector-confirm]").click();
+  assert.deepEqual(harness.assignments, ["/zh/index.html"]);
+  assert.equal(harness.localStorage.getItem("caatuu.setup.selected-course.v1"), null);
+  assert.equal(harness.sessionStorage.getItem("caatuu.setup.pending-course.v1"), null);
+});
+
 test("the Home course card offers engaged courses as confirmed quick switches", () => {
   const course = fixtureCourse();
   course.courseSelector.courses.push({

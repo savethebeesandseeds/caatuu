@@ -3770,6 +3770,11 @@
       const selected = selectedCourseRecord();
       if (!selected || selected.id === course.id || !courseSelectorAvailable(selected)) return;
       closeLanguageSelectorHost(host);
+      if (isNativeShell()) {
+        // Carry the confirmed choice into Home setup instead of asking again.
+        try { window.localStorage.setItem("caatuu.setup.selected-course.v1", selected.id); } catch { /* Optional resume preference. */ }
+        try { window.sessionStorage.setItem("caatuu.setup.pending-course.v1", selected.id); } catch { /* Optional navigation handoff. */ }
+      }
       if (typeof window.location.assign === "function") window.location.assign(selected.entryPath);
       else window.location.href = selected.entryPath;
     });

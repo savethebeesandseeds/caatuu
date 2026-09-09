@@ -5,6 +5,15 @@ governed beta or stable release.
 
 ## Unreleased
 
+### Android 0.1.21 (173): choose a new course once
+
+- Carry the confirmed Home course choice into native setup, so a newly selected
+  course prepares its files without asking for the languages again.
+- Preserve first-launch selection, cancellation, saved progress, and verified
+  content readiness. Refresh the shared selector's setup integrity metadata.
+- Physical-device verification and Play Protect clearance remain unverified
+  for this candidate; the earlier VirusTotal scan applies only to version 172.
+
 ### Android 0.1.20 (172): Norwegian Bokmål and visible update confirmation
 
 - Add English-to-Norwegian Bokmål as a development course with its flag and
