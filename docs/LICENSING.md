@@ -33,8 +33,8 @@ This curriculum clearance does not extend to third-party dictionaries,
 corpora, models, embeddings, artwork, audio, fonts, or other separately sourced
 material that a lesson or game may reference.
 
-The machine-assisted Spanish development curriculum is not part of this
-cleared scope while its catalog remains `release-review-required`. No Pages or
+The machine-assisted Spanish and Norwegian development curricula are not part of this
+cleared scope while their catalogs remain `release-review-required`. No Pages or
 Android distribution is authorized until owner/license review records the exact
 license evidence.
 

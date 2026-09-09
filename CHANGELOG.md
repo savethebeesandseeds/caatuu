@@ -5,6 +5,22 @@ governed beta or stable release.
 
 ## Unreleased
 
+### Android 0.1.20 (172): Norwegian Bokmål and visible update confirmation
+
+- Add English-to-Norwegian Bokmål as a development course with its flag and
+  five applicable games: 600 verbs, 600 Word World sentences, 120 four-form
+  conjugation paradigms, 320 grammar examples and 500 nouns. Listening reuses
+  the 600 verbs and 600 sentences.
+- Accept dictionary-attested alternate noun genders in Bokmål and preserve
+  contextual English hints, existing image retrieval, controls and scoring.
+- Keep the app-update confirmation visible when opened from Home, including
+  cancellation and download retry, without switching to Settings.
+- Native-speaker curriculum review and device pronunciation review remain
+  pending. Listening requires an installed Norwegian speech voice.
+- Physical-device installation, update, offline use and saved-progress checks
+  remain unverified for this candidate. Publication awaits the recorded
+  curriculum license decision and the existing release checks.
+
 ### Android 0.1.19 (171): first-course setup and complete license notices
 
 - Install required shared artwork and embedding assets when any course is chosen

@@ -24,7 +24,7 @@ those declarations. The filename contract is checked by
 
 ## Word World: one editable JSON per course
 
-All four courses use `caatuu-word-world-course-content-v1`, with one complete
+All five courses use `caatuu-word-world-course-content-v1`, with one complete
 record per sentence. Edit only the corresponding authoring file:
 
 | Course | Editable file | Records at migration |
@@ -33,6 +33,7 @@ record per sentence. Edit only the corresponding authoring file:
 | English → Mandarin | [content.json](../apps/languages/mandarin-simplified/content/word-world/content.json) | 250 |
 | English → Spanish | [content.json](../apps/languages/spanish/content/word-world/content.json) | 250 |
 | Spanish → English | [content.json](../apps/languages/english-from-spanish/content/word-world/content.json) | 250 |
+| English → Norwegian Bokmål | [content.json](../apps/languages/norwegian-bokmal/content/word-world/content.json) | New course; see its [onboarding report](NORWEGIAN_BOKMAL_COURSE_20260909.md) |
 
 Each record holds its stable `id`, `difficulty`, `topic`, `englishText`,
 `embeddingText`, `targetText`, `tokens`, pronunciation, scene query and any
@@ -60,7 +61,7 @@ docker exec -w /workspace caatuu-dev node apps/server/tooling/refresh-setup-asse
 docker exec -w /workspace caatuu-dev node tools/language-content/build-word-world-content.mjs --all --check
 ```
 
-Use `--course cz`, `zh`, `es`, or `es-en` instead of `--all` to build one course.
+Use `--course cz`, `zh`, `es`, `es-en`, or `nb` instead of `--all` to build one course.
 The builder validates before writing, preserves the existing game formats,
 refreshes changed course cache markers, and maintains Czech's content-addressed
 offline URL. Setup refresh updates existing integrity metadata. No APK build or
@@ -70,7 +71,7 @@ The older `starter-v1.realizations.json`, shared concept catalogs and Spanish
 learner-base catalog are **generated compatibility views** for existing
 publication tools. The runtime `static/data/games/word-world/content.json` files,
 reading guide, manifest and learner-base file are generated too. Do not edit
-those outputs: the next build recreates them from the four authoring files.
+those outputs: the next build recreates them from the five authoring files.
 The old Czech JSONL batches, correction ledgers and review receipts are retained
 as historical evidence and are not inputs to normal builds. Existing Czech
 build/validation commands and the modern projector CLI now read the new files;

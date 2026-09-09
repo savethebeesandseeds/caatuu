@@ -161,7 +161,8 @@ export function normalizeNounLandingPack(value, options = {}) {
   const items = value.items.map((item, index) => {
     const location = `items[${index}]`;
     exactKeys(item, ["id", "revision", "targetText", "learnerBaseText", "english", "laneId",
-      ...(Object.hasOwn(item, "difficulty") ? ["difficulty"] : [])], location);
+      ...(Object.hasOwn(item, "difficulty") ? ["difficulty"] : []),
+      ...(Object.hasOwn(item, "acceptedLaneIds") ? ["acceptedLaneIds"] : [])], location);
     if (Object.hasOwn(item, "difficulty") && (!Number.isInteger(item.difficulty) || item.difficulty < 1 || item.difficulty > 3)) {
       throw new Error(`${location}.difficulty must be 1, 2, or 3.`);
     }
@@ -174,6 +175,20 @@ export function normalizeNounLandingPack(value, options = {}) {
     if (itemIds.has(itemId)) throw new Error(`items repeats ID ${itemId}.`);
     if (targetWords.has(targetKey)) throw new Error(`items repeats target word ${targetText}.`);
     if (!laneIds.has(laneId)) throw new Error(`${location}.laneId references an undeclared lane ${laneId}.`);
+    let acceptedLaneIds;
+    if (Object.hasOwn(item, "acceptedLaneIds")) {
+      if (!Array.isArray(item.acceptedLaneIds) || !item.acceptedLaneIds.length) {
+        throw new Error(`${location}.acceptedLaneIds must be a non-empty array of declared lane IDs.`);
+      }
+      acceptedLaneIds = Array.from(item.acceptedLaneIds, (value, acceptedIndex) => (
+        token(value, `${location}.acceptedLaneIds[${acceptedIndex}]`)
+      ));
+      if (new Set(acceptedLaneIds).size !== acceptedLaneIds.length
+          || acceptedLaneIds.some((value) => !laneIds.has(value))
+          || !acceptedLaneIds.includes(laneId)) {
+        throw new Error(`${location}.acceptedLaneIds must contain unique declared lanes including its canonical laneId.`);
+      }
+    }
     if ((learnerBaseLanguage === "en" || learnerBaseLanguage.startsWith("en-")) && learnerBaseText !== english) {
       throw new Error(`${location} must render the exact English audit text for an English-base course.`);
     }
@@ -182,7 +197,8 @@ export function normalizeNounLandingPack(value, options = {}) {
     usedLanes.add(laneId);
     return {
       id: itemId, revision: revision(item.revision, `${location}.revision`), targetText,
-      learnerBaseText, english, laneId, ...(item.difficulty === undefined ? {} : { difficulty: item.difficulty })
+      learnerBaseText, english, laneId, ...(item.difficulty === undefined ? {} : { difficulty: item.difficulty }),
+      ...(acceptedLaneIds === undefined ? {} : { acceptedLaneIds })
     };
   });
   for (const laneId of laneIds) {
@@ -267,7 +283,7 @@ export function advanceNounFall(session, deltaMs) {
 export function landNoun(session) {
   if (session.phase !== "falling") return session;
   const count = (session.attemptsByItem[session.item.id] || 0) + 1;
-  const correct = session.selectedLane === session.item.laneId;
+  const correct = (session.item.acceptedLaneIds || [session.item.laneId]).includes(session.selectedLane);
   const streak = correct ? session.streak + 1 : 0;
   return deepFreeze({
     ...session, phase: "feedback", correct, elapsedMs: session.durationMs,

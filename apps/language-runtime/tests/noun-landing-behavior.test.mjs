@@ -42,7 +42,7 @@ function seedMarkup(harness) {
 async function mountGame({ language = "czech", syntheticBase = false, reducedMotion = false,
   fetchFails = false, unsafePath = false, invalidContent = false, speech = false,
   speechFails = false, deferSpeech = false, deferFetch = false, segmentSize = 0, mountControls = true,
-  visuals = false, visualFails = false, initialActive = true, beforeMount, difficulty = 1 } = {}) {
+  visuals = false, visualFails = false, initialActive = true, beforeMount, difficulty = 1, mutateContent } = {}) {
   const raw = JSON.parse(await readFile(new URL(
     "../../languages/" + language + "/static/data/games/grammar-gravity/nouns.json", import.meta.url
   ), "utf8"));
@@ -64,6 +64,7 @@ async function mountGame({ language = "czech", syntheticBase = false, reducedMot
     raw.learnerBaseLanguage = "fr";
     raw.items.forEach((item, index) => { item.learnerBaseText = "Sens français " + index; });
   }
+  mutateContent?.(raw);
   if (invalidContent) raw.items[0].english = "";
   const harness = createBrowserHarness({ course, location: {
     href: "https://caatuu.test/language-runtime/static/games/grammar-gravity.html"
@@ -194,6 +195,28 @@ async function mountGame({ language = "czech", syntheticBase = false, reducedMot
 async function settle() {
   for (let index = 0; index < 12; index += 1) await Promise.resolve();
 }
+
+test("noun feedback acknowledges a selected authored alternative and shows every accepted lane", async () => {
+  const game = await mountGame({ language: "spanish", mutateContent(raw) {
+    // Synthetic acceptance fixture, not a reclassification of the source curriculum.
+    raw.items[0].acceptedLaneIds = raw.lanes.map(({ id }) => id);
+  } });
+  const before = game.controller.snapshot();
+  const alternative = game.raw.lanes.find(({ id }) => id !== before.item.laneId);
+  game.answer(alternative.id);
+  for (let index = 0; index < 8; index += 1) game.frame(index * 100);
+  const after = game.controller.snapshot();
+  assert.equal(after.phase, "feedback");
+  assert.equal(after.correct, true);
+  assert.equal(after.correctCount, 1);
+  for (const lane of game.raw.lanes) assert.ok(game.lane(lane.id).classList.contains("is-correct"));
+  assert.equal(game.lane(alternative.id).classList.contains("is-wrong"), false);
+  assert.ok(game.element("gravityNounFeedback").textContent.includes(alternative.label));
+  assert.equal(game.records.length, 1);
+  assert.equal(game.records[0].successes, 1);
+  assert.equal(game.records[0].xp, 1);
+  game.controller.destroy();
+});
 
 test("an initially inactive noun game loads its gender metadata without timing, input, or speech", async () => {
   const game = await mountGame({ initialActive: false, speech: true });

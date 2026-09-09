@@ -20,8 +20,10 @@ const countExamples = (value) => {
 };
 const catalog = await read('apps/languages/catalog.json');
 const pairs = [];
+let declaredIndependentPairs = 0;
 for (const entry of catalog.courses) {
   const course = await read(entry.manifest);
+  declaredIndependentPairs += course.games.filter(game => game !== 'campaign').length;
   const resource = async key => read(course.resources[key].path);
   for (const game of course.games) {
     if (game === 'campaign') continue; // Derived score, no independent bank.
@@ -68,7 +70,10 @@ for (const entry of catalog.courses) {
     } else throw new Error(`Unmapped enabled game: ${course.id}/${game}`);
   }
 }
-if (pairs.length !== 20) throw new Error(`Benchmark has 20 independent pairs; observed ${pairs.length}. Record scope changes explicitly.`);
+if (pairs.length !== declaredIndependentPairs
+    || new Set(pairs.map(pair => `${pair.courseId}/${pair.gameId}`)).size !== pairs.length) {
+  throw new Error(`Expected ${declaredIndependentPairs} distinct declared course/game pairs; observed ${pairs.length}.`);
+}
 const result = { schemaVersion: 1, capturedAt: new Date().toISOString(), measurement: 'inventory only; no quality points', pairs, sourceSha256: Object.fromEntries(sources) };
 const outputIndex = process.argv.indexOf('--output');
 if (outputIndex >= 0) {

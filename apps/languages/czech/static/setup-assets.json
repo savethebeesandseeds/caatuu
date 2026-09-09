@@ -6,7 +6,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-czech-pwa-v701",
+    "cacheName": "caatuu-czech-pwa-v702",
     "cachePrefix": "caatuu-czech-pwa-",
     "assets": [
       "/language-runtime/static/source/image-embedding-index.mjs?v=image-index-runtime-1",
@@ -22,12 +22,12 @@
       "/language-runtime/static/styles/caatuu-word-world.css?v=word-net-92",
       "/language-runtime/static/styles/dictionary-word-card.css?v=dictionary-card-1",
       "/language-runtime/static/source/initial-theme.js?v=theme-3",
-      "/language-runtime/static/source/app-bootstrap.mjs?v=app-88",
+      "/language-runtime/static/source/app-bootstrap.mjs?v=app-89",
       "/language-runtime/static/source/interface-content.mjs?v=interface-runtime-2",
       "/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-10",
       "/language-runtime/static/source/dictionary-provider-loader.mjs",
       "/language-runtime/static/source/caatuu-workspace.js?v=workspace-32",
-      "/language-runtime/static/source/maintenance-ui.js?v=maintenance-24",
+      "/language-runtime/static/source/maintenance-ui.js?v=maintenance-25",
       "/language-runtime/static/source/child-facing-assets.mjs?v=child-facing-assets-2",
       "/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-14",
       "/language-runtime/static/source/games/verb-nebula/verb-exercise-family-core.mjs?v=verb-exercise-family-core-3",
@@ -53,8 +53,8 @@
       "/language-runtime/static/source/games/course-game-content.mjs?v=course-game-content-1",
       "/language-runtime/static/source/games/grammar-gravity/grammar-gravity-core.mjs?v=grammar-gravity-core-7",
       "/language-runtime/static/source/games/grammar-gravity/grammar-gravity-host.mjs?v=grammar-gravity-shared-37",
-      "/language-runtime/static/source/games/grammar-gravity/noun-landing-core.mjs?v=noun-landing-core-10",
-      "/language-runtime/static/source/games/grammar-gravity/noun-landing-host.mjs?v=noun-landing-host-22",
+      "/language-runtime/static/source/games/grammar-gravity/noun-landing-core.mjs?v=noun-landing-core-11",
+      "/language-runtime/static/source/games/grammar-gravity/noun-landing-host.mjs?v=noun-landing-host-23",
       "/language-runtime/static/source/games/grammar-gravity/noun-visual.mjs?v=noun-visual-4",
       "/language-runtime/static/source/games/grammar-gravity/adjective-flight-core.mjs?v=grammar-journey-3",
       "/language-runtime/static/source/games/grammar-gravity/adjective-flight-host.mjs?v=adjective-flight-host-18",
@@ -238,7 +238,7 @@
       "/language-runtime/static/styles/caatuu-developer-tools.css?v=developer-tools-2",
       "/language-runtime/static/games/sound-quasar.html",
       "/language-runtime/static/source/games/sound-quasar/sound-quasar-host.mjs?v=sound-quasar-13",
-      "/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-7",
+      "/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-8",
       "/language-runtime/static/styles/games/sound-quasar.css?v=sound-quasar-6",
       "data/games/sound-quasar/content.json?v=sound-quasar-retained-levels-1",
       "/language-runtime/static/source/target-text-tones.mjs?v=target-text-tones-1",
@@ -270,7 +270,9 @@
       "/language-runtime/static/legal/CZECH-WORD-WORLD-NOTICE.txt",
       "/language-runtime/static/legal/CZECH-DICTIONARY-ATTRIBUTION.txt",
       "/language-runtime/static/legal/CC-BY-SA-4.0.txt",
-      "/language-runtime/static/legal/APACHE-2.0-LICENSE.txt"
+      "/language-runtime/static/legal/APACHE-2.0-LICENSE.txt",
+      "/language-runtime/static/data/english-concepts/word-world-nb-v1.json",
+      "/assets/icons/norway_flag.png"
     ]
   },
   "artifacts": [

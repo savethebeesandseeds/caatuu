@@ -1,7 +1,7 @@
 import {
   normalizeNounLandingPack, createNounLandingSession, startNounLanding,
   selectNounLane, advanceNounFall, landNoun, nextNoun, setNounFallDuration
-} from "./noun-landing-core.mjs?v=noun-landing-core-10";
+} from "./noun-landing-core.mjs?v=noun-landing-core-11";
 import { fetchDeclaredCourseGameJson } from "../course-game-content.mjs?v=course-game-content-1";
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-8";
 import { createNounVisual } from "./noun-visual.mjs?v=noun-visual-4";
@@ -174,11 +174,14 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
       button.disabled = !playing || !engaged();
       button.setAttribute("aria-pressed", String(selected));
       button.classList.toggle("is-selected", selected);
-      button.classList.toggle("is-correct", settled && lane.id === session.item.laneId);
+      button.classList.toggle("is-correct", settled
+        && (session.item.acceptedLaneIds || [session.item.laneId]).includes(lane.id));
       button.classList.toggle("is-wrong", settled && selected && !session.correct);
     });
     const message = element("gravityNounFeedback");
-    const lane = settled ? pack.lanes.find(({ id }) => id === session.item.laneId) : null;
+    const lane = settled ? pack.lanes.find(({ id }) => (
+      id === (session.correct ? session.selectedLane : session.item.laneId)
+    )) : null;
     const result = settled ? t("result", { word: session.item.targetText, lane: lane.label }) : "";
     message.textContent = soundError ? t("soundunavailable") : result;
     if (settled && !soundError) message.setAttribute("aria-label", `${t(session.correct ? "correct" : "incorrect")} · ${result}`);

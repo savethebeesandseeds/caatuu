@@ -1,0 +1,5100 @@
+{
+  "schemaVersion": "caatuu-grammar-gravity-nouns-v2",
+  "courseId": "nb",
+  "gameId": "grammar-gravity",
+  "contentId": "nb.grammar-gravity.nouns-v1",
+  "contentRevision": 1,
+  "learnerBaseLanguage": "en",
+  "targetLanguage": "nb-NO",
+  "englishAuditLanguage": "en",
+  "review": {
+    "status": "native-review-required",
+    "reviewer": null,
+    "reviewedAt": null,
+    "notes": "Original AI-authored and AI-reviewed Bokmål nouns. Gender possibilities checked against official Ordbøkene grammatical facts, with homographs resolved by meaning. No native-speaker or human approval. See docs/NORWEGIAN_BOKMAL_COURSE_20260909.md."
+  },
+  "license": {
+    "origin": "caatuu-first-party-authored",
+    "status": "release-review-required",
+    "spdxExpression": null,
+    "notes": "New development exercise content; no independent release clearance is claimed. Existing course publication boundaries remain unchanged."
+  },
+  "scope": "Bare singular Bokmål nouns. Select any permitted grammatical gender: masculine (en), feminine (ei), or neuter (et). Feminine nouns also permit masculine inflection in Bokmål; additional dictionary-attested alternatives are accepted. Grammatical gender does not describe the person or object.",
+  "lanes": [
+    {
+      "id": "masculine",
+      "label": "Masculine",
+      "image": "/assets/micelaneous/male_gender.png"
+    },
+    {
+      "id": "neuter",
+      "label": "Neuter",
+      "image": "/assets/micelaneous/neutral_gender.png"
+    },
+    {
+      "id": "feminine",
+      "label": "Feminine",
+      "image": "/assets/micelaneous/female_gender.png"
+    }
+  ],
+  "items": [
+    {
+      "id": "nb.gravity.noun.mann",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "mann",
+      "learnerBaseText": "man",
+      "english": "man",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.kvinne",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "kvinne",
+      "learnerBaseText": "woman",
+      "english": "woman",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.gutt",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "gutt",
+      "learnerBaseText": "boy",
+      "english": "boy",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.jente",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "jente",
+      "learnerBaseText": "girl",
+      "english": "girl",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.barn",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "barn",
+      "learnerBaseText": "child",
+      "english": "child",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.venn",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "venn",
+      "learnerBaseText": "friend",
+      "english": "friend",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.familie",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "familie",
+      "learnerBaseText": "family",
+      "english": "family",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.nabo",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "nabo",
+      "learnerBaseText": "neighbour",
+      "english": "neighbour",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.laerer",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "lærer",
+      "learnerBaseText": "teacher",
+      "english": "teacher",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.elev",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "elev",
+      "learnerBaseText": "pupil",
+      "english": "pupil",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.mor",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "mor",
+      "learnerBaseText": "mother",
+      "english": "mother",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.far",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "far",
+      "learnerBaseText": "father",
+      "english": "father",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.soester",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "søster",
+      "learnerBaseText": "sister",
+      "english": "sister",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.bror",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "bror",
+      "learnerBaseText": "brother",
+      "english": "brother",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.datter",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "datter",
+      "learnerBaseText": "daughter",
+      "english": "daughter",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.soenn",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "sønn",
+      "learnerBaseText": "son",
+      "english": "son",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.bestemor",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "bestemor",
+      "learnerBaseText": "grandmother",
+      "english": "grandmother",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.bestefar",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "bestefar",
+      "learnerBaseText": "grandfather",
+      "english": "grandfather",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.tante",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "tante",
+      "learnerBaseText": "aunt",
+      "english": "aunt",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.onkel",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "onkel",
+      "learnerBaseText": "uncle",
+      "english": "uncle",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.hus",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "hus",
+      "learnerBaseText": "house",
+      "english": "house",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.rom",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "rom",
+      "learnerBaseText": "room",
+      "english": "room",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.kjoekken",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "kjøkken",
+      "learnerBaseText": "kitchen",
+      "english": "kitchen",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.bad",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "bad",
+      "learnerBaseText": "bathroom",
+      "english": "bathroom",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.doer",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "dør",
+      "learnerBaseText": "door",
+      "english": "door",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.vindu",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "vindu",
+      "learnerBaseText": "window",
+      "english": "window",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.gulv",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "gulv",
+      "learnerBaseText": "floor",
+      "english": "floor",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.tak",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "tak",
+      "learnerBaseText": "roof",
+      "english": "roof",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.vegg",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "vegg",
+      "learnerBaseText": "wall",
+      "english": "wall",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.trapp",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "trapp",
+      "learnerBaseText": "staircase",
+      "english": "staircase",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.bord",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "bord",
+      "learnerBaseText": "table",
+      "english": "table",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.stol",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "stol",
+      "learnerBaseText": "chair",
+      "english": "chair",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.seng",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "seng",
+      "learnerBaseText": "bed",
+      "english": "bed",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.sofa",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "sofa",
+      "learnerBaseText": "sofa",
+      "english": "sofa",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.skap",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "skap",
+      "learnerBaseText": "cupboard",
+      "english": "cupboard",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.hylle",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "hylle",
+      "learnerBaseText": "shelf",
+      "english": "shelf",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.lampe",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "lampe",
+      "learnerBaseText": "lamp",
+      "english": "lamp",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.teppe",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "teppe",
+      "learnerBaseText": "carpet or blanket",
+      "english": "carpet or blanket",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.pute",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "pute",
+      "learnerBaseText": "cushion",
+      "english": "cushion",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.speil",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "speil",
+      "learnerBaseText": "mirror",
+      "english": "mirror",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.bok",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "bok",
+      "learnerBaseText": "book",
+      "english": "book",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.blyant",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "blyant",
+      "learnerBaseText": "pencil",
+      "english": "pencil",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.penn",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "penn",
+      "learnerBaseText": "pen",
+      "english": "pen",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.papir",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "papir",
+      "learnerBaseText": "paper",
+      "english": "paper",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.viskelaer",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "viskelær",
+      "learnerBaseText": "eraser",
+      "english": "eraser",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.linjal",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "linjal",
+      "learnerBaseText": "ruler",
+      "english": "ruler",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.sekk",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "sekk",
+      "learnerBaseText": "sack",
+      "english": "sack",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.skole",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "skole",
+      "learnerBaseText": "school",
+      "english": "school",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.klasse",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "klasse",
+      "learnerBaseText": "class",
+      "english": "class",
+      "laneId": "masculine",
+      "acceptedLaneIds": [
+        "masculine",
+        "feminine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.ord",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "ord",
+      "learnerBaseText": "word",
+      "english": "word",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.broed",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "brød",
+      "learnerBaseText": "bread",
+      "english": "bread",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.ost",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "ost",
+      "learnerBaseText": "cheese",
+      "english": "cheese",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.egg",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "egg",
+      "learnerBaseText": "egg",
+      "english": "egg",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.eple",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "eple",
+      "learnerBaseText": "apple",
+      "english": "apple",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.banan",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "banan",
+      "learnerBaseText": "banana",
+      "english": "banana",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.appelsin",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "appelsin",
+      "learnerBaseText": "orange",
+      "english": "orange",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.potet",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "potet",
+      "learnerBaseText": "potato",
+      "english": "potato",
+      "laneId": "masculine",
+      "acceptedLaneIds": [
+        "masculine",
+        "feminine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.gulrot",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "gulrot",
+      "learnerBaseText": "carrot",
+      "english": "carrot",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.tomat",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "tomat",
+      "learnerBaseText": "tomato",
+      "english": "tomato",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.agurk",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "agurk",
+      "learnerBaseText": "cucumber",
+      "english": "cucumber",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.vann",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "vann",
+      "learnerBaseText": "water",
+      "english": "water",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.melk",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "melk",
+      "learnerBaseText": "milk",
+      "english": "milk",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.saft",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "saft",
+      "learnerBaseText": "fruit cordial",
+      "english": "fruit cordial",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.te",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "te",
+      "learnerBaseText": "tea",
+      "english": "tea",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.kaffe",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "kaffe",
+      "learnerBaseText": "coffee",
+      "english": "coffee",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.suppe",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "suppe",
+      "learnerBaseText": "soup",
+      "english": "soup",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.ris",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "ris",
+      "learnerBaseText": "rice",
+      "english": "rice",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.pasta",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "pasta",
+      "learnerBaseText": "pasta",
+      "english": "pasta",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.kjoett",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "kjøtt",
+      "learnerBaseText": "meat",
+      "english": "meat",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.smoer",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "smør",
+      "learnerBaseText": "butter",
+      "english": "butter",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.kopp",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "kopp",
+      "learnerBaseText": "cup",
+      "english": "cup",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.glass",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "glass",
+      "learnerBaseText": "drinking glass",
+      "english": "drinking glass",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.tallerken",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "tallerken",
+      "learnerBaseText": "plate",
+      "english": "plate",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.skaal",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "skål",
+      "learnerBaseText": "bowl",
+      "english": "bowl",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.kniv",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "kniv",
+      "learnerBaseText": "knife",
+      "english": "knife",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.gaffel",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "gaffel",
+      "learnerBaseText": "fork",
+      "english": "fork",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.skje",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "skje",
+      "learnerBaseText": "spoon",
+      "english": "spoon",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.flaske",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "flaske",
+      "learnerBaseText": "bottle",
+      "english": "bottle",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.matboks",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "matboks",
+      "learnerBaseText": "lunch box",
+      "english": "lunch box",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.gryte",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "gryte",
+      "learnerBaseText": "cooking pot",
+      "english": "cooking pot",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.hund",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "hund",
+      "learnerBaseText": "dog",
+      "english": "dog",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.katt",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "katt",
+      "learnerBaseText": "cat",
+      "english": "cat",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.hest",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "hest",
+      "learnerBaseText": "horse",
+      "english": "horse",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.ku",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "ku",
+      "learnerBaseText": "cow",
+      "english": "cow",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.sau",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "sau",
+      "learnerBaseText": "sheep",
+      "english": "sheep",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.gris",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "gris",
+      "learnerBaseText": "pig",
+      "english": "pig",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.geit",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "geit",
+      "learnerBaseText": "goat",
+      "english": "goat",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.fugl",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "fugl",
+      "learnerBaseText": "bird",
+      "english": "bird",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.fisk",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "fisk",
+      "learnerBaseText": "fish",
+      "english": "fish",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.mus",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "mus",
+      "learnerBaseText": "mouse",
+      "english": "mouse",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.tre",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "tre",
+      "learnerBaseText": "tree",
+      "english": "tree",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.blomst",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "blomst",
+      "learnerBaseText": "flower",
+      "english": "flower",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.blad",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "blad",
+      "learnerBaseText": "leaf",
+      "english": "leaf",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.stein",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "stein",
+      "learnerBaseText": "stone",
+      "english": "stone",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.fjell",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "fjell",
+      "learnerBaseText": "mountain",
+      "english": "mountain",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.skog",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "skog",
+      "learnerBaseText": "forest",
+      "english": "forest",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.elv",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "elv",
+      "learnerBaseText": "river",
+      "english": "river",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.sjoe",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "sjø",
+      "learnerBaseText": "sea or lake",
+      "english": "sea or lake",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.strand",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "strand",
+      "learnerBaseText": "beach",
+      "english": "beach",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.oey",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "øy",
+      "learnerBaseText": "island",
+      "english": "island",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.sol",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "sol",
+      "learnerBaseText": "sun",
+      "english": "sun",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.maane",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "måne",
+      "learnerBaseText": "moon",
+      "english": "moon",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.stjerne",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "stjerne",
+      "learnerBaseText": "star",
+      "english": "star",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.himmel",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "himmel",
+      "learnerBaseText": "sky",
+      "english": "sky",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.sky",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "sky",
+      "learnerBaseText": "cloud",
+      "english": "cloud",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.regn",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "regn",
+      "learnerBaseText": "rain",
+      "english": "rain",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.snoe",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "snø",
+      "learnerBaseText": "snow",
+      "english": "snow",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.vind",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "vind",
+      "learnerBaseText": "wind",
+      "english": "wind",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.is",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "is",
+      "learnerBaseText": "ice",
+      "english": "ice",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.vaer",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "vær",
+      "learnerBaseText": "weather",
+      "english": "weather",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.hode",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "hode",
+      "learnerBaseText": "head",
+      "english": "head",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.haand",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "hånd",
+      "learnerBaseText": "hand",
+      "english": "hand",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.fot",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "fot",
+      "learnerBaseText": "foot",
+      "english": "foot",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.bein",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "bein",
+      "learnerBaseText": "leg or bone",
+      "english": "leg or bone",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.arm",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "arm",
+      "learnerBaseText": "arm",
+      "english": "arm",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.oeye",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "øye",
+      "learnerBaseText": "eye",
+      "english": "eye",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.oere",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "øre",
+      "learnerBaseText": "ear",
+      "english": "ear",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.nese",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "nese",
+      "learnerBaseText": "nose",
+      "english": "nose",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.munn",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "munn",
+      "learnerBaseText": "mouth",
+      "english": "mouth",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.tann",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "tann",
+      "learnerBaseText": "tooth",
+      "english": "tooth",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.jakke",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "jakke",
+      "learnerBaseText": "jacket",
+      "english": "jacket",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.bukse",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "bukse",
+      "learnerBaseText": "pair of trousers",
+      "english": "pair of trousers",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.skjorte",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "skjorte",
+      "learnerBaseText": "shirt",
+      "english": "shirt",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.genser",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "genser",
+      "learnerBaseText": "sweater",
+      "english": "sweater",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.sko",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "sko",
+      "learnerBaseText": "shoe",
+      "english": "shoe",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.sokk",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "sokk",
+      "learnerBaseText": "sock",
+      "english": "sock",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.lue",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "lue",
+      "learnerBaseText": "woolly hat",
+      "english": "woolly hat",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.kjole",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "kjole",
+      "learnerBaseText": "dress",
+      "english": "dress",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.skjoert",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "skjørt",
+      "learnerBaseText": "skirt",
+      "english": "skirt",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.vott",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "vott",
+      "learnerBaseText": "mitten",
+      "english": "mitten",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.bil",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "bil",
+      "learnerBaseText": "car",
+      "english": "car",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.buss",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "buss",
+      "learnerBaseText": "bus",
+      "english": "bus",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.tog",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "tog",
+      "learnerBaseText": "train",
+      "english": "train",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.sykkel",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "sykkel",
+      "learnerBaseText": "bicycle",
+      "english": "bicycle",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.baat",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "båt",
+      "learnerBaseText": "boat",
+      "english": "boat",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.fly",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "fly",
+      "learnerBaseText": "aeroplane",
+      "english": "aeroplane",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.vei",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "vei",
+      "learnerBaseText": "road",
+      "english": "road",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.gate",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "gate",
+      "learnerBaseText": "street",
+      "english": "street",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.butikk",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "butikk",
+      "learnerBaseText": "shop",
+      "english": "shop",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.park",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "park",
+      "learnerBaseText": "park",
+      "english": "park",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.ball",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "ball",
+      "learnerBaseText": "ball",
+      "english": "ball",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.leke",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "leke",
+      "learnerBaseText": "toy",
+      "english": "toy",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.spill",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "spill",
+      "learnerBaseText": "game",
+      "english": "game",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.sang",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "sang",
+      "learnerBaseText": "song",
+      "english": "song",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.bilde",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "bilde",
+      "learnerBaseText": "picture",
+      "english": "picture",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.dag",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "dag",
+      "learnerBaseText": "day",
+      "english": "day",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.natt",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "natt",
+      "learnerBaseText": "night",
+      "english": "night",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.uke",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "uke",
+      "learnerBaseText": "week",
+      "english": "week",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.aar",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "år",
+      "learnerBaseText": "year",
+      "english": "year",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.time",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "time",
+      "learnerBaseText": "hour",
+      "english": "hour",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.leilighet",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "leilighet",
+      "learnerBaseText": "apartment",
+      "english": "apartment",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.soverom",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "soverom",
+      "learnerBaseText": "bedroom",
+      "english": "bedroom",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.stue",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "stue",
+      "learnerBaseText": "living room",
+      "english": "living room",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.gang",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "gang",
+      "learnerBaseText": "hallway",
+      "english": "hallway",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.kjeller",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "kjeller",
+      "learnerBaseText": "cellar",
+      "english": "cellar",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.loft",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "loft",
+      "learnerBaseText": "attic",
+      "english": "attic",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.balkong",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "balkong",
+      "learnerBaseText": "balcony",
+      "english": "balcony",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.hage",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "hage",
+      "learnerBaseText": "garden",
+      "english": "garden",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.garasje",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "garasje",
+      "learnerBaseText": "garage",
+      "english": "garage",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.hytte",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "hytte",
+      "learnerBaseText": "cabin",
+      "english": "cabin",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.noekkel",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "nøkkel",
+      "learnerBaseText": "key",
+      "english": "key",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.laas",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "lås",
+      "learnerBaseText": "lock",
+      "english": "lock",
+      "laneId": "masculine",
+      "acceptedLaneIds": [
+        "masculine",
+        "neuter"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.gardin",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "gardin",
+      "learnerBaseText": "curtain",
+      "english": "curtain",
+      "laneId": "neuter",
+      "acceptedLaneIds": [
+        "neuter",
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.dyne",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "dyne",
+      "learnerBaseText": "duvet",
+      "english": "duvet",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.laken",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "laken",
+      "learnerBaseText": "bed sheet",
+      "english": "bed sheet",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.haandkle",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "håndkle",
+      "learnerBaseText": "towel",
+      "english": "towel",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.saape",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "såpe",
+      "learnerBaseText": "soap",
+      "english": "soap",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.sjampo",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "sjampo",
+      "learnerBaseText": "shampoo",
+      "english": "shampoo",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.tannboerste",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "tannbørste",
+      "learnerBaseText": "toothbrush",
+      "english": "toothbrush",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.kam",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "kam",
+      "learnerBaseText": "comb",
+      "english": "comb",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.kjoeleskap",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "kjøleskap",
+      "learnerBaseText": "refrigerator",
+      "english": "refrigerator",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.fryser",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "fryser",
+      "learnerBaseText": "freezer",
+      "english": "freezer",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.komfyr",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "komfyr",
+      "learnerBaseText": "cooker",
+      "english": "cooker",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.ovn",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "ovn",
+      "learnerBaseText": "oven",
+      "english": "oven",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.vaskemaskin",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "vaskemaskin",
+      "learnerBaseText": "washing machine",
+      "english": "washing machine",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.oppvaskmaskin",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "oppvaskmaskin",
+      "learnerBaseText": "dishwasher",
+      "english": "dishwasher",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.stoevsuger",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "støvsuger",
+      "learnerBaseText": "vacuum cleaner",
+      "english": "vacuum cleaner",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.kost",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "kost",
+      "learnerBaseText": "broom",
+      "english": "broom",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.boette",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "bøtte",
+      "learnerBaseText": "bucket",
+      "english": "bucket",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.svamp",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "svamp",
+      "learnerBaseText": "sponge",
+      "english": "sponge",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.paere",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "pære",
+      "learnerBaseText": "pear",
+      "english": "pear",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.plomme",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "plomme",
+      "learnerBaseText": "plum",
+      "english": "plum",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.fersken",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "fersken",
+      "learnerBaseText": "peach",
+      "english": "peach",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.sitron",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "sitron",
+      "learnerBaseText": "lemon",
+      "english": "lemon",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.drue",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "drue",
+      "learnerBaseText": "grape",
+      "english": "grape",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.jordbaer",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "jordbær",
+      "learnerBaseText": "strawberry",
+      "english": "strawberry",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.blaabaer",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "blåbær",
+      "learnerBaseText": "blueberry",
+      "english": "blueberry",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.bringebaer",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "bringebær",
+      "learnerBaseText": "raspberry",
+      "english": "raspberry",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.noett",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "nøtt",
+      "learnerBaseText": "nut",
+      "english": "nut",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.rosin",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "rosin",
+      "learnerBaseText": "raisin",
+      "english": "raisin",
+      "laneId": "masculine",
+      "acceptedLaneIds": [
+        "masculine",
+        "feminine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.loek",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "løk",
+      "learnerBaseText": "onion",
+      "english": "onion",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.hvitloek",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "hvitløk",
+      "learnerBaseText": "garlic",
+      "english": "garlic",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.brokkoli",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "brokkoli",
+      "learnerBaseText": "broccoli",
+      "english": "broccoli",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.blomkaal",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "blomkål",
+      "learnerBaseText": "cauliflower",
+      "english": "cauliflower",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.salat",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "salat",
+      "learnerBaseText": "salad or lettuce",
+      "english": "salad or lettuce",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.ert",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "ert",
+      "learnerBaseText": "pea",
+      "english": "pea",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.boenne",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "bønne",
+      "learnerBaseText": "bean",
+      "english": "bean",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.sopp",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "sopp",
+      "learnerBaseText": "mushroom",
+      "english": "mushroom",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.omelett",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "omelett",
+      "learnerBaseText": "omelette",
+      "english": "omelette",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.smoerbroed",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "smørbrød",
+      "learnerBaseText": "open sandwich",
+      "english": "open sandwich",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.brunost",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "brunost",
+      "learnerBaseText": "brown whey cheese",
+      "english": "brown whey cheese",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.vaffel",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "vaffel",
+      "learnerBaseText": "waffle",
+      "english": "waffle",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.pannekake",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "pannekake",
+      "learnerBaseText": "pancake",
+      "english": "pancake",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.bolle",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "bolle",
+      "learnerBaseText": "sweet bun",
+      "english": "sweet bun",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.kanelbolle",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "kanelbolle",
+      "learnerBaseText": "cinnamon bun",
+      "english": "cinnamon bun",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.knekkebroed",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "knekkebrød",
+      "learnerBaseText": "crispbread",
+      "english": "crispbread",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.groet",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "grøt",
+      "learnerBaseText": "porridge",
+      "english": "porridge",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.syltetoey",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "syltetøy",
+      "learnerBaseText": "jam",
+      "english": "jam",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.roemme",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "rømme",
+      "learnerBaseText": "sour cream",
+      "english": "sour cream",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.matpakke",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "matpakke",
+      "learnerBaseText": "packed lunch",
+      "english": "packed lunch",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.rev",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "rev",
+      "learnerBaseText": "fox",
+      "english": "fox",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.ulv",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "ulv",
+      "learnerBaseText": "wolf",
+      "english": "wolf",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.bjoern",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "bjørn",
+      "learnerBaseText": "bear",
+      "english": "bear",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.elg",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "elg",
+      "learnerBaseText": "moose",
+      "english": "moose",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.rein",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "rein",
+      "learnerBaseText": "reindeer",
+      "english": "reindeer",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.hjort",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "hjort",
+      "learnerBaseText": "deer",
+      "english": "deer",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.ekorn",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "ekorn",
+      "learnerBaseText": "squirrel",
+      "english": "squirrel",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.hare",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "hare",
+      "learnerBaseText": "hare",
+      "english": "hare",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.pinnsvin",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "pinnsvin",
+      "learnerBaseText": "hedgehog",
+      "english": "hedgehog",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.oter",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "oter",
+      "learnerBaseText": "otter",
+      "english": "otter",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.and",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "and",
+      "learnerBaseText": "duck",
+      "english": "duck",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.gaas",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "gås",
+      "learnerBaseText": "goose",
+      "english": "goose",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.hoene",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "høne",
+      "learnerBaseText": "hen",
+      "english": "hen",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.hane",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "hane",
+      "learnerBaseText": "rooster",
+      "english": "rooster",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.oern",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "ørn",
+      "learnerBaseText": "eagle",
+      "english": "eagle",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.ugle",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "ugle",
+      "learnerBaseText": "owl",
+      "english": "owl",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.maake",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "måke",
+      "learnerBaseText": "seagull",
+      "english": "seagull",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.sommerfugl",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "sommerfugl",
+      "learnerBaseText": "butterfly",
+      "english": "butterfly",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.bie",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "bie",
+      "learnerBaseText": "bee",
+      "english": "bee",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.maur",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "maur",
+      "learnerBaseText": "ant",
+      "english": "ant",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.hval",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "hval",
+      "learnerBaseText": "whale",
+      "english": "whale",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.sel",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "sel",
+      "learnerBaseText": "seal",
+      "english": "seal",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.torsk",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "torsk",
+      "learnerBaseText": "cod",
+      "english": "cod",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.laks",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "laks",
+      "learnerBaseText": "salmon",
+      "english": "salmon",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.krabbe",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "krabbe",
+      "learnerBaseText": "crab",
+      "english": "crab",
+      "laneId": "masculine",
+      "acceptedLaneIds": [
+        "masculine",
+        "feminine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.reke",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "reke",
+      "learnerBaseText": "shrimp",
+      "english": "shrimp",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.manet",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "manet",
+      "learnerBaseText": "jellyfish",
+      "english": "jellyfish",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.skjell",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "skjell",
+      "learnerBaseText": "seashell",
+      "english": "seashell",
+      "laneId": "neuter",
+      "acceptedLaneIds": [
+        "neuter",
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.frosk",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "frosk",
+      "learnerBaseText": "frog",
+      "english": "frog",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.slange",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "slange",
+      "learnerBaseText": "snake",
+      "english": "snake",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.fjord",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "fjord",
+      "learnerBaseText": "fjord",
+      "english": "fjord",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.dal",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "dal",
+      "learnerBaseText": "valley",
+      "english": "valley",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.innsjoe",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "innsjø",
+      "learnerBaseText": "lake",
+      "english": "lake",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.bekk",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "bekk",
+      "learnerBaseText": "stream",
+      "english": "stream",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.foss",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "foss",
+      "learnerBaseText": "waterfall",
+      "english": "waterfall",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.kyst",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "kyst",
+      "learnerBaseText": "coast",
+      "english": "coast",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.halvoey",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "halvøy",
+      "learnerBaseText": "peninsula",
+      "english": "peninsula",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.eng",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "eng",
+      "learnerBaseText": "meadow",
+      "english": "meadow",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.myr",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "myr",
+      "learnerBaseText": "bog",
+      "english": "bog",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.sti",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "sti",
+      "learnerBaseText": "path",
+      "english": "path",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.bjoerk",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "bjørk",
+      "learnerBaseText": "birch",
+      "english": "birch",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.gran",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "gran",
+      "learnerBaseText": "spruce",
+      "english": "spruce",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.furu",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "furu",
+      "learnerBaseText": "pine",
+      "english": "pine",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.eik",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "eik",
+      "learnerBaseText": "oak",
+      "english": "oak",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.rot",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "rot",
+      "learnerBaseText": "root",
+      "english": "root",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.grein",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "grein",
+      "learnerBaseText": "branch",
+      "english": "branch",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.busk",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "busk",
+      "learnerBaseText": "bush",
+      "english": "bush",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.froe",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "frø",
+      "learnerBaseText": "seed",
+      "english": "seed",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.gress",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "gress",
+      "learnerBaseText": "grass",
+      "english": "grass",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.jord",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "jord",
+      "learnerBaseText": "soil",
+      "english": "soil",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.vaar",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "vår",
+      "learnerBaseText": "spring (season)",
+      "english": "spring (season)",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.sommer",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "sommer",
+      "learnerBaseText": "summer",
+      "english": "summer",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.hoest",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "høst",
+      "learnerBaseText": "autumn",
+      "english": "autumn",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.vinter",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "vinter",
+      "learnerBaseText": "winter",
+      "english": "winter",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.regnbue",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "regnbue",
+      "learnerBaseText": "rainbow",
+      "english": "rainbow",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.taake",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "tåke",
+      "learnerBaseText": "fog",
+      "english": "fog",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.storm",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "storm",
+      "learnerBaseText": "storm",
+      "english": "storm",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.torden",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "torden",
+      "learnerBaseText": "thunder",
+      "english": "thunder",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.lyn",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "lyn",
+      "learnerBaseText": "lightning bolt",
+      "english": "lightning bolt",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.nordlys",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "nordlys",
+      "learnerBaseText": "northern lights",
+      "english": "northern lights",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.hjerte",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "hjerte",
+      "learnerBaseText": "heart",
+      "english": "heart",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.rygg",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "rygg",
+      "learnerBaseText": "back (body)",
+      "english": "back (body)",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.mage",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "mage",
+      "learnerBaseText": "stomach",
+      "english": "stomach",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.skulder",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "skulder",
+      "learnerBaseText": "shoulder",
+      "english": "shoulder",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.albue",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "albue",
+      "learnerBaseText": "elbow",
+      "english": "elbow",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.kne",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "kne",
+      "learnerBaseText": "knee",
+      "english": "knee",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.hals",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "hals",
+      "learnerBaseText": "neck or throat",
+      "english": "neck or throat",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.finger",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "finger",
+      "learnerBaseText": "finger",
+      "english": "finger",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.taa",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "tå",
+      "learnerBaseText": "toe",
+      "english": "toe",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.haar",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "hår",
+      "learnerBaseText": "hair",
+      "english": "hair",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.lege",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "lege",
+      "learnerBaseText": "doctor",
+      "english": "doctor",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.sykepleier",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "sykepleier",
+      "learnerBaseText": "nurse",
+      "english": "nurse",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.tannlege",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "tannlege",
+      "learnerBaseText": "dentist",
+      "english": "dentist",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.sykehus",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "sykehus",
+      "learnerBaseText": "hospital",
+      "english": "hospital",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.apotek",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "apotek",
+      "learnerBaseText": "pharmacy",
+      "english": "pharmacy",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.medisin",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "medisin",
+      "learnerBaseText": "medicine",
+      "english": "medicine",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.plaster",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "plaster",
+      "learnerBaseText": "adhesive bandage",
+      "english": "adhesive bandage",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.saar",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "sår",
+      "learnerBaseText": "wound",
+      "english": "wound",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.feber",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "feber",
+      "learnerBaseText": "fever",
+      "english": "fever",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.forkjoelelse",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "forkjølelse",
+      "learnerBaseText": "cold (illness)",
+      "english": "cold (illness)",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.skjerf",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "skjerf",
+      "learnerBaseText": "scarf",
+      "english": "scarf",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.hanske",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "hanske",
+      "learnerBaseText": "glove",
+      "english": "glove",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.belte",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "belte",
+      "learnerBaseText": "belt",
+      "english": "belt",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.stoevel",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "støvel",
+      "learnerBaseText": "boot",
+      "english": "boot",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.sandal",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "sandal",
+      "learnerBaseText": "sandal",
+      "english": "sandal",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.kaape",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "kåpe",
+      "learnerBaseText": "overcoat",
+      "english": "overcoat",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.dress",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "dress",
+      "learnerBaseText": "suit",
+      "english": "suit",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.regnjakke",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "regnjakke",
+      "learnerBaseText": "raincoat",
+      "english": "raincoat",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.paraply",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "paraply",
+      "learnerBaseText": "umbrella",
+      "english": "umbrella",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.hette",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "hette",
+      "learnerBaseText": "hood",
+      "english": "hood",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.stasjon",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "stasjon",
+      "learnerBaseText": "station",
+      "english": "station",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.holdeplass",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "holdeplass",
+      "learnerBaseText": "bus or tram stop",
+      "english": "bus or tram stop",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.flyplass",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "flyplass",
+      "learnerBaseText": "airport",
+      "english": "airport",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.havn",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "havn",
+      "learnerBaseText": "harbour",
+      "english": "harbour",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.ferje",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "ferje",
+      "learnerBaseText": "ferry",
+      "english": "ferry",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.trikk",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "trikk",
+      "learnerBaseText": "tram",
+      "english": "tram",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.drosje",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "drosje",
+      "learnerBaseText": "taxi",
+      "english": "taxi",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.billett",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "billett",
+      "learnerBaseText": "ticket",
+      "english": "ticket",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.pass",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "pass",
+      "learnerBaseText": "passport",
+      "english": "passport",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.koffert",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "koffert",
+      "learnerBaseText": "suitcase",
+      "english": "suitcase",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.bibliotek",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "bibliotek",
+      "learnerBaseText": "library",
+      "english": "library",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.museum",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "museum",
+      "learnerBaseText": "museum",
+      "english": "museum",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.kino",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "kino",
+      "learnerBaseText": "cinema",
+      "english": "cinema",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.teater",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "teater",
+      "learnerBaseText": "theatre",
+      "english": "theatre",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.kafe",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "kafé",
+      "learnerBaseText": "café",
+      "english": "café",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.restaurant",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "restaurant",
+      "learnerBaseText": "restaurant",
+      "english": "restaurant",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.hotell",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "hotell",
+      "learnerBaseText": "hotel",
+      "english": "hotel",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.bank",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "bank",
+      "learnerBaseText": "bank",
+      "english": "bank",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.postkontor",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "postkontor",
+      "learnerBaseText": "post office",
+      "english": "post office",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.politistasjon",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "politistasjon",
+      "learnerBaseText": "police station",
+      "english": "police station",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.fotball",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "fotball",
+      "learnerBaseText": "football",
+      "english": "football",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.haandball",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "håndball",
+      "learnerBaseText": "handball",
+      "english": "handball",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.tennis",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "tennis",
+      "learnerBaseText": "tennis",
+      "english": "tennis",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.ski",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "ski",
+      "learnerBaseText": "ski",
+      "english": "ski",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.skoeyte",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "skøyte",
+      "learnerBaseText": "ice skate",
+      "english": "ice skate",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.kjelke",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "kjelke",
+      "learnerBaseText": "sledge",
+      "english": "sledge",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.akebrett",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "akebrett",
+      "learnerBaseText": "sled board",
+      "english": "sled board",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.sykkelhjelm",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "sykkelhjelm",
+      "learnerBaseText": "bicycle helmet",
+      "english": "bicycle helmet",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.svoemmebasseng",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "svømmebasseng",
+      "learnerBaseText": "swimming pool",
+      "english": "swimming pool",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.lekeplass",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "lekeplass",
+      "learnerBaseText": "playground",
+      "english": "playground",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.pensel",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "pensel",
+      "learnerBaseText": "paintbrush",
+      "english": "paintbrush",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.farge",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "farge",
+      "learnerBaseText": "colour",
+      "english": "colour",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.tegning",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "tegning",
+      "learnerBaseText": "drawing",
+      "english": "drawing",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.maleri",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "maleri",
+      "learnerBaseText": "painting",
+      "english": "painting",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.saks",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "saks",
+      "learnerBaseText": "scissors",
+      "english": "scissors",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.lim",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "lim",
+      "learnerBaseText": "glue",
+      "english": "glue",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.naal",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "nål",
+      "learnerBaseText": "needle",
+      "english": "needle",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.traad",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "tråd",
+      "learnerBaseText": "thread",
+      "english": "thread",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.garn",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "garn",
+      "learnerBaseText": "yarn",
+      "english": "yarn",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.stoff",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "stoff",
+      "learnerBaseText": "fabric",
+      "english": "fabric",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.gitar",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "gitar",
+      "learnerBaseText": "guitar",
+      "english": "guitar",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.piano",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "piano",
+      "learnerBaseText": "piano",
+      "english": "piano",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.fiolin",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "fiolin",
+      "learnerBaseText": "violin",
+      "english": "violin",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.tromme",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "tromme",
+      "learnerBaseText": "drum",
+      "english": "drum",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.floeyte",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "fløyte",
+      "learnerBaseText": "flute",
+      "english": "flute",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.konsert",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "konsert",
+      "learnerBaseText": "concert",
+      "english": "concert",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.eventyr",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "eventyr",
+      "learnerBaseText": "fairy tale",
+      "english": "fairy tale",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.fortelling",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "fortelling",
+      "learnerBaseText": "story",
+      "english": "story",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.dikt",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "dikt",
+      "learnerBaseText": "poem",
+      "english": "poem",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.kapittel",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "kapittel",
+      "learnerBaseText": "chapter",
+      "english": "chapter",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.telefon",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "telefon",
+      "learnerBaseText": "telephone",
+      "english": "telephone",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.datamaskin",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "datamaskin",
+      "learnerBaseText": "computer",
+      "english": "computer",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.nettbrett",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "nettbrett",
+      "learnerBaseText": "tablet computer",
+      "english": "tablet computer",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.skjerm",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "skjerm",
+      "learnerBaseText": "screen",
+      "english": "screen",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.tastatur",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "tastatur",
+      "learnerBaseText": "keyboard",
+      "english": "keyboard",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.lader",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "lader",
+      "learnerBaseText": "charger",
+      "english": "charger",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.batteri",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "batteri",
+      "learnerBaseText": "battery",
+      "english": "battery",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.kamera",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "kamera",
+      "learnerBaseText": "camera",
+      "english": "camera",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.ledning",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "ledning",
+      "learnerBaseText": "electrical cord",
+      "english": "electrical cord",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.knapp",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "knapp",
+      "learnerBaseText": "button",
+      "english": "button",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.avtale",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "avtale",
+      "learnerBaseText": "appointment or agreement",
+      "english": "appointment or agreement",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.kalender",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "kalender",
+      "learnerBaseText": "calendar",
+      "english": "calendar",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.liste",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "liste",
+      "learnerBaseText": "list",
+      "english": "list",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.melding",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "melding",
+      "learnerBaseText": "message",
+      "english": "message",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.brev",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "brev",
+      "learnerBaseText": "letter",
+      "english": "letter",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.adresse",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "adresse",
+      "learnerBaseText": "address",
+      "english": "address",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.gave",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "gave",
+      "learnerBaseText": "gift",
+      "english": "gift",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.pose",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "pose",
+      "learnerBaseText": "bag",
+      "english": "bag",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.eske",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "eske",
+      "learnerBaseText": "box",
+      "english": "box",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.pakke",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "pakke",
+      "learnerBaseText": "parcel",
+      "english": "parcel",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.arbeid",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "arbeid",
+      "learnerBaseText": "work",
+      "english": "work",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.yrke",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "yrke",
+      "learnerBaseText": "profession",
+      "english": "profession",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.kontor",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "kontor",
+      "learnerBaseText": "office",
+      "english": "office",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.bedrift",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "bedrift",
+      "learnerBaseText": "company",
+      "english": "company",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.kollega",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "kollega",
+      "learnerBaseText": "colleague",
+      "english": "colleague",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.arbeidstaker",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "arbeidstaker",
+      "learnerBaseText": "employee",
+      "english": "employee",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.leder",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "leder",
+      "learnerBaseText": "leader",
+      "english": "leader",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.moete",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "møte",
+      "learnerBaseText": "meeting",
+      "english": "meeting",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.prosjekt",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "prosjekt",
+      "learnerBaseText": "project",
+      "english": "project",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.oppgave",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "oppgave",
+      "learnerBaseText": "task",
+      "english": "task",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.pris",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "pris",
+      "learnerBaseText": "price",
+      "english": "price",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.regning",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "regning",
+      "learnerBaseText": "bill",
+      "english": "bill",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.kvittering",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "kvittering",
+      "learnerBaseText": "receipt",
+      "english": "receipt",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.rabatt",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "rabatt",
+      "learnerBaseText": "discount",
+      "english": "discount",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.lommebok",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "lommebok",
+      "learnerBaseText": "wallet",
+      "english": "wallet",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.mynt",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "mynt",
+      "learnerBaseText": "coin",
+      "english": "coin",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.seddel",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "seddel",
+      "learnerBaseText": "banknote",
+      "english": "banknote",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.konto",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "konto",
+      "learnerBaseText": "account",
+      "english": "account",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.budsjett",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "budsjett",
+      "learnerBaseText": "budget",
+      "english": "budget",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.laan",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "lån",
+      "learnerBaseText": "loan",
+      "english": "loan",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.kommune",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "kommune",
+      "learnerBaseText": "municipality",
+      "english": "municipality",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.fylke",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "fylke",
+      "learnerBaseText": "county",
+      "english": "county",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.land",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "land",
+      "learnerBaseText": "country",
+      "english": "country",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.hovedstad",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "hovedstad",
+      "learnerBaseText": "capital city",
+      "english": "capital city",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.grense",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "grense",
+      "learnerBaseText": "border",
+      "english": "border",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.kart",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "kart",
+      "learnerBaseText": "map",
+      "english": "map",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.kompass",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "kompass",
+      "learnerBaseText": "compass",
+      "english": "compass",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.retning",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "retning",
+      "learnerBaseText": "direction",
+      "english": "direction",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.avstand",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "avstand",
+      "learnerBaseText": "distance",
+      "english": "distance",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.omraade",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "område",
+      "learnerBaseText": "area",
+      "english": "area",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.spraak",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "språk",
+      "learnerBaseText": "language",
+      "english": "language",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.setning",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "setning",
+      "learnerBaseText": "sentence",
+      "english": "sentence",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.bokstav",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "bokstav",
+      "learnerBaseText": "letter (of the alphabet)",
+      "english": "letter (of the alphabet)",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.lyd",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "lyd",
+      "learnerBaseText": "sound",
+      "english": "sound",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.vokal",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "vokal",
+      "learnerBaseText": "vowel",
+      "english": "vowel",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.konsonant",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "konsonant",
+      "learnerBaseText": "consonant",
+      "english": "consonant",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.grammatikk",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "grammatikk",
+      "learnerBaseText": "grammar",
+      "english": "grammar",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.ordbok",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "ordbok",
+      "learnerBaseText": "dictionary",
+      "english": "dictionary",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.spoersmaal",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "spørsmål",
+      "learnerBaseText": "question",
+      "english": "question",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.svar",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "svar",
+      "learnerBaseText": "answer",
+      "english": "answer",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.fag",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "fag",
+      "learnerBaseText": "school subject",
+      "english": "school subject",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.proeve",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "prøve",
+      "learnerBaseText": "test",
+      "english": "test",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.eksamen",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "eksamen",
+      "learnerBaseText": "examination",
+      "english": "examination",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.resultat",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "resultat",
+      "learnerBaseText": "result",
+      "english": "result",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.laboratorium",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "laboratorium",
+      "learnerBaseText": "laboratory",
+      "english": "laboratory",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.forsoek",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "forsøk",
+      "learnerBaseText": "experiment or attempt",
+      "english": "experiment or attempt",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.bevis",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "bevis",
+      "learnerBaseText": "proof",
+      "english": "proof",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.teori",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "teori",
+      "learnerBaseText": "theory",
+      "english": "theory",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.metode",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "metode",
+      "learnerBaseText": "method",
+      "english": "method",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.forsker",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "forsker",
+      "learnerBaseText": "researcher",
+      "english": "researcher",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.planet",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "planet",
+      "learnerBaseText": "planet",
+      "english": "planet",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.univers",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "univers",
+      "learnerBaseText": "universe",
+      "english": "universe",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.galakse",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "galakse",
+      "learnerBaseText": "galaxy",
+      "english": "galaxy",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.satellitt",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "satellitt",
+      "learnerBaseText": "satellite",
+      "english": "satellite",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.rakett",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "rakett",
+      "learnerBaseText": "rocket",
+      "english": "rocket",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.atom",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "atom",
+      "learnerBaseText": "atom",
+      "english": "atom",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.molekyl",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "molekyl",
+      "learnerBaseText": "molecule",
+      "english": "molecule",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.celle",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "celle",
+      "learnerBaseText": "cell",
+      "english": "cell",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.energi",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "energi",
+      "learnerBaseText": "energy",
+      "english": "energy",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.kraft",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "kraft",
+      "learnerBaseText": "force",
+      "english": "force",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.miljoe",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "miljø",
+      "learnerBaseText": "environment",
+      "english": "environment",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.klima",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "klima",
+      "learnerBaseText": "climate",
+      "english": "climate",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.temperatur",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "temperatur",
+      "learnerBaseText": "temperature",
+      "english": "temperature",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.forurensning",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "forurensning",
+      "learnerBaseText": "pollution",
+      "english": "pollution",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.avfall",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "avfall",
+      "learnerBaseText": "waste",
+      "english": "waste",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.plast",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "plast",
+      "learnerBaseText": "plastic",
+      "english": "plastic",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.metall",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "metall",
+      "learnerBaseText": "metal",
+      "english": "metal",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.kompost",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "kompost",
+      "learnerBaseText": "compost",
+      "english": "compost",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.ressurs",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "ressurs",
+      "learnerBaseText": "resource",
+      "english": "resource",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.art",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "art",
+      "learnerBaseText": "species",
+      "english": "species",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.hammer",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "hammer",
+      "learnerBaseText": "hammer",
+      "english": "hammer",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.spiker",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "spiker",
+      "learnerBaseText": "nail (fastener)",
+      "english": "nail (fastener)",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.skrue",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "skrue",
+      "learnerBaseText": "screw",
+      "english": "screw",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.sag",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "sag",
+      "learnerBaseText": "saw",
+      "english": "saw",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.drill",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "drill",
+      "learnerBaseText": "drill",
+      "english": "drill",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.tang",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "tang",
+      "learnerBaseText": "pliers",
+      "english": "pliers",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.staal",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "stål",
+      "learnerBaseText": "steel",
+      "english": "steel",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.trevirke",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "trevirke",
+      "learnerBaseText": "timber",
+      "english": "timber",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.murstein",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "murstein",
+      "learnerBaseText": "brick",
+      "english": "brick",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.tau",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "tau",
+      "learnerBaseText": "rope",
+      "english": "rope",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.foelelse",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "følelse",
+      "learnerBaseText": "feeling",
+      "english": "feeling",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.glede",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "glede",
+      "learnerBaseText": "joy",
+      "english": "joy",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.sorg",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "sorg",
+      "learnerBaseText": "grief",
+      "english": "grief",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.frykt",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "frykt",
+      "learnerBaseText": "fear",
+      "english": "fear",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.haap",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "håp",
+      "learnerBaseText": "hope",
+      "english": "hope",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.droem",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "drøm",
+      "learnerBaseText": "dream",
+      "english": "dream",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.tanke",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "tanke",
+      "learnerBaseText": "thought",
+      "english": "thought",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.ide",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "idé",
+      "learnerBaseText": "idea",
+      "english": "idea",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.minne",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "minne",
+      "learnerBaseText": "memory",
+      "english": "memory",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.oenske",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "ønske",
+      "learnerBaseText": "wish",
+      "english": "wish",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.tid",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "tid",
+      "learnerBaseText": "time",
+      "english": "time",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.framtid",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "framtid",
+      "learnerBaseText": "future",
+      "english": "future",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.fortid",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "fortid",
+      "learnerBaseText": "past",
+      "english": "past",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.mulighet",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "mulighet",
+      "learnerBaseText": "possibility",
+      "english": "possibility",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.problem",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "problem",
+      "learnerBaseText": "problem",
+      "english": "problem",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.loesning",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "løsning",
+      "learnerBaseText": "solution",
+      "english": "solution",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.grunn",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "grunn",
+      "learnerBaseText": "reason",
+      "english": "reason",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.aarsak",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "årsak",
+      "learnerBaseText": "cause",
+      "english": "cause",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.valg",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "valg",
+      "learnerBaseText": "choice",
+      "english": "choice",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.forskjell",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "forskjell",
+      "learnerBaseText": "difference",
+      "english": "difference",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.vennskap",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "vennskap",
+      "learnerBaseText": "friendship",
+      "english": "friendship",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.kjaerlighet",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "kjærlighet",
+      "learnerBaseText": "love",
+      "english": "love",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.respekt",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "respekt",
+      "learnerBaseText": "respect",
+      "english": "respect",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.tillit",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "tillit",
+      "learnerBaseText": "trust",
+      "english": "trust",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.ansvar",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "ansvar",
+      "learnerBaseText": "responsibility",
+      "english": "responsibility",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.frihet",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "frihet",
+      "learnerBaseText": "freedom",
+      "english": "freedom",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.rettighet",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "rettighet",
+      "learnerBaseText": "right (entitlement)",
+      "english": "right (entitlement)",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.plikt",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "plikt",
+      "learnerBaseText": "duty",
+      "english": "duty",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.regel",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "regel",
+      "learnerBaseText": "rule",
+      "english": "rule",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.lov",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "lov",
+      "learnerBaseText": "law",
+      "english": "law",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.avis",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "avis",
+      "learnerBaseText": "newspaper",
+      "english": "newspaper",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.nyhet",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "nyhet",
+      "learnerBaseText": "news item",
+      "english": "news item",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.artikkel",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "artikkel",
+      "learnerBaseText": "article",
+      "english": "article",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.overskrift",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "overskrift",
+      "learnerBaseText": "headline",
+      "english": "headline",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.intervju",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "intervju",
+      "learnerBaseText": "interview",
+      "english": "interview",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.utstilling",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "utstilling",
+      "learnerBaseText": "exhibition",
+      "english": "exhibition",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.forestilling",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "forestilling",
+      "learnerBaseText": "performance",
+      "english": "performance",
+      "laneId": "feminine",
+      "acceptedLaneIds": [
+        "feminine",
+        "masculine"
+      ]
+    },
+    {
+      "id": "nb.gravity.noun.skuespiller",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "skuespiller",
+      "learnerBaseText": "actor",
+      "english": "actor",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.forfatter",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "forfatter",
+      "learnerBaseText": "author",
+      "english": "author",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.kunstner",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "kunstner",
+      "learnerBaseText": "artist",
+      "english": "artist",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.tur",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "tur",
+      "learnerBaseText": "outing",
+      "english": "outing",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.ryggsekk",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "ryggsekk",
+      "learnerBaseText": "rucksack",
+      "english": "rucksack",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.telt",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "telt",
+      "learnerBaseText": "tent",
+      "english": "tent",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.sovepose",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "sovepose",
+      "learnerBaseText": "sleeping bag",
+      "english": "sleeping bag",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.baal",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "bål",
+      "learnerBaseText": "campfire",
+      "english": "campfire",
+      "laneId": "neuter"
+    },
+    {
+      "id": "nb.gravity.noun.termos",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "termos",
+      "learnerBaseText": "vacuum flask",
+      "english": "vacuum flask",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.matpause",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "matpause",
+      "learnerBaseText": "meal break",
+      "english": "meal break",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.utsikt",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "utsikt",
+      "learnerBaseText": "view",
+      "english": "view",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.topptur",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "topptur",
+      "learnerBaseText": "summit hike",
+      "english": "summit hike",
+      "laneId": "masculine"
+    },
+    {
+      "id": "nb.gravity.noun.redningsvest",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "redningsvest",
+      "learnerBaseText": "life jacket",
+      "english": "life jacket",
+      "laneId": "masculine"
+    }
+  ]
+}

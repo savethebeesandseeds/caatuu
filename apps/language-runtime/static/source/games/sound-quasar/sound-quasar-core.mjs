@@ -200,7 +200,11 @@ export function validateSoundQuasarCatalog(document, { courseId, targetLanguageI
       `apps/languages/${courseDirectory}/static/data/games/word-world/content.json`
     ].includes(sentenceSourcePath), "sentence provenance must name the course's existing Word World content.");
     const englishSourcePath = text(declared.englishSourcePath, "sentenceProvenance.englishSourcePath", 220);
-    requireCondition(englishSourcePath === sentenceSourcePath || englishSourcePath === "apps/languages/shared/english-concepts/word-world-starter-v1.json", "sentence English provenance must name the existing English authority.");
+    requireCondition([
+      sentenceSourcePath,
+      "apps/languages/shared/english-concepts/word-world-starter-v1.json",
+      `apps/languages/shared/english-concepts/word-world-${actualCourseId}-v1.json`
+    ].includes(englishSourcePath), "sentence English provenance must name the existing English authority.");
     requireCondition(Array.isArray(declared.sourceItemIds) && declared.sourceItemIds.length === sentences.length && declared.sourceItemIds.every((id, index) => id === sentences[index].sourceId), "sentenceProvenance.sourceItemIds must exactly identify the selected source records in order.");
     sentenceProvenance = Object.freeze({
       sourcePath: sentenceSourcePath,

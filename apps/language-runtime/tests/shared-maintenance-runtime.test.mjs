@@ -225,6 +225,56 @@ test("confirmed Mandarin updates run through the native installer without a miss
   assert.equal(h.context.location.href, location);
 });
 
+test("Home confirmation escapes hidden Settings and supports cancel, download and retry", async () => {
+  for (const settingsHidden of [true, false]) {
+    const h = harness();
+    const settings = h.document.createElement("section");
+    settings.id = "settingsPanel";
+    settings.hidden = settingsHidden;
+    const dialog = h.document.createElement("dialog");
+    dialog.id = "appUpdateConfirmDialog";
+    for (const id of ["appUpdateConfirmTitle", "appUpdateConfirmVersions", "appUpdateConfirmAction"]) {
+      const node = h.document.createElement(id.endsWith("Action") ? "button" : "p");
+      node.id = id;
+      dialog.append(node);
+    }
+    settings.append(dialog);
+    const home = h.document.createElement("button");
+    home.id = "homeUpdateApp";
+    home.setAttribute("data-app-update-control", "");
+    h.document.body.append(settings, home);
+    h.context.confirm = () => assert.fail("Home must use the same visible dialog as Settings");
+    const controller = h.ui.getUpdateController();
+    const available = { selfUpdateEnabled: true, updateAvailable: true, currentVersionCode: 1, latestVersionCode: 2 };
+
+    home.click();
+    h.reply(h.requests.at(-1), available);
+    await flush();
+    assert.equal(dialog.open, true);
+    assert.ok(!dialog.closest("[hidden]"), "an invisible modal must not make Home inert");
+    assert.equal(settings.hidden, settingsHidden, "confirmation must not switch the user's page");
+    assert.equal(h.requests.some(({ type }) => type === "update_app"), false);
+    dialog.close("cancel");
+    await flush();
+    assert.equal(home.disabled, false);
+    assert.equal(dialog.open, false);
+
+    home.click();
+    h.reply(h.requests.at(-1), available);
+    await flush();
+    dialog.close("confirm");
+    await flush();
+    assert.equal(h.requests.at(-1).type, "update_app");
+    h.context.CaatuuNative.receive({ id: h.requests.at(-1).id, kind: "error", message: "Offline" });
+    await flush();
+    assert.equal(home.disabled, false, "failed downloads leave a working retry action");
+    assert.equal(h.document.getElementById("updateApp").disabled, false);
+    assert.equal(h.ui.pendingAppUpdate(), null);
+    assert.equal(h.document.body.classList.contains("app-update-lock"), false);
+    assert.equal(controller, h.ui.getUpdateController());
+  }
+});
+
 test("declined updates make no download request and native failures remain retryable", async () => {
   const h = harness({ confirm: false });
   const activation = h.ui.getUpdateController().activate();

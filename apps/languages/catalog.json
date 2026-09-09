@@ -31,6 +31,10 @@
     {
       "id": "es-en",
       "manifest": "apps/languages/english-from-spanish/course.json"
+    },
+    {
+      "id": "nb",
+      "manifest": "apps/languages/norwegian-bokmal/course.json"
     }
   ]
 }

@@ -1,0 +1,5402 @@
+[
+  {
+    "id": "nb.verb.vaere",
+    "kind": "verb",
+    "target": "være",
+    "source": "be",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.ha",
+    "kind": "verb",
+    "target": "ha",
+    "source": "have",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.gjoere",
+    "kind": "verb",
+    "target": "gjøre",
+    "source": "do",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.bli",
+    "kind": "verb",
+    "target": "bli",
+    "source": "become",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.kunne",
+    "kind": "verb",
+    "target": "kunne",
+    "source": "be able to",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.ville",
+    "kind": "verb",
+    "target": "ville",
+    "source": "want to",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.maatte",
+    "kind": "verb",
+    "target": "måtte",
+    "source": "have to",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.skulle",
+    "kind": "verb",
+    "target": "skulle",
+    "source": "be going to (planned action)",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.hete",
+    "kind": "verb",
+    "target": "hete",
+    "source": "be called (have a name)",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.bo",
+    "kind": "verb",
+    "target": "bo",
+    "source": "live (reside)",
+    "difficulty": 1,
+    "category": "identity-modality",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.vaakne",
+    "kind": "verb",
+    "target": "våkne",
+    "source": "wake up",
+    "difficulty": 1,
+    "category": "daily-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.sove",
+    "kind": "verb",
+    "target": "sove",
+    "source": "sleep",
+    "difficulty": 1,
+    "category": "daily-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.spise",
+    "kind": "verb",
+    "target": "spise",
+    "source": "eat",
+    "difficulty": 1,
+    "category": "daily-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.drikke",
+    "kind": "verb",
+    "target": "drikke",
+    "source": "drink",
+    "difficulty": 1,
+    "category": "daily-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.vaske",
+    "kind": "verb",
+    "target": "vaske",
+    "source": "wash",
+    "difficulty": 1,
+    "category": "daily-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.dusje",
+    "kind": "verb",
+    "target": "dusje",
+    "source": "shower",
+    "difficulty": 1,
+    "category": "daily-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.kle-seg",
+    "kind": "verb",
+    "target": "kle seg",
+    "source": "get dressed",
+    "difficulty": 1,
+    "category": "daily-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.hvile",
+    "kind": "verb",
+    "target": "hvile",
+    "source": "rest",
+    "difficulty": 1,
+    "category": "daily-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.rydde",
+    "kind": "verb",
+    "target": "rydde",
+    "source": "tidy up",
+    "difficulty": 1,
+    "category": "daily-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.legge-seg",
+    "kind": "verb",
+    "target": "legge seg",
+    "source": "go to bed",
+    "difficulty": 1,
+    "category": "daily-routines",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.snakke",
+    "kind": "verb",
+    "target": "snakke",
+    "source": "speak",
+    "difficulty": 1,
+    "category": "communication",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.si",
+    "kind": "verb",
+    "target": "si",
+    "source": "say",
+    "difficulty": 1,
+    "category": "communication",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.spoerre",
+    "kind": "verb",
+    "target": "spørre",
+    "source": "ask",
+    "difficulty": 1,
+    "category": "communication",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.svare",
+    "kind": "verb",
+    "target": "svare",
+    "source": "answer",
+    "difficulty": 1,
+    "category": "communication",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.fortelle",
+    "kind": "verb",
+    "target": "fortelle",
+    "source": "tell",
+    "difficulty": 1,
+    "category": "communication",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.hilse",
+    "kind": "verb",
+    "target": "hilse",
+    "source": "greet",
+    "difficulty": 1,
+    "category": "communication",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.ringe",
+    "kind": "verb",
+    "target": "ringe",
+    "source": "call by phone",
+    "difficulty": 1,
+    "category": "communication",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.takke",
+    "kind": "verb",
+    "target": "takke",
+    "source": "thank",
+    "difficulty": 1,
+    "category": "communication",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.rope",
+    "kind": "verb",
+    "target": "rope",
+    "source": "shout",
+    "difficulty": 1,
+    "category": "communication",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.skrive",
+    "kind": "verb",
+    "target": "skrive",
+    "source": "write",
+    "difficulty": 1,
+    "category": "communication",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.se",
+    "kind": "verb",
+    "target": "se",
+    "source": "see",
+    "difficulty": 1,
+    "category": "thought-and-senses",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.hoere",
+    "kind": "verb",
+    "target": "høre",
+    "source": "hear",
+    "difficulty": 1,
+    "category": "thought-and-senses",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.lukte",
+    "kind": "verb",
+    "target": "lukte",
+    "source": "smell",
+    "difficulty": 1,
+    "category": "thought-and-senses",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.smake",
+    "kind": "verb",
+    "target": "smake",
+    "source": "taste",
+    "difficulty": 1,
+    "category": "thought-and-senses",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.foele",
+    "kind": "verb",
+    "target": "føle",
+    "source": "feel",
+    "difficulty": 1,
+    "category": "thought-and-senses",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.vite",
+    "kind": "verb",
+    "target": "vite",
+    "source": "know a fact",
+    "difficulty": 1,
+    "category": "thought-and-senses",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.tro",
+    "kind": "verb",
+    "target": "tro",
+    "source": "believe",
+    "difficulty": 1,
+    "category": "thought-and-senses",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.tenke",
+    "kind": "verb",
+    "target": "tenke",
+    "source": "think",
+    "difficulty": 1,
+    "category": "thought-and-senses",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.huske",
+    "kind": "verb",
+    "target": "huske",
+    "source": "remember",
+    "difficulty": 1,
+    "category": "thought-and-senses",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.glemme",
+    "kind": "verb",
+    "target": "glemme",
+    "source": "forget",
+    "difficulty": 1,
+    "category": "thought-and-senses",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.gaa",
+    "kind": "verb",
+    "target": "gå",
+    "source": "walk",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.loepe",
+    "kind": "verb",
+    "target": "løpe",
+    "source": "run",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.komme",
+    "kind": "verb",
+    "target": "komme",
+    "source": "come",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.dra",
+    "kind": "verb",
+    "target": "dra",
+    "source": "go away",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.reise",
+    "kind": "verb",
+    "target": "reise",
+    "source": "travel",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.kjoere",
+    "kind": "verb",
+    "target": "kjøre",
+    "source": "drive",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.sykle",
+    "kind": "verb",
+    "target": "sykle",
+    "source": "cycle",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.fly",
+    "kind": "verb",
+    "target": "fly",
+    "source": "fly",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.svoemme",
+    "kind": "verb",
+    "target": "svømme",
+    "source": "swim",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.hoppe",
+    "kind": "verb",
+    "target": "hoppe",
+    "source": "jump",
+    "difficulty": 1,
+    "category": "movement-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.leke",
+    "kind": "verb",
+    "target": "leke",
+    "source": "play (children's play)",
+    "difficulty": 1,
+    "category": "play-and-art",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.spille",
+    "kind": "verb",
+    "target": "spille",
+    "source": "play (a game or instrument)",
+    "difficulty": 1,
+    "category": "play-and-art",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.tegne",
+    "kind": "verb",
+    "target": "tegne",
+    "source": "draw a picture",
+    "difficulty": 1,
+    "category": "play-and-art",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.male",
+    "kind": "verb",
+    "target": "male",
+    "source": "paint",
+    "difficulty": 1,
+    "category": "play-and-art",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.synge",
+    "kind": "verb",
+    "target": "synge",
+    "source": "sing",
+    "difficulty": 1,
+    "category": "play-and-art",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.danse",
+    "kind": "verb",
+    "target": "danse",
+    "source": "dance",
+    "difficulty": 1,
+    "category": "play-and-art",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.vinne",
+    "kind": "verb",
+    "target": "vinne",
+    "source": "win",
+    "difficulty": 1,
+    "category": "play-and-art",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.tape",
+    "kind": "verb",
+    "target": "tape",
+    "source": "lose (a game)",
+    "difficulty": 1,
+    "category": "play-and-art",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.kaste",
+    "kind": "verb",
+    "target": "kaste",
+    "source": "throw",
+    "difficulty": 1,
+    "category": "play-and-art",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.fange",
+    "kind": "verb",
+    "target": "fange",
+    "source": "catch",
+    "difficulty": 1,
+    "category": "play-and-art",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.lage",
+    "kind": "verb",
+    "target": "lage",
+    "source": "make (create something)",
+    "difficulty": 1,
+    "category": "food-and-kitchen",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.koke",
+    "kind": "verb",
+    "target": "koke",
+    "source": "boil",
+    "difficulty": 1,
+    "category": "food-and-kitchen",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.steke",
+    "kind": "verb",
+    "target": "steke",
+    "source": "fry or roast",
+    "difficulty": 1,
+    "category": "food-and-kitchen",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.bake",
+    "kind": "verb",
+    "target": "bake",
+    "source": "bake",
+    "difficulty": 1,
+    "category": "food-and-kitchen",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.skjaere",
+    "kind": "verb",
+    "target": "skjære",
+    "source": "cut (with a blade)",
+    "difficulty": 1,
+    "category": "food-and-kitchen",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.dele",
+    "kind": "verb",
+    "target": "dele",
+    "source": "share or divide",
+    "difficulty": 1,
+    "category": "food-and-kitchen",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.blande",
+    "kind": "verb",
+    "target": "blande",
+    "source": "mix",
+    "difficulty": 1,
+    "category": "food-and-kitchen",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.helle",
+    "kind": "verb",
+    "target": "helle",
+    "source": "pour",
+    "difficulty": 1,
+    "category": "food-and-kitchen",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.bestille",
+    "kind": "verb",
+    "target": "bestille",
+    "source": "order (request goods or food)",
+    "difficulty": 1,
+    "category": "food-and-kitchen",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.servere",
+    "kind": "verb",
+    "target": "servere",
+    "source": "serve food",
+    "difficulty": 1,
+    "category": "food-and-kitchen",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.aapne",
+    "kind": "verb",
+    "target": "åpne",
+    "source": "open",
+    "difficulty": 1,
+    "category": "home-and-objects",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.lukke",
+    "kind": "verb",
+    "target": "lukke",
+    "source": "close",
+    "difficulty": 1,
+    "category": "home-and-objects",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.sette",
+    "kind": "verb",
+    "target": "sette",
+    "source": "put (in a sitting or upright position)",
+    "difficulty": 1,
+    "category": "home-and-objects",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.legge",
+    "kind": "verb",
+    "target": "legge",
+    "source": "lay (put down flat)",
+    "difficulty": 1,
+    "category": "home-and-objects",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.ta",
+    "kind": "verb",
+    "target": "ta",
+    "source": "take",
+    "difficulty": 1,
+    "category": "home-and-objects",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.gi",
+    "kind": "verb",
+    "target": "gi",
+    "source": "give",
+    "difficulty": 1,
+    "category": "home-and-objects",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.finne",
+    "kind": "verb",
+    "target": "finne",
+    "source": "find",
+    "difficulty": 1,
+    "category": "home-and-objects",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.lete",
+    "kind": "verb",
+    "target": "lete",
+    "source": "search",
+    "difficulty": 1,
+    "category": "home-and-objects",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.miste",
+    "kind": "verb",
+    "target": "miste",
+    "source": "lose (misplace)",
+    "difficulty": 1,
+    "category": "home-and-objects",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.holde",
+    "kind": "verb",
+    "target": "holde",
+    "source": "hold",
+    "difficulty": 1,
+    "category": "home-and-objects",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.lese",
+    "kind": "verb",
+    "target": "lese",
+    "source": "read",
+    "difficulty": 1,
+    "category": "school-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.laere",
+    "kind": "verb",
+    "target": "lære",
+    "source": "learn",
+    "difficulty": 1,
+    "category": "school-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.oeve",
+    "kind": "verb",
+    "target": "øve",
+    "source": "practise",
+    "difficulty": 1,
+    "category": "school-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.telle",
+    "kind": "verb",
+    "target": "telle",
+    "source": "count",
+    "difficulty": 1,
+    "category": "school-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.regne",
+    "kind": "verb",
+    "target": "regne",
+    "source": "calculate",
+    "difficulty": 1,
+    "category": "school-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.forstaa",
+    "kind": "verb",
+    "target": "forstå",
+    "source": "understand",
+    "difficulty": 1,
+    "category": "school-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.forklare",
+    "kind": "verb",
+    "target": "forklare",
+    "source": "explain",
+    "difficulty": 1,
+    "category": "school-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.vise",
+    "kind": "verb",
+    "target": "vise",
+    "source": "show",
+    "difficulty": 1,
+    "category": "school-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.proeve",
+    "kind": "verb",
+    "target": "prøve",
+    "source": "try",
+    "difficulty": 1,
+    "category": "school-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.hjelpe",
+    "kind": "verb",
+    "target": "hjelpe",
+    "source": "help",
+    "difficulty": 1,
+    "category": "school-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.like",
+    "kind": "verb",
+    "target": "like",
+    "source": "like",
+    "difficulty": 1,
+    "category": "people-and-relationships",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.elske",
+    "kind": "verb",
+    "target": "elske",
+    "source": "love",
+    "difficulty": 1,
+    "category": "people-and-relationships",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.moete",
+    "kind": "verb",
+    "target": "møte",
+    "source": "meet",
+    "difficulty": 1,
+    "category": "people-and-relationships",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.besoeke",
+    "kind": "verb",
+    "target": "besøke",
+    "source": "visit",
+    "difficulty": 1,
+    "category": "people-and-relationships",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.invitere",
+    "kind": "verb",
+    "target": "invitere",
+    "source": "invite",
+    "difficulty": 1,
+    "category": "people-and-relationships",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.vente",
+    "kind": "verb",
+    "target": "vente",
+    "source": "wait",
+    "difficulty": 1,
+    "category": "people-and-relationships",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.foelge",
+    "kind": "verb",
+    "target": "følge",
+    "source": "follow",
+    "difficulty": 1,
+    "category": "people-and-relationships",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.le",
+    "kind": "verb",
+    "target": "le",
+    "source": "laugh",
+    "difficulty": 1,
+    "category": "people-and-relationships",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.smile",
+    "kind": "verb",
+    "target": "smile",
+    "source": "smile",
+    "difficulty": 1,
+    "category": "people-and-relationships",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.graate",
+    "kind": "verb",
+    "target": "gråte",
+    "source": "cry",
+    "difficulty": 1,
+    "category": "people-and-relationships",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.sitte",
+    "kind": "verb",
+    "target": "sitte",
+    "source": "sit",
+    "difficulty": 1,
+    "category": "body-and-posture",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.staa",
+    "kind": "verb",
+    "target": "stå",
+    "source": "stand",
+    "difficulty": 1,
+    "category": "body-and-posture",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.ligge",
+    "kind": "verb",
+    "target": "ligge",
+    "source": "lie (be horizontal)",
+    "difficulty": 1,
+    "category": "body-and-posture",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.puste",
+    "kind": "verb",
+    "target": "puste",
+    "source": "breathe",
+    "difficulty": 1,
+    "category": "body-and-posture",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.hoste",
+    "kind": "verb",
+    "target": "hoste",
+    "source": "cough",
+    "difficulty": 1,
+    "category": "body-and-posture",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.nyse",
+    "kind": "verb",
+    "target": "nyse",
+    "source": "sneeze",
+    "difficulty": 1,
+    "category": "body-and-posture",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.fryse",
+    "kind": "verb",
+    "target": "fryse",
+    "source": "freeze or feel cold",
+    "difficulty": 1,
+    "category": "body-and-posture",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.svette",
+    "kind": "verb",
+    "target": "svette",
+    "source": "sweat",
+    "difficulty": 1,
+    "category": "body-and-posture",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.vokse",
+    "kind": "verb",
+    "target": "vokse",
+    "source": "grow",
+    "difficulty": 1,
+    "category": "body-and-posture",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.falle",
+    "kind": "verb",
+    "target": "falle",
+    "source": "fall",
+    "difficulty": 1,
+    "category": "body-and-posture",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.loefte",
+    "kind": "verb",
+    "target": "løfte",
+    "source": "lift",
+    "difficulty": 1,
+    "category": "physical-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.baere",
+    "kind": "verb",
+    "target": "bære",
+    "source": "carry",
+    "difficulty": 1,
+    "category": "physical-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.skyve",
+    "kind": "verb",
+    "target": "skyve",
+    "source": "push",
+    "difficulty": 1,
+    "category": "physical-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.trekke",
+    "kind": "verb",
+    "target": "trekke",
+    "source": "pull",
+    "difficulty": 1,
+    "category": "physical-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.snu",
+    "kind": "verb",
+    "target": "snu",
+    "source": "turn around",
+    "difficulty": 1,
+    "category": "physical-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.stoppe",
+    "kind": "verb",
+    "target": "stoppe",
+    "source": "stop (halt movement)",
+    "difficulty": 1,
+    "category": "physical-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.starte",
+    "kind": "verb",
+    "target": "starte",
+    "source": "start (set a machine running)",
+    "difficulty": 1,
+    "category": "physical-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.bygge",
+    "kind": "verb",
+    "target": "bygge",
+    "source": "build",
+    "difficulty": 1,
+    "category": "physical-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.rive",
+    "kind": "verb",
+    "target": "rive",
+    "source": "tear",
+    "difficulty": 1,
+    "category": "physical-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.klippe",
+    "kind": "verb",
+    "target": "klippe",
+    "source": "cut (with scissors)",
+    "difficulty": 1,
+    "category": "physical-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.kjoepe",
+    "kind": "verb",
+    "target": "kjøpe",
+    "source": "buy",
+    "difficulty": 1,
+    "category": "shopping-and-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.selge",
+    "kind": "verb",
+    "target": "selge",
+    "source": "sell",
+    "difficulty": 1,
+    "category": "shopping-and-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.betale",
+    "kind": "verb",
+    "target": "betale",
+    "source": "pay",
+    "difficulty": 1,
+    "category": "shopping-and-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.koste",
+    "kind": "verb",
+    "target": "koste",
+    "source": "cost",
+    "difficulty": 1,
+    "category": "shopping-and-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.pakke",
+    "kind": "verb",
+    "target": "pakke",
+    "source": "pack",
+    "difficulty": 1,
+    "category": "shopping-and-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.hente",
+    "kind": "verb",
+    "target": "hente",
+    "source": "fetch",
+    "difficulty": 1,
+    "category": "shopping-and-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.sende",
+    "kind": "verb",
+    "target": "sende",
+    "source": "send",
+    "difficulty": 1,
+    "category": "shopping-and-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.levere",
+    "kind": "verb",
+    "target": "levere",
+    "source": "deliver",
+    "difficulty": 1,
+    "category": "shopping-and-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.bruke",
+    "kind": "verb",
+    "target": "bruke",
+    "source": "use",
+    "difficulty": 1,
+    "category": "shopping-and-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.trenge",
+    "kind": "verb",
+    "target": "trenge",
+    "source": "need",
+    "difficulty": 1,
+    "category": "shopping-and-travel",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.begynne",
+    "kind": "verb",
+    "target": "begynne",
+    "source": "begin (an activity)",
+    "difficulty": 1,
+    "category": "time-and-decisions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.slutte",
+    "kind": "verb",
+    "target": "slutte",
+    "source": "finish (cease an activity)",
+    "difficulty": 1,
+    "category": "time-and-decisions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.fortsette",
+    "kind": "verb",
+    "target": "fortsette",
+    "source": "continue",
+    "difficulty": 1,
+    "category": "time-and-decisions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.velge",
+    "kind": "verb",
+    "target": "velge",
+    "source": "choose",
+    "difficulty": 1,
+    "category": "time-and-decisions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.planlegge",
+    "kind": "verb",
+    "target": "planlegge",
+    "source": "plan",
+    "difficulty": 1,
+    "category": "time-and-decisions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.rekke",
+    "kind": "verb",
+    "target": "rekke",
+    "source": "have enough time",
+    "difficulty": 1,
+    "category": "time-and-decisions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.vare",
+    "kind": "verb",
+    "target": "vare",
+    "source": "last (continue in time)",
+    "difficulty": 1,
+    "category": "time-and-decisions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.skje",
+    "kind": "verb",
+    "target": "skje",
+    "source": "happen",
+    "difficulty": 1,
+    "category": "time-and-decisions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.oenske",
+    "kind": "verb",
+    "target": "ønske",
+    "source": "wish",
+    "difficulty": 1,
+    "category": "time-and-decisions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.haape",
+    "kind": "verb",
+    "target": "håpe",
+    "source": "hope",
+    "difficulty": 1,
+    "category": "time-and-decisions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.tordne",
+    "kind": "verb",
+    "target": "tordne",
+    "source": "thunder",
+    "difficulty": 1,
+    "category": "weather-and-outdoors",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.snoe",
+    "kind": "verb",
+    "target": "snø",
+    "source": "snow",
+    "difficulty": 1,
+    "category": "weather-and-outdoors",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.blaase",
+    "kind": "verb",
+    "target": "blåse",
+    "source": "blow",
+    "difficulty": 1,
+    "category": "weather-and-outdoors",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.skinne",
+    "kind": "verb",
+    "target": "skinne",
+    "source": "shine",
+    "difficulty": 1,
+    "category": "weather-and-outdoors",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.smelte",
+    "kind": "verb",
+    "target": "smelte",
+    "source": "melt",
+    "difficulty": 1,
+    "category": "weather-and-outdoors",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.plukke",
+    "kind": "verb",
+    "target": "plukke",
+    "source": "pick (flowers or berries)",
+    "difficulty": 1,
+    "category": "weather-and-outdoors",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.plante",
+    "kind": "verb",
+    "target": "plante",
+    "source": "plant",
+    "difficulty": 1,
+    "category": "weather-and-outdoors",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.vanne",
+    "kind": "verb",
+    "target": "vanne",
+    "source": "water (plants)",
+    "difficulty": 1,
+    "category": "weather-and-outdoors",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.fiske",
+    "kind": "verb",
+    "target": "fiske",
+    "source": "fish",
+    "difficulty": 1,
+    "category": "weather-and-outdoors",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.grille",
+    "kind": "verb",
+    "target": "grille",
+    "source": "barbecue",
+    "difficulty": 1,
+    "category": "weather-and-outdoors",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.stoevsuge",
+    "kind": "verb",
+    "target": "støvsuge",
+    "source": "vacuum",
+    "difficulty": 2,
+    "category": "home-and-cleaning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.feie",
+    "kind": "verb",
+    "target": "feie",
+    "source": "sweep",
+    "difficulty": 2,
+    "category": "home-and-cleaning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.toerke",
+    "kind": "verb",
+    "target": "tørke",
+    "source": "dry or wipe",
+    "difficulty": 2,
+    "category": "home-and-cleaning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.skylle",
+    "kind": "verb",
+    "target": "skylle",
+    "source": "rinse",
+    "difficulty": 2,
+    "category": "home-and-cleaning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.skrubbe",
+    "kind": "verb",
+    "target": "skrubbe",
+    "source": "scrub",
+    "difficulty": 2,
+    "category": "home-and-cleaning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.pusse",
+    "kind": "verb",
+    "target": "pusse",
+    "source": "polish or brush clean",
+    "difficulty": 2,
+    "category": "home-and-cleaning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.sortere",
+    "kind": "verb",
+    "target": "sortere",
+    "source": "sort",
+    "difficulty": 2,
+    "category": "home-and-cleaning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.toemme",
+    "kind": "verb",
+    "target": "tømme",
+    "source": "empty",
+    "difficulty": 2,
+    "category": "home-and-cleaning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.fylle",
+    "kind": "verb",
+    "target": "fylle",
+    "source": "fill",
+    "difficulty": 2,
+    "category": "home-and-cleaning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.henge",
+    "kind": "verb",
+    "target": "henge",
+    "source": "hang",
+    "difficulty": 2,
+    "category": "home-and-cleaning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.reparere",
+    "kind": "verb",
+    "target": "reparere",
+    "source": "repair",
+    "difficulty": 2,
+    "category": "home-and-repair",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.fikse",
+    "kind": "verb",
+    "target": "fikse",
+    "source": "sort out (informal)",
+    "difficulty": 2,
+    "category": "home-and-repair",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.laase",
+    "kind": "verb",
+    "target": "låse",
+    "source": "lock",
+    "difficulty": 2,
+    "category": "home-and-repair",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.laane",
+    "kind": "verb",
+    "target": "låne",
+    "source": "borrow or lend",
+    "difficulty": 2,
+    "category": "home-and-repair",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.bytte",
+    "kind": "verb",
+    "target": "bytte",
+    "source": "exchange",
+    "difficulty": 2,
+    "category": "home-and-repair",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.flytte",
+    "kind": "verb",
+    "target": "flytte",
+    "source": "move (change location)",
+    "difficulty": 2,
+    "category": "home-and-repair",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.montere",
+    "kind": "verb",
+    "target": "montere",
+    "source": "assemble or install",
+    "difficulty": 2,
+    "category": "home-and-repair",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.skru",
+    "kind": "verb",
+    "target": "skru",
+    "source": "turn a screw",
+    "difficulty": 2,
+    "category": "home-and-repair",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.lime",
+    "kind": "verb",
+    "target": "lime",
+    "source": "glue",
+    "difficulty": 2,
+    "category": "home-and-repair",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.brette",
+    "kind": "verb",
+    "target": "brette",
+    "source": "fold",
+    "difficulty": 2,
+    "category": "home-and-repair",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.sy",
+    "kind": "verb",
+    "target": "sy",
+    "source": "sew",
+    "difficulty": 2,
+    "category": "craft-and-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.strikke",
+    "kind": "verb",
+    "target": "strikke",
+    "source": "knit",
+    "difficulty": 2,
+    "category": "craft-and-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.hekle",
+    "kind": "verb",
+    "target": "hekle",
+    "source": "crochet",
+    "difficulty": 2,
+    "category": "craft-and-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.veve",
+    "kind": "verb",
+    "target": "veve",
+    "source": "weave",
+    "difficulty": 2,
+    "category": "craft-and-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.spikke",
+    "kind": "verb",
+    "target": "spikke",
+    "source": "whittle",
+    "difficulty": 2,
+    "category": "craft-and-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.sage",
+    "kind": "verb",
+    "target": "sage",
+    "source": "saw",
+    "difficulty": 2,
+    "category": "craft-and-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.hamre",
+    "kind": "verb",
+    "target": "hamre",
+    "source": "hammer",
+    "difficulty": 2,
+    "category": "craft-and-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.bore",
+    "kind": "verb",
+    "target": "bore",
+    "source": "drill",
+    "difficulty": 2,
+    "category": "craft-and-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.maale",
+    "kind": "verb",
+    "target": "måle",
+    "source": "measure",
+    "difficulty": 2,
+    "category": "craft-and-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.forme",
+    "kind": "verb",
+    "target": "forme",
+    "source": "shape",
+    "difficulty": 2,
+    "category": "craft-and-making",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.farge",
+    "kind": "verb",
+    "target": "farge",
+    "source": "dye or colour",
+    "difficulty": 2,
+    "category": "craft-and-materials",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.trykke",
+    "kind": "verb",
+    "target": "trykke",
+    "source": "press or print",
+    "difficulty": 2,
+    "category": "craft-and-materials",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.stemple",
+    "kind": "verb",
+    "target": "stemple",
+    "source": "stamp",
+    "difficulty": 2,
+    "category": "craft-and-materials",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.stifte",
+    "kind": "verb",
+    "target": "stifte",
+    "source": "staple",
+    "difficulty": 2,
+    "category": "craft-and-materials",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.spikre",
+    "kind": "verb",
+    "target": "spikre",
+    "source": "nail (fasten with nails)",
+    "difficulty": 2,
+    "category": "craft-and-materials",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.pusse-opp",
+    "kind": "verb",
+    "target": "pusse opp",
+    "source": "renovate",
+    "difficulty": 2,
+    "category": "craft-and-materials",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.stoepe",
+    "kind": "verb",
+    "target": "støpe",
+    "source": "cast (in a mould)",
+    "difficulty": 2,
+    "category": "craft-and-materials",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.slipe",
+    "kind": "verb",
+    "target": "slipe",
+    "source": "grind or sand smooth",
+    "difficulty": 2,
+    "category": "craft-and-materials",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.gjenbruke",
+    "kind": "verb",
+    "target": "gjenbruke",
+    "source": "reuse",
+    "difficulty": 2,
+    "category": "craft-and-materials",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.knuse",
+    "kind": "verb",
+    "target": "knuse",
+    "source": "crush or shatter",
+    "difficulty": 2,
+    "category": "craft-and-materials",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.skrelle",
+    "kind": "verb",
+    "target": "skrelle",
+    "source": "peel",
+    "difficulty": 2,
+    "category": "food-preparation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.hakke",
+    "kind": "verb",
+    "target": "hakke",
+    "source": "chop",
+    "difficulty": 2,
+    "category": "food-preparation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.raspe",
+    "kind": "verb",
+    "target": "raspe",
+    "source": "grate (food)",
+    "difficulty": 2,
+    "category": "food-preparation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.vispe",
+    "kind": "verb",
+    "target": "vispe",
+    "source": "whisk",
+    "difficulty": 2,
+    "category": "food-preparation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.elte",
+    "kind": "verb",
+    "target": "elte",
+    "source": "knead",
+    "difficulty": 2,
+    "category": "food-preparation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.kjevle",
+    "kind": "verb",
+    "target": "kjevle",
+    "source": "roll out (dough)",
+    "difficulty": 2,
+    "category": "food-preparation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.smoere",
+    "kind": "verb",
+    "target": "smøre",
+    "source": "spread (butter or grease)",
+    "difficulty": 2,
+    "category": "food-preparation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.krydre",
+    "kind": "verb",
+    "target": "krydre",
+    "source": "season (food)",
+    "difficulty": 2,
+    "category": "food-preparation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.salte",
+    "kind": "verb",
+    "target": "salte",
+    "source": "salt",
+    "difficulty": 2,
+    "category": "food-preparation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.sukre",
+    "kind": "verb",
+    "target": "sukre",
+    "source": "sweeten with sugar",
+    "difficulty": 2,
+    "category": "food-preparation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.tygge",
+    "kind": "verb",
+    "target": "tygge",
+    "source": "chew",
+    "difficulty": 2,
+    "category": "food-and-kitchen",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.svelge",
+    "kind": "verb",
+    "target": "svelge",
+    "source": "swallow",
+    "difficulty": 2,
+    "category": "food-and-kitchen",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.slikke",
+    "kind": "verb",
+    "target": "slikke",
+    "source": "lick",
+    "difficulty": 2,
+    "category": "food-and-kitchen",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.bite",
+    "kind": "verb",
+    "target": "bite",
+    "source": "bite",
+    "difficulty": 2,
+    "category": "food-and-kitchen",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.mate",
+    "kind": "verb",
+    "target": "mate",
+    "source": "feed (give food to)",
+    "difficulty": 2,
+    "category": "food-and-kitchen",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.dekke",
+    "kind": "verb",
+    "target": "dekke",
+    "source": "cover or set a table",
+    "difficulty": 2,
+    "category": "food-and-kitchen",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.dampe",
+    "kind": "verb",
+    "target": "dampe",
+    "source": "steam",
+    "difficulty": 2,
+    "category": "food-and-kitchen",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.avkjoele",
+    "kind": "verb",
+    "target": "avkjøle",
+    "source": "cool down (something)",
+    "difficulty": 2,
+    "category": "food-and-kitchen",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.varme",
+    "kind": "verb",
+    "target": "varme",
+    "source": "heat (something)",
+    "difficulty": 2,
+    "category": "food-and-kitchen",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.tine",
+    "kind": "verb",
+    "target": "tine",
+    "source": "thaw",
+    "difficulty": 2,
+    "category": "food-and-kitchen",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.klatre",
+    "kind": "verb",
+    "target": "klatre",
+    "source": "climb",
+    "difficulty": 2,
+    "category": "movement-and-sport",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.krype",
+    "kind": "verb",
+    "target": "krype",
+    "source": "crawl",
+    "difficulty": 2,
+    "category": "movement-and-sport",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.krabbe",
+    "kind": "verb",
+    "target": "krabbe",
+    "source": "crawl on hands and knees",
+    "difficulty": 2,
+    "category": "movement-and-sport",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.snike",
+    "kind": "verb",
+    "target": "snike",
+    "source": "sneak",
+    "difficulty": 2,
+    "category": "movement-and-sport",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.liste-seg",
+    "kind": "verb",
+    "target": "liste seg",
+    "source": "tiptoe",
+    "difficulty": 2,
+    "category": "movement-and-sport",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.traakke",
+    "kind": "verb",
+    "target": "tråkke",
+    "source": "step or tread",
+    "difficulty": 2,
+    "category": "movement-and-sport",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.sparke",
+    "kind": "verb",
+    "target": "sparke",
+    "source": "kick",
+    "difficulty": 2,
+    "category": "movement-and-sport",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.slaa",
+    "kind": "verb",
+    "target": "slå",
+    "source": "hit",
+    "difficulty": 2,
+    "category": "movement-and-sport",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.rulle",
+    "kind": "verb",
+    "target": "rulle",
+    "source": "roll",
+    "difficulty": 2,
+    "category": "movement-and-sport",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.gli",
+    "kind": "verb",
+    "target": "gli",
+    "source": "slide",
+    "difficulty": 2,
+    "category": "movement-and-sport",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.seile",
+    "kind": "verb",
+    "target": "seile",
+    "source": "sail",
+    "difficulty": 2,
+    "category": "movement-and-sport",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.ro",
+    "kind": "verb",
+    "target": "ro",
+    "source": "row",
+    "difficulty": 2,
+    "category": "movement-and-sport",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.padle",
+    "kind": "verb",
+    "target": "padle",
+    "source": "paddle",
+    "difficulty": 2,
+    "category": "movement-and-sport",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.stupe",
+    "kind": "verb",
+    "target": "stupe",
+    "source": "dive headfirst",
+    "difficulty": 2,
+    "category": "movement-and-sport",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.dykke",
+    "kind": "verb",
+    "target": "dykke",
+    "source": "dive underwater",
+    "difficulty": 2,
+    "category": "movement-and-sport",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.skoeyte",
+    "kind": "verb",
+    "target": "skøyte",
+    "source": "ice-skate",
+    "difficulty": 2,
+    "category": "movement-and-sport",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.ake",
+    "kind": "verb",
+    "target": "ake",
+    "source": "sledge",
+    "difficulty": 2,
+    "category": "movement-and-sport",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.trene",
+    "kind": "verb",
+    "target": "trene",
+    "source": "train or exercise",
+    "difficulty": 2,
+    "category": "movement-and-sport",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.jogge",
+    "kind": "verb",
+    "target": "jogge",
+    "source": "jog",
+    "difficulty": 2,
+    "category": "movement-and-sport",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.balansere",
+    "kind": "verb",
+    "target": "balansere",
+    "source": "balance",
+    "difficulty": 2,
+    "category": "movement-and-sport",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.saa",
+    "kind": "verb",
+    "target": "så",
+    "source": "sow",
+    "difficulty": 2,
+    "category": "outdoors-and-nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.grave",
+    "kind": "verb",
+    "target": "grave",
+    "source": "dig",
+    "difficulty": 2,
+    "category": "outdoors-and-nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.rake",
+    "kind": "verb",
+    "target": "rake",
+    "source": "rake",
+    "difficulty": 2,
+    "category": "outdoors-and-nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.luke",
+    "kind": "verb",
+    "target": "luke",
+    "source": "weed",
+    "difficulty": 2,
+    "category": "outdoors-and-nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.gjoedsle",
+    "kind": "verb",
+    "target": "gjødsle",
+    "source": "fertilize",
+    "difficulty": 2,
+    "category": "outdoors-and-nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.hoeste",
+    "kind": "verb",
+    "target": "høste",
+    "source": "harvest",
+    "difficulty": 2,
+    "category": "outdoors-and-nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.spire",
+    "kind": "verb",
+    "target": "spire",
+    "source": "sprout",
+    "difficulty": 2,
+    "category": "outdoors-and-nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.blomstre",
+    "kind": "verb",
+    "target": "blomstre",
+    "source": "bloom",
+    "difficulty": 2,
+    "category": "outdoors-and-nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.visne",
+    "kind": "verb",
+    "target": "visne",
+    "source": "wilt",
+    "difficulty": 2,
+    "category": "outdoors-and-nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.modne",
+    "kind": "verb",
+    "target": "modne",
+    "source": "ripen",
+    "difficulty": 2,
+    "category": "outdoors-and-nature",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.bjeffe",
+    "kind": "verb",
+    "target": "bjeffe",
+    "source": "bark",
+    "difficulty": 2,
+    "category": "outdoors-and-animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.mjaue",
+    "kind": "verb",
+    "target": "mjaue",
+    "source": "meow",
+    "difficulty": 2,
+    "category": "outdoors-and-animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.kvitre",
+    "kind": "verb",
+    "target": "kvitre",
+    "source": "chirp",
+    "difficulty": 2,
+    "category": "outdoors-and-animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.broele",
+    "kind": "verb",
+    "target": "brøle",
+    "source": "roar",
+    "difficulty": 2,
+    "category": "outdoors-and-animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.knurre",
+    "kind": "verb",
+    "target": "knurre",
+    "source": "growl",
+    "difficulty": 2,
+    "category": "outdoors-and-animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.suse",
+    "kind": "verb",
+    "target": "suse",
+    "source": "whizz or make a rushing sound",
+    "difficulty": 2,
+    "category": "outdoors-and-animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.surre",
+    "kind": "verb",
+    "target": "surre",
+    "source": "buzz",
+    "difficulty": 2,
+    "category": "outdoors-and-animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.beite",
+    "kind": "verb",
+    "target": "beite",
+    "source": "graze",
+    "difficulty": 2,
+    "category": "outdoors-and-animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.klekke",
+    "kind": "verb",
+    "target": "klekke",
+    "source": "hatch",
+    "difficulty": 2,
+    "category": "outdoors-and-animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.ruge",
+    "kind": "verb",
+    "target": "ruge",
+    "source": "incubate (eggs)",
+    "difficulty": 2,
+    "category": "outdoors-and-animals",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.lytte",
+    "kind": "verb",
+    "target": "lytte",
+    "source": "listen",
+    "difficulty": 2,
+    "category": "communication-and-language",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.prate",
+    "kind": "verb",
+    "target": "prate",
+    "source": "chat",
+    "difficulty": 2,
+    "category": "communication-and-language",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.diskutere",
+    "kind": "verb",
+    "target": "diskutere",
+    "source": "discuss",
+    "difficulty": 2,
+    "category": "communication-and-language",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.beskrive",
+    "kind": "verb",
+    "target": "beskrive",
+    "source": "describe",
+    "difficulty": 2,
+    "category": "communication-and-language",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.oversette",
+    "kind": "verb",
+    "target": "oversette",
+    "source": "translate",
+    "difficulty": 2,
+    "category": "communication-and-language",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.uttale",
+    "kind": "verb",
+    "target": "uttale",
+    "source": "pronounce",
+    "difficulty": 2,
+    "category": "communication-and-language",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.stave",
+    "kind": "verb",
+    "target": "stave",
+    "source": "spell",
+    "difficulty": 2,
+    "category": "communication-and-language",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.gjenta",
+    "kind": "verb",
+    "target": "gjenta",
+    "source": "repeat",
+    "difficulty": 2,
+    "category": "communication-and-language",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.nevne",
+    "kind": "verb",
+    "target": "nevne",
+    "source": "mention",
+    "difficulty": 2,
+    "category": "communication-and-language",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.foreslaa",
+    "kind": "verb",
+    "target": "foreslå",
+    "source": "suggest",
+    "difficulty": 2,
+    "category": "communication-and-language",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.love",
+    "kind": "verb",
+    "target": "love",
+    "source": "promise",
+    "difficulty": 2,
+    "category": "communication-and-language",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.advare",
+    "kind": "verb",
+    "target": "advare",
+    "source": "warn",
+    "difficulty": 2,
+    "category": "communication-and-language",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.beklage",
+    "kind": "verb",
+    "target": "beklage",
+    "source": "apologize or regret",
+    "difficulty": 2,
+    "category": "communication-and-language",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.unnskylde",
+    "kind": "verb",
+    "target": "unnskylde",
+    "source": "excuse",
+    "difficulty": 2,
+    "category": "communication-and-language",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.tilgi",
+    "kind": "verb",
+    "target": "tilgi",
+    "source": "forgive",
+    "difficulty": 2,
+    "category": "communication-and-language",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.klage",
+    "kind": "verb",
+    "target": "klage",
+    "source": "complain",
+    "difficulty": 2,
+    "category": "communication-and-language",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.kreve",
+    "kind": "verb",
+    "target": "kreve",
+    "source": "demand",
+    "difficulty": 2,
+    "category": "communication-and-language",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.nekte",
+    "kind": "verb",
+    "target": "nekte",
+    "source": "refuse",
+    "difficulty": 2,
+    "category": "communication-and-language",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.anbefale",
+    "kind": "verb",
+    "target": "anbefale",
+    "source": "recommend",
+    "difficulty": 2,
+    "category": "communication-and-language",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.avtale",
+    "kind": "verb",
+    "target": "avtale",
+    "source": "arrange (agree on)",
+    "difficulty": 2,
+    "category": "communication-and-language",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.oppdage",
+    "kind": "verb",
+    "target": "oppdage",
+    "source": "discover",
+    "difficulty": 2,
+    "category": "thinking-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.merke",
+    "kind": "verb",
+    "target": "merke",
+    "source": "notice",
+    "difficulty": 2,
+    "category": "thinking-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.gjenkjenne",
+    "kind": "verb",
+    "target": "gjenkjenne",
+    "source": "recognize",
+    "difficulty": 2,
+    "category": "thinking-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.gjette",
+    "kind": "verb",
+    "target": "gjette",
+    "source": "guess",
+    "difficulty": 2,
+    "category": "thinking-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.undersoeke",
+    "kind": "verb",
+    "target": "undersøke",
+    "source": "investigate",
+    "difficulty": 2,
+    "category": "thinking-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.sammenligne",
+    "kind": "verb",
+    "target": "sammenligne",
+    "source": "compare",
+    "difficulty": 2,
+    "category": "thinking-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.vurdere",
+    "kind": "verb",
+    "target": "vurdere",
+    "source": "assess",
+    "difficulty": 2,
+    "category": "thinking-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.bestemme",
+    "kind": "verb",
+    "target": "bestemme",
+    "source": "decide",
+    "difficulty": 2,
+    "category": "thinking-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.loese",
+    "kind": "verb",
+    "target": "løse",
+    "source": "solve",
+    "difficulty": 2,
+    "category": "thinking-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.bevise",
+    "kind": "verb",
+    "target": "bevise",
+    "source": "prove",
+    "difficulty": 2,
+    "category": "thinking-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.studere",
+    "kind": "verb",
+    "target": "studere",
+    "source": "study",
+    "difficulty": 2,
+    "category": "thinking-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.undervise",
+    "kind": "verb",
+    "target": "undervise",
+    "source": "teach",
+    "difficulty": 2,
+    "category": "thinking-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.kjenne",
+    "kind": "verb",
+    "target": "kjenne",
+    "source": "know (be familiar with)",
+    "difficulty": 2,
+    "category": "thinking-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.notere",
+    "kind": "verb",
+    "target": "notere",
+    "source": "note down",
+    "difficulty": 2,
+    "category": "thinking-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.rette",
+    "kind": "verb",
+    "target": "rette",
+    "source": "correct",
+    "difficulty": 2,
+    "category": "thinking-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.feile",
+    "kind": "verb",
+    "target": "feile",
+    "source": "fail or make an error",
+    "difficulty": 2,
+    "category": "thinking-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.mene",
+    "kind": "verb",
+    "target": "mene",
+    "source": "mean (hold an opinion)",
+    "difficulty": 2,
+    "category": "thinking-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.anta",
+    "kind": "verb",
+    "target": "anta",
+    "source": "assume",
+    "difficulty": 2,
+    "category": "thinking-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.gruble",
+    "kind": "verb",
+    "target": "gruble",
+    "source": "ponder",
+    "difficulty": 2,
+    "category": "thinking-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.forestille-seg",
+    "kind": "verb",
+    "target": "forestille seg",
+    "source": "imagine",
+    "difficulty": 2,
+    "category": "thinking-and-learning",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.savne",
+    "kind": "verb",
+    "target": "savne",
+    "source": "miss (feel someone's absence)",
+    "difficulty": 2,
+    "category": "feelings-and-reactions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.angre",
+    "kind": "verb",
+    "target": "angre",
+    "source": "regret (a choice)",
+    "difficulty": 2,
+    "category": "feelings-and-reactions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.grue-seg",
+    "kind": "verb",
+    "target": "grue seg",
+    "source": "dread",
+    "difficulty": 2,
+    "category": "feelings-and-reactions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.glede-seg",
+    "kind": "verb",
+    "target": "glede seg",
+    "source": "look forward to or feel pleased",
+    "difficulty": 2,
+    "category": "feelings-and-reactions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.bekymre-seg",
+    "kind": "verb",
+    "target": "bekymre seg",
+    "source": "worry",
+    "difficulty": 2,
+    "category": "feelings-and-reactions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.slappe-av",
+    "kind": "verb",
+    "target": "slappe av",
+    "source": "relax",
+    "difficulty": 2,
+    "category": "feelings-and-reactions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.kose-seg",
+    "kind": "verb",
+    "target": "kose seg",
+    "source": "enjoy oneself",
+    "difficulty": 2,
+    "category": "feelings-and-reactions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.undre-seg",
+    "kind": "verb",
+    "target": "undre seg",
+    "source": "wonder",
+    "difficulty": 2,
+    "category": "feelings-and-reactions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.skamme-seg",
+    "kind": "verb",
+    "target": "skamme seg",
+    "source": "feel ashamed",
+    "difficulty": 2,
+    "category": "feelings-and-reactions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.kjede-seg",
+    "kind": "verb",
+    "target": "kjede seg",
+    "source": "be bored",
+    "difficulty": 2,
+    "category": "feelings-and-reactions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.irritere",
+    "kind": "verb",
+    "target": "irritere",
+    "source": "annoy",
+    "difficulty": 2,
+    "category": "feelings-and-reactions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.overraske",
+    "kind": "verb",
+    "target": "overraske",
+    "source": "surprise",
+    "difficulty": 2,
+    "category": "feelings-and-reactions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.skremme",
+    "kind": "verb",
+    "target": "skremme",
+    "source": "frighten",
+    "difficulty": 2,
+    "category": "feelings-and-reactions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.troeste",
+    "kind": "verb",
+    "target": "trøste",
+    "source": "comfort",
+    "difficulty": 2,
+    "category": "feelings-and-reactions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.roe",
+    "kind": "verb",
+    "target": "roe",
+    "source": "calm (someone)",
+    "difficulty": 2,
+    "category": "feelings-and-reactions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.more",
+    "kind": "verb",
+    "target": "more",
+    "source": "amuse",
+    "difficulty": 2,
+    "category": "feelings-and-reactions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.imponere",
+    "kind": "verb",
+    "target": "imponere",
+    "source": "impress",
+    "difficulty": 2,
+    "category": "feelings-and-reactions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.saare",
+    "kind": "verb",
+    "target": "såre",
+    "source": "hurt (someone's feelings)",
+    "difficulty": 2,
+    "category": "feelings-and-reactions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.stole-paa",
+    "kind": "verb",
+    "target": "stole på",
+    "source": "trust",
+    "difficulty": 2,
+    "category": "feelings-and-reactions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.respektere",
+    "kind": "verb",
+    "target": "respektere",
+    "source": "respect",
+    "difficulty": 2,
+    "category": "feelings-and-reactions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.arbeide",
+    "kind": "verb",
+    "target": "arbeide",
+    "source": "work",
+    "difficulty": 2,
+    "category": "work-and-organization",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.ansette",
+    "kind": "verb",
+    "target": "ansette",
+    "source": "hire (an employee)",
+    "difficulty": 2,
+    "category": "work-and-organization",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.soeke",
+    "kind": "verb",
+    "target": "søke",
+    "source": "apply or seek",
+    "difficulty": 2,
+    "category": "work-and-organization",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.tjene",
+    "kind": "verb",
+    "target": "tjene",
+    "source": "earn or serve",
+    "difficulty": 2,
+    "category": "work-and-organization",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.lede",
+    "kind": "verb",
+    "target": "lede",
+    "source": "lead",
+    "difficulty": 2,
+    "category": "work-and-organization",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.organisere",
+    "kind": "verb",
+    "target": "organisere",
+    "source": "organize",
+    "difficulty": 2,
+    "category": "work-and-organization",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.ordne",
+    "kind": "verb",
+    "target": "ordne",
+    "source": "arrange (put in order)",
+    "difficulty": 2,
+    "category": "work-and-organization",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.delta",
+    "kind": "verb",
+    "target": "delta",
+    "source": "participate",
+    "difficulty": 2,
+    "category": "work-and-organization",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.samarbeide",
+    "kind": "verb",
+    "target": "samarbeide",
+    "source": "cooperate",
+    "difficulty": 2,
+    "category": "work-and-organization",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.stoette",
+    "kind": "verb",
+    "target": "støtte",
+    "source": "support",
+    "difficulty": 2,
+    "category": "work-and-organization",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.produsere",
+    "kind": "verb",
+    "target": "produsere",
+    "source": "produce",
+    "difficulty": 2,
+    "category": "work-and-organization",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.utvikle",
+    "kind": "verb",
+    "target": "utvikle",
+    "source": "develop",
+    "difficulty": 2,
+    "category": "work-and-organization",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.forbedre",
+    "kind": "verb",
+    "target": "forbedre",
+    "source": "improve",
+    "difficulty": 2,
+    "category": "work-and-organization",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.forandre",
+    "kind": "verb",
+    "target": "forandre",
+    "source": "change (alter)",
+    "difficulty": 2,
+    "category": "work-and-organization",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.kontrollere",
+    "kind": "verb",
+    "target": "kontrollere",
+    "source": "check or control",
+    "difficulty": 2,
+    "category": "work-and-organization",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.godkjenne",
+    "kind": "verb",
+    "target": "godkjenne",
+    "source": "approve",
+    "difficulty": 2,
+    "category": "work-and-organization",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.avslaa",
+    "kind": "verb",
+    "target": "avslå",
+    "source": "reject (a request)",
+    "difficulty": 2,
+    "category": "work-and-organization",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.avlyse",
+    "kind": "verb",
+    "target": "avlyse",
+    "source": "cancel (an event)",
+    "difficulty": 2,
+    "category": "work-and-organization",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.utsette",
+    "kind": "verb",
+    "target": "utsette",
+    "source": "postpone",
+    "difficulty": 2,
+    "category": "work-and-organization",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.erstatte",
+    "kind": "verb",
+    "target": "erstatte",
+    "source": "replace",
+    "difficulty": 2,
+    "category": "work-and-organization",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.klikke",
+    "kind": "verb",
+    "target": "klikke",
+    "source": "click",
+    "difficulty": 2,
+    "category": "digital-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.lagre",
+    "kind": "verb",
+    "target": "lagre",
+    "source": "save (data)",
+    "difficulty": 2,
+    "category": "digital-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.slette",
+    "kind": "verb",
+    "target": "slette",
+    "source": "delete",
+    "difficulty": 2,
+    "category": "digital-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.kopiere",
+    "kind": "verb",
+    "target": "kopiere",
+    "source": "copy",
+    "difficulty": 2,
+    "category": "digital-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.installere",
+    "kind": "verb",
+    "target": "installere",
+    "source": "install (software)",
+    "difficulty": 2,
+    "category": "digital-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.oppdatere",
+    "kind": "verb",
+    "target": "oppdatere",
+    "source": "update",
+    "difficulty": 2,
+    "category": "digital-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.programmere",
+    "kind": "verb",
+    "target": "programmere",
+    "source": "program",
+    "difficulty": 2,
+    "category": "digital-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.surfe",
+    "kind": "verb",
+    "target": "surfe",
+    "source": "surf (the web or waves)",
+    "difficulty": 2,
+    "category": "digital-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.skanne",
+    "kind": "verb",
+    "target": "skanne",
+    "source": "scan",
+    "difficulty": 2,
+    "category": "digital-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.laste-ned",
+    "kind": "verb",
+    "target": "laste ned",
+    "source": "download",
+    "difficulty": 2,
+    "category": "digital-life",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.krangle",
+    "kind": "verb",
+    "target": "krangle",
+    "source": "argue (quarrel)",
+    "difficulty": 2,
+    "category": "relationships-and-community",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.erte",
+    "kind": "verb",
+    "target": "erte",
+    "source": "tease",
+    "difficulty": 2,
+    "category": "relationships-and-community",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.mobbe",
+    "kind": "verb",
+    "target": "mobbe",
+    "source": "bully",
+    "difficulty": 2,
+    "category": "relationships-and-community",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.omfavne",
+    "kind": "verb",
+    "target": "omfavne",
+    "source": "embrace",
+    "difficulty": 2,
+    "category": "relationships-and-community",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.klemme",
+    "kind": "verb",
+    "target": "klemme",
+    "source": "squeeze",
+    "difficulty": 2,
+    "category": "relationships-and-community",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.gifte-seg",
+    "kind": "verb",
+    "target": "gifte seg",
+    "source": "get married",
+    "difficulty": 2,
+    "category": "relationships-and-community",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.skille-seg",
+    "kind": "verb",
+    "target": "skille seg",
+    "source": "get divorced",
+    "difficulty": 2,
+    "category": "relationships-and-community",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.feire",
+    "kind": "verb",
+    "target": "feire",
+    "source": "celebrate",
+    "difficulty": 2,
+    "category": "relationships-and-community",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.gratulere",
+    "kind": "verb",
+    "target": "gratulere",
+    "source": "congratulate",
+    "difficulty": 2,
+    "category": "relationships-and-community",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.oppdra",
+    "kind": "verb",
+    "target": "oppdra",
+    "source": "raise (a child)",
+    "difficulty": 2,
+    "category": "relationships-and-community",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.handle",
+    "kind": "verb",
+    "target": "handle",
+    "source": "shop",
+    "difficulty": 2,
+    "category": "shopping-and-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.spare",
+    "kind": "verb",
+    "target": "spare",
+    "source": "save (money or resources)",
+    "difficulty": 2,
+    "category": "shopping-and-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.skylde",
+    "kind": "verb",
+    "target": "skylde",
+    "source": "owe",
+    "difficulty": 2,
+    "category": "shopping-and-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.veksle",
+    "kind": "verb",
+    "target": "veksle",
+    "source": "change (money)",
+    "difficulty": 2,
+    "category": "shopping-and-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.leie",
+    "kind": "verb",
+    "target": "leie",
+    "source": "rent",
+    "difficulty": 2,
+    "category": "shopping-and-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.reservere",
+    "kind": "verb",
+    "target": "reservere",
+    "source": "reserve",
+    "difficulty": 2,
+    "category": "shopping-and-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.returnere",
+    "kind": "verb",
+    "target": "returnere",
+    "source": "return (send or go back)",
+    "difficulty": 2,
+    "category": "shopping-and-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.motta",
+    "kind": "verb",
+    "target": "motta",
+    "source": "receive",
+    "difficulty": 2,
+    "category": "shopping-and-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.tilby",
+    "kind": "verb",
+    "target": "tilby",
+    "source": "offer",
+    "difficulty": 2,
+    "category": "shopping-and-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.prute",
+    "kind": "verb",
+    "target": "prute",
+    "source": "haggle",
+    "difficulty": 2,
+    "category": "shopping-and-services",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.bloe",
+    "kind": "verb",
+    "target": "blø",
+    "source": "bleed",
+    "difficulty": 2,
+    "category": "body-and-health",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.skjelve",
+    "kind": "verb",
+    "target": "skjelve",
+    "source": "tremble",
+    "difficulty": 2,
+    "category": "body-and-health",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.gjespe",
+    "kind": "verb",
+    "target": "gjespe",
+    "source": "yawn",
+    "difficulty": 2,
+    "category": "body-and-health",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.snorke",
+    "kind": "verb",
+    "target": "snorke",
+    "source": "snore",
+    "difficulty": 2,
+    "category": "body-and-health",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.halte",
+    "kind": "verb",
+    "target": "halte",
+    "source": "limp",
+    "difficulty": 2,
+    "category": "body-and-health",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.strekke",
+    "kind": "verb",
+    "target": "strekke",
+    "source": "stretch",
+    "difficulty": 2,
+    "category": "body-and-health",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.boeye",
+    "kind": "verb",
+    "target": "bøye",
+    "source": "bend",
+    "difficulty": 2,
+    "category": "body-and-health",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.kloe",
+    "kind": "verb",
+    "target": "klø",
+    "source": "itch or scratch",
+    "difficulty": 2,
+    "category": "body-and-health",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.sovne",
+    "kind": "verb",
+    "target": "sovne",
+    "source": "fall asleep",
+    "difficulty": 2,
+    "category": "body-and-health",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.hikke",
+    "kind": "verb",
+    "target": "hikke",
+    "source": "hiccup",
+    "difficulty": 2,
+    "category": "body-and-health",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.fotografere",
+    "kind": "verb",
+    "target": "fotografere",
+    "source": "photograph",
+    "difficulty": 2,
+    "category": "arts-and-media",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.filme",
+    "kind": "verb",
+    "target": "filme",
+    "source": "film",
+    "difficulty": 2,
+    "category": "arts-and-media",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.opptre",
+    "kind": "verb",
+    "target": "opptre",
+    "source": "perform (on stage)",
+    "difficulty": 2,
+    "category": "arts-and-media",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.spoeke",
+    "kind": "verb",
+    "target": "spøke",
+    "source": "joke",
+    "difficulty": 2,
+    "category": "arts-and-media",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.forberede",
+    "kind": "verb",
+    "target": "forberede",
+    "source": "prepare",
+    "difficulty": 2,
+    "category": "work-and-organization",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.fortolke",
+    "kind": "verb",
+    "target": "fortolke",
+    "source": "interpret (a work or meaning)",
+    "difficulty": 2,
+    "category": "arts-and-media",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.komponere",
+    "kind": "verb",
+    "target": "komponere",
+    "source": "compose (music)",
+    "difficulty": 2,
+    "category": "arts-and-media",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.dirigere",
+    "kind": "verb",
+    "target": "dirigere",
+    "source": "conduct (an orchestra)",
+    "difficulty": 2,
+    "category": "arts-and-media",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.publisere",
+    "kind": "verb",
+    "target": "publisere",
+    "source": "publish",
+    "difficulty": 2,
+    "category": "arts-and-media",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.redigere",
+    "kind": "verb",
+    "target": "redigere",
+    "source": "edit",
+    "difficulty": 2,
+    "category": "arts-and-media",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.ankomme",
+    "kind": "verb",
+    "target": "ankomme",
+    "source": "arrive",
+    "difficulty": 2,
+    "category": "travel-and-direction",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.lande",
+    "kind": "verb",
+    "target": "lande",
+    "source": "land (an aircraft)",
+    "difficulty": 2,
+    "category": "travel-and-direction",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.parkere",
+    "kind": "verb",
+    "target": "parkere",
+    "source": "park",
+    "difficulty": 2,
+    "category": "travel-and-direction",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.passere",
+    "kind": "verb",
+    "target": "passere",
+    "source": "pass (go past)",
+    "difficulty": 2,
+    "category": "travel-and-direction",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.krysse",
+    "kind": "verb",
+    "target": "krysse",
+    "source": "cross",
+    "difficulty": 2,
+    "category": "travel-and-direction",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.svinge",
+    "kind": "verb",
+    "target": "svinge",
+    "source": "turn (change direction)",
+    "difficulty": 2,
+    "category": "travel-and-direction",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.bremse",
+    "kind": "verb",
+    "target": "bremse",
+    "source": "brake",
+    "difficulty": 2,
+    "category": "travel-and-direction",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.kollidere",
+    "kind": "verb",
+    "target": "kollidere",
+    "source": "collide",
+    "difficulty": 2,
+    "category": "travel-and-direction",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.overnatte",
+    "kind": "verb",
+    "target": "overnatte",
+    "source": "stay overnight",
+    "difficulty": 2,
+    "category": "travel-and-direction",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.orientere-seg",
+    "kind": "verb",
+    "target": "orientere seg",
+    "source": "find one's bearings",
+    "difficulty": 2,
+    "category": "travel-and-direction",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.slippe",
+    "kind": "verb",
+    "target": "slippe",
+    "source": "let go",
+    "difficulty": 2,
+    "category": "objects-and-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.gripe",
+    "kind": "verb",
+    "target": "gripe",
+    "source": "grasp",
+    "difficulty": 2,
+    "category": "objects-and-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.strekke-seg",
+    "kind": "verb",
+    "target": "strekke seg",
+    "source": "reach out",
+    "difficulty": 2,
+    "category": "objects-and-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.treffe",
+    "kind": "verb",
+    "target": "treffe",
+    "source": "hit (a target)",
+    "difficulty": 2,
+    "category": "objects-and-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.skjule",
+    "kind": "verb",
+    "target": "skjule",
+    "source": "hide (something)",
+    "difficulty": 2,
+    "category": "objects-and-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.gjemme",
+    "kind": "verb",
+    "target": "gjemme",
+    "source": "hide away (stash)",
+    "difficulty": 2,
+    "category": "objects-and-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.samle",
+    "kind": "verb",
+    "target": "samle",
+    "source": "collect",
+    "difficulty": 2,
+    "category": "objects-and-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.spre",
+    "kind": "verb",
+    "target": "spre",
+    "source": "spread (scatter)",
+    "difficulty": 2,
+    "category": "objects-and-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.binde",
+    "kind": "verb",
+    "target": "binde",
+    "source": "tie",
+    "difficulty": 2,
+    "category": "objects-and-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.knyte",
+    "kind": "verb",
+    "target": "knyte",
+    "source": "tie a knot",
+    "difficulty": 2,
+    "category": "objects-and-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.analysere",
+    "kind": "verb",
+    "target": "analysere",
+    "source": "analyse",
+    "difficulty": 3,
+    "category": "reasoning-and-evidence",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.argumentere",
+    "kind": "verb",
+    "target": "argumentere",
+    "source": "argue (give reasons)",
+    "difficulty": 3,
+    "category": "reasoning-and-evidence",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.begrunne",
+    "kind": "verb",
+    "target": "begrunne",
+    "source": "justify",
+    "difficulty": 3,
+    "category": "reasoning-and-evidence",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.konkludere",
+    "kind": "verb",
+    "target": "konkludere",
+    "source": "conclude",
+    "difficulty": 3,
+    "category": "reasoning-and-evidence",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.definere",
+    "kind": "verb",
+    "target": "definere",
+    "source": "define",
+    "difficulty": 3,
+    "category": "reasoning-and-evidence",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.avgrense",
+    "kind": "verb",
+    "target": "avgrense",
+    "source": "delimit",
+    "difficulty": 3,
+    "category": "reasoning-and-evidence",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.skille",
+    "kind": "verb",
+    "target": "skille",
+    "source": "distinguish or separate",
+    "difficulty": 3,
+    "category": "reasoning-and-evidence",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.tolke",
+    "kind": "verb",
+    "target": "tolke",
+    "source": "interpret orally (between languages)",
+    "difficulty": 3,
+    "category": "reasoning-and-evidence",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.tvile",
+    "kind": "verb",
+    "target": "tvile",
+    "source": "doubt (be uncertain)",
+    "difficulty": 3,
+    "category": "reasoning-and-evidence",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.forutsette",
+    "kind": "verb",
+    "target": "forutsette",
+    "source": "presuppose",
+    "difficulty": 3,
+    "category": "reasoning-and-evidence",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.bekrefte",
+    "kind": "verb",
+    "target": "bekrefte",
+    "source": "confirm",
+    "difficulty": 3,
+    "category": "reasoning-and-evidence",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.avkrefte",
+    "kind": "verb",
+    "target": "avkrefte",
+    "source": "disprove",
+    "difficulty": 3,
+    "category": "reasoning-and-evidence",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.tilbakevise",
+    "kind": "verb",
+    "target": "tilbakevise",
+    "source": "refute",
+    "difficulty": 3,
+    "category": "reasoning-and-evidence",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.paavise",
+    "kind": "verb",
+    "target": "påvise",
+    "source": "demonstrate (establish evidence of)",
+    "difficulty": 3,
+    "category": "reasoning-and-evidence",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.paastaa",
+    "kind": "verb",
+    "target": "påstå",
+    "source": "claim",
+    "difficulty": 3,
+    "category": "reasoning-and-evidence",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.avgjoere",
+    "kind": "verb",
+    "target": "avgjøre",
+    "source": "decide (settle a question)",
+    "difficulty": 3,
+    "category": "reasoning-and-evidence",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.antyde",
+    "kind": "verb",
+    "target": "antyde",
+    "source": "hint",
+    "difficulty": 3,
+    "category": "reasoning-and-evidence",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.utlede",
+    "kind": "verb",
+    "target": "utlede",
+    "source": "deduce",
+    "difficulty": 3,
+    "category": "reasoning-and-evidence",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.anslaa",
+    "kind": "verb",
+    "target": "anslå",
+    "source": "estimate",
+    "difficulty": 3,
+    "category": "reasoning-and-evidence",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.beregne",
+    "kind": "verb",
+    "target": "beregne",
+    "source": "compute (a quantity)",
+    "difficulty": 3,
+    "category": "reasoning-and-evidence",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.prioritere",
+    "kind": "verb",
+    "target": "prioritere",
+    "source": "prioritize",
+    "difficulty": 3,
+    "category": "planning-and-resources",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.fordele",
+    "kind": "verb",
+    "target": "fordele",
+    "source": "distribute",
+    "difficulty": 3,
+    "category": "planning-and-resources",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.tilpasse",
+    "kind": "verb",
+    "target": "tilpasse",
+    "source": "adapt",
+    "difficulty": 3,
+    "category": "planning-and-resources",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.samordne",
+    "kind": "verb",
+    "target": "samordne",
+    "source": "coordinate",
+    "difficulty": 3,
+    "category": "planning-and-resources",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.oppnaa",
+    "kind": "verb",
+    "target": "oppnå",
+    "source": "achieve",
+    "difficulty": 3,
+    "category": "planning-and-resources",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.gjennomfoere",
+    "kind": "verb",
+    "target": "gjennomføre",
+    "source": "carry out",
+    "difficulty": 3,
+    "category": "planning-and-resources",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.fullfoere",
+    "kind": "verb",
+    "target": "fullføre",
+    "source": "complete",
+    "difficulty": 3,
+    "category": "planning-and-resources",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.avbryte",
+    "kind": "verb",
+    "target": "avbryte",
+    "source": "interrupt",
+    "difficulty": 3,
+    "category": "planning-and-resources",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.begrense",
+    "kind": "verb",
+    "target": "begrense",
+    "source": "limit",
+    "difficulty": 3,
+    "category": "planning-and-resources",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.utvide",
+    "kind": "verb",
+    "target": "utvide",
+    "source": "expand",
+    "difficulty": 3,
+    "category": "planning-and-resources",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.redusere",
+    "kind": "verb",
+    "target": "redusere",
+    "source": "reduce",
+    "difficulty": 3,
+    "category": "planning-and-resources",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.oeke",
+    "kind": "verb",
+    "target": "øke",
+    "source": "increase",
+    "difficulty": 3,
+    "category": "planning-and-resources",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.bevare",
+    "kind": "verb",
+    "target": "bevare",
+    "source": "preserve",
+    "difficulty": 3,
+    "category": "planning-and-resources",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.vedlikeholde",
+    "kind": "verb",
+    "target": "vedlikeholde",
+    "source": "maintain",
+    "difficulty": 3,
+    "category": "planning-and-resources",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.forvalte",
+    "kind": "verb",
+    "target": "forvalte",
+    "source": "manage (resources)",
+    "difficulty": 3,
+    "category": "planning-and-resources",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.utnytte",
+    "kind": "verb",
+    "target": "utnytte",
+    "source": "utilize or exploit",
+    "difficulty": 3,
+    "category": "planning-and-resources",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.sloese",
+    "kind": "verb",
+    "target": "sløse",
+    "source": "waste (resources)",
+    "difficulty": 3,
+    "category": "planning-and-resources",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.mangle",
+    "kind": "verb",
+    "target": "mangle",
+    "source": "lack",
+    "difficulty": 3,
+    "category": "planning-and-resources",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.inneholde",
+    "kind": "verb",
+    "target": "inneholde",
+    "source": "contain",
+    "difficulty": 3,
+    "category": "planning-and-resources",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.omfatte",
+    "kind": "verb",
+    "target": "omfatte",
+    "source": "encompass",
+    "difficulty": 3,
+    "category": "planning-and-resources",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.stemme",
+    "kind": "verb",
+    "target": "stemme",
+    "source": "vote",
+    "difficulty": 3,
+    "category": "society-and-rules",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.samtykke",
+    "kind": "verb",
+    "target": "samtykke",
+    "source": "consent",
+    "difficulty": 3,
+    "category": "society-and-rules",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.foreskrive",
+    "kind": "verb",
+    "target": "foreskrive",
+    "source": "prescribe",
+    "difficulty": 3,
+    "category": "society-and-rules",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.forby",
+    "kind": "verb",
+    "target": "forby",
+    "source": "prohibit",
+    "difficulty": 3,
+    "category": "society-and-rules",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.tillate",
+    "kind": "verb",
+    "target": "tillate",
+    "source": "permit",
+    "difficulty": 3,
+    "category": "society-and-rules",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.regulere",
+    "kind": "verb",
+    "target": "regulere",
+    "source": "regulate",
+    "difficulty": 3,
+    "category": "society-and-rules",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.vedta",
+    "kind": "verb",
+    "target": "vedta",
+    "source": "adopt (a resolution)",
+    "difficulty": 3,
+    "category": "society-and-rules",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.oppheve",
+    "kind": "verb",
+    "target": "oppheve",
+    "source": "repeal or lift (a rule)",
+    "difficulty": 3,
+    "category": "society-and-rules",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.overholde",
+    "kind": "verb",
+    "target": "overholde",
+    "source": "comply with",
+    "difficulty": 3,
+    "category": "society-and-rules",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.bryte",
+    "kind": "verb",
+    "target": "bryte",
+    "source": "break (a rule or object)",
+    "difficulty": 3,
+    "category": "society-and-rules",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.beskytte",
+    "kind": "verb",
+    "target": "beskytte",
+    "source": "protect",
+    "difficulty": 3,
+    "category": "society-and-rights",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.forsvare",
+    "kind": "verb",
+    "target": "forsvare",
+    "source": "defend",
+    "difficulty": 3,
+    "category": "society-and-rights",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.angripe",
+    "kind": "verb",
+    "target": "angripe",
+    "source": "attack",
+    "difficulty": 3,
+    "category": "society-and-rights",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.anklage",
+    "kind": "verb",
+    "target": "anklage",
+    "source": "accuse",
+    "difficulty": 3,
+    "category": "society-and-rights",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.doemme",
+    "kind": "verb",
+    "target": "dømme",
+    "source": "judge (in court)",
+    "difficulty": 3,
+    "category": "society-and-rights",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.frikjenne",
+    "kind": "verb",
+    "target": "frikjenne",
+    "source": "acquit",
+    "difficulty": 3,
+    "category": "society-and-rights",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.vitne",
+    "kind": "verb",
+    "target": "vitne",
+    "source": "testify",
+    "difficulty": 3,
+    "category": "society-and-rights",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.etterforske",
+    "kind": "verb",
+    "target": "etterforske",
+    "source": "investigate (a crime)",
+    "difficulty": 3,
+    "category": "society-and-rights",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.arrestere",
+    "kind": "verb",
+    "target": "arrestere",
+    "source": "arrest",
+    "difficulty": 3,
+    "category": "society-and-rights",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.anmelde",
+    "kind": "verb",
+    "target": "anmelde",
+    "source": "report (to the police)",
+    "difficulty": 3,
+    "category": "society-and-rights",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.forhandle",
+    "kind": "verb",
+    "target": "forhandle",
+    "source": "negotiate",
+    "difficulty": 3,
+    "category": "social-action",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.overtale",
+    "kind": "verb",
+    "target": "overtale",
+    "source": "persuade",
+    "difficulty": 3,
+    "category": "social-action",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.overbevise",
+    "kind": "verb",
+    "target": "overbevise",
+    "source": "convince",
+    "difficulty": 3,
+    "category": "social-action",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.oppmuntre",
+    "kind": "verb",
+    "target": "oppmuntre",
+    "source": "encourage",
+    "difficulty": 3,
+    "category": "social-action",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.motivere",
+    "kind": "verb",
+    "target": "motivere",
+    "source": "motivate",
+    "difficulty": 3,
+    "category": "social-action",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.inspirere",
+    "kind": "verb",
+    "target": "inspirere",
+    "source": "inspire",
+    "difficulty": 3,
+    "category": "social-action",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.paavirke",
+    "kind": "verb",
+    "target": "påvirke",
+    "source": "influence",
+    "difficulty": 3,
+    "category": "social-action",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.engasjere",
+    "kind": "verb",
+    "target": "engasjere",
+    "source": "engage",
+    "difficulty": 3,
+    "category": "social-action",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.involvere",
+    "kind": "verb",
+    "target": "involvere",
+    "source": "involve",
+    "difficulty": 3,
+    "category": "social-action",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.inkludere",
+    "kind": "verb",
+    "target": "inkludere",
+    "source": "include",
+    "difficulty": 3,
+    "category": "social-action",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.utelukke",
+    "kind": "verb",
+    "target": "utelukke",
+    "source": "exclude",
+    "difficulty": 3,
+    "category": "social-action",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.forene",
+    "kind": "verb",
+    "target": "forene",
+    "source": "unite",
+    "difficulty": 3,
+    "category": "social-action",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.forsone",
+    "kind": "verb",
+    "target": "forsone",
+    "source": "reconcile",
+    "difficulty": 3,
+    "category": "social-action",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.megle",
+    "kind": "verb",
+    "target": "megle",
+    "source": "mediate",
+    "difficulty": 3,
+    "category": "social-action",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.protestere",
+    "kind": "verb",
+    "target": "protestere",
+    "source": "protest",
+    "difficulty": 3,
+    "category": "social-action",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.demonstrere",
+    "kind": "verb",
+    "target": "demonstrere",
+    "source": "demonstrate (protest publicly)",
+    "difficulty": 3,
+    "category": "social-action",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.boikotte",
+    "kind": "verb",
+    "target": "boikotte",
+    "source": "boycott",
+    "difficulty": 3,
+    "category": "social-action",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.donere",
+    "kind": "verb",
+    "target": "donere",
+    "source": "donate",
+    "difficulty": 3,
+    "category": "social-action",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.bidra",
+    "kind": "verb",
+    "target": "bidra",
+    "source": "contribute",
+    "difficulty": 3,
+    "category": "social-action",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.anerkjenne",
+    "kind": "verb",
+    "target": "anerkjenne",
+    "source": "recognize (accept as valid)",
+    "difficulty": 3,
+    "category": "social-action",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.observere",
+    "kind": "verb",
+    "target": "observere",
+    "source": "observe",
+    "difficulty": 3,
+    "category": "science-and-observation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.registrere",
+    "kind": "verb",
+    "target": "registrere",
+    "source": "register or record",
+    "difficulty": 3,
+    "category": "science-and-observation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.dokumentere",
+    "kind": "verb",
+    "target": "dokumentere",
+    "source": "document",
+    "difficulty": 3,
+    "category": "science-and-observation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.eksperimentere",
+    "kind": "verb",
+    "target": "eksperimentere",
+    "source": "experiment",
+    "difficulty": 3,
+    "category": "science-and-observation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.teste",
+    "kind": "verb",
+    "target": "teste",
+    "source": "test",
+    "difficulty": 3,
+    "category": "science-and-observation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.forske",
+    "kind": "verb",
+    "target": "forske",
+    "source": "research",
+    "difficulty": 3,
+    "category": "science-and-observation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.utforske",
+    "kind": "verb",
+    "target": "utforske",
+    "source": "explore",
+    "difficulty": 3,
+    "category": "science-and-observation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.oppfinne",
+    "kind": "verb",
+    "target": "oppfinne",
+    "source": "invent",
+    "difficulty": 3,
+    "category": "science-and-observation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.klassifisere",
+    "kind": "verb",
+    "target": "klassifisere",
+    "source": "classify",
+    "difficulty": 3,
+    "category": "science-and-observation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.identifisere",
+    "kind": "verb",
+    "target": "identifisere",
+    "source": "identify",
+    "difficulty": 3,
+    "category": "science-and-observation",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.fordampe",
+    "kind": "verb",
+    "target": "fordampe",
+    "source": "evaporate",
+    "difficulty": 3,
+    "category": "science-and-processes",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.kondensere",
+    "kind": "verb",
+    "target": "kondensere",
+    "source": "condense",
+    "difficulty": 3,
+    "category": "science-and-processes",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.opploese",
+    "kind": "verb",
+    "target": "oppløse",
+    "source": "dissolve",
+    "difficulty": 3,
+    "category": "science-and-processes",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.reagere",
+    "kind": "verb",
+    "target": "reagere",
+    "source": "react",
+    "difficulty": 3,
+    "category": "science-and-processes",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.rotere",
+    "kind": "verb",
+    "target": "rotere",
+    "source": "rotate",
+    "difficulty": 3,
+    "category": "science-and-processes",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.vibrere",
+    "kind": "verb",
+    "target": "vibrere",
+    "source": "vibrate",
+    "difficulty": 3,
+    "category": "science-and-processes",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.reflektere",
+    "kind": "verb",
+    "target": "reflektere",
+    "source": "reflect (light or sound)",
+    "difficulty": 3,
+    "category": "science-and-processes",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.absorbere",
+    "kind": "verb",
+    "target": "absorbere",
+    "source": "absorb",
+    "difficulty": 3,
+    "category": "science-and-processes",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.utstraale",
+    "kind": "verb",
+    "target": "utstråle",
+    "source": "radiate",
+    "difficulty": 3,
+    "category": "science-and-processes",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.utvide-seg",
+    "kind": "verb",
+    "target": "utvide seg",
+    "source": "expand (grow in size)",
+    "difficulty": 3,
+    "category": "science-and-processes",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.forurense",
+    "kind": "verb",
+    "target": "forurense",
+    "source": "pollute",
+    "difficulty": 3,
+    "category": "nature-and-environment",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.resirkulere",
+    "kind": "verb",
+    "target": "resirkulere",
+    "source": "recycle",
+    "difficulty": 3,
+    "category": "nature-and-environment",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.gjenvinne",
+    "kind": "verb",
+    "target": "gjenvinne",
+    "source": "recover (materials)",
+    "difficulty": 3,
+    "category": "nature-and-environment",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.kompostere",
+    "kind": "verb",
+    "target": "kompostere",
+    "source": "compost",
+    "difficulty": 3,
+    "category": "nature-and-environment",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.verne",
+    "kind": "verb",
+    "target": "verne",
+    "source": "conserve (protect nature or heritage)",
+    "difficulty": 3,
+    "category": "nature-and-environment",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.utrydde",
+    "kind": "verb",
+    "target": "utrydde",
+    "source": "eradicate",
+    "difficulty": 3,
+    "category": "nature-and-environment",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.overleve",
+    "kind": "verb",
+    "target": "overleve",
+    "source": "survive",
+    "difficulty": 3,
+    "category": "nature-and-environment",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.tilpasse-seg",
+    "kind": "verb",
+    "target": "tilpasse seg",
+    "source": "adapt oneself",
+    "difficulty": 3,
+    "category": "nature-and-environment",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.vandre",
+    "kind": "verb",
+    "target": "vandre",
+    "source": "hike or wander",
+    "difficulty": 3,
+    "category": "nature-and-environment",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.migrere",
+    "kind": "verb",
+    "target": "migrere",
+    "source": "migrate",
+    "difficulty": 3,
+    "category": "nature-and-environment",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.erodere",
+    "kind": "verb",
+    "target": "erodere",
+    "source": "erode",
+    "difficulty": 3,
+    "category": "nature-and-environment",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.oversvoemme",
+    "kind": "verb",
+    "target": "oversvømme",
+    "source": "flood",
+    "difficulty": 3,
+    "category": "nature-and-environment",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.renne",
+    "kind": "verb",
+    "target": "renne",
+    "source": "flow or run (liquid)",
+    "difficulty": 3,
+    "category": "nature-and-environment",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.dryppe",
+    "kind": "verb",
+    "target": "dryppe",
+    "source": "drip",
+    "difficulty": 3,
+    "category": "nature-and-environment",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.lekke",
+    "kind": "verb",
+    "target": "lekke",
+    "source": "leak",
+    "difficulty": 3,
+    "category": "nature-and-environment",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.sprute",
+    "kind": "verb",
+    "target": "sprute",
+    "source": "squirt or splash",
+    "difficulty": 3,
+    "category": "nature-and-environment",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.fosse",
+    "kind": "verb",
+    "target": "fosse",
+    "source": "gush",
+    "difficulty": 3,
+    "category": "nature-and-environment",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.synke",
+    "kind": "verb",
+    "target": "synke",
+    "source": "sink",
+    "difficulty": 3,
+    "category": "nature-and-environment",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.flyte",
+    "kind": "verb",
+    "target": "flyte",
+    "source": "float",
+    "difficulty": 3,
+    "category": "nature-and-environment",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.stige",
+    "kind": "verb",
+    "target": "stige",
+    "source": "rise",
+    "difficulty": 3,
+    "category": "nature-and-environment",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.investere",
+    "kind": "verb",
+    "target": "investere",
+    "source": "invest",
+    "difficulty": 3,
+    "category": "work-and-finance",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.finansiere",
+    "kind": "verb",
+    "target": "finansiere",
+    "source": "finance",
+    "difficulty": 3,
+    "category": "work-and-finance",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.budsjettere",
+    "kind": "verb",
+    "target": "budsjettere",
+    "source": "budget",
+    "difficulty": 3,
+    "category": "work-and-finance",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.fakturere",
+    "kind": "verb",
+    "target": "fakturere",
+    "source": "invoice",
+    "difficulty": 3,
+    "category": "work-and-finance",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.refundere",
+    "kind": "verb",
+    "target": "refundere",
+    "source": "refund",
+    "difficulty": 3,
+    "category": "work-and-finance",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.forsikre",
+    "kind": "verb",
+    "target": "forsikre",
+    "source": "insure or assure",
+    "difficulty": 3,
+    "category": "work-and-finance",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.garantere",
+    "kind": "verb",
+    "target": "garantere",
+    "source": "guarantee",
+    "difficulty": 3,
+    "category": "work-and-finance",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.eie",
+    "kind": "verb",
+    "target": "eie",
+    "source": "own",
+    "difficulty": 3,
+    "category": "work-and-finance",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.arve",
+    "kind": "verb",
+    "target": "arve",
+    "source": "inherit",
+    "difficulty": 3,
+    "category": "work-and-finance",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.pantsette",
+    "kind": "verb",
+    "target": "pantsette",
+    "source": "pledge as collateral",
+    "difficulty": 3,
+    "category": "work-and-finance",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.importere",
+    "kind": "verb",
+    "target": "importere",
+    "source": "import",
+    "difficulty": 3,
+    "category": "work-and-finance",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.eksportere",
+    "kind": "verb",
+    "target": "eksportere",
+    "source": "export",
+    "difficulty": 3,
+    "category": "work-and-finance",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.transportere",
+    "kind": "verb",
+    "target": "transportere",
+    "source": "transport",
+    "difficulty": 3,
+    "category": "work-and-finance",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.unngaa",
+    "kind": "verb",
+    "target": "unngå",
+    "source": "avoid",
+    "difficulty": 3,
+    "category": "planning-and-resources",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.markedsfoere",
+    "kind": "verb",
+    "target": "markedsføre",
+    "source": "market",
+    "difficulty": 3,
+    "category": "work-and-finance",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.annonsere",
+    "kind": "verb",
+    "target": "annonsere",
+    "source": "advertise or announce",
+    "difficulty": 3,
+    "category": "work-and-finance",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.konkurrere",
+    "kind": "verb",
+    "target": "konkurrere",
+    "source": "compete",
+    "difficulty": 3,
+    "category": "work-and-finance",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.rekruttere",
+    "kind": "verb",
+    "target": "rekruttere",
+    "source": "recruit",
+    "difficulty": 3,
+    "category": "work-and-finance",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.delegere",
+    "kind": "verb",
+    "target": "delegere",
+    "source": "delegate",
+    "difficulty": 3,
+    "category": "work-and-finance",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.rapportere",
+    "kind": "verb",
+    "target": "rapportere",
+    "source": "report (give an account)",
+    "difficulty": 3,
+    "category": "work-and-finance",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.oppsummere",
+    "kind": "verb",
+    "target": "oppsummere",
+    "source": "summarize",
+    "difficulty": 3,
+    "category": "language-and-expression",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.presisere",
+    "kind": "verb",
+    "target": "presisere",
+    "source": "clarify precisely",
+    "difficulty": 3,
+    "category": "language-and-expression",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.utdype",
+    "kind": "verb",
+    "target": "utdype",
+    "source": "elaborate",
+    "difficulty": 3,
+    "category": "language-and-expression",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.formulere",
+    "kind": "verb",
+    "target": "formulere",
+    "source": "formulate",
+    "difficulty": 3,
+    "category": "language-and-expression",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.omskrive",
+    "kind": "verb",
+    "target": "omskrive",
+    "source": "rewrite or paraphrase",
+    "difficulty": 3,
+    "category": "language-and-expression",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.sitere",
+    "kind": "verb",
+    "target": "sitere",
+    "source": "quote",
+    "difficulty": 3,
+    "category": "language-and-expression",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.henvise",
+    "kind": "verb",
+    "target": "henvise",
+    "source": "refer",
+    "difficulty": 3,
+    "category": "language-and-expression",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.understreke",
+    "kind": "verb",
+    "target": "understreke",
+    "source": "emphasize",
+    "difficulty": 3,
+    "category": "language-and-expression",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.overdrive",
+    "kind": "verb",
+    "target": "overdrive",
+    "source": "exaggerate",
+    "difficulty": 3,
+    "category": "language-and-expression",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.misforstaa",
+    "kind": "verb",
+    "target": "misforstå",
+    "source": "misunderstand",
+    "difficulty": 3,
+    "category": "language-and-expression",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.avsloere",
+    "kind": "verb",
+    "target": "avsløre",
+    "source": "reveal",
+    "difficulty": 3,
+    "category": "language-and-expression",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.innroemme",
+    "kind": "verb",
+    "target": "innrømme",
+    "source": "admit",
+    "difficulty": 3,
+    "category": "language-and-expression",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.benekte",
+    "kind": "verb",
+    "target": "benekte",
+    "source": "deny",
+    "difficulty": 3,
+    "category": "language-and-expression",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.lyve",
+    "kind": "verb",
+    "target": "lyve",
+    "source": "lie (tell an untruth)",
+    "difficulty": 3,
+    "category": "language-and-expression",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.tie",
+    "kind": "verb",
+    "target": "tie",
+    "source": "remain silent",
+    "difficulty": 3,
+    "category": "language-and-expression",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.tysse",
+    "kind": "verb",
+    "target": "tysse",
+    "source": "hush",
+    "difficulty": 3,
+    "category": "language-and-expression",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.avlede",
+    "kind": "verb",
+    "target": "avlede",
+    "source": "divert",
+    "difficulty": 3,
+    "category": "language-and-expression",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.avvise",
+    "kind": "verb",
+    "target": "avvise",
+    "source": "dismiss or turn away",
+    "difficulty": 3,
+    "category": "language-and-expression",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.uttrykke",
+    "kind": "verb",
+    "target": "uttrykke",
+    "source": "express",
+    "difficulty": 3,
+    "category": "language-and-expression",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.formidle",
+    "kind": "verb",
+    "target": "formidle",
+    "source": "convey",
+    "difficulty": 3,
+    "category": "language-and-expression",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.beundre",
+    "kind": "verb",
+    "target": "beundre",
+    "source": "admire",
+    "difficulty": 3,
+    "category": "emotion-and-character",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.misunne",
+    "kind": "verb",
+    "target": "misunne",
+    "source": "envy",
+    "difficulty": 3,
+    "category": "emotion-and-character",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.forakte",
+    "kind": "verb",
+    "target": "forakte",
+    "source": "despise",
+    "difficulty": 3,
+    "category": "emotion-and-character",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.hate",
+    "kind": "verb",
+    "target": "hate",
+    "source": "hate",
+    "difficulty": 3,
+    "category": "emotion-and-character",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.tiltrekke",
+    "kind": "verb",
+    "target": "tiltrekke",
+    "source": "attract",
+    "difficulty": 3,
+    "category": "emotion-and-character",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.friste",
+    "kind": "verb",
+    "target": "friste",
+    "source": "tempt",
+    "difficulty": 3,
+    "category": "emotion-and-character",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.skuffe",
+    "kind": "verb",
+    "target": "skuffe",
+    "source": "disappoint",
+    "difficulty": 3,
+    "category": "emotion-and-character",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.berolige",
+    "kind": "verb",
+    "target": "berolige",
+    "source": "reassure",
+    "difficulty": 3,
+    "category": "emotion-and-character",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.beholde",
+    "kind": "verb",
+    "target": "beholde",
+    "source": "keep (retain)",
+    "difficulty": 3,
+    "category": "experience-and-change",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.overvelde",
+    "kind": "verb",
+    "target": "overvelde",
+    "source": "overwhelm",
+    "difficulty": 3,
+    "category": "emotion-and-character",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.oppleve",
+    "kind": "verb",
+    "target": "oppleve",
+    "source": "experience",
+    "difficulty": 3,
+    "category": "experience-and-change",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.erkjenne",
+    "kind": "verb",
+    "target": "erkjenne",
+    "source": "acknowledge",
+    "difficulty": 3,
+    "category": "experience-and-change",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.innse",
+    "kind": "verb",
+    "target": "innse",
+    "source": "realize (understand)",
+    "difficulty": 3,
+    "category": "experience-and-change",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.oppfatte",
+    "kind": "verb",
+    "target": "oppfatte",
+    "source": "perceive",
+    "difficulty": 3,
+    "category": "experience-and-change",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.forvente",
+    "kind": "verb",
+    "target": "forvente",
+    "source": "expect",
+    "difficulty": 3,
+    "category": "experience-and-change",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.forutse",
+    "kind": "verb",
+    "target": "forutse",
+    "source": "foresee",
+    "difficulty": 3,
+    "category": "experience-and-change",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.foretrekke",
+    "kind": "verb",
+    "target": "foretrekke",
+    "source": "prefer",
+    "difficulty": 3,
+    "category": "experience-and-change",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.avhenge",
+    "kind": "verb",
+    "target": "avhenge",
+    "source": "depend",
+    "difficulty": 3,
+    "category": "experience-and-change",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.tilhoere",
+    "kind": "verb",
+    "target": "tilhøre",
+    "source": "belong to",
+    "difficulty": 3,
+    "category": "experience-and-change",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.eksistere",
+    "kind": "verb",
+    "target": "eksistere",
+    "source": "exist",
+    "difficulty": 3,
+    "category": "experience-and-change",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.vri",
+    "kind": "verb",
+    "target": "vri",
+    "source": "twist",
+    "difficulty": 3,
+    "category": "physical-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.knekke",
+    "kind": "verb",
+    "target": "knekke",
+    "source": "snap",
+    "difficulty": 3,
+    "category": "physical-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.brekke",
+    "kind": "verb",
+    "target": "brekke",
+    "source": "break (a limb or stick)",
+    "difficulty": 3,
+    "category": "physical-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.splitte",
+    "kind": "verb",
+    "target": "splitte",
+    "source": "split",
+    "difficulty": 3,
+    "category": "physical-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.stikke",
+    "kind": "verb",
+    "target": "stikke",
+    "source": "prick or stab",
+    "difficulty": 3,
+    "category": "physical-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.dytte",
+    "kind": "verb",
+    "target": "dytte",
+    "source": "nudge or push",
+    "difficulty": 3,
+    "category": "physical-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.nappe",
+    "kind": "verb",
+    "target": "nappe",
+    "source": "pluck or tug sharply",
+    "difficulty": 3,
+    "category": "physical-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.stroe",
+    "kind": "verb",
+    "target": "strø",
+    "source": "sprinkle",
+    "difficulty": 3,
+    "category": "physical-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.smuldre",
+    "kind": "verb",
+    "target": "smuldre",
+    "source": "crumble",
+    "difficulty": 3,
+    "category": "physical-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.smelle",
+    "kind": "verb",
+    "target": "smelle",
+    "source": "slam or bang",
+    "difficulty": 3,
+    "category": "physical-actions",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.foede",
+    "kind": "verb",
+    "target": "føde",
+    "source": "give birth",
+    "difficulty": 3,
+    "category": "life-and-health",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.amme",
+    "kind": "verb",
+    "target": "amme",
+    "source": "breastfeed",
+    "difficulty": 3,
+    "category": "life-and-health",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.pleie",
+    "kind": "verb",
+    "target": "pleie",
+    "source": "care for (someone)",
+    "difficulty": 3,
+    "category": "life-and-health",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.behandle",
+    "kind": "verb",
+    "target": "behandle",
+    "source": "treat",
+    "difficulty": 3,
+    "category": "life-and-health",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.helbrede",
+    "kind": "verb",
+    "target": "helbrede",
+    "source": "cure",
+    "difficulty": 3,
+    "category": "life-and-health",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.lindre",
+    "kind": "verb",
+    "target": "lindre",
+    "source": "relieve (pain)",
+    "difficulty": 3,
+    "category": "life-and-health",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.forebygge",
+    "kind": "verb",
+    "target": "forebygge",
+    "source": "prevent",
+    "difficulty": 3,
+    "category": "life-and-health",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.smitte",
+    "kind": "verb",
+    "target": "smitte",
+    "source": "infect",
+    "difficulty": 3,
+    "category": "life-and-health",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.besvime",
+    "kind": "verb",
+    "target": "besvime",
+    "source": "faint",
+    "difficulty": 3,
+    "category": "life-and-health",
+    "reviewStatus": "native-review-required"
+  },
+  {
+    "id": "nb.verb.komme-seg",
+    "kind": "verb",
+    "target": "komme seg",
+    "source": "recover (regain health)",
+    "difficulty": 3,
+    "category": "life-and-health",
+    "reviewStatus": "native-review-required"
+  }
+]

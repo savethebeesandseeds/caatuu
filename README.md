@@ -55,7 +55,8 @@ adapter, content, and capability contracts instead of forking the app. English
 remains the immutable per-item audit and retrieval authority even when neither
 the learner base nor the target language is English.
 
-All four courses are enabled for browser, public Pages, and Android delivery:
+Five courses are registered for browser, public Pages, and Android source delivery.
+Registration preserves the separate review, licensing, and publication gates:
 
 | Learner language | Learning language | Route | Course status |
 | --- | --- | --- | --- |
@@ -63,6 +64,7 @@ All four courses are enabled for browser, public Pages, and Android delivery:
 | English | Mandarin (Simplified Chinese) | `/zh/` | Development preview |
 | English | Spanish | `/es/` | Development preview |
 | Spanish | English (American) | `/es-en/` | Development preview |
+| English | Norwegian Bokmål | `/nb/` | Development preview |
 
 Czech is the first active reference course and the experience shown in these
 screenshots. Development courses remain `noindex` previews on Pages,
@@ -72,6 +74,10 @@ courses use the shared English concept authority and their own target-language
 realizations. Earlier Chinese work remains preserved as history and is not a
 dependency of the current Mandarin course. More languages can join through the
 same manifest, adapter, content, and capability contracts.
+
+The [Norwegian course report](docs/NORWEGIAN_BOKMAL_COURSE_20260909.md) records its
+expanded banks, Bokmål conventions, validation, and remaining review. Registering
+Norwegian does not add it to an already published APK.
 
 ## Replicate the development environment
 
@@ -150,8 +156,8 @@ process settle; the contribution guide records the current policy.
 
 First-party software, developer documentation, and Caatuu-authored English and
 Mandarin curriculum content are licensed [`AGPL-3.0-only`](LICENSE).
-The Spanish development curriculum is outside that cleared curriculum statement
-while its manifest remains `release-review-required`.
+The Spanish and Norwegian development curricula are outside that cleared
+curriculum statement while their catalogs remain `release-review-required`.
 Third-party or separately licensed models, dictionaries, datasets, artwork,
 branding, and components may have separate terms; see
 [licensing and attribution](docs/LICENSING.md).

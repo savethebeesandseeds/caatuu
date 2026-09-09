@@ -7,7 +7,7 @@ import {
   fetchDeclaredCourseGameJson,
   readEmbeddedCourseProfile
 } from "../course-game-content.mjs?v=course-game-content-1";
-import { mountNounLanding } from "./noun-landing-host.mjs?v=noun-landing-host-22";
+import { mountNounLanding } from "./noun-landing-host.mjs?v=noun-landing-host-23";
 import { mountGrammarFlight } from "./adjective-flight-host.mjs?v=adjective-flight-host-18";
 import { mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-8";
 

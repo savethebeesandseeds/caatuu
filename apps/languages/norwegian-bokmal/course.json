@@ -1,0 +1,242 @@
+{
+  "$schema": "../../../tools/language-packs/schemas/course-pack.v1.schema.json",
+  "schemaVersion": 1,
+  "id": "nb",
+  "directoryName": "norwegian-bokmal",
+  "status": "development",
+  "brandLabel": "Caatuu",
+  "workspaceLabel": "Caatuu Norwegian",
+  "routePrefix": "/nb",
+  "entryPath": "/nb/index.html",
+  "sourceLanguage": {
+    "id": "en",
+    "label": "English",
+    "nativeLabel": "English",
+    "shortCode": "EN",
+    "locale": "en",
+    "direction": "ltr",
+    "flagClass": "en-flag",
+    "flagSrc": "/assets/icons/english_flag.png"
+  },
+  "targetLanguage": {
+    "id": "nb",
+    "label": "Norwegian Bokmål",
+    "nativeLabel": "Norsk bokmål",
+    "shortCode": "NB",
+    "locale": "nb-NO",
+    "script": "Latn",
+    "speechLocale": "nb-NO",
+    "direction": "ltr",
+    "flagClass": "norway-flag",
+    "flagSrc": "/assets/icons/norway_flag.png"
+  },
+  "linguisticFeatures": [
+    "verb-conjugation",
+    "grammatical-agreement"
+  ],
+  "games": [
+    "verb-lab",
+    "word-net",
+    "conjugation-comet",
+    "grammar-gravity",
+    "sound-quasar"
+  ],
+  "upcomingGames": [
+    "memory-moon"
+  ],
+  "launcher": {
+    "flagClass": "flag-icon"
+  },
+  "routes": {
+    "soundQuasar": "/language-runtime/static/games/sound-quasar.html",
+    "languageSelection": "/",
+    "home": "index.html",
+    "games": "index.html",
+    "verbNebula": "index.html?game=verb-lab",
+    "wordWorld": "index.html?game=word-net",
+    "conjugationComet": "/language-runtime/static/games/conjugation-comet.html",
+    "grammarGravity": "/language-runtime/static/games/grammar-gravity.html",
+    "settings": "index.html"
+  },
+  "storage": {
+    "namespace": "caatuu-nb",
+    "theme": "caatuu-nb.theme",
+    "fontSize": "caatuu-nb.font-size",
+    "learningPreferences": "caatuu-nb.learning.preferences.v1",
+    "learningPerformance": "caatuu-nb.learning.performance.v1",
+    "semanticLearningDatabase": "caatuu-nb.semantic-learning",
+    "verbMemory": "caatuu-nb.verb-memory.v3",
+    "wordWorldTranslationMode": "caatuu-nb.word-world.translation-mode",
+    "wordWorldRecentSentences": "caatuu-nb.word-world.recent-sentences.v1"
+  },
+  "cache": {
+    "prefix": "caatuu-nb-pwa-",
+    "setupFallback": "caatuu-nb-setup-v1"
+  },
+  "publication": {
+    "contract": "language-content-v1",
+    "concepts": "apps/languages/shared/english-concepts/word-world-nb-v1.json",
+    "realizations": "apps/languages/norwegian-bokmal/content/word-world/starter-v1.realizations.json",
+    "learnerBaseRealizations": null,
+    "runtimeProjection": {
+      "policyId": "norwegian-bokmal-word-world-v1",
+      "conceptsRuntime": "apps/language-runtime/static/data/english-concepts/word-world-nb-v1.json",
+      "targetRealizationsRuntime": "apps/languages/norwegian-bokmal/static/data/games/word-world/content.json",
+      "learnerBaseRuntime": null,
+      "supplementalOutputs": {},
+      "manifest": "apps/languages/norwegian-bokmal/static/data/games/word-world/manifest.json"
+    }
+  },
+  "capabilities": {
+    "llm": false,
+    "generation": false,
+    "chat": false,
+    "embeddings": true,
+    "semanticSearch": true,
+    "skillCompass": false,
+    "dictionary": false,
+    "memory": false,
+    "verbs": false,
+    "wordWorld": true,
+    "conjugationComet": true,
+    "offlineModels": false,
+    "speech": true,
+    "pronunciationGuides": false
+  },
+  "skillCompass": null,
+  "platforms": {
+    "browser": {
+      "enabled": true,
+      "pagesEnabled": true,
+      "entryPath": "/nb/index.html",
+      "backend": "static"
+    },
+    "android": {
+      "enabled": true,
+      "channels": [
+        {
+          "kind": "release",
+          "manifest": "/android/caatuu.json",
+          "artifact": "/android/caatuu.apk",
+          "minimumVersionCode": 172
+        },
+        {
+          "kind": "preview",
+          "manifest": "/android/caatuu-preview.json",
+          "artifact": "/android/caatuu-preview.apk",
+          "minimumVersionCode": 172
+        }
+      ]
+    }
+  },
+  "resources": {
+    "androidAssetCatalog": {
+      "kind": "file",
+      "path": "apps/languages/norwegian-bokmal/android-assets.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "soundQuasarCatalog": {
+      "kind": "file",
+      "path": "apps/languages/norwegian-bokmal/static/data/games/sound-quasar/content.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "sound-quasar-content-1"
+    },
+    "staticRoot": {
+      "kind": "directory",
+      "path": "apps/languages/norwegian-bokmal/static",
+      "scope": "course",
+      "state": "present"
+    },
+    "appEntry": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/app/index.html",
+      "scope": "shared",
+      "state": "present"
+    },
+    "interfaceCatalog": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/data/interface/en.v1.json",
+      "scope": "shared",
+      "state": "present",
+      "revision": "interface-en-32"
+    },
+    "courseProfile": {
+      "kind": "file",
+      "path": "apps/languages/norwegian-bokmal/static/source/shared/course-profile.js",
+      "scope": "course",
+      "state": "present"
+    },
+    "languageAdapter": {
+      "kind": "file",
+      "path": "apps/languages/norwegian-bokmal/static/source/language/adapter.mjs",
+      "scope": "course",
+      "state": "present"
+    },
+    "webManifest": {
+      "kind": "file",
+      "path": "apps/languages/norwegian-bokmal/static/manifest.webmanifest",
+      "scope": "course",
+      "state": "present"
+    },
+    "setupCatalog": {
+      "kind": "file",
+      "path": "apps/languages/norwegian-bokmal/static/setup-assets.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "sourceLanguageFlag": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/assets/home/english_flag.png",
+      "scope": "shared",
+      "state": "present"
+    },
+    "embeddingCatalog": {
+      "kind": "file",
+      "path": "apps/languages/norwegian-bokmal/static/data/embeddings/catalog.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "wordWorldManifest": {
+      "kind": "file",
+      "path": "apps/languages/norwegian-bokmal/static/data/games/word-world/manifest.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "word-world-content-1"
+    },
+    "verbNebulaCatalog": {
+      "kind": "file",
+      "path": "apps/languages/norwegian-bokmal/static/data/games/verb-nebula/content.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "conjugationCometCatalog": {
+      "kind": "file",
+      "path": "apps/languages/norwegian-bokmal/static/data/games/conjugation-comet/content.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "conjugation-comet-content-1"
+    },
+    "grammarGravityCatalog": {
+      "kind": "file",
+      "path": "apps/languages/norwegian-bokmal/static/data/games/grammar-gravity/content.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "grammar-gravity-content-1"
+    },
+    "grammarGravityNouns": {
+      "kind": "file",
+      "path": "apps/languages/norwegian-bokmal/static/data/games/grammar-gravity/nouns.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "grammar-gravity-nouns-1"
+    },
+    "launcherFlag": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/assets/home/norway_flag.png",
+      "scope": "shared",
+      "state": "present"
+    }
+  }
+}

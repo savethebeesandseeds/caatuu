@@ -488,6 +488,10 @@
       })) ?? false);
     }
 
+    // Home can open this dialog while its Settings ancestors are display:none.
+    // A modal there makes the page inert without displaying the confirmation.
+    if (dialog.parentElement !== document.body) document.body.append(dialog);
+
     const title = dialog.querySelector("#appUpdateConfirmTitle");
     const versions = dialog.querySelector("#appUpdateConfirmVersions");
     const action = dialog.querySelector("#appUpdateConfirmAction");

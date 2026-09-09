@@ -307,11 +307,22 @@ test("projector and validator CLIs select one course or every modern catalog cou
     ]
   });
 
+  const expectedCounts = Object.fromEntries(await Promise.all([
+    ["zh", "mandarin-simplified"],
+    ["es", "spanish"]
+  ].map(async ([courseId, directory]) => {
+    const authority = JSON.parse(await readFile(
+      path.join(temporaryRoot, `apps/languages/${directory}/content/word-world/content.json`),
+      "utf8"
+    ));
+    return [courseId, authority.records.length];
+  })));
+  const expectedTotal = Object.values(expectedCounts).reduce((sum, count) => sum + count, 0);
   const projectorWrite = run(projectorPath, [
     "--all", "--repo-root", temporaryRoot, "--catalog", catalogPath
   ]);
   assert.equal(projectorWrite.status, 0, projectorWrite.stderr);
-  assert.match(projectorWrite.stdout, /Projected 500 Word World records across 2 course\(s\)/u);
+  assert.ok(projectorWrite.stdout.includes(`Projected ${expectedTotal} Word World records across 2 course(s).`), projectorWrite.stdout);
 
   const projectorCheck = run(projectorPath, [
     "--check", "--repo-root", temporaryRoot, "--catalog", catalogPath
@@ -331,8 +342,9 @@ test("projector and validator CLIs select one course or every modern catalog cou
     "--all", "--repo-root", temporaryRoot, "--catalog", catalogPath
   ]);
   assert.equal(validation.status, 0, validation.stderr);
-  assert.match(validation.stdout, /zh: validated 250 English concepts/u);
-  assert.match(validation.stdout, /es: validated 250 English concepts/u);
+  for (const [courseId, count] of Object.entries(expectedCounts)) {
+    assert.ok(validation.stdout.includes(`${courseId}: validated ${count} English concepts`), validation.stdout);
+  }
   assert.match(validation.stdout, /Validated 2 catalog language-content course\(s\)/u);
 
   const legacyProjection = run(projectorPath, [

@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "caatuu-word-world-runtime-manifest-v2",
+  "courseId": "nb",
+  "corpusVersion": "starter-v1",
+  "mode": "authored",
+  "sessionProvider": {
+    "kind": "authored-realizations"
+  },
+  "features": {
+    "wordMeanings": true
+  },
+  "sourceConceptCatalog": "/language-runtime/static/data/english-concepts/word-world-nb-v1.json",
+  "realizationFile": "content.json",
+  "recordCount": 600,
+  "targetLanguage": "nb-NO",
+  "mediationLanguage": "en",
+  "tokenization": "authored",
+  "review": {
+    "status": "native-review-required",
+    "pronunciationApproved": false,
+    "notes": "Original Bokmål curriculum authored and checked by AI. No native-speaker or human approval has occurred. See docs/NORWEGIAN_BOKMAL_COURSE_20260909.md."
+  },
+  "capabilities": {
+    "llm": false,
+    "generation": false,
+    "chat": false,
+    "embeddings": true,
+    "semanticSearch": true,
+    "dictionary": false,
+    "wordMeanings": true,
+    "speech": true,
+    "pronunciationGuides": false,
+    "wordWorld": true
+  },
+  "embeddingPolicy": {
+    "inputLanguage": "en",
+    "inputField": "embeddingText",
+    "targetTextAllowed": false,
+    "modelId": "all-minilm-l6-v2-qint8-v0.1",
+    "fallback": "deterministic-lexical"
+  },
+  "license": {
+    "origin": "caatuu-first-party-authored",
+    "status": "release-review-required",
+    "spdxExpression": null,
+    "sourceReference": null,
+    "reviewedBy": null,
+    "reviewedAt": null
+  }
+}

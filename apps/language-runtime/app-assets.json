@@ -2,6 +2,8 @@
   "schemaVersion": 1,
   "appEntry": "apps/language-runtime/static/app/index.html",
   "assets": [
+    {"source": "apps/language-runtime/static/data/english-concepts/word-world-nb-v1.json", "output": "language-runtime/static/data/english-concepts/word-world-nb-v1.json"},
+    {"source": "apps/language-runtime/static/assets/home/norway_flag.png", "output": "assets/icons/norway_flag.png"},
     { "source": "apps/language-runtime/static/source/license-catalog.mjs", "output": "language-runtime/static/source/license-catalog.mjs" },
     { "source": "apps/language-runtime/static/legal/CAATUU-LICENSE.txt", "output": "language-runtime/static/legal/CAATUU-LICENSE.txt" },
     { "source": "apps/language-runtime/static/legal/APACHE-2.0-LICENSE.txt", "output": "language-runtime/static/legal/APACHE-2.0-LICENSE.txt" },

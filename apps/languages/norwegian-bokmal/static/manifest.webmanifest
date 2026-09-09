@@ -1,0 +1,35 @@
+{
+  "name": "Caatuu Norwegian",
+  "short_name": "Caatuu NB",
+  "description": "An English-to-Norwegian Bokmål course development preview.",
+  "id": "/nb/",
+  "start_url": "/nb/index.html",
+  "scope": "/nb/",
+  "display": "standalone",
+  "background_color": "#fffaf0",
+  "theme_color": "#fffaf0",
+  "lang": "en",
+  "categories": [
+    "education"
+  ],
+  "icons": [
+    {
+      "src": "/assets/icons/norway_flag.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Verb Nebula",
+      "short_name": "Verbs",
+      "url": "/nb/index.html?game=verb-lab"
+    },
+    {
+      "name": "Word World",
+      "short_name": "Word World",
+      "url": "/nb/index.html?game=word-net"
+    }
+  ]
+}

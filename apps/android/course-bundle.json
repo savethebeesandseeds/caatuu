@@ -14,6 +14,9 @@
     },
     {
       "manifest": "apps/languages/english-from-spanish/course.json"
+    },
+    {
+      "manifest": "apps/languages/norwegian-bokmal/course.json"
     }
   ]
 }

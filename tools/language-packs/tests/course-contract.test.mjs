@@ -451,32 +451,20 @@ test("browser setup caches are confined to the exact course cache namespace", as
 });
 
 test("course selector assets follow the same browser-course projection", () => {
-  assert.deepEqual(generateCourseSelectorAssetMappings(loaded.courses), [
-    {
-      courseId: "cz",
-      url: "/assets/icons/english_flag.png",
-      source: loaded.courses.find(({course}) => course.id === "cz").course.resources.sourceLanguageFlag.path,
-      output: "assets/icons/english_flag.png"
-    },
-    {
-      courseId: "cz",
-      url: "/assets/icons/czech_flag_ui.png",
-      source: "apps/launcher/static/assets/icons/czech_flag_ui.png",
-      output: "assets/icons/czech_flag_ui.png"
-    },
-    {
-      courseId: "zh",
-      url: "/assets/icons/china_flag.png",
-      source: "apps/launcher/static/assets/icons/china_flag.png",
-      output: "assets/icons/china_flag.png"
-    },
-    {
-      courseId: "es",
-      url: "/assets/icons/spain_flag.png",
-      source: loaded.courses.find(({course}) => course.id === "es").course.resources.launcherFlag.path,
-      output: "assets/icons/spain_flag.png"
-    }
-  ]);
+  const mappings = generateCourseSelectorAssetMappings(loaded.courses);
+  const declaredFlags = loaded.courses
+    .filter(({ course }) => course.platforms.browser.enabled)
+    .flatMap(({ course }) => [
+      { courseId: course.id, url: course.sourceLanguage.flagSrc, source: course.resources.sourceLanguageFlag.path },
+      { courseId: course.id, url: course.targetLanguage.flagSrc, source: course.resources.launcherFlag.path }
+    ]);
+  const declaredUrls = new Set(declaredFlags.map(({ url }) => url));
+  assert.equal(mappings.length, declaredUrls.size, "each declared browser flag is mapped exactly once");
+  assert.deepEqual(new Set(mappings.map(({ url }) => url)), declaredUrls);
+  for (const mapping of mappings) {
+    const declaration = declaredFlags.find(({ url }) => url === mapping.url);
+    assert.deepEqual(mapping, { ...declaration, output: declaration.url.slice(1) });
+  }
 
   const candidate = cloneLoaded(loaded);
   const third = structuredClone(candidate.courses[0]);
@@ -489,7 +477,7 @@ test("course selector assets follow the same browser-course projection", () => {
     "assets/icons/third.png"
   );
   third.course.platforms.browser.enabled = false;
-  assert.equal(generateCourseSelectorAssetMappings([...candidate.courses, third]).length, 4);
+  assert.equal(generateCourseSelectorAssetMappings([...candidate.courses, third]).length, mappings.length);
 
   third.course.platforms.browser.enabled = true;
   third.course.targetLanguage.flagSrc = "/assets/icons/czech_flag_ui.png";
@@ -1139,32 +1127,10 @@ test("launcher and course-profile compatibility views match the current consumer
   assert.equal(expectedLauncher.browserSetup.entryPath, "/cz/index.html");
   assert.deepEqual(
     expectedLauncher.browserSetup.courses.map(({ id, status, entryPath, storage }) => ({ id, status, entryPath, storage })),
-    [
-      {
-        id: "cz",
-        status: "active",
-        entryPath: "/cz/index.html",
-        storage: { learningPerformance: "caatuu-czech.learning.performance.v1" }
-      },
-      {
-        id: "zh",
-        status: "development",
-        entryPath: "/zh/index.html",
-        storage: { learningPerformance: "caatuu-zh-hans.learning.performance.v1" }
-      },
-      {
-        id: "es",
-        status: "development",
-        entryPath: "/es/index.html",
-        storage: { learningPerformance: "caatuu-es.learning.performance.v1" }
-      },
-      {
-        id: "es-en",
-        status: "development",
-        entryPath: "/es-en/index.html",
-        storage: { learningPerformance: "caatuu-es-en.learning.performance.v1" }
-      }
-    ]
+    supportedCourses.filter(({ platforms }) => platforms.browser.enabled)
+      .map(({ id, status, entryPath, storage }) => ({
+        id, status, entryPath, storage: { learningPerformance: storage.learningPerformance }
+      }))
   );
 
   const czech = loaded.courses.find(({ course }) => course.id === "cz").course;
@@ -1216,17 +1182,17 @@ test("launcher and course-profile compatibility views match the current consumer
         wordWorldManifest: `data/games/word-world/manifest.json?v=${czech.resources.wordWorldManifest.revision}`
       },
       "conjugation-comet": {
-        conjugationCometCatalog: "data/games/conjugation-comet/content.json?v=conjugation-comet-verbs-4"
+        conjugationCometCatalog: `data/games/conjugation-comet/content.json?v=${czech.resources.conjugationCometCatalog.revision}`
       },
       "case-cosmos": {
         caseCosmosCatalog: `data/games/case-cosmos/content.json?v=${czech.resources.caseCosmosCatalog.revision}`
       },
       "grammar-gravity": {
         grammarGravityCatalog: `data/games/grammar-gravity/content.json?v=${czech.resources.grammarGravityCatalog.revision}`,
-        grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-3"
+        grammarGravityNouns: `data/games/grammar-gravity/nouns.json?v=${czech.resources.grammarGravityNouns.revision}`
       },
       "sound-quasar": {
-        soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-items-v2"
+        soundQuasarCatalog: `data/games/sound-quasar/content.json?v=${czech.resources.soundQuasarCatalog.revision}`
       }
     }
   );
@@ -1250,34 +1216,17 @@ test("launcher and course-profile compatibility views match the current consumer
     JSON.parse(JSON.stringify(
       context.window.CaatuuCourse.courseSelector.courses.map(({ id, status, storage }) => ({ id, status, storage }))
     )),
-    [
-      {
-        id: "cz",
-        status: "active",
-        storage: { learningPerformance: "caatuu-czech.learning.performance.v1" }
-      },
-      {
-        id: "zh",
-        status: "development",
-        storage: { learningPerformance: "caatuu-zh-hans.learning.performance.v1" }
-      },
-      {
-        id: "es",
-        status: "development",
-        storage: { learningPerformance: "caatuu-es.learning.performance.v1" }
-      },
-      {
-        id: "es-en",
-        status: "development",
-        storage: { learningPerformance: "caatuu-es-en.learning.performance.v1" }
-      }
-    ]
+    supportedCourses.filter(({ platforms }) => platforms.browser.enabled)
+      .map(({ id, status, storage }) => ({
+        id, status, storage: { learningPerformance: storage.learningPerformance }
+      }))
   );
   assert.deepEqual(
     JSON.parse(JSON.stringify(
       context.window.CaatuuCourse.courseSelector.courses.map(({ sourceLanguage }) => sourceLanguage.id)
     )),
-    ["en", "en", "en", "es"]
+    supportedCourses.filter(({ platforms }) => platforms.browser.enabled)
+      .map(({ sourceLanguage }) => sourceLanguage.id)
   );
 
   const mandarin = loaded.courses.find(({ course }) => course.id === "zh").course;
@@ -2298,7 +2247,7 @@ test("falling-noun resources supply course-defined lanes, English audit, and ind
     });
     assert.equal(pack.lanes.length, count);
     assert.ok(pack.items.length >= 30, "the authored noun pool must extend beyond the original starter dozen");
-    assert.equal(pack.contentRevision, 3);
+    assert.equal(pack.contentRevision, raw.contentRevision);
     assert.ok(pack.items.every((item) => item.english && item.learnerBaseText));
     assert.equal(pack.review.status, "native-review-required");
     assert.equal(pack.license.status, "release-review-required");

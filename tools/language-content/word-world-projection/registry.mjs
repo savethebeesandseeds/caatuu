@@ -1,9 +1,11 @@
 import { englishAmericanWordWorldProjectionPolicy } from "./english-american.mjs";
 import { mandarinSimplifiedWordWorldProjectionPolicy } from "./mandarin-simplified.mjs";
+import { norwegianBokmalWordWorldProjectionPolicy } from "./norwegian-bokmal.mjs";
 import { spanishSpainWordWorldProjectionPolicy } from "./spanish-spain.mjs";
 
 const POLICIES = new Map([
   [englishAmericanWordWorldProjectionPolicy.contentPolicyId, englishAmericanWordWorldProjectionPolicy],
+  [norwegianBokmalWordWorldProjectionPolicy.contentPolicyId, norwegianBokmalWordWorldProjectionPolicy],
 
   [
     mandarinSimplifiedWordWorldProjectionPolicy.contentPolicyId,

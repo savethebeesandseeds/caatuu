@@ -366,6 +366,67 @@
             flagClass: "en-flag",
             flagSrc: "/assets/icons/english_flag.png"
           }
+        },
+        {
+          id: "nb",
+          status: "development",
+          routePrefix: "/nb",
+          entryPath: "/nb/index.html",
+          storage: {
+            learningPerformance: "caatuu-nb.learning.performance.v1"
+          },
+          developerContext: {
+            gameContent: {
+              "verb-lab": {
+                verbNebulaCatalog: "data/games/verb-nebula/content.json"
+              },
+              "word-net": {
+                wordWorldManifest: "data/games/word-world/manifest.json?v=word-world-content-1"
+              },
+              "conjugation-comet": {
+                conjugationCometCatalog: "data/games/conjugation-comet/content.json?v=conjugation-comet-content-1"
+              },
+              "grammar-gravity": {
+                grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-1",
+                grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1"
+              },
+              "sound-quasar": {
+                soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-content-1"
+              }
+            },
+            dictionaryContent: null,
+            embeddingContent: {
+              catalog: "data/embeddings/catalog.json"
+            }
+          },
+          sourceLanguage: {
+            id: "en",
+            label: "English",
+            nativeLabel: "English",
+            shortCode: "EN",
+            locale: "en",
+            direction: "ltr",
+            flagClass: "en-flag",
+            flagSrc: "/assets/icons/english_flag.png"
+          },
+          interfaceContent: {
+            schemaVersion: 1,
+            locale: "en",
+            direction: "ltr",
+            revision: "interface-en-32",
+            catalog: "/language-runtime/static/data/interface/en.v1.json"
+          },
+          targetLanguage: {
+            id: "nb",
+            label: "Norwegian Bokmål",
+            nativeLabel: "Norsk bokmål",
+            shortCode: "NB",
+            locale: "nb-NO",
+            speechLocale: "nb-NO",
+            direction: "ltr",
+            flagClass: "norway-flag",
+            flagSrc: "/assets/icons/norway_flag.png"
+          }
         }
       ]
     },

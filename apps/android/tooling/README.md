@@ -22,8 +22,8 @@ The `product` application is a separate module and compiled asset allowlist
 with no LLM, Chat, generation, Godot, or outbound reporting capability. It is
 the canonical direct release and retains verified self-updates, shared assets,
 and the per-course capabilities declared by the manifests in
-`apps/android/course-bundle.json`. Czech, Mandarin, English-to-Spanish, and
-Spanish-to-English use the same packaged app
+`apps/android/course-bundle.json`. Czech, Mandarin, English-to-Spanish,
+Spanish-to-English, and English-to-Norwegian Bokmål use the same packaged app
 document and shared runtime; their files live below `courses/<id>/`.
 The English MiniLM weights are not APK payload: setup downloads the hash-pinned
 shared runtime once into app-private storage, where every course reuses it.
