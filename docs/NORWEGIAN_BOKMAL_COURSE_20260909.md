@@ -211,6 +211,9 @@ learning records and review history; its receipt records the exact changes.
 
 ## Existing-course matrix: before = after
 
+This matrix records the unchanged learning content. Subsequent owner-approved
+licensing metadata changes are listed in their separate receipt.
+
 Each cell is L1 / L2 / L3. A dash means the course does not enable that bank.
 
 | Bank | English → Czech | English → Mandarin | English → Spanish | Spanish → English |
@@ -228,3 +231,29 @@ Czech Case Cosmos retains 18 legacy paradigms (12/4/2), 22 authored paradigms,
 and 185 contexts in total; its 59 authored contexts remain 19/20/20. Existing
 grammar example totals remain Czech 249, Spanish 353 and English 178. Existing
 conjugation form totals remain Czech 444, Spanish 684 and English 648.
+
+## Android release result
+
+Android **0.1.20 (172)** was built from
+`91104e3c7d2789f2c2a11e362ff430cc743cf51d` and published on 9 September 2026.
+The [Pages deployment](https://github.com/savethebeesandseeds/caatuu/actions/runs/34328439700)
+and its subsequent public-byte verification passed. The
+[public manifest](https://caatuu.waajacu.com/android/caatuu.json) points to the
+[immutable APK](https://caatuu.waajacu.com/android/releases/172/caatuu.apk), with
+SHA-256 `13ae5fe8f186f426fe7a3751f427aa832f9d68d8f7980df14daf76187f9f09c3`.
+The signed APK, app bundle and all 157 setup payload objects passed the package
+audit. The release and setup archive were sealed before upload; the publisher
+reused those exact bytes. Android-only publication preserved the website.
+
+The first build at `99ca892` stopped before producing an APK because of the
+three vocabulary contexts recorded above. The corrected source passed the
+unchanged safety scan across 87,039 fields and the compiler's safety checks.
+[Source CI](https://github.com/savethebeesandseeds/caatuu/actions/runs/34326914006)
+reported 645 passes and 20 remaining historical test-mock, catalog-pin and
+interface-assertion failures. Both Android compilation/safety failures were
+resolved, and static Pages build evidence passed. This is not a claim that
+all repository CI is green.
+
+Physical-device installation, update, offline use and saved-progress testing
+were not performed. Native-speaker curriculum and device pronunciation review
+remain pending; owner license approval does not change those review statuses.

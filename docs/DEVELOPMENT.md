@@ -74,16 +74,19 @@ http://127.0.0.1:8765/games/lab
 Backend or dependency changes require a rebuild. Static browser files are
 mounted read-only and normally need only a reload.
 
-The Mandarin and Spanish routes are unlisted, `noindex` development previews;
-the launcher's release-capable language collection remains Czech-only. Runtime
+Mandarin, Spanish, English-from-Spanish and Norwegian Bokmål remain `noindex`
+development previews in the manifest-driven course collection; Czech remains
+the active reference course. Runtime
 startup verifies every shared Transformers/MiniLM artifact against
 `apps/language-runtime/embedding-runtimes.json` before serving any browser
 course. Missing or mismatched model-only assets are a deployment failure, not a
 silent semantic-search downgrade.
 
-These routes describe checked-in local browser availability. Mandarin is in the
-current public Pages snapshot; Spanish is not publicly deployed and remains
-withheld while its release-license review is pending.
+These routes describe checked-in local browser availability. Public availability
+follows the generated Pages registry and release receipts and must be verified
+separately. The [9 September owner approval](CURRICULUM_LICENSE_APPROVAL_20260909.json)
+clears the identified original Spanish-course and Norwegian curricula for
+distribution; native-speaker and pronunciation reviews remain pending.
 
 ## Public hosting boundary
 
