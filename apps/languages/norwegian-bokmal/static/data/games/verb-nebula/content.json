@@ -5258,8 +5258,8 @@
   {
     "id": "nb.verb.stikke",
     "kind": "verb",
-    "target": "stikke",
-    "source": "prick or stab",
+    "target": "stikke ut",
+    "source": "stick out",
     "difficulty": 3,
     "category": "physical-actions",
     "reviewStatus": "native-review-required"

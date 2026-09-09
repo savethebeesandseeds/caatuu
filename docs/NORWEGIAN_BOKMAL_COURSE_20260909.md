@@ -31,7 +31,7 @@ records are separate counts, not additional independent lessons.
 Word World contains 3,686 contextual word tokens across 56 topics. The material
 includes greetings, school, friends, family, animals, imaginative adventures,
 Norwegian nature, transport, food, requests, explanations and connected events.
-Verb Nebula has 578 single-word infinitives and 22 conventional lexical verb
+Verb Nebula has 577 single-word infinitives and 23 conventional lexical verb
 constructions; it contains no sentence exercises. Listening copies the exact
 authored source text, meanings, levels and IDs into its existing format.
 
@@ -77,6 +77,13 @@ all 500 nouns and 120 conjugation paradigms, review coverage and limitations.
 The later [owner license receipt](CURRICULUM_LICENSE_APPROVAL_20260909.json)
 records the metadata-only source changes and their before/after hashes;
 the original AI review history remains intact.
+The later [release context review](../apps/languages/norwegian-bokmal/content/reviews/release-172-context-review.json)
+records three lexical edits after the first Android 172 compiler stopped at
+its child-safety gate: `kniv` is explicitly table cutlery, `sår` teaches a small
+cut, and the verb `stikke ut` teaches physical protrusion. The listening record
+matches its verb source. IDs, levels, noun genders and native-review status
+remain unchanged. The safety policy and validators were not modified, and no
+APK or candidate receipt existed at that failed build stage.
 Official grammatical facts were checked through the
 [UiB dictionary API](https://ord.uib.no/ord_2_API.html), with homographs matched
 to the authored meaning. Definitions and example sentences were not copied.

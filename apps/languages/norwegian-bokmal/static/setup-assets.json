@@ -230,8 +230,8 @@
       "kind": "course-game-content",
       "url": "/nb/data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1",
       "browserRequired": true,
-      "bytes": 119440,
-      "sha256": "6844de042f6f718166aba6104b7393854912b67b4a0e89c267da713a8d2cd7f8"
+      "bytes": 119480,
+      "sha256": "f6b16287987d8db1f597f5041738b258de499c0e27044813262540c3d8b0ed0c"
     },
     {
       "key": "app-entry",
@@ -494,8 +494,8 @@
       "kind": "course-game-content",
       "url": "/nb/data/games/verb-nebula/content.json",
       "browserRequired": true,
-      "bytes": 128327,
-      "sha256": "e226f6246c91e07fa478d79e934662b782765ac1ced327b2a80cb4acf5adcc11"
+      "bytes": 128326,
+      "sha256": "4d6b9286088254de67ce6764b673d7f39c34e7b3728e5f48b74acca34e2370fc"
     },
     {
       "key": "embedding-catalog",

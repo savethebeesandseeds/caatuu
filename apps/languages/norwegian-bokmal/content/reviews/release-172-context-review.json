@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "reviewDate": "2026-09-09",
+  "reviewKind": "AI contextual child-safety review",
+  "nativeSpeakerApproval": false,
+  "nativeReviewStatus": "native-review-required",
+  "priorSourceRevision": "99ca8925affc9dda91dc42dedd539f2dc4ca60e7",
+  "reason": "The first Android 172 build stopped at the existing deterministic learner-content safety gate before producing or sealing an APK. These edits focus existing vocabulary on benign everyday senses without overriding the gate.",
+  "stableIdsAndDifficultiesPreserved": true,
+  "previousReceiptsPreserved": true,
+  "sources": [
+    {
+      "path": "apps/languages/norwegian-bokmal/static/data/games/grammar-gravity/nouns.json",
+      "beforeSha256": "6844de042f6f718166aba6104b7393854912b67b4a0e89c267da713a8d2cd7f8",
+      "afterSha256": "f6b16287987d8db1f597f5041738b258de499c0e27044813262540c3d8b0ed0c",
+      "changes": [
+        {
+          "id": "nb.gravity.noun.kniv",
+          "before": {
+            "id": "nb.gravity.noun.kniv",
+            "revision": 1,
+            "difficulty": 1,
+            "targetText": "kniv",
+            "learnerBaseText": "knife",
+            "english": "knife",
+            "laneId": "masculine"
+          },
+          "after": {
+            "id": "nb.gravity.noun.kniv",
+            "revision": 2,
+            "difficulty": 1,
+            "targetText": "kniv",
+            "learnerBaseText": "knife (table utensil)",
+            "english": "knife (table utensil)",
+            "laneId": "masculine"
+          }
+        },
+        {
+          "id": "nb.gravity.noun.saar",
+          "before": {
+            "id": "nb.gravity.noun.saar",
+            "revision": 1,
+            "difficulty": 2,
+            "targetText": "sår",
+            "learnerBaseText": "wound",
+            "english": "wound",
+            "laneId": "neuter"
+          },
+          "after": {
+            "id": "nb.gravity.noun.saar",
+            "revision": 2,
+            "difficulty": 2,
+            "targetText": "sår",
+            "learnerBaseText": "small cut",
+            "english": "small cut",
+            "laneId": "neuter"
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/norwegian-bokmal/static/data/games/verb-nebula/content.json",
+      "beforeSha256": "e226f6246c91e07fa478d79e934662b782765ac1ced327b2a80cb4acf5adcc11",
+      "afterSha256": "4d6b9286088254de67ce6764b673d7f39c34e7b3728e5f48b74acca34e2370fc",
+      "changes": [
+        {
+          "id": "nb.verb.stikke",
+          "before": {
+            "id": "nb.verb.stikke",
+            "kind": "verb",
+            "target": "stikke",
+            "source": "prick or stab",
+            "difficulty": 3,
+            "category": "physical-actions",
+            "reviewStatus": "native-review-required"
+          },
+          "after": {
+            "id": "nb.verb.stikke",
+            "kind": "verb",
+            "target": "stikke ut",
+            "source": "stick out",
+            "difficulty": 3,
+            "category": "physical-actions",
+            "reviewStatus": "native-review-required"
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/norwegian-bokmal/static/data/games/sound-quasar/content.json",
+      "beforeSha256": "9d6b3428c0b2b96a7650fee58c465e276992d16882598599b5594fe64ce8cd59",
+      "afterSha256": "15c481ce4dd745a2261c4e2fde0df97610a3341c612d810727f8a77ae9ed9620",
+      "changes": [
+        {
+          "id": "nb-word-585",
+          "before": {
+            "id": "nb-word-585",
+            "revision": "1",
+            "difficulty": 3,
+            "target": "stikke",
+            "meaning": "prick or stab",
+            "englishAuditText": "prick or stab",
+            "sourceId": "nb.verb.stikke",
+            "sourceReviewStatus": "native-review-required"
+          },
+          "after": {
+            "id": "nb-word-585",
+            "revision": "2",
+            "difficulty": 3,
+            "target": "stikke ut",
+            "meaning": "stick out",
+            "englishAuditText": "stick out",
+            "sourceId": "nb.verb.stikke",
+            "sourceReviewStatus": "native-review-required"
+          }
+        }
+      ]
+    }
+  ],
+  "references": [
+    "https://dictionary.cambridge.org/dictionary/norwegian-english/sar",
+    "https://ordbokene.no/bm/stikke",
+    "https://dictionary.cambridge.org/no/ordbok/engelsk-norsk/stick-out"
+  ]
+}

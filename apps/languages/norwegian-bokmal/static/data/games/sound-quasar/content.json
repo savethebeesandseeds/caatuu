@@ -6461,11 +6461,11 @@
     },
     {
       "id": "nb-word-585",
-      "revision": "1",
+      "revision": "2",
       "difficulty": 3,
-      "target": "stikke",
-      "meaning": "prick or stab",
-      "englishAuditText": "prick or stab",
+      "target": "stikke ut",
+      "meaning": "stick out",
+      "englishAuditText": "stick out",
       "sourceId": "nb.verb.stikke",
       "sourceReviewStatus": "native-review-required"
     },

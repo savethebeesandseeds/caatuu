@@ -13,6 +13,9 @@ governed beta or stable release.
   the 600 verbs and 600 sentences.
 - Accept dictionary-attested alternate noun genders in Bokmål and preserve
   contextual English hints, existing image retrieval, controls and scoring.
+- Clarify three Norwegian vocabulary senses for child-friendly everyday use:
+  table cutlery, a small cut and physical protrusion, retaining their stable
+  records and the existing content-safety rules.
 - Keep the app-update confirmation visible when opened from Home, including
   cancellation and download retry, without switching to Settings.
 - Native-speaker curriculum review and device pronunciation review remain

@@ -790,11 +790,11 @@
     },
     {
       "id": "nb.gravity.noun.kniv",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 1,
       "targetText": "kniv",
-      "learnerBaseText": "knife",
-      "english": "knife",
+      "learnerBaseText": "knife (table utensil)",
+      "english": "knife (table utensil)",
       "laneId": "masculine"
     },
     {
@@ -2965,11 +2965,11 @@
     },
     {
       "id": "nb.gravity.noun.saar",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 2,
       "targetText": "sår",
-      "learnerBaseText": "wound",
-      "english": "wound",
+      "learnerBaseText": "small cut",
+      "english": "small cut",
       "laneId": "neuter"
     },
     {
