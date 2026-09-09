@@ -154,10 +154,10 @@ process settle; the contribution guide records the current policy.
 - [Set up a development environment](docs/DEVELOPMENT.md)
 - [Read the contribution policy](.github/CONTRIBUTING.md)
 
-First-party software, developer documentation, and Caatuu-authored English and
-Mandarin curriculum content are licensed [`AGPL-3.0-only`](LICENSE).
-The Spanish and Norwegian development curricula are outside that cleared
-curriculum statement while their catalogs remain `release-review-required`.
+First-party software, developer documentation, and Caatuu-authored English,
+Mandarin, Spanish-course and Norwegian curriculum content are licensed
+[`AGPL-3.0-only`](LICENSE). The course license approval does not certify
+native-speaker or pronunciation review.
 Third-party or separately licensed models, dictionaries, datasets, artwork,
 branding, and components may have separate terms; see
 [licensing and attribution](docs/LICENSING.md).

@@ -7,7 +7,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-nb-pwa-v3",
+    "cacheName": "caatuu-nb-pwa-v4",
     "cachePrefix": "caatuu-nb-pwa-",
     "assets": [
       "/language-runtime/static/source/image-embedding-index.mjs?v=image-index-runtime-1",
@@ -230,8 +230,8 @@
       "kind": "course-game-content",
       "url": "/nb/data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1",
       "browserRequired": true,
-      "bytes": 119363,
-      "sha256": "c7a3e098e4e7c6b82b30d592952bd1c53b98999a35ec7fd632ae6d94d60a5b22"
+      "bytes": 119440,
+      "sha256": "6844de042f6f718166aba6104b7393854912b67b4a0e89c267da713a8d2cd7f8"
     },
     {
       "key": "app-entry",
@@ -478,16 +478,16 @@
       "kind": "target-realization-catalog",
       "url": "/nb/data/games/word-world/content.json",
       "browserRequired": true,
-      "bytes": 470304,
-      "sha256": "198e0b2a239a7118391ae25262c3d7783072ee3711f28e046640dbdab8da48dd"
+      "bytes": 470381,
+      "sha256": "2872b78312153a33b4e94f3ca1f02be16ce4e17a9798f05a60102ed0196f6566"
     },
     {
       "key": "word-world-manifest",
       "kind": "runtime-manifest",
       "url": "/nb/data/games/word-world/manifest.json?v=word-world-content-1",
       "browserRequired": true,
-      "bytes": 1439,
-      "sha256": "131c98da1a9961e5619e928115673cfd6eeb24725fcd4bd89c3f403746024366"
+      "bytes": 1516,
+      "sha256": "6bc96262b2335a057ba708b81e0f43eb0633d49c85f41061195f9faae63bac9c"
     },
     {
       "key": "verb-nebula-catalog",
@@ -519,7 +519,7 @@
       "url": "/nb/sw.js",
       "browserRequired": true,
       "bytes": 136,
-      "sha256": "2484c8a269936616dcc0d03b4600049c8e2f92b3945fae34552e2c2617b82d15"
+      "sha256": "a3688d255feb91c18e3aefe48418f8c8ae58fdb2f7cfb3b2dfb54e2d8a65897d"
     },
     {
       "key": "shared-course-service-worker",

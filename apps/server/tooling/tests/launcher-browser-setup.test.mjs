@@ -3,6 +3,11 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const repoRoot = new URL("../../../../", import.meta.url);
+const catalog = JSON.parse(await readFile(new URL("apps/languages/catalog.json", repoRoot), "utf8"));
+const declaredCourses = await Promise.all(catalog.courses.map(({ manifest }) =>
+  readFile(new URL(manifest, repoRoot), "utf8").then(JSON.parse)));
+const browserCourses = declaredCourses.filter(course =>
+  ["active", "development"].includes(course.status) && course.platforms.browser.enabled);
 
 const [index, launcher, staticLauncher, staticBuilder, styles, registry] = await Promise.all([
   readFile(new URL("apps/launcher/static/index.html", repoRoot), "utf8"),
@@ -17,7 +22,8 @@ test("launcher exposes supported browser courses while preserving preview status
   assert.deepEqual(registry.languages.map(({ id, status }) => ({ id, status })),
     registry.browserSetup.courses.map(({ id, status }) => ({ id, status })));
   assert.equal(registry.browserSetup.schemaVersion, 1);
-  assert.equal(registry.browserSetup.entryPath, "/cz/index.html");
+  assert.equal(registry.browserSetup.entryPath,
+    browserCourses.find(course => course.id === catalog.defaultCourseId).platforms.browser.entryPath);
   assert.deepEqual(
     registry.browserSetup.courses.map(({ id, status, targetLanguage }) => ({
       id,
@@ -26,12 +32,13 @@ test("launcher exposes supported browser courses while preserving preview status
       nativeLabel: targetLanguage.nativeLabel,
       shortCode: targetLanguage.shortCode
     })),
-    [
-      { id: "cz", status: "active", label: "Czech", nativeLabel: "Čeština", shortCode: "CZ" },
-      { id: "zh", status: "development", label: "Mandarin", nativeLabel: "中文", shortCode: "ZH" },
-      { id: "es", status: "development", label: "Spanish", nativeLabel: "Español", shortCode: "ES" },
-      { id: "es-en", status: "development", label: "English", nativeLabel: "English", shortCode: "EN" }
-    ]
+    browserCourses.map(({ id, status, targetLanguage }) => ({
+      id,
+      status,
+      label: targetLanguage.label,
+      nativeLabel: targetLanguage.nativeLabel,
+      shortCode: targetLanguage.shortCode
+    }))
   );
 });
 

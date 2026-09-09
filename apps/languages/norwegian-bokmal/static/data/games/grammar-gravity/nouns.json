@@ -15,9 +15,9 @@
   },
   "license": {
     "origin": "caatuu-first-party-authored",
-    "status": "release-review-required",
-    "spdxExpression": null,
-    "notes": "New development exercise content; no independent release clearance is claimed. Existing course publication boundaries remain unchanged."
+    "status": "release-cleared",
+    "spdxExpression": "AGPL-3.0-only",
+    "notes": "Caatuu project owner approved AGPL-3.0-only on 2026-09-09. See docs/LICENSING.md#first-party-curriculum and docs/CURRICULUM_LICENSE_APPROVAL_20260909.json. Native-speaker review remains separate and unchanged."
   },
   "scope": "Bare singular Bokmål nouns. Select any permitted grammatical gender: masculine (en), feminine (ei), or neuter (et). Feminine nouns also permit masculine inflection in Bokmål; additional dictionary-attested alternatives are accepted. Grammatical gender does not describe the person or object.",
   "lanes": [

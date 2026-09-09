@@ -14,17 +14,27 @@ const read = async (relative) => JSON.parse(await readFile(new URL(relative, rep
 const concepts = await read(ENGLISH_AMERICAN_WORD_WORLD_PATHS.conceptsSource);
 const target = await read(ENGLISH_AMERICAN_WORD_WORLD_PATHS.realizationsSource);
 const base = await read(ENGLISH_AMERICAN_WORD_WORLD_PATHS.learnerBaseSource);
+const authored = await read('apps/languages/english-from-spanish/content/word-world/content.json');
 
 test('American English policy owns target locale, authored tokens and review gates', () => {
   assert.equal(resolveTargetContentPolicy('english-american-v1'), englishAmericanContentPolicy);
   assert.equal(resolveWordWorldProjectionPolicy('english-american-v1'), englishAmericanWordWorldProjectionPolicy);
   assert.doesNotThrow(() => validateLanguageContent(concepts, target));
   assert.equal(target.targetLanguage.languageTag, 'en-US');
+  assert.deepEqual(target.license, authored.metadata.target.license);
   assert.equal(target.realizations.length, concepts.concepts.length);
   for (let i = 0; i < concepts.concepts.length; i++) {
     assert.equal(target.realizations[i].conceptId, concepts.concepts[i].id);
   }
-  assert.throws(() => validateLanguageContent(concepts, target, { release: true }), /release|license/u);
+  const pendingTarget = structuredClone(target);
+  pendingTarget.license = {
+    origin: 'synthetic-test-fixture', status: 'release-review-required',
+    spdxExpression: null, sourceReference: null, reviewedBy: null, reviewedAt: null
+  };
+  assert.throws(() => validateLanguageContent(concepts, pendingTarget, { release: true }),
+    error => error.issues?.some(issue => issue.code === 'release.license'));
+  assert.throws(() => validateLanguageContent(concepts, target, { requireNativeReview: true }),
+    error => error.issues?.some(issue => issue.code === 'activation.native-review'));
   for (const [mutate, expected] of [
     [(value) => { value.courseId = 'en'; }, 'english.course'],
     [(value) => { value.targetLanguage.speechLocale = 'es-ES'; }, 'english.locale'],
@@ -72,7 +82,7 @@ test('Spanish base remains independent and covers every authored English token e
   assert.equal(hello.text, '¡Hola!');
   assert.equal(hello.tokenMeanings[0].text, 'hola');
   assert.equal(base.review.status, 'native-review-required');
-  assert.equal(base.license.status, 'release-review-required');
+  assert.deepEqual(base.license, authored.metadata.learnerBase.license);
 });
 
 test('projection binds three roles and preserves English-only retrieval without pronunciation claims', () => {

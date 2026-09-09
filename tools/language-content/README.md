@@ -97,10 +97,12 @@ tags: `lookupLanguageTag` must exactly match the target locale and script, and
 The Mandarin starter catalog is a development draft because its native review
 remains `native-review-required`. Its first-party English and Mandarin content
 licenses are `release-cleared` under `AGPL-3.0-only`, so pending native review is
-an explicit quality disclosure rather than an APK publication veto. The Spanish
-starter catalog separately remains both `native-review-required` and
-`release-review-required`; it is valid for local development but must not be
-promoted or distributed until both gates are deliberately cleared.
+an explicit quality disclosure rather than an APK publication veto. The project
+owner subsequently approved `AGPL-3.0-only` for the original Spanish-course and
+Norwegian curricula on 9 September 2026; see the
+[approval receipt](../../docs/CURRICULUM_LICENSE_APPROVAL_20260909.json).
+Their license gates are now cleared, while native review remains pending and
+the courses remain development previews.
 
 Run the checks in the established development container:
 
@@ -124,17 +126,17 @@ projector without `--check`, inspect the generated diff, then rerun the commands
 above. The projector CLI reads the unified per-course sources and repairs
 generated publication/runtime views; it never rewrites the four authoring files.
 
-Distribution validation checks release-cleared licensing. The default Mandarin
-compatibility target passes; Spanish intentionally fails that check until its
-license review is recorded:
+Distribution validation checks release-cleared licensing. The no-selector
+command checks the Mandarin compatibility target only; use `--all --release`
+to check every modern course before distribution:
 
 ```sh
 docker exec -w /workspace caatuu-dev node tools/language-content/validate.mjs --release
-docker exec -w /workspace caatuu-dev node tools/language-content/validate.mjs --course es --release
+docker exec -w /workspace caatuu-dev node tools/language-content/validate.mjs --all --release
 ```
 
 Activation and approved-pronunciation readiness are a separate, intentionally
-stricter check that continues to fail for either development course while native
+stricter check that continues to fail for development courses while native
 review is pending:
 
 ```sh

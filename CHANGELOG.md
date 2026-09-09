@@ -17,9 +17,10 @@ governed beta or stable release.
   cancellation and download retry, without switching to Settings.
 - Native-speaker curriculum review and device pronunciation review remain
   pending. Listening requires an installed Norwegian speech voice.
-- Physical-device installation, update, offline use and saved-progress checks
-  remain unverified for this candidate. Publication awaits the recorded
-  curriculum license decision and the existing release checks.
+- Record the owner's AGPL-3.0-only approval for the original Norwegian and
+  Spanish-course curricula, preserving third-party terms and pending linguistic
+  review. Physical-device installation, update, offline use and saved-progress
+  checks remain unverified for this candidate.
 
 ### Android 0.1.19 (171): first-course setup and complete license notices
 

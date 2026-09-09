@@ -32,7 +32,7 @@ test("each embedding runtime component links to an actually packaged offline lic
   assert.throws(() => embeddingRuntimeLicenseArtifacts({ components: [{ name: "unknown", license: "MIT" }] }), /offline license/);
 });
 
-for (const [directory, id] of [["czech", "cz"], ["mandarin-simplified", "zh"], ["spanish", "es"], ["english-from-spanish", "es-en"]]) {
+for (const [directory, id] of [["czech", "cz"], ["mandarin-simplified", "zh"], ["spanish", "es"], ["english-from-spanish", "es-en"], ["norwegian-bokmal", "nb"]]) {
   test(`${id} content attribution uses that course's current manifest and preserves unresolved licenses`, async () => {
     const manifest = await json(`../../languages/${directory}/static/data/games/word-world/manifest.json`);
     const row = wordWorldLicenseArtifact(manifest, { courseId: id, sourceUrl: "data/games/word-world/manifest.json" });

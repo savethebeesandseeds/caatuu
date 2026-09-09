@@ -4,9 +4,11 @@ Added on 2026-09-09 in the canonical checkout on `main`, following the user's
 explicit request to onboard Norwegian and adapt applicable games. The user
 selected Bokmål. The course is available locally at
 `http://127.0.0.1:8765/nb/index.html` and in the shared course picker. It is a
-development preview: AI review is recorded honestly, with native-speaker and
-curriculum-license approval still outstanding. No APK was built or published,
-and no public site was deployed.
+development preview: AI review is recorded honestly, with native-speaker
+approval still outstanding. Licensing was pending at onboarding and was later
+approved by the owner for release preparation; see the
+[license receipt](CURRICULUM_LICENSE_APPROVAL_20260909.json). Onboarding itself
+did not build or publish an APK or deploy a public site.
 
 ## Content matrix
 
@@ -69,9 +71,12 @@ examples are newly authored; dictionary and course examples were not imported.
 
 ## Review and provenance
 
-The tracked [review receipt](../apps/languages/norwegian-bokmal/content/reviews/onboarding-20260909.json)
-records the six source-bank hashes, exact dictionary article references for
+The historical [review receipt](../apps/languages/norwegian-bokmal/content/reviews/onboarding-20260909.json)
+records the six source-bank hashes at onboarding, exact dictionary article references for
 all 500 nouns and 120 conjugation paradigms, review coverage and limitations.
+The later [owner license receipt](CURRICULUM_LICENSE_APPROVAL_20260909.json)
+records the metadata-only source changes and their before/after hashes;
+the original AI review history remains intact.
 Official grammatical facts were checked through the
 [UiB dictionary API](https://ord.uib.no/ord_2_API.html), with homographs matched
 to the authored meaning. Definitions and example sentences were not copied.
@@ -136,8 +141,9 @@ Norwegian voice as Jon and provides the supported installation procedure.
 Norwegian Android channels are registered for version 172 or later. At
 onboarding this was above the source default 171; the subsequent user-requested
 release preparation sets version 172 (0.1.20). Registration alone does not put
-Norwegian in an already published APK. The source asset plan is ready;
-publication retains the separate licensing gate.
+Norwegian in an already published APK. The source asset plan is ready and the
+owner has cleared the first-party curriculum licensing gate. Signed-package
+validation and publication remain separate release operations.
 
 ## Preservation and validation
 
@@ -191,9 +197,10 @@ native-review assertions remain intact; content was not changed for the tests.
 
 Release preparation also passed 37 maintenance/Home/setup tests and 45 focused
 Norwegian, package-plan and license-delivery tests. All five setup catalogs are
-current. The all-course distribution check reports only the pending target
-licenses for `es`, `es-en` and `nb`; the owner license decision is still required
-before app publication.
+current. The initial all-course distribution check reported pending target
+licenses for `es`, `es-en` and `nb`. The owner subsequently approved
+`AGPL-3.0-only` for this original curriculum. The license update preserves all
+learning records and review history; its receipt records the exact changes.
 
 ## Existing-course matrix: before = after
 

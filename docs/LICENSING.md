@@ -1,6 +1,6 @@
 # Caatuu licensing
 
-Last reviewed: 1 September 2026
+Last reviewed: 9 September 2026
 
 ## First-party software
 
@@ -33,10 +33,20 @@ This curriculum clearance does not extend to third-party dictionaries,
 corpora, models, embeddings, artwork, audio, fonts, or other separately sourced
 material that a lesson or game may reference.
 
-The machine-assisted Spanish and Norwegian development curricula are not part of this
-cleared scope while their catalogs remain `release-review-required`. No Pages or
-Android distribution is authorized until owner/license review records the exact
-license evidence.
+On 9 September 2026 the Caatuu project owner also authorized `AGPL-3.0-only`
+for the original AI-assisted English-to-Spanish, Spanish-to-English and
+English-to-Norwegian Bokmål curricula and their distribution. This covers
+the Word World concepts, target realizations and learner-base translations,
+Verb Nebula, Conjugation Comet, Grammar Gravity (including nouns), and the
+reused Sounds Quasar records. The [approval receipt](CURRICULUM_LICENSE_APPROVAL_20260909.json)
+records the owner's decision, exact source hashes and previous license metadata.
+Formal catalog license gates now record `release-cleared`; native-speaker and
+pronunciation reviews remain separate and unchanged.
+
+The same approval covers the original geometric Norwegian flag SVG and its
+two PNG copies created for the course, under `AGPL-3.0-only`. Their exact paths
+and hashes are recorded in the receipt. This scoped grant does not replace
+terms for any third-party material or other separately licensed assets.
 
 ## Material with separate terms
 

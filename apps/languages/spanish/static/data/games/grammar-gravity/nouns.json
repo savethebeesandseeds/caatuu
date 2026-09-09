@@ -15,9 +15,9 @@
   },
   "license": {
     "origin": "caatuu-first-party-authored",
-    "status": "release-review-required",
-    "spdxExpression": null,
-    "notes": "Development content is not cleared for release until the course review and licensing gates are completed."
+    "status": "release-cleared",
+    "spdxExpression": "AGPL-3.0-only",
+    "notes": "Caatuu project owner approved AGPL-3.0-only on 2026-09-09. See docs/LICENSING.md#first-party-curriculum and docs/CURRICULUM_LICENSE_APPROVAL_20260909.json. Native-speaker review remains separate and unchanged."
   },
   "scope": "Singular nouns with masculine or feminine grammatical gender. Spanish nouns do not use a neuter lane. Endings alone are not a reliable answer rule.",
   "lanes": [

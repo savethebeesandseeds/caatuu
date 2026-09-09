@@ -15,9 +15,9 @@
   },
   "license": {
     "origin": "caatuu-first-party-authored",
-    "status": "release-review-required",
-    "spdxExpression": null,
-    "notes": "Development content requires curriculum license clearance before publication."
+    "status": "release-cleared",
+    "spdxExpression": "AGPL-3.0-only",
+    "notes": "Caatuu project owner approved AGPL-3.0-only on 2026-09-09. See docs/LICENSING.md#first-party-curriculum and docs/CURRICULUM_LICENSE_APPROVAL_20260909.json. Native-speaker review remains separate and unchanged."
   },
   "scope": "Authored noun and noun-phrase classification by grammatical number: regular plurals, irregular plurals, and count/noncount quantity expressions. Noncount nouns use singular agreement in the taught senses. Gender is not assigned. Separate AI editorial review of the new curriculum is pending.",
   "lanes": [

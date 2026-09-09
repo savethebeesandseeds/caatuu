@@ -2155,9 +2155,21 @@ test("Spanish grammar catalogs independently gate preview, browser, Android, and
     targetLanguage: "es-ES",
     targetLabel: "Spanish"
   });
+  // Rejection fixtures must remain pending independently of owner clearance
+  // subsequently recorded in the real curriculum.
+  const pendingConjugationDocument = structuredClone(conjugationDocument);
+  pendingConjugationDocument.license = {
+    origin: "synthetic-test-fixture", status: "release-review-required", spdx: null,
+    noteEnglish: "Synthetic pending-license rejection fixture."
+  };
+  const pendingAgreementDocument = structuredClone(agreementDocument);
+  pendingAgreementDocument.license = {
+    origin: "synthetic-test-fixture", status: "release-review-required", spdxExpression: null,
+    notes: "Synthetic pending-license rejection fixture."
+  };
   const pendingCatalogs = [
-    ["conjugation-comet", validateConjugation(conjugationDocument)],
-    ["grammar-gravity", validateAgreement(agreementDocument)]
+    ["conjugation-comet", validateConjugation(pendingConjugationDocument)],
+    ["grammar-gravity", validateAgreement(pendingAgreementDocument)]
   ];
 
   for (const [gameId, catalog] of pendingCatalogs) {
@@ -2219,18 +2231,16 @@ test("Spanish grammar catalogs independently gate preview, browser, Android, and
   await assert.rejects(
     validateCourseCatalog(promoted, { checkExistence: false }),
     (error) => (
-      hasIssue(error, "release.game-license", /es\.conjugation-comet/u)
+      hasIssue(error, "release.game-license", /es\.conjugation-comet/u) === (conjugationDocument.license.status !== "release-cleared")
       && hasIssue(error, "activation.game-native-review", /es\.conjugation-comet/u)
-      && hasIssue(error, "release.game-license", /es\.grammar-gravity/u)
       && hasIssue(error, "activation.game-native-review", /es\.grammar-gravity/u)
     )
   );
   await assert.rejects(
     generateLauncherRegistry(promoted),
     (error) => (
-      hasIssue(error, "release.game-license", /es\.conjugation-comet/u)
+      hasIssue(error, "release.game-license", /es\.conjugation-comet/u) === (conjugationDocument.license.status !== "release-cleared")
       && hasIssue(error, "activation.game-native-review", /es\.conjugation-comet/u)
-      && hasIssue(error, "release.game-license", /es\.grammar-gravity/u)
       && hasIssue(error, "activation.game-native-review", /es\.grammar-gravity/u)
     )
   );
@@ -2250,17 +2260,29 @@ test("falling-noun resources supply course-defined lanes, English audit, and ind
     assert.equal(pack.contentRevision, raw.contentRevision);
     assert.ok(pack.items.every((item) => item.english && item.learnerBaseText));
     assert.equal(pack.review.status, "native-review-required");
-    assert.equal(pack.license.status, "release-review-required");
+    assert.deepEqual(pack.license, raw.license);
     if (courseId === "es") {
       assert.equal(pack.lanes.some(({ id }) => id === "neuter"), false);
       course.status = "active";
-      assert.deepEqual(authoredGrammarPromotionIssues(course, "grammar-gravity", pack).map(({ code }) => code), ["release.game-license", "activation.game-native-review"]);
+      const pendingNouns = structuredClone(raw);
+      pendingNouns.license = {
+        origin: "synthetic-test-fixture", status: "release-review-required", spdxExpression: null,
+        notes: "Synthetic pending-license rejection fixture."
+      };
+      const pendingPack = normalizeNounLandingPack(pendingNouns, {
+        courseId, targetLanguage: course.targetLanguage.locale,
+        learnerBaseLanguage: course.sourceLanguage.id
+      });
+      assert.deepEqual(authoredGrammarPromotionIssues(course, "grammar-gravity", pendingPack).map(({ code }) => code), ["release.game-license", "activation.game-native-review"]);
+      const grammar = JSON.parse(await readFile(new URL(course.resources.grammarGravityCatalog.path, repoRoot), "utf8"));
+      const expectedPendingLicenses = [grammar, raw].filter(catalog => catalog.license.status !== "release-cleared").length;
       const promoted = cloneLoaded(loaded);
       promoted.courses.find(({ course: entry }) => entry.id === "es").course.status = "active";
       await assert.rejects(validateCourseCatalog(promoted, { checkExistence: false }), (error) => {
         const grammarLicenseIssues = error.issues?.filter(({ code, message }) => code === "release.game-license" && message.includes("es.grammar-gravity"));
-        // Both the existing phrase pack and the new noun pack need their own clearance.
-        return grammarLicenseIssues?.length === 2;
+        const grammarReviewIssues = error.issues?.filter(({ code, message }) => code === "activation.game-native-review" && message.includes("es.grammar-gravity"));
+        // Phrase and noun catalogs retain independent licensing and review gates.
+        return grammarLicenseIssues?.length === expectedPendingLicenses && grammarReviewIssues?.length === 2;
       });
     }
   }

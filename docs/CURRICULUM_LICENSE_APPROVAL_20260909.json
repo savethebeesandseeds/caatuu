@@ -1,0 +1,379 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-09T07:42:34Z",
+  "authority": "Caatuu project owner",
+  "approvalKind": "License and distribution authorization; not linguistic review",
+  "spdxExpression": "AGPL-3.0-only",
+  "authorizationPrompt": "Do you authorize AGPL-3.0-only for Caatuu’s original Norwegian and Spanish-course curriculum, covering both Spanish learning directions? Native-speaker review will remain pending.",
+  "ownerResponse": "i authorize the license on the curriculum and everything else, please build and publish",
+  "baseSourceRevision": "b54e4f5b738d6703feaa84224bdb30fa8248365e",
+  "scope": "Original Caatuu-authored English-to-Spanish, Spanish-to-English and English-to-Norwegian Bokmål teaching content, plus original geometric Norwegian flag assets created for this course.",
+  "exclusions": "No replacement of third-party licenses, dictionary/corpus/model/artwork/audio/font terms, or historical grants. No native-speaker, pronunciation or physical-device approval is claimed.",
+  "nativeReviewUnchanged": true,
+  "learningRecordsUnchanged": true,
+  "sources": [
+    {
+      "path": "apps/languages/spanish/content/word-world/content.json",
+      "courseId": "es",
+      "beforeSha256": "4ef106b0a1ef53f1642bfee43859c55a18ed637fc4ca25890b456f63cc017c1a",
+      "afterSha256": "1f38f1607f0eff629ea821e291d73136b096d0c05d05e1e37a080762dffbc639",
+      "licenseChanges": [
+        {
+          "field": "metadata.target.license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-09-09T07:42:34Z"
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/spanish/static/data/games/sound-quasar/content.json",
+      "courseId": "es",
+      "beforeSha256": "4e884ea336fd89ad46eff7f304e11b7eb5c4a842c7fcd00a6b21cd68ab792cd2",
+      "afterSha256": "4e884ea336fd89ad46eff7f304e11b7eb5c4a842c7fcd00a6b21cd68ab792cd2",
+      "licenseChanges": []
+    },
+    {
+      "path": "apps/languages/spanish/static/data/games/verb-nebula/content.json",
+      "courseId": "es",
+      "beforeSha256": "c953f806482ac7c053b4935f58c2f2ee8b7b7b9fa1ae06afb7e187d98636210a",
+      "afterSha256": "c953f806482ac7c053b4935f58c2f2ee8b7b7b9fa1ae06afb7e187d98636210a",
+      "licenseChanges": []
+    },
+    {
+      "path": "apps/languages/spanish/static/data/games/conjugation-comet/content.json",
+      "courseId": "es",
+      "beforeSha256": "0e53af71528e2e8d3f71cee8f8b70b9a4a6587b7e0c3300f1ea7263a9e735cfe",
+      "afterSha256": "de2fb6de36e7e0e5639ad4a0f74ee00228051ef044d94d3e297299578bb95701",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "first-party-authored",
+            "status": "release-review-required",
+            "spdx": null,
+            "noteEnglish": "First-party development curriculum. Release is blocked until the project assigns and records the approved curriculum license."
+          },
+          "approvedLicense": {
+            "origin": "first-party-authored",
+            "status": "release-cleared",
+            "spdx": "AGPL-3.0-only",
+            "noteEnglish": "Caatuu project owner approved AGPL-3.0-only on 2026-09-09. See docs/LICENSING.md#first-party-curriculum and docs/CURRICULUM_LICENSE_APPROVAL_20260909.json. Native-speaker review remains separate and unchanged."
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/spanish/static/data/games/grammar-gravity/content.json",
+      "courseId": "es",
+      "beforeSha256": "e4583a0c356dd64e85007cc0013ac8f52a56b9797261da32c794e4a2788b1c3a",
+      "afterSha256": "c2b90300bc046054647958fca5dd31e459c108c7b15084d065cf6bf6eea4195a",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "notes": "Development content is not cleared for release until the course review and licensing gates are completed."
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "notes": "Caatuu project owner approved AGPL-3.0-only on 2026-09-09. See docs/LICENSING.md#first-party-curriculum and docs/CURRICULUM_LICENSE_APPROVAL_20260909.json. Native-speaker review remains separate and unchanged."
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/spanish/static/data/games/grammar-gravity/nouns.json",
+      "courseId": "es",
+      "beforeSha256": "4797bee79e5f460bdf282a690efc3777ca22dbed8c4a53f72d88634d79f22a2c",
+      "afterSha256": "9719e8908c7ca77b59dfd8b4a78c29031fc96c07a8ee4a0edf508d2ecfed45fb",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "notes": "Development content is not cleared for release until the course review and licensing gates are completed."
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "notes": "Caatuu project owner approved AGPL-3.0-only on 2026-09-09. See docs/LICENSING.md#first-party-curriculum and docs/CURRICULUM_LICENSE_APPROVAL_20260909.json. Native-speaker review remains separate and unchanged."
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/english-from-spanish/content/word-world/content.json",
+      "courseId": "es-en",
+      "beforeSha256": "77cd8d91442292f27017b92fdccda303db55e0cfb841b58522fa50c79431b2e4",
+      "afterSha256": "9f09192071ce550036acddf86246f81bdb6e1a4ff9f4756fc5ac049e96692616",
+      "licenseChanges": [
+        {
+          "field": "metadata.target.license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-09-09T07:42:34Z"
+          }
+        },
+        {
+          "field": "metadata.learnerBase.license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-09-09T07:42:34Z"
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/english-from-spanish/static/data/games/verb-nebula/content.json",
+      "courseId": "es-en",
+      "beforeSha256": "c14d4566b83eabb7472e5c5d0d48242593058630849d61d3f6f641b2298d1bfc",
+      "afterSha256": "c14d4566b83eabb7472e5c5d0d48242593058630849d61d3f6f641b2298d1bfc",
+      "licenseChanges": []
+    },
+    {
+      "path": "apps/languages/english-from-spanish/static/data/games/sound-quasar/content.json",
+      "courseId": "es-en",
+      "beforeSha256": "c5e75adfe2939a0823cebe2d969a4fc73af1646fbd9421870251e2d995e31841",
+      "afterSha256": "c5e75adfe2939a0823cebe2d969a4fc73af1646fbd9421870251e2d995e31841",
+      "licenseChanges": []
+    },
+    {
+      "path": "apps/languages/english-from-spanish/static/data/games/conjugation-comet/content.json",
+      "courseId": "es-en",
+      "beforeSha256": "1d1e58e6c51f82ab1e86e9a1b9c756fd41a3799faf137027313628d544c7fa0a",
+      "afterSha256": "8fccf4ccaed776fdf1e5b904c27778514c1525542d879655abef0212f81ef6f8",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "first-party-authored",
+            "status": "release-review-required",
+            "spdx": null,
+            "noteEnglish": "Development content requires curriculum license clearance before publication."
+          },
+          "approvedLicense": {
+            "origin": "first-party-authored",
+            "status": "release-cleared",
+            "spdx": "AGPL-3.0-only",
+            "noteEnglish": "Caatuu project owner approved AGPL-3.0-only on 2026-09-09. See docs/LICENSING.md#first-party-curriculum and docs/CURRICULUM_LICENSE_APPROVAL_20260909.json. Native-speaker review remains separate and unchanged."
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/english-from-spanish/static/data/games/grammar-gravity/content.json",
+      "courseId": "es-en",
+      "beforeSha256": "5eb28d2b9b4ac3ecdbc88b0c2d6ff972b9aa7e107f27a35704c9a2ff4faf8d45",
+      "afterSha256": "2cd650ef66a450dd8a4055dc9ee8947ddb217bfe89b2617e1ae750d624463467",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "notes": "Development content requires curriculum license clearance before publication."
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "notes": "Caatuu project owner approved AGPL-3.0-only on 2026-09-09. See docs/LICENSING.md#first-party-curriculum and docs/CURRICULUM_LICENSE_APPROVAL_20260909.json. Native-speaker review remains separate and unchanged."
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/english-from-spanish/static/data/games/grammar-gravity/nouns.json",
+      "courseId": "es-en",
+      "beforeSha256": "5cd058550a7310b50f406b8b65bcd54c448830e1e0c18740952ca10b1fe9bf22",
+      "afterSha256": "d6c2318ed48e5f94ef3d69473afe574d3a22f6c53d4cbf24d3a4b9d908661cd7",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "notes": "Development content requires curriculum license clearance before publication."
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "notes": "Caatuu project owner approved AGPL-3.0-only on 2026-09-09. See docs/LICENSING.md#first-party-curriculum and docs/CURRICULUM_LICENSE_APPROVAL_20260909.json. Native-speaker review remains separate and unchanged."
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/norwegian-bokmal/content/word-world/content.json",
+      "courseId": "nb",
+      "beforeSha256": "3e53afd0a15351b6052a28d473d3379e3e6b81611cfd8552be6450efd6a0ef0c",
+      "afterSha256": "5b92fb607b7c57dfcbb4461857cf8151608f7904a7efb5ffc0aa97f87c0e4105",
+      "licenseChanges": [
+        {
+          "field": "metadata.target.license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-09-09T07:42:34Z"
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/norwegian-bokmal/static/data/games/sound-quasar/content.json",
+      "courseId": "nb",
+      "beforeSha256": "9d6b3428c0b2b96a7650fee58c465e276992d16882598599b5594fe64ce8cd59",
+      "afterSha256": "9d6b3428c0b2b96a7650fee58c465e276992d16882598599b5594fe64ce8cd59",
+      "licenseChanges": []
+    },
+    {
+      "path": "apps/languages/norwegian-bokmal/static/data/games/verb-nebula/content.json",
+      "courseId": "nb",
+      "beforeSha256": "e226f6246c91e07fa478d79e934662b782765ac1ced327b2a80cb4acf5adcc11",
+      "afterSha256": "e226f6246c91e07fa478d79e934662b782765ac1ced327b2a80cb4acf5adcc11",
+      "licenseChanges": []
+    },
+    {
+      "path": "apps/languages/norwegian-bokmal/static/data/games/conjugation-comet/content.json",
+      "courseId": "nb",
+      "beforeSha256": "a8b711c92004c17362c80ff818bfb3b8502d0996a1dac6ab4b54229a37c40053",
+      "afterSha256": "c07982336d07f3a17097ac5d815ce57f63ccda7ed88a31e01f27d6802bce190a",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "first-party-authored",
+            "status": "release-review-required",
+            "spdx": null,
+            "noteEnglish": "First-party development curriculum. Release is blocked until the project assigns and records the approved curriculum license."
+          },
+          "approvedLicense": {
+            "origin": "first-party-authored",
+            "status": "release-cleared",
+            "spdx": "AGPL-3.0-only",
+            "noteEnglish": "Caatuu project owner approved AGPL-3.0-only on 2026-09-09. See docs/LICENSING.md#first-party-curriculum and docs/CURRICULUM_LICENSE_APPROVAL_20260909.json. Native-speaker review remains separate and unchanged."
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/norwegian-bokmal/static/data/games/grammar-gravity/content.json",
+      "courseId": "nb",
+      "beforeSha256": "a89a9a56e21c0841ee8e07ab574d4ad20236cd6623e473d2cc983a98a9594a13",
+      "afterSha256": "321ce9e7a03dde0cfac08ff8d7f00b2062e9a4715477630826fb1c2026b3a752",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "notes": "Original development examples. No copied teaching bank; release licensing review remains pending."
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "notes": "Caatuu project owner approved AGPL-3.0-only on 2026-09-09. See docs/LICENSING.md#first-party-curriculum and docs/CURRICULUM_LICENSE_APPROVAL_20260909.json. Native-speaker review remains separate and unchanged."
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/norwegian-bokmal/static/data/games/grammar-gravity/nouns.json",
+      "courseId": "nb",
+      "beforeSha256": "c7a3e098e4e7c6b82b30d592952bd1c53b98999a35ec7fd632ae6d94d60a5b22",
+      "afterSha256": "6844de042f6f718166aba6104b7393854912b67b4a0e89c267da713a8d2cd7f8",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "notes": "New development exercise content; no independent release clearance is claimed. Existing course publication boundaries remain unchanged."
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "notes": "Caatuu project owner approved AGPL-3.0-only on 2026-09-09. See docs/LICENSING.md#first-party-curriculum and docs/CURRICULUM_LICENSE_APPROVAL_20260909.json. Native-speaker review remains separate and unchanged."
+          }
+        }
+      ]
+    }
+  ],
+  "flagAssets": [
+    {
+      "path": "apps/language-runtime/static/assets/home/norway_flag.svg",
+      "sha256": "00af0c371c6bd38caecf2c6c3f9c566038b1a6774340ec8041dc6bd37c78a435"
+    },
+    {
+      "path": "apps/language-runtime/static/assets/home/norway_flag.png",
+      "sha256": "f30d99eb3dbd6187e5f68d73225c1707d148536768a5a4fa06828a848c38179b"
+    },
+    {
+      "path": "apps/launcher/static/assets/icons/norway_flag.png",
+      "sha256": "f30d99eb3dbd6187e5f68d73225c1707d148536768a5a4fa06828a848c38179b"
+    }
+  ]
+}
