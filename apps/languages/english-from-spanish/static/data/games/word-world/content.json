@@ -18825,6 +18825,307 @@
           "playable": true
         }
       ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-yes",
+      "text": "Yes.",
+      "tokens": [
+        {
+          "surface": "Yes",
+          "gloss": "yes",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-no",
+      "text": "No.",
+      "tokens": [
+        {
+          "surface": "No",
+          "gloss": "no",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-please",
+      "text": "Please.",
+      "tokens": [
+        {
+          "surface": "Please",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-sorry",
+      "text": "I am sorry.",
+      "tokens": [
+        {
+          "surface": "I",
+          "gloss": "i",
+          "playable": true
+        },
+        {
+          "surface": "am",
+          "gloss": "am",
+          "playable": true
+        },
+        {
+          "surface": "sorry",
+          "gloss": "sorry",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-excuse-me",
+      "text": "Excuse me.",
+      "tokens": [
+        {
+          "surface": "Excuse",
+          "gloss": "excuse",
+          "playable": true
+        },
+        {
+          "surface": "me",
+          "gloss": "me",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-help",
+      "text": "I need help.",
+      "tokens": [
+        {
+          "surface": "I",
+          "gloss": "i",
+          "playable": true
+        },
+        {
+          "surface": "need",
+          "gloss": "need",
+          "playable": true
+        },
+        {
+          "surface": "help",
+          "gloss": "help",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-hungry",
+      "text": "I am hungry.",
+      "tokens": [
+        {
+          "surface": "I",
+          "gloss": "i",
+          "playable": true
+        },
+        {
+          "surface": "am",
+          "gloss": "am",
+          "playable": true
+        },
+        {
+          "surface": "hungry",
+          "gloss": "hungry",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-thirsty",
+      "text": "I am thirsty.",
+      "tokens": [
+        {
+          "surface": "I",
+          "gloss": "i",
+          "playable": true
+        },
+        {
+          "surface": "am",
+          "gloss": "am",
+          "playable": true
+        },
+        {
+          "surface": "thirsty",
+          "gloss": "thirsty",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-water",
+      "text": "I need water.",
+      "tokens": [
+        {
+          "surface": "I",
+          "gloss": "i",
+          "playable": true
+        },
+        {
+          "surface": "need",
+          "gloss": "need",
+          "playable": true
+        },
+        {
+          "surface": "water",
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-bathroom",
+      "text": "Where is the bathroom?",
+      "tokens": [
+        {
+          "surface": "Where",
+          "gloss": "where",
+          "playable": true
+        },
+        {
+          "surface": "is",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "the",
+          "gloss": "the",
+          "playable": true
+        },
+        {
+          "surface": "bathroom",
+          "gloss": "bathroom",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-again",
+      "text": "Again, please.",
+      "tokens": [
+        {
+          "surface": "Again",
+          "gloss": "again",
+          "playable": true
+        },
+        {
+          "surface": "please",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-slowly",
+      "text": "Speak slowly, please.",
+      "tokens": [
+        {
+          "surface": "Speak",
+          "gloss": "speak",
+          "playable": true
+        },
+        {
+          "surface": "slowly",
+          "gloss": "slowly",
+          "playable": true
+        },
+        {
+          "surface": "please",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-no-thanks",
+      "text": "No, thank you.",
+      "tokens": [
+        {
+          "surface": "No",
+          "gloss": "no",
+          "playable": true
+        },
+        {
+          "surface": "thank",
+          "gloss": "thank",
+          "playable": true
+        },
+        {
+          "surface": "you",
+          "gloss": "you",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-stop",
+      "text": "Stop!",
+      "tokens": [
+        {
+          "surface": "Stop",
+          "gloss": "stop",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-dont-know",
+      "text": "I do not know.",
+      "tokens": [
+        {
+          "surface": "I",
+          "gloss": "i",
+          "playable": true
+        },
+        {
+          "surface": "do",
+          "gloss": "do",
+          "playable": true
+        },
+        {
+          "surface": "not",
+          "gloss": "not",
+          "playable": true
+        },
+        {
+          "surface": "know",
+          "gloss": "know",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-name",
+      "text": "What is your name?",
+      "tokens": [
+        {
+          "surface": "What",
+          "gloss": "what",
+          "playable": true
+        },
+        {
+          "surface": "is",
+          "gloss": "be; present singular",
+          "playable": true
+        },
+        {
+          "surface": "your",
+          "gloss": "your",
+          "playable": true
+        },
+        {
+          "surface": "name",
+          "gloss": "name",
+          "playable": true
+        }
+      ]
     }
   ]
 }

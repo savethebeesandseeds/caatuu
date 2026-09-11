@@ -35,7 +35,7 @@ record per sentence. Edit only the corresponding authoring file:
 | Spanish → English | [content.json](../apps/languages/english-from-spanish/content/word-world/content.json) | 250 |
 | English → Norwegian Bokmål | [content.json](../apps/languages/norwegian-bokmal/content/word-world/content.json) | New course; see its [onboarding report](NORWEGIAN_BOKMAL_COURSE_20260909.md) |
 
-Each record holds its stable `id`, `difficulty`, `topic`, `englishText`,
+Each record holds its stable `id`, `difficulty`, `usefulness`, `complexity`, `topic`, `englishText`,
 `embeddingText`, `targetText`, `tokens`, pronunciation, scene query and any
 learner-base translation. `englishAlternates`, `sceneAssetIds` and `annotations`
 retain existing Czech information; unsupported fields remain empty on providers
@@ -103,6 +103,15 @@ second copy of the curriculum. Synthetic fixtures validate 501 legacy nouns,
 fixtures, not new teaching content or device-performance certification.
 
 ## Difficulty behavior
+
+All current learning banks now use the shared [content progression](CONTENT_PROGRESSION.md):
+three badges, authored usefulness/complexity on 1–100 scales, and gradual
+introductions balanced with supported practice and spaced independent review. The [catalog review](CONTENT_PROGRESSION_CATALOG_REVIEW.md)
+documents all courses and nested records; the [beginner review](CONTENT_PROGRESSION_BEGINNER_REVIEW.md)
+documents short starter phrases. The historical badge-only repair below remains
+as provenance, not the current selection policy.
+
+### Earlier badge-only repair
 
 - Verb Nebula, Word World, Conjugation Comet, Case Cosmos, Grammar Gravity
   phrases and Naturalization Nucleus retain their existing selection behavior.

@@ -1,6 +1,7 @@
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "/language-runtime/static/source/games/embedded-game-controls.mjs?v=embedded-game-controls-8";
 
-import { CZECH_CASES, validatePack, buildRounds, buildQuestions } from "./case-cosmos-content.mjs?v=case-cosmos-content-4";
+import { CZECH_CASES, validatePack, buildRounds, buildQuestions, buildCasePracticeRounds } from "./case-cosmos-content.mjs?v=case-cosmos-content-4";
+import { newContentEncounterId } from "../../../../../../language-runtime/static/source/games/content-progression.mjs";
 import { assertEnglishCzechCourse } from "./case-cosmos-cs-policy.mjs?v=case-cosmos-policy-2";
 
 const DATA_URL = "data/games/case-cosmos/content.json?v=case-cosmos-data-8";
@@ -293,14 +294,27 @@ function currentQuestion() {
   return currentChallenge()?.candidates[state.candidateIndex] || null;
 }
 
+function makePracticeRounds() {
+  const learning = window.CaatuuLearning;
+  return learning?.contentHistory
+    ? buildCasePracticeRounds(state.pack, state.difficulty, { history: learning.contentHistory("case-cosmos") })
+    : buildRounds(state.pack, state.difficulty);
+}
+
+function questionsForRound() {
+  return currentRound().practiceQuestions || buildQuestions(currentRound());
+}
+
 function configureDifficulty() {
   cancelTransition();
   resetSwipe();
   stopSentence();
   state.difficulty = learningDifficulty();
-  state.rounds = buildRounds(state.pack, state.difficulty);
+  state.rounds = makePracticeRounds();
   state.index = 0;
-  state.questions = buildQuestions(currentRound());
+  state.questions = questionsForRound();
+  state.encounterId = newContentEncounterId();
+  state.contentGeneration = window.CaatuuLearning?.contentGeneration?.() ?? null;
   state.questionIndex = 0;
   state.candidateIndex = 0;
   delete $("#caseCosmosSentence").dataset.challenge;
@@ -385,6 +399,10 @@ function chooseAnswer(answer) {
   // turn a failed attempt into a later success on the same sentence.
   state.answer = answer;
   state.phase = !correct ? "mistake" : answer ? "solved" : "rejecting";
+  if (!correct || answer) window.CaatuuLearning?.recordExposure?.("case-cosmos", {
+    itemId: currentChallenge().id, encounterId: state.encounterId, generation: state.contentGeneration, correct,
+    evidence: state.candidateIndex === 0 ? "independent" : "assisted"
+  });
   render();
   $("#caseCosmosExample").focus();
   record({ activities: 1, attempts: 1, successes: correct ? 1 : 0, rounds: !correct || answer ? 1 : 0, xp: correct && answer ? 1 : 0 });
@@ -423,10 +441,16 @@ async function nextRound() {
   if (state.destroyed || epoch !== state.epoch) return;
   state.questionIndex += 1;
   if (state.questionIndex === state.questions.length) {
-    state.index = (state.index + 1) % state.rounds.length;
-    state.questions = buildQuestions(currentRound());
+    state.index += 1;
+    if (state.index === state.rounds.length) {
+      state.rounds = makePracticeRounds();
+      state.index = 0;
+    }
+    state.questions = questionsForRound();
     state.questionIndex = 0;
   }
+  state.encounterId = newContentEncounterId();
+  state.contentGeneration = window.CaatuuLearning?.contentGeneration?.() ?? null;
   state.candidateIndex = 0;
   delete $("#caseCosmosSentence").dataset.challenge;
   state.answer = null;

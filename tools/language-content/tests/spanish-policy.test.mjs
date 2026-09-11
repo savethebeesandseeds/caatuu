@@ -353,6 +353,13 @@ test("projector and validator CLIs select one course or every modern catalog cou
   assert.notEqual(legacyProjection.status, 0);
   assert.match(legacyProjection.stderr, /No Word World course selected/u);
 
+  // The current course may already have an owner-approved curriculum license.
+  // Exercise the blocked release state through the editable authority, rather
+  // than assuming a generated compatibility view is still the build input.
+  const spanishAuthorityPath = "apps/languages/spanish/content/word-world/content.json";
+  const unclearedAuthority = JSON.parse(await readFile(path.join(temporaryRoot, spanishAuthorityPath), "utf8"));
+  unclearedAuthority.metadata.target.license = targetLicense();
+  await writeJson(temporaryRoot, spanishAuthorityPath, unclearedAuthority);
   const releaseValidation = run(validatorPath, [
     "--all", "--release", "--repo-root", temporaryRoot, "--catalog", catalogPath
   ]);

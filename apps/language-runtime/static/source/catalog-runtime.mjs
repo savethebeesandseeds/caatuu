@@ -1,3 +1,5 @@
+import { normalizeContentProgression } from "./games/content-progression.mjs";
+
 const CONCEPT_ID_PATTERN = /^[a-z0-9]+(?:[.-][a-z0-9]+)+$/u;
 const LETTER_PATTERN = /\p{L}/u;
 const ASCII_LETTER_PATTERN = /[A-Za-z]/u;
@@ -161,9 +163,11 @@ export function validateEnglishConceptCatalog(catalog) {
     nonEmptyString(concept.englishText, `concepts[${index}].englishText`);
     assertNoTargetScript(concept.embeddingText, `concepts[${index}].embeddingText`);
     nonEmptyString(concept.topic, `concepts[${index}].topic`);
-    if (!Number.isInteger(concept.difficulty) || concept.difficulty < 1) {
-      throw new CourseCatalogError(`concepts[${index}].difficulty must be a positive integer.`);
+    if (!Number.isInteger(concept.difficulty) || concept.difficulty < 1 || concept.difficulty > 3) {
+      throw new CourseCatalogError(`concepts[${index}].difficulty must be 1, 2, or 3.`);
     }
+    try { normalizeContentProgression(concept, `concepts[${index}]`); }
+    catch (error) { throw new CourseCatalogError(error.message); }
   }
   return catalog;
 }
@@ -217,6 +221,7 @@ export function joinConceptCatalogs(englishCatalog, realizationCatalog) {
       sceneQuery: nonEmptyString(concept.sceneQuery, `${concept.id}.sceneQuery`),
       topic: nonEmptyString(concept.topic, `${concept.id}.topic`),
       difficulty: concept.difficulty,
+      ...normalizeContentProgression(concept, concept.id),
       target: {
         ...realization,
         text: nonEmptyString(realization.text, `${concept.id}.text`),

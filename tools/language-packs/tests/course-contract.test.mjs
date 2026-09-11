@@ -2042,11 +2042,29 @@ test("web and Android previews preserve draft licensing while active promotion r
     assert.equal(registry.languages.find(({ id }) => id === course.id).status, "development");
   }
   const promotedSpanish = cloneLoaded(loaded);
-  promotedSpanish.courses.find(({ course }) => course.id === "es").course.status = "active";
-  await assert.rejects(
-    validateCourseCatalog(promotedSpanish, { checkExistence: false }),
-    (error) => hasIssue(error, "release.license", /target catalog licensing is not release-cleared/u)
-  );
+  const spanish = promotedSpanish.courses.find(({ course }) => course.id === "es");
+  spanish.course.status = "active";
+  // Exercise an uncleared fixture explicitly; owner clearance of live content
+  // must not weaken or invalidate the promotion gate test.
+  const temporaryRoot = await mkdtemp(path.join(tmpdir(), "caatuu-license-promotion-"));
+  try {
+    for (const relativePath of [spanish.course.publication.concepts, spanish.course.publication.realizations]) {
+      const document = JSON.parse(await readFile(new URL(relativePath, repoRoot), "utf8"));
+      if (relativePath === spanish.course.publication.realizations) document.license = {
+        ...document.license, status: "release-review-required", spdxExpression: null,
+        sourceReference: null, reviewedBy: null, reviewedAt: null
+      };
+      const destination = path.join(temporaryRoot, relativePath);
+      await mkdir(path.dirname(destination), { recursive: true });
+      await writeFile(destination, JSON.stringify(document), "utf8");
+    }
+    promotedSpanish.repoRoot = temporaryRoot;
+    promotedSpanish.courses = [spanish];
+    await assert.rejects(
+      validateCourseCatalog(promotedSpanish, { checkExistence: false }),
+      (error) => hasIssue(error, "release.license", /target catalog licensing is not release-cleared/u)
+    );
+  } finally { await rm(temporaryRoot, { recursive: true, force: true }); }
 });
 
 test("active promotion fails closed while native-language review is incomplete", async () => {

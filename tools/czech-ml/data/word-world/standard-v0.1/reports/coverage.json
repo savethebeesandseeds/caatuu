@@ -9,19 +9,19 @@
     "errors": [],
     "warnings": [],
     "recordCount": 833,
-    "level2Share": 0.708283,
+    "level2Share": 0.702281,
     "duplicateEnglishGroups": 0
   },
   "records": {
     "total": 833,
     "byDifficulty": {
-      "1": 183,
-      "2": 590,
+      "1": 188,
+      "2": 585,
       "3": 60
     },
     "difficultyShare": {
-      "1": 0.219688,
-      "2": 0.708283,
+      "1": 0.22569,
+      "2": 0.702281,
       "3": 0.072029
     },
     "byCefr": {
@@ -12890,6 +12890,7 @@
           "ww-cp-000220"
         ],
         "difficulties": [
+          1,
           2
         ],
         "topics": [

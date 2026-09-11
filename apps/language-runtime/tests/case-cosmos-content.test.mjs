@@ -13,7 +13,14 @@ const change = (edit) => { const candidate = structuredClone(pack); edit(candida
 
 test("the JSON noun bank validates and produces an immutable copy", () => {
   const validated = validatePack(pack);
-  assert.deepEqual(validated, pack);
+  const contentOnly = value => Array.isArray(value) ? value.map(contentOnly)
+    : value && typeof value === "object" ? Object.fromEntries(Object.entries(value)
+      .filter(([key]) => !["usefulness", "complexity", "urgency", "subdifficulty"].includes(key))
+      .map(([key, item]) => [key, contentOnly(item)])) : value;
+  assert.deepEqual(contentOnly(validated), contentOnly(pack), "normalization preserves every authored sentence and form");
+  for (const row of validated.flatMap(noun => [noun, ...Object.values(noun.cases)])) {
+    for (const grade of [row.usefulness, row.complexity]) assert.ok(Number.isInteger(grade) && grade >= 1 && grade <= 100);
+  }
   assert.equal(validated.flatMap((entry) => Object.values(entry.cases)).length, pack.length * CZECH_CASES.length);
   assert.ok(Object.isFrozen(validated));
   assert.ok(Object.isFrozen(validated[0].cases.Dative));
@@ -51,8 +58,9 @@ test("malformed targets, markup, duplicates and incomplete records are rejected"
 });
 
 test("JSON field order is immaterial and minimum level coverage remains required", () => {
-  const reordered = pack.map(({ noun, difficulty, cases }) => ({ cases: Object.fromEntries(Object.entries(cases).reverse()
-    .map(([name, { form, english, czech }]) => [name, { czech, form, english }])), difficulty, noun }));
+  const reverseKeys = value => Object.fromEntries(Object.entries(value).reverse().map(([key, child]) => [key,
+    child && typeof child === "object" ? reverseKeys(child) : child]));
+  const reordered = pack.map(reverseKeys);
   assert.deepEqual(validatePack(reordered), validatePack(pack));
   assert.throws(() => validatePack([]));
   assert.throws(() => validatePack(pack.filter(({ difficulty }) => difficulty === 1)), /three difficulty/u);
@@ -132,9 +140,9 @@ test("a new noun and constructions can be added through JSON alone", () => {
     ["Lucii", "Povídáme si o Lucii.", "We are chatting about Lucie."],
     ["Lucií", "Sedím vedle stolu s Lucií.", "I am sitting beside the table with Lucie."]
   ];
-  const noun = { noun: "Lucie", difficulty: 2, cases: Object.fromEntries(CZECH_CASES.map(({ case: name }, index) => {
+  const noun = { noun: "Lucie", difficulty: 2, usefulness: 50, complexity: 50, cases: Object.fromEntries(CZECH_CASES.map(({ case: name }, index) => {
     const [form, czech, english] = entries[index];
-    return [name, { form, czech, english }];
+    return [name, { form, czech, english, usefulness: 50, complexity: 50 }];
   })) };
   const expanded = [...structuredClone(pack), noun];
   assert.deepEqual(validatePack(expanded).at(-1), noun);

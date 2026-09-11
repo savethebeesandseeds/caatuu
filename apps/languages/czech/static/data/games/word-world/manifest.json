@@ -24,17 +24,17 @@
     "modelId": "all-minilm-l6-v2-qint8-v0.1",
     "fallback": "deterministic-lexical"
   },
-  "runtimeFile": "content.json?v=b154ef48960191c1",
+  "runtimeFile": "content.json?v=55f63c965334a83c",
   "recordCount": 833,
-  "contentSha256": "b154ef48960191c169e1a1886cc66f33c567e88cbb017f1498ecfce21a8e39ed",
+  "contentSha256": "55f63c965334a83c417ed077fdef94f72e3fe3ee9729889632493652ab843b38",
   "difficultyDistribution": {
-    "1": 183,
-    "2": 590,
+    "1": 188,
+    "2": 585,
     "3": 60
   },
   "difficultyShare": {
-    "1": 0.219688,
-    "2": 0.708283,
+    "1": 0.22569,
+    "2": 0.702281,
     "3": 0.072029
   },
   "minimumLevel2Share": 0.6,

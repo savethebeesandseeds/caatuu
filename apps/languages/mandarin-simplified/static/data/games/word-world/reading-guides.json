@@ -44474,6 +44474,471 @@
           ]
         }
       ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-yes",
+      "tokens": [
+        {
+          "surface": "对",
+          "units": [
+            {
+              "surface": "对",
+              "notation": "duì"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-no",
+      "tokens": [
+        {
+          "surface": "不",
+          "units": [
+            {
+              "surface": "不",
+              "notation": "bú"
+            }
+          ]
+        },
+        {
+          "surface": "对",
+          "units": [
+            {
+              "surface": "对",
+              "notation": "duì"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-please-enter",
+      "tokens": [
+        {
+          "surface": "请",
+          "units": [
+            {
+              "surface": "请",
+              "notation": "qǐng"
+            }
+          ]
+        },
+        {
+          "surface": "进",
+          "units": [
+            {
+              "surface": "进",
+              "notation": "jìn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-sorry",
+      "tokens": [
+        {
+          "surface": "对不起",
+          "units": [
+            {
+              "surface": "对",
+              "notation": "duì"
+            },
+            {
+              "surface": "不",
+              "notation": "bu"
+            },
+            {
+              "surface": "起",
+              "notation": "qǐ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-excuse-me",
+      "tokens": [
+        {
+          "surface": "劳驾",
+          "units": [
+            {
+              "surface": "劳",
+              "notation": "láo"
+            },
+            {
+              "surface": "驾",
+              "notation": "jià"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-help",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "需要",
+          "units": [
+            {
+              "surface": "需",
+              "notation": "xū"
+            },
+            {
+              "surface": "要",
+              "notation": "yào"
+            }
+          ]
+        },
+        {
+          "surface": "帮助",
+          "units": [
+            {
+              "surface": "帮",
+              "notation": "bāng"
+            },
+            {
+              "surface": "助",
+              "notation": "zhù"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-hungry",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "饿",
+          "units": [
+            {
+              "surface": "饿",
+              "notation": "è"
+            }
+          ]
+        },
+        {
+          "surface": "了",
+          "units": [
+            {
+              "surface": "了",
+              "notation": "le"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-thirsty",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "渴",
+          "units": [
+            {
+              "surface": "渴",
+              "notation": "kě"
+            }
+          ]
+        },
+        {
+          "surface": "了",
+          "units": [
+            {
+              "surface": "了",
+              "notation": "le"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-water",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "需要",
+          "units": [
+            {
+              "surface": "需",
+              "notation": "xū"
+            },
+            {
+              "surface": "要",
+              "notation": "yào"
+            }
+          ]
+        },
+        {
+          "surface": "水",
+          "units": [
+            {
+              "surface": "水",
+              "notation": "shuǐ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-bathroom",
+      "tokens": [
+        {
+          "surface": "洗手间",
+          "units": [
+            {
+              "surface": "洗",
+              "notation": "xǐ"
+            },
+            {
+              "surface": "手",
+              "notation": "shǒu"
+            },
+            {
+              "surface": "间",
+              "notation": "jiān"
+            }
+          ]
+        },
+        {
+          "surface": "在",
+          "units": [
+            {
+              "surface": "在",
+              "notation": "zài"
+            }
+          ]
+        },
+        {
+          "surface": "哪里",
+          "units": [
+            {
+              "surface": "哪",
+              "notation": "nǎ"
+            },
+            {
+              "surface": "里",
+              "notation": "lǐ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-again",
+      "tokens": [
+        {
+          "surface": "请",
+          "units": [
+            {
+              "surface": "请",
+              "notation": "qǐng"
+            }
+          ]
+        },
+        {
+          "surface": "再",
+          "units": [
+            {
+              "surface": "再",
+              "notation": "zài"
+            }
+          ]
+        },
+        {
+          "surface": "说",
+          "units": [
+            {
+              "surface": "说",
+              "notation": "shuō"
+            }
+          ]
+        },
+        {
+          "surface": "一",
+          "units": [
+            {
+              "surface": "一",
+              "notation": "yí"
+            }
+          ]
+        },
+        {
+          "surface": "遍",
+          "units": [
+            {
+              "surface": "遍",
+              "notation": "biàn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-slowly",
+      "tokens": [
+        {
+          "surface": "请",
+          "units": [
+            {
+              "surface": "请",
+              "notation": "qǐng"
+            }
+          ]
+        },
+        {
+          "surface": "慢慢",
+          "units": [
+            {
+              "surface": "慢",
+              "notation": "màn"
+            },
+            {
+              "surface": "慢",
+              "notation": "màn"
+            }
+          ]
+        },
+        {
+          "surface": "说",
+          "units": [
+            {
+              "surface": "说",
+              "notation": "shuō"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-no-thanks",
+      "tokens": [
+        {
+          "surface": "不",
+          "units": [
+            {
+              "surface": "不",
+              "notation": "bú"
+            }
+          ]
+        },
+        {
+          "surface": "用",
+          "units": [
+            {
+              "surface": "用",
+              "notation": "yòng"
+            }
+          ]
+        },
+        {
+          "surface": "了",
+          "units": [
+            {
+              "surface": "了",
+              "notation": "le"
+            }
+          ]
+        },
+        {
+          "surface": "谢谢",
+          "units": [
+            {
+              "surface": "谢",
+              "notation": "xiè"
+            },
+            {
+              "surface": "谢",
+              "notation": "xie"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-stop",
+      "tokens": [
+        {
+          "surface": "停",
+          "units": [
+            {
+              "surface": "停",
+              "notation": "tíng"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-dont-know",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "不",
+          "units": [
+            {
+              "surface": "不",
+              "notation": "bù"
+            }
+          ]
+        },
+        {
+          "surface": "知道",
+          "units": [
+            {
+              "surface": "知",
+              "notation": "zhī"
+            },
+            {
+              "surface": "道",
+              "notation": "dào"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

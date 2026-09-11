@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
+import { newContentEncounterId } from "../static/source/games/content-progression.mjs";
 
 import { mountRobotLoadingScreen } from "../static/source/games/embedded-game-controls.mjs";
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
@@ -122,6 +123,7 @@ async function mountGame({ language = "czech", syntheticBase = false, reducedMot
     postMessage: (message, origin) => messages.push({ message, origin })
   };
   Object.assign(harness.context, core, {
+    newContentEncounterId,
     createNounVisual: options => createNounVisual({ ...options, searchImages: async (query, options) => {
       visualCalls.push({ query, options });
       if (visualFails) throw new Error("image lookup unavailable");
@@ -195,6 +197,62 @@ async function mountGame({ language = "czech", syntheticBase = false, reducedMot
 async function settle() {
   for (let index = 0; index < 12; index += 1) await Promise.resolve();
 }
+
+test("noun cohorts create exposure only at landing and use one encounter across retries", async () => {
+  const exposures = [];
+  let generation = "before-reset";
+  const game = await mountGame({ beforeMount({ shell }) {
+    shell.CaatuuLearning.contentHistory = () => ({});
+    shell.CaatuuLearning.contentGeneration = () => generation;
+    shell.CaatuuLearning.recordExposure = (gameId, event) => exposures.push({ gameId, ...event });
+  } });
+  assert.ok(game.controller.snapshot().total < game.raw.items.length);
+  assert.equal(exposures.length, 0);
+  const id = game.controller.snapshot().item.id;
+  generation = "after-reset";
+  const wrong = game.controller.snapshot().lanes.find(lane => !(game.controller.snapshot().item.acceptedLaneIds || [game.controller.snapshot().item.laneId]).includes(lane.id));
+  game.answer(wrong.id);
+  assert.equal(exposures.length, 1);
+  assert.equal(exposures[0].itemId, id);
+  assert.equal(exposures[0].correct, false);
+  assert.equal(exposures[0].generation, "before-reset");
+  assert.equal(exposures[0].evidence, "independent");
+  game.lane(wrong.id).click();
+  assert.equal(exposures.length, 1);
+  game.finishFeedback();
+  game.answer();
+  assert.equal(exposures.length, 2);
+  assert.equal(exposures[1].encounterId, exposures[0].encounterId);
+  assert.notEqual(exposures[1].itemId, id);
+  assert.equal(exposures[1].generation, "after-reset", "the next newly presented noun captures the new generation");
+  assert.equal(exposures[1].evidence, "independent");
+  game.controller.destroy();
+});
+
+test("noun evidence distinguishes displayed clues and automatic timeouts from unaided category recognition", async () => {
+  for (const mode of ["picture", "timeout"]) {
+    const exposures = [];
+    const game = await mountGame({ visuals: mode === "picture", beforeMount({ shell }) {
+      shell.CaatuuLearning.recordExposure = (gameId, event) => exposures.push({ gameId, ...event });
+    } });
+    if (mode === "picture") {
+      await settle();
+      const picture = game.element("gravityNounVisual");
+      picture.dispatchEvent({ type: "load" });
+      await settle();
+      assert.equal(picture.hidden, false);
+      game.controller.setIconsVisible(false);
+      game.answer();
+    } else {
+      game.frame(0);
+      for (let elapsed = 1000; elapsed <= 10000; elapsed += 1000) game.frame(elapsed);
+    }
+    assert.equal(exposures.length, 1);
+    assert.equal(exposures[0].evidence, mode === "picture" ? "assisted" : "exposure");
+    assert.equal(exposures[0].correct, mode === "picture");
+    game.controller.destroy();
+  }
+});
 
 test("noun feedback acknowledges a selected authored alternative and shows every accepted lane", async () => {
   const game = await mountGame({ language: "spanish", mutateContent(raw) {

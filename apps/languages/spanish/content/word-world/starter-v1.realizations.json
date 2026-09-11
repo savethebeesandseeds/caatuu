@@ -22993,6 +22993,303 @@
           "playable": true
         }
       ]
+    },
+    {
+      "conceptId": "ww-es-starter260911-yes",
+      "text": "Sí.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Sí",
+          "pronunciation": null,
+          "gloss": "yes",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-starter260911-no",
+      "text": "No.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "No",
+          "pronunciation": null,
+          "gloss": "no",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-starter260911-please",
+      "text": "Por favor.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Por",
+          "pronunciation": null,
+          "gloss": "part of por favor: please",
+          "playable": true
+        },
+        {
+          "surface": "favor",
+          "pronunciation": null,
+          "gloss": "part of por favor: please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-starter260911-sorry",
+      "text": "Lo siento.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Lo",
+          "pronunciation": null,
+          "gloss": "it",
+          "playable": true
+        },
+        {
+          "surface": "siento",
+          "pronunciation": null,
+          "gloss": "feel; part of lo siento: I am sorry",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-starter260911-excuse-me",
+      "text": "Perdona.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Perdona",
+          "pronunciation": null,
+          "gloss": "excuse me; informal singular",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-starter260911-help",
+      "text": "Necesito ayuda.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Necesito",
+          "pronunciation": null,
+          "gloss": "I need",
+          "playable": true
+        },
+        {
+          "surface": "ayuda",
+          "pronunciation": null,
+          "gloss": "help",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-starter260911-hungry",
+      "text": "Tengo hambre.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Tengo",
+          "pronunciation": null,
+          "gloss": "I have",
+          "playable": true
+        },
+        {
+          "surface": "hambre",
+          "pronunciation": null,
+          "gloss": "hunger",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-starter260911-thirsty",
+      "text": "Tengo sed.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Tengo",
+          "pronunciation": null,
+          "gloss": "I have",
+          "playable": true
+        },
+        {
+          "surface": "sed",
+          "pronunciation": null,
+          "gloss": "thirst",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-starter260911-water",
+      "text": "Necesito agua.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Necesito",
+          "pronunciation": null,
+          "gloss": "I need",
+          "playable": true
+        },
+        {
+          "surface": "agua",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-starter260911-bathroom",
+      "text": "¿Dónde está el baño?",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Dónde",
+          "pronunciation": null,
+          "gloss": "where",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "pronunciation": null,
+          "gloss": "is; location",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "pronunciation": null,
+          "gloss": "the",
+          "playable": true
+        },
+        {
+          "surface": "baño",
+          "pronunciation": null,
+          "gloss": "bathroom",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-starter260911-again",
+      "text": "Otra vez, por favor.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Otra",
+          "pronunciation": null,
+          "gloss": "another",
+          "playable": true
+        },
+        {
+          "surface": "vez",
+          "pronunciation": null,
+          "gloss": "time",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "pronunciation": null,
+          "gloss": "part of por favor: please",
+          "playable": true
+        },
+        {
+          "surface": "favor",
+          "pronunciation": null,
+          "gloss": "part of por favor: please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-starter260911-slowly",
+      "text": "Habla despacio, por favor.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Habla",
+          "pronunciation": null,
+          "gloss": "speak; informal singular",
+          "playable": true
+        },
+        {
+          "surface": "despacio",
+          "pronunciation": null,
+          "gloss": "slowly",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "pronunciation": null,
+          "gloss": "part of por favor: please",
+          "playable": true
+        },
+        {
+          "surface": "favor",
+          "pronunciation": null,
+          "gloss": "part of por favor: please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-starter260911-no-thanks",
+      "text": "No, gracias.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "No",
+          "pronunciation": null,
+          "gloss": "no",
+          "playable": true
+        },
+        {
+          "surface": "gracias",
+          "pronunciation": null,
+          "gloss": "thank you",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-starter260911-stop",
+      "text": "¡Para!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Para",
+          "pronunciation": null,
+          "gloss": "stop; informal singular",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-starter260911-dont-know",
+      "text": "No sé.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "No",
+          "pronunciation": null,
+          "gloss": "not",
+          "playable": true
+        },
+        {
+          "surface": "sé",
+          "pronunciation": null,
+          "gloss": "I know",
+          "playable": true
+        }
+      ]
     }
   ]
 }

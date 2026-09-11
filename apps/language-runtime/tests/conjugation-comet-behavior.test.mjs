@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
+import { selectContentItems, newContentEncounterId } from "../static/source/games/content-progression.mjs";
 
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { createInterfaceContent } from "../static/source/interface-content.mjs";
@@ -16,7 +17,7 @@ import {
   judgeConjugationHelixRound,
   splitConjugationDisplay,
   buildConjugationVerbQueue,
-  validateConjugationCometCatalog
+  validateConjugationCometCatalog, selectConjugationPracticeVerbs
 } from "../static/source/games/conjugation-comet/conjugation-comet-core.mjs";
 
 const hostSource = await readFile(new URL(
@@ -188,6 +189,7 @@ async function mountGame({ language = "czech", difficulty = 3, syntheticBase = f
     rejectCatalog = reject;
   }) : Promise.resolve();
   Object.assign(harness.context, {
+    selectConjugationPracticeVerbs, newContentEncounterId,
     fetchDeclaredCourseGameJson,
     readEmbeddedCourseProfile,
     buildConjugationHelixRound(...args) {
@@ -322,6 +324,36 @@ function finishBatch(game) {
   game.submit();
   game.advance(350); game.click(game.element("conjugationCometSummaryNext"));
 }
+
+test("conjugation records the assessed verb and each authored form once, after submission", async () => {
+  const exposures = [];
+  let generation = "before-reset";
+  const game = await mountGame({ duringLoad({ shell }) {
+    shell.CaatuuLearning.contentHistory = () => ({});
+    shell.CaatuuLearning.contentGeneration = () => generation;
+    shell.CaatuuLearning.recordExposure = (gameId, event) => exposures.push({ gameId, ...event });
+  } });
+  assert.equal(exposures.length, 0);
+  generation = "after-reset";
+  game.submit(false);
+  const verb = exposures.filter(event => event.bankId === undefined);
+  const forms = exposures.filter(event => event.bankId === "forms");
+  assert.equal(verb.length, 1);
+  assert.equal(verb[0].itemId, game.current().id);
+  assert.equal(verb[0].correct, false);
+  assert.equal(forms.length, game.round().subjects.length);
+  assert.equal(new Set(forms.map(event => event.itemId)).size, forms.length);
+  assert.equal(new Set(exposures.map(event => event.encounterId)).size, 1);
+  assert.ok(exposures.every(event => event.generation === "before-reset"));
+  assert.ok(exposures.every(event => event.evidence === "independent"));
+  game.element("conjugationCometSubmit").click();
+  assert.equal(exposures.length, forms.length + 1);
+  game.advance(200);
+  game.submit(true);
+  assert.ok(exposures.slice(forms.length + 1).every(event => event.evidence === "assisted"));
+  assert.equal(exposures.at(-1).encounterId, exposures[0].encounterId);
+  game.controller.destroy();
+});
 
 test("the completion dialog shows every correct relationship and waits for a deliberate Next", async () => {
   const game = await mountGame();

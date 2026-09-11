@@ -107043,6 +107043,1130 @@
           ]
         }
       ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-yes",
+      "text": "对。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Duì.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "对",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "duì",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "correct; that is right",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "对",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "duì",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-no",
+      "text": "不对。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Bú duì.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "不",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "bú",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "not; tone before a fourth tone",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "不",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "bú",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "对",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "duì",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "correct",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "对",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "duì",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-please-enter",
+      "text": "请进。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Qǐng jìn.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "请",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "qǐng",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "please",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "请",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "qǐng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "进",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "jìn",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "come in",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "进",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "jìn",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-sorry",
+      "text": "对不起。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Duìbuqǐ.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "对不起",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "duìbuqǐ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "sorry",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "对",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "duì",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "不",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "bu",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "起",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "qǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-excuse-me",
+      "text": "劳驾。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Láojià.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "劳驾",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "láojià",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "excuse me; polite attention request",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "劳",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "láo",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "驾",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "jià",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-help",
+      "text": "我需要帮助。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Wǒ xūyào bāngzhù.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "wǒ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "I; me",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "我",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "wǒ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "需要",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "xūyào",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "need",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "需",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "xū",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "要",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yào",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "帮助",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "bāngzhù",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "help",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "帮",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "bāng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "助",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "zhù",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-hungry",
+      "text": "我饿了。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Wǒ è le.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "wǒ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "I; me",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "我",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "wǒ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "饿",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "è",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "hungry",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "饿",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "è",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "了",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "le",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "marks a changed state",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "了",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "le",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-thirsty",
+      "text": "我渴了。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Wǒ kě le.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "wǒ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "I; me",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "我",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "wǒ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "渴",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "kě",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "thirsty",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "渴",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "kě",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "了",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "le",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "marks a changed state",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "了",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "le",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-water",
+      "text": "我需要水。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Wǒ xūyào shuǐ.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "wǒ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "I; me",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "我",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "wǒ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "需要",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "xūyào",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "need",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "需",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "xū",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "要",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yào",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "水",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "shuǐ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "water",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "水",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "shuǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-bathroom",
+      "text": "洗手间在哪里？",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Xǐshǒujiān zài nǎlǐ?",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "洗手间",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "xǐshǒujiān",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "bathroom",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "洗",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "xǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "手",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "shǒu",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "间",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "jiān",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "在",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "zài",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "be located at",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "在",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "zài",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "哪里",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "nǎlǐ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "where",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "哪",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "nǎ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "里",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "lǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-again",
+      "text": "请再说一遍。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Qǐng zài shuō yí biàn.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "请",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "qǐng",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "please",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "请",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "qǐng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "再",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "zài",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "again",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "再",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "zài",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "说",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "shuō",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "say",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "说",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "shuō",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "一",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "yí",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "one; tone before a fourth tone",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "一",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yí",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "遍",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "biàn",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "time; repetition of a whole action",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "遍",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "biàn",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-slowly",
+      "text": "请慢慢说。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Qǐng mànmàn shuō.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "请",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "qǐng",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "please",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "请",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "qǐng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "慢慢",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "mànmàn",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "slowly",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "慢",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "màn",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "慢",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "màn",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "说",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "shuō",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "speak",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "说",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "shuō",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-no-thanks",
+      "text": "不用了，谢谢。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Bú yòng le, xièxie.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "不",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "bú",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "not; tone before a fourth tone",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "不",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "bú",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "用",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "yòng",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "need; use",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "用",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yòng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "了",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "le",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "marks a changed situation",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "了",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "le",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "谢谢",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "xièxie",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "thank you",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "谢",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "xiè",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "谢",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "xie",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-stop",
+      "text": "停！",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Tíng!",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "停",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "tíng",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "stop",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "停",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "tíng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-dont-know",
+      "text": "我不知道。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Wǒ bù zhīdào.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "wǒ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "I; me",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "我",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "wǒ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "不",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "bù",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "not",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "不",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "bù",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "知道",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "zhīdào",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "know",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "知",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "zhī",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "道",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "dào",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }

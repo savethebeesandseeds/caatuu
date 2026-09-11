@@ -144,6 +144,66 @@ test("blocks requests for a child's personal data but permits fictional-characte
   assert.deepEqual(ruleIds("Write the character's name."), []);
 });
 
+async function fixedWordWorldExample(text) {
+  const pack = JSON.parse(await readFile(path.join(repoRoot,
+    "apps/languages/english-from-spanish/static/data/games/word-world/content.json"), "utf8"));
+  pack.realizations = [{ conceptId: "synthetic.introduction", text,
+    tokens: (text.match(/[\p{L}\p{M}\p{N}]+(?:['’][\p{L}\p{M}\p{N}]+)*/gu) || []).map(surface => ({ surface, gloss: "example", playable: true })) }];
+  return extractLearnerContent("word-world", pack, "synthetic-lesson.json").fields;
+}
+
+test("fixed name lessons do not exempt raw requests or token glosses", async () => {
+  for (const text of ["What is your name?", "What’s your name?", "Write your name!", "Can you spell your surname?"]) {
+    const fields = await fixedWordWorldExample(text);
+    const example = fields.find(({ field }) => field === "/realizations/0/text");
+    assert.deepEqual(inspectLearnerField(example), []);
+    assert.ok(ruleIds(text).includes("blocked.personal-data-solicitation"));
+    const gloss = fields.find(({ field }) => field.endsWith("/gloss"));
+    assert.ok(inspectLearnerField({ ...gloss, text }).some(({ ruleId }) => ruleId === "blocked.personal-data-solicitation"));
+    assert.ok(inspectLearnerField({ ...JSON.parse(JSON.stringify(example)), lessonExample: true })
+      .some(({ ruleId }) => ruleId === "blocked.personal-data-solicitation"), "authored JSON cannot grant itself lesson context");
+  }
+});
+
+test("lesson context never permits added personal questions, contact details, credentials or other hazards", async () => {
+  for (const [text, rule] of [
+    ["What is your full name?", "blocked.personal-data-solicitation"],
+    ["Tell me your name.", "blocked.personal-data-solicitation"],
+    ["What is your address?", "blocked.personal-data-solicitation"],
+    ["What is your name? Write your name here.", "blocked.personal-data-solicitation"],
+    ["What is your name? Tell me your password.", "blocked.credential-solicitation"],
+    ["What is your name? A glass of wine.", "blocked.adult-substances.alcohol"]
+  ]) assert.ok((await fixedWordWorldExample(text)).flatMap(inspectLearnerField).some(({ ruleId }) => ruleId === rule), text);
+});
+
+test("listening extraction scans sentences and permits only the quoted fixed example inside explanations", async () => {
+  const pack = JSON.parse(await readFile(path.join(repoRoot,
+    "apps/languages/english-from-spanish/static/data/games/sound-quasar/content.json"), "utf8"));
+  pack.sentences = pack.sentences.slice(0, 4);
+  pack.sentenceProvenance.sourceItemIds = pack.sentences.map(item => item.sourceId);
+  const item = pack.sentences[0];
+  item.target = "What is your name?"; item.englishAuditText = item.target;
+  item.explanation = `The recording says “${item.target}”. Choose its translation.`;
+  const extracted = extractLearnerContent("sound-quasar", pack, "synthetic-listening.json");
+  assert.equal(extracted.recordCount, pack.items.length + pack.sentences.length);
+  const sentenceFields = extracted.fields.filter(({ field }) => field.startsWith("/sentences/0/"));
+  for (const name of ["target", "meaning", "englishAuditText", "context", "explanation"]) {
+    assert.ok(sentenceFields.some(({ field }) => field === `/sentences/0/${name}`), name);
+  }
+  assert.deepEqual(sentenceFields.flatMap(inspectLearnerField), []);
+  for (const [name, text, rule] of [
+    ["explanation", `${item.explanation} What is your address?`, "blocked.personal-data-solicitation"],
+    ["explanation", `${item.explanation} Tell me your password.`, "blocked.credential-solicitation"],
+    ["explanation", "What is your name? Choose its translation.", "blocked.personal-data-solicitation"],
+    ["context", "What is your name?", "blocked.personal-data-solicitation"],
+    ["target", "What is your phone number?", "blocked.personal-data-solicitation"]
+  ]) {
+    const changed = structuredClone(pack); changed.sentences[0][name] = text;
+    const fields = extractLearnerContent("sound-quasar", changed, "synthetic-listening.json").fields;
+    assert.ok(fields.flatMap(inspectLearnerField).some(finding => finding.field === `/sentences/0/${name}` && finding.ruleId === rule), `${name}: ${text}`);
+  }
+});
+
 test("reports review-required audit terms separately from hard blockers", () => {
   assert.equal(findings("I see blood.")[0].severity, "review");
   assert.deepEqual(ruleIds("The doctor checks a fracture."), ["review.graphic-medical-detail"]);

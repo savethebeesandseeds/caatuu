@@ -45,7 +45,9 @@
       "targetText": "mann",
       "learnerBaseText": "man",
       "english": "man",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "nb.gravity.noun.kvinne",
@@ -58,7 +60,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 33
     },
     {
       "id": "nb.gravity.noun.gutt",
@@ -67,7 +71,9 @@
       "targetText": "gutt",
       "learnerBaseText": "boy",
       "english": "boy",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "nb.gravity.noun.jente",
@@ -80,7 +86,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 33
     },
     {
       "id": "nb.gravity.noun.barn",
@@ -89,7 +97,9 @@
       "targetText": "barn",
       "learnerBaseText": "child",
       "english": "child",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "nb.gravity.noun.venn",
@@ -98,7 +108,9 @@
       "targetText": "venn",
       "learnerBaseText": "friend",
       "english": "friend",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "nb.gravity.noun.familie",
@@ -107,7 +119,9 @@
       "targetText": "familie",
       "learnerBaseText": "family",
       "english": "family",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "nb.gravity.noun.nabo",
@@ -116,7 +130,9 @@
       "targetText": "nabo",
       "learnerBaseText": "neighbour",
       "english": "neighbour",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "nb.gravity.noun.laerer",
@@ -125,7 +141,9 @@
       "targetText": "lærer",
       "learnerBaseText": "teacher",
       "english": "teacher",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "nb.gravity.noun.elev",
@@ -134,7 +152,9 @@
       "targetText": "elev",
       "learnerBaseText": "pupil",
       "english": "pupil",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.mor",
@@ -147,7 +167,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.far",
@@ -156,7 +178,9 @@
       "targetText": "far",
       "learnerBaseText": "father",
       "english": "father",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "nb.gravity.noun.soester",
@@ -169,7 +193,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 33
     },
     {
       "id": "nb.gravity.noun.bror",
@@ -178,7 +204,9 @@
       "targetText": "bror",
       "learnerBaseText": "brother",
       "english": "brother",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "nb.gravity.noun.datter",
@@ -191,7 +219,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 33
     },
     {
       "id": "nb.gravity.noun.soenn",
@@ -200,7 +230,9 @@
       "targetText": "sønn",
       "learnerBaseText": "son",
       "english": "son",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "nb.gravity.noun.bestemor",
@@ -213,7 +245,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 33
     },
     {
       "id": "nb.gravity.noun.bestefar",
@@ -222,7 +256,9 @@
       "targetText": "bestefar",
       "learnerBaseText": "grandfather",
       "english": "grandfather",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "nb.gravity.noun.tante",
@@ -235,7 +271,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 33
     },
     {
       "id": "nb.gravity.noun.onkel",
@@ -244,7 +282,9 @@
       "targetText": "onkel",
       "learnerBaseText": "uncle",
       "english": "uncle",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "nb.gravity.noun.hus",
@@ -253,7 +293,9 @@
       "targetText": "hus",
       "learnerBaseText": "house",
       "english": "house",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "nb.gravity.noun.rom",
@@ -262,7 +304,9 @@
       "targetText": "rom",
       "learnerBaseText": "room",
       "english": "room",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.kjoekken",
@@ -271,7 +315,9 @@
       "targetText": "kjøkken",
       "learnerBaseText": "kitchen",
       "english": "kitchen",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.bad",
@@ -280,7 +326,9 @@
       "targetText": "bad",
       "learnerBaseText": "bathroom",
       "english": "bathroom",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "nb.gravity.noun.doer",
@@ -293,7 +341,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.vindu",
@@ -302,7 +352,9 @@
       "targetText": "vindu",
       "learnerBaseText": "window",
       "english": "window",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.gulv",
@@ -311,7 +363,9 @@
       "targetText": "gulv",
       "learnerBaseText": "floor",
       "english": "floor",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.tak",
@@ -320,7 +374,9 @@
       "targetText": "tak",
       "learnerBaseText": "roof",
       "english": "roof",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.vegg",
@@ -329,7 +385,9 @@
       "targetText": "vegg",
       "learnerBaseText": "wall",
       "english": "wall",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.trapp",
@@ -342,7 +400,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 80,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.bord",
@@ -351,7 +411,9 @@
       "targetText": "bord",
       "learnerBaseText": "table",
       "english": "table",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.stol",
@@ -360,7 +422,9 @@
       "targetText": "stol",
       "learnerBaseText": "chair",
       "english": "chair",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.seng",
@@ -373,7 +437,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.sofa",
@@ -382,7 +448,9 @@
       "targetText": "sofa",
       "learnerBaseText": "sofa",
       "english": "sofa",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.skap",
@@ -391,7 +459,9 @@
       "targetText": "skap",
       "learnerBaseText": "cupboard",
       "english": "cupboard",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.hylle",
@@ -404,7 +474,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 80,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.lampe",
@@ -417,7 +489,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 80,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.teppe",
@@ -426,7 +500,9 @@
       "targetText": "teppe",
       "learnerBaseText": "carpet or blanket",
       "english": "carpet or blanket",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 80,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.pute",
@@ -439,7 +515,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 80,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.speil",
@@ -448,7 +526,9 @@
       "targetText": "speil",
       "learnerBaseText": "mirror",
       "english": "mirror",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.bok",
@@ -461,7 +541,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 73,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.blyant",
@@ -470,7 +552,9 @@
       "targetText": "blyant",
       "learnerBaseText": "pencil",
       "english": "pencil",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.penn",
@@ -479,7 +563,9 @@
       "targetText": "penn",
       "learnerBaseText": "pen",
       "english": "pen",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.papir",
@@ -488,7 +574,9 @@
       "targetText": "papir",
       "learnerBaseText": "paper",
       "english": "paper",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.viskelaer",
@@ -497,7 +585,9 @@
       "targetText": "viskelær",
       "learnerBaseText": "eraser",
       "english": "eraser",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.linjal",
@@ -506,7 +596,9 @@
       "targetText": "linjal",
       "learnerBaseText": "ruler",
       "english": "ruler",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.sekk",
@@ -515,7 +607,9 @@
       "targetText": "sekk",
       "learnerBaseText": "sack",
       "english": "sack",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.skole",
@@ -524,7 +618,9 @@
       "targetText": "skole",
       "learnerBaseText": "school",
       "english": "school",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "nb.gravity.noun.klasse",
@@ -537,7 +633,9 @@
       "acceptedLaneIds": [
         "masculine",
         "feminine"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.ord",
@@ -546,7 +644,9 @@
       "targetText": "ord",
       "learnerBaseText": "word",
       "english": "word",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.broed",
@@ -555,7 +655,9 @@
       "targetText": "brød",
       "learnerBaseText": "bread",
       "english": "bread",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 75,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.ost",
@@ -564,7 +666,9 @@
       "targetText": "ost",
       "learnerBaseText": "cheese",
       "english": "cheese",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.egg",
@@ -573,7 +677,9 @@
       "targetText": "egg",
       "learnerBaseText": "egg",
       "english": "egg",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.eple",
@@ -582,7 +688,9 @@
       "targetText": "eple",
       "learnerBaseText": "apple",
       "english": "apple",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.banan",
@@ -591,7 +699,9 @@
       "targetText": "banan",
       "learnerBaseText": "banana",
       "english": "banana",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.appelsin",
@@ -600,7 +710,9 @@
       "targetText": "appelsin",
       "learnerBaseText": "orange",
       "english": "orange",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.potet",
@@ -613,7 +725,9 @@
       "acceptedLaneIds": [
         "masculine",
         "feminine"
-      ]
+      ],
+      "usefulness": 78,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.gulrot",
@@ -626,7 +740,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 78,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.tomat",
@@ -635,7 +751,9 @@
       "targetText": "tomat",
       "learnerBaseText": "tomato",
       "english": "tomato",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.agurk",
@@ -644,7 +762,9 @@
       "targetText": "agurk",
       "learnerBaseText": "cucumber",
       "english": "cucumber",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.vann",
@@ -653,7 +773,9 @@
       "targetText": "vann",
       "learnerBaseText": "water",
       "english": "water",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 98,
+      "complexity": 15
     },
     {
       "id": "nb.gravity.noun.melk",
@@ -666,7 +788,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.saft",
@@ -679,7 +803,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 32
     },
     {
       "id": "nb.gravity.noun.te",
@@ -688,7 +814,9 @@
       "targetText": "te",
       "learnerBaseText": "tea",
       "english": "tea",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.kaffe",
@@ -697,7 +825,9 @@
       "targetText": "kaffe",
       "learnerBaseText": "coffee",
       "english": "coffee",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.suppe",
@@ -710,7 +840,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 78,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.ris",
@@ -719,7 +851,9 @@
       "targetText": "ris",
       "learnerBaseText": "rice",
       "english": "rice",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 75,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.pasta",
@@ -728,7 +862,9 @@
       "targetText": "pasta",
       "learnerBaseText": "pasta",
       "english": "pasta",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.kjoett",
@@ -737,7 +873,9 @@
       "targetText": "kjøtt",
       "learnerBaseText": "meat",
       "english": "meat",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.smoer",
@@ -746,7 +884,9 @@
       "targetText": "smør",
       "learnerBaseText": "butter",
       "english": "butter",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.kopp",
@@ -755,7 +895,9 @@
       "targetText": "kopp",
       "learnerBaseText": "cup",
       "english": "cup",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.glass",
@@ -764,7 +906,9 @@
       "targetText": "glass",
       "learnerBaseText": "drinking glass",
       "english": "drinking glass",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 75,
+      "complexity": 24
     },
     {
       "id": "nb.gravity.noun.tallerken",
@@ -773,7 +917,9 @@
       "targetText": "tallerken",
       "learnerBaseText": "plate",
       "english": "plate",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.skaal",
@@ -786,7 +932,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 78,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.kniv",
@@ -795,7 +943,9 @@
       "targetText": "kniv",
       "learnerBaseText": "knife (table utensil)",
       "english": "knife (table utensil)",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.gaffel",
@@ -804,7 +954,9 @@
       "targetText": "gaffel",
       "learnerBaseText": "fork",
       "english": "fork",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.skje",
@@ -817,7 +969,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 78,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.flaske",
@@ -830,7 +984,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.matboks",
@@ -839,7 +995,9 @@
       "targetText": "matboks",
       "learnerBaseText": "lunch box",
       "english": "lunch box",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 80,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.gryte",
@@ -852,7 +1010,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.hund",
@@ -861,7 +1021,9 @@
       "targetText": "hund",
       "learnerBaseText": "dog",
       "english": "dog",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.katt",
@@ -870,7 +1032,9 @@
       "targetText": "katt",
       "learnerBaseText": "cat",
       "english": "cat",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.hest",
@@ -879,7 +1043,9 @@
       "targetText": "hest",
       "learnerBaseText": "horse",
       "english": "horse",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.ku",
@@ -892,7 +1058,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.sau",
@@ -901,7 +1069,9 @@
       "targetText": "sau",
       "learnerBaseText": "sheep",
       "english": "sheep",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.gris",
@@ -910,7 +1080,9 @@
       "targetText": "gris",
       "learnerBaseText": "pig",
       "english": "pig",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.geit",
@@ -923,7 +1095,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.fugl",
@@ -932,7 +1106,9 @@
       "targetText": "fugl",
       "learnerBaseText": "bird",
       "english": "bird",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.fisk",
@@ -941,7 +1117,9 @@
       "targetText": "fisk",
       "learnerBaseText": "fish",
       "english": "fish",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.mus",
@@ -954,7 +1132,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.tre",
@@ -963,7 +1143,9 @@
       "targetText": "tre",
       "learnerBaseText": "tree",
       "english": "tree",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.blomst",
@@ -972,7 +1154,9 @@
       "targetText": "blomst",
       "learnerBaseText": "flower",
       "english": "flower",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.blad",
@@ -981,7 +1165,9 @@
       "targetText": "blad",
       "learnerBaseText": "leaf",
       "english": "leaf",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.stein",
@@ -990,7 +1176,9 @@
       "targetText": "stein",
       "learnerBaseText": "stone",
       "english": "stone",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.fjell",
@@ -999,7 +1187,9 @@
       "targetText": "fjell",
       "learnerBaseText": "mountain",
       "english": "mountain",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.skog",
@@ -1008,7 +1198,9 @@
       "targetText": "skog",
       "learnerBaseText": "forest",
       "english": "forest",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.elv",
@@ -1021,7 +1213,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.sjoe",
@@ -1030,7 +1224,9 @@
       "targetText": "sjø",
       "learnerBaseText": "sea or lake",
       "english": "sea or lake",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.strand",
@@ -1043,7 +1239,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 62,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.oey",
@@ -1056,7 +1254,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 46,
+      "complexity": 46
     },
     {
       "id": "nb.gravity.noun.sol",
@@ -1069,7 +1269,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.maane",
@@ -1078,7 +1280,9 @@
       "targetText": "måne",
       "learnerBaseText": "moon",
       "english": "moon",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.stjerne",
@@ -1091,7 +1295,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.himmel",
@@ -1100,7 +1306,9 @@
       "targetText": "himmel",
       "learnerBaseText": "sky",
       "english": "sky",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.sky",
@@ -1113,7 +1321,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.regn",
@@ -1122,7 +1332,9 @@
       "targetText": "regn",
       "learnerBaseText": "rain",
       "english": "rain",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.snoe",
@@ -1131,7 +1343,9 @@
       "targetText": "snø",
       "learnerBaseText": "snow",
       "english": "snow",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.vind",
@@ -1140,7 +1354,9 @@
       "targetText": "vind",
       "learnerBaseText": "wind",
       "english": "wind",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.is",
@@ -1149,7 +1365,9 @@
       "targetText": "is",
       "learnerBaseText": "ice",
       "english": "ice",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.vaer",
@@ -1158,7 +1376,9 @@
       "targetText": "vær",
       "learnerBaseText": "weather",
       "english": "weather",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 75,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.hode",
@@ -1167,7 +1387,9 @@
       "targetText": "hode",
       "learnerBaseText": "head",
       "english": "head",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.haand",
@@ -1180,7 +1402,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.fot",
@@ -1189,7 +1413,9 @@
       "targetText": "fot",
       "learnerBaseText": "foot",
       "english": "foot",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.bein",
@@ -1198,7 +1424,9 @@
       "targetText": "bein",
       "learnerBaseText": "leg or bone",
       "english": "leg or bone",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 88,
+      "complexity": 32
     },
     {
       "id": "nb.gravity.noun.arm",
@@ -1207,7 +1435,9 @@
       "targetText": "arm",
       "learnerBaseText": "arm",
       "english": "arm",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 88,
+      "complexity": 24
     },
     {
       "id": "nb.gravity.noun.oeye",
@@ -1216,7 +1446,9 @@
       "targetText": "øye",
       "learnerBaseText": "eye",
       "english": "eye",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.oere",
@@ -1225,7 +1457,9 @@
       "targetText": "øre",
       "learnerBaseText": "ear",
       "english": "ear",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.nese",
@@ -1238,7 +1472,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 88,
+      "complexity": 32
     },
     {
       "id": "nb.gravity.noun.munn",
@@ -1247,7 +1483,9 @@
       "targetText": "munn",
       "learnerBaseText": "mouth",
       "english": "mouth",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 88,
+      "complexity": 24
     },
     {
       "id": "nb.gravity.noun.tann",
@@ -1260,7 +1498,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.jakke",
@@ -1273,7 +1513,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 80,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.bukse",
@@ -1286,7 +1528,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 43
     },
     {
       "id": "nb.gravity.noun.skjorte",
@@ -1299,7 +1543,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.genser",
@@ -1308,7 +1554,9 @@
       "targetText": "genser",
       "learnerBaseText": "sweater",
       "english": "sweater",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.sko",
@@ -1317,7 +1565,9 @@
       "targetText": "sko",
       "learnerBaseText": "shoe",
       "english": "shoe",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.sokk",
@@ -1326,7 +1576,9 @@
       "targetText": "sokk",
       "learnerBaseText": "sock",
       "english": "sock",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.lue",
@@ -1339,7 +1591,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 32
     },
     {
       "id": "nb.gravity.noun.kjole",
@@ -1348,7 +1602,9 @@
       "targetText": "kjole",
       "learnerBaseText": "dress",
       "english": "dress",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.skjoert",
@@ -1357,7 +1613,9 @@
       "targetText": "skjørt",
       "learnerBaseText": "skirt",
       "english": "skirt",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.vott",
@@ -1366,7 +1624,9 @@
       "targetText": "vott",
       "learnerBaseText": "mitten",
       "english": "mitten",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.bil",
@@ -1375,7 +1635,9 @@
       "targetText": "bil",
       "learnerBaseText": "car",
       "english": "car",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.buss",
@@ -1384,7 +1646,9 @@
       "targetText": "buss",
       "learnerBaseText": "bus",
       "english": "bus",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "nb.gravity.noun.tog",
@@ -1393,7 +1657,9 @@
       "targetText": "tog",
       "learnerBaseText": "train",
       "english": "train",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "nb.gravity.noun.sykkel",
@@ -1402,7 +1668,9 @@
       "targetText": "sykkel",
       "learnerBaseText": "bicycle",
       "english": "bicycle",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.baat",
@@ -1411,7 +1679,9 @@
       "targetText": "båt",
       "learnerBaseText": "boat",
       "english": "boat",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.fly",
@@ -1420,7 +1690,9 @@
       "targetText": "fly",
       "learnerBaseText": "aeroplane",
       "english": "aeroplane",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.vei",
@@ -1429,7 +1701,9 @@
       "targetText": "vei",
       "learnerBaseText": "road",
       "english": "road",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.gate",
@@ -1442,7 +1716,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 81,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.butikk",
@@ -1451,7 +1727,9 @@
       "targetText": "butikk",
       "learnerBaseText": "shop",
       "english": "shop",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 81,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.park",
@@ -1460,7 +1738,9 @@
       "targetText": "park",
       "learnerBaseText": "park",
       "english": "park",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.ball",
@@ -1469,7 +1749,9 @@
       "targetText": "ball",
       "learnerBaseText": "ball",
       "english": "ball",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "nb.gravity.noun.leke",
@@ -1482,7 +1764,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 63,
+      "complexity": 36
     },
     {
       "id": "nb.gravity.noun.spill",
@@ -1491,7 +1775,9 @@
       "targetText": "spill",
       "learnerBaseText": "game",
       "english": "game",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 62,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.sang",
@@ -1500,7 +1786,9 @@
       "targetText": "sang",
       "learnerBaseText": "song",
       "english": "song",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "nb.gravity.noun.bilde",
@@ -1509,7 +1797,9 @@
       "targetText": "bilde",
       "learnerBaseText": "picture",
       "english": "picture",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "nb.gravity.noun.dag",
@@ -1518,7 +1808,9 @@
       "targetText": "dag",
       "learnerBaseText": "day",
       "english": "day",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.natt",
@@ -1531,7 +1823,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.uke",
@@ -1544,7 +1838,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.aar",
@@ -1553,7 +1849,9 @@
       "targetText": "år",
       "learnerBaseText": "year",
       "english": "year",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.time",
@@ -1562,7 +1860,9 @@
       "targetText": "time",
       "learnerBaseText": "hour",
       "english": "hour",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.leilighet",
@@ -1575,7 +1875,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 80,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.soverom",
@@ -1584,7 +1886,9 @@
       "targetText": "soverom",
       "learnerBaseText": "bedroom",
       "english": "bedroom",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.stue",
@@ -1597,7 +1901,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 32
     },
     {
       "id": "nb.gravity.noun.gang",
@@ -1606,7 +1912,9 @@
       "targetText": "gang",
       "learnerBaseText": "hallway",
       "english": "hallway",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.kjeller",
@@ -1615,7 +1923,9 @@
       "targetText": "kjeller",
       "learnerBaseText": "cellar",
       "english": "cellar",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.loft",
@@ -1624,7 +1934,9 @@
       "targetText": "loft",
       "learnerBaseText": "attic",
       "english": "attic",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.balkong",
@@ -1633,7 +1945,9 @@
       "targetText": "balkong",
       "learnerBaseText": "balcony",
       "english": "balcony",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.hage",
@@ -1642,7 +1956,9 @@
       "targetText": "hage",
       "learnerBaseText": "garden",
       "english": "garden",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 62,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.garasje",
@@ -1651,7 +1967,9 @@
       "targetText": "garasje",
       "learnerBaseText": "garage",
       "english": "garage",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.hytte",
@@ -1664,7 +1982,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.noekkel",
@@ -1673,7 +1993,9 @@
       "targetText": "nøkkel",
       "learnerBaseText": "key",
       "english": "key",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.laas",
@@ -1686,7 +2008,9 @@
       "acceptedLaneIds": [
         "masculine",
         "neuter"
-      ]
+      ],
+      "usefulness": 80,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.gardin",
@@ -1700,7 +2024,9 @@
         "neuter",
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 80,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.dyne",
@@ -1713,7 +2039,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 80,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.laken",
@@ -1722,7 +2050,9 @@
       "targetText": "laken",
       "learnerBaseText": "bed sheet",
       "english": "bed sheet",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 24
     },
     {
       "id": "nb.gravity.noun.haandkle",
@@ -1731,7 +2061,9 @@
       "targetText": "håndkle",
       "learnerBaseText": "towel",
       "english": "towel",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.saape",
@@ -1744,7 +2076,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 80,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.sjampo",
@@ -1753,7 +2087,9 @@
       "targetText": "sjampo",
       "learnerBaseText": "shampoo",
       "english": "shampoo",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.tannboerste",
@@ -1762,7 +2098,9 @@
       "targetText": "tannbørste",
       "learnerBaseText": "toothbrush",
       "english": "toothbrush",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.kam",
@@ -1771,7 +2109,9 @@
       "targetText": "kam",
       "learnerBaseText": "comb",
       "english": "comb",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.kjoeleskap",
@@ -1780,7 +2120,9 @@
       "targetText": "kjøleskap",
       "learnerBaseText": "refrigerator",
       "english": "refrigerator",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.fryser",
@@ -1789,7 +2131,9 @@
       "targetText": "fryser",
       "learnerBaseText": "freezer",
       "english": "freezer",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.komfyr",
@@ -1798,7 +2142,9 @@
       "targetText": "komfyr",
       "learnerBaseText": "cooker",
       "english": "cooker",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.ovn",
@@ -1807,7 +2153,9 @@
       "targetText": "ovn",
       "learnerBaseText": "oven",
       "english": "oven",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.vaskemaskin",
@@ -1816,7 +2164,9 @@
       "targetText": "vaskemaskin",
       "learnerBaseText": "washing machine",
       "english": "washing machine",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "nb.gravity.noun.oppvaskmaskin",
@@ -1825,7 +2175,9 @@
       "targetText": "oppvaskmaskin",
       "learnerBaseText": "dishwasher",
       "english": "dishwasher",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.stoevsuger",
@@ -1834,7 +2186,9 @@
       "targetText": "støvsuger",
       "learnerBaseText": "vacuum cleaner",
       "english": "vacuum cleaner",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 80,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.kost",
@@ -1843,7 +2197,9 @@
       "targetText": "kost",
       "learnerBaseText": "broom",
       "english": "broom",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.boette",
@@ -1856,7 +2212,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 80,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.svamp",
@@ -1865,7 +2223,9 @@
       "targetText": "svamp",
       "learnerBaseText": "sponge",
       "english": "sponge",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.paere",
@@ -1878,7 +2238,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 78,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.plomme",
@@ -1891,7 +2253,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 78,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.fersken",
@@ -1900,7 +2264,9 @@
       "targetText": "fersken",
       "learnerBaseText": "peach",
       "english": "peach",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.sitron",
@@ -1909,7 +2275,9 @@
       "targetText": "sitron",
       "learnerBaseText": "lemon",
       "english": "lemon",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.drue",
@@ -1922,7 +2290,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 78,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.jordbaer",
@@ -1931,7 +2301,9 @@
       "targetText": "jordbær",
       "learnerBaseText": "strawberry",
       "english": "strawberry",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.blaabaer",
@@ -1940,7 +2312,9 @@
       "targetText": "blåbær",
       "learnerBaseText": "blueberry",
       "english": "blueberry",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.bringebaer",
@@ -1949,7 +2323,9 @@
       "targetText": "bringebær",
       "learnerBaseText": "raspberry",
       "english": "raspberry",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.noett",
@@ -1962,7 +2338,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 78,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.rosin",
@@ -1975,7 +2353,9 @@
       "acceptedLaneIds": [
         "masculine",
         "feminine"
-      ]
+      ],
+      "usefulness": 78,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.loek",
@@ -1984,7 +2364,9 @@
       "targetText": "løk",
       "learnerBaseText": "onion",
       "english": "onion",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.hvitloek",
@@ -1993,7 +2375,9 @@
       "targetText": "hvitløk",
       "learnerBaseText": "garlic",
       "english": "garlic",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.brokkoli",
@@ -2002,7 +2386,9 @@
       "targetText": "brokkoli",
       "learnerBaseText": "broccoli",
       "english": "broccoli",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.blomkaal",
@@ -2011,7 +2397,9 @@
       "targetText": "blomkål",
       "learnerBaseText": "cauliflower",
       "english": "cauliflower",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.salat",
@@ -2020,7 +2408,9 @@
       "targetText": "salat",
       "learnerBaseText": "salad or lettuce",
       "english": "salad or lettuce",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.ert",
@@ -2033,7 +2423,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 78,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.boenne",
@@ -2046,7 +2438,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 78,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.sopp",
@@ -2055,7 +2449,9 @@
       "targetText": "sopp",
       "learnerBaseText": "mushroom",
       "english": "mushroom",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.omelett",
@@ -2064,7 +2460,9 @@
       "targetText": "omelett",
       "learnerBaseText": "omelette",
       "english": "omelette",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.smoerbroed",
@@ -2073,7 +2471,9 @@
       "targetText": "smørbrød",
       "learnerBaseText": "open sandwich",
       "english": "open sandwich",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 78,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.brunost",
@@ -2082,7 +2482,9 @@
       "targetText": "brunost",
       "learnerBaseText": "brown whey cheese",
       "english": "brown whey cheese",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "nb.gravity.noun.vaffel",
@@ -2091,7 +2493,9 @@
       "targetText": "vaffel",
       "learnerBaseText": "waffle",
       "english": "waffle",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.pannekake",
@@ -2104,7 +2508,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 78,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.bolle",
@@ -2113,7 +2519,9 @@
       "targetText": "bolle",
       "learnerBaseText": "sweet bun",
       "english": "sweet bun",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.kanelbolle",
@@ -2122,7 +2530,9 @@
       "targetText": "kanelbolle",
       "learnerBaseText": "cinnamon bun",
       "english": "cinnamon bun",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.knekkebroed",
@@ -2131,7 +2541,9 @@
       "targetText": "knekkebrød",
       "learnerBaseText": "crispbread",
       "english": "crispbread",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.groet",
@@ -2140,7 +2552,9 @@
       "targetText": "grøt",
       "learnerBaseText": "porridge",
       "english": "porridge",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.syltetoey",
@@ -2149,7 +2563,9 @@
       "targetText": "syltetøy",
       "learnerBaseText": "jam",
       "english": "jam",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.roemme",
@@ -2158,7 +2574,9 @@
       "targetText": "rømme",
       "learnerBaseText": "sour cream",
       "english": "sour cream",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.matpakke",
@@ -2171,7 +2589,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 78,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.rev",
@@ -2180,7 +2600,9 @@
       "targetText": "rev",
       "learnerBaseText": "fox",
       "english": "fox",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.ulv",
@@ -2189,7 +2611,9 @@
       "targetText": "ulv",
       "learnerBaseText": "wolf",
       "english": "wolf",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.bjoern",
@@ -2198,7 +2622,9 @@
       "targetText": "bjørn",
       "learnerBaseText": "bear",
       "english": "bear",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.elg",
@@ -2207,7 +2633,9 @@
       "targetText": "elg",
       "learnerBaseText": "moose",
       "english": "moose",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.rein",
@@ -2216,7 +2644,9 @@
       "targetText": "rein",
       "learnerBaseText": "reindeer",
       "english": "reindeer",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.hjort",
@@ -2225,7 +2655,9 @@
       "targetText": "hjort",
       "learnerBaseText": "deer",
       "english": "deer",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.ekorn",
@@ -2234,7 +2666,9 @@
       "targetText": "ekorn",
       "learnerBaseText": "squirrel",
       "english": "squirrel",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.hare",
@@ -2243,7 +2677,9 @@
       "targetText": "hare",
       "learnerBaseText": "hare",
       "english": "hare",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.pinnsvin",
@@ -2252,7 +2688,9 @@
       "targetText": "pinnsvin",
       "learnerBaseText": "hedgehog",
       "english": "hedgehog",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.oter",
@@ -2261,7 +2699,9 @@
       "targetText": "oter",
       "learnerBaseText": "otter",
       "english": "otter",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.and",
@@ -2274,7 +2714,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.gaas",
@@ -2287,7 +2729,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 48,
+      "complexity": 45
     },
     {
       "id": "nb.gravity.noun.hoene",
@@ -2300,7 +2744,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.hane",
@@ -2309,7 +2755,9 @@
       "targetText": "hane",
       "learnerBaseText": "rooster",
       "english": "rooster",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.oern",
@@ -2322,7 +2770,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 48,
+      "complexity": 45
     },
     {
       "id": "nb.gravity.noun.ugle",
@@ -2335,7 +2785,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 48,
+      "complexity": 45
     },
     {
       "id": "nb.gravity.noun.maake",
@@ -2348,7 +2800,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 48,
+      "complexity": 45
     },
     {
       "id": "nb.gravity.noun.sommerfugl",
@@ -2357,7 +2811,9 @@
       "targetText": "sommerfugl",
       "learnerBaseText": "butterfly",
       "english": "butterfly",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.bie",
@@ -2370,7 +2826,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.maur",
@@ -2379,7 +2837,9 @@
       "targetText": "maur",
       "learnerBaseText": "ant",
       "english": "ant",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.hval",
@@ -2388,7 +2848,9 @@
       "targetText": "hval",
       "learnerBaseText": "whale",
       "english": "whale",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.sel",
@@ -2397,7 +2859,9 @@
       "targetText": "sel",
       "learnerBaseText": "seal",
       "english": "seal",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.torsk",
@@ -2406,7 +2870,9 @@
       "targetText": "torsk",
       "learnerBaseText": "cod",
       "english": "cod",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.laks",
@@ -2415,7 +2881,9 @@
       "targetText": "laks",
       "learnerBaseText": "salmon",
       "english": "salmon",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.krabbe",
@@ -2428,7 +2896,9 @@
       "acceptedLaneIds": [
         "masculine",
         "feminine"
-      ]
+      ],
+      "usefulness": 48,
+      "complexity": 45
     },
     {
       "id": "nb.gravity.noun.reke",
@@ -2441,7 +2911,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 78,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.manet",
@@ -2454,7 +2926,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 48,
+      "complexity": 45
     },
     {
       "id": "nb.gravity.noun.skjell",
@@ -2468,7 +2942,9 @@
         "neuter",
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.frosk",
@@ -2477,7 +2953,9 @@
       "targetText": "frosk",
       "learnerBaseText": "frog",
       "english": "frog",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.slange",
@@ -2486,7 +2964,9 @@
       "targetText": "slange",
       "learnerBaseText": "snake",
       "english": "snake",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.fjord",
@@ -2495,7 +2975,9 @@
       "targetText": "fjord",
       "learnerBaseText": "fjord",
       "english": "fjord",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "nb.gravity.noun.dal",
@@ -2504,7 +2986,9 @@
       "targetText": "dal",
       "learnerBaseText": "valley",
       "english": "valley",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "nb.gravity.noun.innsjoe",
@@ -2513,7 +2997,9 @@
       "targetText": "innsjø",
       "learnerBaseText": "lake",
       "english": "lake",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.bekk",
@@ -2522,7 +3008,9 @@
       "targetText": "bekk",
       "learnerBaseText": "stream",
       "english": "stream",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "nb.gravity.noun.foss",
@@ -2531,7 +3019,9 @@
       "targetText": "foss",
       "learnerBaseText": "waterfall",
       "english": "waterfall",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "nb.gravity.noun.kyst",
@@ -2540,7 +3030,9 @@
       "targetText": "kyst",
       "learnerBaseText": "coast",
       "english": "coast",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "nb.gravity.noun.halvoey",
@@ -2553,7 +3045,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 46,
+      "complexity": 46
     },
     {
       "id": "nb.gravity.noun.eng",
@@ -2566,7 +3060,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 46,
+      "complexity": 46
     },
     {
       "id": "nb.gravity.noun.myr",
@@ -2579,7 +3075,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 46,
+      "complexity": 46
     },
     {
       "id": "nb.gravity.noun.sti",
@@ -2588,7 +3086,9 @@
       "targetText": "sti",
       "learnerBaseText": "path",
       "english": "path",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.bjoerk",
@@ -2601,7 +3101,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 48,
+      "complexity": 45
     },
     {
       "id": "nb.gravity.noun.gran",
@@ -2614,7 +3116,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 48,
+      "complexity": 45
     },
     {
       "id": "nb.gravity.noun.furu",
@@ -2627,7 +3131,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 48,
+      "complexity": 45
     },
     {
       "id": "nb.gravity.noun.eik",
@@ -2640,7 +3146,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 48,
+      "complexity": 45
     },
     {
       "id": "nb.gravity.noun.rot",
@@ -2653,7 +3161,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 46,
+      "complexity": 46
     },
     {
       "id": "nb.gravity.noun.grein",
@@ -2666,7 +3176,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 46,
+      "complexity": 46
     },
     {
       "id": "nb.gravity.noun.busk",
@@ -2675,7 +3187,9 @@
       "targetText": "busk",
       "learnerBaseText": "bush",
       "english": "bush",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.froe",
@@ -2684,7 +3198,9 @@
       "targetText": "frø",
       "learnerBaseText": "seed",
       "english": "seed",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "nb.gravity.noun.gress",
@@ -2693,7 +3209,9 @@
       "targetText": "gress",
       "learnerBaseText": "grass",
       "english": "grass",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.jord",
@@ -2706,7 +3224,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 46,
+      "complexity": 46
     },
     {
       "id": "nb.gravity.noun.vaar",
@@ -2715,7 +3235,9 @@
       "targetText": "vår",
       "learnerBaseText": "spring (season)",
       "english": "spring (season)",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.sommer",
@@ -2724,7 +3246,9 @@
       "targetText": "sommer",
       "learnerBaseText": "summer",
       "english": "summer",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.hoest",
@@ -2733,7 +3257,9 @@
       "targetText": "høst",
       "learnerBaseText": "autumn",
       "english": "autumn",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.vinter",
@@ -2742,7 +3268,9 @@
       "targetText": "vinter",
       "learnerBaseText": "winter",
       "english": "winter",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.regnbue",
@@ -2751,7 +3279,9 @@
       "targetText": "regnbue",
       "learnerBaseText": "rainbow",
       "english": "rainbow",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.taake",
@@ -2764,7 +3294,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.storm",
@@ -2773,7 +3305,9 @@
       "targetText": "storm",
       "learnerBaseText": "storm",
       "english": "storm",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.torden",
@@ -2782,7 +3316,9 @@
       "targetText": "torden",
       "learnerBaseText": "thunder",
       "english": "thunder",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "nb.gravity.noun.lyn",
@@ -2791,7 +3327,9 @@
       "targetText": "lyn",
       "learnerBaseText": "lightning bolt",
       "english": "lightning bolt",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 46,
+      "complexity": 41
     },
     {
       "id": "nb.gravity.noun.nordlys",
@@ -2800,7 +3338,9 @@
       "targetText": "nordlys",
       "learnerBaseText": "northern lights",
       "english": "northern lights",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 70,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.hjerte",
@@ -2809,7 +3349,9 @@
       "targetText": "hjerte",
       "learnerBaseText": "heart",
       "english": "heart",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 88,
+      "complexity": 24
     },
     {
       "id": "nb.gravity.noun.rygg",
@@ -2818,7 +3360,9 @@
       "targetText": "rygg",
       "learnerBaseText": "back (body)",
       "english": "back (body)",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.mage",
@@ -2827,7 +3371,9 @@
       "targetText": "mage",
       "learnerBaseText": "stomach",
       "english": "stomach",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 88,
+      "complexity": 24
     },
     {
       "id": "nb.gravity.noun.skulder",
@@ -2840,7 +3386,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 88,
+      "complexity": 32
     },
     {
       "id": "nb.gravity.noun.albue",
@@ -2849,7 +3397,9 @@
       "targetText": "albue",
       "learnerBaseText": "elbow",
       "english": "elbow",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 88,
+      "complexity": 24
     },
     {
       "id": "nb.gravity.noun.kne",
@@ -2858,7 +3408,9 @@
       "targetText": "kne",
       "learnerBaseText": "knee",
       "english": "knee",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 88,
+      "complexity": 24
     },
     {
       "id": "nb.gravity.noun.hals",
@@ -2867,7 +3419,9 @@
       "targetText": "hals",
       "learnerBaseText": "neck or throat",
       "english": "neck or throat",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 88,
+      "complexity": 32
     },
     {
       "id": "nb.gravity.noun.finger",
@@ -2876,7 +3430,9 @@
       "targetText": "finger",
       "learnerBaseText": "finger",
       "english": "finger",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 88,
+      "complexity": 24
     },
     {
       "id": "nb.gravity.noun.taa",
@@ -2889,7 +3445,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 88,
+      "complexity": 32
     },
     {
       "id": "nb.gravity.noun.haar",
@@ -2898,7 +3456,9 @@
       "targetText": "hår",
       "learnerBaseText": "hair",
       "english": "hair",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 88,
+      "complexity": 24
     },
     {
       "id": "nb.gravity.noun.lege",
@@ -2907,7 +3467,9 @@
       "targetText": "lege",
       "learnerBaseText": "doctor",
       "english": "doctor",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "nb.gravity.noun.sykepleier",
@@ -2916,7 +3478,9 @@
       "targetText": "sykepleier",
       "learnerBaseText": "nurse",
       "english": "nurse",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 88,
+      "complexity": 24
     },
     {
       "id": "nb.gravity.noun.tannlege",
@@ -2925,7 +3489,9 @@
       "targetText": "tannlege",
       "learnerBaseText": "dentist",
       "english": "dentist",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 88,
+      "complexity": 24
     },
     {
       "id": "nb.gravity.noun.sykehus",
@@ -2934,7 +3500,9 @@
       "targetText": "sykehus",
       "learnerBaseText": "hospital",
       "english": "hospital",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "nb.gravity.noun.apotek",
@@ -2943,7 +3511,9 @@
       "targetText": "apotek",
       "learnerBaseText": "pharmacy",
       "english": "pharmacy",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 88,
+      "complexity": 24
     },
     {
       "id": "nb.gravity.noun.medisin",
@@ -2952,7 +3522,9 @@
       "targetText": "medisin",
       "learnerBaseText": "medicine",
       "english": "medicine",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 85,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.plaster",
@@ -2961,7 +3533,9 @@
       "targetText": "plaster",
       "learnerBaseText": "adhesive bandage",
       "english": "adhesive bandage",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 88,
+      "complexity": 27
     },
     {
       "id": "nb.gravity.noun.saar",
@@ -2970,7 +3544,9 @@
       "targetText": "sår",
       "learnerBaseText": "small cut",
       "english": "small cut",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 58,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.feber",
@@ -2979,7 +3555,9 @@
       "targetText": "feber",
       "learnerBaseText": "fever",
       "english": "fever",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 88,
+      "complexity": 24
     },
     {
       "id": "nb.gravity.noun.forkjoelelse",
@@ -2988,7 +3566,9 @@
       "targetText": "forkjølelse",
       "learnerBaseText": "cold (illness)",
       "english": "cold (illness)",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 90,
+      "complexity": 22
     },
     {
       "id": "nb.gravity.noun.skjerf",
@@ -2997,7 +3577,9 @@
       "targetText": "skjerf",
       "learnerBaseText": "scarf",
       "english": "scarf",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.hanske",
@@ -3006,7 +3588,9 @@
       "targetText": "hanske",
       "learnerBaseText": "glove",
       "english": "glove",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.belte",
@@ -3015,7 +3599,9 @@
       "targetText": "belte",
       "learnerBaseText": "belt",
       "english": "belt",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.stoevel",
@@ -3024,7 +3610,9 @@
       "targetText": "støvel",
       "learnerBaseText": "boot",
       "english": "boot",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.sandal",
@@ -3033,7 +3621,9 @@
       "targetText": "sandal",
       "learnerBaseText": "sandal",
       "english": "sandal",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.kaape",
@@ -3046,7 +3636,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 80,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.dress",
@@ -3055,7 +3647,9 @@
       "targetText": "dress",
       "learnerBaseText": "suit",
       "english": "suit",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.regnjakke",
@@ -3068,7 +3662,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 80,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.paraply",
@@ -3077,7 +3673,9 @@
       "targetText": "paraply",
       "learnerBaseText": "umbrella",
       "english": "umbrella",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.hette",
@@ -3090,7 +3688,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.stasjon",
@@ -3099,7 +3699,9 @@
       "targetText": "stasjon",
       "learnerBaseText": "station",
       "english": "station",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "nb.gravity.noun.holdeplass",
@@ -3108,7 +3710,9 @@
       "targetText": "holdeplass",
       "learnerBaseText": "bus or tram stop",
       "english": "bus or tram stop",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 89,
+      "complexity": 23
     },
     {
       "id": "nb.gravity.noun.flyplass",
@@ -3117,7 +3721,9 @@
       "targetText": "flyplass",
       "learnerBaseText": "airport",
       "english": "airport",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "nb.gravity.noun.havn",
@@ -3130,7 +3736,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 83,
+      "complexity": 33
     },
     {
       "id": "nb.gravity.noun.ferje",
@@ -3143,7 +3751,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 83,
+      "complexity": 33
     },
     {
       "id": "nb.gravity.noun.trikk",
@@ -3152,7 +3762,9 @@
       "targetText": "trikk",
       "learnerBaseText": "tram",
       "english": "tram",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "nb.gravity.noun.drosje",
@@ -3165,7 +3777,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 83,
+      "complexity": 33
     },
     {
       "id": "nb.gravity.noun.billett",
@@ -3174,7 +3788,9 @@
       "targetText": "billett",
       "learnerBaseText": "ticket",
       "english": "ticket",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "nb.gravity.noun.pass",
@@ -3183,7 +3799,9 @@
       "targetText": "pass",
       "learnerBaseText": "passport",
       "english": "passport",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "nb.gravity.noun.koffert",
@@ -3192,7 +3810,9 @@
       "targetText": "koffert",
       "learnerBaseText": "suitcase",
       "english": "suitcase",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "nb.gravity.noun.bibliotek",
@@ -3201,7 +3821,9 @@
       "targetText": "bibliotek",
       "learnerBaseText": "library",
       "english": "library",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.museum",
@@ -3210,7 +3832,9 @@
       "targetText": "museum",
       "learnerBaseText": "museum",
       "english": "museum",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "nb.gravity.noun.kino",
@@ -3219,7 +3843,9 @@
       "targetText": "kino",
       "learnerBaseText": "cinema",
       "english": "cinema",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "nb.gravity.noun.teater",
@@ -3228,7 +3854,9 @@
       "targetText": "teater",
       "learnerBaseText": "theatre",
       "english": "theatre",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "nb.gravity.noun.kafe",
@@ -3237,7 +3865,9 @@
       "targetText": "kafé",
       "learnerBaseText": "café",
       "english": "café",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "nb.gravity.noun.restaurant",
@@ -3246,7 +3876,9 @@
       "targetText": "restaurant",
       "learnerBaseText": "restaurant",
       "english": "restaurant",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "nb.gravity.noun.hotell",
@@ -3255,7 +3887,9 @@
       "targetText": "hotell",
       "learnerBaseText": "hotel",
       "english": "hotel",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "nb.gravity.noun.bank",
@@ -3264,7 +3898,9 @@
       "targetText": "bank",
       "learnerBaseText": "bank",
       "english": "bank",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.postkontor",
@@ -3273,7 +3909,9 @@
       "targetText": "postkontor",
       "learnerBaseText": "post office",
       "english": "post office",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 75,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.politistasjon",
@@ -3282,7 +3920,9 @@
       "targetText": "politistasjon",
       "learnerBaseText": "police station",
       "english": "police station",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 81,
+      "complexity": 27
     },
     {
       "id": "nb.gravity.noun.fotball",
@@ -3291,7 +3931,9 @@
       "targetText": "fotball",
       "learnerBaseText": "football",
       "english": "football",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "nb.gravity.noun.haandball",
@@ -3300,7 +3942,9 @@
       "targetText": "håndball",
       "learnerBaseText": "handball",
       "english": "handball",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "nb.gravity.noun.tennis",
@@ -3309,7 +3953,9 @@
       "targetText": "tennis",
       "learnerBaseText": "tennis",
       "english": "tennis",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "nb.gravity.noun.ski",
@@ -3322,7 +3968,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 63,
+      "complexity": 36
     },
     {
       "id": "nb.gravity.noun.skoeyte",
@@ -3335,7 +3983,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.kjelke",
@@ -3344,7 +3994,9 @@
       "targetText": "kjelke",
       "learnerBaseText": "sledge",
       "english": "sledge",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "nb.gravity.noun.akebrett",
@@ -3353,7 +4005,9 @@
       "targetText": "akebrett",
       "learnerBaseText": "sled board",
       "english": "sled board",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 75,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.sykkelhjelm",
@@ -3362,7 +4016,9 @@
       "targetText": "sykkelhjelm",
       "learnerBaseText": "bicycle helmet",
       "english": "bicycle helmet",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 24
     },
     {
       "id": "nb.gravity.noun.svoemmebasseng",
@@ -3371,7 +4027,9 @@
       "targetText": "svømmebasseng",
       "learnerBaseText": "swimming pool",
       "english": "swimming pool",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "nb.gravity.noun.lekeplass",
@@ -3380,7 +4038,9 @@
       "targetText": "lekeplass",
       "learnerBaseText": "playground",
       "english": "playground",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "nb.gravity.noun.pensel",
@@ -3389,7 +4049,9 @@
       "targetText": "pensel",
       "learnerBaseText": "paintbrush",
       "english": "paintbrush",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.farge",
@@ -3398,7 +4060,9 @@
       "targetText": "farge",
       "learnerBaseText": "colour",
       "english": "colour",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "nb.gravity.noun.tegning",
@@ -3411,7 +4075,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 63,
+      "complexity": 36
     },
     {
       "id": "nb.gravity.noun.maleri",
@@ -3420,7 +4086,9 @@
       "targetText": "maleri",
       "learnerBaseText": "painting",
       "english": "painting",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "nb.gravity.noun.saks",
@@ -3433,7 +4101,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.lim",
@@ -3442,7 +4112,9 @@
       "targetText": "lim",
       "learnerBaseText": "glue",
       "english": "glue",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.naal",
@@ -3455,7 +4127,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 58,
+      "complexity": 39
     },
     {
       "id": "nb.gravity.noun.traad",
@@ -3464,7 +4138,9 @@
       "targetText": "tråd",
       "learnerBaseText": "thread",
       "english": "thread",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.garn",
@@ -3473,7 +4149,9 @@
       "targetText": "garn",
       "learnerBaseText": "yarn",
       "english": "yarn",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.stoff",
@@ -3482,7 +4160,9 @@
       "targetText": "stoff",
       "learnerBaseText": "fabric",
       "english": "fabric",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.gitar",
@@ -3491,7 +4171,9 @@
       "targetText": "gitar",
       "learnerBaseText": "guitar",
       "english": "guitar",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.piano",
@@ -3500,7 +4182,9 @@
       "targetText": "piano",
       "learnerBaseText": "piano",
       "english": "piano",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.fiolin",
@@ -3509,7 +4193,9 @@
       "targetText": "fiolin",
       "learnerBaseText": "violin",
       "english": "violin",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.tromme",
@@ -3522,7 +4208,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 58,
+      "complexity": 39
     },
     {
       "id": "nb.gravity.noun.floeyte",
@@ -3535,7 +4223,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 58,
+      "complexity": 39
     },
     {
       "id": "nb.gravity.noun.konsert",
@@ -3544,7 +4234,9 @@
       "targetText": "konsert",
       "learnerBaseText": "concert",
       "english": "concert",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "nb.gravity.noun.eventyr",
@@ -3553,7 +4245,9 @@
       "targetText": "eventyr",
       "learnerBaseText": "fairy tale",
       "english": "fairy tale",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 43,
+      "complexity": 32
     },
     {
       "id": "nb.gravity.noun.fortelling",
@@ -3566,7 +4260,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 63,
+      "complexity": 36
     },
     {
       "id": "nb.gravity.noun.dikt",
@@ -3575,7 +4271,9 @@
       "targetText": "dikt",
       "learnerBaseText": "poem",
       "english": "poem",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "nb.gravity.noun.kapittel",
@@ -3584,7 +4282,9 @@
       "targetText": "kapittel",
       "learnerBaseText": "chapter",
       "english": "chapter",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "nb.gravity.noun.telefon",
@@ -3593,7 +4293,9 @@
       "targetText": "telefon",
       "learnerBaseText": "telephone",
       "english": "telephone",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 72,
+      "complexity": 27
     },
     {
       "id": "nb.gravity.noun.datamaskin",
@@ -3602,7 +4304,9 @@
       "targetText": "datamaskin",
       "learnerBaseText": "computer",
       "english": "computer",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 72,
+      "complexity": 27
     },
     {
       "id": "nb.gravity.noun.nettbrett",
@@ -3611,7 +4315,9 @@
       "targetText": "nettbrett",
       "learnerBaseText": "tablet computer",
       "english": "tablet computer",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 72,
+      "complexity": 30
     },
     {
       "id": "nb.gravity.noun.skjerm",
@@ -3620,7 +4326,9 @@
       "targetText": "skjerm",
       "learnerBaseText": "screen",
       "english": "screen",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 72,
+      "complexity": 27
     },
     {
       "id": "nb.gravity.noun.tastatur",
@@ -3629,7 +4337,9 @@
       "targetText": "tastatur",
       "learnerBaseText": "keyboard",
       "english": "keyboard",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 72,
+      "complexity": 27
     },
     {
       "id": "nb.gravity.noun.lader",
@@ -3638,7 +4348,9 @@
       "targetText": "lader",
       "learnerBaseText": "charger",
       "english": "charger",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 72,
+      "complexity": 27
     },
     {
       "id": "nb.gravity.noun.batteri",
@@ -3647,7 +4359,9 @@
       "targetText": "batteri",
       "learnerBaseText": "battery",
       "english": "battery",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 72,
+      "complexity": 27
     },
     {
       "id": "nb.gravity.noun.kamera",
@@ -3656,7 +4370,9 @@
       "targetText": "kamera",
       "learnerBaseText": "camera",
       "english": "camera",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 72,
+      "complexity": 27
     },
     {
       "id": "nb.gravity.noun.ledning",
@@ -3669,7 +4385,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 72,
+      "complexity": 38
     },
     {
       "id": "nb.gravity.noun.knapp",
@@ -3678,7 +4396,9 @@
       "targetText": "knapp",
       "learnerBaseText": "button",
       "english": "button",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 72,
+      "complexity": 27
     },
     {
       "id": "nb.gravity.noun.avtale",
@@ -3687,7 +4407,9 @@
       "targetText": "avtale",
       "learnerBaseText": "appointment or agreement",
       "english": "appointment or agreement",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 57,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.kalender",
@@ -3696,7 +4418,9 @@
       "targetText": "kalender",
       "learnerBaseText": "calendar",
       "english": "calendar",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.liste",
@@ -3709,7 +4433,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.melding",
@@ -3722,7 +4448,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.brev",
@@ -3731,7 +4459,9 @@
       "targetText": "brev",
       "learnerBaseText": "letter",
       "english": "letter",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.adresse",
@@ -3744,7 +4474,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 81,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.gave",
@@ -3757,7 +4489,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 63,
+      "complexity": 36
     },
     {
       "id": "nb.gravity.noun.pose",
@@ -3766,7 +4500,9 @@
       "targetText": "pose",
       "learnerBaseText": "bag",
       "english": "bag",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.eske",
@@ -3779,7 +4515,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 80,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.pakke",
@@ -3792,7 +4530,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.arbeid",
@@ -3801,7 +4541,9 @@
       "targetText": "arbeid",
       "learnerBaseText": "work",
       "english": "work",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "nb.gravity.noun.yrke",
@@ -3810,7 +4552,9 @@
       "targetText": "yrke",
       "learnerBaseText": "profession",
       "english": "profession",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.kontor",
@@ -3819,7 +4563,9 @@
       "targetText": "kontor",
       "learnerBaseText": "office",
       "english": "office",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.bedrift",
@@ -3828,7 +4574,9 @@
       "targetText": "bedrift",
       "learnerBaseText": "company",
       "english": "company",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.kollega",
@@ -3837,7 +4585,9 @@
       "targetText": "kollega",
       "learnerBaseText": "colleague",
       "english": "colleague",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.arbeidstaker",
@@ -3846,7 +4596,9 @@
       "targetText": "arbeidstaker",
       "learnerBaseText": "employee",
       "english": "employee",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.leder",
@@ -3855,7 +4607,9 @@
       "targetText": "leder",
       "learnerBaseText": "leader",
       "english": "leader",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.moete",
@@ -3864,7 +4618,9 @@
       "targetText": "møte",
       "learnerBaseText": "meeting",
       "english": "meeting",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.prosjekt",
@@ -3873,7 +4629,9 @@
       "targetText": "prosjekt",
       "learnerBaseText": "project",
       "english": "project",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.oppgave",
@@ -3886,7 +4644,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.pris",
@@ -3895,7 +4655,9 @@
       "targetText": "pris",
       "learnerBaseText": "price",
       "english": "price",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "nb.gravity.noun.regning",
@@ -3908,7 +4670,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 83,
+      "complexity": 33
     },
     {
       "id": "nb.gravity.noun.kvittering",
@@ -3921,7 +4685,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 57,
+      "complexity": 54
     },
     {
       "id": "nb.gravity.noun.rabatt",
@@ -3930,7 +4696,9 @@
       "targetText": "rabatt",
       "learnerBaseText": "discount",
       "english": "discount",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "nb.gravity.noun.lommebok",
@@ -3943,7 +4711,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 83,
+      "complexity": 33
     },
     {
       "id": "nb.gravity.noun.mynt",
@@ -3952,7 +4722,9 @@
       "targetText": "mynt",
       "learnerBaseText": "coin",
       "english": "coin",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "nb.gravity.noun.seddel",
@@ -3961,7 +4733,9 @@
       "targetText": "seddel",
       "learnerBaseText": "banknote",
       "english": "banknote",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "nb.gravity.noun.konto",
@@ -3970,7 +4744,9 @@
       "targetText": "konto",
       "learnerBaseText": "account",
       "english": "account",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 72,
+      "complexity": 27
     },
     {
       "id": "nb.gravity.noun.budsjett",
@@ -3979,7 +4755,9 @@
       "targetText": "budsjett",
       "learnerBaseText": "budget",
       "english": "budget",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 57,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.laan",
@@ -3988,7 +4766,9 @@
       "targetText": "lån",
       "learnerBaseText": "loan",
       "english": "loan",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.kommune",
@@ -3997,7 +4777,9 @@
       "targetText": "kommune",
       "learnerBaseText": "municipality",
       "english": "municipality",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "nb.gravity.noun.fylke",
@@ -4006,7 +4788,9 @@
       "targetText": "fylke",
       "learnerBaseText": "county",
       "english": "county",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 44,
+      "complexity": 41
     },
     {
       "id": "nb.gravity.noun.land",
@@ -4015,7 +4799,9 @@
       "targetText": "land",
       "learnerBaseText": "country",
       "english": "country",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.hovedstad",
@@ -4024,7 +4810,9 @@
       "targetText": "hovedstad",
       "learnerBaseText": "capital city",
       "english": "capital city",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.grense",
@@ -4037,7 +4825,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 44,
+      "complexity": 49
     },
     {
       "id": "nb.gravity.noun.kart",
@@ -4046,7 +4836,9 @@
       "targetText": "kart",
       "learnerBaseText": "map",
       "english": "map",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "nb.gravity.noun.kompass",
@@ -4055,7 +4847,9 @@
       "targetText": "kompass",
       "learnerBaseText": "compass",
       "english": "compass",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "nb.gravity.noun.retning",
@@ -4068,7 +4862,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 81,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.avstand",
@@ -4077,7 +4873,9 @@
       "targetText": "avstand",
       "learnerBaseText": "distance",
       "english": "distance",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "nb.gravity.noun.omraade",
@@ -4086,7 +4884,9 @@
       "targetText": "område",
       "learnerBaseText": "area",
       "english": "area",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.spraak",
@@ -4095,7 +4895,9 @@
       "targetText": "språk",
       "learnerBaseText": "language",
       "english": "language",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.setning",
@@ -4108,7 +4910,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.bokstav",
@@ -4117,7 +4921,9 @@
       "targetText": "bokstav",
       "learnerBaseText": "letter (of the alphabet)",
       "english": "letter (of the alphabet)",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.lyd",
@@ -4126,7 +4932,9 @@
       "targetText": "lyd",
       "learnerBaseText": "sound",
       "english": "sound",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.vokal",
@@ -4135,7 +4943,9 @@
       "targetText": "vokal",
       "learnerBaseText": "vowel",
       "english": "vowel",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.konsonant",
@@ -4144,7 +4954,9 @@
       "targetText": "konsonant",
       "learnerBaseText": "consonant",
       "english": "consonant",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.grammatikk",
@@ -4153,7 +4965,9 @@
       "targetText": "grammatikk",
       "learnerBaseText": "grammar",
       "english": "grammar",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.ordbok",
@@ -4166,7 +4980,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.spoersmaal",
@@ -4175,7 +4991,9 @@
       "targetText": "spørsmål",
       "learnerBaseText": "question",
       "english": "question",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 73,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.svar",
@@ -4184,7 +5002,9 @@
       "targetText": "svar",
       "learnerBaseText": "answer",
       "english": "answer",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "nb.gravity.noun.fag",
@@ -4193,7 +5013,9 @@
       "targetText": "fag",
       "learnerBaseText": "school subject",
       "english": "school subject",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 77,
+      "complexity": 32
     },
     {
       "id": "nb.gravity.noun.proeve",
@@ -4206,7 +5028,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.eksamen",
@@ -4215,7 +5039,9 @@
       "targetText": "eksamen",
       "learnerBaseText": "examination",
       "english": "examination",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.resultat",
@@ -4224,7 +5050,9 @@
       "targetText": "resultat",
       "learnerBaseText": "result",
       "english": "result",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "nb.gravity.noun.laboratorium",
@@ -4233,7 +5061,9 @@
       "targetText": "laboratorium",
       "learnerBaseText": "laboratory",
       "english": "laboratory",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "nb.gravity.noun.forsoek",
@@ -4242,7 +5072,9 @@
       "targetText": "forsøk",
       "learnerBaseText": "experiment or attempt",
       "english": "experiment or attempt",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 33,
+      "complexity": 54
     },
     {
       "id": "nb.gravity.noun.bevis",
@@ -4251,7 +5083,9 @@
       "targetText": "bevis",
       "learnerBaseText": "proof",
       "english": "proof",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.teori",
@@ -4260,7 +5094,9 @@
       "targetText": "teori",
       "learnerBaseText": "theory",
       "english": "theory",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "nb.gravity.noun.metode",
@@ -4269,7 +5105,9 @@
       "targetText": "metode",
       "learnerBaseText": "method",
       "english": "method",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "nb.gravity.noun.forsker",
@@ -4278,7 +5116,9 @@
       "targetText": "forsker",
       "learnerBaseText": "researcher",
       "english": "researcher",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "nb.gravity.noun.planet",
@@ -4287,7 +5127,9 @@
       "targetText": "planet",
       "learnerBaseText": "planet",
       "english": "planet",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.univers",
@@ -4296,7 +5138,9 @@
       "targetText": "univers",
       "learnerBaseText": "universe",
       "english": "universe",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "nb.gravity.noun.galakse",
@@ -4305,7 +5149,9 @@
       "targetText": "galakse",
       "learnerBaseText": "galaxy",
       "english": "galaxy",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "nb.gravity.noun.satellitt",
@@ -4314,7 +5160,9 @@
       "targetText": "satellitt",
       "learnerBaseText": "satellite",
       "english": "satellite",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "nb.gravity.noun.rakett",
@@ -4323,7 +5171,9 @@
       "targetText": "rakett",
       "learnerBaseText": "rocket",
       "english": "rocket",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.atom",
@@ -4332,7 +5182,9 @@
       "targetText": "atom",
       "learnerBaseText": "atom",
       "english": "atom",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "nb.gravity.noun.molekyl",
@@ -4341,7 +5193,9 @@
       "targetText": "molekyl",
       "learnerBaseText": "molecule",
       "english": "molecule",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "nb.gravity.noun.celle",
@@ -4354,7 +5208,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 34,
+      "complexity": 56
     },
     {
       "id": "nb.gravity.noun.energi",
@@ -4363,7 +5219,9 @@
       "targetText": "energi",
       "learnerBaseText": "energy",
       "english": "energy",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "nb.gravity.noun.kraft",
@@ -4376,7 +5234,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 34,
+      "complexity": 56
     },
     {
       "id": "nb.gravity.noun.miljoe",
@@ -4385,7 +5245,9 @@
       "targetText": "miljø",
       "learnerBaseText": "environment",
       "english": "environment",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 44,
+      "complexity": 41
     },
     {
       "id": "nb.gravity.noun.klima",
@@ -4394,7 +5256,9 @@
       "targetText": "klima",
       "learnerBaseText": "climate",
       "english": "climate",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 44,
+      "complexity": 41
     },
     {
       "id": "nb.gravity.noun.temperatur",
@@ -4403,7 +5267,9 @@
       "targetText": "temperatur",
       "learnerBaseText": "temperature",
       "english": "temperature",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "nb.gravity.noun.forurensning",
@@ -4416,7 +5282,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 44,
+      "complexity": 49
     },
     {
       "id": "nb.gravity.noun.avfall",
@@ -4425,7 +5293,9 @@
       "targetText": "avfall",
       "learnerBaseText": "waste",
       "english": "waste",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 44,
+      "complexity": 41
     },
     {
       "id": "nb.gravity.noun.plast",
@@ -4434,7 +5304,9 @@
       "targetText": "plast",
       "learnerBaseText": "plastic",
       "english": "plastic",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 44,
+      "complexity": 41
     },
     {
       "id": "nb.gravity.noun.metall",
@@ -4443,7 +5315,9 @@
       "targetText": "metall",
       "learnerBaseText": "metal",
       "english": "metal",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 44,
+      "complexity": 41
     },
     {
       "id": "nb.gravity.noun.kompost",
@@ -4452,7 +5326,9 @@
       "targetText": "kompost",
       "learnerBaseText": "compost",
       "english": "compost",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 44,
+      "complexity": 41
     },
     {
       "id": "nb.gravity.noun.ressurs",
@@ -4461,7 +5337,9 @@
       "targetText": "ressurs",
       "learnerBaseText": "resource",
       "english": "resource",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 44,
+      "complexity": 41
     },
     {
       "id": "nb.gravity.noun.art",
@@ -4474,7 +5352,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.hammer",
@@ -4483,7 +5363,9 @@
       "targetText": "hammer",
       "learnerBaseText": "hammer",
       "english": "hammer",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.spiker",
@@ -4492,7 +5374,9 @@
       "targetText": "spiker",
       "learnerBaseText": "nail (fastener)",
       "english": "nail (fastener)",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 49,
+      "complexity": 39
     },
     {
       "id": "nb.gravity.noun.skrue",
@@ -4501,7 +5385,9 @@
       "targetText": "skrue",
       "learnerBaseText": "screw",
       "english": "screw",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.sag",
@@ -4514,7 +5400,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.drill",
@@ -4523,7 +5411,9 @@
       "targetText": "drill",
       "learnerBaseText": "drill",
       "english": "drill",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.tang",
@@ -4536,7 +5426,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.staal",
@@ -4545,7 +5437,9 @@
       "targetText": "stål",
       "learnerBaseText": "steel",
       "english": "steel",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 44,
+      "complexity": 41
     },
     {
       "id": "nb.gravity.noun.trevirke",
@@ -4554,7 +5448,9 @@
       "targetText": "trevirke",
       "learnerBaseText": "timber",
       "english": "timber",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 44,
+      "complexity": 41
     },
     {
       "id": "nb.gravity.noun.murstein",
@@ -4563,7 +5459,9 @@
       "targetText": "murstein",
       "learnerBaseText": "brick",
       "english": "brick",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 44,
+      "complexity": 41
     },
     {
       "id": "nb.gravity.noun.tau",
@@ -4572,7 +5470,9 @@
       "targetText": "tau",
       "learnerBaseText": "rope",
       "english": "rope",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.foelelse",
@@ -4581,7 +5481,9 @@
       "targetText": "følelse",
       "learnerBaseText": "feeling",
       "english": "feeling",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 70,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.glede",
@@ -4594,7 +5496,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 70,
+      "complexity": 42
     },
     {
       "id": "nb.gravity.noun.sorg",
@@ -4607,7 +5511,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.frykt",
@@ -4616,7 +5522,9 @@
       "targetText": "frykt",
       "learnerBaseText": "fear",
       "english": "fear",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 70,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.haap",
@@ -4625,7 +5533,9 @@
       "targetText": "håp",
       "learnerBaseText": "hope",
       "english": "hope",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 70,
+      "complexity": 51
     },
     {
       "id": "nb.gravity.noun.droem",
@@ -4634,7 +5544,9 @@
       "targetText": "drøm",
       "learnerBaseText": "dream",
       "english": "dream",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 70,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.tanke",
@@ -4643,7 +5555,9 @@
       "targetText": "tanke",
       "learnerBaseText": "thought",
       "english": "thought",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 70,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.ide",
@@ -4652,7 +5566,9 @@
       "targetText": "idé",
       "learnerBaseText": "idea",
       "english": "idea",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.minne",
@@ -4661,7 +5577,9 @@
       "targetText": "minne",
       "learnerBaseText": "memory",
       "english": "memory",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 70,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.oenske",
@@ -4670,7 +5588,9 @@
       "targetText": "ønske",
       "learnerBaseText": "wish",
       "english": "wish",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "nb.gravity.noun.tid",
@@ -4683,7 +5603,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.framtid",
@@ -4696,7 +5618,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.fortid",
@@ -4709,7 +5633,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.mulighet",
@@ -4722,7 +5648,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 55,
+      "complexity": 54
     },
     {
       "id": "nb.gravity.noun.problem",
@@ -4731,7 +5659,9 @@
       "targetText": "problem",
       "learnerBaseText": "problem",
       "english": "problem",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.loesning",
@@ -4744,7 +5674,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 52,
+      "complexity": 51
     },
     {
       "id": "nb.gravity.noun.grunn",
@@ -4753,7 +5685,9 @@
       "targetText": "grunn",
       "learnerBaseText": "reason",
       "english": "reason",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "nb.gravity.noun.aarsak",
@@ -4766,7 +5700,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 55,
+      "complexity": 54
     },
     {
       "id": "nb.gravity.noun.valg",
@@ -4775,7 +5711,9 @@
       "targetText": "valg",
       "learnerBaseText": "choice",
       "english": "choice",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "nb.gravity.noun.forskjell",
@@ -4784,7 +5722,9 @@
       "targetText": "forskjell",
       "learnerBaseText": "difference",
       "english": "difference",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "nb.gravity.noun.vennskap",
@@ -4793,7 +5733,9 @@
       "targetText": "vennskap",
       "learnerBaseText": "friendship",
       "english": "friendship",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 70,
+      "complexity": 34
     },
     {
       "id": "nb.gravity.noun.kjaerlighet",
@@ -4806,7 +5748,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 70,
+      "complexity": 42
     },
     {
       "id": "nb.gravity.noun.respekt",
@@ -4815,7 +5759,9 @@
       "targetText": "respekt",
       "learnerBaseText": "respect",
       "english": "respect",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "nb.gravity.noun.tillit",
@@ -4828,7 +5774,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 70,
+      "complexity": 42
     },
     {
       "id": "nb.gravity.noun.ansvar",
@@ -4837,7 +5785,9 @@
       "targetText": "ansvar",
       "learnerBaseText": "responsibility",
       "english": "responsibility",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "nb.gravity.noun.frihet",
@@ -4850,7 +5800,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 55,
+      "complexity": 54
     },
     {
       "id": "nb.gravity.noun.rettighet",
@@ -4863,7 +5815,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 70,
+      "complexity": 42
     },
     {
       "id": "nb.gravity.noun.plikt",
@@ -4876,7 +5830,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 44,
+      "complexity": 49
     },
     {
       "id": "nb.gravity.noun.regel",
@@ -4885,7 +5841,9 @@
       "targetText": "regel",
       "learnerBaseText": "rule",
       "english": "rule",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 44,
+      "complexity": 41
     },
     {
       "id": "nb.gravity.noun.lov",
@@ -4894,7 +5852,9 @@
       "targetText": "lov",
       "learnerBaseText": "law",
       "english": "law",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 44,
+      "complexity": 41
     },
     {
       "id": "nb.gravity.noun.avis",
@@ -4907,7 +5867,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.nyhet",
@@ -4920,7 +5882,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 32
     },
     {
       "id": "nb.gravity.noun.artikkel",
@@ -4929,7 +5893,9 @@
       "targetText": "artikkel",
       "learnerBaseText": "article",
       "english": "article",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.overskrift",
@@ -4942,7 +5908,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.intervju",
@@ -4951,7 +5919,9 @@
       "targetText": "intervju",
       "learnerBaseText": "interview",
       "english": "interview",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.utstilling",
@@ -4964,7 +5934,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.forestilling",
@@ -4977,7 +5949,9 @@
       "acceptedLaneIds": [
         "feminine",
         "masculine"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "nb.gravity.noun.skuespiller",
@@ -4986,7 +5960,9 @@
       "targetText": "skuespiller",
       "learnerBaseText": "actor",
       "english": "actor",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.forfatter",
@@ -4995,7 +5971,9 @@
       "targetText": "forfatter",
       "learnerBaseText": "author",
       "english": "author",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.kunstner",
@@ -5004,7 +5982,9 @@
       "targetText": "kunstner",
       "learnerBaseText": "artist",
       "english": "artist",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.tur",
@@ -5013,7 +5993,9 @@
       "targetText": "tur",
       "learnerBaseText": "outing",
       "english": "outing",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "nb.gravity.noun.ryggsekk",
@@ -5022,7 +6004,9 @@
       "targetText": "ryggsekk",
       "learnerBaseText": "rucksack",
       "english": "rucksack",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.telt",
@@ -5031,7 +6015,9 @@
       "targetText": "telt",
       "learnerBaseText": "tent",
       "english": "tent",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.sovepose",
@@ -5040,7 +6026,9 @@
       "targetText": "sovepose",
       "learnerBaseText": "sleeping bag",
       "english": "sleeping bag",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 24
     },
     {
       "id": "nb.gravity.noun.baal",
@@ -5049,7 +6037,9 @@
       "targetText": "bål",
       "learnerBaseText": "campfire",
       "english": "campfire",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.termos",
@@ -5058,7 +6048,9 @@
       "targetText": "termos",
       "learnerBaseText": "vacuum flask",
       "english": "vacuum flask",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 80,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.matpause",
@@ -5067,7 +6059,9 @@
       "targetText": "matpause",
       "learnerBaseText": "meal break",
       "english": "meal break",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 26
     },
     {
       "id": "nb.gravity.noun.utsikt",
@@ -5076,7 +6070,9 @@
       "targetText": "utsikt",
       "learnerBaseText": "view",
       "english": "view",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "nb.gravity.noun.topptur",
@@ -5085,7 +6081,9 @@
       "targetText": "topptur",
       "learnerBaseText": "summit hike",
       "english": "summit hike",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 63,
+      "complexity": 31
     },
     {
       "id": "nb.gravity.noun.redningsvest",
@@ -5094,7 +6092,9 @@
       "targetText": "redningsvest",
       "learnerBaseText": "life jacket",
       "english": "life jacket",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 80,
+      "complexity": 26
     }
   ]
 }

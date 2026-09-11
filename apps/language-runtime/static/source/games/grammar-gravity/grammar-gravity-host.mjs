@@ -10,6 +10,7 @@ import {
 import { mountNounLanding } from "./noun-landing-host.mjs?v=noun-landing-host-23";
 import { mountGrammarFlight } from "./adjective-flight-host.mjs?v=adjective-flight-host-18";
 import { mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-8";
+import { selectContentItems, newContentEncounterId } from "../content-progression.mjs";
 
 const GAME_ID = "grammar-gravity";
 const RESOURCE_NAME = "grammarGravityCatalog";
@@ -177,11 +178,16 @@ function resetRound() {
 function startGrammarRound() {
   const round = currentRound();
   if (!round) throw new Error("Grammar Gravity has no modern round for this difficulty.");
+  state.encounterId = newContentEncounterId();
+  state.contentGeneration = state.shell?.CaatuuLearning?.contentGeneration?.() ?? null;
   state.adjectiveGame.start(round, round.flights, { practiceMode: state.practiceMode });
 }
 
 function makeRounds(previousAnchor = "") {
-  return buildGrammarGravityRounds(state.pack, state.difficulty, Math.random, previousAnchor);
+  const rounds = buildGrammarGravityRounds(state.pack, state.difficulty, Math.random, previousAnchor);
+  if (!state.shell?.CaatuuLearning?.contentHistory) return rounds;
+  return selectContentItems(rounds, { difficulty: state.difficulty, minimumPool: 4,
+    history: state.shell?.CaatuuLearning?.contentHistory?.(GAME_ID, `phrases-${state.practiceMode}`) || {} });
 }
 
 function configureDifficulty() {
@@ -229,7 +235,7 @@ function choosePracticeMode(value) {
   if (choice?.input.disabled) return;
   state.practiceMode = value;
   syncPracticeChoices();
-  if (value !== "nouns") { state.index = 0; resetRound(); }
+  if (value !== "nouns") { state.rounds = [...makeRounds()]; state.index = 0; resetRound(); }
   changeStage(value === "nouns" ? "nouns" : "phrases", false);
 }
 
@@ -483,7 +489,11 @@ export async function mountGrammarGravity() {
   });
   state.adjectiveGame = mountGrammarFlight({ document, scope: globalThis, shell: state.shell, course: state.course,
     copy: (key, values) => state.shell.CaatuuI18n.t(`games.grammargravity.journey.${key}`, values),
-    onAttempt({ correct }) {
+    onAttempt({ correct, answerCorrect, evidence = "exposure" }) {
+      state.shell.CaatuuLearning?.recordExposure?.(GAME_ID, {
+        bankId: `phrases-${state.practiceMode}`, itemId: currentRound().id, encounterId: state.encounterId,
+        generation: state.contentGeneration, correct: answerCorrect ?? correct, evidence
+      });
       recordLearning({ activities: 1, attempts: 1, successes: correct ? 1 : 0, xp: correct ? 1 : 0 });
     },
     onComplete({ correctCount, total }) {

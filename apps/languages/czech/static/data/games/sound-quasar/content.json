@@ -4,7 +4,7 @@
   "courseId": "cz",
   "targetLanguageId": "cs",
   "id": "cz-sound-quasar-listening-pilot",
-  "contentRevision": "sound-quasar-retained-levels-1",
+  "contentRevision": "content-progression-starters-1",
   "mode": "practice",
   "audio": {
     "kind": "device-speech",
@@ -129,7 +129,9 @@
       "meaning": "yes",
       "sourceId": "/0",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "yes"
+      "englishAuditText": "yes",
+      "usefulness": 94,
+      "complexity": 9
     },
     {
       "id": "cz-word-2",
@@ -139,7 +141,9 @@
       "meaning": "no",
       "sourceId": "/1",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "no"
+      "englishAuditText": "no",
+      "usefulness": 94,
+      "complexity": 9
     },
     {
       "id": "cz-word-3",
@@ -149,7 +153,9 @@
       "meaning": "please / here you are",
       "sourceId": "/2",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "please / here you are"
+      "englishAuditText": "please / here you are",
+      "usefulness": 94,
+      "complexity": 17
     },
     {
       "id": "cz-word-4",
@@ -159,7 +165,9 @@
       "meaning": "thank you",
       "sourceId": "/3",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "thank you"
+      "englishAuditText": "thank you",
+      "usefulness": 94,
+      "complexity": 12
     },
     {
       "id": "cz-word-5",
@@ -169,7 +177,9 @@
       "meaning": "hi / bye",
       "sourceId": "/6",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "hi / bye"
+      "englishAuditText": "hi / bye",
+      "usefulness": 70,
+      "complexity": 17
     },
     {
       "id": "cz-word-6",
@@ -179,7 +189,9 @@
       "meaning": "sorry / pardon",
       "sourceId": "/9",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "sorry / pardon"
+      "englishAuditText": "sorry / pardon",
+      "usefulness": 90,
+      "complexity": 17
     },
     {
       "id": "cz-word-7",
@@ -189,7 +201,9 @@
       "meaning": "okay / well",
       "sourceId": "/11",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "okay / well"
+      "englishAuditText": "okay / well",
+      "usefulness": 70,
+      "complexity": 37
     },
     {
       "id": "cz-word-8",
@@ -199,7 +213,9 @@
       "meaning": "badly / wrong",
       "sourceId": "/12",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "badly / wrong"
+      "englishAuditText": "badly / wrong",
+      "usefulness": 70,
+      "complexity": 37
     },
     {
       "id": "cz-word-9",
@@ -209,7 +225,9 @@
       "meaning": "maybe",
       "sourceId": "/14",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "maybe"
+      "englishAuditText": "maybe",
+      "usefulness": 70,
+      "complexity": 29
     },
     {
       "id": "cz-word-10",
@@ -219,7 +237,9 @@
       "meaning": "of course",
       "sourceId": "/15",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "of course"
+      "englishAuditText": "of course",
+      "usefulness": 75,
+      "complexity": 29
     },
     {
       "id": "cz-word-11",
@@ -229,7 +249,9 @@
       "meaning": "unfortunately",
       "sourceId": "/16",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "unfortunately"
+      "englishAuditText": "unfortunately",
+      "usefulness": 70,
+      "complexity": 29
     },
     {
       "id": "cz-word-12",
@@ -239,7 +261,9 @@
       "meaning": "a little",
       "sourceId": "/22",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "a little"
+      "englishAuditText": "a little",
+      "usefulness": 70,
+      "complexity": 32
     },
     {
       "id": "cz-word-13",
@@ -249,7 +273,9 @@
       "meaning": "slowly",
       "sourceId": "/23",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "slowly"
+      "englishAuditText": "slowly",
+      "usefulness": 70,
+      "complexity": 29
     },
     {
       "id": "cz-word-14",
@@ -259,7 +285,9 @@
       "meaning": "in Czech",
       "sourceId": "/24",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "in Czech"
+      "englishAuditText": "in Czech",
+      "usefulness": 91,
+      "complexity": 24
     },
     {
       "id": "cz-word-15",
@@ -269,7 +297,9 @@
       "meaning": "in English",
       "sourceId": "/25",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "in English"
+      "englishAuditText": "in English",
+      "usefulness": 91,
+      "complexity": 24
     },
     {
       "id": "cz-word-16",
@@ -279,7 +309,9 @@
       "meaning": "I do not understand",
       "sourceId": "/26",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "I do not understand"
+      "englishAuditText": "I do not understand",
+      "usefulness": 98,
+      "complexity": 38
     },
     {
       "id": "cz-exp260908-items-17",
@@ -289,7 +321,9 @@
       "meaning": "jump",
       "sourceId": "cz.verb.exp260908.jump",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "jump"
+      "englishAuditText": "jump",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "cz-exp260908-items-18",
@@ -299,7 +333,9 @@
       "meaning": "swim",
       "sourceId": "cz.verb.exp260908.swim",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "swim"
+      "englishAuditText": "swim",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "cz-exp260908-items-19",
@@ -309,7 +345,9 @@
       "meaning": "dance",
       "sourceId": "cz.verb.exp260908.dance",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "dance"
+      "englishAuditText": "dance",
+      "usefulness": 62,
+      "complexity": 29
     },
     {
       "id": "cz-exp260908-items-20",
@@ -319,7 +357,9 @@
       "meaning": "smile",
       "sourceId": "cz.verb.exp260908.smile",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "smile"
+      "englishAuditText": "smile",
+      "usefulness": 76,
+      "complexity": 32
     },
     {
       "id": "cz-exp260908-items-21",
@@ -329,7 +369,9 @@
       "meaning": "sing",
       "sourceId": "cz.verb.exp260908.sing",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "sing"
+      "englishAuditText": "sing",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "cz-exp260908-items-22",
@@ -339,7 +381,9 @@
       "meaning": "draw",
       "sourceId": "cz.verb.exp260908.draw",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "draw"
+      "englishAuditText": "draw",
+      "usefulness": 62,
+      "complexity": 29
     },
     {
       "id": "cz-exp260908-items-23",
@@ -349,7 +393,9 @@
       "meaning": "count",
       "sourceId": "cz.verb.exp260908.count",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "count"
+      "englishAuditText": "count",
+      "usefulness": 73,
+      "complexity": 21
     },
     {
       "id": "cz-exp260908-items-24",
@@ -359,7 +405,9 @@
       "meaning": "touch",
       "sourceId": "cz.verb.exp260908.touch",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "touch"
+      "englishAuditText": "touch",
+      "usefulness": 76,
+      "complexity": 32
     },
     {
       "id": "cz-exp260908-items-25",
@@ -369,7 +417,9 @@
       "meaning": "hold",
       "sourceId": "cz.verb.exp260908.hold",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "hold"
+      "englishAuditText": "hold",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "cz-exp260908-items-26",
@@ -379,7 +429,9 @@
       "meaning": "grow",
       "sourceId": "cz.verb.exp260908.grow",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "grow"
+      "englishAuditText": "grow",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "cz-exp260908-items-27",
@@ -389,7 +441,9 @@
       "meaning": "smell",
       "sourceId": "cz.verb.exp260908.smell",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "smell"
+      "englishAuditText": "smell",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "cz-exp260908-items-28",
@@ -399,7 +453,9 @@
       "meaning": "taste",
       "sourceId": "cz.verb.exp260908.taste",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "taste"
+      "englishAuditText": "taste",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "cz-exp260908-items-29",
@@ -409,7 +465,9 @@
       "meaning": "hug",
       "sourceId": "cz.verb.exp260908.hug",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "hug"
+      "englishAuditText": "hug",
+      "usefulness": 71,
+      "complexity": 28
     },
     {
       "id": "cz-exp260908-items-30",
@@ -419,7 +477,9 @@
       "meaning": "wave",
       "sourceId": "cz.verb.exp260908.wave",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "wave"
+      "englishAuditText": "wave",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "cz-exp260908-items-31",
@@ -429,7 +489,9 @@
       "meaning": "clap",
       "sourceId": "cz.verb.exp260908.clap",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "clap"
+      "englishAuditText": "clap",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "cz-exp260908-items-32",
@@ -439,7 +501,9 @@
       "meaning": "kick",
       "sourceId": "cz.verb.exp260908.kick",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "kick"
+      "englishAuditText": "kick",
+      "usefulness": 71,
+      "complexity": 28
     },
     {
       "id": "cz-exp260908-items-33",
@@ -449,7 +513,9 @@
       "meaning": "catch",
       "sourceId": "cz.verb.exp260908.catch",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "catch"
+      "englishAuditText": "catch",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "cz-exp260908-items-34",
@@ -459,7 +525,9 @@
       "meaning": "throw",
       "sourceId": "cz.verb.exp260908.throw",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "throw"
+      "englishAuditText": "throw",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "cz-exp260908-items-35",
@@ -469,7 +537,9 @@
       "meaning": "crawl",
       "sourceId": "cz.verb.exp260908.crawl",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "crawl"
+      "englishAuditText": "crawl",
+      "usefulness": 71,
+      "complexity": 28
     },
     {
       "id": "cz-exp260908-items-36",
@@ -479,7 +549,9 @@
       "meaning": "whisper",
       "sourceId": "cz.verb.exp260908.whisper",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "whisper"
+      "englishAuditText": "whisper",
+      "usefulness": 71,
+      "complexity": 28
     },
     {
       "id": "cz-exp260908-items-37",
@@ -489,7 +561,9 @@
       "meaning": "shout",
       "sourceId": "cz.verb.exp260908.shout",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "shout"
+      "englishAuditText": "shout",
+      "usefulness": 71,
+      "complexity": 28
     },
     {
       "id": "cz-exp260908-items-38",
@@ -499,7 +573,9 @@
       "meaning": "hum",
       "sourceId": "cz.verb.exp260908.hum",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "hum"
+      "englishAuditText": "hum",
+      "usefulness": 49,
+      "complexity": 50
     },
     {
       "id": "cz-exp260908-items-39",
@@ -509,7 +585,9 @@
       "meaning": "whistle",
       "sourceId": "cz.verb.exp260908.whistle",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "whistle"
+      "englishAuditText": "whistle",
+      "usefulness": 49,
+      "complexity": 39
     },
     {
       "id": "cz-exp260908-items-40",
@@ -519,7 +597,9 @@
       "meaning": "bark",
       "sourceId": "cz.verb.exp260908.bark",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "bark"
+      "englishAuditText": "bark",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "cz-exp260908-items-41",
@@ -529,7 +609,9 @@
       "meaning": "meow",
       "sourceId": "cz.verb.exp260908.meow",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "meow"
+      "englishAuditText": "meow",
+      "usefulness": 49,
+      "complexity": 39
     },
     {
       "id": "cz-exp260908-items-42",
@@ -539,7 +621,9 @@
       "meaning": "hop",
       "sourceId": "cz.verb.exp260908.hop",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "hop"
+      "englishAuditText": "hop",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "cz-exp260908-items-43",
@@ -549,7 +633,9 @@
       "meaning": "slide",
       "sourceId": "cz.verb.exp260908.slide",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "slide"
+      "englishAuditText": "slide",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "cz-exp260908-items-44",
@@ -559,7 +645,9 @@
       "meaning": "roll",
       "sourceId": "cz.verb.exp260908.roll",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "roll"
+      "englishAuditText": "roll",
+      "usefulness": 71,
+      "complexity": 28
     },
     {
       "id": "cz-exp260908-items-45",
@@ -569,7 +657,9 @@
       "meaning": "float",
       "sourceId": "cz.verb.exp260908.float",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "float"
+      "englishAuditText": "float",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "cz-exp260908-items-46",
@@ -579,7 +669,9 @@
       "meaning": "splash",
       "sourceId": "cz.verb.exp260908.splash",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "splash"
+      "englishAuditText": "splash",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "cz-exp260908-items-47",
@@ -589,7 +681,9 @@
       "meaning": "bounce",
       "sourceId": "cz.verb.exp260908.bounce",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "bounce"
+      "englishAuditText": "bounce",
+      "usefulness": 46,
+      "complexity": 49
     },
     {
       "id": "cz-exp260908-items-48",
@@ -599,7 +693,9 @@
       "meaning": "fold",
       "sourceId": "cz.verb.exp260908.fold",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "fold"
+      "englishAuditText": "fold",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "cz-exp260908-items-49",
@@ -609,7 +705,9 @@
       "meaning": "unfold",
       "sourceId": "cz.verb.exp260908.unfold",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "unfold"
+      "englishAuditText": "unfold",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "cz-exp260908-items-50",
@@ -619,7 +717,9 @@
       "meaning": "decorate",
       "sourceId": "cz.verb.exp260908.decorate",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "decorate"
+      "englishAuditText": "decorate",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "cz-exp260908-items-51",
@@ -629,7 +729,9 @@
       "meaning": "glue",
       "sourceId": "cz.verb.exp260908.glue",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "glue"
+      "englishAuditText": "glue",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "cz-exp260908-items-52",
@@ -639,7 +741,9 @@
       "meaning": "weave",
       "sourceId": "cz.verb.exp260908.weave",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "weave"
+      "englishAuditText": "weave",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "cz-exp260908-items-53",
@@ -649,7 +753,9 @@
       "meaning": "knead",
       "sourceId": "cz.verb.exp260908.knead",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "knead"
+      "englishAuditText": "knead",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "cz-exp260908-items-54",
@@ -659,7 +765,9 @@
       "meaning": "stir",
       "sourceId": "cz.verb.exp260908.stir",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "stir"
+      "englishAuditText": "stir",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "cz-exp260908-items-55",
@@ -669,7 +777,9 @@
       "meaning": "pour",
       "sourceId": "cz.verb.exp260908.pour",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "pour"
+      "englishAuditText": "pour",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "cz-exp260908-items-56",
@@ -679,7 +789,9 @@
       "meaning": "peel",
       "sourceId": "cz.verb.exp260908.peel",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "peel"
+      "englishAuditText": "peel",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "cz-exp260908-items-57",
@@ -689,7 +801,9 @@
       "meaning": "water",
       "sourceId": "cz.verb.exp260908.water",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "water"
+      "englishAuditText": "water",
+      "usefulness": 98,
+      "complexity": 15
     },
     {
       "id": "cz-exp260908-items-58",
@@ -699,7 +813,9 @@
       "meaning": "sprout",
       "sourceId": "cz.verb.exp260908.sprout",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "sprout"
+      "englishAuditText": "sprout",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "cz-exp260908-items-59",
@@ -709,7 +825,9 @@
       "meaning": "bloom",
       "sourceId": "cz.verb.exp260908.bloom",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "bloom"
+      "englishAuditText": "bloom",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "cz-exp260908-items-60",
@@ -719,7 +837,9 @@
       "meaning": "collect",
       "sourceId": "cz.verb.exp260908.collect",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "collect"
+      "englishAuditText": "collect",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "cz-exp260908-items-61",
@@ -729,7 +849,9 @@
       "meaning": "measure",
       "sourceId": "cz.verb.exp260908.measure",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "measure"
+      "englishAuditText": "measure",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "cz-exp260908-items-62",
@@ -739,7 +861,9 @@
       "meaning": "weigh",
       "sourceId": "cz.verb.exp260908.weigh",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "weigh"
+      "englishAuditText": "weigh",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "cz-exp260908-items-63",
@@ -749,7 +873,9 @@
       "meaning": "guess",
       "sourceId": "cz.verb.exp260908.guess",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "guess"
+      "englishAuditText": "guess",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "cz-exp260908-items-64",
@@ -759,7 +885,9 @@
       "meaning": "explore",
       "sourceId": "cz.verb.exp260908.explore",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "explore"
+      "englishAuditText": "explore",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "cz-exp260908-items-65",
@@ -769,7 +897,9 @@
       "meaning": "imagine",
       "sourceId": "cz.verb.exp260908.imagine",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "imagine"
+      "englishAuditText": "imagine",
+      "usefulness": 55,
+      "complexity": 57
     },
     {
       "id": "cz-exp260908-items-66",
@@ -779,7 +909,9 @@
       "meaning": "pretend",
       "sourceId": "cz.verb.exp260908.pretend",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "pretend"
+      "englishAuditText": "pretend",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "cz-exp260908-items-67",
@@ -789,7 +921,9 @@
       "meaning": "celebrate",
       "sourceId": "cz.verb.exp260908.celebrate",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "celebrate"
+      "englishAuditText": "celebrate",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "cz-exp260908-items-68",
@@ -799,7 +933,9 @@
       "meaning": "welcome",
       "sourceId": "cz.verb.exp260908.welcome",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "welcome"
+      "englishAuditText": "welcome",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "cz-exp260908-items-69",
@@ -809,7 +945,9 @@
       "meaning": "cheer",
       "sourceId": "cz.verb.exp260908.cheer",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "cheer"
+      "englishAuditText": "cheer",
+      "usefulness": 71,
+      "complexity": 28
     },
     {
       "id": "cz-exp260908-items-70",
@@ -819,7 +957,9 @@
       "meaning": "forgive",
       "sourceId": "cz.verb.exp260908.forgive",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "forgive"
+      "englishAuditText": "forgive",
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "cz-exp260908-items-71",
@@ -829,7 +969,9 @@
       "meaning": "comfort",
       "sourceId": "cz.verb.exp260908.comfort",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "comfort"
+      "englishAuditText": "comfort",
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "cz-exp260908-items-72",
@@ -839,7 +981,9 @@
       "meaning": "promise",
       "sourceId": "cz.verb.exp260908.promise",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "promise"
+      "englishAuditText": "promise",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "cz-exp260908-items-73",
@@ -849,7 +993,9 @@
       "meaning": "notice",
       "sourceId": "cz.verb.exp260908.notice",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "notice"
+      "englishAuditText": "notice",
+      "usefulness": 58,
+      "complexity": 42
     },
     {
       "id": "cz-exp260908-items-74",
@@ -859,7 +1005,9 @@
       "meaning": "balance",
       "sourceId": "cz.verb.exp260908.balance",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "balance"
+      "englishAuditText": "balance",
+      "usefulness": 44,
+      "complexity": 41
     },
     {
       "id": "cz-exp260908-items-75",
@@ -869,7 +1017,9 @@
       "meaning": "cooperate",
       "sourceId": "cz.verb.exp260908.cooperate",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "cooperate"
+      "englishAuditText": "cooperate",
+      "usefulness": 79,
+      "complexity": 42
     },
     {
       "id": "cz-exp260908-items-76",
@@ -879,7 +1029,9 @@
       "meaning": "negotiate",
       "sourceId": "cz.verb.exp260908.negotiate",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "negotiate"
+      "englishAuditText": "negotiate",
+      "usefulness": 33,
+      "complexity": 63
     },
     {
       "id": "cz-exp260908-items-77",
@@ -889,7 +1041,9 @@
       "meaning": "persuade",
       "sourceId": "cz.verb.exp260908.persuade",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "persuade"
+      "englishAuditText": "persuade",
+      "usefulness": 52,
+      "complexity": 60
     },
     {
       "id": "cz-exp260908-items-78",
@@ -899,7 +1053,9 @@
       "meaning": "reassure",
       "sourceId": "cz.verb.exp260908.reassure",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "reassure"
+      "englishAuditText": "reassure",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "cz-exp260908-items-79",
@@ -909,7 +1065,9 @@
       "meaning": "appreciate",
       "sourceId": "cz.verb.exp260908.appreciate",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "appreciate"
+      "englishAuditText": "appreciate",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "cz-exp260908-items-80",
@@ -919,7 +1077,9 @@
       "meaning": "admire",
       "sourceId": "cz.verb.exp260908.admire",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "admire"
+      "englishAuditText": "admire",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "cz-exp260908-items-81",
@@ -929,7 +1089,9 @@
       "meaning": "wonder",
       "sourceId": "cz.verb.exp260908.wonder",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "wonder"
+      "englishAuditText": "wonder",
+      "usefulness": 58,
+      "complexity": 42
     },
     {
       "id": "cz-exp260908-items-82",
@@ -939,7 +1101,9 @@
       "meaning": "reflect",
       "sourceId": "cz.verb.exp260908.reflect",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "reflect"
+      "englishAuditText": "reflect",
+      "usefulness": 52,
+      "complexity": 60
     },
     {
       "id": "cz-exp260908-items-83",
@@ -949,7 +1113,9 @@
       "meaning": "concentrate",
       "sourceId": "cz.verb.exp260908.concentrate",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "concentrate"
+      "englishAuditText": "concentrate",
+      "usefulness": 55,
+      "complexity": 57
     },
     {
       "id": "cz-exp260908-items-84",
@@ -959,7 +1125,9 @@
       "meaning": "persevere",
       "sourceId": "cz.verb.exp260908.persevere",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "persevere"
+      "englishAuditText": "persevere",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "cz-exp260908-items-85",
@@ -969,7 +1137,9 @@
       "meaning": "hesitate",
       "sourceId": "cz.verb.exp260908.hesitate",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "hesitate"
+      "englishAuditText": "hesitate",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "cz-exp260908-items-86",
@@ -979,7 +1149,9 @@
       "meaning": "anticipate",
       "sourceId": "cz.verb.exp260908.anticipate",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "anticipate"
+      "englishAuditText": "anticipate",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "cz-exp260908-items-87",
@@ -989,7 +1161,9 @@
       "meaning": "investigate",
       "sourceId": "cz.verb.exp260908.investigate",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "investigate"
+      "englishAuditText": "investigate",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "cz-exp260908-items-88",
@@ -999,7 +1173,9 @@
       "meaning": "observe",
       "sourceId": "cz.verb.exp260908.observe",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "observe"
+      "englishAuditText": "observe",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "cz-exp260908-items-89",
@@ -1009,7 +1185,9 @@
       "meaning": "distinguish",
       "sourceId": "cz.verb.exp260908.distinguish",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "distinguish"
+      "englishAuditText": "distinguish",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "cz-exp260908-items-90",
@@ -1019,7 +1197,9 @@
       "meaning": "estimate",
       "sourceId": "cz.verb.exp260908.estimate",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "estimate"
+      "englishAuditText": "estimate",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "cz-exp260908-items-91",
@@ -1029,7 +1209,9 @@
       "meaning": "interpret",
       "sourceId": "cz.verb.exp260908.interpret",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "interpret"
+      "englishAuditText": "interpret",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "cz-exp260908-items-92",
@@ -1039,7 +1221,9 @@
       "meaning": "justify",
       "sourceId": "cz.verb.exp260908.justify",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "justify"
+      "englishAuditText": "justify",
+      "usefulness": 33,
+      "complexity": 63
     },
     {
       "id": "cz-exp260908-items-93",
@@ -1049,7 +1233,9 @@
       "meaning": "demonstrate",
       "sourceId": "cz.verb.exp260908.demonstrate",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "demonstrate"
+      "englishAuditText": "demonstrate",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "cz-exp260908-items-94",
@@ -1059,7 +1245,9 @@
       "meaning": "invent",
       "sourceId": "cz.verb.exp260908.invent",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "invent"
+      "englishAuditText": "invent",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "cz-exp260908-items-95",
@@ -1069,7 +1257,9 @@
       "meaning": "transform",
       "sourceId": "cz.verb.exp260908.transform",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "transform"
+      "englishAuditText": "transform",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "cz-exp260908-items-96",
@@ -1079,7 +1269,9 @@
       "meaning": "combine",
       "sourceId": "cz.verb.exp260908.combine",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "combine"
+      "englishAuditText": "combine",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "cz-exp260908-items-97",
@@ -1089,7 +1281,9 @@
       "meaning": "adapt",
       "sourceId": "cz.verb.exp260908.adapt",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "adapt"
+      "englishAuditText": "adapt",
+      "usefulness": 58,
+      "complexity": 42
     },
     {
       "id": "cz-exp260908-items-98",
@@ -1099,7 +1293,9 @@
       "meaning": "restore",
       "sourceId": "cz.verb.exp260908.restore",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "restore"
+      "englishAuditText": "restore",
+      "usefulness": 44,
+      "complexity": 41
     },
     {
       "id": "cz-exp260908-items-99",
@@ -1109,7 +1305,9 @@
       "meaning": "preserve",
       "sourceId": "cz.verb.exp260908.preserve",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "preserve"
+      "englishAuditText": "preserve",
+      "usefulness": 44,
+      "complexity": 41
     },
     {
       "id": "cz-exp260908-items-100",
@@ -1119,7 +1317,9 @@
       "meaning": "contribute",
       "sourceId": "cz.verb.exp260908.contribute",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "contribute"
+      "englishAuditText": "contribute",
+      "usefulness": 44,
+      "complexity": 41
     },
     {
       "id": "cz-exp260908-items-101",
@@ -1129,7 +1329,9 @@
       "meaning": "include",
       "sourceId": "cz.verb.exp260908.include",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "include"
+      "englishAuditText": "include",
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "cz-exp260908-items-102",
@@ -1139,7 +1341,9 @@
       "meaning": "summarize",
       "sourceId": "cz.verb.exp260908.summarize",
       "sourceReviewStatus": "not-declared",
-      "englishAuditText": "summarize"
+      "englishAuditText": "summarize",
+      "usefulness": 44,
+      "complexity": 41
     }
   ],
   "sentenceProvenance": {
@@ -1202,7 +1406,17 @@
       "ww-cz-exp260908-038",
       "ww-cz-exp260908-039",
       "ww-cz-exp260908-040",
-      "ww-cz-exp260908-041"
+      "ww-cz-exp260908-041",
+      "ww-cp-000001",
+      "ww-cp-000026",
+      "ww-cp-000027",
+      "ww-cp-000077",
+      "ww-cp-000079",
+      "ww-cp-000082",
+      "ww-cp-000104",
+      "ww-cp-000105",
+      "ww-cp-000115",
+      "ww-cp-000220"
     ],
     "selection": "Sixteen existing short Word World sentences; target text, English meanings, and review status copied without linguistic edits."
   },
@@ -1215,7 +1429,9 @@
       "meaning": "My brother runs.",
       "sourceId": "ww-codex-exp-0001-0001",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "My brother runs."
+      "englishAuditText": "My brother runs.",
+      "usefulness": 79,
+      "complexity": 19
     },
     {
       "id": "cz-sentence-2",
@@ -1225,7 +1441,9 @@
       "meaning": "Here is the key.",
       "sourceId": "ww-codex-exp-0001-0026",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "Here is the key."
+      "englishAuditText": "Here is the key.",
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "cz-sentence-3",
@@ -1235,7 +1453,9 @@
       "meaning": "Bananas are yellow.",
       "sourceId": "ww-codex-exp-0001-0051",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "Bananas are yellow."
+      "englishAuditText": "Bananas are yellow.",
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "cz-sentence-4",
@@ -1245,7 +1465,9 @@
       "meaning": "Take a pencil.",
       "sourceId": "ww-codex-exp-0001-0077",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "Take a pencil."
+      "englishAuditText": "Take a pencil.",
+      "usefulness": 75,
+      "complexity": 28
     },
     {
       "id": "cz-sentence-5",
@@ -1255,7 +1477,9 @@
       "meaning": "I have two soccer balls.",
       "sourceId": "ww-codex-exp-0001-0101",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "I have two soccer balls."
+      "englishAuditText": "I have two soccer balls.",
+      "usefulness": 63,
+      "complexity": 24
     },
     {
       "id": "cz-sentence-6",
@@ -1265,7 +1489,9 @@
       "meaning": "The car is blue.",
       "sourceId": "ww-codex-exp-0001-0126",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "The car is blue."
+      "englishAuditText": "The car is blue.",
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "cz-sentence-7",
@@ -1275,7 +1501,9 @@
       "meaning": "The school is nearby.",
       "sourceId": "ww-codex-exp-0001-0151",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "The school is nearby."
+      "englishAuditText": "The school is nearby.",
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "cz-sentence-8",
@@ -1285,7 +1513,9 @@
       "meaning": "The umbrella is wet.",
       "sourceId": "ww-codex-exp-0001-0176",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "The umbrella is wet."
+      "englishAuditText": "The umbrella is wet.",
+      "usefulness": 71,
+      "complexity": 29
     },
     {
       "id": "cz-sentence-9",
@@ -1295,7 +1525,9 @@
       "meaning": "It is exactly twelve.",
       "sourceId": "ww-codex-exp-0001-0201",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "It is exactly twelve."
+      "englishAuditText": "It is exactly twelve.",
+      "usefulness": 70,
+      "complexity": 29
     },
     {
       "id": "cz-sentence-10",
@@ -1305,7 +1537,9 @@
       "meaning": "The battery is charged.",
       "sourceId": "ww-codex-exp-0001-0226",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "The battery is charged."
+      "englishAuditText": "The battery is charged.",
+      "usefulness": 72,
+      "complexity": 24
     },
     {
       "id": "cz-sentence-11",
@@ -1315,7 +1549,9 @@
       "meaning": "I have money.",
       "sourceId": "ww-codex-exp-0001-0230",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "I have money."
+      "englishAuditText": "I have money.",
+      "usefulness": 81,
+      "complexity": 27
     },
     {
       "id": "cz-sentence-12",
@@ -1325,7 +1561,9 @@
       "meaning": "I get up early.",
       "sourceId": "ww-cp-000151",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "I get up early."
+      "englishAuditText": "I get up early.",
+      "usefulness": 54,
+      "complexity": 33
     },
     {
       "id": "cz-sentence-13",
@@ -1335,7 +1573,9 @@
       "meaning": "I feel good.",
       "sourceId": "ww-codex-exp-0001-0004",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "I feel good."
+      "englishAuditText": "I feel good.",
+      "usefulness": 70,
+      "complexity": 33
     },
     {
       "id": "cz-sentence-14",
@@ -1345,7 +1585,9 @@
       "meaning": "After school I am hungry.",
       "sourceId": "ww-codex-exp-0001-0005",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "After school I am hungry."
+      "englishAuditText": "After school I am hungry.",
+      "usefulness": 88,
+      "complexity": 29
     },
     {
       "id": "cz-sentence-15",
@@ -1355,7 +1597,9 @@
       "meaning": "The bag is heavy.",
       "sourceId": "ww-codex-exp-0001-0027",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "The bag is heavy."
+      "englishAuditText": "The bag is heavy.",
+      "usefulness": 70,
+      "complexity": 32
     },
     {
       "id": "cz-sentence-16",
@@ -1365,7 +1609,9 @@
       "meaning": "The table is clean.",
       "sourceId": "ww-codex-exp-0001-0028",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "The table is clean."
+      "englishAuditText": "The table is clean.",
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "cz-exp260908-sentences-17",
@@ -1375,7 +1621,9 @@
       "meaning": "The rabbit is hopping.",
       "sourceId": "ww-cz-exp260908-001",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "The rabbit is hopping."
+      "englishAuditText": "The rabbit is hopping.",
+      "usefulness": 65,
+      "complexity": 32
     },
     {
       "id": "cz-exp260908-sentences-18",
@@ -1385,7 +1633,9 @@
       "meaning": "The seed is growing.",
       "sourceId": "ww-cz-exp260908-002",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "The seed is growing."
+      "englishAuditText": "The seed is growing.",
+      "usefulness": 46,
+      "complexity": 27
     },
     {
       "id": "cz-exp260908-sentences-19",
@@ -1395,7 +1645,9 @@
       "meaning": "My kite is blue.",
       "sourceId": "ww-cz-exp260908-003",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "My kite is blue."
+      "englishAuditText": "My kite is blue.",
+      "usefulness": 63,
+      "complexity": 27
     },
     {
       "id": "cz-exp260908-sentences-20",
@@ -1405,7 +1657,9 @@
       "meaning": "We clap together.",
       "sourceId": "ww-cz-exp260908-004",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "We clap together."
+      "englishAuditText": "We clap together.",
+      "usefulness": 63,
+      "complexity": 22
     },
     {
       "id": "cz-exp260908-sentences-21",
@@ -1415,7 +1669,9 @@
       "meaning": "Where is my crayon?",
       "sourceId": "ww-cz-exp260908-005",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "Where is my crayon?"
+      "englishAuditText": "Where is my crayon?",
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "cz-exp260908-sentences-22",
@@ -1425,7 +1681,9 @@
       "meaning": "The turtle is sleeping.",
       "sourceId": "ww-cz-exp260908-006",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "The turtle is sleeping."
+      "englishAuditText": "The turtle is sleeping.",
+      "usefulness": 48,
+      "complexity": 27
     },
     {
       "id": "cz-exp260908-sentences-23",
@@ -1435,7 +1693,9 @@
       "meaning": "Please join us.",
       "sourceId": "ww-cz-exp260908-007",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "Please join us."
+      "englishAuditText": "Please join us.",
+      "usefulness": 68,
+      "complexity": 36
     },
     {
       "id": "cz-exp260908-sentences-24",
@@ -1445,7 +1705,9 @@
       "meaning": "Look at the rainbow!",
       "sourceId": "ww-cz-exp260908-008",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "Look at the rainbow!"
+      "englishAuditText": "Look at the rainbow!",
+      "usefulness": 65,
+      "complexity": 36
     },
     {
       "id": "cz-exp260908-sentences-25",
@@ -1455,7 +1717,9 @@
       "meaning": "A squirrel hides a nut under a leaf.",
       "sourceId": "ww-cz-exp260908-009",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "A squirrel hides a nut under a leaf."
+      "englishAuditText": "A squirrel hides a nut under a leaf.",
+      "usefulness": 78,
+      "complexity": 24
     },
     {
       "id": "cz-exp260908-sentences-26",
@@ -1465,7 +1729,9 @@
       "meaning": "Our cardboard rocket has three round windows.",
       "sourceId": "ww-cz-exp260908-010",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "Our cardboard rocket has three round windows."
+      "englishAuditText": "Our cardboard rocket has three round windows.",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "cz-exp260908-sentences-27",
@@ -1475,7 +1741,9 @@
       "meaning": "We measure the sunflower with a ruler.",
       "sourceId": "ww-cz-exp260908-011",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "We measure the sunflower with a ruler."
+      "englishAuditText": "We measure the sunflower with a ruler.",
+      "usefulness": 75,
+      "complexity": 19
     },
     {
       "id": "cz-exp260908-sentences-28",
@@ -1485,7 +1753,9 @@
       "meaning": "Can you teach me that hand-clapping game?",
       "sourceId": "ww-cz-exp260908-012",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "Can you teach me that hand-clapping game?"
+      "englishAuditText": "Can you teach me that hand-clapping game?",
+      "usefulness": 67,
+      "complexity": 37
     },
     {
       "id": "cz-exp260908-sentences-29",
@@ -1495,7 +1765,9 @@
       "meaning": "Tiny footprints cross the fresh snow.",
       "sourceId": "ww-cz-exp260908-013",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "Tiny footprints cross the fresh snow."
+      "englishAuditText": "Tiny footprints cross the fresh snow.",
+      "usefulness": 54,
+      "complexity": 19
     },
     {
       "id": "cz-exp260908-sentences-30",
@@ -1505,7 +1777,9 @@
       "meaning": "The puppet bows at the end of the show.",
       "sourceId": "ww-cz-exp260908-014",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "The puppet bows at the end of the show."
+      "englishAuditText": "The puppet bows at the end of the show.",
+      "usefulness": 58,
+      "complexity": 36
     },
     {
       "id": "cz-exp260908-sentences-31",
@@ -1515,7 +1789,9 @@
       "meaning": "We stir the pancake batter slowly.",
       "sourceId": "ww-cz-exp260908-015",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "We stir the pancake batter slowly."
+      "englishAuditText": "We stir the pancake batter slowly.",
+      "usefulness": 78,
+      "complexity": 33
     },
     {
       "id": "cz-exp260908-sentences-32",
@@ -1525,7 +1801,9 @@
       "meaning": "The snail leaves a shiny trail on the stone.",
       "sourceId": "ww-cz-exp260908-016",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "The snail leaves a shiny trail on the stone."
+      "englishAuditText": "The snail leaves a shiny trail on the stone.",
+      "usefulness": 90,
+      "complexity": 27
     },
     {
       "id": "cz-exp260908-sentences-33",
@@ -1535,7 +1813,9 @@
       "meaning": "Which magnet holds our drawing on the board?",
       "sourceId": "ww-cz-exp260908-017",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "Which magnet holds our drawing on the board?"
+      "englishAuditText": "Which magnet holds our drawing on the board?",
+      "usefulness": 90,
+      "complexity": 32
     },
     {
       "id": "cz-exp260908-sentences-34",
@@ -1545,7 +1825,9 @@
       "meaning": "My friend keeps the rhythm on a little drum.",
       "sourceId": "ww-cz-exp260908-018",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "My friend keeps the rhythm on a little drum."
+      "englishAuditText": "My friend keeps the rhythm on a little drum.",
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "cz-exp260908-sentences-35",
@@ -1555,7 +1837,9 @@
       "meaning": "We take turns looking through the telescope.",
       "sourceId": "ww-cz-exp260908-019",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "We take turns looking through the telescope."
+      "englishAuditText": "We take turns looking through the telescope.",
+      "usefulness": 33,
+      "complexity": 42
     },
     {
       "id": "cz-exp260908-sentences-36",
@@ -1565,7 +1849,9 @@
       "meaning": "Bees carry pollen from flower to flower.",
       "sourceId": "ww-cz-exp260908-020",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "Bees carry pollen from flower to flower."
+      "englishAuditText": "Bees carry pollen from flower to flower.",
+      "usefulness": 65,
+      "complexity": 24
     },
     {
       "id": "cz-exp260908-sentences-37",
@@ -1575,7 +1861,9 @@
       "meaning": "Your idea gives our story a funny ending.",
       "sourceId": "ww-cz-exp260908-021",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "Your idea gives our story a funny ending."
+      "englishAuditText": "Your idea gives our story a funny ending.",
+      "usefulness": 63,
+      "complexity": 24
     },
     {
       "id": "cz-exp260908-sentences-38",
@@ -1585,7 +1873,9 @@
       "meaning": "The shadow looks like a giant dancing bear.",
       "sourceId": "ww-cz-exp260908-022",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "The shadow looks like a giant dancing bear."
+      "englishAuditText": "The shadow looks like a giant dancing bear.",
+      "usefulness": 54,
+      "complexity": 19
     },
     {
       "id": "cz-exp260908-sentences-39",
@@ -1595,7 +1885,9 @@
       "meaning": "Please leave space for everyone's name on the poster.",
       "sourceId": "ww-cz-exp260908-023",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "Please leave space for everyone's name on the poster."
+      "englishAuditText": "Please leave space for everyone's name on the poster.",
+      "usefulness": 90,
+      "complexity": 27
     },
     {
       "id": "cz-exp260908-sentences-40",
@@ -1605,7 +1897,9 @@
       "meaning": "A feather floats gently down onto the grass.",
       "sourceId": "ww-cz-exp260908-024",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "A feather floats gently down onto the grass."
+      "englishAuditText": "A feather floats gently down onto the grass.",
+      "usefulness": 90,
+      "complexity": 33
     },
     {
       "id": "cz-exp260908-sentences-41",
@@ -1615,7 +1909,9 @@
       "meaning": "Our team invents a new rule for the game.",
       "sourceId": "ww-cz-exp260908-025",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "Our team invents a new rule for the game."
+      "englishAuditText": "Our team invents a new rule for the game.",
+      "usefulness": 62,
+      "complexity": 27
     },
     {
       "id": "cz-exp260908-sentences-42",
@@ -1625,7 +1921,9 @@
       "meaning": "Grandpa shows us how to fold the dumplings.",
       "sourceId": "ww-cz-exp260908-026",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "Grandpa shows us how to fold the dumplings."
+      "englishAuditText": "Grandpa shows us how to fold the dumplings.",
+      "usefulness": 58,
+      "complexity": 28
     },
     {
       "id": "cz-exp260908-sentences-43",
@@ -1635,7 +1933,9 @@
       "meaning": "The dragon in my story collects colorful buttons.",
       "sourceId": "ww-cz-exp260908-027",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "The dragon in my story collects colorful buttons."
+      "englishAuditText": "The dragon in my story collects colorful buttons.",
+      "usefulness": 43,
+      "complexity": 24
     },
     {
       "id": "cz-exp260908-sentences-44",
@@ -1645,7 +1945,9 @@
       "meaning": "We compare two leaves with a magnifying glass.",
       "sourceId": "ww-cz-exp260908-028",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "We compare two leaves with a magnifying glass."
+      "englishAuditText": "We compare two leaves with a magnifying glass.",
+      "usefulness": 65,
+      "complexity": 31
     },
     {
       "id": "cz-exp260908-sentences-45",
@@ -1655,7 +1957,9 @@
       "meaning": "I saved the last sticker for you.",
       "sourceId": "ww-cz-exp260908-029",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "I saved the last sticker for you."
+      "englishAuditText": "I saved the last sticker for you.",
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "cz-exp260908-sentences-46",
@@ -1665,7 +1969,9 @@
       "meaning": "The pond reflects the clouds above the trees.",
       "sourceId": "ww-cz-exp260908-030",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "The pond reflects the clouds above the trees."
+      "englishAuditText": "The pond reflects the clouds above the trees.",
+      "usefulness": 65,
+      "complexity": 31
     },
     {
       "id": "cz-exp260908-sentences-47",
@@ -1675,7 +1981,9 @@
       "meaning": "The song gets quieter near the end.",
       "sourceId": "ww-cz-exp260908-031",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "The song gets quieter near the end."
+      "englishAuditText": "The song gets quieter near the end.",
+      "usefulness": 70,
+      "complexity": 33
     },
     {
       "id": "cz-exp260908-sentences-48",
@@ -1685,7 +1993,9 @@
       "meaning": "Can our paper bridge hold five pebbles?",
       "sourceId": "ww-cz-exp260908-032",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "Can our paper bridge hold five pebbles?"
+      "englishAuditText": "Can our paper bridge hold five pebbles?",
+      "usefulness": 75,
+      "complexity": 24
     },
     {
       "id": "cz-exp260908-sentences-49",
@@ -1695,7 +2005,9 @@
       "meaning": "Let's ask everyone before we choose a team name.",
       "sourceId": "ww-cz-exp260908-033",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "Let's ask everyone before we choose a team name."
+      "englishAuditText": "Let's ask everyone before we choose a team name.",
+      "usefulness": 75,
+      "complexity": 44
     },
     {
       "id": "cz-exp260908-sentences-50",
@@ -1705,7 +2017,9 @@
       "meaning": "Although the caterpillar is tiny, it leaves large holes in the leaf.",
       "sourceId": "ww-cz-exp260908-034",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "Although the caterpillar is tiny, it leaves large holes in the leaf."
+      "englishAuditText": "Although the caterpillar is tiny, it leaves large holes in the leaf.",
+      "usefulness": 65,
+      "complexity": 47
     },
     {
       "id": "cz-exp260908-sentences-51",
@@ -1715,7 +2029,9 @@
       "meaning": "If we listen to both ideas, we might find a fair solution.",
       "sourceId": "ww-cz-exp260908-035",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "If we listen to both ideas, we might find a fair solution."
+      "englishAuditText": "If we listen to both ideas, we might find a fair solution.",
+      "usefulness": 82,
+      "complexity": 31
     },
     {
       "id": "cz-exp260908-sentences-52",
@@ -1725,7 +2041,9 @@
       "meaning": "The model fell over, so we made its base wider.",
       "sourceId": "ww-cz-exp260908-036",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "The model fell over, so we made its base wider."
+      "englishAuditText": "The model fell over, so we made its base wider.",
+      "usefulness": 58,
+      "complexity": 33
     },
     {
       "id": "cz-exp260908-sentences-53",
@@ -1735,7 +2053,9 @@
       "meaning": "Instead of throwing the box away, we turned it into a puppet theater.",
       "sourceId": "ww-cz-exp260908-037",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "Instead of throwing the box away, we turned it into a puppet theater."
+      "englishAuditText": "Instead of throwing the box away, we turned it into a puppet theater.",
+      "usefulness": 90,
+      "complexity": 39
     },
     {
       "id": "cz-exp260908-sentences-54",
@@ -1745,7 +2065,9 @@
       "meaning": "We wondered why the shadow grew longer as the sun went down.",
       "sourceId": "ww-cz-exp260908-038",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "We wondered why the shadow grew longer as the sun went down."
+      "englishAuditText": "We wondered why the shadow grew longer as the sun went down.",
+      "usefulness": 65,
+      "complexity": 55
     },
     {
       "id": "cz-exp260908-sentences-55",
@@ -1755,7 +2077,9 @@
       "meaning": "Even though the puzzle was difficult, nobody had to solve it alone.",
       "sourceId": "ww-cz-exp260908-039",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "Even though the puzzle was difficult, nobody had to solve it alone."
+      "englishAuditText": "Even though the puzzle was difficult, nobody had to solve it alone.",
+      "usefulness": 70,
+      "complexity": 39
     },
     {
       "id": "cz-exp260908-sentences-56",
@@ -1765,7 +2089,9 @@
       "meaning": "Before changing our prediction, we compared it with what we had observed.",
       "sourceId": "ww-cz-exp260908-040",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "Before changing our prediction, we compared it with what we had observed."
+      "englishAuditText": "Before changing our prediction, we compared it with what we had observed.",
+      "usefulness": 52,
+      "complexity": 35
     },
     {
       "id": "cz-exp260908-sentences-57",
@@ -1775,7 +2101,129 @@
       "meaning": "The treasure was a thank-you note for everyone who had helped with the game.",
       "sourceId": "ww-cz-exp260908-041",
       "sourceReviewStatus": "codex_reviewed",
-      "englishAuditText": "The treasure was a thank-you note for everyone who had helped with the game."
+      "englishAuditText": "The treasure was a thank-you note for everyone who had helped with the game.",
+      "usefulness": 62,
+      "complexity": 52
+    },
+    {
+      "id": "cz-starter-listening-cp-000001",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "Ahoj.",
+      "meaning": "Hello.",
+      "englishAuditText": "Hello.",
+      "sourceId": "ww-cp-000001",
+      "sourceReviewStatus": "codex_reviewed",
+      "usefulness": 94,
+      "complexity": 7
+    },
+    {
+      "id": "cz-starter-listening-cp-000026",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "Prosím.",
+      "meaning": "Please.",
+      "englishAuditText": "Please.",
+      "sourceId": "ww-cp-000026",
+      "sourceReviewStatus": "codex_reviewed",
+      "usefulness": 94,
+      "complexity": 7
+    },
+    {
+      "id": "cz-starter-listening-cp-000027",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "Děkuji.",
+      "meaning": "Thank you.",
+      "englishAuditText": "Thank you.",
+      "sourceId": "ww-cp-000027",
+      "sourceReviewStatus": "codex_reviewed",
+      "usefulness": 94,
+      "complexity": 7
+    },
+    {
+      "id": "cz-starter-listening-cp-000077",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "Potřebuji pomoc.",
+      "meaning": "I need help.",
+      "englishAuditText": "I need help.",
+      "sourceId": "ww-cp-000077",
+      "sourceReviewStatus": "codex_reviewed",
+      "usefulness": 97,
+      "complexity": 17
+    },
+    {
+      "id": "cz-starter-listening-cp-000079",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "Nerozumím.",
+      "meaning": "I don't understand.",
+      "englishAuditText": "I don't understand.",
+      "sourceId": "ww-cp-000079",
+      "sourceReviewStatus": "codex_reviewed",
+      "usefulness": 98,
+      "complexity": 17
+    },
+    {
+      "id": "cz-starter-listening-cp-000082",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "Můžeš mluvit pomalu?",
+      "meaning": "Can you speak slowly?",
+      "englishAuditText": "Can you speak slowly?",
+      "sourceId": "ww-cp-000082",
+      "sourceReviewStatus": "codex_reviewed",
+      "usefulness": 98,
+      "complexity": 17
+    },
+    {
+      "id": "cz-starter-listening-cp-000104",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "Mám hlad.",
+      "meaning": "I'm hungry.",
+      "englishAuditText": "I'm hungry.",
+      "sourceId": "ww-cp-000104",
+      "sourceReviewStatus": "codex_reviewed",
+      "usefulness": 88,
+      "complexity": 22
+    },
+    {
+      "id": "cz-starter-listening-cp-000105",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "Mám žízeň.",
+      "meaning": "I'm thirsty.",
+      "englishAuditText": "I'm thirsty.",
+      "sourceId": "ww-cp-000105",
+      "sourceReviewStatus": "codex_reviewed",
+      "usefulness": 88,
+      "complexity": 22
+    },
+    {
+      "id": "cz-starter-listening-cp-000115",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "Potřebuji vodu.",
+      "meaning": "I need water.",
+      "englishAuditText": "I need water.",
+      "sourceId": "ww-cp-000115",
+      "sourceReviewStatus": "codex_reviewed",
+      "usefulness": 97,
+      "complexity": 17
+    },
+    {
+      "id": "cz-starter-listening-cp-000220",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "Kde je záchod?",
+      "meaning": "Where is the bathroom?",
+      "englishAuditText": "Where is the bathroom?",
+      "sourceId": "ww-cp-000220",
+      "sourceReviewStatus": "codex_reviewed",
+      "usefulness": 97,
+      "complexity": 23
     }
   ]
 }

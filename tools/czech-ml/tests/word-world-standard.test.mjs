@@ -490,11 +490,17 @@ test("runtime manifest points to a deterministic compact pack", async () => {
     reviewedOn: "2026-08-13",
     humanApproved: false,
   });
-  assert.equal(pack.records.length, records.length);
+  const source = await readJson(path.join(repoRoot, "apps/languages/czech/content/word-world/content.json"));
+  assert.equal(pack.records.length, source.records.length);
   assert.deepEqual(pack.records.map((record) => record.id), [...pack.records.map((record) => record.id)].sort());
-  assert.deepEqual(Object.keys(pack.records[0]), [
+  assert.deepEqual(Object.keys(pack.records[0]).sort(), [
     "id", "cs", "en", "enAlternates", "difficulty", "cefr", "topic", "targets", "learning", "grammar", "sceneQuery", "sceneAssetIds", "provenance", "review",
-  ]);
+    "usefulness", "complexity",
+  ].sort());
+  const sourceById = new Map(source.records.map(record => [record.id, record]));
+  for (const record of pack.records) for (const key of ["difficulty", "usefulness", "complexity"]) {
+    assert.equal(record[key], sourceById.get(record.id)[key]);
+  }
 });
 
 test("the compiler reproduces the complete checked-in runtime contract", async (t) => {

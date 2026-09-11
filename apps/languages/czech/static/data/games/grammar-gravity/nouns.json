@@ -45,7 +45,9 @@
       "targetText": "dům",
       "learnerBaseText": "house",
       "english": "house",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "cz.gravity.noun.kniha",
@@ -54,7 +56,9 @@
       "targetText": "kniha",
       "learnerBaseText": "book",
       "english": "book",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 73,
+      "complexity": 21
     },
     {
       "id": "cz.gravity.noun.mesto",
@@ -63,7 +67,9 @@
       "targetText": "město",
       "learnerBaseText": "city",
       "english": "city",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "cz.gravity.noun.telefon",
@@ -72,7 +78,9 @@
       "targetText": "telefon",
       "learnerBaseText": "phone",
       "english": "phone",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 79,
+      "complexity": 21
     },
     {
       "id": "cz.gravity.noun.skola",
@@ -81,7 +89,9 @@
       "targetText": "škola",
       "learnerBaseText": "school",
       "english": "school",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "cz.gravity.noun.auto",
@@ -90,7 +100,9 @@
       "targetText": "auto",
       "learnerBaseText": "car",
       "english": "car",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "cz.gravity.noun.stul",
@@ -99,7 +111,9 @@
       "targetText": "stůl",
       "learnerBaseText": "table",
       "english": "table",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "cz.gravity.noun.otazka",
@@ -108,7 +122,9 @@
       "targetText": "otázka",
       "learnerBaseText": "question",
       "english": "question",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 73,
+      "complexity": 29
     },
     {
       "id": "cz.gravity.noun.okno",
@@ -117,7 +133,9 @@
       "targetText": "okno",
       "learnerBaseText": "window",
       "english": "window",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "cz.gravity.noun.pes",
@@ -126,7 +144,9 @@
       "targetText": "pes",
       "learnerBaseText": "dog",
       "english": "dog",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "cz.gravity.noun.taska",
@@ -135,7 +155,9 @@
       "targetText": "taška",
       "learnerBaseText": "bag",
       "english": "bag",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "cz.gravity.noun.dite",
@@ -144,7 +166,9 @@
       "targetText": "dítě",
       "learnerBaseText": "child",
       "english": "child",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "cz.gravity.noun.obchod",
@@ -153,7 +177,9 @@
       "targetText": "obchod",
       "learnerBaseText": "shop",
       "english": "shop",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 81,
+      "complexity": 21
     },
     {
       "id": "cz.gravity.noun.zahrada",
@@ -162,7 +188,9 @@
       "targetText": "zahrada",
       "learnerBaseText": "garden",
       "english": "garden",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 62,
+      "complexity": 29
     },
     {
       "id": "cz.gravity.noun.namesti",
@@ -171,7 +199,9 @@
       "targetText": "náměstí",
       "learnerBaseText": "square",
       "english": "square",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "cz.gravity.noun.napad",
@@ -180,7 +210,9 @@
       "targetText": "nápad",
       "learnerBaseText": "idea",
       "english": "idea",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "cz.gravity.noun.kavarna",
@@ -189,7 +221,9 @@
       "targetText": "kavárna",
       "learnerBaseText": "café",
       "english": "café",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "cz.gravity.noun.kolo",
@@ -198,7 +232,9 @@
       "targetText": "kolo",
       "learnerBaseText": "bicycle",
       "english": "bicycle",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "cz.gravity.noun.film",
@@ -207,7 +243,9 @@
       "targetText": "film",
       "learnerBaseText": "film",
       "english": "film",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "cz.gravity.noun.odpoved",
@@ -216,7 +254,9 @@
       "targetText": "odpověď",
       "learnerBaseText": "answer",
       "english": "answer",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "cz.gravity.noun.jidlo",
@@ -225,7 +265,9 @@
       "targetText": "jídlo",
       "learnerBaseText": "food",
       "english": "food",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "cz.gravity.noun.jazyk",
@@ -234,7 +276,9 @@
       "targetText": "jazyk",
       "learnerBaseText": "language",
       "english": "language",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "cz.gravity.noun.hudba",
@@ -243,7 +287,9 @@
       "targetText": "hudba",
       "learnerBaseText": "music",
       "english": "music",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 62,
+      "complexity": 29
     },
     {
       "id": "cz.gravity.noun.misto",
@@ -252,7 +298,9 @@
       "targetText": "místo",
       "learnerBaseText": "place",
       "english": "place",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "cz.gravity.noun.hrad",
@@ -261,7 +309,9 @@
       "targetText": "hrad",
       "learnerBaseText": "castle",
       "english": "castle",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 43,
+      "complexity": 29
     },
     {
       "id": "cz.gravity.noun.vesnice",
@@ -270,7 +320,9 @@
       "targetText": "vesnice",
       "learnerBaseText": "village",
       "english": "village",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "cz.gravity.noun.slovo",
@@ -279,7 +331,9 @@
       "targetText": "slovo",
       "learnerBaseText": "word",
       "english": "word",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "cz.gravity.noun.pokoj",
@@ -288,7 +342,9 @@
       "targetText": "pokoj",
       "learnerBaseText": "room",
       "english": "room",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "cz.gravity.noun.rodina",
@@ -297,7 +353,9 @@
       "targetText": "rodina",
       "learnerBaseText": "family",
       "english": "family",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "cz.gravity.noun.letiste",
@@ -306,7 +364,9 @@
       "targetText": "letiště",
       "learnerBaseText": "airport",
       "english": "airport",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "cz.gravity.noun.strom",
@@ -315,7 +375,9 @@
       "targetText": "strom",
       "learnerBaseText": "tree",
       "english": "tree",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "cz.gravity.noun.mapa",
@@ -324,7 +386,9 @@
       "targetText": "mapa",
       "learnerBaseText": "map",
       "english": "map",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 42
     },
     {
       "id": "cz.gravity.noun.jezero",
@@ -333,7 +397,9 @@
       "targetText": "jezero",
       "learnerBaseText": "lake",
       "english": "lake",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "cz.gravity.noun.most",
@@ -342,7 +408,9 @@
       "targetText": "most",
       "learnerBaseText": "bridge",
       "english": "bridge",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "cz.gravity.noun.fotografie",
@@ -351,7 +419,9 @@
       "targetText": "fotografie",
       "learnerBaseText": "photograph",
       "english": "photograph",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "cz.gravity.noun.nadrazi",
@@ -360,7 +430,9 @@
       "targetText": "nádraží",
       "learnerBaseText": "station",
       "english": "station",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "cz.gravity.noun.exp260908.ball",
@@ -369,7 +441,9 @@
       "targetText": "míč",
       "learnerBaseText": "ball",
       "english": "ball",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "cz.gravity.noun.exp260908.rabbit",
@@ -378,7 +452,9 @@
       "targetText": "králík",
       "learnerBaseText": "rabbit",
       "english": "rabbit",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "cz.gravity.noun.exp260908.duck",
@@ -387,7 +463,9 @@
       "targetText": "kachna",
       "learnerBaseText": "duck",
       "english": "duck",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "cz.gravity.noun.exp260908.fish",
@@ -396,7 +474,9 @@
       "targetText": "ryba",
       "learnerBaseText": "fish",
       "english": "fish",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "cz.gravity.noun.exp260908.horse",
@@ -405,7 +485,9 @@
       "targetText": "kůň",
       "learnerBaseText": "horse",
       "english": "horse",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "cz.gravity.noun.exp260908.bear",
@@ -414,7 +496,9 @@
       "targetText": "medvěd",
       "learnerBaseText": "bear",
       "english": "bear",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "cz.gravity.noun.exp260908.bee",
@@ -423,7 +507,9 @@
       "targetText": "včela",
       "learnerBaseText": "bee",
       "english": "bee",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "cz.gravity.noun.exp260908.butterfly",
@@ -432,7 +518,9 @@
       "targetText": "motýl",
       "learnerBaseText": "butterfly",
       "english": "butterfly",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "cz.gravity.noun.exp260908.flower",
@@ -441,7 +529,9 @@
       "targetText": "květina",
       "learnerBaseText": "flower",
       "english": "flower",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "cz.gravity.noun.exp260908.sun",
@@ -450,7 +540,9 @@
       "targetText": "slunce",
       "learnerBaseText": "sun",
       "english": "sun",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "cz.gravity.noun.exp260908.moon",
@@ -459,7 +551,9 @@
       "targetText": "měsíc",
       "learnerBaseText": "moon",
       "english": "moon",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "cz.gravity.noun.exp260908.star",
@@ -468,7 +562,9 @@
       "targetText": "hvězda",
       "learnerBaseText": "star",
       "english": "star",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "cz.gravity.noun.exp260908.cloud",
@@ -477,7 +573,9 @@
       "targetText": "mrak",
       "learnerBaseText": "cloud",
       "english": "cloud",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "cz.gravity.noun.exp260908.rain",
@@ -486,7 +584,9 @@
       "targetText": "déšť",
       "learnerBaseText": "rain",
       "english": "rain",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "cz.gravity.noun.exp260908.snow",
@@ -495,7 +595,9 @@
       "targetText": "sníh",
       "learnerBaseText": "snow",
       "english": "snow",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "cz.gravity.noun.exp260908.pencil",
@@ -504,7 +606,9 @@
       "targetText": "tužka",
       "learnerBaseText": "pencil",
       "english": "pencil",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "cz.gravity.noun.exp260908.crayon",
@@ -513,7 +617,9 @@
       "targetText": "pastelka",
       "learnerBaseText": "crayon",
       "english": "crayon",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "cz.gravity.noun.exp260908.notebook",
@@ -522,7 +628,9 @@
       "targetText": "sešit",
       "learnerBaseText": "notebook",
       "english": "notebook",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "cz.gravity.noun.exp260908.backpack",
@@ -531,7 +639,9 @@
       "targetText": "batoh",
       "learnerBaseText": "backpack",
       "english": "backpack",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "cz.gravity.noun.exp260908.bicycle",
@@ -540,7 +650,9 @@
       "targetText": "jízdní kolo",
       "learnerBaseText": "bicycle",
       "english": "bicycle",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "cz.gravity.noun.exp260908.boat",
@@ -549,7 +661,9 @@
       "targetText": "loď",
       "learnerBaseText": "boat",
       "english": "boat",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "cz.gravity.noun.exp260908.hat",
@@ -558,7 +672,9 @@
       "targetText": "klobouk",
       "learnerBaseText": "hat",
       "english": "hat",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "cz.gravity.noun.exp260908.sock",
@@ -567,7 +683,9 @@
       "targetText": "ponožka",
       "learnerBaseText": "sock",
       "english": "sock",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "cz.gravity.noun.exp260908.shoe",
@@ -576,7 +694,9 @@
       "targetText": "bota",
       "learnerBaseText": "shoe",
       "english": "shoe",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "cz.gravity.noun.exp260908.spoon",
@@ -585,7 +705,9 @@
       "targetText": "lžíce",
       "learnerBaseText": "spoon",
       "english": "spoon",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "cz.gravity.noun.exp260908.plate",
@@ -594,7 +716,9 @@
       "targetText": "talíř",
       "learnerBaseText": "plate",
       "english": "plate",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "cz.gravity.noun.exp260908.cup",
@@ -603,7 +727,9 @@
       "targetText": "hrnek",
       "learnerBaseText": "cup",
       "english": "cup",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "cz.gravity.noun.exp260908.bread",
@@ -612,7 +738,9 @@
       "targetText": "chléb",
       "learnerBaseText": "bread",
       "english": "bread",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 75,
+      "complexity": 21
     },
     {
       "id": "cz.gravity.noun.exp260908.cheese",
@@ -621,7 +749,9 @@
       "targetText": "sýr",
       "learnerBaseText": "cheese",
       "english": "cheese",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "cz.gravity.noun.exp260908.egg",
@@ -630,7 +760,9 @@
       "targetText": "vejce",
       "learnerBaseText": "egg",
       "english": "egg",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "cz.gravity.noun.exp260908.hedgehog",
@@ -639,7 +771,9 @@
       "targetText": "ježek",
       "learnerBaseText": "hedgehog",
       "english": "hedgehog",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "cz.gravity.noun.exp260908.squirrel",
@@ -648,7 +782,9 @@
       "targetText": "veverka",
       "learnerBaseText": "squirrel",
       "english": "squirrel",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "cz.gravity.noun.exp260908.owl",
@@ -657,7 +793,9 @@
       "targetText": "sova",
       "learnerBaseText": "owl",
       "english": "owl",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "cz.gravity.noun.exp260908.turtle",
@@ -666,7 +804,9 @@
       "targetText": "želva",
       "learnerBaseText": "turtle",
       "english": "turtle",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "cz.gravity.noun.exp260908.snail",
@@ -675,7 +815,9 @@
       "targetText": "šnek",
       "learnerBaseText": "snail",
       "english": "snail",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "cz.gravity.noun.exp260908.whale",
@@ -684,7 +826,9 @@
       "targetText": "velryba",
       "learnerBaseText": "whale",
       "english": "whale",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "cz.gravity.noun.exp260908.dolphin",
@@ -693,7 +837,9 @@
       "targetText": "delfín",
       "learnerBaseText": "dolphin",
       "english": "dolphin",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "cz.gravity.noun.exp260908.penguin",
@@ -702,7 +848,9 @@
       "targetText": "tučňák",
       "learnerBaseText": "penguin",
       "english": "penguin",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "cz.gravity.noun.exp260908.nest",
@@ -711,7 +859,9 @@
       "targetText": "hnízdo",
       "learnerBaseText": "nest",
       "english": "nest",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "cz.gravity.noun.exp260908.feather",
@@ -720,7 +870,9 @@
       "targetText": "peříčko",
       "learnerBaseText": "feather",
       "english": "feather",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "cz.gravity.noun.exp260908.seed",
@@ -729,7 +881,9 @@
       "targetText": "semeno",
       "learnerBaseText": "seed",
       "english": "seed",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "cz.gravity.noun.exp260908.root",
@@ -738,7 +892,9 @@
       "targetText": "kořen",
       "learnerBaseText": "root",
       "english": "root",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "cz.gravity.noun.exp260908.branch",
@@ -747,7 +903,9 @@
       "targetText": "větev",
       "learnerBaseText": "branch",
       "english": "branch",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "cz.gravity.noun.exp260908.pond",
@@ -756,7 +914,9 @@
       "targetText": "rybník",
       "learnerBaseText": "pond",
       "english": "pond",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "cz.gravity.noun.exp260908.meadow",
@@ -765,7 +925,9 @@
       "targetText": "louka",
       "learnerBaseText": "meadow",
       "english": "meadow",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "cz.gravity.noun.exp260908.waterfall",
@@ -774,7 +936,9 @@
       "targetText": "vodopád",
       "learnerBaseText": "waterfall",
       "english": "waterfall",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "cz.gravity.noun.exp260908.rainbow",
@@ -783,7 +947,9 @@
       "targetText": "duha",
       "learnerBaseText": "rainbow",
       "english": "rainbow",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "cz.gravity.noun.exp260908.island",
@@ -792,7 +958,9 @@
       "targetText": "ostrov",
       "learnerBaseText": "island",
       "english": "island",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "cz.gravity.noun.exp260908.shell",
@@ -801,7 +969,9 @@
       "targetText": "mušle",
       "learnerBaseText": "shell",
       "english": "shell",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "cz.gravity.noun.exp260908.pebble",
@@ -810,7 +980,9 @@
       "targetText": "oblázek",
       "learnerBaseText": "pebble",
       "english": "pebble",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "cz.gravity.noun.exp260908.puppet",
@@ -819,7 +991,9 @@
       "targetText": "loutka",
       "learnerBaseText": "puppet",
       "english": "puppet",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "cz.gravity.noun.exp260908.costume",
@@ -828,7 +1002,9 @@
       "targetText": "kostým",
       "learnerBaseText": "costume",
       "english": "costume",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "cz.gravity.noun.exp260908.stage",
@@ -837,7 +1013,9 @@
       "targetText": "jeviště",
       "learnerBaseText": "stage",
       "english": "stage",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "cz.gravity.noun.exp260908.drum",
@@ -846,7 +1024,9 @@
       "targetText": "buben",
       "learnerBaseText": "drum",
       "english": "drum",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "cz.gravity.noun.exp260908.flute",
@@ -855,7 +1035,9 @@
       "targetText": "flétna",
       "learnerBaseText": "flute",
       "english": "flute",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "cz.gravity.noun.exp260908.riddle",
@@ -864,7 +1046,9 @@
       "targetText": "hádanka",
       "learnerBaseText": "riddle",
       "english": "riddle",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "cz.gravity.noun.exp260908.compass",
@@ -873,7 +1057,9 @@
       "targetText": "kompas",
       "learnerBaseText": "compass",
       "english": "compass",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "cz.gravity.noun.exp260908.telescope",
@@ -882,7 +1068,9 @@
       "targetText": "dalekohled",
       "learnerBaseText": "telescope",
       "english": "telescope",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "cz.gravity.noun.exp260908.rocket",
@@ -891,7 +1079,9 @@
       "targetText": "raketa",
       "learnerBaseText": "rocket",
       "english": "rocket",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "cz.gravity.noun.exp260908.planet",
@@ -900,7 +1090,9 @@
       "targetText": "planeta",
       "learnerBaseText": "planet",
       "english": "planet",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 54,
+      "complexity": 50
     },
     {
       "id": "cz.gravity.noun.exp260908.patience",
@@ -909,7 +1101,9 @@
       "targetText": "trpělivost",
       "learnerBaseText": "patience",
       "english": "patience",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "cz.gravity.noun.exp260908.kindness",
@@ -918,7 +1112,9 @@
       "targetText": "laskavost",
       "learnerBaseText": "kindness",
       "english": "kindness",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "cz.gravity.noun.exp260908.courage",
@@ -927,7 +1123,9 @@
       "targetText": "odvaha",
       "learnerBaseText": "courage",
       "english": "courage",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "cz.gravity.noun.exp260908.curiosity",
@@ -936,7 +1134,9 @@
       "targetText": "zvědavost",
       "learnerBaseText": "curiosity",
       "english": "curiosity",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "cz.gravity.noun.exp260908.imagination",
@@ -945,7 +1145,9 @@
       "targetText": "představivost",
       "learnerBaseText": "imagination",
       "english": "imagination",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "cz.gravity.noun.exp260908.friendship",
@@ -954,7 +1156,9 @@
       "targetText": "přátelství",
       "learnerBaseText": "friendship",
       "english": "friendship",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 70,
+      "complexity": 34
     },
     {
       "id": "cz.gravity.noun.exp260908.cooperation",
@@ -963,7 +1167,9 @@
       "targetText": "spolupráce",
       "learnerBaseText": "cooperation",
       "english": "cooperation",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "cz.gravity.noun.exp260908.agreement",
@@ -972,7 +1178,9 @@
       "targetText": "dohoda",
       "learnerBaseText": "agreement",
       "english": "agreement",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "cz.gravity.noun.exp260908.difference",
@@ -981,7 +1189,9 @@
       "targetText": "rozdíl",
       "learnerBaseText": "difference",
       "english": "difference",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "cz.gravity.noun.exp260908.similarity",
@@ -990,7 +1200,9 @@
       "targetText": "podobnost",
       "learnerBaseText": "similarity",
       "english": "similarity",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "cz.gravity.noun.exp260908.evidence",
@@ -999,7 +1211,9 @@
       "targetText": "důkaz",
       "learnerBaseText": "evidence",
       "english": "evidence",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "cz.gravity.noun.exp260908.explanation",
@@ -1008,7 +1222,9 @@
       "targetText": "vysvětlení",
       "learnerBaseText": "explanation",
       "english": "explanation",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "cz.gravity.noun.exp260908.solution",
@@ -1017,7 +1233,9 @@
       "targetText": "řešení",
       "learnerBaseText": "solution",
       "english": "solution",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "cz.gravity.noun.exp260908.discovery",
@@ -1026,7 +1244,9 @@
       "targetText": "objev",
       "learnerBaseText": "discovery",
       "english": "discovery",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "cz.gravity.noun.exp260908.invention",
@@ -1035,7 +1255,9 @@
       "targetText": "vynález",
       "learnerBaseText": "invention",
       "english": "invention",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "cz.gravity.noun.exp260908.experiment",
@@ -1044,7 +1266,9 @@
       "targetText": "pokus",
       "learnerBaseText": "experiment",
       "english": "experiment",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "cz.gravity.noun.exp260908.observation",
@@ -1053,7 +1277,9 @@
       "targetText": "pozorování",
       "learnerBaseText": "observation",
       "english": "observation",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "cz.gravity.noun.exp260908.prediction",
@@ -1062,7 +1288,9 @@
       "targetText": "předpověď",
       "learnerBaseText": "prediction",
       "english": "prediction",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "cz.gravity.noun.exp260908.possibility",
@@ -1071,7 +1299,9 @@
       "targetText": "možnost",
       "learnerBaseText": "possibility",
       "english": "possibility",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "cz.gravity.noun.exp260908.responsibility",
@@ -1080,7 +1310,9 @@
       "targetText": "odpovědnost",
       "learnerBaseText": "responsibility",
       "english": "responsibility",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "cz.gravity.noun.exp260908.permission",
@@ -1089,7 +1321,9 @@
       "targetText": "svolení",
       "learnerBaseText": "permission",
       "english": "permission",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "cz.gravity.noun.exp260908.decision",
@@ -1098,7 +1332,9 @@
       "targetText": "rozhodnutí",
       "learnerBaseText": "decision",
       "english": "decision",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "cz.gravity.noun.exp260908.achievement",
@@ -1107,7 +1343,9 @@
       "targetText": "úspěch",
       "learnerBaseText": "achievement",
       "english": "achievement",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "cz.gravity.noun.exp260908.challenge",
@@ -1116,7 +1354,9 @@
       "targetText": "výzva",
       "learnerBaseText": "challenge",
       "english": "challenge",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "cz.gravity.noun.exp260908.effort",
@@ -1125,7 +1365,9 @@
       "targetText": "úsilí",
       "learnerBaseText": "effort",
       "english": "effort",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "cz.gravity.noun.exp260908.balance",
@@ -1134,7 +1376,9 @@
       "targetText": "rovnováha",
       "learnerBaseText": "balance",
       "english": "balance",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 44,
+      "complexity": 41
     },
     {
       "id": "cz.gravity.noun.exp260908.habitat",
@@ -1143,7 +1387,9 @@
       "targetText": "přirozené prostředí",
       "learnerBaseText": "habitat",
       "english": "habitat",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "cz.gravity.noun.exp260908.pollination",
@@ -1152,7 +1398,9 @@
       "targetText": "opylování",
       "learnerBaseText": "pollination",
       "english": "pollination",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "cz.gravity.noun.exp260908.constellation",
@@ -1161,7 +1409,9 @@
       "targetText": "souhvězdí",
       "learnerBaseText": "constellation",
       "english": "constellation",
-      "laneId": "neuter"
+      "laneId": "neuter",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "cz.gravity.noun.exp260908.reflection",
@@ -1170,7 +1420,9 @@
       "targetText": "odraz",
       "learnerBaseText": "reflection",
       "english": "reflection",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     }
   ]
 }

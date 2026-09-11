@@ -1,3 +1,4 @@
+import { normalizeContentProgression, selectContentItems } from "../content-progression.mjs";
 export const CONJUGATION_COMET_CATALOG_SCHEMA = "caatuu-conjugation-comet-catalog-v1";
 
 const CONTENT_ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
@@ -312,6 +313,7 @@ function normalizeForm(form, verbLocation, formIndex, { legacy = false } = {}) {
     { maximum: 320 }
   );
   return {
+    ...normalizeContentProgression(form, location),
     id: contentId(
       legacy
         ? legacyContentId(form.id ?? form.label, "form", formIndex + 1)
@@ -381,6 +383,7 @@ function normalizeVerb(verb, index, { legacy = false } = {}) {
     { maximum: 320 }
   );
   return {
+    ...normalizeContentProgression(verb, location),
     id: contentId(
       legacy
         ? legacyContentId(verb.id ?? targetText, "verb", index + 1)
@@ -779,6 +782,32 @@ function conjugationPairMatches(subject, option) {
  * Repeated conjugations retain separate options so neither strand loses a row.
  * Prefer an unsolved starting alignment whenever a wrong rotation exists.
  */
+/** The complete helix practices every form; its forms contribute review demand and complexity. */
+export function selectConjugationPracticeVerbs(verbs, { difficulty = 3, history = {}, formHistory = {}, random = Math.random, now = Date.now() } = {}) {
+  const combined = {};
+  const candidates = verbs.map(verb => {
+    const forms = verb.forms || [];
+    const progress = [history[verb.id] || {}, ...forms.map(form => formHistory[`${verb.id}.${form.id}`] || {})];
+    combined[verb.id] = { ...progress[0],
+      independentSuccesses: Math.min(...progress.map(item => Number.isSafeInteger(item.independentSuccesses) ? item.independentSuccesses : 0)),
+      spacedSuccesses: Math.min(...progress.map(item => Number.isSafeInteger(item.spacedSuccesses) ? item.spacedSuccesses : 0)),
+      independentDays: Math.min(...progress.map(item => Number.isSafeInteger(item.independentDays) ? item.independentDays : 0)),
+      practiceDays: Math.min(...progress.map(item => Number.isSafeInteger(item.practiceDays) ? item.practiceDays : 0)),
+      lastPracticeDayAt: progress.map(item => item.lastPracticeDayAt || "").sort()[0] || "",
+      intervalMs: Math.min(...progress.map(item => Number(item.intervalMs) || 0)),
+      dueAt: progress.map(item => item.dueAt || "").sort()[0] || "",
+      lastCorrect: progress.some(item => item.lastCorrect === false) ? false : progress[0].lastCorrect,
+      lastSeenAt: progress.map(item => item.lastSeenAt || "").sort()[0] || ""
+    };
+    const grades = [verb, ...forms].map(item => normalizeContentProgression(item));
+    return { ...verb, usefulness: Math.max(...grades.map(item => item.usefulness)),
+      complexity: Math.max(...grades.map(item => item.complexity)) };
+  });
+  const originals = new Map(verbs.map(verb => [verb.id, verb]));
+  return selectContentItems(candidates, { difficulty, history: combined, minimumPool: 4, random, now })
+    .map(item => originals.get(item.id));
+}
+
 export function buildConjugationHelixRound(catalog, verbId, { rng = Math.random } = {}) {
   const current = catalog?.verbs?.find((verb) => verb.id === verbId);
   if (!current || !Array.isArray(current.forms) || current.forms.length < 2 || current.forms.length > 12) {
@@ -792,6 +821,7 @@ export function buildConjugationHelixRound(catalog, verbId, { rng = Math.random 
     const { beforeText, afterText } = normalizeTargetPhraseFrame(form.targetPhraseFrame, `forms.${form.id}.targetPhraseFrame`);
     return {
       subject: {
+        ...normalizeContentProgression(form),
         id: form.id,
         subjectBaseText: form.subjectBaseText || form.learnerBaseCueText,
         learnerBaseText: form.learnerBaseCueText,
@@ -801,7 +831,7 @@ export function buildConjugationHelixRound(catalog, verbId, { rng = Math.random 
         afterText,
         acceptedTargetTexts
       },
-      option: { id: `option-${index + 1}`, text: form.targetText }
+      option: { id: `option-${index + 1}`, text: form.targetText, ...normalizeContentProgression(form) }
     };
   }), rng);
   const size = entries.length;

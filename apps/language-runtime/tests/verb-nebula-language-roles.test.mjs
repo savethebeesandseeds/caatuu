@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
 import * as verbNebulaCore from "../static/source/games/verb-nebula/verb-nebula-core.mjs";
+import * as verbExerciseFamilyCore from "../static/source/games/verb-nebula/verb-exercise-family-core.mjs";
 import { createInterfaceContent } from "../static/source/interface-content.mjs";
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 
@@ -55,6 +56,67 @@ function harness() {
   ].join("\n"), browser.context);
   return { ...browser, state, attempts, searches, feedback, speech };
 }
+
+for (const savedGeneration of ["before-reset", undefined]) {
+  test(`restored Nebula rounds preserve their saved generation (${savedGeneration ?? "legacy unknown"})`, () => {
+    const game = harness();
+    const round = pairs.filter(pair => pair.difficulty === 1).slice(0, 4);
+    const memory = { difficulty: 1, pairCount: 4, roundIds: round.map(pair => pair.id),
+      englishRoundIds: round.map(pair => pair.id), matchedIds: [], contentEncounterId: "saved-encounter",
+      contentGeneration: savedGeneration };
+    const exposures = [];
+    const persisted = [];
+    let generation = "after-reset";
+    game.window.CaatuuLearning = { difficulty: () => 1, contentGeneration: () => generation,
+      recordExposure: (id, event) => exposures.push({ id, ...event }) };
+    Object.assign(game.context, {
+      countryDictionary: rows, readVerbMemory: () => memory, readVerbMemoryEnvelope: () => null,
+      clearVerbSolutionAdvance() {}, persistVerbMemory: value => persisted.push(value),
+      verbExerciseFamilyCore: { ...verbExerciseFamilyCore,
+        migrateVerbMemoryToV3: value => verbExerciseFamilyCore.migrateVerbMemoryToV3(value ? JSON.parse(JSON.stringify(value)) : null) }
+    });
+    vm.runInContext([
+      between("function emptyVerbStats()", "async function initializeVerbGuidedMode"),
+      between("function saveVerbMemory()", "function setVerbMatchFeedback"),
+      between("function applyVerbRound(plan", "async function startVerbRound")
+    ].join("\n"), game.context);
+    game.context.loadVerbMemory();
+    assert.equal(game.state.verbContentEncounterId, "saved-encounter");
+    assert.equal(game.state.verbContentGeneration, savedGeneration ?? null);
+    game.context.recordVerbContentExposure(round[0], true);
+    assert.equal(exposures[0].generation, savedGeneration ?? null);
+    game.context.saveVerbMemory();
+    assert.equal(persisted.at(-1).families.meaning.contentGeneration, savedGeneration ?? null);
+    game.context.applyVerbRound({ round, englishRound: round, queueIds: [] });
+    assert.notEqual(game.state.verbContentEncounterId, "saved-encounter");
+    assert.equal(game.state.verbContentGeneration, generation);
+    generation = "another-reset";
+    game.context.recordVerbContentExposure(round[0], true);
+    assert.equal(exposures[1].generation, "after-reset");
+    assert.equal(persisted.at(-1).families.meaning.contentGeneration, "after-reset");
+  });
+}
+
+test("Nebula remembers a revealed picture and earlier wrong response when classifying practice", () => {
+  const game = harness();
+  const events = [];
+  game.window.CaatuuLearning = { recordExposure: (id, event) => events.push(event) };
+  game.context.recordVerbContentExposure(pairs[0], false);
+  game.context.recordVerbContentExposure(pairs[0], true);
+  assert.equal(events[0].evidence, "independent");
+  assert.equal(events[1].evidence, "assisted");
+  vm.runInContext(between("function renderVerbHintSlot(pair)", "function createVerbMatchCard(pair"), game.context);
+  game.state.verbHintsEnabled = true;
+  game.state.verbHintById.set(pairs[1].id, { status: "ready", assetPath: "/fixture.png" });
+  game.context.renderVerbHintSlot(pairs[1]);
+  game.state.verbHintsEnabled = false;
+  game.context.recordVerbContentExposure(pairs[1], true);
+  assert.equal(events[2].evidence, "assisted", "hiding a shown picture cannot restore independence");
+  game.state.verbSolutionRevealed = true;
+  game.context.recordVerbContentExposure(pairs[2], true);
+  assert.equal(events[3].evidence, "exposure");
+  assert.equal(events[3].correct, null);
+});
 
 test("Spanish-base Verb Nebula renders target/base cards and localized reveal labels", () => {
   const { context, state } = harness();

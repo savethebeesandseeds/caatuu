@@ -63,6 +63,8 @@
     { "source": "apps/language-runtime/static/source/course-service-worker.js", "output": "language-runtime/static/source/course-service-worker.js" },
     { "source": "apps/language-runtime/static/source/games/course-game-content.mjs", "output": "language-runtime/static/source/games/course-game-content.mjs" },
     { "source": "apps/language-runtime/static/source/games/curriculum-progression.mjs", "output": "language-runtime/static/source/games/curriculum-progression.mjs" },
+    { "source": "apps/language-runtime/static/source/games/content-progression.mjs", "output": "language-runtime/static/source/games/content-progression.mjs" },
+    { "source": "apps/language-runtime/static/source/word-world-progression.mjs", "output": "language-runtime/static/source/word-world-progression.mjs" },
     { "source": "apps/language-runtime/static/source/games/embedded-game-controls.mjs", "output": "language-runtime/static/source/games/embedded-game-controls.mjs" },
     { "source": "apps/language-runtime/static/source/games/grammar-gravity/grammar-gravity-core.mjs", "output": "language-runtime/static/source/games/grammar-gravity/grammar-gravity-core.mjs" },
     { "source": "apps/language-runtime/static/source/games/grammar-gravity/grammar-gravity-host.mjs", "output": "language-runtime/static/source/games/grammar-gravity/grammar-gravity-host.mjs" },

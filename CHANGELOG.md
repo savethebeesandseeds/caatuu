@@ -5,6 +5,21 @@ governed beta or stable release.
 
 ## Unreleased
 
+### Android 0.1.22 (174): gradual practice and spaced review
+
+- Keep the three course badges and add finer usefulness and complexity scores
+  across all five courses. Prioritize practical beginner material and include
+  short phrases for basic needs, politeness and comprehension repair.
+- Introduce new material gradually while returning to earlier practice. Track
+  exposure, assistance, independent answers and delayed recall separately,
+  including each game's assessment direction. Same-session repetition no
+  longer advances a fixed three-encounter gate.
+- Preserve learning history through compact storage, reloads, corrections and
+  concurrent tabs. Update the browser courses' offline caches.
+- Scheduling defaults remain subject to calibration. Pending native-language
+  reviews remain recorded; physical-device installation, update, offline use
+  and saved-progress checks are unverified for this candidate.
+
 ### Android 0.1.21 (173): choose a new course once
 
 - Carry the confirmed Home course choice into native setup, so a newly selected

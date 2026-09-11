@@ -24,6 +24,9 @@ import { WordNetBranchQueue } from "./word-net-queue.mjs?v=word-net-queue-6";
 import { localAiAvailability } from "./shell-policy.mjs";
 import { mountRobotLoadingScreen } from "./games/embedded-game-controls.mjs?v=embedded-game-controls-8";
 import { createEnglishImageSearch } from "./english-image-search.mjs?v=english-image-search-3";
+import { newContentEncounterId } from "./games/content-progression.mjs";
+import { progressiveWordWorldSelection, wordWorldProgressionPool,
+  wordWorldEvidenceBank, wordWorldPracticeHistory } from "./word-world-progression.mjs";
 
 let WORD_NET_MODEL_KEY = "";
 let TRANSLATION_MODEL_KEY = "";
@@ -365,6 +368,9 @@ export async function selectStandardTurn(provider, {
         ? provider.getRecordById(id)
         : provider.records?.find((candidate) => recordIdentifier(candidate) === id);
       if (!record || excluded.has(recordIdentifier(record))
+          || (provider.preservesPracticeOrder
+            ? recordIdentifier(record) !== recordIdentifier(deterministic?.record)
+            : provider.canSelectRecord && !provider.canSelectRecord(record, { difficulty, selectedWord }))
           || Math.max(1, Math.floor(Number(record.difficulty) || 1)) > level
           || !recordMatchesSelectedWord(record, selectedWord, searchKey)) continue;
       return {
@@ -498,6 +504,13 @@ const state = {
   currentSceneAsset: null,
   imagesEnabled: true,
   currentEntryId: "",
+  contentEncounterId: "",
+  contentEncounterGeneration: null,
+  contentEncounterCompleted: false,
+  contentEncounterSupported: false,
+  contentEvidenceBanks: new Set(),
+  contentNextPromptSide: "",
+  contentPromptSide: "",
   currentCorpusVersion: "",
   currentDifficulty: null,
   currentStandardRecord: null,
@@ -1832,6 +1845,7 @@ async function restoreSavedGenerativePhraseAtInit() {
     state.currentStandardRecord = null;
     state.currentContentMode = "generative";
     state.currentGenerationSource = saved.source || "history";
+    beginWordWorldEncounter();
     selectWord(saved.word, { lookup: state.translationMode !== "off", render: false });
     setTranslation(saved.en || "");
     renderCzechSentence(saved.sentence, saved.word);
@@ -2178,6 +2192,7 @@ function clearTranslationTimer() {
 }
 
 function markGuidedDictionaryHint() {
+  state.contentEncounterSupported = true;
   if (!state.guidedMode || !state.guidedLifecycle) return true;
   try {
     state.guidedLifecycle.markHint("dictionary-card");
@@ -2528,6 +2543,15 @@ function controllerRecord(record) {
   return converted;
 }
 
+function wordWorldSelectionHistory() {
+  const learning = window.CaatuuLearning;
+  const exposure = learning?.contentHistory?.("word-world", "sentences") || {};
+  if (state.translationMode !== "reconstruct") return wordWorldPracticeHistory(exposure);
+  if (!state.contentNextPromptSide) state.contentNextPromptSide = resolvedChallengePromptSide();
+  return wordWorldPracticeHistory(exposure,
+    learning?.contentHistory?.("word-world", wordWorldEvidenceBank(state.contentNextPromptSide)) || {});
+}
+
 function createControllerSelectionProvider(selectionProvider) {
   if (!selectionProvider || !Array.isArray(selectionProvider.records)
       || typeof selectionProvider.nextRandom !== "function"
@@ -2542,13 +2566,33 @@ function createControllerSelectionProvider(selectionProvider) {
     return { ...selection, record };
   };
   const sourceRecord = (record) => providerRecordSources.get(record) || record;
+  const selectProgressive = (options = {}, selectedWord = "") => progressiveWordWorldSelection(records, {
+    ...options,
+    history: wordWorldSelectionHistory(),
+    selectedWord,
+    matchesWord: (record, word) => recordMatchesSelectedWord(record, word, providerContext?.normalization?.searchKey)
+  });
   return Object.freeze({
     records,
+    preservesPracticeOrder: true,
     corpusVersion: String(selectionProvider.corpusVersion || "unknown"),
     usage: selectionProvider.usage || null,
     difficultyCounts: (...args) => selectionProvider.difficultyCounts(...args),
-    nextRandom: (...args) => adaptSelection(selectionProvider.nextRandom(...args)),
-    nextForWord: (...args) => adaptSelection(selectionProvider.nextForWord(...args)),
+    nextRandom: (options = {}) => {
+      const record = selectProgressive(options);
+      return record ? { record, fallback: false, requestedWord: "" } : null;
+    },
+    nextForWord: (word, options = {}) => {
+      const record = selectProgressive(options, word);
+      if (record) return { record, fallback: false, requestedWord: word };
+      if (options.allowRandomFallback === false) return null;
+      const fallback = selectProgressive(options);
+      return fallback ? { record: fallback, fallback: true, requestedWord: word } : null;
+    },
+    canSelectRecord: (record, options) => wordWorldProgressionPool(records, { ...options,
+      history: wordWorldSelectionHistory(),
+      matchesWord: (candidate, word) => recordMatchesSelectedWord(candidate, word, providerContext?.normalization?.searchKey)
+    }).some(candidate => candidate.id === record.id),
     primaryWord: (record, ...args) => selectionProvider.primaryWord(sourceRecord(record), ...args),
     markUsed: (record) => selectionProvider.markUsed(sourceRecord(record)),
     getRecordById: (id) => byId.get(recordIdentifier(id)) || null,
@@ -2717,6 +2761,7 @@ function setChallengePromptMode(mode) {
     || (sourcePrimaryLanguage !== "en" && mode !== "source")
   ) return;
   state.challengePromptMode = mode;
+  state.contentNextPromptSide = "";
   saveChallengePromptMode();
   syncGenerationControl();
   closeGenerationMenu();
@@ -2860,6 +2905,7 @@ async function showStandardPhrase(selection, {
     state.currentStandardRecord = record;
     state.currentContentMode = "standard";
     state.currentGenerationSource = "standard-corpus";
+    beginWordWorldEncounter();
     selectWord(target, { lookup: false, render: false });
     renderCzechSentence(record.cs, target);
     renderWordGuidedStatus();
@@ -3158,7 +3204,7 @@ function ensureReconstructionChallenge() {
     return null;
   }
   if (state.reconstruction?.key === key) return state.reconstruction;
-  let promptSide = resolvedChallengePromptSide();
+  let promptSide = state.contentPromptSide || resolvedChallengePromptSide();
   let challenge = promptSide === "source"
     ? buildTargetReconstructionChallenge()
     : buildSourceReconstructionChallenge();
@@ -3711,6 +3757,7 @@ async function submitReconstructionChallenge() {
     state.guidedEvidencePending = false;
   }
   round.correct = correct;
+  completeWordWorldExposure(correct, { round });
   const guidedRound = Boolean(round.guidedLifecycle);
   const rewardAvailable = guidedRound ? false : claimSentenceReward(round.key);
   round.awardedXp = round.correct && rewardAvailable ? 3 : 0;
@@ -3789,7 +3836,66 @@ async function activateNextSentence() {
   }
   if (state.busy) return;
   if (shouldBlockReconstructionAdvance()) return;
+  completeWordWorldExposure(null);
   generateFromConfiguredMode(state.generationMode, { force: true });
+}
+
+function beginWordWorldEncounter() {
+  state.reconstruction = null;
+  state.contentEncounterId = state.currentContentMode === "standard" ? newContentEncounterId() : "";
+  state.contentEncounterGeneration = window.CaatuuLearning?.contentGeneration?.() ?? null;
+  state.contentEncounterCompleted = false;
+  state.contentEncounterSupported = state.translationMode !== "reconstruct";
+  state.contentEvidenceBanks = new Set();
+  state.contentPromptSide = state.contentNextPromptSide || resolvedChallengePromptSide();
+  state.contentNextPromptSide = "";
+}
+
+function completeWordWorldExposure(correct, { round = null } = {}) {
+  const learning = window.CaatuuLearning;
+  const assessedBank = round ? wordWorldEvidenceBank(round.promptSide) : "";
+  if (state.currentContentMode !== "standard" || !state.currentEntryId || !state.contentEncounterId
+    || (state.contentEncounterCompleted && (!assessedBank || state.contentEvidenceBanks.has(assessedBank)))
+    || state.contentEncounterGeneration === null
+    || typeof learning?.recordExposure !== "function") return false;
+  const previousExposureAt = learning.contentHistory?.("word-world", "sentences")?.[state.currentEntryId]?.lastSeenAt ?? null;
+  const accepted = learning.recordExposure("word-world", { bankId: "sentences",
+    itemId: state.currentEntryId, encounterId: state.contentEncounterId,
+    generation: state.contentEncounterGeneration, correct, evidence: "exposure" });
+  // A normal return includes encounters retained in memory for a storage retry.
+  // A rejected old generation remains uncounted after another tab resets progress.
+  if (accepted === false) return false;
+  state.contentEncounterCompleted = true;
+  if (assessedBank) {
+    const guidedSupport = round.guidedLifecycle?.state?.();
+    const supported = state.contentEncounterSupported || state.guidedSupportAtFirstResponse
+      || guidedSupport?.hintsUsed || guidedSupport?.solutionRevealed;
+    const assessed = learning.recordExposure("word-world", { bankId: assessedBank,
+      itemId: state.currentEntryId, encounterId: state.contentEncounterId,
+      generation: state.contentEncounterGeneration, correct,
+      previousExposureAt,
+      evidence: supported ? "assisted" : "independent" });
+    if (assessed === false) return false;
+    state.contentEvidenceBanks.add(assessedBank);
+  }
+  return true;
+}
+
+function restartStandardWordWorldAfterReset() {
+  state.contentEncounterId = "";
+  state.contentEncounterGeneration = null;
+  state.contentEncounterCompleted = false;
+  state.contentEvidenceBanks = new Set();
+  state.contentNextPromptSide = "";
+  state.contentPromptSide = "";
+  state.reconstruction = null;
+  state.phraseRequestId += 1;
+  clearTranslationTimer();
+  cancelBackgroundWork();
+  setBusy(false);
+  if (state.contentMode === "standard" && !state.guidedRequested) {
+    void generateStandardFromConfiguredMode("random");
+  }
 }
 
 function claimSentenceReward(rewardKey = currentReconstructionKey()) {
@@ -3802,6 +3908,7 @@ function claimSentenceReward(rewardKey = currentReconstructionKey()) {
 }
 
 function awardTimedRevealXp() {
+  completeWordWorldExposure(null);
   if (!claimSentenceReward()) return false;
   window.CaatuuLearning?.record("word-world", { xp: 1 });
   setStatus(interfaceText("wordworld.translation.revealedxp", {
@@ -3847,6 +3954,7 @@ function applyTranslationMode({ restartTimer = false } = {}) {
   const mode = hasTranslationMode(state.translationMode) ? state.translationMode : "reconstruct";
   if (mode !== state.translationMode) state.translationMode = mode;
   const delayMs = translationModes[mode].delayMs;
+  if (mode !== "reconstruct") state.contentEncounterSupported = true;
 
   state.translationVisible = state.guidedMode ? false : mode === "visible";
   if (state.guidedMode && mode === "visible" && state.currentTranslation && state.guidedLifecycle) {
@@ -3855,7 +3963,8 @@ function applyTranslationMode({ restartTimer = false } = {}) {
   if (restartTimer && isTimedTranslationMode(mode) && Number.isFinite(delayMs) && state.currentTranslation) {
     const guidedLifecycle = state.guidedLifecycle;
     const phraseToken = currentGuidedPhraseToken();
-    state.translationTimerId = window.setTimeout(() => {
+    const timerId = window.setTimeout(() => {
+      if (state.translationTimerId !== timerId || phraseToken !== currentGuidedPhraseToken()) return;
       state.translationTimerId = 0;
       if (document.visibilityState === "hidden") return;
       if (state.guidedMode && guidedLifecycle) {
@@ -3866,6 +3975,7 @@ function applyTranslationMode({ restartTimer = false } = {}) {
       syncTranslationToggle();
       awardTimedRevealXp();
     }, delayMs);
+    state.translationTimerId = timerId;
   }
 
   syncTranslationToggle();
@@ -3959,6 +4069,9 @@ function syncWordTranslation() {
     && state.wordCardPreferences.showCard
     && guidedCardAllowed;
   const details = state.selectedWordDetails;
+  if (visible && !state.wordMeaningLoading && state.selectedWordMeaning) {
+    state.contentEncounterSupported = true;
+  }
   const normalizedSelected = normalizeWord(state.selectedWord).toLocaleLowerCase(targetLocale);
   const normalizedLemma = normalizeWord(details?.lemma).toLocaleLowerCase(targetLocale);
   const metadata = [];
@@ -5217,6 +5330,7 @@ async function showPreviousSentence() {
     return;
   }
 
+  completeWordWorldExposure(null);
   const transitionStartedAt = performance.now();
   cancelBackgroundWork();
   state.generativeTurnActive = false;
@@ -5239,6 +5353,7 @@ async function showPreviousSentence() {
       : null;
     state.currentContentMode = previous.contentMode || "generative";
     state.currentGenerationSource = previous.source || "history";
+    beginWordWorldEncounter();
     if (previous.contentMode !== "standard") {
       state.branchQueue.markUsed(previous.sentence);
       savePreparedQueue();
@@ -5365,6 +5480,7 @@ async function showPreparedPhrase(target, candidate) {
   state.currentStandardRecord = null;
   state.currentContentMode = "generative";
   state.currentGenerationSource = candidate?.source || "unknown";
+  beginWordWorldEncounter();
   hideSceneAsset({ cancel: true });
   setTranslation("");
   renderCzechSentence(sentence, target);
@@ -5783,8 +5899,9 @@ function bindUi() {
     syncRobotLoadingActivity();
   });
   window.addEventListener("caatuu:learning-change", (event) => {
-    if (event.detail?.reason === "progress-reset" && state.guidedRequested) {
-      void restartGuidedWordWorldAfterReset();
+    if (event.detail?.reason === "progress-reset") {
+      if (state.guidedRequested) void restartGuidedWordWorldAfterReset();
+      else restartStandardWordWorldAfterReset();
       return;
     }
     if (event.detail?.reason !== "difficulty") return;
@@ -5816,6 +5933,12 @@ function bindUi() {
           }),
       { tone: "active" }
     );
+  });
+  window.addEventListener("storage", (event) => {
+    const performanceKey = window.CaatuuLearning?.storage?.performanceStorageKey;
+    if (!performanceKey || event.key !== `${performanceKey}.reset` || event.oldValue === event.newValue) return;
+    if (state.guidedRequested) void restartGuidedWordWorldAfterReset();
+    else restartStandardWordWorldAfterReset();
   });
 }
 

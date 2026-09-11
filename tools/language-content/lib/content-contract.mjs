@@ -54,7 +54,9 @@ const ENGLISH_CONCEPT_KEYS = [
   "embeddingText",
   "sceneQuery",
   "topic",
-  "difficulty"
+  "difficulty",
+  "usefulness",
+  "complexity"
 ];
 const TARGET_CATALOG_KEYS = [
   "$schema",
@@ -230,7 +232,7 @@ function validateEnglishConceptCatalog(catalog, issues, { release }) {
       continue;
     }
     scanForbiddenEmbeddingKeys(concept, issues, label);
-    addUnknownAndMissingKeys(issues, concept, ENGLISH_CONCEPT_KEYS, ENGLISH_CONCEPT_KEYS, label, "concepts.shape");
+    addUnknownAndMissingKeys(issues, concept, ENGLISH_CONCEPT_KEYS, ENGLISH_CONCEPT_KEYS.filter(key => !["usefulness", "complexity"].includes(key)), label, "concepts.shape");
     if (typeof concept.id !== "string" || !CONCEPT_ID_PATTERN.test(concept.id)) {
       addIssue(issues, "concepts.id", `${label}.id must be a stable namespaced concept ID.`);
     } else {
@@ -246,8 +248,12 @@ function validateEnglishConceptCatalog(catalog, issues, { release }) {
     if (typeof concept.topic !== "string" || !TOPIC_PATTERN.test(concept.topic)) {
       addIssue(issues, "concepts.shape", `${label}.topic must be a lowercase topic ID.`);
     }
-    if (!Number.isInteger(concept.difficulty) || concept.difficulty < 1 || concept.difficulty > 5) {
-      addIssue(issues, "concepts.shape", `${label}.difficulty must be an integer from 1 to 5.`);
+    if (!Number.isInteger(concept.difficulty) || concept.difficulty < 1 || concept.difficulty > 3) {
+      addIssue(issues, "concepts.shape", `${label}.difficulty must be an integer from 1 to 3.`);
+    }
+    for (const field of ["usefulness", "complexity"]) if (concept[field] !== undefined
+      && (!Number.isInteger(concept[field]) || concept[field] < 1 || concept[field] > 100)) {
+      addIssue(issues, "concepts.shape", `${label}.${field} must be an integer from 1 to 100.`);
     }
   }
   addDuplicateIssues(ids, issues, "concepts.duplicate", "concept ID");

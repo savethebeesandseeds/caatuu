@@ -7,8 +7,18 @@ const authored=JSON.parse(await readFile(new URL('../../languages/czech/content/
 const pack=normalizeGrammarGravityPack(raw,{courseId:'cz'});
 const all=buildGrammarGravityRounds(pack,3,()=>.37);
 test('all original families and compatible additions play through the original three stages',()=>{
-  assert.deepEqual(pack.challenges.slice(0,18),authored.challenges.slice(0,18));
-  assert.equal(all.length,188);
+  const withoutProgression=value=>Array.isArray(value)?value.map(withoutProgression)
+    :value&&typeof value==='object'?Object.fromEntries(Object.entries(value).filter(([key])=>!['usefulness','complexity','urgency','subdifficulty'].includes(key)).map(([key,child])=>[key,withoutProgression(child)])):value;
+  const originalActive=authored.challenges.filter(family=>pack.challenges.some(active=>active.id===family.id));
+  assert.ok(originalActive.length>0);
+  for(const family of originalActive){
+    const active=pack.challenges.find(item=>item.id===family.id);
+    const retained={...active,forms:Object.fromEntries(Object.entries(family.forms).map(([key,form])=>[key,{
+      ...active.forms[key],examples:form.examples.map(example=>active.forms[key].examples.find(item=>item.id===example.id))
+    }]))};
+    assert.deepEqual(withoutProgression(retained),withoutProgression(family));
+  }
+  assert.equal(all.length,pack.challenges.flatMap(family=>Object.values(family.forms).flatMap(form=>form.examples)).length);
   for(const round of all) {
     assert.deepEqual(round.stages,['meaning','category','form']);
     assert.equal(round.flights.length,1);
@@ -16,17 +26,20 @@ test('all original families and compatible additions play through the original t
   }
   assert.equal(pack.curriculum,undefined);
 });
-test('plural forms carry correct categories and syncretic forms occur only once as a choice',()=>{
-  const flights=new Map(all.map(round=>[round.flights[0].targetText,round.flights[0]]));
-  for(const [text,category,answer] of [['noví studenti','masculine-animate','noví'],['nové domy','masculine-inanimate','nové'],['nové knihy','feminine','nové'],['nová auta','neuter','nová']]) {
-    const flight=flights.get(text);
-    assert.equal(flight.categoryId,category); assert.equal(flight.answer,answer);
-    assert.equal(flight.categoryOptions.length,4); assert.equal(new Set(flight.options).size,3);
+test('authored category mapping and repeated form spellings produce one valid answer option',()=>{
+  for(const round of all) {
+    const family=pack.challenges.find(item=>item.id===round.challengeId);
+    const flight=round.flights[0];
+    const axis=(family.axes||pack.axes).find(axis=>family.forms[axis.id].examples.some(example=>example.id===round.id));
+    assert.equal(flight.categoryId,axis.features[(family.gameplay||pack.gameplay).categoryFeature]);
+    assert.equal(flight.answer,family.forms[axis.id].displayForm);
+    assert.deepEqual(new Set(flight.options),new Set(Object.values(family.forms).map(form=>form.displayForm)));
+    assert.equal(flight.options.length,new Set(flight.options).size);
   }
 });
-test('the twelve invariant examples and all teaching notes are preserved outside the active game',()=>{
+test('invariant families stay outside the contrast game and their teaching notes remain owned by the source',()=>{
   const inactive=authored.challenges.filter(f=>!pack.challenges.some(active=>active.id===f.id));
-  assert.deepEqual(inactive.map(f=>f.id).sort(),['cz.agreement.jarni','cz.agreement.moderni']);
-  assert.equal(inactive.flatMap(f=>Object.values(f.forms).flatMap(form=>form.examples)).length,12);
-  assert.equal(Object.keys(authored.teaching).length,200);
+  assert.ok(inactive.length>0);
+  for(const family of inactive)assert.equal(new Set(Object.values(family.forms).map(form=>form.displayForm)).size,1);
+  for(const example of authored.challenges.flatMap(f=>Object.values(f.forms).flatMap(form=>form.examples)))assert.ok(Object.hasOwn(authored.teaching,example.id));
 });

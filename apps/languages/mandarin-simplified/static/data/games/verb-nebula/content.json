@@ -6,7 +6,9 @@
     "source": "be (identity)",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 9
   },
   {
     "id": "zh.verb.you",
@@ -15,7 +17,9 @@
     "source": "have",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 9
   },
   {
     "id": "zh.verb.jiao",
@@ -24,7 +28,9 @@
     "source": "be called",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 24
   },
   {
     "id": "zh.verb.xiang",
@@ -33,7 +39,9 @@
     "source": "want to",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 24
   },
   {
     "id": "zh.verb.neng",
@@ -42,7 +50,9 @@
     "source": "be able to",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 27
   },
   {
     "id": "zh.verb.hui",
@@ -51,7 +61,9 @@
     "source": "know how to",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 27
   },
   {
     "id": "zh.verb.xuyao",
@@ -60,7 +72,9 @@
     "source": "need",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 98,
+    "complexity": 15
   },
   {
     "id": "zh.verb.shuo",
@@ -69,7 +83,9 @@
     "source": "say",
     "difficulty": 1,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 15
   },
   {
     "id": "zh.verb.shuohua",
@@ -78,7 +94,9 @@
     "source": "speak",
     "difficulty": 1,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 15
   },
   {
     "id": "zh.verb.wen",
@@ -87,7 +105,9 @@
     "source": "ask",
     "difficulty": 1,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zh.verb.huida",
@@ -96,7 +116,9 @@
     "source": "answer",
     "difficulty": 1,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zh.verb.gaosu",
@@ -105,7 +127,9 @@
     "source": "tell",
     "difficulty": 1,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.xiexie",
@@ -114,7 +138,9 @@
     "source": "thank",
     "difficulty": 1,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 90,
+    "complexity": 15
   },
   {
     "id": "zh.verb.dadianhua",
@@ -123,7 +149,9 @@
     "source": "make a phone call",
     "difficulty": 1,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 30
   },
   {
     "id": "zh.verb.liaotian",
@@ -132,7 +160,9 @@
     "source": "chat",
     "difficulty": 1,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.xihuan",
@@ -141,7 +171,9 @@
     "source": "like",
     "difficulty": 1,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.kan",
@@ -150,7 +182,9 @@
     "source": "look at",
     "difficulty": 1,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 24
   },
   {
     "id": "zh.verb.ting",
@@ -159,7 +193,9 @@
     "source": "listen",
     "difficulty": 1,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zh.verb.zhidao",
@@ -168,7 +204,9 @@
     "source": "know",
     "difficulty": 1,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 15
   },
   {
     "id": "zh.verb.mingbai",
@@ -177,7 +215,9 @@
     "source": "understand",
     "difficulty": 1,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 98,
+    "complexity": 15
   },
   {
     "id": "zh.verb.jide",
@@ -186,7 +226,9 @@
     "source": "remember",
     "difficulty": 1,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.qu",
@@ -195,7 +237,9 @@
     "source": "go",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 15
   },
   {
     "id": "zh.verb.lai",
@@ -204,7 +248,9 @@
     "source": "come",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 15
   },
   {
     "id": "zh.verb.zoulu",
@@ -213,7 +259,9 @@
     "source": "walk",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "zh.verb.paobu",
@@ -222,7 +270,9 @@
     "source": "run",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.zuoxia",
@@ -231,7 +281,9 @@
     "source": "sit down",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "zh.verb.zhanqilai",
@@ -240,7 +292,9 @@
     "source": "stand up",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "zh.verb.jinqu",
@@ -249,7 +303,9 @@
     "source": "go inside",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 24
   },
   {
     "id": "zh.verb.huilai",
@@ -258,7 +314,9 @@
     "source": "come back",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "zh.verb.chi",
@@ -267,7 +325,9 @@
     "source": "eat",
     "difficulty": 1,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zh.verb.he",
@@ -276,7 +336,9 @@
     "source": "drink",
     "difficulty": 1,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zh.verb.shuijiao",
@@ -285,7 +347,9 @@
     "source": "sleep",
     "difficulty": 1,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zh.verb.qichuang",
@@ -294,7 +358,9 @@
     "source": "get up",
     "difficulty": 1,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "zh.verb.xi",
@@ -303,7 +369,9 @@
     "source": "wash",
     "difficulty": 1,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 21
   },
   {
     "id": "zh.verb.chuanyifu",
@@ -312,7 +380,9 @@
     "source": "get dressed",
     "difficulty": 1,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "zh.verb.dakai",
@@ -321,7 +391,9 @@
     "source": "open",
     "difficulty": 1,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zh.verb.guanshang",
@@ -330,7 +402,9 @@
     "source": "close",
     "difficulty": 1,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zh.verb.deng",
@@ -339,7 +413,9 @@
     "source": "wait",
     "difficulty": 1,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zh.verb.xiuxi",
@@ -348,7 +424,9 @@
     "source": "rest",
     "difficulty": 1,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.mai-buy",
@@ -357,7 +435,9 @@
     "source": "buy",
     "difficulty": 1,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zh.verb.mai-sell",
@@ -366,7 +446,9 @@
     "source": "sell",
     "difficulty": 1,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "zh.verb.fuqian",
@@ -375,7 +457,9 @@
     "source": "pay",
     "difficulty": 1,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zh.verb.diancai",
@@ -384,7 +468,9 @@
     "source": "order food",
     "difficulty": 1,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 88,
+    "complexity": 24
   },
   {
     "id": "zh.verb.zuofan",
@@ -393,7 +479,9 @@
     "source": "cook",
     "difficulty": 1,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 21
   },
   {
     "id": "zh.verb.chang-taste",
@@ -402,7 +490,9 @@
     "source": "taste",
     "difficulty": 1,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 65,
+    "complexity": 26
   },
   {
     "id": "zh.verb.xuanze",
@@ -411,7 +501,9 @@
     "source": "choose",
     "difficulty": 1,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.xuexi",
@@ -420,7 +512,9 @@
     "source": "study",
     "difficulty": 1,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 73,
+    "complexity": 21
   },
   {
     "id": "zh.verb.du",
@@ -429,7 +523,9 @@
     "source": "read",
     "difficulty": 1,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zh.verb.xie",
@@ -438,7 +534,9 @@
     "source": "write",
     "difficulty": 1,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zh.verb.zuozuoye",
@@ -447,7 +545,9 @@
     "source": "do homework",
     "difficulty": 1,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 29
   },
   {
     "id": "zh.verb.hua",
@@ -456,7 +556,9 @@
     "source": "draw",
     "difficulty": 1,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 62,
+    "complexity": 29
   },
   {
     "id": "zh.verb.changge",
@@ -465,7 +567,9 @@
     "source": "sing",
     "difficulty": 1,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "zh.verb.gongzuo",
@@ -474,7 +578,9 @@
     "source": "work",
     "difficulty": 1,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zh.verb.bangzhu",
@@ -483,7 +589,9 @@
     "source": "help",
     "difficulty": 1,
     "category": "community-help-safety",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 99,
+    "complexity": 15
   },
   {
     "id": "zh.verb.zhaogu",
@@ -492,7 +600,9 @@
     "source": "care for",
     "difficulty": 1,
     "category": "community-help-safety",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 24
   },
   {
     "id": "zh.verb.zhuyi",
@@ -501,7 +611,9 @@
     "source": "pay attention",
     "difficulty": 1,
     "category": "community-help-safety",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 81,
+    "complexity": 32
   },
   {
     "id": "zh.verb.baohu",
@@ -510,7 +622,9 @@
     "source": "protect",
     "difficulty": 1,
     "category": "community-help-safety",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "zh.verb.dazi",
@@ -519,7 +633,9 @@
     "source": "type",
     "difficulty": 1,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "zh.verb.baocun",
@@ -528,7 +644,9 @@
     "source": "save a file",
     "difficulty": 1,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 61,
+    "complexity": 44
   },
   {
     "id": "zh.verb.denglu",
@@ -537,7 +655,9 @@
     "source": "sign in",
     "difficulty": 1,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 24
   },
   {
     "id": "zh.verb.keyi",
@@ -546,7 +666,9 @@
     "source": "may",
     "difficulty": 2,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 21
   },
   {
     "id": "zh.verb.yinggai",
@@ -555,7 +677,9 @@
     "source": "should",
     "difficulty": 2,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 21
   },
   {
     "id": "zh.verb.bixu",
@@ -564,7 +688,9 @@
     "source": "must",
     "difficulty": 2,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 21
   },
   {
     "id": "zh.verb.shuyu",
@@ -573,7 +699,9 @@
     "source": "belong to",
     "difficulty": 2,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 41
   },
   {
     "id": "zh.verb.jieshao",
@@ -582,7 +710,9 @@
     "source": "introduce",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.jieshi",
@@ -591,7 +721,9 @@
     "source": "explain",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 21
   },
   {
     "id": "zh.verb.taolun",
@@ -600,7 +732,9 @@
     "source": "discuss",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.tongyi",
@@ -609,7 +743,9 @@
     "source": "agree",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 46
   },
   {
     "id": "zh.verb.butongyi",
@@ -618,7 +754,9 @@
     "source": "disagree",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 46
   },
   {
     "id": "zh.verb.yaoqing",
@@ -627,7 +765,9 @@
     "source": "invite",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.jianyi",
@@ -636,7 +776,9 @@
     "source": "suggest",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 46
   },
   {
     "id": "zh.verb.lianxi-contact",
@@ -645,7 +787,9 @@
     "source": "contact",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 72,
+    "complexity": 27
   },
   {
     "id": "zh.verb.zhuhe",
@@ -654,7 +798,9 @@
     "source": "congratulate",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "zh.verb.daoqian",
@@ -663,7 +809,9 @@
     "source": "apologize",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "zh.verb.kanjian",
@@ -672,7 +820,9 @@
     "source": "see",
     "difficulty": 2,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zh.verb.tingjian",
@@ -681,7 +831,9 @@
     "source": "hear",
     "difficulty": 2,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zh.verb.juede",
@@ -690,7 +842,9 @@
     "source": "feel that",
     "difficulty": 2,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "zh.verb.renwei",
@@ -699,7 +853,9 @@
     "source": "think that",
     "difficulty": 2,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "zh.verb.wangji",
@@ -708,7 +864,9 @@
     "source": "forget",
     "difficulty": 2,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.xuehui",
@@ -717,7 +875,9 @@
     "source": "learn how to",
     "difficulty": 2,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 73,
+    "complexity": 27
   },
   {
     "id": "zh.verb.faxian",
@@ -726,7 +886,9 @@
     "source": "discover",
     "difficulty": 2,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "zh.verb.jiancha",
@@ -735,7 +897,9 @@
     "source": "check",
     "difficulty": 2,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.zhuyidao",
@@ -744,7 +908,9 @@
     "source": "notice",
     "difficulty": 2,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "zh.verb.chufa",
@@ -753,7 +919,9 @@
     "source": "set off",
     "difficulty": 2,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "zh.verb.daoda",
@@ -762,7 +930,9 @@
     "source": "arrive",
     "difficulty": 2,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.likai",
@@ -771,7 +941,9 @@
     "source": "leave",
     "difficulty": 2,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.shangche",
@@ -780,7 +952,9 @@
     "source": "get on a vehicle",
     "difficulty": 2,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 90,
+    "complexity": 31
   },
   {
     "id": "zh.verb.xiache",
@@ -789,7 +963,9 @@
     "source": "get off a vehicle",
     "difficulty": 2,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 30
   },
   {
     "id": "zh.verb.huancheng",
@@ -798,7 +974,9 @@
     "source": "transfer on public transit",
     "difficulty": 2,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 90,
+    "complexity": 31
   },
   {
     "id": "zh.verb.guomalu",
@@ -807,7 +985,9 @@
     "source": "cross the street",
     "difficulty": 2,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 81,
+    "complexity": 27
   },
   {
     "id": "zh.verb.canguan",
@@ -816,7 +996,9 @@
     "source": "visit a place",
     "difficulty": 2,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 32
   },
   {
     "id": "zh.verb.sanbu",
@@ -825,7 +1007,9 @@
     "source": "take a walk",
     "difficulty": 2,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 34
   },
   {
     "id": "zh.verb.shuaya",
@@ -834,7 +1018,9 @@
     "source": "brush teeth",
     "difficulty": 2,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "zh.verb.xizao",
@@ -843,7 +1029,9 @@
     "source": "take a bath or shower",
     "difficulty": 2,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 43
   },
   {
     "id": "zh.verb.shutou",
@@ -852,7 +1040,9 @@
     "source": "comb hair",
     "difficulty": 2,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 88,
+    "complexity": 27
   },
   {
     "id": "zh.verb.dasao",
@@ -861,7 +1051,9 @@
     "source": "clean",
     "difficulty": 2,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 21
   },
   {
     "id": "zh.verb.zhengli",
@@ -870,7 +1062,9 @@
     "source": "tidy up",
     "difficulty": 2,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "zh.verb.liangyifu",
@@ -879,7 +1073,9 @@
     "source": "hang clothes to dry",
     "difficulty": 2,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 37
   },
   {
     "id": "zh.verb.gouwu",
@@ -888,7 +1084,9 @@
     "source": "shop",
     "difficulty": 2,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 81,
+    "complexity": 21
   },
   {
     "id": "zh.verb.duanlian",
@@ -897,7 +1095,9 @@
     "source": "exercise",
     "difficulty": 2,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.banjia",
@@ -906,7 +1106,9 @@
     "source": "move house",
     "difficulty": 2,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 77,
+    "complexity": 24
   },
   {
     "id": "zh.verb.yuding",
@@ -915,7 +1117,9 @@
     "source": "make a reservation",
     "difficulty": 2,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 83,
+    "complexity": 31
   },
   {
     "id": "zh.verb.jiezhang",
@@ -924,7 +1128,9 @@
     "source": "pay the bill",
     "difficulty": 2,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 81,
+    "complexity": 31
   },
   {
     "id": "zh.verb.tuihuo",
@@ -933,7 +1139,9 @@
     "source": "return a purchase",
     "difficulty": 2,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 27
   },
   {
     "id": "zh.verb.huanhuo",
@@ -942,7 +1150,9 @@
     "source": "exchange a purchase",
     "difficulty": 2,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 47
   },
   {
     "id": "zh.verb.shichuan",
@@ -951,7 +1161,9 @@
     "source": "try on clothes",
     "difficulty": 2,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 90,
+    "complexity": 28
   },
   {
     "id": "zh.verb.dabao",
@@ -960,7 +1172,9 @@
     "source": "pack food to go",
     "difficulty": 2,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 88,
+    "complexity": 30
   },
   {
     "id": "zh.verb.jiare",
@@ -969,7 +1183,9 @@
     "source": "heat up",
     "difficulty": 2,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "zh.verb.hongbei",
@@ -978,7 +1194,9 @@
     "source": "bake",
     "difficulty": 2,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.fuxi",
@@ -987,7 +1205,9 @@
     "source": "review",
     "difficulty": 2,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.lianxi-practice",
@@ -996,7 +1216,9 @@
     "source": "practice",
     "difficulty": 2,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 73,
+    "complexity": 21
   },
   {
     "id": "zh.verb.zhunbei",
@@ -1005,7 +1227,9 @@
     "source": "prepare",
     "difficulty": 2,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 26
   },
   {
     "id": "zh.verb.wancheng",
@@ -1014,7 +1238,9 @@
     "source": "complete a task",
     "difficulty": 2,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 32
   },
   {
     "id": "zh.verb.kaishi",
@@ -1023,7 +1249,9 @@
     "source": "begin",
     "difficulty": 2,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.jieshu",
@@ -1032,7 +1260,9 @@
     "source": "end an activity",
     "difficulty": 2,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 35
   },
   {
     "id": "zh.verb.jiao-teach",
@@ -1041,7 +1271,9 @@
     "source": "teach",
     "difficulty": 2,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.sheji",
@@ -1050,7 +1282,9 @@
     "source": "design",
     "difficulty": 2,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "zh.verb.zhizuo",
@@ -1059,7 +1293,9 @@
     "source": "make something",
     "difficulty": 2,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 24
   },
   {
     "id": "zh.verb.xiuli",
@@ -1068,7 +1304,9 @@
     "source": "repair",
     "difficulty": 2,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 21
   },
   {
     "id": "zh.verb.hezuo",
@@ -1077,7 +1315,9 @@
     "source": "cooperate",
     "difficulty": 2,
     "category": "community-help-safety",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 42
   },
   {
     "id": "zh.verb.fenxiang",
@@ -1086,7 +1326,9 @@
     "source": "share",
     "difficulty": 2,
     "category": "community-help-safety",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.paidui",
@@ -1095,7 +1337,9 @@
     "source": "queue up",
     "difficulty": 2,
     "category": "community-help-safety",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 32
   },
   {
     "id": "zh.verb.zunshou",
@@ -1104,7 +1348,9 @@
     "source": "follow rules",
     "difficulty": 2,
     "category": "community-help-safety",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 44
   },
   {
     "id": "zh.verb.tixing",
@@ -1113,7 +1359,9 @@
     "source": "remind",
     "difficulty": 2,
     "category": "community-help-safety",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "zh.verb.xiazai",
@@ -1122,7 +1370,9 @@
     "source": "download",
     "difficulty": 2,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 61,
+    "complexity": 46
   },
   {
     "id": "zh.verb.shangchuan",
@@ -1131,7 +1381,9 @@
     "source": "upload",
     "difficulty": 2,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 61,
+    "complexity": 46
   },
   {
     "id": "zh.verb.sousuo",
@@ -1140,7 +1392,9 @@
     "source": "search",
     "difficulty": 2,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.zhuce",
@@ -1149,7 +1403,9 @@
     "source": "register",
     "difficulty": 2,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 57,
+    "complexity": 46
   },
   {
     "id": "zh.verb.yuyue",
@@ -1158,7 +1414,9 @@
     "source": "make an appointment",
     "difficulty": 2,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 57,
+    "complexity": 27
   },
   {
     "id": "zh.verb.tianxie",
@@ -1167,7 +1425,9 @@
     "source": "fill in a form",
     "difficulty": 2,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 30
   },
   {
     "id": "zh.verb.zhide",
@@ -1176,7 +1436,9 @@
     "source": "be worth",
     "difficulty": 3,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 32
   },
   {
     "id": "zh.verb.qujueyu",
@@ -1185,7 +1447,9 @@
     "source": "depend on",
     "difficulty": 3,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 90,
+    "complexity": 42
   },
   {
     "id": "zh.verb.chengqing",
@@ -1194,7 +1458,9 @@
     "source": "clarify",
     "difficulty": 3,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "zh.verb.zongjie",
@@ -1203,7 +1469,9 @@
     "source": "summarize",
     "difficulty": 3,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "zh.verb.miaoshu",
@@ -1212,7 +1480,9 @@
     "source": "describe",
     "difficulty": 3,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.biaoda",
@@ -1221,7 +1491,9 @@
     "source": "express",
     "difficulty": 3,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.xieshang",
@@ -1230,7 +1502,9 @@
     "source": "negotiate",
     "difficulty": 3,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 63
   },
   {
     "id": "zh.verb.guli",
@@ -1239,7 +1513,9 @@
     "source": "encourage",
     "difficulty": 3,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "zh.verb.jujue",
@@ -1248,7 +1524,9 @@
     "source": "refuse",
     "difficulty": 3,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.bijiao",
@@ -1257,7 +1535,9 @@
     "source": "compare",
     "difficulty": 3,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "zh.verb.fenxi",
@@ -1266,7 +1546,9 @@
     "source": "analyze",
     "difficulty": 3,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "zh.verb.panduan",
@@ -1275,7 +1557,9 @@
     "source": "make a judgment",
     "difficulty": 3,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 27
   },
   {
     "id": "zh.verb.jueding",
@@ -1284,7 +1568,9 @@
     "source": "decide",
     "difficulty": 3,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "zh.verb.jihua",
@@ -1293,7 +1579,9 @@
     "source": "plan",
     "difficulty": 3,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.yuce",
@@ -1302,7 +1590,9 @@
     "source": "predict",
     "difficulty": 3,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "zh.verb.jiejue",
@@ -1311,7 +1601,9 @@
     "source": "solve",
     "difficulty": 3,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "zh.verb.gaijin",
@@ -1320,7 +1612,9 @@
     "source": "improve",
     "difficulty": 3,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 26
   },
   {
     "id": "zh.verb.shiying",
@@ -1329,7 +1623,9 @@
     "source": "adapt",
     "difficulty": 3,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "zh.verb.daohang",
@@ -1338,7 +1634,9 @@
     "source": "navigate",
     "difficulty": 3,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.raoxing",
@@ -1347,7 +1645,9 @@
     "source": "take a detour",
     "difficulty": 3,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 35
   },
   {
     "id": "zh.verb.yanwu",
@@ -1356,7 +1656,9 @@
     "source": "delay",
     "difficulty": 3,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 83,
+    "complexity": 25
   },
   {
     "id": "zh.verb.tongqin",
@@ -1365,7 +1667,9 @@
     "source": "commute",
     "difficulty": 3,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.baoyang",
@@ -1374,7 +1678,9 @@
     "source": "maintain",
     "difficulty": 3,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.buzhi",
@@ -1383,7 +1689,9 @@
     "source": "set up a room",
     "difficulty": 3,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 44
   },
   {
     "id": "zh.verb.fenlei",
@@ -1392,7 +1700,9 @@
     "source": "sort into groups",
     "difficulty": 3,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 90,
+    "complexity": 28
   },
   {
     "id": "zh.verb.huishou",
@@ -1401,7 +1711,9 @@
     "source": "recycle",
     "difficulty": 3,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.bijia",
@@ -1410,7 +1722,9 @@
     "source": "compare prices",
     "difficulty": 3,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 81,
+    "complexity": 49
   },
   {
     "id": "zh.verb.tuikuan",
@@ -1419,7 +1733,9 @@
     "source": "request a refund",
     "difficulty": 3,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 31
   },
   {
     "id": "zh.verb.tousu",
@@ -1428,7 +1744,9 @@
     "source": "make a complaint",
     "difficulty": 3,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 27
   },
   {
     "id": "zh.verb.peisong",
@@ -1437,7 +1755,9 @@
     "source": "deliver an order",
     "difficulty": 3,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 32
   },
   {
     "id": "zh.verb.yusuan",
@@ -1446,7 +1766,9 @@
     "source": "make a budget",
     "difficulty": 3,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 57,
+    "complexity": 27
   },
   {
     "id": "zh.verb.yanjiu",
@@ -1455,7 +1777,9 @@
     "source": "research",
     "difficulty": 3,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.bianji",
@@ -1464,7 +1788,9 @@
     "source": "edit",
     "difficulty": 3,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "zh.verb.xiugai",
@@ -1473,7 +1799,9 @@
     "source": "revise",
     "difficulty": 3,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.shenqing",
@@ -1482,7 +1810,9 @@
     "source": "apply for something",
     "difficulty": 3,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 27
   },
   {
     "id": "zh.verb.anpai",
@@ -1491,7 +1821,9 @@
     "source": "arrange",
     "difficulty": 3,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "zh.verb.guanli",
@@ -1500,7 +1832,9 @@
     "source": "manage",
     "difficulty": 3,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.zuzhi",
@@ -1509,7 +1843,9 @@
     "source": "organize",
     "difficulty": 3,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 26
   },
   {
     "id": "zh.verb.jilu",
@@ -1518,7 +1854,9 @@
     "source": "record",
     "difficulty": 3,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "zh.verb.pinggu",
@@ -1527,7 +1865,9 @@
     "source": "evaluate",
     "difficulty": 3,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "zh.verb.chuangzuo",
@@ -1536,7 +1876,9 @@
     "source": "create original work",
     "difficulty": 3,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 77,
+    "complexity": 27
   },
   {
     "id": "zh.verb.zuozhiyuanzhe",
@@ -1545,7 +1887,9 @@
     "source": "volunteer",
     "difficulty": 3,
     "category": "community-help-safety",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "zh.verb.zhichi",
@@ -1554,7 +1898,9 @@
     "source": "support",
     "difficulty": 3,
     "category": "community-help-safety",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "zh.verb.zunzhong",
@@ -1563,7 +1909,9 @@
     "source": "respect",
     "difficulty": 3,
     "category": "community-help-safety",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "zh.verb.tiaojie",
@@ -1572,7 +1920,9 @@
     "source": "mediate",
     "difficulty": 3,
     "category": "community-help-safety",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "zh.verb.gengxin",
@@ -1581,7 +1931,9 @@
     "source": "update",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 72,
+    "complexity": 27
   },
   {
     "id": "zh.verb.beifen",
@@ -1590,7 +1942,9 @@
     "source": "back up",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 32
   },
   {
     "id": "zh.verb.yanzheng",
@@ -1599,7 +1953,9 @@
     "source": "verify",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "zh.verb.xuding",
@@ -1608,7 +1964,9 @@
     "source": "renew a subscription",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 35
   },
   {
     "id": "zh.verb.zhuanzhang",
@@ -1617,7 +1975,9 @@
     "source": "transfer money",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 81,
+    "complexity": 39
   },
   {
     "id": "zh.verb.exp260908.jump",
@@ -1626,7 +1986,9 @@
     "target": "跳",
     "source": "jump",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "zh.verb.exp260908.swim",
@@ -1635,7 +1997,9 @@
     "target": "游泳",
     "source": "swim",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "zh.verb.exp260908.dance",
@@ -1644,7 +2008,9 @@
     "target": "跳舞",
     "source": "dance",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 62,
+    "complexity": 29
   },
   {
     "id": "zh.verb.exp260908.smile",
@@ -1653,7 +2019,9 @@
     "target": "微笑",
     "source": "smile",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.exp260908.laugh",
@@ -1662,7 +2030,9 @@
     "target": "笑",
     "source": "laugh",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.exp260908.cry",
@@ -1671,7 +2041,9 @@
     "target": "哭",
     "source": "cry",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.exp260908.count",
@@ -1680,7 +2052,9 @@
     "target": "数",
     "source": "count",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 73,
+    "complexity": 21
   },
   {
     "id": "zh.verb.exp260908.touch",
@@ -1689,7 +2063,9 @@
     "target": "摸",
     "source": "touch",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.exp260908.hold",
@@ -1698,7 +2074,9 @@
     "target": "拿着",
     "source": "hold",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.exp260908.carry",
@@ -1707,7 +2085,9 @@
     "target": "搬",
     "source": "carry",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.exp260908.give",
@@ -1716,7 +2096,9 @@
     "target": "给",
     "source": "give",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zh.verb.exp260908.sit",
@@ -1725,7 +2107,9 @@
     "target": "坐",
     "source": "sit",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.exp260908.stand",
@@ -1734,7 +2118,9 @@
     "target": "站",
     "source": "stand",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.exp260908.wake-up",
@@ -1743,7 +2129,9 @@
     "target": "醒来",
     "source": "wake up",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "zh.verb.exp260908.fly",
@@ -1752,7 +2140,9 @@
     "target": "飞",
     "source": "fly",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "zh.verb.exp260908.grow",
@@ -1761,7 +2151,9 @@
     "target": "生长",
     "source": "grow",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 65,
+    "complexity": 26
   },
   {
     "id": "zh.verb.exp260908.smell",
@@ -1770,7 +2162,9 @@
     "target": "闻",
     "source": "smell",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 65,
+    "complexity": 26
   },
   {
     "id": "zh.verb.exp260908.hug",
@@ -1779,7 +2173,9 @@
     "target": "拥抱",
     "source": "hug",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "zh.verb.exp260908.wave",
@@ -1788,7 +2184,9 @@
     "target": "挥手",
     "source": "wave",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "zh.verb.exp260908.clap",
@@ -1797,7 +2195,9 @@
     "target": "鼓掌",
     "source": "clap",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "zh.verb.exp260908.kick",
@@ -1806,7 +2206,9 @@
     "target": "踢",
     "source": "kick",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "zh.verb.exp260908.catch",
@@ -1815,7 +2217,9 @@
     "target": "接住",
     "source": "catch",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.exp260908.throw",
@@ -1824,7 +2228,9 @@
     "target": "扔",
     "source": "throw",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.exp260908.crawl",
@@ -1833,7 +2239,9 @@
     "target": "爬",
     "source": "crawl",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "zh.verb.exp260908.whisper",
@@ -1842,7 +2250,9 @@
     "target": "小声说",
     "source": "whisper",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "zh.verb.exp260908.shout",
@@ -1851,7 +2261,9 @@
     "target": "喊",
     "source": "shout",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "zh.verb.exp260908.hum",
@@ -1860,7 +2272,9 @@
     "target": "哼",
     "source": "hum",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "zh.verb.exp260908.whistle",
@@ -1869,7 +2283,9 @@
     "target": "吹口哨",
     "source": "whistle",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "zh.verb.exp260908.bark",
@@ -1878,7 +2294,9 @@
     "target": "吠",
     "source": "bark",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "zh.verb.exp260908.meow",
@@ -1887,7 +2305,9 @@
     "target": "喵喵叫",
     "source": "meow",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "zh.verb.exp260908.hop",
@@ -1896,7 +2316,9 @@
     "target": "单脚跳",
     "source": "hop",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "zh.verb.exp260908.slide",
@@ -1905,7 +2327,9 @@
     "target": "滑",
     "source": "slide",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "zh.verb.exp260908.roll",
@@ -1914,7 +2338,9 @@
     "target": "滚动",
     "source": "roll",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "zh.verb.exp260908.float",
@@ -1923,7 +2349,9 @@
     "target": "漂浮",
     "source": "float",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "zh.verb.exp260908.splash",
@@ -1932,7 +2360,9 @@
     "target": "泼水",
     "source": "splash",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "zh.verb.exp260908.bounce",
@@ -1941,7 +2371,9 @@
     "target": "弹跳",
     "source": "bounce",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "zh.verb.exp260908.fold",
@@ -1950,7 +2382,9 @@
     "target": "折叠",
     "source": "fold",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "zh.verb.exp260908.unfold",
@@ -1959,7 +2393,9 @@
     "target": "展开",
     "source": "unfold",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "zh.verb.exp260908.decorate",
@@ -1968,7 +2404,9 @@
     "target": "装饰",
     "source": "decorate",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "zh.verb.exp260908.glue",
@@ -1977,7 +2415,9 @@
     "target": "粘贴",
     "source": "glue",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "zh.verb.exp260908.weave",
@@ -1986,7 +2426,9 @@
     "target": "编织",
     "source": "weave",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "zh.verb.exp260908.knead",
@@ -1995,7 +2437,9 @@
     "target": "揉",
     "source": "knead",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "zh.verb.exp260908.stir",
@@ -2004,7 +2448,9 @@
     "target": "搅拌",
     "source": "stir",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 78,
+    "complexity": 23
   },
   {
     "id": "zh.verb.exp260908.pour",
@@ -2013,7 +2459,9 @@
     "target": "倒",
     "source": "pour",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 78,
+    "complexity": 23
   },
   {
     "id": "zh.verb.exp260908.peel",
@@ -2022,7 +2470,9 @@
     "target": "削皮",
     "source": "peel",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 78,
+    "complexity": 23
   },
   {
     "id": "zh.verb.exp260908.water",
@@ -2031,7 +2481,9 @@
     "target": "浇水",
     "source": "water",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 98,
+    "complexity": 15
   },
   {
     "id": "zh.verb.exp260908.sprout",
@@ -2040,7 +2492,9 @@
     "target": "发芽",
     "source": "sprout",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "zh.verb.exp260908.bloom",
@@ -2049,7 +2503,9 @@
     "target": "开花",
     "source": "bloom",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "zh.verb.exp260908.collect",
@@ -2058,7 +2514,9 @@
     "target": "收集",
     "source": "collect",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "zh.verb.exp260908.measure",
@@ -2067,7 +2525,9 @@
     "target": "测量",
     "source": "measure",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "zh.verb.exp260908.weigh",
@@ -2076,7 +2536,9 @@
     "target": "称重",
     "source": "weigh",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "zh.verb.exp260908.guess",
@@ -2085,7 +2547,9 @@
     "target": "猜",
     "source": "guess",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "zh.verb.exp260908.explore",
@@ -2094,7 +2558,9 @@
     "target": "探索",
     "source": "explore",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "zh.verb.exp260908.imagine",
@@ -2103,7 +2569,9 @@
     "target": "想象",
     "source": "imagine",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "zh.verb.exp260908.pretend",
@@ -2112,7 +2580,9 @@
     "target": "假装",
     "source": "pretend",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "zh.verb.exp260908.celebrate",
@@ -2121,7 +2591,9 @@
     "target": "庆祝",
     "source": "celebrate",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "zh.verb.exp260908.welcome",
@@ -2130,7 +2602,9 @@
     "target": "欢迎",
     "source": "welcome",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zh.verb.exp260908.cheer",
@@ -2139,7 +2613,9 @@
     "target": "加油",
     "source": "cheer",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "zh.verb.exp260908.forgive",
@@ -2148,7 +2624,9 @@
     "target": "原谅",
     "source": "forgive",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "zh.verb.exp260908.comfort",
@@ -2157,7 +2635,9 @@
     "target": "安慰",
     "source": "comfort",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "zh.verb.exp260908.promise",
@@ -2166,7 +2646,9 @@
     "target": "承诺",
     "source": "promise",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "zh.verb.exp260908.balance",
@@ -2175,7 +2657,9 @@
     "target": "保持平衡",
     "source": "balance",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "zh.verb.exp260908.persuade",
@@ -2184,7 +2668,9 @@
     "target": "说服",
     "source": "persuade",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 60
   },
   {
     "id": "zh.verb.exp260908.reassure",
@@ -2193,7 +2679,9 @@
     "target": "宽慰",
     "source": "reassure",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "zh.verb.exp260908.appreciate",
@@ -2202,7 +2690,9 @@
     "target": "欣赏",
     "source": "appreciate",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "zh.verb.exp260908.admire",
@@ -2211,7 +2701,9 @@
     "target": "钦佩",
     "source": "admire",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "zh.verb.exp260908.wonder",
@@ -2220,7 +2712,9 @@
     "target": "纳闷",
     "source": "wonder",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "zh.verb.exp260908.reflect",
@@ -2229,7 +2723,9 @@
     "target": "反思",
     "source": "reflect",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 60
   },
   {
     "id": "zh.verb.exp260908.concentrate",
@@ -2238,7 +2734,9 @@
     "target": "专心",
     "source": "concentrate",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "zh.verb.exp260908.persevere",
@@ -2247,7 +2745,9 @@
     "target": "坚持",
     "source": "persevere",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "zh.verb.exp260908.hesitate",
@@ -2256,7 +2756,9 @@
     "target": "犹豫",
     "source": "hesitate",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "zh.verb.exp260908.anticipate",
@@ -2265,7 +2767,9 @@
     "target": "预料",
     "source": "anticipate",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "zh.verb.exp260908.investigate",
@@ -2274,7 +2778,9 @@
     "target": "调查",
     "source": "investigate",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "zh.verb.exp260908.observe",
@@ -2283,7 +2789,9 @@
     "target": "观察",
     "source": "observe",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "zh.verb.exp260908.distinguish",
@@ -2292,7 +2800,9 @@
     "target": "区分",
     "source": "distinguish",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "zh.verb.exp260908.estimate",
@@ -2301,7 +2811,9 @@
     "target": "估计",
     "source": "estimate",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "zh.verb.exp260908.interpret",
@@ -2310,7 +2822,9 @@
     "target": "解读",
     "source": "interpret",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "zh.verb.exp260908.justify",
@@ -2319,7 +2833,9 @@
     "target": "论证",
     "source": "justify",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 63
   },
   {
     "id": "zh.verb.exp260908.demonstrate",
@@ -2328,7 +2844,9 @@
     "target": "演示",
     "source": "demonstrate",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "zh.verb.exp260908.invent",
@@ -2337,7 +2855,9 @@
     "target": "发明",
     "source": "invent",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "zh.verb.exp260908.transform",
@@ -2346,7 +2866,9 @@
     "target": "转变",
     "source": "transform",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "zh.verb.exp260908.combine",
@@ -2355,7 +2877,9 @@
     "target": "结合",
     "source": "combine",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "zh.verb.exp260908.restore",
@@ -2364,7 +2888,9 @@
     "target": "恢复",
     "source": "restore",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "zh.verb.exp260908.contribute",
@@ -2373,7 +2899,9 @@
     "target": "贡献",
     "source": "contribute",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "zh.verb.exp260908.include",
@@ -2382,7 +2910,9 @@
     "target": "包含",
     "source": "include",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "zh.verb.m260908.002",
@@ -2391,7 +2921,9 @@
     "source": "take; pick up",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 23
   },
   {
     "id": "zh.verb.m260908.003",
@@ -2400,7 +2932,9 @@
     "source": "put; place",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.004",
@@ -2409,7 +2943,9 @@
     "source": "look for",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 24
   },
   {
     "id": "zh.verb.m260908.005",
@@ -2418,7 +2954,9 @@
     "source": "bring; take along",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.006",
@@ -2427,7 +2965,9 @@
     "source": "use",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.m260908.007",
@@ -2436,7 +2976,9 @@
     "source": "do; make",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 17
   },
   {
     "id": "zh.verb.m260908.008",
@@ -2445,7 +2987,9 @@
     "source": "play",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 62,
+    "complexity": 21
   },
   {
     "id": "zh.verb.m260908.011",
@@ -2454,7 +2998,9 @@
     "source": "enter",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.012",
@@ -2463,7 +3009,9 @@
     "source": "exit; come out",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 83,
+    "complexity": 33
   },
   {
     "id": "zh.verb.m260908.013",
@@ -2472,7 +3020,9 @@
     "source": "return; go back",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.014",
@@ -2481,7 +3031,9 @@
     "source": "give as a gift; deliver",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 45
   },
   {
     "id": "zh.verb.m260908.015",
@@ -2490,7 +3042,9 @@
     "source": "borrow",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 21
   },
   {
     "id": "zh.verb.m260908.016",
@@ -2499,7 +3053,9 @@
     "source": "return something borrowed",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 27
   },
   {
     "id": "zh.verb.m260908.017",
@@ -2508,7 +3064,9 @@
     "source": "wear; put on clothing",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.018",
@@ -2517,7 +3075,9 @@
     "source": "take off clothing",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 80,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.019",
@@ -2526,7 +3086,9 @@
     "source": "wear an accessory",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 27
   },
   {
     "id": "zh.verb.m260908.020",
@@ -2535,7 +3097,9 @@
     "source": "put away; collect in",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 32
   },
   {
     "id": "zh.verb.m260908.021",
@@ -2544,7 +3108,9 @@
     "source": "wipe",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.022",
@@ -2553,7 +3119,9 @@
     "source": "push",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "zh.verb.m260908.023",
@@ -2562,7 +3130,9 @@
     "source": "pull",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "zh.verb.m260908.024",
@@ -2571,7 +3141,9 @@
     "source": "carry by a handle",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 30
   },
   {
     "id": "zh.verb.m260908.025",
@@ -2580,7 +3152,9 @@
     "source": "hold in one's arms",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 31
   },
   {
     "id": "zh.verb.m260908.026",
@@ -2589,7 +3163,9 @@
     "source": "pat; tap",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.027",
@@ -2598,7 +3174,9 @@
     "source": "blow air",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "zh.verb.m260908.028",
@@ -2607,7 +3185,9 @@
     "source": "cook in water",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 88,
+    "complexity": 27
   },
   {
     "id": "zh.verb.m260908.029",
@@ -2616,7 +3196,9 @@
     "source": "stop moving",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "zh.verb.m260908.030",
@@ -2625,7 +3207,9 @@
     "source": "try",
     "difficulty": 1,
     "category": "everyday-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.m260908.031",
@@ -2634,7 +3218,9 @@
     "source": "love",
     "difficulty": 1,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 34
   },
   {
     "id": "zh.verb.m260908.032",
@@ -2643,7 +3229,9 @@
     "source": "fear; be afraid of",
     "difficulty": 1,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 42
   },
   {
     "id": "zh.verb.m260908.034",
@@ -2652,7 +3240,9 @@
     "source": "tell; speak about",
     "difficulty": 1,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.038",
@@ -2661,7 +3251,9 @@
     "source": "nod",
     "difficulty": 1,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "zh.verb.m260908.039",
@@ -2670,7 +3262,9 @@
     "source": "shake one's head",
     "difficulty": 1,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 30
   },
   {
     "id": "zh.verb.m260908.040",
@@ -2679,7 +3273,9 @@
     "source": "skip rope",
     "difficulty": 1,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 34
   },
   {
     "id": "zh.verb.m260908.041",
@@ -2688,7 +3284,9 @@
     "source": "ride",
     "difficulty": 1,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.m260908.042",
@@ -2697,7 +3295,9 @@
     "source": "squat down",
     "difficulty": 1,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "zh.verb.m260908.043",
@@ -2706,7 +3306,9 @@
     "source": "lie down",
     "difficulty": 1,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "zh.verb.m260908.045",
@@ -2715,7 +3317,9 @@
     "source": "bend at the waist",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 30
   },
   {
     "id": "zh.verb.m260908.046",
@@ -2724,7 +3328,9 @@
     "source": "turn around",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "zh.verb.m260908.047",
@@ -2733,7 +3339,9 @@
     "source": "march in place",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 27
   },
   {
     "id": "zh.verb.m260908.048",
@@ -2742,7 +3350,9 @@
     "source": "stand on tiptoe",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 90,
+    "complexity": 28
   },
   {
     "id": "zh.verb.m260908.049",
@@ -2751,7 +3361,9 @@
     "source": "step across",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "zh.verb.m260908.050",
@@ -2760,7 +3372,9 @@
     "source": "take a step",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 35
   },
   {
     "id": "zh.verb.m260908.051",
@@ -2769,7 +3383,9 @@
     "source": "ice skate",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 65,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.052",
@@ -2778,7 +3394,9 @@
     "source": "ski",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "zh.verb.m260908.053",
@@ -2787,7 +3405,9 @@
     "source": "row a boat",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 34
   },
   {
     "id": "zh.verb.m260908.055",
@@ -2796,7 +3416,9 @@
     "source": "glide along a surface",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 38
   },
   {
     "id": "zh.verb.m260908.056",
@@ -2805,7 +3427,9 @@
     "source": "glide through the air",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 38
   },
   {
     "id": "zh.verb.m260908.057",
@@ -2814,7 +3438,9 @@
     "source": "rotate",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.058",
@@ -2823,7 +3449,9 @@
     "source": "swing back and forth",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.059",
@@ -2832,7 +3460,9 @@
     "source": "rock; sway unsteadily",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.060",
@@ -2841,7 +3471,9 @@
     "source": "play a stringed or keyboard instrument",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 62,
+    "complexity": 35
   },
   {
     "id": "zh.verb.m260908.061",
@@ -2850,7 +3482,9 @@
     "source": "perform music",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 62,
+    "complexity": 32
   },
   {
     "id": "zh.verb.m260908.062",
@@ -2859,7 +3493,9 @@
     "source": "read aloud",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 73,
+    "complexity": 24
   },
   {
     "id": "zh.verb.m260908.063",
@@ -2868,7 +3504,9 @@
     "source": "recite expressively",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "zh.verb.m260908.064",
@@ -2877,7 +3515,9 @@
     "source": "rehearse",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "zh.verb.m260908.065",
@@ -2886,7 +3526,9 @@
     "source": "perform for an audience",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 30
   },
   {
     "id": "zh.verb.m260908.066",
@@ -2895,7 +3537,9 @@
     "source": "accompany with music",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 62,
+    "complexity": 27
   },
   {
     "id": "zh.verb.m260908.067",
@@ -2904,7 +3548,9 @@
     "source": "sing in a choir",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 30
   },
   {
     "id": "zh.verb.m260908.068",
@@ -2913,7 +3559,9 @@
     "source": "knock; tap on",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.069",
@@ -2922,7 +3570,9 @@
     "source": "toss",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.071",
@@ -2931,7 +3581,9 @@
     "source": "leap; bounce up",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.072",
@@ -2940,7 +3592,9 @@
     "source": "chase; try to catch up",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.073",
@@ -2949,7 +3603,9 @@
     "source": "hide oneself",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "zh.verb.m260908.074",
@@ -2958,7 +3614,9 @@
     "source": "crawl through a narrow space",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 38
   },
   {
     "id": "zh.verb.m260908.075",
@@ -2967,7 +3625,9 @@
     "source": "cross over",
     "difficulty": 2,
     "category": "play-movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "zh.verb.m260908.076",
@@ -2976,7 +3636,9 @@
     "source": "plant; cultivate",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 65,
+    "complexity": 34
   },
   {
     "id": "zh.verb.m260908.077",
@@ -2985,7 +3647,9 @@
     "source": "sow seeds",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 41
   },
   {
     "id": "zh.verb.m260908.078",
@@ -2994,7 +3658,9 @@
     "source": "transplant",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.079",
@@ -3003,7 +3669,9 @@
     "source": "loosen soil",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 41
   },
   {
     "id": "zh.verb.m260908.080",
@@ -3012,7 +3680,9 @@
     "source": "pull weeds",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.081",
@@ -3021,7 +3691,9 @@
     "source": "pick fruit or flowers",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 32
   },
   {
     "id": "zh.verb.m260908.082",
@@ -3030,7 +3702,9 @@
     "source": "harvest",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "zh.verb.m260908.083",
@@ -3039,7 +3713,9 @@
     "source": "feed",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 65,
+    "complexity": 26
   },
   {
     "id": "zh.verb.m260908.084",
@@ -3048,7 +3724,9 @@
     "source": "hatch",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.085",
@@ -3057,7 +3735,9 @@
     "source": "build a nest",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.086",
@@ -3066,7 +3746,9 @@
     "source": "peck",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.087",
@@ -3075,7 +3757,9 @@
     "source": "gnaw; nibble",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 48,
+    "complexity": 45
   },
   {
     "id": "zh.verb.m260908.088",
@@ -3084,7 +3768,9 @@
     "source": "lick",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "zh.verb.m260908.090",
@@ -3093,7 +3779,9 @@
     "source": "stroke gently",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 31
   },
   {
     "id": "zh.verb.m260908.092",
@@ -3102,7 +3790,9 @@
     "source": "be in full bloom",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 30
   },
   {
     "id": "zh.verb.m260908.093",
@@ -3111,7 +3801,9 @@
     "source": "freeze into ice",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 90,
+    "complexity": 28
   },
   {
     "id": "zh.verb.m260908.094",
@@ -3120,7 +3812,9 @@
     "source": "melt",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "zh.verb.m260908.095",
@@ -3129,7 +3823,9 @@
     "source": "flow; circulate",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.096",
@@ -3138,7 +3834,9 @@
     "source": "drift down",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 32
   },
   {
     "id": "zh.verb.m260908.097",
@@ -3147,7 +3845,9 @@
     "source": "rain",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.m260908.098",
@@ -3156,7 +3856,9 @@
     "source": "snow",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.m260908.099",
@@ -3165,7 +3867,9 @@
     "source": "emit light",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.100",
@@ -3174,7 +3878,9 @@
     "source": "twinkle; flicker",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.101",
@@ -3183,7 +3889,9 @@
     "source": "illuminate",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.102",
@@ -3192,7 +3900,9 @@
     "source": "block from view or light",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 35
   },
   {
     "id": "zh.verb.m260908.103",
@@ -3201,7 +3911,9 @@
     "source": "appear",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "zh.verb.m260908.104",
@@ -3210,7 +3922,9 @@
     "source": "disappear",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "zh.verb.m260908.105",
@@ -3219,7 +3933,9 @@
     "source": "fall; descend",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.106",
@@ -3228,7 +3944,9 @@
     "source": "rise into view",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 90,
+    "complexity": 28
   },
   {
     "id": "zh.verb.m260908.107",
@@ -3237,7 +3955,9 @@
     "source": "dry or warm in the sun",
     "difficulty": 2,
     "category": "nature-care",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 36
   },
   {
     "id": "zh.verb.m260908.108",
@@ -3246,7 +3966,9 @@
     "source": "squeeze",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.109",
@@ -3255,7 +3977,9 @@
     "source": "twist; wring",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 47
   },
   {
     "id": "zh.verb.m260908.110",
@@ -3264,7 +3988,9 @@
     "source": "rub between the hands",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 30
   },
   {
     "id": "zh.verb.m260908.111",
@@ -3273,7 +3999,9 @@
     "source": "rub back and forth",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 38
   },
   {
     "id": "zh.verb.m260908.112",
@@ -3282,7 +4010,9 @@
     "source": "pinch; shape with fingers",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.113",
@@ -3291,7 +4021,9 @@
     "source": "roll out dough",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 34
   },
   {
     "id": "zh.verb.m260908.114",
@@ -3300,7 +4032,9 @@
     "source": "sift",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.115",
@@ -3309,7 +4043,9 @@
     "source": "steam food",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 88,
+    "complexity": 32
   },
   {
     "id": "zh.verb.m260908.116",
@@ -3318,7 +4054,9 @@
     "source": "bake; roast",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.117",
@@ -3327,7 +4065,9 @@
     "source": "mix ingredients together",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 27
   },
   {
     "id": "zh.verb.m260908.118",
@@ -3336,7 +4076,9 @@
     "source": "serve food into a container",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 88,
+    "complexity": 32
   },
   {
     "id": "zh.verb.m260908.119",
@@ -3345,7 +4087,9 @@
     "source": "scoop with a ladle",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 30
   },
   {
     "id": "zh.verb.m260908.120",
@@ -3354,7 +4098,9 @@
     "source": "dip into sauce or liquid",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 90,
+    "complexity": 36
   },
   {
     "id": "zh.verb.m260908.121",
@@ -3363,7 +4109,9 @@
     "source": "drain off liquid",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 35
   },
   {
     "id": "zh.verb.m260908.122",
@@ -3372,7 +4120,9 @@
     "source": "soak",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.123",
@@ -3381,7 +4131,9 @@
     "source": "rinse",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.125",
@@ -3390,7 +4142,9 @@
     "source": "sand; polish a surface",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.126",
@@ -3399,7 +4153,9 @@
     "source": "sew",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "zh.verb.m260908.127",
@@ -3408,7 +4164,9 @@
     "source": "embroider",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "zh.verb.m260908.128",
@@ -3417,7 +4175,9 @@
     "source": "mend with stitches",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 27
   },
   {
     "id": "zh.verb.m260908.129",
@@ -3426,7 +4186,9 @@
     "source": "piece together",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 24
   },
   {
     "id": "zh.verb.m260908.130",
@@ -3435,7 +4197,9 @@
     "source": "fold; stack",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 39
   },
   {
     "id": "zh.verb.m260908.131",
@@ -3444,7 +4208,9 @@
     "source": "bundle; tie together",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.132",
@@ -3453,7 +4219,9 @@
     "source": "tie; fasten",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 39
   },
   {
     "id": "zh.verb.m260908.133",
@@ -3462,7 +4230,9 @@
     "source": "tie a knot or bow",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 45
   },
   {
     "id": "zh.verb.m260908.134",
@@ -3471,7 +4241,9 @@
     "source": "hang something",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 24
   },
   {
     "id": "zh.verb.m260908.135",
@@ -3480,7 +4252,9 @@
     "source": "hang out to dry",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.137",
@@ -3489,7 +4263,9 @@
     "source": "iron clothing",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 80,
+    "complexity": 26
   },
   {
     "id": "zh.verb.m260908.138",
@@ -3498,7 +4274,9 @@
     "source": "cover; put a lid on",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.139",
@@ -3507,7 +4285,9 @@
     "source": "fasten a button or clasp",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 40
   },
   {
     "id": "zh.verb.m260908.140",
@@ -3516,7 +4296,9 @@
     "source": "lock",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 80,
+    "complexity": 23
   },
   {
     "id": "zh.verb.m260908.141",
@@ -3525,7 +4307,9 @@
     "source": "take apart",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "zh.verb.m260908.142",
@@ -3534,7 +4318,9 @@
     "source": "assemble",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "zh.verb.m260908.143",
@@ -3543,7 +4329,9 @@
     "source": "install",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.144",
@@ -3552,7 +4340,9 @@
     "source": "dismantle",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.145",
@@ -3561,7 +4351,9 @@
     "source": "tidy; clear away",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.147",
@@ -3570,7 +4362,9 @@
     "source": "clear out; clean up",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 40
   },
   {
     "id": "zh.verb.m260908.148",
@@ -3579,7 +4373,9 @@
     "source": "arrange an exhibition",
     "difficulty": 2,
     "category": "home-craft",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 32
   },
   {
     "id": "zh.verb.m260908.149",
@@ -3588,7 +4384,9 @@
     "source": "keep company",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.151",
@@ -3597,7 +4395,9 @@
     "source": "praise",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.153",
@@ -3606,7 +4406,9 @@
     "source": "send greetings",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "zh.verb.m260908.154",
@@ -3615,7 +4417,9 @@
     "source": "say farewell",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "zh.verb.m260908.155",
@@ -3624,7 +4428,9 @@
     "source": "visit someone",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 24
   },
   {
     "id": "zh.verb.m260908.156",
@@ -3633,7 +4439,9 @@
     "source": "meet by chance",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 27
   },
   {
     "id": "zh.verb.m260908.157",
@@ -3642,7 +4450,9 @@
     "source": "get to know; recognize a person",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 35
   },
   {
     "id": "zh.verb.m260908.158",
@@ -3651,7 +4461,9 @@
     "source": "hear about",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 24
   },
   {
     "id": "zh.verb.m260908.159",
@@ -3660,7 +4472,9 @@
     "source": "inquire",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.160",
@@ -3669,7 +4483,9 @@
     "source": "ask a question",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 73,
+    "complexity": 27
   },
   {
     "id": "zh.verb.m260908.161",
@@ -3678,7 +4494,9 @@
     "source": "raise a hand",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 32
   },
   {
     "id": "zh.verb.m260908.162",
@@ -3687,7 +4505,9 @@
     "source": "lift; raise",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 34
   },
   {
     "id": "zh.verb.m260908.163",
@@ -3696,7 +4516,9 @@
     "source": "pass along",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.164",
@@ -3705,7 +4527,9 @@
     "source": "hand over",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "zh.verb.m260908.165",
@@ -3714,7 +4538,9 @@
     "source": "exchange with one another",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 30
   },
   {
     "id": "zh.verb.m260908.166",
@@ -3723,7 +4549,9 @@
     "source": "discuss to reach a decision",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 48
   },
   {
     "id": "zh.verb.m260908.167",
@@ -3732,7 +4560,9 @@
     "source": "take part",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "zh.verb.m260908.168",
@@ -3741,7 +4571,9 @@
     "source": "sign up for an activity",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 31
   },
   {
     "id": "zh.verb.m260908.169",
@@ -3750,7 +4582,9 @@
     "source": "vote",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.170",
@@ -3759,7 +4593,9 @@
     "source": "rotate roles",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "zh.verb.m260908.171",
@@ -3768,7 +4604,9 @@
     "source": "divide equally",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "zh.verb.m260908.172",
@@ -3777,7 +4615,9 @@
     "source": "make a concession",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 27
   },
   {
     "id": "zh.verb.m260908.173",
@@ -3786,7 +4626,9 @@
     "source": "yield courteously",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "zh.verb.m260908.174",
@@ -3795,7 +4637,9 @@
     "source": "show understanding for",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 27
   },
   {
     "id": "zh.verb.m260908.175",
@@ -3804,7 +4648,9 @@
     "source": "trust",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 34
   },
   {
     "id": "zh.verb.m260908.176",
@@ -3813,7 +4659,9 @@
     "source": "worry",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 34
   },
   {
     "id": "zh.verb.m260908.177",
@@ -3822,7 +4670,9 @@
     "source": "look forward to",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 41
   },
   {
     "id": "zh.verb.m260908.178",
@@ -3831,7 +4681,9 @@
     "source": "hope",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 51
   },
   {
     "id": "zh.verb.m260908.179",
@@ -3840,7 +4692,9 @@
     "source": "comprehend",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.180",
@@ -3849,7 +4703,9 @@
     "source": "think carefully",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "zh.verb.m260908.181",
@@ -3858,7 +4714,9 @@
     "source": "consider",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 46
   },
   {
     "id": "zh.verb.m260908.182",
@@ -3867,7 +4725,9 @@
     "source": "reason logically",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 49
   },
   {
     "id": "zh.verb.m260908.183",
@@ -3876,7 +4736,9 @@
     "source": "infer",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "zh.verb.m260908.184",
@@ -3885,7 +4747,9 @@
     "source": "conjecture",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.185",
@@ -3894,7 +4758,9 @@
     "source": "hypothesize",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "zh.verb.m260908.186",
@@ -3903,7 +4769,9 @@
     "source": "test against a standard",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 30
   },
   {
     "id": "zh.verb.m260908.187",
@@ -3912,7 +4780,9 @@
     "source": "check against a record",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 30
   },
   {
     "id": "zh.verb.m260908.188",
@@ -3921,7 +4791,9 @@
     "source": "prove",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 46
   },
   {
     "id": "zh.verb.m260908.189",
@@ -3930,7 +4802,9 @@
     "source": "confirm with evidence",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 44
   },
   {
     "id": "zh.verb.m260908.190",
@@ -3939,7 +4813,9 @@
     "source": "confirm",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "zh.verb.m260908.191",
@@ -3948,7 +4824,9 @@
     "source": "identify; recognize",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.193",
@@ -3957,7 +4835,9 @@
     "source": "tell apart",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "zh.verb.m260908.194",
@@ -3966,7 +4846,9 @@
     "source": "generalize from examples",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 27
   },
   {
     "id": "zh.verb.m260908.195",
@@ -3975,7 +4857,9 @@
     "source": "sum up the main points",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 39
   },
   {
     "id": "zh.verb.m260908.196",
@@ -3984,7 +4868,9 @@
     "source": "distill essential points",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 16,
+    "complexity": 59
   },
   {
     "id": "zh.verb.m260908.197",
@@ -3993,7 +4879,9 @@
     "source": "associate ideas",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "zh.verb.m260908.198",
@@ -4002,7 +4890,9 @@
     "source": "envisage",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.199",
@@ -4011,7 +4901,9 @@
     "source": "conceive a plan or story",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 35
   },
   {
     "id": "zh.verb.m260908.200",
@@ -4020,7 +4912,9 @@
     "source": "weigh up carefully",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.201",
@@ -4029,7 +4923,9 @@
     "source": "examine one's own conduct",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 31
   },
   {
     "id": "zh.verb.m260908.202",
@@ -4038,7 +4934,9 @@
     "source": "grasp an insight",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 35
   },
   {
     "id": "zh.verb.m260908.203",
@@ -4047,7 +4945,9 @@
     "source": "recall memories",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.204",
@@ -4056,7 +4956,9 @@
     "source": "look back over",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 27
   },
   {
     "id": "zh.verb.m260908.205",
@@ -4065,7 +4967,9 @@
     "source": "retell",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.206",
@@ -4074,7 +4978,9 @@
     "source": "report what someone else said",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 36
   },
   {
     "id": "zh.verb.m260908.207",
@@ -4083,7 +4989,9 @@
     "source": "quote; cite",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.208",
@@ -4092,7 +5000,9 @@
     "source": "give an example",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 35
   },
   {
     "id": "zh.verb.m260908.209",
@@ -4101,7 +5011,9 @@
     "source": "supplement; add missing information",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.210",
@@ -4110,7 +5022,9 @@
     "source": "correct an error",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 90,
+    "complexity": 28
   },
   {
     "id": "zh.verb.m260908.212",
@@ -4119,7 +5033,9 @@
     "source": "annotate; label",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.213",
@@ -4128,7 +5044,9 @@
     "source": "state in a note",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 30
   },
   {
     "id": "zh.verb.m260908.214",
@@ -4137,7 +5055,9 @@
     "source": "omit",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.215",
@@ -4146,7 +5066,9 @@
     "source": "retain",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.216",
@@ -4155,7 +5077,9 @@
     "source": "cut down written content",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 73,
+    "complexity": 40
   },
   {
     "id": "zh.verb.m260908.217",
@@ -4164,7 +5088,9 @@
     "source": "expand in scope",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 27
   },
   {
     "id": "zh.verb.m260908.218",
@@ -4173,7 +5099,9 @@
     "source": "extend",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.219",
@@ -4182,7 +5110,9 @@
     "source": "simplify",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.220",
@@ -4191,7 +5121,9 @@
     "source": "make more detailed",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 27
   },
   {
     "id": "zh.verb.m260908.221",
@@ -4200,7 +5132,9 @@
     "source": "rewrite",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.222",
@@ -4209,7 +5143,9 @@
     "source": "continue a piece of writing",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 73,
+    "complexity": 31
   },
   {
     "id": "zh.verb.m260908.223",
@@ -4218,7 +5154,9 @@
     "source": "polish writing",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 73,
+    "complexity": 24
   },
   {
     "id": "zh.verb.m260908.224",
@@ -4227,7 +5165,9 @@
     "source": "translate",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "zh.verb.m260908.225",
@@ -4236,7 +5176,9 @@
     "source": "imitate",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "zh.verb.m260908.226",
@@ -4245,7 +5187,9 @@
     "source": "interpret through performance",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 52
   },
   {
     "id": "zh.verb.m260908.227",
@@ -4254,7 +5198,9 @@
     "source": "explain in detail",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 27
   },
   {
     "id": "zh.verb.m260908.228",
@@ -4263,7 +5209,9 @@
     "source": "propose",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.229",
@@ -4272,7 +5220,9 @@
     "source": "debate",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.230",
@@ -4281,7 +5231,9 @@
     "source": "question a claim",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 73,
+    "complexity": 35
   },
   {
     "id": "zh.verb.m260908.231",
@@ -4290,7 +5242,9 @@
     "source": "ask a follow-up question",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 73,
+    "complexity": 31
   },
   {
     "id": "zh.verb.m260908.232",
@@ -4299,7 +5253,9 @@
     "source": "respond",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.233",
@@ -4308,7 +5264,9 @@
     "source": "listen attentively",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "zh.verb.m260908.234",
@@ -4317,7 +5275,9 @@
     "source": "misunderstand",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.235",
@@ -4326,7 +5286,9 @@
     "source": "make up for",
     "difficulty": 3,
     "category": "thinking-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 41
   },
   {
     "id": "zh.verb.m260908.236",
@@ -4335,7 +5297,9 @@
     "source": "adjust",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "zh.verb.m260908.237",
@@ -4344,7 +5308,9 @@
     "source": "formulate a plan",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 27
   },
   {
     "id": "zh.verb.m260908.238",
@@ -4353,7 +5319,9 @@
     "source": "implement",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "zh.verb.m260908.240",
@@ -4362,7 +5330,9 @@
     "source": "carry out instructions",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 41
   },
   {
     "id": "zh.verb.m260908.241",
@@ -4371,7 +5341,9 @@
     "source": "allocate",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "zh.verb.m260908.242",
@@ -4380,7 +5352,9 @@
     "source": "coordinate",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "zh.verb.m260908.243",
@@ -4389,7 +5363,9 @@
     "source": "work in concert with",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 77,
+    "complexity": 30
   },
   {
     "id": "zh.verb.m260908.244",
@@ -4398,7 +5374,9 @@
     "source": "plan as a whole",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 84,
+    "complexity": 31
   },
   {
     "id": "zh.verb.m260908.245",
@@ -4407,7 +5385,9 @@
     "source": "make preparations for",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 27
   },
   {
     "id": "zh.verb.m260908.247",
@@ -4416,7 +5396,9 @@
     "source": "display",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.248",
@@ -4425,7 +5407,9 @@
     "source": "present; make visible",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 37
   },
   {
     "id": "zh.verb.m260908.250",
@@ -4434,7 +5418,9 @@
     "source": "apply in practice",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 73,
+    "complexity": 27
   },
   {
     "id": "zh.verb.m260908.251",
@@ -4443,7 +5429,9 @@
     "source": "make use of",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 27
   },
   {
     "id": "zh.verb.m260908.252",
@@ -4452,7 +5440,9 @@
     "source": "use less of; conserve",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 35
   },
   {
     "id": "zh.verb.m260908.253",
@@ -4461,7 +5451,9 @@
     "source": "reduce",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "zh.verb.m260908.254",
@@ -4470,7 +5462,9 @@
     "source": "increase",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "zh.verb.m260908.255",
@@ -4479,7 +5473,9 @@
     "source": "accumulate gradually",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 44
   },
   {
     "id": "zh.verb.m260908.256",
@@ -4488,7 +5484,9 @@
     "source": "store",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zh.verb.m260908.257",
@@ -4497,7 +5495,9 @@
     "source": "keep safe; look after property",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 85,
+    "complexity": 32
   },
   {
     "id": "zh.verb.m260908.258",
@@ -4506,7 +5506,9 @@
     "source": "keep in good working order",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 77,
+    "complexity": 31
   },
   {
     "id": "zh.verb.m260908.259",
@@ -4515,7 +5517,9 @@
     "source": "restore something damaged",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 27
   },
   {
     "id": "zh.verb.m260908.260",
@@ -4524,7 +5528,9 @@
     "source": "remodel",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "zh.verb.m260908.261",
@@ -4533,7 +5539,9 @@
     "source": "replace with an alternative",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 35
   },
   {
     "id": "zh.verb.m260908.262",
@@ -4542,7 +5550,9 @@
     "source": "cycle; circulate repeatedly",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 34,
+    "complexity": 56
   },
   {
     "id": "zh.verb.m260908.263",
@@ -4551,7 +5561,9 @@
     "source": "break down into parts",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 90,
+    "complexity": 31
   },
   {
     "id": "zh.verb.m260908.264",
@@ -4560,7 +5572,9 @@
     "source": "blend into a whole",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 90,
+    "complexity": 31
   },
   {
     "id": "zh.verb.m260908.265",
@@ -4569,7 +5583,9 @@
     "source": "connect",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "zh.verb.m260908.266",
@@ -4578,7 +5594,9 @@
     "source": "link stages smoothly",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 72,
+    "complexity": 33
   },
   {
     "id": "zh.verb.m260908.267",
@@ -4587,7 +5605,9 @@
     "source": "convert",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "zh.verb.m260908.268",
@@ -4596,7 +5616,9 @@
     "source": "convey",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "zh.verb.m260908.269",
@@ -4605,7 +5627,9 @@
     "source": "spread information or ideas",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 40
   },
   {
     "id": "zh.verb.m260908.270",
@@ -4614,7 +5638,9 @@
     "source": "attract",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "zh.verb.m260908.271",
@@ -4623,7 +5649,9 @@
     "source": "inspire understanding",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 46
   },
   {
     "id": "zh.verb.m260908.272",
@@ -4632,7 +5660,9 @@
     "source": "arouse interest or energy",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 57
   },
   {
     "id": "zh.verb.m260908.273",
@@ -4641,7 +5671,9 @@
     "source": "develop a skill or habit",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 55
   },
   {
     "id": "zh.verb.m260908.274",
@@ -4650,7 +5682,9 @@
     "source": "guide",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "zh.verb.m260908.275",
@@ -4659,7 +5693,9 @@
     "source": "promote; further",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 49
   },
   {
     "id": "zh.verb.m260908.276",
@@ -4668,7 +5704,9 @@
     "source": "consolidate learning",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 73,
+    "complexity": 44
   },
   {
     "id": "zh.verb.m260908.278",
@@ -4677,7 +5715,9 @@
     "source": "overcome a difficulty",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 35
   },
   {
     "id": "zh.verb.m260908.279",
@@ -4686,7 +5726,9 @@
     "source": "respond to a challenge",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 30
   },
   {
     "id": "zh.verb.m260908.280",
@@ -4695,7 +5737,9 @@
     "source": "attempt; try out",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 34
   },
   {
     "id": "zh.verb.m260908.281",
@@ -4704,7 +5748,9 @@
     "source": "put knowledge into practice",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 73,
+    "complexity": 31
   },
   {
     "id": "zh.verb.m260908.282",
@@ -4713,6 +5759,8 @@
     "source": "cherish",
     "difficulty": 3,
     "category": "planning-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   }
 ]

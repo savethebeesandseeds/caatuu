@@ -1,4 +1,5 @@
 import { normalizeCurriculum, normalizeCurriculumItem } from "../../../../../../language-runtime/static/source/games/curriculum-progression.mjs";
+import { normalizeContentProgression, selectContentItems } from "../../../../../../language-runtime/static/source/games/content-progression.mjs";
 
 export const CZECH_CASES = Object.freeze([
   Object.freeze({ case: "Nominative", meaning: "naming or subject", question: "Who or what is the subject?" }),
@@ -37,6 +38,11 @@ function exactKeys(value, keys, location) {
   }
 }
 
+function contentKeys(value, keys, location) {
+  exactKeys(value, [...keys, ...["usefulness", "complexity", "urgency", "subdifficulty"].filter(key => Object.hasOwn(value || {}, key))], location);
+  normalizeContentProgression(value, location);
+}
+
 // The JSON catalog owns vocabulary, sentences, translations and form pools.
 // These checks validate the contract, not membership in a second content bank.
 function identifier(value, location) {
@@ -50,7 +56,7 @@ function nounForm(value) {
 }
 
 function validateParadigm(paradigm) {
-  exactKeys(paradigm, ["id", "noun", "number", "forms"], "Paradigm");
+  contentKeys(paradigm, ["id", "noun", "number", "forms"], "Paradigm");
   identifier(paradigm.id, "Paradigm ID");
   nounForm(paradigm.noun);
   if (!["singular", "plural"].includes(paradigm.number)) throw new Error("A paradigm needs singular or plural number.");
@@ -60,7 +66,7 @@ function validateParadigm(paradigm) {
 }
 
 function validateContext(item) {
-  exactKeys(item, ["id", "revision", "paradigmId", "case", "form", "acceptedForms", "czech", "english",
+  contentKeys(item, ["id", "revision", "paradigmId", "case", "form", "acceptedForms", "czech", "english",
     "difficulty", "objectiveId", "phase", "context", "explanation"], "Context");
   identifier(item.id, "Context ID");
   identifier(item.paradigmId, "Context paradigm ID");
@@ -96,7 +102,7 @@ function validateLegacyPack(value) {
   const difficulties = new Set();
   const allSentences = new Set();
   const result = value.map((entry) => {
-    exactKeys(entry, ["noun", "difficulty", "cases"], "Noun record");
+    contentKeys(entry, ["noun", "difficulty", "cases"], "Noun record");
     requiredText(entry.noun, "Noun", 48);
     const nounKey = entry.noun.toLocaleLowerCase("cs-CZ");
     if (nouns.has(nounKey)) throw new Error(`The noun bank repeats ${entry.noun}.`);
@@ -106,16 +112,17 @@ function validateLegacyPack(value) {
     exactKeys(entry.cases, CZECH_CASES.map(({ case: name }) => name), entry.noun);
     const cases = Object.fromEntries(CZECH_CASES.map(({ case: name }) => {
       const example = entry.cases[name];
-      exactKeys(example, ["form", "english", "czech"], `${entry.noun}, ${name}`);
+      contentKeys(example, ["form", "english", "czech"], `${entry.noun}, ${name}`);
       requiredText(example.english, "English translation", 200);
       targetSpan(example.czech, example.form);
       const sentenceKey = example.czech.toLocaleLowerCase("cs-CZ");
       if (allSentences.has(sentenceKey)) throw new Error(`Repeated Czech sentence: ${example.czech}`);
       allSentences.add(sentenceKey);
-      return [name, Object.freeze({ form: example.form, english: example.english, czech: example.czech })];
+      return [name, Object.freeze({ form: example.form, english: example.english, czech: example.czech,
+        ...normalizeContentProgression({ ...entry, ...example }, `${entry.noun}, ${name}`) })];
     }));
     if (new Set(Object.values(cases).map(({ form }) => form)).size < 2) throw new Error(`${entry.noun} needs a genuine contrast form.`);
-    return Object.freeze({ noun: entry.noun, difficulty: entry.difficulty, cases: Object.freeze(cases) });
+    return Object.freeze({ noun: entry.noun, difficulty: entry.difficulty, ...normalizeContentProgression(entry), cases: Object.freeze(cases) });
   });
   if (difficulties.size !== 3) throw new Error("The noun bank must support all three difficulty levels.");
   return Object.freeze(result);
@@ -139,7 +146,7 @@ export function validatePack(value) {
   const paradigms = value.paradigms.map((paradigm) => {
     validateParadigm(paradigm);
     if (byId.has(paradigm.id)) throw new Error("Case Cosmos repeats a paradigm ID.");
-    const frozen = Object.freeze({ ...paradigm, forms: Object.freeze([...paradigm.forms]) });
+    const frozen = Object.freeze({ ...paradigm, ...normalizeContentProgression(paradigm), forms: Object.freeze([...paradigm.forms]) });
     byId.set(frozen.id, frozen);
     return frozen;
   });
@@ -156,7 +163,7 @@ export function validatePack(value) {
     if (sentences.has(sentence)) throw new Error(`Repeated Czech sentence: ${item.czech}`);
     sentences.add(sentence);
     const metadata = normalizeCurriculumItem(item, curriculum, item.id);
-    return Object.freeze({ ...item, ...metadata, acceptedForms: Object.freeze([...item.acceptedForms]) });
+    return Object.freeze({ ...item, ...metadata, ...normalizeContentProgression(item), acceptedForms: Object.freeze([...item.acceptedForms]) });
   });
   for (const objective of curriculum.objectives) {
     const owned = contexts.filter(({ objectiveId }) => objectiveId === objective.id);
@@ -186,9 +193,20 @@ export function buildRounds(pack, difficulty) {
   }
   return Object.freeze(checked.filter((entry) => entry.difficulty <= difficulty)
     .sort((a, b) => a.difficulty - b.difficulty)
-    .map((entry) => Object.freeze({ noun: entry.noun, difficulty: entry.difficulty,
+    .map((entry) => Object.freeze({ noun: entry.noun, difficulty: entry.difficulty, ...normalizeContentProgression(entry),
       matches: Object.freeze(CZECH_CASES.map((definition) => Object.freeze({ ...definition, ...entry.cases[definition.case] })))
     })));
+}
+
+/** Schedule individual authored sentences while keeping each noun's checked contrasts. */
+export function buildCasePracticeRounds(pack, difficulty, { history = {}, random = Math.random } = {}) {
+  const items = buildRounds(pack, difficulty).flatMap(round => buildQuestions(round, random).map(question => {
+    const nounKey = Array.from(round.noun).map(char => char.codePointAt(0).toString(16)).join("-");
+    const id = question.id || `legacy-${nounKey}-${question.case.toLowerCase()}`;
+    return Object.freeze({ ...round, id, ...normalizeContentProgression({ ...round, ...question }),
+      practiceQuestions: Object.freeze([Object.freeze({ ...question, id })]) });
+  }));
+  return Object.freeze(selectContentItems(items, { difficulty, history, minimumPool: 4, random }));
 }
 
 function randomIndex(length, random) {
@@ -249,7 +267,7 @@ export function buildQuestions(round, random = Math.random) {
       return Object.freeze({ ...actualCase, form, czech, english: example.english,
         target: targetSpan(czech, form), matches: form === example.form });
     });
-    return Object.freeze({ ...actualCase, form: example.form, czech: example.czech,
+    return Object.freeze({ ...actualCase, ...normalizeContentProgression(example), form: example.form, czech: example.czech,
       english: example.english, target, candidates: Object.freeze(candidates) });
   }));
 }

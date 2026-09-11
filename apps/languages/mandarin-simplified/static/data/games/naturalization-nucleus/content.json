@@ -61,7 +61,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.identity.name"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.ni",
@@ -72,7 +74,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.greeting.hello"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.ta-he",
@@ -83,7 +87,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.people.my-friend"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.ren",
@@ -94,7 +100,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.family.together"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.hao",
@@ -106,7 +114,9 @@
       "sourceConceptIds": [
         "ww.greeting.hello",
         "ww.greeting.i-am-well"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.shi",
@@ -117,7 +127,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.identity.student"
-      ]
+      ],
+      "usefulness": 94,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.bu",
@@ -128,7 +140,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.comprehension.not-understand"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.you-have",
@@ -139,7 +153,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.number.two-books"
-      ]
+      ],
+      "usefulness": 94,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.zai-location",
@@ -150,7 +166,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.location.book-on-table"
-      ]
+      ],
+      "usefulness": 91,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.lai",
@@ -161,7 +179,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.action.teacher-arrived"
-      ]
+      ],
+      "usefulness": 94,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.qu",
@@ -172,7 +192,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.plan.want-school"
-      ]
+      ],
+      "usefulness": 94,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.jiao",
@@ -183,7 +205,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.identity.name"
-      ]
+      ],
+      "usefulness": 91,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.jian",
@@ -194,7 +218,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.greeting.goodbye"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.zai",
@@ -205,7 +231,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.greeting.goodbye"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.qing",
@@ -216,7 +244,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.classroom.listen"
-      ]
+      ],
+      "usefulness": 94,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.xie",
@@ -227,7 +257,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.greeting.thanks"
-      ]
+      ],
+      "usefulness": 90,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.chi",
@@ -238,7 +270,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.food.rice"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.he",
@@ -249,7 +283,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.drink.water"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.kan",
@@ -260,7 +296,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.classroom.look"
-      ]
+      ],
+      "usefulness": 91,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.ting",
@@ -271,7 +309,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.classroom.listen"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.shuo",
@@ -282,7 +322,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.language.speak-chinese"
-      ]
+      ],
+      "usefulness": 94,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.du",
@@ -293,7 +335,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.classroom.read"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.xie-write",
@@ -304,7 +348,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.classroom.write"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.xue",
@@ -315,7 +361,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.language.learn-pinyin"
-      ]
+      ],
+      "usefulness": 73,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.xiang",
@@ -326,7 +374,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.plan.want-school"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.jia",
@@ -337,7 +387,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.home.my-home"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.shu",
@@ -348,7 +400,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.object.book"
-      ]
+      ],
+      "usefulness": 73,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.shui",
@@ -359,7 +413,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.drink.water"
-      ]
+      ],
+      "usefulness": 98,
+      "complexity": 29
     },
     {
       "id": "zh.hanzi.zhe",
@@ -370,7 +426,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.object.book"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.fan",
@@ -381,7 +439,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.food.rice"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.yi-one",
@@ -392,7 +452,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.number.one-to-six"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.er",
@@ -403,7 +465,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.number.one-to-six"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.san",
@@ -414,7 +478,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.number.one-to-six"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.si",
@@ -425,7 +491,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.number.one-to-six"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.wu",
@@ -436,7 +504,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.number.one-to-six"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.liu",
@@ -447,7 +517,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.number.one-to-six"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.qi",
@@ -458,7 +530,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.number.seven-to-ten"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.ba",
@@ -469,7 +543,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.number.seven-to-ten"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.jiu-nine",
@@ -480,7 +556,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.number.seven-to-ten"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.shi-ten",
@@ -491,7 +569,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.number.seven-to-ten"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.ta-she",
@@ -502,7 +582,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.people.my-teacher"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.cha",
@@ -513,7 +595,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.preference.tea"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.na",
@@ -524,7 +608,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.animal.cat"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.ben",
@@ -535,7 +621,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.object.book"
-      ]
+      ],
+      "usefulness": 73,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.peng",
@@ -546,7 +634,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.people.my-friend"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.tian",
@@ -557,7 +647,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.weather.cold-today"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.nian",
@@ -568,7 +660,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.family.brother-ten"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.wen",
@@ -579,7 +673,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.question.one-more"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.da",
@@ -590,7 +686,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.food.big-apple"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.xiao",
@@ -601,7 +699,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.animal.small-cat"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.duo",
@@ -612,7 +712,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.work.more-time"
-      ]
+      ],
+      "usefulness": 84,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.ma",
@@ -623,7 +725,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.greeting.how-are-you"
-      ]
+      ],
+      "usefulness": 73,
+      "complexity": 28
     },
     {
       "id": "zh.hanzi.hen",
@@ -634,7 +738,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.weather.cold-today"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.zao",
@@ -645,7 +751,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.greeting.good-morning"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.wan",
@@ -656,7 +764,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.greeting.good-evening"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.qian-front",
@@ -667,7 +777,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.transit.bus-stop-ahead"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.hou",
@@ -678,7 +790,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.routine.homework-after-dinner"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.shang",
@@ -689,7 +803,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.location.book-on-table"
-      ]
+      ],
+      "usefulness": 90,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.xia",
@@ -700,7 +816,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.location.cat-under-chair"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.li",
@@ -711,7 +829,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.home.clothes-in-wardrobe"
-      ]
+      ],
+      "usefulness": 91,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.zuo-left",
@@ -722,7 +842,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.transit.subway-left"
-      ]
+      ],
+      "usefulness": 70,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.you",
@@ -733,7 +855,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.direction.turn-right"
-      ]
+      ],
+      "usefulness": 70,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.kai",
@@ -744,7 +868,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.home.open-door"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.guan",
@@ -755,7 +881,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.home.closed-window"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.men",
@@ -766,7 +894,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.home.open-door"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.fang",
@@ -777,7 +907,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.home.room-is-clean"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.zhuo",
@@ -788,7 +920,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.location.book-on-table"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.yi",
@@ -799,7 +933,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.location.cat-under-chair"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.chuang",
@@ -810,7 +946,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.routine.get-up"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.cai",
@@ -821,7 +959,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.food.fresh-vegetables"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.mi",
@@ -832,7 +972,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.food.rice"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.nai",
@@ -843,7 +985,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.family.grandmother-cooks"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.mao",
@@ -854,7 +998,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.animal.cat"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.gou",
@@ -865,7 +1011,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.people.neighbor-dog"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.niao",
@@ -876,7 +1024,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.nature.flying-bird"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.hua-flower",
@@ -887,7 +1037,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.nature.park-flowers"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.shu-tree",
@@ -898,7 +1050,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.nature.tall-trees"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.shan",
@@ -909,7 +1063,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.nature.tall-trees"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.hai",
@@ -920,7 +1076,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.nature.blue-sea"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.yu-rain",
@@ -931,7 +1089,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.weather.rain-today"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.mai-buy",
@@ -942,7 +1102,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.shopping.blue-shirt"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.shang-commerce",
@@ -953,7 +1115,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.shopping.closes-eight"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.qian-money",
@@ -964,7 +1128,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.shopping.apple-price"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.dian-shop",
@@ -975,7 +1141,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.shopping.closes-eight"
-      ]
+      ],
+      "usefulness": 81,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.guo",
@@ -986,7 +1154,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.food.big-apple"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.che",
@@ -997,7 +1167,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.transit.bus-stop-ahead"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.lu",
@@ -1008,7 +1180,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.direction.map-road"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.zhan",
@@ -1019,7 +1193,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.transit.bus-stop-ahead"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.tie",
@@ -1030,7 +1206,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.transit.subway-left"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.fei",
@@ -1041,7 +1219,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.nature.flying-bird"
-      ]
+      ],
+      "usefulness": 71,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.zuo-sit",
@@ -1052,7 +1232,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.politeness.sit-down"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.zou",
@@ -1063,7 +1245,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.direction.walk-five"
-      ]
+      ],
+      "usefulness": 63,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.zhuan",
@@ -1074,7 +1258,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.direction.turn-right"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 36
     },
     {
       "id": "zh.hanzi.kuai",
@@ -1085,7 +1271,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.compare.bus-walking"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.man",
@@ -1096,7 +1284,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.request.speak-slower"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.zhu",
@@ -1107,7 +1297,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.community.offer-help"
-      ]
+      ],
+      "usefulness": 98,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.lao",
@@ -1118,7 +1310,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.people.my-teacher"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.shi-teacher",
@@ -1129,7 +1323,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.people.my-teacher"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.guan-building",
@@ -1140,7 +1336,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.culture.quiet-library"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.ke",
@@ -1151,7 +1349,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.plan.library-after-class"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.gong",
@@ -1162,7 +1362,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.work.office"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.shi-matter",
@@ -1173,7 +1375,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.work.coworker-help"
-      ]
+      ],
+      "usefulness": 55,
+      "complexity": 45
     },
     {
       "id": "zh.hanzi.yue",
@@ -1184,7 +1388,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.housing.move-next-month"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.teng",
@@ -1195,7 +1401,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.wellbeing.headache"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.zhen",
@@ -1206,7 +1414,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.wellbeing.clinic-nearby"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 36
     },
     {
       "id": "zh.hanzi.yao",
@@ -1217,7 +1427,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.wellbeing.ask-about-medicine"
-      ]
+      ],
+      "usefulness": 85,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.yi-medical",
@@ -1228,7 +1440,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.wellbeing.see-doctor"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.dian-electricity",
@@ -1239,7 +1453,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.tech.charge-phone"
-      ]
+      ],
+      "usefulness": 34,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.hua-speech",
@@ -1250,7 +1466,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.tech.call-grandmother"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.wang",
@@ -1261,7 +1479,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.tech.network-works"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.ji",
@@ -1272,7 +1492,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.tech.phone-table"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.xin",
@@ -1283,7 +1505,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.digital.strong-password"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.yin",
@@ -1295,7 +1519,9 @@
       "sourceConceptIds": [
         "ww.location.bank-across",
         "ww.banking.transfer-complete"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.re",
@@ -1306,7 +1532,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.compare.tea-water"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.leng",
@@ -1317,7 +1545,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.weather.cold-today"
-      ]
+      ],
+      "usefulness": 90,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.qing-sunny",
@@ -1328,7 +1558,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.weather.sunny-afternoon"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.chun",
@@ -1339,7 +1571,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.weather.spring-flowers"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.feng",
@@ -1350,7 +1584,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.weather.strong-wind"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.jin",
@@ -1361,7 +1597,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.wellbeing.clinic-nearby"
-      ]
+      ],
+      "usefulness": 70,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.li-distance",
@@ -1372,7 +1610,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.travel.park-near-hotel"
-      ]
+      ],
+      "usefulness": 91,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.exp260908-5154",
@@ -1383,7 +1623,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-exp260908-001"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.exp260908-8272",
@@ -1397,7 +1639,9 @@
         "ww.shopping.blue-shirt",
         "ww.choice.red-one",
         "ww-exp260908-027"
-      ]
+      ],
+      "usefulness": 63,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.exp260908-84dd",
@@ -1410,7 +1654,9 @@
         "ww-exp260908-003",
         "ww.shopping.blue-shirt",
         "ww.nature.blue-sea"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.exp260908-7b14",
@@ -1422,7 +1668,9 @@
       "sourceConceptIds": [
         "ww-exp260908-005",
         "ww.location.pen-in-bag"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.exp260908-9f9f",
@@ -1433,7 +1681,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-exp260908-006"
-      ]
+      ],
+      "usefulness": 48,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.exp260908-7761",
@@ -1446,7 +1696,9 @@
         "ww-exp260908-006",
         "ww.routine.read-before-sleep",
         "ww.wellbeing.slept-well"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.exp260908-5165",
@@ -1458,7 +1710,9 @@
       "sourceConceptIds": [
         "ww-exp260908-007",
         "ww.transit.subway-left"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.exp260908-53f6",
@@ -1471,7 +1725,9 @@
         "ww-exp260908-009",
         "ww-exp260908-028",
         "ww-exp260908-034"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.exp260908-96ea",
@@ -1482,7 +1738,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-013"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.exp260908-718a",
@@ -1493,7 +1751,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-022"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.exp260908-8349",
@@ -1504,7 +1764,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-024"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.exp260908-77f3",
@@ -1516,7 +1778,9 @@
       "sourceConceptIds": [
         "ww-exp260908-016",
         "ww-exp260908-032"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.exp260908-4e91",
@@ -1527,7 +1791,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-030"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.exp260908-7403",
@@ -1538,7 +1804,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.hobby.football"
-      ]
+      ],
+      "usefulness": 63,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.exp260908-677e",
@@ -1549,7 +1817,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-009"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.exp260908-9f20",
@@ -1560,7 +1830,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-009"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 36
     },
     {
       "id": "zh.hanzi.exp260908-7eb8",
@@ -1574,7 +1846,9 @@
         "ww-exp260908-010",
         "ww-exp260908-029",
         "ww-exp260908-032"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 29
     },
     {
       "id": "zh.hanzi.exp260908-677f",
@@ -1587,7 +1861,9 @@
         "ww.school.board-writing",
         "ww-exp260908-010",
         "ww-exp260908-017"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.exp260908-5706",
@@ -1598,7 +1874,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-010"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.exp260908-5c3a",
@@ -1610,7 +1888,9 @@
       "sourceConceptIds": [
         "ww.shopping.right-size",
         "ww-exp260908-011"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 29
     },
     {
       "id": "zh.hanzi.exp260908-8475",
@@ -1621,7 +1901,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-011"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.exp260908-6e38",
@@ -1634,7 +1916,9 @@
         "ww-exp260908-012",
         "ww-exp260908-025",
         "ww-exp260908-041"
-      ]
+      ],
+      "usefulness": 63,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.exp260908-620f",
@@ -1647,7 +1931,9 @@
         "ww-exp260908-012",
         "ww-exp260908-025",
         "ww-exp260908-041"
-      ]
+      ],
+      "usefulness": 62,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.exp260908-811a",
@@ -1658,7 +1944,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-013"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.exp260908-5370",
@@ -1669,7 +1957,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-013"
-      ]
+      ],
+      "usefulness": 61,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.exp260908-6728",
@@ -1681,7 +1971,9 @@
       "sourceConceptIds": [
         "ww-exp260908-014",
         "ww-exp260908-037"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.exp260908-9f13",
@@ -1693,7 +1985,9 @@
       "sourceConceptIds": [
         "ww-exp260908-004",
         "ww-exp260908-018"
-      ]
+      ],
+      "usefulness": 58,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.exp260908-955c",
@@ -1705,7 +1999,9 @@
       "sourceConceptIds": [
         "ww-exp260908-019",
         "ww-exp260908-028"
-      ]
+      ],
+      "usefulness": 80,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.exp260908-8702",
@@ -1716,7 +2012,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-020"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.exp260908-7c89",
@@ -1727,7 +2025,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-020"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.exp260908-5f71",
@@ -1739,7 +2039,9 @@
       "sourceConceptIds": [
         "ww-exp260908-022",
         "ww-exp260908-038"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.exp260908-7fbd",
@@ -1750,7 +2052,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-024"
-      ]
+      ],
+      "usefulness": 48,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.exp260908-6865",
@@ -1761,7 +2065,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-032"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.exp260908-89c4",
@@ -1772,7 +2078,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-exp260908-025"
-      ]
+      ],
+      "usefulness": 44,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.exp260908-5219",
@@ -1783,7 +2091,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-exp260908-025"
-      ]
+      ],
+      "usefulness": 44,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.exp260908-6bd4",
@@ -1797,7 +2107,9 @@
         "ww.compare.tea-water",
         "ww.compare.light-bag",
         "ww-exp260908-028"
-      ]
+      ],
+      "usefulness": 55,
+      "complexity": 39
     },
     {
       "id": "zh.hanzi.exp260908-8f83",
@@ -1811,7 +2123,9 @@
         "ww-exp260908-028",
         "ww.budget.compare-prices",
         "ww.reason.quiet-room"
-      ]
+      ],
+      "usefulness": 55,
+      "complexity": 34
     },
     {
       "id": "zh.hanzi.exp260908-6620",
@@ -1822,7 +2136,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-exp260908-030"
-      ]
+      ],
+      "usefulness": 52,
+      "complexity": 41
     },
     {
       "id": "zh.hanzi.exp260908-5bdf",
@@ -1834,7 +2150,9 @@
       "sourceConceptIds": [
         "ww-exp260908-019",
         "ww-exp260908-040"
-      ]
+      ],
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.exp260908-578b",
@@ -1845,7 +2163,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-exp260908-036"
-      ]
+      ],
+      "usefulness": 58,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.exp260908-5e95",
@@ -1856,7 +2176,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-exp260908-036"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.exp260908-5bbd",
@@ -1867,7 +2189,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-exp260908-036"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.exp260908-5267",
@@ -1878,7 +2202,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-exp260908-037"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.exp260908-72ec",
@@ -1889,7 +2215,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-exp260908-039"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.exp260908-89e3",
@@ -1903,7 +2231,9 @@
         "ww.work.find-solution",
         "ww.language.word-difference",
         "ww-exp260908-039"
-      ]
+      ],
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "zh.hanzi.exp260908-6d4b",
@@ -1914,7 +2244,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-exp260908-040"
-      ]
+      ],
+      "usefulness": 58,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.exp260908-5b9d",
@@ -1925,7 +2257,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-exp260908-041"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.exp260908-4fe1",
@@ -1936,7 +2270,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-exp260908-041"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-6797",
@@ -1947,7 +2283,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-079"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-751f",
@@ -1958,7 +2296,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-exp260908-002"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-53ea",
@@ -1969,7 +2309,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.animal.cat"
-      ]
+      ],
+      "usefulness": 91,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.m260908-4eca",
@@ -1980,7 +2322,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.weather.cold-today"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-660e",
@@ -1991,7 +2335,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.comprehension.not-understand"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-767d",
@@ -2002,7 +2348,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-115"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-5ba2",
@@ -2013,7 +2361,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.politeness.welcome"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-6c14",
@@ -2024,7 +2374,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.weather.sunny-afternoon"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-540d",
@@ -2035,7 +2387,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.identity.your-name"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-5b57",
@@ -2046,7 +2400,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.school.board-writing"
-      ]
+      ],
+      "usefulness": 73,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-5988",
@@ -2057,7 +2413,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.family.mother"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-7238",
@@ -2068,7 +2426,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.family.father"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-4f1a",
@@ -2079,7 +2439,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.language.speak-chinese"
-      ]
+      ],
+      "usefulness": 91,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-4e2d",
@@ -2090,7 +2452,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.language.speak-chinese"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-6587",
@@ -2101,7 +2465,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.language.speak-chinese"
-      ]
+      ],
+      "usefulness": 73,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-62fc",
@@ -2112,7 +2478,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.language.learn-pinyin"
-      ]
+      ],
+      "usefulness": 91,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-97f3",
@@ -2123,7 +2491,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.language.learn-pinyin"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-4e2a",
@@ -2134,7 +2504,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-043"
-      ]
+      ],
+      "usefulness": 91,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-8bcd",
@@ -2145,7 +2517,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.language.easy-word"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-7b80",
@@ -2156,7 +2530,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.language.easy-word"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-5355",
@@ -2167,7 +2543,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.language.easy-word"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-4e24",
@@ -2178,7 +2556,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.number.two-books"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-82f9",
@@ -2189,7 +2569,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.number.three-apples"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-73b0",
@@ -2200,7 +2582,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.time.what-time"
-      ]
+      ],
+      "usefulness": 71,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-51e0",
@@ -2211,7 +2595,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.time.what-time"
-      ]
+      ],
+      "usefulness": 91,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-70b9",
@@ -2222,7 +2608,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.time.what-time"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-661f",
@@ -2233,7 +2621,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.time.monday"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-671f",
@@ -2244,7 +2634,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.time.monday"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-559c",
@@ -2255,7 +2647,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.food.rice"
-      ]
+      ],
+      "usefulness": 70,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-6b22",
@@ -2266,7 +2660,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.community.welcome"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-6821",
@@ -2277,7 +2673,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.plan.want-school"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-5b50",
@@ -2288,7 +2686,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-158"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-9762",
@@ -2299,7 +2699,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.location.cat-under-chair"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-7a97",
@@ -2310,7 +2712,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.home.closed-window"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.m260908-8d77",
@@ -2321,7 +2725,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.routine.get-up"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-56de",
@@ -2332,7 +2738,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww.routine.go-home"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-54ea",
@@ -2343,7 +2751,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-exp260908-005"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-9898",
@@ -2354,7 +2764,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.question.one-more"
-      ]
+      ],
+      "usefulness": 73,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-5237",
@@ -2365,7 +2777,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-040"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.m260908-7259",
@@ -2376,7 +2790,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-040"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-89c9",
@@ -2387,7 +2803,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-006"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-5e72",
@@ -2398,7 +2816,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-041"
-      ]
+      ],
+      "usefulness": 71,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-65c1",
@@ -2409,7 +2829,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-056"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-8fb9",
@@ -2420,7 +2842,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-010"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-5230",
@@ -2431,7 +2855,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-054"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-6bcf",
@@ -2442,7 +2868,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-040"
-      ]
+      ],
+      "usefulness": 84,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-516c",
@@ -2453,7 +2881,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-057"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-628a",
@@ -2464,7 +2894,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-025"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-7ed9",
@@ -2475,7 +2907,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-025"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-8981",
@@ -2486,7 +2920,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-032"
-      ]
+      ],
+      "usefulness": 94,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-65e5",
@@ -2497,7 +2933,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-058"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-5fc3",
@@ -2508,7 +2946,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-052"
-      ]
+      ],
+      "usefulness": 88,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-706b",
@@ -2519,7 +2959,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-047"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-51fa",
@@ -2530,7 +2972,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-013"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.m260908-7b49",
@@ -2541,7 +2985,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-057"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-56fe",
@@ -2552,7 +2998,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-030"
-      ]
+      ],
+      "usefulness": 63,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-6761",
@@ -2563,7 +3011,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-017"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-7d2f",
@@ -2574,7 +3024,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.wellbeing.tired"
-      ]
+      ],
+      "usefulness": 90,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-5934",
@@ -2585,7 +3037,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.wellbeing.headache"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-753b",
@@ -2596,7 +3050,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-045"
-      ]
+      ],
+      "usefulness": 62,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-653e",
@@ -2607,7 +3063,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-049"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-9ad8",
@@ -2618,7 +3076,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-054"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-624b",
@@ -2629,7 +3089,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-048"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "zh.hanzi.m260908-592a",
@@ -2640,7 +3102,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-013"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-7a7a",
@@ -2651,7 +3115,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-035"
-      ]
+      ],
+      "usefulness": 84,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-676f",
@@ -2662,7 +3128,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-035"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-5305",
@@ -2673,7 +3141,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-036"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-8f7b",
@@ -2684,7 +3154,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-043"
-      ]
+      ],
+      "usefulness": 91,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-7ea2",
@@ -2695,7 +3167,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-005"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-961f",
@@ -2706,7 +3180,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-050"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-7897",
@@ -2717,7 +3193,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-038"
-      ]
+      ],
+      "usefulness": 78,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-6d17",
@@ -2728,7 +3206,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-038"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-4e9b",
@@ -2739,7 +3219,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-033"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-56e2",
@@ -2750,7 +3232,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-050"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-522b",
@@ -2761,7 +3245,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-052"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-79cd",
@@ -2772,7 +3258,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-002"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 36
     },
     {
       "id": "zh.hanzi.m260908-8282",
@@ -2783,7 +3271,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-047"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-4ea4",
@@ -2794,7 +3284,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-057"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-5668",
@@ -2805,7 +3297,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-048"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-81ea",
@@ -2816,7 +3310,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-026"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-5df1",
@@ -2827,7 +3323,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-026"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-8df3",
@@ -2838,7 +3336,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-exp260908-001"
-      ]
+      ],
+      "usefulness": 63,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-957f",
@@ -2849,7 +3349,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-009"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.m260908-638c",
@@ -2860,7 +3362,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-004"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "zh.hanzi.m260908-4e4c",
@@ -2871,7 +3375,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-006"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-52a0",
@@ -2882,7 +3388,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-exp260908-007"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-5f69",
@@ -2893,7 +3401,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-exp260908-008"
-      ]
+      ],
+      "usefulness": 63,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-8679",
@@ -2904,7 +3414,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-008"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-4eae",
@@ -2915,7 +3427,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-016"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-5757",
@@ -2926,7 +3440,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-021"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-8f6e",
@@ -2937,7 +3453,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-044"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-6d41",
@@ -2948,7 +3466,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-044"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-6735",
@@ -2959,7 +3479,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-016"
-      ]
+      ],
+      "usefulness": 91,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-6b63",
@@ -2970,7 +3492,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-007"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-7247",
@@ -2981,7 +3505,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-030"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-6bdb",
@@ -2992,7 +3518,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-039"
-      ]
+      ],
+      "usefulness": 88,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-6c60",
@@ -3003,7 +3531,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-003"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-5858",
@@ -3014,7 +3544,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-003"
-      ]
+      ],
+      "usefulness": 46,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-9633",
@@ -3025,7 +3557,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-013"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-8f6f",
@@ -3036,7 +3570,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-001"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh.hanzi.m260908-8033",
@@ -3047,7 +3583,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-001"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-7231",
@@ -3058,7 +3596,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-002"
-      ]
+      ],
+      "usefulness": 70,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-80e1",
@@ -3069,7 +3609,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-002"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-841d",
@@ -3080,7 +3622,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-002"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-9e2d",
@@ -3091,7 +3635,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-003"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-9c7c",
@@ -3102,7 +3648,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-004"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-9f3b",
@@ -3113,7 +3661,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-005"
-      ]
+      ],
+      "usefulness": 88,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-9752",
@@ -3124,7 +3674,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-006"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-86d9",
@@ -3135,7 +3687,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-006"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-9a6c",
@@ -3146,7 +3700,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-007"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-8776",
@@ -3157,7 +3713,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-008"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-8c61",
@@ -3168,7 +3726,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-009"
-      ]
+      ],
+      "usefulness": 48,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-7f8a",
@@ -3179,7 +3739,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-010"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-62b1",
@@ -3190,7 +3752,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-011"
-      ]
+      ],
+      "usefulness": 91,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-7af9",
@@ -3201,7 +3765,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-011"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.m260908-9e21",
@@ -3212,7 +3778,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-012"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-9ec4",
@@ -3223,7 +3791,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-016"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-6cb3",
@@ -3234,7 +3804,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-017"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-978b",
@@ -3245,7 +3817,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-018"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-6c99",
@@ -3256,7 +3830,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-018"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.m260908-7eff",
@@ -3267,7 +3843,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-019"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-5916",
@@ -3278,7 +3856,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-020"
-      ]
+      ],
+      "usefulness": 91,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-5149",
@@ -3289,7 +3869,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-021"
-      ]
+      ],
+      "usefulness": 70,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-6ed1",
@@ -3300,7 +3882,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-021"
-      ]
+      ],
+      "usefulness": 63,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-94c5",
@@ -3311,7 +3895,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-023"
-      ]
+      ],
+      "usefulness": 44,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-77ed",
@@ -3322,7 +3908,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-023"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-6a61",
@@ -3333,7 +3921,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-024"
-      ]
+      ],
+      "usefulness": 48,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-76ae",
@@ -3344,7 +3934,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-024"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-9012",
@@ -3355,7 +3947,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-025"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-7f8e",
@@ -3366,7 +3960,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-027"
-      ]
+      ],
+      "usefulness": 70,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-672f",
@@ -3377,7 +3973,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-027"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-5fae",
@@ -3388,7 +3986,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-028"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-7b11",
@@ -3399,7 +3999,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-028"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-6c64",
@@ -3410,7 +4012,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-031"
-      ]
+      ],
+      "usefulness": 78,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-6e29",
@@ -3421,7 +4025,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-031"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-6839",
@@ -3432,7 +4038,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-032"
-      ]
+      ],
+      "usefulness": 46,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-9999",
@@ -3443,7 +4051,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-032"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-8549",
@@ -3454,7 +4064,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-032"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-751c",
@@ -3465,7 +4077,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-033"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-52fa",
@@ -3476,7 +4090,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-034"
-      ]
+      ],
+      "usefulness": 78,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.m260908-95fb",
@@ -3487,7 +4103,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-036"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-716e",
@@ -3498,7 +4116,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-037"
-      ]
+      ],
+      "usefulness": 88,
+      "complexity": 29
     },
     {
       "id": "zh.hanzi.m260908-5dfe",
@@ -3509,7 +4129,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-039"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-67b6",
@@ -3520,7 +4142,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-039"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-889c",
@@ -3531,7 +4155,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-041"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-5e3d",
@@ -3542,7 +4168,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-042"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-73a9",
@@ -3553,7 +4181,9 @@
       "difficulty": 1,
       "sourceConceptIds": [
         "ww-zh-m260908-047"
-      ]
+      ],
+      "usefulness": 62,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-5177",
@@ -3564,7 +4194,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-047"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-53a2",
@@ -3575,7 +4207,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-047"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-6325",
@@ -3586,7 +4220,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-048"
-      ]
+      ],
+      "usefulness": 63,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-79ef",
@@ -3597,7 +4233,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-049"
-      ]
+      ],
+      "usefulness": 44,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-62c5",
@@ -3608,7 +4246,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-052"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-5174",
@@ -3619,7 +4259,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-054"
-      ]
+      ],
+      "usefulness": 33,
+      "complexity": 41
     },
     {
       "id": "zh.hanzi.m260908-65f6",
@@ -3630,7 +4272,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.question.when-come"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.m260908-5348",
@@ -3641,7 +4285,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.routine.afternoon-home"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-505a",
@@ -3652,7 +4298,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.routine.homework-after-dinner"
-      ]
+      ],
+      "usefulness": 94,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-4f5c",
@@ -3663,7 +4311,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.routine.homework-after-dinner"
-      ]
+      ],
+      "usefulness": 94,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-4e1a",
@@ -3674,7 +4324,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.routine.homework-after-dinner"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-95f4",
@@ -3685,7 +4337,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.home.room-is-clean"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-51c0",
@@ -3696,7 +4350,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.home.room-is-clean"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-8863",
@@ -3707,7 +4363,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.home.clothes-in-wardrobe"
-      ]
+      ],
+      "usefulness": 80,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-670d",
@@ -3718,7 +4376,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.service.identity-document"
-      ]
+      ],
+      "usefulness": 80,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-67dc",
@@ -3729,7 +4389,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.home.clothes-in-wardrobe"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-7ffb",
@@ -3740,7 +4402,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.school.open-page-ten"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-7b2c",
@@ -3751,7 +4415,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.school.open-page-ten"
-      ]
+      ],
+      "usefulness": 73,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-9875",
@@ -3762,7 +4428,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.school.open-page-ten"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-9ed1",
@@ -3773,7 +4441,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.school.board-writing"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-8ba4",
@@ -3784,7 +4454,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.school.listen-carefully"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.m260908-771f",
@@ -3795,7 +4467,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.school.listen-carefully"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-7ec3",
@@ -3806,7 +4480,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.school.practice-characters"
-      ]
+      ],
+      "usefulness": 73,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-4e60",
@@ -3817,7 +4493,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.school.practice-characters"
-      ]
+      ],
+      "usefulness": 73,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-6c49",
@@ -3828,7 +4506,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.school.practice-characters"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-96be",
@@ -3839,7 +4519,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.school.hard-question"
-      ]
+      ],
+      "usefulness": 70,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-77e5",
@@ -3850,7 +4532,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.school.know-answer"
-      ]
+      ],
+      "usefulness": 94,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.m260908-9053",
@@ -3861,7 +4545,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.school.know-answer"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-7b54",
@@ -3872,7 +4558,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.school.know-answer"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-6848",
@@ -3883,7 +4571,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.school.know-answer"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-91ca",
@@ -3894,7 +4584,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.school.explain-again"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-529e",
@@ -3905,7 +4597,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.work.office"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-5ba4",
@@ -3916,7 +4610,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.work.office"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.m260908-59cb",
@@ -3927,7 +4623,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.work.start-nine"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh.hanzi.m260908-4ef6",
@@ -3938,7 +4636,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.work.send-file"
-      ]
+      ],
+      "usefulness": 91,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-53d1",
@@ -3949,7 +4649,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.work.send-file"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-8bae",
@@ -3960,7 +4662,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.work.meeting-ten"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-4efb",
@@ -3971,7 +4675,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.work.task-nearly-done"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 45
     },
     {
       "id": "zh.hanzi.m260908-52a1",
@@ -3982,7 +4688,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-193"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-5b8c",
@@ -3993,7 +4701,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.work.task-nearly-done"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-9700",
@@ -4004,7 +4714,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.work.more-time"
-      ]
+      ],
+      "usefulness": 98,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-66f4",
@@ -4015,7 +4727,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.work.more-time"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-67e5",
@@ -4026,7 +4740,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.work.check-schedule"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 45
     },
     {
       "id": "zh.hanzi.m260908-7a0b",
@@ -4037,7 +4753,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.work.check-schedule"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-540c",
@@ -4048,7 +4766,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.work.coworker-help"
-      ]
+      ],
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-5e2e",
@@ -4059,7 +4779,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.work.coworker-help"
-      ]
+      ],
+      "usefulness": 99,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-4f11",
@@ -4070,7 +4792,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.work.short-break"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-6210",
@@ -4081,7 +4805,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.work.finish-before-home"
-      ]
+      ],
+      "usefulness": 71,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-5c11",
@@ -4092,7 +4818,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-130"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 36
     },
     {
       "id": "zh.hanzi.m260908-65a4",
@@ -4103,7 +4831,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.shopping.apple-price"
-      ]
+      ],
+      "usefulness": 84,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-886c",
@@ -4114,7 +4844,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.shopping.blue-shirt"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-886b",
@@ -4125,7 +4857,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.shopping.blue-shirt"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-7801",
@@ -4136,7 +4870,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.shopping.right-size"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-5408",
@@ -4147,7 +4883,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.shopping.right-size"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-9002",
@@ -4158,7 +4896,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.shopping.right-size"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.m260908-8bd5",
@@ -4169,7 +4909,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.shopping.try-on"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-7a7f",
@@ -4180,7 +4922,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.shopping.try-on"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-7968",
@@ -4191,7 +4935,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.shopping.receipt"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-6536",
@@ -4202,7 +4948,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.shopping.checkout"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-53f0",
@@ -4213,7 +4961,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.shopping.checkout"
-      ]
+      ],
+      "usefulness": 83,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-7528",
@@ -4224,7 +4974,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.shopping.pay-card"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-4ed8",
@@ -4235,7 +4987,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.shopping.pay-card"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-6b3e",
@@ -4246,7 +5000,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.shopping.pay-card"
-      ]
+      ],
+      "usefulness": 81,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-4fbf",
@@ -4257,7 +5013,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-220"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-5171",
@@ -4268,7 +5026,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.transit.bus-stop-ahead"
-      ]
+      ],
+      "usefulness": 91,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-6c7d",
@@ -4279,7 +5039,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.transit.bus-stop-ahead"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-5730",
@@ -4290,7 +5052,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.transit.subway-left"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-53e3",
@@ -4301,7 +5065,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.transit.subway-left"
-      ]
+      ],
+      "usefulness": 88,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-76f4",
@@ -4312,7 +5078,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.direction.walk-five"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.m260908-5206",
@@ -4323,7 +5091,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.direction.walk-five"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-949f",
@@ -4334,7 +5104,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.direction.walk-five"
-      ]
+      ],
+      "usefulness": 80,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-5e02",
@@ -4345,7 +5117,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.transit.which-bus"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-56ed",
@@ -4356,7 +5130,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.travel.park-near-hotel"
-      ]
+      ],
+      "usefulness": 62,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-6628",
@@ -4367,7 +5143,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.wellbeing.slept-well"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-6240",
@@ -4378,7 +5156,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.wellbeing.clinic-nearby"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-9644",
@@ -4389,7 +5169,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.wellbeing.clinic-nearby"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-6563",
@@ -4400,7 +5182,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.wellbeing.walk-health"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-6b65",
@@ -4411,7 +5195,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.wellbeing.walk-health"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-5bf9",
@@ -4422,7 +5208,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.wellbeing.walk-health"
-      ]
+      ],
+      "usefulness": 90,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-8eab",
@@ -4433,7 +5221,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.wellbeing.walk-health"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.m260908-4f53",
@@ -4444,7 +5234,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.wellbeing.walk-health"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-4e50",
@@ -4455,7 +5247,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.hobby.music"
-      ]
+      ],
+      "usefulness": 62,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-5f39",
@@ -4466,7 +5260,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.hobby.piano"
-      ]
+      ],
+      "usefulness": 62,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-94a2",
@@ -4477,7 +5273,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.hobby.piano"
-      ]
+      ],
+      "usefulness": 44,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-7434",
@@ -4488,7 +5286,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.hobby.piano"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-5468",
@@ -4499,7 +5299,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.hobby.drawing"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-672b",
@@ -4510,7 +5312,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.hobby.drawing"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-5f1f",
@@ -4521,7 +5325,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.hobby.football"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-8e22",
@@ -4532,7 +5338,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.hobby.football"
-      ]
+      ],
+      "usefulness": 71,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-8db3",
@@ -4543,7 +5351,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.hobby.football"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-5b89",
@@ -4554,7 +5364,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.culture.quiet-library"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-9759",
@@ -4565,7 +5377,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.culture.quiet-library"
-      ]
+      ],
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-535a",
@@ -4576,7 +5390,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.culture.museum-open"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-7269",
@@ -4587,7 +5403,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.culture.museum-open"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-5145",
@@ -4598,7 +5416,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.tech.charge-phone"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.m260908-8111",
@@ -4609,7 +5429,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.tech.slow-computer"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-542f",
@@ -4620,7 +5442,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.tech.slow-computer"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-52a8",
@@ -4631,7 +5455,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.tech.slow-computer"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-6d88",
@@ -4642,7 +5468,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.tech.send-message"
-      ]
+      ],
+      "usefulness": 71,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-90ae",
@@ -4653,7 +5481,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.tech.received-email"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-58f0",
@@ -4664,7 +5494,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.tech.volume-high"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-4fdd",
@@ -4675,7 +5507,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.tech.save-file"
-      ]
+      ],
+      "usefulness": 82,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-5b58",
@@ -4686,7 +5520,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.tech.save-file"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-5982",
@@ -4697,7 +5533,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.plan.rain-stay-home"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-9009",
@@ -4708,7 +5546,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.choice.red-one"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-62e9",
@@ -4719,7 +5559,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.choice.red-one"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-5c40",
@@ -4730,7 +5572,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.community.ask-post-office"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-6ca1",
@@ -4741,7 +5585,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.politeness.no-problem"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-6392",
@@ -4752,7 +5598,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.community.line-up"
-      ]
+      ],
+      "usefulness": 71,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-6301",
@@ -4763,7 +5611,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.community.library-quiet"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-8ba9",
@@ -4774,7 +5624,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.community.offer-help"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-5148",
@@ -4785,7 +5637,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.politeness.after-you"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-5ea7",
@@ -4796,7 +5650,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.community.your-seat"
-      ]
+      ],
+      "usefulness": 83,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-4f4d",
@@ -4807,7 +5663,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.community.your-seat"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-8fce",
@@ -4818,7 +5676,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.community.welcome"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-793e",
@@ -4829,7 +5689,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.community.welcome"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-533a",
@@ -4840,7 +5702,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.community.welcome"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-51c6",
@@ -4851,7 +5715,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.food.breakfast-ready"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 36
     },
     {
       "id": "zh.hanzi.m260908-5907",
@@ -4862,7 +5728,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.food.breakfast-ready"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-9c9c",
@@ -4873,7 +5741,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.food.fresh-vegetables"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-8fa3",
@@ -4884,7 +5754,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.food.not-spicy"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-6717",
@@ -4895,7 +5767,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.weather.sunny-afternoon"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-5e26",
@@ -4906,7 +5780,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.weather.take-umbrella"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-4f1e",
@@ -4917,7 +5793,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.weather.take-umbrella"
-      ]
+      ],
+      "usefulness": 80,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-51ac",
@@ -4928,7 +5806,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.weather.cold-winter"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-59d0",
@@ -4939,7 +5819,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.family.sister-university"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-5c81",
@@ -4950,7 +5832,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.family.brother-ten"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-53a8",
@@ -4961,7 +5845,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.family.grandmother-cooks"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-7237",
@@ -4972,7 +5858,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.family.grandfather-paper"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-62a5",
@@ -4983,7 +5871,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.family.grandfather-paper"
-      ]
+      ],
+      "usefulness": 82,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-4eb2",
@@ -4994,7 +5884,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.people.kind-teacher"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-90bb",
@@ -5005,7 +5897,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.people.neighbor-dog"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-5c45",
@@ -5016,7 +5910,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.people.neighbor-dog"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-59e8",
@@ -5027,7 +5923,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.family.visit-aunt"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-68af",
@@ -5038,7 +5936,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.location.elevator-hall"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-5eca",
@@ -5049,7 +5949,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.location.elevator-hall"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-706f",
@@ -5060,7 +5962,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.location.light-switch"
-      ]
+      ],
+      "usefulness": 80,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-884c",
@@ -5071,7 +5975,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-215"
-      ]
+      ],
+      "usefulness": 63,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-573a",
@@ -5082,7 +5988,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.location.market-station"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 36
     },
     {
       "id": "zh.hanzi.m260908-5fd8",
@@ -5093,7 +6001,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.problem.forgot-umbrella"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-627e",
@@ -5104,7 +6014,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.problem.missing-key"
-      ]
+      ],
+      "usefulness": 91,
+      "complexity": 29
     },
     {
       "id": "zh.hanzi.m260908-95ed",
@@ -5115,7 +6027,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.problem.road-closed"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-53e6",
@@ -5126,7 +6040,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.plan.other-road"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-56e0",
@@ -5137,7 +6053,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.reason.rain-slow"
-      ]
+      ],
+      "usefulness": 55,
+      "complexity": 41
     },
     {
       "id": "zh.hanzi.m260908-91ce",
@@ -5148,7 +6066,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.plan.sunny-picnic"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-9910",
@@ -5159,7 +6079,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.plan.sunny-picnic"
-      ]
+      ],
+      "usefulness": 78,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-544a",
@@ -5170,7 +6092,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.request.tell-result"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-7ed3",
@@ -5181,7 +6105,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww.request.tell-result"
-      ]
+      ],
+      "usefulness": 58,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-5957",
@@ -5192,7 +6118,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-104"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-4f46",
@@ -5203,7 +6131,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-174"
-      ]
+      ],
+      "usefulness": 91,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-80fd",
@@ -5214,7 +6144,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-012"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-7ba1",
@@ -5225,7 +6157,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-134"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-7406",
@@ -5236,7 +6170,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-134"
-      ]
+      ],
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "zh.hanzi.m260908-5458",
@@ -5247,7 +6183,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-134"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-8ba1",
@@ -5258,7 +6196,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-208"
-      ]
+      ],
+      "usefulness": 73,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-642c",
@@ -5269,7 +6209,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-076"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-9884",
@@ -5280,7 +6222,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-108"
-      ]
+      ],
+      "usefulness": 91,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-4efd",
@@ -5291,7 +6235,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-203"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-4e1c",
@@ -5302,7 +6248,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-169"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-897f",
@@ -5313,7 +6261,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-112"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-683c",
@@ -5324,7 +6274,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-158"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-6570",
@@ -5335,7 +6287,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-164"
-      ]
+      ],
+      "usefulness": 73,
+      "complexity": 29
     },
     {
       "id": "zh.hanzi.m260908-53d8",
@@ -5346,7 +6300,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-031"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 34
     },
     {
       "id": "zh.hanzi.m260908-5316",
@@ -5357,7 +6313,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-227"
-      ]
+      ],
+      "usefulness": 34,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-51b3",
@@ -5368,7 +6326,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-129"
-      ]
+      ],
+      "usefulness": 55,
+      "complexity": 34
     },
     {
       "id": "zh.hanzi.m260908-6cd5",
@@ -5379,7 +6339,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-127"
-      ]
+      ],
+      "usefulness": 34,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-6e05",
@@ -5390,7 +6352,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-193"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-8868",
@@ -5401,7 +6365,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-014"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-62a4",
@@ -5412,7 +6378,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-085"
-      ]
+      ],
+      "usefulness": 82,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-7167",
@@ -5423,7 +6391,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-116"
-      ]
+      ],
+      "usefulness": 71,
+      "complexity": 45
     },
     {
       "id": "zh.hanzi.m260908-73ed",
@@ -5434,7 +6404,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-129"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-6362",
@@ -5445,7 +6417,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-188"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 41
     },
     {
       "id": "zh.hanzi.m260908-5168",
@@ -5456,7 +6430,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-129"
-      ]
+      ],
+      "usefulness": 84,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-9a8c",
@@ -5467,7 +6443,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-132"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-68c0",
@@ -5478,7 +6456,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-127"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-5b9a",
@@ -5489,7 +6469,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-exp260908-017"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 41
     },
     {
       "id": "zh.hanzi.m260908-91cd",
@@ -5500,7 +6482,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.digital.backup-files"
-      ]
+      ],
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.m260908-548c",
@@ -5511,7 +6495,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-138"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-590d",
@@ -5522,7 +6508,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-234"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-888b",
@@ -5533,7 +6521,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-217"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-9f99",
@@ -5544,7 +6534,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-027"
-      ]
+      ],
+      "usefulness": 43,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-57ce",
@@ -5555,7 +6547,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-092"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-65b9",
@@ -5566,7 +6560,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-030"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-53d6",
@@ -5577,7 +6573,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-171"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-505c",
@@ -5588,7 +6586,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-079"
-      ]
+      ],
+      "usefulness": 99,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-6539",
@@ -5599,7 +6599,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-097"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 46
     },
     {
       "id": "zh.hanzi.m260908-9519",
@@ -5610,7 +6612,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-159"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-501f",
@@ -5621,7 +6625,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-122"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-610f",
@@ -5632,7 +6638,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.language.ask-meaning"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-7ec4",
@@ -5643,7 +6651,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-125"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-575a",
@@ -5654,7 +6664,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-exp260908-009"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-85cf",
@@ -5665,7 +6677,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-009"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-91cf",
@@ -5676,7 +6690,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-011"
-      ]
+      ],
+      "usefulness": 58,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-5411",
@@ -5687,7 +6703,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-011"
-      ]
+      ],
+      "usefulness": 90,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-6559",
@@ -5698,7 +6716,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-012"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-62cd",
@@ -5709,7 +6729,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-012"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-5076",
@@ -5720,7 +6742,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-014"
-      ]
+      ],
+      "usefulness": 58,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-6f14",
@@ -5731,7 +6755,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-014"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-675f",
@@ -5742,7 +6768,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-014"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-6405",
@@ -5753,7 +6781,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-015"
-      ]
+      ],
+      "usefulness": 78,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-62cc",
@@ -5764,7 +6794,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-015"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-997c",
@@ -5775,7 +6807,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-015"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-725b",
@@ -5786,7 +6820,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-016"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-7559",
@@ -5797,7 +6833,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-016"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-78c1",
@@ -5808,7 +6846,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-exp260908-017"
-      ]
+      ],
+      "usefulness": 34,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-56fa",
@@ -5819,7 +6859,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-exp260908-017"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-671b",
@@ -5830,7 +6872,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-exp260908-019"
-      ]
+      ],
+      "usefulness": 90,
+      "complexity": 41
     },
     {
       "id": "zh.hanzi.m260908-8fdc",
@@ -5841,7 +6885,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-019"
-      ]
+      ],
+      "usefulness": 70,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-89c2",
@@ -5852,7 +6898,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-exp260908-019"
-      ]
+      ],
+      "usefulness": 58,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-871c",
@@ -5863,7 +6911,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-020"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-4ece",
@@ -5874,7 +6924,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-020"
-      ]
+      ],
+      "usefulness": 91,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-4e3b",
@@ -5885,7 +6937,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-exp260908-021"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 36
     },
     {
       "id": "zh.hanzi.m260908-6545",
@@ -5896,7 +6950,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-exp260908-021"
-      ]
+      ],
+      "usefulness": 55,
+      "complexity": 41
     },
     {
       "id": "zh.hanzi.m260908-8da3",
@@ -5907,7 +6963,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-exp260908-021"
-      ]
+      ],
+      "usefulness": 33,
+      "complexity": 41
     },
     {
       "id": "zh.hanzi.m260908-5c3e",
@@ -5918,7 +6976,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-021"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-50cf",
@@ -5929,7 +6989,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-022"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-821e",
@@ -5940,7 +7002,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-022"
-      ]
+      ],
+      "usefulness": 62,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-98d8",
@@ -5951,7 +7015,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-024"
-      ]
+      ],
+      "usefulness": 91,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-843d",
@@ -5962,7 +7028,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-024"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-96c6",
@@ -5973,7 +7041,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-exp260908-027"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-7ebd",
@@ -5984,7 +7054,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-027"
-      ]
+      ],
+      "usefulness": 72,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-6263",
@@ -5995,7 +7067,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-027"
-      ]
+      ],
+      "usefulness": 82,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-8d34",
@@ -6006,7 +7080,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-029"
-      ]
+      ],
+      "usefulness": 90,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-6b4c",
@@ -6017,7 +7093,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-031"
-      ]
+      ],
+      "usefulness": 63,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-4f4f",
@@ -6028,7 +7106,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-032"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-866b",
@@ -6039,7 +7119,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-064"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.m260908-5e73",
@@ -6050,7 +7132,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-170"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-6a21",
@@ -6061,7 +7145,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-238"
-      ]
+      ],
+      "usefulness": 58,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-76d2",
@@ -6072,7 +7158,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-136"
-      ]
+      ],
+      "usefulness": 80,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-5c01",
@@ -6083,7 +7171,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-218"
-      ]
+      ],
+      "usefulness": 48,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-611f",
@@ -6094,7 +7184,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-176"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-5fd9",
@@ -6105,7 +7197,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-135"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-8fdb",
@@ -6116,7 +7210,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-exp260908-042"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-571f",
@@ -6127,7 +7223,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-066"
-      ]
+      ],
+      "usefulness": 46,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-8c46",
@@ -6138,7 +7236,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-061"
-      ]
+      ],
+      "usefulness": 78,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-82d7",
@@ -6149,7 +7249,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-068"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-5357",
@@ -6160,7 +7262,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-070"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-74dc",
@@ -6171,7 +7275,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-070"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-624d",
@@ -6182,7 +7288,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-071"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-5f80",
@@ -6193,7 +7301,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-071"
-      ]
+      ],
+      "usefulness": 90,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-722c",
@@ -6204,7 +7314,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-071"
-      ]
+      ],
+      "usefulness": 71,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-6ce5",
@@ -6215,7 +7327,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-072"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-6478",
@@ -6226,7 +7340,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-072"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-62d4",
@@ -6237,7 +7353,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-073"
-      ]
+      ],
+      "usefulness": 82,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-7bb1",
@@ -6248,7 +7366,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-074"
-      ]
+      ],
+      "usefulness": 80,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-7a9d",
@@ -6259,7 +7379,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-076"
-      ]
+      ],
+      "usefulness": 48,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-9e7f",
@@ -6270,7 +7392,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-079"
-      ]
+      ],
+      "usefulness": 48,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-98df",
@@ -6281,7 +7405,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-080"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-690d",
@@ -6292,7 +7418,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-085"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-6eaa",
@@ -6303,7 +7431,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-089"
-      ]
+      ],
+      "usefulness": 46,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-6361",
@@ -6314,7 +7444,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-090"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-8d1d",
@@ -6325,7 +7457,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-094"
-      ]
+      ],
+      "usefulness": 46,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-7d2b",
@@ -6336,7 +7470,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-094"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-6bcd",
@@ -6347,7 +7483,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-096"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-8239",
@@ -6358,7 +7496,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-100"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.m260908-5439",
@@ -6369,7 +7509,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-101"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.m260908-51b0",
@@ -6380,7 +7522,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-107"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-96f7",
@@ -6391,7 +7535,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-110"
-      ]
+      ],
+      "usefulness": 46,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-79cb",
@@ -6402,7 +7548,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-113"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-53c8",
@@ -6413,7 +7561,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-117"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-8bb0",
@@ -6424,7 +7574,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-119"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-534a",
@@ -6435,7 +7587,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-124"
-      ]
+      ],
+      "usefulness": 84,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-6015",
@@ -6446,7 +7600,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-137"
-      ]
+      ],
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-773c",
@@ -6457,7 +7613,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-140"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-5e03",
@@ -6468,7 +7626,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-146"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-62c9",
@@ -6479,7 +7639,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-146"
-      ]
+      ],
+      "usefulness": 82,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-88c5",
@@ -6490,7 +7652,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-148"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-9996",
@@ -6501,7 +7665,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-149"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 36
     },
     {
       "id": "zh.hanzi.m260908-89d2",
@@ -6512,7 +7678,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-151"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-5531",
@@ -6523,7 +7691,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-153"
-      ]
+      ],
+      "usefulness": 63,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.m260908-529b",
@@ -6534,7 +7704,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-180"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-795d",
@@ -6545,7 +7717,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-180"
-      ]
+      ],
+      "usefulness": 55,
+      "complexity": 38
     },
     {
       "id": "zh.hanzi.m260908-68a8",
@@ -6556,7 +7730,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-198"
-      ]
+      ],
+      "usefulness": 78,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-591c",
@@ -6567,7 +7743,9 @@
       "difficulty": 2,
       "sourceConceptIds": [
         "ww-zh-m260908-235"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-7ec6",
@@ -6578,7 +7756,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-239"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-4fee",
@@ -6589,7 +7769,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.housing.repair-appointment"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-8bc1",
@@ -6600,7 +7782,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.service.identity-document"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 45
     },
     {
       "id": "zh.hanzi.m260908-786e",
@@ -6611,7 +7795,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.work.confirm-data"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-636e",
@@ -6622,7 +7808,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.work.confirm-data"
-      ]
+      ],
+      "usefulness": 33,
+      "complexity": 41
     },
     {
       "id": "zh.hanzi.m260908-901a",
@@ -6633,7 +7821,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.work.notify-change"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-9760",
@@ -6644,7 +7834,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.travel.reserve-window"
-      ]
+      ],
+      "usefulness": 90,
+      "complexity": 41
     },
     {
       "id": "zh.hanzi.m260908-6599",
@@ -6655,7 +7847,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.environment.sort-materials"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 41
     },
     {
       "id": "zh.hanzi.m260908-6e90",
@@ -6666,7 +7860,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.environment.save-energy"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-5e38",
@@ -6677,7 +7873,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.reason.rain-museum"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-8bef",
@@ -6688,7 +7886,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.delivery.wrong-address"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-601d",
@@ -6699,7 +7899,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-284"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-6d3b",
@@ -6710,7 +7912,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.culture.respect-habits"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-5f0f",
@@ -6721,7 +7925,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.culture.respect-habits"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-8bba",
@@ -6732,7 +7938,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww.social.listen-before-discussion"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-8bb8",
@@ -6743,7 +7951,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-exp260908-035"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-8bed",
@@ -6754,7 +7964,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-exp260908-039"
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-6838",
@@ -6765,7 +7977,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-243"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-5224",
@@ -6776,7 +7990,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-249"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-5dee",
@@ -6787,7 +8003,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-252"
-      ]
+      ],
+      "usefulness": 52,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.m260908-5c1d",
@@ -6798,7 +8016,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-253"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-7565",
@@ -6809,7 +8029,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-254"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-5f7c",
@@ -6820,7 +8042,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-257"
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-7531",
@@ -6831,7 +8055,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-257"
-      ]
+      ],
+      "usefulness": 91,
+      "complexity": 41
     },
     {
       "id": "zh.hanzi.m260908-8fbe",
@@ -6842,7 +8068,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-257"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-81f4",
@@ -6853,7 +8081,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-257"
-      ]
+      ],
+      "usefulness": 91,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-8003",
@@ -6864,7 +8094,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-262"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 46
     },
     {
       "id": "zh.hanzi.m260908-4f8b",
@@ -6875,7 +8107,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-262"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-5473",
@@ -6886,7 +8120,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-263"
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-8865",
@@ -6897,7 +8133,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-266"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-914d",
@@ -6908,7 +8146,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-267"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 41
     },
     {
       "id": "zh.hanzi.m260908-6574",
@@ -6919,7 +8159,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-268"
-      ]
+      ],
+      "usefulness": 84,
+      "complexity": 36
     },
     {
       "id": "zh.hanzi.m260908-6298",
@@ -6930,7 +8172,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-270"
-      ]
+      ],
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-4e61",
@@ -6941,7 +8185,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-272"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-8d4f",
@@ -6952,7 +8198,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-273"
-      ]
+      ],
+      "usefulness": 55,
+      "complexity": 50
     },
     {
       "id": "zh.hanzi.m260908-61c2",
@@ -6963,7 +8211,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-276"
-      ]
+      ],
+      "usefulness": 98,
+      "complexity": 25
     },
     {
       "id": "zh.hanzi.m260908-5fc6",
@@ -6974,7 +8224,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-277"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-68a6",
@@ -6985,7 +8237,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-278"
-      ]
+      ],
+      "usefulness": 70,
+      "complexity": 20
     },
     {
       "id": "zh.hanzi.m260908-613f",
@@ -6996,7 +8250,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-279"
-      ]
+      ],
+      "usefulness": 55,
+      "complexity": 41
     },
     {
       "id": "zh.hanzi.m260908-63a2",
@@ -7007,7 +8263,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-279"
-      ]
+      ],
+      "usefulness": 58,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-7d22",
@@ -7018,7 +8276,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-279"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-666f",
@@ -7029,7 +8289,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-282"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-8bb2",
@@ -7040,7 +8302,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-283"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-8ff0",
@@ -7051,7 +8315,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-283"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-4e16",
@@ -7062,7 +8328,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-285"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 31
     },
     {
       "id": "zh.hanzi.m260908-6750",
@@ -7073,7 +8341,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-286"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-73cd",
@@ -7084,7 +8354,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-286"
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "zh.hanzi.m260908-51cf",
@@ -7095,7 +8367,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-287"
-      ]
+      ],
+      "usefulness": 44,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-5f15",
@@ -7106,7 +8380,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-288"
-      ]
+      ],
+      "usefulness": 44,
+      "complexity": 32
     },
     {
       "id": "zh.hanzi.m260908-5229",
@@ -7117,7 +8393,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-297"
-      ]
+      ],
+      "usefulness": 52,
+      "complexity": 27
     },
     {
       "id": "zh.hanzi.m260908-5236",
@@ -7128,7 +8406,9 @@
       "difficulty": 3,
       "sourceConceptIds": [
         "ww-zh-m260908-300"
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 31
     }
   ]
 }

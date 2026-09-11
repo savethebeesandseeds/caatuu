@@ -6,12 +6,14 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-czech-pwa-v702",
+    "cacheName": "caatuu-czech-pwa-v705",
     "cachePrefix": "caatuu-czech-pwa-",
     "assets": [
       "/language-runtime/static/source/image-embedding-index.mjs?v=image-index-runtime-1",
       "/language-runtime/static/data/image-embeddings/minilm-v1.json?v=image-index-1",
       "/language-runtime/static/source/games/curriculum-progression.mjs",
+      "/language-runtime/static/source/games/content-progression.mjs",
+      "/language-runtime/static/source/word-world-progression.mjs",
       "/language-runtime/static/source/english-image-search.mjs?v=english-image-search-3",
       "/language-runtime/static/source/learner-base-token-meanings.mjs?v=learner-base-token-meanings-1",
       "/language-runtime/static/source/launcher-interface.mjs?v=launcher-interface-1",
@@ -229,7 +231,7 @@
       "./data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-4",
       "./data/language/scripts.json",
       "./data/games/word-world/manifest.json?v=word-world-token-hints-1",
-      "./data/games/word-world/content.json?v=b154ef48960191c1",
+      "./data/games/word-world/content.json?v=55f63c965334a83c",
       "/language-runtime/static/source/developer-tools/developer-tools.mjs?v=developer-tools-3",
       "/language-runtime/static/source/developer-tools/audio-lab.mjs",
       "/language-runtime/static/source/developer-tools/catalog-inspectors.mjs",
@@ -282,8 +284,8 @@
       "artifact_kind": "course-game-content",
       "url": "/cz/data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-4",
       "asset_path": "data/games/grammar-gravity/nouns.json",
-      "bytes": 29603,
-      "sha256": "7784e3d9677820b53859c757b54ac4ea7d6ef137fa73f2fa2f3ad7ef22716d61",
+      "bytes": 35651,
+      "sha256": "55a28838b229287fce059d1e64e321f521f9a31114f5fdef3176b446b47a1319",
       "native_required": true,
       "browser_required": true
     },

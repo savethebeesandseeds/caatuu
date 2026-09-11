@@ -2,11 +2,12 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
+import { newContentEncounterId } from "../static/source/games/content-progression.mjs";
 
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { englishInterfaceContent } from "./helpers/english-interface-content.mjs";
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../static/source/games/embedded-game-controls.mjs";
-import { CZECH_CASES, validatePack, buildRounds, buildQuestions } from "../../languages/czech/static/source/games/case-cosmos/case-cosmos-content.mjs";
+import { CZECH_CASES, validatePack, buildRounds, buildQuestions, buildCasePracticeRounds } from "../../languages/czech/static/source/games/case-cosmos/case-cosmos-content.mjs";
 import { assertEnglishCzechCourse } from "../../languages/czech/static/source/games/case-cosmos/case-cosmos-cs-policy.mjs";
 
 const source = await readFile(new URL(
@@ -182,7 +183,7 @@ async function mountGame({ difficulty = 1, pack = catalog, status = 200, duringL
   harness.context.clearTimeout = harness.window.clearTimeout = clearTimer;
   harness.context.console = { ...console, error: (...values) => errors.push(values) };
   Object.assign(harness.context, { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen,
-    CZECH_CASES, validatePack, buildRounds, buildQuestions, assertEnglishCzechCourse });
+    CZECH_CASES, validatePack, buildRounds, buildQuestions, buildCasePracticeRounds, newContentEncounterId, assertEnglishCzechCourse });
   // Capture the actual initialization promise, without exposing test APIs in production.
   assert.match(source, /\binit\(\);\s*$/u);
   const executable = source
@@ -224,6 +225,34 @@ async function mountGame({ difficulty = 1, pack = catalog, status = 200, duringL
   if (game.api.state.phase === "question") game.selectCandidate(true);
   return game;
 }
+
+test("case progression schedules individual sentences and credits only the completed answer", async () => {
+  const exposures = [];
+  let generation = "before-reset";
+  const game = await mountGame({ duringLoad({ window }) {
+    window.CaatuuLearning.contentHistory = () => ({});
+    window.CaatuuLearning.contentGeneration = () => generation;
+    window.CaatuuLearning.recordExposure = (gameId, event) => exposures.push({ gameId, ...event });
+  } });
+  assert.equal(game.api.state.questions.length, 1);
+  generation = "after-reset";
+  assert.equal(exposures.length, 0);
+  const id = game.api.currentChallenge().id;
+  game.selectCandidate(false);
+  game.api.chooseAnswer(false);
+  assert.equal(exposures.length, 0, "rejecting a distractor is not a completed sentence");
+  await game.tick(1400);
+  game.selectCandidate(true);
+  game.api.chooseAnswer(true);
+  assert.equal(exposures.length, 1);
+  assert.equal(exposures[0].itemId, id);
+  assert.equal(exposures[0].correct, true);
+  assert.equal(exposures[0].generation, "before-reset");
+  assert.equal(exposures[0].evidence, "assisted", "eliminated options provide help for the final choice");
+  game.api.chooseAnswer(true);
+  assert.equal(exposures.length, 1);
+  game.window.dispatchEvent({ type: "pagehide", persisted: false });
+});
 
 test("Case Cosmos has one sentence, one proposed case, and two real answer buttons; the old matching grid is gone", async () => {
   const game = await mountGame();

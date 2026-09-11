@@ -7,11 +7,17 @@ const rows=JSON.parse(await readFile(new URL('../static/data/games/verb-nebula/c
 const authored=JSON.parse(await readFile(new URL('../content/quality-pilot/verb-nebula.json',import.meta.url),'utf8'));
 const pairs=validateVerbNebulaCatalog(rows,{learnerBaseLanguage:'es-ES'});
 test('expanded verbs retain every reviewed identity and translation with no sentence metadata in play',()=>{
-  assert.equal(pairs.length,46);
+  assert.equal(pairs.length,rows.length);
   for (const pair of pairs) {
-    const saved=authored.find(item=>item.id===pair.id);
+    const saved=rows.find(item=>item.id===pair.id);
     assert.deepEqual([pair.target,pair.source,pair.englishAuditText],[saved.target,saved.source,saved.englishAuditText]);
     assert.equal(pair.learning,undefined);
+  }
+  for (const historical of authored) {
+    const current=pairs.find(item=>item.id===historical.id);
+    assert.ok(current, `${historical.id}: retained pilot identity missing`);
+    assert.deepEqual([current.target,current.source,current.englishAuditText],
+      [historical.target,historical.source,historical.englishAuditText]);
   }
   assert.ok(rows.every(row=>!Object.hasOwn(row,'learning')));
   assert.ok(authored.every(row=>row.learning.context && row.learning.transfer && row.learning.noteBaseText));

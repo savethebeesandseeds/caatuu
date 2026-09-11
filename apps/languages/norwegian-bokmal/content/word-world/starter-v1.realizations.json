@@ -26344,6 +26344,101 @@
           "playable": true
         }
       ]
+    },
+    {
+      "conceptId": "ww-nb-starter260911-yes",
+      "text": "Ja.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Ja",
+          "pronunciation": null,
+          "gloss": "yes",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-nb-starter260911-no",
+      "text": "Nei.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Nei",
+          "pronunciation": null,
+          "gloss": "no",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-nb-starter260911-no-thanks",
+      "text": "Nei takk.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Nei",
+          "pronunciation": null,
+          "gloss": "no",
+          "playable": true
+        },
+        {
+          "surface": "takk",
+          "pronunciation": null,
+          "gloss": "thank you",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-nb-starter260911-water",
+      "text": "Jeg trenger vann.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Jeg",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "trenger",
+          "pronunciation": null,
+          "gloss": "need",
+          "playable": true
+        },
+        {
+          "surface": "vann",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-nb-starter260911-dont-know",
+      "text": "Jeg vet ikke.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Jeg",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "vet",
+          "pronunciation": null,
+          "gloss": "know",
+          "playable": true
+        },
+        {
+          "surface": "ikke",
+          "pronunciation": null,
+          "gloss": "not",
+          "playable": true
+        }
+      ]
     }
   ]
 }

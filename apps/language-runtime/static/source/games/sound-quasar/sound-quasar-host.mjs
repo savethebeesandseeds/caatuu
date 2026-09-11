@@ -2,6 +2,7 @@ import { readEmbeddedCourseProfile, fetchDeclaredCourseGameJson } from "../cours
 import { validateSoundQuasarCatalog, createSoundQuasarSession, evaluateSoundQuasarChoice, soundQuasarItemsForDifficulty } from "./sound-quasar-core.mjs?v=sound-quasar-8";
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-8";
 import { appendTargetToneText } from "../../target-text-tones.mjs?v=target-text-tones-1";
+import { newContentEncounterId } from "../content-progression.mjs";
 
 const GAME_ID = "sound-quasar";
 const MUSIC_ARTWORK = Object.freeze([
@@ -191,6 +192,8 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     syncButtons();
   }
   function beginWord() {
+    state.encounterId = newContentEncounterId();
+    state.contentGeneration = shell.CaatuuLearning?.contentGeneration?.() ?? null;
     state.resolved = false;
     state.resultCorrect = false;
     state.skipped = false;
@@ -246,7 +249,8 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     const difficulty = Math.max(1, Math.min(3, Math.floor(Number(shell.CaatuuLearning?.difficulty?.()) || 1)));
     const available = soundQuasarItemsForDifficulty(catalog, { mode: state.mode, difficulty }).length;
     const choiceCount = available >= state.choiceCount ? state.choiceCount : Math.min(4, available);
-    state.rounds = createSoundQuasarSession(catalog, { random, roundLength: 5, mode: state.mode, choiceCount, difficulty });
+    state.rounds = createSoundQuasarSession(catalog, { random, roundLength: 5, mode: state.mode, choiceCount, difficulty,
+      history: shell.CaatuuLearning?.contentHistory?.(GAME_ID, state.mode) });
     for (const button of node("quasarChoiceOptions").querySelectorAll("button[data-count]")) {
       const count = Number(button.dataset.count);
       button.textContent = t("soundquasar.options.count", { count });
@@ -310,6 +314,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     if (!state.active || state.destroyed || state.finished || !state.heard || state.playing || state.resolved || state.skipped || state.missed.has(choiceId)) return;
     const round = current();
     const correct = evaluateSoundQuasarChoice(round, choiceId);
+    const evidence = state.missed.size ? "assisted" : "independent";
     const button = node("quasarChoices").querySelector(`[data-choice-id="${choiceId}"]`);
     if (correct) {
       state.resolved = true;
@@ -325,6 +330,11 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
       } else feedback("soundquasar.tryagain", undefined, "error");
     }
     // Lock the attempt before record() emits synchronous learning-change events.
+    shell.CaatuuLearning?.recordExposure?.(GAME_ID, {
+      bankId: state.mode, itemId: round.id, encounterId: state.encounterId,
+      generation: state.contentGeneration,
+      evidence, correct
+    });
     shell.CaatuuLearning?.record?.(GAME_ID, { activities: 1, attempts: 1, successes: correct ? 1 : 0, xp: correct ? 1 : 0 });
     syncButtons();
   }

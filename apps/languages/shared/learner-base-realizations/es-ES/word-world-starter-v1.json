@@ -22011,6 +22011,348 @@
           "text": "valentía"
         }
       ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-yes",
+      "text": "Sí.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "Yes",
+          "text": "sí"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-no",
+      "text": "No.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "No",
+          "text": "no"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-please",
+      "text": "Por favor.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "Please",
+          "text": "por favor"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-sorry",
+      "text": "Lo siento.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "am",
+          "text": "estoy; parte de I am sorry: lo siento"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "sorry",
+          "text": "arrepentido; parte de I am sorry: lo siento"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-excuse-me",
+      "text": "Perdona.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "Excuse",
+          "text": "disculpa"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "me",
+          "text": "me"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-help",
+      "text": "Necesito ayuda.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "need",
+          "text": "necesito"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "help",
+          "text": "ayuda"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-hungry",
+      "text": "Tengo hambre.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "am",
+          "text": "tengo; parte de am hungry: tengo hambre"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "hungry",
+          "text": "hambre"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-thirsty",
+      "text": "Tengo sed.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "am",
+          "text": "tengo; parte de am thirsty: tengo sed"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "thirsty",
+          "text": "sed"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-water",
+      "text": "Necesito agua.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "need",
+          "text": "necesito"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "water",
+          "text": "agua"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-bathroom",
+      "text": "¿Dónde está el baño?",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "Where",
+          "text": "dónde"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "is",
+          "text": "está"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "the",
+          "text": "el"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "bathroom",
+          "text": "baño"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-again",
+      "text": "Otra vez, por favor.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "Again",
+          "text": "otra vez"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "please",
+          "text": "por favor"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-slowly",
+      "text": "Habla despacio, por favor.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "Speak",
+          "text": "habla"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "slowly",
+          "text": "despacio"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "please",
+          "text": "por favor"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-no-thanks",
+      "text": "No, gracias.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "No",
+          "text": "no"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "thank",
+          "text": "gracias"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "you",
+          "text": "a ti"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-stop",
+      "text": "¡Para!",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "Stop",
+          "text": "para"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-dont-know",
+      "text": "No sé.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "do",
+          "text": "auxiliar de negación"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "not",
+          "text": "no"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "know",
+          "text": "sé"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-es-en-starter260911-name",
+      "text": "¿Cómo te llamas?",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "What",
+          "text": "cuál"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "is",
+          "text": "es"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "your",
+          "text": "tu"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "name",
+          "text": "nombre"
+        }
+      ]
     }
   ]
 }

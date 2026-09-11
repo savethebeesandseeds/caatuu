@@ -77,7 +77,9 @@
       "learnerBase": null,
       "sceneQuery": "two friends greeting each other",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww.greeting.thanks",
@@ -99,7 +101,9 @@
       "learnerBase": null,
       "sceneQuery": "one person thanking a friend",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww.greeting.goodbye",
@@ -121,7 +125,9 @@
       "learnerBase": null,
       "sceneQuery": "friends waving goodbye",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww.identity.name",
@@ -155,7 +161,9 @@
       "learnerBase": null,
       "sceneQuery": "a learner introducing themself",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 92,
+      "complexity": 17
     },
     {
       "id": "ww.identity.student",
@@ -183,7 +191,9 @@
       "learnerBase": null,
       "sceneQuery": "a student with a school bag",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww.object.book",
@@ -223,7 +233,9 @@
       "learnerBase": null,
       "sceneQuery": "a book on a desk",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 73,
+      "complexity": 27
     },
     {
       "id": "ww.animal.cat",
@@ -263,7 +275,9 @@
       "learnerBase": null,
       "sceneQuery": "a cat sitting nearby",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww.weather.cold-today",
@@ -297,7 +311,9 @@
       "learnerBase": null,
       "sceneQuery": "a cold day outdoors",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 27
     },
     {
       "id": "ww.comprehension.not-understand",
@@ -325,7 +341,9 @@
       "learnerBase": null,
       "sceneQuery": "a learner asking for clarification",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 98,
+      "complexity": 17
     },
     {
       "id": "ww.greeting.good-morning",
@@ -353,7 +371,9 @@
       "learnerBase": null,
       "sceneQuery": "two children greeting at sunrise",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww.greeting.good-evening",
@@ -381,7 +401,9 @@
       "learnerBase": null,
       "sceneQuery": "neighbors greeting under an evening sky",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww.number.seven-to-ten",
@@ -421,7 +443,9 @@
       "learnerBase": null,
       "sceneQuery": "rows of seven eight nine and ten toy blocks",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "ww.politeness.welcome",
@@ -449,7 +473,9 @@
       "learnerBase": null,
       "sceneQuery": "two friends smiling after one says thanks",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww.greeting.how-are-you",
@@ -477,7 +503,9 @@
       "learnerBase": null,
       "sceneQuery": "two friends checking on each other",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww.greeting.i-am-well",
@@ -511,7 +539,9 @@
       "learnerBase": null,
       "sceneQuery": "a cheerful person giving a thumbs up",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww.identity.your-name",
@@ -545,7 +575,9 @@
       "learnerBase": null,
       "sceneQuery": "two new classmates introducing themselves",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 92,
+      "complexity": 23
     },
     {
       "id": "ww.people.my-friend",
@@ -585,7 +617,9 @@
       "learnerBase": null,
       "sceneQuery": "two boys standing together as friends",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "ww.people.my-teacher",
@@ -625,7 +659,9 @@
       "learnerBase": null,
       "sceneQuery": "a student standing beside her teacher",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "ww.family.together",
@@ -659,7 +695,9 @@
       "learnerBase": null,
       "sceneQuery": "a family gathered together at home",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "ww.family.mother",
@@ -699,7 +737,9 @@
       "learnerBase": null,
       "sceneQuery": "a child standing beside their mother",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "ww.family.father",
@@ -739,7 +779,9 @@
       "learnerBase": null,
       "sceneQuery": "a child pointing toward their father",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "ww.language.speak-chinese",
@@ -773,7 +815,9 @@
       "learnerBase": null,
       "sceneQuery": "a learner chatting with a Chinese teacher",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "ww.classroom.listen",
@@ -807,7 +851,9 @@
       "learnerBase": null,
       "sceneQuery": "a teacher speaking while students listen",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "ww.classroom.look",
@@ -841,7 +887,9 @@
       "learnerBase": null,
       "sceneQuery": "a teacher pointing at a classroom picture",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "ww.classroom.read",
@@ -875,7 +923,9 @@
       "learnerBase": null,
       "sceneQuery": "a student reading an open book",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 78,
+      "complexity": 22
     },
     {
       "id": "ww.classroom.write",
@@ -909,7 +959,9 @@
       "learnerBase": null,
       "sceneQuery": "a student writing in a notebook",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 78,
+      "complexity": 22
     },
     {
       "id": "ww.language.learn-pinyin",
@@ -943,7 +995,9 @@
       "learnerBase": null,
       "sceneQuery": "a learner practicing pinyin sound cards",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 14,
+      "complexity": 27
     },
     {
       "id": "ww.language.easy-word",
@@ -983,7 +1037,9 @@
       "learnerBase": null,
       "sceneQuery": "a smiling student holding one vocabulary card",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww.number.one-to-six",
@@ -1035,7 +1091,9 @@
       "learnerBase": null,
       "sceneQuery": "six colorful blocks arranged for counting",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "ww.number.two-books",
@@ -1069,7 +1127,9 @@
       "learnerBase": null,
       "sceneQuery": "a student holding two books",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 73,
+      "complexity": 27
     },
     {
       "id": "ww.number.three-apples",
@@ -1109,7 +1169,9 @@
       "learnerBase": null,
       "sceneQuery": "three apples together on a table",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "ww.time.what-time",
@@ -1149,7 +1211,9 @@
       "learnerBase": null,
       "sceneQuery": "a person checking an analog wall clock",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww.time.monday",
@@ -1183,7 +1247,9 @@
       "learnerBase": null,
       "sceneQuery": "a student beginning the school week",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "ww.time.tuesday",
@@ -1217,7 +1283,9 @@
       "learnerBase": null,
       "sceneQuery": "a child moving a calendar marker forward one day",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "ww.food.rice",
@@ -1257,7 +1325,9 @@
       "learnerBase": null,
       "sceneQuery": "a child enjoying a bowl of rice",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 29
     },
     {
       "id": "ww.drink.water",
@@ -1297,7 +1367,9 @@
       "learnerBase": null,
       "sceneQuery": "a person offering a glass of water",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 93,
+      "complexity": 22
     },
     {
       "id": "ww.plan.want-school",
@@ -1337,7 +1409,9 @@
       "learnerBase": null,
       "sceneQuery": "a student walking toward a school building",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 82,
+      "complexity": 22
     },
     {
       "id": "ww.food.big-apple",
@@ -1377,7 +1451,9 @@
       "learnerBase": null,
       "sceneQuery": "one large apple beside a small cup",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "ww.animal.small-cat",
@@ -1417,7 +1493,9 @@
       "learnerBase": null,
       "sceneQuery": "a small kitten beside a chair",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww.home.my-home",
@@ -1457,7 +1535,9 @@
       "learnerBase": null,
       "sceneQuery": "a child standing proudly outside their home",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "ww.location.book-on-table",
@@ -1509,7 +1589,9 @@
       "learnerBase": null,
       "sceneQuery": "a book resting on a wooden table",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 73,
+      "complexity": 27
     },
     {
       "id": "ww.location.cat-under-chair",
@@ -1567,7 +1649,9 @@
       "learnerBase": null,
       "sceneQuery": "a cat curled up under a chair",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "ww.home.open-door",
@@ -1607,7 +1691,9 @@
       "learnerBase": null,
       "sceneQuery": "an open doorway in a bright room",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "ww.home.closed-window",
@@ -1647,7 +1733,9 @@
       "learnerBase": null,
       "sceneQuery": "a closed window in a cozy room",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "ww.weather.rain-today",
@@ -1681,7 +1769,9 @@
       "learnerBase": null,
       "sceneQuery": "children under umbrellas in daytime rain",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "ww.action.teacher-arrived",
@@ -1721,7 +1811,9 @@
       "learnerBase": null,
       "sceneQuery": "a teacher entering a classroom doorway",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 37
     },
     {
       "id": "ww.routine.get-up",
@@ -1767,7 +1859,9 @@
       "learnerBase": null,
       "sceneQuery": "a child getting out of bed at sunrise",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 29
     },
     {
       "id": "ww.routine.go-home",
@@ -1819,7 +1913,9 @@
       "learnerBase": null,
       "sceneQuery": "a student arriving home at sunset",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 22
     },
     {
       "id": "ww.politeness.sit-down",
@@ -1853,7 +1949,9 @@
       "learnerBase": null,
       "sceneQuery": "a host offering a chair to a guest",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww.greeting.see-you-tomorrow",
@@ -1887,7 +1985,9 @@
       "learnerBase": null,
       "sceneQuery": "two classmates waving goodbye after school",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 22
     },
     {
       "id": "ww.question.what-is-this",
@@ -1921,7 +2021,9 @@
       "learnerBase": null,
       "sceneQuery": "a curious child pointing at an unfamiliar object",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "ww.question.who-is-that",
@@ -1961,7 +2063,9 @@
       "learnerBase": null,
       "sceneQuery": "two friends noticing a person in the distance",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 79,
+      "complexity": 24
     },
     {
       "id": "ww.question.where-are-you",
@@ -1995,7 +2099,9 @@
       "learnerBase": null,
       "sceneQuery": "a friend calling from a park entrance",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 68,
+      "complexity": 24
     },
     {
       "id": "ww.question.when-come",
@@ -2023,7 +2129,9 @@
       "learnerBase": null,
       "sceneQuery": "a person checking a clock while on the phone",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 68,
+      "complexity": 24
     },
     {
       "id": "ww.question.why-chinese",
@@ -2069,7 +2177,9 @@
       "learnerBase": null,
       "sceneQuery": "a student practicing Chinese character cards",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 73,
+      "complexity": 24
     },
     {
       "id": "ww.question.how-say-word",
@@ -2115,7 +2225,9 @@
       "learnerBase": null,
       "sceneQuery": "a learner showing a picture card to a teacher",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 31
     },
     {
       "id": "ww.communication.say-again",
@@ -2143,7 +2255,9 @@
       "learnerBase": null,
       "sceneQuery": "a listener cupping an ear as a friend repeats",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 98,
+      "complexity": 17
     },
     {
       "id": "ww.request.speak-slower",
@@ -2201,7 +2315,9 @@
       "learnerBase": null,
       "sceneQuery": "two people talking carefully",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 98,
+      "complexity": 19
     },
     {
       "id": "ww.comprehension.understand-now",
@@ -2235,7 +2351,9 @@
       "learnerBase": null,
       "sceneQuery": "a student smiling after a teacher explains",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 88,
+      "complexity": 26
     },
     {
       "id": "ww.question.one-more",
@@ -2275,7 +2393,9 @@
       "learnerBase": null,
       "sceneQuery": "a student raising a hand in class",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 73,
+      "complexity": 24
     },
     {
       "id": "ww.routine.seven-wake",
@@ -2321,7 +2441,9 @@
       "learnerBase": null,
       "sceneQuery": "a child waking beside an analog clock at seven",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 26
     },
     {
       "id": "ww.routine.brush-teeth",
@@ -2379,7 +2501,9 @@
       "learnerBase": null,
       "sceneQuery": "a child brushing teeth at a bathroom sink",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 26
     },
     {
       "id": "ww.routine.home-breakfast",
@@ -2413,7 +2537,9 @@
       "learnerBase": null,
       "sceneQuery": "a family eating breakfast in their kitchen",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 19
     },
     {
       "id": "ww.routine.school-eight",
@@ -2465,7 +2591,9 @@
       "learnerBase": null,
       "sceneQuery": "a student leaving home while an analog clock shows eight",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 19
     },
     {
       "id": "ww.routine.afternoon-home",
@@ -2517,7 +2645,9 @@
       "learnerBase": null,
       "sceneQuery": "a student walking home in afternoon sunlight",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 19
     },
     {
       "id": "ww.routine.homework-after-dinner",
@@ -2569,7 +2699,9 @@
       "learnerBase": null,
       "sceneQuery": "a child doing homework after a family dinner",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 24
     },
     {
       "id": "ww.routine.read-before-sleep",
@@ -2621,7 +2753,9 @@
       "learnerBase": null,
       "sceneQuery": "a child reading a book beside a bed",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww.home.room-is-clean",
@@ -2661,7 +2795,9 @@
       "learnerBase": null,
       "sceneQuery": "a child standing in a neat clean bedroom",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 24
     },
     {
       "id": "ww.home.clothes-in-wardrobe",
@@ -2713,7 +2849,9 @@
       "learnerBase": null,
       "sceneQuery": "folded clothes inside an open wardrobe",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "ww.home.keys-by-door",
@@ -2771,7 +2909,9 @@
       "learnerBase": null,
       "sceneQuery": "house keys hanging beside a door",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "ww.school.textbook-on-desk",
@@ -2835,7 +2975,9 @@
       "learnerBase": null,
       "sceneQuery": "a textbook resting on a classroom desk",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 24
     },
     {
       "id": "ww.school.open-page-ten",
@@ -2893,7 +3035,9 @@
       "learnerBase": null,
       "sceneQuery": "a student turning to page ten in a textbook",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 19
     },
     {
       "id": "ww.action.read-book",
@@ -2939,7 +3083,9 @@
       "learnerBase": null,
       "sceneQuery": "a man reading a book",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 73,
+      "complexity": 24
     },
     {
       "id": "ww.school.board-writing",
@@ -2997,7 +3143,9 @@
       "learnerBase": null,
       "sceneQuery": "a teacher writing simple symbols on a blackboard",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 24
     },
     {
       "id": "ww.school.listen-carefully",
@@ -3037,7 +3185,9 @@
       "learnerBase": null,
       "sceneQuery": "attentive students listening to a teacher",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 19
     },
     {
       "id": "ww.school.practice-characters",
@@ -3089,7 +3239,9 @@
       "learnerBase": null,
       "sceneQuery": "a learner practicing Chinese characters in a workbook",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 73,
+      "complexity": 19
     },
     {
       "id": "ww.school.hard-question",
@@ -3141,7 +3293,9 @@
       "learnerBase": null,
       "sceneQuery": "a student thinking over one difficult exercise",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 73,
+      "complexity": 24
     },
     {
       "id": "ww.school.know-answer",
@@ -3175,7 +3329,9 @@
       "learnerBase": null,
       "sceneQuery": "a confident student raising a hand",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 73,
+      "complexity": 19
     },
     {
       "id": "ww.school.explain-again",
@@ -3221,7 +3377,9 @@
       "learnerBase": null,
       "sceneQuery": "a teacher explaining a diagram to a student again",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 84,
+      "complexity": 19
     },
     {
       "id": "ww.school.study-together",
@@ -3249,7 +3407,9 @@
       "learnerBase": null,
       "sceneQuery": "three students studying together at a table",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 73,
+      "complexity": 19
     },
     {
       "id": "ww.work.office",
@@ -3289,7 +3449,9 @@
       "learnerBase": null,
       "sceneQuery": "an adult working at an organized office desk",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 19
     },
     {
       "id": "ww.work.start-nine",
@@ -3341,7 +3503,9 @@
       "learnerBase": null,
       "sceneQuery": "an office worker arriving as an analog clock shows nine",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 19
     },
     {
       "id": "ww.work.send-file",
@@ -3393,7 +3557,9 @@
       "learnerBase": null,
       "sceneQuery": "two coworkers handing over a document folder",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 61,
+      "complexity": 28
     },
     {
       "id": "ww.work.meeting-ten",
@@ -3445,7 +3611,9 @@
       "learnerBase": null,
       "sceneQuery": "coworkers gathering at a meeting table as a clock shows ten",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 19
     },
     {
       "id": "ww.work.task-nearly-done",
@@ -3491,7 +3659,9 @@
       "learnerBase": null,
       "sceneQuery": "a worker placing the final piece in a project",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 24
     },
     {
       "id": "ww.work.more-time",
@@ -3525,7 +3695,9 @@
       "learnerBase": null,
       "sceneQuery": "a worker comparing an unfinished project with a clock",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 80,
+      "complexity": 19
     },
     {
       "id": "ww.work.check-schedule",
@@ -3571,7 +3743,9 @@
       "learnerBase": null,
       "sceneQuery": "a coworker checking a simple wall calendar",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 19
     },
     {
       "id": "ww.work.coworker-help",
@@ -3623,7 +3797,9 @@
       "learnerBase": null,
       "sceneQuery": "one coworker helping another organize papers",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 88,
+      "complexity": 26
     },
     {
       "id": "ww.work.short-break",
@@ -3669,7 +3845,9 @@
       "learnerBase": null,
       "sceneQuery": "coworkers relaxing with water during a short break",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 68,
+      "complexity": 26
     },
     {
       "id": "ww.work.finish-before-home",
@@ -3733,7 +3911,9 @@
       "learnerBase": null,
       "sceneQuery": "an office worker finishing a task before leaving",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "ww.shopping.apple-price",
@@ -3785,7 +3965,9 @@
       "learnerBase": null,
       "sceneQuery": "apples on a market scale beside a shopkeeper",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 84,
+      "complexity": 24
     },
     {
       "id": "ww.shopping.blue-shirt",
@@ -3831,7 +4013,9 @@
       "learnerBase": null,
       "sceneQuery": "a shopper choosing a blue shirt from a rack",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 86,
+      "complexity": 19
     },
     {
       "id": "ww.shopping.right-size",
@@ -3877,7 +4061,9 @@
       "learnerBase": null,
       "sceneQuery": "a shopper checking the fit of a jacket",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 26
     },
     {
       "id": "ww.shopping.try-on",
@@ -3905,7 +4091,9 @@
       "learnerBase": null,
       "sceneQuery": "a shopper holding a shirt near a fitting room",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 19
     },
     {
       "id": "ww.shopping.receipt",
@@ -3951,7 +4139,9 @@
       "learnerBase": null,
       "sceneQuery": "a cashier handing a blank receipt to a customer",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 57,
+      "complexity": 28
     },
     {
       "id": "ww.shopping.closes-eight",
@@ -4021,7 +4211,9 @@
       "learnerBase": null,
       "sceneQuery": "a shopkeeper closing a storefront at eight o'clock",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 81,
+      "complexity": 19
     },
     {
       "id": "ww.shopping.checkout",
@@ -4061,7 +4253,9 @@
       "learnerBase": null,
       "sceneQuery": "a shopper looking toward a checkout counter",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "ww.shopping.pay-card",
@@ -4095,7 +4289,9 @@
       "learnerBase": null,
       "sceneQuery": "a customer tapping a blank bank card on a terminal",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 81,
+      "complexity": 19
     },
     {
       "id": "ww.shopping.cheaper-book",
@@ -4141,7 +4337,9 @@
       "learnerBase": null,
       "sceneQuery": "two books with one marked by a lower generic price tag",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 73,
+      "complexity": 24
     },
     {
       "id": "ww.shopping.thanks-help",
@@ -4181,7 +4379,9 @@
       "learnerBase": null,
       "sceneQuery": "a grateful shopper thanking a helpful clerk",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 19
     },
     {
       "id": "ww.transit.bus-stop-ahead",
@@ -4239,7 +4439,9 @@
       "learnerBase": null,
       "sceneQuery": "a bus stop visible ahead on a sidewalk",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 81,
+      "complexity": 24
     },
     {
       "id": "ww.transit.subway-left",
@@ -4303,7 +4505,9 @@
       "learnerBase": null,
       "sceneQuery": "a subway entrance on the left side of a plaza",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 24
     },
     {
       "id": "ww.direction.turn-right",
@@ -4373,7 +4577,9 @@
       "learnerBase": null,
       "sceneQuery": "a pedestrian turning right at a safe intersection",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 19
     },
     {
       "id": "ww.direction.walk-five",
@@ -4419,7 +4625,9 @@
       "learnerBase": null,
       "sceneQuery": "a pedestrian walking straight along a clear path",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 63,
+      "complexity": 19
     },
     {
       "id": "ww.transit.which-bus",
@@ -4483,7 +4691,9 @@
       "learnerBase": null,
       "sceneQuery": "a traveler asking a driver beside a city bus",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 81,
+      "complexity": 35
     },
     {
       "id": "ww.travel.train-three",
@@ -4553,7 +4763,9 @@
       "learnerBase": null,
       "sceneQuery": "a train leaving a station at three o'clock",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 81,
+      "complexity": 19
     },
     {
       "id": "ww.travel.ticket-table",
@@ -4605,7 +4817,9 @@
       "learnerBase": null,
       "sceneQuery": "a generic train ticket lying on a table",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 81,
+      "complexity": 24
     },
     {
       "id": "ww.travel.wait-station",
@@ -4645,7 +4859,9 @@
       "learnerBase": null,
       "sceneQuery": "friends waiting on a bright train platform",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 81,
+      "complexity": 19
     },
     {
       "id": "ww.travel.park-near-hotel",
@@ -4697,7 +4913,9 @@
       "learnerBase": null,
       "sceneQuery": "a public park beside a hotel building",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 83,
+      "complexity": 24
     },
     {
       "id": "ww.direction.map-road",
@@ -4749,7 +4967,9 @@
       "learnerBase": null,
       "sceneQuery": "a traveler pointing to a road line on a simple map",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 24
     },
     {
       "id": "ww.wellbeing.tired",
@@ -4789,7 +5009,9 @@
       "learnerBase": null,
       "sceneQuery": "a tired person resting after a long walk",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 19
     },
     {
       "id": "ww.wellbeing.rest",
@@ -4835,7 +5057,9 @@
       "learnerBase": null,
       "sceneQuery": "a person relaxing safely on a park bench",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 68,
+      "complexity": 19
     },
     {
       "id": "ww.action.drink-water",
@@ -4887,7 +5111,9 @@
       "learnerBase": null,
       "sceneQuery": "a woman drinking a glass of water",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 88,
+      "complexity": 19
     },
     {
       "id": "ww.wellbeing.slept-well",
@@ -4921,7 +5147,9 @@
       "learnerBase": null,
       "sceneQuery": "a refreshed person waking in morning light",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 19
     },
     {
       "id": "ww.wellbeing.headache",
@@ -4973,7 +5201,9 @@
       "learnerBase": null,
       "sceneQuery": "a person resting with one hand on their forehead",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 85,
+      "complexity": 26
     },
     {
       "id": "ww.wellbeing.see-doctor",
@@ -5013,7 +5243,9 @@
       "learnerBase": null,
       "sceneQuery": "a patient speaking with a friendly doctor in a clinic",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 26
     },
     {
       "id": "ww.wellbeing.clinic-nearby",
@@ -5053,7 +5285,9 @@
       "learnerBase": null,
       "sceneQuery": "a small neighborhood clinic across the street",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 88,
+      "complexity": 24
     },
     {
       "id": "ww.wellbeing.ask-about-medicine",
@@ -5123,7 +5357,9 @@
       "learnerBase": null,
       "sceneQuery": "a parent and child asking a friendly doctor about a medicine bottle",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 22
     },
     {
       "id": "ww.wellbeing.walk-health",
@@ -5175,7 +5411,9 @@
       "learnerBase": null,
       "sceneQuery": "a family taking a relaxed walk in a park",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "ww.wellbeing.better-now",
@@ -5221,7 +5459,9 @@
       "learnerBase": null,
       "sceneQuery": "a recovering person smiling beside a cup of water",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 84,
+      "complexity": 26
     },
     {
       "id": "ww.hobby.music",
@@ -5261,7 +5501,9 @@
       "learnerBase": null,
       "sceneQuery": "a child happily listening to music with headphones",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 62,
+      "complexity": 26
     },
     {
       "id": "ww.hobby.piano",
@@ -5307,7 +5549,9 @@
       "learnerBase": null,
       "sceneQuery": "a girl playing piano in a music room",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 62,
+      "complexity": 24
     },
     {
       "id": "ww.hobby.drawing",
@@ -5365,7 +5609,9 @@
       "learnerBase": null,
       "sceneQuery": "a child drawing a landscape on the weekend",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 26
     },
     {
       "id": "ww.hobby.football",
@@ -5435,7 +5681,9 @@
       "learnerBase": null,
       "sceneQuery": "a younger boy playing football on a field",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 62,
+      "complexity": 26
     },
     {
       "id": "ww.culture.quiet-library",
@@ -5475,7 +5723,9 @@
       "learnerBase": null,
       "sceneQuery": "students reading quietly inside a library",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 24
     },
     {
       "id": "ww.culture.museum-open",
@@ -5521,7 +5771,9 @@
       "learnerBase": null,
       "sceneQuery": "visitors entering a museum through open doors in daylight",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 63,
+      "complexity": 24
     },
     {
       "id": "ww.nature.tall-trees",
@@ -5579,7 +5831,9 @@
       "learnerBase": null,
       "sceneQuery": "towering green trees rising along a mountain slope",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 24
     },
     {
       "id": "ww.nature.park-flowers",
@@ -5631,7 +5885,9 @@
       "learnerBase": null,
       "sceneQuery": "colorful blossoms covering flower beds in a sunny park",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 65,
+      "complexity": 34
     },
     {
       "id": "ww.nature.flying-bird",
@@ -5689,7 +5945,9 @@
       "learnerBase": null,
       "sceneQuery": "a single bird gliding above soft clouds in a blue sky",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 65,
+      "complexity": 24
     },
     {
       "id": "ww.nature.blue-sea",
@@ -5735,7 +5993,9 @@
       "learnerBase": null,
       "sceneQuery": "bright blue sea meeting a pale horizon on a clear day",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 65,
+      "complexity": 24
     },
     {
       "id": "ww.tech.phone-table",
@@ -5787,7 +6047,9 @@
       "learnerBase": null,
       "sceneQuery": "a generic smartphone resting on a wooden table with a blank screen",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 79,
+      "complexity": 24
     },
     {
       "id": "ww.tech.charge-phone",
@@ -5833,7 +6095,9 @@
       "learnerBase": null,
       "sceneQuery": "a charging cable being connected to a phone beside a wall outlet",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 84,
+      "complexity": 19
     },
     {
       "id": "ww.tech.slow-computer",
@@ -5873,7 +6137,9 @@
       "learnerBase": null,
       "sceneQuery": "a person waiting beside a computer showing a simple loading circle",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 72,
+      "complexity": 19
     },
     {
       "id": "ww.tech.send-message",
@@ -5919,7 +6185,9 @@
       "learnerBase": null,
       "sceneQuery": "a person tapping a blank chat bubble icon on a generic phone",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 84,
+      "complexity": 19
     },
     {
       "id": "ww.tech.received-email",
@@ -5965,7 +6233,9 @@
       "learnerBase": null,
       "sceneQuery": "a person noticing a new envelope icon on a laptop with a blank screen",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 72,
+      "complexity": 29
     },
     {
       "id": "ww.tech.network-works",
@@ -6005,7 +6275,9 @@
       "learnerBase": null,
       "sceneQuery": "a laptop and router connected by bright wireless signal waves",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 19
     },
     {
       "id": "ww.tech.open-camera",
@@ -6051,7 +6323,9 @@
       "learnerBase": null,
       "sceneQuery": "a person enabling a camera icon during a generic video call with blank tiles",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 39
     },
     {
       "id": "ww.tech.volume-high",
@@ -6097,7 +6371,9 @@
       "learnerBase": null,
       "sceneQuery": "a person covering their ears beside a speaker with high volume bars",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "ww.tech.save-file",
@@ -6143,7 +6419,9 @@
       "learnerBase": null,
       "sceneQuery": "a hand clicking a save icon beside a blank document on a laptop",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 61,
+      "complexity": 28
     },
     {
       "id": "ww.tech.call-grandmother",
@@ -6183,7 +6461,9 @@
       "learnerBase": null,
       "sceneQuery": "family members smiling during a video call with their grandmother and no names shown",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 79,
+      "complexity": 19
     },
     {
       "id": "ww.plan.free-tomorrow",
@@ -6217,7 +6497,9 @@
       "learnerBase": null,
       "sceneQuery": "two friends comparing blank calendar pages for tomorrow",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "ww.question.go-to-park",
@@ -6257,7 +6539,9 @@
       "learnerBase": null,
       "sceneQuery": "friends planning to visit a park",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 65,
+      "complexity": 24
     },
     {
       "id": "ww.plan.rain-stay-home",
@@ -6309,7 +6593,9 @@
       "learnerBase": null,
       "sceneQuery": "a person reading by a window while rain falls outside",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 40
     },
     {
       "id": "ww.compare.bus-walking",
@@ -6373,7 +6659,9 @@
       "learnerBase": null,
       "sceneQuery": "a city bus passing a pedestrian along the same route",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 81,
+      "complexity": 40
     },
     {
       "id": "ww.compare.tea-water",
@@ -6461,7 +6749,9 @@
       "learnerBase": null,
       "sceneQuery": "a steaming teacup beside a cool glass of water",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 88,
+      "complexity": 43
     },
     {
       "id": "ww.compare.light-bag",
@@ -6507,7 +6797,9 @@
       "learnerBase": null,
       "sceneQuery": "a traveler easily lifting a small bag beside a heavier suitcase",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "ww.choice.red-one",
@@ -6541,7 +6833,9 @@
       "learnerBase": null,
       "sceneQuery": "a hand pointing to a red cup among several colored cups",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 19
     },
     {
       "id": "ww.plan.arrive-early",
@@ -6581,7 +6875,9 @@
       "learnerBase": null,
       "sceneQuery": "a person approaching a school entrance early in the morning before others",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 68,
+      "complexity": 24
     },
     {
       "id": "ww.plan.library-after-class",
@@ -6639,7 +6935,9 @@
       "learnerBase": null,
       "sceneQuery": "students leaving a classroom and walking toward a library with books",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 32
     },
     {
       "id": "ww.plan.meet-friends",
@@ -6703,7 +7001,9 @@
       "learnerBase": null,
       "sceneQuery": "friends meeting in a park on a sunny weekend",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 82,
+      "complexity": 19
     },
     {
       "id": "ww.community.ask-post-office",
@@ -6761,7 +7061,9 @@
       "learnerBase": null,
       "sceneQuery": "a traveler asking a passerby beside a map and a post office icon with no addresses",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 24
     },
     {
       "id": "ww.politeness.sorry-late",
@@ -6807,7 +7109,9 @@
       "learnerBase": null,
       "sceneQuery": "a latecomer apologizing to a friend beside a wall clock",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 31
     },
     {
       "id": "ww.politeness.no-problem",
@@ -6841,7 +7145,9 @@
       "learnerBase": null,
       "sceneQuery": "two people smiling after easily gathering a dropped stack of papers",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 68,
+      "complexity": 19
     },
     {
       "id": "ww.community.line-up",
@@ -6881,7 +7187,9 @@
       "learnerBase": null,
       "sceneQuery": "people standing in a neat line at a service counter",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 68,
+      "complexity": 19
     },
     {
       "id": "ww.community.library-quiet",
@@ -6939,7 +7247,9 @@
       "learnerBase": null,
       "sceneQuery": "a librarian making a gentle quiet gesture while students read",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 19
     },
     {
       "id": "ww.community.offer-help",
@@ -6967,7 +7277,9 @@
       "learnerBase": null,
       "sceneQuery": "a person helping a neighbor carry a box",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 88,
+      "complexity": 19
     },
     {
       "id": "ww.politeness.thanks-wait",
@@ -7001,7 +7313,9 @@
       "learnerBase": null,
       "sceneQuery": "two friends meeting at a bus stop as one warmly greets the waiting friend",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 19
     },
     {
       "id": "ww.politeness.after-you",
@@ -7029,7 +7343,9 @@
       "learnerBase": null,
       "sceneQuery": "a person holding open a door and gesturing for a visitor to enter",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 19
     },
     {
       "id": "ww.community.your-seat",
@@ -7069,7 +7385,9 @@
       "learnerBase": null,
       "sceneQuery": "a person pointing out an empty chair prepared for a companion",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 83,
+      "complexity": 24
     },
     {
       "id": "ww.community.welcome",
@@ -7127,7 +7445,9 @@
       "learnerBase": null,
       "sceneQuery": "neighbors welcoming a newcomer at a shared garden entrance",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 68,
+      "complexity": 26
     },
     {
       "id": "ww.food.breakfast-ready",
@@ -7167,7 +7487,9 @@
       "learnerBase": null,
       "sceneQuery": "a complete family breakfast arranged on a kitchen table",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "ww.food.fresh-vegetables",
@@ -7213,7 +7535,9 @@
       "learnerBase": null,
       "sceneQuery": "colorful fresh vegetables displayed at a market stall",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "ww.preference.tea",
@@ -7253,7 +7577,9 @@
       "learnerBase": null,
       "sceneQuery": "a person enjoying a cup of tea",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "ww.food.not-spicy",
@@ -7293,7 +7619,9 @@
       "learnerBase": null,
       "sceneQuery": "a diner choosing a mild dish while a red chili dish remains aside",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 88,
+      "complexity": 29
     },
     {
       "id": "ww.food.more-rice",
@@ -7351,7 +7679,9 @@
       "learnerBase": null,
       "sceneQuery": "a diner holding an empty bowl while a server brings a full rice bowl",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 80,
+      "complexity": 19
     },
     {
       "id": "ww.weather.sunny-afternoon",
@@ -7391,7 +7721,9 @@
       "learnerBase": null,
       "sceneQuery": "an afternoon park beneath bright sunshine and a clear sky",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "ww.weather.strong-wind",
@@ -7449,7 +7781,9 @@
       "learnerBase": null,
       "sceneQuery": "trees and a scarf bending in gusty wind",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 65,
+      "complexity": 24
     },
     {
       "id": "ww.weather.take-umbrella",
@@ -7507,7 +7841,9 @@
       "learnerBase": null,
       "sceneQuery": "a person taking an umbrella from a stand beside the front door",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 80,
+      "complexity": 35
     },
     {
       "id": "ww.weather.cold-winter",
@@ -7553,7 +7889,9 @@
       "learnerBase": null,
       "sceneQuery": "bundled people walking through a frosty town in winter",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 24
     },
     {
       "id": "ww.weather.spring-flowers",
@@ -7599,7 +7937,9 @@
       "learnerBase": null,
       "sceneQuery": "a broad spring meadow filled with colorful flowers",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 84,
+      "complexity": 24
     },
     {
       "id": "ww.family.sister-university",
@@ -7657,7 +7997,9 @@
       "learnerBase": null,
       "sceneQuery": "a young woman studying with books on a university campus",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 73,
+      "complexity": 19
     },
     {
       "id": "ww.family.brother-ten",
@@ -7721,7 +8063,9 @@
       "learnerBase": null,
       "sceneQuery": "a younger brother beside a birthday cake with ten candles",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 79,
+      "complexity": 24
     },
     {
       "id": "ww.family.grandmother-cooks",
@@ -7779,7 +8123,9 @@
       "learnerBase": null,
       "sceneQuery": "a grandmother stirring a pot in a bright home kitchen",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 24
     },
     {
       "id": "ww.family.grandfather-paper",
@@ -7831,7 +8177,9 @@
       "learnerBase": null,
       "sceneQuery": "a grandfather reading a newspaper with indistinct print in an armchair",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 73,
+      "complexity": 24
     },
     {
       "id": "ww.family.dinner-together",
@@ -7871,7 +8219,9 @@
       "learnerBase": null,
       "sceneQuery": "a multigenerational family eating dinner together around a table",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 19
     },
     {
       "id": "ww.people.friend-name",
@@ -7923,7 +8273,9 @@
       "learnerBase": null,
       "sceneQuery": "one friend introducing another to a small group with blank name badges",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "ww.people.kind-teacher",
@@ -7963,7 +8315,9 @@
       "learnerBase": null,
       "sceneQuery": "a teacher gently helping a student with schoolwork",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 24
     },
     {
       "id": "ww.possession.two-friends",
@@ -7997,7 +8351,9 @@
       "learnerBase": null,
       "sceneQuery": "three friends together",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 24
     },
     {
       "id": "ww.people.neighbor-dog",
@@ -8043,7 +8399,9 @@
       "learnerBase": null,
       "sceneQuery": "a neighbor walking a friendly dog outside adjacent homes",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 79,
+      "complexity": 24
     },
     {
       "id": "ww.family.visit-aunt",
@@ -8107,7 +8465,9 @@
       "learnerBase": null,
       "sceneQuery": "a family arriving at their aunt's home with a fruit basket",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 79,
+      "complexity": 19
     },
     {
       "id": "ww.location.pen-in-bag",
@@ -8165,7 +8525,9 @@
       "learnerBase": null,
       "sceneQuery": "an open school bag with a pen visible in its front pocket",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 24
     },
     {
       "id": "ww.location.cup-by-computer",
@@ -8217,7 +8579,9 @@
       "learnerBase": null,
       "sceneQuery": "a cup placed safely beside a desktop computer",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 72,
+      "complexity": 24
     },
     {
       "id": "ww.location.cat-under-table",
@@ -8275,7 +8639,9 @@
       "learnerBase": null,
       "sceneQuery": "a cat under a table",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "ww.location.restroom-right",
@@ -8345,7 +8711,9 @@
       "learnerBase": null,
       "sceneQuery": "an indoor hallway with a kitchen doorway on the left and a restroom symbol on the right",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 88,
+      "complexity": 27
     },
     {
       "id": "ww.location.elevator-hall",
@@ -8403,7 +8771,9 @@
       "learnerBase": null,
       "sceneQuery": "a long indoor hallway leading to closed elevator doors",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 80,
+      "complexity": 27
     },
     {
       "id": "ww.location.light-switch",
@@ -8479,7 +8849,9 @@
       "learnerBase": null,
       "sceneQuery": "a wall light switch mounted beside an open door",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "ww.service.package-desk",
@@ -8525,7 +8897,9 @@
       "learnerBase": null,
       "sceneQuery": "a sealed parcel on a front desk with a blank label",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "ww.location.bank-across",
@@ -8595,7 +8969,9 @@
       "learnerBase": null,
       "sceneQuery": "a street view with a generic bank building on the opposite side and no business names",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "ww.location.pharmacy-clinic",
@@ -8653,7 +9029,9 @@
       "learnerBase": null,
       "sceneQuery": "a pharmacy cross icon beside a small clinic building with no readable signs",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 88,
+      "complexity": 24
     },
     {
       "id": "ww.location.market-station",
@@ -8711,7 +9089,9 @@
       "learnerBase": null,
       "sceneQuery": "a train station in the foreground with an outdoor market visible behind it",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 81,
+      "complexity": 24
     },
     {
       "id": "ww.problem.forgot-umbrella",
@@ -8763,7 +9143,9 @@
       "learnerBase": null,
       "sceneQuery": "a person noticing rain outdoors while an umbrella remains by the door at home",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 80,
+      "complexity": 26
     },
     {
       "id": "ww.problem.bus-late",
@@ -8815,7 +9197,9 @@
       "learnerBase": null,
       "sceneQuery": "people waiting at a bus stop and looking down an empty road",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 81,
+      "complexity": 39
     },
     {
       "id": "ww.problem.missing-key",
@@ -8855,7 +9239,9 @@
       "learnerBase": null,
       "sceneQuery": "a person checking their pockets beside a table while searching for a key",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 82,
+      "complexity": 19
     },
     {
       "id": "ww.problem.help-find",
@@ -8895,7 +9281,9 @@
       "learnerBase": null,
       "sceneQuery": "two people searching together under a table and sofa",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 97,
+      "complexity": 24
     },
     {
       "id": "ww.problem.road-closed",
@@ -8941,7 +9329,9 @@
       "learnerBase": null,
       "sceneQuery": "a quiet street blocked by repair barriers and a generic detour arrow",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "ww.plan.other-road",
@@ -8975,7 +9365,9 @@
       "learnerBase": null,
       "sceneQuery": "two travelers pointing toward another path on a simple map with no addresses",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 68,
+      "complexity": 19
     },
     {
       "id": "ww.reason.rain-slow",
@@ -9033,7 +9425,9 @@
       "learnerBase": null,
       "sceneQuery": "a bus moving carefully along a wet road in heavy rain",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 42
     },
     {
       "id": "ww.plan.sunny-picnic",
@@ -9091,7 +9485,9 @@
       "learnerBase": null,
       "sceneQuery": "friends preparing a picnic basket beneath a sunny forecast icon",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 36
     },
     {
       "id": "ww.plan.rest-after-task",
@@ -9143,7 +9539,9 @@
       "learnerBase": null,
       "sceneQuery": "two coworkers finishing packed boxes and then sitting down with tea",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 32
     },
     {
       "id": "ww.request.tell-result",
@@ -9189,7 +9587,9 @@
       "learnerBase": null,
       "sceneQuery": "a teammate handing a completed result card with no readable text to a colleague",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 55,
+      "complexity": 26
     },
     {
       "id": "ww.housing.two-bedrooms",
@@ -9235,7 +9635,9 @@
       "learnerBase": null,
       "sceneQuery": "an overhead apartment floor plan with two furnished bedrooms and no labels",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 80,
+      "complexity": 21
     },
     {
       "id": "ww.housing.rent-utilities",
@@ -9305,7 +9707,9 @@
       "learnerBase": null,
       "sceneQuery": "an apartment key beside a checked water droplet icon and a separate lightning icon with no amounts",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 88,
+      "complexity": 29
     },
     {
       "id": "ww.housing.repair-appointment",
@@ -9357,7 +9761,9 @@
       "learnerBase": null,
       "sceneQuery": "a tenant and technician reviewing a blank calendar beside a toolbox",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 57,
+      "complexity": 31
     },
     {
       "id": "ww.housing.heating-contact",
@@ -9451,7 +9857,9 @@
       "learnerBase": null,
       "sceneQuery": "a tenant in a cold room phoning a manager beside an inactive radiator",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 38
     },
     {
       "id": "ww.housing.move-next-month",
@@ -9509,7 +9917,9 @@
       "learnerBase": null,
       "sceneQuery": "a family packing moving boxes beside a blank calendar turned to the next month",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "ww.appointment.friday-three",
@@ -9591,7 +10001,9 @@
       "learnerBase": null,
       "sceneQuery": "a generic calendar with a Friday afternoon slot highlighted beside a clock at three and no name",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 57,
+      "complexity": 21
     },
     {
       "id": "ww.service.identity-document",
@@ -9679,7 +10091,9 @@
       "learnerBase": null,
       "sceneQuery": "a person at a public service counter holding a generic blank document, with no readable personal details",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 61,
+      "complexity": 28
     },
     {
       "id": "ww.budget.month-tight",
@@ -9743,7 +10157,9 @@
       "learnerBase": null,
       "sceneQuery": "an open wallet with a few coins beside a blank monthly budget notebook",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 57,
+      "complexity": 21
     },
     {
       "id": "ww.budget.compare-prices",
@@ -9795,7 +10211,9 @@
       "learnerBase": null,
       "sceneQuery": "a shopper comparing two similar items with symbolic price tags and no numbers",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 81,
+      "complexity": 31
     },
     {
       "id": "ww.banking.transfer-complete",
@@ -9847,7 +10265,9 @@
       "learnerBase": null,
       "sceneQuery": "a generic bank transfer completion symbol, with no account details or readable data",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 57,
+      "complexity": 51
     },
     {
       "id": "ww.work.send-agenda",
@@ -9941,7 +10361,9 @@
       "learnerBase": null,
       "sceneQuery": "a coworker handing blank agenda sheets to colleagues around a conference table",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww.work.confirm-data",
@@ -9999,7 +10421,9 @@
       "learnerBase": null,
       "sceneQuery": "two coworkers comparing a generic chart together with no readable figures",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 79,
+      "complexity": 24
     },
     {
       "id": "ww.work.notify-change",
@@ -10069,7 +10493,9 @@
       "learnerBase": null,
       "sceneQuery": "a coordinator alerting coworkers around a schedule board with moved colored cards and no text",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "ww.work.find-solution",
@@ -10121,7 +10547,9 @@
       "learnerBase": null,
       "sceneQuery": "coworkers assembling matching puzzle pieces around a worktable",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 82,
+      "complexity": 16
     },
     {
       "id": "ww.work.clearer-chart",
@@ -10179,7 +10607,9 @@
       "learnerBase": null,
       "sceneQuery": "coworkers replacing a cluttered graph with a clean colorful chart without labels",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 82,
+      "complexity": 16
     },
     {
       "id": "ww.travel.passport-bag",
@@ -10243,7 +10673,9 @@
       "learnerBase": null,
       "sceneQuery": "an open travel bag with a closed generic passport cover and no personal details",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 83,
+      "complexity": 21
     },
     {
       "id": "ww.travel.flight-delay",
@@ -10313,7 +10745,9 @@
       "learnerBase": null,
       "sceneQuery": "a traveler waiting beneath an airplane delay icon and clock with no flight number",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 21
     },
     {
       "id": "ww.travel.reserve-window",
@@ -10383,7 +10817,9 @@
       "learnerBase": null,
       "sceneQuery": "a generic airplane seating diagram with a window seat highlighted and no booking data",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 83,
+      "complexity": 16
     },
     {
       "id": "ww.travel.next-transfer",
@@ -10447,7 +10883,9 @@
       "learnerBase": null,
       "sceneQuery": "travelers following arrows between two train platforms with no station names",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 86,
+      "complexity": 24
     },
     {
       "id": "ww.travel.missing-luggage",
@@ -10541,7 +10979,9 @@
       "learnerBase": null,
       "sceneQuery": "a traveler speaking to a luggage service agent beside an empty carousel and blank bag tags",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 83,
+      "complexity": 41
     },
     {
       "id": "ww.digital.strong-password",
@@ -10605,7 +11045,9 @@
       "learnerBase": null,
       "sceneQuery": "a digital shield and key icon, with no readable password or credentials",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 61,
+      "complexity": 45
     },
     {
       "id": "ww.digital.no-code-sharing",
@@ -10675,7 +11117,9 @@
       "learnerBase": null,
       "sceneQuery": "a protected phone with a shield and hidden dots, with no readable verification code",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 79,
+      "complexity": 29
     },
     {
       "id": "ww.digital.check-recipient",
@@ -10751,7 +11195,9 @@
       "learnerBase": null,
       "sceneQuery": "a generic message icon and checked contact silhouette, with no readable names or addresses",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 79,
+      "complexity": 24
     },
     {
       "id": "ww.digital.backup-files",
@@ -10827,7 +11273,9 @@
       "learnerBase": null,
       "sceneQuery": "a person copying file icons from a laptop to an external drive with no filenames",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 33,
+      "complexity": 25
     },
     {
       "id": "ww.digital.location-sharing",
@@ -10903,7 +11351,9 @@
       "learnerBase": null,
       "sceneQuery": "a location icon switched off on a generic phone, with no map or personal location",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 38,
+      "complexity": 45
     },
     {
       "id": "ww.environment.sort-materials",
@@ -10967,7 +11417,9 @@
       "learnerBase": null,
       "sceneQuery": "hands placing paper into one recycling bin and plastic into another",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 36
     },
     {
       "id": "ww.environment.reusable-bag",
@@ -11043,7 +11495,9 @@
       "learnerBase": null,
       "sceneQuery": "a shopper placing vegetables into a cloth tote at a market",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "ww.environment.save-water",
@@ -11125,7 +11579,9 @@
       "learnerBase": null,
       "sceneQuery": "a hand turning off a faucet above an empty sink",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 93,
+      "complexity": 35
     },
     {
       "id": "ww.community.plant-trees",
@@ -11189,7 +11645,9 @@
       "learnerBase": null,
       "sceneQuery": "neighbors planting young trees together in a community park",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 65,
+      "complexity": 21
     },
     {
       "id": "ww.environment.save-energy",
@@ -11241,7 +11699,9 @@
       "learnerBase": null,
       "sceneQuery": "a full city bus passing several parked cars beside a green leaf symbol",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 61,
+      "complexity": 21
     },
     {
       "id": "ww.reason.road-work",
@@ -11323,7 +11783,9 @@
       "learnerBase": null,
       "sceneQuery": "travelers leaving home early while a repair crew works on the road ahead",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 38,
+      "complexity": 47
     },
     {
       "id": "ww.reason.finish-help",
@@ -11393,7 +11855,9 @@
       "learnerBase": null,
       "sceneQuery": "a student with a finished blank worksheet helping a classmate at the next desk",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 88,
+      "complexity": 33
     },
     {
       "id": "ww.reason.rain-museum",
@@ -11463,7 +11927,9 @@
       "learnerBase": null,
       "sceneQuery": "umbrella-carrying visitors entering a brightly lit museum in the rain",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 63,
+      "complexity": 53
     },
     {
       "id": "ww.reason.time-route",
@@ -11539,7 +12005,9 @@
       "learnerBase": null,
       "sceneQuery": "two travelers checking a wall clock and then comparing colored map routes with no addresses",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 37
     },
     {
       "id": "ww.reason.quiet-room",
@@ -11597,7 +12065,9 @@
       "learnerBase": null,
       "sceneQuery": "a person choosing a peaceful study room while a busy room is visible next door",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 38,
+      "complexity": 39
     },
     {
       "id": "ww.experience.chinese-year",
@@ -11649,7 +12119,9 @@
       "learnerBase": null,
       "sceneQuery": "a language learner with a Chinese workbook beside a twelve-month calendar and no personal notes",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 21
     },
     {
       "id": "ww.experience.high-speed-train",
@@ -11725,7 +12197,9 @@
       "learnerBase": null,
       "sceneQuery": "a traveler watching a high-speed train from a platform while holding an unused blank ticket",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 81,
+      "complexity": 39
     },
     {
       "id": "ww.opinion.useful-book",
@@ -11777,7 +12251,9 @@
       "learnerBase": null,
       "sceneQuery": "a reader consulting a handbook while completing a simple project",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 73,
+      "complexity": 29
     },
     {
       "id": "ww.opinion.more-seats",
@@ -11835,7 +12311,9 @@
       "learnerBase": null,
       "sceneQuery": "a crowded park path with people seeking benches and several open spaces",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 83,
+      "complexity": 24
     },
     {
       "id": "ww.opinion.convenient-city",
@@ -11899,7 +12377,9 @@
       "learnerBase": null,
       "sceneQuery": "a connected city bus, train, and bicycle at a clean transit hub",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 65,
+      "complexity": 43
     },
     {
       "id": "ww.problem.card-machine",
@@ -11975,7 +12455,9 @@
       "learnerBase": null,
       "sceneQuery": "a person at an ATM showing an out-of-service symbol with a blank card and screen",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 24
     },
     {
       "id": "ww.appointment.reschedule",
@@ -12039,7 +12521,9 @@
       "learnerBase": null,
       "sceneQuery": "a blank calendar appointment card being shifted to the next afternoon",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 57,
+      "complexity": 16
     },
     {
       "id": "ww.housing.repair-arrival",
@@ -12097,7 +12581,9 @@
       "learnerBase": null,
       "sceneQuery": "a technician with a tool bag approaching an apartment beside a clock at nine and no address",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 79,
+      "complexity": 21
     },
     {
       "id": "ww.delivery.wrong-address",
@@ -12203,7 +12689,9 @@
       "learnerBase": null,
       "sceneQuery": "a sealed package beside a generic front desk, with no readable address or personal data",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 81,
+      "complexity": 29
     },
     {
       "id": "ww.tech.borrow-charger",
@@ -12279,7 +12767,9 @@
       "learnerBase": null,
       "sceneQuery": "a coworker handing a charging cable across a shared desk",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 72,
+      "complexity": 34
     },
     {
       "id": "ww.language.ask-meaning",
@@ -12343,7 +12833,9 @@
       "learnerBase": null,
       "sceneQuery": "a student asking a teacher while pointing to a highlighted word in an open book with indistinct text",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 55
     },
     {
       "id": "ww.language.word-difference",
@@ -12407,7 +12899,9 @@
       "learnerBase": null,
       "sceneQuery": "a teacher and learner comparing two blank vocabulary cards on a whiteboard",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 84,
+      "complexity": 24
     },
     {
       "id": "ww.language.summarize",
@@ -12477,7 +12971,9 @@
       "learnerBase": null,
       "sceneQuery": "a learner removing headphones and writing short notes in a blank notebook",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 34
     },
     {
       "id": "ww.culture.respect-habits",
@@ -12529,7 +13025,9 @@
       "learnerBase": null,
       "sceneQuery": "diverse neighbors sharing everyday activities in a welcoming community courtyard",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 23
     },
     {
       "id": "ww.social.listen-before-discussion",
@@ -12617,7 +13115,9 @@
       "learnerBase": null,
       "sceneQuery": "one person speaking in a seated discussion circle while everyone else listens",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 79,
+      "complexity": 22
     },
     {
       "id": "ww-exp260908-001",
@@ -12657,7 +13157,9 @@
       "learnerBase": null,
       "sceneQuery": "a small rabbit springing over soft grass",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 65,
+      "complexity": 27
     },
     {
       "id": "ww-exp260908-002",
@@ -12691,7 +13193,9 @@
       "learnerBase": null,
       "sceneQuery": "a seed with a green sprout emerging from soil",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 46,
+      "complexity": 27
     },
     {
       "id": "ww-exp260908-003",
@@ -12731,7 +13235,9 @@
       "learnerBase": null,
       "sceneQuery": "a child holding a bright blue kite in a park",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 63,
+      "complexity": 27
     },
     {
       "id": "ww-exp260908-004",
@@ -12759,7 +13265,9 @@
       "learnerBase": null,
       "sceneQuery": "children standing in a circle and clapping in rhythm",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 63,
+      "complexity": 22
     },
     {
       "id": "ww-exp260908-005",
@@ -12811,7 +13319,9 @@
       "learnerBase": null,
       "sceneQuery": "an open pencil case beside a coloring page and a crayon",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "ww-exp260908-006",
@@ -12845,7 +13355,9 @@
       "learnerBase": null,
       "sceneQuery": "a sleeping turtle with its head resting beside its shell",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 48,
+      "complexity": 27
     },
     {
       "id": "ww-exp260908-007",
@@ -12891,7 +13403,9 @@
       "learnerBase": null,
       "sceneQuery": "children making room for another child at a game table",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-exp260908-008",
@@ -12925,7 +13439,9 @@
       "learnerBase": null,
       "sceneQuery": "a child pointing toward a rainbow over a field",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 65,
+      "complexity": 22
     },
     {
       "id": "ww-exp260908-009",
@@ -12995,7 +13511,9 @@
       "learnerBase": null,
       "sceneQuery": "a squirrel tucking a nut under a broad autumn leaf",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 78,
+      "complexity": 19
     },
     {
       "id": "ww-exp260908-010",
@@ -13059,7 +13577,9 @@
       "learnerBase": null,
       "sceneQuery": "a cardboard rocket model with three round openings",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "ww-exp260908-011",
@@ -13111,7 +13631,9 @@
       "learnerBase": null,
       "sceneQuery": "a ruler held beside a sunflower stem",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 19
     },
     {
       "id": "ww-exp260908-012",
@@ -13163,7 +13685,9 @@
       "learnerBase": null,
       "sceneQuery": "two friends demonstrating a hand-clapping pattern",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 67,
+      "complexity": 39
     },
     {
       "id": "ww-exp260908-013",
@@ -13227,7 +13751,9 @@
       "learnerBase": null,
       "sceneQuery": "a winding line of tiny tracks across clean white snow",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 19
     },
     {
       "id": "ww-exp260908-014",
@@ -13297,7 +13823,9 @@
       "learnerBase": null,
       "sceneQuery": "a puppet bending forward on a small stage as curtains close",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 58,
+      "complexity": 22
     },
     {
       "id": "ww-exp260908-015",
@@ -13355,7 +13883,9 @@
       "learnerBase": null,
       "sceneQuery": "a spoon making a slow circle through pancake batter",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 78,
+      "complexity": 19
     },
     {
       "id": "ww-exp260908-016",
@@ -13425,7 +13955,9 @@
       "learnerBase": null,
       "sceneQuery": "a snail and a silvery trail across a smooth stone",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 22
     },
     {
       "id": "ww-exp260908-017",
@@ -13489,7 +14021,9 @@
       "learnerBase": null,
       "sceneQuery": "a child's drawing held on a noticeboard by a colorful magnet",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 27
     },
     {
       "id": "ww-exp260908-018",
@@ -13559,7 +14093,9 @@
       "learnerBase": null,
       "sceneQuery": "a child tapping a little drum beside friends making music",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 22
     },
     {
       "id": "ww-exp260908-019",
@@ -13617,7 +14153,9 @@
       "learnerBase": null,
       "sceneQuery": "friends waiting beside a telescope while one child looks through it",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 33,
+      "complexity": 35
     },
     {
       "id": "ww-exp260908-020",
@@ -13681,7 +14219,9 @@
       "learnerBase": null,
       "sceneQuery": "a bee dusted with yellow pollen visiting a flower",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 65,
+      "complexity": 19
     },
     {
       "id": "ww-exp260908-021",
@@ -13757,7 +14297,9 @@
       "learnerBase": null,
       "sceneQuery": "two children inventing a funny final picture for a storybook",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 63,
+      "complexity": 26
     },
     {
       "id": "ww-exp260908-022",
@@ -13821,7 +14363,9 @@
       "learnerBase": null,
       "sceneQuery": "a large bear-shaped shadow on a wall with raised paws",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-exp260908-023",
@@ -13909,7 +14453,9 @@
       "learnerBase": null,
       "sceneQuery": "a group poster with blank spaces for children's names",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 22
     },
     {
       "id": "ww-exp260908-024",
@@ -13967,7 +14513,9 @@
       "learnerBase": null,
       "sceneQuery": "a white feather floating just above a green lawn",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 19
     },
     {
       "id": "ww-exp260908-025",
@@ -14037,7 +14585,9 @@
       "learnerBase": null,
       "sceneQuery": "children discussing a homemade board game together",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 62,
+      "complexity": 22
     },
     {
       "id": "ww-exp260908-026",
@@ -14101,7 +14651,9 @@
       "learnerBase": null,
       "sceneQuery": "a grandfather and children folding dough around dumpling filling",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 58,
+      "complexity": 26
     },
     {
       "id": "ww-exp260908-027",
@@ -14171,7 +14723,9 @@
       "learnerBase": null,
       "sceneQuery": "a friendly storybook dragon sorting a box of colorful buttons",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 43,
+      "complexity": 19
     },
     {
       "id": "ww-exp260908-028",
@@ -14223,7 +14777,9 @@
       "learnerBase": null,
       "sceneQuery": "two different leaves beneath a handheld magnifying glass",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 65,
+      "complexity": 46
     },
     {
       "id": "ww-exp260908-029",
@@ -14275,7 +14831,9 @@
       "learnerBase": null,
       "sceneQuery": "a child offering the final sticker from a sheet to a friend",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 36
     },
     {
       "id": "ww-exp260908-030",
@@ -14351,7 +14909,9 @@
       "learnerBase": null,
       "sceneQuery": "white clouds mirrored on a still pond below leafy trees",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 65,
+      "complexity": 34
     },
     {
       "id": "ww-exp260908-031",
@@ -14415,7 +14975,9 @@
       "learnerBase": null,
       "sceneQuery": "children finishing a song with gentle voices and relaxed hands",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 19
     },
     {
       "id": "ww-exp260908-032",
@@ -14479,7 +15041,9 @@
       "learnerBase": null,
       "sceneQuery": "a folded paper bridge with five pebbles arranged beside it",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 24
     },
     {
       "id": "ww-exp260908-033",
@@ -14561,7 +15125,9 @@
       "learnerBase": null,
       "sceneQuery": "children listening to suggestions around a blank team-name sign",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 30
     },
     {
       "id": "ww-exp260908-034",
@@ -14643,7 +15209,9 @@
       "learnerBase": null,
       "sceneQuery": "a tiny caterpillar beside large holes in a green leaf",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 65,
+      "complexity": 56
     },
     {
       "id": "ww-exp260908-035",
@@ -14719,7 +15287,9 @@
       "learnerBase": null,
       "sceneQuery": "two children sharing ideas while another sketches a shared solution",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 82,
+      "complexity": 31
     },
     {
       "id": "ww-exp260908-036",
@@ -14789,7 +15359,9 @@
       "learnerBase": null,
       "sceneQuery": "a fallen model next to a newly widened cardboard base",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 58,
+      "complexity": 34
     },
     {
       "id": "ww-exp260908-037",
@@ -14883,7 +15455,9 @@
       "learnerBase": null,
       "sceneQuery": "a reused box with curtains and friendly puppets peeking out",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 34
     },
     {
       "id": "ww-exp260908-038",
@@ -14977,7 +15551,9 @@
       "learnerBase": null,
       "sceneQuery": "long shadows stretching across a playground at sunset",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 65,
+      "complexity": 48
     },
     {
       "id": "ww-exp260908-039",
@@ -15059,7 +15635,9 @@
       "learnerBase": null,
       "sceneQuery": "a group of children puzzling over a riddle card together",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 56
     },
     {
       "id": "ww-exp260908-040",
@@ -15147,7 +15725,9 @@
       "learnerBase": null,
       "sceneQuery": "children comparing an experiment notebook with a prediction chart",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 52,
+      "complexity": 65
     },
     {
       "id": "ww-exp260908-041",
@@ -15259,7 +15839,9 @@
       "learnerBase": null,
       "sceneQuery": "a treasure box holding a handwritten thank-you card for a group",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 62,
+      "complexity": 56
     },
     {
       "id": "ww-pair260908-001",
@@ -15305,7 +15887,9 @@
       "learnerBase": null,
       "sceneQuery": "Otter beside a stream holding a small smooth stone.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 48,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-002",
@@ -15351,7 +15935,9 @@
       "learnerBase": null,
       "sceneQuery": "Pair of goats walking across a wooden bridge.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 65,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-003",
@@ -15403,7 +15989,9 @@
       "learnerBase": null,
       "sceneQuery": "Bright kite with a long ribbon tail against blue sky.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 63,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-004",
@@ -15437,7 +16025,9 @@
       "learnerBase": null,
       "sceneQuery": "Hands peeling a ripe yellow banana at a picnic.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 78,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-005",
@@ -15501,7 +16091,9 @@
       "learnerBase": null,
       "sceneQuery": "Open box containing colorful wax crayons.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 80,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-006",
@@ -15547,7 +16139,9 @@
       "learnerBase": null,
       "sceneQuery": "Autumn leaf landing on the surface of a quiet pond.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-007",
@@ -15587,7 +16181,9 @@
       "learnerBase": null,
       "sceneQuery": "Soft knitted blanket draped over a cozy chair.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 80,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-008",
@@ -15621,7 +16217,9 @@
       "learnerBase": null,
       "sceneQuery": "Small silver bell ringing in a music classroom.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-009",
@@ -15661,7 +16259,9 @@
       "learnerBase": null,
       "sceneQuery": "Single red balloon floating above a grassy park.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 63,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-010",
@@ -15701,7 +16301,9 @@
       "learnerBase": null,
       "sceneQuery": "Friend arriving at a picnic with a basket of oranges.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-011",
@@ -15747,7 +16349,9 @@
       "learnerBase": null,
       "sceneQuery": "Empty park bench under a fresh layer of snow.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-012",
@@ -15799,7 +16403,9 @@
       "learnerBase": null,
       "sceneQuery": "Tiny chick walking behind its mother hen in a farmyard.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 65,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-013",
@@ -15857,7 +16463,9 @@
       "learnerBase": null,
       "sceneQuery": "Beaver dragging a leafy branch toward flowing water.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 48,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-014",
@@ -15927,7 +16535,9 @@
       "learnerBase": null,
       "sceneQuery": "Owl perched in an old oak overlooking an open meadow.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 48,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-015",
@@ -16003,7 +16613,9 @@
       "learnerBase": null,
       "sceneQuery": "Turtle drying on a sunlit rock beside a pond.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 30
     },
     {
       "id": "ww-pair260908-016",
@@ -16067,7 +16679,9 @@
       "learnerBase": null,
       "sceneQuery": "Green caterpillar moving along the curved edge of a broad leaf.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 65,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-017",
@@ -16125,7 +16739,9 @@
       "learnerBase": null,
       "sceneQuery": "Three differently shaped autumn leaves arranged for observation.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 49,
+      "complexity": 46
     },
     {
       "id": "ww-pair260908-018",
@@ -16189,7 +16805,9 @@
       "learnerBase": null,
       "sceneQuery": "Potted sunflower leaning toward daylight through a window.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 26
     },
     {
       "id": "ww-pair260908-019",
@@ -16277,7 +16895,9 @@
       "learnerBase": null,
       "sceneQuery": "Soft green moss covering the ground around exposed tree roots.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 80,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-020",
@@ -16341,7 +16961,9 @@
       "learnerBase": null,
       "sceneQuery": "Children safely indoors looking through library windows at rain.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-021",
@@ -16423,7 +17045,9 @@
       "learnerBase": null,
       "sceneQuery": "Concentric ripples where raindrops touch a still pond.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-022",
@@ -16487,7 +17111,9 @@
       "learnerBase": null,
       "sceneQuery": "Kite ribbons streaming sideways in a steady breeze.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-023",
@@ -16557,7 +17183,9 @@
       "learnerBase": null,
       "sceneQuery": "Paint palette with yellow and blue beside a friendly green dragon drawing.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 43,
+      "complexity": 29
     },
     {
       "id": "ww-pair260908-024",
@@ -16633,7 +17261,9 @@
       "learnerBase": null,
       "sceneQuery": "Wooden puppet taking a bow on a small theater stage.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 80,
+      "complexity": 42
     },
     {
       "id": "ww-pair260908-025",
@@ -16727,7 +17357,9 @@
       "learnerBase": null,
       "sceneQuery": "Handmade clay bowl drying on a shelf near daylight.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 29
     },
     {
       "id": "ww-pair260908-026",
@@ -16791,7 +17423,9 @@
       "learnerBase": null,
       "sceneQuery": "Colorful hand-drawn island map with forests and a friendly village.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 62,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-027",
@@ -16861,7 +17495,9 @@
       "learnerBase": null,
       "sceneQuery": "Young drummer practicing a rhythm with a changing tempo.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 62,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-028",
@@ -16937,7 +17573,9 @@
       "learnerBase": null,
       "sceneQuery": "Music class clapping together before beginning a song.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 63,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-029",
@@ -17007,7 +17645,9 @@
       "learnerBase": null,
       "sceneQuery": "Flute player performing a gentle melody in a calm room.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-030",
@@ -17083,7 +17723,9 @@
       "learnerBase": null,
       "sceneQuery": "Buttons arranged into size groups on a classroom table.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 72,
+      "complexity": 34
     },
     {
       "id": "ww-pair260908-031",
@@ -17141,7 +17783,9 @@
       "learnerBase": null,
       "sceneQuery": "Students recording the changing length of a stick's shadow.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 84,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-032",
@@ -17211,7 +17855,9 @@
       "learnerBase": null,
       "sceneQuery": "Pencil underlining an important clue in a printed riddle.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 88,
+      "complexity": 45
     },
     {
       "id": "ww-pair260908-033",
@@ -17275,7 +17921,9 @@
       "learnerBase": null,
       "sceneQuery": "Librarian showing a child an illustrated sea turtle book.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 73,
+      "complexity": 26
     },
     {
       "id": "ww-pair260908-034",
@@ -17339,7 +17987,9 @@
       "learnerBase": null,
       "sceneQuery": "Bowl of warm oatmeal with cinnamon being sprinkled on top.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 49,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-035",
@@ -17403,7 +18053,9 @@
       "learnerBase": null,
       "sceneQuery": "Ripe pear sliced on a small plate beside a fruit bowl.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 31
     },
     {
       "id": "ww-pair260908-036",
@@ -17461,7 +18113,9 @@
       "learnerBase": null,
       "sceneQuery": "Sandwich divided into equal portions for friends at a picnic.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 78,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-037",
@@ -17537,7 +18191,9 @@
       "learnerBase": null,
       "sceneQuery": "Folded blanket being placed into a woven storage basket.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 80,
+      "complexity": 29
     },
     {
       "id": "ww-pair260908-038",
@@ -17619,7 +18275,9 @@
       "learnerBase": null,
       "sceneQuery": "Muddy rain boots resting on a tray inside an entrance.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-039",
@@ -17701,7 +18359,9 @@
       "learnerBase": null,
       "sceneQuery": "Cozy cat curled into a small empty cardboard box.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 84,
+      "complexity": 29
     },
     {
       "id": "ww-pair260908-040",
@@ -17765,7 +18425,9 @@
       "learnerBase": null,
       "sceneQuery": "Friends choosing from board games while taking turns.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 62,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-041",
@@ -17847,7 +18509,9 @@
       "learnerBase": null,
       "sceneQuery": "Teammate welcoming a newcomer and explaining a tabletop game.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 79,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-042",
@@ -17911,7 +18575,9 @@
       "learnerBase": null,
       "sceneQuery": "Children making a roomy circle so another friend can join.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 84,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-043",
@@ -17987,7 +18653,9 @@
       "learnerBase": null,
       "sceneQuery": "Passenger train traveling beside a field of blooming sunflowers.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 81,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-044",
@@ -18057,7 +18725,9 @@
       "learnerBase": null,
       "sceneQuery": "Town map showing a walking route to a museum.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 63,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-045",
@@ -18133,7 +18803,9 @@
       "learnerBase": null,
       "sceneQuery": "Passengers waiting safely behind a marked line as a bus arrives.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 81,
+      "complexity": 38
     },
     {
       "id": "ww-pair260908-046",
@@ -18209,7 +18881,9 @@
       "learnerBase": null,
       "sceneQuery": "Friendly dragon admiring a collection of colorful shiny buttons.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 43,
+      "complexity": 34
     },
     {
       "id": "ww-pair260908-047",
@@ -18291,7 +18965,9 @@
       "learnerBase": null,
       "sceneQuery": "Children's cardboard spaceship with several cutout windows.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 43,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-048",
@@ -18361,7 +19037,9 @@
       "learnerBase": null,
       "sceneQuery": "Small friendly robot pouring water from a teacup onto flowers.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 43,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-049",
@@ -18437,7 +19115,9 @@
       "learnerBase": null,
       "sceneQuery": "Two similar stones being compared for smooth and rough textures.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 55
     },
     {
       "id": "ww-pair260908-050",
@@ -18519,7 +19199,9 @@
       "learnerBase": null,
       "sceneQuery": "Seedlings placed in different lighting conditions for a classroom experiment.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 33,
+      "complexity": 48
     },
     {
       "id": "ww-pair260908-051",
@@ -18589,7 +19271,9 @@
       "learnerBase": null,
       "sceneQuery": "Observation notebook beside a simple classroom experiment.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 33,
+      "complexity": 48
     },
     {
       "id": "ww-pair260908-052",
@@ -18671,7 +19355,9 @@
       "learnerBase": null,
       "sceneQuery": "Icy pond surface obscuring a reflection of nearby trees.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 71,
+      "complexity": 35
     },
     {
       "id": "ww-pair260908-053",
@@ -18747,7 +19433,9 @@
       "learnerBase": null,
       "sceneQuery": "Diverse flowering garden visited by bees and butterflies.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 62,
+      "complexity": 35
     },
     {
       "id": "ww-pair260908-054",
@@ -18835,7 +19523,9 @@
       "learnerBase": null,
       "sceneQuery": "Friends calmly discussing different ideas for a shared project.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 79,
+      "complexity": 47
     },
     {
       "id": "ww-pair260908-055",
@@ -18923,7 +19613,9 @@
       "learnerBase": null,
       "sceneQuery": "Teammates reviewing a plan together and appreciating helpful feedback.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 62,
+      "complexity": 62
     },
     {
       "id": "ww-pair260908-056",
@@ -18999,7 +19691,9 @@
       "learnerBase": null,
       "sceneQuery": "Collaborative wall painting mixing wildlife and friendly invented creatures.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 58,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-057",
@@ -19063,7 +19757,9 @@
       "learnerBase": null,
       "sceneQuery": "Group adapting a project plan to give each member a useful role.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 44,
+      "complexity": 69
     },
     {
       "id": "ww-pair260908-058",
@@ -19157,7 +19853,9 @@
       "learnerBase": null,
       "sceneQuery": "Cardboard bridge model with supports added under bending sections.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 79,
+      "complexity": 80
     },
     {
       "id": "ww-pair260908-059",
@@ -19227,7 +19925,9 @@
       "learnerBase": null,
       "sceneQuery": "Friendly robot repairing a worn wooden toy at a workbench.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 43,
+      "complexity": 40
     },
     {
       "id": "ww-pair260908-060",
@@ -19297,7 +19997,9 @@
       "learnerBase": null,
       "sceneQuery": "Classroom display linking observations to clear written explanations.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 82,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-061",
@@ -19343,7 +20045,9 @@
       "learnerBase": null,
       "sceneQuery": "Short ruler placed beside a longer one on a desk.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-062",
@@ -19383,7 +20087,9 @@
       "learnerBase": null,
       "sceneQuery": "Steaming bowl of vegetable soup on a kitchen table.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 78,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-063",
@@ -19429,7 +20135,9 @@
       "learnerBase": null,
       "sceneQuery": "Resting lizard opening one eye on a warm garden rock.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 48,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-064",
@@ -19475,7 +20183,9 @@
       "learnerBase": null,
       "sceneQuery": "Children gently rolling a ball across a smooth floor.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 71,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-065",
@@ -19521,7 +20231,9 @@
       "learnerBase": null,
       "sceneQuery": "Woven basket with only one small apple remaining inside.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 84,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-066",
@@ -19567,7 +20279,9 @@
       "learnerBase": null,
       "sceneQuery": "Small glass of water beside a pitcher.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 93,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-067",
@@ -19613,7 +20327,9 @@
       "learnerBase": null,
       "sceneQuery": "Broad river stretching between two green riverbanks.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 65,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-068",
@@ -19659,7 +20375,9 @@
       "learnerBase": null,
       "sceneQuery": "Large rain boots beside a smaller pair.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 80,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-069",
@@ -19699,7 +20417,9 @@
       "learnerBase": null,
       "sceneQuery": "Child playing a drum with a strong clear beat.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 58,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-070",
@@ -19739,7 +20459,9 @@
       "learnerBase": null,
       "sceneQuery": "Nearly empty blue paint pot beside an unfinished picture.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 67,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-071",
@@ -19779,7 +20501,9 @@
       "learnerBase": null,
       "sceneQuery": "Friends leaving an empty place for another child at a table.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-072",
@@ -19831,7 +20555,9 @@
       "learnerBase": null,
       "sceneQuery": "Red fox standing on grass with clearly visible white paws.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 48,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-073",
@@ -19889,7 +20615,9 @@
       "learnerBase": null,
       "sceneQuery": "Child asking for help with the second step of a classroom activity.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 84,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-074",
@@ -19941,7 +20669,9 @@
       "learnerBase": null,
       "sceneQuery": "Triangle among several geometric shapes on a classroom board.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 49,
+      "complexity": 32
     },
     {
       "id": "ww-pair260908-075",
@@ -19999,7 +20729,9 @@
       "learnerBase": null,
       "sceneQuery": "Two diagrams being compared side by side in a notebook.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 73,
+      "complexity": 28
     },
     {
       "id": "ww-pair260908-076",
@@ -20057,7 +20789,9 @@
       "learnerBase": null,
       "sceneQuery": "Open workbook with one final page still being completed.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 39
     },
     {
       "id": "ww-pair260908-077",
@@ -20127,7 +20861,9 @@
       "learnerBase": null,
       "sceneQuery": "Purple-covered book being passed across a study table.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 78,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-078",
@@ -20191,7 +20927,9 @@
       "learnerBase": null,
       "sceneQuery": "Magnifying glass enlarging small printed letters on a page.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 36
     },
     {
       "id": "ww-pair260908-079",
@@ -20255,7 +20993,9 @@
       "learnerBase": null,
       "sceneQuery": "Basin of water showing floating cork and a sunken pebble.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 46,
+      "complexity": 26
     },
     {
       "id": "ww-pair260908-080",
@@ -20325,7 +21065,9 @@
       "learnerBase": null,
       "sceneQuery": "Magnet moving a paper clip through a sheet of paper.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-081",
@@ -20401,7 +21143,9 @@
       "learnerBase": null,
       "sceneQuery": "Water level marks on a measuring jug beside a small stone.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 88,
+      "complexity": 30
     },
     {
       "id": "ww-pair260908-082",
@@ -20477,7 +21221,9 @@
       "learnerBase": null,
       "sceneQuery": "Series of shadow outlines becoming shorter during the morning.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 71,
+      "complexity": 46
     },
     {
       "id": "ww-pair260908-083",
@@ -20553,7 +21299,9 @@
       "learnerBase": null,
       "sceneQuery": "Walkers staying on a marked trail beside delicate young plants.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 36
     },
     {
       "id": "ww-pair260908-084",
@@ -20629,7 +21377,9 @@
       "learnerBase": null,
       "sceneQuery": "Acorn and broad oak leaf arranged side by side.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 65,
+      "complexity": 40
     },
     {
       "id": "ww-pair260908-085",
@@ -20711,7 +21461,9 @@
       "learnerBase": null,
       "sceneQuery": "Rainbow arching through a sunlit rain shower over a meadow.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 79,
+      "complexity": 38
     },
     {
       "id": "ww-pair260908-086",
@@ -20775,7 +21527,9 @@
       "learnerBase": null,
       "sceneQuery": "Seedling roots visible against the inside of a transparent jar.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 46,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-087",
@@ -20833,7 +21587,9 @@
       "learnerBase": null,
       "sceneQuery": "Penguins standing close together on a snowy shore.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 48,
+      "complexity": 26
     },
     {
       "id": "ww-pair260908-088",
@@ -20909,7 +21665,9 @@
       "learnerBase": null,
       "sceneQuery": "Squirrel hiding an acorn in soil beside a wooden fence.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 48,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-089",
@@ -20979,7 +21737,9 @@
       "learnerBase": null,
       "sceneQuery": "Duck shaking droplets from its wet feathers at a pond's edge.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 88,
+      "complexity": 26
     },
     {
       "id": "ww-pair260908-090",
@@ -21043,7 +21803,9 @@
       "learnerBase": null,
       "sceneQuery": "Bats emerging into a dusky sky above a meadow.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 71,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-091",
@@ -21125,7 +21887,9 @@
       "learnerBase": null,
       "sceneQuery": "Covered fruit salad chilling on a refrigerator shelf.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-092",
@@ -21195,7 +21959,9 @@
       "learnerBase": null,
       "sceneQuery": "Two differently sized portions of cake on a serving plate.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 35
     },
     {
       "id": "ww-pair260908-093",
@@ -21265,7 +22031,9 @@
       "learnerBase": null,
       "sceneQuery": "Sticky bread dough being dusted with a little flour.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 38
     },
     {
       "id": "ww-pair260908-094",
@@ -21335,7 +22103,9 @@
       "learnerBase": null,
       "sceneQuery": "Lost mitten lying beneath an outdoor garden bench.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 62,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-095",
@@ -21405,7 +22175,9 @@
       "learnerBase": null,
       "sceneQuery": "Wet towels hanging apart on a drying rack in an airy room.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 71,
+      "complexity": 35
     },
     {
       "id": "ww-pair260908-096",
@@ -21469,7 +22241,9 @@
       "learnerBase": null,
       "sceneQuery": "Round storage container with its matching lid.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-097",
@@ -21533,7 +22307,9 @@
       "learnerBase": null,
       "sceneQuery": "Two friends rehearsing together to build confidence.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 30
     },
     {
       "id": "ww-pair260908-098",
@@ -21597,7 +22373,9 @@
       "learnerBase": null,
       "sceneQuery": "Small group listening attentively to a friend telling a story.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 63,
+      "complexity": 38
     },
     {
       "id": "ww-pair260908-099",
@@ -21661,7 +22439,9 @@
       "learnerBase": null,
       "sceneQuery": "Children inviting a newcomer to join a cooperative game.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 62,
+      "complexity": 50
     },
     {
       "id": "ww-pair260908-100",
@@ -21737,7 +22517,9 @@
       "learnerBase": null,
       "sceneQuery": "Hand placing a puzzle piece near a lower corner.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 26
     },
     {
       "id": "ww-pair260908-101",
@@ -21825,7 +22607,9 @@
       "learnerBase": null,
       "sceneQuery": "Marble resting partway along a cardboard ramp.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 68,
+      "complexity": 37
     },
     {
       "id": "ww-pair260908-102",
@@ -21889,7 +22673,9 @@
       "learnerBase": null,
       "sceneQuery": "Board game tokens moving along a path of squares.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 73,
+      "complexity": 30
     },
     {
       "id": "ww-pair260908-103",
@@ -21947,7 +22733,9 @@
       "learnerBase": null,
       "sceneQuery": "Museum entrance with a sign showing shorter Sunday opening hours.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-104",
@@ -22017,7 +22805,9 @@
       "learnerBase": null,
       "sceneQuery": "Bus stop beside a distinctive tall clock tower.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 80,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-105",
@@ -22075,7 +22865,9 @@
       "learnerBase": null,
       "sceneQuery": "Small ferry carrying travelers and their bicycles across a river.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 83,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-106",
@@ -22145,7 +22937,9 @@
       "learnerBase": null,
       "sceneQuery": "Imaginary moon gardener tending silver flowers in round planters.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 78,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-107",
@@ -22227,7 +23021,9 @@
       "learnerBase": null,
       "sceneQuery": "Friendly giant politely requesting a small umbrella from village friends.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 80,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-108",
@@ -22309,7 +23105,9 @@
       "learnerBase": null,
       "sceneQuery": "Whimsical train traveling on clouds and picking up friendly stars.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 81,
+      "complexity": 42
     },
     {
       "id": "ww-pair260908-109",
@@ -22379,7 +23177,9 @@
       "learnerBase": null,
       "sceneQuery": "Several collections of leaves arranged for a careful comparison.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 38,
+      "complexity": 32
     },
     {
       "id": "ww-pair260908-110",
@@ -22437,7 +23237,9 @@
       "learnerBase": null,
       "sceneQuery": "Repeating shape pattern using a different color in each group.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 63,
+      "complexity": 37
     },
     {
       "id": "ww-pair260908-111",
@@ -22507,7 +23309,9 @@
       "learnerBase": null,
       "sceneQuery": "Classroom chart separating recorded observations from tentative guesses.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 33,
+      "complexity": 35
     },
     {
       "id": "ww-pair260908-112",
@@ -22589,7 +23393,9 @@
       "learnerBase": null,
       "sceneQuery": "Shallow water tray with level marks showing gradual evaporation.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 33,
+      "complexity": 61
     },
     {
       "id": "ww-pair260908-113",
@@ -22665,7 +23471,9 @@
       "learnerBase": null,
       "sceneQuery": "Experiment plan highlighting one changed variable and several constants.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 79,
+      "complexity": 31
     },
     {
       "id": "ww-pair260908-114",
@@ -22753,7 +23561,9 @@
       "learnerBase": null,
       "sceneQuery": "Restored wetland welcoming several kinds of birds.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 65,
+      "complexity": 46
     },
     {
       "id": "ww-pair260908-115",
@@ -22817,7 +23627,9 @@
       "learnerBase": null,
       "sceneQuery": "Children correcting a mistake in a shared craft project.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 24
     },
     {
       "id": "ww-pair260908-116",
@@ -22911,7 +23723,9 @@
       "learnerBase": null,
       "sceneQuery": "Team combining different preferences into one agreed project plan.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 84,
+      "complexity": 41
     },
     {
       "id": "ww-pair260908-117",
@@ -22981,7 +23795,9 @@
       "learnerBase": null,
       "sceneQuery": "Collection of small samples with clear labels being attached.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 56
     },
     {
       "id": "ww-pair260908-118",
@@ -23063,7 +23879,9 @@
       "learnerBase": null,
       "sceneQuery": "Watercolor landscape using unpainted areas to suggest soft mist.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 26
     },
     {
       "id": "ww-pair260908-119",
@@ -23145,7 +23963,9 @@
       "learnerBase": null,
       "sceneQuery": "Musicians comparing a familiar melody at two different tempos.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 31
     },
     {
       "id": "ww-pair260908-120",
@@ -23233,7 +24053,9 @@
       "learnerBase": null,
       "sceneQuery": "Friendly robot discovering a library after studying a town map.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 43,
+      "complexity": 84
     },
     {
       "id": "ww-pair260908-121",
@@ -23285,7 +24107,9 @@
       "learnerBase": null,
       "sceneQuery": "Rabbit with long upright ears sitting in grass.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 65,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-122",
@@ -23325,7 +24149,9 @@
       "learnerBase": null,
       "sceneQuery": "Child reading one clearly printed word on a card.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 73,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-123",
@@ -23365,7 +24191,9 @@
       "learnerBase": null,
       "sceneQuery": "Three freshly washed cups lined up beside a sink.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-124",
@@ -23405,7 +24233,9 @@
       "learnerBase": null,
       "sceneQuery": "Sunlit beach sand with shallow footprints.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-125",
@@ -23457,7 +24287,9 @@
       "learnerBase": null,
       "sceneQuery": "Dark clouds gathering overhead before a rain shower.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 65,
+      "complexity": 29
     },
     {
       "id": "ww-pair260908-126",
@@ -23503,7 +24335,9 @@
       "learnerBase": null,
       "sceneQuery": "Cheerful drawing bringing a smile to a child's face.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 63,
+      "complexity": 29
     },
     {
       "id": "ww-pair260908-127",
@@ -23543,7 +24377,9 @@
       "learnerBase": null,
       "sceneQuery": "Fresh ripe strawberries arranged in a small bowl.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 78,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-128",
@@ -23589,7 +24425,9 @@
       "learnerBase": null,
       "sceneQuery": "Small group singing a gentle song together.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 63,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-129",
@@ -23635,7 +24473,9 @@
       "learnerBase": null,
       "sceneQuery": "Board game with green team tokens ready for the first turn.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-130",
@@ -23675,7 +24515,9 @@
       "learnerBase": null,
       "sceneQuery": "Two friends smiling over a suggested craft idea.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "ww-pair260908-131",
@@ -23721,7 +24563,9 @@
       "learnerBase": null,
       "sceneQuery": "Damp scarf hanging on a drying rack.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 71,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-132",
@@ -23773,7 +24617,9 @@
       "learnerBase": null,
       "sceneQuery": "Round full moon glowing above rooftops after dark.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 65,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-133",
@@ -23843,7 +24689,9 @@
       "learnerBase": null,
       "sceneQuery": "Story events arranged in order along a classroom timeline.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 63,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-134",
@@ -23907,7 +24755,9 @@
       "learnerBase": null,
       "sceneQuery": "Class calendar marking an upcoming visit to a science museum.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 79,
+      "complexity": 24
     },
     {
       "id": "ww-pair260908-135",
@@ -23959,7 +24809,9 @@
       "learnerBase": null,
       "sceneQuery": "Handwritten title positioned above a colorful school drawing.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 73,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-136",
@@ -24023,7 +24875,9 @@
       "learnerBase": null,
       "sceneQuery": "Completed worksheet being checked before submission.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 73,
+      "complexity": 30
     },
     {
       "id": "ww-pair260908-137",
@@ -24093,7 +24947,9 @@
       "learnerBase": null,
       "sceneQuery": "Teacher inviting pupils to explain the reasoning behind an answer.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 37
     },
     {
       "id": "ww-pair260908-138",
@@ -24163,7 +25019,9 @@
       "learnerBase": null,
       "sceneQuery": "Two rows of counters with visibly different quantities.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 71,
+      "complexity": 43
     },
     {
       "id": "ww-pair260908-139",
@@ -24233,7 +25091,9 @@
       "learnerBase": null,
       "sceneQuery": "Sheet of paper with blue squares covering exactly one half.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 84,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-140",
@@ -24297,7 +25157,9 @@
       "learnerBase": null,
       "sceneQuery": "Paper circle divided into four equal portions for four players.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-141",
@@ -24379,7 +25241,9 @@
       "learnerBase": null,
       "sceneQuery": "Number line showing a blank position between twelve and fourteen.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 73,
+      "complexity": 34
     },
     {
       "id": "ww-pair260908-142",
@@ -24449,7 +25313,9 @@
       "learnerBase": null,
       "sceneQuery": "Outdoor thermometer beside morning temperature notes.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 33,
+      "complexity": 28
     },
     {
       "id": "ww-pair260908-143",
@@ -24519,7 +25385,9 @@
       "learnerBase": null,
       "sceneQuery": "Simple model wheel spinning on a straightened axle.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 30
     },
     {
       "id": "ww-pair260908-144",
@@ -24583,7 +25451,9 @@
       "learnerBase": null,
       "sceneQuery": "Ruler guiding two neat parallel pencil lines.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-145",
@@ -24665,7 +25535,9 @@
       "learnerBase": null,
       "sceneQuery": "Bird nest tucked under the eaves of a roof in spring.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 80,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-146",
@@ -24759,7 +25631,9 @@
       "learnerBase": null,
       "sceneQuery": "Frogs calling from reeds around a twilight pond.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 65,
+      "complexity": 63
     },
     {
       "id": "ww-pair260908-147",
@@ -24823,7 +25697,9 @@
       "learnerBase": null,
       "sceneQuery": "Tray of seedlings waiting indoors for warmer spring weather.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 35
     },
     {
       "id": "ww-pair260908-148",
@@ -24911,7 +25787,9 @@
       "learnerBase": null,
       "sceneQuery": "Fading footprints in a thinning layer of melting snow.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 68,
+      "complexity": 63
     },
     {
       "id": "ww-pair260908-149",
@@ -24969,7 +25847,9 @@
       "learnerBase": null,
       "sceneQuery": "Parrot tilting its head near a household doorbell.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-150",
@@ -25027,7 +25907,9 @@
       "learnerBase": null,
       "sceneQuery": "New butterfly unfolding its wings beside an empty chrysalis.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-151",
@@ -25097,7 +25979,9 @@
       "learnerBase": null,
       "sceneQuery": "Hedgehog waiting near garden shrubs in the evening.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 62,
+      "complexity": 50
     },
     {
       "id": "ww-pair260908-152",
@@ -25191,7 +26075,9 @@
       "learnerBase": null,
       "sceneQuery": "Seal briefly surfacing beside a small boat on calm water.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 48,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-153",
@@ -25249,7 +26135,9 @@
       "learnerBase": null,
       "sceneQuery": "Colorful paper scraps stored beside a partly finished collage.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 34
     },
     {
       "id": "ww-pair260908-154",
@@ -25313,7 +26201,9 @@
       "learnerBase": null,
       "sceneQuery": "Landscape background being prepared for animal illustrations.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-155",
@@ -25395,7 +26285,9 @@
       "learnerBase": null,
       "sceneQuery": "Puppet taking a bow as its little hat drops onto the stage.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 58,
+      "complexity": 29
     },
     {
       "id": "ww-pair260908-156",
@@ -25453,7 +26345,9 @@
       "learnerBase": null,
       "sceneQuery": "Music score with a difficult passage marked for repeated practice.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 34
     },
     {
       "id": "ww-pair260908-157",
@@ -25529,7 +26423,9 @@
       "learnerBase": null,
       "sceneQuery": "Children's choir finishing a song with a gentle quiet ending.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 63,
+      "complexity": 29
     },
     {
       "id": "ww-pair260908-158",
@@ -25605,7 +26501,9 @@
       "learnerBase": null,
       "sceneQuery": "Fallen toy tower being rebuilt on a broader base.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 82,
+      "complexity": 29
     },
     {
       "id": "ww-pair260908-159",
@@ -25657,7 +26555,9 @@
       "learnerBase": null,
       "sceneQuery": "Maze drawing showing a newly chosen path toward the exit.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-160",
@@ -25733,7 +26633,9 @@
       "learnerBase": null,
       "sceneQuery": "Almost completed jigsaw puzzle with one empty space.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 42
     },
     {
       "id": "ww-pair260908-161",
@@ -25791,7 +26693,9 @@
       "learnerBase": null,
       "sceneQuery": "Child apologizing kindly to a friend who was telling a story.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 63,
+      "complexity": 44
     },
     {
       "id": "ww-pair260908-162",
@@ -25843,7 +26747,9 @@
       "learnerBase": null,
       "sceneQuery": "Borrowed board game packed carefully for return the next day.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 62,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-163",
@@ -25913,7 +26819,9 @@
       "learnerBase": null,
       "sceneQuery": "Supportive friends applauding a completed poetry reading.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 77,
+      "complexity": 38
     },
     {
       "id": "ww-pair260908-164",
@@ -25971,7 +26879,9 @@
       "learnerBase": null,
       "sceneQuery": "Freshly watered plants on a balcony beside an empty watering can.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 37
     },
     {
       "id": "ww-pair260908-165",
@@ -26035,7 +26945,9 @@
       "learnerBase": null,
       "sceneQuery": "Bus stop display showing a ten-minute wait.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 81,
+      "complexity": 24
     },
     {
       "id": "ww-pair260908-166",
@@ -26111,7 +27023,9 @@
       "learnerBase": null,
       "sceneQuery": "Walkers returning to a town fountain after passing a turn.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 43
     },
     {
       "id": "ww-pair260908-167",
@@ -26205,7 +27119,9 @@
       "learnerBase": null,
       "sceneQuery": "Friendly dragon looking for glasses behind library shelves.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 43,
+      "complexity": 32
     },
     {
       "id": "ww-pair260908-168",
@@ -26269,7 +27185,9 @@
       "learnerBase": null,
       "sceneQuery": "Toy captain aboard a little boat in a bathtub sea.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 68,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-169",
@@ -26333,7 +27251,9 @@
       "learnerBase": null,
       "sceneQuery": "Different example cards illustrating the same underlying rule.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 44,
+      "complexity": 36
     },
     {
       "id": "ww-pair260908-170",
@@ -26403,7 +27323,9 @@
       "learnerBase": null,
       "sceneQuery": "Prediction note being updated beside a newly observed detail.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-171",
@@ -26479,7 +27401,9 @@
       "learnerBase": null,
       "sceneQuery": "Measurements in different units being checked before comparison.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 70,
+      "complexity": 48
     },
     {
       "id": "ww-pair260908-172",
@@ -26567,7 +27491,9 @@
       "learnerBase": null,
       "sceneQuery": "Repeated classroom experiment results recorded in matching columns.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 33,
+      "complexity": 62
     },
     {
       "id": "ww-pair260908-173",
@@ -26655,7 +27581,9 @@
       "learnerBase": null,
       "sceneQuery": "Wetland with water channels, reeds, birds, and sheltered wildlife.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 82,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-174",
@@ -26743,7 +27671,9 @@
       "learnerBase": null,
       "sceneQuery": "Tree supporting birds, insects, fungi, and other small living things.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 45
     },
     {
       "id": "ww-pair260908-175",
@@ -26825,7 +27755,9 @@
       "learnerBase": null,
       "sceneQuery": "Friends waiting attentively while someone gathers their thoughts.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "ww-pair260908-176",
@@ -26907,7 +27839,9 @@
       "learnerBase": null,
       "sceneQuery": "Team completing a model using different members' skills.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 84,
+      "complexity": 34
     },
     {
       "id": "ww-pair260908-177",
@@ -26977,7 +27911,9 @@
       "learnerBase": null,
       "sceneQuery": "Exhibition model made from reusable cardboard and wooden pieces.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 90,
+      "complexity": 55
     },
     {
       "id": "ww-pair260908-178",
@@ -27071,7 +28007,9 @@
       "learnerBase": null,
       "sceneQuery": "Illustration using strong color contrast around a tiny story character.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 62,
+      "complexity": 26
     },
     {
       "id": "ww-pair260908-179",
@@ -27171,7 +28109,9 @@
       "learnerBase": null,
       "sceneQuery": "Group musicians settling into a steady shared beat.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 82,
+      "complexity": 51
     },
     {
       "id": "ww-pair260908-180",
@@ -27259,7 +28199,471 @@
       "learnerBase": null,
       "sceneQuery": "Friendly dragon bravely asking companions for help with a task.",
       "sceneAssetIds": [],
-      "annotations": {}
+      "annotations": {},
+      "usefulness": 43,
+      "complexity": 38
+    },
+    {
+      "id": "ww-es-starter260911-yes",
+      "difficulty": 1,
+      "topic": "first-contact",
+      "englishText": "Yes.",
+      "embeddingText": "Yes. A person nods in agreement.",
+      "englishAlternates": [],
+      "targetText": "Sí.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Sí",
+          "pronunciation": null,
+          "gloss": "yes",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A person nods in agreement.",
+      "sceneAssetIds": [],
+      "annotations": {},
+      "usefulness": 94,
+      "complexity": 7
+    },
+    {
+      "id": "ww-es-starter260911-no",
+      "difficulty": 1,
+      "topic": "first-contact",
+      "englishText": "No.",
+      "embeddingText": "No. A person shakes their head to refuse.",
+      "englishAlternates": [],
+      "targetText": "No.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "No",
+          "pronunciation": null,
+          "gloss": "no",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A person shakes their head to refuse.",
+      "sceneAssetIds": [],
+      "annotations": {},
+      "usefulness": 94,
+      "complexity": 7
+    },
+    {
+      "id": "ww-es-starter260911-please",
+      "difficulty": 1,
+      "topic": "first-contact",
+      "englishText": "Please.",
+      "embeddingText": "Please. A person politely makes a request.",
+      "englishAlternates": [],
+      "targetText": "Por favor.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Por",
+          "pronunciation": null,
+          "gloss": "part of por favor: please",
+          "playable": true
+        },
+        {
+          "surface": "favor",
+          "pronunciation": null,
+          "gloss": "part of por favor: please",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A person politely makes a request.",
+      "sceneAssetIds": [],
+      "annotations": {},
+      "usefulness": 94,
+      "complexity": 7
+    },
+    {
+      "id": "ww-es-starter260911-sorry",
+      "difficulty": 1,
+      "topic": "first-contact",
+      "englishText": "I am sorry.",
+      "embeddingText": "I am sorry. A friend apologizes after a small mistake.",
+      "englishAlternates": [],
+      "targetText": "Lo siento.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Lo",
+          "pronunciation": null,
+          "gloss": "it",
+          "playable": true
+        },
+        {
+          "surface": "siento",
+          "pronunciation": null,
+          "gloss": "feel; part of lo siento: I am sorry",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A friend apologizes after a small mistake.",
+      "sceneAssetIds": [],
+      "annotations": {},
+      "usefulness": 94,
+      "complexity": 7
+    },
+    {
+      "id": "ww-es-starter260911-excuse-me",
+      "difficulty": 1,
+      "topic": "first-contact",
+      "englishText": "Excuse me.",
+      "embeddingText": "Excuse me. A person politely gets a friend’s attention.",
+      "englishAlternates": [],
+      "targetText": "Perdona.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Perdona",
+          "pronunciation": null,
+          "gloss": "excuse me; informal singular",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A person politely gets a friend’s attention.",
+      "sceneAssetIds": [],
+      "annotations": {},
+      "usefulness": 94,
+      "complexity": 7
+    },
+    {
+      "id": "ww-es-starter260911-help",
+      "difficulty": 1,
+      "topic": "first-contact",
+      "englishText": "I need help.",
+      "embeddingText": "I need help. A learner asks a trusted person for help.",
+      "englishAlternates": [],
+      "targetText": "Necesito ayuda.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Necesito",
+          "pronunciation": null,
+          "gloss": "I need",
+          "playable": true
+        },
+        {
+          "surface": "ayuda",
+          "pronunciation": null,
+          "gloss": "help",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A learner asks a trusted person for help.",
+      "sceneAssetIds": [],
+      "annotations": {},
+      "usefulness": 97,
+      "complexity": 17
+    },
+    {
+      "id": "ww-es-starter260911-hungry",
+      "difficulty": 1,
+      "topic": "first-contact",
+      "englishText": "I am hungry.",
+      "embeddingText": "I am hungry. A person feels hungry before a meal.",
+      "englishAlternates": [],
+      "targetText": "Tengo hambre.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Tengo",
+          "pronunciation": null,
+          "gloss": "I have",
+          "playable": true
+        },
+        {
+          "surface": "hambre",
+          "pronunciation": null,
+          "gloss": "hunger",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A person feels hungry before a meal.",
+      "sceneAssetIds": [],
+      "annotations": {},
+      "usefulness": 97,
+      "complexity": 17
+    },
+    {
+      "id": "ww-es-starter260911-thirsty",
+      "difficulty": 1,
+      "topic": "first-contact",
+      "englishText": "I am thirsty.",
+      "embeddingText": "I am thirsty. A person feels thirsty and wants a drink.",
+      "englishAlternates": [],
+      "targetText": "Tengo sed.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Tengo",
+          "pronunciation": null,
+          "gloss": "I have",
+          "playable": true
+        },
+        {
+          "surface": "sed",
+          "pronunciation": null,
+          "gloss": "thirst",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A person feels thirsty and wants a drink.",
+      "sceneAssetIds": [],
+      "annotations": {},
+      "usefulness": 97,
+      "complexity": 17
+    },
+    {
+      "id": "ww-es-starter260911-water",
+      "difficulty": 1,
+      "topic": "first-contact",
+      "englishText": "I need water.",
+      "embeddingText": "I need water. A person asks for drinking water.",
+      "englishAlternates": [],
+      "targetText": "Necesito agua.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Necesito",
+          "pronunciation": null,
+          "gloss": "I need",
+          "playable": true
+        },
+        {
+          "surface": "agua",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A person asks for drinking water.",
+      "sceneAssetIds": [],
+      "annotations": {},
+      "usefulness": 97,
+      "complexity": 17
+    },
+    {
+      "id": "ww-es-starter260911-bathroom",
+      "difficulty": 1,
+      "topic": "first-contact",
+      "englishText": "Where is the bathroom?",
+      "embeddingText": "Where is the bathroom? A person asks where to find the bathroom.",
+      "englishAlternates": [],
+      "targetText": "¿Dónde está el baño?",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Dónde",
+          "pronunciation": null,
+          "gloss": "where",
+          "playable": true
+        },
+        {
+          "surface": "está",
+          "pronunciation": null,
+          "gloss": "is; location",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "pronunciation": null,
+          "gloss": "the",
+          "playable": true
+        },
+        {
+          "surface": "baño",
+          "pronunciation": null,
+          "gloss": "bathroom",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A person asks where to find the bathroom.",
+      "sceneAssetIds": [],
+      "annotations": {},
+      "usefulness": 97,
+      "complexity": 23
+    },
+    {
+      "id": "ww-es-starter260911-again",
+      "difficulty": 1,
+      "topic": "first-contact",
+      "englishText": "Again, please.",
+      "embeddingText": "Again, please. A learner asks to hear something one more time.",
+      "englishAlternates": [],
+      "targetText": "Otra vez, por favor.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Otra",
+          "pronunciation": null,
+          "gloss": "another",
+          "playable": true
+        },
+        {
+          "surface": "vez",
+          "pronunciation": null,
+          "gloss": "time",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "pronunciation": null,
+          "gloss": "part of por favor: please",
+          "playable": true
+        },
+        {
+          "surface": "favor",
+          "pronunciation": null,
+          "gloss": "part of por favor: please",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A learner asks to hear something one more time.",
+      "sceneAssetIds": [],
+      "annotations": {},
+      "usefulness": 98,
+      "complexity": 17
+    },
+    {
+      "id": "ww-es-starter260911-slowly",
+      "difficulty": 1,
+      "topic": "first-contact",
+      "englishText": "Speak slowly, please.",
+      "embeddingText": "Speak slowly, please. A learner asks a speaker to slow down.",
+      "englishAlternates": [],
+      "targetText": "Habla despacio, por favor.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Habla",
+          "pronunciation": null,
+          "gloss": "speak; informal singular",
+          "playable": true
+        },
+        {
+          "surface": "despacio",
+          "pronunciation": null,
+          "gloss": "slowly",
+          "playable": true
+        },
+        {
+          "surface": "por",
+          "pronunciation": null,
+          "gloss": "part of por favor: please",
+          "playable": true
+        },
+        {
+          "surface": "favor",
+          "pronunciation": null,
+          "gloss": "part of por favor: please",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A learner asks a speaker to slow down.",
+      "sceneAssetIds": [],
+      "annotations": {},
+      "usefulness": 98,
+      "complexity": 23
+    },
+    {
+      "id": "ww-es-starter260911-no-thanks",
+      "difficulty": 1,
+      "topic": "first-contact",
+      "englishText": "No, thank you.",
+      "embeddingText": "No, thank you. A person politely declines an offer.",
+      "englishAlternates": [],
+      "targetText": "No, gracias.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "No",
+          "pronunciation": null,
+          "gloss": "no",
+          "playable": true
+        },
+        {
+          "surface": "gracias",
+          "pronunciation": null,
+          "gloss": "thank you",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A person politely declines an offer.",
+      "sceneAssetIds": [],
+      "annotations": {},
+      "usefulness": 94,
+      "complexity": 7
+    },
+    {
+      "id": "ww-es-starter260911-stop",
+      "difficulty": 1,
+      "topic": "first-contact",
+      "englishText": "Stop!",
+      "embeddingText": "Stop! A person asks someone to stop.",
+      "englishAlternates": [],
+      "targetText": "¡Para!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Para",
+          "pronunciation": null,
+          "gloss": "stop; informal singular",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A person asks someone to stop.",
+      "sceneAssetIds": [],
+      "annotations": {},
+      "usefulness": 99,
+      "complexity": 7
+    },
+    {
+      "id": "ww-es-starter260911-dont-know",
+      "difficulty": 1,
+      "topic": "first-contact",
+      "englishText": "I do not know.",
+      "embeddingText": "I do not know. A learner says that they do not know an answer.",
+      "englishAlternates": [],
+      "targetText": "No sé.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "No",
+          "pronunciation": null,
+          "gloss": "not",
+          "playable": true
+        },
+        {
+          "surface": "sé",
+          "pronunciation": null,
+          "gloss": "I know",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A learner says that they do not know an answer.",
+      "sceneAssetIds": [],
+      "annotations": {},
+      "usefulness": 92,
+      "complexity": 17
     }
   ]
 }

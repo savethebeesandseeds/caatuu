@@ -36,6 +36,7 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
   let practiceMode = null;
   let steps = [];
   let meaningRetries = 0;
+  let assistanceUsed = false;
   const mistakes = new Set();
   let meaningOptionCount = 3;
   let previewMs = 0;
@@ -133,6 +134,7 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     steps = practiceMode === "sequence" ? [...current().stages] : [practiceMode === "forms" ? "form" : "meaning"];
     step = steps[0];
     meaningRetries = 0;
+    assistanceUsed = false;
     mistakes.clear();
     phase = step === "form" ? "preview" : "falling";
     elapsedMs = 0;
@@ -145,9 +147,14 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     lastTick = null;
   }
   function schedule() {
+    rememberSupport();
     if (engaged() && ["preview", "falling", "landing", "feedback"].includes(phase) && !frame) {
       frame = scope.requestAnimationFrame(tick);
     }
+  }
+  function rememberSupport() {
+    if (engaged() && step === "meaning" && ["preview", "falling"].includes(phase) && iconsVisible
+        && illustration && !illustration.hidden && illustration.getAttribute("src")) assistanceUsed = true;
   }
   function position() {
     if (!current()) return;
@@ -350,6 +357,8 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
   function choose(form, timedOut = false) {
     if (!engaged() || !["preview", "falling"].includes(phase)
         || timedOut && phase !== "falling" || !timedOut && !currentOptions().includes(form)) return;
+    rememberSupport();
+    const evidence = timedOut ? "exposure" : assistanceUsed || meaningRetries > 0 || mistakes.size > 0 ? "assisted" : "independent";
     restoreFocus = arena.contains(document.activeElement) && !headerContains(document.activeElement);
     correct = !timedOut && form === answerText();
     timeout = timedOut;
@@ -375,7 +384,8 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     }
     cancelFrame();
     if (finalStep() && !retryMeaning() || timedOut && step === "meaning") {
-      onAttempt({ correct: correct && mistakes.size === 0, flight: current(), timeout, meaningRetries, mistakes: [...mistakes] });
+      onAttempt({ correct: correct && mistakes.size === 0, answerCorrect: correct, flight: current(), timeout, meaningRetries, mistakes: [...mistakes],
+        evidence });
     }
     position();
     schedule();

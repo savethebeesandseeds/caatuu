@@ -22059,6 +22059,86 @@
           "playable": true
         }
       ]
+    },
+    {
+      "conceptId": "ww-nb-starter260911-yes",
+      "text": "Ja.",
+      "tokens": [
+        {
+          "surface": "Ja",
+          "gloss": "yes",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-nb-starter260911-no",
+      "text": "Nei.",
+      "tokens": [
+        {
+          "surface": "Nei",
+          "gloss": "no",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-nb-starter260911-no-thanks",
+      "text": "Nei takk.",
+      "tokens": [
+        {
+          "surface": "Nei",
+          "gloss": "no",
+          "playable": true
+        },
+        {
+          "surface": "takk",
+          "gloss": "thank you",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-nb-starter260911-water",
+      "text": "Jeg trenger vann.",
+      "tokens": [
+        {
+          "surface": "Jeg",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "trenger",
+          "gloss": "need",
+          "playable": true
+        },
+        {
+          "surface": "vann",
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-nb-starter260911-dont-know",
+      "text": "Jeg vet ikke.",
+      "tokens": [
+        {
+          "surface": "Jeg",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "vet",
+          "gloss": "know",
+          "playable": true
+        },
+        {
+          "surface": "ikke",
+          "gloss": "not",
+          "playable": true
+        }
+      ]
     }
   ]
 }

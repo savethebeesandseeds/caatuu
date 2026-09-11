@@ -229,7 +229,8 @@ test("Word World and embeddings keep English as the sole retrieval authority", a
   assert.equal(manifest.sessionProvider.kind, "authored-realizations");
   assert.equal(manifest.review.status, "native-review-required");
   assert.equal(manifest.review.pronunciationApproved, false);
-  assert.equal(manifest.license.status, "release-review-required");
+  const authority = await json("content/word-world/content.json");
+  assert.deepEqual(manifest.license, authority.metadata.target.license);
   assert.deepEqual(manifest.embeddingPolicy, {
     inputLanguage: "en",
     inputField: "embeddingText",

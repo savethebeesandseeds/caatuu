@@ -4,10 +4,11 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { prepareLanguageRoleContent } from "./language-role-contract.mjs";
 import { validateRecords, toRuntimeRecord } from "../../czech-ml/scripts/word-world-standard-lib.mjs";
+import { normalizeContentProgression } from "../../../apps/language-runtime/static/source/games/content-progression.mjs";
 
 export const WORD_WORLD_COURSE_SCHEMA = "caatuu-word-world-course-content-v1";
 export const repositoryRoot = fileURLToPath(new URL("../../../", import.meta.url));
-const fields = ["id", "difficulty", "topic", "englishText", "embeddingText", "englishAlternates",
+const fields = ["id", "difficulty", "usefulness", "complexity", "topic", "englishText", "embeddingText", "englishAlternates",
   "targetText", "pronunciation", "tokens", "learnerBase", "sceneQuery", "sceneAssetIds", "annotations"];
 
 export function wordWorldContentPath(course) {
@@ -66,6 +67,7 @@ export function validateWordWorldContent(document, course) {
     assert.ok(!ids.has(item.id), `Duplicate Word World ID ${item.id}`);
     ids.add(item.id);
     assert.ok([1, 2, 3].includes(item.difficulty), `${item.id}: difficulty must be 1, 2 or 3`);
+    normalizeContentProgression(item, item.id);
     for (const key of ["topic", "englishText", "embeddingText", "targetText", "sceneQuery"]) text(item[key], `${item.id}.${key}`);
     assert.ok(Array.isArray(item.englishAlternates) && Array.isArray(item.sceneAssetIds) && Array.isArray(item.tokens), `${item.id}: invalid lists`);
     item.englishAlternates.forEach(value => text(value, `${item.id}.englishAlternates`));
@@ -97,7 +99,8 @@ export function modernCatalogs(document, course) {
     assert.equal(item.sceneAssetIds.length, 0, `${item.id}: this provider uses embedding image retrieval`);
     assert.equal(Object.keys(item.annotations).length, 0, `${item.id}: unsupported extra annotations`);
     return { id: item.id, englishText: item.englishText, embeddingText: item.embeddingText,
-      sceneQuery: item.sceneQuery, topic: item.topic, difficulty: item.difficulty };
+      sceneQuery: item.sceneQuery, topic: item.topic, difficulty: item.difficulty,
+      ...normalizeContentProgression(item, item.id) };
   }) };
   const realizations = { ...structuredClone(target), sourceCatalog: course.publication.concepts,
     realizations: document.records.map(item => ({ conceptId: item.id, text: item.targetText,
@@ -136,6 +139,7 @@ export function czechRuntimeRecords(document, rubric) {
   assert.ok(validation.valid, validation.errors.join("\n"));
   const runtime = authoring.map((record, index) => {
     const output = toRuntimeRecord(record);
+    Object.assign(output, normalizeContentProgression(document.records[index], record.id));
     output.targets.forEach((target, tokenIndex) => {
       const gloss = document.records[index].tokens[tokenIndex].gloss;
       if (gloss !== null) target.gloss = gloss;

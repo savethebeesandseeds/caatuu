@@ -89,7 +89,9 @@
                 "targetText": "el libro",
                 "learnerBaseText": "the book",
                 "englishAuditText": "the book"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "es.agreement.bonito.ms.jardin",
@@ -105,7 +107,9 @@
                 "targetText": "un jardín",
                 "learnerBaseText": "a garden",
                 "englishAuditText": "a garden"
-              }
+              },
+              "usefulness": 62,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.masculine-singular.exp260908",
@@ -121,7 +125,9 @@
                 "targetText": "dibujo",
                 "learnerBaseText": "drawing",
                 "englishAuditText": "drawing"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.masculine-singular.mosaico",
@@ -137,7 +143,9 @@
                 "targetText": "mosaico",
                 "learnerBaseText": "mosaic",
                 "englishAuditText": "mosaic"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.masculine-singular.paisaje",
@@ -153,7 +161,9 @@
                 "targetText": "paisaje",
                 "learnerBaseText": "landscape",
                 "englishAuditText": "landscape"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.masculine-singular.bordado",
@@ -169,7 +179,9 @@
                 "targetText": "bordado",
                 "learnerBaseText": "embroidery",
                 "englishAuditText": "embroidery"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.masculine-singular.collar",
@@ -185,7 +197,9 @@
                 "targetText": "collar",
                 "learnerBaseText": "necklace",
                 "englishAuditText": "necklace"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.masculine-singular.ramo",
@@ -201,7 +215,9 @@
                 "targetText": "ramo",
                 "learnerBaseText": "bouquet",
                 "englishAuditText": "bouquet"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.masculine-singular.atardecer",
@@ -217,9 +233,13 @@
                 "targetText": "atardecer",
                 "learnerBaseText": "sunset",
                 "englishAuditText": "sunset"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine-singular": {
           "displayForm": "bonita",
@@ -238,7 +258,9 @@
                 "targetText": "la casa",
                 "learnerBaseText": "the house",
                 "englishAuditText": "the house"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "es.agreement.bonito.fs.cancion",
@@ -254,7 +276,9 @@
                 "targetText": "una canción",
                 "learnerBaseText": "a song",
                 "englishAuditText": "a song"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.feminine-singular.exp260908",
@@ -270,7 +294,9 @@
                 "targetText": "mariposa",
                 "learnerBaseText": "butterfly",
                 "englishAuditText": "butterfly"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.feminine-singular.acuarela",
@@ -286,7 +312,9 @@
                 "targetText": "acuarela",
                 "learnerBaseText": "watercolor painting",
                 "englishAuditText": "watercolor painting"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.feminine-singular.melodia",
@@ -302,7 +330,9 @@
                 "targetText": "melodía",
                 "learnerBaseText": "melody",
                 "englishAuditText": "melody"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.feminine-singular.vidriera",
@@ -318,7 +348,9 @@
                 "targetText": "vidriera",
                 "learnerBaseText": "stained-glass window",
                 "englishAuditText": "stained-glass window"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 42
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.feminine-singular.postal",
@@ -334,7 +366,9 @@
                 "targetText": "postal",
                 "learnerBaseText": "postcard",
                 "englishAuditText": "postcard"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.feminine-singular.guirnalda",
@@ -350,7 +384,9 @@
                 "targetText": "guirnalda",
                 "learnerBaseText": "garland",
                 "englishAuditText": "garland"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.feminine-singular.ilustracion",
@@ -366,9 +402,13 @@
                 "targetText": "ilustración",
                 "learnerBaseText": "illustration",
                 "englishAuditText": "illustration"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "masculine-plural": {
           "displayForm": "bonitos",
@@ -387,7 +427,9 @@
                 "targetText": "los libros",
                 "learnerBaseText": "the books",
                 "englishAuditText": "the books"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 28
             },
             {
               "id": "es.agreement.bonito.mp.jardines",
@@ -403,7 +445,9 @@
                 "targetText": "unos jardines",
                 "learnerBaseText": "some gardens",
                 "englishAuditText": "some gardens"
-              }
+              },
+              "usefulness": 62,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.masculine-plural.exp260908",
@@ -419,7 +463,9 @@
                 "targetText": "lazos",
                 "learnerBaseText": "bows",
                 "englishAuditText": "bows"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.masculine-plural.mosaicos",
@@ -435,7 +481,9 @@
                 "targetText": "mosaicos",
                 "learnerBaseText": "mosaics",
                 "englishAuditText": "mosaics"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.masculine-plural.paisajes",
@@ -451,7 +499,9 @@
                 "targetText": "paisajes",
                 "learnerBaseText": "landscapes",
                 "englishAuditText": "landscapes"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.masculine-plural.bordados",
@@ -467,7 +517,9 @@
                 "targetText": "bordados",
                 "learnerBaseText": "embroideries",
                 "englishAuditText": "embroideries"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.masculine-plural.collares",
@@ -483,7 +535,9 @@
                 "targetText": "collares",
                 "learnerBaseText": "necklaces",
                 "englishAuditText": "necklaces"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.masculine-plural.ramos",
@@ -499,7 +553,9 @@
                 "targetText": "ramos",
                 "learnerBaseText": "bouquets",
                 "englishAuditText": "bouquets"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.masculine-plural.atardeceres",
@@ -515,9 +571,13 @@
                 "targetText": "atardeceres",
                 "learnerBaseText": "sunsets",
                 "englishAuditText": "sunsets"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 37
         },
         "feminine-plural": {
           "displayForm": "bonitas",
@@ -536,7 +596,9 @@
                 "targetText": "las casas",
                 "learnerBaseText": "the houses",
                 "englishAuditText": "the houses"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 28
             },
             {
               "id": "es.agreement.bonito.fp.canciones",
@@ -552,7 +614,9 @@
                 "targetText": "unas canciones",
                 "learnerBaseText": "some songs",
                 "englishAuditText": "some songs"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.feminine-plural.exp260908",
@@ -568,7 +632,9 @@
                 "targetText": "conchas",
                 "learnerBaseText": "shells",
                 "englishAuditText": "shells"
-              }
+              },
+              "usefulness": 46,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.feminine-plural.acuarelas",
@@ -584,7 +650,9 @@
                 "targetText": "acuarelas",
                 "learnerBaseText": "watercolor paintings",
                 "englishAuditText": "watercolor paintings"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.feminine-plural.melodias",
@@ -600,7 +668,9 @@
                 "targetText": "melodías",
                 "learnerBaseText": "melodies",
                 "englishAuditText": "melodies"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.feminine-plural.vidrieras",
@@ -616,7 +686,9 @@
                 "targetText": "vidrieras",
                 "learnerBaseText": "stained-glass windows",
                 "englishAuditText": "stained-glass windows"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.feminine-plural.postales",
@@ -632,7 +704,9 @@
                 "targetText": "postales",
                 "learnerBaseText": "postcards",
                 "englishAuditText": "postcards"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.feminine-plural.guirnaldas",
@@ -648,7 +722,9 @@
                 "targetText": "guirnaldas",
                 "learnerBaseText": "garlands",
                 "englishAuditText": "garlands"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.feminine-plural.ilustraciones",
@@ -664,11 +740,17 @@
                 "targetText": "ilustraciones",
                 "learnerBaseText": "illustrations",
                 "englishAuditText": "illustrations"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 37
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "es.agreement.adjective-pequeno",
@@ -699,7 +781,9 @@
                 "targetText": "el perro",
                 "learnerBaseText": "the dog",
                 "englishAuditText": "the dog"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "es.agreement.pequeno.ms.pueblo",
@@ -715,7 +799,9 @@
                 "targetText": "un pueblo",
                 "learnerBaseText": "a town",
                 "englishAuditText": "a town"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.masculine-singular.exp260908",
@@ -731,7 +817,9 @@
                 "targetText": "erizo",
                 "learnerBaseText": "hedgehog",
                 "englishAuditText": "hedgehog"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.masculine-singular.boton",
@@ -747,7 +835,9 @@
                 "targetText": "botón",
                 "learnerBaseText": "button",
                 "englishAuditText": "button"
-              }
+              },
+              "usefulness": 72,
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.masculine-singular.dedal",
@@ -763,7 +853,9 @@
                 "targetText": "dedal",
                 "learnerBaseText": "thimble",
                 "englishAuditText": "thimble"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.masculine-singular.iman",
@@ -779,7 +871,9 @@
                 "targetText": "imán",
                 "learnerBaseText": "magnet",
                 "englishAuditText": "magnet"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.masculine-singular.tornillo",
@@ -795,7 +889,9 @@
                 "targetText": "tornillo",
                 "learnerBaseText": "screw",
                 "englishAuditText": "screw"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.masculine-singular.charco",
@@ -811,7 +907,9 @@
                 "targetText": "charco",
                 "learnerBaseText": "puddle",
                 "englishAuditText": "puddle"
-              }
+              },
+              "usefulness": 46,
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.masculine-singular.invernadero",
@@ -827,9 +925,13 @@
                 "targetText": "invernadero",
                 "learnerBaseText": "greenhouse",
                 "englishAuditText": "greenhouse"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 22
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 21
         },
         "feminine-singular": {
           "displayForm": "pequeña",
@@ -848,7 +950,9 @@
                 "targetText": "la mesa",
                 "learnerBaseText": "the table",
                 "englishAuditText": "the table"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "es.agreement.pequeno.fs.tienda",
@@ -864,7 +968,9 @@
                 "targetText": "una tienda",
                 "learnerBaseText": "a shop",
                 "englishAuditText": "a shop"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.feminine-singular.exp260908",
@@ -880,7 +986,9 @@
                 "targetText": "semilla",
                 "learnerBaseText": "seed",
                 "englishAuditText": "seed"
-              }
+              },
+              "usefulness": 46,
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.feminine-singular.huella",
@@ -896,7 +1004,9 @@
                 "targetText": "huella",
                 "learnerBaseText": "footprint",
                 "englishAuditText": "footprint"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.feminine-singular.concha",
@@ -912,7 +1022,9 @@
                 "targetText": "concha",
                 "learnerBaseText": "shell",
                 "englishAuditText": "shell"
-              }
+              },
+              "usefulness": 46,
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.feminine-singular.linterna",
@@ -928,7 +1040,9 @@
                 "targetText": "linterna",
                 "learnerBaseText": "flashlight",
                 "englishAuditText": "flashlight"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.feminine-singular.maceta",
@@ -944,7 +1058,9 @@
                 "targetText": "maceta",
                 "learnerBaseText": "plant pot",
                 "englishAuditText": "plant pot"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.feminine-singular.campana",
@@ -960,9 +1076,13 @@
                 "targetText": "campana",
                 "learnerBaseText": "bell",
                 "englishAuditText": "bell"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 22
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 21
         },
         "masculine-plural": {
           "displayForm": "pequeños",
@@ -981,7 +1101,9 @@
                 "targetText": "los perros",
                 "learnerBaseText": "the dogs",
                 "englishAuditText": "the dogs"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "es.agreement.pequeno.mp.pueblos",
@@ -997,7 +1119,9 @@
                 "targetText": "unos pueblos",
                 "learnerBaseText": "some towns",
                 "englishAuditText": "some towns"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.masculine-plural.exp260908",
@@ -1013,7 +1137,9 @@
                 "targetText": "tambores",
                 "learnerBaseText": "drums",
                 "englishAuditText": "drums"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.masculine-plural.botones",
@@ -1029,7 +1155,9 @@
                 "targetText": "botones",
                 "learnerBaseText": "buttons",
                 "englishAuditText": "buttons"
-              }
+              },
+              "usefulness": 72,
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.masculine-plural.dedales",
@@ -1045,7 +1173,9 @@
                 "targetText": "dedales",
                 "learnerBaseText": "thimbles",
                 "englishAuditText": "thimbles"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.masculine-plural.imanes",
@@ -1061,7 +1191,9 @@
                 "targetText": "imanes",
                 "learnerBaseText": "magnets",
                 "englishAuditText": "magnets"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.masculine-plural.tornillos",
@@ -1077,7 +1209,9 @@
                 "targetText": "tornillos",
                 "learnerBaseText": "screws",
                 "englishAuditText": "screws"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.masculine-plural.charcos",
@@ -1093,7 +1227,9 @@
                 "targetText": "charcos",
                 "learnerBaseText": "puddles",
                 "englishAuditText": "puddles"
-              }
+              },
+              "usefulness": 46,
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.masculine-plural.invernaderos",
@@ -1109,9 +1245,13 @@
                 "targetText": "invernaderos",
                 "learnerBaseText": "greenhouses",
                 "englishAuditText": "greenhouses"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 27
         },
         "feminine-plural": {
           "displayForm": "pequeñas",
@@ -1130,7 +1270,9 @@
                 "targetText": "las mesas",
                 "learnerBaseText": "the tables",
                 "englishAuditText": "the tables"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "es.agreement.pequeno.fp.tiendas",
@@ -1146,7 +1288,9 @@
                 "targetText": "unas tiendas",
                 "learnerBaseText": "some shops",
                 "englishAuditText": "some shops"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.feminine-plural.exp260908",
@@ -1162,7 +1306,9 @@
                 "targetText": "huellas",
                 "learnerBaseText": "footprints",
                 "englishAuditText": "footprints"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.feminine-plural.semillas",
@@ -1178,7 +1324,9 @@
                 "targetText": "semillas",
                 "learnerBaseText": "seeds",
                 "englishAuditText": "seeds"
-              }
+              },
+              "usefulness": 46,
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.feminine-plural.conchas",
@@ -1194,7 +1342,9 @@
                 "targetText": "conchas",
                 "learnerBaseText": "shells",
                 "englishAuditText": "shells"
-              }
+              },
+              "usefulness": 46,
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.feminine-plural.linternas",
@@ -1210,7 +1360,9 @@
                 "targetText": "linternas",
                 "learnerBaseText": "flashlights",
                 "englishAuditText": "flashlights"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.feminine-plural.macetas",
@@ -1226,7 +1378,9 @@
                 "targetText": "macetas",
                 "learnerBaseText": "plant pots",
                 "englishAuditText": "plant pots"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.feminine-plural.campanas",
@@ -1242,11 +1396,17 @@
                 "targetText": "campanas",
                 "learnerBaseText": "bells",
                 "englishAuditText": "bells"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 27
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 21
     },
     {
       "id": "es.agreement.determiner-definite-surprises",
@@ -1277,7 +1437,9 @@
                 "targetText": "problema",
                 "learnerBaseText": "problem",
                 "englishAuditText": "problem"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 50
             },
             {
               "id": "es.agreement.definite.ms.mapa",
@@ -1293,7 +1455,9 @@
                 "targetText": "mapa",
                 "learnerBaseText": "map",
                 "englishAuditText": "map"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.masculine-singular.exp260908",
@@ -1309,7 +1473,9 @@
                 "targetText": "planeta",
                 "learnerBaseText": "planet",
                 "englishAuditText": "planet"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-singular.sofa",
@@ -1325,7 +1491,9 @@
                 "targetText": "sofá",
                 "learnerBaseText": "sofa",
                 "englishAuditText": "sofa"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-singular.pijama",
@@ -1341,7 +1509,9 @@
                 "targetText": "pijama",
                 "learnerBaseText": "pair of pajamas",
                 "englishAuditText": "pair of pajamas"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-singular.poema",
@@ -1357,7 +1527,9 @@
                 "targetText": "poema",
                 "learnerBaseText": "poem",
                 "englishAuditText": "poem"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-singular.cometa",
@@ -1373,7 +1545,9 @@
                 "targetText": "cometa",
                 "learnerBaseText": "comet",
                 "englishAuditText": "comet"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-singular.cristal",
@@ -1389,7 +1563,9 @@
                 "targetText": "cristal",
                 "learnerBaseText": "crystal",
                 "englishAuditText": "crystal"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-singular.paisaje",
@@ -1405,9 +1581,13 @@
                 "targetText": "paisaje",
                 "learnerBaseText": "landscape",
                 "englishAuditText": "landscape"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 50
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 57
         },
         "feminine-singular": {
           "displayForm": "la",
@@ -1426,7 +1606,9 @@
                 "targetText": "mano",
                 "learnerBaseText": "hand",
                 "englishAuditText": "hand"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 50
             },
             {
               "id": "es.agreement.definite.fs.foto",
@@ -1442,7 +1624,9 @@
                 "targetText": "foto",
                 "learnerBaseText": "photograph",
                 "englishAuditText": "photograph"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.feminine-singular.exp260908",
@@ -1458,7 +1642,9 @@
                 "targetText": "nube",
                 "learnerBaseText": "cloud",
                 "englishAuditText": "cloud"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-singular.cometa",
@@ -1474,7 +1660,9 @@
                 "targetText": "cometa",
                 "learnerBaseText": "kite",
                 "englishAuditText": "kite"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-singular.radio",
@@ -1490,7 +1678,9 @@
                 "targetText": "radio",
                 "learnerBaseText": "radio",
                 "englishAuditText": "radio"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-singular.moto",
@@ -1506,7 +1696,9 @@
                 "targetText": "moto",
                 "learnerBaseText": "motorcycle",
                 "englishAuditText": "motorcycle"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-singular.llave",
@@ -1522,7 +1714,9 @@
                 "targetText": "llave",
                 "learnerBaseText": "key",
                 "englishAuditText": "key"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-singular.sal",
@@ -1538,7 +1732,9 @@
                 "targetText": "sal",
                 "learnerBaseText": "salt",
                 "englishAuditText": "salt"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-singular.flor",
@@ -1554,9 +1750,13 @@
                 "targetText": "flor",
                 "learnerBaseText": "flower",
                 "englishAuditText": "flower"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 50
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 57
         },
         "masculine-plural": {
           "displayForm": "los",
@@ -1575,7 +1775,9 @@
                 "targetText": "problemas",
                 "learnerBaseText": "problems",
                 "englishAuditText": "problems"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 54
             },
             {
               "id": "es.agreement.definite.mp.mapas",
@@ -1591,7 +1793,9 @@
                 "targetText": "mapas",
                 "learnerBaseText": "maps",
                 "englishAuditText": "maps"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.masculine-plural.exp260908",
@@ -1607,7 +1811,9 @@
                 "targetText": "lápices",
                 "learnerBaseText": "pencils",
                 "englishAuditText": "pencils"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-plural.sofas",
@@ -1623,7 +1829,9 @@
                 "targetText": "sofás",
                 "learnerBaseText": "sofas",
                 "englishAuditText": "sofas"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-plural.pijamas",
@@ -1639,7 +1847,9 @@
                 "targetText": "pijamas",
                 "learnerBaseText": "pairs of pajamas",
                 "englishAuditText": "pairs of pajamas"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-plural.poemas",
@@ -1655,7 +1865,9 @@
                 "targetText": "poemas",
                 "learnerBaseText": "poems",
                 "englishAuditText": "poems"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-plural.cometas",
@@ -1671,7 +1883,9 @@
                 "targetText": "cometas",
                 "learnerBaseText": "comets",
                 "englishAuditText": "comets"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-plural.cristales",
@@ -1687,7 +1901,9 @@
                 "targetText": "cristales",
                 "learnerBaseText": "crystals",
                 "englishAuditText": "crystals"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-plural.paisajes",
@@ -1703,9 +1919,13 @@
                 "targetText": "paisajes",
                 "learnerBaseText": "landscapes",
                 "englishAuditText": "landscapes"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 54
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 63
         },
         "feminine-plural": {
           "displayForm": "las",
@@ -1724,7 +1944,9 @@
                 "targetText": "manos",
                 "learnerBaseText": "hands",
                 "englishAuditText": "hands"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 54
             },
             {
               "id": "es.agreement.definite.fp.fotos",
@@ -1740,7 +1962,9 @@
                 "targetText": "fotos",
                 "learnerBaseText": "photographs",
                 "englishAuditText": "photographs"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.feminine-plural.exp260908",
@@ -1756,7 +1980,9 @@
                 "targetText": "flores",
                 "learnerBaseText": "flowers",
                 "englishAuditText": "flowers"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-plural.cometas",
@@ -1772,7 +1998,9 @@
                 "targetText": "cometas",
                 "learnerBaseText": "kites",
                 "englishAuditText": "kites"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-plural.radios",
@@ -1788,7 +2016,9 @@
                 "targetText": "radios",
                 "learnerBaseText": "radios",
                 "englishAuditText": "radios"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-plural.motos",
@@ -1804,7 +2034,9 @@
                 "targetText": "motos",
                 "learnerBaseText": "motorcycles",
                 "englishAuditText": "motorcycles"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-plural.llaves",
@@ -1820,7 +2052,9 @@
                 "targetText": "llaves",
                 "learnerBaseText": "keys",
                 "englishAuditText": "keys"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-plural.sales",
@@ -1836,11 +2070,17 @@
                 "targetText": "sales",
                 "learnerBaseText": "salts",
                 "englishAuditText": "salts"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 54
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 63
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 57
     },
     {
       "id": "es.agreement.determiner-demonstrative-este",
@@ -1871,7 +2111,9 @@
                 "targetText": "libro",
                 "learnerBaseText": "book",
                 "englishAuditText": "book"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "es.agreement.este.ms.coche",
@@ -1887,7 +2129,9 @@
                 "targetText": "coche",
                 "learnerBaseText": "car",
                 "englishAuditText": "car"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.masculine-singular.exp260908",
@@ -1903,7 +2147,9 @@
                 "targetText": "arcoíris",
                 "learnerBaseText": "rainbow",
                 "englishAuditText": "rainbow"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-singular.sendero",
@@ -1919,7 +2165,9 @@
                 "targetText": "sendero",
                 "learnerBaseText": "trail",
                 "englishAuditText": "trail"
-              }
+              },
+              "usefulness": 46,
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-singular.telescopio",
@@ -1935,7 +2183,9 @@
                 "targetText": "telescopio",
                 "learnerBaseText": "telescope",
                 "englishAuditText": "telescope"
-              }
+              },
+              "usefulness": 33,
+              "complexity": 31
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-singular.acuario",
@@ -1951,7 +2201,9 @@
                 "targetText": "acuario",
                 "learnerBaseText": "aquarium",
                 "englishAuditText": "aquarium"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-singular.violin",
@@ -1967,7 +2219,9 @@
                 "targetText": "violín",
                 "learnerBaseText": "violin",
                 "englishAuditText": "violin"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-singular.cuenco",
@@ -1983,7 +2237,9 @@
                 "targetText": "cuenco",
                 "learnerBaseText": "bowl",
                 "englishAuditText": "bowl"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-singular.faro",
@@ -1999,9 +2255,13 @@
                 "targetText": "faro",
                 "learnerBaseText": "lighthouse",
                 "englishAuditText": "lighthouse"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine-singular": {
           "displayForm": "esta",
@@ -2020,7 +2280,9 @@
                 "targetText": "mesa",
                 "learnerBaseText": "table",
                 "englishAuditText": "table"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.este.fs.calle",
@@ -2036,7 +2298,9 @@
                 "targetText": "calle",
                 "learnerBaseText": "street",
                 "englishAuditText": "street"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.feminine-singular.exp260908",
@@ -2052,7 +2316,9 @@
                 "targetText": "brújula",
                 "learnerBaseText": "compass",
                 "englishAuditText": "compass"
-              }
+              },
+              "usefulness": 33,
+              "complexity": 31
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-singular.escultura",
@@ -2068,7 +2334,9 @@
                 "targetText": "escultura",
                 "learnerBaseText": "sculpture",
                 "englishAuditText": "sculpture"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-singular.mascara",
@@ -2084,7 +2352,9 @@
                 "targetText": "máscara",
                 "learnerBaseText": "mask",
                 "englishAuditText": "mask"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 42
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-singular.fuente",
@@ -2100,7 +2370,9 @@
                 "targetText": "fuente",
                 "learnerBaseText": "fountain",
                 "englishAuditText": "fountain"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-singular.lupa",
@@ -2116,7 +2388,9 @@
                 "targetText": "lupa",
                 "learnerBaseText": "magnifying glass",
                 "englishAuditText": "magnifying glass"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-singular.cabana",
@@ -2132,9 +2406,13 @@
                 "targetText": "cabaña",
                 "learnerBaseText": "cabin",
                 "englishAuditText": "cabin"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "masculine-plural": {
           "displayForm": "estos",
@@ -2153,7 +2431,9 @@
                 "targetText": "libros",
                 "learnerBaseText": "books",
                 "englishAuditText": "books"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 28
             },
             {
               "id": "es.agreement.este.mp.coches",
@@ -2169,7 +2449,9 @@
                 "targetText": "coches",
                 "learnerBaseText": "cars",
                 "englishAuditText": "cars"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.masculine-plural.exp260908",
@@ -2185,7 +2467,9 @@
                 "targetText": "disfraces",
                 "learnerBaseText": "costumes",
                 "englishAuditText": "costumes"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-plural.senderos",
@@ -2201,7 +2485,9 @@
                 "targetText": "senderos",
                 "learnerBaseText": "trails",
                 "englishAuditText": "trails"
-              }
+              },
+              "usefulness": 46,
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-plural.telescopios",
@@ -2217,7 +2503,9 @@
                 "targetText": "telescopios",
                 "learnerBaseText": "telescopes",
                 "englishAuditText": "telescopes"
-              }
+              },
+              "usefulness": 33,
+              "complexity": 35
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-plural.acuarios",
@@ -2233,7 +2521,9 @@
                 "targetText": "acuarios",
                 "learnerBaseText": "aquariums",
                 "englishAuditText": "aquariums"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-plural.violines",
@@ -2249,7 +2539,9 @@
                 "targetText": "violines",
                 "learnerBaseText": "violins",
                 "englishAuditText": "violins"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-plural.cuencos",
@@ -2265,7 +2557,9 @@
                 "targetText": "cuencos",
                 "learnerBaseText": "bowls",
                 "englishAuditText": "bowls"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-plural.faros",
@@ -2281,9 +2575,13 @@
                 "targetText": "faros",
                 "learnerBaseText": "lighthouses",
                 "englishAuditText": "lighthouses"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 37
         },
         "feminine-plural": {
           "displayForm": "estas",
@@ -2302,7 +2600,9 @@
                 "targetText": "mesas",
                 "learnerBaseText": "tables",
                 "englishAuditText": "tables"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.este.fp.calles",
@@ -2318,7 +2618,9 @@
                 "targetText": "calles",
                 "learnerBaseText": "streets",
                 "englishAuditText": "streets"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.feminine-plural.exp260908",
@@ -2334,7 +2636,9 @@
                 "targetText": "raíces",
                 "learnerBaseText": "roots",
                 "englishAuditText": "roots"
-              }
+              },
+              "usefulness": 46,
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-plural.brujulas",
@@ -2350,7 +2654,9 @@
                 "targetText": "brújulas",
                 "learnerBaseText": "compasses",
                 "englishAuditText": "compasses"
-              }
+              },
+              "usefulness": 33,
+              "complexity": 35
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-plural.esculturas",
@@ -2366,7 +2672,9 @@
                 "targetText": "esculturas",
                 "learnerBaseText": "sculptures",
                 "englishAuditText": "sculptures"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-plural.mascaras",
@@ -2382,7 +2690,9 @@
                 "targetText": "máscaras",
                 "learnerBaseText": "masks",
                 "englishAuditText": "masks"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-plural.fuentes",
@@ -2398,7 +2708,9 @@
                 "targetText": "fuentes",
                 "learnerBaseText": "fountains",
                 "englishAuditText": "fountains"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-plural.lupas",
@@ -2414,7 +2726,9 @@
                 "targetText": "lupas",
                 "learnerBaseText": "magnifying glasses",
                 "englishAuditText": "magnifying glasses"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-plural.cabanas",
@@ -2430,11 +2744,17 @@
                 "targetText": "cabañas",
                 "learnerBaseText": "cabins",
                 "englishAuditText": "cabins"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 37
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "es.agreement.adjective-trabajador",
@@ -2465,7 +2785,9 @@
                 "targetText": "el alumno",
                 "learnerBaseText": "the male student",
                 "englishAuditText": "the male student"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 35
             },
             {
               "id": "es.agreement.trabajador.ms.medico",
@@ -2481,7 +2803,9 @@
                 "targetText": "un médico",
                 "learnerBaseText": "a male doctor",
                 "englishAuditText": "a male doctor"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.masculine-singular.exp260908",
@@ -2497,7 +2821,9 @@
                 "targetText": "jardinero",
                 "learnerBaseText": "gardener",
                 "englishAuditText": "gardener"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.masculine-singular.panadero",
@@ -2513,7 +2839,9 @@
                 "targetText": "panadero",
                 "learnerBaseText": "baker",
                 "englishAuditText": "baker"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.masculine-singular.bibliotecario",
@@ -2529,7 +2857,9 @@
                 "targetText": "bibliotecario",
                 "learnerBaseText": "librarian",
                 "englishAuditText": "librarian"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.masculine-singular.carpintero",
@@ -2545,7 +2875,9 @@
                 "targetText": "carpintero",
                 "learnerBaseText": "carpenter",
                 "englishAuditText": "carpenter"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.masculine-singular.voluntario",
@@ -2561,7 +2893,9 @@
                 "targetText": "voluntario",
                 "learnerBaseText": "volunteer",
                 "englishAuditText": "volunteer"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.masculine-singular.monitor",
@@ -2577,9 +2911,13 @@
                 "targetText": "monitor",
                 "learnerBaseText": "activity leader",
                 "englishAuditText": "activity leader"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 35
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 42
         },
         "feminine-singular": {
           "displayForm": "trabajadora",
@@ -2598,7 +2936,9 @@
                 "targetText": "la alumna",
                 "learnerBaseText": "the female student",
                 "englishAuditText": "the female student"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 35
             },
             {
               "id": "es.agreement.trabajador.fs.medica",
@@ -2614,7 +2954,9 @@
                 "targetText": "una médica",
                 "learnerBaseText": "a female doctor",
                 "englishAuditText": "a female doctor"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.feminine-singular.exp260908",
@@ -2630,7 +2972,9 @@
                 "targetText": "inventora",
                 "learnerBaseText": "female inventor",
                 "englishAuditText": "female inventor"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.feminine-singular.jardinera",
@@ -2646,7 +2990,9 @@
                 "targetText": "jardinera",
                 "learnerBaseText": "female gardener",
                 "englishAuditText": "female gardener"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.feminine-singular.panadera",
@@ -2662,7 +3008,9 @@
                 "targetText": "panadera",
                 "learnerBaseText": "female baker",
                 "englishAuditText": "female baker"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.feminine-singular.bibliotecaria",
@@ -2678,7 +3026,9 @@
                 "targetText": "bibliotecaria",
                 "learnerBaseText": "female librarian",
                 "englishAuditText": "female librarian"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.feminine-singular.carpintera",
@@ -2694,7 +3044,9 @@
                 "targetText": "carpintera",
                 "learnerBaseText": "female carpenter",
                 "englishAuditText": "female carpenter"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.feminine-singular.voluntaria",
@@ -2710,7 +3062,9 @@
                 "targetText": "voluntaria",
                 "learnerBaseText": "female volunteer",
                 "englishAuditText": "female volunteer"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.feminine-singular.monitora",
@@ -2726,9 +3080,13 @@
                 "targetText": "monitora",
                 "learnerBaseText": "female activity leader",
                 "englishAuditText": "female activity leader"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 35
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 42
         },
         "masculine-plural": {
           "displayForm": "trabajadores",
@@ -2747,7 +3105,9 @@
                 "targetText": "los alumnos",
                 "learnerBaseText": "the male students",
                 "englishAuditText": "the male students"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 39
             },
             {
               "id": "es.agreement.trabajador.mp.medicos",
@@ -2763,7 +3123,9 @@
                 "targetText": "unos médicos",
                 "learnerBaseText": "some male doctors",
                 "englishAuditText": "some male doctors"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.masculine-plural.exp260908",
@@ -2779,7 +3141,9 @@
                 "targetText": "compañeros",
                 "learnerBaseText": "teammates",
                 "englishAuditText": "teammates"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.masculine-plural.jardineros",
@@ -2795,7 +3159,9 @@
                 "targetText": "jardineros",
                 "learnerBaseText": "gardeners",
                 "englishAuditText": "gardeners"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.masculine-plural.panaderos",
@@ -2811,7 +3177,9 @@
                 "targetText": "panaderos",
                 "learnerBaseText": "bakers",
                 "englishAuditText": "bakers"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.masculine-plural.bibliotecarios",
@@ -2827,7 +3195,9 @@
                 "targetText": "bibliotecarios",
                 "learnerBaseText": "librarians",
                 "englishAuditText": "librarians"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.masculine-plural.carpinteros",
@@ -2843,7 +3213,9 @@
                 "targetText": "carpinteros",
                 "learnerBaseText": "carpenters",
                 "englishAuditText": "carpenters"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.masculine-plural.voluntarios",
@@ -2859,7 +3231,9 @@
                 "targetText": "voluntarios",
                 "learnerBaseText": "volunteers",
                 "englishAuditText": "volunteers"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.masculine-plural.monitores",
@@ -2875,9 +3249,13 @@
                 "targetText": "monitores",
                 "learnerBaseText": "activity leaders",
                 "englishAuditText": "activity leaders"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 39
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 48
         },
         "feminine-plural": {
           "displayForm": "trabajadoras",
@@ -2896,7 +3274,9 @@
                 "targetText": "las alumnas",
                 "learnerBaseText": "the female students",
                 "englishAuditText": "the female students"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 39
             },
             {
               "id": "es.agreement.trabajador.fp.medicas",
@@ -2912,7 +3292,9 @@
                 "targetText": "unas médicas",
                 "learnerBaseText": "some female doctors",
                 "englishAuditText": "some female doctors"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.feminine-plural.exp260908",
@@ -2928,7 +3310,9 @@
                 "targetText": "investigadoras",
                 "learnerBaseText": "female researchers",
                 "englishAuditText": "female researchers"
-              }
+              },
+              "usefulness": 34,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.feminine-plural.jardineras",
@@ -2944,7 +3328,9 @@
                 "targetText": "jardineras",
                 "learnerBaseText": "female gardeners",
                 "englishAuditText": "female gardeners"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.feminine-plural.panaderas",
@@ -2960,7 +3346,9 @@
                 "targetText": "panaderas",
                 "learnerBaseText": "female bakers",
                 "englishAuditText": "female bakers"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.feminine-plural.bibliotecarias",
@@ -2976,7 +3364,9 @@
                 "targetText": "bibliotecarias",
                 "learnerBaseText": "female librarians",
                 "englishAuditText": "female librarians"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.feminine-plural.carpinteras",
@@ -2992,7 +3382,9 @@
                 "targetText": "carpinteras",
                 "learnerBaseText": "female carpenters",
                 "englishAuditText": "female carpenters"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.feminine-plural.voluntarias",
@@ -3008,7 +3400,9 @@
                 "targetText": "voluntarias",
                 "learnerBaseText": "female volunteers",
                 "englishAuditText": "female volunteers"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.feminine-plural.monitoras",
@@ -3024,11 +3418,17 @@
                 "targetText": "monitoras",
                 "learnerBaseText": "female activity leaders",
                 "englishAuditText": "female activity leaders"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 39
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 48
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 42
     },
     {
       "id": "es.agreement.adjective-verde",
@@ -3059,7 +3459,9 @@
                 "targetText": "el coche",
                 "learnerBaseText": "the car",
                 "englishAuditText": "the car"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.verde.ms.vestido",
@@ -3075,7 +3477,9 @@
                 "targetText": "un vestido",
                 "learnerBaseText": "a dress",
                 "englishAuditText": "a dress"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.masculine-singular.exp260908",
@@ -3091,7 +3495,9 @@
                 "targetText": "brote",
                 "learnerBaseText": "sprout",
                 "englishAuditText": "sprout"
-              }
+              },
+              "usefulness": 46,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.masculine-singular.pepino",
@@ -3107,7 +3513,9 @@
                 "targetText": "pepino",
                 "learnerBaseText": "cucumber",
                 "englishAuditText": "cucumber"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.masculine-singular.guisante",
@@ -3123,7 +3531,9 @@
                 "targetText": "guisante",
                 "learnerBaseText": "pea",
                 "englishAuditText": "pea"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.masculine-singular.pimiento",
@@ -3139,7 +3549,9 @@
                 "targetText": "pimiento",
                 "learnerBaseText": "pepper",
                 "englishAuditText": "pepper"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.masculine-singular.lagarto",
@@ -3155,7 +3567,9 @@
                 "targetText": "lagarto",
                 "learnerBaseText": "lizard",
                 "englishAuditText": "lizard"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.masculine-singular.globo",
@@ -3171,7 +3585,9 @@
                 "targetText": "globo",
                 "learnerBaseText": "balloon",
                 "englishAuditText": "balloon"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.masculine-singular.delantal",
@@ -3187,9 +3603,13 @@
                 "targetText": "delantal",
                 "learnerBaseText": "apron",
                 "englishAuditText": "apron"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine-singular": {
           "displayForm": "verde",
@@ -3208,7 +3628,9 @@
                 "targetText": "la camisa",
                 "learnerBaseText": "the shirt",
                 "englishAuditText": "the shirt"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.verde.fs.puerta",
@@ -3224,7 +3646,9 @@
                 "targetText": "una puerta",
                 "learnerBaseText": "a door",
                 "englishAuditText": "a door"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.feminine-singular.exp260908",
@@ -3240,7 +3664,9 @@
                 "targetText": "cometa",
                 "learnerBaseText": "kite",
                 "englishAuditText": "kite"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.feminine-singular.bufanda",
@@ -3256,7 +3682,9 @@
                 "targetText": "bufanda",
                 "learnerBaseText": "scarf",
                 "englishAuditText": "scarf"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.feminine-singular.taza",
@@ -3272,7 +3700,9 @@
                 "targetText": "taza",
                 "learnerBaseText": "cup",
                 "englishAuditText": "cup"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.feminine-singular.sudadera",
@@ -3288,7 +3718,9 @@
                 "targetText": "sudadera",
                 "learnerBaseText": "sweatshirt",
                 "englishAuditText": "sweatshirt"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.feminine-singular.cinta",
@@ -3304,7 +3736,9 @@
                 "targetText": "cinta",
                 "learnerBaseText": "ribbon",
                 "englishAuditText": "ribbon"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.feminine-singular.bota",
@@ -3320,9 +3754,13 @@
                 "targetText": "bota",
                 "learnerBaseText": "boot",
                 "englishAuditText": "boot"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "masculine-plural": {
           "displayForm": "verdes",
@@ -3341,7 +3779,9 @@
                 "targetText": "los coches",
                 "learnerBaseText": "the cars",
                 "englishAuditText": "the cars"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.verde.mp.vestidos",
@@ -3357,7 +3797,9 @@
                 "targetText": "unos vestidos",
                 "learnerBaseText": "some dresses",
                 "englishAuditText": "some dresses"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.masculine-plural.exp260908",
@@ -3373,7 +3815,9 @@
                 "targetText": "guisantes",
                 "learnerBaseText": "peas",
                 "englishAuditText": "peas"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.masculine-plural.pepinos",
@@ -3389,7 +3833,9 @@
                 "targetText": "pepinos",
                 "learnerBaseText": "cucumbers",
                 "englishAuditText": "cucumbers"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.masculine-plural.pimientos",
@@ -3405,7 +3851,9 @@
                 "targetText": "pimientos",
                 "learnerBaseText": "peppers",
                 "englishAuditText": "peppers"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.masculine-plural.lagartos",
@@ -3421,7 +3869,9 @@
                 "targetText": "lagartos",
                 "learnerBaseText": "lizards",
                 "englishAuditText": "lizards"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.masculine-plural.globos",
@@ -3437,7 +3887,9 @@
                 "targetText": "globos",
                 "learnerBaseText": "balloons",
                 "englishAuditText": "balloons"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.masculine-plural.delantales",
@@ -3453,9 +3905,13 @@
                 "targetText": "delantales",
                 "learnerBaseText": "aprons",
                 "englishAuditText": "aprons"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 37
         },
         "feminine-plural": {
           "displayForm": "verdes",
@@ -3474,7 +3930,9 @@
                 "targetText": "las camisas",
                 "learnerBaseText": "the shirts",
                 "englishAuditText": "the shirts"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.verde.fp.puertas",
@@ -3490,7 +3948,9 @@
                 "targetText": "unas puertas",
                 "learnerBaseText": "some doors",
                 "englishAuditText": "some doors"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.feminine-plural.exp260908",
@@ -3506,7 +3966,9 @@
                 "targetText": "colinas",
                 "learnerBaseText": "hills",
                 "englishAuditText": "hills"
-              }
+              },
+              "usefulness": 46,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.feminine-plural.bufandas",
@@ -3522,7 +3984,9 @@
                 "targetText": "bufandas",
                 "learnerBaseText": "scarves",
                 "englishAuditText": "scarves"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.feminine-plural.tazas",
@@ -3538,7 +4002,9 @@
                 "targetText": "tazas",
                 "learnerBaseText": "cups",
                 "englishAuditText": "cups"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.feminine-plural.sudaderas",
@@ -3554,7 +4020,9 @@
                 "targetText": "sudaderas",
                 "learnerBaseText": "sweatshirts",
                 "englishAuditText": "sweatshirts"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.feminine-plural.cintas",
@@ -3570,7 +4038,9 @@
                 "targetText": "cintas",
                 "learnerBaseText": "ribbons",
                 "englishAuditText": "ribbons"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.feminine-plural.cometas",
@@ -3586,7 +4056,9 @@
                 "targetText": "cometas",
                 "learnerBaseText": "kites",
                 "englishAuditText": "kites"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.feminine-plural.botas",
@@ -3602,11 +4074,17 @@
                 "targetText": "botas",
                 "learnerBaseText": "boots",
                 "englishAuditText": "boots"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 28
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 37
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "es.agreement.determiner-indefinite",
@@ -3637,7 +4115,9 @@
                 "targetText": "día",
                 "learnerBaseText": "day",
                 "englishAuditText": "day"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "es.agreement.indefinite.ms.idioma",
@@ -3653,7 +4133,9 @@
                 "targetText": "idioma",
                 "learnerBaseText": "language",
                 "englishAuditText": "language"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-indefinite.masculine-singular.exp260908",
@@ -3669,7 +4151,9 @@
                 "targetText": "hábitat",
                 "learnerBaseText": "habitat",
                 "englishAuditText": "habitat"
-              }
+              },
+              "usefulness": 34,
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.masculine-singular.experimento",
@@ -3685,7 +4169,9 @@
                 "targetText": "experimento",
                 "learnerBaseText": "experiment",
                 "englishAuditText": "experiment"
-              }
+              },
+              "usefulness": 33,
+              "complexity": 31
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.masculine-singular.invento",
@@ -3701,7 +4187,9 @@
                 "targetText": "invento",
                 "learnerBaseText": "invention",
                 "englishAuditText": "invention"
-              }
+              },
+              "usefulness": 52,
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.masculine-singular.engranaje",
@@ -3717,7 +4205,9 @@
                 "targetText": "engranaje",
                 "learnerBaseText": "gear",
                 "englishAuditText": "gear"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.masculine-singular.asteroide",
@@ -3733,7 +4223,9 @@
                 "targetText": "asteroide",
                 "learnerBaseText": "asteroid",
                 "englishAuditText": "asteroid"
-              }
+              },
+              "usefulness": 34,
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.masculine-singular.eclipse",
@@ -3749,7 +4241,9 @@
                 "targetText": "eclipse",
                 "learnerBaseText": "eclipse",
                 "englishAuditText": "eclipse"
-              }
+              },
+              "usefulness": 34,
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.masculine-singular.microscopio",
@@ -3765,9 +4259,13 @@
                 "targetText": "microscopio",
                 "learnerBaseText": "microscope",
                 "englishAuditText": "microscope"
-              }
+              },
+              "usefulness": 33,
+              "complexity": 31
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine-singular": {
           "displayForm": "una",
@@ -3786,7 +4284,9 @@
                 "targetText": "noche",
                 "learnerBaseText": "night",
                 "englishAuditText": "night"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "es.agreement.indefinite.fs.clase",
@@ -3802,7 +4302,9 @@
                 "targetText": "clase",
                 "learnerBaseText": "class",
                 "englishAuditText": "class"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-indefinite.feminine-singular.exp260908",
@@ -3818,7 +4320,9 @@
                 "targetText": "solución",
                 "learnerBaseText": "solution",
                 "englishAuditText": "solution"
-              }
+              },
+              "usefulness": 52,
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.feminine-singular.hipotesis",
@@ -3834,7 +4338,9 @@
                 "targetText": "hipótesis",
                 "learnerBaseText": "hypothesis",
                 "englishAuditText": "hypothesis"
-              }
+              },
+              "usefulness": 33,
+              "complexity": 31
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.feminine-singular.prediccion",
@@ -3850,7 +4356,9 @@
                 "targetText": "predicción",
                 "learnerBaseText": "prediction",
                 "englishAuditText": "prediction"
-              }
+              },
+              "usefulness": 52,
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.feminine-singular.constelacion",
@@ -3866,7 +4374,9 @@
                 "targetText": "constelación",
                 "learnerBaseText": "constellation",
                 "englishAuditText": "constellation"
-              }
+              },
+              "usefulness": 34,
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.feminine-singular.galaxia",
@@ -3882,7 +4392,9 @@
                 "targetText": "galaxia",
                 "learnerBaseText": "galaxy",
                 "englishAuditText": "galaxy"
-              }
+              },
+              "usefulness": 34,
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.feminine-singular.polea",
@@ -3898,7 +4410,9 @@
                 "targetText": "polea",
                 "learnerBaseText": "pulley",
                 "englishAuditText": "pulley"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.feminine-singular.orbita",
@@ -3914,9 +4428,13 @@
                 "targetText": "órbita",
                 "learnerBaseText": "orbit",
                 "englishAuditText": "orbit"
-              }
+              },
+              "usefulness": 33,
+              "complexity": 31
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "masculine-plural": {
           "displayForm": "unos",
@@ -3935,7 +4453,9 @@
                 "targetText": "días",
                 "learnerBaseText": "days",
                 "englishAuditText": "days"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 28
             },
             {
               "id": "es.agreement.indefinite.mp.idiomas",
@@ -3951,7 +4471,9 @@
                 "targetText": "idiomas",
                 "learnerBaseText": "languages",
                 "englishAuditText": "languages"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-indefinite.masculine-plural.exp260908",
@@ -3967,7 +4489,9 @@
                 "targetText": "descubrimientos",
                 "learnerBaseText": "discoveries",
                 "englishAuditText": "discoveries"
-              }
+              },
+              "usefulness": 52,
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.masculine-plural.experimentos",
@@ -3983,7 +4507,9 @@
                 "targetText": "experimentos",
                 "learnerBaseText": "experiments",
                 "englishAuditText": "experiments"
-              }
+              },
+              "usefulness": 33,
+              "complexity": 35
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.masculine-plural.inventos",
@@ -3999,7 +4525,9 @@
                 "targetText": "inventos",
                 "learnerBaseText": "inventions",
                 "englishAuditText": "inventions"
-              }
+              },
+              "usefulness": 52,
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.masculine-plural.engranajes",
@@ -4015,7 +4543,9 @@
                 "targetText": "engranajes",
                 "learnerBaseText": "gears",
                 "englishAuditText": "gears"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.masculine-plural.asteroides",
@@ -4031,7 +4561,9 @@
                 "targetText": "asteroides",
                 "learnerBaseText": "asteroids",
                 "englishAuditText": "asteroids"
-              }
+              },
+              "usefulness": 34,
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.masculine-plural.eclipses",
@@ -4047,7 +4579,9 @@
                 "targetText": "eclipses",
                 "learnerBaseText": "eclipses",
                 "englishAuditText": "eclipses"
-              }
+              },
+              "usefulness": 34,
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.masculine-plural.microscopios",
@@ -4063,9 +4597,13 @@
                 "targetText": "microscopios",
                 "learnerBaseText": "microscopes",
                 "englishAuditText": "microscopes"
-              }
+              },
+              "usefulness": 33,
+              "complexity": 35
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 37
         },
         "feminine-plural": {
           "displayForm": "unas",
@@ -4084,7 +4622,9 @@
                 "targetText": "noches",
                 "learnerBaseText": "nights",
                 "englishAuditText": "nights"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 28
             },
             {
               "id": "es.agreement.indefinite.fp.clases",
@@ -4100,7 +4640,9 @@
                 "targetText": "clases",
                 "learnerBaseText": "classes",
                 "englishAuditText": "classes"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-indefinite.feminine-plural.exp260908",
@@ -4116,7 +4658,9 @@
                 "targetText": "posibilidades",
                 "learnerBaseText": "possibilities",
                 "englishAuditText": "possibilities"
-              }
+              },
+              "usefulness": 55,
+              "complexity": 33
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.feminine-plural.hipotesis",
@@ -4132,7 +4676,9 @@
                 "targetText": "hipótesis",
                 "learnerBaseText": "hypotheses",
                 "englishAuditText": "hypotheses"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.feminine-plural.predicciones",
@@ -4148,7 +4694,9 @@
                 "targetText": "predicciones",
                 "learnerBaseText": "predictions",
                 "englishAuditText": "predictions"
-              }
+              },
+              "usefulness": 52,
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.feminine-plural.constelaciones",
@@ -4164,7 +4712,9 @@
                 "targetText": "constelaciones",
                 "learnerBaseText": "constellations",
                 "englishAuditText": "constellations"
-              }
+              },
+              "usefulness": 34,
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.feminine-plural.galaxias",
@@ -4180,7 +4730,9 @@
                 "targetText": "galaxias",
                 "learnerBaseText": "galaxies",
                 "englishAuditText": "galaxies"
-              }
+              },
+              "usefulness": 34,
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.feminine-plural.poleas",
@@ -4196,7 +4748,9 @@
                 "targetText": "poleas",
                 "learnerBaseText": "pulleys",
                 "englishAuditText": "pulleys"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.feminine-plural.orbitas",
@@ -4212,11 +4766,17 @@
                 "targetText": "órbitas",
                 "learnerBaseText": "orbits",
                 "englishAuditText": "orbits"
-              }
+              },
+              "usefulness": 33,
+              "complexity": 35
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 37
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "es.agreement.adjective-feliz",
@@ -4247,7 +4807,9 @@
                 "targetText": "el niño",
                 "learnerBaseText": "the boy",
                 "englishAuditText": "the boy"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 35
             },
             {
               "id": "es.agreement.feliz.ms.dia",
@@ -4263,7 +4825,9 @@
                 "targetText": "un día",
                 "learnerBaseText": "a day",
                 "englishAuditText": "a day"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.masculine-singular.exp260908",
@@ -4279,7 +4843,9 @@
                 "targetText": "final",
                 "learnerBaseText": "ending",
                 "englishAuditText": "ending"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.masculine-singular.excursionista",
@@ -4295,7 +4861,9 @@
                 "targetText": "excursionista",
                 "learnerBaseText": "male hiker",
                 "englishAuditText": "male hiker"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.masculine-singular.musico",
@@ -4311,7 +4879,9 @@
                 "targetText": "músico",
                 "learnerBaseText": "male musician",
                 "englishAuditText": "male musician"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.masculine-singular.ganador",
@@ -4327,7 +4897,9 @@
                 "targetText": "ganador",
                 "learnerBaseText": "male winner",
                 "englishAuditText": "male winner"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.masculine-singular.lector",
@@ -4343,7 +4915,9 @@
                 "targetText": "lector",
                 "learnerBaseText": "male reader",
                 "englishAuditText": "male reader"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.masculine-singular.anfitrion",
@@ -4359,7 +4933,9 @@
                 "targetText": "anfitrión",
                 "learnerBaseText": "male host",
                 "englishAuditText": "male host"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.masculine-singular.companero",
@@ -4375,9 +4951,13 @@
                 "targetText": "compañero",
                 "learnerBaseText": "male teammate",
                 "englishAuditText": "male teammate"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 35
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 42
         },
         "feminine-singular": {
           "displayForm": "feliz",
@@ -4396,7 +4976,9 @@
                 "targetText": "la niña",
                 "learnerBaseText": "the girl",
                 "englishAuditText": "the girl"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 35
             },
             {
               "id": "es.agreement.feliz.fs.familia",
@@ -4412,7 +4994,9 @@
                 "targetText": "una familia",
                 "learnerBaseText": "a family",
                 "englishAuditText": "a family"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.feminine-singular.exp260908",
@@ -4428,7 +5012,9 @@
                 "targetText": "infancia",
                 "learnerBaseText": "childhood",
                 "englishAuditText": "childhood"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.feminine-singular.excursionista",
@@ -4444,7 +5030,9 @@
                 "targetText": "excursionista",
                 "learnerBaseText": "female hiker",
                 "englishAuditText": "female hiker"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.feminine-singular.musica",
@@ -4460,7 +5048,9 @@
                 "targetText": "música",
                 "learnerBaseText": "female musician",
                 "englishAuditText": "female musician"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.feminine-singular.ganadora",
@@ -4476,7 +5066,9 @@
                 "targetText": "ganadora",
                 "learnerBaseText": "female winner",
                 "englishAuditText": "female winner"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.feminine-singular.lectora",
@@ -4492,7 +5084,9 @@
                 "targetText": "lectora",
                 "learnerBaseText": "female reader",
                 "englishAuditText": "female reader"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.feminine-singular.anfitriona",
@@ -4508,7 +5102,9 @@
                 "targetText": "anfitriona",
                 "learnerBaseText": "female host",
                 "englishAuditText": "female host"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.feminine-singular.companera",
@@ -4524,9 +5120,13 @@
                 "targetText": "compañera",
                 "learnerBaseText": "female teammate",
                 "englishAuditText": "female teammate"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 35
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 42
         },
         "masculine-plural": {
           "displayForm": "felices",
@@ -4545,7 +5145,9 @@
                 "targetText": "los niños",
                 "learnerBaseText": "the boys",
                 "englishAuditText": "the boys"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 39
             },
             {
               "id": "es.agreement.feliz.mp.dias",
@@ -4561,7 +5163,9 @@
                 "targetText": "unos días",
                 "learnerBaseText": "some days",
                 "englishAuditText": "some days"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.masculine-plural.exp260908",
@@ -4577,7 +5181,9 @@
                 "targetText": "recuerdos",
                 "learnerBaseText": "memories",
                 "englishAuditText": "memories"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.masculine-plural.excursionistas",
@@ -4593,7 +5199,9 @@
                 "targetText": "excursionistas",
                 "learnerBaseText": "male hikers",
                 "englishAuditText": "male hikers"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.masculine-plural.musicos",
@@ -4609,7 +5217,9 @@
                 "targetText": "músicos",
                 "learnerBaseText": "male musicians",
                 "englishAuditText": "male musicians"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.masculine-plural.ganadores",
@@ -4625,7 +5235,9 @@
                 "targetText": "ganadores",
                 "learnerBaseText": "male winners",
                 "englishAuditText": "male winners"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.masculine-plural.lectores",
@@ -4641,7 +5253,9 @@
                 "targetText": "lectores",
                 "learnerBaseText": "male readers",
                 "englishAuditText": "male readers"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.masculine-plural.anfitriones",
@@ -4657,7 +5271,9 @@
                 "targetText": "anfitriones",
                 "learnerBaseText": "male hosts",
                 "englishAuditText": "male hosts"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.masculine-plural.companeros",
@@ -4673,9 +5289,13 @@
                 "targetText": "compañeros",
                 "learnerBaseText": "male teammates",
                 "englishAuditText": "male teammates"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 39
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 48
         },
         "feminine-plural": {
           "displayForm": "felices",
@@ -4694,7 +5314,9 @@
                 "targetText": "las niñas",
                 "learnerBaseText": "the girls",
                 "englishAuditText": "the girls"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 39
             },
             {
               "id": "es.agreement.feliz.fp.familias",
@@ -4710,7 +5332,9 @@
                 "targetText": "unas familias",
                 "learnerBaseText": "some families",
                 "englishAuditText": "some families"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.feminine-plural.exp260908",
@@ -4726,7 +5350,9 @@
                 "targetText": "coincidencias",
                 "learnerBaseText": "coincidences",
                 "englishAuditText": "coincidences"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.feminine-plural.excursionistas",
@@ -4742,7 +5368,9 @@
                 "targetText": "excursionistas",
                 "learnerBaseText": "female hikers",
                 "englishAuditText": "female hikers"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.feminine-plural.musicas",
@@ -4758,7 +5386,9 @@
                 "targetText": "músicas",
                 "learnerBaseText": "female musicians",
                 "englishAuditText": "female musicians"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.feminine-plural.ganadoras",
@@ -4774,7 +5404,9 @@
                 "targetText": "ganadoras",
                 "learnerBaseText": "female winners",
                 "englishAuditText": "female winners"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.feminine-plural.lectoras",
@@ -4790,7 +5422,9 @@
                 "targetText": "lectoras",
                 "learnerBaseText": "female readers",
                 "englishAuditText": "female readers"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.feminine-plural.anfitrionas",
@@ -4806,7 +5440,9 @@
                 "targetText": "anfitrionas",
                 "learnerBaseText": "female hosts",
                 "englishAuditText": "female hosts"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.feminine-plural.companeras",
@@ -4822,11 +5458,17 @@
                 "targetText": "compañeras",
                 "learnerBaseText": "female teammates",
                 "englishAuditText": "female teammates"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 39
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 48
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 42
     },
     {
       "id": "es.agreement.pair260908.nuestro",
@@ -4857,7 +5499,9 @@
                 "targetText": "huerto",
                 "learnerBaseText": "vegetable garden",
                 "englishAuditText": "vegetable garden"
-              }
+              },
+              "usefulness": 62,
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.masculine-singular.proyecto",
@@ -4873,7 +5517,9 @@
                 "targetText": "proyecto",
                 "learnerBaseText": "project",
                 "englishAuditText": "project"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.masculine-singular.refugio",
@@ -4889,7 +5535,9 @@
                 "targetText": "refugio",
                 "learnerBaseText": "shelter",
                 "englishAuditText": "shelter"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.masculine-singular.equipo",
@@ -4905,7 +5553,9 @@
                 "targetText": "equipo",
                 "learnerBaseText": "team",
                 "englishAuditText": "team"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.masculine-singular.barrio",
@@ -4921,7 +5571,9 @@
                 "targetText": "barrio",
                 "learnerBaseText": "neighborhood",
                 "englishAuditText": "neighborhood"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.masculine-singular.escenario",
@@ -4937,9 +5589,13 @@
                 "targetText": "escenario",
                 "learnerBaseText": "stage",
                 "englishAuditText": "stage"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 35
             }
-          ]
+          ],
+          "usefulness": 83,
+          "complexity": 42
         },
         "feminine-singular": {
           "displayForm": "nuestra",
@@ -4958,7 +5614,9 @@
                 "targetText": "maqueta",
                 "learnerBaseText": "model",
                 "englishAuditText": "model"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.feminine-singular.coleccion",
@@ -4974,7 +5632,9 @@
                 "targetText": "colección",
                 "learnerBaseText": "collection",
                 "englishAuditText": "collection"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.feminine-singular.orquesta",
@@ -4990,7 +5650,9 @@
                 "targetText": "orquesta",
                 "learnerBaseText": "orchestra",
                 "englishAuditText": "orchestra"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.feminine-singular.biblioteca",
@@ -5006,7 +5668,9 @@
                 "targetText": "biblioteca",
                 "learnerBaseText": "library",
                 "englishAuditText": "library"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.feminine-singular.exposicion",
@@ -5022,7 +5686,9 @@
                 "targetText": "exposición",
                 "learnerBaseText": "exhibition",
                 "englishAuditText": "exhibition"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.feminine-singular.aventura",
@@ -5038,9 +5704,13 @@
                 "targetText": "aventura",
                 "learnerBaseText": "adventure",
                 "englishAuditText": "adventure"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             }
-          ]
+          ],
+          "usefulness": 83,
+          "complexity": 42
         },
         "masculine-plural": {
           "displayForm": "nuestros",
@@ -5059,7 +5729,9 @@
                 "targetText": "huertos",
                 "learnerBaseText": "vegetable gardens",
                 "englishAuditText": "vegetable gardens"
-              }
+              },
+              "usefulness": 62,
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.masculine-plural.proyectos",
@@ -5075,7 +5747,9 @@
                 "targetText": "proyectos",
                 "learnerBaseText": "projects",
                 "englishAuditText": "projects"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.masculine-plural.refugios",
@@ -5091,7 +5765,9 @@
                 "targetText": "refugios",
                 "learnerBaseText": "shelters",
                 "englishAuditText": "shelters"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.masculine-plural.equipos",
@@ -5107,7 +5783,9 @@
                 "targetText": "equipos",
                 "learnerBaseText": "teams",
                 "englishAuditText": "teams"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.masculine-plural.barrios",
@@ -5123,7 +5801,9 @@
                 "targetText": "barrios",
                 "learnerBaseText": "neighborhoods",
                 "englishAuditText": "neighborhoods"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.masculine-plural.escenarios",
@@ -5139,9 +5819,13 @@
                 "targetText": "escenarios",
                 "learnerBaseText": "stages",
                 "englishAuditText": "stages"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 39
             }
-          ]
+          ],
+          "usefulness": 83,
+          "complexity": 48
         },
         "feminine-plural": {
           "displayForm": "nuestras",
@@ -5160,7 +5844,9 @@
                 "targetText": "maquetas",
                 "learnerBaseText": "models",
                 "englishAuditText": "models"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.feminine-plural.colecciones",
@@ -5176,7 +5862,9 @@
                 "targetText": "colecciones",
                 "learnerBaseText": "collections",
                 "englishAuditText": "collections"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.feminine-plural.orquestas",
@@ -5192,7 +5880,9 @@
                 "targetText": "orquestas",
                 "learnerBaseText": "orchestras",
                 "englishAuditText": "orchestras"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.feminine-plural.bibliotecas",
@@ -5208,7 +5898,9 @@
                 "targetText": "bibliotecas",
                 "learnerBaseText": "libraries",
                 "englishAuditText": "libraries"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.feminine-plural.exposiciones",
@@ -5224,7 +5916,9 @@
                 "targetText": "exposiciones",
                 "learnerBaseText": "exhibitions",
                 "englishAuditText": "exhibitions"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.feminine-plural.aventuras",
@@ -5240,11 +5934,17 @@
                 "targetText": "aventuras",
                 "learnerBaseText": "adventures",
                 "englishAuditText": "adventures"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             }
-          ]
+          ],
+          "usefulness": 83,
+          "complexity": 48
         }
-      }
+      },
+      "usefulness": 83,
+      "complexity": 42
     },
     {
       "id": "es.agreement.pair260908.primer",
@@ -5275,7 +5975,9 @@
                 "targetText": "intento",
                 "learnerBaseText": "attempt",
                 "englishAuditText": "attempt"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.masculine-singular.ensayo",
@@ -5291,7 +5993,9 @@
                 "targetText": "ensayo",
                 "learnerBaseText": "rehearsal",
                 "englishAuditText": "rehearsal"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.masculine-singular.capitulo",
@@ -5307,7 +6011,9 @@
                 "targetText": "capítulo",
                 "learnerBaseText": "chapter",
                 "englishAuditText": "chapter"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.masculine-singular.borrador",
@@ -5323,7 +6029,9 @@
                 "targetText": "borrador",
                 "learnerBaseText": "draft",
                 "englishAuditText": "draft"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.masculine-singular.brote",
@@ -5339,7 +6047,9 @@
                 "targetText": "brote",
                 "learnerBaseText": "sprout",
                 "englishAuditText": "sprout"
-              }
+              },
+              "usefulness": 46,
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.masculine-singular.aplauso",
@@ -5355,9 +6065,13 @@
                 "targetText": "aplauso",
                 "learnerBaseText": "round of applause",
                 "englishAuditText": "round of applause"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 42
         },
         "feminine-singular": {
           "displayForm": "primera",
@@ -5376,7 +6090,9 @@
                 "targetText": "página",
                 "learnerBaseText": "page",
                 "englishAuditText": "page"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.feminine-singular.huella",
@@ -5392,7 +6108,9 @@
                 "targetText": "huella",
                 "learnerBaseText": "footprint",
                 "englishAuditText": "footprint"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.feminine-singular.version",
@@ -5408,7 +6126,9 @@
                 "targetText": "versión",
                 "learnerBaseText": "version",
                 "englishAuditText": "version"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.feminine-singular.medalla",
@@ -5424,7 +6144,9 @@
                 "targetText": "medalla",
                 "learnerBaseText": "medal",
                 "englishAuditText": "medal"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.feminine-singular.cosecha",
@@ -5440,7 +6162,9 @@
                 "targetText": "cosecha",
                 "learnerBaseText": "harvest",
                 "englishAuditText": "harvest"
-              }
+              },
+              "usefulness": 46,
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.feminine-singular.visita",
@@ -5456,9 +6180,13 @@
                 "targetText": "visita",
                 "learnerBaseText": "visit",
                 "englishAuditText": "visit"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 35
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 42
         },
         "masculine-plural": {
           "displayForm": "primeros",
@@ -5477,7 +6205,9 @@
                 "targetText": "intentos",
                 "learnerBaseText": "attempts",
                 "englishAuditText": "attempts"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.masculine-plural.ensayos",
@@ -5493,7 +6223,9 @@
                 "targetText": "ensayos",
                 "learnerBaseText": "rehearsals",
                 "englishAuditText": "rehearsals"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.masculine-plural.capitulos",
@@ -5509,7 +6241,9 @@
                 "targetText": "capítulos",
                 "learnerBaseText": "chapters",
                 "englishAuditText": "chapters"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.masculine-plural.borradores",
@@ -5525,7 +6259,9 @@
                 "targetText": "borradores",
                 "learnerBaseText": "drafts",
                 "englishAuditText": "drafts"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.masculine-plural.brotes",
@@ -5541,7 +6277,9 @@
                 "targetText": "brotes",
                 "learnerBaseText": "sprouts",
                 "englishAuditText": "sprouts"
-              }
+              },
+              "usefulness": 46,
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.masculine-plural.aplausos",
@@ -5557,9 +6295,13 @@
                 "targetText": "aplausos",
                 "learnerBaseText": "rounds of applause",
                 "englishAuditText": "rounds of applause"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 48
         },
         "feminine-plural": {
           "displayForm": "primeras",
@@ -5578,7 +6320,9 @@
                 "targetText": "páginas",
                 "learnerBaseText": "pages",
                 "englishAuditText": "pages"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.feminine-plural.huellas",
@@ -5594,7 +6338,9 @@
                 "targetText": "huellas",
                 "learnerBaseText": "footprints",
                 "englishAuditText": "footprints"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.feminine-plural.versiones",
@@ -5610,7 +6356,9 @@
                 "targetText": "versiones",
                 "learnerBaseText": "versions",
                 "englishAuditText": "versions"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.feminine-plural.medallas",
@@ -5626,7 +6374,9 @@
                 "targetText": "medallas",
                 "learnerBaseText": "medals",
                 "englishAuditText": "medals"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.feminine-plural.cosechas",
@@ -5642,7 +6392,9 @@
                 "targetText": "cosechas",
                 "learnerBaseText": "harvests",
                 "englishAuditText": "harvests"
-              }
+              },
+              "usefulness": 46,
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.feminine-plural.visitas",
@@ -5658,11 +6410,17 @@
                 "targetText": "visitas",
                 "learnerBaseText": "visits",
                 "englishAuditText": "visits"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 39
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 48
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 42
     },
     {
       "id": "es.agreement.pair260908.mejor",
@@ -5693,7 +6451,9 @@
                 "targetText": "resultado",
                 "learnerBaseText": "result",
                 "englishAuditText": "result"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 29
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.masculine-singular.metodo",
@@ -5709,7 +6469,9 @@
                 "targetText": "método",
                 "learnerBaseText": "method",
                 "englishAuditText": "method"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.masculine-singular.argumento",
@@ -5725,7 +6487,9 @@
                 "targetText": "argumento",
                 "learnerBaseText": "argument",
                 "englishAuditText": "argument"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.masculine-singular.resumen",
@@ -5741,7 +6505,9 @@
                 "targetText": "resumen",
                 "learnerBaseText": "summary",
                 "englishAuditText": "summary"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.masculine-singular.diseno",
@@ -5757,7 +6523,9 @@
                 "targetText": "diseño",
                 "learnerBaseText": "design",
                 "englishAuditText": "design"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.masculine-singular.ejemplo",
@@ -5773,9 +6541,13 @@
                 "targetText": "ejemplo",
                 "learnerBaseText": "example",
                 "englishAuditText": "example"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine-singular": {
           "displayForm": "mejor",
@@ -5794,7 +6566,9 @@
                 "targetText": "solución",
                 "learnerBaseText": "solution",
                 "englishAuditText": "solution"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.feminine-singular.explicacion",
@@ -5810,7 +6584,9 @@
                 "targetText": "explicación",
                 "learnerBaseText": "explanation",
                 "englishAuditText": "explanation"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.feminine-singular.estrategia",
@@ -5826,7 +6602,9 @@
                 "targetText": "estrategia",
                 "learnerBaseText": "strategy",
                 "englishAuditText": "strategy"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.feminine-singular.propuesta",
@@ -5842,7 +6620,9 @@
                 "targetText": "propuesta",
                 "learnerBaseText": "proposal",
                 "englishAuditText": "proposal"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.feminine-singular.interpretacion",
@@ -5858,7 +6638,9 @@
                 "targetText": "interpretación",
                 "learnerBaseText": "interpretation",
                 "englishAuditText": "interpretation"
-              }
+              },
+              "usefulness": 33,
+              "complexity": 31
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.feminine-singular.alternativa",
@@ -5874,9 +6656,13 @@
                 "targetText": "alternativa",
                 "learnerBaseText": "alternative",
                 "englishAuditText": "alternative"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "masculine-plural": {
           "displayForm": "mejores",
@@ -5895,7 +6681,9 @@
                 "targetText": "resultados",
                 "learnerBaseText": "results",
                 "englishAuditText": "results"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 33
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.masculine-plural.metodos",
@@ -5911,7 +6699,9 @@
                 "targetText": "métodos",
                 "learnerBaseText": "methods",
                 "englishAuditText": "methods"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 28
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.masculine-plural.argumentos",
@@ -5927,7 +6717,9 @@
                 "targetText": "argumentos",
                 "learnerBaseText": "arguments",
                 "englishAuditText": "arguments"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 28
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.masculine-plural.resumenes",
@@ -5943,7 +6735,9 @@
                 "targetText": "resúmenes",
                 "learnerBaseText": "summaries",
                 "englishAuditText": "summaries"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 28
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.masculine-plural.disenos",
@@ -5959,7 +6753,9 @@
                 "targetText": "diseños",
                 "learnerBaseText": "designs",
                 "englishAuditText": "designs"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 28
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.masculine-plural.ejemplos",
@@ -5975,9 +6771,13 @@
                 "targetText": "ejemplos",
                 "learnerBaseText": "examples",
                 "englishAuditText": "examples"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 28
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 37
         },
         "feminine-plural": {
           "displayForm": "mejores",
@@ -5996,7 +6796,9 @@
                 "targetText": "soluciones",
                 "learnerBaseText": "solutions",
                 "englishAuditText": "solutions"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 28
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.feminine-plural.explicaciones",
@@ -6012,7 +6814,9 @@
                 "targetText": "explicaciones",
                 "learnerBaseText": "explanations",
                 "englishAuditText": "explanations"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 28
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.feminine-plural.estrategias",
@@ -6028,7 +6832,9 @@
                 "targetText": "estrategias",
                 "learnerBaseText": "strategies",
                 "englishAuditText": "strategies"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 28
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.feminine-plural.propuestas",
@@ -6044,7 +6850,9 @@
                 "targetText": "propuestas",
                 "learnerBaseText": "proposals",
                 "englishAuditText": "proposals"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 28
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.feminine-plural.interpretaciones",
@@ -6060,7 +6868,9 @@
                 "targetText": "interpretaciones",
                 "learnerBaseText": "interpretations",
                 "englishAuditText": "interpretations"
-              }
+              },
+              "usefulness": 33,
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.feminine-plural.alternativas",
@@ -6076,11 +6886,17 @@
                 "targetText": "alternativas",
                 "learnerBaseText": "alternatives",
                 "englishAuditText": "alternatives"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 28
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 37
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 31
     }
   ],
   "gameplay": {

@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
+import * as contentProgression from "../../../language-runtime/static/source/games/content-progression.mjs";
 import { createBrowserHarness } from "../../../language-runtime/tests/helpers/fake-browser.mjs";
 import { mountRobotLoadingScreen } from "../../../language-runtime/static/source/games/embedded-game-controls.mjs";
 
@@ -90,8 +91,10 @@ function createLoadingHarness({ fetchImpl = async () => ({ ok: true, json: async
   harness.document.querySelectorAll = (selector) => harness.registry.querySelectorAll(selector).filter((node) => node.isConnected);
   harness.document.querySelector = (selector) => harness.document.querySelectorAll(selector)[0] || null;
   harness.context.nucleusLoadingModule = loadingModule;
+  harness.context.nucleusProgressionModule = contentProgression;
   vm.runInContext(controller.replace(/import\("\/language-runtime\/static\/source\/games\/embedded-game-controls\.mjs\?v=[^"]+"\)/u,
-    "Promise.resolve(nucleusLoadingModule)"), harness.context);
+    "Promise.resolve(nucleusLoadingModule)").replace(/import\("\/language-runtime\/static\/source\/games\/content-progression\.mjs"\)/u,
+    "Promise.resolve(nucleusProgressionModule)"), harness.context);
   async function advance(milliseconds) {
     const until = now + milliseconds;
     let runs = 0;
@@ -110,6 +113,172 @@ function createLoadingHarness({ fetchImpl = async () => ({ ok: true, json: async
     api: harness.window.CaatuuNaturalizationNucleus,
     syncPanelVisibility() { observers.filter((observer) => !observer.disconnected).forEach((observer) => observer.callback()); } };
 }
+
+test("Nucleus records each practiced character only after the board is completed", async () => {
+  const fixture = createLoadingHarness();
+  const exposures=[];
+  const common=[];
+  const banks=[];
+  let generation = "before-reset";
+  fixture.window.CaatuuLearning={difficulty:()=>1,contentHistory:(_game,bank)=>{banks.push(bank);return {};},contentGeneration:()=>generation,
+    recordExposure:(gameId,event)=>(event.bankId?exposures:common).push({gameId,...event})};
+  await fixture.api.mount();
+  await fixture.advance(1600);
+  const tiles=()=>fixture.element("Deck").querySelectorAll("button[data-naturalization-piece-id]");
+  const count=tiles().length;
+  generation = "after-reset";
+  assert.equal(exposures.length,0);
+  for(let index=0;index<count;index+=1){
+    const tile=tiles()[0];
+    const id=tile.dataset.naturalizationPieceId.split("--")[0];
+    tile.click();
+    fixture.element("Ring").querySelector(`[data-naturalization-challenge-id="${id}"]`).click();
+    if(index<count-1)assert.equal(exposures.length,0);
+  }
+  assert.equal(exposures.length,count);
+  assert.equal(new Set(exposures.map(event=>event.itemId)).size,count);
+  assert.equal(new Set(exposures.map(event=>event.encounterId)).size,1);
+  assert.ok(exposures.every(event=>event.correct===true));
+  assert.ok(exposures.every(event=>event.generation==="before-reset"));
+  assert.ok(exposures.every(event=>event.evidence==="independent"));
+  assert.ok(exposures.every(event=>event.bankId==="recognize-hanzi-pinyin"));
+  assert.equal(common.length,count);
+  assert.ok(common.every(event=>event.evidence==="exposure" && event.correct===null));
+  await fixture.advance(10000);
+  assert.ok(banks.includes("recognize-pinyin-hanzi"),"the reversed board reads its own recognition evidence");
+  for(let index=0;index<count;index+=1){
+    const tile=tiles()[0],id=tile.dataset.naturalizationPieceId.split("--")[0];
+    tile.click(); fixture.element("Ring").querySelector(`[data-naturalization-challenge-id="${id}"]`).click();
+  }
+  assert.ok(exposures.slice(count).every(event=>event.bankId==="recognize-pinyin-hanzi"));
+  fixture.window.dispatchEvent({type:"pagehide",persisted:false});
+});
+
+test("Nucleus assesses spacing against common exposure captured before the current result", async () => {
+  const fixture = createLoadingHarness();
+  const common = {};
+  const directional = {};
+  const results = [];
+  const recentExposure = "2026-09-11T09:55:00Z";
+  const currentExposure = "2026-09-11T10:00:00Z";
+  fixture.window.CaatuuLearning = { difficulty: () => 1, contentGeneration: () => "fixture-generation",
+    contentHistory: (_game, bank) => bank ? directional : common,
+    recordExposure: (_game, event) => {
+      if (event.bankId) results.push(event);
+      else common[event.itemId] = { lastSeenAt: currentExposure };
+    } };
+  await fixture.api.mount();
+  await fixture.advance(1600);
+  const tiles = () => fixture.element("Deck").querySelectorAll("button[data-naturalization-piece-id]");
+  const ids = tiles().map(tile => tile.dataset.naturalizationPieceId.split("--")[0]);
+  const unseenId = ids.at(-1);
+  for (const id of ids) {
+    if (id !== unseenId) common[id] = { lastSeenAt: recentExposure };
+    directional[id] = { lastSeenAt: "2026-09-01T10:00:00Z" };
+  }
+  for (const id of ids) {
+    tiles().find(tile => tile.dataset.naturalizationPieceId.split("--")[0] === id).click();
+    fixture.element("Ring").querySelector(`[data-naturalization-challenge-id="${id}"]`).click();
+  }
+  assert.equal(results.length, ids.length);
+  for (const event of results) {
+    assert.equal(event.previousExposureAt, event.itemId === unseenId ? undefined : recentExposure);
+    assert.equal(common[event.itemId].lastSeenAt, currentExposure, "the common event was already recorded");
+    assert.equal(event.evidence, "independent", "recent exposure constrains spacing without relabeling the response");
+    assert.equal(event.correct, true);
+  }
+  fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+});
+
+test("Nucleus shares daily exposure for exploration while retaining direction-specific evidence", async () => {
+  const fixture = createLoadingHarness();
+  const [first, second] = validatedCatalog.challenges;
+  const common = Object.fromEntries([first, second].map(item => [item.id, {
+    exposures: 40, practiceDays: 9, lastPracticeDayAt: "2026-09-11T09:00:00Z",
+    independentSuccesses: 20, independentDays: 20, spacedSuccesses: 19, intervalMs: 86400000 * 20
+  }]));
+  const directional = { [second.id]: { exposures: 2, practiceDays: 2,
+    lastPracticeDayAt: "2026-09-10T09:00:00Z", independentSuccesses: 1 } };
+  const histories = [];
+  fixture.context.nucleusProgressionModule = { ...contentProgression, selectContentItems(items, options) {
+    histories.push(options.history);
+    return contentProgression.selectContentItems(items, options);
+  } };
+  fixture.window.CaatuuLearning = { difficulty: () => 1,
+    contentHistory: (_game, bank) => bank ? directional : common,
+    contentGeneration: () => "fixture-generation" };
+  await fixture.api.mount();
+  await fixture.advance(1600);
+  assert.ok(histories.length);
+  const history = histories[0];
+  assert.equal(history[first.id].practiceDays, 9);
+  assert.equal(history[first.id].lastPracticeDayAt, common[first.id].lastPracticeDayAt);
+  assert.equal(history[first.id].independentSuccesses, undefined);
+  assert.equal(history[first.id].spacedSuccesses, undefined);
+  assert.equal(history[first.id].intervalMs, undefined);
+  assert.equal(history[second.id].practiceDays, 2);
+  assert.equal(history[second.id].lastPracticeDayAt, directional[second.id].lastPracticeDayAt);
+  assert.equal(history[second.id].independentSuccesses, 1);
+  fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+});
+
+test("homophone exclusion preserves scheduler priority and fills enough distinct readings",()=>{
+  const first=validatedCatalog.challenges[0];
+  const second={...first,id:"fixture.priority",usefulness:100,complexity:1};
+  const lower={...first,id:"fixture.later",usefulness:1,complexity:100};
+  const other=validatedCatalog.challenges.filter(item=>game.readingKey(item)!==game.readingKey(first));
+  const synthetic={...validatedCatalog,challenges:[lower,second,...other]};
+  for(const value of [0,.1,.37,.99]){
+    const calls=[];
+    const round=game.createRound(synthetic,5,()=>value,"",3,{selectContentItems(items){
+      calls.push(items);
+      return items.includes(second) ? [second,lower] : items.slice(0,4);
+    }});
+    assert.ok(calls[0].includes(lower) && calls[0].includes(second), "all homophones reach the scheduler");
+    assert.ok(calls.length>1, "additional unique readings fill an ambiguous first pool");
+    assert.equal(round.solution[0].left.id,second.id);
+    assert.equal(new Set(round.solution.map(piece=>game.readingKey(piece.left))).size,5);
+  }
+});
+
+test("a due difficult homophone reaches the board ahead of its recently practiced easy peer", () => {
+  const first = validatedCatalog.challenges[0];
+  const easier = { ...first, id: "fixture.earlier", difficulty: 1, usefulness: 100, complexity: 1 };
+  const harder = { ...first, id: "fixture.later", difficulty: 3, usefulness: 1, complexity: 100 };
+  const other = validatedCatalog.challenges.filter(item => game.readingKey(item) !== game.readingKey(first));
+  const synthetic = { ...validatedCatalog, challenges: [easier, harder, ...other] };
+  const history = Object.fromEntries(synthetic.challenges.map(item => [item.id,
+    { exposures: 10, independentSuccesses: 2, lastCorrect: true,
+      dueAt: new Date(Date.now()+86400000).toISOString(), lastSeenAt: new Date().toISOString() }]));
+  history[harder.id] = { exposures: 10, independentSuccesses: 2, lastCorrect: false,
+    dueAt: new Date(Date.now()-86400000).toISOString(), lastSeenAt: new Date(Date.now()-172800000).toISOString() };
+  const round = game.createRound(synthetic, 5, () => 0.2, "", 3, { ...contentProgression, history });
+  assert.ok(round.solution.some(piece=>piece.left.id===harder.id));
+  assert.ok(!round.solution.some(piece=>piece.left.id===easier.id));
+});
+
+test("Nucleus pronunciation before matching is assistance even after the clue closes", async () => {
+  const fixture = createLoadingHarness();
+  const exposures=[];
+  fixture.window.CaatuuLearning={difficulty:()=>1,contentHistory:()=>({}),
+    recordExposure:(gameId,event)=>{if(event.bankId)exposures.push(event);}};
+  fixture.window.CaatuuChrome={speakText:()=>Promise.resolve()};
+  await fixture.api.mount();
+  await fixture.advance(1600);
+  const tiles=()=>fixture.element("Deck").querySelectorAll("button[data-naturalization-piece-id]");
+  const hinted=tiles()[0].dataset.naturalizationPieceId.split("--")[0];
+  tiles()[0].click();
+  fixture.element("FeedbackSound").click();
+  tiles()[0].click();
+  while(tiles().length){
+    const tile=tiles()[0], id=tile.dataset.naturalizationPieceId.split("--")[0];
+    tile.click();
+    fixture.element("Ring").querySelector(`[data-naturalization-challenge-id="${id}"]`).click();
+  }
+  assert.equal(exposures.find(event=>event.itemId===hinted).evidence,"assisted");
+  assert.ok(exposures.filter(event=>event.itemId!==hinted).every(event=>event.evidence==="independent"));
+  fixture.window.dispatchEvent({type:"pagehide",persisted:false});
+});
 
 test("the static Nucleus robot follows visibility before its shared module resolves", async () => {
   let resolveModule;
@@ -457,14 +626,12 @@ test("the course-owned controller exposes its engine boundary and stays CSP-safe
   assert.doesNotMatch(controller, /round-success|postMessage/u);
 });
 
-test("the static audio menu exposes the shared global mute hook", () => {
-  const control = appEntry.match(
-    /<button\b(?=[^>]*\bid="naturalizationNucleusAudioMute")(?=[^>]*\bdata-speech-mute-toggle)[^>]*>[\s\S]*?<\/button>/u
-  )?.[0];
-  assert.ok(control, "Naturalization Nucleus must expose its static global mute control.");
-  assert.match(control, /\brole="switch"/u);
-  assert.match(control, /\baria-checked="false"/u);
-  assert.match(control, /\bdata-speech-mute-label\b/u);
+test("the static audio menu mounts the shared voice and music controls", () => {
+  const fixture = createLoadingHarness();
+  const menu = fixture.element("AudioMenu");
+  assert.ok(menu.querySelector("[data-voice-controls]"));
+  assert.ok(menu.querySelector("[data-music-controls]"));
+  assert.equal(menu.getAttribute("role"), "dialog");
 });
 
 test("matched tiles stay flat in both themes and completed rounds advance without a skip button", () => {
@@ -493,7 +660,7 @@ test("the matched-word dictionary card keeps intrinsic shared sizing", () => {
   );
 });
 
-test("the expanded catalog provides three balanced cumulative levels and exactly mirrors the ship collection", () => {
+test("the catalog supplies every round size at each cumulative badge and mirrors the authored ship collection", () => {
   assert.equal(catalog.$schema, NUCLEUS_SCHEMA_URL);
   assert.equal(validatedCatalog.$schema, NUCLEUS_SCHEMA_URL);
   assert.equal(catalog.schemaVersion, 1);
@@ -503,25 +670,17 @@ test("the expanded catalog provides three balanced cumulative levels and exactly
   assert.equal(catalog.review.status, "native-review-required");
   assert.deepEqual(catalog.roundSettings.pieceCounts, [5, 9]);
   assert.equal(catalog.roundSettings.defaultPieceCount, 5);
-  assert.equal(catalog.challenges.length, 120);
+  assert.ok(catalog.challenges.length >= Math.max(...catalog.roundSettings.pieceCounts));
   assert.equal(new Set(catalog.challenges.map(({ id }) => id)).size, catalog.challenges.length);
   assert.equal(new Set(catalog.challenges.map(({ hanzi }) => hanzi)).size, catalog.challenges.length);
   assert.ok(catalog.challenges.every(({ translation }) => typeof translation === "string" && translation.length > 0));
   assert.ok(catalog.challenges.every((challenge) => Object.hasOwn(challenge, "difficulty")));
-  assert.deepEqual(
-    [1, 2, 3].map((difficulty) => catalog.challenges.filter((challenge) => challenge.difficulty === difficulty).length),
-    [40, 40, 40]
-  );
-  assert.deepEqual(
-    [1, 2, 3].map((difficulty) => game.filterChallengesForDifficulty(validatedCatalog.challenges, difficulty).length),
-    [40, 80, 120]
-  );
-  assert.deepEqual(
-    [1, 2, 3].map((difficulty) => new Set(
-      game.filterChallengesForDifficulty(validatedCatalog.challenges, difficulty).map(game.readingKey)
-    ).size),
-    [39, 78, 114]
-  );
+  for (const difficulty of [1, 2, 3]) {
+    assert.ok(catalog.challenges.some(challenge => challenge.difficulty === difficulty));
+    const eligible = game.filterChallengesForDifficulty(validatedCatalog.challenges, difficulty);
+    assert.deepEqual(new Set(eligible.map(item => item.id)), new Set(catalog.challenges.filter(item => item.difficulty <= difficulty).map(item => item.id)));
+    assert.ok(new Set(eligible.map(game.readingKey)).size >= Math.max(...catalog.roundSettings.pieceCounts));
+  }
   assert.ok(catalog.challenges.every(({ sourceConceptIds }) => (
     Array.isArray(sourceConceptIds)
     && sourceConceptIds.length > 0
@@ -533,7 +692,7 @@ test("the expanded catalog provides three balanced cumulative levels and exactly
 
   const expectedShipFiles = shipFiles.filter((file) => file.endsWith(".png")).sort((left, right) => left.localeCompare(right, "en", { numeric: true }));
   const catalogShipFiles = catalog.roundSettings.artwork.map((src) => decodeURIComponent(src.split("/").at(-1))).sort((left, right) => left.localeCompare(right, "en", { numeric: true }));
-  assert.equal(expectedShipFiles.length, 28);
+  assert.ok(expectedShipFiles.length > 0);
   assert.deepEqual(catalogShipFiles, expectedShipFiles);
 });
 

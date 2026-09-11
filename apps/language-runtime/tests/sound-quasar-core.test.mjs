@@ -20,7 +20,13 @@ const documents = new Map(await Promise.all(courses.map(async (course) => [
 ])));
 
 function sample() {
-  return structuredClone(documents.get("es"));
+  const document = structuredClone(documents.get("es"));
+  // Keep randomized mechanics tests bounded independently of the live catalog.
+  document.items = document.items.slice(0, 16);
+  document.sentences = document.sentences.slice(0, 16);
+  document.provenance.sourceItemIds = document.items.map(item => item.sourceId);
+  document.sentenceProvenance.sourceItemIds = document.sentences.map(item => item.sourceId);
+  return document;
 }
 
 function seededRandom(seed) {
@@ -38,10 +44,15 @@ for (const course of courses) {
     assert.equal(catalog.mode, "practice");
     assert.equal(catalog.audio.reviewStatus, "unreviewed");
     assert.equal(catalog.audio.purpose, "listening-practice");
-    assert.equal(catalog.items.length, 16);
+    assert.equal(catalog.items.length, documents.get(course.courseId).items.length);
     assert.equal(catalog.provenance.sourcePath, `apps/languages/${course.directory}/static/data/games/verb-nebula/content.json`);
     const original = JSON.parse(await readFile(new URL(catalog.provenance.sourcePath, repositoryRoot), "utf8"));
     for (const item of catalog.items) {
+      if (item.sourceKind === "authored-listening") {
+        assert.equal(item.sourceId, item.id);
+        assert.equal(item.sourceReviewStatus, catalog.authoredProvenance.reviewStatus);
+        continue;
+      }
       const source = item.sourceId.startsWith("/")
         ? original[Number(item.sourceId.slice(1))]
         : original.find(({ id }) => id === item.sourceId);
@@ -58,10 +69,15 @@ for (const course of courses) {
 
   test(`${course.courseId} sentence mode uses existing Word World sentences and exact English audit text`, async () => {
     const catalog = validateSoundQuasarCatalog(documents.get(course.courseId), course);
-    assert.equal(catalog.sentences.length, 16);
+    assert.equal(catalog.sentences.length, documents.get(course.courseId).sentences.length);
     const source = JSON.parse(await readFile(new URL(catalog.sentenceProvenance.sourcePath, repositoryRoot), "utf8"));
     const english = JSON.parse(await readFile(new URL(catalog.sentenceProvenance.englishSourcePath, repositoryRoot), "utf8"));
     for (const item of catalog.sentences) {
+      if (item.sourceKind === "authored-listening") {
+        assert.equal(item.sourceId, item.id);
+        assert.equal(item.sourceReviewStatus, catalog.authoredProvenance.reviewStatus);
+        continue;
+      }
       const original = (source.records ?? source.realizations).find(record => (record.id ?? record.conceptId) === item.sourceId);
       assert.ok(original, `sentence source exists: ${item.sourceId}`);
       assert.equal(item.target, original.cs ?? original.text);
@@ -255,8 +271,8 @@ test("round building cycles explicit indices and caps finite sessions without du
   const repeated = buildSoundQuasarRound(catalog, { index: catalog.items.length, random: () => 0 });
   assert.deepEqual(first, repeated);
   const session = createSoundQuasarSession(catalog, { roundLength: 100, random: () => 0 });
-  assert.equal(session.length, catalog.items.length);
-  assert.equal(new Set(session.map(({ answerId }) => answerId)).size, catalog.items.length);
+  assert.equal(session.length, Math.min(100, catalog.items.length));
+  assert.equal(new Set(session.map(({ answerId }) => answerId)).size, session.length);
   assert.equal(Object.isFrozen(session), true);
 });
 
@@ -266,7 +282,7 @@ test("invalid choices and invalid random or round parameters are rejected", () =
   assert.throws(() => evaluateSoundQuasarChoice(round, "not-an-option"), /not an option/u);
   assert.throws(() => evaluateSoundQuasarChoice(round, { id: round.answerId }), /not an option/u);
   for (const index of [-1, 1.5, NaN]) assert.throws(() => buildSoundQuasarRound(catalog, { index }), /index/u);
-  for (const choiceCount of [1, 20, 2.5]) assert.throws(() => buildSoundQuasarRound(catalog, { choiceCount }), /choiceCount/u);
+  for (const choiceCount of [1, catalog.items.length + 1, 2.5]) assert.throws(() => buildSoundQuasarRound(catalog, { choiceCount }), /choiceCount/u);
   for (const roundLength of [0, -1, 2.5]) assert.throws(() => createSoundQuasarSession(catalog, { roundLength }), /roundLength/u);
   for (const value of [1, -0.1, NaN, Infinity, "0.5"]) {
     assert.throws(() => createSoundQuasarSession(catalog, { random: () => value }), /random/u);

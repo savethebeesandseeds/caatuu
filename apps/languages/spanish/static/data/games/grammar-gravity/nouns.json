@@ -40,7 +40,9 @@
       "targetText": "libro",
       "learnerBaseText": "book",
       "english": "book",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 73,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.casa",
@@ -49,7 +51,9 @@
       "targetText": "casa",
       "learnerBaseText": "house",
       "english": "house",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "es.gravity.noun.jardin",
@@ -58,7 +62,9 @@
       "targetText": "jardín",
       "learnerBaseText": "garden",
       "english": "garden",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 62,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.cancion",
@@ -67,7 +73,9 @@
       "targetText": "canción",
       "learnerBaseText": "song",
       "english": "song",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "es.gravity.noun.perro",
@@ -76,7 +84,9 @@
       "targetText": "perro",
       "learnerBaseText": "dog",
       "english": "dog",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.mesa",
@@ -85,7 +95,9 @@
       "targetText": "mesa",
       "learnerBaseText": "table",
       "english": "table",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.pueblo",
@@ -94,7 +106,9 @@
       "targetText": "pueblo",
       "learnerBaseText": "town",
       "english": "town",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.tienda",
@@ -103,7 +117,9 @@
       "targetText": "tienda",
       "learnerBaseText": "shop",
       "english": "shop",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 81,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.problema",
@@ -112,7 +128,9 @@
       "targetText": "problema",
       "learnerBaseText": "problem",
       "english": "problem",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 50
     },
     {
       "id": "es.gravity.noun.mano",
@@ -121,7 +139,9 @@
       "targetText": "mano",
       "learnerBaseText": "hand",
       "english": "hand",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 42
     },
     {
       "id": "es.gravity.noun.mapa",
@@ -130,7 +150,9 @@
       "targetText": "mapa",
       "learnerBaseText": "map",
       "english": "map",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 42
     },
     {
       "id": "es.gravity.noun.foto",
@@ -139,7 +161,9 @@
       "targetText": "foto",
       "learnerBaseText": "photograph",
       "english": "photograph",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 58,
+      "complexity": 52
     },
     {
       "id": "es.gravity.noun.coche",
@@ -148,7 +172,9 @@
       "targetText": "coche",
       "learnerBaseText": "car",
       "english": "car",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.calle",
@@ -157,7 +183,9 @@
       "targetText": "calle",
       "learnerBaseText": "street",
       "english": "street",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 81,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.alumno",
@@ -166,7 +194,9 @@
       "targetText": "alumno",
       "learnerBaseText": "male student",
       "english": "male student",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 75,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.alumna",
@@ -175,7 +205,9 @@
       "targetText": "alumna",
       "learnerBaseText": "female student",
       "english": "female student",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 75,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.medico",
@@ -184,7 +216,9 @@
       "targetText": "médico",
       "learnerBaseText": "male doctor",
       "english": "male doctor",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 85,
+      "complexity": 32
     },
     {
       "id": "es.gravity.noun.medica",
@@ -193,7 +227,9 @@
       "targetText": "médica",
       "learnerBaseText": "female doctor",
       "english": "female doctor",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 85,
+      "complexity": 32
     },
     {
       "id": "es.gravity.noun.vestido",
@@ -202,7 +238,9 @@
       "targetText": "vestido",
       "learnerBaseText": "dress",
       "english": "dress",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.camisa",
@@ -211,7 +249,9 @@
       "targetText": "camisa",
       "learnerBaseText": "shirt",
       "english": "shirt",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.dia",
@@ -220,7 +260,9 @@
       "targetText": "día",
       "learnerBaseText": "day",
       "english": "day",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 50
     },
     {
       "id": "es.gravity.noun.puerta",
@@ -229,7 +271,9 @@
       "targetText": "puerta",
       "learnerBaseText": "door",
       "english": "door",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.idioma",
@@ -238,7 +282,9 @@
       "targetText": "idioma",
       "learnerBaseText": "language",
       "english": "language",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 75,
+      "complexity": 47
     },
     {
       "id": "es.gravity.noun.noche",
@@ -247,7 +293,9 @@
       "targetText": "noche",
       "learnerBaseText": "night",
       "english": "night",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.nino",
@@ -256,7 +304,9 @@
       "targetText": "niño",
       "learnerBaseText": "boy",
       "english": "boy",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "es.gravity.noun.clase",
@@ -265,7 +315,9 @@
       "targetText": "clase",
       "learnerBaseText": "class",
       "english": "class",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.nina",
@@ -274,7 +326,9 @@
       "targetText": "niña",
       "learnerBaseText": "girl",
       "english": "girl",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "es.gravity.noun.familia",
@@ -283,7 +337,9 @@
       "targetText": "familia",
       "learnerBaseText": "family",
       "english": "family",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "es.gravity.noun.gato",
@@ -292,7 +348,9 @@
       "targetText": "gato",
       "learnerBaseText": "cat",
       "english": "cat",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.manzana",
@@ -301,7 +359,9 @@
       "targetText": "manzana",
       "learnerBaseText": "apple",
       "english": "apple",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.archivo",
@@ -310,7 +370,9 @@
       "targetText": "archivo",
       "learnerBaseText": "file",
       "english": "file",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 61,
+      "complexity": 46
     },
     {
       "id": "es.gravity.noun.silla",
@@ -319,7 +381,9 @@
       "targetText": "silla",
       "learnerBaseText": "chair",
       "english": "chair",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.horario",
@@ -328,7 +392,9 @@
       "targetText": "horario",
       "learnerBaseText": "schedule",
       "english": "schedule",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.ventana",
@@ -337,7 +403,9 @@
       "targetText": "ventana",
       "learnerBaseText": "window",
       "english": "window",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.recibo",
@@ -346,7 +414,9 @@
       "targetText": "recibo",
       "learnerBaseText": "receipt",
       "english": "receipt",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 57,
+      "complexity": 46
     },
     {
       "id": "es.gravity.noun.oficina",
@@ -355,7 +425,9 @@
       "targetText": "oficina",
       "learnerBaseText": "office",
       "english": "office",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.tren",
@@ -364,7 +436,9 @@
       "targetText": "tren",
       "learnerBaseText": "train",
       "english": "train",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "es.gravity.noun.reunion",
@@ -373,7 +447,9 @@
       "targetText": "reunión",
       "learnerBaseText": "meeting",
       "english": "meeting",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.billete",
@@ -382,7 +458,9 @@
       "targetText": "billete",
       "learnerBaseText": "ticket",
       "english": "ticket",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "es.gravity.noun.estacion",
@@ -391,7 +469,9 @@
       "targetText": "estación",
       "learnerBaseText": "station",
       "english": "station",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "es.gravity.noun.exp260908.ball",
@@ -400,7 +480,9 @@
       "targetText": "pelota",
       "learnerBaseText": "ball",
       "english": "ball",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "es.gravity.noun.exp260908.rabbit",
@@ -409,7 +491,9 @@
       "targetText": "conejo",
       "learnerBaseText": "rabbit",
       "english": "rabbit",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.exp260908.duck",
@@ -418,7 +502,9 @@
       "targetText": "pato",
       "learnerBaseText": "duck",
       "english": "duck",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.exp260908.fish",
@@ -427,7 +513,9 @@
       "targetText": "pez",
       "learnerBaseText": "fish",
       "english": "fish",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.exp260908.horse",
@@ -436,7 +524,9 @@
       "targetText": "caballo",
       "learnerBaseText": "horse",
       "english": "horse",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.exp260908.bear",
@@ -445,7 +535,9 @@
       "targetText": "oso",
       "learnerBaseText": "bear",
       "english": "bear",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.exp260908.bee",
@@ -454,7 +546,9 @@
       "targetText": "abeja",
       "learnerBaseText": "bee",
       "english": "bee",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.exp260908.butterfly",
@@ -463,7 +557,9 @@
       "targetText": "mariposa",
       "learnerBaseText": "butterfly",
       "english": "butterfly",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.exp260908.flower",
@@ -472,7 +568,9 @@
       "targetText": "flor",
       "learnerBaseText": "flower",
       "english": "flower",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.exp260908.sun",
@@ -481,7 +579,9 @@
       "targetText": "sol",
       "learnerBaseText": "sun",
       "english": "sun",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.exp260908.moon",
@@ -490,7 +590,9 @@
       "targetText": "luna",
       "learnerBaseText": "moon",
       "english": "moon",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.exp260908.star",
@@ -499,7 +601,9 @@
       "targetText": "estrella",
       "learnerBaseText": "star",
       "english": "star",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.exp260908.cloud",
@@ -508,7 +612,9 @@
       "targetText": "nube",
       "learnerBaseText": "cloud",
       "english": "cloud",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.exp260908.rain",
@@ -517,7 +623,9 @@
       "targetText": "lluvia",
       "learnerBaseText": "rain",
       "english": "rain",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.exp260908.snow",
@@ -526,7 +634,9 @@
       "targetText": "nieve",
       "learnerBaseText": "snow",
       "english": "snow",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.exp260908.pencil",
@@ -535,7 +645,9 @@
       "targetText": "lápiz",
       "learnerBaseText": "pencil",
       "english": "pencil",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.exp260908.crayon",
@@ -544,7 +656,9 @@
       "targetText": "lápiz de cera",
       "learnerBaseText": "crayon",
       "english": "crayon",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.exp260908.notebook",
@@ -553,7 +667,9 @@
       "targetText": "cuaderno",
       "learnerBaseText": "notebook",
       "english": "notebook",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.exp260908.backpack",
@@ -562,7 +678,9 @@
       "targetText": "mochila",
       "learnerBaseText": "backpack",
       "english": "backpack",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.exp260908.bicycle",
@@ -571,7 +689,9 @@
       "targetText": "bicicleta",
       "learnerBaseText": "bicycle",
       "english": "bicycle",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.exp260908.boat",
@@ -580,7 +700,9 @@
       "targetText": "barco",
       "learnerBaseText": "boat",
       "english": "boat",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.exp260908.hat",
@@ -589,7 +711,9 @@
       "targetText": "sombrero",
       "learnerBaseText": "hat",
       "english": "hat",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.exp260908.sock",
@@ -598,7 +722,9 @@
       "targetText": "calcetín",
       "learnerBaseText": "sock",
       "english": "sock",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.exp260908.shoe",
@@ -607,7 +733,9 @@
       "targetText": "zapato",
       "learnerBaseText": "shoe",
       "english": "shoe",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.exp260908.spoon",
@@ -616,7 +744,9 @@
       "targetText": "cuchara",
       "learnerBaseText": "spoon",
       "english": "spoon",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es.gravity.noun.exp260908.plate",
@@ -625,7 +755,9 @@
       "targetText": "plato",
       "learnerBaseText": "plate",
       "english": "plate",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es.gravity.noun.exp260908.cup",
@@ -634,7 +766,9 @@
       "targetText": "taza",
       "learnerBaseText": "cup",
       "english": "cup",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.exp260908.bread",
@@ -643,7 +777,9 @@
       "targetText": "pan",
       "learnerBaseText": "bread",
       "english": "bread",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 75,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.exp260908.cheese",
@@ -652,7 +788,9 @@
       "targetText": "queso",
       "learnerBaseText": "cheese",
       "english": "cheese",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.exp260908.egg",
@@ -661,7 +799,9 @@
       "targetText": "huevo",
       "learnerBaseText": "egg",
       "english": "egg",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.exp260908.hedgehog",
@@ -670,7 +810,9 @@
       "targetText": "erizo",
       "learnerBaseText": "hedgehog",
       "english": "hedgehog",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.exp260908.squirrel",
@@ -679,7 +821,9 @@
       "targetText": "ardilla",
       "learnerBaseText": "squirrel",
       "english": "squirrel",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.exp260908.owl",
@@ -688,7 +832,9 @@
       "targetText": "búho",
       "learnerBaseText": "owl",
       "english": "owl",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.exp260908.turtle",
@@ -697,7 +843,9 @@
       "targetText": "tortuga",
       "learnerBaseText": "turtle",
       "english": "turtle",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.exp260908.snail",
@@ -706,7 +854,9 @@
       "targetText": "caracol",
       "learnerBaseText": "snail",
       "english": "snail",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.exp260908.whale",
@@ -715,7 +865,9 @@
       "targetText": "ballena",
       "learnerBaseText": "whale",
       "english": "whale",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.exp260908.dolphin",
@@ -724,7 +876,9 @@
       "targetText": "delfín",
       "learnerBaseText": "dolphin",
       "english": "dolphin",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.exp260908.penguin",
@@ -733,7 +887,9 @@
       "targetText": "pingüino",
       "learnerBaseText": "penguin",
       "english": "penguin",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.exp260908.nest",
@@ -742,7 +898,9 @@
       "targetText": "nido",
       "learnerBaseText": "nest",
       "english": "nest",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.exp260908.feather",
@@ -751,7 +909,9 @@
       "targetText": "pluma",
       "learnerBaseText": "feather",
       "english": "feather",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.exp260908.seed",
@@ -760,7 +920,9 @@
       "targetText": "semilla",
       "learnerBaseText": "seed",
       "english": "seed",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.exp260908.root",
@@ -769,7 +931,9 @@
       "targetText": "raíz",
       "learnerBaseText": "root",
       "english": "root",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.exp260908.branch",
@@ -778,7 +942,9 @@
       "targetText": "rama",
       "learnerBaseText": "branch",
       "english": "branch",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.exp260908.pond",
@@ -787,7 +953,9 @@
       "targetText": "estanque",
       "learnerBaseText": "pond",
       "english": "pond",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.exp260908.meadow",
@@ -796,7 +964,9 @@
       "targetText": "pradera",
       "learnerBaseText": "meadow",
       "english": "meadow",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.exp260908.waterfall",
@@ -805,7 +975,9 @@
       "targetText": "cascada",
       "learnerBaseText": "waterfall",
       "english": "waterfall",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.exp260908.rainbow",
@@ -814,7 +986,9 @@
       "targetText": "arcoíris",
       "learnerBaseText": "rainbow",
       "english": "rainbow",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.exp260908.island",
@@ -823,7 +997,9 @@
       "targetText": "isla",
       "learnerBaseText": "island",
       "english": "island",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.exp260908.shell",
@@ -832,7 +1008,9 @@
       "targetText": "concha",
       "learnerBaseText": "shell",
       "english": "shell",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.exp260908.pebble",
@@ -841,7 +1019,9 @@
       "targetText": "guijarro",
       "learnerBaseText": "pebble",
       "english": "pebble",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.exp260908.puppet",
@@ -850,7 +1030,9 @@
       "targetText": "marioneta",
       "learnerBaseText": "puppet",
       "english": "puppet",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "es.gravity.noun.exp260908.costume",
@@ -859,7 +1041,9 @@
       "targetText": "disfraz",
       "learnerBaseText": "costume",
       "english": "costume",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "es.gravity.noun.exp260908.stage",
@@ -868,7 +1052,9 @@
       "targetText": "escenario",
       "learnerBaseText": "stage",
       "english": "stage",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "es.gravity.noun.exp260908.drum",
@@ -877,7 +1063,9 @@
       "targetText": "tambor",
       "learnerBaseText": "drum",
       "english": "drum",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "es.gravity.noun.exp260908.flute",
@@ -886,7 +1074,9 @@
       "targetText": "flauta",
       "learnerBaseText": "flute",
       "english": "flute",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "es.gravity.noun.exp260908.riddle",
@@ -895,7 +1085,9 @@
       "targetText": "adivinanza",
       "learnerBaseText": "riddle",
       "english": "riddle",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.exp260908.compass",
@@ -904,7 +1096,9 @@
       "targetText": "brújula",
       "learnerBaseText": "compass",
       "english": "compass",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "es.gravity.noun.exp260908.telescope",
@@ -913,7 +1107,9 @@
       "targetText": "telescopio",
       "learnerBaseText": "telescope",
       "english": "telescope",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "es.gravity.noun.exp260908.rocket",
@@ -922,7 +1118,9 @@
       "targetText": "cohete",
       "learnerBaseText": "rocket",
       "english": "rocket",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.exp260908.planet",
@@ -931,7 +1129,9 @@
       "targetText": "planeta",
       "learnerBaseText": "planet",
       "english": "planet",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 50
     },
     {
       "id": "es.gravity.noun.exp260908.patience",
@@ -940,7 +1140,9 @@
       "targetText": "paciencia",
       "learnerBaseText": "patience",
       "english": "patience",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "es.gravity.noun.exp260908.kindness",
@@ -949,7 +1151,9 @@
       "targetText": "amabilidad",
       "learnerBaseText": "kindness",
       "english": "kindness",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es.gravity.noun.exp260908.courage",
@@ -958,7 +1162,9 @@
       "targetText": "valentía",
       "learnerBaseText": "courage",
       "english": "courage",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es.gravity.noun.exp260908.curiosity",
@@ -967,7 +1173,9 @@
       "targetText": "curiosidad",
       "learnerBaseText": "curiosity",
       "english": "curiosity",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es.gravity.noun.exp260908.imagination",
@@ -976,7 +1184,9 @@
       "targetText": "imaginación",
       "learnerBaseText": "imagination",
       "english": "imagination",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es.gravity.noun.exp260908.friendship",
@@ -985,7 +1195,9 @@
       "targetText": "amistad",
       "learnerBaseText": "friendship",
       "english": "friendship",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 70,
+      "complexity": 34
     },
     {
       "id": "es.gravity.noun.exp260908.cooperation",
@@ -994,7 +1206,9 @@
       "targetText": "cooperación",
       "learnerBaseText": "cooperation",
       "english": "cooperation",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es.gravity.noun.exp260908.agreement",
@@ -1003,7 +1217,9 @@
       "targetText": "acuerdo",
       "learnerBaseText": "agreement",
       "english": "agreement",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es.gravity.noun.exp260908.difference",
@@ -1012,7 +1228,9 @@
       "targetText": "diferencia",
       "learnerBaseText": "difference",
       "english": "difference",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es.gravity.noun.exp260908.similarity",
@@ -1021,7 +1239,9 @@
       "targetText": "semejanza",
       "learnerBaseText": "similarity",
       "english": "similarity",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es.gravity.noun.exp260908.evidence",
@@ -1030,7 +1250,9 @@
       "targetText": "prueba",
       "learnerBaseText": "evidence",
       "english": "evidence",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "es.gravity.noun.exp260908.explanation",
@@ -1039,7 +1261,9 @@
       "targetText": "explicación",
       "learnerBaseText": "explanation",
       "english": "explanation",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es.gravity.noun.exp260908.solution",
@@ -1048,7 +1272,9 @@
       "targetText": "solución",
       "learnerBaseText": "solution",
       "english": "solution",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es.gravity.noun.exp260908.discovery",
@@ -1057,7 +1283,9 @@
       "targetText": "descubrimiento",
       "learnerBaseText": "discovery",
       "english": "discovery",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es.gravity.noun.exp260908.invention",
@@ -1066,7 +1294,9 @@
       "targetText": "invento",
       "learnerBaseText": "invention",
       "english": "invention",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es.gravity.noun.exp260908.experiment",
@@ -1075,7 +1305,9 @@
       "targetText": "experimento",
       "learnerBaseText": "experiment",
       "english": "experiment",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "es.gravity.noun.exp260908.observation",
@@ -1084,7 +1316,9 @@
       "targetText": "observación",
       "learnerBaseText": "observation",
       "english": "observation",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es.gravity.noun.exp260908.prediction",
@@ -1093,7 +1327,9 @@
       "targetText": "predicción",
       "learnerBaseText": "prediction",
       "english": "prediction",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es.gravity.noun.exp260908.possibility",
@@ -1102,7 +1338,9 @@
       "targetText": "posibilidad",
       "learnerBaseText": "possibility",
       "english": "possibility",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "es.gravity.noun.exp260908.responsibility",
@@ -1111,7 +1349,9 @@
       "targetText": "responsabilidad",
       "learnerBaseText": "responsibility",
       "english": "responsibility",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "es.gravity.noun.exp260908.permission",
@@ -1120,7 +1360,9 @@
       "targetText": "permiso",
       "learnerBaseText": "permission",
       "english": "permission",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "es.gravity.noun.exp260908.decision",
@@ -1129,7 +1371,9 @@
       "targetText": "decisión",
       "learnerBaseText": "decision",
       "english": "decision",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "es.gravity.noun.exp260908.achievement",
@@ -1138,7 +1382,9 @@
       "targetText": "logro",
       "learnerBaseText": "achievement",
       "english": "achievement",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es.gravity.noun.exp260908.challenge",
@@ -1147,7 +1393,9 @@
       "targetText": "reto",
       "learnerBaseText": "challenge",
       "english": "challenge",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es.gravity.noun.exp260908.effort",
@@ -1156,7 +1404,9 @@
       "targetText": "esfuerzo",
       "learnerBaseText": "effort",
       "english": "effort",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es.gravity.noun.exp260908.balance",
@@ -1165,7 +1415,9 @@
       "targetText": "equilibrio",
       "learnerBaseText": "balance",
       "english": "balance",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 44,
+      "complexity": 41
     },
     {
       "id": "es.gravity.noun.exp260908.habitat",
@@ -1174,7 +1426,9 @@
       "targetText": "hábitat",
       "learnerBaseText": "habitat",
       "english": "habitat",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.exp260908.pollination",
@@ -1183,7 +1437,9 @@
       "targetText": "polinización",
       "learnerBaseText": "pollination",
       "english": "pollination",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.exp260908.constellation",
@@ -1192,7 +1448,9 @@
       "targetText": "constelación",
       "learnerBaseText": "constellation",
       "english": "constellation",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.exp260908.reflection",
@@ -1201,7 +1459,9 @@
       "targetText": "reflejo",
       "learnerBaseText": "reflection",
       "english": "reflection",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.leon",
@@ -1210,7 +1470,9 @@
       "targetText": "león",
       "learnerBaseText": "lion",
       "english": "lion",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.tigre",
@@ -1219,7 +1481,9 @@
       "targetText": "tigre",
       "learnerBaseText": "tiger",
       "english": "tiger",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.elefante",
@@ -1228,7 +1492,9 @@
       "targetText": "elefante",
       "learnerBaseText": "elephant",
       "english": "elephant",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.jirafa",
@@ -1237,7 +1503,9 @@
       "targetText": "jirafa",
       "learnerBaseText": "giraffe",
       "english": "giraffe",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.cebra",
@@ -1246,7 +1514,9 @@
       "targetText": "cebra",
       "learnerBaseText": "zebra",
       "english": "zebra",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.mono",
@@ -1255,7 +1525,9 @@
       "targetText": "mono",
       "learnerBaseText": "monkey",
       "english": "monkey",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.vaca",
@@ -1264,7 +1536,9 @@
       "targetText": "vaca",
       "learnerBaseText": "cow",
       "english": "cow",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.pair260908.cerdo",
@@ -1273,7 +1547,9 @@
       "targetText": "cerdo",
       "learnerBaseText": "pig",
       "english": "pig",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.pair260908.oveja",
@@ -1282,7 +1558,9 @@
       "targetText": "oveja",
       "learnerBaseText": "sheep",
       "english": "sheep",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.pair260908.cabra",
@@ -1291,7 +1569,9 @@
       "targetText": "cabra",
       "learnerBaseText": "goat",
       "english": "goat",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.pair260908.gallina",
@@ -1300,7 +1580,9 @@
       "targetText": "gallina",
       "learnerBaseText": "hen",
       "english": "hen",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.pair260908.gallo",
@@ -1309,7 +1591,9 @@
       "targetText": "gallo",
       "learnerBaseText": "rooster",
       "english": "rooster",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.pollito",
@@ -1318,7 +1602,9 @@
       "targetText": "pollito",
       "learnerBaseText": "chick",
       "english": "chick",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.burro",
@@ -1327,7 +1613,9 @@
       "targetText": "burro",
       "learnerBaseText": "donkey",
       "english": "donkey",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.raton",
@@ -1336,7 +1624,9 @@
       "targetText": "ratón",
       "learnerBaseText": "mouse",
       "english": "mouse",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.pair260908.pajaro",
@@ -1345,7 +1635,9 @@
       "targetText": "pájaro",
       "learnerBaseText": "bird",
       "english": "bird",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.pair260908.hormiga",
@@ -1354,7 +1646,9 @@
       "targetText": "hormiga",
       "learnerBaseText": "ant",
       "english": "ant",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.pair260908.arana",
@@ -1363,7 +1657,9 @@
       "targetText": "araña",
       "learnerBaseText": "spider",
       "english": "spider",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.pair260908.rana",
@@ -1372,7 +1668,9 @@
       "targetText": "rana",
       "learnerBaseText": "frog",
       "english": "frog",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.pair260908.gusano",
@@ -1381,7 +1679,9 @@
       "targetText": "gusano",
       "learnerBaseText": "worm",
       "english": "worm",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.pair260908.arbol",
@@ -1390,7 +1690,9 @@
       "targetText": "árbol",
       "learnerBaseText": "tree",
       "english": "tree",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.pair260908.hoja",
@@ -1399,7 +1701,9 @@
       "targetText": "hoja",
       "learnerBaseText": "leaf",
       "english": "leaf",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.pair260908.piedra",
@@ -1408,7 +1712,9 @@
       "targetText": "piedra",
       "learnerBaseText": "stone",
       "english": "stone",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.pair260908.rio",
@@ -1417,7 +1723,9 @@
       "targetText": "río",
       "learnerBaseText": "river",
       "english": "river",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.pair260908.montana",
@@ -1426,7 +1734,9 @@
       "targetText": "montaña",
       "learnerBaseText": "mountain",
       "english": "mountain",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.pair260908.playa",
@@ -1435,7 +1745,9 @@
       "targetText": "playa",
       "learnerBaseText": "beach",
       "english": "beach",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 62,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.pair260908.bosque",
@@ -1444,7 +1756,9 @@
       "targetText": "bosque",
       "learnerBaseText": "forest",
       "english": "forest",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.pair260908.naranja",
@@ -1453,7 +1767,9 @@
       "targetText": "naranja",
       "learnerBaseText": "orange",
       "english": "orange",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es.gravity.noun.pair260908.platano",
@@ -1462,7 +1778,9 @@
       "targetText": "plátano",
       "learnerBaseText": "banana",
       "english": "banana",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.pair260908.pera",
@@ -1471,7 +1789,9 @@
       "targetText": "pera",
       "learnerBaseText": "pear",
       "english": "pear",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es.gravity.noun.pair260908.fresa",
@@ -1480,7 +1800,9 @@
       "targetText": "fresa",
       "learnerBaseText": "strawberry",
       "english": "strawberry",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es.gravity.noun.pair260908.uva",
@@ -1489,7 +1811,9 @@
       "targetText": "uva",
       "learnerBaseText": "grape",
       "english": "grape",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es.gravity.noun.pair260908.limon",
@@ -1498,7 +1822,9 @@
       "targetText": "limón",
       "learnerBaseText": "lemon",
       "english": "lemon",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es.gravity.noun.pair260908.tomate",
@@ -1507,7 +1833,9 @@
       "targetText": "tomate",
       "learnerBaseText": "tomato",
       "english": "tomato",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es.gravity.noun.pair260908.patata",
@@ -1516,7 +1844,9 @@
       "targetText": "patata",
       "learnerBaseText": "potato",
       "english": "potato",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es.gravity.noun.pair260908.zanahoria",
@@ -1525,7 +1855,9 @@
       "targetText": "zanahoria",
       "learnerBaseText": "carrot",
       "english": "carrot",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es.gravity.noun.pair260908.galleta",
@@ -1534,7 +1866,9 @@
       "targetText": "galleta",
       "learnerBaseText": "cookie",
       "english": "cookie",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es.gravity.noun.pair260908.bocadillo",
@@ -1543,7 +1877,9 @@
       "targetText": "bocadillo",
       "learnerBaseText": "sandwich",
       "english": "sandwich",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es.gravity.noun.pair260908.helado",
@@ -1552,7 +1888,9 @@
       "targetText": "helado",
       "learnerBaseText": "ice cream",
       "english": "ice cream",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.pair260908.botella",
@@ -1561,7 +1899,9 @@
       "targetText": "botella",
       "learnerBaseText": "bottle",
       "english": "bottle",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.pair260908.vaso",
@@ -1570,7 +1910,9 @@
       "targetText": "vaso",
       "learnerBaseText": "drinking glass",
       "english": "drinking glass",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 75,
+      "complexity": 24
     },
     {
       "id": "es.gravity.noun.pair260908.tenedor",
@@ -1579,7 +1921,9 @@
       "targetText": "tenedor",
       "learnerBaseText": "fork",
       "english": "fork",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es.gravity.noun.pair260908.cuenco",
@@ -1588,7 +1932,9 @@
       "targetText": "cuenco",
       "learnerBaseText": "bowl",
       "english": "bowl",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es.gravity.noun.pair260908.servilleta",
@@ -1597,7 +1943,9 @@
       "targetText": "servilleta",
       "learnerBaseText": "napkin",
       "english": "napkin",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es.gravity.noun.pair260908.cama",
@@ -1606,7 +1954,9 @@
       "targetText": "cama",
       "learnerBaseText": "bed",
       "english": "bed",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es.gravity.noun.pair260908.almohada",
@@ -1615,7 +1965,9 @@
       "targetText": "almohada",
       "learnerBaseText": "pillow",
       "english": "pillow",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "es.gravity.noun.pair260908.manta",
@@ -1624,7 +1976,9 @@
       "targetText": "manta",
       "learnerBaseText": "blanket",
       "english": "blanket",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "es.gravity.noun.pair260908.sofa",
@@ -1633,7 +1987,9 @@
       "targetText": "sofá",
       "learnerBaseText": "sofa",
       "english": "sofa",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 80,
+      "complexity": 44
     },
     {
       "id": "es.gravity.noun.pair260908.lampara",
@@ -1642,7 +1998,9 @@
       "targetText": "lámpara",
       "learnerBaseText": "lamp",
       "english": "lamp",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "es.gravity.noun.pair260908.reloj",
@@ -1651,7 +2009,9 @@
       "targetText": "reloj",
       "learnerBaseText": "clock",
       "english": "clock",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "es.gravity.noun.pair260908.caja",
@@ -1660,7 +2020,9 @@
       "targetText": "caja",
       "learnerBaseText": "box",
       "english": "box",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "es.gravity.noun.pair260908.juguete",
@@ -1669,7 +2031,9 @@
       "targetText": "juguete",
       "learnerBaseText": "toy",
       "english": "toy",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "es.gravity.noun.pair260908.muneca",
@@ -1678,7 +2042,9 @@
       "targetText": "muñeca",
       "learnerBaseText": "doll",
       "english": "doll",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "es.gravity.noun.pair260908.globo",
@@ -1687,7 +2053,9 @@
       "targetText": "globo",
       "learnerBaseText": "balloon",
       "english": "balloon",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "es.gravity.noun.pair260908.regalo",
@@ -1696,7 +2064,9 @@
       "targetText": "regalo",
       "learnerBaseText": "gift",
       "english": "gift",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "es.gravity.noun.pair260908.cometa",
@@ -1705,7 +2075,9 @@
       "targetText": "cometa",
       "learnerBaseText": "kite",
       "english": "kite",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "es.gravity.noun.pair260908.columpio",
@@ -1714,7 +2086,9 @@
       "targetText": "columpio",
       "learnerBaseText": "swing",
       "english": "swing",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "es.gravity.noun.pair260908.tobogan",
@@ -1723,7 +2097,9 @@
       "targetText": "tobogán",
       "learnerBaseText": "slide",
       "english": "slide",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "es.gravity.noun.pair260908.autobus",
@@ -1732,7 +2108,9 @@
       "targetText": "autobús",
       "learnerBaseText": "bus",
       "english": "bus",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "es.gravity.noun.pair260908.avion",
@@ -1741,7 +2119,9 @@
       "targetText": "avión",
       "learnerBaseText": "airplane",
       "english": "airplane",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.zorro",
@@ -1750,7 +2130,9 @@
       "targetText": "zorro",
       "learnerBaseText": "fox",
       "english": "fox",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.lobo",
@@ -1759,7 +2141,9 @@
       "targetText": "lobo",
       "learnerBaseText": "wolf",
       "english": "wolf",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.ciervo",
@@ -1768,7 +2152,9 @@
       "targetText": "ciervo",
       "learnerBaseText": "deer",
       "english": "deer",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.reno",
@@ -1777,7 +2163,9 @@
       "targetText": "reno",
       "learnerBaseText": "reindeer",
       "english": "reindeer",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.alce",
@@ -1786,7 +2174,9 @@
       "targetText": "alce",
       "learnerBaseText": "moose",
       "english": "moose",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.castor",
@@ -1795,7 +2185,9 @@
       "targetText": "castor",
       "learnerBaseText": "beaver",
       "english": "beaver",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.nutria",
@@ -1804,7 +2196,9 @@
       "targetText": "nutria",
       "learnerBaseText": "otter",
       "english": "otter",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.mapache",
@@ -1813,7 +2207,9 @@
       "targetText": "mapache",
       "learnerBaseText": "raccoon",
       "english": "raccoon",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.tejon",
@@ -1822,7 +2218,9 @@
       "targetText": "tejón",
       "learnerBaseText": "badger",
       "english": "badger",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.murcielago",
@@ -1831,7 +2229,9 @@
       "targetText": "murciélago",
       "learnerBaseText": "bat",
       "english": "bat",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.foca",
@@ -1840,7 +2240,9 @@
       "targetText": "foca",
       "learnerBaseText": "seal",
       "english": "seal",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.morsa",
@@ -1849,7 +2251,9 @@
       "targetText": "morsa",
       "learnerBaseText": "walrus",
       "english": "walrus",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.canguro",
@@ -1858,7 +2262,9 @@
       "targetText": "canguro",
       "learnerBaseText": "kangaroo",
       "english": "kangaroo",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.koala",
@@ -1867,7 +2273,9 @@
       "targetText": "koala",
       "learnerBaseText": "koala",
       "english": "koala",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.panda",
@@ -1876,7 +2284,9 @@
       "targetText": "panda",
       "learnerBaseText": "panda",
       "english": "panda",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.camello",
@@ -1885,7 +2295,9 @@
       "targetText": "camello",
       "learnerBaseText": "camel",
       "english": "camel",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.hipopotamo",
@@ -1894,7 +2306,9 @@
       "targetText": "hipopótamo",
       "learnerBaseText": "hippopotamus",
       "english": "hippopotamus",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.rinoceronte",
@@ -1903,7 +2317,9 @@
       "targetText": "rinoceronte",
       "learnerBaseText": "rhinoceros",
       "english": "rhinoceros",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.cocodrilo",
@@ -1912,7 +2328,9 @@
       "targetText": "cocodrilo",
       "learnerBaseText": "crocodile",
       "english": "crocodile",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.lagarto",
@@ -1921,7 +2339,9 @@
       "targetText": "lagarto",
       "learnerBaseText": "lizard",
       "english": "lizard",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.serpiente",
@@ -1930,7 +2350,9 @@
       "targetText": "serpiente",
       "learnerBaseText": "snake",
       "english": "snake",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.pulpo",
@@ -1939,7 +2361,9 @@
       "targetText": "pulpo",
       "learnerBaseText": "octopus",
       "english": "octopus",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.calamar",
@@ -1948,7 +2372,9 @@
       "targetText": "calamar",
       "learnerBaseText": "squid",
       "english": "squid",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.cangrejo",
@@ -1957,7 +2383,9 @@
       "targetText": "cangrejo",
       "learnerBaseText": "crab",
       "english": "crab",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.medusa",
@@ -1966,7 +2394,9 @@
       "targetText": "medusa",
       "learnerBaseText": "jellyfish",
       "english": "jellyfish",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.tiburon",
@@ -1975,7 +2405,9 @@
       "targetText": "tiburón",
       "learnerBaseText": "shark",
       "english": "shark",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.caballito-de-mar",
@@ -1984,7 +2416,9 @@
       "targetText": "caballito de mar",
       "learnerBaseText": "seahorse",
       "english": "seahorse",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.estrella-de-mar",
@@ -1993,7 +2427,9 @@
       "targetText": "estrella de mar",
       "learnerBaseText": "starfish",
       "english": "starfish",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.tarantula",
@@ -2002,7 +2438,9 @@
       "targetText": "tarántula",
       "learnerBaseText": "tarantula",
       "english": "tarantula",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.mariquita",
@@ -2011,7 +2449,9 @@
       "targetText": "mariquita",
       "learnerBaseText": "ladybug",
       "english": "ladybug",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.escarabajo",
@@ -2020,7 +2460,9 @@
       "targetText": "escarabajo",
       "learnerBaseText": "beetle",
       "english": "beetle",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.saltamontes",
@@ -2029,7 +2471,9 @@
       "targetText": "saltamontes",
       "learnerBaseText": "grasshopper",
       "english": "grasshopper",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.grillo",
@@ -2038,7 +2482,9 @@
       "targetText": "grillo",
       "learnerBaseText": "cricket",
       "english": "cricket",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.libelula",
@@ -2047,7 +2493,9 @@
       "targetText": "libélula",
       "learnerBaseText": "dragonfly",
       "english": "dragonfly",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.oruga",
@@ -2056,7 +2504,9 @@
       "targetText": "oruga",
       "learnerBaseText": "caterpillar",
       "english": "caterpillar",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.capullo",
@@ -2065,7 +2515,9 @@
       "targetText": "capullo",
       "learnerBaseText": "cocoon",
       "english": "cocoon",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.aguila",
@@ -2074,7 +2526,9 @@
       "targetText": "águila",
       "learnerBaseText": "eagle",
       "english": "eagle",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.loro",
@@ -2083,7 +2537,9 @@
       "targetText": "loro",
       "learnerBaseText": "parrot",
       "english": "parrot",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.cisne",
@@ -2092,7 +2548,9 @@
       "targetText": "cisne",
       "learnerBaseText": "swan",
       "english": "swan",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.ganso",
@@ -2101,7 +2559,9 @@
       "targetText": "ganso",
       "learnerBaseText": "goose",
       "english": "goose",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.pavo",
@@ -2110,7 +2570,9 @@
       "targetText": "pavo",
       "learnerBaseText": "turkey",
       "english": "turkey",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.pavo-real",
@@ -2119,7 +2581,9 @@
       "targetText": "pavo real",
       "learnerBaseText": "peacock",
       "english": "peacock",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.golondrina",
@@ -2128,7 +2592,9 @@
       "targetText": "golondrina",
       "learnerBaseText": "swallow",
       "english": "swallow",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.petirrojo",
@@ -2137,7 +2603,9 @@
       "targetText": "petirrojo",
       "learnerBaseText": "robin",
       "english": "robin",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.gorrion",
@@ -2146,7 +2614,9 @@
       "targetText": "gorrión",
       "learnerBaseText": "sparrow",
       "english": "sparrow",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.flamenco",
@@ -2155,7 +2625,9 @@
       "targetText": "flamenco",
       "learnerBaseText": "flamingo",
       "english": "flamingo",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.gaviota",
@@ -2164,7 +2636,9 @@
       "targetText": "gaviota",
       "learnerBaseText": "seagull",
       "english": "seagull",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.pelicano",
@@ -2173,7 +2647,9 @@
       "targetText": "pelícano",
       "learnerBaseText": "pelican",
       "english": "pelican",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.colibri",
@@ -2182,7 +2658,9 @@
       "targetText": "colibrí",
       "learnerBaseText": "hummingbird",
       "english": "hummingbird",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.ciguena",
@@ -2191,7 +2669,9 @@
       "targetText": "cigüeña",
       "learnerBaseText": "stork",
       "english": "stork",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.tronco",
@@ -2200,7 +2680,9 @@
       "targetText": "tronco",
       "learnerBaseText": "tree trunk",
       "english": "tree trunk",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.corteza",
@@ -2209,7 +2691,9 @@
       "targetText": "corteza",
       "learnerBaseText": "tree bark",
       "english": "tree bark",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 65,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.bellota",
@@ -2218,7 +2702,9 @@
       "targetText": "bellota",
       "learnerBaseText": "acorn",
       "english": "acorn",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.pina",
@@ -2227,7 +2713,9 @@
       "targetText": "piña",
       "learnerBaseText": "pine cone",
       "english": "pine cone",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 40
     },
     {
       "id": "es.gravity.noun.pair260908.petalo",
@@ -2236,7 +2724,9 @@
       "targetText": "pétalo",
       "learnerBaseText": "petal",
       "english": "petal",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.espina",
@@ -2245,7 +2735,9 @@
       "targetText": "espina",
       "learnerBaseText": "thorn",
       "english": "thorn",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.tallo",
@@ -2254,7 +2746,9 @@
       "targetText": "tallo",
       "learnerBaseText": "stem",
       "english": "stem",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.pair260908.brote",
@@ -2263,7 +2757,9 @@
       "targetText": "brote",
       "learnerBaseText": "sprout",
       "english": "sprout",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.pair260908.arbusto",
@@ -2272,7 +2768,9 @@
       "targetText": "arbusto",
       "learnerBaseText": "shrub",
       "english": "shrub",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.helecho",
@@ -2281,7 +2779,9 @@
       "targetText": "helecho",
       "learnerBaseText": "fern",
       "english": "fern",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.musgo",
@@ -2290,7 +2790,9 @@
       "targetText": "musgo",
       "learnerBaseText": "moss",
       "english": "moss",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.seta",
@@ -2299,7 +2801,9 @@
       "targetText": "seta",
       "learnerBaseText": "mushroom",
       "english": "mushroom",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.roble",
@@ -2308,7 +2812,9 @@
       "targetText": "roble",
       "learnerBaseText": "oak",
       "english": "oak",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.pino",
@@ -2317,7 +2823,9 @@
       "targetText": "pino",
       "learnerBaseText": "pine tree",
       "english": "pine tree",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.abedul",
@@ -2326,7 +2834,9 @@
       "targetText": "abedul",
       "learnerBaseText": "birch",
       "english": "birch",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.sauce",
@@ -2335,7 +2845,9 @@
       "targetText": "sauce",
       "learnerBaseText": "willow",
       "english": "willow",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.girasol",
@@ -2344,7 +2856,9 @@
       "targetText": "girasol",
       "learnerBaseText": "sunflower",
       "english": "sunflower",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.margarita",
@@ -2353,7 +2867,9 @@
       "targetText": "margarita",
       "learnerBaseText": "daisy",
       "english": "daisy",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.tulipan",
@@ -2362,7 +2878,9 @@
       "targetText": "tulipán",
       "learnerBaseText": "tulip",
       "english": "tulip",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.amapola",
@@ -2371,7 +2889,9 @@
       "targetText": "amapola",
       "learnerBaseText": "poppy",
       "english": "poppy",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.duna",
@@ -2380,7 +2900,9 @@
       "targetText": "duna",
       "learnerBaseText": "sand dune",
       "english": "sand dune",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 46,
+      "complexity": 41
     },
     {
       "id": "es.gravity.noun.pair260908.acantilado",
@@ -2389,7 +2911,9 @@
       "targetText": "acantilado",
       "learnerBaseText": "cliff",
       "english": "cliff",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.pair260908.cueva",
@@ -2398,7 +2922,9 @@
       "targetText": "cueva",
       "learnerBaseText": "cave",
       "english": "cave",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.pair260908.valle",
@@ -2407,7 +2933,9 @@
       "targetText": "valle",
       "learnerBaseText": "valley",
       "english": "valley",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.pair260908.colina",
@@ -2416,7 +2944,9 @@
       "targetText": "colina",
       "learnerBaseText": "hill",
       "english": "hill",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.pair260908.sendero",
@@ -2425,7 +2955,9 @@
       "targetText": "sendero",
       "learnerBaseText": "trail",
       "english": "trail",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.pair260908.arroyo",
@@ -2434,7 +2966,9 @@
       "targetText": "arroyo",
       "learnerBaseText": "stream",
       "english": "stream",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.pair260908.lago",
@@ -2443,7 +2977,9 @@
       "targetText": "lago",
       "learnerBaseText": "lake",
       "english": "lake",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.pair260908.volcan",
@@ -2452,7 +2988,9 @@
       "targetText": "volcán",
       "learnerBaseText": "volcano",
       "english": "volcano",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.pair260908.desierto",
@@ -2461,7 +2999,9 @@
       "targetText": "desierto",
       "learnerBaseText": "desert",
       "english": "desert",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.pair260908.oasis",
@@ -2470,7 +3010,9 @@
       "targetText": "oasis",
       "learnerBaseText": "oasis",
       "english": "oasis",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.pair260908.glaciar",
@@ -2479,7 +3021,9 @@
       "targetText": "glaciar",
       "learnerBaseText": "glacier",
       "english": "glacier",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.pair260908.iceberg",
@@ -2488,7 +3032,9 @@
       "targetText": "iceberg",
       "learnerBaseText": "iceberg",
       "english": "iceberg",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.pair260908.charco",
@@ -2497,7 +3043,9 @@
       "targetText": "charco",
       "learnerBaseText": "puddle",
       "english": "puddle",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.pair260908.copo-de-nieve",
@@ -2506,7 +3054,9 @@
       "targetText": "copo de nieve",
       "learnerBaseText": "snowflake",
       "english": "snowflake",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.pair260908.gota",
@@ -2515,7 +3065,9 @@
       "targetText": "gota",
       "learnerBaseText": "drop",
       "english": "drop",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.pair260908.ola",
@@ -2524,7 +3076,9 @@
       "targetText": "ola",
       "learnerBaseText": "wave",
       "english": "wave",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "es.gravity.noun.pair260908.brisa",
@@ -2533,7 +3087,9 @@
       "targetText": "brisa",
       "learnerBaseText": "breeze",
       "english": "breeze",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es.gravity.noun.pair260908.tormenta",
@@ -2542,7 +3098,9 @@
       "targetText": "tormenta",
       "learnerBaseText": "storm",
       "english": "storm",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.pair260908.relampago",
@@ -2551,7 +3109,9 @@
       "targetText": "relámpago",
       "learnerBaseText": "lightning flash",
       "english": "lightning flash",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 46,
+      "complexity": 41
     },
     {
       "id": "es.gravity.noun.pair260908.trueno",
@@ -2560,7 +3120,9 @@
       "targetText": "trueno",
       "learnerBaseText": "thunderclap",
       "english": "thunderclap",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.linterna",
@@ -2569,7 +3131,9 @@
       "targetText": "linterna",
       "learnerBaseText": "flashlight",
       "english": "flashlight",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.lupa",
@@ -2578,7 +3142,9 @@
       "targetText": "lupa",
       "learnerBaseText": "magnifying glass",
       "english": "magnifying glass",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 24
     },
     {
       "id": "es.gravity.noun.pair260908.microscopio",
@@ -2587,7 +3153,9 @@
       "targetText": "microscopio",
       "learnerBaseText": "microscope",
       "english": "microscope",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "es.gravity.noun.pair260908.regla",
@@ -2596,7 +3164,9 @@
       "targetText": "regla",
       "learnerBaseText": "ruler",
       "english": "ruler",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.pair260908.balanza",
@@ -2605,7 +3175,9 @@
       "targetText": "balanza",
       "learnerBaseText": "balance scale",
       "english": "balance scale",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 51
     },
     {
       "id": "es.gravity.noun.pair260908.termometro",
@@ -2614,7 +3186,9 @@
       "targetText": "termómetro",
       "learnerBaseText": "thermometer",
       "english": "thermometer",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "es.gravity.noun.pair260908.iman",
@@ -2623,7 +3197,9 @@
       "targetText": "imán",
       "learnerBaseText": "magnet",
       "english": "magnet",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.pila",
@@ -2632,7 +3208,9 @@
       "targetText": "pila",
       "learnerBaseText": "battery",
       "english": "battery",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 72,
+      "complexity": 27
     },
     {
       "id": "es.gravity.noun.pair260908.bombilla",
@@ -2641,7 +3219,9 @@
       "targetText": "bombilla",
       "learnerBaseText": "light bulb",
       "english": "light bulb",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 70,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.interruptor",
@@ -2650,7 +3230,9 @@
       "targetText": "interruptor",
       "learnerBaseText": "light switch",
       "english": "light switch",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 70,
+      "complexity": 37
     },
     {
       "id": "es.gravity.noun.pair260908.rueda",
@@ -2659,7 +3241,9 @@
       "targetText": "rueda",
       "learnerBaseText": "wheel",
       "english": "wheel",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.eje",
@@ -2668,7 +3252,9 @@
       "targetText": "eje",
       "learnerBaseText": "axle",
       "english": "axle",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.engranaje",
@@ -2677,7 +3263,9 @@
       "targetText": "engranaje",
       "learnerBaseText": "gear",
       "english": "gear",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.polea",
@@ -2686,7 +3274,9 @@
       "targetText": "polea",
       "learnerBaseText": "pulley",
       "english": "pulley",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.rampa",
@@ -2695,7 +3285,9 @@
       "targetText": "rampa",
       "learnerBaseText": "ramp",
       "english": "ramp",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.puente",
@@ -2704,7 +3296,9 @@
       "targetText": "puente",
       "learnerBaseText": "bridge",
       "english": "bridge",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.pair260908.tunel",
@@ -2713,7 +3307,9 @@
       "targetText": "túnel",
       "learnerBaseText": "tunnel",
       "english": "tunnel",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.faro",
@@ -2722,7 +3318,9 @@
       "targetText": "faro",
       "learnerBaseText": "lighthouse",
       "english": "lighthouse",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.molino",
@@ -2731,7 +3329,9 @@
       "targetText": "molino",
       "learnerBaseText": "mill",
       "english": "mill",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.invernadero",
@@ -2740,7 +3340,9 @@
       "targetText": "invernadero",
       "learnerBaseText": "greenhouse",
       "english": "greenhouse",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.biblioteca",
@@ -2749,7 +3351,9 @@
       "targetText": "biblioteca",
       "learnerBaseText": "library",
       "english": "library",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "es.gravity.noun.pair260908.museo",
@@ -2758,7 +3362,9 @@
       "targetText": "museo",
       "learnerBaseText": "museum",
       "english": "museum",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "es.gravity.noun.pair260908.acuario",
@@ -2767,7 +3373,9 @@
       "targetText": "acuario",
       "learnerBaseText": "aquarium",
       "english": "aquarium",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.teatro",
@@ -2776,7 +3384,9 @@
       "targetText": "teatro",
       "learnerBaseText": "theater",
       "english": "theater",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "es.gravity.noun.pair260908.auditorio",
@@ -2785,7 +3395,9 @@
       "targetText": "auditorio",
       "learnerBaseText": "auditorium",
       "english": "auditorium",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.pincel",
@@ -2794,7 +3406,9 @@
       "targetText": "pincel",
       "learnerBaseText": "paintbrush",
       "english": "paintbrush",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "es.gravity.noun.pair260908.paleta",
@@ -2803,7 +3417,9 @@
       "targetText": "paleta",
       "learnerBaseText": "paint palette",
       "english": "paint palette",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 62,
+      "complexity": 32
     },
     {
       "id": "es.gravity.noun.pair260908.lienzo",
@@ -2812,7 +3428,9 @@
       "targetText": "lienzo",
       "learnerBaseText": "canvas",
       "english": "canvas",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.acuarela",
@@ -2821,7 +3439,9 @@
       "targetText": "acuarela",
       "learnerBaseText": "watercolor painting",
       "english": "watercolor painting",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 63,
+      "complexity": 31
     },
     {
       "id": "es.gravity.noun.pair260908.caballete",
@@ -2830,7 +3450,9 @@
       "targetText": "caballete",
       "learnerBaseText": "easel",
       "english": "easel",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.mosaico",
@@ -2839,7 +3461,9 @@
       "targetText": "mosaico",
       "learnerBaseText": "mosaic",
       "english": "mosaic",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.escultura",
@@ -2848,7 +3472,9 @@
       "targetText": "escultura",
       "learnerBaseText": "sculpture",
       "english": "sculpture",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "es.gravity.noun.pair260908.mascara",
@@ -2857,7 +3483,9 @@
       "targetText": "máscara",
       "learnerBaseText": "mask",
       "english": "mask",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "es.gravity.noun.pair260908.violin",
@@ -2866,7 +3494,9 @@
       "targetText": "violín",
       "learnerBaseText": "violin",
       "english": "violin",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "es.gravity.noun.pair260908.guitarra",
@@ -2875,7 +3505,9 @@
       "targetText": "guitarra",
       "learnerBaseText": "guitar",
       "english": "guitar",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "es.gravity.noun.pair260908.piano",
@@ -2884,7 +3516,9 @@
       "targetText": "piano",
       "learnerBaseText": "piano",
       "english": "piano",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "es.gravity.noun.pair260908.trompeta",
@@ -2893,7 +3527,9 @@
       "targetText": "trompeta",
       "learnerBaseText": "trumpet",
       "english": "trumpet",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "es.gravity.noun.pair260908.xilofono",
@@ -2902,7 +3538,9 @@
       "targetText": "xilófono",
       "learnerBaseText": "xylophone",
       "english": "xylophone",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.pandereta",
@@ -2911,7 +3549,9 @@
       "targetText": "pandereta",
       "learnerBaseText": "tambourine",
       "english": "tambourine",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es.gravity.noun.pair260908.hipotesis",
@@ -2920,7 +3560,9 @@
       "targetText": "hipótesis",
       "learnerBaseText": "hypothesis",
       "english": "hypothesis",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 33,
+      "complexity": 65
     },
     {
       "id": "es.gravity.noun.pair260908.analisis",
@@ -2929,7 +3571,9 @@
       "targetText": "análisis",
       "learnerBaseText": "analysis",
       "english": "analysis",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.conclusion",
@@ -2938,7 +3582,9 @@
       "targetText": "conclusión",
       "learnerBaseText": "conclusion",
       "english": "conclusion",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "es.gravity.noun.pair260908.criterio",
@@ -2947,7 +3593,9 @@
       "targetText": "criterio",
       "learnerBaseText": "criterion",
       "english": "criterion",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.fenomeno",
@@ -2956,7 +3604,9 @@
       "targetText": "fenómeno",
       "learnerBaseText": "phenomenon",
       "english": "phenomenon",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.secuencia",
@@ -2965,7 +3615,9 @@
       "targetText": "secuencia",
       "learnerBaseText": "sequence",
       "english": "sequence",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.patron",
@@ -2974,7 +3626,9 @@
       "targetText": "patrón",
       "learnerBaseText": "pattern",
       "english": "pattern",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.simetria",
@@ -2983,7 +3637,9 @@
       "targetText": "simetría",
       "learnerBaseText": "symmetry",
       "english": "symmetry",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.proporcion",
@@ -2992,7 +3648,9 @@
       "targetText": "proporción",
       "learnerBaseText": "proportion",
       "english": "proportion",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.fraccion",
@@ -3001,7 +3659,9 @@
       "targetText": "fracción",
       "learnerBaseText": "fraction",
       "english": "fraction",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "es.gravity.noun.pair260908.denominador",
@@ -3010,7 +3670,9 @@
       "targetText": "denominador",
       "learnerBaseText": "denominator",
       "english": "denominator",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.numerador",
@@ -3019,7 +3681,9 @@
       "targetText": "numerador",
       "learnerBaseText": "numerator",
       "english": "numerator",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.porcentaje",
@@ -3028,7 +3692,9 @@
       "targetText": "porcentaje",
       "learnerBaseText": "percentage",
       "english": "percentage",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "es.gravity.noun.pair260908.probabilidad",
@@ -3037,7 +3703,9 @@
       "targetText": "probabilidad",
       "learnerBaseText": "probability",
       "english": "probability",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "es.gravity.noun.pair260908.variable",
@@ -3046,7 +3714,9 @@
       "targetText": "variable",
       "learnerBaseText": "variable",
       "english": "variable",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.estimacion",
@@ -3055,7 +3725,9 @@
       "targetText": "estimación",
       "learnerBaseText": "estimate",
       "english": "estimate",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "es.gravity.noun.pair260908.medicion",
@@ -3064,7 +3736,9 @@
       "targetText": "medición",
       "learnerBaseText": "measurement",
       "english": "measurement",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.unidad",
@@ -3073,7 +3747,9 @@
       "targetText": "unidad",
       "learnerBaseText": "unit",
       "english": "unit",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.escala",
@@ -3082,7 +3758,9 @@
       "targetText": "escala",
       "learnerBaseText": "scale",
       "english": "scale",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.distancia",
@@ -3091,7 +3769,9 @@
       "targetText": "distancia",
       "learnerBaseText": "distance",
       "english": "distance",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.velocidad",
@@ -3100,7 +3780,9 @@
       "targetText": "velocidad",
       "learnerBaseText": "speed",
       "english": "speed",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.aceleracion",
@@ -3109,7 +3791,9 @@
       "targetText": "aceleración",
       "learnerBaseText": "acceleration",
       "english": "acceleration",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.gravedad",
@@ -3118,7 +3802,9 @@
       "targetText": "gravedad",
       "learnerBaseText": "gravity",
       "english": "gravity",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.energia",
@@ -3127,7 +3813,9 @@
       "targetText": "energía",
       "learnerBaseText": "energy",
       "english": "energy",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.electricidad",
@@ -3136,7 +3824,9 @@
       "targetText": "electricidad",
       "learnerBaseText": "electricity",
       "english": "electricity",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.magnetismo",
@@ -3145,7 +3835,9 @@
       "targetText": "magnetismo",
       "learnerBaseText": "magnetism",
       "english": "magnetism",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.friccion",
@@ -3154,7 +3846,9 @@
       "targetText": "fricción",
       "learnerBaseText": "friction",
       "english": "friction",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.densidad",
@@ -3163,7 +3857,9 @@
       "targetText": "densidad",
       "learnerBaseText": "density",
       "english": "density",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.temperatura",
@@ -3172,7 +3868,9 @@
       "targetText": "temperatura",
       "learnerBaseText": "temperature",
       "english": "temperature",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.humedad",
@@ -3181,7 +3879,9 @@
       "targetText": "humedad",
       "learnerBaseText": "humidity",
       "english": "humidity",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.evaporacion",
@@ -3190,7 +3890,9 @@
       "targetText": "evaporación",
       "learnerBaseText": "evaporation",
       "english": "evaporation",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.condensacion",
@@ -3199,7 +3901,9 @@
       "targetText": "condensación",
       "learnerBaseText": "condensation",
       "english": "condensation",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.erosion",
@@ -3208,7 +3912,9 @@
       "targetText": "erosión",
       "learnerBaseText": "erosion",
       "english": "erosion",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.biodiversidad",
@@ -3217,7 +3923,9 @@
       "targetText": "biodiversidad",
       "learnerBaseText": "biodiversity",
       "english": "biodiversity",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 16,
+      "complexity": 53
     },
     {
       "id": "es.gravity.noun.pair260908.ecosistema",
@@ -3226,7 +3934,9 @@
       "targetText": "ecosistema",
       "learnerBaseText": "ecosystem",
       "english": "ecosystem",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "es.gravity.noun.pair260908.adaptacion",
@@ -3235,7 +3945,9 @@
       "targetText": "adaptación",
       "learnerBaseText": "adaptation",
       "english": "adaptation",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.migracion",
@@ -3244,7 +3956,9 @@
       "targetText": "migración",
       "learnerBaseText": "migration",
       "english": "migration",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.hibernacion",
@@ -3253,7 +3967,9 @@
       "targetText": "hibernación",
       "learnerBaseText": "hibernation",
       "english": "hibernation",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.metamorfosis",
@@ -3262,7 +3978,9 @@
       "targetText": "metamorfosis",
       "learnerBaseText": "metamorphosis",
       "english": "metamorphosis",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.ciclo",
@@ -3271,7 +3989,9 @@
       "targetText": "ciclo",
       "learnerBaseText": "cycle",
       "english": "cycle",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.orbita",
@@ -3280,7 +4000,9 @@
       "targetText": "órbita",
       "learnerBaseText": "orbit",
       "english": "orbit",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "es.gravity.noun.pair260908.satelite",
@@ -3289,7 +4011,9 @@
       "targetText": "satélite",
       "learnerBaseText": "satellite",
       "english": "satellite",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.asteroide",
@@ -3298,7 +4022,9 @@
       "targetText": "asteroide",
       "learnerBaseText": "asteroid",
       "english": "asteroid",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.meteorito",
@@ -3307,7 +4033,9 @@
       "targetText": "meteorito",
       "learnerBaseText": "meteorite",
       "english": "meteorite",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.galaxia",
@@ -3316,7 +4044,9 @@
       "targetText": "galaxia",
       "learnerBaseText": "galaxy",
       "english": "galaxy",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.nebulosa",
@@ -3325,7 +4055,9 @@
       "targetText": "nebulosa",
       "learnerBaseText": "nebula",
       "english": "nebula",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.eclipse",
@@ -3334,7 +4066,9 @@
       "targetText": "eclipse",
       "learnerBaseText": "eclipse",
       "english": "eclipse",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.equinoccio",
@@ -3343,7 +4077,9 @@
       "targetText": "equinoccio",
       "learnerBaseText": "equinox",
       "english": "equinox",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.solsticio",
@@ -3352,7 +4088,9 @@
       "targetText": "solsticio",
       "learnerBaseText": "solstice",
       "english": "solstice",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.atmosfera",
@@ -3361,7 +4099,9 @@
       "targetText": "atmósfera",
       "learnerBaseText": "atmosphere",
       "english": "atmosphere",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es.gravity.noun.pair260908.solidaridad",
@@ -3370,7 +4110,9 @@
       "targetText": "solidaridad",
       "learnerBaseText": "solidarity",
       "english": "solidarity",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es.gravity.noun.pair260908.empatia",
@@ -3379,7 +4121,9 @@
       "targetText": "empatía",
       "learnerBaseText": "empathy",
       "english": "empathy",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es.gravity.noun.pair260908.generosidad",
@@ -3388,7 +4132,9 @@
       "targetText": "generosidad",
       "learnerBaseText": "generosity",
       "english": "generosity",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es.gravity.noun.pair260908.honestidad",
@@ -3397,7 +4143,9 @@
       "targetText": "honestidad",
       "learnerBaseText": "honesty",
       "english": "honesty",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es.gravity.noun.pair260908.confianza",
@@ -3406,7 +4154,9 @@
       "targetText": "confianza",
       "learnerBaseText": "trust",
       "english": "trust",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 70,
+      "complexity": 34
     },
     {
       "id": "es.gravity.noun.pair260908.gratitud",
@@ -3415,7 +4165,9 @@
       "targetText": "gratitud",
       "learnerBaseText": "gratitude",
       "english": "gratitude",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es.gravity.noun.pair260908.respeto",
@@ -3424,7 +4176,9 @@
       "targetText": "respeto",
       "learnerBaseText": "respect",
       "english": "respect",
-      "laneId": "masculine"
+      "laneId": "masculine",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "es.gravity.noun.pair260908.iniciativa",
@@ -3433,7 +4187,9 @@
       "targetText": "iniciativa",
       "learnerBaseText": "initiative",
       "english": "initiative",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es.gravity.noun.pair260908.autonomia",
@@ -3442,7 +4198,9 @@
       "targetText": "autonomía",
       "learnerBaseText": "autonomy",
       "english": "autonomy",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es.gravity.noun.pair260908.perseverancia",
@@ -3451,7 +4209,9 @@
       "targetText": "perseverancia",
       "learnerBaseText": "perseverance",
       "english": "perseverance",
-      "laneId": "feminine"
+      "laneId": "feminine",
+      "usefulness": 52,
+      "complexity": 43
     }
   ]
 }

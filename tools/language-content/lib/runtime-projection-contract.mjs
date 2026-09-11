@@ -15,7 +15,7 @@ const ENGLISH_KEYS = [
   "license",
   "concepts"
 ];
-const CONCEPT_KEYS = ["id", "englishText", "embeddingText", "sceneQuery", "topic", "difficulty"];
+const CONCEPT_KEYS = ["id", "englishText", "embeddingText", "sceneQuery", "topic", "difficulty", "usefulness", "complexity"];
 const TARGET_KEYS = [
   "$schema",
   "schemaVersion",
@@ -69,14 +69,18 @@ export function validateEnglishConceptRuntimeProjection(projection, {
   } else {
     for (const [index, concept] of projection.concepts.entries()) {
       const label = `concepts[${index}]`;
-      strictKeys(concept, CONCEPT_KEYS, CONCEPT_KEYS, label, issues);
+      strictKeys(concept, CONCEPT_KEYS, CONCEPT_KEYS.filter(key => !["usefulness", "complexity"].includes(key)), label, issues);
       if (!CONCEPT_ID_PATTERN.test(String(concept?.id ?? ""))) issues.push(`${label}.id is invalid.`);
       else ids.push(concept.id);
       for (const field of ["englishText", "embeddingText", "sceneQuery", "topic"]) {
         if (!nonEmpty(concept?.[field])) issues.push(`${label}.${field} must be non-empty.`);
       }
-      if (!Number.isInteger(concept?.difficulty) || concept.difficulty < 1 || concept.difficulty > 5) {
-        issues.push(`${label}.difficulty must be an integer from 1 to 5.`);
+      if (!Number.isInteger(concept?.difficulty) || concept.difficulty < 1 || concept.difficulty > 3) {
+        issues.push(`${label}.difficulty must be an integer from 1 to 3.`);
+      }
+      for (const field of ["usefulness", "complexity"]) if (concept[field] !== undefined
+        && (!Number.isInteger(concept[field]) || concept[field] < 1 || concept[field] > 100)) {
+        issues.push(`${label}.${field} must be an integer from 1 to 100.`);
       }
     }
   }

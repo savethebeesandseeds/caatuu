@@ -22236,6 +22236,286 @@
           "playable": true
         }
       ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-yes",
+      "text": "对。",
+      "tokens": [
+        {
+          "surface": "对",
+          "gloss": "correct; that is right",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-no",
+      "text": "不对。",
+      "tokens": [
+        {
+          "surface": "不",
+          "gloss": "not; tone before a fourth tone",
+          "playable": true
+        },
+        {
+          "surface": "对",
+          "gloss": "correct",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-please-enter",
+      "text": "请进。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "进",
+          "gloss": "come in",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-sorry",
+      "text": "对不起。",
+      "tokens": [
+        {
+          "surface": "对不起",
+          "gloss": "sorry",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-excuse-me",
+      "text": "劳驾。",
+      "tokens": [
+        {
+          "surface": "劳驾",
+          "gloss": "excuse me; polite attention request",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-help",
+      "text": "我需要帮助。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "需要",
+          "gloss": "need",
+          "playable": true
+        },
+        {
+          "surface": "帮助",
+          "gloss": "help",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-hungry",
+      "text": "我饿了。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "饿",
+          "gloss": "hungry",
+          "playable": true
+        },
+        {
+          "surface": "了",
+          "gloss": "marks a changed state",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-thirsty",
+      "text": "我渴了。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "渴",
+          "gloss": "thirsty",
+          "playable": true
+        },
+        {
+          "surface": "了",
+          "gloss": "marks a changed state",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-water",
+      "text": "我需要水。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "需要",
+          "gloss": "need",
+          "playable": true
+        },
+        {
+          "surface": "水",
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-bathroom",
+      "text": "洗手间在哪里？",
+      "tokens": [
+        {
+          "surface": "洗手间",
+          "gloss": "bathroom",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be located at",
+          "playable": true
+        },
+        {
+          "surface": "哪里",
+          "gloss": "where",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-again",
+      "text": "请再说一遍。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "再",
+          "gloss": "again",
+          "playable": true
+        },
+        {
+          "surface": "说",
+          "gloss": "say",
+          "playable": true
+        },
+        {
+          "surface": "一",
+          "gloss": "one; tone before a fourth tone",
+          "playable": true
+        },
+        {
+          "surface": "遍",
+          "gloss": "time; repetition of a whole action",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-slowly",
+      "text": "请慢慢说。",
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please",
+          "playable": true
+        },
+        {
+          "surface": "慢慢",
+          "gloss": "slowly",
+          "playable": true
+        },
+        {
+          "surface": "说",
+          "gloss": "speak",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-no-thanks",
+      "text": "不用了，谢谢。",
+      "tokens": [
+        {
+          "surface": "不",
+          "gloss": "not; tone before a fourth tone",
+          "playable": true
+        },
+        {
+          "surface": "用",
+          "gloss": "need; use",
+          "playable": true
+        },
+        {
+          "surface": "了",
+          "gloss": "marks a changed situation",
+          "playable": true
+        },
+        {
+          "surface": "谢谢",
+          "gloss": "thank you",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-stop",
+      "text": "停！",
+      "tokens": [
+        {
+          "surface": "停",
+          "gloss": "stop",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zh-starter260911-dont-know",
+      "text": "我不知道。",
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "不",
+          "gloss": "not",
+          "playable": true
+        },
+        {
+          "surface": "知道",
+          "gloss": "know",
+          "playable": true
+        }
+      ]
     }
   ]
 }

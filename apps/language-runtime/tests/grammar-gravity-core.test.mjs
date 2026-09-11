@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { selectContentItems, newContentEncounterId } from "../static/source/games/content-progression.mjs";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
@@ -34,7 +35,7 @@ test("authored grammar banks retain every example while separating repeated word
 });
 
 async function mountSequence({ language = "spanish", nounReady = true, phraseFails = false, deferPhrase = false,
-  distinctAudit = false, requestedPractice = "", invalidContent = false } = {}) {
+  distinctAudit = false, requestedPractice = "", invalidContent = false, progression = false } = {}) {
   const spanishBase = language === "english-from-spanish";
   const course = { id: spanishBase ? "es-en" : language === "czech" ? "cz" : "es", routePrefix: spanishBase ? "/es-en" : language === "czech" ? "/cz" : "/es",
     sourceLanguage: { id: spanishBase ? "es" : "en", locale: spanishBase ? "es-ES" : "en" },
@@ -59,9 +60,13 @@ async function mountSequence({ language = "spanish", nounReady = true, phraseFai
   const catalog = await json(new URL(`../static/data/interface/${spanishBase ? "es" : "en"}.v1.json`, import.meta.url));
   shell.CaatuuI18n = createInterfaceContent(catalog);
   const records = [];
+  const exposures = [];
   const messages = [];
   let difficulty = 1;
   shell.CaatuuLearning = { difficulty: () => difficulty, record: (id, delta) => records.push({ id, ...delta }) };
+  if (progression) Object.assign(shell.CaatuuLearning, { contentHistory: () => ({}),
+    contentGeneration: () => "before-reset",
+    recordExposure: (gameId, event) => exposures.push({ gameId, ...event }) });
   shell.postMessage = (message) => messages.push(message);
   const noun = { options: null, resumes: 0, destroys: 0, nexts: 0, active: true, durationMs: null, icons: null,
     ready: () => nounReady,
@@ -102,6 +107,7 @@ async function mountSequence({ language = "spanish", nounReady = true, phraseFai
   }
   if (invalidContent) delete content.gameplay;
   Object.assign(browser.context, {
+    selectContentItems, newContentEncounterId,
     parent: shell,
     addEventListener: browser.window.addEventListener,
     removeEventListener: browser.window.removeEventListener,
@@ -165,7 +171,7 @@ async function mountSequence({ language = "spanish", nounReady = true, phraseFai
     assert.equal(state.adjectiveGame.snapshot().phase,"recap");
     element("gravityAdjectiveNext").click();
   }
-  return { ...browser, get controller() { return controller; }, state, shell, noun, controls, records, messages, errors,
+  return { ...browser, get controller() { return controller; }, state, shell, noun, controls, records, exposures, messages, errors,
     frames, frame, advance, answerStage, completeRound, chooseMode, element, timingChoice,
     setDifficulty(value) {
       difficulty = value;
@@ -300,13 +306,49 @@ test("mode transitions pause while inactive and changing the destination preserv
   game.controller.destroy();
 });
 
+test("grammar progression records completed exercises separately for meaning, form, and sequence practice",async()=>{
+  const game=await mountSequence({progression:true});
+  assert.equal(game.exposures.length,0);
+  game.shell.CaatuuLearning.contentGeneration = () => "after-reset";
+  game.completeRound();
+  assert.equal(game.exposures.length,1);
+  assert.equal(game.exposures[0].bankId,"phrases-sequence");
+  assert.equal(game.exposures[0].generation,"before-reset");
+  assert.equal(game.exposures[0].evidence,"independent");
+  game.chooseMode("meaning");
+  assert.equal(game.exposures.length,1);
+  game.completeRound();
+  assert.equal(game.exposures[1].bankId,"phrases-meaning");
+  assert.equal(game.exposures[1].generation,"after-reset");
+  assert.equal(game.exposures[1].evidence,"independent");
+  assert.notEqual(game.exposures[0].encounterId,game.exposures[1].encounterId);
+  game.chooseMode("forms");
+  game.completeRound();
+  assert.equal(game.exposures[2].bankId,"phrases-forms");
+  game.controller.destroy();
+});
+
+test("grammar meaning correction is assisted and an unanswered timed task is exposure only", async () => {
+  const game = await mountSequence({ progression: true });
+  game.chooseMode("meaning");
+  game.answerStage(false);
+  assert.equal(game.exposures.length, 0, "a retriable stage waits for its final outcome");
+  game.answerStage(true);
+  assert.equal(game.exposures[0].evidence, "assisted");
+  assert.equal(game.exposures[0].correct, true);
+  game.advance(10000);
+  assert.equal(game.exposures[1].evidence, "exposure");
+  assert.equal(game.exposures[1].correct, false);
+  game.controller.destroy();
+});
+
 test("difficulty changes replace the current modern round without skipped challenge kinds",async()=>{
   const game=await mountSequence();
   game.setDifficulty(3);
-  assert.equal(new Set(game.state.rounds.map(round=>round.challengeId)).size,8);
-  assert.equal(game.state.rounds.length,64);
-  const determiner=game.state.rounds.findIndex(round=>round.focus.kind==="determiner");
-  game.state.index=determiner;
+  const authored = game.state.pack.challenges;
+  assert.deepEqual(new Set(game.state.rounds.map(round=>round.challengeId)),new Set(authored.map(challenge=>challenge.id)));
+  assert.equal(game.state.rounds.length,authored.flatMap(challenge=>Object.values(challenge.forms).flatMap(form=>form.examples)).length);
+  game.state.index=Math.min(1,game.state.rounds.length-1);
   vm.runInContext('enterMode("phrases")',game.context);
   game.completeRound();
   assert.equal(game.errors.length,0);

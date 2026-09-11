@@ -1,3 +1,5 @@
+import { normalizeContentProgression } from "../content-progression.mjs";
+export { selectContentItems, newContentEncounterId } from "../content-progression.mjs";
 export const VERB_NEBULA_PAIR_COUNTS = Object.freeze([2, 4, 6, 8]);
 
 const verbKindPattern = /^V(?:\s|$)/u;
@@ -53,6 +55,7 @@ function projectCoreVerbPair(row, sourceIndex, { learnerBaseLanguage = "en" } = 
     eng: source,
     difficulty: normalizeVerbDifficulty(row.difficulty),
     difficultyIsAuthored: hasVerbDifficultyMetadata(row.difficulty),
+    ...normalizeContentProgression(row, `verbs[${sourceIndex}]`),
     sourceIndex
   };
 }

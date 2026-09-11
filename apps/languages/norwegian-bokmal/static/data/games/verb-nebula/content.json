@@ -6,7 +6,9 @@
     "source": "be",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 9
   },
   {
     "id": "nb.verb.ha",
@@ -15,7 +17,9 @@
     "source": "have",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 9
   },
   {
     "id": "nb.verb.gjoere",
@@ -24,7 +28,9 @@
     "source": "do",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 9
   },
   {
     "id": "nb.verb.bli",
@@ -33,7 +39,9 @@
     "source": "become",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "nb.verb.kunne",
@@ -42,7 +50,9 @@
     "source": "be able to",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 27
   },
   {
     "id": "nb.verb.ville",
@@ -51,7 +61,9 @@
     "source": "want to",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 24
   },
   {
     "id": "nb.verb.maatte",
@@ -60,7 +72,9 @@
     "source": "have to",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 24
   },
   {
     "id": "nb.verb.skulle",
@@ -69,7 +83,9 @@
     "source": "be going to (planned action)",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 27
   },
   {
     "id": "nb.verb.hete",
@@ -78,7 +94,9 @@
     "source": "be called (have a name)",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 24
   },
   {
     "id": "nb.verb.bo",
@@ -87,7 +105,9 @@
     "source": "live (reside)",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "nb.verb.vaakne",
@@ -96,7 +116,9 @@
     "source": "wake up",
     "difficulty": 1,
     "category": "daily-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "nb.verb.sove",
@@ -105,7 +127,9 @@
     "source": "sleep",
     "difficulty": 1,
     "category": "daily-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "nb.verb.spise",
@@ -114,7 +138,9 @@
     "source": "eat",
     "difficulty": 1,
     "category": "daily-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "nb.verb.drikke",
@@ -123,7 +149,9 @@
     "source": "drink",
     "difficulty": 1,
     "category": "daily-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "nb.verb.vaske",
@@ -132,7 +160,9 @@
     "source": "wash",
     "difficulty": 1,
     "category": "daily-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 21
   },
   {
     "id": "nb.verb.dusje",
@@ -141,7 +171,9 @@
     "source": "shower",
     "difficulty": 1,
     "category": "daily-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.kle-seg",
@@ -150,7 +182,9 @@
     "source": "get dressed",
     "difficulty": 1,
     "category": "daily-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "nb.verb.hvile",
@@ -159,7 +193,9 @@
     "source": "rest",
     "difficulty": 1,
     "category": "daily-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.rydde",
@@ -168,7 +204,9 @@
     "source": "tidy up",
     "difficulty": 1,
     "category": "daily-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "nb.verb.legge-seg",
@@ -177,7 +215,9 @@
     "source": "go to bed",
     "difficulty": 1,
     "category": "daily-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 27
   },
   {
     "id": "nb.verb.snakke",
@@ -186,7 +226,9 @@
     "source": "speak",
     "difficulty": 1,
     "category": "communication",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 15
   },
   {
     "id": "nb.verb.si",
@@ -195,7 +237,9 @@
     "source": "say",
     "difficulty": 1,
     "category": "communication",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 15
   },
   {
     "id": "nb.verb.spoerre",
@@ -204,7 +248,9 @@
     "source": "ask",
     "difficulty": 1,
     "category": "communication",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "nb.verb.svare",
@@ -213,7 +259,9 @@
     "source": "answer",
     "difficulty": 1,
     "category": "communication",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "nb.verb.fortelle",
@@ -222,7 +270,9 @@
     "source": "tell",
     "difficulty": 1,
     "category": "communication",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.hilse",
@@ -231,7 +281,9 @@
     "source": "greet",
     "difficulty": 1,
     "category": "communication",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.ringe",
@@ -240,7 +292,9 @@
     "source": "call by phone",
     "difficulty": 1,
     "category": "communication",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 27
   },
   {
     "id": "nb.verb.takke",
@@ -249,7 +303,9 @@
     "source": "thank",
     "difficulty": 1,
     "category": "communication",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 90,
+    "complexity": 15
   },
   {
     "id": "nb.verb.rope",
@@ -258,7 +314,9 @@
     "source": "shout",
     "difficulty": 1,
     "category": "communication",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "nb.verb.skrive",
@@ -267,7 +325,9 @@
     "source": "write",
     "difficulty": 1,
     "category": "communication",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "nb.verb.se",
@@ -276,7 +336,9 @@
     "source": "see",
     "difficulty": 1,
     "category": "thought-and-senses",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "nb.verb.hoere",
@@ -285,7 +347,9 @@
     "source": "hear",
     "difficulty": 1,
     "category": "thought-and-senses",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "nb.verb.lukte",
@@ -294,7 +358,9 @@
     "source": "smell",
     "difficulty": 1,
     "category": "thought-and-senses",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 65,
+    "complexity": 26
   },
   {
     "id": "nb.verb.smake",
@@ -303,7 +369,9 @@
     "source": "taste",
     "difficulty": 1,
     "category": "thought-and-senses",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 65,
+    "complexity": 26
   },
   {
     "id": "nb.verb.foele",
@@ -312,7 +380,9 @@
     "source": "feel",
     "difficulty": 1,
     "category": "thought-and-senses",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.vite",
@@ -321,7 +391,9 @@
     "source": "know a fact",
     "difficulty": 1,
     "category": "thought-and-senses",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 27
   },
   {
     "id": "nb.verb.tro",
@@ -330,7 +402,9 @@
     "source": "believe",
     "difficulty": 1,
     "category": "thought-and-senses",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "nb.verb.tenke",
@@ -339,7 +413,9 @@
     "source": "think",
     "difficulty": 1,
     "category": "thought-and-senses",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.huske",
@@ -348,7 +424,9 @@
     "source": "remember",
     "difficulty": 1,
     "category": "thought-and-senses",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.glemme",
@@ -357,7 +435,9 @@
     "source": "forget",
     "difficulty": 1,
     "category": "thought-and-senses",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.gaa",
@@ -366,7 +446,9 @@
     "source": "walk",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "nb.verb.loepe",
@@ -375,7 +457,9 @@
     "source": "run",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.komme",
@@ -384,7 +468,9 @@
     "source": "come",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 15
   },
   {
     "id": "nb.verb.dra",
@@ -393,7 +479,9 @@
     "source": "go away",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "nb.verb.reise",
@@ -402,7 +490,9 @@
     "source": "travel",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.kjoere",
@@ -411,7 +501,9 @@
     "source": "drive",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.sykle",
@@ -420,7 +512,9 @@
     "source": "cycle",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "nb.verb.fly",
@@ -429,7 +523,9 @@
     "source": "fly",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "nb.verb.svoemme",
@@ -438,7 +534,9 @@
     "source": "swim",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "nb.verb.hoppe",
@@ -447,7 +545,9 @@
     "source": "jump",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "nb.verb.leke",
@@ -456,7 +556,9 @@
     "source": "play (children's play)",
     "difficulty": 1,
     "category": "play-and-art",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 62,
+    "complexity": 21
   },
   {
     "id": "nb.verb.spille",
@@ -465,7 +567,9 @@
     "source": "play (a game or instrument)",
     "difficulty": 1,
     "category": "play-and-art",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 62,
+    "complexity": 29
   },
   {
     "id": "nb.verb.tegne",
@@ -474,7 +578,9 @@
     "source": "draw a picture",
     "difficulty": 1,
     "category": "play-and-art",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 62,
+    "complexity": 34
   },
   {
     "id": "nb.verb.male",
@@ -483,7 +589,9 @@
     "source": "paint",
     "difficulty": 1,
     "category": "play-and-art",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 62,
+    "complexity": 29
   },
   {
     "id": "nb.verb.synge",
@@ -492,7 +600,9 @@
     "source": "sing",
     "difficulty": 1,
     "category": "play-and-art",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "nb.verb.danse",
@@ -501,7 +611,9 @@
     "source": "dance",
     "difficulty": 1,
     "category": "play-and-art",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 62,
+    "complexity": 29
   },
   {
     "id": "nb.verb.vinne",
@@ -510,7 +622,9 @@
     "source": "win",
     "difficulty": 1,
     "category": "play-and-art",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "nb.verb.tape",
@@ -519,7 +633,9 @@
     "source": "lose (a game)",
     "difficulty": 1,
     "category": "play-and-art",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "nb.verb.kaste",
@@ -528,7 +644,9 @@
     "source": "throw",
     "difficulty": 1,
     "category": "play-and-art",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.fange",
@@ -537,7 +655,9 @@
     "source": "catch",
     "difficulty": 1,
     "category": "play-and-art",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.lage",
@@ -546,7 +666,9 @@
     "source": "make (create something)",
     "difficulty": 1,
     "category": "food-and-kitchen",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.koke",
@@ -555,7 +677,9 @@
     "source": "boil",
     "difficulty": 1,
     "category": "food-and-kitchen",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.steke",
@@ -564,7 +688,9 @@
     "source": "fry or roast",
     "difficulty": 1,
     "category": "food-and-kitchen",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "nb.verb.bake",
@@ -573,7 +699,9 @@
     "source": "bake",
     "difficulty": 1,
     "category": "food-and-kitchen",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.skjaere",
@@ -582,7 +710,9 @@
     "source": "cut (with a blade)",
     "difficulty": 1,
     "category": "food-and-kitchen",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "nb.verb.dele",
@@ -591,7 +721,9 @@
     "source": "share or divide",
     "difficulty": 1,
     "category": "food-and-kitchen",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 29
   },
   {
     "id": "nb.verb.blande",
@@ -600,7 +732,9 @@
     "source": "mix",
     "difficulty": 1,
     "category": "food-and-kitchen",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.helle",
@@ -609,7 +743,9 @@
     "source": "pour",
     "difficulty": 1,
     "category": "food-and-kitchen",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 78,
+    "complexity": 23
   },
   {
     "id": "nb.verb.bestille",
@@ -618,7 +754,9 @@
     "source": "order (request goods or food)",
     "difficulty": 1,
     "category": "food-and-kitchen",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 29
   },
   {
     "id": "nb.verb.servere",
@@ -627,7 +765,9 @@
     "source": "serve food",
     "difficulty": 1,
     "category": "food-and-kitchen",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 88,
+    "complexity": 32
   },
   {
     "id": "nb.verb.aapne",
@@ -636,7 +776,9 @@
     "source": "open",
     "difficulty": 1,
     "category": "home-and-objects",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "nb.verb.lukke",
@@ -645,7 +787,9 @@
     "source": "close",
     "difficulty": 1,
     "category": "home-and-objects",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "nb.verb.sette",
@@ -654,7 +798,9 @@
     "source": "put (in a sitting or upright position)",
     "difficulty": 1,
     "category": "home-and-objects",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 29
   },
   {
     "id": "nb.verb.legge",
@@ -663,7 +809,9 @@
     "source": "lay (put down flat)",
     "difficulty": 1,
     "category": "home-and-objects",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.ta",
@@ -672,7 +820,9 @@
     "source": "take",
     "difficulty": 1,
     "category": "home-and-objects",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "nb.verb.gi",
@@ -681,7 +831,9 @@
     "source": "give",
     "difficulty": 1,
     "category": "home-and-objects",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "nb.verb.finne",
@@ -690,7 +842,9 @@
     "source": "find",
     "difficulty": 1,
     "category": "home-and-objects",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "nb.verb.lete",
@@ -699,7 +853,9 @@
     "source": "search",
     "difficulty": 1,
     "category": "home-and-objects",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.miste",
@@ -708,7 +864,9 @@
     "source": "lose (misplace)",
     "difficulty": 1,
     "category": "home-and-objects",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "nb.verb.holde",
@@ -717,7 +875,9 @@
     "source": "hold",
     "difficulty": 1,
     "category": "home-and-objects",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.lese",
@@ -726,7 +886,9 @@
     "source": "read",
     "difficulty": 1,
     "category": "school-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "nb.verb.laere",
@@ -735,7 +897,9 @@
     "source": "learn",
     "difficulty": 1,
     "category": "school-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "nb.verb.oeve",
@@ -744,7 +908,9 @@
     "source": "practise",
     "difficulty": 1,
     "category": "school-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.telle",
@@ -753,7 +919,9 @@
     "source": "count",
     "difficulty": 1,
     "category": "school-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 73,
+    "complexity": 21
   },
   {
     "id": "nb.verb.regne",
@@ -762,7 +930,9 @@
     "source": "calculate",
     "difficulty": 1,
     "category": "school-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "nb.verb.forstaa",
@@ -771,7 +941,9 @@
     "source": "understand",
     "difficulty": 1,
     "category": "school-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 98,
+    "complexity": 15
   },
   {
     "id": "nb.verb.forklare",
@@ -780,7 +952,9 @@
     "source": "explain",
     "difficulty": 1,
     "category": "school-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 21
   },
   {
     "id": "nb.verb.vise",
@@ -789,7 +963,9 @@
     "source": "show",
     "difficulty": 1,
     "category": "school-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.proeve",
@@ -798,7 +974,9 @@
     "source": "try",
     "difficulty": 1,
     "category": "school-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.hjelpe",
@@ -807,7 +985,9 @@
     "source": "help",
     "difficulty": 1,
     "category": "school-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 99,
+    "complexity": 15
   },
   {
     "id": "nb.verb.like",
@@ -816,7 +996,9 @@
     "source": "like",
     "difficulty": 1,
     "category": "people-and-relationships",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.elske",
@@ -825,7 +1007,9 @@
     "source": "love",
     "difficulty": 1,
     "category": "people-and-relationships",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 34
   },
   {
     "id": "nb.verb.moete",
@@ -834,7 +1018,9 @@
     "source": "meet",
     "difficulty": 1,
     "category": "people-and-relationships",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 21
   },
   {
     "id": "nb.verb.besoeke",
@@ -843,7 +1029,9 @@
     "source": "visit",
     "difficulty": 1,
     "category": "people-and-relationships",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 21
   },
   {
     "id": "nb.verb.invitere",
@@ -852,7 +1040,9 @@
     "source": "invite",
     "difficulty": 1,
     "category": "people-and-relationships",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.vente",
@@ -861,7 +1051,9 @@
     "source": "wait",
     "difficulty": 1,
     "category": "people-and-relationships",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "nb.verb.foelge",
@@ -870,7 +1062,9 @@
     "source": "follow",
     "difficulty": 1,
     "category": "people-and-relationships",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.le",
@@ -879,7 +1073,9 @@
     "source": "laugh",
     "difficulty": 1,
     "category": "people-and-relationships",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.smile",
@@ -888,7 +1084,9 @@
     "source": "smile",
     "difficulty": 1,
     "category": "people-and-relationships",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.graate",
@@ -897,7 +1095,9 @@
     "source": "cry",
     "difficulty": 1,
     "category": "people-and-relationships",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.sitte",
@@ -906,7 +1106,9 @@
     "source": "sit",
     "difficulty": 1,
     "category": "body-and-posture",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.staa",
@@ -915,7 +1117,9 @@
     "source": "stand",
     "difficulty": 1,
     "category": "body-and-posture",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.ligge",
@@ -924,7 +1128,9 @@
     "source": "lie (be horizontal)",
     "difficulty": 1,
     "category": "body-and-posture",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.puste",
@@ -933,7 +1139,9 @@
     "source": "breathe",
     "difficulty": 1,
     "category": "body-and-posture",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.hoste",
@@ -942,7 +1150,9 @@
     "source": "cough",
     "difficulty": 1,
     "category": "body-and-posture",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.nyse",
@@ -951,7 +1161,9 @@
     "source": "sneeze",
     "difficulty": 1,
     "category": "body-and-posture",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.fryse",
@@ -960,7 +1172,9 @@
     "source": "freeze or feel cold",
     "difficulty": 1,
     "category": "body-and-posture",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 46
   },
   {
     "id": "nb.verb.svette",
@@ -969,7 +1183,9 @@
     "source": "sweat",
     "difficulty": 1,
     "category": "body-and-posture",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.vokse",
@@ -978,7 +1194,9 @@
     "source": "grow",
     "difficulty": 1,
     "category": "body-and-posture",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 65,
+    "complexity": 26
   },
   {
     "id": "nb.verb.falle",
@@ -987,7 +1205,9 @@
     "source": "fall",
     "difficulty": 1,
     "category": "body-and-posture",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.loefte",
@@ -996,7 +1216,9 @@
     "source": "lift",
     "difficulty": 1,
     "category": "physical-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "nb.verb.baere",
@@ -1005,7 +1227,9 @@
     "source": "carry",
     "difficulty": 1,
     "category": "physical-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.skyve",
@@ -1014,7 +1238,9 @@
     "source": "push",
     "difficulty": 1,
     "category": "physical-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "nb.verb.trekke",
@@ -1023,7 +1249,9 @@
     "source": "pull",
     "difficulty": 1,
     "category": "physical-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "nb.verb.snu",
@@ -1032,7 +1260,9 @@
     "source": "turn around",
     "difficulty": 1,
     "category": "physical-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "nb.verb.stoppe",
@@ -1041,7 +1271,9 @@
     "source": "stop (halt movement)",
     "difficulty": 1,
     "category": "physical-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 98,
+    "complexity": 15
   },
   {
     "id": "nb.verb.starte",
@@ -1050,7 +1282,9 @@
     "source": "start (set a machine running)",
     "difficulty": 1,
     "category": "physical-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.bygge",
@@ -1059,7 +1293,9 @@
     "source": "build",
     "difficulty": 1,
     "category": "physical-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "nb.verb.rive",
@@ -1068,7 +1304,9 @@
     "source": "tear",
     "difficulty": 1,
     "category": "physical-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.klippe",
@@ -1077,7 +1315,9 @@
     "source": "cut (with scissors)",
     "difficulty": 1,
     "category": "physical-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "nb.verb.kjoepe",
@@ -1086,7 +1326,9 @@
     "source": "buy",
     "difficulty": 1,
     "category": "shopping-and-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "nb.verb.selge",
@@ -1095,7 +1337,9 @@
     "source": "sell",
     "difficulty": 1,
     "category": "shopping-and-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "nb.verb.betale",
@@ -1104,7 +1348,9 @@
     "source": "pay",
     "difficulty": 1,
     "category": "shopping-and-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "nb.verb.koste",
@@ -1113,7 +1359,9 @@
     "source": "cost",
     "difficulty": 1,
     "category": "shopping-and-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 81,
+    "complexity": 21
   },
   {
     "id": "nb.verb.pakke",
@@ -1122,7 +1370,9 @@
     "source": "pack",
     "difficulty": 1,
     "category": "shopping-and-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.hente",
@@ -1131,7 +1381,9 @@
     "source": "fetch",
     "difficulty": 1,
     "category": "shopping-and-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.sende",
@@ -1140,7 +1392,9 @@
     "source": "send",
     "difficulty": 1,
     "category": "shopping-and-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.levere",
@@ -1149,7 +1403,9 @@
     "source": "deliver",
     "difficulty": 1,
     "category": "shopping-and-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 26
   },
   {
     "id": "nb.verb.bruke",
@@ -1158,7 +1414,9 @@
     "source": "use",
     "difficulty": 1,
     "category": "shopping-and-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.trenge",
@@ -1167,7 +1425,9 @@
     "source": "need",
     "difficulty": 1,
     "category": "shopping-and-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 98,
+    "complexity": 15
   },
   {
     "id": "nb.verb.begynne",
@@ -1176,7 +1436,9 @@
     "source": "begin (an activity)",
     "difficulty": 1,
     "category": "time-and-decisions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.slutte",
@@ -1185,7 +1447,9 @@
     "source": "finish (cease an activity)",
     "difficulty": 1,
     "category": "time-and-decisions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.fortsette",
@@ -1194,7 +1458,9 @@
     "source": "continue",
     "difficulty": 1,
     "category": "time-and-decisions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.velge",
@@ -1203,7 +1469,9 @@
     "source": "choose",
     "difficulty": 1,
     "category": "time-and-decisions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.planlegge",
@@ -1212,7 +1480,9 @@
     "source": "plan",
     "difficulty": 1,
     "category": "time-and-decisions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.rekke",
@@ -1221,7 +1491,9 @@
     "source": "have enough time",
     "difficulty": 1,
     "category": "time-and-decisions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 28
   },
   {
     "id": "nb.verb.vare",
@@ -1230,7 +1502,9 @@
     "source": "last (continue in time)",
     "difficulty": 1,
     "category": "time-and-decisions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.skje",
@@ -1239,7 +1513,9 @@
     "source": "happen",
     "difficulty": 1,
     "category": "time-and-decisions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "nb.verb.oenske",
@@ -1248,7 +1524,9 @@
     "source": "wish",
     "difficulty": 1,
     "category": "time-and-decisions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 46
   },
   {
     "id": "nb.verb.haape",
@@ -1257,7 +1535,9 @@
     "source": "hope",
     "difficulty": 1,
     "category": "time-and-decisions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 51
   },
   {
     "id": "nb.verb.tordne",
@@ -1266,7 +1546,9 @@
     "source": "thunder",
     "difficulty": 1,
     "category": "weather-and-outdoors",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "nb.verb.snoe",
@@ -1275,7 +1557,9 @@
     "source": "snow",
     "difficulty": 1,
     "category": "weather-and-outdoors",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.blaase",
@@ -1284,7 +1568,9 @@
     "source": "blow",
     "difficulty": 1,
     "category": "weather-and-outdoors",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.skinne",
@@ -1293,7 +1579,9 @@
     "source": "shine",
     "difficulty": 1,
     "category": "weather-and-outdoors",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "nb.verb.smelte",
@@ -1302,7 +1590,9 @@
     "source": "melt",
     "difficulty": 1,
     "category": "weather-and-outdoors",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "nb.verb.plukke",
@@ -1311,7 +1601,9 @@
     "source": "pick (flowers or berries)",
     "difficulty": 1,
     "category": "weather-and-outdoors",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "nb.verb.plante",
@@ -1320,7 +1612,9 @@
     "source": "plant",
     "difficulty": 1,
     "category": "weather-and-outdoors",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 65,
+    "complexity": 26
   },
   {
     "id": "nb.verb.vanne",
@@ -1329,7 +1623,9 @@
     "source": "water (plants)",
     "difficulty": 1,
     "category": "weather-and-outdoors",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 98,
+    "complexity": 15
   },
   {
     "id": "nb.verb.fiske",
@@ -1338,7 +1634,9 @@
     "source": "fish",
     "difficulty": 1,
     "category": "weather-and-outdoors",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.grille",
@@ -1347,7 +1645,9 @@
     "source": "barbecue",
     "difficulty": 1,
     "category": "weather-and-outdoors",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.stoevsuge",
@@ -1356,7 +1656,9 @@
     "source": "vacuum",
     "difficulty": 2,
     "category": "home-and-cleaning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 80,
+    "complexity": 23
   },
   {
     "id": "nb.verb.feie",
@@ -1365,7 +1667,9 @@
     "source": "sweep",
     "difficulty": 2,
     "category": "home-and-cleaning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.toerke",
@@ -1374,7 +1678,9 @@
     "source": "dry or wipe",
     "difficulty": 2,
     "category": "home-and-cleaning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 36
   },
   {
     "id": "nb.verb.skylle",
@@ -1383,7 +1689,9 @@
     "source": "rinse",
     "difficulty": 2,
     "category": "home-and-cleaning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.skrubbe",
@@ -1392,7 +1700,9 @@
     "source": "scrub",
     "difficulty": 2,
     "category": "home-and-cleaning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.pusse",
@@ -1401,7 +1711,9 @@
     "source": "polish or brush clean",
     "difficulty": 2,
     "category": "home-and-cleaning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "nb.verb.sortere",
@@ -1410,7 +1722,9 @@
     "source": "sort",
     "difficulty": 2,
     "category": "home-and-cleaning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.toemme",
@@ -1419,7 +1733,9 @@
     "source": "empty",
     "difficulty": 2,
     "category": "home-and-cleaning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 84,
+    "complexity": 22
   },
   {
     "id": "nb.verb.fylle",
@@ -1428,7 +1744,9 @@
     "source": "fill",
     "difficulty": 2,
     "category": "home-and-cleaning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.henge",
@@ -1437,7 +1755,9 @@
     "source": "hang",
     "difficulty": 2,
     "category": "home-and-cleaning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.reparere",
@@ -1446,7 +1766,9 @@
     "source": "repair",
     "difficulty": 2,
     "category": "home-and-repair",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 21
   },
   {
     "id": "nb.verb.fikse",
@@ -1455,7 +1777,9 @@
     "source": "sort out (informal)",
     "difficulty": 2,
     "category": "home-and-repair",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "nb.verb.laase",
@@ -1464,7 +1788,9 @@
     "source": "lock",
     "difficulty": 2,
     "category": "home-and-repair",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 80,
+    "complexity": 23
   },
   {
     "id": "nb.verb.laane",
@@ -1473,7 +1799,9 @@
     "source": "borrow or lend",
     "difficulty": 2,
     "category": "home-and-repair",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 29
   },
   {
     "id": "nb.verb.bytte",
@@ -1482,7 +1810,9 @@
     "source": "exchange",
     "difficulty": 2,
     "category": "home-and-repair",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.flytte",
@@ -1491,7 +1821,9 @@
     "source": "move (change location)",
     "difficulty": 2,
     "category": "home-and-repair",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.montere",
@@ -1500,7 +1832,9 @@
     "source": "assemble or install",
     "difficulty": 2,
     "category": "home-and-repair",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 49
   },
   {
     "id": "nb.verb.skru",
@@ -1509,7 +1843,9 @@
     "source": "turn a screw",
     "difficulty": 2,
     "category": "home-and-repair",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 27
   },
   {
     "id": "nb.verb.lime",
@@ -1518,7 +1854,9 @@
     "source": "glue",
     "difficulty": 2,
     "category": "home-and-repair",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "nb.verb.brette",
@@ -1527,7 +1865,9 @@
     "source": "fold",
     "difficulty": 2,
     "category": "home-and-repair",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "nb.verb.sy",
@@ -1536,7 +1876,9 @@
     "source": "sew",
     "difficulty": 2,
     "category": "craft-and-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "nb.verb.strikke",
@@ -1545,7 +1887,9 @@
     "source": "knit",
     "difficulty": 2,
     "category": "craft-and-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "nb.verb.hekle",
@@ -1554,7 +1898,9 @@
     "source": "crochet",
     "difficulty": 2,
     "category": "craft-and-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "nb.verb.veve",
@@ -1563,7 +1909,9 @@
     "source": "weave",
     "difficulty": 2,
     "category": "craft-and-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "nb.verb.spikke",
@@ -1572,7 +1920,9 @@
     "source": "whittle",
     "difficulty": 2,
     "category": "craft-and-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "nb.verb.sage",
@@ -1581,7 +1931,9 @@
     "source": "saw",
     "difficulty": 2,
     "category": "craft-and-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.hamre",
@@ -1590,7 +1942,9 @@
     "source": "hammer",
     "difficulty": 2,
     "category": "craft-and-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "nb.verb.bore",
@@ -1599,7 +1953,9 @@
     "source": "drill",
     "difficulty": 2,
     "category": "craft-and-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "nb.verb.maale",
@@ -1608,7 +1964,9 @@
     "source": "measure",
     "difficulty": 2,
     "category": "craft-and-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "nb.verb.forme",
@@ -1617,7 +1975,9 @@
     "source": "shape",
     "difficulty": 2,
     "category": "craft-and-making",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "nb.verb.farge",
@@ -1626,7 +1986,9 @@
     "source": "dye or colour",
     "difficulty": 2,
     "category": "craft-and-materials",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 47
   },
   {
     "id": "nb.verb.trykke",
@@ -1635,7 +1997,9 @@
     "source": "press or print",
     "difficulty": 2,
     "category": "craft-and-materials",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 61,
+    "complexity": 37
   },
   {
     "id": "nb.verb.stemple",
@@ -1644,7 +2008,9 @@
     "source": "stamp",
     "difficulty": 2,
     "category": "craft-and-materials",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "nb.verb.stifte",
@@ -1653,7 +2019,9 @@
     "source": "staple",
     "difficulty": 2,
     "category": "craft-and-materials",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "nb.verb.spikre",
@@ -1662,7 +2030,9 @@
     "source": "nail (fasten with nails)",
     "difficulty": 2,
     "category": "craft-and-materials",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "nb.verb.pusse-opp",
@@ -1671,7 +2041,9 @@
     "source": "renovate",
     "difficulty": 2,
     "category": "craft-and-materials",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.stoepe",
@@ -1680,7 +2052,9 @@
     "source": "cast (in a mould)",
     "difficulty": 2,
     "category": "craft-and-materials",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.slipe",
@@ -1689,7 +2063,9 @@
     "source": "grind or sand smooth",
     "difficulty": 2,
     "category": "craft-and-materials",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 49
   },
   {
     "id": "nb.verb.gjenbruke",
@@ -1698,7 +2074,9 @@
     "source": "reuse",
     "difficulty": 2,
     "category": "craft-and-materials",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.knuse",
@@ -1707,7 +2085,9 @@
     "source": "crush or shatter",
     "difficulty": 2,
     "category": "craft-and-materials",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 47
   },
   {
     "id": "nb.verb.skrelle",
@@ -1716,7 +2096,9 @@
     "source": "peel",
     "difficulty": 2,
     "category": "food-preparation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 78,
+    "complexity": 23
   },
   {
     "id": "nb.verb.hakke",
@@ -1725,7 +2107,9 @@
     "source": "chop",
     "difficulty": 2,
     "category": "food-preparation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.raspe",
@@ -1734,7 +2118,9 @@
     "source": "grate (food)",
     "difficulty": 2,
     "category": "food-preparation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.vispe",
@@ -1743,7 +2129,9 @@
     "source": "whisk",
     "difficulty": 2,
     "category": "food-preparation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.elte",
@@ -1752,7 +2140,9 @@
     "source": "knead",
     "difficulty": 2,
     "category": "food-preparation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "nb.verb.kjevle",
@@ -1761,7 +2151,9 @@
     "source": "roll out (dough)",
     "difficulty": 2,
     "category": "food-preparation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 31
   },
   {
     "id": "nb.verb.smoere",
@@ -1770,7 +2162,9 @@
     "source": "spread (butter or grease)",
     "difficulty": 2,
     "category": "food-preparation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "nb.verb.krydre",
@@ -1779,7 +2173,9 @@
     "source": "season (food)",
     "difficulty": 2,
     "category": "food-preparation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.salte",
@@ -1788,7 +2184,9 @@
     "source": "salt",
     "difficulty": 2,
     "category": "food-preparation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.sukre",
@@ -1797,7 +2195,9 @@
     "source": "sweeten with sugar",
     "difficulty": 2,
     "category": "food-preparation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 27
   },
   {
     "id": "nb.verb.tygge",
@@ -1806,7 +2206,9 @@
     "source": "chew",
     "difficulty": 2,
     "category": "food-and-kitchen",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.svelge",
@@ -1815,7 +2217,9 @@
     "source": "swallow",
     "difficulty": 2,
     "category": "food-and-kitchen",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "nb.verb.slikke",
@@ -1824,7 +2228,9 @@
     "source": "lick",
     "difficulty": 2,
     "category": "food-and-kitchen",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "nb.verb.bite",
@@ -1833,7 +2239,9 @@
     "source": "bite",
     "difficulty": 2,
     "category": "food-and-kitchen",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "nb.verb.mate",
@@ -1842,7 +2250,9 @@
     "source": "feed (give food to)",
     "difficulty": 2,
     "category": "food-and-kitchen",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 65,
+    "complexity": 26
   },
   {
     "id": "nb.verb.dekke",
@@ -1851,7 +2261,9 @@
     "source": "cover or set a table",
     "difficulty": 2,
     "category": "food-and-kitchen",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "nb.verb.dampe",
@@ -1860,7 +2272,9 @@
     "source": "steam",
     "difficulty": 2,
     "category": "food-and-kitchen",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.avkjoele",
@@ -1869,7 +2283,9 @@
     "source": "cool down (something)",
     "difficulty": 2,
     "category": "food-and-kitchen",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "nb.verb.varme",
@@ -1878,7 +2294,9 @@
     "source": "heat (something)",
     "difficulty": 2,
     "category": "food-and-kitchen",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.tine",
@@ -1887,7 +2305,9 @@
     "source": "thaw",
     "difficulty": 2,
     "category": "food-and-kitchen",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.klatre",
@@ -1896,7 +2316,9 @@
     "source": "climb",
     "difficulty": 2,
     "category": "movement-and-sport",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "nb.verb.krype",
@@ -1905,7 +2327,9 @@
     "source": "crawl",
     "difficulty": 2,
     "category": "movement-and-sport",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "nb.verb.krabbe",
@@ -1914,7 +2338,9 @@
     "source": "crawl on hands and knees",
     "difficulty": 2,
     "category": "movement-and-sport",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 90,
+    "complexity": 32
   },
   {
     "id": "nb.verb.snike",
@@ -1923,7 +2349,9 @@
     "source": "sneak",
     "difficulty": 2,
     "category": "movement-and-sport",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.liste-seg",
@@ -1932,7 +2360,9 @@
     "source": "tiptoe",
     "difficulty": 2,
     "category": "movement-and-sport",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.traakke",
@@ -1941,7 +2371,9 @@
     "source": "step or tread",
     "difficulty": 2,
     "category": "movement-and-sport",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "nb.verb.sparke",
@@ -1950,7 +2382,9 @@
     "source": "kick",
     "difficulty": 2,
     "category": "movement-and-sport",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "nb.verb.slaa",
@@ -1959,7 +2393,9 @@
     "source": "hit",
     "difficulty": 2,
     "category": "movement-and-sport",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.rulle",
@@ -1968,7 +2404,9 @@
     "source": "roll",
     "difficulty": 2,
     "category": "movement-and-sport",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "nb.verb.gli",
@@ -1977,7 +2415,9 @@
     "source": "slide",
     "difficulty": 2,
     "category": "movement-and-sport",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "nb.verb.seile",
@@ -1986,7 +2426,9 @@
     "source": "sail",
     "difficulty": 2,
     "category": "movement-and-sport",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.ro",
@@ -1995,7 +2437,9 @@
     "source": "row",
     "difficulty": 2,
     "category": "movement-and-sport",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "nb.verb.padle",
@@ -2004,7 +2448,9 @@
     "source": "paddle",
     "difficulty": 2,
     "category": "movement-and-sport",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.stupe",
@@ -2013,7 +2459,9 @@
     "source": "dive headfirst",
     "difficulty": 2,
     "category": "movement-and-sport",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "nb.verb.dykke",
@@ -2022,7 +2470,9 @@
     "source": "dive underwater",
     "difficulty": 2,
     "category": "movement-and-sport",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "nb.verb.skoeyte",
@@ -2031,7 +2481,9 @@
     "source": "ice-skate",
     "difficulty": 2,
     "category": "movement-and-sport",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 65,
+    "complexity": 29
   },
   {
     "id": "nb.verb.ake",
@@ -2040,7 +2492,9 @@
     "source": "sledge",
     "difficulty": 2,
     "category": "movement-and-sport",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "nb.verb.trene",
@@ -2049,7 +2503,9 @@
     "source": "train or exercise",
     "difficulty": 2,
     "category": "movement-and-sport",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 23
   },
   {
     "id": "nb.verb.jogge",
@@ -2058,7 +2514,9 @@
     "source": "jog",
     "difficulty": 2,
     "category": "movement-and-sport",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.balansere",
@@ -2067,7 +2525,9 @@
     "source": "balance",
     "difficulty": 2,
     "category": "movement-and-sport",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.saa",
@@ -2076,7 +2536,9 @@
     "source": "sow",
     "difficulty": 2,
     "category": "outdoors-and-nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "nb.verb.grave",
@@ -2085,7 +2547,9 @@
     "source": "dig",
     "difficulty": 2,
     "category": "outdoors-and-nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "nb.verb.rake",
@@ -2094,7 +2558,9 @@
     "source": "rake",
     "difficulty": 2,
     "category": "outdoors-and-nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "nb.verb.luke",
@@ -2103,7 +2569,9 @@
     "source": "weed",
     "difficulty": 2,
     "category": "outdoors-and-nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "nb.verb.gjoedsle",
@@ -2112,7 +2580,9 @@
     "source": "fertilize",
     "difficulty": 2,
     "category": "outdoors-and-nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "nb.verb.hoeste",
@@ -2121,7 +2591,9 @@
     "source": "harvest",
     "difficulty": 2,
     "category": "outdoors-and-nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "nb.verb.spire",
@@ -2130,7 +2602,9 @@
     "source": "sprout",
     "difficulty": 2,
     "category": "outdoors-and-nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "nb.verb.blomstre",
@@ -2139,7 +2613,9 @@
     "source": "bloom",
     "difficulty": 2,
     "category": "outdoors-and-nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "nb.verb.visne",
@@ -2148,7 +2624,9 @@
     "source": "wilt",
     "difficulty": 2,
     "category": "outdoors-and-nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "nb.verb.modne",
@@ -2157,7 +2635,9 @@
     "source": "ripen",
     "difficulty": 2,
     "category": "outdoors-and-nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "nb.verb.bjeffe",
@@ -2166,7 +2646,9 @@
     "source": "bark",
     "difficulty": 2,
     "category": "outdoors-and-animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "nb.verb.mjaue",
@@ -2175,7 +2657,9 @@
     "source": "meow",
     "difficulty": 2,
     "category": "outdoors-and-animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "nb.verb.kvitre",
@@ -2184,7 +2668,9 @@
     "source": "chirp",
     "difficulty": 2,
     "category": "outdoors-and-animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "nb.verb.broele",
@@ -2193,7 +2679,9 @@
     "source": "roar",
     "difficulty": 2,
     "category": "outdoors-and-animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "nb.verb.knurre",
@@ -2202,7 +2690,9 @@
     "source": "growl",
     "difficulty": 2,
     "category": "outdoors-and-animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "nb.verb.suse",
@@ -2211,7 +2701,9 @@
     "source": "whizz or make a rushing sound",
     "difficulty": 2,
     "category": "outdoors-and-animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 37
   },
   {
     "id": "nb.verb.surre",
@@ -2220,7 +2712,9 @@
     "source": "buzz",
     "difficulty": 2,
     "category": "outdoors-and-animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "nb.verb.beite",
@@ -2229,7 +2723,9 @@
     "source": "graze",
     "difficulty": 2,
     "category": "outdoors-and-animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "nb.verb.klekke",
@@ -2238,7 +2734,9 @@
     "source": "hatch",
     "difficulty": 2,
     "category": "outdoors-and-animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "nb.verb.ruge",
@@ -2247,7 +2745,9 @@
     "source": "incubate (eggs)",
     "difficulty": 2,
     "category": "outdoors-and-animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "nb.verb.lytte",
@@ -2256,7 +2756,9 @@
     "source": "listen",
     "difficulty": 2,
     "category": "communication-and-language",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "nb.verb.prate",
@@ -2265,7 +2767,9 @@
     "source": "chat",
     "difficulty": 2,
     "category": "communication-and-language",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.diskutere",
@@ -2274,7 +2778,9 @@
     "source": "discuss",
     "difficulty": 2,
     "category": "communication-and-language",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.beskrive",
@@ -2283,7 +2789,9 @@
     "source": "describe",
     "difficulty": 2,
     "category": "communication-and-language",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.oversette",
@@ -2292,7 +2800,9 @@
     "source": "translate",
     "difficulty": 2,
     "category": "communication-and-language",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "nb.verb.uttale",
@@ -2301,7 +2811,9 @@
     "source": "pronounce",
     "difficulty": 2,
     "category": "communication-and-language",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.stave",
@@ -2310,7 +2822,9 @@
     "source": "spell",
     "difficulty": 2,
     "category": "communication-and-language",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.gjenta",
@@ -2319,7 +2833,9 @@
     "source": "repeat",
     "difficulty": 2,
     "category": "communication-and-language",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 21
   },
   {
     "id": "nb.verb.nevne",
@@ -2328,7 +2844,9 @@
     "source": "mention",
     "difficulty": 2,
     "category": "communication-and-language",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.foreslaa",
@@ -2337,7 +2855,9 @@
     "source": "suggest",
     "difficulty": 2,
     "category": "communication-and-language",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 46
   },
   {
     "id": "nb.verb.love",
@@ -2346,7 +2866,9 @@
     "source": "promise",
     "difficulty": 2,
     "category": "communication-and-language",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 46
   },
   {
     "id": "nb.verb.advare",
@@ -2355,7 +2877,9 @@
     "source": "warn",
     "difficulty": 2,
     "category": "communication-and-language",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.beklage",
@@ -2364,7 +2888,9 @@
     "source": "apologize or regret",
     "difficulty": 2,
     "category": "communication-and-language",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 33
   },
   {
     "id": "nb.verb.unnskylde",
@@ -2373,7 +2899,9 @@
     "source": "excuse",
     "difficulty": 2,
     "category": "communication-and-language",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "nb.verb.tilgi",
@@ -2382,7 +2910,9 @@
     "source": "forgive",
     "difficulty": 2,
     "category": "communication-and-language",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "nb.verb.klage",
@@ -2391,7 +2921,9 @@
     "source": "complain",
     "difficulty": 2,
     "category": "communication-and-language",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "nb.verb.kreve",
@@ -2400,7 +2932,9 @@
     "source": "demand",
     "difficulty": 2,
     "category": "communication-and-language",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.nekte",
@@ -2409,7 +2943,9 @@
     "source": "refuse",
     "difficulty": 2,
     "category": "communication-and-language",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.anbefale",
@@ -2418,7 +2954,9 @@
     "source": "recommend",
     "difficulty": 2,
     "category": "communication-and-language",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 46
   },
   {
     "id": "nb.verb.avtale",
@@ -2427,7 +2965,9 @@
     "source": "arrange (agree on)",
     "difficulty": 2,
     "category": "communication-and-language",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "nb.verb.oppdage",
@@ -2436,7 +2976,9 @@
     "source": "discover",
     "difficulty": 2,
     "category": "thinking-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.merke",
@@ -2445,7 +2987,9 @@
     "source": "notice",
     "difficulty": 2,
     "category": "thinking-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "nb.verb.gjenkjenne",
@@ -2454,7 +2998,9 @@
     "source": "recognize",
     "difficulty": 2,
     "category": "thinking-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.gjette",
@@ -2463,7 +3009,9 @@
     "source": "guess",
     "difficulty": 2,
     "category": "thinking-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "nb.verb.undersoeke",
@@ -2472,7 +3020,9 @@
     "source": "investigate",
     "difficulty": 2,
     "category": "thinking-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 46
   },
   {
     "id": "nb.verb.sammenligne",
@@ -2481,7 +3031,9 @@
     "source": "compare",
     "difficulty": 2,
     "category": "thinking-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 46
   },
   {
     "id": "nb.verb.vurdere",
@@ -2490,7 +3042,9 @@
     "source": "assess",
     "difficulty": 2,
     "category": "thinking-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "nb.verb.bestemme",
@@ -2499,7 +3053,9 @@
     "source": "decide",
     "difficulty": 2,
     "category": "thinking-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 46
   },
   {
     "id": "nb.verb.loese",
@@ -2508,7 +3064,9 @@
     "source": "solve",
     "difficulty": 2,
     "category": "thinking-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 46
   },
   {
     "id": "nb.verb.bevise",
@@ -2517,7 +3075,9 @@
     "source": "prove",
     "difficulty": 2,
     "category": "thinking-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 46
   },
   {
     "id": "nb.verb.studere",
@@ -2526,7 +3086,9 @@
     "source": "study",
     "difficulty": 2,
     "category": "thinking-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 73,
+    "complexity": 21
   },
   {
     "id": "nb.verb.undervise",
@@ -2535,7 +3097,9 @@
     "source": "teach",
     "difficulty": 2,
     "category": "thinking-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.kjenne",
@@ -2544,7 +3108,9 @@
     "source": "know (be familiar with)",
     "difficulty": 2,
     "category": "thinking-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 15
   },
   {
     "id": "nb.verb.notere",
@@ -2553,7 +3119,9 @@
     "source": "note down",
     "difficulty": 2,
     "category": "thinking-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 29
   },
   {
     "id": "nb.verb.rette",
@@ -2562,7 +3130,9 @@
     "source": "correct",
     "difficulty": 2,
     "category": "thinking-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 90,
+    "complexity": 22
   },
   {
     "id": "nb.verb.feile",
@@ -2571,7 +3141,9 @@
     "source": "fail or make an error",
     "difficulty": 2,
     "category": "thinking-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "nb.verb.mene",
@@ -2580,7 +3152,9 @@
     "source": "mean (hold an opinion)",
     "difficulty": 2,
     "category": "thinking-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 46
   },
   {
     "id": "nb.verb.anta",
@@ -2589,7 +3163,9 @@
     "source": "assume",
     "difficulty": 2,
     "category": "thinking-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 46
   },
   {
     "id": "nb.verb.gruble",
@@ -2598,7 +3174,9 @@
     "source": "ponder",
     "difficulty": 2,
     "category": "thinking-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.forestille-seg",
@@ -2607,7 +3185,9 @@
     "source": "imagine",
     "difficulty": 2,
     "category": "thinking-and-learning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 46
   },
   {
     "id": "nb.verb.savne",
@@ -2616,7 +3196,9 @@
     "source": "miss (feel someone's absence)",
     "difficulty": 2,
     "category": "feelings-and-reactions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 34
   },
   {
     "id": "nb.verb.angre",
@@ -2625,7 +3207,9 @@
     "source": "regret (a choice)",
     "difficulty": 2,
     "category": "feelings-and-reactions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "nb.verb.grue-seg",
@@ -2634,7 +3218,9 @@
     "source": "dread",
     "difficulty": 2,
     "category": "feelings-and-reactions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "nb.verb.glede-seg",
@@ -2643,7 +3229,9 @@
     "source": "look forward to or feel pleased",
     "difficulty": 2,
     "category": "feelings-and-reactions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 49
   },
   {
     "id": "nb.verb.bekymre-seg",
@@ -2652,7 +3240,9 @@
     "source": "worry",
     "difficulty": 2,
     "category": "feelings-and-reactions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 34
   },
   {
     "id": "nb.verb.slappe-av",
@@ -2661,7 +3251,9 @@
     "source": "relax",
     "difficulty": 2,
     "category": "feelings-and-reactions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 34
   },
   {
     "id": "nb.verb.kose-seg",
@@ -2670,7 +3262,9 @@
     "source": "enjoy oneself",
     "difficulty": 2,
     "category": "feelings-and-reactions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "nb.verb.undre-seg",
@@ -2679,7 +3273,9 @@
     "source": "wonder",
     "difficulty": 2,
     "category": "feelings-and-reactions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "nb.verb.skamme-seg",
@@ -2688,7 +3284,9 @@
     "source": "feel ashamed",
     "difficulty": 2,
     "category": "feelings-and-reactions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "nb.verb.kjede-seg",
@@ -2697,7 +3295,9 @@
     "source": "be bored",
     "difficulty": 2,
     "category": "feelings-and-reactions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 32
   },
   {
     "id": "nb.verb.irritere",
@@ -2706,7 +3306,9 @@
     "source": "annoy",
     "difficulty": 2,
     "category": "feelings-and-reactions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.overraske",
@@ -2715,7 +3317,9 @@
     "source": "surprise",
     "difficulty": 2,
     "category": "feelings-and-reactions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 34
   },
   {
     "id": "nb.verb.skremme",
@@ -2724,7 +3328,9 @@
     "source": "frighten",
     "difficulty": 2,
     "category": "feelings-and-reactions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.troeste",
@@ -2733,7 +3339,9 @@
     "source": "comfort",
     "difficulty": 2,
     "category": "feelings-and-reactions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "nb.verb.roe",
@@ -2742,7 +3350,9 @@
     "source": "calm (someone)",
     "difficulty": 2,
     "category": "feelings-and-reactions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 34
   },
   {
     "id": "nb.verb.more",
@@ -2751,7 +3361,9 @@
     "source": "amuse",
     "difficulty": 2,
     "category": "feelings-and-reactions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.imponere",
@@ -2760,7 +3372,9 @@
     "source": "impress",
     "difficulty": 2,
     "category": "feelings-and-reactions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "nb.verb.saare",
@@ -2769,7 +3383,9 @@
     "source": "hurt (someone's feelings)",
     "difficulty": 2,
     "category": "feelings-and-reactions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "nb.verb.stole-paa",
@@ -2778,7 +3394,9 @@
     "source": "trust",
     "difficulty": 2,
     "category": "feelings-and-reactions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 34
   },
   {
     "id": "nb.verb.respektere",
@@ -2787,7 +3405,9 @@
     "source": "respect",
     "difficulty": 2,
     "category": "feelings-and-reactions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "nb.verb.arbeide",
@@ -2796,7 +3416,9 @@
     "source": "work",
     "difficulty": 2,
     "category": "work-and-organization",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "nb.verb.ansette",
@@ -2805,7 +3427,9 @@
     "source": "hire (an employee)",
     "difficulty": 2,
     "category": "work-and-organization",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.soeke",
@@ -2814,7 +3438,9 @@
     "source": "apply or seek",
     "difficulty": 2,
     "category": "work-and-organization",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 37
   },
   {
     "id": "nb.verb.tjene",
@@ -2823,7 +3449,9 @@
     "source": "earn or serve",
     "difficulty": 2,
     "category": "work-and-organization",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 34
   },
   {
     "id": "nb.verb.lede",
@@ -2832,7 +3460,9 @@
     "source": "lead",
     "difficulty": 2,
     "category": "work-and-organization",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.organisere",
@@ -2841,7 +3471,9 @@
     "source": "organize",
     "difficulty": 2,
     "category": "work-and-organization",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 26
   },
   {
     "id": "nb.verb.ordne",
@@ -2850,7 +3482,9 @@
     "source": "arrange (put in order)",
     "difficulty": 2,
     "category": "work-and-organization",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "nb.verb.delta",
@@ -2859,7 +3493,9 @@
     "source": "participate",
     "difficulty": 2,
     "category": "work-and-organization",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "nb.verb.samarbeide",
@@ -2868,7 +3504,9 @@
     "source": "cooperate",
     "difficulty": 2,
     "category": "work-and-organization",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 42
   },
   {
     "id": "nb.verb.stoette",
@@ -2877,7 +3515,9 @@
     "source": "support",
     "difficulty": 2,
     "category": "work-and-organization",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "nb.verb.produsere",
@@ -2886,7 +3526,9 @@
     "source": "produce",
     "difficulty": 2,
     "category": "work-and-organization",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.utvikle",
@@ -2895,7 +3537,9 @@
     "source": "develop",
     "difficulty": 2,
     "category": "work-and-organization",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.forbedre",
@@ -2904,7 +3548,9 @@
     "source": "improve",
     "difficulty": 2,
     "category": "work-and-organization",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 26
   },
   {
     "id": "nb.verb.forandre",
@@ -2913,7 +3559,9 @@
     "source": "change (alter)",
     "difficulty": 2,
     "category": "work-and-organization",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 38
   },
   {
     "id": "nb.verb.kontrollere",
@@ -2922,7 +3570,9 @@
     "source": "check or control",
     "difficulty": 2,
     "category": "work-and-organization",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 29
   },
   {
     "id": "nb.verb.godkjenne",
@@ -2931,7 +3581,9 @@
     "source": "approve",
     "difficulty": 2,
     "category": "work-and-organization",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.avslaa",
@@ -2940,7 +3592,9 @@
     "source": "reject (a request)",
     "difficulty": 2,
     "category": "work-and-organization",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.avlyse",
@@ -2949,7 +3603,9 @@
     "source": "cancel (an event)",
     "difficulty": 2,
     "category": "work-and-organization",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 83,
+    "complexity": 25
   },
   {
     "id": "nb.verb.utsette",
@@ -2958,7 +3614,9 @@
     "source": "postpone",
     "difficulty": 2,
     "category": "work-and-organization",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 83,
+    "complexity": 25
   },
   {
     "id": "nb.verb.erstatte",
@@ -2967,7 +3625,9 @@
     "source": "replace",
     "difficulty": 2,
     "category": "work-and-organization",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "nb.verb.klikke",
@@ -2976,7 +3636,9 @@
     "source": "click",
     "difficulty": 2,
     "category": "digital-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.lagre",
@@ -2985,7 +3647,9 @@
     "source": "save (data)",
     "difficulty": 2,
     "category": "digital-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 61,
+    "complexity": 21
   },
   {
     "id": "nb.verb.slette",
@@ -2994,7 +3658,9 @@
     "source": "delete",
     "difficulty": 2,
     "category": "digital-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.kopiere",
@@ -3003,7 +3669,9 @@
     "source": "copy",
     "difficulty": 2,
     "category": "digital-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.installere",
@@ -3012,7 +3680,9 @@
     "source": "install (software)",
     "difficulty": 2,
     "category": "digital-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 61,
+    "complexity": 29
   },
   {
     "id": "nb.verb.oppdatere",
@@ -3021,7 +3691,9 @@
     "source": "update",
     "difficulty": 2,
     "category": "digital-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 72,
+    "complexity": 27
   },
   {
     "id": "nb.verb.programmere",
@@ -3030,7 +3702,9 @@
     "source": "program",
     "difficulty": 2,
     "category": "digital-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.surfe",
@@ -3039,7 +3713,9 @@
     "source": "surf (the web or waves)",
     "difficulty": 2,
     "category": "digital-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 37
   },
   {
     "id": "nb.verb.skanne",
@@ -3048,7 +3724,9 @@
     "source": "scan",
     "difficulty": 2,
     "category": "digital-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.laste-ned",
@@ -3057,7 +3735,9 @@
     "source": "download",
     "difficulty": 2,
     "category": "digital-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 61,
+    "complexity": 46
   },
   {
     "id": "nb.verb.krangle",
@@ -3066,7 +3746,9 @@
     "source": "argue (quarrel)",
     "difficulty": 2,
     "category": "relationships-and-community",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.erte",
@@ -3075,7 +3757,9 @@
     "source": "tease",
     "difficulty": 2,
     "category": "relationships-and-community",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.mobbe",
@@ -3084,7 +3768,9 @@
     "source": "bully",
     "difficulty": 2,
     "category": "relationships-and-community",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.omfavne",
@@ -3093,7 +3779,9 @@
     "source": "embrace",
     "difficulty": 2,
     "category": "relationships-and-community",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "nb.verb.klemme",
@@ -3102,7 +3790,9 @@
     "source": "squeeze",
     "difficulty": 2,
     "category": "relationships-and-community",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.gifte-seg",
@@ -3111,7 +3801,9 @@
     "source": "get married",
     "difficulty": 2,
     "category": "relationships-and-community",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "nb.verb.skille-seg",
@@ -3120,7 +3812,9 @@
     "source": "get divorced",
     "difficulty": 2,
     "category": "relationships-and-community",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "nb.verb.feire",
@@ -3129,7 +3823,9 @@
     "source": "celebrate",
     "difficulty": 2,
     "category": "relationships-and-community",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "nb.verb.gratulere",
@@ -3138,7 +3834,9 @@
     "source": "congratulate",
     "difficulty": 2,
     "category": "relationships-and-community",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "nb.verb.oppdra",
@@ -3147,7 +3845,9 @@
     "source": "raise (a child)",
     "difficulty": 2,
     "category": "relationships-and-community",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "nb.verb.handle",
@@ -3156,7 +3856,9 @@
     "source": "shop",
     "difficulty": 2,
     "category": "shopping-and-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 81,
+    "complexity": 21
   },
   {
     "id": "nb.verb.spare",
@@ -3165,7 +3867,9 @@
     "source": "save (money or resources)",
     "difficulty": 2,
     "category": "shopping-and-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 61,
+    "complexity": 29
   },
   {
     "id": "nb.verb.skylde",
@@ -3174,7 +3878,9 @@
     "source": "owe",
     "difficulty": 2,
     "category": "shopping-and-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.veksle",
@@ -3183,7 +3889,9 @@
     "source": "change (money)",
     "difficulty": 2,
     "category": "shopping-and-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 38
   },
   {
     "id": "nb.verb.leie",
@@ -3192,7 +3900,9 @@
     "source": "rent",
     "difficulty": 2,
     "category": "shopping-and-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.reservere",
@@ -3201,7 +3911,9 @@
     "source": "reserve",
     "difficulty": 2,
     "category": "shopping-and-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "nb.verb.returnere",
@@ -3210,7 +3922,9 @@
     "source": "return (send or go back)",
     "difficulty": 2,
     "category": "shopping-and-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 29
   },
   {
     "id": "nb.verb.motta",
@@ -3219,7 +3933,9 @@
     "source": "receive",
     "difficulty": 2,
     "category": "shopping-and-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.tilby",
@@ -3228,7 +3944,9 @@
     "source": "offer",
     "difficulty": 2,
     "category": "shopping-and-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.prute",
@@ -3237,7 +3955,9 @@
     "source": "haggle",
     "difficulty": 2,
     "category": "shopping-and-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.bloe",
@@ -3246,7 +3966,9 @@
     "source": "bleed",
     "difficulty": 2,
     "category": "body-and-health",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.skjelve",
@@ -3255,7 +3977,9 @@
     "source": "tremble",
     "difficulty": 2,
     "category": "body-and-health",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "nb.verb.gjespe",
@@ -3264,7 +3988,9 @@
     "source": "yawn",
     "difficulty": 2,
     "category": "body-and-health",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.snorke",
@@ -3273,7 +3999,9 @@
     "source": "snore",
     "difficulty": 2,
     "category": "body-and-health",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.halte",
@@ -3282,7 +4010,9 @@
     "source": "limp",
     "difficulty": 2,
     "category": "body-and-health",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.strekke",
@@ -3291,7 +4021,9 @@
     "source": "stretch",
     "difficulty": 2,
     "category": "body-and-health",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.boeye",
@@ -3300,7 +4032,9 @@
     "source": "bend",
     "difficulty": 2,
     "category": "body-and-health",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.kloe",
@@ -3309,7 +4043,9 @@
     "source": "itch or scratch",
     "difficulty": 2,
     "category": "body-and-health",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "nb.verb.sovne",
@@ -3318,7 +4054,9 @@
     "source": "fall asleep",
     "difficulty": 2,
     "category": "body-and-health",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "nb.verb.hikke",
@@ -3327,7 +4065,9 @@
     "source": "hiccup",
     "difficulty": 2,
     "category": "body-and-health",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.fotografere",
@@ -3336,7 +4076,9 @@
     "source": "photograph",
     "difficulty": 2,
     "category": "arts-and-media",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "nb.verb.filme",
@@ -3345,7 +4087,9 @@
     "source": "film",
     "difficulty": 2,
     "category": "arts-and-media",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "nb.verb.opptre",
@@ -3354,7 +4098,9 @@
     "source": "perform (on stage)",
     "difficulty": 2,
     "category": "arts-and-media",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.spoeke",
@@ -3363,7 +4109,9 @@
     "source": "joke",
     "difficulty": 2,
     "category": "arts-and-media",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.forberede",
@@ -3372,7 +4120,9 @@
     "source": "prepare",
     "difficulty": 2,
     "category": "work-and-organization",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 26
   },
   {
     "id": "nb.verb.fortolke",
@@ -3381,7 +4131,9 @@
     "source": "interpret (a work or meaning)",
     "difficulty": 2,
     "category": "arts-and-media",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 54
   },
   {
     "id": "nb.verb.komponere",
@@ -3390,7 +4142,9 @@
     "source": "compose (music)",
     "difficulty": 2,
     "category": "arts-and-media",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "nb.verb.dirigere",
@@ -3399,7 +4153,9 @@
     "source": "conduct (an orchestra)",
     "difficulty": 2,
     "category": "arts-and-media",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.publisere",
@@ -3408,7 +4164,9 @@
     "source": "publish",
     "difficulty": 2,
     "category": "arts-and-media",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.redigere",
@@ -3417,7 +4175,9 @@
     "source": "edit",
     "difficulty": 2,
     "category": "arts-and-media",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.ankomme",
@@ -3426,7 +4186,9 @@
     "source": "arrive",
     "difficulty": 2,
     "category": "travel-and-direction",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.lande",
@@ -3435,7 +4197,9 @@
     "source": "land (an aircraft)",
     "difficulty": 2,
     "category": "travel-and-direction",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.parkere",
@@ -3444,7 +4208,9 @@
     "source": "park",
     "difficulty": 2,
     "category": "travel-and-direction",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 65,
+    "complexity": 26
   },
   {
     "id": "nb.verb.passere",
@@ -3453,7 +4219,9 @@
     "source": "pass (go past)",
     "difficulty": 2,
     "category": "travel-and-direction",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "nb.verb.krysse",
@@ -3462,7 +4230,9 @@
     "source": "cross",
     "difficulty": 2,
     "category": "travel-and-direction",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.svinge",
@@ -3471,7 +4241,9 @@
     "source": "turn (change direction)",
     "difficulty": 2,
     "category": "travel-and-direction",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.bremse",
@@ -3480,7 +4252,9 @@
     "source": "brake",
     "difficulty": 2,
     "category": "travel-and-direction",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.kollidere",
@@ -3489,7 +4263,9 @@
     "source": "collide",
     "difficulty": 2,
     "category": "travel-and-direction",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.overnatte",
@@ -3498,7 +4274,9 @@
     "source": "stay overnight",
     "difficulty": 2,
     "category": "travel-and-direction",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "nb.verb.orientere-seg",
@@ -3507,7 +4285,9 @@
     "source": "find one's bearings",
     "difficulty": 2,
     "category": "travel-and-direction",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 35
   },
   {
     "id": "nb.verb.slippe",
@@ -3516,7 +4296,9 @@
     "source": "let go",
     "difficulty": 2,
     "category": "objects-and-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "nb.verb.gripe",
@@ -3525,7 +4307,9 @@
     "source": "grasp",
     "difficulty": 2,
     "category": "objects-and-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.strekke-seg",
@@ -3534,7 +4318,9 @@
     "source": "reach out",
     "difficulty": 2,
     "category": "objects-and-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "nb.verb.treffe",
@@ -3543,7 +4329,9 @@
     "source": "hit (a target)",
     "difficulty": 2,
     "category": "objects-and-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.skjule",
@@ -3552,7 +4340,9 @@
     "source": "hide (something)",
     "difficulty": 2,
     "category": "objects-and-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.gjemme",
@@ -3561,7 +4351,9 @@
     "source": "hide away (stash)",
     "difficulty": 2,
     "category": "objects-and-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 32
   },
   {
     "id": "nb.verb.samle",
@@ -3570,7 +4362,9 @@
     "source": "collect",
     "difficulty": 2,
     "category": "objects-and-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "nb.verb.spre",
@@ -3579,7 +4373,9 @@
     "source": "spread (scatter)",
     "difficulty": 2,
     "category": "objects-and-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.binde",
@@ -3588,7 +4384,9 @@
     "source": "tie",
     "difficulty": 2,
     "category": "objects-and-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "nb.verb.knyte",
@@ -3597,7 +4395,9 @@
     "source": "tie a knot",
     "difficulty": 2,
     "category": "objects-and-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 37
   },
   {
     "id": "nb.verb.analysere",
@@ -3606,7 +4406,9 @@
     "source": "analyse",
     "difficulty": 3,
     "category": "reasoning-and-evidence",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.argumentere",
@@ -3615,7 +4417,9 @@
     "source": "argue (give reasons)",
     "difficulty": 3,
     "category": "reasoning-and-evidence",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.begrunne",
@@ -3624,7 +4428,9 @@
     "source": "justify",
     "difficulty": 3,
     "category": "reasoning-and-evidence",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 63
   },
   {
     "id": "nb.verb.konkludere",
@@ -3633,7 +4439,9 @@
     "source": "conclude",
     "difficulty": 3,
     "category": "reasoning-and-evidence",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.definere",
@@ -3642,7 +4450,9 @@
     "source": "define",
     "difficulty": 3,
     "category": "reasoning-and-evidence",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.avgrense",
@@ -3651,7 +4461,9 @@
     "source": "delimit",
     "difficulty": 3,
     "category": "reasoning-and-evidence",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.skille",
@@ -3660,7 +4472,9 @@
     "source": "distinguish or separate",
     "difficulty": 3,
     "category": "reasoning-and-evidence",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 54
   },
   {
     "id": "nb.verb.tolke",
@@ -3669,7 +4483,9 @@
     "source": "interpret orally (between languages)",
     "difficulty": 3,
     "category": "reasoning-and-evidence",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 49
   },
   {
     "id": "nb.verb.tvile",
@@ -3678,7 +4494,9 @@
     "source": "doubt (be uncertain)",
     "difficulty": 3,
     "category": "reasoning-and-evidence",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.forutsette",
@@ -3687,7 +4505,9 @@
     "source": "presuppose",
     "difficulty": 3,
     "category": "reasoning-and-evidence",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.bekrefte",
@@ -3696,7 +4516,9 @@
     "source": "confirm",
     "difficulty": 3,
     "category": "reasoning-and-evidence",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "nb.verb.avkrefte",
@@ -3705,7 +4527,9 @@
     "source": "disprove",
     "difficulty": 3,
     "category": "reasoning-and-evidence",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.tilbakevise",
@@ -3714,7 +4538,9 @@
     "source": "refute",
     "difficulty": 3,
     "category": "reasoning-and-evidence",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.paavise",
@@ -3723,7 +4549,9 @@
     "source": "demonstrate (establish evidence of)",
     "difficulty": 3,
     "category": "reasoning-and-evidence",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "nb.verb.paastaa",
@@ -3732,7 +4560,9 @@
     "source": "claim",
     "difficulty": 3,
     "category": "reasoning-and-evidence",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.avgjoere",
@@ -3741,7 +4571,9 @@
     "source": "decide (settle a question)",
     "difficulty": 3,
     "category": "reasoning-and-evidence",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 46
   },
   {
     "id": "nb.verb.antyde",
@@ -3750,7 +4582,9 @@
     "source": "hint",
     "difficulty": 3,
     "category": "reasoning-and-evidence",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.utlede",
@@ -3759,7 +4593,9 @@
     "source": "deduce",
     "difficulty": 3,
     "category": "reasoning-and-evidence",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "nb.verb.anslaa",
@@ -3768,7 +4604,9 @@
     "source": "estimate",
     "difficulty": 3,
     "category": "reasoning-and-evidence",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 46
   },
   {
     "id": "nb.verb.beregne",
@@ -3777,7 +4615,9 @@
     "source": "compute (a quantity)",
     "difficulty": 3,
     "category": "reasoning-and-evidence",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.prioritere",
@@ -3786,7 +4626,9 @@
     "source": "prioritize",
     "difficulty": 3,
     "category": "planning-and-resources",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "nb.verb.fordele",
@@ -3795,7 +4637,9 @@
     "source": "distribute",
     "difficulty": 3,
     "category": "planning-and-resources",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.tilpasse",
@@ -3804,7 +4648,9 @@
     "source": "adapt",
     "difficulty": 3,
     "category": "planning-and-resources",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "nb.verb.samordne",
@@ -3813,7 +4659,9 @@
     "source": "coordinate",
     "difficulty": 3,
     "category": "planning-and-resources",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.oppnaa",
@@ -3822,7 +4670,9 @@
     "source": "achieve",
     "difficulty": 3,
     "category": "planning-and-resources",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.gjennomfoere",
@@ -3831,7 +4681,9 @@
     "source": "carry out",
     "difficulty": 3,
     "category": "planning-and-resources",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 38
   },
   {
     "id": "nb.verb.fullfoere",
@@ -3840,7 +4692,9 @@
     "source": "complete",
     "difficulty": 3,
     "category": "planning-and-resources",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 26
   },
   {
     "id": "nb.verb.avbryte",
@@ -3849,7 +4703,9 @@
     "source": "interrupt",
     "difficulty": 3,
     "category": "planning-and-resources",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "nb.verb.begrense",
@@ -3858,7 +4714,9 @@
     "source": "limit",
     "difficulty": 3,
     "category": "planning-and-resources",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 57,
+    "complexity": 36
   },
   {
     "id": "nb.verb.utvide",
@@ -3867,7 +4725,9 @@
     "source": "expand",
     "difficulty": 3,
     "category": "planning-and-resources",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.redusere",
@@ -3876,7 +4736,9 @@
     "source": "reduce",
     "difficulty": 3,
     "category": "planning-and-resources",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.oeke",
@@ -3885,7 +4747,9 @@
     "source": "increase",
     "difficulty": 3,
     "category": "planning-and-resources",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.bevare",
@@ -3894,7 +4758,9 @@
     "source": "preserve",
     "difficulty": 3,
     "category": "planning-and-resources",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.vedlikeholde",
@@ -3903,7 +4769,9 @@
     "source": "maintain",
     "difficulty": 3,
     "category": "planning-and-resources",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.forvalte",
@@ -3912,7 +4780,9 @@
     "source": "manage (resources)",
     "difficulty": 3,
     "category": "planning-and-resources",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.utnytte",
@@ -3921,7 +4791,9 @@
     "source": "utilize or exploit",
     "difficulty": 3,
     "category": "planning-and-resources",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 37
   },
   {
     "id": "nb.verb.sloese",
@@ -3930,7 +4802,9 @@
     "source": "waste (resources)",
     "difficulty": 3,
     "category": "planning-and-resources",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.mangle",
@@ -3939,7 +4813,9 @@
     "source": "lack",
     "difficulty": 3,
     "category": "planning-and-resources",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.inneholde",
@@ -3948,7 +4824,9 @@
     "source": "contain",
     "difficulty": 3,
     "category": "planning-and-resources",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.omfatte",
@@ -3957,7 +4835,9 @@
     "source": "encompass",
     "difficulty": 3,
     "category": "planning-and-resources",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.stemme",
@@ -3966,7 +4846,9 @@
     "source": "vote",
     "difficulty": 3,
     "category": "society-and-rules",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.samtykke",
@@ -3975,7 +4857,9 @@
     "source": "consent",
     "difficulty": 3,
     "category": "society-and-rules",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.foreskrive",
@@ -3984,7 +4868,9 @@
     "source": "prescribe",
     "difficulty": 3,
     "category": "society-and-rules",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.forby",
@@ -3993,7 +4879,9 @@
     "source": "prohibit",
     "difficulty": 3,
     "category": "society-and-rules",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.tillate",
@@ -4002,7 +4890,9 @@
     "source": "permit",
     "difficulty": 3,
     "category": "society-and-rules",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 57,
+    "complexity": 46
   },
   {
     "id": "nb.verb.regulere",
@@ -4011,7 +4901,9 @@
     "source": "regulate",
     "difficulty": 3,
     "category": "society-and-rules",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.vedta",
@@ -4020,7 +4912,9 @@
     "source": "adopt (a resolution)",
     "difficulty": 3,
     "category": "society-and-rules",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.oppheve",
@@ -4029,7 +4923,9 @@
     "source": "repeal or lift (a rule)",
     "difficulty": 3,
     "category": "society-and-rules",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 37
   },
   {
     "id": "nb.verb.overholde",
@@ -4038,7 +4934,9 @@
     "source": "comply with",
     "difficulty": 3,
     "category": "society-and-rules",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 24
   },
   {
     "id": "nb.verb.bryte",
@@ -4047,7 +4945,9 @@
     "source": "break (a rule or object)",
     "difficulty": 3,
     "category": "society-and-rules",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 37
   },
   {
     "id": "nb.verb.beskytte",
@@ -4056,7 +4956,9 @@
     "source": "protect",
     "difficulty": 3,
     "category": "society-and-rights",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "nb.verb.forsvare",
@@ -4065,7 +4967,9 @@
     "source": "defend",
     "difficulty": 3,
     "category": "society-and-rights",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.angripe",
@@ -4074,7 +4978,9 @@
     "source": "attack",
     "difficulty": 3,
     "category": "society-and-rights",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.anklage",
@@ -4083,7 +4989,9 @@
     "source": "accuse",
     "difficulty": 3,
     "category": "society-and-rights",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.doemme",
@@ -4092,7 +5000,9 @@
     "source": "judge (in court)",
     "difficulty": 3,
     "category": "society-and-rights",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.frikjenne",
@@ -4101,7 +5011,9 @@
     "source": "acquit",
     "difficulty": 3,
     "category": "society-and-rights",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.vitne",
@@ -4110,7 +5022,9 @@
     "source": "testify",
     "difficulty": 3,
     "category": "society-and-rights",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.etterforske",
@@ -4119,7 +5033,9 @@
     "source": "investigate (a crime)",
     "difficulty": 3,
     "category": "society-and-rights",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 46
   },
   {
     "id": "nb.verb.arrestere",
@@ -4128,7 +5044,9 @@
     "source": "arrest",
     "difficulty": 3,
     "category": "society-and-rights",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.anmelde",
@@ -4137,7 +5055,9 @@
     "source": "report (to the police)",
     "difficulty": 3,
     "category": "society-and-rights",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "nb.verb.forhandle",
@@ -4146,7 +5066,9 @@
     "source": "negotiate",
     "difficulty": 3,
     "category": "social-action",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 63
   },
   {
     "id": "nb.verb.overtale",
@@ -4155,7 +5077,9 @@
     "source": "persuade",
     "difficulty": 3,
     "category": "social-action",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 60
   },
   {
     "id": "nb.verb.overbevise",
@@ -4164,7 +5088,9 @@
     "source": "convince",
     "difficulty": 3,
     "category": "social-action",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "nb.verb.oppmuntre",
@@ -4173,7 +5099,9 @@
     "source": "encourage",
     "difficulty": 3,
     "category": "social-action",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "nb.verb.motivere",
@@ -4182,7 +5110,9 @@
     "source": "motivate",
     "difficulty": 3,
     "category": "social-action",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "nb.verb.inspirere",
@@ -4191,7 +5121,9 @@
     "source": "inspire",
     "difficulty": 3,
     "category": "social-action",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "nb.verb.paavirke",
@@ -4200,7 +5132,9 @@
     "source": "influence",
     "difficulty": 3,
     "category": "social-action",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "nb.verb.engasjere",
@@ -4209,7 +5143,9 @@
     "source": "engage",
     "difficulty": 3,
     "category": "social-action",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "nb.verb.involvere",
@@ -4218,7 +5154,9 @@
     "source": "involve",
     "difficulty": 3,
     "category": "social-action",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "nb.verb.inkludere",
@@ -4227,7 +5165,9 @@
     "source": "include",
     "difficulty": 3,
     "category": "social-action",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "nb.verb.utelukke",
@@ -4236,7 +5176,9 @@
     "source": "exclude",
     "difficulty": 3,
     "category": "social-action",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.forene",
@@ -4245,7 +5187,9 @@
     "source": "unite",
     "difficulty": 3,
     "category": "social-action",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.forsone",
@@ -4254,7 +5198,9 @@
     "source": "reconcile",
     "difficulty": 3,
     "category": "social-action",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "nb.verb.megle",
@@ -4263,7 +5209,9 @@
     "source": "mediate",
     "difficulty": 3,
     "category": "social-action",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.protestere",
@@ -4272,7 +5220,9 @@
     "source": "protest",
     "difficulty": 3,
     "category": "social-action",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.demonstrere",
@@ -4281,7 +5231,9 @@
     "source": "demonstrate (protest publicly)",
     "difficulty": 3,
     "category": "social-action",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "nb.verb.boikotte",
@@ -4290,7 +5242,9 @@
     "source": "boycott",
     "difficulty": 3,
     "category": "social-action",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.donere",
@@ -4299,7 +5253,9 @@
     "source": "donate",
     "difficulty": 3,
     "category": "social-action",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "nb.verb.bidra",
@@ -4308,7 +5264,9 @@
     "source": "contribute",
     "difficulty": 3,
     "category": "social-action",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.anerkjenne",
@@ -4317,7 +5275,9 @@
     "source": "recognize (accept as valid)",
     "difficulty": 3,
     "category": "social-action",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.observere",
@@ -4326,7 +5286,9 @@
     "source": "observe",
     "difficulty": 3,
     "category": "science-and-observation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "nb.verb.registrere",
@@ -4335,7 +5297,9 @@
     "source": "register or record",
     "difficulty": 3,
     "category": "science-and-observation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 57,
+    "complexity": 54
   },
   {
     "id": "nb.verb.dokumentere",
@@ -4344,7 +5308,9 @@
     "source": "document",
     "difficulty": 3,
     "category": "science-and-observation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 61,
+    "complexity": 46
   },
   {
     "id": "nb.verb.eksperimentere",
@@ -4353,7 +5319,9 @@
     "source": "experiment",
     "difficulty": 3,
     "category": "science-and-observation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "nb.verb.teste",
@@ -4362,7 +5330,9 @@
     "source": "test",
     "difficulty": 3,
     "category": "science-and-observation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 26
   },
   {
     "id": "nb.verb.forske",
@@ -4371,7 +5341,9 @@
     "source": "research",
     "difficulty": 3,
     "category": "science-and-observation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.utforske",
@@ -4380,7 +5352,9 @@
     "source": "explore",
     "difficulty": 3,
     "category": "science-and-observation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "nb.verb.oppfinne",
@@ -4389,7 +5363,9 @@
     "source": "invent",
     "difficulty": 3,
     "category": "science-and-observation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "nb.verb.klassifisere",
@@ -4398,7 +5374,9 @@
     "source": "classify",
     "difficulty": 3,
     "category": "science-and-observation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "nb.verb.identifisere",
@@ -4407,7 +5385,9 @@
     "source": "identify",
     "difficulty": 3,
     "category": "science-and-observation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.fordampe",
@@ -4416,7 +5396,9 @@
     "source": "evaporate",
     "difficulty": 3,
     "category": "science-and-processes",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "nb.verb.kondensere",
@@ -4425,7 +5407,9 @@
     "source": "condense",
     "difficulty": 3,
     "category": "science-and-processes",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "nb.verb.opploese",
@@ -4434,7 +5418,9 @@
     "source": "dissolve",
     "difficulty": 3,
     "category": "science-and-processes",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "nb.verb.reagere",
@@ -4443,7 +5429,9 @@
     "source": "react",
     "difficulty": 3,
     "category": "science-and-processes",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.rotere",
@@ -4452,7 +5440,9 @@
     "source": "rotate",
     "difficulty": 3,
     "category": "science-and-processes",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.vibrere",
@@ -4461,7 +5451,9 @@
     "source": "vibrate",
     "difficulty": 3,
     "category": "science-and-processes",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.reflektere",
@@ -4470,7 +5462,9 @@
     "source": "reflect (light or sound)",
     "difficulty": 3,
     "category": "science-and-processes",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 68
   },
   {
     "id": "nb.verb.absorbere",
@@ -4479,7 +5473,9 @@
     "source": "absorb",
     "difficulty": 3,
     "category": "science-and-processes",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.utstraale",
@@ -4488,7 +5484,9 @@
     "source": "radiate",
     "difficulty": 3,
     "category": "science-and-processes",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.utvide-seg",
@@ -4497,7 +5495,9 @@
     "source": "expand (grow in size)",
     "difficulty": 3,
     "category": "science-and-processes",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.forurense",
@@ -4506,7 +5506,9 @@
     "source": "pollute",
     "difficulty": 3,
     "category": "nature-and-environment",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.resirkulere",
@@ -4515,7 +5517,9 @@
     "source": "recycle",
     "difficulty": 3,
     "category": "nature-and-environment",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.gjenvinne",
@@ -4524,7 +5528,9 @@
     "source": "recover (materials)",
     "difficulty": 3,
     "category": "nature-and-environment",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.kompostere",
@@ -4533,7 +5539,9 @@
     "source": "compost",
     "difficulty": 3,
     "category": "nature-and-environment",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.verne",
@@ -4542,7 +5550,9 @@
     "source": "conserve (protect nature or heritage)",
     "difficulty": 3,
     "category": "nature-and-environment",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 37
   },
   {
     "id": "nb.verb.utrydde",
@@ -4551,7 +5561,9 @@
     "source": "eradicate",
     "difficulty": 3,
     "category": "nature-and-environment",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.overleve",
@@ -4560,7 +5572,9 @@
     "source": "survive",
     "difficulty": 3,
     "category": "nature-and-environment",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 88,
+    "complexity": 24
   },
   {
     "id": "nb.verb.tilpasse-seg",
@@ -4569,7 +5583,9 @@
     "source": "adapt oneself",
     "difficulty": 3,
     "category": "nature-and-environment",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 34
   },
   {
     "id": "nb.verb.vandre",
@@ -4578,7 +5594,9 @@
     "source": "hike or wander",
     "difficulty": 3,
     "category": "nature-and-environment",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 36
   },
   {
     "id": "nb.verb.migrere",
@@ -4587,7 +5605,9 @@
     "source": "migrate",
     "difficulty": 3,
     "category": "nature-and-environment",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "nb.verb.erodere",
@@ -4596,7 +5616,9 @@
     "source": "erode",
     "difficulty": 3,
     "category": "nature-and-environment",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "nb.verb.oversvoemme",
@@ -4605,7 +5627,9 @@
     "source": "flood",
     "difficulty": 3,
     "category": "nature-and-environment",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.renne",
@@ -4614,7 +5638,9 @@
     "source": "flow or run (liquid)",
     "difficulty": 3,
     "category": "nature-and-environment",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 37
   },
   {
     "id": "nb.verb.dryppe",
@@ -4623,7 +5649,9 @@
     "source": "drip",
     "difficulty": 3,
     "category": "nature-and-environment",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "nb.verb.lekke",
@@ -4632,7 +5660,9 @@
     "source": "leak",
     "difficulty": 3,
     "category": "nature-and-environment",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.sprute",
@@ -4641,7 +5671,9 @@
     "source": "squirt or splash",
     "difficulty": 3,
     "category": "nature-and-environment",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 47
   },
   {
     "id": "nb.verb.fosse",
@@ -4650,7 +5682,9 @@
     "source": "gush",
     "difficulty": 3,
     "category": "nature-and-environment",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "nb.verb.synke",
@@ -4659,7 +5693,9 @@
     "source": "sink",
     "difficulty": 3,
     "category": "nature-and-environment",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.flyte",
@@ -4668,7 +5704,9 @@
     "source": "float",
     "difficulty": 3,
     "category": "nature-and-environment",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "nb.verb.stige",
@@ -4677,7 +5715,9 @@
     "source": "rise",
     "difficulty": 3,
     "category": "nature-and-environment",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.investere",
@@ -4686,7 +5726,9 @@
     "source": "invest",
     "difficulty": 3,
     "category": "work-and-finance",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "nb.verb.finansiere",
@@ -4695,7 +5737,9 @@
     "source": "finance",
     "difficulty": 3,
     "category": "work-and-finance",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.budsjettere",
@@ -4704,7 +5748,9 @@
     "source": "budget",
     "difficulty": 3,
     "category": "work-and-finance",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 57,
+    "complexity": 29
   },
   {
     "id": "nb.verb.fakturere",
@@ -4713,7 +5759,9 @@
     "source": "invoice",
     "difficulty": 3,
     "category": "work-and-finance",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 57,
+    "complexity": 46
   },
   {
     "id": "nb.verb.refundere",
@@ -4722,7 +5770,9 @@
     "source": "refund",
     "difficulty": 3,
     "category": "work-and-finance",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.forsikre",
@@ -4731,7 +5781,9 @@
     "source": "insure or assure",
     "difficulty": 3,
     "category": "work-and-finance",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 54
   },
   {
     "id": "nb.verb.garantere",
@@ -4740,7 +5792,9 @@
     "source": "guarantee",
     "difficulty": 3,
     "category": "work-and-finance",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.eie",
@@ -4749,7 +5803,9 @@
     "source": "own",
     "difficulty": 3,
     "category": "work-and-finance",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.arve",
@@ -4758,7 +5814,9 @@
     "source": "inherit",
     "difficulty": 3,
     "category": "work-and-finance",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.pantsette",
@@ -4767,7 +5825,9 @@
     "source": "pledge as collateral",
     "difficulty": 3,
     "category": "work-and-finance",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 35
   },
   {
     "id": "nb.verb.importere",
@@ -4776,7 +5836,9 @@
     "source": "import",
     "difficulty": 3,
     "category": "work-and-finance",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.eksportere",
@@ -4785,7 +5847,9 @@
     "source": "export",
     "difficulty": 3,
     "category": "work-and-finance",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.transportere",
@@ -4794,7 +5858,9 @@
     "source": "transport",
     "difficulty": 3,
     "category": "work-and-finance",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.unngaa",
@@ -4803,7 +5869,9 @@
     "source": "avoid",
     "difficulty": 3,
     "category": "planning-and-resources",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 88,
+    "complexity": 24
   },
   {
     "id": "nb.verb.markedsfoere",
@@ -4812,7 +5880,9 @@
     "source": "market",
     "difficulty": 3,
     "category": "work-and-finance",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.annonsere",
@@ -4821,7 +5891,9 @@
     "source": "advertise or announce",
     "difficulty": 3,
     "category": "work-and-finance",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 37
   },
   {
     "id": "nb.verb.konkurrere",
@@ -4830,7 +5902,9 @@
     "source": "compete",
     "difficulty": 3,
     "category": "work-and-finance",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.rekruttere",
@@ -4839,7 +5913,9 @@
     "source": "recruit",
     "difficulty": 3,
     "category": "work-and-finance",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.delegere",
@@ -4848,7 +5924,9 @@
     "source": "delegate",
     "difficulty": 3,
     "category": "work-and-finance",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "nb.verb.rapportere",
@@ -4857,7 +5935,9 @@
     "source": "report (give an account)",
     "difficulty": 3,
     "category": "work-and-finance",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "nb.verb.oppsummere",
@@ -4866,7 +5946,9 @@
     "source": "summarize",
     "difficulty": 3,
     "category": "language-and-expression",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.presisere",
@@ -4875,7 +5957,9 @@
     "source": "clarify precisely",
     "difficulty": 3,
     "category": "language-and-expression",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 28
   },
   {
     "id": "nb.verb.utdype",
@@ -4884,7 +5968,9 @@
     "source": "elaborate",
     "difficulty": 3,
     "category": "language-and-expression",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.formulere",
@@ -4893,7 +5979,9 @@
     "source": "formulate",
     "difficulty": 3,
     "category": "language-and-expression",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.omskrive",
@@ -4902,7 +5990,9 @@
     "source": "rewrite or paraphrase",
     "difficulty": 3,
     "category": "language-and-expression",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "nb.verb.sitere",
@@ -4911,7 +6001,9 @@
     "source": "quote",
     "difficulty": 3,
     "category": "language-and-expression",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.henvise",
@@ -4920,7 +6012,9 @@
     "source": "refer",
     "difficulty": 3,
     "category": "language-and-expression",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.understreke",
@@ -4929,7 +6023,9 @@
     "source": "emphasize",
     "difficulty": 3,
     "category": "language-and-expression",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.overdrive",
@@ -4938,7 +6034,9 @@
     "source": "exaggerate",
     "difficulty": 3,
     "category": "language-and-expression",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.misforstaa",
@@ -4947,7 +6045,9 @@
     "source": "misunderstand",
     "difficulty": 3,
     "category": "language-and-expression",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.avsloere",
@@ -4956,7 +6056,9 @@
     "source": "reveal",
     "difficulty": 3,
     "category": "language-and-expression",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.innroemme",
@@ -4965,7 +6067,9 @@
     "source": "admit",
     "difficulty": 3,
     "category": "language-and-expression",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.benekte",
@@ -4974,7 +6078,9 @@
     "source": "deny",
     "difficulty": 3,
     "category": "language-and-expression",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.lyve",
@@ -4983,7 +6089,9 @@
     "source": "lie (tell an untruth)",
     "difficulty": 3,
     "category": "language-and-expression",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.tie",
@@ -4992,7 +6100,9 @@
     "source": "remain silent",
     "difficulty": 3,
     "category": "language-and-expression",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "nb.verb.tysse",
@@ -5001,7 +6111,9 @@
     "source": "hush",
     "difficulty": 3,
     "category": "language-and-expression",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.avlede",
@@ -5010,7 +6122,9 @@
     "source": "divert",
     "difficulty": 3,
     "category": "language-and-expression",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.avvise",
@@ -5019,7 +6133,9 @@
     "source": "dismiss or turn away",
     "difficulty": 3,
     "category": "language-and-expression",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "nb.verb.uttrykke",
@@ -5028,7 +6144,9 @@
     "source": "express",
     "difficulty": 3,
     "category": "language-and-expression",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.formidle",
@@ -5037,7 +6155,9 @@
     "source": "convey",
     "difficulty": 3,
     "category": "language-and-expression",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "nb.verb.beundre",
@@ -5046,7 +6166,9 @@
     "source": "admire",
     "difficulty": 3,
     "category": "emotion-and-character",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "nb.verb.misunne",
@@ -5055,7 +6177,9 @@
     "source": "envy",
     "difficulty": 3,
     "category": "emotion-and-character",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "nb.verb.forakte",
@@ -5064,7 +6188,9 @@
     "source": "despise",
     "difficulty": 3,
     "category": "emotion-and-character",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.hate",
@@ -5073,7 +6199,9 @@
     "source": "hate",
     "difficulty": 3,
     "category": "emotion-and-character",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "nb.verb.tiltrekke",
@@ -5082,7 +6210,9 @@
     "source": "attract",
     "difficulty": 3,
     "category": "emotion-and-character",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.friste",
@@ -5091,7 +6221,9 @@
     "source": "tempt",
     "difficulty": 3,
     "category": "emotion-and-character",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.skuffe",
@@ -5100,7 +6232,9 @@
     "source": "disappoint",
     "difficulty": 3,
     "category": "emotion-and-character",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "nb.verb.berolige",
@@ -5109,7 +6243,9 @@
     "source": "reassure",
     "difficulty": 3,
     "category": "emotion-and-character",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "nb.verb.beholde",
@@ -5118,7 +6254,9 @@
     "source": "keep (retain)",
     "difficulty": 3,
     "category": "experience-and-change",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "nb.verb.overvelde",
@@ -5127,7 +6265,9 @@
     "source": "overwhelm",
     "difficulty": 3,
     "category": "emotion-and-character",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "nb.verb.oppleve",
@@ -5136,7 +6276,9 @@
     "source": "experience",
     "difficulty": 3,
     "category": "experience-and-change",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "nb.verb.erkjenne",
@@ -5145,7 +6287,9 @@
     "source": "acknowledge",
     "difficulty": 3,
     "category": "experience-and-change",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "nb.verb.innse",
@@ -5154,7 +6298,9 @@
     "source": "realize (understand)",
     "difficulty": 3,
     "category": "experience-and-change",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.oppfatte",
@@ -5163,7 +6309,9 @@
     "source": "perceive",
     "difficulty": 3,
     "category": "experience-and-change",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "nb.verb.forvente",
@@ -5172,7 +6320,9 @@
     "source": "expect",
     "difficulty": 3,
     "category": "experience-and-change",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "nb.verb.forutse",
@@ -5181,7 +6331,9 @@
     "source": "foresee",
     "difficulty": 3,
     "category": "experience-and-change",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.foretrekke",
@@ -5190,7 +6342,9 @@
     "source": "prefer",
     "difficulty": 3,
     "category": "experience-and-change",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "nb.verb.avhenge",
@@ -5199,7 +6353,9 @@
     "source": "depend",
     "difficulty": 3,
     "category": "experience-and-change",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "nb.verb.tilhoere",
@@ -5208,7 +6364,9 @@
     "source": "belong to",
     "difficulty": 3,
     "category": "experience-and-change",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 41
   },
   {
     "id": "nb.verb.eksistere",
@@ -5217,7 +6375,9 @@
     "source": "exist",
     "difficulty": 3,
     "category": "experience-and-change",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "nb.verb.vri",
@@ -5226,7 +6386,9 @@
     "source": "twist",
     "difficulty": 3,
     "category": "physical-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "nb.verb.knekke",
@@ -5235,7 +6397,9 @@
     "source": "snap",
     "difficulty": 3,
     "category": "physical-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "nb.verb.brekke",
@@ -5244,7 +6408,9 @@
     "source": "break (a limb or stick)",
     "difficulty": 3,
     "category": "physical-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 37
   },
   {
     "id": "nb.verb.splitte",
@@ -5253,7 +6419,9 @@
     "source": "split",
     "difficulty": 3,
     "category": "physical-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "nb.verb.stikke",
@@ -5262,7 +6430,9 @@
     "source": "stick out",
     "difficulty": 3,
     "category": "physical-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 32
   },
   {
     "id": "nb.verb.dytte",
@@ -5271,7 +6441,9 @@
     "source": "nudge or push",
     "difficulty": 3,
     "category": "physical-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 37
   },
   {
     "id": "nb.verb.nappe",
@@ -5280,7 +6452,9 @@
     "source": "pluck or tug sharply",
     "difficulty": 3,
     "category": "physical-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 47
   },
   {
     "id": "nb.verb.stroe",
@@ -5289,7 +6463,9 @@
     "source": "sprinkle",
     "difficulty": 3,
     "category": "physical-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "nb.verb.smuldre",
@@ -5298,7 +6474,9 @@
     "source": "crumble",
     "difficulty": 3,
     "category": "physical-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "nb.verb.smelle",
@@ -5307,7 +6485,9 @@
     "source": "slam or bang",
     "difficulty": 3,
     "category": "physical-actions",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 47
   },
   {
     "id": "nb.verb.foede",
@@ -5316,7 +6496,9 @@
     "source": "give birth",
     "difficulty": 3,
     "category": "life-and-health",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "nb.verb.amme",
@@ -5325,7 +6507,9 @@
     "source": "breastfeed",
     "difficulty": 3,
     "category": "life-and-health",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.pleie",
@@ -5334,7 +6518,9 @@
     "source": "care for (someone)",
     "difficulty": 3,
     "category": "life-and-health",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 24
   },
   {
     "id": "nb.verb.behandle",
@@ -5343,7 +6529,9 @@
     "source": "treat",
     "difficulty": 3,
     "category": "life-and-health",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.helbrede",
@@ -5352,7 +6540,9 @@
     "source": "cure",
     "difficulty": 3,
     "category": "life-and-health",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.lindre",
@@ -5361,7 +6551,9 @@
     "source": "relieve (pain)",
     "difficulty": 3,
     "category": "life-and-health",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.forebygge",
@@ -5370,7 +6562,9 @@
     "source": "prevent",
     "difficulty": 3,
     "category": "life-and-health",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 88,
+    "complexity": 24
   },
   {
     "id": "nb.verb.smitte",
@@ -5379,7 +6573,9 @@
     "source": "infect",
     "difficulty": 3,
     "category": "life-and-health",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.besvime",
@@ -5388,7 +6584,9 @@
     "source": "faint",
     "difficulty": 3,
     "category": "life-and-health",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "nb.verb.komme-seg",
@@ -5397,6 +6595,8 @@
     "source": "recover (regain health)",
     "difficulty": 3,
     "category": "life-and-health",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   }
 ]

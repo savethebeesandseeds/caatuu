@@ -7,12 +7,14 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-es-pwa-v88",
+    "cacheName": "caatuu-es-pwa-v91",
     "cachePrefix": "caatuu-es-pwa-",
     "assets": [
       "/language-runtime/static/source/image-embedding-index.mjs?v=image-index-runtime-1",
       "/language-runtime/static/data/image-embeddings/minilm-v1.json?v=image-index-1",
       "/language-runtime/static/source/games/curriculum-progression.mjs",
+      "/language-runtime/static/source/games/content-progression.mjs",
+      "/language-runtime/static/source/word-world-progression.mjs",
       "/language-runtime/static/source/english-image-search.mjs?v=english-image-search-3",
       "/language-runtime/static/source/learner-base-token-meanings.mjs?v=learner-base-token-meanings-1",
       "/language-runtime/static/source/launcher-interface.mjs?v=launcher-interface-1",
@@ -230,8 +232,8 @@
       "kind": "course-game-content",
       "url": "/es/data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-4",
       "browserRequired": true,
-      "bytes": 88099,
-      "sha256": "9719e8908c7ca77b59dfd8b4a78c29031fc96c07a8ee4a0edf508d2ecfed45fb"
+      "bytes": 106339,
+      "sha256": "46401afa6e5bf7ed441661b419b0a835a8165c9d08aeab9e316f05a9bed40258"
     },
     {
       "key": "app-entry",
@@ -294,8 +296,8 @@
       "kind": "shared-runtime",
       "url": "/language-runtime/static/source/catalog-runtime.mjs",
       "browserRequired": true,
-      "bytes": 13890,
-      "sha256": "f91228c227faac7a76e05ae961c27debe8d6ba4d45e0795527f58e1f74409677"
+      "bytes": 14186,
+      "sha256": "3346eff403d2dc63823b8fd10b9fdebc76ec2fc45f97b7c70d9fd54e6a440732"
     },
     {
       "key": "catalog-session",
@@ -318,8 +320,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/caatuu-workspace.js",
       "browserRequired": true,
-      "bytes": 181656,
-      "sha256": "d463a3503e915a7967f33bc2334e91dda6f79d37ae69faf6a67d92880929d929"
+      "bytes": 184291,
+      "sha256": "67dabd3a6e0f4ce00d6b080e3b4b26f7c9f148e5fb64601dd3f42de107288a91"
     },
     {
       "key": "child-facing-assets",
@@ -334,8 +336,8 @@
       "kind": "shared-game-runtime",
       "url": "/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs",
       "browserRequired": true,
-      "bytes": 20263,
-      "sha256": "6cee7cab31e19eaeb414ca8f7e309caf6885216cbfddfb71564ec5b4b90a729b"
+      "bytes": 20491,
+      "sha256": "db0827e6b6eb3ee0238c65f44442f194d38362e6e5965180abb79f73a6e89aa1"
     },
     {
       "key": "verb-exercise-family-core",
@@ -358,8 +360,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/word-world-provider.mjs",
       "browserRequired": true,
-      "bytes": 46837,
-      "sha256": "c6170f280da4a7450454bef7dba4ac8ee2ed2d9dfb27c3c19ab5727e859a2cdc"
+      "bytes": 47026,
+      "sha256": "a99f2ececd89b99f5856af57c1980dd635cba90df0a5a30cf9521cc262775b4e"
     },
     {
       "key": "shared-chrome",
@@ -374,16 +376,16 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/learning-profile.js",
       "browserRequired": true,
-      "bytes": 35944,
-      "sha256": "8cee0f6f59d7489076e591e42379a4240958711aab0a70e4d9690c05e16af6e9"
+      "bytes": 66671,
+      "sha256": "c42b0a1b573f8b4e3c80218e0fe66d59270a8d747939b008e156c6ea7db809fd"
     },
     {
       "key": "product-word-world",
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/product-word-world.mjs",
       "browserRequired": true,
-      "bytes": 232645,
-      "sha256": "05c0631d024fa7993d1349f558ee9590c078f6de5d074de83d4ae99483893c05"
+      "bytes": 238871,
+      "sha256": "3dc57e3c63830911b850dc80c8f9f23ea6e73845c2ebfbd9b99fa96be6becadc"
     },
     {
       "key": "word-net-core",
@@ -470,16 +472,16 @@
       "kind": "english-concept-catalog",
       "url": "/language-runtime/static/data/english-concepts/word-world-es-v1.json",
       "browserRequired": true,
-      "bytes": 153120,
-      "sha256": "433438a72ad9aa522e56dd035ab04daf4a065f645be8828d68b76f0263ef89b6"
+      "bytes": 180724,
+      "sha256": "bb79c1a62a24dc03234200547de6e74e4eb7813ed2a5b156e7242441ed91d332"
     },
     {
       "key": "target-realizations",
       "kind": "target-realization-catalog",
       "url": "/es/data/games/word-world/content.json",
       "browserRequired": true,
-      "bytes": 422666,
-      "sha256": "93f205236952ae75dd097624c1bed97ed1aba4d2a8a4609d736bbb6570fabb9f"
+      "bytes": 428015,
+      "sha256": "9eec8d7b31e835bb5fb519d42fb66dbfc2dc01415a9f96e757ae186155b884e1"
     },
     {
       "key": "word-world-manifest",
@@ -487,15 +489,15 @@
       "url": "/es/data/games/word-world/manifest.json?v=word-world-context-hints-1",
       "browserRequired": true,
       "bytes": 1837,
-      "sha256": "ca242c079939c7dd21d87b66922800a4b3f2049bdfbbff6c88cd955d4e41980b"
+      "sha256": "6d5b0034569df60aee791f17771fef51cae102d057edf74f1364cc0ed2839fd7"
     },
     {
       "key": "verb-nebula-catalog",
       "kind": "course-game-content",
       "url": "/es/data/games/verb-nebula/content.json",
       "browserRequired": true,
-      "bytes": 111647,
-      "sha256": "c953f806482ac7c053b4935f58c2f2ee8b7b7b9fa1ae06afb7e187d98636210a"
+      "bytes": 134305,
+      "sha256": "2eb0ba6d67091a5eb9c2ff0521feadcc206a0045772e299ac41c44948336d46b"
     },
     {
       "key": "embedding-catalog",
@@ -519,7 +521,7 @@
       "url": "/es/sw.js",
       "browserRequired": true,
       "bytes": 137,
-      "sha256": "76e23b48f661da5996a6121f56b73a3925d8ac0cdea67aed496eb17108527148"
+      "sha256": "6271a81beb237ef480456918a62df7a293b9829c0b030d38b05bceb53c626cc1"
     },
     {
       "key": "shared-course-service-worker",

@@ -47,11 +47,11 @@ test("Mandarin instantiates the generic English-only semantic-index contract", (
   );
 });
 
-test("all 250 prepared embedding documents are English while target realizations remain separate", () => {
+test("every prepared embedding document is English while target realizations remain separate", () => {
   validateLanguageContent(structuredClone(concepts), structuredClone(realizations));
   const semanticRows = prepareSemanticRows(structuredClone(concepts), structuredClone(realizations));
   const prepared = prepareSemanticCurriculumRows(semanticRows, mandarinSimplifiedSemanticIndexConfig);
-  assert.equal(prepared.length, 250);
+  assert.equal(prepared.length, concepts.concepts.length);
   assert.equal(prepared.every(({ embeddingInput }) => embeddingInput.locale === "en"), true);
   assert.equal(prepared.every(({ targetRealization }) => targetRealization.locale === "zh-Hans"), true);
 
@@ -60,20 +60,16 @@ test("all 250 prepared embedding documents are English while target realizations
   assert.doesNotMatch(embeddingJson, /[āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜü]/iu);
   assert.doesNotMatch(embeddingJson, /"(?:target_text|targetText|pronunciation|tokens|content_review|content_license)"/u);
 
-  const target = prepared.find(({ conceptId }) => conceptId === "ww.question.go-to-park");
-  assert.equal(target.embeddingDocument.body, "Inviting someone to go to a park.");
-  assert.equal(target.targetRealization.targetText, "你想去公园吗？");
-  assert.deepEqual(target.targetRealization.pronunciation, {
-    system: "pinyin",
-    notation: "Nǐ xiǎng qù gōngyuán ma?",
-    languageTag: "zh-Latn-pinyin",
-    reviewed: false
-  });
-  assert.deepEqual(
-    target.targetRealization.linguisticMetadata.tokens.map(({ surface }) => surface),
-    ["你", "想", "去", "公园", "吗"]
-  );
-  assert.equal(target.targetRealization.reviewMetadata.content_review.status, "native-review-required");
+  const sources = new Map(semanticRows.map(row => [row.id, row]));
+  for (const target of prepared) {
+    const original = sources.get(target.conceptId);
+    assert.ok(original, target.conceptId);
+    assert.equal(target.embeddingDocument.body, original.english_text);
+    assert.equal(target.targetRealization.targetText, original.target_text);
+    assert.deepEqual(target.targetRealization.pronunciation, original.pronunciation);
+    assert.deepEqual(target.targetRealization.linguisticMetadata.tokens, original.tokens);
+    assert.deepEqual(target.targetRealization.reviewMetadata.content_review, original.content_review);
+  }
 });
 
 test("adding Mandarin does not alter Czech compatibility identity or artifact paths", () => {

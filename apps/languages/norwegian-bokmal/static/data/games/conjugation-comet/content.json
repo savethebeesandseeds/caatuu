@@ -91,7 +91,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to be",
-          "englishAuditText": "to be"
+          "englishAuditText": "to be",
+          "usefulness": 94,
+          "complexity": 60
         },
         {
           "id": "present",
@@ -104,7 +106,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I am (present)",
-          "englishAuditText": "I am (present)"
+          "englishAuditText": "I am (present)",
+          "usefulness": 94,
+          "complexity": 60
         },
         {
           "id": "preterite",
@@ -117,7 +121,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I was (past)",
-          "englishAuditText": "I was (past)"
+          "englishAuditText": "I was (past)",
+          "usefulness": 94,
+          "complexity": 60
         },
         {
           "id": "perfect",
@@ -130,9 +136,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have been",
-          "englishAuditText": "I have been"
+          "englishAuditText": "I have been",
+          "usefulness": 94,
+          "complexity": 68
         }
-      ]
+      ],
+      "usefulness": 94,
+      "complexity": 60
     },
     {
       "id": "nb-tense-002",
@@ -164,7 +174,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to have",
-          "englishAuditText": "to have"
+          "englishAuditText": "to have",
+          "usefulness": 94,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -177,7 +189,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have (present)",
-          "englishAuditText": "I have (present)"
+          "englishAuditText": "I have (present)",
+          "usefulness": 94,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -190,7 +204,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I had (past)",
-          "englishAuditText": "I had (past)"
+          "englishAuditText": "I had (past)",
+          "usefulness": 94,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -203,9 +219,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have had",
-          "englishAuditText": "I have had"
+          "englishAuditText": "I have had",
+          "usefulness": 94,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 94,
+      "complexity": 51
     },
     {
       "id": "nb-tense-003",
@@ -237,7 +257,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to do",
-          "englishAuditText": "to do"
+          "englishAuditText": "to do",
+          "usefulness": 94,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -250,7 +272,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I do (present)",
-          "englishAuditText": "I do (present)"
+          "englishAuditText": "I do (present)",
+          "usefulness": 94,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -263,7 +287,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I did (past)",
-          "englishAuditText": "I did (past)"
+          "englishAuditText": "I did (past)",
+          "usefulness": 94,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -276,9 +302,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have done",
-          "englishAuditText": "I have done"
+          "englishAuditText": "I have done",
+          "usefulness": 94,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 94,
+      "complexity": 51
     },
     {
       "id": "nb-tense-004",
@@ -310,7 +340,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to walk",
-          "englishAuditText": "to walk"
+          "englishAuditText": "to walk",
+          "usefulness": 63,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -323,7 +355,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I walk (present)",
-          "englishAuditText": "I walk (present)"
+          "englishAuditText": "I walk (present)",
+          "usefulness": 63,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -336,7 +370,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I walked (past)",
-          "englishAuditText": "I walked (past)"
+          "englishAuditText": "I walked (past)",
+          "usefulness": 63,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -349,9 +385,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have walked",
-          "englishAuditText": "I have walked"
+          "englishAuditText": "I have walked",
+          "usefulness": 63,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 63,
+      "complexity": 51
     },
     {
       "id": "nb-tense-005",
@@ -383,7 +423,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to come",
-          "englishAuditText": "to come"
+          "englishAuditText": "to come",
+          "usefulness": 94,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -396,7 +438,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I come (present)",
-          "englishAuditText": "I come (present)"
+          "englishAuditText": "I come (present)",
+          "usefulness": 94,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -409,7 +453,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I came (past)",
-          "englishAuditText": "I came (past)"
+          "englishAuditText": "I came (past)",
+          "usefulness": 94,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -422,9 +468,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have come",
-          "englishAuditText": "I have come"
+          "englishAuditText": "I have come",
+          "usefulness": 94,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 94,
+      "complexity": 51
     },
     {
       "id": "nb-tense-006",
@@ -456,7 +506,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to see",
-          "englishAuditText": "to see"
+          "englishAuditText": "to see",
+          "usefulness": 89,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -469,7 +521,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I see (present)",
-          "englishAuditText": "I see (present)"
+          "englishAuditText": "I see (present)",
+          "usefulness": 89,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -482,7 +536,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I saw (past)",
-          "englishAuditText": "I saw (past)"
+          "englishAuditText": "I saw (past)",
+          "usefulness": 89,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -495,9 +551,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have seen",
-          "englishAuditText": "I have seen"
+          "englishAuditText": "I have seen",
+          "usefulness": 89,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 51
     },
     {
       "id": "nb-tense-007",
@@ -529,7 +589,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to say",
-          "englishAuditText": "to say"
+          "englishAuditText": "to say",
+          "usefulness": 94,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -542,7 +604,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I say (present)",
-          "englishAuditText": "I say (present)"
+          "englishAuditText": "I say (present)",
+          "usefulness": 94,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -555,7 +619,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I said (past)",
-          "englishAuditText": "I said (past)"
+          "englishAuditText": "I said (past)",
+          "usefulness": 94,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -568,9 +634,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have said",
-          "englishAuditText": "I have said"
+          "englishAuditText": "I have said",
+          "usefulness": 94,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 94,
+      "complexity": 51
     },
     {
       "id": "nb-tense-008",
@@ -602,7 +672,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to eat",
-          "englishAuditText": "to eat"
+          "englishAuditText": "to eat",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -615,7 +687,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I eat (present)",
-          "englishAuditText": "I eat (present)"
+          "englishAuditText": "I eat (present)",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -628,7 +702,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I ate (past)",
-          "englishAuditText": "I ate (past)"
+          "englishAuditText": "I ate (past)",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -641,9 +717,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have eaten",
-          "englishAuditText": "I have eaten"
+          "englishAuditText": "I have eaten",
+          "usefulness": 89,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "nb-tense-009",
@@ -675,7 +755,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to drink",
-          "englishAuditText": "to drink"
+          "englishAuditText": "to drink",
+          "usefulness": 89,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -688,7 +770,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I drink (present)",
-          "englishAuditText": "I drink (present)"
+          "englishAuditText": "I drink (present)",
+          "usefulness": 89,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -701,7 +785,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I drank (past)",
-          "englishAuditText": "I drank (past)"
+          "englishAuditText": "I drank (past)",
+          "usefulness": 89,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -714,9 +800,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have drunk",
-          "englishAuditText": "I have drunk"
+          "englishAuditText": "I have drunk",
+          "usefulness": 89,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 51
     },
     {
       "id": "nb-tense-010",
@@ -748,7 +838,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to sleep",
-          "englishAuditText": "to sleep"
+          "englishAuditText": "to sleep",
+          "usefulness": 89,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -761,7 +853,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I sleep (present)",
-          "englishAuditText": "I sleep (present)"
+          "englishAuditText": "I sleep (present)",
+          "usefulness": 89,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -774,7 +868,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I slept (past)",
-          "englishAuditText": "I slept (past)"
+          "englishAuditText": "I slept (past)",
+          "usefulness": 89,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -787,9 +883,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have slept",
-          "englishAuditText": "I have slept"
+          "englishAuditText": "I have slept",
+          "usefulness": 89,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 51
     },
     {
       "id": "nb-tense-011",
@@ -821,7 +921,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to read",
-          "englishAuditText": "to read"
+          "englishAuditText": "to read",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -834,7 +936,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I read (present)",
-          "englishAuditText": "I read (present)"
+          "englishAuditText": "I read (present)",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -847,7 +951,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I read (past)",
-          "englishAuditText": "I read (past)"
+          "englishAuditText": "I read (past)",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -860,9 +966,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have read",
-          "englishAuditText": "I have read"
+          "englishAuditText": "I have read",
+          "usefulness": 89,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "nb-tense-012",
@@ -894,7 +1004,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to write",
-          "englishAuditText": "to write"
+          "englishAuditText": "to write",
+          "usefulness": 89,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -907,7 +1019,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I write (present)",
-          "englishAuditText": "I write (present)"
+          "englishAuditText": "I write (present)",
+          "usefulness": 89,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -920,7 +1034,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I wrote (past)",
-          "englishAuditText": "I wrote (past)"
+          "englishAuditText": "I wrote (past)",
+          "usefulness": 89,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -933,9 +1049,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have written",
-          "englishAuditText": "I have written"
+          "englishAuditText": "I have written",
+          "usefulness": 89,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 51
     },
     {
       "id": "nb-tense-013",
@@ -967,7 +1087,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to play",
-          "englishAuditText": "to play"
+          "englishAuditText": "to play",
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -980,7 +1102,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I play (present)",
-          "englishAuditText": "I play (present)"
+          "englishAuditText": "I play (present)",
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -993,7 +1117,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I played (past)",
-          "englishAuditText": "I played (past)"
+          "englishAuditText": "I played (past)",
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -1006,9 +1132,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have played",
-          "englishAuditText": "I have played"
+          "englishAuditText": "I have played",
+          "usefulness": 62,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 62,
+      "complexity": 26
     },
     {
       "id": "nb-tense-014",
@@ -1040,7 +1170,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to play",
-          "englishAuditText": "to play"
+          "englishAuditText": "to play",
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -1053,7 +1185,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I play (present)",
-          "englishAuditText": "I play (present)"
+          "englishAuditText": "I play (present)",
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -1066,7 +1200,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I played (past)",
-          "englishAuditText": "I played (past)"
+          "englishAuditText": "I played (past)",
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -1079,9 +1215,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have played",
-          "englishAuditText": "I have played"
+          "englishAuditText": "I have played",
+          "usefulness": 62,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 62,
+      "complexity": 26
     },
     {
       "id": "nb-tense-015",
@@ -1113,7 +1253,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to like",
-          "englishAuditText": "to like"
+          "englishAuditText": "to like",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -1126,7 +1268,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I like (present)",
-          "englishAuditText": "I like (present)"
+          "englishAuditText": "I like (present)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -1139,7 +1283,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I liked (past)",
-          "englishAuditText": "I liked (past)"
+          "englishAuditText": "I liked (past)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -1152,9 +1298,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have liked",
-          "englishAuditText": "I have liked"
+          "englishAuditText": "I have liked",
+          "usefulness": 76,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 26
     },
     {
       "id": "nb-tense-016",
@@ -1186,7 +1336,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to live",
-          "englishAuditText": "to live"
+          "englishAuditText": "to live",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -1199,7 +1351,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I live (present)",
-          "englishAuditText": "I live (present)"
+          "englishAuditText": "I live (present)",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -1212,7 +1366,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I lived (past)",
-          "englishAuditText": "I lived (past)"
+          "englishAuditText": "I lived (past)",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -1225,9 +1381,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have lived",
-          "englishAuditText": "I have lived"
+          "englishAuditText": "I have lived",
+          "usefulness": 89,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "nb-tense-017",
@@ -1259,7 +1419,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to be called",
-          "englishAuditText": "to be called"
+          "englishAuditText": "to be called",
+          "usefulness": 91,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -1272,7 +1434,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I am called (present)",
-          "englishAuditText": "I am called (present)"
+          "englishAuditText": "I am called (present)",
+          "usefulness": 91,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -1285,7 +1449,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I was called (past)",
-          "englishAuditText": "I was called (past)"
+          "englishAuditText": "I was called (past)",
+          "usefulness": 91,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -1298,9 +1464,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have been called",
-          "englishAuditText": "I have been called"
+          "englishAuditText": "I have been called",
+          "usefulness": 91,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 91,
+      "complexity": 51
     },
     {
       "id": "nb-tense-018",
@@ -1332,7 +1502,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to learn",
-          "englishAuditText": "to learn"
+          "englishAuditText": "to learn",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -1345,7 +1517,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I learn (present)",
-          "englishAuditText": "I learn (present)"
+          "englishAuditText": "I learn (present)",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -1358,7 +1532,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I learned (past)",
-          "englishAuditText": "I learned (past)"
+          "englishAuditText": "I learned (past)",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -1371,9 +1547,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have learned",
-          "englishAuditText": "I have learned"
+          "englishAuditText": "I have learned",
+          "usefulness": 89,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "nb-tense-019",
@@ -1405,7 +1585,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to hear",
-          "englishAuditText": "to hear"
+          "englishAuditText": "to hear",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -1418,7 +1600,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I hear (present)",
-          "englishAuditText": "I hear (present)"
+          "englishAuditText": "I hear (present)",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -1431,7 +1615,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I heard (past)",
-          "englishAuditText": "I heard (past)"
+          "englishAuditText": "I heard (past)",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -1444,9 +1630,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have heard",
-          "englishAuditText": "I have heard"
+          "englishAuditText": "I have heard",
+          "usefulness": 89,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "nb-tense-020",
@@ -1478,7 +1668,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to talk",
-          "englishAuditText": "to talk"
+          "englishAuditText": "to talk",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -1491,7 +1683,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I talk (present)",
-          "englishAuditText": "I talk (present)"
+          "englishAuditText": "I talk (present)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -1504,7 +1698,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I talked (past)",
-          "englishAuditText": "I talked (past)"
+          "englishAuditText": "I talked (past)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -1517,9 +1713,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have talked",
-          "englishAuditText": "I have talked"
+          "englishAuditText": "I have talked",
+          "usefulness": 76,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 26
     },
     {
       "id": "nb-tense-021",
@@ -1551,7 +1751,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to draw",
-          "englishAuditText": "to draw"
+          "englishAuditText": "to draw",
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -1564,7 +1766,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I draw (present)",
-          "englishAuditText": "I draw (present)"
+          "englishAuditText": "I draw (present)",
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -1577,7 +1781,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I drew (past)",
-          "englishAuditText": "I drew (past)"
+          "englishAuditText": "I drew (past)",
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -1590,9 +1796,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have drawn",
-          "englishAuditText": "I have drawn"
+          "englishAuditText": "I have drawn",
+          "usefulness": 62,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 62,
+      "complexity": 26
     },
     {
       "id": "nb-tense-022",
@@ -1624,7 +1834,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to sing",
-          "englishAuditText": "to sing"
+          "englishAuditText": "to sing",
+          "usefulness": 63,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -1637,7 +1849,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I sing (present)",
-          "englishAuditText": "I sing (present)"
+          "englishAuditText": "I sing (present)",
+          "usefulness": 63,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -1650,7 +1864,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I sang (past)",
-          "englishAuditText": "I sang (past)"
+          "englishAuditText": "I sang (past)",
+          "usefulness": 63,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -1663,9 +1879,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have sung",
-          "englishAuditText": "I have sung"
+          "englishAuditText": "I have sung",
+          "usefulness": 63,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 63,
+      "complexity": 51
     },
     {
       "id": "nb-tense-023",
@@ -1697,7 +1917,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to dance",
-          "englishAuditText": "to dance"
+          "englishAuditText": "to dance",
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -1710,7 +1932,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I dance (present)",
-          "englishAuditText": "I dance (present)"
+          "englishAuditText": "I dance (present)",
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -1723,7 +1947,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I danced (past)",
-          "englishAuditText": "I danced (past)"
+          "englishAuditText": "I danced (past)",
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -1736,9 +1962,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have danced",
-          "englishAuditText": "I have danced"
+          "englishAuditText": "I have danced",
+          "usefulness": 62,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 62,
+      "complexity": 26
     },
     {
       "id": "nb-tense-024",
@@ -1770,7 +2000,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to jump",
-          "englishAuditText": "to jump"
+          "englishAuditText": "to jump",
+          "usefulness": 63,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -1783,7 +2015,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I jump (present)",
-          "englishAuditText": "I jump (present)"
+          "englishAuditText": "I jump (present)",
+          "usefulness": 63,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -1796,7 +2030,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I jumped (past)",
-          "englishAuditText": "I jumped (past)"
+          "englishAuditText": "I jumped (past)",
+          "usefulness": 63,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -1809,9 +2045,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have jumped",
-          "englishAuditText": "I have jumped"
+          "englishAuditText": "I have jumped",
+          "usefulness": 63,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 63,
+      "complexity": 26
     },
     {
       "id": "nb-tense-025",
@@ -1843,7 +2083,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to run",
-          "englishAuditText": "to run"
+          "englishAuditText": "to run",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -1856,7 +2098,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I run (present)",
-          "englishAuditText": "I run (present)"
+          "englishAuditText": "I run (present)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -1869,7 +2113,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I ran (past)",
-          "englishAuditText": "I ran (past)"
+          "englishAuditText": "I ran (past)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -1882,9 +2128,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have run",
-          "englishAuditText": "I have run"
+          "englishAuditText": "I have run",
+          "usefulness": 76,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 51
     },
     {
       "id": "nb-tense-026",
@@ -1916,7 +2166,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to find",
-          "englishAuditText": "to find"
+          "englishAuditText": "to find",
+          "usefulness": 89,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -1929,7 +2181,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I find (present)",
-          "englishAuditText": "I find (present)"
+          "englishAuditText": "I find (present)",
+          "usefulness": 89,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -1942,7 +2196,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I found (past)",
-          "englishAuditText": "I found (past)"
+          "englishAuditText": "I found (past)",
+          "usefulness": 89,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -1955,9 +2211,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have found",
-          "englishAuditText": "I have found"
+          "englishAuditText": "I have found",
+          "usefulness": 89,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 51
     },
     {
       "id": "nb-tense-027",
@@ -1989,7 +2249,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to take",
-          "englishAuditText": "to take"
+          "englishAuditText": "to take",
+          "usefulness": 89,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -2002,7 +2264,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I take (present)",
-          "englishAuditText": "I take (present)"
+          "englishAuditText": "I take (present)",
+          "usefulness": 89,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -2015,7 +2279,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I took (past)",
-          "englishAuditText": "I took (past)"
+          "englishAuditText": "I took (past)",
+          "usefulness": 89,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -2028,9 +2294,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have taken",
-          "englishAuditText": "I have taken"
+          "englishAuditText": "I have taken",
+          "usefulness": 89,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 51
     },
     {
       "id": "nb-tense-028",
@@ -2062,7 +2332,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to give",
-          "englishAuditText": "to give"
+          "englishAuditText": "to give",
+          "usefulness": 89,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -2075,7 +2347,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I give (present)",
-          "englishAuditText": "I give (present)"
+          "englishAuditText": "I give (present)",
+          "usefulness": 89,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -2088,7 +2362,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I gave (past)",
-          "englishAuditText": "I gave (past)"
+          "englishAuditText": "I gave (past)",
+          "usefulness": 89,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -2101,9 +2377,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have given",
-          "englishAuditText": "I have given"
+          "englishAuditText": "I have given",
+          "usefulness": 89,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 51
     },
     {
       "id": "nb-tense-029",
@@ -2135,7 +2415,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to sit",
-          "englishAuditText": "to sit"
+          "englishAuditText": "to sit",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -2148,7 +2430,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I sit (present)",
-          "englishAuditText": "I sit (present)"
+          "englishAuditText": "I sit (present)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -2161,7 +2445,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I sat (past)",
-          "englishAuditText": "I sat (past)"
+          "englishAuditText": "I sat (past)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -2174,9 +2460,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have sat",
-          "englishAuditText": "I have sat"
+          "englishAuditText": "I have sat",
+          "usefulness": 76,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 51
     },
     {
       "id": "nb-tense-030",
@@ -2208,7 +2498,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to stand",
-          "englishAuditText": "to stand"
+          "englishAuditText": "to stand",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -2221,7 +2513,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I stand (present)",
-          "englishAuditText": "I stand (present)"
+          "englishAuditText": "I stand (present)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -2234,7 +2528,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I stood (past)",
-          "englishAuditText": "I stood (past)"
+          "englishAuditText": "I stood (past)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -2247,9 +2543,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have stood",
-          "englishAuditText": "I have stood"
+          "englishAuditText": "I have stood",
+          "usefulness": 76,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 51
     },
     {
       "id": "nb-tense-031",
@@ -2281,7 +2581,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to lie",
-          "englishAuditText": "to lie"
+          "englishAuditText": "to lie",
+          "usefulness": 54,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -2294,7 +2596,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I lie (present)",
-          "englishAuditText": "I lie (present)"
+          "englishAuditText": "I lie (present)",
+          "usefulness": 54,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -2307,7 +2611,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I lay (past)",
-          "englishAuditText": "I lay (past)"
+          "englishAuditText": "I lay (past)",
+          "usefulness": 54,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -2320,9 +2626,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have lain",
-          "englishAuditText": "I have lain"
+          "englishAuditText": "I have lain",
+          "usefulness": 54,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 51
     },
     {
       "id": "nb-tense-032",
@@ -2354,7 +2664,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to buy",
-          "englishAuditText": "to buy"
+          "englishAuditText": "to buy",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -2367,7 +2679,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I buy (present)",
-          "englishAuditText": "I buy (present)"
+          "englishAuditText": "I buy (present)",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -2380,7 +2694,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I bought (past)",
-          "englishAuditText": "I bought (past)"
+          "englishAuditText": "I bought (past)",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -2393,9 +2709,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have bought",
-          "englishAuditText": "I have bought"
+          "englishAuditText": "I have bought",
+          "usefulness": 89,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "nb-tense-033",
@@ -2427,7 +2747,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to make",
-          "englishAuditText": "to make"
+          "englishAuditText": "to make",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -2440,7 +2762,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I make (present)",
-          "englishAuditText": "I make (present)"
+          "englishAuditText": "I make (present)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -2453,7 +2777,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I made (past)",
-          "englishAuditText": "I made (past)"
+          "englishAuditText": "I made (past)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -2466,9 +2792,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have made",
-          "englishAuditText": "I have made"
+          "englishAuditText": "I have made",
+          "usefulness": 76,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 26
     },
     {
       "id": "nb-tense-034",
@@ -2500,7 +2830,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to open",
-          "englishAuditText": "to open"
+          "englishAuditText": "to open",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -2513,7 +2845,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I open (present)",
-          "englishAuditText": "I open (present)"
+          "englishAuditText": "I open (present)",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -2526,7 +2860,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I opened (past)",
-          "englishAuditText": "I opened (past)"
+          "englishAuditText": "I opened (past)",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -2539,9 +2875,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have opened",
-          "englishAuditText": "I have opened"
+          "englishAuditText": "I have opened",
+          "usefulness": 89,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "nb-tense-035",
@@ -2573,7 +2913,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to close",
-          "englishAuditText": "to close"
+          "englishAuditText": "to close",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -2586,7 +2928,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I close (present)",
-          "englishAuditText": "I close (present)"
+          "englishAuditText": "I close (present)",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -2599,7 +2943,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I closed (past)",
-          "englishAuditText": "I closed (past)"
+          "englishAuditText": "I closed (past)",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -2612,9 +2958,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have closed",
-          "englishAuditText": "I have closed"
+          "englishAuditText": "I have closed",
+          "usefulness": 89,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "nb-tense-036",
@@ -2646,7 +2996,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to help",
-          "englishAuditText": "to help"
+          "englishAuditText": "to help",
+          "usefulness": 99,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -2659,7 +3011,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I help (present)",
-          "englishAuditText": "I help (present)"
+          "englishAuditText": "I help (present)",
+          "usefulness": 99,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -2672,7 +3026,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I helped (past)",
-          "englishAuditText": "I helped (past)"
+          "englishAuditText": "I helped (past)",
+          "usefulness": 99,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -2685,9 +3041,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have helped",
-          "englishAuditText": "I have helped"
+          "englishAuditText": "I have helped",
+          "usefulness": 99,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 99,
+      "complexity": 51
     },
     {
       "id": "nb-tense-037",
@@ -2719,7 +3079,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to wait",
-          "englishAuditText": "to wait"
+          "englishAuditText": "to wait",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -2732,7 +3094,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I wait (present)",
-          "englishAuditText": "I wait (present)"
+          "englishAuditText": "I wait (present)",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -2745,7 +3109,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I waited (past)",
-          "englishAuditText": "I waited (past)"
+          "englishAuditText": "I waited (past)",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -2758,9 +3124,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have waited",
-          "englishAuditText": "I have waited"
+          "englishAuditText": "I have waited",
+          "usefulness": 89,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "nb-tense-038",
@@ -2792,7 +3162,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to smile",
-          "englishAuditText": "to smile"
+          "englishAuditText": "to smile",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -2805,7 +3177,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I smile (present)",
-          "englishAuditText": "I smile (present)"
+          "englishAuditText": "I smile (present)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -2818,7 +3192,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I smiled (past)",
-          "englishAuditText": "I smiled (past)"
+          "englishAuditText": "I smiled (past)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -2831,9 +3207,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have smiled",
-          "englishAuditText": "I have smiled"
+          "englishAuditText": "I have smiled",
+          "usefulness": 76,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 26
     },
     {
       "id": "nb-tense-039",
@@ -2865,7 +3245,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to laugh",
-          "englishAuditText": "to laugh"
+          "englishAuditText": "to laugh",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -2878,7 +3260,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I laugh (present)",
-          "englishAuditText": "I laugh (present)"
+          "englishAuditText": "I laugh (present)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -2891,7 +3275,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I laughed (past)",
-          "englishAuditText": "I laughed (past)"
+          "englishAuditText": "I laughed (past)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -2904,9 +3290,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have laughed",
-          "englishAuditText": "I have laughed"
+          "englishAuditText": "I have laughed",
+          "usefulness": 76,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 51
     },
     {
       "id": "nb-tense-040",
@@ -2938,7 +3328,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to swim",
-          "englishAuditText": "to swim"
+          "englishAuditText": "to swim",
+          "usefulness": 63,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -2951,7 +3343,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I swim (present)",
-          "englishAuditText": "I swim (present)"
+          "englishAuditText": "I swim (present)",
+          "usefulness": 63,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -2964,7 +3358,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I swam (past)",
-          "englishAuditText": "I swam (past)"
+          "englishAuditText": "I swam (past)",
+          "usefulness": 63,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -2977,9 +3373,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have swum",
-          "englishAuditText": "I have swum"
+          "englishAuditText": "I have swum",
+          "usefulness": 63,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 63,
+      "complexity": 26
     },
     {
       "id": "nb-tense-041",
@@ -3011,7 +3411,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to travel",
-          "englishAuditText": "to travel"
+          "englishAuditText": "to travel",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -3024,7 +3426,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I travel (present)",
-          "englishAuditText": "I travel (present)"
+          "englishAuditText": "I travel (present)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -3037,7 +3441,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I traveled (past)",
-          "englishAuditText": "I traveled (past)"
+          "englishAuditText": "I traveled (past)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -3050,9 +3456,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have traveled",
-          "englishAuditText": "I have traveled"
+          "englishAuditText": "I have traveled",
+          "usefulness": 76,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 26
     },
     {
       "id": "nb-tense-042",
@@ -3084,7 +3494,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to drive",
-          "englishAuditText": "to drive"
+          "englishAuditText": "to drive",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -3097,7 +3509,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I drive (present)",
-          "englishAuditText": "I drive (present)"
+          "englishAuditText": "I drive (present)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -3110,7 +3524,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I drove (past)",
-          "englishAuditText": "I drove (past)"
+          "englishAuditText": "I drove (past)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -3123,9 +3539,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have driven",
-          "englishAuditText": "I have driven"
+          "englishAuditText": "I have driven",
+          "usefulness": 76,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 26
     },
     {
       "id": "nb-tense-043",
@@ -3157,7 +3577,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to cycle",
-          "englishAuditText": "to cycle"
+          "englishAuditText": "to cycle",
+          "usefulness": 34,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -3170,7 +3592,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I cycle (present)",
-          "englishAuditText": "I cycle (present)"
+          "englishAuditText": "I cycle (present)",
+          "usefulness": 34,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -3183,7 +3607,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I cycled (past)",
-          "englishAuditText": "I cycled (past)"
+          "englishAuditText": "I cycled (past)",
+          "usefulness": 34,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -3196,9 +3622,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have cycled",
-          "englishAuditText": "I have cycled"
+          "englishAuditText": "I have cycled",
+          "usefulness": 34,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 34,
+      "complexity": 26
     },
     {
       "id": "nb-tense-044",
@@ -3230,7 +3660,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to fly",
-          "englishAuditText": "to fly"
+          "englishAuditText": "to fly",
+          "usefulness": 71,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -3243,7 +3675,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I fly (present)",
-          "englishAuditText": "I fly (present)"
+          "englishAuditText": "I fly (present)",
+          "usefulness": 71,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -3256,7 +3690,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I flew (past)",
-          "englishAuditText": "I flew (past)"
+          "englishAuditText": "I flew (past)",
+          "usefulness": 71,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -3269,9 +3705,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have flown",
-          "englishAuditText": "I have flown"
+          "englishAuditText": "I have flown",
+          "usefulness": 71,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 71,
+      "complexity": 51
     },
     {
       "id": "nb-tense-045",
@@ -3303,7 +3743,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to carry",
-          "englishAuditText": "to carry"
+          "englishAuditText": "to carry",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -3316,7 +3758,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I carry (present)",
-          "englishAuditText": "I carry (present)"
+          "englishAuditText": "I carry (present)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -3329,7 +3773,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I carried (past)",
-          "englishAuditText": "I carried (past)"
+          "englishAuditText": "I carried (past)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -3342,9 +3788,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have carried",
-          "englishAuditText": "I have carried"
+          "englishAuditText": "I have carried",
+          "usefulness": 76,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 51
     },
     {
       "id": "nb-tense-046",
@@ -3376,7 +3826,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to choose",
-          "englishAuditText": "to choose"
+          "englishAuditText": "to choose",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -3389,7 +3841,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I choose (present)",
-          "englishAuditText": "I choose (present)"
+          "englishAuditText": "I choose (present)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -3402,7 +3856,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I chose (past)",
-          "englishAuditText": "I chose (past)"
+          "englishAuditText": "I chose (past)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -3415,9 +3871,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have chosen",
-          "englishAuditText": "I have chosen"
+          "englishAuditText": "I have chosen",
+          "usefulness": 76,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 51
     },
     {
       "id": "nb-tense-047",
@@ -3449,7 +3909,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to ask",
-          "englishAuditText": "to ask"
+          "englishAuditText": "to ask",
+          "usefulness": 89,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -3462,7 +3924,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I ask (present)",
-          "englishAuditText": "I ask (present)"
+          "englishAuditText": "I ask (present)",
+          "usefulness": 89,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -3475,7 +3939,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I asked (past)",
-          "englishAuditText": "I asked (past)"
+          "englishAuditText": "I asked (past)",
+          "usefulness": 89,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -3488,9 +3954,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have asked",
-          "englishAuditText": "I have asked"
+          "englishAuditText": "I have asked",
+          "usefulness": 89,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 51
     },
     {
       "id": "nb-tense-048",
@@ -3522,7 +3992,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to answer",
-          "englishAuditText": "to answer"
+          "englishAuditText": "to answer",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -3535,7 +4007,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I answer (present)",
-          "englishAuditText": "I answer (present)"
+          "englishAuditText": "I answer (present)",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -3548,7 +4022,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I answered (past)",
-          "englishAuditText": "I answered (past)"
+          "englishAuditText": "I answered (past)",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -3561,9 +4037,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have answered",
-          "englishAuditText": "I have answered"
+          "englishAuditText": "I have answered",
+          "usefulness": 89,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "nb-tense-049",
@@ -3595,7 +4075,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to tell",
-          "englishAuditText": "to tell"
+          "englishAuditText": "to tell",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -3608,7 +4090,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I tell (present)",
-          "englishAuditText": "I tell (present)"
+          "englishAuditText": "I tell (present)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -3621,7 +4105,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I told (past)",
-          "englishAuditText": "I told (past)"
+          "englishAuditText": "I told (past)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -3634,9 +4120,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have told",
-          "englishAuditText": "I have told"
+          "englishAuditText": "I have told",
+          "usefulness": 76,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 51
     },
     {
       "id": "nb-tense-050",
@@ -3668,7 +4158,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to understand",
-          "englishAuditText": "to understand"
+          "englishAuditText": "to understand",
+          "usefulness": 98,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -3681,7 +4173,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I understand (present)",
-          "englishAuditText": "I understand (present)"
+          "englishAuditText": "I understand (present)",
+          "usefulness": 98,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -3694,7 +4188,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I understood (past)",
-          "englishAuditText": "I understood (past)"
+          "englishAuditText": "I understood (past)",
+          "usefulness": 98,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -3707,9 +4203,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have understood",
-          "englishAuditText": "I have understood"
+          "englishAuditText": "I have understood",
+          "usefulness": 98,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 98,
+      "complexity": 51
     },
     {
       "id": "nb-tense-051",
@@ -3741,7 +4241,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to know",
-          "englishAuditText": "to know"
+          "englishAuditText": "to know",
+          "usefulness": 94,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -3754,7 +4256,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I know (present)",
-          "englishAuditText": "I know (present)"
+          "englishAuditText": "I know (present)",
+          "usefulness": 94,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -3767,7 +4271,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I knew (past)",
-          "englishAuditText": "I knew (past)"
+          "englishAuditText": "I knew (past)",
+          "usefulness": 94,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -3780,9 +4286,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have known",
-          "englishAuditText": "I have known"
+          "englishAuditText": "I have known",
+          "usefulness": 94,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 94,
+      "complexity": 51
     },
     {
       "id": "nb-tense-052",
@@ -3814,7 +4324,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to know",
-          "englishAuditText": "to know"
+          "englishAuditText": "to know",
+          "usefulness": 94,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -3827,7 +4339,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I know (present)",
-          "englishAuditText": "I know (present)"
+          "englishAuditText": "I know (present)",
+          "usefulness": 94,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -3840,7 +4354,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I knew (past)",
-          "englishAuditText": "I knew (past)"
+          "englishAuditText": "I knew (past)",
+          "usefulness": 94,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -3853,9 +4369,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have known",
-          "englishAuditText": "I have known"
+          "englishAuditText": "I have known",
+          "usefulness": 94,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 94,
+      "complexity": 26
     },
     {
       "id": "nb-tense-053",
@@ -3887,7 +4407,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to think",
-          "englishAuditText": "to think"
+          "englishAuditText": "to think",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -3900,7 +4422,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I think (present)",
-          "englishAuditText": "I think (present)"
+          "englishAuditText": "I think (present)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -3913,7 +4437,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I thought (past)",
-          "englishAuditText": "I thought (past)"
+          "englishAuditText": "I thought (past)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -3926,9 +4452,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have thought",
-          "englishAuditText": "I have thought"
+          "englishAuditText": "I have thought",
+          "usefulness": 76,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 26
     },
     {
       "id": "nb-tense-054",
@@ -3960,7 +4490,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to believe",
-          "englishAuditText": "to believe"
+          "englishAuditText": "to believe",
+          "usefulness": 55,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -3973,7 +4505,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I believe (present)",
-          "englishAuditText": "I believe (present)"
+          "englishAuditText": "I believe (present)",
+          "usefulness": 55,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -3986,7 +4520,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I believed (past)",
-          "englishAuditText": "I believed (past)"
+          "englishAuditText": "I believed (past)",
+          "usefulness": 55,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -3999,9 +4535,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have believed",
-          "englishAuditText": "I have believed"
+          "englishAuditText": "I have believed",
+          "usefulness": 55,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 55,
+      "complexity": 26
     },
     {
       "id": "nb-tense-055",
@@ -4033,7 +4573,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to remember",
-          "englishAuditText": "to remember"
+          "englishAuditText": "to remember",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -4046,7 +4588,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I remember (present)",
-          "englishAuditText": "I remember (present)"
+          "englishAuditText": "I remember (present)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -4059,7 +4603,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I remembered (past)",
-          "englishAuditText": "I remembered (past)"
+          "englishAuditText": "I remembered (past)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -4072,9 +4618,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have remembered",
-          "englishAuditText": "I have remembered"
+          "englishAuditText": "I have remembered",
+          "usefulness": 76,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 26
     },
     {
       "id": "nb-tense-056",
@@ -4106,7 +4656,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to forget",
-          "englishAuditText": "to forget"
+          "englishAuditText": "to forget",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -4119,7 +4671,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I forget (present)",
-          "englishAuditText": "I forget (present)"
+          "englishAuditText": "I forget (present)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -4132,7 +4686,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I forgot (past)",
-          "englishAuditText": "I forgot (past)"
+          "englishAuditText": "I forgot (past)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -4145,9 +4701,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have forgotten",
-          "englishAuditText": "I have forgotten"
+          "englishAuditText": "I have forgotten",
+          "usefulness": 76,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 26
     },
     {
       "id": "nb-tense-057",
@@ -4179,7 +4739,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to meet",
-          "englishAuditText": "to meet"
+          "englishAuditText": "to meet",
+          "usefulness": 79,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -4192,7 +4754,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I meet (present)",
-          "englishAuditText": "I meet (present)"
+          "englishAuditText": "I meet (present)",
+          "usefulness": 79,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -4205,7 +4769,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I met (past)",
-          "englishAuditText": "I met (past)"
+          "englishAuditText": "I met (past)",
+          "usefulness": 79,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -4218,9 +4784,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have met",
-          "englishAuditText": "I have met"
+          "englishAuditText": "I have met",
+          "usefulness": 79,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 26
     },
     {
       "id": "nb-tense-058",
@@ -4252,7 +4822,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to visit",
-          "englishAuditText": "to visit"
+          "englishAuditText": "to visit",
+          "usefulness": 79,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -4265,7 +4837,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I visit (present)",
-          "englishAuditText": "I visit (present)"
+          "englishAuditText": "I visit (present)",
+          "usefulness": 79,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -4278,7 +4852,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I visited (past)",
-          "englishAuditText": "I visited (past)"
+          "englishAuditText": "I visited (past)",
+          "usefulness": 79,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -4291,9 +4867,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have visited",
-          "englishAuditText": "I have visited"
+          "englishAuditText": "I have visited",
+          "usefulness": 79,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 26
     },
     {
       "id": "nb-tense-059",
@@ -4325,7 +4905,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to invite",
-          "englishAuditText": "to invite"
+          "englishAuditText": "to invite",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -4338,7 +4920,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I invite (present)",
-          "englishAuditText": "I invite (present)"
+          "englishAuditText": "I invite (present)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -4351,7 +4935,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I invited (past)",
-          "englishAuditText": "I invited (past)"
+          "englishAuditText": "I invited (past)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -4364,9 +4950,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have invited",
-          "englishAuditText": "I have invited"
+          "englishAuditText": "I have invited",
+          "usefulness": 76,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 26
     },
     {
       "id": "nb-tense-060",
@@ -4398,7 +4988,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to begin",
-          "englishAuditText": "to begin"
+          "englishAuditText": "to begin",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -4411,7 +5003,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I begin (present)",
-          "englishAuditText": "I begin (present)"
+          "englishAuditText": "I begin (present)",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -4424,7 +5018,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I began (past)",
-          "englishAuditText": "I began (past)"
+          "englishAuditText": "I began (past)",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -4437,9 +5033,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have begun",
-          "englishAuditText": "I have begun"
+          "englishAuditText": "I have begun",
+          "usefulness": 54,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 26
     },
     {
       "id": "nb-tense-061",
@@ -4471,7 +5071,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to stop",
-          "englishAuditText": "to stop"
+          "englishAuditText": "to stop",
+          "usefulness": 98,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -4484,7 +5086,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I stop (present)",
-          "englishAuditText": "I stop (present)"
+          "englishAuditText": "I stop (present)",
+          "usefulness": 98,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -4497,7 +5101,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I stopped (past)",
-          "englishAuditText": "I stopped (past)"
+          "englishAuditText": "I stopped (past)",
+          "usefulness": 98,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -4510,9 +5116,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have stopped",
-          "englishAuditText": "I have stopped"
+          "englishAuditText": "I have stopped",
+          "usefulness": 98,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 98,
+      "complexity": 26
     },
     {
       "id": "nb-tense-062",
@@ -4544,7 +5154,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to continue",
-          "englishAuditText": "to continue"
+          "englishAuditText": "to continue",
+          "usefulness": 54,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -4557,7 +5169,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I continue (present)",
-          "englishAuditText": "I continue (present)"
+          "englishAuditText": "I continue (present)",
+          "usefulness": 54,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -4570,7 +5184,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I continued (past)",
-          "englishAuditText": "I continued (past)"
+          "englishAuditText": "I continued (past)",
+          "usefulness": 54,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -4583,9 +5199,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have continued",
-          "englishAuditText": "I have continued"
+          "englishAuditText": "I have continued",
+          "usefulness": 54,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 51
     },
     {
       "id": "nb-tense-063",
@@ -4617,7 +5237,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to hold",
-          "englishAuditText": "to hold"
+          "englishAuditText": "to hold",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -4630,7 +5252,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I hold (present)",
-          "englishAuditText": "I hold (present)"
+          "englishAuditText": "I hold (present)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -4643,7 +5267,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I held (past)",
-          "englishAuditText": "I held (past)"
+          "englishAuditText": "I held (past)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -4656,9 +5282,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have held",
-          "englishAuditText": "I have held"
+          "englishAuditText": "I have held",
+          "usefulness": 76,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 51
     },
     {
       "id": "nb-tense-064",
@@ -4690,7 +5320,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to lay",
-          "englishAuditText": "to lay"
+          "englishAuditText": "to lay",
+          "usefulness": 54,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -4703,7 +5335,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I lay (present)",
-          "englishAuditText": "I lay (present)"
+          "englishAuditText": "I lay (present)",
+          "usefulness": 54,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -4716,7 +5350,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I laid (past)",
-          "englishAuditText": "I laid (past)"
+          "englishAuditText": "I laid (past)",
+          "usefulness": 54,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -4729,9 +5365,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have laid",
-          "englishAuditText": "I have laid"
+          "englishAuditText": "I have laid",
+          "usefulness": 54,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 51
     },
     {
       "id": "nb-tense-065",
@@ -4763,7 +5403,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to put",
-          "englishAuditText": "to put"
+          "englishAuditText": "to put",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -4776,7 +5418,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I put (present)",
-          "englishAuditText": "I put (present)"
+          "englishAuditText": "I put (present)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -4789,7 +5433,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I put (past)",
-          "englishAuditText": "I put (past)"
+          "englishAuditText": "I put (past)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -4802,9 +5448,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have put",
-          "englishAuditText": "I have put"
+          "englishAuditText": "I have put",
+          "usefulness": 76,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 51
     },
     {
       "id": "nb-tense-066",
@@ -4836,7 +5486,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to hang",
-          "englishAuditText": "to hang"
+          "englishAuditText": "to hang",
+          "usefulness": 54,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -4849,7 +5501,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I hang (present)",
-          "englishAuditText": "I hang (present)"
+          "englishAuditText": "I hang (present)",
+          "usefulness": 54,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -4862,7 +5516,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I hung (past)",
-          "englishAuditText": "I hung (past)"
+          "englishAuditText": "I hung (past)",
+          "usefulness": 54,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -4875,9 +5531,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have hung",
-          "englishAuditText": "I have hung"
+          "englishAuditText": "I have hung",
+          "usefulness": 54,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 51
     },
     {
       "id": "nb-tense-067",
@@ -4909,7 +5569,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to fall",
-          "englishAuditText": "to fall"
+          "englishAuditText": "to fall",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -4922,7 +5584,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I fall (present)",
-          "englishAuditText": "I fall (present)"
+          "englishAuditText": "I fall (present)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -4935,7 +5599,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I fell (past)",
-          "englishAuditText": "I fell (past)"
+          "englishAuditText": "I fell (past)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -4948,9 +5614,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have fallen",
-          "englishAuditText": "I have fallen"
+          "englishAuditText": "I have fallen",
+          "usefulness": 76,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 51
     },
     {
       "id": "nb-tense-068",
@@ -4982,7 +5652,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to grow",
-          "englishAuditText": "to grow"
+          "englishAuditText": "to grow",
+          "usefulness": 65,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -4995,7 +5667,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I grow (present)",
-          "englishAuditText": "I grow (present)"
+          "englishAuditText": "I grow (present)",
+          "usefulness": 65,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -5008,7 +5682,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I grew (past)",
-          "englishAuditText": "I grew (past)"
+          "englishAuditText": "I grew (past)",
+          "usefulness": 65,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -5021,9 +5697,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have grown",
-          "englishAuditText": "I have grown"
+          "englishAuditText": "I have grown",
+          "usefulness": 65,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "nb-tense-069",
@@ -5055,7 +5735,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to plant",
-          "englishAuditText": "to plant"
+          "englishAuditText": "to plant",
+          "usefulness": 65,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -5068,7 +5750,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I plant (present)",
-          "englishAuditText": "I plant (present)"
+          "englishAuditText": "I plant (present)",
+          "usefulness": 65,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -5081,7 +5765,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I planted (past)",
-          "englishAuditText": "I planted (past)"
+          "englishAuditText": "I planted (past)",
+          "usefulness": 65,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -5094,9 +5780,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have planted",
-          "englishAuditText": "I have planted"
+          "englishAuditText": "I have planted",
+          "usefulness": 65,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "nb-tense-070",
@@ -5128,7 +5818,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to water",
-          "englishAuditText": "to water"
+          "englishAuditText": "to water",
+          "usefulness": 98,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -5141,7 +5833,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I water (present)",
-          "englishAuditText": "I water (present)"
+          "englishAuditText": "I water (present)",
+          "usefulness": 98,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -5154,7 +5848,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I watered (past)",
-          "englishAuditText": "I watered (past)"
+          "englishAuditText": "I watered (past)",
+          "usefulness": 98,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -5167,9 +5863,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have watered",
-          "englishAuditText": "I have watered"
+          "englishAuditText": "I have watered",
+          "usefulness": 98,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 98,
+      "complexity": 26
     },
     {
       "id": "nb-tense-071",
@@ -5201,7 +5901,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to bake",
-          "englishAuditText": "to bake"
+          "englishAuditText": "to bake",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -5214,7 +5916,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I bake (present)",
-          "englishAuditText": "I bake (present)"
+          "englishAuditText": "I bake (present)",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -5227,7 +5931,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I baked (past)",
-          "englishAuditText": "I baked (past)"
+          "englishAuditText": "I baked (past)",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -5240,9 +5946,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have baked",
-          "englishAuditText": "I have baked"
+          "englishAuditText": "I have baked",
+          "usefulness": 54,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 26
     },
     {
       "id": "nb-tense-072",
@@ -5274,7 +5984,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to boil",
-          "englishAuditText": "to boil"
+          "englishAuditText": "to boil",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -5287,7 +5999,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I boil (present)",
-          "englishAuditText": "I boil (present)"
+          "englishAuditText": "I boil (present)",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -5300,7 +6014,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I boiled (past)",
-          "englishAuditText": "I boiled (past)"
+          "englishAuditText": "I boiled (past)",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -5313,9 +6029,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have boiled",
-          "englishAuditText": "I have boiled"
+          "englishAuditText": "I have boiled",
+          "usefulness": 54,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 26
     },
     {
       "id": "nb-tense-073",
@@ -5347,7 +6067,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to fry",
-          "englishAuditText": "to fry"
+          "englishAuditText": "to fry",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -5360,7 +6082,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I fry (present)",
-          "englishAuditText": "I fry (present)"
+          "englishAuditText": "I fry (present)",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -5373,7 +6097,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I fried (past)",
-          "englishAuditText": "I fried (past)"
+          "englishAuditText": "I fried (past)",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -5386,9 +6112,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have fried",
-          "englishAuditText": "I have fried"
+          "englishAuditText": "I have fried",
+          "usefulness": 54,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 26
     },
     {
       "id": "nb-tense-074",
@@ -5420,7 +6150,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to wash",
-          "englishAuditText": "to wash"
+          "englishAuditText": "to wash",
+          "usefulness": 75,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -5433,7 +6165,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I wash (present)",
-          "englishAuditText": "I wash (present)"
+          "englishAuditText": "I wash (present)",
+          "usefulness": 75,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -5446,7 +6180,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I washed (past)",
-          "englishAuditText": "I washed (past)"
+          "englishAuditText": "I washed (past)",
+          "usefulness": 75,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -5459,9 +6195,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have washed",
-          "englishAuditText": "I have washed"
+          "englishAuditText": "I have washed",
+          "usefulness": 75,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb-tense-075",
@@ -5493,7 +6233,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to tidy",
-          "englishAuditText": "to tidy"
+          "englishAuditText": "to tidy",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -5506,7 +6248,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I tidy (present)",
-          "englishAuditText": "I tidy (present)"
+          "englishAuditText": "I tidy (present)",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -5519,7 +6263,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I tidied (past)",
-          "englishAuditText": "I tidied (past)"
+          "englishAuditText": "I tidied (past)",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -5532,9 +6278,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have tidied",
-          "englishAuditText": "I have tidied"
+          "englishAuditText": "I have tidied",
+          "usefulness": 54,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 26
     },
     {
       "id": "nb-tense-076",
@@ -5566,7 +6316,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to pack",
-          "englishAuditText": "to pack"
+          "englishAuditText": "to pack",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -5579,7 +6331,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I pack (present)",
-          "englishAuditText": "I pack (present)"
+          "englishAuditText": "I pack (present)",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -5592,7 +6346,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I packed (past)",
-          "englishAuditText": "I packed (past)"
+          "englishAuditText": "I packed (past)",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -5605,9 +6361,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have packed",
-          "englishAuditText": "I have packed"
+          "englishAuditText": "I have packed",
+          "usefulness": 54,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 26
     },
     {
       "id": "nb-tense-077",
@@ -5639,7 +6399,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to borrow",
-          "englishAuditText": "to borrow"
+          "englishAuditText": "to borrow",
+          "usefulness": 79,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -5652,7 +6414,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I borrow (present)",
-          "englishAuditText": "I borrow (present)"
+          "englishAuditText": "I borrow (present)",
+          "usefulness": 79,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -5665,7 +6429,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I borrowed (past)",
-          "englishAuditText": "I borrowed (past)"
+          "englishAuditText": "I borrowed (past)",
+          "usefulness": 79,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -5678,9 +6444,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have borrowed",
-          "englishAuditText": "I have borrowed"
+          "englishAuditText": "I have borrowed",
+          "usefulness": 79,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 26
     },
     {
       "id": "nb-tense-078",
@@ -5712,7 +6482,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to pay",
-          "englishAuditText": "to pay"
+          "englishAuditText": "to pay",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -5725,7 +6497,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I pay (present)",
-          "englishAuditText": "I pay (present)"
+          "englishAuditText": "I pay (present)",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -5738,7 +6512,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I paid (past)",
-          "englishAuditText": "I paid (past)"
+          "englishAuditText": "I paid (past)",
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -5751,9 +6527,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have paid",
-          "englishAuditText": "I have paid"
+          "englishAuditText": "I have paid",
+          "usefulness": 89,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "nb-tense-079",
@@ -5785,7 +6565,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to sell",
-          "englishAuditText": "to sell"
+          "englishAuditText": "to sell",
+          "usefulness": 82,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -5798,7 +6580,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I sell (present)",
-          "englishAuditText": "I sell (present)"
+          "englishAuditText": "I sell (present)",
+          "usefulness": 82,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -5811,7 +6595,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I sold (past)",
-          "englishAuditText": "I sold (past)"
+          "englishAuditText": "I sold (past)",
+          "usefulness": 82,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -5824,9 +6610,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have sold",
-          "englishAuditText": "I have sold"
+          "englishAuditText": "I have sold",
+          "usefulness": 82,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 82,
+      "complexity": 51
     },
     {
       "id": "nb-tense-080",
@@ -5858,7 +6648,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to send",
-          "englishAuditText": "to send"
+          "englishAuditText": "to send",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -5871,7 +6663,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I send (present)",
-          "englishAuditText": "I send (present)"
+          "englishAuditText": "I send (present)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -5884,7 +6678,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I sent (past)",
-          "englishAuditText": "I sent (past)"
+          "englishAuditText": "I sent (past)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -5897,9 +6693,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have sent",
-          "englishAuditText": "I have sent"
+          "englishAuditText": "I have sent",
+          "usefulness": 76,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 26
     },
     {
       "id": "nb-tense-081",
@@ -5931,7 +6731,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to suggest",
-          "englishAuditText": "to suggest"
+          "englishAuditText": "to suggest",
+          "usefulness": 55,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -5944,7 +6746,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I suggest (present)",
-          "englishAuditText": "I suggest (present)"
+          "englishAuditText": "I suggest (present)",
+          "usefulness": 55,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -5957,7 +6761,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I suggested (past)",
-          "englishAuditText": "I suggested (past)"
+          "englishAuditText": "I suggested (past)",
+          "usefulness": 55,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -5970,9 +6776,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have suggested",
-          "englishAuditText": "I have suggested"
+          "englishAuditText": "I have suggested",
+          "usefulness": 55,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 55,
+      "complexity": 51
     },
     {
       "id": "nb-tense-082",
@@ -6004,7 +6814,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to compare",
-          "englishAuditText": "to compare"
+          "englishAuditText": "to compare",
+          "usefulness": 55,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -6017,7 +6829,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I compare (present)",
-          "englishAuditText": "I compare (present)"
+          "englishAuditText": "I compare (present)",
+          "usefulness": 55,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -6030,7 +6844,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I compared (past)",
-          "englishAuditText": "I compared (past)"
+          "englishAuditText": "I compared (past)",
+          "usefulness": 55,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -6043,9 +6859,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have compared",
-          "englishAuditText": "I have compared"
+          "englishAuditText": "I have compared",
+          "usefulness": 55,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 55,
+      "complexity": 26
     },
     {
       "id": "nb-tense-083",
@@ -6077,7 +6897,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to explain",
-          "englishAuditText": "to explain"
+          "englishAuditText": "to explain",
+          "usefulness": 79,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -6090,7 +6912,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I explain (present)",
-          "englishAuditText": "I explain (present)"
+          "englishAuditText": "I explain (present)",
+          "usefulness": 79,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -6103,7 +6927,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I explained (past)",
-          "englishAuditText": "I explained (past)"
+          "englishAuditText": "I explained (past)",
+          "usefulness": 79,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -6116,9 +6942,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have explained",
-          "englishAuditText": "I have explained"
+          "englishAuditText": "I have explained",
+          "usefulness": 79,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 26
     },
     {
       "id": "nb-tense-084",
@@ -6150,7 +6980,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to describe",
-          "englishAuditText": "to describe"
+          "englishAuditText": "to describe",
+          "usefulness": 54,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -6163,7 +6995,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I describe (present)",
-          "englishAuditText": "I describe (present)"
+          "englishAuditText": "I describe (present)",
+          "usefulness": 54,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -6176,7 +7010,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I described (past)",
-          "englishAuditText": "I described (past)"
+          "englishAuditText": "I described (past)",
+          "usefulness": 54,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -6189,9 +7025,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have described",
-          "englishAuditText": "I have described"
+          "englishAuditText": "I have described",
+          "usefulness": 54,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 51
     },
     {
       "id": "nb-tense-085",
@@ -6223,7 +7063,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to investigate",
-          "englishAuditText": "to investigate"
+          "englishAuditText": "to investigate",
+          "usefulness": 55,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -6236,7 +7078,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I investigate (present)",
-          "englishAuditText": "I investigate (present)"
+          "englishAuditText": "I investigate (present)",
+          "usefulness": 55,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -6249,7 +7093,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I investigated (past)",
-          "englishAuditText": "I investigated (past)"
+          "englishAuditText": "I investigated (past)",
+          "usefulness": 55,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -6262,9 +7108,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have investigated",
-          "englishAuditText": "I have investigated"
+          "englishAuditText": "I have investigated",
+          "usefulness": 55,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 55,
+      "complexity": 26
     },
     {
       "id": "nb-tense-086",
@@ -6296,7 +7146,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to discover",
-          "englishAuditText": "to discover"
+          "englishAuditText": "to discover",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -6309,7 +7161,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I discover (present)",
-          "englishAuditText": "I discover (present)"
+          "englishAuditText": "I discover (present)",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -6322,7 +7176,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I discovered (past)",
-          "englishAuditText": "I discovered (past)"
+          "englishAuditText": "I discovered (past)",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -6335,9 +7191,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have discovered",
-          "englishAuditText": "I have discovered"
+          "englishAuditText": "I have discovered",
+          "usefulness": 54,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 26
     },
     {
       "id": "nb-tense-087",
@@ -6369,7 +7229,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to explore",
-          "englishAuditText": "to explore"
+          "englishAuditText": "to explore",
+          "usefulness": 58,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -6382,7 +7244,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I explore (present)",
-          "englishAuditText": "I explore (present)"
+          "englishAuditText": "I explore (present)",
+          "usefulness": 58,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -6395,7 +7259,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I explored (past)",
-          "englishAuditText": "I explored (past)"
+          "englishAuditText": "I explored (past)",
+          "usefulness": 58,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -6408,9 +7274,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have explored",
-          "englishAuditText": "I have explored"
+          "englishAuditText": "I have explored",
+          "usefulness": 58,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 58,
+      "complexity": 26
     },
     {
       "id": "nb-tense-088",
@@ -6442,7 +7312,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to evaluate",
-          "englishAuditText": "to evaluate"
+          "englishAuditText": "to evaluate",
+          "usefulness": 33,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -6455,7 +7327,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I evaluate (present)",
-          "englishAuditText": "I evaluate (present)"
+          "englishAuditText": "I evaluate (present)",
+          "usefulness": 33,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -6468,7 +7342,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I evaluated (past)",
-          "englishAuditText": "I evaluated (past)"
+          "englishAuditText": "I evaluated (past)",
+          "usefulness": 33,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -6481,9 +7357,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have evaluated",
-          "englishAuditText": "I have evaluated"
+          "englishAuditText": "I have evaluated",
+          "usefulness": 33,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 33,
+      "complexity": 26
     },
     {
       "id": "nb-tense-089",
@@ -6515,7 +7395,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to justify",
-          "englishAuditText": "to justify"
+          "englishAuditText": "to justify",
+          "usefulness": 33,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -6528,7 +7410,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I justify (present)",
-          "englishAuditText": "I justify (present)"
+          "englishAuditText": "I justify (present)",
+          "usefulness": 33,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -6541,7 +7425,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I justified (past)",
-          "englishAuditText": "I justified (past)"
+          "englishAuditText": "I justified (past)",
+          "usefulness": 33,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -6554,9 +7440,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have justified",
-          "englishAuditText": "I have justified"
+          "englishAuditText": "I have justified",
+          "usefulness": 33,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 33,
+      "complexity": 26
     },
     {
       "id": "nb-tense-090",
@@ -6588,7 +7478,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to prove",
-          "englishAuditText": "to prove"
+          "englishAuditText": "to prove",
+          "usefulness": 55,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -6601,7 +7493,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I prove (present)",
-          "englishAuditText": "I prove (present)"
+          "englishAuditText": "I prove (present)",
+          "usefulness": 55,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -6614,7 +7508,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I proved (past)",
-          "englishAuditText": "I proved (past)"
+          "englishAuditText": "I proved (past)",
+          "usefulness": 55,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -6627,9 +7523,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have proved",
-          "englishAuditText": "I have proved"
+          "englishAuditText": "I have proved",
+          "usefulness": 55,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 55,
+      "complexity": 26
     },
     {
       "id": "nb-tense-091",
@@ -6661,7 +7561,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to decide",
-          "englishAuditText": "to decide"
+          "englishAuditText": "to decide",
+          "usefulness": 55,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -6674,7 +7576,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I decide (present)",
-          "englishAuditText": "I decide (present)"
+          "englishAuditText": "I decide (present)",
+          "usefulness": 55,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -6687,7 +7591,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I decided (past)",
-          "englishAuditText": "I decided (past)"
+          "englishAuditText": "I decided (past)",
+          "usefulness": 55,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -6700,9 +7606,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have decided",
-          "englishAuditText": "I have decided"
+          "englishAuditText": "I have decided",
+          "usefulness": 55,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 55,
+      "complexity": 51
     },
     {
       "id": "nb-tense-092",
@@ -6734,7 +7644,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to plan",
-          "englishAuditText": "to plan"
+          "englishAuditText": "to plan",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -6747,7 +7659,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I plan (present)",
-          "englishAuditText": "I plan (present)"
+          "englishAuditText": "I plan (present)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -6760,7 +7674,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I planned (past)",
-          "englishAuditText": "I planned (past)"
+          "englishAuditText": "I planned (past)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -6773,9 +7689,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have planned",
-          "englishAuditText": "I have planned"
+          "englishAuditText": "I have planned",
+          "usefulness": 76,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 51
     },
     {
       "id": "nb-tense-093",
@@ -6807,7 +7727,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to carry out",
-          "englishAuditText": "to carry out"
+          "englishAuditText": "to carry out",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -6820,7 +7742,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I carry out (present)",
-          "englishAuditText": "I carry out (present)"
+          "englishAuditText": "I carry out (present)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -6833,7 +7757,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I carried out (past)",
-          "englishAuditText": "I carried out (past)"
+          "englishAuditText": "I carried out (past)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -6846,9 +7772,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have carried out",
-          "englishAuditText": "I have carried out"
+          "englishAuditText": "I have carried out",
+          "usefulness": 76,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 26
     },
     {
       "id": "nb-tense-094",
@@ -6880,7 +7810,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to prepare",
-          "englishAuditText": "to prepare"
+          "englishAuditText": "to prepare",
+          "usefulness": 75,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -6893,7 +7825,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I prepare (present)",
-          "englishAuditText": "I prepare (present)"
+          "englishAuditText": "I prepare (present)",
+          "usefulness": 75,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -6906,7 +7840,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I prepared (past)",
-          "englishAuditText": "I prepared (past)"
+          "englishAuditText": "I prepared (past)",
+          "usefulness": 75,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -6919,9 +7855,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have prepared",
-          "englishAuditText": "I have prepared"
+          "englishAuditText": "I have prepared",
+          "usefulness": 75,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb-tense-095",
@@ -6953,7 +7893,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to participate",
-          "englishAuditText": "to participate"
+          "englishAuditText": "to participate",
+          "usefulness": 79,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -6966,7 +7908,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I participate (present)",
-          "englishAuditText": "I participate (present)"
+          "englishAuditText": "I participate (present)",
+          "usefulness": 79,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -6979,7 +7923,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I participated (past)",
-          "englishAuditText": "I participated (past)"
+          "englishAuditText": "I participated (past)",
+          "usefulness": 79,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -6992,9 +7938,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have participated",
-          "englishAuditText": "I have participated"
+          "englishAuditText": "I have participated",
+          "usefulness": 79,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 51
     },
     {
       "id": "nb-tense-096",
@@ -7026,7 +7976,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to contribute",
-          "englishAuditText": "to contribute"
+          "englishAuditText": "to contribute",
+          "usefulness": 44,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -7039,7 +7991,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I contribute (present)",
-          "englishAuditText": "I contribute (present)"
+          "englishAuditText": "I contribute (present)",
+          "usefulness": 44,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -7052,7 +8006,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I contributed (past)",
-          "englishAuditText": "I contributed (past)"
+          "englishAuditText": "I contributed (past)",
+          "usefulness": 44,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -7065,9 +8021,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have contributed",
-          "englishAuditText": "I have contributed"
+          "englishAuditText": "I have contributed",
+          "usefulness": 44,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 44,
+      "complexity": 51
     },
     {
       "id": "nb-tense-097",
@@ -7099,7 +8059,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to collaborate",
-          "englishAuditText": "to collaborate"
+          "englishAuditText": "to collaborate",
+          "usefulness": 79,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -7112,7 +8074,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I collaborate (present)",
-          "englishAuditText": "I collaborate (present)"
+          "englishAuditText": "I collaborate (present)",
+          "usefulness": 79,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -7125,7 +8089,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I collaborated (past)",
-          "englishAuditText": "I collaborated (past)"
+          "englishAuditText": "I collaborated (past)",
+          "usefulness": 79,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -7138,9 +8104,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have collaborated",
-          "englishAuditText": "I have collaborated"
+          "englishAuditText": "I have collaborated",
+          "usefulness": 79,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 26
     },
     {
       "id": "nb-tense-098",
@@ -7172,7 +8142,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to support",
-          "englishAuditText": "to support"
+          "englishAuditText": "to support",
+          "usefulness": 79,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -7185,7 +8157,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I support (present)",
-          "englishAuditText": "I support (present)"
+          "englishAuditText": "I support (present)",
+          "usefulness": 79,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -7198,7 +8172,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I supported (past)",
-          "englishAuditText": "I supported (past)"
+          "englishAuditText": "I supported (past)",
+          "usefulness": 79,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -7211,9 +8187,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have supported",
-          "englishAuditText": "I have supported"
+          "englishAuditText": "I have supported",
+          "usefulness": 79,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 26
     },
     {
       "id": "nb-tense-099",
@@ -7245,7 +8225,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to encourage",
-          "englishAuditText": "to encourage"
+          "englishAuditText": "to encourage",
+          "usefulness": 79,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -7258,7 +8240,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I encourage (present)",
-          "englishAuditText": "I encourage (present)"
+          "englishAuditText": "I encourage (present)",
+          "usefulness": 79,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -7271,7 +8255,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I encouraged (past)",
-          "englishAuditText": "I encouraged (past)"
+          "englishAuditText": "I encouraged (past)",
+          "usefulness": 79,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -7284,9 +8270,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have encouraged",
-          "englishAuditText": "I have encouraged"
+          "englishAuditText": "I have encouraged",
+          "usefulness": 79,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 26
     },
     {
       "id": "nb-tense-100",
@@ -7318,7 +8308,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to forgive",
-          "englishAuditText": "to forgive"
+          "englishAuditText": "to forgive",
+          "usefulness": 79,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -7331,7 +8323,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I forgive (present)",
-          "englishAuditText": "I forgive (present)"
+          "englishAuditText": "I forgive (present)",
+          "usefulness": 79,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -7344,7 +8338,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I forgave (past)",
-          "englishAuditText": "I forgave (past)"
+          "englishAuditText": "I forgave (past)",
+          "usefulness": 79,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -7357,9 +8353,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have forgiven",
-          "englishAuditText": "I have forgiven"
+          "englishAuditText": "I have forgiven",
+          "usefulness": 79,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 51
     },
     {
       "id": "nb-tense-101",
@@ -7391,7 +8391,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to allow",
-          "englishAuditText": "to allow"
+          "englishAuditText": "to allow",
+          "usefulness": 79,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -7404,7 +8406,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I allow (present)",
-          "englishAuditText": "I allow (present)"
+          "englishAuditText": "I allow (present)",
+          "usefulness": 79,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -7417,7 +8421,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I allowed (past)",
-          "englishAuditText": "I allowed (past)"
+          "englishAuditText": "I allowed (past)",
+          "usefulness": 79,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -7430,9 +8436,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have allowed",
-          "englishAuditText": "I have allowed"
+          "englishAuditText": "I have allowed",
+          "usefulness": 79,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 51
     },
     {
       "id": "nb-tense-102",
@@ -7464,7 +8474,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to avoid",
-          "englishAuditText": "to avoid"
+          "englishAuditText": "to avoid",
+          "usefulness": 88,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -7477,7 +8489,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I avoid (present)",
-          "englishAuditText": "I avoid (present)"
+          "englishAuditText": "I avoid (present)",
+          "usefulness": 88,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -7490,7 +8504,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I avoided (past)",
-          "englishAuditText": "I avoided (past)"
+          "englishAuditText": "I avoided (past)",
+          "usefulness": 88,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -7503,9 +8519,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have avoided",
-          "englishAuditText": "I have avoided"
+          "englishAuditText": "I have avoided",
+          "usefulness": 88,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 88,
+      "complexity": 51
     },
     {
       "id": "nb-tense-103",
@@ -7537,7 +8557,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to achieve",
-          "englishAuditText": "to achieve"
+          "englishAuditText": "to achieve",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -7550,7 +8572,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I achieve (present)",
-          "englishAuditText": "I achieve (present)"
+          "englishAuditText": "I achieve (present)",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -7563,7 +8587,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I achieved (past)",
-          "englishAuditText": "I achieved (past)"
+          "englishAuditText": "I achieved (past)",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -7576,9 +8602,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have achieved",
-          "englishAuditText": "I have achieved"
+          "englishAuditText": "I have achieved",
+          "usefulness": 54,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 26
     },
     {
       "id": "nb-tense-104",
@@ -7610,7 +8640,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to experience",
-          "englishAuditText": "to experience"
+          "englishAuditText": "to experience",
+          "usefulness": 55,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -7623,7 +8655,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I experience (present)",
-          "englishAuditText": "I experience (present)"
+          "englishAuditText": "I experience (present)",
+          "usefulness": 55,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -7636,7 +8670,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I experienced (past)",
-          "englishAuditText": "I experienced (past)"
+          "englishAuditText": "I experienced (past)",
+          "usefulness": 55,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -7649,9 +8685,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have experienced",
-          "englishAuditText": "I have experienced"
+          "englishAuditText": "I have experienced",
+          "usefulness": 55,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 55,
+      "complexity": 26
     },
     {
       "id": "nb-tense-105",
@@ -7683,7 +8723,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to offer",
-          "englishAuditText": "to offer"
+          "englishAuditText": "to offer",
+          "usefulness": 54,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -7696,7 +8738,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I offer (present)",
-          "englishAuditText": "I offer (present)"
+          "englishAuditText": "I offer (present)",
+          "usefulness": 54,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -7709,7 +8753,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I offered (past)",
-          "englishAuditText": "I offered (past)"
+          "englishAuditText": "I offered (past)",
+          "usefulness": 54,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -7722,9 +8768,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have offered",
-          "englishAuditText": "I have offered"
+          "englishAuditText": "I have offered",
+          "usefulness": 54,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 51
     },
     {
       "id": "nb-tense-106",
@@ -7756,7 +8806,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to receive",
-          "englishAuditText": "to receive"
+          "englishAuditText": "to receive",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -7769,7 +8821,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I receive (present)",
-          "englishAuditText": "I receive (present)"
+          "englishAuditText": "I receive (present)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -7782,7 +8836,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I received (past)",
-          "englishAuditText": "I received (past)"
+          "englishAuditText": "I received (past)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -7795,9 +8851,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have received",
-          "englishAuditText": "I have received"
+          "englishAuditText": "I have received",
+          "usefulness": 76,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 51
     },
     {
       "id": "nb-tense-107",
@@ -7829,7 +8889,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to keep",
-          "englishAuditText": "to keep"
+          "englishAuditText": "to keep",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -7842,7 +8904,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I keep (present)",
-          "englishAuditText": "I keep (present)"
+          "englishAuditText": "I keep (present)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -7855,7 +8919,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I kept (past)",
-          "englishAuditText": "I kept (past)"
+          "englishAuditText": "I kept (past)",
+          "usefulness": 76,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -7868,9 +8934,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have kept",
-          "englishAuditText": "I have kept"
+          "englishAuditText": "I have kept",
+          "usefulness": 76,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 51
     },
     {
       "id": "nb-tense-108",
@@ -7902,7 +8972,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to contain",
-          "englishAuditText": "to contain"
+          "englishAuditText": "to contain",
+          "usefulness": 54,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -7915,7 +8987,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I contain (present)",
-          "englishAuditText": "I contain (present)"
+          "englishAuditText": "I contain (present)",
+          "usefulness": 54,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -7928,7 +9002,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I contained (past)",
-          "englishAuditText": "I contained (past)"
+          "englishAuditText": "I contained (past)",
+          "usefulness": 54,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -7941,9 +9017,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have contained",
-          "englishAuditText": "I have contained"
+          "englishAuditText": "I have contained",
+          "usefulness": 54,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 51
     },
     {
       "id": "nb-tense-109",
@@ -7975,7 +9055,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to develop",
-          "englishAuditText": "to develop"
+          "englishAuditText": "to develop",
+          "usefulness": 44,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -7988,7 +9070,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I develop (present)",
-          "englishAuditText": "I develop (present)"
+          "englishAuditText": "I develop (present)",
+          "usefulness": 44,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -8001,7 +9085,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I developed (past)",
-          "englishAuditText": "I developed (past)"
+          "englishAuditText": "I developed (past)",
+          "usefulness": 44,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -8014,9 +9100,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have developed",
-          "englishAuditText": "I have developed"
+          "englishAuditText": "I have developed",
+          "usefulness": 44,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 44,
+      "complexity": 26
     },
     {
       "id": "nb-tense-110",
@@ -8048,7 +9138,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to change",
-          "englishAuditText": "to change"
+          "englishAuditText": "to change",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -8061,7 +9153,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I change (present)",
-          "englishAuditText": "I change (present)"
+          "englishAuditText": "I change (present)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -8074,7 +9168,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I changed (past)",
-          "englishAuditText": "I changed (past)"
+          "englishAuditText": "I changed (past)",
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -8087,9 +9183,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have changed",
-          "englishAuditText": "I have changed"
+          "englishAuditText": "I have changed",
+          "usefulness": 76,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 76,
+      "complexity": 26
     },
     {
       "id": "nb-tense-111",
@@ -8121,7 +9221,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to improve",
-          "englishAuditText": "to improve"
+          "englishAuditText": "to improve",
+          "usefulness": 75,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -8134,7 +9236,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I improve (present)",
-          "englishAuditText": "I improve (present)"
+          "englishAuditText": "I improve (present)",
+          "usefulness": 75,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -8147,7 +9251,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I improved (past)",
-          "englishAuditText": "I improved (past)"
+          "englishAuditText": "I improved (past)",
+          "usefulness": 75,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -8160,9 +9266,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have improved",
-          "englishAuditText": "I have improved"
+          "englishAuditText": "I have improved",
+          "usefulness": 75,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "nb-tense-112",
@@ -8194,7 +9304,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to replace",
-          "englishAuditText": "to replace"
+          "englishAuditText": "to replace",
+          "usefulness": 82,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -8207,7 +9319,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I replace (present)",
-          "englishAuditText": "I replace (present)"
+          "englishAuditText": "I replace (present)",
+          "usefulness": 82,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -8220,7 +9334,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I replaced (past)",
-          "englishAuditText": "I replaced (past)"
+          "englishAuditText": "I replaced (past)",
+          "usefulness": 82,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -8233,9 +9349,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have replaced",
-          "englishAuditText": "I have replaced"
+          "englishAuditText": "I have replaced",
+          "usefulness": 82,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 82,
+      "complexity": 26
     },
     {
       "id": "nb-tense-113",
@@ -8267,7 +9387,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to reuse",
-          "englishAuditText": "to reuse"
+          "englishAuditText": "to reuse",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -8280,7 +9402,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I reuse (present)",
-          "englishAuditText": "I reuse (present)"
+          "englishAuditText": "I reuse (present)",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -8293,7 +9417,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I reused (past)",
-          "englishAuditText": "I reused (past)"
+          "englishAuditText": "I reused (past)",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -8306,9 +9432,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have reused",
-          "englishAuditText": "I have reused"
+          "englishAuditText": "I have reused",
+          "usefulness": 54,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 26
     },
     {
       "id": "nb-tense-114",
@@ -8340,7 +9470,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to repair",
-          "englishAuditText": "to repair"
+          "englishAuditText": "to repair",
+          "usefulness": 79,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -8353,7 +9485,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I repair (present)",
-          "englishAuditText": "I repair (present)"
+          "englishAuditText": "I repair (present)",
+          "usefulness": 79,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -8366,7 +9500,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I repaired (past)",
-          "englishAuditText": "I repaired (past)"
+          "englishAuditText": "I repaired (past)",
+          "usefulness": 79,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -8379,9 +9515,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have repaired",
-          "englishAuditText": "I have repaired"
+          "englishAuditText": "I have repaired",
+          "usefulness": 79,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 26
     },
     {
       "id": "nb-tense-115",
@@ -8413,7 +9553,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to preserve",
-          "englishAuditText": "to preserve"
+          "englishAuditText": "to preserve",
+          "usefulness": 44,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -8426,7 +9568,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I preserve (present)",
-          "englishAuditText": "I preserve (present)"
+          "englishAuditText": "I preserve (present)",
+          "usefulness": 44,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -8439,7 +9583,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I preserved (past)",
-          "englishAuditText": "I preserved (past)"
+          "englishAuditText": "I preserved (past)",
+          "usefulness": 44,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -8452,9 +9598,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have preserved",
-          "englishAuditText": "I have preserved"
+          "englishAuditText": "I have preserved",
+          "usefulness": 44,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 44,
+      "complexity": 26
     },
     {
       "id": "nb-tense-116",
@@ -8486,7 +9636,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to protect",
-          "englishAuditText": "to protect"
+          "englishAuditText": "to protect",
+          "usefulness": 82,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -8499,7 +9651,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I protect (present)",
-          "englishAuditText": "I protect (present)"
+          "englishAuditText": "I protect (present)",
+          "usefulness": 82,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -8512,7 +9666,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I protected (past)",
-          "englishAuditText": "I protected (past)"
+          "englishAuditText": "I protected (past)",
+          "usefulness": 82,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -8525,9 +9681,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have protected",
-          "englishAuditText": "I have protected"
+          "englishAuditText": "I have protected",
+          "usefulness": 82,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 82,
+      "complexity": 26
     },
     {
       "id": "nb-tense-117",
@@ -8559,7 +9719,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to adapt",
-          "englishAuditText": "to adapt"
+          "englishAuditText": "to adapt",
+          "usefulness": 58,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -8572,7 +9734,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I adapt (present)",
-          "englishAuditText": "I adapt (present)"
+          "englishAuditText": "I adapt (present)",
+          "usefulness": 58,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -8585,7 +9749,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I adapted (past)",
-          "englishAuditText": "I adapted (past)"
+          "englishAuditText": "I adapted (past)",
+          "usefulness": 58,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -8598,9 +9764,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have adapted",
-          "englishAuditText": "I have adapted"
+          "englishAuditText": "I have adapted",
+          "usefulness": 58,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 58,
+      "complexity": 26
     },
     {
       "id": "nb-tense-118",
@@ -8632,7 +9802,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to translate",
-          "englishAuditText": "to translate"
+          "englishAuditText": "to translate",
+          "usefulness": 79,
+          "complexity": 51
         },
         {
           "id": "present",
@@ -8645,7 +9817,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I translate (present)",
-          "englishAuditText": "I translate (present)"
+          "englishAuditText": "I translate (present)",
+          "usefulness": 79,
+          "complexity": 51
         },
         {
           "id": "preterite",
@@ -8658,7 +9832,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I translated (past)",
-          "englishAuditText": "I translated (past)"
+          "englishAuditText": "I translated (past)",
+          "usefulness": 79,
+          "complexity": 51
         },
         {
           "id": "perfect",
@@ -8671,9 +9847,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have translated",
-          "englishAuditText": "I have translated"
+          "englishAuditText": "I have translated",
+          "usefulness": 79,
+          "complexity": 59
         }
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 51
     },
     {
       "id": "nb-tense-119",
@@ -8705,7 +9885,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to express",
-          "englishAuditText": "to express"
+          "englishAuditText": "to express",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -8718,7 +9900,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I express (present)",
-          "englishAuditText": "I express (present)"
+          "englishAuditText": "I express (present)",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -8731,7 +9915,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I expressed (past)",
-          "englishAuditText": "I expressed (past)"
+          "englishAuditText": "I expressed (past)",
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -8744,9 +9930,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have expressed",
-          "englishAuditText": "I have expressed"
+          "englishAuditText": "I have expressed",
+          "usefulness": 54,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 54,
+      "complexity": 26
     },
     {
       "id": "nb-tense-120",
@@ -8778,7 +9968,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to summarize",
-          "englishAuditText": "to summarize"
+          "englishAuditText": "to summarize",
+          "usefulness": 44,
+          "complexity": 26
         },
         {
           "id": "present",
@@ -8791,7 +9983,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I summarize (present)",
-          "englishAuditText": "I summarize (present)"
+          "englishAuditText": "I summarize (present)",
+          "usefulness": 44,
+          "complexity": 26
         },
         {
           "id": "preterite",
@@ -8804,7 +9998,9 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I summarized (past)",
-          "englishAuditText": "I summarized (past)"
+          "englishAuditText": "I summarized (past)",
+          "usefulness": 44,
+          "complexity": 26
         },
         {
           "id": "perfect",
@@ -8817,9 +10013,13 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have summarized",
-          "englishAuditText": "I have summarized"
+          "englishAuditText": "I have summarized",
+          "usefulness": 44,
+          "complexity": 34
         }
-      ]
+      ],
+      "usefulness": 44,
+      "complexity": 26
     }
   ]
 }

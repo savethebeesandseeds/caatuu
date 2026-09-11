@@ -24,6 +24,23 @@ function boundedDifficulty(value) {
   return level >= 1 && level <= 3 ? level : 1;
 }
 
+// This legacy provider is also packaged as a standalone course module. Keep
+// its input validation independent of the browser's shared-runtime URL layout.
+function progressionNumber(value, legacy, label) {
+  let number = value;
+  if (number === undefined && legacy !== undefined) {
+    if (!Number.isInteger(legacy) || legacy < 1 || legacy > 5) {
+      throw new TypeError(`${label} legacy value must be an integer from 1 to 5.`);
+    }
+    number = [1, 25, 50, 75, 100][legacy - 1];
+  }
+  if (number === undefined) number = 50;
+  if (!Number.isInteger(number) || number < 1 || number > 100) {
+    throw new TypeError(`${label} must be an integer from 1 to 100.`);
+  }
+  return number;
+}
+
 export function normalizeStandardWord(value) {
   return String(value || "")
     .normalize("NFC")
@@ -131,6 +148,8 @@ export function normalizeStandardRecord(record = {}, index = 0) {
     en,
     enAlternates,
     difficulty,
+    usefulness: progressionNumber(record.usefulness, record.urgency, `${id}.usefulness`),
+    complexity: progressionNumber(record.complexity, record.subdifficulty, `${id}.complexity`),
     cefr: String(record.cefr || "").trim(),
     topic: String(record.topic || "general").trim() || "general",
     targets,

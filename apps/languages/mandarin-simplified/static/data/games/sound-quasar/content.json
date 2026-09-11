@@ -4,7 +4,7 @@
   "courseId": "zh",
   "targetLanguageId": "zh",
   "id": "zh-sound-quasar-listening-pilot",
-  "contentRevision": "sound-quasar-retained-levels-1",
+  "contentRevision": "content-progression-starters-1",
   "mode": "practice",
   "audio": {
     "kind": "device-speech",
@@ -636,7 +636,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 94,
+      "complexity": 9
     },
     {
       "id": "zh-word-2",
@@ -663,7 +665,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 94,
+      "complexity": 9
     },
     {
       "id": "zh-word-3",
@@ -690,7 +694,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 91,
+      "complexity": 24
     },
     {
       "id": "zh-word-4",
@@ -721,7 +727,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 98,
+      "complexity": 15
     },
     {
       "id": "zh-word-5",
@@ -748,7 +756,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 94,
+      "complexity": 15
     },
     {
       "id": "zh-word-6",
@@ -775,7 +785,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zh-word-7",
@@ -806,7 +818,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-word-8",
@@ -833,7 +847,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 91,
+      "complexity": 24
     },
     {
       "id": "zh-word-9",
@@ -860,7 +876,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zh-word-10",
@@ -887,7 +905,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 94,
+      "complexity": 15
     },
     {
       "id": "zh-word-11",
@@ -914,7 +934,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 94,
+      "complexity": 15
     },
     {
       "id": "zh-word-12",
@@ -941,7 +963,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zh-word-13",
@@ -968,7 +992,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zh-word-14",
@@ -999,7 +1025,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zh-word-15",
@@ -1026,7 +1054,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zh-word-16",
@@ -1053,7 +1083,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zh-exp260908-items-17",
@@ -1080,7 +1112,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "zh-exp260908-items-19",
@@ -1111,7 +1145,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 62,
+      "complexity": 29
     },
     {
       "id": "zh-exp260908-items-27",
@@ -1138,7 +1174,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zh-exp260908-items-28",
@@ -1165,7 +1203,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-exp260908-items-31",
@@ -1192,7 +1232,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 71,
+      "complexity": 28
     },
     {
       "id": "zh-exp260908-items-32",
@@ -1223,7 +1265,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "zh-exp260908-items-36",
@@ -1254,7 +1298,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "zh-exp260908-items-37",
@@ -1281,7 +1327,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 71,
+      "complexity": 28
     },
     {
       "id": "zh-exp260908-items-59",
@@ -1312,7 +1360,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "zh-exp260908-items-60",
@@ -1339,7 +1389,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "zh-exp260908-items-65",
@@ -1370,7 +1422,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "zh-exp260908-items-73",
@@ -1401,7 +1455,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zh-exp260908-items-90",
@@ -1432,7 +1488,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-word-030",
@@ -1464,7 +1522,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-031",
@@ -1496,7 +1556,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-032",
@@ -1524,7 +1586,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 34
     },
     {
       "id": "zh-m260908-word-033",
@@ -1560,7 +1624,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "zh-m260908-word-034",
@@ -1592,7 +1658,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-035",
@@ -1624,7 +1692,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-word-036",
@@ -1652,7 +1722,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "zh-m260908-word-037",
@@ -1684,7 +1756,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-038",
@@ -1716,7 +1790,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-word-039",
@@ -1752,7 +1828,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-040",
@@ -1784,7 +1862,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-041",
@@ -1812,7 +1892,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-042",
@@ -1840,7 +1922,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-043",
@@ -1872,7 +1956,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-044",
@@ -1904,7 +1990,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-045",
@@ -1936,7 +2024,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-046",
@@ -1964,7 +2054,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 34
     },
     {
       "id": "zh-m260908-word-047",
@@ -1996,7 +2088,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-048",
@@ -2028,7 +2122,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-049",
@@ -2060,7 +2156,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-050",
@@ -2092,7 +2190,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-051",
@@ -2124,7 +2224,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-052",
@@ -2156,7 +2258,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-053",
@@ -2184,7 +2288,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 84,
+      "complexity": 30
     },
     {
       "id": "zh-m260908-word-054",
@@ -2216,7 +2322,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 34
     },
     {
       "id": "zh-m260908-word-055",
@@ -2248,7 +2356,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-056",
@@ -2276,7 +2386,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-057",
@@ -2304,7 +2416,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-058",
@@ -2332,7 +2446,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-059",
@@ -2364,7 +2480,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-060",
@@ -2396,7 +2514,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-061",
@@ -2428,7 +2548,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 91,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-062",
@@ -2460,7 +2582,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-063",
@@ -2492,7 +2616,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-064",
@@ -2524,7 +2650,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-065",
@@ -2552,7 +2680,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-066",
@@ -2584,7 +2714,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-067",
@@ -2616,7 +2748,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 82,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-068",
@@ -2652,7 +2786,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-069",
@@ -2684,7 +2820,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-070",
@@ -2716,7 +2854,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 36
     },
     {
       "id": "zh-m260908-word-071",
@@ -2744,7 +2884,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "zh-m260908-word-072",
@@ -2772,7 +2914,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-073",
@@ -2804,7 +2948,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-074",
@@ -2836,7 +2982,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-word-075",
@@ -2864,7 +3012,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-076",
@@ -2896,7 +3046,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "zh-m260908-word-077",
@@ -2924,7 +3076,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 84,
+      "complexity": 22
     },
     {
       "id": "zh-m260908-word-078",
@@ -2956,7 +3110,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-079",
@@ -2984,7 +3140,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-080",
@@ -3012,7 +3170,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-word-081",
@@ -3044,7 +3204,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-082",
@@ -3072,7 +3234,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-083",
@@ -3104,7 +3268,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "zh-m260908-word-084",
@@ -3136,7 +3302,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 80,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-word-085",
@@ -3168,7 +3336,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-086",
@@ -3196,7 +3366,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 71,
+      "complexity": 28
     },
     {
       "id": "zh-m260908-word-087",
@@ -3228,7 +3400,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-088",
@@ -3256,7 +3430,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "zh-m260908-word-089",
@@ -3288,7 +3464,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "zh-m260908-word-090",
@@ -3320,7 +3498,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 81,
+      "complexity": 34
     },
     {
       "id": "zh-m260908-word-091",
@@ -3356,7 +3536,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 43,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-092",
@@ -3388,7 +3570,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 34
     },
     {
       "id": "zh-m260908-word-093",
@@ -3420,7 +3604,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-094",
@@ -3452,7 +3638,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 34
     },
     {
       "id": "zh-m260908-word-095",
@@ -3484,7 +3672,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 89,
+      "complexity": 23
     },
     {
       "id": "zh-m260908-word-096",
@@ -3516,7 +3706,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 42
     },
     {
       "id": "zh-m260908-word-097",
@@ -3552,7 +3744,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zh-m260908-word-098",
@@ -3584,7 +3778,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-099",
@@ -3616,7 +3812,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-100",
@@ -3644,7 +3842,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-101",
@@ -3676,7 +3876,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-102",
@@ -3708,7 +3910,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-word-103",
@@ -3740,7 +3944,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 46,
+      "complexity": 46
     },
     {
       "id": "zh-m260908-word-104",
@@ -3772,7 +3978,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-105",
@@ -3800,7 +4008,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 28
     },
     {
       "id": "zh-m260908-word-106",
@@ -3832,7 +4042,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 48,
+      "complexity": 45
     },
     {
       "id": "zh-m260908-word-107",
@@ -3864,7 +4076,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-108",
@@ -3896,7 +4110,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-109",
@@ -3928,7 +4144,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-110",
@@ -3960,7 +4178,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 46,
+      "complexity": 41
     },
     {
       "id": "zh-m260908-word-111",
@@ -3992,7 +4212,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "zh-m260908-word-112",
@@ -4020,7 +4242,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-113",
@@ -4052,7 +4276,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-114",
@@ -4080,7 +4306,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-115",
@@ -4112,7 +4340,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-116",
@@ -4140,7 +4370,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-117",
@@ -4172,7 +4404,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-118",
@@ -4204,7 +4438,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-119",
@@ -4236,7 +4472,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-word-120",
@@ -4268,7 +4506,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 79,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-word-121",
@@ -4300,7 +4540,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-122",
@@ -4328,7 +4570,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 71,
+      "complexity": 36
     },
     {
       "id": "zh-m260908-word-123",
@@ -4356,7 +4600,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-124",
@@ -4388,7 +4634,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 46,
+      "complexity": 46
     },
     {
       "id": "zh-m260908-word-125",
@@ -4416,7 +4664,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-126",
@@ -4444,7 +4694,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-127",
@@ -4476,7 +4728,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 82,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-128",
@@ -4512,7 +4766,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 44,
+      "complexity": 44
     },
     {
       "id": "zh-m260908-word-129",
@@ -4548,7 +4804,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-130",
@@ -4576,7 +4834,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 48,
+      "complexity": 45
     },
     {
       "id": "zh-m260908-word-131",
@@ -4612,7 +4872,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-132",
@@ -4644,7 +4906,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-word-133",
@@ -4676,7 +4940,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-134",
@@ -4708,7 +4974,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-135",
@@ -4736,7 +5004,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-136",
@@ -4768,7 +5038,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-137",
@@ -4800,7 +5072,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 99,
+      "complexity": 15
     },
     {
       "id": "zh-m260908-word-138",
@@ -4832,7 +5106,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-139",
@@ -4864,7 +5140,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zh-m260908-word-140",
@@ -4892,7 +5170,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-141",
@@ -4928,7 +5208,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-142",
@@ -4960,7 +5242,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-143",
@@ -4992,7 +5276,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-144",
@@ -5020,7 +5306,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 34
     },
     {
       "id": "zh-m260908-word-145",
@@ -5048,7 +5336,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-146",
@@ -5084,7 +5374,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-147",
@@ -5116,7 +5408,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 91,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-word-148",
@@ -5148,7 +5442,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-149",
@@ -5180,7 +5476,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 82,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-150",
@@ -5212,7 +5510,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 34
     },
     {
       "id": "zh-m260908-word-151",
@@ -5244,7 +5544,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-152",
@@ -5272,7 +5574,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-153",
@@ -5304,7 +5608,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zh-m260908-word-154",
@@ -5332,7 +5638,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-155",
@@ -5364,7 +5672,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 91,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-word-156",
@@ -5396,7 +5706,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "zh-m260908-word-157",
@@ -5428,7 +5740,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-158",
@@ -5460,7 +5774,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-159",
@@ -5492,7 +5808,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-160",
@@ -5524,7 +5842,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-161",
@@ -5556,7 +5876,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-162",
@@ -5588,7 +5910,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-163",
@@ -5620,7 +5944,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 62,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-164",
@@ -5652,7 +5978,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-165",
@@ -5684,7 +6012,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-166",
@@ -5712,7 +6042,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "zh-m260908-word-167",
@@ -5748,7 +6080,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-168",
@@ -5780,7 +6114,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-word-169",
@@ -5812,7 +6148,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-word-170",
@@ -5844,7 +6182,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-171",
@@ -5876,7 +6216,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-172",
@@ -5908,7 +6250,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-173",
@@ -5940,7 +6284,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-174",
@@ -5972,7 +6318,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-175",
@@ -6004,7 +6352,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 38
     },
     {
       "id": "zh-m260908-word-176",
@@ -6036,7 +6386,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-177",
@@ -6068,7 +6420,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-178",
@@ -6100,7 +6454,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-179",
@@ -6132,7 +6488,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-180",
@@ -6164,7 +6522,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 46
     },
     {
       "id": "zh-m260908-word-181",
@@ -6196,7 +6556,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "zh-m260908-word-182",
@@ -6228,7 +6590,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-183",
@@ -6260,7 +6624,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-184",
@@ -6292,7 +6658,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-185",
@@ -6324,7 +6692,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-186",
@@ -6356,7 +6726,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-word-187",
@@ -6388,7 +6760,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-188",
@@ -6420,7 +6794,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-189",
@@ -6452,7 +6828,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-190",
@@ -6484,7 +6862,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 71,
+      "complexity": 28
     },
     {
       "id": "zh-m260908-word-191",
@@ -6516,7 +6896,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "zh-m260908-word-192",
@@ -6548,7 +6930,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-193",
@@ -6576,7 +6960,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 71,
+      "complexity": 28
     },
     {
       "id": "zh-m260908-word-194",
@@ -6608,7 +6994,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-195",
@@ -6636,7 +7024,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 71,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-196",
@@ -6664,7 +7054,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-197",
@@ -6696,7 +7088,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-198",
@@ -6728,7 +7122,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "zh-m260908-word-199",
@@ -6760,7 +7156,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-200",
@@ -6792,7 +7190,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "zh-m260908-word-201",
@@ -6824,7 +7224,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-202",
@@ -6856,7 +7258,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-203",
@@ -6896,7 +7300,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-word-204",
@@ -6924,7 +7330,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-205",
@@ -6956,7 +7364,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "zh-m260908-word-206",
@@ -6988,7 +7398,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 80,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-word-207",
@@ -7016,7 +7428,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-208",
@@ -7048,7 +7462,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-209",
@@ -7080,7 +7496,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 73,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-word-210",
@@ -7112,7 +7530,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zh-m260908-word-211",
@@ -7144,7 +7564,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "zh-m260908-word-212",
@@ -7176,7 +7598,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-213",
@@ -7208,7 +7632,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-214",
@@ -7240,7 +7666,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 35
     },
     {
       "id": "zh-m260908-word-215",
@@ -7272,7 +7700,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-216",
@@ -7304,7 +7734,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-217",
@@ -7336,7 +7768,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-218",
@@ -7368,7 +7802,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "zh-m260908-word-219",
@@ -7400,7 +7836,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 91,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-word-220",
@@ -7432,7 +7870,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-221",
@@ -7464,7 +7904,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-222",
@@ -7496,7 +7938,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-word-223",
@@ -7528,7 +7972,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 72,
+      "complexity": 30
     },
     {
       "id": "zh-m260908-word-224",
@@ -7560,7 +8006,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-225",
@@ -7588,7 +8036,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-226",
@@ -7620,7 +8070,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "zh-m260908-word-227",
@@ -7652,7 +8104,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 45
     },
     {
       "id": "zh-m260908-word-228",
@@ -7684,7 +8138,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-229",
@@ -7716,7 +8172,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-230",
@@ -7748,7 +8206,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-231",
@@ -7780,7 +8240,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-232",
@@ -7812,7 +8274,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-233",
@@ -7848,7 +8312,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-234",
@@ -7876,7 +8342,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-235",
@@ -7908,7 +8376,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-236",
@@ -7936,7 +8406,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 79,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-237",
@@ -7968,7 +8440,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-word-238",
@@ -8000,7 +8474,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 35
     },
     {
       "id": "zh-m260908-word-239",
@@ -8028,7 +8504,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 84,
+      "complexity": 22
     },
     {
       "id": "zh-m260908-word-240",
@@ -8060,7 +8538,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 91,
+      "complexity": 35
     },
     {
       "id": "zh-m260908-word-241",
@@ -8092,7 +8572,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-242",
@@ -8124,7 +8606,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 73,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-243",
@@ -8156,7 +8640,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 62,
+      "complexity": 43
     },
     {
       "id": "zh-m260908-word-244",
@@ -8188,7 +8674,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 34,
+      "complexity": 56
     },
     {
       "id": "zh-m260908-word-245",
@@ -8220,7 +8708,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 79,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-246",
@@ -8252,7 +8742,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-247",
@@ -8284,7 +8776,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 84,
+      "complexity": 28
     },
     {
       "id": "zh-m260908-word-248",
@@ -8316,7 +8810,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-249",
@@ -8348,7 +8844,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-250",
@@ -8380,7 +8878,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-251",
@@ -8412,7 +8912,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-252",
@@ -8444,7 +8946,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-253",
@@ -8472,7 +8976,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-254",
@@ -8504,7 +9010,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-255",
@@ -8536,7 +9044,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-256",
@@ -8568,7 +9078,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "zh-m260908-word-257",
@@ -8600,7 +9112,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 25
     },
     {
       "id": "zh-m260908-word-258",
@@ -8628,7 +9142,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-259",
@@ -8672,7 +9188,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-260",
@@ -8704,7 +9222,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "zh-m260908-word-261",
@@ -8736,7 +9256,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-262",
@@ -8768,7 +9290,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 43
     },
     {
       "id": "zh-m260908-word-263",
@@ -8800,7 +9324,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-264",
@@ -8832,7 +9358,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-265",
@@ -8868,7 +9396,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-266",
@@ -8900,7 +9430,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-267",
@@ -8932,7 +9464,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-268",
@@ -8964,7 +9498,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-269",
@@ -8992,7 +9528,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-270",
@@ -9024,7 +9562,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-271",
@@ -9056,7 +9596,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-272",
@@ -9088,7 +9630,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 91,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-word-273",
@@ -9120,7 +9664,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-word-274",
@@ -9152,7 +9698,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-275",
@@ -9180,7 +9728,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 40
     },
     {
       "id": "zh-m260908-word-276",
@@ -9212,7 +9762,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 57,
+      "complexity": 36
     },
     {
       "id": "zh-m260908-word-277",
@@ -9244,7 +9796,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-word-278",
@@ -9276,7 +9830,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 62,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-279",
@@ -9308,7 +9864,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-280",
@@ -9340,7 +9898,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 77,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-281",
@@ -9372,7 +9932,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 80,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-282",
@@ -9404,7 +9966,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 82,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-283",
@@ -9436,7 +10000,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-284",
@@ -9468,7 +10034,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 62,
+      "complexity": 30
     },
     {
       "id": "zh-m260908-word-285",
@@ -9500,7 +10068,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 91,
+      "complexity": 30
     },
     {
       "id": "zh-m260908-word-286",
@@ -9532,7 +10102,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 82,
+      "complexity": 34
     },
     {
       "id": "zh-m260908-word-287",
@@ -9568,7 +10140,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-288",
@@ -9600,7 +10174,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 52,
+      "complexity": 51
     },
     {
       "id": "zh-m260908-word-289",
@@ -9632,7 +10208,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-290",
@@ -9664,7 +10242,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-word-291",
@@ -9692,7 +10272,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "zh-m260908-word-292",
@@ -9724,7 +10306,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-293",
@@ -9760,7 +10344,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-294",
@@ -9792,7 +10378,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-word-295",
@@ -9824,7 +10412,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-296",
@@ -9856,7 +10446,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-297",
@@ -9888,7 +10480,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 91,
+      "complexity": 30
     },
     {
       "id": "zh-m260908-word-298",
@@ -9920,7 +10514,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "zh-m260908-word-299",
@@ -9952,7 +10548,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-300",
@@ -9984,7 +10582,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-word-301",
@@ -10012,7 +10612,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 99,
+      "complexity": 15
     },
     {
       "id": "zh-m260908-word-302",
@@ -10044,7 +10646,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-303",
@@ -10072,7 +10676,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 71,
+      "complexity": 28
     },
     {
       "id": "zh-m260908-word-304",
@@ -10104,7 +10710,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "zh-m260908-word-305",
@@ -10136,7 +10744,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 91,
+      "complexity": 48
     },
     {
       "id": "zh-m260908-word-306",
@@ -10168,7 +10778,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 62,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-307",
@@ -10200,7 +10812,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-308",
@@ -10232,7 +10846,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-309",
@@ -10264,7 +10880,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 42
     },
     {
       "id": "zh-m260908-word-310",
@@ -10292,7 +10910,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 62,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-311",
@@ -10324,7 +10944,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-312",
@@ -10352,7 +10974,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-313",
@@ -10384,7 +11008,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-314",
@@ -10416,7 +11042,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 28
     },
     {
       "id": "zh-m260908-word-315",
@@ -10452,7 +11080,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-word-316",
@@ -10480,7 +11110,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-317",
@@ -10512,7 +11144,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-318",
@@ -10540,7 +11174,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-319",
@@ -10572,7 +11208,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 73,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-word-320",
@@ -10608,7 +11246,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-word-321",
@@ -10640,7 +11280,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 82,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-322",
@@ -10672,7 +11314,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-323",
@@ -10704,7 +11348,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "zh-m260908-word-324",
@@ -10736,7 +11382,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "zh-m260908-word-325",
@@ -10768,7 +11416,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-326",
@@ -10800,7 +11450,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-327",
@@ -10832,7 +11484,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 55,
+      "complexity": 54
     },
     {
       "id": "zh-m260908-word-328",
@@ -10864,7 +11518,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-329",
@@ -10896,7 +11552,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-330",
@@ -10928,7 +11586,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-331",
@@ -10960,7 +11620,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "zh-m260908-word-332",
@@ -10992,7 +11654,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-333",
@@ -11020,7 +11684,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-334",
@@ -11052,7 +11718,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-335",
@@ -11084,7 +11752,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 52,
+      "complexity": 57
     },
     {
       "id": "zh-m260908-word-336",
@@ -11116,7 +11786,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "zh-m260908-word-337",
@@ -11148,7 +11820,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-338",
@@ -11176,7 +11850,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-339",
@@ -11204,7 +11880,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-340",
@@ -11236,7 +11914,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-341",
@@ -11264,7 +11944,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-342",
@@ -11296,7 +11978,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-343",
@@ -11328,7 +12012,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-344",
@@ -11360,7 +12046,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "zh-m260908-word-345",
@@ -11388,7 +12076,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "zh-m260908-word-346",
@@ -11420,7 +12110,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-347",
@@ -11452,7 +12144,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-word-348",
@@ -11480,7 +12174,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 39
     },
     {
       "id": "zh-m260908-word-349",
@@ -11508,7 +12204,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "zh-m260908-word-350",
@@ -11536,7 +12234,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 82,
+      "complexity": 34
     },
     {
       "id": "zh-m260908-word-351",
@@ -11568,7 +12268,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 72,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-word-352",
@@ -11600,7 +12302,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-353",
@@ -11632,7 +12336,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 91,
+      "complexity": 30
     },
     {
       "id": "zh-m260908-word-354",
@@ -11664,7 +12370,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-355",
@@ -11696,7 +12404,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-word-356",
@@ -11724,7 +12434,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-357",
@@ -11752,7 +12464,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-word-358",
@@ -11780,7 +12494,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-359",
@@ -11812,7 +12528,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-360",
@@ -11844,7 +12562,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 43
     },
     {
       "id": "zh-m260908-word-361",
@@ -11876,7 +12596,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zh-m260908-word-362",
@@ -11908,7 +12630,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-363",
@@ -11944,7 +12668,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-364",
@@ -11976,7 +12702,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "zh-m260908-word-365",
@@ -12004,7 +12732,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "zh-m260908-word-366",
@@ -12032,7 +12762,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-367",
@@ -12064,7 +12796,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-368",
@@ -12096,7 +12830,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-369",
@@ -12128,7 +12864,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-370",
@@ -12156,7 +12894,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-word-371",
@@ -12188,7 +12928,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-372",
@@ -12216,7 +12958,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-word-373",
@@ -12244,7 +12988,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 91,
+      "complexity": 30
     },
     {
       "id": "zh-m260908-word-374",
@@ -12276,7 +13022,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 91,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-word-375",
@@ -12304,7 +13052,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-376",
@@ -12340,7 +13090,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "zh-m260908-word-377",
@@ -12372,7 +13124,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "zh-m260908-word-378",
@@ -12404,7 +13158,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-379",
@@ -12436,7 +13192,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 38
     },
     {
       "id": "zh-m260908-word-380",
@@ -12468,7 +13226,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-381",
@@ -12504,7 +13264,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-382",
@@ -12532,7 +13294,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-word-383",
@@ -12564,7 +13328,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-384",
@@ -12600,7 +13366,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-385",
@@ -12632,7 +13400,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-386",
@@ -12660,7 +13430,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-387",
@@ -12688,7 +13460,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-word-388",
@@ -12716,7 +13490,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 84,
+      "complexity": 22
     },
     {
       "id": "zh-m260908-word-389",
@@ -12748,7 +13524,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-390",
@@ -12780,7 +13558,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 91,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-word-391",
@@ -12820,7 +13600,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 81,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-word-392",
@@ -12856,7 +13638,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-393",
@@ -12888,7 +13672,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-394",
@@ -12920,7 +13706,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 81,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-395",
@@ -12960,7 +13748,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-396",
@@ -12996,7 +13786,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-word-397",
@@ -13028,7 +13820,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 81,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-word-398",
@@ -13060,7 +13854,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-399",
@@ -13088,7 +13884,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zh-m260908-word-400",
@@ -13116,7 +13914,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 82,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-401",
@@ -13152,7 +13952,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-402",
@@ -13184,7 +13986,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 82,
+      "complexity": 34
     },
     {
       "id": "zh-m260908-word-403",
@@ -13220,7 +14024,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-404",
@@ -13252,7 +14058,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-405",
@@ -13284,7 +14092,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-406",
@@ -13316,7 +14126,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-407",
@@ -13348,7 +14160,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-408",
@@ -13380,7 +14194,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-word-409",
@@ -13416,7 +14232,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-410",
@@ -13444,7 +14262,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-411",
@@ -13476,7 +14296,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-412",
@@ -13508,7 +14330,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "zh-m260908-word-413",
@@ -13540,7 +14364,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-414",
@@ -13572,7 +14398,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-415",
@@ -13604,7 +14432,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-416",
@@ -13636,7 +14466,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-word-417",
@@ -13668,7 +14500,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 34
     },
     {
       "id": "zh-m260908-word-418",
@@ -13696,7 +14530,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-word-419",
@@ -13728,7 +14564,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-420",
@@ -13760,7 +14598,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "zh-m260908-word-421",
@@ -13792,7 +14632,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-422",
@@ -13828,7 +14670,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-word-423",
@@ -13856,7 +14700,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 28
     },
     {
       "id": "zh-m260908-word-424",
@@ -13884,7 +14730,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-425",
@@ -13916,7 +14764,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 84,
+      "complexity": 25
     },
     {
       "id": "zh-m260908-word-426",
@@ -13948,7 +14798,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 39
     },
     {
       "id": "zh-m260908-word-427",
@@ -13980,7 +14832,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-428",
@@ -14012,7 +14866,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-429",
@@ -14044,7 +14900,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-430",
@@ -14076,7 +14934,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "zh-m260908-word-431",
@@ -14104,7 +14964,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-432",
@@ -14136,7 +14998,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "zh-m260908-word-433",
@@ -14168,7 +15032,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-434",
@@ -14200,7 +15066,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-435",
@@ -14232,7 +15100,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-436",
@@ -14264,7 +15134,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-437",
@@ -14296,7 +15168,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-438",
@@ -14328,7 +15202,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-439",
@@ -14360,7 +15236,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-440",
@@ -14392,7 +15270,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-441",
@@ -14420,7 +15300,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 89,
+      "complexity": 23
     },
     {
       "id": "zh-m260908-word-442",
@@ -14452,7 +15334,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 79,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-443",
@@ -14484,7 +15368,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-444",
@@ -14516,7 +15402,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 30
     },
     {
       "id": "zh-m260908-word-445",
@@ -14548,7 +15436,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-446",
@@ -14580,7 +15470,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 55,
+      "complexity": 54
     },
     {
       "id": "zh-m260908-word-447",
@@ -14612,7 +15504,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 91,
+      "complexity": 30
     },
     {
       "id": "zh-m260908-word-448",
@@ -14644,7 +15538,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-449",
@@ -14676,7 +15572,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 35
     },
     {
       "id": "zh-m260908-word-450",
@@ -14708,7 +15606,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 91,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-451",
@@ -14740,7 +15640,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 45
     },
     {
       "id": "zh-m260908-word-452",
@@ -14768,7 +15670,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-453",
@@ -14800,7 +15704,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-454",
@@ -14828,7 +15734,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 34
     },
     {
       "id": "zh-m260908-word-455",
@@ -14856,7 +15764,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "zh-m260908-word-456",
@@ -14888,7 +15798,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 73,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-457",
@@ -14920,7 +15832,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-458",
@@ -14952,7 +15866,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 34,
+      "complexity": 56
     },
     {
       "id": "zh-m260908-word-459",
@@ -14984,7 +15900,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "zh-m260908-word-460",
@@ -15016,7 +15934,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-461",
@@ -15048,7 +15968,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 22
     },
     {
       "id": "zh-m260908-word-462",
@@ -15080,7 +16002,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-463",
@@ -15112,7 +16036,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "zh-m260908-word-464",
@@ -15144,7 +16070,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 35
     },
     {
       "id": "zh-m260908-word-465",
@@ -15176,7 +16104,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-466",
@@ -15208,7 +16138,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-467",
@@ -15240,7 +16172,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "zh-m260908-word-468",
@@ -15272,7 +16206,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 82,
+      "complexity": 34
     },
     {
       "id": "zh-m260908-word-469",
@@ -15304,7 +16240,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-470",
@@ -15336,7 +16274,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-471",
@@ -15368,7 +16308,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-472",
@@ -15400,7 +16342,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 91,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-473",
@@ -15432,7 +16376,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 91,
+      "complexity": 30
     },
     {
       "id": "zh-m260908-word-474",
@@ -15464,7 +16410,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "zh-m260908-word-475",
@@ -15496,7 +16444,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 84,
+      "complexity": 25
     },
     {
       "id": "zh-m260908-word-476",
@@ -15528,7 +16478,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "zh-m260908-word-477",
@@ -15560,7 +16512,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-478",
@@ -15592,7 +16546,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 52,
+      "complexity": 51
     },
     {
       "id": "zh-m260908-word-479",
@@ -15624,7 +16580,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-480",
@@ -15656,7 +16614,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-481",
@@ -15688,7 +16648,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-482",
@@ -15720,7 +16682,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "zh-m260908-word-483",
@@ -15756,7 +16720,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-484",
@@ -15788,7 +16754,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 73,
+      "complexity": 28
     },
     {
       "id": "zh-m260908-word-485",
@@ -15820,7 +16788,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "zh-m260908-word-486",
@@ -15852,7 +16822,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-487",
@@ -15888,7 +16860,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 55,
+      "complexity": 54
     },
     {
       "id": "zh-m260908-word-488",
@@ -15920,7 +16894,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-489",
@@ -15952,7 +16928,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "zh-m260908-word-490",
@@ -15988,7 +16966,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-word-491",
@@ -16020,7 +17000,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 38
     },
     {
       "id": "zh-m260908-word-492",
@@ -16052,7 +17034,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 79,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-word-493",
@@ -16084,7 +17068,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 91,
+      "complexity": 49
     },
     {
       "id": "zh-m260908-word-494",
@@ -16116,7 +17102,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-495",
@@ -16148,7 +17136,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 33,
+      "complexity": 54
     },
     {
       "id": "zh-m260908-word-496",
@@ -16180,7 +17170,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-497",
@@ -16212,7 +17204,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 73,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-word-498",
@@ -16244,7 +17238,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 55,
+      "complexity": 54
     },
     {
       "id": "zh-m260908-word-499",
@@ -16276,7 +17272,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-500",
@@ -16308,7 +17306,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-501",
@@ -16340,7 +17340,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 89,
+      "complexity": 23
     },
     {
       "id": "zh-m260908-word-502",
@@ -16376,7 +17378,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 43,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-503",
@@ -16408,7 +17412,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-504",
@@ -16440,7 +17446,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-505",
@@ -16468,7 +17476,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 73,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-506",
@@ -16500,7 +17510,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 55,
+      "complexity": 54
     },
     {
       "id": "zh-m260908-word-507",
@@ -16532,7 +17544,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 91,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-word-508",
@@ -16564,7 +17578,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 62,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-509",
@@ -16592,7 +17608,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-510",
@@ -16624,7 +17642,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 73,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-word-511",
@@ -16656,7 +17676,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 35
     },
     {
       "id": "zh-m260908-word-512",
@@ -16688,7 +17710,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-513",
@@ -16720,7 +17744,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-514",
@@ -16752,7 +17778,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-515",
@@ -16784,7 +17812,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-516",
@@ -16816,7 +17846,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 42
     },
     {
       "id": "zh-m260908-word-517",
@@ -16852,7 +17884,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-518",
@@ -16880,7 +17914,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-519",
@@ -16912,7 +17948,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 34
     },
     {
       "id": "zh-m260908-word-520",
@@ -16940,7 +17978,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 34
     },
     {
       "id": "zh-m260908-word-521",
@@ -16972,7 +18012,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-522",
@@ -17004,7 +18046,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-word-523",
@@ -17036,7 +18080,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-524",
@@ -17064,7 +18110,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-525",
@@ -17096,7 +18144,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-526",
@@ -17128,7 +18178,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-527",
@@ -17160,7 +18212,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-528",
@@ -17192,7 +18246,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-529",
@@ -17224,7 +18280,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-530",
@@ -17256,7 +18314,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-531",
@@ -17288,7 +18348,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-532",
@@ -17320,7 +18382,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-533",
@@ -17352,7 +18416,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "zh-m260908-word-534",
@@ -17388,7 +18454,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-535",
@@ -17420,7 +18488,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 43
     },
     {
       "id": "zh-m260908-word-536",
@@ -17452,7 +18522,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-537",
@@ -17480,7 +18552,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-538",
@@ -17512,7 +18586,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-539",
@@ -17544,7 +18620,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-540",
@@ -17576,7 +18654,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-word-541",
@@ -17612,7 +18692,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-542",
@@ -17644,7 +18726,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-543",
@@ -17676,7 +18760,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-544",
@@ -17708,7 +18794,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 98,
+      "complexity": 23
     },
     {
       "id": "zh-m260908-word-545",
@@ -17740,7 +18828,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 61,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-546",
@@ -17772,7 +18862,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-547",
@@ -17804,7 +18896,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-548",
@@ -17836,7 +18930,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-549",
@@ -17868,7 +18964,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 51
     },
     {
       "id": "zh-m260908-word-550",
@@ -17900,7 +18998,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 44,
+      "complexity": 41
     },
     {
       "id": "zh-m260908-word-551",
@@ -17932,7 +19032,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-552",
@@ -17964,7 +19066,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-553",
@@ -17996,7 +19100,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-554",
@@ -18028,7 +19134,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-word-555",
@@ -18060,7 +19168,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 89,
+      "complexity": 23
     },
     {
       "id": "zh-m260908-word-556",
@@ -18092,7 +19202,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-557",
@@ -18124,7 +19236,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 98,
+      "complexity": 23
     },
     {
       "id": "zh-m260908-word-558",
@@ -18152,7 +19266,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-559",
@@ -18184,7 +19300,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 82,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-560",
@@ -18216,7 +19334,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 82,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-561",
@@ -18248,7 +19368,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-562",
@@ -18280,7 +19402,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-563",
@@ -18312,7 +19436,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-564",
@@ -18344,7 +19470,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-565",
@@ -18376,7 +19504,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 45
     },
     {
       "id": "zh-m260908-word-566",
@@ -18408,7 +19538,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 49
     },
     {
       "id": "zh-m260908-word-567",
@@ -18440,7 +19572,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 62,
+      "complexity": 36
     },
     {
       "id": "zh-m260908-word-568",
@@ -18472,7 +19606,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 25
     },
     {
       "id": "zh-m260908-word-569",
@@ -18504,7 +19640,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 39
     },
     {
       "id": "zh-m260908-word-570",
@@ -18532,7 +19670,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-571",
@@ -18564,7 +19704,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-word-572",
@@ -18596,7 +19738,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-573",
@@ -18628,7 +19772,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-574",
@@ -18660,7 +19806,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-575",
@@ -18692,7 +19840,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-576",
@@ -18724,7 +19874,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-577",
@@ -18756,7 +19908,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-578",
@@ -18788,7 +19942,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 79,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-579",
@@ -18824,7 +19980,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-580",
@@ -18852,7 +20010,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-581",
@@ -18884,7 +20044,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "zh-m260908-word-582",
@@ -18916,7 +20078,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-word-583",
@@ -18948,7 +20112,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-word-584",
@@ -18980,7 +20146,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zh-m260908-word-585",
@@ -19012,7 +20180,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 79,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-word-586",
@@ -19044,7 +20214,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-word-587",
@@ -19076,7 +20248,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 71,
+      "complexity": 28
     },
     {
       "id": "zh-m260908-word-588",
@@ -19108,7 +20282,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 79,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-word-589",
@@ -19136,7 +20312,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "zh-m260908-word-590",
@@ -19168,7 +20346,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zh-m260908-word-591",
@@ -19200,7 +20380,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 36
     },
     {
       "id": "zh-m260908-word-592",
@@ -19232,7 +20414,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     }
   ],
   "sentenceProvenance": {
@@ -19596,7 +20780,27 @@
       "ww-zh-m260908-297",
       "ww-zh-m260908-298",
       "ww-zh-m260908-299",
-      "ww-zh-m260908-300"
+      "ww-zh-m260908-300",
+      "ww.greeting.hello",
+      "ww.greeting.thanks",
+      "ww.greeting.goodbye",
+      "ww.politeness.welcome",
+      "ww.identity.your-name",
+      "ww-zh-starter260911-yes",
+      "ww-zh-starter260911-no",
+      "ww-zh-starter260911-please-enter",
+      "ww-zh-starter260911-sorry",
+      "ww-zh-starter260911-excuse-me",
+      "ww-zh-starter260911-help",
+      "ww-zh-starter260911-hungry",
+      "ww-zh-starter260911-thirsty",
+      "ww-zh-starter260911-water",
+      "ww-zh-starter260911-bathroom",
+      "ww-zh-starter260911-again",
+      "ww-zh-starter260911-slowly",
+      "ww-zh-starter260911-no-thanks",
+      "ww-zh-starter260911-stop",
+      "ww-zh-starter260911-dont-know"
     ],
     "selection": "Sixteen existing short Word World sentences; target text, English meanings, and review status copied without linguistic edits."
   },
@@ -19644,7 +20848,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 92,
+      "complexity": 17
     },
     {
       "id": "zh-sentence-2",
@@ -19693,7 +20899,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "zh-sentence-3",
@@ -19756,7 +20964,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 73,
+      "complexity": 29
     },
     {
       "id": "zh-sentence-4",
@@ -19819,7 +21029,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zh-sentence-5",
@@ -19868,7 +21080,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 27
     },
     {
       "id": "zh-sentence-6",
@@ -19917,7 +21131,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 98,
+      "complexity": 17
     },
     {
       "id": "zh-sentence-7",
@@ -19984,7 +21200,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 77,
+      "complexity": 30
     },
     {
       "id": "zh-sentence-8",
@@ -20047,7 +21265,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 73,
+      "complexity": 29
     },
     {
       "id": "zh-sentence-9",
@@ -20091,7 +21311,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "zh-sentence-10",
@@ -20148,7 +21370,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "zh-sentence-11",
@@ -20210,7 +21434,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 19
     },
     {
       "id": "zh-sentence-12",
@@ -20255,7 +21481,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 93,
+      "complexity": 22
     },
     {
       "id": "zh-sentence-13",
@@ -20313,7 +21541,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 82,
+      "complexity": 19
     },
     {
       "id": "zh-sentence-14",
@@ -20371,7 +21601,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 73,
+      "complexity": 24
     },
     {
       "id": "zh-sentence-15",
@@ -20415,7 +21647,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "zh-sentence-16",
@@ -20468,7 +21702,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 77,
+      "complexity": 19
     },
     {
       "id": "zh-exp260908-sentences-17",
@@ -20517,7 +21753,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 27
     },
     {
       "id": "zh-exp260908-sentences-18",
@@ -20570,7 +21808,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 46,
+      "complexity": 27
     },
     {
       "id": "zh-exp260908-sentences-19",
@@ -20650,7 +21890,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 33
     },
     {
       "id": "zh-exp260908-sentences-20",
@@ -20707,7 +21949,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 22
     },
     {
       "id": "zh-exp260908-sentences-21",
@@ -20778,7 +22022,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 33
     },
     {
       "id": "zh-exp260908-sentences-22",
@@ -20831,7 +22077,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 48,
+      "complexity": 27
     },
     {
       "id": "zh-exp260908-sentences-23",
@@ -20884,7 +22132,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "zh-exp260908-sentences-24",
@@ -20924,7 +22174,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 22
     },
     {
       "id": "zh-exp260908-sentences-25",
@@ -21039,7 +22291,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 55
     },
     {
       "id": "zh-exp260908-sentences-26",
@@ -21154,7 +22408,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 30
     },
     {
       "id": "zh-exp260908-sentences-27",
@@ -21233,7 +22489,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 19
     },
     {
       "id": "zh-exp260908-sentences-28",
@@ -21335,7 +22593,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 67,
+      "complexity": 37
     },
     {
       "id": "zh-exp260908-sentences-29",
@@ -21437,7 +22697,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-exp260908-sentences-30",
@@ -21525,7 +22787,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 22
     },
     {
       "id": "zh-exp260908-sentences-31",
@@ -21608,7 +22872,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 19
     },
     {
       "id": "zh-exp260908-sentences-32",
@@ -21718,7 +22984,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 28
     },
     {
       "id": "zh-exp260908-sentences-33",
@@ -21847,7 +23115,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 61
     },
     {
       "id": "zh-exp260908-sentences-34",
@@ -21940,7 +23210,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 77,
+      "complexity": 28
     },
     {
       "id": "zh-exp260908-sentences-35",
@@ -22023,7 +23295,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 33,
+      "complexity": 28
     },
     {
       "id": "zh-exp260908-sentences-36",
@@ -22166,7 +23440,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 55
     },
     {
       "id": "zh-exp260908-sentences-37",
@@ -22307,7 +23583,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 25
     },
     {
       "id": "zh-exp260908-sentences-38",
@@ -22418,7 +23696,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 37
     },
     {
       "id": "zh-exp260908-sentences-39",
@@ -22546,7 +23826,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 28
     },
     {
       "id": "zh-exp260908-sentences-40",
@@ -22652,7 +23934,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 19
     },
     {
       "id": "zh-exp260908-sentences-41",
@@ -22780,7 +24064,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 62,
+      "complexity": 33
     },
     {
       "id": "zh-exp260908-sentences-42",
@@ -22868,7 +24154,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 19
     },
     {
       "id": "zh-exp260908-sentences-43",
@@ -22974,7 +24262,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 43,
+      "complexity": 25
     },
     {
       "id": "zh-exp260908-sentences-44",
@@ -23075,7 +24365,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "zh-exp260908-sentences-45",
@@ -23186,7 +24478,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 55
     },
     {
       "id": "zh-exp260908-sentences-46",
@@ -23270,7 +24564,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 32
     },
     {
       "id": "zh-exp260908-sentences-47",
@@ -23359,7 +24655,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "zh-exp260908-sentences-48",
@@ -23483,7 +24781,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 30
     },
     {
       "id": "zh-exp260908-sentences-49",
@@ -23593,7 +24893,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 30
     },
     {
       "id": "zh-exp260908-sentences-50",
@@ -23730,7 +25032,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 55
     },
     {
       "id": "zh-exp260908-sentences-51",
@@ -23888,7 +25192,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 82,
+      "complexity": 56
     },
     {
       "id": "zh-exp260908-sentences-52",
@@ -24007,7 +25313,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 65
     },
     {
       "id": "zh-exp260908-sentences-53",
@@ -24156,7 +25464,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 67
     },
     {
       "id": "zh-exp260908-sentences-54",
@@ -24296,7 +25606,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 41
     },
     {
       "id": "zh-exp260908-sentences-55",
@@ -24424,7 +25736,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 47
     },
     {
       "id": "zh-exp260908-sentences-56",
@@ -24587,7 +25901,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 52,
+      "complexity": 63
     },
     {
       "id": "zh-exp260908-sentences-57",
@@ -24745,7 +26061,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 62,
+      "complexity": 44
     },
     {
       "id": "zh-exp260908-sentence-pouring",
@@ -24839,7 +26157,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 93,
+      "complexity": 55
     },
     {
       "id": "zh-m260908-sentence-059",
@@ -24914,7 +26234,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-060",
@@ -24998,7 +26320,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-061",
@@ -25060,7 +26384,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-062",
@@ -25127,7 +26453,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-sentence-063",
@@ -25215,7 +26543,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-064",
@@ -25295,7 +26625,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-sentence-065",
@@ -25353,7 +26685,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 34
     },
     {
       "id": "zh-m260908-sentence-066",
@@ -25411,7 +26745,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-067",
@@ -25486,7 +26822,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 48,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-068",
@@ -25553,7 +26891,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-sentence-069",
@@ -25610,7 +26950,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 48,
+      "complexity": 34
     },
     {
       "id": "zh-m260908-sentence-070",
@@ -25659,7 +27001,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 48,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-071",
@@ -25712,7 +27056,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 38
     },
     {
       "id": "zh-m260908-sentence-072",
@@ -25783,7 +27129,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-073",
@@ -25854,7 +27202,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 84,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-074",
@@ -25930,7 +27280,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-075",
@@ -25993,7 +27345,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-sentence-076",
@@ -26069,7 +27423,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-077",
@@ -26131,7 +27487,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-078",
@@ -26184,7 +27542,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-079",
@@ -26255,7 +27615,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-sentence-080",
@@ -26317,7 +27679,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-081",
@@ -26384,7 +27748,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-082",
@@ -26446,7 +27812,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 84,
+      "complexity": 22
     },
     {
       "id": "zh-m260908-sentence-083",
@@ -26517,7 +27885,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 82,
+      "complexity": 58
     },
     {
       "id": "zh-m260908-sentence-084",
@@ -26597,7 +27967,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 73,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-085",
@@ -26667,7 +28039,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-086",
@@ -26720,7 +28094,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-087",
@@ -26796,7 +28172,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "zh-m260908-sentence-088",
@@ -26881,7 +28259,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 73,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-sentence-089",
@@ -26935,7 +28315,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-090",
@@ -27011,7 +28393,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "zh-m260908-sentence-091",
@@ -27073,7 +28457,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-092",
@@ -27149,7 +28535,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 58
     },
     {
       "id": "zh-m260908-sentence-093",
@@ -27216,7 +28604,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 84,
+      "complexity": 43
     },
     {
       "id": "zh-m260908-sentence-094",
@@ -27282,7 +28672,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 28
     },
     {
       "id": "zh-m260908-sentence-095",
@@ -27344,7 +28736,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-sentence-096",
@@ -27402,7 +28796,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-097",
@@ -27464,7 +28860,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-098",
@@ -27517,7 +28915,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 84,
+      "complexity": 22
     },
     {
       "id": "zh-m260908-sentence-099",
@@ -27566,7 +28966,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 71,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-sentence-100",
@@ -27637,7 +29039,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-101",
@@ -27700,7 +29104,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-sentence-102",
@@ -27762,7 +29168,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "zh-m260908-sentence-103",
@@ -27829,7 +29237,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "zh-m260908-sentence-104",
@@ -27891,7 +29301,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-105",
@@ -27993,7 +29405,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 81,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-106",
@@ -28050,7 +29464,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 43,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-107",
@@ -28125,7 +29541,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 68,
+      "complexity": 58
     },
     {
       "id": "zh-m260908-sentence-108",
@@ -28218,7 +29636,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-109",
@@ -28289,7 +29709,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 71,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-110",
@@ -28360,7 +29782,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-sentence-111",
@@ -28423,7 +29847,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-112",
@@ -28494,7 +29920,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 40
     },
     {
       "id": "zh-m260908-sentence-113",
@@ -28543,7 +29971,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 22
     },
     {
       "id": "zh-m260908-sentence-114",
@@ -28613,7 +30043,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-115",
@@ -28679,7 +30111,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 81,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-116",
@@ -28750,7 +30184,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-117",
@@ -28826,7 +30262,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-sentence-118",
@@ -28905,7 +30343,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 84,
+      "complexity": 22
     },
     {
       "id": "zh-m260908-sentence-119",
@@ -29002,7 +30442,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-sentence-120",
@@ -29109,7 +30551,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 77,
+      "complexity": 38
     },
     {
       "id": "zh-m260908-sentence-121",
@@ -29206,7 +30650,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-sentence-122",
@@ -29308,7 +30754,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 30
     },
     {
       "id": "zh-m260908-sentence-123",
@@ -29397,7 +30845,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-sentence-124",
@@ -29472,7 +30922,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 46,
+      "complexity": 19
     },
     {
       "id": "zh-m260908-sentence-125",
@@ -29566,7 +31018,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 39
     },
     {
       "id": "zh-m260908-sentence-126",
@@ -29699,7 +31153,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 84,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-sentence-127",
@@ -29792,7 +31248,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 19
     },
     {
       "id": "zh-m260908-sentence-128",
@@ -29876,7 +31334,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-sentence-129",
@@ -29981,7 +31441,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 19
     },
     {
       "id": "zh-m260908-sentence-130",
@@ -30074,7 +31536,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 39
     },
     {
       "id": "zh-m260908-sentence-131",
@@ -30136,7 +31600,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 82,
+      "complexity": 19
     },
     {
       "id": "zh-m260908-sentence-132",
@@ -30210,7 +31676,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 44,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-sentence-133",
@@ -30303,7 +31771,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-sentence-134",
@@ -30396,7 +31866,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 55
     },
     {
       "id": "zh-m260908-sentence-135",
@@ -30497,7 +31969,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 68,
+      "complexity": 25
     },
     {
       "id": "zh-m260908-sentence-136",
@@ -30589,7 +32063,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-sentence-137",
@@ -30669,7 +32145,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 48,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-138",
@@ -30766,7 +32244,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 55
     },
     {
       "id": "zh-m260908-sentence-139",
@@ -30881,7 +32361,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 35
     },
     {
       "id": "zh-m260908-sentence-140",
@@ -30970,7 +32452,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 39
     },
     {
       "id": "zh-m260908-sentence-141",
@@ -31053,7 +32537,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 25
     },
     {
       "id": "zh-m260908-sentence-142",
@@ -31150,7 +32636,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 48,
+      "complexity": 19
     },
     {
       "id": "zh-m260908-sentence-143",
@@ -31242,7 +32730,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 36
     },
     {
       "id": "zh-m260908-sentence-144",
@@ -31327,7 +32817,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 34
     },
     {
       "id": "zh-m260908-sentence-145",
@@ -31434,7 +32926,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 68,
+      "complexity": 38
     },
     {
       "id": "zh-m260908-sentence-146",
@@ -31539,7 +33033,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "zh-m260908-sentence-147",
@@ -31636,7 +33132,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 46,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-sentence-148",
@@ -31737,7 +33235,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-149",
@@ -31807,7 +33307,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-sentence-150",
@@ -31926,7 +33428,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-sentence-151",
@@ -32014,7 +33518,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 30
     },
     {
       "id": "zh-m260908-sentence-152",
@@ -32116,7 +33622,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 46,
+      "complexity": 35
     },
     {
       "id": "zh-m260908-sentence-153",
@@ -32191,7 +33699,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 19
     },
     {
       "id": "zh-m260908-sentence-154",
@@ -32270,7 +33780,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 48,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-sentence-155",
@@ -32362,7 +33874,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-sentence-156",
@@ -32455,7 +33969,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-157",
@@ -32530,7 +34046,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 55
     },
     {
       "id": "zh-m260908-sentence-158",
@@ -32618,7 +34136,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 19
     },
     {
       "id": "zh-m260908-sentence-159",
@@ -32707,7 +34227,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 80,
+      "complexity": 58
     },
     {
       "id": "zh-m260908-sentence-160",
@@ -32804,7 +34326,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-sentence-161",
@@ -32870,7 +34394,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-162",
@@ -32972,7 +34498,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 71,
+      "complexity": 55
     },
     {
       "id": "zh-m260908-sentence-163",
@@ -33069,7 +34597,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 46,
+      "complexity": 30
     },
     {
       "id": "zh-m260908-sentence-164",
@@ -33157,7 +34687,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-sentence-165",
@@ -33223,7 +34755,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 80,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-sentence-166",
@@ -33302,7 +34836,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-167",
@@ -33399,7 +34935,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 80,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-sentence-168",
@@ -33509,7 +35047,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 73,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-sentence-169",
@@ -33579,7 +35119,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 68,
+      "complexity": 19
     },
     {
       "id": "zh-m260908-sentence-170",
@@ -33676,7 +35218,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 19
     },
     {
       "id": "zh-m260908-sentence-171",
@@ -33812,7 +35356,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 80,
+      "complexity": 36
     },
     {
       "id": "zh-m260908-sentence-172",
@@ -33909,7 +35455,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 30
     },
     {
       "id": "zh-m260908-sentence-173",
@@ -33975,7 +35523,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 44
     },
     {
       "id": "zh-m260908-sentence-174",
@@ -34085,7 +35635,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 72,
+      "complexity": 56
     },
     {
       "id": "zh-m260908-sentence-175",
@@ -34165,7 +35717,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 48,
+      "complexity": 35
     },
     {
       "id": "zh-m260908-sentence-176",
@@ -34257,7 +35811,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 82,
+      "complexity": 19
     },
     {
       "id": "zh-m260908-sentence-177",
@@ -34368,7 +35924,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 48
     },
     {
       "id": "zh-m260908-sentence-178",
@@ -34495,7 +36053,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-179",
@@ -34597,7 +36157,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 55
     },
     {
       "id": "zh-m260908-sentence-180",
@@ -34699,7 +36261,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "zh-m260908-sentence-181",
@@ -34800,7 +36364,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-182",
@@ -34880,7 +36446,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 84,
+      "complexity": 19
     },
     {
       "id": "zh-m260908-sentence-183",
@@ -35017,7 +36585,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 73,
+      "complexity": 30
     },
     {
       "id": "zh-m260908-sentence-184",
@@ -35123,7 +36693,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 19
     },
     {
       "id": "zh-m260908-sentence-185",
@@ -35220,7 +36792,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 73,
+      "complexity": 25
     },
     {
       "id": "zh-m260908-sentence-186",
@@ -35313,7 +36887,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 79,
+      "complexity": 55
     },
     {
       "id": "zh-m260908-sentence-187",
@@ -35422,7 +36998,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 19
     },
     {
       "id": "zh-m260908-sentence-188",
@@ -35542,7 +37120,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 36
     },
     {
       "id": "zh-m260908-sentence-189",
@@ -35644,7 +37224,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 30
     },
     {
       "id": "zh-m260908-sentence-190",
@@ -35741,7 +37323,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 33,
+      "complexity": 39
     },
     {
       "id": "zh-m260908-sentence-191",
@@ -35834,7 +37418,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 55
     },
     {
       "id": "zh-m260908-sentence-192",
@@ -35952,7 +37538,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 73,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-sentence-193",
@@ -36062,7 +37650,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-194",
@@ -36163,7 +37753,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 55
     },
     {
       "id": "zh-m260908-sentence-195",
@@ -36260,7 +37852,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 43,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-196",
@@ -36379,7 +37973,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 70
     },
     {
       "id": "zh-m260908-sentence-197",
@@ -36477,7 +38073,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 35
     },
     {
       "id": "zh-m260908-sentence-198",
@@ -36574,7 +38172,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 72,
+      "complexity": 25
     },
     {
       "id": "zh-m260908-sentence-199",
@@ -36721,7 +38321,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-200",
@@ -36806,7 +38408,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 71,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-sentence-201",
@@ -36890,7 +38494,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 80,
+      "complexity": 34
     },
     {
       "id": "zh-m260908-sentence-202",
@@ -37001,7 +38607,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 57,
+      "complexity": 35
     },
     {
       "id": "zh-m260908-sentence-203",
@@ -37120,7 +38728,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-204",
@@ -37199,7 +38809,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 80,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-205",
@@ -37314,7 +38926,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 68,
+      "complexity": 34
     },
     {
       "id": "zh-m260908-sentence-206",
@@ -37415,7 +39029,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-sentence-207",
@@ -37539,7 +39155,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 25
     },
     {
       "id": "zh-m260908-sentence-208",
@@ -37641,7 +39259,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 25
     },
     {
       "id": "zh-m260908-sentence-209",
@@ -37725,7 +39345,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 38
     },
     {
       "id": "zh-m260908-sentence-210",
@@ -37813,7 +39435,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 19
     },
     {
       "id": "zh-m260908-sentence-211",
@@ -37914,7 +39538,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 30
     },
     {
       "id": "zh-m260908-sentence-212",
@@ -37989,7 +39615,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 25
     },
     {
       "id": "zh-m260908-sentence-213",
@@ -38113,7 +39741,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 67,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-214",
@@ -38202,7 +39832,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 80,
+      "complexity": 30
     },
     {
       "id": "zh-m260908-sentence-215",
@@ -38308,7 +39940,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 43
     },
     {
       "id": "zh-m260908-sentence-216",
@@ -38410,7 +40044,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 55
     },
     {
       "id": "zh-m260908-sentence-217",
@@ -38544,7 +40180,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 61
     },
     {
       "id": "zh-m260908-sentence-218",
@@ -38651,7 +40289,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 40
     },
     {
       "id": "zh-m260908-sentence-219",
@@ -38752,7 +40392,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 19
     },
     {
       "id": "zh-m260908-sentence-220",
@@ -38827,7 +40469,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-sentence-221",
@@ -38934,7 +40578,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 36
     },
     {
       "id": "zh-m260908-sentence-222",
@@ -39009,7 +40655,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 73,
+      "complexity": 19
     },
     {
       "id": "zh-m260908-sentence-223",
@@ -39079,7 +40727,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-sentence-224",
@@ -39173,7 +40823,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 83,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-sentence-225",
@@ -39270,7 +40922,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zh-m260908-sentence-226",
@@ -39345,7 +40999,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-sentence-227",
@@ -39456,7 +41112,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 38
     },
     {
       "id": "zh-m260908-sentence-228",
@@ -39553,7 +41211,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-sentence-229",
@@ -39667,7 +41327,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 63
     },
     {
       "id": "zh-m260908-sentence-230",
@@ -39756,7 +41418,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 68,
+      "complexity": 46
     },
     {
       "id": "zh-m260908-sentence-231",
@@ -39881,7 +41545,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-sentence-232",
@@ -40008,7 +41674,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 53
     },
     {
       "id": "zh-m260908-sentence-233",
@@ -40097,7 +41765,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 38
     },
     {
       "id": "zh-m260908-sentence-234",
@@ -40212,7 +41882,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 35
     },
     {
       "id": "zh-m260908-sentence-235",
@@ -40323,7 +41995,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 83,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-sentence-236",
@@ -40465,7 +42139,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 35
     },
     {
       "id": "zh-m260908-sentence-237",
@@ -40584,7 +42260,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-238",
@@ -40721,7 +42399,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 62,
+      "complexity": 38
     },
     {
       "id": "zh-m260908-sentence-239",
@@ -40818,7 +42498,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 55
     },
     {
       "id": "zh-m260908-sentence-240",
@@ -40894,7 +42576,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 19
     },
     {
       "id": "zh-m260908-sentence-241",
@@ -41001,7 +42685,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 34
     },
     {
       "id": "zh-m260908-sentence-242",
@@ -41085,7 +42771,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 55
     },
     {
       "id": "zh-m260908-sentence-243",
@@ -41178,7 +42866,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 80,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-sentence-244",
@@ -41293,7 +42983,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 36
     },
     {
       "id": "zh-m260908-sentence-245",
@@ -41390,7 +43082,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 55
     },
     {
       "id": "zh-m260908-sentence-246",
@@ -41479,7 +43173,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 80,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-sentence-247",
@@ -41580,7 +43276,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 25
     },
     {
       "id": "zh-m260908-sentence-248",
@@ -41669,7 +43367,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 55
     },
     {
       "id": "zh-m260908-sentence-249",
@@ -41753,7 +43453,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 35
     },
     {
       "id": "zh-m260908-sentence-250",
@@ -41860,7 +43562,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 64
     },
     {
       "id": "zh-m260908-sentence-251",
@@ -41980,7 +43684,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 84,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-252",
@@ -42059,7 +43765,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 30
     },
     {
       "id": "zh-m260908-sentence-253",
@@ -42173,7 +43881,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 41
     },
     {
       "id": "zh-m260908-sentence-254",
@@ -42252,7 +43962,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 25
     },
     {
       "id": "zh-m260908-sentence-255",
@@ -42344,7 +44056,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 55
     },
     {
       "id": "zh-m260908-sentence-256",
@@ -42429,7 +44143,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 29
     },
     {
       "id": "zh-m260908-sentence-257",
@@ -42500,7 +44216,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 19
     },
     {
       "id": "zh-m260908-sentence-258",
@@ -42584,7 +44302,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 71,
+      "complexity": 61
     },
     {
       "id": "zh-m260908-sentence-259",
@@ -42663,7 +44383,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 55
     },
     {
       "id": "zh-m260908-sentence-260",
@@ -42748,7 +44470,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-sentence-261",
@@ -42890,7 +44614,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-sentence-262",
@@ -42987,7 +44713,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 30
     },
     {
       "id": "zh-m260908-sentence-263",
@@ -43085,7 +44813,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 78,
+      "complexity": 35
     },
     {
       "id": "zh-m260908-sentence-264",
@@ -43165,7 +44895,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-sentence-265",
@@ -43253,7 +44985,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-266",
@@ -43363,7 +45097,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 45
     },
     {
       "id": "zh-m260908-sentence-267",
@@ -43421,7 +45157,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 84,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-sentence-268",
@@ -43531,7 +45269,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 61,
+      "complexity": 34
     },
     {
       "id": "zh-m260908-sentence-269",
@@ -43640,7 +45380,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 73,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-270",
@@ -43718,7 +45460,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 81,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-sentence-271",
@@ -43806,7 +45550,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-272",
@@ -43907,7 +45653,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 81,
+      "complexity": 31
     },
     {
       "id": "zh-m260908-sentence-273",
@@ -43991,7 +45739,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 35
     },
     {
       "id": "zh-m260908-sentence-274",
@@ -44092,7 +45842,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 81,
+      "complexity": 52
     },
     {
       "id": "zh-m260908-sentence-275",
@@ -44185,7 +45937,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-sentence-276",
@@ -44295,7 +46049,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 82,
+      "complexity": 32
     },
     {
       "id": "zh-m260908-sentence-277",
@@ -44398,7 +46154,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 81,
+      "complexity": 35
     },
     {
       "id": "zh-m260908-sentence-278",
@@ -44503,7 +46261,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 81,
+      "complexity": 54
     },
     {
       "id": "zh-m260908-sentence-279",
@@ -44591,7 +46351,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 80,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-280",
@@ -44679,7 +46441,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 55
     },
     {
       "id": "zh-m260908-sentence-281",
@@ -44802,7 +46566,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 81,
+      "complexity": 53
     },
     {
       "id": "zh-m260908-sentence-282",
@@ -44868,7 +46634,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 83,
+      "complexity": 19
     },
     {
       "id": "zh-m260908-sentence-283",
@@ -44964,7 +46732,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 19
     },
     {
       "id": "zh-m260908-sentence-284",
@@ -45034,7 +46804,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-sentence-285",
@@ -45154,7 +46926,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 35
     },
     {
       "id": "zh-m260908-sentence-286",
@@ -45255,7 +47029,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 55,
+      "complexity": 35
     },
     {
       "id": "zh-m260908-sentence-287",
@@ -45347,7 +47123,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 35
     },
     {
       "id": "zh-m260908-sentence-288",
@@ -45435,7 +47213,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 19
     },
     {
       "id": "zh-m260908-sentence-289",
@@ -45554,7 +47334,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 35
     },
     {
       "id": "zh-m260908-sentence-290",
@@ -45660,7 +47442,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-sentence-291",
@@ -45770,7 +47554,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 28
     },
     {
       "id": "zh-m260908-sentence-292",
@@ -45889,7 +47675,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 79,
+      "complexity": 28
     },
     {
       "id": "zh-m260908-sentence-293",
@@ -45983,7 +47771,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 38
     },
     {
       "id": "zh-m260908-sentence-294",
@@ -46081,7 +47871,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 30
     },
     {
       "id": "zh-m260908-sentence-295",
@@ -46213,7 +48005,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-sentence-296",
@@ -46314,7 +48108,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 58,
+      "complexity": 24
     },
     {
       "id": "zh-m260908-sentence-297",
@@ -46424,7 +48220,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 68,
+      "complexity": 35
     },
     {
       "id": "zh-m260908-sentence-298",
@@ -46569,7 +48367,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 77,
+      "complexity": 56
     },
     {
       "id": "zh-m260908-sentence-299",
@@ -46715,7 +48515,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 79,
+      "complexity": 48
     },
     {
       "id": "zh-m260908-sentence-300",
@@ -46883,7 +48685,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 52,
+      "complexity": 82
     },
     {
       "id": "zh-m260908-sentence-301",
@@ -47010,7 +48814,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 39
     },
     {
       "id": "zh-m260908-sentence-302",
@@ -47151,7 +48957,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 42
     },
     {
       "id": "zh-m260908-sentence-303",
@@ -47240,7 +49048,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 71,
+      "complexity": 46
     },
     {
       "id": "zh-m260908-sentence-304",
@@ -47345,7 +49155,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 33,
+      "complexity": 62
     },
     {
       "id": "zh-m260908-sentence-305",
@@ -47508,7 +49320,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 49
     },
     {
       "id": "zh-m260908-sentence-306",
@@ -47658,7 +49472,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 56
     },
     {
       "id": "zh-m260908-sentence-307",
@@ -47780,7 +49596,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 33,
+      "complexity": 41
     },
     {
       "id": "zh-m260908-sentence-308",
@@ -47904,7 +49722,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 73,
+      "complexity": 40
     },
     {
       "id": "zh-m260908-sentence-309",
@@ -48014,7 +49834,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 34,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-310",
@@ -48182,7 +50004,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 71
     },
     {
       "id": "zh-m260908-sentence-311",
@@ -48332,7 +50156,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 84,
+      "complexity": 50
     },
     {
       "id": "zh-m260908-sentence-312",
@@ -48486,7 +50312,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 62
     },
     {
       "id": "zh-m260908-sentence-313",
@@ -48640,7 +50468,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 39
     },
     {
       "id": "zh-m260908-sentence-314",
@@ -48821,7 +50651,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 59
     },
     {
       "id": "zh-m260908-sentence-315",
@@ -48949,7 +50781,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 54
     },
     {
       "id": "zh-m260908-sentence-316",
@@ -49099,7 +50933,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 69
     },
     {
       "id": "zh-m260908-sentence-317",
@@ -49217,7 +51053,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 63,
+      "complexity": 30
     },
     {
       "id": "zh-m260908-sentence-318",
@@ -49354,7 +51192,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 30
     },
     {
       "id": "zh-m260908-sentence-319",
@@ -49521,7 +51361,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-320",
@@ -49681,7 +51523,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 65
     },
     {
       "id": "zh-m260908-sentence-321",
@@ -49835,7 +51679,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 63
     },
     {
       "id": "zh-m260908-sentence-322",
@@ -49962,7 +51808,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 84,
+      "complexity": 40
     },
     {
       "id": "zh-m260908-sentence-323",
@@ -50117,7 +51965,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 56
     },
     {
       "id": "zh-m260908-sentence-324",
@@ -50267,7 +52117,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 52
     },
     {
       "id": "zh-m260908-sentence-325",
@@ -50408,7 +52260,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 77,
+      "complexity": 71
     },
     {
       "id": "zh-m260908-sentence-326",
@@ -50549,7 +52403,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 54
     },
     {
       "id": "zh-m260908-sentence-327",
@@ -50715,7 +52571,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 71
     },
     {
       "id": "zh-m260908-sentence-328",
@@ -50865,7 +52723,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 82,
+      "complexity": 75
     },
     {
       "id": "zh-m260908-sentence-329",
@@ -50998,7 +52858,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 43,
+      "complexity": 42
     },
     {
       "id": "zh-m260908-sentence-330",
@@ -51139,7 +53001,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 43,
+      "complexity": 30
     },
     {
       "id": "zh-m260908-sentence-331",
@@ -51289,7 +53153,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 43,
+      "complexity": 45
     },
     {
       "id": "zh-m260908-sentence-332",
@@ -51449,7 +53315,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 62,
+      "complexity": 25
     },
     {
       "id": "zh-m260908-sentence-333",
@@ -51582,7 +53450,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 44
     },
     {
       "id": "zh-m260908-sentence-334",
@@ -51708,7 +53578,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 77,
+      "complexity": 37
     },
     {
       "id": "zh-m260908-sentence-335",
@@ -51858,7 +53730,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 84,
+      "complexity": 72
     },
     {
       "id": "zh-m260908-sentence-336",
@@ -51995,7 +53869,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 38
     },
     {
       "id": "zh-m260908-sentence-337",
@@ -52145,7 +54021,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 43
     },
     {
       "id": "zh-m260908-sentence-338",
@@ -52299,7 +54177,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zh-m260908-sentence-339",
@@ -52444,7 +54324,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 68,
+      "complexity": 55
     },
     {
       "id": "zh-m260908-sentence-340",
@@ -52624,7 +54506,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 55,
+      "complexity": 51
     },
     {
       "id": "zh-m260908-sentence-341",
@@ -52761,7 +54645,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "zh-m260908-sentence-342",
@@ -52942,7 +54828,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 84,
+      "complexity": 68
     },
     {
       "id": "zh-m260908-sentence-343",
@@ -53100,7 +54988,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 44,
+      "complexity": 38
     },
     {
       "id": "zh-m260908-sentence-344",
@@ -53254,7 +55144,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 61,
+      "complexity": 54
     },
     {
       "id": "zh-m260908-sentence-345",
@@ -53399,7 +55291,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 44,
+      "complexity": 48
     },
     {
       "id": "zh-m260908-sentence-346",
@@ -53557,7 +55451,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 62,
+      "complexity": 36
     },
     {
       "id": "zh-m260908-sentence-347",
@@ -53720,7 +55616,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 55
     },
     {
       "id": "zh-m260908-sentence-348",
@@ -53875,7 +55773,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 65,
+      "complexity": 33
     },
     {
       "id": "zh-m260908-sentence-349",
@@ -54015,7 +55915,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 90,
+      "complexity": 41
     },
     {
       "id": "zh-m260908-sentence-350",
@@ -54173,7 +56075,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 59
     },
     {
       "id": "zh-m260908-sentence-351",
@@ -54335,7 +56239,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 54,
+      "complexity": 79
     },
     {
       "id": "zh-m260908-sentence-352",
@@ -54445,7 +56351,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 82,
+      "complexity": 52
     },
     {
       "id": "zh-m260908-sentence-353",
@@ -54613,7 +56521,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 71,
+      "complexity": 38
     },
     {
       "id": "zh-m260908-sentence-354",
@@ -54749,7 +56659,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 88,
+      "complexity": 75
     },
     {
       "id": "zh-m260908-sentence-355",
@@ -54886,7 +56798,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 80,
+      "complexity": 45
     },
     {
       "id": "zh-m260908-sentence-356",
@@ -55032,7 +56946,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 70,
+      "complexity": 65
     },
     {
       "id": "zh-m260908-sentence-357",
@@ -55177,7 +57093,9 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 72
     },
     {
       "id": "zh-m260908-sentence-358",
@@ -55340,7 +57258,913 @@
             ]
           }
         ]
-      }
+      },
+      "usefulness": 75,
+      "complexity": 46
+    },
+    {
+      "id": "zh-starter-listening-greeting.hello",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "你好！",
+      "meaning": "Hello!",
+      "englishAuditText": "Hello!",
+      "sourceId": "ww.greeting.hello",
+      "sourceReviewStatus": "native-review-required",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.greeting.hello",
+        "tokens": [
+          {
+            "surface": "你好",
+            "units": [
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              },
+              {
+                "surface": "好",
+                "notation": "hǎo"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 94,
+      "complexity": 7
+    },
+    {
+      "id": "zh-starter-listening-greeting.thanks",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "谢谢你。",
+      "meaning": "Thank you.",
+      "englishAuditText": "Thank you.",
+      "sourceId": "ww.greeting.thanks",
+      "sourceReviewStatus": "native-review-required",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.greeting.thanks",
+        "tokens": [
+          {
+            "surface": "谢谢",
+            "units": [
+              {
+                "surface": "谢",
+                "notation": "xiè"
+              },
+              {
+                "surface": "谢",
+                "notation": "xie"
+              }
+            ]
+          },
+          {
+            "surface": "你",
+            "units": [
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 94,
+      "complexity": 7
+    },
+    {
+      "id": "zh-starter-listening-greeting.goodbye",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "再见！",
+      "meaning": "Goodbye!",
+      "englishAuditText": "Goodbye!",
+      "sourceId": "ww.greeting.goodbye",
+      "sourceReviewStatus": "native-review-required",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.greeting.goodbye",
+        "tokens": [
+          {
+            "surface": "再见",
+            "units": [
+              {
+                "surface": "再",
+                "notation": "zài"
+              },
+              {
+                "surface": "见",
+                "notation": "jiàn"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 94,
+      "complexity": 7
+    },
+    {
+      "id": "zh-starter-listening-politeness.welcome",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "不客气。",
+      "meaning": "You are welcome.",
+      "englishAuditText": "You are welcome.",
+      "sourceId": "ww.politeness.welcome",
+      "sourceReviewStatus": "native-review-required",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.politeness.welcome",
+        "tokens": [
+          {
+            "surface": "不",
+            "units": [
+              {
+                "surface": "不",
+                "notation": "bú"
+              }
+            ]
+          },
+          {
+            "surface": "客气",
+            "units": [
+              {
+                "surface": "客",
+                "notation": "kè"
+              },
+              {
+                "surface": "气",
+                "notation": "qi"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 94,
+      "complexity": 7
+    },
+    {
+      "id": "zh-starter-listening-identity.your-name",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "你叫什么名字？",
+      "meaning": "What is your name?",
+      "englishAuditText": "What is your name?",
+      "sourceId": "ww.identity.your-name",
+      "sourceReviewStatus": "native-review-required",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.identity.your-name",
+        "tokens": [
+          {
+            "surface": "你",
+            "units": [
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              }
+            ]
+          },
+          {
+            "surface": "叫",
+            "units": [
+              {
+                "surface": "叫",
+                "notation": "jiào"
+              }
+            ]
+          },
+          {
+            "surface": "什么",
+            "units": [
+              {
+                "surface": "什",
+                "notation": "shén"
+              },
+              {
+                "surface": "么",
+                "notation": "me"
+              }
+            ]
+          },
+          {
+            "surface": "名字",
+            "units": [
+              {
+                "surface": "名",
+                "notation": "míng"
+              },
+              {
+                "surface": "字",
+                "notation": "zi"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 23
+    },
+    {
+      "id": "zh-starter-listening-zh-starter260911-yes",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "对。",
+      "meaning": "Yes, that is right.",
+      "englishAuditText": "Yes, that is right.",
+      "sourceId": "ww-zh-starter260911-yes",
+      "sourceReviewStatus": "native-review-required",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zh-starter260911-yes",
+        "tokens": [
+          {
+            "surface": "对",
+            "units": [
+              {
+                "surface": "对",
+                "notation": "duì"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 94,
+      "complexity": 7
+    },
+    {
+      "id": "zh-starter-listening-zh-starter260911-no",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "不对。",
+      "meaning": "No, that is not right.",
+      "englishAuditText": "No, that is not right.",
+      "sourceId": "ww-zh-starter260911-no",
+      "sourceReviewStatus": "native-review-required",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zh-starter260911-no",
+        "tokens": [
+          {
+            "surface": "不",
+            "units": [
+              {
+                "surface": "不",
+                "notation": "bú"
+              }
+            ]
+          },
+          {
+            "surface": "对",
+            "units": [
+              {
+                "surface": "对",
+                "notation": "duì"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 94,
+      "complexity": 7
+    },
+    {
+      "id": "zh-starter-listening-zh-starter260911-please-enter",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "请进。",
+      "meaning": "Please come in.",
+      "englishAuditText": "Please come in.",
+      "sourceId": "ww-zh-starter260911-please-enter",
+      "sourceReviewStatus": "native-review-required",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zh-starter260911-please-enter",
+        "tokens": [
+          {
+            "surface": "请",
+            "units": [
+              {
+                "surface": "请",
+                "notation": "qǐng"
+              }
+            ]
+          },
+          {
+            "surface": "进",
+            "units": [
+              {
+                "surface": "进",
+                "notation": "jìn"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 89,
+      "complexity": 17
+    },
+    {
+      "id": "zh-starter-listening-zh-starter260911-sorry",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "对不起。",
+      "meaning": "I am sorry.",
+      "englishAuditText": "I am sorry.",
+      "sourceId": "ww-zh-starter260911-sorry",
+      "sourceReviewStatus": "native-review-required",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zh-starter260911-sorry",
+        "tokens": [
+          {
+            "surface": "对不起",
+            "units": [
+              {
+                "surface": "对",
+                "notation": "duì"
+              },
+              {
+                "surface": "不",
+                "notation": "bu"
+              },
+              {
+                "surface": "起",
+                "notation": "qǐ"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 94,
+      "complexity": 7
+    },
+    {
+      "id": "zh-starter-listening-zh-starter260911-excuse-me",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "劳驾。",
+      "meaning": "Excuse me.",
+      "englishAuditText": "Excuse me.",
+      "sourceId": "ww-zh-starter260911-excuse-me",
+      "sourceReviewStatus": "native-review-required",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zh-starter260911-excuse-me",
+        "tokens": [
+          {
+            "surface": "劳驾",
+            "units": [
+              {
+                "surface": "劳",
+                "notation": "láo"
+              },
+              {
+                "surface": "驾",
+                "notation": "jià"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 94,
+      "complexity": 7
+    },
+    {
+      "id": "zh-starter-listening-zh-starter260911-help",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "我需要帮助。",
+      "meaning": "I need help.",
+      "englishAuditText": "I need help.",
+      "sourceId": "ww-zh-starter260911-help",
+      "sourceReviewStatus": "native-review-required",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zh-starter260911-help",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "需要",
+            "units": [
+              {
+                "surface": "需",
+                "notation": "xū"
+              },
+              {
+                "surface": "要",
+                "notation": "yào"
+              }
+            ]
+          },
+          {
+            "surface": "帮助",
+            "units": [
+              {
+                "surface": "帮",
+                "notation": "bāng"
+              },
+              {
+                "surface": "助",
+                "notation": "zhù"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 97,
+      "complexity": 17
+    },
+    {
+      "id": "zh-starter-listening-zh-starter260911-hungry",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "我饿了。",
+      "meaning": "I am hungry.",
+      "englishAuditText": "I am hungry.",
+      "sourceId": "ww-zh-starter260911-hungry",
+      "sourceReviewStatus": "native-review-required",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zh-starter260911-hungry",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "饿",
+            "units": [
+              {
+                "surface": "饿",
+                "notation": "è"
+              }
+            ]
+          },
+          {
+            "surface": "了",
+            "units": [
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 97,
+      "complexity": 22
+    },
+    {
+      "id": "zh-starter-listening-zh-starter260911-thirsty",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "我渴了。",
+      "meaning": "I am thirsty.",
+      "englishAuditText": "I am thirsty.",
+      "sourceId": "ww-zh-starter260911-thirsty",
+      "sourceReviewStatus": "native-review-required",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zh-starter260911-thirsty",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "渴",
+            "units": [
+              {
+                "surface": "渴",
+                "notation": "kě"
+              }
+            ]
+          },
+          {
+            "surface": "了",
+            "units": [
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 97,
+      "complexity": 22
+    },
+    {
+      "id": "zh-starter-listening-zh-starter260911-water",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "我需要水。",
+      "meaning": "I need water.",
+      "englishAuditText": "I need water.",
+      "sourceId": "ww-zh-starter260911-water",
+      "sourceReviewStatus": "native-review-required",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zh-starter260911-water",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "需要",
+            "units": [
+              {
+                "surface": "需",
+                "notation": "xū"
+              },
+              {
+                "surface": "要",
+                "notation": "yào"
+              }
+            ]
+          },
+          {
+            "surface": "水",
+            "units": [
+              {
+                "surface": "水",
+                "notation": "shuǐ"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 97,
+      "complexity": 17
+    },
+    {
+      "id": "zh-starter-listening-zh-starter260911-bathroom",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "洗手间在哪里？",
+      "meaning": "Where is the bathroom?",
+      "englishAuditText": "Where is the bathroom?",
+      "sourceId": "ww-zh-starter260911-bathroom",
+      "sourceReviewStatus": "native-review-required",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zh-starter260911-bathroom",
+        "tokens": [
+          {
+            "surface": "洗手间",
+            "units": [
+              {
+                "surface": "洗",
+                "notation": "xǐ"
+              },
+              {
+                "surface": "手",
+                "notation": "shǒu"
+              },
+              {
+                "surface": "间",
+                "notation": "jiān"
+              }
+            ]
+          },
+          {
+            "surface": "在",
+            "units": [
+              {
+                "surface": "在",
+                "notation": "zài"
+              }
+            ]
+          },
+          {
+            "surface": "哪里",
+            "units": [
+              {
+                "surface": "哪",
+                "notation": "nǎ"
+              },
+              {
+                "surface": "里",
+                "notation": "lǐ"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 97,
+      "complexity": 23
+    },
+    {
+      "id": "zh-starter-listening-zh-starter260911-again",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "请再说一遍。",
+      "meaning": "Please say it again.",
+      "englishAuditText": "Please say it again.",
+      "sourceId": "ww-zh-starter260911-again",
+      "sourceReviewStatus": "native-review-required",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zh-starter260911-again",
+        "tokens": [
+          {
+            "surface": "请",
+            "units": [
+              {
+                "surface": "请",
+                "notation": "qǐng"
+              }
+            ]
+          },
+          {
+            "surface": "再",
+            "units": [
+              {
+                "surface": "再",
+                "notation": "zài"
+              }
+            ]
+          },
+          {
+            "surface": "说",
+            "units": [
+              {
+                "surface": "说",
+                "notation": "shuō"
+              }
+            ]
+          },
+          {
+            "surface": "一",
+            "units": [
+              {
+                "surface": "一",
+                "notation": "yí"
+              }
+            ]
+          },
+          {
+            "surface": "遍",
+            "units": [
+              {
+                "surface": "遍",
+                "notation": "biàn"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 98,
+      "complexity": 24
+    },
+    {
+      "id": "zh-starter-listening-zh-starter260911-slowly",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "请慢慢说。",
+      "meaning": "Speak slowly, please.",
+      "englishAuditText": "Speak slowly, please.",
+      "sourceId": "ww-zh-starter260911-slowly",
+      "sourceReviewStatus": "native-review-required",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zh-starter260911-slowly",
+        "tokens": [
+          {
+            "surface": "请",
+            "units": [
+              {
+                "surface": "请",
+                "notation": "qǐng"
+              }
+            ]
+          },
+          {
+            "surface": "慢慢",
+            "units": [
+              {
+                "surface": "慢",
+                "notation": "màn"
+              },
+              {
+                "surface": "慢",
+                "notation": "màn"
+              }
+            ]
+          },
+          {
+            "surface": "说",
+            "units": [
+              {
+                "surface": "说",
+                "notation": "shuō"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 98,
+      "complexity": 17
+    },
+    {
+      "id": "zh-starter-listening-zh-starter260911-no-thanks",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "不用了，谢谢。",
+      "meaning": "No, thank you.",
+      "englishAuditText": "No, thank you.",
+      "sourceId": "ww-zh-starter260911-no-thanks",
+      "sourceReviewStatus": "native-review-required",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zh-starter260911-no-thanks",
+        "tokens": [
+          {
+            "surface": "不",
+            "units": [
+              {
+                "surface": "不",
+                "notation": "bú"
+              }
+            ]
+          },
+          {
+            "surface": "用",
+            "units": [
+              {
+                "surface": "用",
+                "notation": "yòng"
+              }
+            ]
+          },
+          {
+            "surface": "了",
+            "units": [
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          },
+          {
+            "surface": "谢谢",
+            "units": [
+              {
+                "surface": "谢",
+                "notation": "xiè"
+              },
+              {
+                "surface": "谢",
+                "notation": "xie"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 94,
+      "complexity": 12
+    },
+    {
+      "id": "zh-starter-listening-zh-starter260911-stop",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "停！",
+      "meaning": "Stop!",
+      "englishAuditText": "Stop!",
+      "sourceId": "ww-zh-starter260911-stop",
+      "sourceReviewStatus": "native-review-required",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zh-starter260911-stop",
+        "tokens": [
+          {
+            "surface": "停",
+            "units": [
+              {
+                "surface": "停",
+                "notation": "tíng"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 99,
+      "complexity": 7
+    },
+    {
+      "id": "zh-starter-listening-zh-starter260911-dont-know",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "我不知道。",
+      "meaning": "I do not know.",
+      "englishAuditText": "I do not know.",
+      "sourceId": "ww-zh-starter260911-dont-know",
+      "sourceReviewStatus": "native-review-required",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zh-starter260911-dont-know",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "不",
+            "units": [
+              {
+                "surface": "不",
+                "notation": "bù"
+              }
+            ]
+          },
+          {
+            "surface": "知道",
+            "units": [
+              {
+                "surface": "知",
+                "notation": "zhī"
+              },
+              {
+                "surface": "道",
+                "notation": "dào"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 17
     }
   ],
   "authoredProvenance": {

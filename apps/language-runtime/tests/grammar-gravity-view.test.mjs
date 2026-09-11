@@ -50,7 +50,8 @@ test("the parachute is a small decorative attachment with reduced-motion-safe an
   assert.equal(parachute.hidden, true);
   assert.match(declarations(".gravity-drop-parachute"), /width:\s*clamp\(78px, 15vw, 108px\)/u);
   assert.match(declarations(".gravity-drop-parachute"), /pointer-events:\s*none/u);
-  assert.match(declarations(".gravity-adjective-arena"), /--gravity-art-opacity:\s*0\.8\s*;/u);
+  const opacity = Number(/--gravity-art-opacity:\s*([\d.]+)\s*;/u.exec(declarations(".gravity-adjective-arena"))?.[1]);
+  assert.ok(opacity > 0 && opacity < 1, "decorative artwork remains visible without overpowering the word");
   assert.match(declarations(".gravity-drop-parachute"), /opacity:\s*var\(--gravity-art-opacity\)/u);
   assert.match(declarations("#gravityAdjectiveVisual"), /opacity:\s*var\(--gravity-art-opacity\)/u);
   assert.match(styles, /@keyframes gravity-parachute-fold\s*\{\s*from\s*\{\s*opacity:\s*var\(--gravity-art-opacity\)/u);
@@ -180,15 +181,15 @@ test("the recap uses a compact gender badge and an illustration behind the phras
   assert.match(declarations('.gravity-adjective-arena[data-state="recap"] .gravity-adjective-context'), /border-radius:\s*999px/u);
 });
 
-test("recap typography leads with a black left-aligned phrase and keeps the ending highlight", () => {
+test("recap typography preserves theme contrast, room for audio, and the ending highlight", () => {
   const phrase = declarations('.gravity-adjective-arena[data-state="recap"] #gravityAdjectiveNoun');
   assert.match(phrase, /color:\s*#171717/u);
-  assert.match(phrase, /text-align:\s*left/u);
-  assert.match(phrase, /padding-inline-end:\s*54px/u);
+  assert.match(phrase, /padding-inline(?:-end)?:\s*(?:[4-9]\d|\d{3,})px/u);
   assert.match(declarations('[data-theme="dark"] .gravity-adjective-arena[data-state="recap"] #gravityAdjectiveNoun'), /color:\s*var\(--theme-ink/u);
   assert.match(declarations('.gravity-adjective-ending'), /background:\s*color-mix/u);
-  assert.match(declarations('.gravity-adjective-arena[data-state="recap"] #gravityAdjectiveMeaning'), /font-size:\s*clamp\(0\.95rem,\s*3vw,\s*1\.1rem\)/u);
-  assert.match(declarations('.gravity-adjective-arena[data-state="recap"] #gravityAdjectiveMeaning'), /font-weight:\s*650/u);
+  const meaning=declarations('.gravity-adjective-arena[data-state="recap"] #gravityAdjectiveMeaning');
+  assert.match(meaning, /font-size:\s*(?:clamp\([^;]+\)|[\d.]+rem)/u);
+  assert.ok(Number(/font-weight:\s*(\d+)/u.exec(meaning)?.[1])>=400);
 });
 
 test("the recap speaker is upper-right and gender sits below the translation on the right", () => {

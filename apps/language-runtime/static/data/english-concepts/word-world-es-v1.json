@@ -23,7 +23,9 @@
       "embeddingText": "A friendly greeting: hello.",
       "sceneQuery": "two friends greeting each other",
       "topic": "greetings",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww.greeting.thanks",
@@ -31,7 +33,9 @@
       "embeddingText": "Expressing thanks to another person.",
       "sceneQuery": "one person thanking a friend",
       "topic": "greetings",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww.greeting.goodbye",
@@ -39,7 +43,9 @@
       "embeddingText": "Saying goodbye when people part.",
       "sceneQuery": "friends waving goodbye",
       "topic": "greetings",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww.identity.name",
@@ -47,7 +53,9 @@
       "embeddingText": "A person introduces themself and says their name is Lin.",
       "sceneQuery": "a learner introducing themself",
       "topic": "identity",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 92,
+      "complexity": 17
     },
     {
       "id": "ww.identity.student",
@@ -55,7 +63,9 @@
       "embeddingText": "A person says that they are a student.",
       "sceneQuery": "a student with a school bag",
       "topic": "identity",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww.object.book",
@@ -63,7 +73,9 @@
       "embeddingText": "Identifying a nearby object as a book.",
       "sceneQuery": "a book on a desk",
       "topic": "objects",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 73,
+      "complexity": 27
     },
     {
       "id": "ww.animal.cat",
@@ -71,7 +83,9 @@
       "embeddingText": "Identifying an animal as a cat.",
       "sceneQuery": "a cat sitting nearby",
       "topic": "animals",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww.weather.cold-today",
@@ -79,7 +93,9 @@
       "embeddingText": "Today's weather feels cold.",
       "sceneQuery": "a cold day outdoors",
       "topic": "weather",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 27
     },
     {
       "id": "ww.comprehension.not-understand",
@@ -87,7 +103,9 @@
       "embeddingText": "A learner says that they do not understand something.",
       "sceneQuery": "a learner asking for clarification",
       "topic": "communication",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 98,
+      "complexity": 17
     },
     {
       "id": "ww.greeting.good-morning",
@@ -95,7 +113,9 @@
       "embeddingText": "Greeting someone warmly at the start of the day.",
       "sceneQuery": "two children greeting at sunrise",
       "topic": "greetings-social",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww.greeting.good-evening",
@@ -103,7 +123,9 @@
       "embeddingText": "Offering a polite greeting after the daytime has ended.",
       "sceneQuery": "neighbors greeting under an evening sky",
       "topic": "greetings-social",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww.number.seven-to-ten",
@@ -111,7 +133,9 @@
       "embeddingText": "Reciting the next four whole numbers after six.",
       "sceneQuery": "rows of seven eight nine and ten toy blocks",
       "topic": "numbers-time",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "ww.politeness.welcome",
@@ -119,7 +143,9 @@
       "embeddingText": "Responding politely when another person expresses gratitude.",
       "sceneQuery": "two friends smiling after one says thanks",
       "topic": "greetings-social",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww.greeting.how-are-you",
@@ -127,7 +153,9 @@
       "embeddingText": "Asking about another person's wellbeing in casual conversation.",
       "sceneQuery": "two friends checking on each other",
       "topic": "greetings-social",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww.greeting.i-am-well",
@@ -135,7 +163,9 @@
       "embeddingText": "Reassuring someone that one's wellbeing is very good.",
       "sceneQuery": "a cheerful person giving a thumbs up",
       "topic": "greetings-social",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww.identity.your-name",
@@ -143,7 +173,9 @@
       "embeddingText": "Politely asking how another person is called.",
       "sceneQuery": "two new classmates introducing themselves",
       "topic": "identity-people-family",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 92,
+      "complexity": 23
     },
     {
       "id": "ww.people.my-friend",
@@ -151,7 +183,9 @@
       "embeddingText": "Identifying a male companion as one's friend.",
       "sceneQuery": "two boys standing together as friends",
       "topic": "identity-people-family",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "ww.people.my-teacher",
@@ -159,7 +193,9 @@
       "embeddingText": "Identifying a woman as one's teacher.",
       "sceneQuery": "a student standing beside her teacher",
       "topic": "identity-people-family",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "ww.family.together",
@@ -167,7 +203,9 @@
       "embeddingText": "Describing a group of loved ones as one family.",
       "sceneQuery": "a family gathered together at home",
       "topic": "identity-people-family",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "ww.family.mother",
@@ -175,7 +213,9 @@
       "embeddingText": "Introducing a nearby woman as one's mother.",
       "sceneQuery": "a child standing beside their mother",
       "topic": "identity-people-family",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "ww.family.father",
@@ -183,7 +223,9 @@
       "embeddingText": "Pointing out a nearby man as one's father.",
       "sceneQuery": "a child pointing toward their father",
       "topic": "identity-people-family",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "ww.language.speak-chinese",
@@ -191,7 +233,9 @@
       "embeddingText": "Stating an ability to communicate in the Chinese language.",
       "sceneQuery": "a learner chatting with a Chinese teacher",
       "topic": "classroom-language",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "ww.classroom.listen",
@@ -199,7 +243,9 @@
       "embeddingText": "A polite classroom instruction to pay attention by ear.",
       "sceneQuery": "a teacher speaking while students listen",
       "topic": "classroom-language",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "ww.classroom.look",
@@ -207,7 +253,9 @@
       "embeddingText": "A polite request to direct one's eyes toward something.",
       "sceneQuery": "a teacher pointing at a classroom picture",
       "topic": "classroom-language",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "ww.classroom.read",
@@ -215,7 +263,9 @@
       "embeddingText": "A courteous instruction to read the presented material.",
       "sceneQuery": "a student reading an open book",
       "topic": "classroom-language",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 78,
+      "complexity": 22
     },
     {
       "id": "ww.classroom.write",
@@ -223,7 +273,9 @@
       "embeddingText": "A courteous instruction to put words or characters on paper.",
       "sceneQuery": "a student writing in a notebook",
       "topic": "classroom-language",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 78,
+      "complexity": 22
     },
     {
       "id": "ww.language.learn-pinyin",
@@ -231,7 +283,9 @@
       "embeddingText": "Describing ongoing study of Mandarin pronunciation spelling.",
       "sceneQuery": "a learner practicing pinyin sound cards",
       "topic": "classroom-language",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 14,
+      "complexity": 27
     },
     {
       "id": "ww.language.easy-word",
@@ -239,7 +293,9 @@
       "embeddingText": "Judging a vocabulary item as simple to learn.",
       "sceneQuery": "a smiling student holding one vocabulary card",
       "topic": "classroom-language",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww.number.one-to-six",
@@ -247,7 +303,9 @@
       "embeddingText": "Counting the first six whole numbers in order.",
       "sceneQuery": "six colorful blocks arranged for counting",
       "topic": "numbers-time",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "ww.number.two-books",
@@ -255,7 +313,9 @@
       "embeddingText": "Expressing possession of a pair of books.",
       "sceneQuery": "a student holding two books",
       "topic": "numbers-time",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 73,
+      "complexity": 27
     },
     {
       "id": "ww.number.three-apples",
@@ -263,7 +323,9 @@
       "embeddingText": "Noticing that a group of three apples is present nearby.",
       "sceneQuery": "three apples together on a table",
       "topic": "numbers-time",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "ww.time.what-time",
@@ -271,7 +333,9 @@
       "embeddingText": "Asking for the current hour and minute.",
       "sceneQuery": "a person checking an analog wall clock",
       "topic": "numbers-time",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww.time.monday",
@@ -279,7 +343,9 @@
       "embeddingText": "Identifying the present day of the week as Monday.",
       "sceneQuery": "a student beginning the school week",
       "topic": "numbers-time",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "ww.time.tuesday",
@@ -287,7 +353,9 @@
       "embeddingText": "Saying that the following day of the week is Tuesday.",
       "sceneQuery": "a child moving a calendar marker forward one day",
       "topic": "numbers-time",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "ww.food.rice",
@@ -295,7 +363,9 @@
       "embeddingText": "Sharing a preference for eating cooked rice.",
       "sceneQuery": "a child enjoying a bowl of rice",
       "topic": "food-drink",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 75,
+      "complexity": 29
     },
     {
       "id": "ww.drink.water",
@@ -303,7 +373,9 @@
       "embeddingText": "Politely encouraging someone to have some water.",
       "sceneQuery": "a person offering a glass of water",
       "topic": "food-drink",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 93,
+      "complexity": 22
     },
     {
       "id": "ww.plan.want-school",
@@ -311,7 +383,9 @@
       "embeddingText": "Expressing a wish to travel to school.",
       "sceneQuery": "a student walking toward a school building",
       "topic": "classroom-language",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 82,
+      "complexity": 22
     },
     {
       "id": "ww.food.big-apple",
@@ -319,7 +393,9 @@
       "embeddingText": "Describing an apple as large in size.",
       "sceneQuery": "one large apple beside a small cup",
       "topic": "food-drink",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "ww.animal.small-cat",
@@ -327,7 +403,9 @@
       "embeddingText": "Describing a cat as little in size.",
       "sceneQuery": "a small kitten beside a chair",
       "topic": "nature-animals",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww.home.my-home",
@@ -335,7 +413,9 @@
       "embeddingText": "Identifying a nearby dwelling as one's own home.",
       "sceneQuery": "a child standing proudly outside their home",
       "topic": "home-objects-location",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "ww.location.book-on-table",
@@ -343,7 +423,9 @@
       "embeddingText": "Locating a book on top of a table.",
       "sceneQuery": "a book resting on a wooden table",
       "topic": "home-objects-location",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 73,
+      "complexity": 27
     },
     {
       "id": "ww.location.cat-under-chair",
@@ -351,7 +433,9 @@
       "embeddingText": "Locating a cat beneath a chair.",
       "sceneQuery": "a cat curled up under a chair",
       "topic": "home-objects-location",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "ww.home.open-door",
@@ -359,7 +443,9 @@
       "embeddingText": "Describing the current open state of a door.",
       "sceneQuery": "an open doorway in a bright room",
       "topic": "home-objects-location",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "ww.home.closed-window",
@@ -367,7 +453,9 @@
       "embeddingText": "Describing the current shut state of a window.",
       "sceneQuery": "a closed window in a cozy room",
       "topic": "home-objects-location",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "ww.weather.rain-today",
@@ -375,7 +463,9 @@
       "embeddingText": "Reporting that rain is falling on the present day.",
       "sceneQuery": "children under umbrellas in daytime rain",
       "topic": "weather-routine",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "ww.action.teacher-arrived",
@@ -383,7 +473,9 @@
       "embeddingText": "Announcing that the teacher has reached the classroom.",
       "sceneQuery": "a teacher entering a classroom doorway",
       "topic": "classroom-language",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 77,
+      "complexity": 37
     },
     {
       "id": "ww.routine.get-up",
@@ -391,7 +483,9 @@
       "embeddingText": "Describing the daily habit of leaving bed in the morning.",
       "sceneQuery": "a child getting out of bed at sunrise",
       "topic": "weather-routine",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 70,
+      "complexity": 29
     },
     {
       "id": "ww.routine.go-home",
@@ -399,7 +493,9 @@
       "embeddingText": "Describing a routine return home during the evening.",
       "sceneQuery": "a student arriving home at sunset",
       "topic": "weather-routine",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 77,
+      "complexity": 22
     },
     {
       "id": "ww.politeness.sit-down",
@@ -407,7 +503,9 @@
       "embeddingText": "Politely inviting another person to take a seat.",
       "sceneQuery": "a host offering a chair to a guest",
       "topic": "greetings-social",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww.greeting.see-you-tomorrow",
@@ -415,7 +513,9 @@
       "embeddingText": "Parting warmly with the expectation of meeting the next day.",
       "sceneQuery": "two classmates waving goodbye after school",
       "topic": "greetings-social",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 22
     },
     {
       "id": "ww.question.what-is-this",
@@ -423,7 +523,9 @@
       "embeddingText": "Asking someone to identify a nearby object.",
       "sceneQuery": "a curious child pointing at an unfamiliar object",
       "topic": "conversation-questions",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "ww.question.who-is-that",
@@ -431,7 +533,9 @@
       "embeddingText": "Asking for the identity of a person farther away.",
       "sceneQuery": "two friends noticing a person in the distance",
       "topic": "conversation-questions",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 79,
+      "complexity": 24
     },
     {
       "id": "ww.question.where-are-you",
@@ -439,7 +543,9 @@
       "embeddingText": "Requesting another person's present location during a conversation.",
       "sceneQuery": "a friend calling from a park entrance",
       "topic": "conversation-questions",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 68,
+      "complexity": 24
     },
     {
       "id": "ww.question.when-come",
@@ -447,7 +553,9 @@
       "embeddingText": "Asking at what time someone expects to arrive.",
       "sceneQuery": "a person checking a clock while on the phone",
       "topic": "conversation-questions",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 68,
+      "complexity": 24
     },
     {
       "id": "ww.question.why-chinese",
@@ -455,7 +563,9 @@
       "embeddingText": "Asking about someone's reason for studying the Chinese language.",
       "sceneQuery": "a student practicing Chinese character cards",
       "topic": "conversation-questions",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 73,
+      "complexity": 24
     },
     {
       "id": "ww.question.how-say-word",
@@ -463,7 +573,9 @@
       "embeddingText": "Requesting help with how to express a vocabulary item.",
       "sceneQuery": "a learner showing a picture card to a teacher",
       "topic": "conversation-questions",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 75,
+      "complexity": 31
     },
     {
       "id": "ww.communication.say-again",
@@ -471,7 +583,9 @@
       "embeddingText": "Politely requesting that another person repeat an utterance.",
       "sceneQuery": "a listener cupping an ear as a friend repeats",
       "topic": "conversation-questions",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 98,
+      "complexity": 17
     },
     {
       "id": "ww.request.speak-slower",
@@ -479,7 +593,9 @@
       "embeddingText": "Politely asking someone to slow down their speech.",
       "sceneQuery": "two people talking carefully",
       "topic": "communication",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 98,
+      "complexity": 19
     },
     {
       "id": "ww.comprehension.understand-now",
@@ -487,7 +603,9 @@
       "embeddingText": "Confirming that an explanation has become clear.",
       "sceneQuery": "a student smiling after a teacher explains",
       "topic": "conversation-questions",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 88,
+      "complexity": 26
     },
     {
       "id": "ww.question.one-more",
@@ -495,7 +613,9 @@
       "embeddingText": "Indicating that another question remains to be asked.",
       "sceneQuery": "a student raising a hand in class",
       "topic": "conversation-questions",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 73,
+      "complexity": 24
     },
     {
       "id": "ww.routine.seven-wake",
@@ -503,7 +623,9 @@
       "embeddingText": "Giving seven o'clock as one's usual rising time.",
       "sceneQuery": "a child waking beside an analog clock at seven",
       "topic": "routines-home",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 26
     },
     {
       "id": "ww.routine.brush-teeth",
@@ -511,7 +633,9 @@
       "embeddingText": "Describing morning toothbrushing as a daily habit.",
       "sceneQuery": "a child brushing teeth at a bathroom sink",
       "topic": "routines-home",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 26
     },
     {
       "id": "ww.routine.home-breakfast",
@@ -519,7 +643,9 @@
       "embeddingText": "Saying that the morning meal is eaten at home.",
       "sceneQuery": "a family eating breakfast in their kitchen",
       "topic": "routines-home",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 77,
+      "complexity": 19
     },
     {
       "id": "ww.routine.school-eight",
@@ -527,7 +653,9 @@
       "embeddingText": "Giving eight o'clock as the time one goes to school.",
       "sceneQuery": "a student leaving home while an analog clock shows eight",
       "topic": "routines-home",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 77,
+      "complexity": 19
     },
     {
       "id": "ww.routine.afternoon-home",
@@ -535,7 +663,9 @@
       "embeddingText": "Describing a return home during the afternoon.",
       "sceneQuery": "a student walking home in afternoon sunlight",
       "topic": "routines-home",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 77,
+      "complexity": 19
     },
     {
       "id": "ww.routine.homework-after-dinner",
@@ -543,7 +673,9 @@
       "embeddingText": "Placing homework time after the evening meal.",
       "sceneQuery": "a child doing homework after a family dinner",
       "topic": "routines-home",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 24
     },
     {
       "id": "ww.routine.read-before-sleep",
@@ -551,7 +683,9 @@
       "embeddingText": "Describing reading as an activity before bedtime.",
       "sceneQuery": "a child reading a book beside a bed",
       "topic": "routines-home",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww.home.room-is-clean",
@@ -559,7 +693,9 @@
       "embeddingText": "Describing one's bedroom as tidy and free of dirt.",
       "sceneQuery": "a child standing in a neat clean bedroom",
       "topic": "routines-home",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 75,
+      "complexity": 24
     },
     {
       "id": "ww.home.clothes-in-wardrobe",
@@ -567,7 +703,9 @@
       "embeddingText": "Locating clothing inside a wardrobe.",
       "sceneQuery": "folded clothes inside an open wardrobe",
       "topic": "routines-home",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "ww.home.keys-by-door",
@@ -575,7 +713,9 @@
       "embeddingText": "Locating a set of keys next to a doorway.",
       "sceneQuery": "house keys hanging beside a door",
       "topic": "routines-home",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "ww.school.textbook-on-desk",
@@ -583,7 +723,9 @@
       "embeddingText": "Locating a school textbook on top of a desk.",
       "sceneQuery": "a textbook resting on a classroom desk",
       "topic": "school-learning",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 24
     },
     {
       "id": "ww.school.open-page-ten",
@@ -591,7 +733,9 @@
       "embeddingText": "Politely directing a learner to the tenth page of a book.",
       "sceneQuery": "a student turning to page ten in a textbook",
       "topic": "school-learning",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 19
     },
     {
       "id": "ww.action.read-book",
@@ -599,7 +743,9 @@
       "embeddingText": "A man is currently reading a book.",
       "sceneQuery": "a man reading a book",
       "topic": "daily-life",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 73,
+      "complexity": 24
     },
     {
       "id": "ww.school.board-writing",
@@ -607,7 +753,9 @@
       "embeddingText": "Describing a teacher putting written material on the classroom board.",
       "sceneQuery": "a teacher writing simple symbols on a blackboard",
       "topic": "school-learning",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 77,
+      "complexity": 24
     },
     {
       "id": "ww.school.listen-carefully",
@@ -615,7 +763,9 @@
       "embeddingText": "Describing students paying close attention to spoken instruction.",
       "sceneQuery": "attentive students listening to a teacher",
       "topic": "school-learning",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 75,
+      "complexity": 19
     },
     {
       "id": "ww.school.practice-characters",
@@ -623,7 +773,9 @@
       "embeddingText": "Describing daily practice of the Chinese writing system.",
       "sceneQuery": "a learner practicing Chinese characters in a workbook",
       "topic": "school-learning",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 73,
+      "complexity": 19
     },
     {
       "id": "ww.school.hard-question",
@@ -631,7 +783,9 @@
       "embeddingText": "Judging a particular question as somewhat challenging.",
       "sceneQuery": "a student thinking over one difficult exercise",
       "topic": "school-learning",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 73,
+      "complexity": 24
     },
     {
       "id": "ww.school.know-answer",
@@ -639,7 +793,9 @@
       "embeddingText": "Expressing certainty about the solution to a question.",
       "sceneQuery": "a confident student raising a hand",
       "topic": "school-learning",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 73,
+      "complexity": 19
     },
     {
       "id": "ww.school.explain-again",
@@ -647,7 +803,9 @@
       "embeddingText": "Politely requesting another explanation of the material.",
       "sceneQuery": "a teacher explaining a diagram to a student again",
       "topic": "school-learning",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 84,
+      "complexity": 19
     },
     {
       "id": "ww.school.study-together",
@@ -655,7 +813,9 @@
       "embeddingText": "Inviting others to join in a shared study session.",
       "sceneQuery": "three students studying together at a table",
       "topic": "school-learning",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 73,
+      "complexity": 19
     },
     {
       "id": "ww.work.office",
@@ -663,7 +823,9 @@
       "embeddingText": "Describing an office as one's regular workplace.",
       "sceneQuery": "an adult working at an organized office desk",
       "topic": "work-tasks",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 77,
+      "complexity": 19
     },
     {
       "id": "ww.work.start-nine",
@@ -671,7 +833,9 @@
       "embeddingText": "Giving nine o'clock as the beginning of one's workday.",
       "sceneQuery": "an office worker arriving as an analog clock shows nine",
       "topic": "work-tasks",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 77,
+      "complexity": 19
     },
     {
       "id": "ww.work.send-file",
@@ -679,7 +843,9 @@
       "embeddingText": "Politely requesting delivery of a work document before today ends.",
       "sceneQuery": "two coworkers handing over a document folder",
       "topic": "work-tasks",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 61,
+      "complexity": 28
     },
     {
       "id": "ww.work.meeting-ten",
@@ -687,7 +853,9 @@
       "embeddingText": "Giving ten o'clock as the scheduled start of a meeting.",
       "sceneQuery": "coworkers gathering at a meeting table as a clock shows ten",
       "topic": "work-tasks",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 75,
+      "complexity": 19
     },
     {
       "id": "ww.work.task-nearly-done",
@@ -695,7 +863,9 @@
       "embeddingText": "Reporting that only a small amount of a task remains.",
       "sceneQuery": "a worker placing the final piece in a project",
       "topic": "work-tasks",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 75,
+      "complexity": 24
     },
     {
       "id": "ww.work.more-time",
@@ -703,7 +873,9 @@
       "embeddingText": "Expressing that the available time is insufficient.",
       "sceneQuery": "a worker comparing an unfinished project with a clock",
       "topic": "work-tasks",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 80,
+      "complexity": 19
     },
     {
       "id": "ww.work.check-schedule",
@@ -711,7 +883,9 @@
       "embeddingText": "Politely asking someone to review the planned timetable.",
       "sceneQuery": "a coworker checking a simple wall calendar",
       "topic": "work-tasks",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 75,
+      "complexity": 19
     },
     {
       "id": "ww.work.coworker-help",
@@ -719,7 +893,9 @@
       "embeddingText": "Describing assistance received from a colleague.",
       "sceneQuery": "one coworker helping another organize papers",
       "topic": "work-tasks",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 88,
+      "complexity": 26
     },
     {
       "id": "ww.work.short-break",
@@ -727,7 +903,9 @@
       "embeddingText": "Describing a brief pause shared during work.",
       "sceneQuery": "coworkers relaxing with water during a short break",
       "topic": "work-tasks",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 68,
+      "complexity": 26
     },
     {
       "id": "ww.work.finish-before-home",
@@ -735,7 +913,9 @@
       "embeddingText": "Placing completion of one's work before the return home.",
       "sceneQuery": "an office worker finishing a task before leaving",
       "topic": "work-tasks",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "ww.shopping.apple-price",
@@ -743,7 +923,9 @@
       "embeddingText": "Asking the price of apples sold by the jin measure.",
       "sceneQuery": "apples on a market scale beside a shopkeeper",
       "topic": "shopping-services",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 84,
+      "complexity": 24
     },
     {
       "id": "ww.shopping.blue-shirt",
@@ -751,7 +933,9 @@
       "embeddingText": "Expressing an intention to purchase a blue shirt.",
       "sceneQuery": "a shopper choosing a blue shirt from a rack",
       "topic": "shopping-services",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 86,
+      "complexity": 19
     },
     {
       "id": "ww.shopping.right-size",
@@ -759,7 +943,9 @@
       "embeddingText": "Confirming that a garment size is suitable.",
       "sceneQuery": "a shopper checking the fit of a jacket",
       "topic": "shopping-services",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 26
     },
     {
       "id": "ww.shopping.try-on",
@@ -767,7 +953,9 @@
       "embeddingText": "Politely asking permission to test how a garment fits.",
       "sceneQuery": "a shopper holding a shirt near a fitting room",
       "topic": "shopping-services",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 19
     },
     {
       "id": "ww.shopping.receipt",
@@ -775,7 +963,9 @@
       "embeddingText": "Politely requesting proof of a completed purchase.",
       "sceneQuery": "a cashier handing a blank receipt to a customer",
       "topic": "shopping-services",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 57,
+      "complexity": 28
     },
     {
       "id": "ww.shopping.closes-eight",
@@ -783,7 +973,9 @@
       "embeddingText": "Giving eight in the evening as a shop's closing time.",
       "sceneQuery": "a shopkeeper closing a storefront at eight o'clock",
       "topic": "shopping-services",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 81,
+      "complexity": 19
     },
     {
       "id": "ww.shopping.checkout",
@@ -791,7 +983,9 @@
       "embeddingText": "Asking where customers complete payment in a store.",
       "sceneQuery": "a shopper looking toward a checkout counter",
       "topic": "shopping-services",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "ww.shopping.pay-card",
@@ -799,7 +993,9 @@
       "embeddingText": "Describing a purchase completed with a payment card.",
       "sceneQuery": "a customer tapping a blank bank card on a terminal",
       "topic": "shopping-services",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 81,
+      "complexity": 19
     },
     {
       "id": "ww.shopping.cheaper-book",
@@ -807,7 +1003,9 @@
       "embeddingText": "Comparing a book as lower in price than another option.",
       "sceneQuery": "two books with one marked by a lower generic price tag",
       "topic": "shopping-services",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 73,
+      "complexity": 24
     },
     {
       "id": "ww.shopping.thanks-help",
@@ -815,7 +1013,9 @@
       "embeddingText": "Showing gratitude for assistance received from someone.",
       "sceneQuery": "a grateful shopper thanking a helpful clerk",
       "topic": "shopping-services",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 19
     },
     {
       "id": "ww.transit.bus-stop-ahead",
@@ -823,7 +1023,9 @@
       "embeddingText": "Locating a bus stop farther forward along the route.",
       "sceneQuery": "a bus stop visible ahead on a sidewalk",
       "topic": "transit-travel",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 81,
+      "complexity": 24
     },
     {
       "id": "ww.transit.subway-left",
@@ -831,7 +1033,9 @@
       "embeddingText": "Locating the entrance to an underground train on the left side.",
       "sceneQuery": "a subway entrance on the left side of a plaza",
       "topic": "transit-travel",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 24
     },
     {
       "id": "ww.direction.turn-right",
@@ -839,7 +1043,9 @@
       "embeddingText": "Giving a polite direction to take the right turn at a junction.",
       "sceneQuery": "a pedestrian turning right at a safe intersection",
       "topic": "transit-travel",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 19
     },
     {
       "id": "ww.direction.walk-five",
@@ -847,7 +1053,9 @@
       "embeddingText": "Instructing someone to continue straight for five minutes.",
       "sceneQuery": "a pedestrian walking straight along a clear path",
       "topic": "transit-travel",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 63,
+      "complexity": 19
     },
     {
       "id": "ww.transit.which-bus",
@@ -855,7 +1063,9 @@
       "embeddingText": "Asking which bus route provides travel to the city center.",
       "sceneQuery": "a traveler asking a driver beside a city bus",
       "topic": "transit-travel",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 81,
+      "complexity": 35
     },
     {
       "id": "ww.travel.train-three",
@@ -863,7 +1073,9 @@
       "embeddingText": "Giving three in the afternoon as a train's departure time.",
       "sceneQuery": "a train leaving a station at three o'clock",
       "topic": "transit-travel",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 81,
+      "complexity": 19
     },
     {
       "id": "ww.travel.ticket-table",
@@ -871,7 +1083,9 @@
       "embeddingText": "Locating a travel ticket on top of a table.",
       "sceneQuery": "a generic train ticket lying on a table",
       "topic": "transit-travel",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 81,
+      "complexity": 24
     },
     {
       "id": "ww.travel.wait-station",
@@ -879,7 +1093,9 @@
       "embeddingText": "Describing a group waiting together at a transit station.",
       "sceneQuery": "friends waiting on a bright train platform",
       "topic": "transit-travel",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 81,
+      "complexity": 19
     },
     {
       "id": "ww.travel.park-near-hotel",
@@ -887,7 +1103,9 @@
       "embeddingText": "Describing a park as a short distance from a hotel.",
       "sceneQuery": "a public park beside a hotel building",
       "topic": "transit-travel",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 83,
+      "complexity": 24
     },
     {
       "id": "ww.direction.map-road",
@@ -895,7 +1113,9 @@
       "embeddingText": "Confirming that a particular road appears on a map.",
       "sceneQuery": "a traveler pointing to a road line on a simple map",
       "topic": "transit-travel",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 24
     },
     {
       "id": "ww.wellbeing.tired",
@@ -903,7 +1123,9 @@
       "embeddingText": "Reporting a mild feeling of fatigue.",
       "sceneQuery": "a tired person resting after a long walk",
       "topic": "wellbeing",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 19
     },
     {
       "id": "ww.wellbeing.rest",
@@ -911,7 +1133,9 @@
       "embeddingText": "Gently suggesting that someone pause and recover briefly.",
       "sceneQuery": "a person relaxing safely on a park bench",
       "topic": "wellbeing",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 68,
+      "complexity": 19
     },
     {
       "id": "ww.action.drink-water",
@@ -919,7 +1143,9 @@
       "embeddingText": "A woman drinks water as a daily habit.",
       "sceneQuery": "a woman drinking a glass of water",
       "topic": "daily-life",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 88,
+      "complexity": 19
     },
     {
       "id": "ww.wellbeing.slept-well",
@@ -927,7 +1153,9 @@
       "embeddingText": "Reporting restful sleep during the previous night.",
       "sceneQuery": "a refreshed person waking in morning light",
       "topic": "wellbeing",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 75,
+      "complexity": 19
     },
     {
       "id": "ww.wellbeing.headache",
@@ -935,7 +1163,9 @@
       "embeddingText": "Describing mild pain located in one's head.",
       "sceneQuery": "a person resting with one hand on their forehead",
       "topic": "wellbeing",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 85,
+      "complexity": 26
     },
     {
       "id": "ww.wellbeing.see-doctor",
@@ -943,7 +1173,9 @@
       "embeddingText": "Expressing the need to consult a medical professional.",
       "sceneQuery": "a patient speaking with a friendly doctor in a clinic",
       "topic": "wellbeing",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 26
     },
     {
       "id": "ww.wellbeing.clinic-nearby",
@@ -951,7 +1183,9 @@
       "embeddingText": "Locating a medical clinic a short distance away.",
       "sceneQuery": "a small neighborhood clinic across the street",
       "topic": "wellbeing",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 88,
+      "complexity": 24
     },
     {
       "id": "ww.wellbeing.ask-about-medicine",
@@ -959,7 +1193,9 @@
       "embeddingText": "Politely asking a doctor for instructions on using a medicine.",
       "sceneQuery": "a parent and child asking a friendly doctor about a medicine bottle",
       "topic": "wellbeing",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 22
     },
     {
       "id": "ww.wellbeing.walk-health",
@@ -967,7 +1203,9 @@
       "embeddingText": "Connecting regular walking with physical wellbeing.",
       "sceneQuery": "a family taking a relaxed walk in a park",
       "topic": "wellbeing",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "ww.wellbeing.better-now",
@@ -975,7 +1213,9 @@
       "embeddingText": "Reporting clear improvement in how one currently feels.",
       "sceneQuery": "a recovering person smiling beside a cup of water",
       "topic": "wellbeing",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 84,
+      "complexity": 26
     },
     {
       "id": "ww.hobby.music",
@@ -983,7 +1223,9 @@
       "embeddingText": "Sharing enjoyment of hearing music.",
       "sceneQuery": "a child happily listening to music with headphones",
       "topic": "hobbies-culture-nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 62,
+      "complexity": 26
     },
     {
       "id": "ww.hobby.piano",
@@ -991,7 +1233,9 @@
       "embeddingText": "Describing a girl's ability to perform on the piano.",
       "sceneQuery": "a girl playing piano in a music room",
       "topic": "hobbies-culture-nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 62,
+      "complexity": 24
     },
     {
       "id": "ww.hobby.drawing",
@@ -999,7 +1243,9 @@
       "embeddingText": "Sharing a weekend preference for making pictures.",
       "sceneQuery": "a child drawing a landscape on the weekend",
       "topic": "hobbies-culture-nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 26
     },
     {
       "id": "ww.hobby.football",
@@ -1007,7 +1253,9 @@
       "embeddingText": "Describing a younger brother's enjoyment of playing football.",
       "sceneQuery": "a younger boy playing football on a field",
       "topic": "hobbies-culture-nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 62,
+      "complexity": 26
     },
     {
       "id": "ww.culture.quiet-library",
@@ -1015,7 +1263,9 @@
       "embeddingText": "Describing a library as calm and low in noise.",
       "sceneQuery": "students reading quietly inside a library",
       "topic": "hobbies-culture-nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 75,
+      "complexity": 24
     },
     {
       "id": "ww.culture.museum-open",
@@ -1023,7 +1273,9 @@
       "embeddingText": "A visitor learns that the museum is welcoming guests today.",
       "sceneQuery": "visitors entering a museum through open doors in daylight",
       "topic": "hobbies-culture-nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 63,
+      "complexity": 24
     },
     {
       "id": "ww.nature.tall-trees",
@@ -1031,7 +1283,9 @@
       "embeddingText": "A description of unusually tall trees growing along a mountainside.",
       "sceneQuery": "towering green trees rising along a mountain slope",
       "topic": "hobbies-culture-nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 24
     },
     {
       "id": "ww.nature.park-flowers",
@@ -1039,7 +1293,9 @@
       "embeddingText": "Noticing that spring blossoms have opened throughout a public park.",
       "sceneQuery": "colorful blossoms covering flower beds in a sunny park",
       "topic": "hobbies-culture-nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 65,
+      "complexity": 34
     },
     {
       "id": "ww.nature.flying-bird",
@@ -1047,7 +1303,9 @@
       "embeddingText": "Describing one bird moving high through the open sky.",
       "sceneQuery": "a single bird gliding above soft clouds in a blue sky",
       "topic": "hobbies-culture-nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 65,
+      "complexity": 24
     },
     {
       "id": "ww.nature.blue-sea",
@@ -1055,7 +1313,9 @@
       "embeddingText": "Observing the sea's clear blue color on this particular day.",
       "sceneQuery": "bright blue sea meeting a pale horizon on a clear day",
       "topic": "hobbies-culture-nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 65,
+      "complexity": 24
     },
     {
       "id": "ww.tech.phone-table",
@@ -1063,7 +1323,9 @@
       "embeddingText": "Stating where a personal phone has been placed.",
       "sceneQuery": "a generic smartphone resting on a wooden table with a blank screen",
       "topic": "technology-communication",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 79,
+      "complexity": 24
     },
     {
       "id": "ww.tech.charge-phone",
@@ -1071,7 +1333,9 @@
       "embeddingText": "A polite request to connect a phone to electrical power.",
       "sceneQuery": "a charging cable being connected to a phone beside a wall outlet",
       "topic": "technology-communication",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 84,
+      "complexity": 19
     },
     {
       "id": "ww.tech.slow-computer",
@@ -1079,7 +1343,9 @@
       "embeddingText": "Reporting that a computer takes a long time to start.",
       "sceneQuery": "a person waiting beside a computer showing a simple loading circle",
       "topic": "technology-communication",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 72,
+      "complexity": 19
     },
     {
       "id": "ww.tech.send-message",
@@ -1087,7 +1353,9 @@
       "embeddingText": "A polite request for someone to communicate by message.",
       "sceneQuery": "a person tapping a blank chat bubble icon on a generic phone",
       "topic": "technology-communication",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 84,
+      "complexity": 19
     },
     {
       "id": "ww.tech.received-email",
@@ -1095,7 +1363,9 @@
       "embeddingText": "Confirming that an expected email has arrived.",
       "sceneQuery": "a person noticing a new envelope icon on a laptop with a blank screen",
       "topic": "technology-communication",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 72,
+      "complexity": 29
     },
     {
       "id": "ww.tech.network-works",
@@ -1103,7 +1373,9 @@
       "embeddingText": "Reporting that an internet connection is functioning again.",
       "sceneQuery": "a laptop and router connected by bright wireless signal waves",
       "topic": "technology-communication",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 77,
+      "complexity": 19
     },
     {
       "id": "ww.tech.open-camera",
@@ -1111,7 +1383,9 @@
       "embeddingText": "A polite request to activate a device camera.",
       "sceneQuery": "a person enabling a camera icon during a generic video call with blank tiles",
       "topic": "technology-communication",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 39
     },
     {
       "id": "ww.tech.volume-high",
@@ -1119,7 +1393,9 @@
       "embeddingText": "Complaining that a device's sound level is excessive.",
       "sceneQuery": "a person covering their ears beside a speaker with high volume bars",
       "topic": "technology-communication",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "ww.tech.save-file",
@@ -1127,7 +1403,9 @@
       "embeddingText": "A polite instruction to preserve a digital document.",
       "sceneQuery": "a hand clicking a save icon beside a blank document on a laptop",
       "topic": "technology-communication",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 61,
+      "complexity": 28
     },
     {
       "id": "ww.tech.call-grandmother",
@@ -1135,7 +1413,9 @@
       "embeddingText": "Suggesting a shared phone conversation with a grandmother.",
       "sceneQuery": "family members smiling during a video call with their grandmother and no names shown",
       "topic": "technology-communication",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 79,
+      "complexity": 19
     },
     {
       "id": "ww.plan.free-tomorrow",
@@ -1143,7 +1423,9 @@
       "embeddingText": "Asking whether another person has available time the following day.",
       "sceneQuery": "two friends comparing blank calendar pages for tomorrow",
       "topic": "plans-comparison",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "ww.question.go-to-park",
@@ -1151,7 +1433,9 @@
       "embeddingText": "Inviting someone to go to a park.",
       "sceneQuery": "friends planning to visit a park",
       "topic": "plans",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 65,
+      "complexity": 24
     },
     {
       "id": "ww.plan.rain-stay-home",
@@ -1159,7 +1443,9 @@
       "embeddingText": "A plan to remain indoors if rainy weather occurs.",
       "sceneQuery": "a person reading by a window while rain falls outside",
       "topic": "plans-comparison",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 77,
+      "complexity": 40
     },
     {
       "id": "ww.compare.bus-walking",
@@ -1167,7 +1453,9 @@
       "embeddingText": "Comparing bus travel with walking by their relative speed.",
       "sceneQuery": "a city bus passing a pedestrian along the same route",
       "topic": "plans-comparison",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 81,
+      "complexity": 40
     },
     {
       "id": "ww.compare.tea-water",
@@ -1175,7 +1463,9 @@
       "embeddingText": "Comparing the temperatures of tea and plain water.",
       "sceneQuery": "a steaming teacup beside a cool glass of water",
       "topic": "plans-comparison",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 88,
+      "complexity": 43
     },
     {
       "id": "ww.compare.light-bag",
@@ -1183,7 +1473,9 @@
       "embeddingText": "Judging a bag to be light compared with alternatives.",
       "sceneQuery": "a traveler easily lifting a small bag beside a heavier suitcase",
       "topic": "plans-comparison",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "ww.choice.red-one",
@@ -1191,7 +1483,9 @@
       "embeddingText": "Selecting the red option from several available objects.",
       "sceneQuery": "a hand pointing to a red cup among several colored cups",
       "topic": "plans-comparison",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 54,
+      "complexity": 19
     },
     {
       "id": "ww.plan.arrive-early",
@@ -1199,7 +1493,9 @@
       "embeddingText": "A promise to reach a destination sooner on the next day.",
       "sceneQuery": "a person approaching a school entrance early in the morning before others",
       "topic": "plans-comparison",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 68,
+      "complexity": 24
     },
     {
       "id": "ww.plan.library-after-class",
@@ -1207,7 +1503,9 @@
       "embeddingText": "A group plan to visit the library when lessons end.",
       "sceneQuery": "students leaving a classroom and walking toward a library with books",
       "topic": "plans-comparison",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 32
     },
     {
       "id": "ww.plan.meet-friends",
@@ -1215,7 +1513,9 @@
       "embeddingText": "Expressing a weekend wish to spend time with friends.",
       "sceneQuery": "friends meeting in a park on a sunny weekend",
       "topic": "plans-comparison",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 82,
+      "complexity": 19
     },
     {
       "id": "ww.community.ask-post-office",
@@ -1223,7 +1523,9 @@
       "embeddingText": "Politely asking for directions to the local post office.",
       "sceneQuery": "a traveler asking a passerby beside a map and a post office icon with no addresses",
       "topic": "community-politeness",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 75,
+      "complexity": 24
     },
     {
       "id": "ww.politeness.sorry-late",
@@ -1231,7 +1533,9 @@
       "embeddingText": "Apologizing for arriving after the expected time.",
       "sceneQuery": "a latecomer apologizing to a friend beside a wall clock",
       "topic": "community-politeness",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 31
     },
     {
       "id": "ww.politeness.no-problem",
@@ -1239,7 +1543,9 @@
       "embeddingText": "Reassuring someone that a small difficulty is acceptable.",
       "sceneQuery": "two people smiling after easily gathering a dropped stack of papers",
       "topic": "community-politeness",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 68,
+      "complexity": 19
     },
     {
       "id": "ww.community.line-up",
@@ -1247,7 +1553,9 @@
       "embeddingText": "Politely directing people to wait in an orderly queue.",
       "sceneQuery": "people standing in a neat line at a service counter",
       "topic": "community-politeness",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 68,
+      "complexity": 19
     },
     {
       "id": "ww.community.library-quiet",
@@ -1255,7 +1563,9 @@
       "embeddingText": "Reminding library visitors to keep their voices low.",
       "sceneQuery": "a librarian making a gentle quiet gesture while students read",
       "topic": "community-politeness",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 75,
+      "complexity": 19
     },
     {
       "id": "ww.community.offer-help",
@@ -1263,7 +1573,9 @@
       "embeddingText": "Volunteering to assist another person with a task.",
       "sceneQuery": "a person helping a neighbor carry a box",
       "topic": "community-politeness",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 88,
+      "complexity": 19
     },
     {
       "id": "ww.politeness.thanks-wait",
@@ -1271,7 +1583,9 @@
       "embeddingText": "Expressing gratitude to someone who waited.",
       "sceneQuery": "two friends meeting at a bus stop as one warmly greets the waiting friend",
       "topic": "community-politeness",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 19
     },
     {
       "id": "ww.politeness.after-you",
@@ -1279,7 +1593,9 @@
       "embeddingText": "Politely inviting another person to proceed ahead.",
       "sceneQuery": "a person holding open a door and gesturing for a visitor to enter",
       "topic": "community-politeness",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 19
     },
     {
       "id": "ww.community.your-seat",
@@ -1287,7 +1603,9 @@
       "embeddingText": "Identifying a particular seat as belonging to the listener.",
       "sceneQuery": "a person pointing out an empty chair prepared for a companion",
       "topic": "community-politeness",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 83,
+      "complexity": 24
     },
     {
       "id": "ww.community.welcome",
@@ -1295,7 +1613,9 @@
       "embeddingText": "Giving a warm greeting to someone newly joining a neighborhood.",
       "sceneQuery": "neighbors welcoming a newcomer at a shared garden entrance",
       "topic": "community-politeness",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 68,
+      "complexity": 26
     },
     {
       "id": "ww.food.breakfast-ready",
@@ -1303,7 +1623,9 @@
       "embeddingText": "Announcing that the morning meal is prepared.",
       "sceneQuery": "a complete family breakfast arranged on a kitchen table",
       "topic": "food-weather-time",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "ww.food.fresh-vegetables",
@@ -1311,7 +1633,9 @@
       "embeddingText": "Observing that today's vegetables are newly harvested and crisp.",
       "sceneQuery": "colorful fresh vegetables displayed at a market stall",
       "topic": "food-weather-time",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "ww.preference.tea",
@@ -1319,7 +1643,9 @@
       "embeddingText": "A person says they enjoy drinking tea.",
       "sceneQuery": "a person enjoying a cup of tea",
       "topic": "food-and-drink",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "ww.food.not-spicy",
@@ -1327,7 +1653,9 @@
       "embeddingText": "Stating a preference to avoid food with strong chili heat.",
       "sceneQuery": "a diner choosing a mild dish while a red chili dish remains aside",
       "topic": "food-weather-time",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 88,
+      "complexity": 29
     },
     {
       "id": "ww.food.more-rice",
@@ -1335,7 +1663,9 @@
       "embeddingText": "Politely asking for one additional bowl of cooked rice.",
       "sceneQuery": "a diner holding an empty bowl while a server brings a full rice bowl",
       "topic": "food-weather-time",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 80,
+      "complexity": 19
     },
     {
       "id": "ww.weather.sunny-afternoon",
@@ -1343,7 +1673,9 @@
       "embeddingText": "Predicting clear and bright weather later in the day.",
       "sceneQuery": "an afternoon park beneath bright sunshine and a clear sky",
       "topic": "food-weather-time",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "ww.weather.strong-wind",
@@ -1351,7 +1683,9 @@
       "embeddingText": "Noticing that today's wind is somewhat powerful.",
       "sceneQuery": "trees and a scarf bending in gusty wind",
       "topic": "food-weather-time",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 65,
+      "complexity": 24
     },
     {
       "id": "ww.weather.take-umbrella",
@@ -1359,7 +1693,9 @@
       "embeddingText": "Reminding someone to carry rain protection before leaving.",
       "sceneQuery": "a person taking an umbrella from a stand beside the front door",
       "topic": "food-weather-time",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 80,
+      "complexity": 35
     },
     {
       "id": "ww.weather.cold-winter",
@@ -1367,7 +1703,9 @@
       "embeddingText": "Describing the local winter season as cold.",
       "sceneQuery": "bundled people walking through a frosty town in winter",
       "topic": "food-weather-time",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 24
     },
     {
       "id": "ww.weather.spring-flowers",
@@ -1375,7 +1713,9 @@
       "embeddingText": "Describing the abundance of blossoms during spring.",
       "sceneQuery": "a broad spring meadow filled with colorful flowers",
       "topic": "food-weather-time",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 84,
+      "complexity": 24
     },
     {
       "id": "ww.family.sister-university",
@@ -1383,7 +1723,9 @@
       "embeddingText": "Explaining that an older sister is enrolled at a university.",
       "sceneQuery": "a young woman studying with books on a university campus",
       "topic": "family-people",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 73,
+      "complexity": 19
     },
     {
       "id": "ww.family.brother-ten",
@@ -1391,7 +1733,9 @@
       "embeddingText": "Giving a younger brother's current age as ten.",
       "sceneQuery": "a younger brother beside a birthday cake with ten candles",
       "topic": "family-people",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 79,
+      "complexity": 24
     },
     {
       "id": "ww.family.grandmother-cooks",
@@ -1399,7 +1743,9 @@
       "embeddingText": "Describing a grandmother preparing food in the kitchen.",
       "sceneQuery": "a grandmother stirring a pot in a bright home kitchen",
       "topic": "family-people",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 75,
+      "complexity": 24
     },
     {
       "id": "ww.family.grandfather-paper",
@@ -1407,7 +1753,9 @@
       "embeddingText": "Describing a grandfather reading the daily newspaper.",
       "sceneQuery": "a grandfather reading a newspaper with indistinct print in an armchair",
       "topic": "family-people",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 73,
+      "complexity": 24
     },
     {
       "id": "ww.family.dinner-together",
@@ -1415,7 +1763,9 @@
       "embeddingText": "Describing relatives sharing their evening meal at one table.",
       "sceneQuery": "a multigenerational family eating dinner together around a table",
       "topic": "family-people",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 77,
+      "complexity": 19
     },
     {
       "id": "ww.people.friend-name",
@@ -1423,7 +1773,9 @@
       "embeddingText": "Introducing a friend by stating that person's name.",
       "sceneQuery": "one friend introducing another to a small group with blank name badges",
       "topic": "family-people",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "ww.people.kind-teacher",
@@ -1431,7 +1783,9 @@
       "embeddingText": "Describing a teacher's caring and considerate manner.",
       "sceneQuery": "a teacher gently helping a student with schoolwork",
       "topic": "family-people",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 77,
+      "complexity": 24
     },
     {
       "id": "ww.possession.two-friends",
@@ -1439,7 +1793,9 @@
       "embeddingText": "A person says that they have two friends.",
       "sceneQuery": "three friends together",
       "topic": "people",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 77,
+      "complexity": 24
     },
     {
       "id": "ww.people.neighbor-dog",
@@ -1447,7 +1803,9 @@
       "embeddingText": "Stating that a nearby neighbor owns a dog.",
       "sceneQuery": "a neighbor walking a friendly dog outside adjacent homes",
       "topic": "family-people",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 79,
+      "complexity": 24
     },
     {
       "id": "ww.family.visit-aunt",
@@ -1455,7 +1813,9 @@
       "embeddingText": "Describing a regular weekend visit with an aunt.",
       "sceneQuery": "a family arriving at their aunt's home with a fruit basket",
       "topic": "family-people",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 79,
+      "complexity": 19
     },
     {
       "id": "ww.location.pen-in-bag",
@@ -1463,7 +1823,9 @@
       "embeddingText": "Locating a pen inside a student's school bag.",
       "sceneQuery": "an open school bag with a pen visible in its front pocket",
       "topic": "objects-location-services",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 77,
+      "complexity": 24
     },
     {
       "id": "ww.location.cup-by-computer",
@@ -1471,7 +1833,9 @@
       "embeddingText": "Locating a drinking cup next to a computer.",
       "sceneQuery": "a cup placed safely beside a desktop computer",
       "topic": "objects-location-services",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 72,
+      "complexity": 24
     },
     {
       "id": "ww.location.cat-under-table",
@@ -1479,7 +1843,9 @@
       "embeddingText": "A cat located underneath a table.",
       "sceneQuery": "a cat under a table",
       "topic": "locations",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "ww.location.restroom-right",
@@ -1487,7 +1853,9 @@
       "embeddingText": "Giving the restroom's position relative to the kitchen.",
       "sceneQuery": "an indoor hallway with a kitchen doorway on the left and a restroom symbol on the right",
       "topic": "objects-location-services",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 88,
+      "complexity": 27
     },
     {
       "id": "ww.location.elevator-hall",
@@ -1495,7 +1863,9 @@
       "embeddingText": "Explaining that the elevator stands at the far end of a hallway.",
       "sceneQuery": "a long indoor hallway leading to closed elevator doors",
       "topic": "objects-location-services",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 80,
+      "complexity": 27
     },
     {
       "id": "ww.location.light-switch",
@@ -1503,7 +1873,9 @@
       "embeddingText": "Locating the room's light switch next to its doorway.",
       "sceneQuery": "a wall light switch mounted beside an open door",
       "topic": "objects-location-services",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "ww.service.package-desk",
@@ -1511,7 +1883,9 @@
       "embeddingText": "Reporting that a delivered parcel is being held at reception.",
       "sceneQuery": "a sealed parcel on a front desk with a blank label",
       "topic": "objects-location-services",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "ww.location.bank-across",
@@ -1519,7 +1893,9 @@
       "embeddingText": "Giving the bank's location on the opposite side of the street.",
       "sceneQuery": "a street view with a generic bank building on the opposite side and no business names",
       "topic": "objects-location-services",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "ww.location.pharmacy-clinic",
@@ -1527,7 +1903,9 @@
       "embeddingText": "Describing the pharmacy's position next to a medical clinic.",
       "sceneQuery": "a pharmacy cross icon beside a small clinic building with no readable signs",
       "topic": "objects-location-services",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 88,
+      "complexity": 24
     },
     {
       "id": "ww.location.market-station",
@@ -1535,7 +1913,9 @@
       "embeddingText": "Giving the market's location behind the transit station.",
       "sceneQuery": "a train station in the foreground with an outdoor market visible behind it",
       "topic": "objects-location-services",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 81,
+      "complexity": 24
     },
     {
       "id": "ww.problem.forgot-umbrella",
@@ -1543,7 +1923,9 @@
       "embeddingText": "Admitting that an umbrella was accidentally left behind.",
       "sceneQuery": "a person noticing rain outdoors while an umbrella remains by the door at home",
       "topic": "problems-plans",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 80,
+      "complexity": 26
     },
     {
       "id": "ww.problem.bus-late",
@@ -1551,7 +1933,9 @@
       "embeddingText": "Reporting that an expected bus is still late.",
       "sceneQuery": "people waiting at a bus stop and looking down an empty road",
       "topic": "problems-plans",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 81,
+      "complexity": 39
     },
     {
       "id": "ww.problem.missing-key",
@@ -1559,7 +1943,9 @@
       "embeddingText": "Reporting that a needed key is missing.",
       "sceneQuery": "a person checking their pockets beside a table while searching for a key",
       "topic": "problems-plans",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 82,
+      "complexity": 19
     },
     {
       "id": "ww.problem.help-find",
@@ -1567,7 +1953,9 @@
       "embeddingText": "Asking another person for help finding a missing item.",
       "sceneQuery": "two people searching together under a table and sofa",
       "topic": "problems-plans",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 97,
+      "complexity": 24
     },
     {
       "id": "ww.problem.road-closed",
@@ -1575,7 +1963,9 @@
       "embeddingText": "Warning that a road cannot be used for a short period.",
       "sceneQuery": "a quiet street blocked by repair barriers and a generic detour arrow",
       "topic": "problems-plans",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "ww.plan.other-road",
@@ -1583,7 +1973,9 @@
       "embeddingText": "Suggesting an alternative route around an obstruction.",
       "sceneQuery": "two travelers pointing toward another path on a simple map with no addresses",
       "topic": "problems-plans",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 68,
+      "complexity": 19
     },
     {
       "id": "ww.reason.rain-slow",
@@ -1591,7 +1983,9 @@
       "embeddingText": "Explaining that rainy conditions are slowing a vehicle.",
       "sceneQuery": "a bus moving carefully along a wet road in heavy rain",
       "topic": "problems-plans",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 54,
+      "complexity": 42
     },
     {
       "id": "ww.plan.sunny-picnic",
@@ -1599,7 +1993,9 @@
       "embeddingText": "Planning an outdoor picnic if fair weather continues.",
       "sceneQuery": "friends preparing a picnic basket beneath a sunny forecast icon",
       "topic": "problems-plans",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 75,
+      "complexity": 36
     },
     {
       "id": "ww.plan.rest-after-task",
@@ -1607,7 +2003,9 @@
       "embeddingText": "A plan to relax once the current work is complete.",
       "sceneQuery": "two coworkers finishing packed boxes and then sitting down with tea",
       "topic": "problems-plans",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 32
     },
     {
       "id": "ww.request.tell-result",
@@ -1615,7 +2013,9 @@
       "embeddingText": "Politely requesting that someone share an outcome.",
       "sceneQuery": "a teammate handing a completed result card with no readable text to a colleague",
       "topic": "problems-plans",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 55,
+      "complexity": 26
     },
     {
       "id": "ww.housing.two-bedrooms",
@@ -1623,7 +2023,9 @@
       "embeddingText": "Describing an apartment layout that contains two sleeping rooms.",
       "sceneQuery": "an overhead apartment floor plan with two furnished bedrooms and no labels",
       "topic": "adult-housing",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 80,
+      "complexity": 21
     },
     {
       "id": "ww.housing.rent-utilities",
@@ -1631,7 +2033,9 @@
       "embeddingText": "Clarifying that rent covers water service but excludes electricity.",
       "sceneQuery": "an apartment key beside a checked water droplet icon and a separate lightning icon with no amounts",
       "topic": "adult-housing",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 88,
+      "complexity": 29
     },
     {
       "id": "ww.housing.repair-appointment",
@@ -1639,7 +2043,9 @@
       "embeddingText": "Confirming that a repair visit has already been scheduled.",
       "sceneQuery": "a tenant and technician reviewing a blank calendar beside a toolbox",
       "topic": "adult-housing",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 57,
+      "complexity": 31
     },
     {
       "id": "ww.housing.heating-contact",
@@ -1647,7 +2053,9 @@
       "embeddingText": "Advising contact with the building manager when heating fails.",
       "sceneQuery": "a tenant in a cold room phoning a manager beside an inactive radiator",
       "topic": "adult-housing",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 77,
+      "complexity": 38
     },
     {
       "id": "ww.housing.move-next-month",
@@ -1655,7 +2063,9 @@
       "embeddingText": "Describing a household plan to relocate during the coming month.",
       "sceneQuery": "a family packing moving boxes beside a blank calendar turned to the next month",
       "topic": "adult-housing",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "ww.appointment.friday-three",
@@ -1663,7 +2073,9 @@
       "embeddingText": "Giving the scheduled day and afternoon time for an appointment.",
       "sceneQuery": "a generic calendar with a Friday afternoon slot highlighted beside a clock at three and no name",
       "topic": "adult-services",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 57,
+      "complexity": 21
     },
     {
       "id": "ww.service.identity-document",
@@ -1671,7 +2083,9 @@
       "embeddingText": "A service visitor is reminded to carry official identification.",
       "sceneQuery": "a person at a public service counter holding a generic blank document, with no readable personal details",
       "topic": "adult-services",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 61,
+      "complexity": 28
     },
     {
       "id": "ww.budget.month-tight",
@@ -1679,7 +2093,9 @@
       "embeddingText": "Reporting limited room in the household budget this month.",
       "sceneQuery": "an open wallet with a few coins beside a blank monthly budget notebook",
       "topic": "adult-services",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 57,
+      "complexity": 21
     },
     {
       "id": "ww.budget.compare-prices",
@@ -1687,7 +2103,9 @@
       "embeddingText": "Describing a habit of checking costs before making a purchase.",
       "sceneQuery": "a shopper comparing two similar items with symbolic price tags and no numbers",
       "topic": "adult-services",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 81,
+      "complexity": 31
     },
     {
       "id": "ww.banking.transfer-complete",
@@ -1695,7 +2113,9 @@
       "embeddingText": "Confirming that a requested transfer of money has finished successfully.",
       "sceneQuery": "a generic bank transfer completion symbol, with no account details or readable data",
       "topic": "adult-services",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 57,
+      "complexity": 51
     },
     {
       "id": "ww.work.send-agenda",
@@ -1703,7 +2123,9 @@
       "embeddingText": "Requesting that meeting topics be distributed to the whole group beforehand.",
       "sceneQuery": "a coworker handing blank agenda sheets to colleagues around a conference table",
       "topic": "work-collaboration",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww.work.confirm-data",
@@ -1711,7 +2133,9 @@
       "embeddingText": "Needing a colleague to verify information before it is used.",
       "sceneQuery": "two coworkers comparing a generic chart together with no readable figures",
       "topic": "work-collaboration",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 79,
+      "complexity": 24
     },
     {
       "id": "ww.work.notify-change",
@@ -1719,7 +2143,9 @@
       "embeddingText": "Requesting a team update whenever the shared plan is revised.",
       "sceneQuery": "a coordinator alerting coworkers around a schedule board with moved colored cards and no text",
       "topic": "work-collaboration",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "ww.work.find-solution",
@@ -1727,7 +2153,9 @@
       "embeddingText": "Reporting that collaboration resolved a shared difficulty.",
       "sceneQuery": "coworkers assembling matching puzzle pieces around a worktable",
       "topic": "work-collaboration",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 82,
+      "complexity": 16
     },
     {
       "id": "ww.work.clearer-chart",
@@ -1735,7 +2163,9 @@
       "embeddingText": "Identifying that a report would benefit from a more readable chart.",
       "sceneQuery": "coworkers replacing a cluttered graph with a clean colorful chart without labels",
       "topic": "work-collaboration",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 82,
+      "complexity": 16
     },
     {
       "id": "ww.travel.passport-bag",
@@ -1743,7 +2173,9 @@
       "embeddingText": "Locating a passport safely inside luggage for a trip.",
       "sceneQuery": "an open travel bag with a closed generic passport cover and no personal details",
       "topic": "travel-logistics",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 83,
+      "complexity": 21
     },
     {
       "id": "ww.travel.flight-delay",
@@ -1751,7 +2183,9 @@
       "embeddingText": "Reporting a forty-six-minute delay to a scheduled flight.",
       "sceneQuery": "a traveler waiting beneath an airplane delay icon and clock with no flight number",
       "topic": "travel-logistics",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 70,
+      "complexity": 21
     },
     {
       "id": "ww.travel.reserve-window",
@@ -1759,7 +2193,9 @@
       "embeddingText": "Confirming an online reservation for a seat beside the window.",
       "sceneQuery": "a generic airplane seating diagram with a window seat highlighted and no booking data",
       "topic": "travel-logistics",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 83,
+      "complexity": 16
     },
     {
       "id": "ww.travel.next-transfer",
@@ -1767,7 +2203,9 @@
       "embeddingText": "Explaining that the journey requires changing vehicles at the following station.",
       "sceneQuery": "travelers following arrows between two train platforms with no station names",
       "topic": "travel-logistics",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 86,
+      "complexity": 24
     },
     {
       "id": "ww.travel.missing-luggage",
@@ -1775,7 +2213,9 @@
       "embeddingText": "Advising a traveler to ask staff if checked luggage fails to appear.",
       "sceneQuery": "a traveler speaking to a luggage service agent beside an empty carousel and blank bag tags",
       "topic": "travel-logistics",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 83,
+      "complexity": 41
     },
     {
       "id": "ww.digital.strong-password",
@@ -1783,7 +2223,9 @@
       "embeddingText": "Advising someone to protect an account with a newly chosen strong password.",
       "sceneQuery": "a digital shield and key icon, with no readable password or credentials",
       "topic": "digital-organization",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 61,
+      "complexity": 45
     },
     {
       "id": "ww.digital.no-code-sharing",
@@ -1791,7 +2233,9 @@
       "embeddingText": "Warning that a private verification code must never be given to others.",
       "sceneQuery": "a protected phone with a shield and hidden dots, with no readable verification code",
       "topic": "digital-organization",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 79,
+      "complexity": 29
     },
     {
       "id": "ww.digital.check-recipient",
@@ -1799,7 +2243,9 @@
       "embeddingText": "Reminding a sender to verify the intended contact before messaging.",
       "sceneQuery": "a generic message icon and checked contact silhouette, with no readable names or addresses",
       "topic": "digital-organization",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 79,
+      "complexity": 24
     },
     {
       "id": "ww.digital.backup-files",
@@ -1807,7 +2253,9 @@
       "embeddingText": "Recommending regular duplicate copies of valuable digital files.",
       "sceneQuery": "a person copying file icons from a laptop to an external drive with no filenames",
       "topic": "digital-organization",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 33,
+      "complexity": 25
     },
     {
       "id": "ww.digital.location-sharing",
@@ -1815,7 +2263,9 @@
       "embeddingText": "Advising that unnecessary location sharing should be disabled.",
       "sceneQuery": "a location icon switched off on a generic phone, with no map or personal location",
       "topic": "digital-organization",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 38,
+      "complexity": 45
     },
     {
       "id": "ww.environment.sort-materials",
@@ -1823,7 +2273,9 @@
       "embeddingText": "Requesting that paper and plastic waste be sorted separately.",
       "sceneQuery": "hands placing paper into one recycling bin and plastic into another",
       "topic": "environment-community",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 36
     },
     {
       "id": "ww.environment.reusable-bag",
@@ -1831,7 +2283,9 @@
       "embeddingText": "Encouraging a shopper to carry a reusable grocery bag.",
       "sceneQuery": "a shopper placing vegetables into a cloth tote at a market",
       "topic": "environment-community",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 54,
+      "complexity": 32
     },
     {
       "id": "ww.environment.save-water",
@@ -1839,7 +2293,9 @@
       "embeddingText": "Reminding someone to close the faucet after using water.",
       "sceneQuery": "a hand turning off a faucet above an empty sink",
       "topic": "environment-community",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 93,
+      "complexity": 35
     },
     {
       "id": "ww.community.plant-trees",
@@ -1847,7 +2303,9 @@
       "embeddingText": "Announcing a neighborhood tree-planting activity for the weekend.",
       "sceneQuery": "neighbors planting young trees together in a community park",
       "topic": "environment-community",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 65,
+      "complexity": 21
     },
     {
       "id": "ww.environment.save-energy",
@@ -1855,7 +2313,9 @@
       "embeddingText": "Explaining that bus travel can reduce energy use.",
       "sceneQuery": "a full city bus passing several parked cars beside a green leaf symbol",
       "topic": "environment-community",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 61,
+      "complexity": 21
     },
     {
       "id": "ww.reason.road-work",
@@ -1863,7 +2323,9 @@
       "embeddingText": "Explaining an earlier departure planned around road repairs.",
       "sceneQuery": "travelers leaving home early while a repair crew works on the road ahead",
       "topic": "connected-reasoning",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 38,
+      "complexity": 47
     },
     {
       "id": "ww.reason.finish-help",
@@ -1871,7 +2333,9 @@
       "embeddingText": "Promising to assist a classmate after completing one's own work.",
       "sceneQuery": "a student with a finished blank worksheet helping a classmate at the next desk",
       "topic": "connected-reasoning",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 88,
+      "complexity": 33
     },
     {
       "id": "ww.reason.rain-museum",
@@ -1879,7 +2343,9 @@
       "embeddingText": "Contrasting rainy weather with the museum's normal availability.",
       "sceneQuery": "umbrella-carrying visitors entering a brightly lit museum in the rain",
       "topic": "connected-reasoning",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 63,
+      "complexity": 53
     },
     {
       "id": "ww.reason.time-route",
@@ -1887,7 +2353,9 @@
       "embeddingText": "Describing a sequence of checking the schedule before choosing a route.",
       "sceneQuery": "two travelers checking a wall clock and then comparing colored map routes with no addresses",
       "topic": "connected-reasoning",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 37
     },
     {
       "id": "ww.reason.quiet-room",
@@ -1895,7 +2363,9 @@
       "embeddingText": "Giving lower noise as the reason for selecting a room.",
       "sceneQuery": "a person choosing a peaceful study room while a busy room is visible next door",
       "topic": "connected-reasoning",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 38,
+      "complexity": 39
     },
     {
       "id": "ww.experience.chinese-year",
@@ -1903,7 +2373,9 @@
       "embeddingText": "Describing one year of experience learning Mandarin Chinese.",
       "sceneQuery": "a language learner with a Chinese workbook beside a twelve-month calendar and no personal notes",
       "topic": "experience-opinion",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 54,
+      "complexity": 21
     },
     {
       "id": "ww.experience.high-speed-train",
@@ -1911,7 +2383,9 @@
       "embeddingText": "Stating that a high-speed train journey has not yet been experienced.",
       "sceneQuery": "a traveler watching a high-speed train from a platform while holding an unused blank ticket",
       "topic": "experience-opinion",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 81,
+      "complexity": 39
     },
     {
       "id": "ww.opinion.useful-book",
@@ -1919,7 +2393,9 @@
       "embeddingText": "Expressing the opinion that a particular book is practically helpful.",
       "sceneQuery": "a reader consulting a handbook while completing a simple project",
       "topic": "experience-opinion",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 73,
+      "complexity": 29
     },
     {
       "id": "ww.opinion.more-seats",
@@ -1927,7 +2403,9 @@
       "embeddingText": "Suggesting that additional seating would improve the park.",
       "sceneQuery": "a crowded park path with people seeking benches and several open spaces",
       "topic": "experience-opinion",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 83,
+      "complexity": 24
     },
     {
       "id": "ww.opinion.convenient-city",
@@ -1935,7 +2413,9 @@
       "embeddingText": "Explaining appreciation for a city with easy transportation.",
       "sceneQuery": "a connected city bus, train, and bicycle at a clean transit hub",
       "topic": "experience-opinion",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 65,
+      "complexity": 43
     },
     {
       "id": "ww.problem.card-machine",
@@ -1943,7 +2423,9 @@
       "embeddingText": "Contrasting a functioning bank card with an unavailable cash machine.",
       "sceneQuery": "a person at an ATM showing an out-of-service symbol with a blank card and screen",
       "topic": "daily-problem-solving",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 77,
+      "complexity": 24
     },
     {
       "id": "ww.appointment.reschedule",
@@ -1951,7 +2433,9 @@
       "embeddingText": "Confirming that an appointment was moved to the following afternoon.",
       "sceneQuery": "a blank calendar appointment card being shifted to the next afternoon",
       "topic": "daily-problem-solving",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 57,
+      "complexity": 16
     },
     {
       "id": "ww.housing.repair-arrival",
@@ -1959,7 +2443,9 @@
       "embeddingText": "Reporting when a maintenance worker is expected to arrive.",
       "sceneQuery": "a technician with a tool bag approaching an apartment beside a clock at nine and no address",
       "topic": "daily-problem-solving",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 79,
+      "complexity": 21
     },
     {
       "id": "ww.delivery.wrong-address",
@@ -1967,7 +2453,9 @@
       "embeddingText": "Reporting a misdirected parcel and a request for reception staff's help.",
       "sceneQuery": "a sealed package beside a generic front desk, with no readable address or personal data",
       "topic": "daily-problem-solving",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 81,
+      "complexity": 29
     },
     {
       "id": "ww.tech.borrow-charger",
@@ -1975,7 +2463,9 @@
       "embeddingText": "Explaining that a coworker lent a charger after one was forgotten.",
       "sceneQuery": "a coworker handing a charging cable across a shared desk",
       "topic": "daily-problem-solving",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 72,
+      "complexity": 34
     },
     {
       "id": "ww.language.ask-meaning",
@@ -1983,7 +2473,9 @@
       "embeddingText": "Describing a strategy of asking for help with unfamiliar vocabulary.",
       "sceneQuery": "a student asking a teacher while pointing to a highlighted word in an open book with indistinct text",
       "topic": "language-culture-social",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 55
     },
     {
       "id": "ww.language.word-difference",
@@ -1991,7 +2483,9 @@
       "embeddingText": "Requesting a comparison between two similar vocabulary items.",
       "sceneQuery": "a teacher and learner comparing two blank vocabulary cards on a whiteboard",
       "topic": "language-culture-social",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 84,
+      "complexity": 24
     },
     {
       "id": "ww.language.summarize",
@@ -1999,7 +2493,9 @@
       "embeddingText": "Describing how a listener restates information independently afterward.",
       "sceneQuery": "a learner removing headphones and writing short notes in a blank notebook",
       "topic": "language-culture-social",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 90,
+      "complexity": 34
     },
     {
       "id": "ww.culture.respect-habits",
@@ -2007,7 +2503,9 @@
       "embeddingText": "Expressing respect for varied everyday customs and routines.",
       "sceneQuery": "diverse neighbors sharing everyday activities in a welcoming community courtyard",
       "topic": "language-culture-social",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 70,
+      "complexity": 23
     },
     {
       "id": "ww.social.listen-before-discussion",
@@ -2015,7 +2513,9 @@
       "embeddingText": "Describing attentive listening before contributing to a group discussion.",
       "sceneQuery": "one person speaking in a seated discussion circle while everyone else listens",
       "topic": "language-culture-social",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 79,
+      "complexity": 22
     },
     {
       "id": "ww-exp260908-001",
@@ -2023,7 +2523,9 @@
       "embeddingText": "A rabbit moves forward in little hops.",
       "sceneQuery": "a small rabbit springing over soft grass",
       "topic": "animals",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 65,
+      "complexity": 27
     },
     {
       "id": "ww-exp260908-002",
@@ -2031,7 +2533,9 @@
       "embeddingText": "A young plant develops from a seed.",
       "sceneQuery": "a seed with a green sprout emerging from soil",
       "topic": "nature",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 46,
+      "complexity": 27
     },
     {
       "id": "ww-exp260908-003",
@@ -2039,7 +2543,9 @@
       "embeddingText": "Someone describes the blue color of their kite.",
       "sceneQuery": "a child holding a bright blue kite in a park",
       "topic": "play",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 63,
+      "complexity": 27
     },
     {
       "id": "ww-exp260908-004",
@@ -2047,7 +2553,9 @@
       "embeddingText": "Friends clap their hands at the same time.",
       "sceneQuery": "children standing in a circle and clapping in rhythm",
       "topic": "music",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 63,
+      "complexity": 22
     },
     {
       "id": "ww-exp260908-005",
@@ -2055,7 +2563,9 @@
       "embeddingText": "A child asks where a missing crayon has gone.",
       "sceneQuery": "an open pencil case beside a coloring page and a crayon",
       "topic": "school",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "ww-exp260908-006",
@@ -2063,7 +2573,9 @@
       "embeddingText": "A turtle rests quietly while asleep.",
       "sceneQuery": "a sleeping turtle with its head resting beside its shell",
       "topic": "animals",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 48,
+      "complexity": 27
     },
     {
       "id": "ww-exp260908-007",
@@ -2071,7 +2583,9 @@
       "embeddingText": "Friends invite another person to join their activity.",
       "sceneQuery": "children making room for another child at a game table",
       "topic": "friendship",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-exp260908-008",
@@ -2079,7 +2593,9 @@
       "embeddingText": "Someone draws attention to a rainbow in the sky.",
       "sceneQuery": "a child pointing toward a rainbow over a field",
       "topic": "nature",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 65,
+      "complexity": 22
     },
     {
       "id": "ww-exp260908-009",
@@ -2087,7 +2603,9 @@
       "embeddingText": "A squirrel stores a nut beneath a fallen leaf.",
       "sceneQuery": "a squirrel tucking a nut under a broad autumn leaf",
       "topic": "animals",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 78,
+      "complexity": 19
     },
     {
       "id": "ww-exp260908-010",
@@ -2095,7 +2613,9 @@
       "embeddingText": "A homemade cardboard spacecraft has three circular windows.",
       "sceneQuery": "a cardboard rocket model with three round openings",
       "topic": "creativity",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 54,
+      "complexity": 24
     },
     {
       "id": "ww-exp260908-011",
@@ -2103,7 +2623,9 @@
       "embeddingText": "Children use a ruler to discover how tall a sunflower is.",
       "sceneQuery": "a ruler held beside a sunflower stem",
       "topic": "school",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 75,
+      "complexity": 19
     },
     {
       "id": "ww-exp260908-012",
@@ -2111,7 +2633,9 @@
       "embeddingText": "A learner asks a friend to explain a game played by clapping hands.",
       "sceneQuery": "two friends demonstrating a hand-clapping pattern",
       "topic": "friendship",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 67,
+      "complexity": 39
     },
     {
       "id": "ww-exp260908-013",
@@ -2119,7 +2643,9 @@
       "embeddingText": "Small animal tracks run across newly fallen snow.",
       "sceneQuery": "a winding line of tiny tracks across clean white snow",
       "topic": "nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 54,
+      "complexity": 19
     },
     {
       "id": "ww-exp260908-014",
@@ -2127,7 +2653,9 @@
       "embeddingText": "A puppet takes a bow when its performance finishes.",
       "sceneQuery": "a puppet bending forward on a small stage as curtains close",
       "topic": "play",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 58,
+      "complexity": 22
     },
     {
       "id": "ww-exp260908-015",
@@ -2135,7 +2663,9 @@
       "embeddingText": "Pancake mixture is stirred gently in a mixing bowl.",
       "sceneQuery": "a spoon making a slow circle through pancake batter",
       "topic": "food",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 78,
+      "complexity": 19
     },
     {
       "id": "ww-exp260908-016",
@@ -2143,7 +2673,9 @@
       "embeddingText": "A snail makes a glossy track as it travels over a rock.",
       "sceneQuery": "a snail and a silvery trail across a smooth stone",
       "topic": "nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 22
     },
     {
       "id": "ww-exp260908-017",
@@ -2151,7 +2683,9 @@
       "embeddingText": "Someone identifies the magnet fastening a picture to a board.",
       "sceneQuery": "a child's drawing held on a noticeboard by a colorful magnet",
       "topic": "school",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 27
     },
     {
       "id": "ww-exp260908-018",
@@ -2159,7 +2693,9 @@
       "embeddingText": "A friend uses a small drum to maintain the musical beat.",
       "sceneQuery": "a child tapping a little drum beside friends making music",
       "topic": "music",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 77,
+      "complexity": 22
     },
     {
       "id": "ww-exp260908-019",
@@ -2167,7 +2703,9 @@
       "embeddingText": "Children share a telescope by using it one after another.",
       "sceneQuery": "friends waiting beside a telescope while one child looks through it",
       "topic": "play",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 33,
+      "complexity": 35
     },
     {
       "id": "ww-exp260908-020",
@@ -2175,7 +2713,9 @@
       "embeddingText": "Pollinating bees transport pollen between different blossoms.",
       "sceneQuery": "a bee dusted with yellow pollen visiting a flower",
       "topic": "nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 65,
+      "complexity": 19
     },
     {
       "id": "ww-exp260908-021",
@@ -2183,7 +2723,9 @@
       "embeddingText": "A friend's suggestion makes the conclusion of a story amusing.",
       "sceneQuery": "two children inventing a funny final picture for a storybook",
       "topic": "friendship",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 63,
+      "complexity": 26
     },
     {
       "id": "ww-exp260908-022",
@@ -2191,7 +2733,9 @@
       "embeddingText": "An oversized animal-shaped shadow appears to dance.",
       "sceneQuery": "a large bear-shaped shadow on a wall with raised paws",
       "topic": "creativity",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-exp260908-023",
@@ -2199,7 +2743,9 @@
       "embeddingText": "A poster needs enough room to include the names of every participant.",
       "sceneQuery": "a group poster with blank spaces for children's names",
       "topic": "school",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 22
     },
     {
       "id": "ww-exp260908-024",
@@ -2207,7 +2753,9 @@
       "embeddingText": "A light feather drifts through the air and settles on grass.",
       "sceneQuery": "a white feather floating just above a green lawn",
       "topic": "nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 19
     },
     {
       "id": "ww-exp260908-025",
@@ -2215,7 +2763,9 @@
       "embeddingText": "Teammates come up with an additional rule for their shared game.",
       "sceneQuery": "children discussing a homemade board game together",
       "topic": "play",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 62,
+      "complexity": 22
     },
     {
       "id": "ww-exp260908-026",
@@ -2223,7 +2773,9 @@
       "embeddingText": "A grandfather demonstrates how to fold dumpling wrappers.",
       "sceneQuery": "a grandfather and children folding dough around dumpling filling",
       "topic": "food",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 58,
+      "complexity": 26
     },
     {
       "id": "ww-exp260908-027",
@@ -2231,7 +2783,9 @@
       "embeddingText": "An imaginary dragon enjoys collecting brightly colored buttons.",
       "sceneQuery": "a friendly storybook dragon sorting a box of colorful buttons",
       "topic": "creativity",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 43,
+      "complexity": 19
     },
     {
       "id": "ww-exp260908-028",
@@ -2239,7 +2793,9 @@
       "embeddingText": "A magnifier helps children compare details of two leaves.",
       "sceneQuery": "two different leaves beneath a handheld magnifying glass",
       "topic": "school",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 65,
+      "complexity": 46
     },
     {
       "id": "ww-exp260908-029",
@@ -2247,7 +2803,9 @@
       "embeddingText": "A person keeps one remaining sticker to give to a friend.",
       "sceneQuery": "a child offering the final sticker from a sheet to a friend",
       "topic": "friendship",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 54,
+      "complexity": 36
     },
     {
       "id": "ww-exp260908-030",
@@ -2255,7 +2813,9 @@
       "embeddingText": "Clouds and nearby treetops appear as reflections in pond water.",
       "sceneQuery": "white clouds mirrored on a still pond below leafy trees",
       "topic": "nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 65,
+      "complexity": 34
     },
     {
       "id": "ww-exp260908-031",
@@ -2263,7 +2823,9 @@
       "embeddingText": "Music gradually becomes softer as a song approaches its conclusion.",
       "sceneQuery": "children finishing a song with gentle voices and relaxed hands",
       "topic": "music",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 19
     },
     {
       "id": "ww-exp260908-032",
@@ -2271,7 +2833,9 @@
       "embeddingText": "Children wonder whether a paper bridge can support five small stones.",
       "sceneQuery": "a folded paper bridge with five pebbles arranged beside it",
       "topic": "play",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 75,
+      "complexity": 24
     },
     {
       "id": "ww-exp260908-033",
@@ -2279,7 +2843,9 @@
       "embeddingText": "A group consults every member before deciding what to call their team.",
       "sceneQuery": "children listening to suggestions around a blank team-name sign",
       "topic": "friendship",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 75,
+      "complexity": 30
     },
     {
       "id": "ww-exp260908-034",
@@ -2287,7 +2853,9 @@
       "embeddingText": "A very small caterpillar creates surprisingly large gaps in a leaf.",
       "sceneQuery": "a tiny caterpillar beside large holes in a green leaf",
       "topic": "nature",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 65,
+      "complexity": 56
     },
     {
       "id": "ww-exp260908-035",
@@ -2295,7 +2863,9 @@
       "embeddingText": "Listening to two different proposals can help friends reach a fair agreement.",
       "sceneQuery": "two children sharing ideas while another sketches a shared solution",
       "topic": "friendship",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 82,
+      "complexity": 31
     },
     {
       "id": "ww-exp260908-036",
@@ -2303,7 +2873,9 @@
       "embeddingText": "After a model tips over, children widen its support to improve stability.",
       "sceneQuery": "a fallen model next to a newly widened cardboard base",
       "topic": "school",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 58,
+      "complexity": 34
     },
     {
       "id": "ww-exp260908-037",
@@ -2311,7 +2883,9 @@
       "embeddingText": "An unwanted cardboard box becomes a stage for puppet performances.",
       "sceneQuery": "a reused box with curtains and friendly puppets peeking out",
       "topic": "creativity",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 90,
+      "complexity": 34
     },
     {
       "id": "ww-exp260908-038",
@@ -2319,7 +2893,9 @@
       "embeddingText": "Children notice a lengthening shadow and connect it with the setting sun.",
       "sceneQuery": "long shadows stretching across a playground at sunset",
       "topic": "nature",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 65,
+      "complexity": 48
     },
     {
       "id": "ww-exp260908-039",
@@ -2327,7 +2903,9 @@
       "embeddingText": "Friends tackle a challenging riddle together so nobody has to work alone.",
       "sceneQuery": "a group of children puzzling over a riddle card together",
       "topic": "friendship",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 70,
+      "complexity": 56
     },
     {
       "id": "ww-exp260908-040",
@@ -2335,7 +2913,9 @@
       "embeddingText": "Learners compare their earlier prediction with observations before revising it.",
       "sceneQuery": "children comparing an experiment notebook with a prediction chart",
       "topic": "school",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 52,
+      "complexity": 65
     },
     {
       "id": "ww-exp260908-041",
@@ -2343,7 +2923,9 @@
       "embeddingText": "The reward at the end of a game is a note thanking all the helpers.",
       "sceneQuery": "a treasure box holding a handwritten thank-you card for a group",
       "topic": "play",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 62,
+      "complexity": 56
     },
     {
       "id": "ww-pair260908-001",
@@ -2351,7 +2933,9 @@
       "embeddingText": "Otter beside a stream holding a small smooth stone.",
       "sceneQuery": "Otter beside a stream holding a small smooth stone.",
       "topic": "animals",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 48,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-002",
@@ -2359,7 +2943,9 @@
       "embeddingText": "Pair of goats walking across a wooden bridge.",
       "sceneQuery": "Pair of goats walking across a wooden bridge.",
       "topic": "animals",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 65,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-003",
@@ -2367,7 +2953,9 @@
       "embeddingText": "Bright kite with a long ribbon tail against blue sky.",
       "sceneQuery": "Bright kite with a long ribbon tail against blue sky.",
       "topic": "art",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 63,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-004",
@@ -2375,7 +2963,9 @@
       "embeddingText": "Hands peeling a ripe yellow banana at a picnic.",
       "sceneQuery": "Hands peeling a ripe yellow banana at a picnic.",
       "topic": "food",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 78,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-005",
@@ -2383,7 +2973,9 @@
       "embeddingText": "Open box containing colorful wax crayons.",
       "sceneQuery": "Open box containing colorful wax crayons.",
       "topic": "school",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 80,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-006",
@@ -2391,7 +2983,9 @@
       "embeddingText": "Autumn leaf landing on the surface of a quiet pond.",
       "sceneQuery": "Autumn leaf landing on the surface of a quiet pond.",
       "topic": "nature",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-007",
@@ -2399,7 +2993,9 @@
       "embeddingText": "Soft knitted blanket draped over a cozy chair.",
       "sceneQuery": "Soft knitted blanket draped over a cozy chair.",
       "topic": "home",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 80,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-008",
@@ -2407,7 +3003,9 @@
       "embeddingText": "Small silver bell ringing in a music classroom.",
       "sceneQuery": "Small silver bell ringing in a music classroom.",
       "topic": "music",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-009",
@@ -2415,7 +3013,9 @@
       "embeddingText": "Single red balloon floating above a grassy park.",
       "sceneQuery": "Single red balloon floating above a grassy park.",
       "topic": "play",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 63,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-010",
@@ -2423,7 +3023,9 @@
       "embeddingText": "Friend arriving at a picnic with a basket of oranges.",
       "sceneQuery": "Friend arriving at a picnic with a basket of oranges.",
       "topic": "friendship",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 77,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-011",
@@ -2431,7 +3033,9 @@
       "embeddingText": "Empty park bench under a fresh layer of snow.",
       "sceneQuery": "Empty park bench under a fresh layer of snow.",
       "topic": "weather",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-012",
@@ -2439,7 +3043,9 @@
       "embeddingText": "Tiny chick walking behind its mother hen in a farmyard.",
       "sceneQuery": "Tiny chick walking behind its mother hen in a farmyard.",
       "topic": "animals",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 65,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-013",
@@ -2447,7 +3053,9 @@
       "embeddingText": "Beaver dragging a leafy branch toward flowing water.",
       "sceneQuery": "Beaver dragging a leafy branch toward flowing water.",
       "topic": "animals",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 48,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-014",
@@ -2455,7 +3063,9 @@
       "embeddingText": "Owl perched in an old oak overlooking an open meadow.",
       "sceneQuery": "Owl perched in an old oak overlooking an open meadow.",
       "topic": "animals",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 48,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-015",
@@ -2463,7 +3073,9 @@
       "embeddingText": "Turtle drying on a sunlit rock beside a pond.",
       "sceneQuery": "Turtle drying on a sunlit rock beside a pond.",
       "topic": "animals",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 30
     },
     {
       "id": "ww-pair260908-016",
@@ -2471,7 +3083,9 @@
       "embeddingText": "Green caterpillar moving along the curved edge of a broad leaf.",
       "sceneQuery": "Green caterpillar moving along the curved edge of a broad leaf.",
       "topic": "animals",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 65,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-017",
@@ -2479,7 +3093,9 @@
       "embeddingText": "Three differently shaped autumn leaves arranged for observation.",
       "sceneQuery": "Three differently shaped autumn leaves arranged for observation.",
       "topic": "nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 49,
+      "complexity": 46
     },
     {
       "id": "ww-pair260908-018",
@@ -2487,7 +3103,9 @@
       "embeddingText": "Potted sunflower leaning toward daylight through a window.",
       "sceneQuery": "Potted sunflower leaning toward daylight through a window.",
       "topic": "nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 26
     },
     {
       "id": "ww-pair260908-019",
@@ -2495,7 +3113,9 @@
       "embeddingText": "Soft green moss covering the ground around exposed tree roots.",
       "sceneQuery": "Soft green moss covering the ground around exposed tree roots.",
       "topic": "nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 80,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-020",
@@ -2503,7 +3123,9 @@
       "embeddingText": "Children safely indoors looking through library windows at rain.",
       "sceneQuery": "Children safely indoors looking through library windows at rain.",
       "topic": "weather",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 75,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-021",
@@ -2511,7 +3133,9 @@
       "embeddingText": "Concentric ripples where raindrops touch a still pond.",
       "sceneQuery": "Concentric ripples where raindrops touch a still pond.",
       "topic": "weather",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-022",
@@ -2519,7 +3143,9 @@
       "embeddingText": "Kite ribbons streaming sideways in a steady breeze.",
       "sceneQuery": "Kite ribbons streaming sideways in a steady breeze.",
       "topic": "weather",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-023",
@@ -2527,7 +3153,9 @@
       "embeddingText": "Paint palette with yellow and blue beside a friendly green dragon drawing.",
       "sceneQuery": "Paint palette with yellow and blue beside a friendly green dragon drawing.",
       "topic": "art",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 43,
+      "complexity": 29
     },
     {
       "id": "ww-pair260908-024",
@@ -2535,7 +3163,9 @@
       "embeddingText": "Wooden puppet taking a bow on a small theater stage.",
       "sceneQuery": "Wooden puppet taking a bow on a small theater stage.",
       "topic": "art",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 80,
+      "complexity": 42
     },
     {
       "id": "ww-pair260908-025",
@@ -2543,7 +3173,9 @@
       "embeddingText": "Handmade clay bowl drying on a shelf near daylight.",
       "sceneQuery": "Handmade clay bowl drying on a shelf near daylight.",
       "topic": "art",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 29
     },
     {
       "id": "ww-pair260908-026",
@@ -2551,7 +3183,9 @@
       "embeddingText": "Colorful hand-drawn island map with forests and a friendly village.",
       "sceneQuery": "Colorful hand-drawn island map with forests and a friendly village.",
       "topic": "art",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 62,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-027",
@@ -2559,7 +3193,9 @@
       "embeddingText": "Young drummer practicing a rhythm with a changing tempo.",
       "sceneQuery": "Young drummer practicing a rhythm with a changing tempo.",
       "topic": "music",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 62,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-028",
@@ -2567,7 +3203,9 @@
       "embeddingText": "Music class clapping together before beginning a song.",
       "sceneQuery": "Music class clapping together before beginning a song.",
       "topic": "music",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 63,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-029",
@@ -2575,7 +3213,9 @@
       "embeddingText": "Flute player performing a gentle melody in a calm room.",
       "sceneQuery": "Flute player performing a gentle melody in a calm room.",
       "topic": "music",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-030",
@@ -2583,7 +3223,9 @@
       "embeddingText": "Buttons arranged into size groups on a classroom table.",
       "sceneQuery": "Buttons arranged into size groups on a classroom table.",
       "topic": "school",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 72,
+      "complexity": 34
     },
     {
       "id": "ww-pair260908-031",
@@ -2591,7 +3233,9 @@
       "embeddingText": "Students recording the changing length of a stick's shadow.",
       "sceneQuery": "Students recording the changing length of a stick's shadow.",
       "topic": "school",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 84,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-032",
@@ -2599,7 +3243,9 @@
       "embeddingText": "Pencil underlining an important clue in a printed riddle.",
       "sceneQuery": "Pencil underlining an important clue in a printed riddle.",
       "topic": "school",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 88,
+      "complexity": 45
     },
     {
       "id": "ww-pair260908-033",
@@ -2607,7 +3253,9 @@
       "embeddingText": "Librarian showing a child an illustrated sea turtle book.",
       "sceneQuery": "Librarian showing a child an illustrated sea turtle book.",
       "topic": "school",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 73,
+      "complexity": 26
     },
     {
       "id": "ww-pair260908-034",
@@ -2615,7 +3263,9 @@
       "embeddingText": "Bowl of warm oatmeal with cinnamon being sprinkled on top.",
       "sceneQuery": "Bowl of warm oatmeal with cinnamon being sprinkled on top.",
       "topic": "food",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 49,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-035",
@@ -2623,7 +3273,9 @@
       "embeddingText": "Ripe pear sliced on a small plate beside a fruit bowl.",
       "sceneQuery": "Ripe pear sliced on a small plate beside a fruit bowl.",
       "topic": "food",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 75,
+      "complexity": 31
     },
     {
       "id": "ww-pair260908-036",
@@ -2631,7 +3283,9 @@
       "embeddingText": "Sandwich divided into equal portions for friends at a picnic.",
       "sceneQuery": "Sandwich divided into equal portions for friends at a picnic.",
       "topic": "food",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 78,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-037",
@@ -2639,7 +3293,9 @@
       "embeddingText": "Folded blanket being placed into a woven storage basket.",
       "sceneQuery": "Folded blanket being placed into a woven storage basket.",
       "topic": "home",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 80,
+      "complexity": 29
     },
     {
       "id": "ww-pair260908-038",
@@ -2647,7 +3303,9 @@
       "embeddingText": "Muddy rain boots resting on a tray inside an entrance.",
       "sceneQuery": "Muddy rain boots resting on a tray inside an entrance.",
       "topic": "home",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-039",
@@ -2655,7 +3313,9 @@
       "embeddingText": "Cozy cat curled into a small empty cardboard box.",
       "sceneQuery": "Cozy cat curled into a small empty cardboard box.",
       "topic": "home",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 84,
+      "complexity": 29
     },
     {
       "id": "ww-pair260908-040",
@@ -2663,7 +3323,9 @@
       "embeddingText": "Friends choosing from board games while taking turns.",
       "sceneQuery": "Friends choosing from board games while taking turns.",
       "topic": "friendship",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 62,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-041",
@@ -2671,7 +3333,9 @@
       "embeddingText": "Teammate welcoming a newcomer and explaining a tabletop game.",
       "sceneQuery": "Teammate welcoming a newcomer and explaining a tabletop game.",
       "topic": "friendship",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 79,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-042",
@@ -2679,7 +3343,9 @@
       "embeddingText": "Children making a roomy circle so another friend can join.",
       "sceneQuery": "Children making a roomy circle so another friend can join.",
       "topic": "friendship",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 84,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-043",
@@ -2687,7 +3353,9 @@
       "embeddingText": "Passenger train traveling beside a field of blooming sunflowers.",
       "sceneQuery": "Passenger train traveling beside a field of blooming sunflowers.",
       "topic": "travel",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 81,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-044",
@@ -2695,7 +3363,9 @@
       "embeddingText": "Town map showing a walking route to a museum.",
       "sceneQuery": "Town map showing a walking route to a museum.",
       "topic": "travel",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 63,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-045",
@@ -2703,7 +3373,9 @@
       "embeddingText": "Passengers waiting safely behind a marked line as a bus arrives.",
       "sceneQuery": "Passengers waiting safely behind a marked line as a bus arrives.",
       "topic": "travel",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 81,
+      "complexity": 38
     },
     {
       "id": "ww-pair260908-046",
@@ -2711,7 +3383,9 @@
       "embeddingText": "Friendly dragon admiring a collection of colorful shiny buttons.",
       "sceneQuery": "Friendly dragon admiring a collection of colorful shiny buttons.",
       "topic": "imagination",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 43,
+      "complexity": 34
     },
     {
       "id": "ww-pair260908-047",
@@ -2719,7 +3393,9 @@
       "embeddingText": "Children's cardboard spaceship with several cutout windows.",
       "sceneQuery": "Children's cardboard spaceship with several cutout windows.",
       "topic": "imagination",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 43,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-048",
@@ -2727,7 +3403,9 @@
       "embeddingText": "Small friendly robot pouring water from a teacup onto flowers.",
       "sceneQuery": "Small friendly robot pouring water from a teacup onto flowers.",
       "topic": "imagination",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 43,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-049",
@@ -2735,7 +3413,9 @@
       "embeddingText": "Two similar stones being compared for smooth and rough textures.",
       "sceneQuery": "Two similar stones being compared for smooth and rough textures.",
       "topic": "science",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 70,
+      "complexity": 55
     },
     {
       "id": "ww-pair260908-050",
@@ -2743,7 +3423,9 @@
       "embeddingText": "Seedlings placed in different lighting conditions for a classroom experiment.",
       "sceneQuery": "Seedlings placed in different lighting conditions for a classroom experiment.",
       "topic": "science",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 33,
+      "complexity": 48
     },
     {
       "id": "ww-pair260908-051",
@@ -2751,7 +3433,9 @@
       "embeddingText": "Observation notebook beside a simple classroom experiment.",
       "sceneQuery": "Observation notebook beside a simple classroom experiment.",
       "topic": "science",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 33,
+      "complexity": 48
     },
     {
       "id": "ww-pair260908-052",
@@ -2759,7 +3443,9 @@
       "embeddingText": "Icy pond surface obscuring a reflection of nearby trees.",
       "sceneQuery": "Icy pond surface obscuring a reflection of nearby trees.",
       "topic": "nature",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 71,
+      "complexity": 35
     },
     {
       "id": "ww-pair260908-053",
@@ -2767,7 +3453,9 @@
       "embeddingText": "Diverse flowering garden visited by bees and butterflies.",
       "sceneQuery": "Diverse flowering garden visited by bees and butterflies.",
       "topic": "nature",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 62,
+      "complexity": 35
     },
     {
       "id": "ww-pair260908-054",
@@ -2775,7 +3463,9 @@
       "embeddingText": "Friends calmly discussing different ideas for a shared project.",
       "sceneQuery": "Friends calmly discussing different ideas for a shared project.",
       "topic": "friendship",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 79,
+      "complexity": 47
     },
     {
       "id": "ww-pair260908-055",
@@ -2783,7 +3473,9 @@
       "embeddingText": "Teammates reviewing a plan together and appreciating helpful feedback.",
       "sceneQuery": "Teammates reviewing a plan together and appreciating helpful feedback.",
       "topic": "friendship",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 62,
+      "complexity": 62
     },
     {
       "id": "ww-pair260908-056",
@@ -2791,7 +3483,9 @@
       "embeddingText": "Collaborative wall painting mixing wildlife and friendly invented creatures.",
       "sceneQuery": "Collaborative wall painting mixing wildlife and friendly invented creatures.",
       "topic": "art",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 58,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-057",
@@ -2799,7 +3493,9 @@
       "embeddingText": "Group adapting a project plan to give each member a useful role.",
       "sceneQuery": "Group adapting a project plan to give each member a useful role.",
       "topic": "planning",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 44,
+      "complexity": 69
     },
     {
       "id": "ww-pair260908-058",
@@ -2807,7 +3503,9 @@
       "embeddingText": "Cardboard bridge model with supports added under bending sections.",
       "sceneQuery": "Cardboard bridge model with supports added under bending sections.",
       "topic": "planning",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 79,
+      "complexity": 80
     },
     {
       "id": "ww-pair260908-059",
@@ -2815,7 +3513,9 @@
       "embeddingText": "Friendly robot repairing a worn wooden toy at a workbench.",
       "sceneQuery": "Friendly robot repairing a worn wooden toy at a workbench.",
       "topic": "imagination",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 43,
+      "complexity": 40
     },
     {
       "id": "ww-pair260908-060",
@@ -2823,7 +3523,9 @@
       "embeddingText": "Classroom display linking observations to clear written explanations.",
       "sceneQuery": "Classroom display linking observations to clear written explanations.",
       "topic": "reasoning",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 82,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-061",
@@ -2831,7 +3533,9 @@
       "embeddingText": "Short ruler placed beside a longer one on a desk.",
       "sceneQuery": "Short ruler placed beside a longer one on a desk.",
       "topic": "school",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-062",
@@ -2839,7 +3543,9 @@
       "embeddingText": "Steaming bowl of vegetable soup on a kitchen table.",
       "sceneQuery": "Steaming bowl of vegetable soup on a kitchen table.",
       "topic": "food",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 78,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-063",
@@ -2847,7 +3553,9 @@
       "embeddingText": "Resting lizard opening one eye on a warm garden rock.",
       "sceneQuery": "Resting lizard opening one eye on a warm garden rock.",
       "topic": "animals",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 48,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-064",
@@ -2855,7 +3563,9 @@
       "embeddingText": "Children gently rolling a ball across a smooth floor.",
       "sceneQuery": "Children gently rolling a ball across a smooth floor.",
       "topic": "play",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 71,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-065",
@@ -2863,7 +3573,9 @@
       "embeddingText": "Woven basket with only one small apple remaining inside.",
       "sceneQuery": "Woven basket with only one small apple remaining inside.",
       "topic": "home",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 84,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-066",
@@ -2871,7 +3583,9 @@
       "embeddingText": "Small glass of water beside a pitcher.",
       "sceneQuery": "Small glass of water beside a pitcher.",
       "topic": "food",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 93,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-067",
@@ -2879,7 +3593,9 @@
       "embeddingText": "Broad river stretching between two green riverbanks.",
       "sceneQuery": "Broad river stretching between two green riverbanks.",
       "topic": "nature",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 65,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-068",
@@ -2887,7 +3603,9 @@
       "embeddingText": "Large rain boots beside a smaller pair.",
       "sceneQuery": "Large rain boots beside a smaller pair.",
       "topic": "clothes",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 80,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-069",
@@ -2895,7 +3613,9 @@
       "embeddingText": "Child playing a drum with a strong clear beat.",
       "sceneQuery": "Child playing a drum with a strong clear beat.",
       "topic": "music",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 58,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-070",
@@ -2903,7 +3623,9 @@
       "embeddingText": "Nearly empty blue paint pot beside an unfinished picture.",
       "sceneQuery": "Nearly empty blue paint pot beside an unfinished picture.",
       "topic": "art",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 67,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-071",
@@ -2911,7 +3633,9 @@
       "embeddingText": "Friends leaving an empty place for another child at a table.",
       "sceneQuery": "Friends leaving an empty place for another child at a table.",
       "topic": "friendship",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-072",
@@ -2919,7 +3643,9 @@
       "embeddingText": "Red fox standing on grass with clearly visible white paws.",
       "sceneQuery": "Red fox standing on grass with clearly visible white paws.",
       "topic": "animals",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 48,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-073",
@@ -2927,7 +3653,9 @@
       "embeddingText": "Child asking for help with the second step of a classroom activity.",
       "sceneQuery": "Child asking for help with the second step of a classroom activity.",
       "topic": "school",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 84,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-074",
@@ -2935,7 +3663,9 @@
       "embeddingText": "Triangle among several geometric shapes on a classroom board.",
       "sceneQuery": "Triangle among several geometric shapes on a classroom board.",
       "topic": "school",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 49,
+      "complexity": 32
     },
     {
       "id": "ww-pair260908-075",
@@ -2943,7 +3673,9 @@
       "embeddingText": "Two diagrams being compared side by side in a notebook.",
       "sceneQuery": "Two diagrams being compared side by side in a notebook.",
       "topic": "school",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 73,
+      "complexity": 28
     },
     {
       "id": "ww-pair260908-076",
@@ -2951,7 +3683,9 @@
       "embeddingText": "Open workbook with one final page still being completed.",
       "sceneQuery": "Open workbook with one final page still being completed.",
       "topic": "school",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 39
     },
     {
       "id": "ww-pair260908-077",
@@ -2959,7 +3693,9 @@
       "embeddingText": "Purple-covered book being passed across a study table.",
       "sceneQuery": "Purple-covered book being passed across a study table.",
       "topic": "school",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 78,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-078",
@@ -2967,7 +3703,9 @@
       "embeddingText": "Magnifying glass enlarging small printed letters on a page.",
       "sceneQuery": "Magnifying glass enlarging small printed letters on a page.",
       "topic": "school",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 36
     },
     {
       "id": "ww-pair260908-079",
@@ -2975,7 +3713,9 @@
       "embeddingText": "Basin of water showing floating cork and a sunken pebble.",
       "sceneQuery": "Basin of water showing floating cork and a sunken pebble.",
       "topic": "science",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 46,
+      "complexity": 26
     },
     {
       "id": "ww-pair260908-080",
@@ -2983,7 +3723,9 @@
       "embeddingText": "Magnet moving a paper clip through a sheet of paper.",
       "sceneQuery": "Magnet moving a paper clip through a sheet of paper.",
       "topic": "science",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-081",
@@ -2991,7 +3733,9 @@
       "embeddingText": "Water level marks on a measuring jug beside a small stone.",
       "sceneQuery": "Water level marks on a measuring jug beside a small stone.",
       "topic": "science",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 88,
+      "complexity": 30
     },
     {
       "id": "ww-pair260908-082",
@@ -2999,7 +3743,9 @@
       "embeddingText": "Series of shadow outlines becoming shorter during the morning.",
       "sceneQuery": "Series of shadow outlines becoming shorter during the morning.",
       "topic": "science",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 71,
+      "complexity": 46
     },
     {
       "id": "ww-pair260908-083",
@@ -3007,7 +3753,9 @@
       "embeddingText": "Walkers staying on a marked trail beside delicate young plants.",
       "sceneQuery": "Walkers staying on a marked trail beside delicate young plants.",
       "topic": "nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 36
     },
     {
       "id": "ww-pair260908-084",
@@ -3015,7 +3763,9 @@
       "embeddingText": "Acorn and broad oak leaf arranged side by side.",
       "sceneQuery": "Acorn and broad oak leaf arranged side by side.",
       "topic": "nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 65,
+      "complexity": 40
     },
     {
       "id": "ww-pair260908-085",
@@ -3023,7 +3773,9 @@
       "embeddingText": "Rainbow arching through a sunlit rain shower over a meadow.",
       "sceneQuery": "Rainbow arching through a sunlit rain shower over a meadow.",
       "topic": "nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 79,
+      "complexity": 38
     },
     {
       "id": "ww-pair260908-086",
@@ -3031,7 +3783,9 @@
       "embeddingText": "Seedling roots visible against the inside of a transparent jar.",
       "sceneQuery": "Seedling roots visible against the inside of a transparent jar.",
       "topic": "nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 46,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-087",
@@ -3039,7 +3793,9 @@
       "embeddingText": "Penguins standing close together on a snowy shore.",
       "sceneQuery": "Penguins standing close together on a snowy shore.",
       "topic": "animals",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 48,
+      "complexity": 26
     },
     {
       "id": "ww-pair260908-088",
@@ -3047,7 +3803,9 @@
       "embeddingText": "Squirrel hiding an acorn in soil beside a wooden fence.",
       "sceneQuery": "Squirrel hiding an acorn in soil beside a wooden fence.",
       "topic": "animals",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 48,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-089",
@@ -3055,7 +3813,9 @@
       "embeddingText": "Duck shaking droplets from its wet feathers at a pond's edge.",
       "sceneQuery": "Duck shaking droplets from its wet feathers at a pond's edge.",
       "topic": "animals",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 88,
+      "complexity": 26
     },
     {
       "id": "ww-pair260908-090",
@@ -3063,7 +3823,9 @@
       "embeddingText": "Bats emerging into a dusky sky above a meadow.",
       "sceneQuery": "Bats emerging into a dusky sky above a meadow.",
       "topic": "animals",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 71,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-091",
@@ -3071,7 +3833,9 @@
       "embeddingText": "Covered fruit salad chilling on a refrigerator shelf.",
       "sceneQuery": "Covered fruit salad chilling on a refrigerator shelf.",
       "topic": "food",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-092",
@@ -3079,7 +3843,9 @@
       "embeddingText": "Two differently sized portions of cake on a serving plate.",
       "sceneQuery": "Two differently sized portions of cake on a serving plate.",
       "topic": "food",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 35
     },
     {
       "id": "ww-pair260908-093",
@@ -3087,7 +3853,9 @@
       "embeddingText": "Sticky bread dough being dusted with a little flour.",
       "sceneQuery": "Sticky bread dough being dusted with a little flour.",
       "topic": "food",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 38
     },
     {
       "id": "ww-pair260908-094",
@@ -3095,7 +3863,9 @@
       "embeddingText": "Lost mitten lying beneath an outdoor garden bench.",
       "sceneQuery": "Lost mitten lying beneath an outdoor garden bench.",
       "topic": "home",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 62,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-095",
@@ -3103,7 +3873,9 @@
       "embeddingText": "Wet towels hanging apart on a drying rack in an airy room.",
       "sceneQuery": "Wet towels hanging apart on a drying rack in an airy room.",
       "topic": "home",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 71,
+      "complexity": 35
     },
     {
       "id": "ww-pair260908-096",
@@ -3111,7 +3883,9 @@
       "embeddingText": "Round storage container with its matching lid.",
       "sceneQuery": "Round storage container with its matching lid.",
       "topic": "home",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-097",
@@ -3119,7 +3893,9 @@
       "embeddingText": "Two friends rehearsing together to build confidence.",
       "sceneQuery": "Two friends rehearsing together to build confidence.",
       "topic": "friendship",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 77,
+      "complexity": 30
     },
     {
       "id": "ww-pair260908-098",
@@ -3127,7 +3903,9 @@
       "embeddingText": "Small group listening attentively to a friend telling a story.",
       "sceneQuery": "Small group listening attentively to a friend telling a story.",
       "topic": "friendship",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 63,
+      "complexity": 38
     },
     {
       "id": "ww-pair260908-099",
@@ -3135,7 +3913,9 @@
       "embeddingText": "Children inviting a newcomer to join a cooperative game.",
       "sceneQuery": "Children inviting a newcomer to join a cooperative game.",
       "topic": "friendship",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 62,
+      "complexity": 50
     },
     {
       "id": "ww-pair260908-100",
@@ -3143,7 +3923,9 @@
       "embeddingText": "Hand placing a puzzle piece near a lower corner.",
       "sceneQuery": "Hand placing a puzzle piece near a lower corner.",
       "topic": "play",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 26
     },
     {
       "id": "ww-pair260908-101",
@@ -3151,7 +3933,9 @@
       "embeddingText": "Marble resting partway along a cardboard ramp.",
       "sceneQuery": "Marble resting partway along a cardboard ramp.",
       "topic": "play",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 68,
+      "complexity": 37
     },
     {
       "id": "ww-pair260908-102",
@@ -3159,7 +3943,9 @@
       "embeddingText": "Board game tokens moving along a path of squares.",
       "sceneQuery": "Board game tokens moving along a path of squares.",
       "topic": "play",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 73,
+      "complexity": 30
     },
     {
       "id": "ww-pair260908-103",
@@ -3167,7 +3953,9 @@
       "embeddingText": "Museum entrance with a sign showing shorter Sunday opening hours.",
       "sceneQuery": "Museum entrance with a sign showing shorter Sunday opening hours.",
       "topic": "travel",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-104",
@@ -3175,7 +3963,9 @@
       "embeddingText": "Bus stop beside a distinctive tall clock tower.",
       "sceneQuery": "Bus stop beside a distinctive tall clock tower.",
       "topic": "travel",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 80,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-105",
@@ -3183,7 +3973,9 @@
       "embeddingText": "Small ferry carrying travelers and their bicycles across a river.",
       "sceneQuery": "Small ferry carrying travelers and their bicycles across a river.",
       "topic": "travel",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 83,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-106",
@@ -3191,7 +3983,9 @@
       "embeddingText": "Imaginary moon gardener tending silver flowers in round planters.",
       "sceneQuery": "Imaginary moon gardener tending silver flowers in round planters.",
       "topic": "imagination",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 78,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-107",
@@ -3199,7 +3993,9 @@
       "embeddingText": "Friendly giant politely requesting a small umbrella from village friends.",
       "sceneQuery": "Friendly giant politely requesting a small umbrella from village friends.",
       "topic": "imagination",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 80,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-108",
@@ -3207,7 +4003,9 @@
       "embeddingText": "Whimsical train traveling on clouds and picking up friendly stars.",
       "sceneQuery": "Whimsical train traveling on clouds and picking up friendly stars.",
       "topic": "imagination",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 81,
+      "complexity": 42
     },
     {
       "id": "ww-pair260908-109",
@@ -3215,7 +4013,9 @@
       "embeddingText": "Several collections of leaves arranged for a careful comparison.",
       "sceneQuery": "Several collections of leaves arranged for a careful comparison.",
       "topic": "reasoning",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 38,
+      "complexity": 32
     },
     {
       "id": "ww-pair260908-110",
@@ -3223,7 +4023,9 @@
       "embeddingText": "Repeating shape pattern using a different color in each group.",
       "sceneQuery": "Repeating shape pattern using a different color in each group.",
       "topic": "reasoning",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 63,
+      "complexity": 37
     },
     {
       "id": "ww-pair260908-111",
@@ -3231,7 +4033,9 @@
       "embeddingText": "Classroom chart separating recorded observations from tentative guesses.",
       "sceneQuery": "Classroom chart separating recorded observations from tentative guesses.",
       "topic": "reasoning",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 33,
+      "complexity": 35
     },
     {
       "id": "ww-pair260908-112",
@@ -3239,7 +4043,9 @@
       "embeddingText": "Shallow water tray with level marks showing gradual evaporation.",
       "sceneQuery": "Shallow water tray with level marks showing gradual evaporation.",
       "topic": "science",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 33,
+      "complexity": 61
     },
     {
       "id": "ww-pair260908-113",
@@ -3247,7 +4053,9 @@
       "embeddingText": "Experiment plan highlighting one changed variable and several constants.",
       "sceneQuery": "Experiment plan highlighting one changed variable and several constants.",
       "topic": "science",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 79,
+      "complexity": 31
     },
     {
       "id": "ww-pair260908-114",
@@ -3255,7 +4063,9 @@
       "embeddingText": "Restored wetland welcoming several kinds of birds.",
       "sceneQuery": "Restored wetland welcoming several kinds of birds.",
       "topic": "nature",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 65,
+      "complexity": 46
     },
     {
       "id": "ww-pair260908-115",
@@ -3263,7 +4073,9 @@
       "embeddingText": "Children correcting a mistake in a shared craft project.",
       "sceneQuery": "Children correcting a mistake in a shared craft project.",
       "topic": "friendship",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 90,
+      "complexity": 24
     },
     {
       "id": "ww-pair260908-116",
@@ -3271,7 +4083,9 @@
       "embeddingText": "Team combining different preferences into one agreed project plan.",
       "sceneQuery": "Team combining different preferences into one agreed project plan.",
       "topic": "friendship",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 84,
+      "complexity": 41
     },
     {
       "id": "ww-pair260908-117",
@@ -3279,7 +4093,9 @@
       "embeddingText": "Collection of small samples with clear labels being attached.",
       "sceneQuery": "Collection of small samples with clear labels being attached.",
       "topic": "planning",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 54,
+      "complexity": 56
     },
     {
       "id": "ww-pair260908-118",
@@ -3287,7 +4103,9 @@
       "embeddingText": "Watercolor landscape using unpainted areas to suggest soft mist.",
       "sceneQuery": "Watercolor landscape using unpainted areas to suggest soft mist.",
       "topic": "art",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 70,
+      "complexity": 26
     },
     {
       "id": "ww-pair260908-119",
@@ -3295,7 +4113,9 @@
       "embeddingText": "Musicians comparing a familiar melody at two different tempos.",
       "sceneQuery": "Musicians comparing a familiar melody at two different tempos.",
       "topic": "music",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 54,
+      "complexity": 31
     },
     {
       "id": "ww-pair260908-120",
@@ -3303,7 +4123,9 @@
       "embeddingText": "Friendly robot discovering a library after studying a town map.",
       "sceneQuery": "Friendly robot discovering a library after studying a town map.",
       "topic": "imagination",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 43,
+      "complexity": 84
     },
     {
       "id": "ww-pair260908-121",
@@ -3311,7 +4133,9 @@
       "embeddingText": "Rabbit with long upright ears sitting in grass.",
       "sceneQuery": "Rabbit with long upright ears sitting in grass.",
       "topic": "animals",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 65,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-122",
@@ -3319,7 +4143,9 @@
       "embeddingText": "Child reading one clearly printed word on a card.",
       "sceneQuery": "Child reading one clearly printed word on a card.",
       "topic": "school",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 73,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-123",
@@ -3327,7 +4153,9 @@
       "embeddingText": "Three freshly washed cups lined up beside a sink.",
       "sceneQuery": "Three freshly washed cups lined up beside a sink.",
       "topic": "home",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-124",
@@ -3335,7 +4163,9 @@
       "embeddingText": "Sunlit beach sand with shallow footprints.",
       "sceneQuery": "Sunlit beach sand with shallow footprints.",
       "topic": "nature",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-125",
@@ -3343,7 +4173,9 @@
       "embeddingText": "Dark clouds gathering overhead before a rain shower.",
       "sceneQuery": "Dark clouds gathering overhead before a rain shower.",
       "topic": "weather",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 65,
+      "complexity": 29
     },
     {
       "id": "ww-pair260908-126",
@@ -3351,7 +4183,9 @@
       "embeddingText": "Cheerful drawing bringing a smile to a child's face.",
       "sceneQuery": "Cheerful drawing bringing a smile to a child's face.",
       "topic": "art",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 63,
+      "complexity": 29
     },
     {
       "id": "ww-pair260908-127",
@@ -3359,7 +4193,9 @@
       "embeddingText": "Fresh ripe strawberries arranged in a small bowl.",
       "sceneQuery": "Fresh ripe strawberries arranged in a small bowl.",
       "topic": "food",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 78,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-128",
@@ -3367,7 +4203,9 @@
       "embeddingText": "Small group singing a gentle song together.",
       "sceneQuery": "Small group singing a gentle song together.",
       "topic": "music",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 63,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-129",
@@ -3375,7 +4213,9 @@
       "embeddingText": "Board game with green team tokens ready for the first turn.",
       "sceneQuery": "Board game with green team tokens ready for the first turn.",
       "topic": "play",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-130",
@@ -3383,7 +4223,9 @@
       "embeddingText": "Two friends smiling over a suggested craft idea.",
       "sceneQuery": "Two friends smiling over a suggested craft idea.",
       "topic": "friendship",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "ww-pair260908-131",
@@ -3391,7 +4233,9 @@
       "embeddingText": "Damp scarf hanging on a drying rack.",
       "sceneQuery": "Damp scarf hanging on a drying rack.",
       "topic": "clothes",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 71,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-132",
@@ -3399,7 +4243,9 @@
       "embeddingText": "Round full moon glowing above rooftops after dark.",
       "sceneQuery": "Round full moon glowing above rooftops after dark.",
       "topic": "nature",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 65,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-133",
@@ -3407,7 +4253,9 @@
       "embeddingText": "Story events arranged in order along a classroom timeline.",
       "sceneQuery": "Story events arranged in order along a classroom timeline.",
       "topic": "school",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 63,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-134",
@@ -3415,7 +4263,9 @@
       "embeddingText": "Class calendar marking an upcoming visit to a science museum.",
       "sceneQuery": "Class calendar marking an upcoming visit to a science museum.",
       "topic": "school",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 79,
+      "complexity": 24
     },
     {
       "id": "ww-pair260908-135",
@@ -3423,7 +4273,9 @@
       "embeddingText": "Handwritten title positioned above a colorful school drawing.",
       "sceneQuery": "Handwritten title positioned above a colorful school drawing.",
       "topic": "school",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 73,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-136",
@@ -3431,7 +4283,9 @@
       "embeddingText": "Completed worksheet being checked before submission.",
       "sceneQuery": "Completed worksheet being checked before submission.",
       "topic": "school",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 73,
+      "complexity": 30
     },
     {
       "id": "ww-pair260908-137",
@@ -3439,7 +4293,9 @@
       "embeddingText": "Teacher inviting pupils to explain the reasoning behind an answer.",
       "sceneQuery": "Teacher inviting pupils to explain the reasoning behind an answer.",
       "topic": "school",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 77,
+      "complexity": 37
     },
     {
       "id": "ww-pair260908-138",
@@ -3447,7 +4303,9 @@
       "embeddingText": "Two rows of counters with visibly different quantities.",
       "sceneQuery": "Two rows of counters with visibly different quantities.",
       "topic": "school",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 71,
+      "complexity": 43
     },
     {
       "id": "ww-pair260908-139",
@@ -3455,7 +4313,9 @@
       "embeddingText": "Sheet of paper with blue squares covering exactly one half.",
       "sceneQuery": "Sheet of paper with blue squares covering exactly one half.",
       "topic": "math",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 84,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-140",
@@ -3463,7 +4323,9 @@
       "embeddingText": "Paper circle divided into four equal portions for four players.",
       "sceneQuery": "Paper circle divided into four equal portions for four players.",
       "topic": "math",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-141",
@@ -3471,7 +4333,9 @@
       "embeddingText": "Number line showing a blank position between twelve and fourteen.",
       "sceneQuery": "Number line showing a blank position between twelve and fourteen.",
       "topic": "math",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 73,
+      "complexity": 34
     },
     {
       "id": "ww-pair260908-142",
@@ -3479,7 +4343,9 @@
       "embeddingText": "Outdoor thermometer beside morning temperature notes.",
       "sceneQuery": "Outdoor thermometer beside morning temperature notes.",
       "topic": "science",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 33,
+      "complexity": 28
     },
     {
       "id": "ww-pair260908-143",
@@ -3487,7 +4353,9 @@
       "embeddingText": "Simple model wheel spinning on a straightened axle.",
       "sceneQuery": "Simple model wheel spinning on a straightened axle.",
       "topic": "science",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 30
     },
     {
       "id": "ww-pair260908-144",
@@ -3495,7 +4363,9 @@
       "embeddingText": "Ruler guiding two neat parallel pencil lines.",
       "sceneQuery": "Ruler guiding two neat parallel pencil lines.",
       "topic": "science",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-145",
@@ -3503,7 +4373,9 @@
       "embeddingText": "Bird nest tucked under the eaves of a roof in spring.",
       "sceneQuery": "Bird nest tucked under the eaves of a roof in spring.",
       "topic": "nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 80,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-146",
@@ -3511,7 +4383,9 @@
       "embeddingText": "Frogs calling from reeds around a twilight pond.",
       "sceneQuery": "Frogs calling from reeds around a twilight pond.",
       "topic": "nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 65,
+      "complexity": 63
     },
     {
       "id": "ww-pair260908-147",
@@ -3519,7 +4393,9 @@
       "embeddingText": "Tray of seedlings waiting indoors for warmer spring weather.",
       "sceneQuery": "Tray of seedlings waiting indoors for warmer spring weather.",
       "topic": "nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 35
     },
     {
       "id": "ww-pair260908-148",
@@ -3527,7 +4403,9 @@
       "embeddingText": "Fading footprints in a thinning layer of melting snow.",
       "sceneQuery": "Fading footprints in a thinning layer of melting snow.",
       "topic": "nature",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 68,
+      "complexity": 63
     },
     {
       "id": "ww-pair260908-149",
@@ -3535,7 +4413,9 @@
       "embeddingText": "Parrot tilting its head near a household doorbell.",
       "sceneQuery": "Parrot tilting its head near a household doorbell.",
       "topic": "animals",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 75,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-150",
@@ -3543,7 +4423,9 @@
       "embeddingText": "New butterfly unfolding its wings beside an empty chrysalis.",
       "sceneQuery": "New butterfly unfolding its wings beside an empty chrysalis.",
       "topic": "animals",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 54,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-151",
@@ -3551,7 +4433,9 @@
       "embeddingText": "Hedgehog waiting near garden shrubs in the evening.",
       "sceneQuery": "Hedgehog waiting near garden shrubs in the evening.",
       "topic": "animals",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 62,
+      "complexity": 50
     },
     {
       "id": "ww-pair260908-152",
@@ -3559,7 +4443,9 @@
       "embeddingText": "Seal briefly surfacing beside a small boat on calm water.",
       "sceneQuery": "Seal briefly surfacing beside a small boat on calm water.",
       "topic": "animals",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 48,
+      "complexity": 22
     },
     {
       "id": "ww-pair260908-153",
@@ -3567,7 +4453,9 @@
       "embeddingText": "Colorful paper scraps stored beside a partly finished collage.",
       "sceneQuery": "Colorful paper scraps stored beside a partly finished collage.",
       "topic": "art",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 54,
+      "complexity": 34
     },
     {
       "id": "ww-pair260908-154",
@@ -3575,7 +4463,9 @@
       "embeddingText": "Landscape background being prepared for animal illustrations.",
       "sceneQuery": "Landscape background being prepared for animal illustrations.",
       "topic": "art",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-155",
@@ -3583,7 +4473,9 @@
       "embeddingText": "Puppet taking a bow as its little hat drops onto the stage.",
       "sceneQuery": "Puppet taking a bow as its little hat drops onto the stage.",
       "topic": "art",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 58,
+      "complexity": 29
     },
     {
       "id": "ww-pair260908-156",
@@ -3591,7 +4483,9 @@
       "embeddingText": "Music score with a difficult passage marked for repeated practice.",
       "sceneQuery": "Music score with a difficult passage marked for repeated practice.",
       "topic": "music",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 75,
+      "complexity": 34
     },
     {
       "id": "ww-pair260908-157",
@@ -3599,7 +4493,9 @@
       "embeddingText": "Children's choir finishing a song with a gentle quiet ending.",
       "sceneQuery": "Children's choir finishing a song with a gentle quiet ending.",
       "topic": "music",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 63,
+      "complexity": 29
     },
     {
       "id": "ww-pair260908-158",
@@ -3607,7 +4503,9 @@
       "embeddingText": "Fallen toy tower being rebuilt on a broader base.",
       "sceneQuery": "Fallen toy tower being rebuilt on a broader base.",
       "topic": "play",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 82,
+      "complexity": 29
     },
     {
       "id": "ww-pair260908-159",
@@ -3615,7 +4513,9 @@
       "embeddingText": "Maze drawing showing a newly chosen path toward the exit.",
       "sceneQuery": "Maze drawing showing a newly chosen path toward the exit.",
       "topic": "play",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-160",
@@ -3623,7 +4523,9 @@
       "embeddingText": "Almost completed jigsaw puzzle with one empty space.",
       "sceneQuery": "Almost completed jigsaw puzzle with one empty space.",
       "topic": "play",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 42
     },
     {
       "id": "ww-pair260908-161",
@@ -3631,7 +4533,9 @@
       "embeddingText": "Child apologizing kindly to a friend who was telling a story.",
       "sceneQuery": "Child apologizing kindly to a friend who was telling a story.",
       "topic": "friendship",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 63,
+      "complexity": 44
     },
     {
       "id": "ww-pair260908-162",
@@ -3639,7 +4543,9 @@
       "embeddingText": "Borrowed board game packed carefully for return the next day.",
       "sceneQuery": "Borrowed board game packed carefully for return the next day.",
       "topic": "friendship",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 62,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-163",
@@ -3647,7 +4553,9 @@
       "embeddingText": "Supportive friends applauding a completed poetry reading.",
       "sceneQuery": "Supportive friends applauding a completed poetry reading.",
       "topic": "friendship",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 77,
+      "complexity": 38
     },
     {
       "id": "ww-pair260908-164",
@@ -3655,7 +4563,9 @@
       "embeddingText": "Freshly watered plants on a balcony beside an empty watering can.",
       "sceneQuery": "Freshly watered plants on a balcony beside an empty watering can.",
       "topic": "home",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 37
     },
     {
       "id": "ww-pair260908-165",
@@ -3663,7 +4573,9 @@
       "embeddingText": "Bus stop display showing a ten-minute wait.",
       "sceneQuery": "Bus stop display showing a ten-minute wait.",
       "topic": "travel",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 81,
+      "complexity": 24
     },
     {
       "id": "ww-pair260908-166",
@@ -3671,7 +4583,9 @@
       "embeddingText": "Walkers returning to a town fountain after passing a turn.",
       "sceneQuery": "Walkers returning to a town fountain after passing a turn.",
       "topic": "travel",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 70,
+      "complexity": 43
     },
     {
       "id": "ww-pair260908-167",
@@ -3679,7 +4593,9 @@
       "embeddingText": "Friendly dragon looking for glasses behind library shelves.",
       "sceneQuery": "Friendly dragon looking for glasses behind library shelves.",
       "topic": "imagination",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 43,
+      "complexity": 32
     },
     {
       "id": "ww-pair260908-168",
@@ -3687,7 +4603,9 @@
       "embeddingText": "Toy captain aboard a little boat in a bathtub sea.",
       "sceneQuery": "Toy captain aboard a little boat in a bathtub sea.",
       "topic": "imagination",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 68,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-169",
@@ -3695,7 +4613,9 @@
       "embeddingText": "Different example cards illustrating the same underlying rule.",
       "sceneQuery": "Different example cards illustrating the same underlying rule.",
       "topic": "reasoning",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 44,
+      "complexity": 36
     },
     {
       "id": "ww-pair260908-170",
@@ -3703,7 +4623,9 @@
       "embeddingText": "Prediction note being updated beside a newly observed detail.",
       "sceneQuery": "Prediction note being updated beside a newly observed detail.",
       "topic": "reasoning",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 90,
+      "complexity": 27
     },
     {
       "id": "ww-pair260908-171",
@@ -3711,7 +4633,9 @@
       "embeddingText": "Measurements in different units being checked before comparison.",
       "sceneQuery": "Measurements in different units being checked before comparison.",
       "topic": "science",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 70,
+      "complexity": 48
     },
     {
       "id": "ww-pair260908-172",
@@ -3719,7 +4643,9 @@
       "embeddingText": "Repeated classroom experiment results recorded in matching columns.",
       "sceneQuery": "Repeated classroom experiment results recorded in matching columns.",
       "topic": "science",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 33,
+      "complexity": 62
     },
     {
       "id": "ww-pair260908-173",
@@ -3727,7 +4653,9 @@
       "embeddingText": "Wetland with water channels, reeds, birds, and sheltered wildlife.",
       "sceneQuery": "Wetland with water channels, reeds, birds, and sheltered wildlife.",
       "topic": "nature",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 82,
+      "complexity": 19
     },
     {
       "id": "ww-pair260908-174",
@@ -3735,7 +4663,9 @@
       "embeddingText": "Tree supporting birds, insects, fungi, and other small living things.",
       "sceneQuery": "Tree supporting birds, insects, fungi, and other small living things.",
       "topic": "nature",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 90,
+      "complexity": 45
     },
     {
       "id": "ww-pair260908-175",
@@ -3743,7 +4673,9 @@
       "embeddingText": "Friends waiting attentively while someone gathers their thoughts.",
       "sceneQuery": "Friends waiting attentively while someone gathers their thoughts.",
       "topic": "friendship",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "ww-pair260908-176",
@@ -3751,7 +4683,9 @@
       "embeddingText": "Team completing a model using different members' skills.",
       "sceneQuery": "Team completing a model using different members' skills.",
       "topic": "friendship",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 84,
+      "complexity": 34
     },
     {
       "id": "ww-pair260908-177",
@@ -3759,7 +4693,9 @@
       "embeddingText": "Exhibition model made from reusable cardboard and wooden pieces.",
       "sceneQuery": "Exhibition model made from reusable cardboard and wooden pieces.",
       "topic": "planning",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 90,
+      "complexity": 55
     },
     {
       "id": "ww-pair260908-178",
@@ -3767,7 +4703,9 @@
       "embeddingText": "Illustration using strong color contrast around a tiny story character.",
       "sceneQuery": "Illustration using strong color contrast around a tiny story character.",
       "topic": "art",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 62,
+      "complexity": 26
     },
     {
       "id": "ww-pair260908-179",
@@ -3775,7 +4713,9 @@
       "embeddingText": "Group musicians settling into a steady shared beat.",
       "sceneQuery": "Group musicians settling into a steady shared beat.",
       "topic": "music",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 82,
+      "complexity": 51
     },
     {
       "id": "ww-pair260908-180",
@@ -3783,7 +4723,159 @@
       "embeddingText": "Friendly dragon bravely asking companions for help with a task.",
       "sceneQuery": "Friendly dragon bravely asking companions for help with a task.",
       "topic": "imagination",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 43,
+      "complexity": 38
+    },
+    {
+      "id": "ww-es-starter260911-yes",
+      "englishText": "Yes.",
+      "embeddingText": "Yes. A person nods in agreement.",
+      "sceneQuery": "A person nods in agreement.",
+      "topic": "first-contact",
+      "difficulty": 1,
+      "usefulness": 94,
+      "complexity": 7
+    },
+    {
+      "id": "ww-es-starter260911-no",
+      "englishText": "No.",
+      "embeddingText": "No. A person shakes their head to refuse.",
+      "sceneQuery": "A person shakes their head to refuse.",
+      "topic": "first-contact",
+      "difficulty": 1,
+      "usefulness": 94,
+      "complexity": 7
+    },
+    {
+      "id": "ww-es-starter260911-please",
+      "englishText": "Please.",
+      "embeddingText": "Please. A person politely makes a request.",
+      "sceneQuery": "A person politely makes a request.",
+      "topic": "first-contact",
+      "difficulty": 1,
+      "usefulness": 94,
+      "complexity": 7
+    },
+    {
+      "id": "ww-es-starter260911-sorry",
+      "englishText": "I am sorry.",
+      "embeddingText": "I am sorry. A friend apologizes after a small mistake.",
+      "sceneQuery": "A friend apologizes after a small mistake.",
+      "topic": "first-contact",
+      "difficulty": 1,
+      "usefulness": 94,
+      "complexity": 7
+    },
+    {
+      "id": "ww-es-starter260911-excuse-me",
+      "englishText": "Excuse me.",
+      "embeddingText": "Excuse me. A person politely gets a friend’s attention.",
+      "sceneQuery": "A person politely gets a friend’s attention.",
+      "topic": "first-contact",
+      "difficulty": 1,
+      "usefulness": 94,
+      "complexity": 7
+    },
+    {
+      "id": "ww-es-starter260911-help",
+      "englishText": "I need help.",
+      "embeddingText": "I need help. A learner asks a trusted person for help.",
+      "sceneQuery": "A learner asks a trusted person for help.",
+      "topic": "first-contact",
+      "difficulty": 1,
+      "usefulness": 97,
+      "complexity": 17
+    },
+    {
+      "id": "ww-es-starter260911-hungry",
+      "englishText": "I am hungry.",
+      "embeddingText": "I am hungry. A person feels hungry before a meal.",
+      "sceneQuery": "A person feels hungry before a meal.",
+      "topic": "first-contact",
+      "difficulty": 1,
+      "usefulness": 97,
+      "complexity": 17
+    },
+    {
+      "id": "ww-es-starter260911-thirsty",
+      "englishText": "I am thirsty.",
+      "embeddingText": "I am thirsty. A person feels thirsty and wants a drink.",
+      "sceneQuery": "A person feels thirsty and wants a drink.",
+      "topic": "first-contact",
+      "difficulty": 1,
+      "usefulness": 97,
+      "complexity": 17
+    },
+    {
+      "id": "ww-es-starter260911-water",
+      "englishText": "I need water.",
+      "embeddingText": "I need water. A person asks for drinking water.",
+      "sceneQuery": "A person asks for drinking water.",
+      "topic": "first-contact",
+      "difficulty": 1,
+      "usefulness": 97,
+      "complexity": 17
+    },
+    {
+      "id": "ww-es-starter260911-bathroom",
+      "englishText": "Where is the bathroom?",
+      "embeddingText": "Where is the bathroom? A person asks where to find the bathroom.",
+      "sceneQuery": "A person asks where to find the bathroom.",
+      "topic": "first-contact",
+      "difficulty": 1,
+      "usefulness": 97,
+      "complexity": 23
+    },
+    {
+      "id": "ww-es-starter260911-again",
+      "englishText": "Again, please.",
+      "embeddingText": "Again, please. A learner asks to hear something one more time.",
+      "sceneQuery": "A learner asks to hear something one more time.",
+      "topic": "first-contact",
+      "difficulty": 1,
+      "usefulness": 98,
+      "complexity": 17
+    },
+    {
+      "id": "ww-es-starter260911-slowly",
+      "englishText": "Speak slowly, please.",
+      "embeddingText": "Speak slowly, please. A learner asks a speaker to slow down.",
+      "sceneQuery": "A learner asks a speaker to slow down.",
+      "topic": "first-contact",
+      "difficulty": 1,
+      "usefulness": 98,
+      "complexity": 23
+    },
+    {
+      "id": "ww-es-starter260911-no-thanks",
+      "englishText": "No, thank you.",
+      "embeddingText": "No, thank you. A person politely declines an offer.",
+      "sceneQuery": "A person politely declines an offer.",
+      "topic": "first-contact",
+      "difficulty": 1,
+      "usefulness": 94,
+      "complexity": 7
+    },
+    {
+      "id": "ww-es-starter260911-stop",
+      "englishText": "Stop!",
+      "embeddingText": "Stop! A person asks someone to stop.",
+      "sceneQuery": "A person asks someone to stop.",
+      "topic": "first-contact",
+      "difficulty": 1,
+      "usefulness": 99,
+      "complexity": 7
+    },
+    {
+      "id": "ww-es-starter260911-dont-know",
+      "englishText": "I do not know.",
+      "embeddingText": "I do not know. A learner says that they do not know an answer.",
+      "sceneQuery": "A learner says that they do not know an answer.",
+      "topic": "first-contact",
+      "difficulty": 1,
+      "usefulness": 92,
+      "complexity": 17
     }
   ],
   "derivedFrom": "apps/languages/shared/english-concepts/word-world-es-v1.json"

@@ -8,7 +8,9 @@
     "difficulty": 1,
     "category": "actions",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 94,
+    "complexity": 9
   },
   {
     "id": "es-en.verb.have",
@@ -19,7 +21,9 @@
     "difficulty": 1,
     "category": "actions",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 94,
+    "complexity": 9
   },
   {
     "id": "es-en.verb.do",
@@ -30,7 +34,9 @@
     "difficulty": 1,
     "category": "actions",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 94,
+    "complexity": 9
   },
   {
     "id": "es-en.verb.go",
@@ -41,7 +47,9 @@
     "difficulty": 2,
     "category": "direction",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 94,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.come",
@@ -52,7 +60,9 @@
     "difficulty": 2,
     "category": "direction",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 94,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.want",
@@ -63,7 +73,9 @@
     "difficulty": 1,
     "category": "communication",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 94,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.need",
@@ -74,7 +86,9 @@
     "difficulty": 1,
     "category": "communication",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 98,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.speak",
@@ -85,7 +99,9 @@
     "difficulty": 1,
     "category": "communication",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 94,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.ask",
@@ -96,7 +112,9 @@
     "difficulty": 1,
     "category": "communication",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.listen",
@@ -107,7 +125,9 @@
     "difficulty": 1,
     "category": "communication",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.see",
@@ -118,7 +138,9 @@
     "difficulty": 1,
     "category": "actions",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.understand",
@@ -129,7 +151,9 @@
     "difficulty": 1,
     "category": "communication",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 98,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.remember",
@@ -140,7 +164,9 @@
     "difficulty": 1,
     "category": "communication",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.eat",
@@ -151,7 +177,9 @@
     "difficulty": 1,
     "category": "actions",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.drink",
@@ -162,7 +190,9 @@
     "difficulty": 1,
     "category": "actions",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.sleep",
@@ -173,7 +203,9 @@
     "difficulty": 1,
     "category": "actions",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.read",
@@ -184,7 +216,9 @@
     "difficulty": 1,
     "category": "actions",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.write",
@@ -195,7 +229,9 @@
     "difficulty": 1,
     "category": "actions",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.study",
@@ -206,7 +242,9 @@
     "difficulty": 1,
     "category": "actions",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 73,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.work",
@@ -217,7 +255,9 @@
     "difficulty": 1,
     "category": "actions",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.play",
@@ -228,7 +268,9 @@
     "difficulty": 1,
     "category": "actions",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 62,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.walk",
@@ -239,7 +281,9 @@
     "difficulty": 1,
     "category": "actions",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.run",
@@ -250,7 +294,9 @@
     "difficulty": 1,
     "category": "actions",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.open",
@@ -261,7 +307,9 @@
     "difficulty": 1,
     "category": "actions",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.close",
@@ -272,7 +320,9 @@
     "difficulty": 1,
     "category": "actions",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.help",
@@ -283,7 +333,9 @@
     "difficulty": 1,
     "category": "communication",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 99,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.buy",
@@ -294,7 +346,9 @@
     "difficulty": 2,
     "category": "transactions",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.sell",
@@ -305,7 +359,9 @@
     "difficulty": 2,
     "category": "transactions",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "es-en.verb.pay",
@@ -316,7 +372,9 @@
     "difficulty": 2,
     "category": "transactions",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.borrow",
@@ -327,7 +385,9 @@
     "difficulty": 2,
     "category": "direction",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 79,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.lend",
@@ -338,7 +398,9 @@
     "difficulty": 2,
     "category": "direction",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 79,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.bring",
@@ -349,7 +411,9 @@
     "difficulty": 2,
     "category": "direction",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.take",
@@ -360,7 +424,9 @@
     "difficulty": 2,
     "category": "direction",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.leave",
@@ -371,7 +437,9 @@
     "difficulty": 2,
     "category": "direction",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.arrive",
@@ -382,7 +450,9 @@
     "difficulty": 2,
     "category": "direction",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.choose",
@@ -393,7 +463,9 @@
     "difficulty": 2,
     "category": "transactions",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.look-after",
@@ -404,7 +476,9 @@
     "difficulty": 3,
     "category": "phrasal",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 90,
+    "complexity": 39
   },
   {
     "id": "es-en.verb.find-out",
@@ -415,7 +489,9 @@
     "difficulty": 3,
     "category": "phrasal",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 82,
+    "complexity": 43
   },
   {
     "id": "es-en.verb.give-up",
@@ -426,7 +502,9 @@
     "difficulty": 3,
     "category": "phrasal",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 54,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.put-off",
@@ -437,7 +515,9 @@
     "difficulty": 3,
     "category": "phrasal",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "es-en.verb.turn-down",
@@ -448,7 +528,9 @@
     "difficulty": 3,
     "category": "phrasal",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "es-en.verb.apply-for",
@@ -459,7 +541,9 @@
     "difficulty": 3,
     "category": "phrasal",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 91,
+    "complexity": 24
   },
   {
     "id": "es-en.verb.agree",
@@ -470,7 +554,9 @@
     "difficulty": 3,
     "category": "decisions",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.suggest",
@@ -481,7 +567,9 @@
     "difficulty": 3,
     "category": "decisions",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.solve",
@@ -492,7 +580,9 @@
     "difficulty": 3,
     "category": "decisions",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.improve",
@@ -503,7 +593,9 @@
     "difficulty": 3,
     "category": "decisions",
     "reviewStatus": "native-review-required",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 75,
+    "complexity": 26
   },
   {
     "id": "es-en.verb.exp260908.jump",
@@ -514,7 +606,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "jump",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.exp260908.swim",
@@ -525,7 +619,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "swim",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.exp260908.dance",
@@ -536,7 +632,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "dance",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 62,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.exp260908.smile",
@@ -547,7 +645,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "smile",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.exp260908.laugh",
@@ -558,7 +658,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "laugh",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.exp260908.cry",
@@ -569,7 +671,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "cry",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.exp260908.sing",
@@ -580,7 +684,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "sing",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.exp260908.draw",
@@ -591,7 +697,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "draw",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 62,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.exp260908.count",
@@ -602,7 +710,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "count",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 73,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.exp260908.touch",
@@ -613,7 +723,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "touch",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.exp260908.hold",
@@ -624,7 +736,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "hold",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.exp260908.wash",
@@ -635,7 +749,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "wash",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 75,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.exp260908.cook",
@@ -646,7 +762,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "cook",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 75,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.exp260908.carry",
@@ -657,7 +775,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "carry",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.exp260908.give",
@@ -668,7 +788,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "give",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.exp260908.wait",
@@ -679,7 +801,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "wait",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.exp260908.sit",
@@ -690,7 +814,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "sit",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.exp260908.stand",
@@ -701,7 +827,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "stand",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.exp260908.wake-up",
@@ -712,7 +840,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "wake up",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "es-en.verb.exp260908.fly",
@@ -723,7 +853,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "fly",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.exp260908.grow",
@@ -734,7 +866,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "grow",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 65,
+    "complexity": 26
   },
   {
     "id": "es-en.verb.exp260908.smell",
@@ -745,7 +879,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "smell",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 65,
+    "complexity": 26
   },
   {
     "id": "es-en.verb.exp260908.taste",
@@ -756,7 +892,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "taste",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 65,
+    "complexity": 26
   },
   {
     "id": "es-en.verb.exp260908.hug",
@@ -767,7 +905,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "hug",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.exp260908.wave",
@@ -778,7 +918,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "wave",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.exp260908.clap",
@@ -789,7 +931,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "clap",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.exp260908.kick",
@@ -800,7 +944,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "kick",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.exp260908.catch",
@@ -811,7 +957,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "catch",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.exp260908.throw",
@@ -822,7 +970,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "throw",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.exp260908.crawl",
@@ -833,7 +983,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "crawl",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.exp260908.whisper",
@@ -844,7 +996,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "whisper",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.exp260908.shout",
@@ -855,7 +1009,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "shout",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.exp260908.hum",
@@ -866,7 +1022,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "hum",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "es-en.verb.exp260908.whistle",
@@ -877,7 +1035,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "whistle",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "es-en.verb.exp260908.bark",
@@ -888,7 +1048,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "bark",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "es-en.verb.exp260908.meow",
@@ -899,7 +1061,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "meow",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "es-en.verb.exp260908.hop",
@@ -910,7 +1074,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "hop",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.exp260908.slide",
@@ -921,7 +1087,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "slide",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.exp260908.roll",
@@ -932,7 +1100,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "roll",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.exp260908.float",
@@ -943,7 +1113,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "float",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es-en.verb.exp260908.splash",
@@ -954,7 +1126,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "splash",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es-en.verb.exp260908.bounce",
@@ -965,7 +1139,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "bounce",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es-en.verb.exp260908.fold",
@@ -976,7 +1152,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "fold",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.exp260908.unfold",
@@ -987,7 +1165,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "unfold",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.exp260908.decorate",
@@ -998,7 +1178,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "decorate",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.exp260908.glue",
@@ -1009,7 +1191,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "glue",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.exp260908.weave",
@@ -1020,7 +1204,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "weave",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.exp260908.knead",
@@ -1031,7 +1217,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "knead",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.exp260908.stir",
@@ -1042,7 +1230,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "stir",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 78,
+    "complexity": 23
   },
   {
     "id": "es-en.verb.exp260908.pour",
@@ -1053,7 +1243,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "pour",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 78,
+    "complexity": 23
   },
   {
     "id": "es-en.verb.exp260908.peel",
@@ -1064,7 +1256,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "peel",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 78,
+    "complexity": 23
   },
   {
     "id": "es-en.verb.exp260908.water",
@@ -1075,7 +1269,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "water",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 98,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.exp260908.sprout",
@@ -1086,7 +1282,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "sprout",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es-en.verb.exp260908.bloom",
@@ -1097,7 +1295,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "bloom",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es-en.verb.exp260908.collect",
@@ -1108,7 +1308,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "collect",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.exp260908.measure",
@@ -1119,7 +1321,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "measure",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.exp260908.weigh",
@@ -1130,7 +1334,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "weigh",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.exp260908.guess",
@@ -1141,7 +1347,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "guess",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.exp260908.explore",
@@ -1152,7 +1360,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "explore",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.exp260908.imagine",
@@ -1163,7 +1373,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "imagine",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.exp260908.pretend",
@@ -1174,7 +1386,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "pretend",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.exp260908.celebrate",
@@ -1185,7 +1399,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "celebrate",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.exp260908.thank",
@@ -1196,7 +1412,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "thank",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 90,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.exp260908.welcome",
@@ -1207,7 +1425,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "welcome",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.exp260908.cheer",
@@ -1218,7 +1438,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "cheer",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.exp260908.forgive",
@@ -1229,7 +1451,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "forgive",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "es-en.verb.exp260908.comfort",
@@ -1240,7 +1464,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "comfort",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "es-en.verb.exp260908.promise",
@@ -1251,7 +1477,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "promise",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.exp260908.notice",
@@ -1262,7 +1490,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "notice",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.exp260908.balance",
@@ -1273,7 +1503,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "balance",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es-en.verb.exp260908.cooperate",
@@ -1284,7 +1516,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "cooperate",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 79,
+    "complexity": 42
   },
   {
     "id": "es-en.verb.exp260908.negotiate",
@@ -1295,7 +1529,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "negotiate",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 33,
+    "complexity": 63
   },
   {
     "id": "es-en.verb.exp260908.persuade",
@@ -1306,7 +1542,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "persuade",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 52,
+    "complexity": 60
   },
   {
     "id": "es-en.verb.exp260908.reassure",
@@ -1317,7 +1555,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "reassure",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.exp260908.appreciate",
@@ -1328,7 +1568,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "appreciate",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.exp260908.admire",
@@ -1339,7 +1581,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "admire",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.exp260908.wonder",
@@ -1350,7 +1594,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "wonder",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.exp260908.reflect",
@@ -1361,7 +1607,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "reflect",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 52,
+    "complexity": 60
   },
   {
     "id": "es-en.verb.exp260908.concentrate",
@@ -1372,7 +1620,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "concentrate",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.exp260908.persevere",
@@ -1383,7 +1633,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "persevere",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.exp260908.hesitate",
@@ -1394,7 +1646,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "hesitate",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.exp260908.anticipate",
@@ -1405,7 +1659,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "anticipate",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.exp260908.investigate",
@@ -1416,7 +1672,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "investigate",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.exp260908.observe",
@@ -1427,7 +1685,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "observe",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.exp260908.distinguish",
@@ -1438,7 +1698,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "distinguish",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.exp260908.estimate",
@@ -1449,7 +1711,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "estimate",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.exp260908.interpret",
@@ -1460,7 +1724,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "interpret",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.exp260908.justify",
@@ -1471,7 +1737,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "justify",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 33,
+    "complexity": 63
   },
   {
     "id": "es-en.verb.exp260908.demonstrate",
@@ -1482,7 +1750,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "demonstrate",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "es-en.verb.exp260908.invent",
@@ -1493,7 +1763,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "invent",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.exp260908.transform",
@@ -1504,7 +1776,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "transform",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "es-en.verb.exp260908.combine",
@@ -1515,7 +1789,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "combine",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.exp260908.adapt",
@@ -1526,7 +1802,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "adapt",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.exp260908.restore",
@@ -1537,7 +1815,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "restore",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es-en.verb.exp260908.preserve",
@@ -1548,7 +1828,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "preserve",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es-en.verb.exp260908.contribute",
@@ -1559,7 +1841,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "contribute",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es-en.verb.exp260908.include",
@@ -1570,7 +1854,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "include",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "es-en.verb.exp260908.summarize",
@@ -1581,7 +1867,9 @@
     "category": "nature-play-cooperation",
     "reviewStatus": "native-review-required",
     "englishAuditText": "summarize",
-    "revision": 1
+    "revision": 1,
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es-en.verb.pair260908.paint",
@@ -1591,7 +1879,9 @@
     "difficulty": 1,
     "category": "art-play",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "paint"
+    "englishAuditText": "paint",
+    "usefulness": 62,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.clean",
@@ -1601,7 +1891,9 @@
     "difficulty": 1,
     "category": "home",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "clean"
+    "englishAuditText": "clean",
+    "usefulness": 75,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.pair260908.cut",
@@ -1611,7 +1903,9 @@
     "difficulty": 1,
     "category": "crafts",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "cut"
+    "englishAuditText": "cut",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.pair260908.pull",
@@ -1621,7 +1915,9 @@
     "difficulty": 1,
     "category": "movement",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "pull"
+    "englishAuditText": "pull",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "es-en.verb.pair260908.push",
@@ -1631,7 +1927,9 @@
     "difficulty": 1,
     "category": "movement",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "push"
+    "englishAuditText": "push",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "es-en.verb.pair260908.search",
@@ -1641,7 +1939,9 @@
     "difficulty": 1,
     "category": "discovery",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "search"
+    "englishAuditText": "search",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.pair260908.find",
@@ -1651,7 +1951,9 @@
     "difficulty": 1,
     "category": "discovery",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "find"
+    "englishAuditText": "find",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.pair260908.lose",
@@ -1661,7 +1963,9 @@
     "difficulty": 1,
     "category": "everyday",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "lose"
+    "englishAuditText": "lose",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "es-en.verb.pair260908.win",
@@ -1671,7 +1975,9 @@
     "difficulty": 1,
     "category": "play",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "win"
+    "englishAuditText": "win",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.pair260908.call",
@@ -1681,7 +1987,9 @@
     "difficulty": 1,
     "category": "friendship",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "call"
+    "englishAuditText": "call",
+    "usefulness": 79,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.pair260908.answer",
@@ -1691,7 +1999,9 @@
     "difficulty": 1,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "answer"
+    "englishAuditText": "answer",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.pair260908.hear",
@@ -1701,7 +2011,9 @@
     "difficulty": 1,
     "category": "senses",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "hear"
+    "englishAuditText": "hear",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.pair260908.look",
@@ -1711,7 +2023,9 @@
     "difficulty": 1,
     "category": "senses",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "look"
+    "englishAuditText": "look",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.pair260908.forget",
@@ -1721,7 +2035,9 @@
     "difficulty": 1,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "forget"
+    "englishAuditText": "forget",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.pair260908.learn",
@@ -1731,7 +2047,9 @@
     "difficulty": 1,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "learn"
+    "englishAuditText": "learn",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.pair260908.teach",
@@ -1741,7 +2059,9 @@
     "difficulty": 1,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "teach"
+    "englishAuditText": "teach",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.try",
@@ -1751,7 +2071,9 @@
     "difficulty": 1,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "try"
+    "englishAuditText": "try",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.pair260908.pick-up",
@@ -1761,7 +2083,9 @@
     "difficulty": 1,
     "category": "home",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "pick up"
+    "englishAuditText": "pick up",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "es-en.verb.pair260908.leave-behind",
@@ -1771,7 +2095,9 @@
     "difficulty": 1,
     "category": "everyday",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "leave behind"
+    "englishAuditText": "leave behind",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "es-en.verb.pair260908.fill",
@@ -1781,7 +2107,9 @@
     "difficulty": 1,
     "category": "home",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "fill"
+    "englishAuditText": "fill",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.empty",
@@ -1791,7 +2119,9 @@
     "difficulty": 1,
     "category": "home",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "empty"
+    "englishAuditText": "empty",
+    "usefulness": 84,
+    "complexity": 22
   },
   {
     "id": "es-en.verb.pair260908.dry",
@@ -1801,7 +2131,9 @@
     "difficulty": 1,
     "category": "home",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "dry"
+    "englishAuditText": "dry",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.pair260908.wet",
@@ -1811,7 +2143,9 @@
     "difficulty": 1,
     "category": "nature",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "wet"
+    "englishAuditText": "wet",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.pair260908.cover",
@@ -1821,7 +2155,9 @@
     "difficulty": 1,
     "category": "home",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "cover"
+    "englishAuditText": "cover",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.uncover",
@@ -1831,7 +2167,9 @@
     "difficulty": 1,
     "category": "home",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "uncover"
+    "englishAuditText": "uncover",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.break",
@@ -1841,7 +2179,9 @@
     "difficulty": 1,
     "category": "everyday",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "break"
+    "englishAuditText": "break",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.sound",
@@ -1851,7 +2191,9 @@
     "difficulty": 1,
     "category": "music",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "sound"
+    "englishAuditText": "sound",
+    "usefulness": 75,
+    "complexity": 26
   },
   {
     "id": "es-en.verb.pair260908.shine",
@@ -1861,7 +2203,9 @@
     "difficulty": 1,
     "category": "nature",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "shine"
+    "englishAuditText": "shine",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.pair260908.stop",
@@ -1871,7 +2215,9 @@
     "difficulty": 1,
     "category": "movement",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "stop"
+    "englishAuditText": "stop",
+    "usefulness": 99,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.pair260908.start",
@@ -1881,7 +2227,9 @@
     "difficulty": 1,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "start"
+    "englishAuditText": "start",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.pair260908.finish",
@@ -1891,7 +2239,9 @@
     "difficulty": 1,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "finish"
+    "englishAuditText": "finish",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.pair260908.follow",
@@ -1901,7 +2251,9 @@
     "difficulty": 1,
     "category": "movement",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "follow"
+    "englishAuditText": "follow",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.pass",
@@ -1911,7 +2263,9 @@
     "difficulty": 1,
     "category": "play",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "pass"
+    "englishAuditText": "pass",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "es-en.verb.pair260908.go-up",
@@ -1921,7 +2275,9 @@
     "difficulty": 1,
     "category": "movement",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "go up"
+    "englishAuditText": "go up",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "es-en.verb.pair260908.go-down",
@@ -1931,7 +2287,9 @@
     "difficulty": 1,
     "category": "movement",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "go down"
+    "englishAuditText": "go down",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "es-en.verb.pair260908.cross",
@@ -1941,7 +2299,9 @@
     "difficulty": 1,
     "category": "movement",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "cross"
+    "englishAuditText": "cross",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.enter",
@@ -1951,7 +2311,9 @@
     "difficulty": 1,
     "category": "everyday",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "enter"
+    "englishAuditText": "enter",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.go-out",
@@ -1961,7 +2323,9 @@
     "difficulty": 1,
     "category": "everyday",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "go out"
+    "englishAuditText": "go out",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "es-en.verb.pair260908.shake",
@@ -1971,7 +2335,9 @@
     "difficulty": 2,
     "category": "movement",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "shake"
+    "englishAuditText": "shake",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.stretch",
@@ -1981,7 +2347,9 @@
     "difficulty": 2,
     "category": "movement",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "stretch"
+    "englishAuditText": "stretch",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.shrink",
@@ -1991,7 +2359,9 @@
     "difficulty": 2,
     "category": "nature",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "shrink"
+    "englishAuditText": "shrink",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "es-en.verb.pair260908.turn",
@@ -2001,7 +2371,9 @@
     "difficulty": 2,
     "category": "movement",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "turn"
+    "englishAuditText": "turn",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.pair260908.twist",
@@ -2011,7 +2383,9 @@
     "difficulty": 2,
     "category": "movement",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "twist"
+    "englishAuditText": "twist",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "es-en.verb.pair260908.tilt",
@@ -2021,7 +2395,9 @@
     "difficulty": 2,
     "category": "movement",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "tilt"
+    "englishAuditText": "tilt",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.sway",
@@ -2031,7 +2407,9 @@
     "difficulty": 2,
     "category": "movement",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "sway"
+    "englishAuditText": "sway",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.rock",
@@ -2041,7 +2419,9 @@
     "difficulty": 2,
     "category": "home",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "rock"
+    "englishAuditText": "rock",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.skate",
@@ -2051,7 +2431,9 @@
     "difficulty": 2,
     "category": "play",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "skate"
+    "englishAuditText": "skate",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.pair260908.pedal",
@@ -2061,7 +2443,9 @@
     "difficulty": 2,
     "category": "play",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "pedal"
+    "englishAuditText": "pedal",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.pair260908.climb",
@@ -2071,7 +2455,9 @@
     "difficulty": 2,
     "category": "animals",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "climb"
+    "englishAuditText": "climb",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.pair260908.drag",
@@ -2081,7 +2467,9 @@
     "difficulty": 2,
     "category": "movement",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "drag"
+    "englishAuditText": "drag",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.take-off",
@@ -2091,7 +2479,9 @@
     "difficulty": 2,
     "category": "travel",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "take off"
+    "englishAuditText": "take off",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "es-en.verb.pair260908.land",
@@ -2101,7 +2491,9 @@
     "difficulty": 2,
     "category": "travel",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "land"
+    "englishAuditText": "land",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.sail",
@@ -2111,7 +2503,9 @@
     "difficulty": 2,
     "category": "travel",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "sail"
+    "englishAuditText": "sail",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.row",
@@ -2121,7 +2515,9 @@
     "difficulty": 2,
     "category": "play",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "row"
+    "englishAuditText": "row",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.pair260908.camp",
@@ -2131,7 +2527,9 @@
     "difficulty": 2,
     "category": "nature",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "camp"
+    "englishAuditText": "camp",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.pair260908.point",
@@ -2141,7 +2539,9 @@
     "difficulty": 2,
     "category": "movement",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "point"
+    "englishAuditText": "point",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.point-out",
@@ -2151,7 +2551,9 @@
     "difficulty": 2,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "point out"
+    "englishAuditText": "point out",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "es-en.verb.pair260908.stroke",
@@ -2161,7 +2563,9 @@
     "difficulty": 2,
     "category": "animals",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "stroke"
+    "englishAuditText": "stroke",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.pair260908.purr",
@@ -2171,7 +2575,9 @@
     "difficulty": 2,
     "category": "animals",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "purr"
+    "englishAuditText": "purr",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "es-en.verb.pair260908.neigh",
@@ -2181,7 +2587,9 @@
     "difficulty": 2,
     "category": "animals",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "neigh"
+    "englishAuditText": "neigh",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "es-en.verb.pair260908.cluck",
@@ -2191,7 +2599,9 @@
     "difficulty": 2,
     "category": "animals",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "cluck"
+    "englishAuditText": "cluck",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "es-en.verb.pair260908.chirp",
@@ -2201,7 +2611,9 @@
     "difficulty": 2,
     "category": "animals",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "chirp"
+    "englishAuditText": "chirp",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "es-en.verb.pair260908.buzz",
@@ -2211,7 +2623,9 @@
     "difficulty": 2,
     "category": "animals",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "buzz"
+    "englishAuditText": "buzz",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "es-en.verb.pair260908.croak",
@@ -2221,7 +2635,9 @@
     "difficulty": 2,
     "category": "animals",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "croak"
+    "englishAuditText": "croak",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "es-en.verb.pair260908.howl",
@@ -2231,7 +2647,9 @@
     "difficulty": 2,
     "category": "animals",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "howl"
+    "englishAuditText": "howl",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "es-en.verb.pair260908.moo",
@@ -2241,7 +2659,9 @@
     "difficulty": 2,
     "category": "animals",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "moo"
+    "englishAuditText": "moo",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "es-en.verb.pair260908.graze",
@@ -2251,7 +2671,9 @@
     "difficulty": 2,
     "category": "animals",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "graze"
+    "englishAuditText": "graze",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "es-en.verb.pair260908.nest",
@@ -2261,7 +2683,9 @@
     "difficulty": 2,
     "category": "animals",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "nest"
+    "englishAuditText": "nest",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "es-en.verb.pair260908.incubate",
@@ -2271,7 +2695,9 @@
     "difficulty": 2,
     "category": "animals",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "incubate"
+    "englishAuditText": "incubate",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.pair260908.flap",
@@ -2281,7 +2707,9 @@
     "difficulty": 2,
     "category": "animals",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "flap"
+    "englishAuditText": "flap",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "es-en.verb.pair260908.sniff",
@@ -2291,7 +2719,9 @@
     "difficulty": 2,
     "category": "animals",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "sniff"
+    "englishAuditText": "sniff",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.pair260908.chew",
@@ -2301,7 +2731,9 @@
     "difficulty": 2,
     "category": "food",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "chew"
+    "englishAuditText": "chew",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.lick",
@@ -2311,7 +2743,9 @@
     "difficulty": 2,
     "category": "animals",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "lick"
+    "englishAuditText": "lick",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.pair260908.bite",
@@ -2321,7 +2755,9 @@
     "difficulty": 2,
     "category": "animals",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "bite"
+    "englishAuditText": "bite",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.pair260908.yawn",
@@ -2331,7 +2767,9 @@
     "difficulty": 2,
     "category": "everyday",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "yawn"
+    "englishAuditText": "yawn",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.sneeze",
@@ -2341,7 +2779,9 @@
     "difficulty": 2,
     "category": "everyday",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "sneeze"
+    "englishAuditText": "sneeze",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.cough",
@@ -2351,7 +2791,9 @@
     "difficulty": 2,
     "category": "everyday",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "cough"
+    "englishAuditText": "cough",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.breathe",
@@ -2361,7 +2803,9 @@
     "difficulty": 2,
     "category": "everyday",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "breathe"
+    "englishAuditText": "breathe",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.blink",
@@ -2371,7 +2815,9 @@
     "difficulty": 2,
     "category": "everyday",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "blink"
+    "englishAuditText": "blink",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.wink",
@@ -2381,7 +2827,9 @@
     "difficulty": 2,
     "category": "everyday",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "wink"
+    "englishAuditText": "wink",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.nod",
@@ -2391,7 +2839,9 @@
     "difficulty": 2,
     "category": "friendship",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "nod"
+    "englishAuditText": "nod",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.pair260908.sigh",
@@ -2401,7 +2851,9 @@
     "difficulty": 2,
     "category": "feelings",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "sigh"
+    "englishAuditText": "sigh",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.pair260908.tremble",
@@ -2411,7 +2863,9 @@
     "difficulty": 2,
     "category": "feelings",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "tremble"
+    "englishAuditText": "tremble",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.pair260908.fasten",
@@ -2421,7 +2875,9 @@
     "difficulty": 2,
     "category": "clothes",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "fasten"
+    "englishAuditText": "fasten",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "es-en.verb.pair260908.unfasten",
@@ -2431,7 +2887,9 @@
     "difficulty": 2,
     "category": "clothes",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "unfasten"
+    "englishAuditText": "unfasten",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "es-en.verb.pair260908.tie",
@@ -2441,7 +2899,9 @@
     "difficulty": 2,
     "category": "crafts",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "tie"
+    "englishAuditText": "tie",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.pair260908.untie",
@@ -2451,7 +2911,9 @@
     "difficulty": 2,
     "category": "crafts",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "untie"
+    "englishAuditText": "untie",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.pair260908.roll-up",
@@ -2461,7 +2923,9 @@
     "difficulty": 2,
     "category": "crafts",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "roll up"
+    "englishAuditText": "roll up",
+    "usefulness": 71,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.pair260908.unroll",
@@ -2471,7 +2935,9 @@
     "difficulty": 2,
     "category": "crafts",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "unroll"
+    "englishAuditText": "unroll",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.wrap",
@@ -2481,7 +2947,9 @@
     "difficulty": 2,
     "category": "crafts",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "wrap"
+    "englishAuditText": "wrap",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.pair260908.unwrap",
@@ -2491,7 +2959,9 @@
     "difficulty": 2,
     "category": "crafts",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "unwrap"
+    "englishAuditText": "unwrap",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.pair260908.sew",
@@ -2501,7 +2971,9 @@
     "difficulty": 2,
     "category": "crafts",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "sew"
+    "englishAuditText": "sew",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.pair260908.embroider",
@@ -2511,7 +2983,9 @@
     "difficulty": 2,
     "category": "crafts",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "embroider"
+    "englishAuditText": "embroider",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "es-en.verb.pair260908.cut-out",
@@ -2521,7 +2995,9 @@
     "difficulty": 2,
     "category": "crafts",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "cut out"
+    "englishAuditText": "cut out",
+    "usefulness": 58,
+    "complexity": 34
   },
   {
     "id": "es-en.verb.pair260908.color",
@@ -2531,7 +3007,9 @@
     "difficulty": 2,
     "category": "art-play",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "color"
+    "englishAuditText": "color",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.pair260908.erase",
@@ -2541,7 +3019,9 @@
     "difficulty": 2,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "erase"
+    "englishAuditText": "erase",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.underline",
@@ -2551,7 +3031,9 @@
     "difficulty": 2,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "underline"
+    "englishAuditText": "underline",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.trace",
@@ -2561,7 +3043,9 @@
     "difficulty": 2,
     "category": "art-play",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "trace"
+    "englishAuditText": "trace",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.pair260908.model",
@@ -2571,7 +3055,9 @@
     "difficulty": 2,
     "category": "art-play",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "model"
+    "englishAuditText": "model",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.pair260908.mold",
@@ -2581,7 +3067,9 @@
     "difficulty": 2,
     "category": "crafts",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "mold"
+    "englishAuditText": "mold",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.pair260908.sculpt",
@@ -2591,7 +3079,9 @@
     "difficulty": 2,
     "category": "art-play",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "sculpt"
+    "englishAuditText": "sculpt",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.pair260908.illustrate",
@@ -2601,7 +3091,9 @@
     "difficulty": 2,
     "category": "art-play",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "illustrate"
+    "englishAuditText": "illustrate",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.pair260908.photograph",
@@ -2611,7 +3103,9 @@
     "difficulty": 2,
     "category": "art-play",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "photograph"
+    "englishAuditText": "photograph",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.pair260908.film",
@@ -2621,7 +3115,9 @@
     "difficulty": 2,
     "category": "art-play",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "film"
+    "englishAuditText": "film",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es-en.verb.pair260908.record",
@@ -2631,7 +3127,9 @@
     "difficulty": 2,
     "category": "music",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "record"
+    "englishAuditText": "record",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.pair260908.tune",
@@ -2641,7 +3139,9 @@
     "difficulty": 2,
     "category": "music",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "tune"
+    "englishAuditText": "tune",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.pair260908.rehearse",
@@ -2651,7 +3151,9 @@
     "difficulty": 2,
     "category": "music",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "rehearse"
+    "englishAuditText": "rehearse",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.pair260908.act",
@@ -2661,7 +3163,9 @@
     "difficulty": 2,
     "category": "art-play",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "act"
+    "englishAuditText": "act",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.pair260908.imitate",
@@ -2671,7 +3175,9 @@
     "difficulty": 2,
     "category": "play",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "imitate"
+    "englishAuditText": "imitate",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.pair260908.rhyme",
@@ -2681,7 +3187,9 @@
     "difficulty": 2,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "rhyme"
+    "englishAuditText": "rhyme",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.spell",
@@ -2691,7 +3199,9 @@
     "difficulty": 2,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "spell"
+    "englishAuditText": "spell",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.pair260908.pronounce",
@@ -2701,7 +3211,9 @@
     "difficulty": 2,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "pronounce"
+    "englishAuditText": "pronounce",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.translate",
@@ -2711,7 +3223,9 @@
     "difficulty": 2,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "translate"
+    "englishAuditText": "translate",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "es-en.verb.pair260908.narrate",
@@ -2721,7 +3235,9 @@
     "difficulty": 2,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "narrate"
+    "englishAuditText": "narrate",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.describe",
@@ -2731,7 +3247,9 @@
     "difficulty": 2,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "describe"
+    "englishAuditText": "describe",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.name",
@@ -2741,7 +3259,9 @@
     "difficulty": 2,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "name"
+    "englishAuditText": "name",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es-en.verb.pair260908.list",
@@ -2751,7 +3271,9 @@
     "difficulty": 2,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "list"
+    "englishAuditText": "list",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.add",
@@ -2761,7 +3283,9 @@
     "difficulty": 2,
     "category": "math",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "add"
+    "englishAuditText": "add",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.subtract",
@@ -2771,7 +3295,9 @@
     "difficulty": 2,
     "category": "math",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "subtract"
+    "englishAuditText": "subtract",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.multiply",
@@ -2781,7 +3307,9 @@
     "difficulty": 2,
     "category": "math",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "multiply"
+    "englishAuditText": "multiply",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.divide",
@@ -2791,7 +3319,9 @@
     "difficulty": 2,
     "category": "math",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "divide"
+    "englishAuditText": "divide",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.group",
@@ -2801,7 +3331,9 @@
     "difficulty": 2,
     "category": "math",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "group"
+    "englishAuditText": "group",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.classify",
@@ -2811,7 +3343,9 @@
     "difficulty": 2,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "classify"
+    "englishAuditText": "classify",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.pair260908.mix",
@@ -2821,7 +3355,9 @@
     "difficulty": 2,
     "category": "food",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "mix"
+    "englishAuditText": "mix",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.whisk",
@@ -2831,7 +3367,9 @@
     "difficulty": 2,
     "category": "food",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "whisk"
+    "englishAuditText": "whisk",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.grate",
@@ -2841,7 +3379,9 @@
     "difficulty": 2,
     "category": "food",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "grate"
+    "englishAuditText": "grate",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.squeeze",
@@ -2851,7 +3391,9 @@
     "difficulty": 2,
     "category": "food",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "squeeze"
+    "englishAuditText": "squeeze",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.spread",
@@ -2861,7 +3403,9 @@
     "difficulty": 2,
     "category": "food",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "spread"
+    "englishAuditText": "spread",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.hand-out",
@@ -2871,7 +3415,9 @@
     "difficulty": 2,
     "category": "friendship",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "hand out"
+    "englishAuditText": "hand out",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "es-en.verb.pair260908.serve",
@@ -2881,7 +3427,9 @@
     "difficulty": 2,
     "category": "food",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "serve"
+    "englishAuditText": "serve",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.snack",
@@ -2891,7 +3439,9 @@
     "difficulty": 2,
     "category": "food",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "snack"
+    "englishAuditText": "snack",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.dine",
@@ -2901,7 +3451,9 @@
     "difficulty": 2,
     "category": "food",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "dine"
+    "englishAuditText": "dine",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.try-out",
@@ -2911,7 +3463,9 @@
     "difficulty": 2,
     "category": "discovery",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "try out"
+    "englishAuditText": "try out",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "es-en.verb.pair260908.fish",
@@ -2921,7 +3475,9 @@
     "difficulty": 2,
     "category": "nature",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "fish"
+    "englishAuditText": "fish",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.pair260908.harvest",
@@ -2931,7 +3487,9 @@
     "difficulty": 2,
     "category": "nature",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "harvest"
+    "englishAuditText": "harvest",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es-en.verb.pair260908.sow",
@@ -2941,7 +3499,9 @@
     "difficulty": 2,
     "category": "nature",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "sow"
+    "englishAuditText": "sow",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es-en.verb.pair260908.weed",
@@ -2951,7 +3511,9 @@
     "difficulty": 2,
     "category": "nature",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "weed"
+    "englishAuditText": "weed",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es-en.verb.pair260908.prune",
@@ -2961,7 +3523,9 @@
     "difficulty": 2,
     "category": "nature",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "prune"
+    "englishAuditText": "prune",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es-en.verb.pair260908.fertilize",
@@ -2971,7 +3535,9 @@
     "difficulty": 2,
     "category": "nature",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "fertilize"
+    "englishAuditText": "fertilize",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es-en.verb.pair260908.germinate",
@@ -2981,7 +3547,9 @@
     "difficulty": 2,
     "category": "nature",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "germinate"
+    "englishAuditText": "germinate",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.pair260908.ripen",
@@ -2991,7 +3559,9 @@
     "difficulty": 2,
     "category": "nature",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "ripen"
+    "englishAuditText": "ripen",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es-en.verb.pair260908.snow",
@@ -3001,7 +3571,9 @@
     "difficulty": 2,
     "category": "weather",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "snow"
+    "englishAuditText": "snow",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.pair260908.rain",
@@ -3011,7 +3583,9 @@
     "difficulty": 2,
     "category": "weather",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "rain"
+    "englishAuditText": "rain",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.pair260908.hail",
@@ -3021,7 +3595,9 @@
     "difficulty": 2,
     "category": "weather",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "hail"
+    "englishAuditText": "hail",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.thunder",
@@ -3031,7 +3607,9 @@
     "difficulty": 2,
     "category": "weather",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "thunder"
+    "englishAuditText": "thunder",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es-en.verb.pair260908.drizzle",
@@ -3041,7 +3619,9 @@
     "difficulty": 2,
     "category": "weather",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "drizzle"
+    "englishAuditText": "drizzle",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.melt",
@@ -3051,7 +3631,9 @@
     "difficulty": 2,
     "category": "nature",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "melt"
+    "englishAuditText": "melt",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es-en.verb.pair260908.freeze",
@@ -3061,7 +3643,9 @@
     "difficulty": 2,
     "category": "nature",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "freeze"
+    "englishAuditText": "freeze",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es-en.verb.pair260908.drip",
@@ -3071,7 +3655,9 @@
     "difficulty": 2,
     "category": "nature",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "drip"
+    "englishAuditText": "drip",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es-en.verb.pair260908.clear-up",
@@ -3081,7 +3667,9 @@
     "difficulty": 2,
     "category": "weather",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "clear up"
+    "englishAuditText": "clear up",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "es-en.verb.pair260908.deduce",
@@ -3091,7 +3679,9 @@
     "difficulty": 3,
     "category": "reasoning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "deduce"
+    "englishAuditText": "deduce",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.pair260908.infer",
@@ -3101,7 +3691,9 @@
     "difficulty": 3,
     "category": "reasoning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "infer"
+    "englishAuditText": "infer",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.pair260908.relate",
@@ -3111,7 +3703,9 @@
     "difficulty": 3,
     "category": "reasoning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "relate"
+    "englishAuditText": "relate",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.associate",
@@ -3121,7 +3715,9 @@
     "difficulty": 3,
     "category": "reasoning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "associate"
+    "englishAuditText": "associate",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.contrast",
@@ -3131,7 +3727,9 @@
     "difficulty": 3,
     "category": "reasoning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "contrast"
+    "englishAuditText": "contrast",
+    "usefulness": 38,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.pair260908.differentiate",
@@ -3141,7 +3739,9 @@
     "difficulty": 3,
     "category": "reasoning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "differentiate"
+    "englishAuditText": "differentiate",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.evaluate",
@@ -3151,7 +3751,9 @@
     "difficulty": 3,
     "category": "reasoning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "evaluate"
+    "englishAuditText": "evaluate",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.pair260908.value",
@@ -3161,7 +3763,9 @@
     "difficulty": 3,
     "category": "friendship",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "value"
+    "englishAuditText": "value",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "es-en.verb.pair260908.question",
@@ -3171,7 +3775,9 @@
     "difficulty": 3,
     "category": "reasoning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "question"
+    "englishAuditText": "question",
+    "usefulness": 73,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.argue",
@@ -3181,7 +3787,9 @@
     "difficulty": 3,
     "category": "reasoning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "argue"
+    "englishAuditText": "argue",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.reason",
@@ -3191,7 +3799,9 @@
     "difficulty": 3,
     "category": "reasoning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "reason"
+    "englishAuditText": "reason",
+    "usefulness": 38,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.pair260908.clarify",
@@ -3201,7 +3811,9 @@
     "difficulty": 3,
     "category": "friendship",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "clarify"
+    "englishAuditText": "clarify",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "es-en.verb.pair260908.specify",
@@ -3211,7 +3823,9 @@
     "difficulty": 3,
     "category": "reasoning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "specify"
+    "englishAuditText": "specify",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.rephrase",
@@ -3221,7 +3835,9 @@
     "difficulty": 3,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "rephrase"
+    "englishAuditText": "rephrase",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.synthesize",
@@ -3231,7 +3847,9 @@
     "difficulty": 3,
     "category": "reasoning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "synthesize"
+    "englishAuditText": "synthesize",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.pair260908.generalize",
@@ -3241,7 +3859,9 @@
     "difficulty": 3,
     "category": "reasoning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "generalize"
+    "englishAuditText": "generalize",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.exemplify",
@@ -3251,7 +3871,9 @@
     "difficulty": 3,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "exemplify"
+    "englishAuditText": "exemplify",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.represent",
@@ -3261,7 +3883,9 @@
     "difficulty": 3,
     "category": "art-play",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "represent"
+    "englishAuditText": "represent",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "es-en.verb.pair260908.symbolize",
@@ -3271,7 +3895,9 @@
     "difficulty": 3,
     "category": "art-play",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "symbolize"
+    "englishAuditText": "symbolize",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "es-en.verb.pair260908.visualize",
@@ -3281,7 +3907,9 @@
     "difficulty": 3,
     "category": "reasoning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "visualize"
+    "englishAuditText": "visualize",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.recognize",
@@ -3291,7 +3919,9 @@
     "difficulty": 3,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "recognize"
+    "englishAuditText": "recognize",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.reconsider",
@@ -3301,7 +3931,9 @@
     "difficulty": 3,
     "category": "reasoning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "reconsider"
+    "englishAuditText": "reconsider",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.rectify",
@@ -3311,7 +3943,9 @@
     "difficulty": 3,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "rectify"
+    "englishAuditText": "rectify",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.revise",
@@ -3321,7 +3955,9 @@
     "difficulty": 3,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "revise"
+    "englishAuditText": "revise",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.correct",
@@ -3331,7 +3967,9 @@
     "difficulty": 3,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "correct"
+    "englishAuditText": "correct",
+    "usefulness": 90,
+    "complexity": 22
   },
   {
     "id": "es-en.verb.pair260908.refine",
@@ -3341,7 +3979,9 @@
     "difficulty": 3,
     "category": "art-play",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "refine"
+    "englishAuditText": "refine",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es-en.verb.pair260908.simplify",
@@ -3351,7 +3991,9 @@
     "difficulty": 3,
     "category": "reasoning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "simplify"
+    "englishAuditText": "simplify",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.expand",
@@ -3361,7 +4003,9 @@
     "difficulty": 3,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "expand"
+    "englishAuditText": "expand",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.deepen",
@@ -3371,7 +4015,9 @@
     "difficulty": 3,
     "category": "reasoning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "deepen"
+    "englishAuditText": "deepen",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.prioritize",
@@ -3381,7 +4027,9 @@
     "difficulty": 3,
     "category": "planning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "prioritize"
+    "englishAuditText": "prioritize",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "es-en.verb.pair260908.coordinate",
@@ -3391,7 +4039,9 @@
     "difficulty": 3,
     "category": "friendship",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "coordinate"
+    "englishAuditText": "coordinate",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es-en.verb.pair260908.distribute",
@@ -3401,7 +4051,9 @@
     "difficulty": 3,
     "category": "planning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "distribute"
+    "englishAuditText": "distribute",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es-en.verb.pair260908.balance-out",
@@ -3411,7 +4063,9 @@
     "difficulty": 3,
     "category": "planning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "balance out"
+    "englishAuditText": "balance out",
+    "usefulness": 44,
+    "complexity": 44
   },
   {
     "id": "es-en.verb.pair260908.alternate",
@@ -3421,7 +4075,9 @@
     "difficulty": 3,
     "category": "friendship",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "alternate"
+    "englishAuditText": "alternate",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es-en.verb.pair260908.exchange",
@@ -3431,7 +4087,9 @@
     "difficulty": 3,
     "category": "friendship",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "exchange"
+    "englishAuditText": "exchange",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es-en.verb.pair260908.make-up",
@@ -3441,7 +4099,9 @@
     "difficulty": 3,
     "category": "friendship",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "make up"
+    "englishAuditText": "make up",
+    "usefulness": 76,
+    "complexity": 38
   },
   {
     "id": "es-en.verb.pair260908.empathize",
@@ -3451,7 +4111,9 @@
     "difficulty": 3,
     "category": "friendship",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "empathize"
+    "englishAuditText": "empathize",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "es-en.verb.pair260908.comprehend",
@@ -3461,7 +4123,9 @@
     "difficulty": 3,
     "category": "reasoning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "comprehend"
+    "englishAuditText": "comprehend",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.tolerate",
@@ -3471,7 +4135,9 @@
     "difficulty": 3,
     "category": "friendship",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "tolerate"
+    "englishAuditText": "tolerate",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "es-en.verb.pair260908.accompany",
@@ -3481,7 +4147,9 @@
     "difficulty": 3,
     "category": "friendship",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "accompany"
+    "englishAuditText": "accompany",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "es-en.verb.pair260908.support",
@@ -3491,7 +4159,9 @@
     "difficulty": 3,
     "category": "friendship",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "support"
+    "englishAuditText": "support",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "es-en.verb.pair260908.encourage",
@@ -3501,7 +4171,9 @@
     "difficulty": 3,
     "category": "friendship",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "encourage"
+    "englishAuditText": "encourage",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "es-en.verb.pair260908.inspire",
@@ -3511,7 +4183,9 @@
     "difficulty": 3,
     "category": "art-play",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "inspire"
+    "englishAuditText": "inspire",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "es-en.verb.pair260908.motivate",
@@ -3521,7 +4195,9 @@
     "difficulty": 3,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "motivate"
+    "englishAuditText": "motivate",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "es-en.verb.pair260908.console",
@@ -3531,7 +4207,9 @@
     "difficulty": 3,
     "category": "friendship",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "console"
+    "englishAuditText": "console",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "es-en.verb.pair260908.involve",
@@ -3541,7 +4219,9 @@
     "difficulty": 3,
     "category": "friendship",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "involve"
+    "englishAuditText": "involve",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "es-en.verb.pair260908.integrate",
@@ -3551,7 +4231,9 @@
     "difficulty": 3,
     "category": "friendship",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "integrate"
+    "englishAuditText": "integrate",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "es-en.verb.pair260908.participate",
@@ -3561,7 +4243,9 @@
     "difficulty": 3,
     "category": "friendship",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "participate"
+    "englishAuditText": "participate",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "es-en.verb.pair260908.benefit",
@@ -3571,7 +4255,9 @@
     "difficulty": 3,
     "category": "nature",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "benefit"
+    "englishAuditText": "benefit",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "es-en.verb.pair260908.enrich",
@@ -3581,7 +4267,9 @@
     "difficulty": 3,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "enrich"
+    "englishAuditText": "enrich",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.facilitate",
@@ -3591,7 +4279,9 @@
     "difficulty": 3,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "facilitate"
+    "englishAuditText": "facilitate",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.enable",
@@ -3601,7 +4291,9 @@
     "difficulty": 3,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "enable"
+    "englishAuditText": "enable",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.prevent",
@@ -3611,7 +4303,9 @@
     "difficulty": 3,
     "category": "planning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "prevent"
+    "englishAuditText": "prevent",
+    "usefulness": 88,
+    "complexity": 24
   },
   {
     "id": "es-en.verb.pair260908.avoid",
@@ -3621,7 +4315,9 @@
     "difficulty": 3,
     "category": "planning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "avoid"
+    "englishAuditText": "avoid",
+    "usefulness": 88,
+    "complexity": 24
   },
   {
     "id": "es-en.verb.pair260908.foresee",
@@ -3631,7 +4327,9 @@
     "difficulty": 3,
     "category": "planning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "foresee"
+    "englishAuditText": "foresee",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.predict",
@@ -3641,7 +4339,9 @@
     "difficulty": 3,
     "category": "science",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "predict"
+    "englishAuditText": "predict",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "es-en.verb.pair260908.calculate",
@@ -3651,7 +4351,9 @@
     "difficulty": 3,
     "category": "math",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "calculate"
+    "englishAuditText": "calculate",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.pair260908.approximate",
@@ -3661,7 +4363,9 @@
     "difficulty": 3,
     "category": "math",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "approximate"
+    "englishAuditText": "approximate",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "es-en.verb.pair260908.round-off",
@@ -3671,7 +4375,9 @@
     "difficulty": 3,
     "category": "math",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "round off"
+    "englishAuditText": "round off",
+    "usefulness": 54,
+    "complexity": 32
   },
   {
     "id": "es-en.verb.pair260908.provide",
@@ -3681,7 +4387,9 @@
     "difficulty": 3,
     "category": "planning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "provide"
+    "englishAuditText": "provide",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "es-en.verb.pair260908.obtain",
@@ -3691,7 +4399,9 @@
     "difficulty": 3,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "obtain"
+    "englishAuditText": "obtain",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.reach",
@@ -3701,7 +4411,9 @@
     "difficulty": 3,
     "category": "movement",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "reach"
+    "englishAuditText": "reach",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es-en.verb.pair260908.overcome",
@@ -3711,7 +4423,9 @@
     "difficulty": 3,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "overcome"
+    "englishAuditText": "overcome",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.persist",
@@ -3721,7 +4435,9 @@
     "difficulty": 3,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "persist"
+    "englishAuditText": "persist",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.resume",
@@ -3731,7 +4447,9 @@
     "difficulty": 3,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "resume"
+    "englishAuditText": "resume",
+    "usefulness": 57,
+    "complexity": 36
   },
   {
     "id": "es-en.verb.pair260908.continue",
@@ -3741,7 +4459,9 @@
     "difficulty": 3,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "continue"
+    "englishAuditText": "continue",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.interrupt",
@@ -3751,7 +4471,9 @@
     "difficulty": 3,
     "category": "friendship",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "interrupt"
+    "englishAuditText": "interrupt",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "es-en.verb.pair260908.postpone",
@@ -3761,7 +4483,9 @@
     "difficulty": 3,
     "category": "planning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "postpone"
+    "englishAuditText": "postpone",
+    "usefulness": 83,
+    "complexity": 25
   },
   {
     "id": "es-en.verb.pair260908.replace",
@@ -3771,7 +4495,9 @@
     "difficulty": 3,
     "category": "planning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "replace"
+    "englishAuditText": "replace",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "es-en.verb.pair260908.renounce",
@@ -3781,7 +4507,9 @@
     "difficulty": 3,
     "category": "reasoning",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "renounce"
+    "englishAuditText": "renounce",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.develop",
@@ -3791,7 +4519,9 @@
     "difficulty": 3,
     "category": "school",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "develop"
+    "englishAuditText": "develop",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es-en.verb.pair260908.evolve",
@@ -3801,7 +4531,9 @@
     "difficulty": 3,
     "category": "nature",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "evolve"
+    "englishAuditText": "evolve",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "es-en.verb.pair260908.modify",
@@ -3811,7 +4543,9 @@
     "difficulty": 3,
     "category": "crafts",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "modify"
+    "englishAuditText": "modify",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.adjust",
@@ -3821,7 +4555,9 @@
     "difficulty": 3,
     "category": "crafts",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "adjust"
+    "englishAuditText": "adjust",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "es-en.verb.pair260908.assemble",
@@ -3831,7 +4567,9 @@
     "difficulty": 3,
     "category": "crafts",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "assemble"
+    "englishAuditText": "assemble",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es-en.verb.pair260908.take-apart",
@@ -3841,7 +4579,9 @@
     "difficulty": 3,
     "category": "crafts",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "take apart"
+    "englishAuditText": "take apart",
+    "usefulness": 54,
+    "complexity": 32
   },
   {
     "id": "es-en.verb.pair260908.reconstruct",
@@ -3851,7 +4591,9 @@
     "difficulty": 3,
     "category": "crafts",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "reconstruct"
+    "englishAuditText": "reconstruct",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es-en.verb.pair260908.design",
@@ -3861,7 +4603,9 @@
     "difficulty": 3,
     "category": "art-play",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "design"
+    "englishAuditText": "design",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.pair260908.compose",
@@ -3871,7 +4615,9 @@
     "difficulty": 3,
     "category": "music",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "compose"
+    "englishAuditText": "compose",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es-en.verb.pair260908.improvise",
@@ -3881,7 +4627,9 @@
     "difficulty": 3,
     "category": "music",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "improvise"
+    "englishAuditText": "improvise",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "es-en.verb.pair260908.harmonize",
@@ -3891,7 +4639,9 @@
     "difficulty": 3,
     "category": "music",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "harmonize"
+    "englishAuditText": "harmonize",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es-en.verb.pair260908.resonate",
@@ -3901,7 +4651,9 @@
     "difficulty": 3,
     "category": "music",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "resonate"
+    "englishAuditText": "resonate",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es-en.verb.pair260908.reverberate",
@@ -3911,7 +4663,9 @@
     "difficulty": 3,
     "category": "science",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "reverberate"
+    "englishAuditText": "reverberate",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.vibrate",
@@ -3921,7 +4675,9 @@
     "difficulty": 3,
     "category": "science",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "vibrate"
+    "englishAuditText": "vibrate",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.oscillate",
@@ -3931,7 +4687,9 @@
     "difficulty": 3,
     "category": "science",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "oscillate"
+    "englishAuditText": "oscillate",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.rotate",
@@ -3941,7 +4699,9 @@
     "difficulty": 3,
     "category": "science",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "rotate"
+    "englishAuditText": "rotate",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.orbit",
@@ -3951,7 +4711,9 @@
     "difficulty": 3,
     "category": "science",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "orbit"
+    "englishAuditText": "orbit",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.pair260908.gravitate",
@@ -3961,7 +4723,9 @@
     "difficulty": 3,
     "category": "science",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "gravitate"
+    "englishAuditText": "gravitate",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.refract",
@@ -3971,7 +4735,9 @@
     "difficulty": 3,
     "category": "science",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "refract"
+    "englishAuditText": "refract",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.pair260908.absorb",
@@ -3981,7 +4747,9 @@
     "difficulty": 3,
     "category": "science",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "absorb"
+    "englishAuditText": "absorb",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.dissolve",
@@ -3991,7 +4759,9 @@
     "difficulty": 3,
     "category": "science",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "dissolve"
+    "englishAuditText": "dissolve",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.pair260908.evaporate",
@@ -4001,7 +4771,9 @@
     "difficulty": 3,
     "category": "science",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "evaporate"
+    "englishAuditText": "evaporate",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.pair260908.condense",
@@ -4011,7 +4783,9 @@
     "difficulty": 3,
     "category": "science",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "condense"
+    "englishAuditText": "condense",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.pair260908.filter",
@@ -4021,7 +4795,9 @@
     "difficulty": 3,
     "category": "science",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "filter"
+    "englishAuditText": "filter",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.oxidize",
@@ -4031,7 +4807,9 @@
     "difficulty": 3,
     "category": "science",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "oxidize"
+    "englishAuditText": "oxidize",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.crystallize",
@@ -4041,7 +4819,9 @@
     "difficulty": 3,
     "category": "science",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "crystallize"
+    "englishAuditText": "crystallize",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.pair260908.erode",
@@ -4051,7 +4831,9 @@
     "difficulty": 3,
     "category": "nature",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "erode"
+    "englishAuditText": "erode",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "es-en.verb.pair260908.pollinate",
@@ -4061,7 +4843,9 @@
     "difficulty": 3,
     "category": "nature",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "pollinate"
+    "englishAuditText": "pollinate",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es-en.verb.pair260908.migrate",
@@ -4071,7 +4855,9 @@
     "difficulty": 3,
     "category": "animals",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "migrate"
+    "englishAuditText": "migrate",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "es-en.verb.pair260908.hibernate",
@@ -4081,7 +4867,9 @@
     "difficulty": 3,
     "category": "animals",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "hibernate"
+    "englishAuditText": "hibernate",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "es-en.verb.pair260908.camouflage",
@@ -4091,7 +4879,9 @@
     "difficulty": 3,
     "category": "animals",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "camouflage"
+    "englishAuditText": "camouflage",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es-en.verb.pair260908.regenerate",
@@ -4101,7 +4891,9 @@
     "difficulty": 3,
     "category": "nature",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "regenerate"
+    "englishAuditText": "regenerate",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "es-en.verb.pair260908.reforest",
@@ -4111,7 +4903,9 @@
     "difficulty": 3,
     "category": "nature",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "reforest"
+    "englishAuditText": "reforest",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es-en.verb.pair260908.compost",
@@ -4121,6 +4915,8 @@
     "difficulty": 3,
     "category": "nature",
     "reviewStatus": "native-review-required",
-    "englishAuditText": "compost"
+    "englishAuditText": "compost",
+    "usefulness": 44,
+    "complexity": 41
   }
 ]

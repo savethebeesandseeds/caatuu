@@ -37,7 +37,7 @@ test("joins language-neutral English concepts to target realizations by stable c
   assert.equal(validateEnglishConceptCatalog(englishCatalog), englishCatalog);
   assert.equal(validateTargetRealizationCatalog(realizationCatalog), realizationCatalog);
   const joined = joinConceptCatalogs(englishCatalog, realizationCatalog);
-  assert.equal(joined.length, 250);
+  assert.equal(joined.length, englishCatalog.concepts.length);
   assert.equal(new Set(joined.map(({ conceptId }) => conceptId)).size, joined.length);
   assert.equal(joined.find(({ conceptId }) => conceptId === "ww.object.book").target.text, "这是一本书。");
   assert.equal(joined.find(({ conceptId }) => conceptId === "ww.object.book").englishText, "This is a book.");

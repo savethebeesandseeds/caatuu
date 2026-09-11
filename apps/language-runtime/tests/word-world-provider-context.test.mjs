@@ -152,8 +152,8 @@ test("authored preparation exposes the complete renderer-neutral provider seam",
   const context = await prepareWordWorldContext(mandarinCourse, authoredManifest, options);
 
   assert.equal(context.providerKind, "authored-realizations");
-  assert.equal(context.session.records.length, 250);
-  assert.equal(context.selectionProvider.records.length, 250);
+  assert.equal(context.session.records.length, englishCatalog.concepts.length);
+  assert.equal(context.selectionProvider.records.length, englishCatalog.concepts.length);
   assert.equal(context.selectionProvider.corpusVersion, "starter-v1");
   assert.equal(context.learnerBase, undefined);
   for (const method of [
@@ -164,7 +164,8 @@ test("authored preparation exposes the complete renderer-neutral provider seam",
     "markUsed",
     "getRecordById"
   ]) assert.equal(typeof context.selectionProvider[method], "function", method);
-  assert.deepEqual(context.selectionProvider.difficultyCounts(), { 1: 50, 2: 150, 3: 50 });
+  assert.deepEqual(context.selectionProvider.difficultyCounts(), Object.fromEntries([1, 2, 3]
+    .map(level => [level, englishCatalog.concepts.filter(item => item.difficulty === level).length])));
 
   const book = context.sessionRecord("ww.object.book");
   assert.equal(book.target.text, "这是一本书。");
@@ -759,7 +760,7 @@ test("mountWordWorld lazily delegates one prepared context to a replaceable rend
     }
   }));
 
-  assert.deepEqual(result, { mounted: true, conceptCount: 250 });
+  assert.deepEqual(result, { mounted: true, conceptCount: englishCatalog.concepts.length });
   assert.equal(calls.length, 1);
   assert.equal(calls[0].receivedRoot, root);
   assert.equal(calls[0].rendererOptions.providerContext, calls[0].context);

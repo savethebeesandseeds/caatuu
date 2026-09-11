@@ -12,7 +12,7 @@
   ]);
   const ROUND_SETTING_KEYS = new Set(["pieceCounts", "defaultPieceCount", "artwork"]);
   const REVIEW_KEYS = new Set(["status", "reviewer", "reviewedAt", "notes"]);
-  const CHALLENGE_KEYS = new Set(["id", "hanzi", "pinyin", "tone", "translation", "sourceConceptIds", "difficulty"]);
+  const CHALLENGE_KEYS = new Set(["id", "hanzi", "pinyin", "tone", "translation", "sourceConceptIds", "difficulty", "usefulness", "complexity", "urgency", "subdifficulty"]);
   const CONTENT_STATUSES = new Set(["machine-assisted-preview", "native-reviewed"]);
   const REVIEW_STATUSES = new Set(["native-review-required", "native-reviewed"]);
   const TONE_MARKS = Object.freeze({
@@ -196,6 +196,18 @@
     assert(Object.hasOwn(value, "difficulty"), `${label}.difficulty is required.`);
     const difficulty = value.difficulty;
     assert(Number.isInteger(difficulty) && difficulty >= 1 && difficulty <= 3, `${label}.difficulty must be an integer from 1 to 3.`);
+    const progression = {};
+    for (const [key, legacyKey] of [["usefulness", "urgency"], ["complexity", "subdifficulty"]]) {
+      let grade = value[key];
+      if (grade === undefined && value[legacyKey] !== undefined) {
+        const legacy = value[legacyKey];
+        assert(Number.isInteger(legacy) && legacy >= 1 && legacy <= 5, `${label}.${legacyKey} must be an integer from 1 to 5.`);
+        grade = [1, 25, 50, 75, 100][legacy - 1];
+      }
+      if (grade === undefined) grade = 50;
+      assert(Number.isInteger(grade) && grade >= 1 && grade <= 100, `${label}.${key} must be an integer from 1 to 100.`);
+      progression[key] = grade;
+    }
     assert(Array.isArray(value.sourceConceptIds) && value.sourceConceptIds.length > 0, `${label}.sourceConceptIds must be a non-empty array.`);
     const sourceConceptIds = value.sourceConceptIds.map((conceptId, conceptIndex) => (
       requiredText(conceptId, `${label}.sourceConceptIds[${conceptIndex}]`, 100)
@@ -208,6 +220,7 @@
       tone: value.tone,
       translation,
       difficulty,
+      ...progression,
       sourceConceptIds: Object.freeze(sourceConceptIds)
     });
   }
@@ -303,16 +316,26 @@
     return result;
   }
 
-  function selectChallenges(challenges, pieceCount, random, difficulty = 3) {
+  function selectChallenges(challenges, pieceCount, random, difficulty = 3, progression = {}) {
     const selected = [];
     const readings = new Set();
     const eligible = filterChallengesForDifficulty(challenges, difficulty);
-    for (const challenge of shuffled(eligible, random)) {
-      const key = readingKey(challenge);
-      if (readings.has(key)) continue;
-      readings.add(key);
-      selected.push(challenge);
-      if (selected.length === pieceCount) break;
+    let remaining = eligible;
+    while (selected.length < pieceCount && remaining.length) {
+      // Select by actual practice evidence before excluding homophones. Each
+      // board stays unambiguous without hiding a due or useful reading peer.
+      const ordered = progression.selectContentItems
+        ? progression.selectContentItems(remaining, { difficulty, history: progression.history || {}, minimumPool: pieceCount, random })
+        : shuffled(remaining, random);
+      if (!ordered.length) break;
+      for (const challenge of ordered) {
+        const key = readingKey(challenge);
+        if (readings.has(key)) continue;
+        readings.add(key);
+        selected.push(challenge);
+        if (selected.length === pieceCount) break;
+      }
+      remaining = remaining.filter(challenge => !readings.has(readingKey(challenge)));
     }
     assert(selected.length === pieceCount, `cannot create a ${pieceCount}-piece round from the available distinct readings.`);
     return selected;
@@ -335,10 +358,10 @@
     return available[randomIndex(available.length, random)];
   }
 
-  function createRound(catalog, pieceCount, random = global.Math.random, previousArtworkSrc = "", difficulty = 3) {
+  function createRound(catalog, pieceCount, random = global.Math.random, previousArtworkSrc = "", difficulty = 3, progression = {}) {
     assert(catalog?.roundSettings?.pieceCounts?.includes(pieceCount), `piece count ${pieceCount} is not available.`);
     const normalizedDifficulty = normalizeDifficulty(difficulty, 1);
-    const selected = selectChallenges(catalog.challenges, pieceCount, random, normalizedDifficulty);
+    const selected = selectChallenges(catalog.challenges, pieceCount, random, normalizedDifficulty, progression);
     const solution = selected.map((left, index) => {
       const right = selected[(index + 1) % selected.length];
       return Object.freeze({ id: `${left.id}--${right.id}`, left, right });
@@ -606,7 +629,7 @@
     return item;
   }
 
-  function createGame(root, catalog, { loadingScreen, isActive, disposeLoading }) {
+  function createGame(root, catalog, { loadingScreen, isActive, disposeLoading, progression }) {
     const stage = root.querySelector(".naturalization-nucleus-stage");
     const game = root.querySelector("#naturalizationNucleusGame");
     const interstitial = root.querySelector("#naturalizationNucleusInterstitial");
@@ -943,6 +966,8 @@
       if (!challenge) return Promise.resolve();
       const speakText = global.CaatuuChrome?.speakText;
       if (typeof speakText !== "function") return Promise.resolve();
+      const piece = state.round?.solution.find(item => item.left.id === challenge.id);
+      if (piece && !state.placements.includes(piece.id)) state.assistedIds.add(challenge.id);
       return Promise.resolve(speakText(challenge.hanzi)).catch(() => {
         // Visual feedback remains useful when speech is unavailable.
       });
@@ -967,6 +992,25 @@
       }
     }
 
+    function recordPractice(challenge, correct, evidence) {
+      const shared = { itemId: challenge.id, encounterId: state.encounterId, generation: state.contentGeneration };
+      const previousExposureAt = global.CaatuuLearning?.contentHistory?.("naturalization-nucleus")?.[challenge.id]?.lastSeenAt;
+      global.CaatuuLearning?.recordExposure?.("naturalization-nucleus", { ...shared, correct: null, evidence: "exposure" });
+      global.CaatuuLearning?.recordExposure?.("naturalization-nucleus", {
+        ...shared, bankId: state.practiceBank, correct, evidence, previousExposureAt
+      });
+    }
+
+    function practiceHistory(bankId) {
+      const exposure = global.CaatuuLearning?.contentHistory?.("naturalization-nucleus") || {};
+      const evidence = global.CaatuuLearning?.contentHistory?.("naturalization-nucleus", bankId) || {};
+      return Object.fromEntries([...new Set([...Object.keys(exposure), ...Object.keys(evidence)])].map(id => [id, {
+        firstSeenAt: exposure[id]?.firstSeenAt, lastSeenAt: exposure[id]?.lastSeenAt,
+        practiceDays: exposure[id]?.practiceDays || 0, lastPracticeDayAt: exposure[id]?.lastPracticeDayAt,
+        ...evidence[id], exposures: Math.max(exposure[id]?.exposures || 0, evidence[id]?.exposures || 0)
+      }]));
+    }
+
     function acceptPlacement(transition) {
       global.clearTimeout(errorTimer);
       state.placements = [...transition.placements];
@@ -982,6 +1026,8 @@
       render(nextPieceId);
       void announceMatches(transition.matches);
       if (transition.solved) {
+        for (const piece of state.round.solution) recordPractice(piece.left, true,
+          state.mistakeIds.has(piece.left.id) || state.assistedIds.has(piece.left.id) ? "assisted" : "independent");
         global.CaatuuLearning?.record?.("naturalization-nucleus", {
           activities: 1,
           attempts: 1,
@@ -1040,6 +1086,11 @@
       if (transition) {
         acceptPlacement(transition);
       } else {
+        const target = socketTargets()[socketIndex];
+        recordPractice(piece.left, false,
+          state.mistakeIds.has(piece.left.id) || state.assistedIds.has(piece.left.id) ? "assisted" : "independent");
+        state.mistakeIds.add(piece.left.id);
+        state.mistakeIds.add(target.id);
         rejectPlacement(piece.id, socketIndex, "That tile does not match this position. Try another position.");
       }
     }
@@ -1048,7 +1099,16 @@
       global.clearTimeout(errorTimer);
       const previousArtworkSrc = state.round?.artworkSrc || "";
       state.pieceCount = pieceCount;
-      state.round = createRound(catalog, pieceCount, global.Math.random, previousArtworkSrc, state.difficulty);
+      const presentation = roundPresentation(state.roundIndex + 1);
+      state.practiceBank = `recognize-${presentation.deck}-${presentation.ring}`;
+      state.round = createRound(catalog, pieceCount, global.Math.random, previousArtworkSrc, state.difficulty, {
+        ...progression,
+        history: practiceHistory(state.practiceBank)
+      });
+      state.encounterId = progression.newContentEncounterId();
+      state.contentGeneration = global.CaatuuLearning?.contentGeneration?.() ?? null;
+      state.mistakeIds = new Set();
+      state.assistedIds = new Set();
       state.roundIndex += 1;
       state.placements = Array.from({ length: pieceCount }, () => "");
       state.selectedPieceId = "";
@@ -1408,8 +1468,9 @@
         active: isActive() });
       loadingScreen.show();
       const catalog = await loadCatalog(requiredText(dataUrl, "mount.dataUrl", 500), Boolean(forceReload));
+      const progression = await import("/language-runtime/static/source/games/content-progression.mjs");
       if (disposed) return null;
-      session = createGame(root, catalog, { loadingScreen, isActive, disposeLoading });
+      session = createGame(root, catalog, { loadingScreen, isActive, disposeLoading, progression });
       return catalog;
     })();
     mountingBoards.set(board, mounting);

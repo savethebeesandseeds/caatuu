@@ -11,7 +11,7 @@
   },
   "sourceConceptCatalog": "/language-runtime/static/data/english-concepts/word-world-nb-v1.json",
   "realizationFile": "content.json",
-  "recordCount": 600,
+  "recordCount": 605,
   "targetLanguage": "nb-NO",
   "mediationLanguage": "en",
   "tokenization": "authored",

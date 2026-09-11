@@ -414,7 +414,7 @@ test("difficulty changes replace a pending Word World turn and discard prepared 
   };
   const context = vm.createContext({
     state, providerContext: {}, console,
-    window: { addEventListener(type, listener) { changed = listener; } },
+    window: { addEventListener(type, listener) { if (type === "caatuu:learning-change") changed = listener; } },
     learningDifficulty: () => difficulty,
     recentStandardEntryIds: () => [],
     selectStandardTurn: (provider, options) => new Promise((resolve) => selections.push({ ...options, resolve })),
@@ -464,4 +464,20 @@ test("the live Next/selected controller path awaits English search and reports i
     /selectedWordDetails|selectedWordMeaning|preparedTokenForWord|\btoken\b|\bgloss\b/u,
     "UI, dictionary, target-token, and learner-base values must never become English query fallbacks"
   );
+});
+
+test("semantic ranking preserves the scheduled practice item when a provider owns progression", async () => {
+  const searchKey = value => String(value || '').toLowerCase();
+  const records = ['due', 'semantic-favorite', 'new'].map(id => ({ id, difficulty: 1,
+    targets: [{ surface: 'chosen', playable: true }] }));
+  const provider = selectionProvider(records, searchKey);
+  provider.preservesPracticeOrder = true;
+  for (const ranked of [[records[1], records[0]], [records[1]]]) {
+    const selection = await selectStandardTurn(provider, {
+      generationMode: 'selected', selectedWord: 'chosen', difficulty: 1,
+      englishQuery: 'synthetic concept', searchKey,
+      searchEnglish: async () => ({ mode: 'embedding', records: ranked })
+    });
+    assert.equal(selection.record.id, 'due');
+  }
 });

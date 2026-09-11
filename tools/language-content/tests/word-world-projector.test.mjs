@@ -56,8 +56,8 @@ test("the Word World projector is deterministic and derives every guide unit fro
   const first = buildWordWorldRuntimeProjections(clone(concepts), clone(realizations), clone(manifest));
   const second = buildWordWorldRuntimeProjections(clone(concepts), clone(realizations), clone(manifest));
   assert.deepEqual(first, second);
-  assert.equal(first.runtimeManifest.recordCount, 250);
-  assert.equal(first.readingGuideProjection.entries.length, 250);
+  assert.equal(first.runtimeManifest.recordCount, concepts.concepts.length);
+  assert.equal(first.readingGuideProjection.entries.length, realizations.realizations.length);
 
   first.readingGuideProjection.entries.forEach((entry, realizationIndex) => {
     const source = realizations.realizations[realizationIndex];
@@ -310,7 +310,7 @@ test("write, check, tamper detection, repair, and idempotence work in an isolate
     }
 
     const writeReport = await projectWordWorldRuntime({ repositoryRoot: temporaryRoot });
-    assert.equal(writeReport.recordCount, 250);
+    assert.equal(writeReport.recordCount, (await readJson(WORD_WORLD_PATHS.conceptsSource, temporaryRoot)).concepts.length);
     assert.ok(writeReport.changes.includes(WORD_WORLD_PATHS.conceptsRuntime));
     assert.ok(writeReport.changes.includes(WORD_WORLD_PATHS.realizationsRuntime));
     assert.ok(writeReport.changes.includes(WORD_WORLD_PATHS.readingGuidesRuntime));
@@ -323,7 +323,9 @@ test("write, check, tamper detection, repair, and idempotence work in an isolate
       ...WORD_WORLD_PATHS.readingGuidesRuntime.split("/")
     );
     const guideSource = await readFile(guidePath, "utf8");
-    const tamperedGuide = guideSource.replace('"notation": "nǐ"', '"notation": "ni3"');
+    const alteredGuide = JSON.parse(guideSource);
+    alteredGuide.entries[0].tokens[0].units[0].notation += "-tampered";
+    const tamperedGuide = JSON.stringify(alteredGuide, null, 2) + "\n";
     assert.notEqual(tamperedGuide, guideSource, "fixture must alter one tracked guide reading");
     await writeFile(guidePath, tamperedGuide, "utf8");
 

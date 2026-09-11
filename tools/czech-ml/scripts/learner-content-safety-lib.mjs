@@ -6,7 +6,10 @@ import { validateSoundQuasarCatalog } from "../../../apps/language-runtime/stati
 import { validateConjugationCometCatalog } from "../../../apps/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs";
 import { validatePack as validateCaseCosmosPack } from "../../../apps/languages/czech/static/source/games/case-cosmos/case-cosmos-content.mjs";
 
-export const LEARNER_CONTENT_SAFETY_POLICY_VERSION = "caatuu-child-content-safety-v2";
+export const LEARNER_CONTENT_SAFETY_POLICY_VERSION = "caatuu-child-content-safety-v3";
+
+// Assigned by validated game extractors, never trusted from authored JSON or UI copy.
+const FIXED_LESSON_EXAMPLE = Symbol("fixed-language-example");
 
 export const SHIPPED_LEARNER_CONTENT_SOURCES = Object.freeze([
   Object.freeze({
@@ -312,7 +315,9 @@ export function inspectLearnerField(field) {
   }
   for (const rule of PHRASE_RULES) {
     const locales = field?.locale === "und" ? rule.locales : [field?.locale];
-    if (!locales.some((locale) => rule.locales.includes(locale) && rule.matches({ locale, normalized, tokens }))) continue;
+    const ruleTokens = rule.id === "blocked.personal-data-solicitation"
+      ? personalDataTokens(field, tokens) : tokens;
+    if (!locales.some((locale) => rule.locales.includes(locale) && rule.matches({ locale, normalized, tokens: ruleTokens }))) continue;
     findings.push(toFinding(field, rule, normalized));
   }
   return findings;
@@ -333,7 +338,14 @@ export function extractLearnerContent(sourceId, value, file = sourceForId(source
   switch (sourceId) {
     case "sound-quasar": {
       validateSoundQuasarCatalog(value);
-      return extractModernGameText(value, file, ["items"], value.items.length);
+      return extractModernGameText(value, file, ["items", "sentences"], value.items.length + (value.sentences?.length || 0), {
+        lessonContext(parts) {
+          if (parts.length !== 3) return undefined;
+          if (["target", "meaning", "englishAuditText"].includes(parts[2])) return true;
+          if (parts[2] === "explanation") return value[parts[0]][parts[1]].target;
+          return undefined;
+        }
+      });
     }
     case "grammar-gravity": return extractAgreement(value, file);
     case "grammar-gravity-nouns": return extractGravityNouns(value, file);
@@ -425,7 +437,7 @@ function extractAgreement(value, file) {
   return { fields, recordCount: rows.length };
 }
 
-function extractModernGameText(value, file, sections, recordCount) {
+function extractModernGameText(value, file, sections, recordCount, { lessonContext = () => undefined } = {}) {
   const fields = [];
   const targetLocale = requiredText(value.targetLanguage || value.targetLanguageId, `${file}/targetLanguage`).split("-")[0];
   const baseLocale = requiredText(value.learnerBaseLanguage || value.learnerBaseLanguageId || "en", `${file}/learnerBaseLanguage`).split("-")[0];
@@ -439,7 +451,9 @@ function extractModernGameText(value, file, sections, recordCount) {
       const locale = /^(targetText|subjectTargetText|displayForm|beforeText|afterText)$/u.test(name) ? targetLocale
         : /^(learnerBaseText|learnerBaseCueText|subjectBaseText|meaningChoiceBaseText|teachingNoteBaseText)$/u.test(name) || parts[0] === "copy" ? baseLocale
         : /^(englishAuditText|english|meaning)$/u.test(name) ? "en" : "und";
-      addField(fields, { file, contentId, field: pointer(...parts), locale, text: node });
+      const context = lessonContext(parts);
+      addField(fields, { file, contentId, field: pointer(...parts), locale, text: node,
+        ...(context === undefined ? {} : { [FIXED_LESSON_EXAMPLE]: context }) });
     } else if (node && typeof node === "object") {
       for (const [key, child] of Object.entries(node)) visit(child, [...parts, key], node.id || contentId);
     }
@@ -553,7 +567,9 @@ function extractWordWorld(value, file) {
   if (pack.$schema === TARGET_REALIZATION_RUNTIME_SCHEMA) {
     validateTargetRealizationRuntimeProjection(pack);
     return extractModernGameText({ ...pack, targetLanguage: pack.targetLanguage.languageTag },
-      file, ["realizations"], pack.realizations.length);
+      file, ["realizations"], pack.realizations.length, {
+        lessonContext: parts => parts.length === 3 && parts[2] === "text" ? true : undefined
+      });
   }
   const rows = expectArray(pack.records, `${file}/records`);
   const fields = [];
@@ -844,6 +860,9 @@ function credentialSolicitationCs(tokens) {
 function personalDataSolicitationEn(tokens) {
   if (includesAnySequence(tokens, [
     ["what", "is", "your", "name"],
+    ["what", "is", "your", "full", "name"],
+    ["what's", "your", "name"],
+    ["what's", "your", "full", "name"],
     ["what", "is", "your", "surname"],
     ["what", "is", "your", "address"],
     ["what", "is", "your", "email", "address"],
@@ -855,10 +874,30 @@ function personalDataSolicitationEn(tokens) {
     ["share", "your", "location"],
   ])) return true;
   return includesAnySequence(tokens, ["tell", "give", "send", "show", "write", "share"].flatMap((verb) => [
+    [verb, "me", "your", "name"],
+    [verb, "me", "your", "full", "name"],
+    [verb, "me", "your", "surname"],
     [verb, "me", "your", "address"],
     [verb, "me", "your", "email"],
     [verb, "me", "your", "phone", "number"],
   ]));
+}
+
+function isFixedNameLesson(value) {
+  const normalized = normalizeSafetyText(value);
+  return /^(?:what is your name|what's your name|write your name|can you spell your surname|jak se jmenuješ|jak se jmenujete|jaké je tvoje jméno|jaké je vaše jméno)$/u.test(normalized);
+}
+
+function personalDataTokens(field, tokens) {
+  const context = field?.[FIXED_LESSON_EXAMPLE];
+  // The learner reconstructs or recognizes this fixed expression; no personal
+  // name is requested as an answer. Longer requests and all other rules still apply.
+  if (context === true && isFixedNameLesson(field.text)) return [];
+  if (typeof context !== "string" || !isFixedNameLesson(context)) return tokens;
+  const example = normalizeSafetyText(context);
+  const surrounding = String(field.text).replace(/"([^"\r\n]+)"|“([^”\r\n]+)”|«([^»\r\n]+)»|„([^“\r\n]+)“/gu,
+    (quoted, ...groups) => normalizeSafetyText(groups.slice(0, 4).find(value => value !== undefined)) === example ? " lesson example " : quoted);
+  return safetyTokens(surrounding, field.locale);
 }
 
 function personalDataSolicitationCs(tokens) {

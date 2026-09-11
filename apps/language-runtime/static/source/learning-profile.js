@@ -65,6 +65,14 @@
   const gameStateValidators = new Map();
   const journalPrefix = `${performanceStorageKey}.pending.`;
   const resetKey = `${performanceStorageKey}.reset`;
+  // Separate from the legacy score journal: older cached clients may compact
+  // scores but must never discard item familiarity they do not understand.
+  const legacyContentStorageKey = `${namespace}.learning.content.v1`;
+  const contentStorageKey = `${namespace}.learning.content.v2`;
+  const contentJournalPrefix = `${contentStorageKey}.pending.`;
+  const pendingContentEvents = new Map();
+  let contentCompaction = null;
+  let contentJsonCache = null;
   const pendingEvents = new Map();
   const uniqueId = () => window.crypto?.randomUUID?.()
     || `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}-${Math.random().toString(36).slice(2)}`;
@@ -99,6 +107,10 @@
     const maximumVersion = gameStateVersions.get(key)
       ?? ([performanceStorageKey, preferenceStorageKey, streakStorageKey].includes(key) ? schemaVersion : Infinity);
     const decode = (raw) => {
+      const cacheable = key === contentStorageKey && options.contentCheckpoint === true;
+      const validator = gameStateValidators.get(key);
+      if (cacheable && contentJsonCache?.raw === raw && contentJsonCache.maximumVersion === maximumVersion
+        && contentJsonCache.validator === validator) return contentJsonCache.value;
       const value = JSON.parse(raw || "null");
       if (value && typeof value.schemaVersion === "number" && value.schemaVersion > maximumVersion) {
         damagedValues.set(key, { raw, future: true });
@@ -107,6 +119,7 @@
       if (value !== null && gameStateValidators.has(key) && !gameStateValidators.get(key)(value)) {
         throw new Error("Stored game progress needs recovery.");
       }
+      if (cacheable) contentJsonCache = { raw, value, maximumVersion, validator };
       return value;
     };
     let raw;
@@ -143,6 +156,9 @@
       const raw = JSON.stringify(value);
       window.localStorage.setItem(key, raw);
       window.localStorage.setItem(`${key}.backup`, raw);
+      if (key === contentStorageKey && value?.schemaVersion === 3 && decodedContentCheckpoints.has(value)) {
+        contentJsonCache = { raw, value, maximumVersion: 3, validator: validContentCheckpoint };
+      }
       pendingValues.delete(key);
       damagedValues.delete(key);
       clearSaveFailure(`read:${key}`);
@@ -630,7 +646,7 @@
 
   const retryPendingSaves = async () => {
     for (const key of [...damagedValues.keys()]) {
-      if (performanceStoragePattern.test(key) || pendingValues.has(key)) continue;
+      if (key === legacyContentStorageKey || performanceStoragePattern.test(key) || pendingValues.has(key)) continue;
       const recovered = readJson(key, {}, false);
       const damaged = damagedValues.get(key);
       if (damaged?.recoverable && !damaged.future) writeJson(key, recovered);
@@ -642,6 +658,7 @@
     for (const entry of [...pendingEvents.values()]) persistEvent(entry);
     if (compaction) await compaction;
     await scheduleCompaction();
+    await scheduleContentCompaction();
     const retries = await Promise.allSettled([...retryHandlers].map((handler) => Promise.resolve().then(handler)));
     const failed = retries.find((result) => result.status === "rejected");
     if (failed) reportSaveFailure("retry", failed.reason);
@@ -650,6 +667,462 @@
   };
 
   const readDifficulty = () => normalizeDifficulty(readJson(preferenceStorageKey)?.difficulty);
+
+  const contentObject = value => Boolean(value) && typeof value === "object" && !Array.isArray(value);
+  const contentIdentifier = value => typeof value === "string" && value.length > 0 && value.length <= 256
+    && !/[\u0000-\u001f\u007f]/u.test(value);
+  const validLegacyContentState = value => value?.schemaVersion === 1 && typeof value.generation === "string"
+    && contentObject(value.banks) && Array.isArray(value.applied)
+    && value.applied.every(contentIdentifier)
+    && Object.values(value.banks).every(bank => contentObject(bank) && Object.values(bank).every(item =>
+      contentObject(item) && ["exposures", "successes", "mistakes"].every(key => Number.isSafeInteger(item[key]) && item[key] >= 0)
+      && typeof item.lastSeenAt === "string" && Boolean(validDate(item.lastSeenAt))
+      && [null, true, false].includes(item.lastCorrect) && Array.isArray(item.encounters)
+      && item.encounters.every(contentIdentifier)));
+  const validLegacyContentEvent = event => event?.schemaVersion === 1 && contentIdentifier(event.id)
+    && /^[a-z0-9-]{1,40}$/u.test(event.gameId) && contentIdentifier(event.bankId)
+    && contentIdentifier(event.itemId) && contentIdentifier(event.encounterId)
+    && typeof event.generation === "string" && typeof event.at === "string" && Boolean(validDate(event.at))
+    && [null, true, false].includes(event.correct);
+  const contentEvidence = value => ["exposure", "assisted", "independent"].includes(value);
+  const nullableContentDate = value => value === null || (typeof value === "string" && Boolean(validDate(value)));
+  const contentCounts = ["exposures", "successes", "mistakes", "independentSuccesses", "assistedSuccesses",
+    "spacedSuccesses", "independentDays", "intervalMs", "lapses"];
+  const contentDates = ["firstSeenAt", "lastSeenAt", "lastIndependentAt", "lastAttemptAt", "lastAssistedAt", "dueAt", "spacingAnchorAt"];
+  const validContentState = value => value?.schemaVersion === 2 && typeof value.generation === "string"
+    && Number.isSafeInteger(value.revision) && value.revision >= 0
+    && contentObject(value.banks) && Array.isArray(value.applied) && value.applied.every(contentIdentifier)
+    && Object.values(value.banks).every(bank => contentObject(bank) && Object.values(bank).every(item =>
+      contentObject(item) && contentCounts.every(key => Number.isSafeInteger(item[key]) && item[key] >= 0)
+      && (item.practiceDays === undefined || (Number.isSafeInteger(item.practiceDays) && item.practiceDays >= 0))
+      && (item.lastPracticeDayAt === undefined || nullableContentDate(item.lastPracticeDayAt))
+      && contentDates.every(key => nullableContentDate(item[key])) && item.firstSeenAt !== null && item.lastSeenAt !== null
+      && [null, true, false].includes(item.lastCorrect) && contentEvidence(item.lastEvidence)
+      && contentObject(item.encounters) && Object.entries(item.encounters).every(([id, receipt]) => contentIdentifier(id)
+        && contentObject(receipt) && Number.isSafeInteger(receipt.flags) && receipt.flags >= 0 && receipt.flags <= 127
+        && typeof receipt.at === "string" && Boolean(validDate(receipt.at))
+        && (receipt.reviewAt === undefined || (typeof receipt.reviewAt === "string" && Boolean(validDate(receipt.reviewAt)))))));
+  const validContentEvent = event => event?.schemaVersion === 2 && contentEvidence(event.evidence)
+    && Number.isSafeInteger(event.order) && event.order >= 0
+    && (event.previousExposureAt === undefined || nullableContentDate(event.previousExposureAt))
+    && validLegacyContentEvent({ ...event, schemaVersion: 1 });
+  const contentJournalEntries = (storageKey = contentStorageKey) => {
+    const legacy = storageKey === legacyContentStorageKey;
+    const prefix = `${storageKey}.pending.`;
+    const failurePrefix = legacy ? "legacy-content-journal" : "content-journal";
+    const entries = new Map(legacy ? [] : pendingContentEvents);
+    try {
+      const storage = window.localStorage;
+      const keys = Array.from({ length: storage.length }, (_, index) => storage.key(index));
+      for (const key of keys) {
+        if (!key?.startsWith(prefix)) continue;
+        try {
+          const event = JSON.parse(storage.getItem(key));
+          if (event === null) continue;
+          if (!(legacy ? validLegacyContentEvent : validContentEvent)(event) || key !== `${prefix}${event.id}`) throw new Error("Pending content exposure needs recovery.");
+          entries.set(event.id, event);
+          clearSaveFailure(`${failurePrefix}:${key}`);
+        } catch (error) { reportSaveFailure(`${failurePrefix}:${key}`, error); }
+      }
+      clearSaveFailure(`${failurePrefix}-read`);
+    } catch (error) { reportSaveFailure(`${failurePrefix}-read`, error); }
+    // The logical order preserves sequential encounters within one millisecond
+    // without inventing elapsed time. Truly concurrent ties prefer a mistake.
+    const resultOrder = event => event.correct === false ? 0 : event.correct === null ? 1 : 2;
+    return [...entries.values()].sort((a, b) => (legacy ? 0 : a.order - b.order) || a.at.localeCompare(b.at)
+      || resultOrder(a) - resultOrder(b) || a.id.localeCompare(b.id));
+  };
+  const emptyContentItem = at => ({ exposures: 0, successes: 0, mistakes: 0, firstSeenAt: at, lastSeenAt: at,
+    lastCorrect: null, independentSuccesses: 0, assistedSuccesses: 0, lastIndependentAt: null,
+    spacedSuccesses: 0, independentDays: 0, intervalMs: 0, dueAt: null, lapses: 0,
+    lastEvidence: "exposure", lastAttemptAt: null, lastAssistedAt: null, spacingAnchorAt: null,
+    practiceDays: 0, lastPracticeDayAt: null, encounters: {} });
+  const receiptFlags = Object.freeze({ success: 1, mistake: 2, independent: 4, assisted: 8, support: 16, day: 32, spaced: 64 });
+  const contentReviewDelay = 10 * 60 * 1000;
+  const setOwnContent = (object, key, value) => Object.defineProperty(object, key,
+    { value, enumerable: true, configurable: true, writable: true });
+  // v3 only changes the checkpoint representation. Journals and the public
+  // history remain v2-shaped. Every receipt survives: a fixed-size history tail
+  // would let delayed callbacks manufacture encounters after a reload.
+  const compactContentCounts = [...contentCounts, "practiceDays"];
+  const compactContentDates = [...contentDates, "lastPracticeDayAt"];
+  const compactContentEvidence = ["exposure", "assisted", "independent"];
+  const compactContentOutcomes = [null, true, false];
+  const compactContentFields = new Set([...compactContentCounts, ...compactContentDates, "lastCorrect", "lastEvidence", "encounters"]);
+  const decodedContentCheckpoints = new WeakMap();
+  const packedDigit = value => String.fromCharCode(256 + value);
+  const unpackedDigit = (text, index) => {
+    const value = text.charCodeAt(index) - 256;
+    if (!Number.isInteger(value) || value < 0 || value >= 32768) throw new Error("Invalid packed content digit.");
+    return value;
+  };
+  const packContentInteger = value => {
+    if (!Number.isSafeInteger(value)) throw new Error("Content time delta cannot be packed losslessly.");
+    let remaining = Math.abs(value);
+    let digits = "";
+    do { digits += packedDigit(remaining % 32768); remaining = Math.floor(remaining / 32768); } while (remaining);
+    return packedDigit(digits.length + (value < 0 ? 8 : 0)) + digits;
+  };
+  const unpackContentInteger = (text, cursor) => {
+    const header = unpackedDigit(text, cursor.index++);
+    const length = header & 7;
+    if (header > 12 || length < 1 || length > 4) throw new Error("Invalid packed content integer.");
+    let value = 0;
+    for (let index = 0; index < length; index += 1) value += unpackedDigit(text, cursor.index++) * (32768 ** index);
+    if (!Number.isSafeInteger(value) || (length > 1 && unpackedDigit(text, cursor.index - 1) === 0)
+      || ((header & 8) && value === 0)) throw new Error("Noncanonical packed content integer.");
+    return header & 8 ? -value : value;
+  };
+  const packContentId = id => {
+    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/u.test(id)) return `s${id}`;
+    const hex = id.replaceAll("-", "");
+    let bits = 0; let buffer = 0; let result = "u";
+    for (let index = 0; index < hex.length; index += 2) {
+      buffer |= Number.parseInt(hex.slice(index, index + 2), 16) << bits;
+      bits += 8;
+      if (bits >= 15) { result += packedDigit(buffer & 32767); buffer >>>= 15; bits -= 15; }
+    }
+    if (bits) result += packedDigit(buffer);
+    return result;
+  };
+  const unpackContentId = packed => {
+    if (packed.startsWith("s")) {
+      const id = packed.slice(1);
+      if (!contentIdentifier(id) || packContentId(id) !== packed) throw new Error("Invalid packed content ID.");
+      return id;
+    }
+    if (!packed.startsWith("u") || packed.length !== 10) throw new Error("Invalid packed UUID.");
+    let bits = 0; let buffer = 0; let hex = "";
+    for (let index = 1; index < packed.length; index += 1) {
+      const digit = unpackedDigit(packed, index);
+      if (index === 9 && digit > 255) throw new Error("Invalid packed UUID tail.");
+      buffer |= digit << bits; bits += 15;
+      while (bits >= 8 && hex.length < 32) {
+        hex += (buffer & 255).toString(16).padStart(2, "0"); buffer >>>= 8; bits -= 8;
+      }
+    }
+    return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+  };
+  const compactContentDate = value => {
+    if (value === null) return null;
+    const at = Date.parse(value);
+    return new Date(at).toISOString() === value ? at : value;
+  };
+  const expandContentDate = value => {
+    if (value === null || typeof value === "string") return value;
+    if (!Number.isSafeInteger(value)) throw new Error("Invalid compact content date.");
+    return new Date(value).toISOString();
+  };
+  const packContentReceipt = (receipt, baseAt) => {
+    const at = Date.parse(receipt.at) - baseAt;
+    const reviewAt = receipt.reviewAt === undefined ? null : Date.parse(receipt.reviewAt) - baseAt;
+    // Preserve unusual but readable legacy timestamps exactly.
+    if (Object.keys(receipt).some(field => !["flags", "at", "reviewAt"].includes(field))
+      || typeof compactContentDate(receipt.at) !== "number" || !Number.isSafeInteger(at)
+      || (reviewAt !== null && (typeof compactContentDate(receipt.reviewAt) !== "number" || !Number.isSafeInteger(reviewAt)))) return { ...receipt };
+    const sameReviewTime = reviewAt !== null && reviewAt === at;
+    return packedDigit(receipt.flags | (reviewAt === null ? 0 : 128) | (sameReviewTime ? 256 : 0)) + packContentInteger(at)
+      + (reviewAt === null || sameReviewTime ? "" : packContentInteger(reviewAt));
+  };
+  const unpackContentReceipt = (packed, baseAt) => {
+    if (contentObject(packed)) return { ...packed };
+    if (typeof packed !== "string") throw new Error("Invalid compact content receipt.");
+    const flags = unpackedDigit(packed, 0);
+    if (flags > 511 || ((flags & 256) && !(flags & 128))) throw new Error("Invalid compact content flags.");
+    const cursor = { index: 1 };
+    const at = baseAt + unpackContentInteger(packed, cursor);
+    const receipt = { flags: flags & 127, at: expandContentDate(at) };
+    if (flags & 128) receipt.reviewAt = flags & 256 ? receipt.at : expandContentDate(baseAt + unpackContentInteger(packed, cursor));
+    if (cursor.index !== packed.length) throw new Error("Trailing compact content data.");
+    return receipt;
+  };
+  const packContentCheckpoint = value => {
+    const packed = { ...value, schemaVersion: 3,
+    banks: Object.fromEntries(Object.entries(value.banks).map(([bankId, bank]) => [bankId,
+      Object.fromEntries(Object.entries(bank).map(([id, item]) => {
+        const extras = Object.fromEntries(Object.entries(item).filter(([field]) => !compactContentFields.has(field)));
+        return [id, [
+        [...compactContentCounts.map(field => item[field] ?? 0),
+          ...compactContentDates.map(field => compactContentDate(item[field] ?? null)),
+          compactContentOutcomes.indexOf(item.lastCorrect), compactContentEvidence.indexOf(item.lastEvidence)],
+        Object.fromEntries(Object.entries(item.encounters).map(([encounterId, receipt]) =>
+          [packContentId(encounterId), packContentReceipt(receipt, Date.parse(item.firstSeenAt))])),
+        ...(Object.keys(extras).length ? [extras] : [])
+      ]]; }))])) };
+    decodedContentCheckpoints.set(packed, value);
+    return packed;
+  };
+  const unpackContentCheckpoint = value => {
+    if (value?.schemaVersion === 2) return value;
+    if (decodedContentCheckpoints.has(value)) return decodedContentCheckpoints.get(value);
+    if (value?.schemaVersion !== 3 || !contentObject(value.banks)) throw new Error("Invalid compact content checkpoint.");
+    const banks = {};
+    for (const [bankId, bank] of Object.entries(value.banks)) {
+      if (!contentObject(bank)) throw new Error("Invalid compact content bank.");
+      const expanded = {};
+      for (const [id, tuple] of Object.entries(bank)) {
+        if (!Array.isArray(tuple) || ![2, 3].includes(tuple.length) || !Array.isArray(tuple[0])
+          || tuple[0].length !== compactContentCounts.length + compactContentDates.length + 2
+          || !contentObject(tuple[1]) || (tuple.length === 3 && (!contentObject(tuple[2])
+            || Object.keys(tuple[2]).some(field => compactContentFields.has(field))))) throw new Error("Invalid compact content item.");
+        const [summary, receipts, extras = {}] = tuple; const item = { ...extras }; let index = 0;
+        for (const field of compactContentCounts) item[field] = summary[index++];
+        for (const field of compactContentDates) item[field] = expandContentDate(summary[index++]);
+        if (!Number.isInteger(summary[index]) || summary[index] < 0 || summary[index] >= compactContentOutcomes.length
+          || !Number.isInteger(summary[index + 1]) || summary[index + 1] < 0 || summary[index + 1] >= compactContentEvidence.length) {
+          throw new Error("Invalid compact content outcome.");
+        }
+        item.lastCorrect = compactContentOutcomes[summary[index++]];
+        item.lastEvidence = compactContentEvidence[summary[index++]];
+        item.encounters = {};
+        for (const [packedId, packedReceipt] of Object.entries(receipts)) {
+          const encounterId = unpackContentId(packedId);
+          if (Object.hasOwn(item.encounters, encounterId)) throw new Error("Repeated compact content ID.");
+          setOwnContent(item.encounters, encounterId, unpackContentReceipt(packedReceipt, Date.parse(item.firstSeenAt)));
+        }
+        setOwnContent(expanded, id, item);
+      }
+      setOwnContent(banks, bankId, expanded);
+    }
+    const expanded = { ...value, schemaVersion: 2, banks };
+    if (!validContentState(expanded)) throw new Error("Invalid expanded content checkpoint.");
+    decodedContentCheckpoints.set(value, expanded);
+    return expanded;
+  };
+  const validContentCheckpoint = value => {
+    try { return validContentState(unpackContentCheckpoint(value)); } catch { return false; }
+  };
+  const latestReceiptAt = (item, flag) => Object.values(item.encounters).filter(receipt => receipt.flags & flag)
+    .map(receipt => receipt.at).sort().at(-1) || null;
+  const bringContentReviewForward = (item, at, receipt) => {
+    // A fresh attempt starts a new short review interval, including when its
+    // previous deadline has expired. Re-delivery/correction of that encounter
+    // cannot keep postponing the review.
+    if (receipt.reviewAt !== undefined) return;
+    receipt.reviewAt = at;
+    item.intervalMs = Math.min(item.intervalMs || contentReviewDelay, contentReviewDelay);
+    item.dueAt = new Date(Date.parse(at) + item.intervalMs).toISOString();
+  };
+  const applyContentEvent = (item, event) => {
+    const flags = receiptFlags;
+    const previousPracticeAt = Math.max(...[item.lastSeenAt, item.lastAttemptAt, event.previousExposureAt]
+      .map(value => Date.parse(value)).filter(Number.isFinite));
+    const exists = Object.hasOwn(item.encounters, event.encounterId);
+    const receipt = exists ? item.encounters[event.encounterId] : { flags: 0, at: event.at };
+    item.practiceDays ??= 0;
+    item.lastPracticeDayAt ??= null;
+    if (!exists) {
+      item.exposures += 1;
+      item.firstSeenAt = item.firstSeenAt < event.at ? item.firstSeenAt : event.at;
+      setOwnContent(item.encounters, event.encounterId, receipt);
+      // Spaced participation is only an exploration signal. It never grants
+      // independent recall, enlarges a review interval, or removes uncertainty.
+      if (item.lastPracticeDayAt === null || (event.at.slice(0, 10) !== item.lastPracticeDayAt.slice(0, 10)
+        && Date.parse(event.at) - Date.parse(item.lastPracticeDayAt) >= dayMillis)) {
+        item.practiceDays += 1;
+        item.lastPracticeDayAt = event.at;
+      }
+    }
+    let changed = !exists;
+    if (event.correct === false && !(receipt.flags & flags.mistake)) {
+      item.mistakes += 1; item.lapses += 1; changed = true;
+      receipt.flags |= flags.mistake;
+      // Concurrent/delayed delivery must not transform a corrected mistake into
+      // unaided recall, even if its success was checkpointed first.
+      if (receipt.flags & flags.independent) {
+        item.independentSuccesses -= 1; receipt.flags &= ~flags.independent;
+        if (receipt.flags & flags.day) { item.independentDays -= 1; receipt.flags &= ~flags.day; }
+        if (receipt.flags & flags.spaced) { item.spacedSuccesses -= 1; receipt.flags &= ~flags.spaced; }
+        item.lastIndependentAt = latestReceiptAt(item, flags.independent);
+        item.spacingAnchorAt = latestReceiptAt(item, flags.day);
+      }
+      bringContentReviewForward(item, event.at, receipt);
+    }
+    if (event.evidence === "assisted" && !(receipt.flags & flags.support)) {
+      receipt.flags |= flags.support; changed = true;
+      item.lastAssistedAt = !item.lastAssistedAt || event.at > item.lastAssistedAt ? event.at : item.lastAssistedAt;
+      bringContentReviewForward(item, event.at, receipt);
+    }
+    if (event.correct === true && !(receipt.flags & flags.success)) {
+      receipt.flags |= flags.success; item.successes += 1; changed = true;
+      if (!exists && event.evidence === "independent" && !(receipt.flags & (flags.mistake | flags.support))) {
+        receipt.flags |= flags.independent; item.independentSuccesses += 1;
+        item.lastIndependentAt = !item.lastIndependentAt || event.at > item.lastIndependentAt ? event.at : item.lastIndependentAt;
+        const first = item.spacingAnchorAt === null;
+        const elapsed = first ? 0 : Date.parse(event.at) - Date.parse(item.spacingAnchorAt);
+        const spaced = !first && event.at.slice(0, 10) !== item.spacingAnchorAt.slice(0, 10)
+          && elapsed >= Math.max(dayMillis, item.intervalMs)
+          && Date.parse(event.at) - previousPracticeAt >= Math.max(dayMillis, item.intervalMs);
+        if (first || spaced) {
+          receipt.flags |= flags.day; item.independentDays += 1;
+          if (spaced) { receipt.flags |= flags.spaced; item.spacedSuccesses += 1; }
+          item.intervalMs = first ? dayMillis : Math.min(30 * dayMillis,
+            Math.round(Math.max(dayMillis, item.intervalMs) * 1.8));
+          item.spacingAnchorAt = event.at;
+          item.dueAt = new Date(Date.parse(event.at) + item.intervalMs).toISOString();
+        } else if (Date.parse(event.at) >= previousPracticeAt) {
+          // Rehearsal restarts the current interval without enlarging it or
+          // earning spaced credit. A clock rollback cannot pull it backward.
+          item.dueAt = new Date(Date.parse(event.at) + item.intervalMs).toISOString();
+        }
+      }
+    }
+    if ((receipt.flags & flags.success) && !(receipt.flags & (flags.independent | flags.assisted))
+      && ((receipt.flags & (flags.mistake | flags.support)) || (event.correct === true && event.evidence !== "exposure"
+        && (exists || event.evidence === "assisted")))) {
+      receipt.flags |= flags.assisted; item.assistedSuccesses += 1; changed = true;
+      item.lastAssistedAt = !item.lastAssistedAt || event.at > item.lastAssistedAt ? event.at : item.lastAssistedAt;
+      bringContentReviewForward(item, event.at, receipt);
+    }
+    if (changed) {
+      if (event.at > item.lastSeenAt) item.lastSeenAt = event.at;
+      if (event.correct !== null && (!item.lastAttemptAt || event.at >= item.lastAttemptAt)) {
+        item.lastAttemptAt = event.at;
+        item.lastCorrect = receipt.flags & flags.mistake ? false : event.correct;
+        item.lastEvidence = receipt.flags & flags.assisted ? "assisted"
+          : receipt.flags & flags.independent ? "independent" : event.evidence;
+      } else if (event.evidence === "assisted" && (!item.lastAttemptAt || event.at >= item.lastAttemptAt)) {
+        item.lastEvidence = "assisted";
+      }
+    }
+    return changed;
+  };
+  const contentState = () => {
+    // Cache only an exact, validated checkpoint string. Reset markers and
+    // journals are still read afresh, and the decoded state below is cloned
+    // before applying events. Public readGameState callers receive fresh data.
+    const checkpoint = readJson(contentStorageKey, { maxSchemaVersion: 3, validate: validContentCheckpoint, contentCheckpoint: true });
+    const stored = checkpoint ? unpackContentCheckpoint(checkpoint) : null;
+    let generation = stored?.generation || "legacy";
+    try {
+      generation = window.localStorage.getItem(resetKey) || "legacy";
+      clearSaveFailure("content-generation");
+    }
+    catch (error) { reportSaveFailure("content-generation", error); }
+    const value = stored?.generation === generation ? JSON.parse(JSON.stringify(stored))
+      : { schemaVersion: 2, generation, revision: 0, banks: {}, applied: [] };
+    const applied = new Set(value.applied);
+    const entries = contentJournalEntries().filter(event => event.generation === generation);
+    for (const event of entries) {
+      value.revision = Math.max(value.revision, event.order);
+      if (event.generation !== generation || applied.has(event.id)) continue;
+      const key = JSON.stringify([canonicalPerformanceGameId(event.gameId), event.bankId]);
+      const bank = Object.hasOwn(value.banks, key) ? value.banks[key] : {};
+      const item = Object.hasOwn(bank, event.itemId) ? bank[event.itemId] : emptyContentItem(event.at);
+      applyContentEvent(item, event);
+      setOwnContent(bank, event.itemId, item);
+      value.banks[key] = bank;
+    }
+    return { value, entries };
+  };
+  const legacyContentBank = (gameId, bankId, generation) => {
+    const stored = readJson(legacyContentStorageKey, { maxSchemaVersion: 1, validate: validLegacyContentState });
+    const key = JSON.stringify([canonicalPerformanceGameId(gameId), bankId]);
+    const bank = stored?.generation === generation && Object.hasOwn(stored.banks, key)
+      ? JSON.parse(JSON.stringify(stored.banks[key])) : {};
+    const applied = new Set(stored?.generation === generation ? stored.applied : []);
+    for (const event of contentJournalEntries(legacyContentStorageKey)) {
+      if (event.generation !== generation || applied.has(event.id) || canonicalPerformanceGameId(event.gameId) !== canonicalPerformanceGameId(gameId)
+        || event.bankId !== bankId) continue;
+      const item = Object.hasOwn(bank, event.itemId) ? bank[event.itemId]
+        : { exposures: 0, successes: 0, mistakes: 0, lastSeenAt: event.at, lastCorrect: null, encounters: [] };
+      if (item.encounters.includes(event.encounterId)) continue;
+      item.exposures += 1; item.successes += Number(event.correct === true); item.mistakes += Number(event.correct === false);
+      if (event.at >= item.lastSeenAt) { item.lastSeenAt = event.at; item.lastCorrect = event.correct; }
+      item.encounters.push(event.encounterId); setOwnContent(bank, event.itemId, item);
+    }
+    return bank;
+  };
+  const contentHistory = (gameId, bankId = "default") => {
+    const key = JSON.stringify([canonicalPerformanceGameId(gameId), bankId]);
+    const { value } = contentState();
+    const bank = value.banks[key] || {};
+    // Keep v1 immutable: cached v1 compactors may still run. Its old scores
+    // contribute exposure history, never independent or spaced evidence.
+    const legacy = legacyContentBank(gameId, bankId, value.generation);
+    return Object.fromEntries([...new Set([...Object.keys(bank), ...Object.keys(legacy)])].map(id => {
+      const item = Object.hasOwn(bank, id) ? bank[id] : emptyContentItem(legacy[id].lastSeenAt);
+      const { encounters, spacingAnchorAt, ...summary } = item;
+      summary.practiceDays ??= 0;
+      summary.lastPracticeDayAt ??= null;
+      if (Object.hasOwn(legacy, id)) {
+        const old = legacy[id];
+        for (const field of ["exposures", "successes", "mistakes"]) summary[field] += old[field];
+        summary.firstSeenAt = old.lastSeenAt < summary.firstSeenAt ? old.lastSeenAt : summary.firstSeenAt;
+        summary.lastSeenAt = old.lastSeenAt > summary.lastSeenAt ? old.lastSeenAt : summary.lastSeenAt;
+        if (!summary.lastAttemptAt) summary.lastCorrect = old.lastCorrect;
+      }
+      return [id, summary];
+    }));
+  };
+  const persistContentEvent = event => {
+    const key = `${contentJournalPrefix}${event.id}`;
+    try {
+      window.localStorage.setItem(key, JSON.stringify(event));
+      pendingContentEvents.delete(event.id);
+      clearSaveFailure(`content-journal:${key}`);
+    } catch (error) {
+      pendingContentEvents.set(event.id, event);
+      reportSaveFailure(`content-journal:${key}`, error);
+    }
+  };
+  const compactContent = () => {
+    for (const event of [...pendingContentEvents.values()]) persistContentEvent(event);
+    if (pendingContentEvents.size) throw new Error("Content exposure is waiting to be saved.");
+    const { value, entries } = contentState();
+    if ([...saveFailures.keys()].some(key => key === `read:${contentStorageKey}`
+      || key === "content-generation" || key === "content-journal-read" || key.startsWith("content-journal:"))) {
+      throw new Error("Existing content progress needs recovery.");
+    }
+    if (!entries.length) return;
+    value.applied = entries.filter(event => event.generation === value.generation).map(event => event.id);
+    if (!writeJson(contentStorageKey, packContentCheckpoint(value), false)) throw new Error("Content checkpoint could not be saved.");
+    // A reset can interleave across tabs even during synchronous localStorage
+    // operations. Never delete encounters belonging to a newer generation.
+    if ((window.localStorage.getItem(resetKey) || "legacy") !== value.generation) return;
+    for (const event of entries) {
+      const key = `${contentJournalPrefix}${event.id}`;
+      try { window.localStorage.removeItem(key); clearSaveFailure(`content-journal:${key}`); }
+      catch (error) { reportSaveFailure(`content-journal:${key}`, error); }
+    }
+  };
+  const scheduleContentCompaction = () => {
+    if (contentCompaction) return contentCompaction;
+    contentCompaction = Promise.resolve().then(() => withProgressLock(compactContent))
+      .then(() => clearSaveFailure("content-checkpoint"))
+      .catch(error => reportSaveFailure("content-checkpoint", error))
+      .finally(() => { contentCompaction = null; });
+    return contentCompaction;
+  };
+  const contentGeneration = () => {
+    try {
+      const generation = window.localStorage.getItem(resetKey) || "legacy";
+      clearSaveFailure("content-generation");
+      return generation;
+    } catch (error) {
+      reportSaveFailure("content-generation", error);
+      return null;
+    }
+  };
+  const recordExposure = (gameId, { bankId = "default", itemId, encounterId, correct = null, generation, evidence = "exposure", previousExposureAt } = {}) => {
+    const state = contentState();
+    // Presentations capture their generation before a possible cross-tab reset.
+    // Legacy callers may omit it; an explicitly unknown generation fails closed.
+    if (generation !== undefined && (typeof generation !== "string"
+      || generation !== state.value.generation || saveFailures.has("content-generation"))) return false;
+    if (evidence !== "exposure" && saveFailures.has("content-generation")) return false;
+    const event = { schemaVersion: 2, id: uniqueId(), generation: state.value.generation, order: state.value.revision + 1,
+      gameId: canonicalPerformanceGameId(gameId), bankId, itemId, encounterId, correct, evidence, at: new Date().toISOString() };
+    if (previousExposureAt !== undefined) event.previousExposureAt = previousExposureAt;
+    if (!validContentEvent(event)) throw new TypeError("A completed content encounter needs valid IDs, a boolean or null result, and exposure, assisted or independent evidence.");
+    const bank = state.value.banks[JSON.stringify([event.gameId, bankId])];
+    if (bank && Object.hasOwn(bank, itemId) && !applyContentEvent(JSON.parse(JSON.stringify(bank[itemId])), event)) return contentHistory(event.gameId, bankId);
+    const old = legacyContentBank(event.gameId, bankId, state.value.generation);
+    if (Object.hasOwn(old, itemId) && old[itemId].encounters.includes(encounterId)) return contentHistory(event.gameId, bankId);
+    persistContentEvent(event);
+    void scheduleContentCompaction();
+    return contentHistory(event.gameId, bankId);
+  };
 
   const difficultyOption = (level = readDifficulty()) => (
     difficultyLevels.find((option) => option.level === normalizeDifficulty(level)) || difficultyLevels[0]
@@ -788,6 +1261,7 @@
 
   const resetProgress = () => {
     const previous = performanceState();
+    const previousContent = contentState();
     if (previous.blocked) throw new Error("Progress could not be reset safely.");
     const generation = uniqueId();
     try { window.localStorage.setItem(resetKey, generation); }
@@ -800,11 +1274,16 @@
         window.localStorage.removeItem(`${journalPrefix}${entry.id}`);
         pendingEvents.delete(entry.id);
       }
+      for (const entry of previousContent.entries) {
+        window.localStorage.removeItem(`${contentJournalPrefix}${entry.id}`);
+        pendingContentEvents.delete(entry.id);
+      }
     } catch (error) {
       reportSaveFailure("reset-cleanup", error);
     }
     void scheduleCompaction();
     announceChange("progress-reset");
+    void scheduleContentCompaction();
     return snapshot();
   };
 
@@ -833,6 +1312,9 @@
     summarizeJourney,
     snapshot,
     record,
+    contentHistory,
+    contentGeneration,
+    recordExposure,
     refreshStreak,
     qualifyStreak,
     dueStreakReminders,

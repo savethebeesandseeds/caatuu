@@ -400,7 +400,8 @@ test("the shared Conjugation Comet host has no Spanish or Czech rendering fork",
   assert.match(host, /createSpeechIcon/u);
   assert.doesNotMatch(document, /conjugationCometSpeakPhrase|conjugationCometSelection/u);
   assert.match(host, /splitConjugationDisplay/u);
-  assert.match(host, /buildConjugationVerbQueue\(state\.catalog\.verbs/u);
+  assert.match(host, /selectConjugationPracticeVerbs\(state\.catalog\.verbs/u);
+  assert.match(host, /formHistory:\s*learning\.contentHistory\(GAME_ID,\s*"forms"\)/u);
   assert.match(host, /previousVerbId:\s*state\.current\?\.id/u);
   assert.doesNotMatch(host, /shuffleConjugationItems\(state\.catalog\.verbs/u);
   assert.match(document, /conjugation-comet-host\.mjs/u);

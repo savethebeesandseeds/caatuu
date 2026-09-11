@@ -45,39 +45,55 @@
         "Nominative": {
           "form": "Petr",
           "english": "Petr is reading.",
-          "czech": "Petr čte."
+          "czech": "Petr čte.",
+          "usefulness": 73,
+          "complexity": 27
         },
         "Genitive": {
           "form": "Petra",
           "english": "The letter is from Petr.",
-          "czech": "Dopis je od Petra."
+          "czech": "Dopis je od Petra.",
+          "usefulness": 54,
+          "complexity": 42
         },
         "Dative": {
           "form": "Petrovi",
           "english": "I am giving Petr a book.",
-          "czech": "Dávám Petrovi knihu."
+          "czech": "Dávám Petrovi knihu.",
+          "usefulness": 73,
+          "complexity": 45
         },
         "Accusative": {
           "form": "Petra",
           "english": "I see Petr.",
-          "czech": "Vidím Petra."
+          "czech": "Vidím Petra.",
+          "usefulness": 68,
+          "complexity": 29
         },
         "Vocative": {
           "form": "Petře",
           "english": "Petr, come here!",
-          "czech": "Petře, pojď sem!"
+          "czech": "Petře, pojď sem!",
+          "usefulness": 68,
+          "complexity": 56
         },
         "Locative": {
           "form": "Petrovi",
           "english": "I am talking about Petr.",
-          "czech": "Mluvím o Petrovi."
+          "czech": "Mluvím o Petrovi.",
+          "usefulness": 54,
+          "complexity": 40
         },
         "Instrumental": {
           "form": "Petrem",
           "english": "I am going with Petr.",
-          "czech": "Jdu s Petrem."
+          "czech": "Jdu s Petrem.",
+          "usefulness": 68,
+          "complexity": 46
         }
-      }
+      },
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "noun": "Jana",
@@ -86,39 +102,55 @@
         "Nominative": {
           "form": "Jana",
           "english": "Jana is working.",
-          "czech": "Jana pracuje."
+          "czech": "Jana pracuje.",
+          "usefulness": 77,
+          "complexity": 27
         },
         "Genitive": {
           "form": "Jany",
           "english": "The gift is from Jana.",
-          "czech": "Dárek je od Jany."
+          "czech": "Dárek je od Jany.",
+          "usefulness": 63,
+          "complexity": 42
         },
         "Dative": {
           "form": "Janě",
           "english": "I am writing to Jana.",
-          "czech": "Píšu Janě."
+          "czech": "Píšu Janě.",
+          "usefulness": 73,
+          "complexity": 45
         },
         "Accusative": {
           "form": "Janu",
           "english": "I know Jana.",
-          "czech": "Znám Janu."
+          "czech": "Znám Janu.",
+          "usefulness": 68,
+          "complexity": 29
         },
         "Vocative": {
           "form": "Jano",
           "english": "Jana, listen!",
-          "czech": "Jano, poslouchej!"
+          "czech": "Jano, poslouchej!",
+          "usefulness": 68,
+          "complexity": 56
         },
         "Locative": {
           "form": "Janě",
           "english": "I am talking about Jana.",
-          "czech": "Mluvím o Janě."
+          "czech": "Mluvím o Janě.",
+          "usefulness": 54,
+          "complexity": 40
         },
         "Instrumental": {
           "form": "Janou",
           "english": "I am going with Jana.",
-          "czech": "Jdu s Janou."
+          "czech": "Jdu s Janou.",
+          "usefulness": 68,
+          "complexity": 46
         }
-      }
+      },
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "noun": "kamarád",
@@ -127,39 +159,55 @@
         "Nominative": {
           "form": "kamarád",
           "english": "A friend is waiting.",
-          "czech": "Kamarád čeká."
+          "czech": "Kamarád čeká.",
+          "usefulness": 77,
+          "complexity": 27
         },
         "Genitive": {
           "form": "kamaráda",
           "english": "The message is from a friend.",
-          "czech": "Zpráva je od kamaráda."
+          "czech": "Zpráva je od kamaráda.",
+          "usefulness": 77,
+          "complexity": 42
         },
         "Dative": {
           "form": "kamarádovi",
           "english": "I am helping a friend.",
-          "czech": "Pomáhám kamarádovi."
+          "czech": "Pomáhám kamarádovi.",
+          "usefulness": 77,
+          "complexity": 45
         },
         "Accusative": {
           "form": "kamaráda",
           "english": "I see a friend.",
-          "czech": "Vidím kamaráda."
+          "czech": "Vidím kamaráda.",
+          "usefulness": 77,
+          "complexity": 29
         },
         "Vocative": {
           "form": "kamaráde",
           "english": "Friend, wait!",
-          "czech": "Kamaráde, počkej!"
+          "czech": "Kamaráde, počkej!",
+          "usefulness": 77,
+          "complexity": 56
         },
         "Locative": {
           "form": "kamarádovi",
           "english": "I am talking about a friend.",
-          "czech": "Mluvím o kamarádovi."
+          "czech": "Mluvím o kamarádovi.",
+          "usefulness": 77,
+          "complexity": 40
         },
         "Instrumental": {
           "form": "kamarádem",
           "english": "I am travelling with a friend.",
-          "czech": "Cestuji s kamarádem."
+          "czech": "Cestuji s kamarádem.",
+          "usefulness": 77,
+          "complexity": 46
         }
-      }
+      },
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "noun": "učitelka",
@@ -168,39 +216,55 @@
         "Nominative": {
           "form": "učitelka",
           "english": "The teacher is speaking.",
-          "czech": "Učitelka mluví."
+          "czech": "Učitelka mluví.",
+          "usefulness": 77,
+          "complexity": 27
         },
         "Genitive": {
           "form": "učitelky",
           "english": "The message is from the teacher.",
-          "czech": "Zpráva je od učitelky."
+          "czech": "Zpráva je od učitelky.",
+          "usefulness": 77,
+          "complexity": 42
         },
         "Dative": {
           "form": "učitelce",
           "english": "I am giving the teacher a ticket.",
-          "czech": "Dávám učitelce lístek."
+          "czech": "Dávám učitelce lístek.",
+          "usefulness": 81,
+          "complexity": 45
         },
         "Accusative": {
           "form": "učitelku",
           "english": "I see the teacher.",
-          "czech": "Vidím učitelku."
+          "czech": "Vidím učitelku.",
+          "usefulness": 77,
+          "complexity": 29
         },
         "Vocative": {
           "form": "učitelko",
           "english": "Teacher, please look!",
-          "czech": "Paní učitelko, prosím, podívejte se!"
+          "czech": "Paní učitelko, prosím, podívejte se!",
+          "usefulness": 77,
+          "complexity": 56
         },
         "Locative": {
           "form": "učitelce",
           "english": "I am talking about the teacher.",
-          "czech": "Mluvím o učitelce."
+          "czech": "Mluvím o učitelce.",
+          "usefulness": 77,
+          "complexity": 40
         },
         "Instrumental": {
           "form": "učitelkou",
           "english": "I am going with the teacher.",
-          "czech": "Jdu s učitelkou."
+          "czech": "Jdu s učitelkou.",
+          "usefulness": 77,
+          "complexity": 46
         }
-      }
+      },
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "noun": "kotě",
@@ -209,39 +273,55 @@
         "Nominative": {
           "form": "kotě",
           "english": "The kitten is sleeping.",
-          "czech": "Kotě spí."
+          "czech": "Kotě spí.",
+          "usefulness": 54,
+          "complexity": 27
         },
         "Genitive": {
           "form": "kotěte",
           "english": "This is the kitten's bowl.",
-          "czech": "To je miska kotěte."
+          "czech": "To je miska kotěte.",
+          "usefulness": 78,
+          "complexity": 42
         },
         "Dative": {
           "form": "kotěti",
           "english": "I am giving the kitten water.",
-          "czech": "Dávám kotěti vodu."
+          "czech": "Dávám kotěti vodu.",
+          "usefulness": 88,
+          "complexity": 45
         },
         "Accusative": {
           "form": "kotě",
           "english": "I see the kitten.",
-          "czech": "Vidím kotě."
+          "czech": "Vidím kotě.",
+          "usefulness": 68,
+          "complexity": 29
         },
         "Vocative": {
           "form": "kotě",
           "english": "Kitten, come here!",
-          "czech": "Kotě, pojď sem!"
+          "czech": "Kotě, pojď sem!",
+          "usefulness": 68,
+          "complexity": 56
         },
         "Locative": {
           "form": "kotěti",
           "english": "I am talking about the kitten.",
-          "czech": "Mluvím o kotěti."
+          "czech": "Mluvím o kotěti.",
+          "usefulness": 54,
+          "complexity": 41
         },
         "Instrumental": {
           "form": "kotětem",
           "english": "I am going with the kitten.",
-          "czech": "Jdu s kotětem."
+          "czech": "Jdu s kotětem.",
+          "usefulness": 68,
+          "complexity": 46
         }
-      }
+      },
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "noun": "Tomáš",
@@ -250,39 +330,55 @@
         "Nominative": {
           "form": "Tomáš",
           "english": "Tomáš is calling.",
-          "czech": "Tomáš volá."
+          "czech": "Tomáš volá.",
+          "usefulness": 54,
+          "complexity": 27
         },
         "Genitive": {
           "form": "Tomáše",
           "english": "The email is from Tomáš.",
-          "czech": "E-mail je od Tomáše."
+          "czech": "E-mail je od Tomáše.",
+          "usefulness": 72,
+          "complexity": 42
         },
         "Dative": {
           "form": "Tomášovi",
           "english": "I am giving Tomáš the key.",
-          "czech": "Dávám Tomášovi klíč."
+          "czech": "Dávám Tomášovi klíč.",
+          "usefulness": 68,
+          "complexity": 45
         },
         "Accusative": {
           "form": "Tomáše",
           "english": "I see Tomáš.",
-          "czech": "Vidím Tomáše."
+          "czech": "Vidím Tomáše.",
+          "usefulness": 68,
+          "complexity": 29
         },
         "Vocative": {
           "form": "Tomáši",
           "english": "Tomáš, sit down!",
-          "czech": "Tomáši, posaď se!"
+          "czech": "Tomáši, posaď se!",
+          "usefulness": 54,
+          "complexity": 56
         },
         "Locative": {
           "form": "Tomášovi",
           "english": "I am talking about Tomáš.",
-          "czech": "Mluvím o Tomášovi."
+          "czech": "Mluvím o Tomášovi.",
+          "usefulness": 54,
+          "complexity": 40
         },
         "Instrumental": {
           "form": "Tomášem",
           "english": "I am going with Tomáš.",
-          "czech": "Jdu s Tomášem."
+          "czech": "Jdu s Tomášem.",
+          "usefulness": 68,
+          "complexity": 46
         }
-      }
+      },
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "noun": "doktor",
@@ -291,39 +387,55 @@
         "Nominative": {
           "form": "doktor",
           "english": "The doctor is waiting.",
-          "czech": "Doktor čeká."
+          "czech": "Doktor čeká.",
+          "usefulness": 85,
+          "complexity": 27
         },
         "Genitive": {
           "form": "doktora",
           "english": "The message is from the doctor.",
-          "czech": "Zpráva je od doktora."
+          "czech": "Zpráva je od doktora.",
+          "usefulness": 85,
+          "complexity": 42
         },
         "Dative": {
           "form": "doktorovi",
           "english": "I am giving the doctor a document.",
-          "czech": "Dávám doktorovi dokument."
+          "czech": "Dávám doktorovi dokument.",
+          "usefulness": 61,
+          "complexity": 50
         },
         "Accusative": {
           "form": "doktora",
           "english": "I see the doctor.",
-          "czech": "Vidím doktora."
+          "czech": "Vidím doktora.",
+          "usefulness": 85,
+          "complexity": 29
         },
         "Vocative": {
           "form": "doktore",
           "english": "Doctor, please come in!",
-          "czech": "Pane doktore, prosím, pojďte dál!"
+          "czech": "Pane doktore, prosím, pojďte dál!",
+          "usefulness": 85,
+          "complexity": 56
         },
         "Locative": {
           "form": "doktorovi",
           "english": "I am talking about the doctor.",
-          "czech": "Mluvím o doktorovi."
+          "czech": "Mluvím o doktorovi.",
+          "usefulness": 85,
+          "complexity": 40
         },
         "Instrumental": {
           "form": "doktorem",
           "english": "I am talking with the doctor.",
-          "czech": "Mluvím s doktorem."
+          "czech": "Mluvím s doktorem.",
+          "usefulness": 85,
+          "complexity": 46
         }
-      }
+      },
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "noun": "maminka",
@@ -332,39 +444,55 @@
         "Nominative": {
           "form": "maminka",
           "english": "Mom is reading.",
-          "czech": "Maminka čte."
+          "czech": "Maminka čte.",
+          "usefulness": 73,
+          "complexity": 27
         },
         "Genitive": {
           "form": "maminky",
           "english": "The gift is from Mom.",
-          "czech": "Dárek je od maminky."
+          "czech": "Dárek je od maminky.",
+          "usefulness": 63,
+          "complexity": 42
         },
         "Dative": {
           "form": "mamince",
           "english": "I am writing to Mom.",
-          "czech": "Píšu mamince."
+          "czech": "Píšu mamince.",
+          "usefulness": 73,
+          "complexity": 45
         },
         "Accusative": {
           "form": "maminku",
           "english": "I see Mom.",
-          "czech": "Vidím maminku."
+          "czech": "Vidím maminku.",
+          "usefulness": 68,
+          "complexity": 29
         },
         "Vocative": {
           "form": "maminko",
           "english": "Mom, listen!",
-          "czech": "Maminko, poslouchej!"
+          "czech": "Maminko, poslouchej!",
+          "usefulness": 68,
+          "complexity": 56
         },
         "Locative": {
           "form": "mamince",
           "english": "I am talking about Mom.",
-          "czech": "Mluvím o mamince."
+          "czech": "Mluvím o mamince.",
+          "usefulness": 54,
+          "complexity": 40
         },
         "Instrumental": {
           "form": "maminkou",
           "english": "I am going with Mom.",
-          "czech": "Jdu s maminkou."
+          "czech": "Jdu s maminkou.",
+          "usefulness": 68,
+          "complexity": 46
         }
-      }
+      },
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "noun": "Marie",
@@ -373,39 +501,55 @@
         "Nominative": {
           "form": "Marie",
           "english": "Marie is working.",
-          "czech": "Marie pracuje."
+          "czech": "Marie pracuje.",
+          "usefulness": 77,
+          "complexity": 27
         },
         "Genitive": {
           "form": "Marie",
           "english": "The letter is from Marie.",
-          "czech": "Dopis je od Marie."
+          "czech": "Dopis je od Marie.",
+          "usefulness": 54,
+          "complexity": 42
         },
         "Dative": {
           "form": "Marii",
           "english": "I am writing to Marie.",
-          "czech": "Píšu Marii."
+          "czech": "Píšu Marii.",
+          "usefulness": 73,
+          "complexity": 45
         },
         "Accusative": {
           "form": "Marii",
           "english": "I know Marie.",
-          "czech": "Znám Marii."
+          "czech": "Znám Marii.",
+          "usefulness": 68,
+          "complexity": 29
         },
         "Vocative": {
           "form": "Marie",
           "english": "Marie, come here!",
-          "czech": "Marie, pojď sem!"
+          "czech": "Marie, pojď sem!",
+          "usefulness": 68,
+          "complexity": 56
         },
         "Locative": {
           "form": "Marii",
           "english": "I am talking about Marie.",
-          "czech": "Mluvím o Marii."
+          "czech": "Mluvím o Marii.",
+          "usefulness": 54,
+          "complexity": 40
         },
         "Instrumental": {
           "form": "Marií",
           "english": "I am going with Marie.",
-          "czech": "Jdu s Marií."
+          "czech": "Jdu s Marií.",
+          "usefulness": 68,
+          "complexity": 46
         }
-      }
+      },
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "noun": "Karel",
@@ -414,39 +558,55 @@
         "Nominative": {
           "form": "Karel",
           "english": "Karel is waiting.",
-          "czech": "Karel čeká."
+          "czech": "Karel čeká.",
+          "usefulness": 54,
+          "complexity": 27
         },
         "Genitive": {
           "form": "Karla",
           "english": "The message is from Karel.",
-          "czech": "Zpráva je od Karla."
+          "czech": "Zpráva je od Karla.",
+          "usefulness": 79,
+          "complexity": 42
         },
         "Dative": {
           "form": "Karlovi",
           "english": "I am giving Karel the key.",
-          "czech": "Dávám Karlovi klíč."
+          "czech": "Dávám Karlovi klíč.",
+          "usefulness": 68,
+          "complexity": 45
         },
         "Accusative": {
           "form": "Karla",
           "english": "I see Karel.",
-          "czech": "Vidím Karla."
+          "czech": "Vidím Karla.",
+          "usefulness": 68,
+          "complexity": 29
         },
         "Vocative": {
           "form": "Karle",
           "english": "Karel, call me!",
-          "czech": "Karle, zavolej mi!"
+          "czech": "Karle, zavolej mi!",
+          "usefulness": 79,
+          "complexity": 56
         },
         "Locative": {
           "form": "Karlovi",
           "english": "I am talking about Karel.",
-          "czech": "Mluvím o Karlovi."
+          "czech": "Mluvím o Karlovi.",
+          "usefulness": 54,
+          "complexity": 40
         },
         "Instrumental": {
           "form": "Karlem",
           "english": "I am going with Karel.",
-          "czech": "Jdu s Karlem."
+          "czech": "Jdu s Karlem.",
+          "usefulness": 68,
+          "complexity": 46
         }
-      }
+      },
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "noun": "tatínek",
@@ -455,39 +615,55 @@
         "Nominative": {
           "form": "tatínek",
           "english": "Dad is working.",
-          "czech": "Tatínek pracuje."
+          "czech": "Tatínek pracuje.",
+          "usefulness": 77,
+          "complexity": 27
         },
         "Genitive": {
           "form": "tatínka",
           "english": "The gift is from Dad.",
-          "czech": "Dárek je od tatínka."
+          "czech": "Dárek je od tatínka.",
+          "usefulness": 63,
+          "complexity": 42
         },
         "Dative": {
           "form": "tatínkovi",
           "english": "I am writing to Dad.",
-          "czech": "Píšu tatínkovi."
+          "czech": "Píšu tatínkovi.",
+          "usefulness": 73,
+          "complexity": 45
         },
         "Accusative": {
           "form": "tatínka",
           "english": "I see Dad.",
-          "czech": "Vidím tatínka."
+          "czech": "Vidím tatínka.",
+          "usefulness": 68,
+          "complexity": 29
         },
         "Vocative": {
           "form": "tatínku",
           "english": "Dad, wait!",
-          "czech": "Tatínku, počkej!"
+          "czech": "Tatínku, počkej!",
+          "usefulness": 68,
+          "complexity": 56
         },
         "Locative": {
           "form": "tatínkovi",
           "english": "I am talking about Dad.",
-          "czech": "Mluvím o tatínkovi."
+          "czech": "Mluvím o tatínkovi.",
+          "usefulness": 54,
+          "complexity": 40
         },
         "Instrumental": {
           "form": "tatínkem",
           "english": "I am going with Dad.",
-          "czech": "Jdu s tatínkem."
+          "czech": "Jdu s tatínkem.",
+          "usefulness": 68,
+          "complexity": 46
         }
-      }
+      },
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "noun": "hrdina",
@@ -496,39 +672,55 @@
         "Nominative": {
           "form": "hrdina",
           "english": "The hero is arriving.",
-          "czech": "Hrdina přichází."
+          "czech": "Hrdina přichází.",
+          "usefulness": 54,
+          "complexity": 27
         },
         "Genitive": {
           "form": "hrdiny",
           "english": "The letter is from the hero.",
-          "czech": "Dopis je od hrdiny."
+          "czech": "Dopis je od hrdiny.",
+          "usefulness": 54,
+          "complexity": 42
         },
         "Dative": {
           "form": "hrdinovi",
           "english": "I am giving the hero a map.",
-          "czech": "Dávám hrdinovi mapu."
+          "czech": "Dávám hrdinovi mapu.",
+          "usefulness": 68,
+          "complexity": 45
         },
         "Accusative": {
           "form": "hrdinu",
           "english": "I see the hero.",
-          "czech": "Vidím hrdinu."
+          "czech": "Vidím hrdinu.",
+          "usefulness": 68,
+          "complexity": 29
         },
         "Vocative": {
           "form": "hrdino",
           "english": "Hero, come back!",
-          "czech": "Hrdino, vrať se!"
+          "czech": "Hrdino, vrať se!",
+          "usefulness": 68,
+          "complexity": 56
         },
         "Locative": {
           "form": "hrdinovi",
           "english": "I am talking about the hero.",
-          "czech": "Mluvím o hrdinovi."
+          "czech": "Mluvím o hrdinovi.",
+          "usefulness": 54,
+          "complexity": 40
         },
         "Instrumental": {
           "form": "hrdinou",
           "english": "I am going with the hero.",
-          "czech": "Jdu s hrdinou."
+          "czech": "Jdu s hrdinou.",
+          "usefulness": 68,
+          "complexity": 46
         }
-      }
+      },
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "noun": "Anna",
@@ -537,39 +729,55 @@
         "Nominative": {
           "form": "Anna",
           "english": "Anna is drawing.",
-          "czech": "Anna kreslí."
+          "czech": "Anna kreslí.",
+          "usefulness": 63,
+          "complexity": 27
         },
         "Genitive": {
           "form": "Anny",
           "english": "The postcard is from Anna.",
-          "czech": "Pohlednice je od Anny."
+          "czech": "Pohlednice je od Anny.",
+          "usefulness": 54,
+          "complexity": 42
         },
         "Dative": {
           "form": "Anně",
           "english": "I am lending Anna a pencil.",
-          "czech": "Půjčuji Anně tužku."
+          "czech": "Půjčuji Anně tužku.",
+          "usefulness": 75,
+          "complexity": 45
         },
         "Accusative": {
           "form": "Annu",
           "english": "I see Anna.",
-          "czech": "Vidím Annu."
+          "czech": "Vidím Annu.",
+          "usefulness": 68,
+          "complexity": 29
         },
         "Vocative": {
           "form": "Anno",
           "english": "Anna, wait!",
-          "czech": "Anno, počkej!"
+          "czech": "Anno, počkej!",
+          "usefulness": 68,
+          "complexity": 56
         },
         "Locative": {
           "form": "Anně",
           "english": "I am talking about Anna.",
-          "czech": "Mluvím o Anně."
+          "czech": "Mluvím o Anně.",
+          "usefulness": 54,
+          "complexity": 40
         },
         "Instrumental": {
           "form": "Annou",
           "english": "I am going with Anna.",
-          "czech": "Jdu s Annou."
+          "czech": "Jdu s Annou.",
+          "usefulness": 68,
+          "complexity": 46
         }
-      }
+      },
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "noun": "Eva",
@@ -578,39 +786,55 @@
         "Nominative": {
           "form": "Eva",
           "english": "Eva is swimming.",
-          "czech": "Eva plave."
+          "czech": "Eva plave.",
+          "usefulness": 54,
+          "complexity": 27
         },
         "Genitive": {
           "form": "Evy",
           "english": "The message is from Eva.",
-          "czech": "Zpráva je od Evy."
+          "czech": "Zpráva je od Evy.",
+          "usefulness": 79,
+          "complexity": 42
         },
         "Dative": {
           "form": "Evě",
           "english": "I am showing Eva the map.",
-          "czech": "Ukazuji Evě mapu."
+          "czech": "Ukazuji Evě mapu.",
+          "usefulness": 54,
+          "complexity": 45
         },
         "Accusative": {
           "form": "Evu",
           "english": "I see Eva.",
-          "czech": "Vidím Evu."
+          "czech": "Vidím Evu.",
+          "usefulness": 68,
+          "complexity": 29
         },
         "Vocative": {
           "form": "Evo",
           "english": "Eva, come in!",
-          "czech": "Evo, pojď dál!"
+          "czech": "Evo, pojď dál!",
+          "usefulness": 68,
+          "complexity": 56
         },
         "Locative": {
           "form": "Evě",
           "english": "I am talking about Eva.",
-          "czech": "Mluvím o Evě."
+          "czech": "Mluvím o Evě.",
+          "usefulness": 54,
+          "complexity": 40
         },
         "Instrumental": {
           "form": "Evou",
           "english": "I am working with Eva.",
-          "czech": "Pracuji s Evou."
+          "czech": "Pracuji s Evou.",
+          "usefulness": 77,
+          "complexity": 46
         }
-      }
+      },
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "noun": "Martin",
@@ -619,39 +843,55 @@
         "Nominative": {
           "form": "Martin",
           "english": "Martin is taking photographs.",
-          "czech": "Martin fotografuje."
+          "czech": "Martin fotografuje.",
+          "usefulness": 58,
+          "complexity": 27
         },
         "Genitive": {
           "form": "Martina",
           "english": "The letter is from Martin.",
-          "czech": "Dopis je od Martina."
+          "czech": "Dopis je od Martina.",
+          "usefulness": 54,
+          "complexity": 42
         },
         "Dative": {
           "form": "Martinovi",
           "english": "I am giving Martin a map.",
-          "czech": "Dávám Martinovi mapu."
+          "czech": "Dávám Martinovi mapu.",
+          "usefulness": 68,
+          "complexity": 45
         },
         "Accusative": {
           "form": "Martina",
           "english": "I see Martin.",
-          "czech": "Vidím Martina."
+          "czech": "Vidím Martina.",
+          "usefulness": 68,
+          "complexity": 29
         },
         "Vocative": {
           "form": "Martine",
           "english": "Martin, look!",
-          "czech": "Martine, podívej se!"
+          "czech": "Martine, podívej se!",
+          "usefulness": 54,
+          "complexity": 56
         },
         "Locative": {
           "form": "Martinovi",
           "english": "I am talking about Martin.",
-          "czech": "Mluvím o Martinovi."
+          "czech": "Mluvím o Martinovi.",
+          "usefulness": 54,
+          "complexity": 40
         },
         "Instrumental": {
           "form": "Martinem",
           "english": "I am travelling with Martin.",
-          "czech": "Cestuji s Martinem."
+          "czech": "Cestuji s Martinem.",
+          "usefulness": 54,
+          "complexity": 46
         }
-      }
+      },
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "noun": "David",
@@ -660,39 +900,55 @@
         "Nominative": {
           "form": "David",
           "english": "David is running.",
-          "czech": "David běží."
+          "czech": "David běží.",
+          "usefulness": 54,
+          "complexity": 27
         },
         "Genitive": {
           "form": "Davida",
           "english": "The package is from David.",
-          "czech": "Balíček je od Davida."
+          "czech": "Balíček je od Davida.",
+          "usefulness": 54,
+          "complexity": 42
         },
         "Dative": {
           "form": "Davidovi",
           "english": "I am writing to David.",
-          "czech": "Píšu Davidovi."
+          "czech": "Píšu Davidovi.",
+          "usefulness": 73,
+          "complexity": 45
         },
         "Accusative": {
           "form": "Davida",
           "english": "I know David.",
-          "czech": "Znám Davida."
+          "czech": "Znám Davida.",
+          "usefulness": 68,
+          "complexity": 29
         },
         "Vocative": {
           "form": "Davide",
           "english": "David, listen!",
-          "czech": "Davide, poslouchej!"
+          "czech": "Davide, poslouchej!",
+          "usefulness": 68,
+          "complexity": 56
         },
         "Locative": {
           "form": "Davidovi",
           "english": "I am talking about David.",
-          "czech": "Mluvím o Davidovi."
+          "czech": "Mluvím o Davidovi.",
+          "usefulness": 54,
+          "complexity": 40
         },
         "Instrumental": {
           "form": "Davidem",
           "english": "I am working with David.",
-          "czech": "Pracuji s Davidem."
+          "czech": "Pracuji s Davidem.",
+          "usefulness": 77,
+          "complexity": 46
         }
-      }
+      },
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "noun": "student",
@@ -701,39 +957,55 @@
         "Nominative": {
           "form": "student",
           "english": "The student is asking a question.",
-          "czech": "Student se ptá."
+          "czech": "Student se ptá.",
+          "usefulness": 73,
+          "complexity": 41
         },
         "Genitive": {
           "form": "studenta",
           "english": "This book is from the student.",
-          "czech": "Tato kniha je od studenta."
+          "czech": "Tato kniha je od studenta.",
+          "usefulness": 73,
+          "complexity": 42
         },
         "Dative": {
           "form": "studentovi",
           "english": "I am helping the student.",
-          "czech": "Pomáhám studentovi."
+          "czech": "Pomáhám studentovi.",
+          "usefulness": 75,
+          "complexity": 45
         },
         "Accusative": {
           "form": "studenta",
           "english": "I see the student.",
-          "czech": "Vidím studenta."
+          "czech": "Vidím studenta.",
+          "usefulness": 75,
+          "complexity": 29
         },
         "Vocative": {
           "form": "studente",
           "english": "Student, please come in!",
-          "czech": "Studente, prosím, pojďte dál!"
+          "czech": "Studente, prosím, pojďte dál!",
+          "usefulness": 75,
+          "complexity": 56
         },
         "Locative": {
           "form": "studentovi",
           "english": "I am talking about the student.",
-          "czech": "Mluvím o studentovi."
+          "czech": "Mluvím o studentovi.",
+          "usefulness": 75,
+          "complexity": 40
         },
         "Instrumental": {
           "form": "studentem",
           "english": "I am working with the student.",
-          "czech": "Pracuji se studentem."
+          "czech": "Pracuji se studentem.",
+          "usefulness": 77,
+          "complexity": 46
         }
-      }
+      },
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "noun": "soused",
@@ -742,39 +1014,55 @@
         "Nominative": {
           "form": "soused",
           "english": "The neighbor is resting.",
-          "czech": "Soused odpočívá."
+          "czech": "Soused odpočívá.",
+          "usefulness": 79,
+          "complexity": 32
         },
         "Genitive": {
           "form": "souseda",
           "english": "The message is from the neighbor.",
-          "czech": "Zpráva je od souseda."
+          "czech": "Zpráva je od souseda.",
+          "usefulness": 79,
+          "complexity": 42
         },
         "Dative": {
           "form": "sousedovi",
           "english": "We are bringing the neighbor a package.",
-          "czech": "Neseme sousedovi balíček."
+          "czech": "Neseme sousedovi balíček.",
+          "usefulness": 79,
+          "complexity": 45
         },
         "Accusative": {
           "form": "souseda",
           "english": "I see the neighbor.",
-          "czech": "Vidím souseda."
+          "czech": "Vidím souseda.",
+          "usefulness": 79,
+          "complexity": 29
         },
         "Vocative": {
           "form": "sousede",
           "english": "Neighbor, please wait!",
-          "czech": "Sousede, prosím, počkejte!"
+          "czech": "Sousede, prosím, počkejte!",
+          "usefulness": 79,
+          "complexity": 56
         },
         "Locative": {
           "form": "sousedovi",
           "english": "We are talking about the neighbor.",
-          "czech": "Mluvíme o sousedovi."
+          "czech": "Mluvíme o sousedovi.",
+          "usefulness": 79,
+          "complexity": 40
         },
         "Instrumental": {
           "form": "sousedem",
           "english": "I am going with the neighbor.",
-          "czech": "Jdu se sousedem."
+          "czech": "Jdu se sousedem.",
+          "usefulness": 79,
+          "complexity": 46
         }
-      }
+      },
+      "usefulness": 79,
+      "complexity": 32
     }
   ],
   "paradigms": [
@@ -788,7 +1076,9 @@
         "knize",
         "knihu",
         "knihou"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "cz.case.paradigm.pes.singular",
@@ -801,7 +1091,9 @@
         "psu",
         "psem",
         "pse"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "cz.case.paradigm.okno.singular",
@@ -813,7 +1105,9 @@
         "oknu",
         "okně",
         "oknem"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "cz.case.paradigm.kvetina.singular",
@@ -825,7 +1119,9 @@
         "květině",
         "květinu",
         "květinou"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "cz.case.paradigm.destnik.singular",
@@ -835,7 +1131,9 @@
         "deštník",
         "deštníku",
         "deštníkem"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "cz.case.paradigm.skola.singular",
@@ -847,7 +1145,9 @@
         "škole",
         "školu",
         "školou"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "cz.case.paradigm.dum.singular",
@@ -858,7 +1158,9 @@
         "domu",
         "domě",
         "domem"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "cz.case.paradigm.cukr.singular",
@@ -868,7 +1170,9 @@
         "cukr",
         "cukru",
         "cukrem"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "cz.case.paradigm.stul.singular",
@@ -879,7 +1183,9 @@
         "stolu",
         "stole",
         "stolem"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "cz.case.paradigm.zahrada.singular",
@@ -891,7 +1197,9 @@
         "zahradě",
         "zahradu",
         "zahradou"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "cz.case.paradigm.park.singular",
@@ -901,7 +1209,9 @@
         "park",
         "parku",
         "parkem"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "cz.case.paradigm.tuzka.singular",
@@ -913,7 +1223,9 @@
         "tužce",
         "tužku",
         "tužkou"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "cz.case.paradigm.lzice.singular",
@@ -924,7 +1236,9 @@
         "lžíci",
         "lžící",
         "lžicí"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "cz.case.paradigm.autobus.singular",
@@ -935,7 +1249,9 @@
         "autobusu",
         "autobuse",
         "autobusem"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "cz.case.paradigm.student.plural",
@@ -947,7 +1263,9 @@
         "studentům",
         "studenty",
         "studentech"
-      ]
+      ],
+      "usefulness": 72,
+      "complexity": 47
     },
     {
       "id": "cz.case.paradigm.kniha.plural",
@@ -959,7 +1277,9 @@
         "knihám",
         "knihách",
         "knihami"
-      ]
+      ],
+      "usefulness": 72,
+      "complexity": 47
     },
     {
       "id": "cz.case.paradigm.okno.plural",
@@ -971,7 +1291,9 @@
         "oknům",
         "oknech",
         "okny"
-      ]
+      ],
+      "usefulness": 72,
+      "complexity": 47
     },
     {
       "id": "cz.case.paradigm.soused.plural",
@@ -984,7 +1306,9 @@
         "sousedům",
         "sousedy",
         "sousedech"
-      ]
+      ],
+      "usefulness": 72,
+      "complexity": 47
     },
     {
       "id": "cz.case.paradigm.pavel.singular",
@@ -996,7 +1320,9 @@
         "Pavlovi",
         "Pavle",
         "Pavlem"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "cz.case.paradigm.jana.singular",
@@ -1009,7 +1335,9 @@
         "Janu",
         "Jano",
         "Janou"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "cz.case.paradigm.marie.singular",
@@ -1019,7 +1347,9 @@
         "Marie",
         "Marii",
         "Marií"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "cz.case.paradigm.petr.singular",
@@ -1031,7 +1361,9 @@
         "Petrovi",
         "Petře",
         "Petrem"
-      ]
+      ],
+      "usefulness": 79,
+      "complexity": 32
     }
   ],
   "contexts": [
@@ -1048,7 +1380,9 @@
       "objectiveId": "cz.case.roles",
       "phase": "practice",
       "context": "Say what is lying on the table.",
-      "explanation": "Kniha is the subject of leží, so it uses the nominative singular."
+      "explanation": "Kniha is the subject of leží, so it uses the nominative singular.",
+      "usefulness": 73,
+      "complexity": 32
     },
     {
       "id": "cz.case.roles.read-book",
@@ -1063,7 +1397,9 @@
       "objectiveId": "cz.case.roles",
       "phase": "practice",
       "context": "Say what you are reading.",
-      "explanation": "The book is the direct object of čtu. The singular accusative of kniha is knihu."
+      "explanation": "The book is the direct object of čtu. The singular accusative of kniha is knihu.",
+      "usefulness": 73,
+      "complexity": 29
     },
     {
       "id": "cz.case.roles.give-dog-water",
@@ -1080,7 +1416,9 @@
       "objectiveId": "cz.case.roles",
       "phase": "practice",
       "context": "Identify the animal receiving the water.",
-      "explanation": "The dog receives the water. Both psovi and psu are accepted dative singular forms of pes; the water is the direct object."
+      "explanation": "The dog receives the water. Both psovi and psu are accepted dative singular forms of pes; the water is the direct object.",
+      "usefulness": 88,
+      "complexity": 45
     },
     {
       "id": "cz.case.roles.open-window",
@@ -1095,7 +1433,9 @@
       "objectiveId": "cz.case.roles",
       "phase": "practice",
       "context": "Say what you are opening.",
-      "explanation": "Okno is the direct object. Its accusative singular has the same surface form as its nominative."
+      "explanation": "Okno is the direct object. Its accusative singular has the same surface form as its nominative.",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "cz.case.roles.water-flower",
@@ -1110,7 +1450,9 @@
       "objectiveId": "cz.case.roles",
       "phase": "transfer",
       "context": "Use the recipient role in a plant-care situation.",
-      "explanation": "The flower receives the water, so květina takes the dative form květině."
+      "explanation": "The flower receives the water, so květina takes the dative form květině.",
+      "usefulness": 88,
+      "complexity": 48
     },
     {
       "id": "cz.case.absence.without-umbrella",
@@ -1125,7 +1467,9 @@
       "objectiveId": "cz.case.absence",
       "phase": "practice",
       "context": "Say which object you do not have with you.",
-      "explanation": "Bez takes the genitive. Deštníku names the umbrella that is absent."
+      "explanation": "Bez takes the genitive. Deštníku names the umbrella that is absent.",
+      "usefulness": 80,
+      "complexity": 42
     },
     {
       "id": "cz.case.absence.from-school",
@@ -1140,7 +1484,9 @@
       "objectiveId": "cz.case.absence",
       "phase": "practice",
       "context": "Name the place you are returning from.",
-      "explanation": "Ze, a form of z, takes the genitive to express origin here. Školy is the genitive singular of škola."
+      "explanation": "Ze, a form of z, takes the genitive to express origin here. Školy is the genitive singular of škola.",
+      "usefulness": 77,
+      "complexity": 42
     },
     {
       "id": "cz.case.absence.house-doors",
@@ -1155,7 +1501,9 @@
       "objectiveId": "cz.case.absence",
       "phase": "practice",
       "context": "Say which building the door belongs to.",
-      "explanation": "Domu is genitive singular and identifies the house. Czech dveře is grammatically plural even when it names one door."
+      "explanation": "Domu is genitive singular and identifies the house. Czech dveře is grammatically plural even when it names one door.",
+      "usefulness": 77,
+      "complexity": 42
     },
     {
       "id": "cz.case.absence.without-sugar",
@@ -1170,7 +1518,9 @@
       "objectiveId": "cz.case.absence",
       "phase": "transfer",
       "context": "Apply the absence pattern to a drink order.",
-      "explanation": "Bez requires the genitive here: cukr becomes cukru."
+      "explanation": "Bez requires the genitive here: cukr becomes cukru.",
+      "usefulness": 54,
+      "complexity": 42
     },
     {
       "id": "cz.case.place.table-location",
@@ -1187,7 +1537,9 @@
       "objectiveId": "cz.case.place",
       "phase": "practice",
       "context": "Describe where the book is.",
-      "explanation": "Na takes the locative for this location. Both na stole and na stolu are accepted for a table."
+      "explanation": "Na takes the locative for this location. Both na stole and na stolu are accepted for a table.",
+      "usefulness": 73,
+      "complexity": 40
     },
     {
       "id": "cz.case.place.table-destination",
@@ -1202,7 +1554,9 @@
       "objectiveId": "cz.case.place",
       "phase": "practice",
       "context": "Describe the surface onto which you place the book.",
-      "explanation": "Na takes the accusative for this destination: na stůl. The chosen preposition and meaning determine the case."
+      "explanation": "Na takes the accusative for this destination: na stůl. The chosen preposition and meaning determine the case.",
+      "usefulness": 73,
+      "complexity": 29
     },
     {
       "id": "cz.case.place.garden-location",
@@ -1217,7 +1571,9 @@
       "objectiveId": "cz.case.place",
       "phase": "practice",
       "context": "Describe the place where the play happens.",
-      "explanation": "Na zahradě uses the locative for the place of the activity. An action does not automatically require accusative."
+      "explanation": "Na zahradě uses the locative for the place of the activity. An action does not automatically require accusative.",
+      "usefulness": 62,
+      "complexity": 40
     },
     {
       "id": "cz.case.place.garden-destination",
@@ -1232,7 +1588,9 @@
       "objectiveId": "cz.case.place",
       "phase": "practice",
       "context": "Describe the garden as your destination.",
-      "explanation": "Na zahradu uses accusative to express this destination."
+      "explanation": "Na zahradu uses accusative to express this destination.",
+      "usefulness": 62,
+      "complexity": 29
     },
     {
       "id": "cz.case.place.school-location",
@@ -1247,7 +1605,9 @@
       "objectiveId": "cz.case.place",
       "phase": "practice",
       "context": "Say where you are.",
-      "explanation": "Ve, a form of v, takes the locative for this location: ve škole."
+      "explanation": "Ve, a form of v, takes the locative for this location: ve škole.",
+      "usefulness": 77,
+      "complexity": 40
     },
     {
       "id": "cz.case.place.school-destination",
@@ -1262,7 +1622,9 @@
       "objectiveId": "cz.case.place",
       "phase": "practice",
       "context": "Name school as your destination.",
-      "explanation": "Do takes the genitive, including for a destination. Movement is not a general rule for choosing accusative."
+      "explanation": "Do takes the genitive, including for a destination. Movement is not a general rule for choosing accusative.",
+      "usefulness": 77,
+      "complexity": 42
     },
     {
       "id": "cz.case.place.running-in-park",
@@ -1277,7 +1639,9 @@
       "objectiveId": "cz.case.place",
       "phase": "transfer",
       "context": "Describe the place where running happens.",
-      "explanation": "V parku uses the locative for the location of running. The movement happens within that place."
+      "explanation": "V parku uses the locative for the location of running. The movement happens within that place.",
+      "usefulness": 65,
+      "complexity": 40
     },
     {
       "id": "cz.case.means.write-pencil",
@@ -1292,7 +1656,9 @@
       "objectiveId": "cz.case.means",
       "phase": "practice",
       "context": "Name the tool used for writing.",
-      "explanation": "Tužkou is instrumental singular: it names the tool used to write."
+      "explanation": "Tužkou is instrumental singular: it names the tool used to write.",
+      "usefulness": 73,
+      "complexity": 46
     },
     {
       "id": "cz.case.means.eat-soup-spoon",
@@ -1309,7 +1675,9 @@
       "objectiveId": "cz.case.means",
       "phase": "practice",
       "context": "Name the utensil used to eat the soup.",
-      "explanation": "Lžící is instrumental singular and names the utensil used to eat the soup. Lžicí is also an accepted standard form."
+      "explanation": "Lžící is instrumental singular and names the utensil used to eat the soup. Lžicí is also an accepted standard form.",
+      "usefulness": 75,
+      "complexity": 46
     },
     {
       "id": "cz.case.means.walk-with-dog",
@@ -1324,7 +1692,9 @@
       "objectiveId": "cz.case.means",
       "phase": "practice",
       "context": "Name the companion on a walk.",
-      "explanation": "Se takes the instrumental for this companion. Psem is the instrumental singular of pes."
+      "explanation": "Se takes the instrumental for this companion. Psem is the instrumental singular of pes.",
+      "usefulness": 54,
+      "complexity": 46
     },
     {
       "id": "cz.case.means.travel-by-bus",
@@ -1339,7 +1709,9 @@
       "objectiveId": "cz.case.means",
       "phase": "transfer",
       "context": "Use the means pattern for transport.",
-      "explanation": "Autobusem is instrumental singular and names the means of transport."
+      "explanation": "Autobusem is instrumental singular and names the means of transport.",
+      "usefulness": 81,
+      "complexity": 46
     },
     {
       "id": "cz.case.plural.students-subject",
@@ -1354,7 +1726,9 @@
       "objectiveId": "cz.case.plural",
       "phase": "practice",
       "context": "Identify the people who are waiting.",
-      "explanation": "Studenti is the nominative plural subject. The masculine animate accusative plural is different: studenty."
+      "explanation": "Studenti is the nominative plural subject. The masculine animate accusative plural is different: studenty.",
+      "usefulness": 77,
+      "complexity": 37
     },
     {
       "id": "cz.case.plural.students-object",
@@ -1369,7 +1743,9 @@
       "objectiveId": "cz.case.plural",
       "phase": "practice",
       "context": "Identify the people being seen.",
-      "explanation": "Studenty is the accusative plural direct object. It is not the nominative plural studenti."
+      "explanation": "Studenty is the accusative plural direct object. It is not the nominative plural studenti.",
+      "usefulness": 75,
+      "complexity": 37
     },
     {
       "id": "cz.case.plural.books-object",
@@ -1384,7 +1760,9 @@
       "objectiveId": "cz.case.plural",
       "phase": "practice",
       "context": "Say what you are reading in the plural.",
-      "explanation": "Knihy is accusative plural here. For this feminine noun, nominative and accusative plural have the same surface form."
+      "explanation": "Knihy is accusative plural here. For this feminine noun, nominative and accusative plural have the same surface form.",
+      "usefulness": 73,
+      "complexity": 37
     },
     {
       "id": "cz.case.plural.windows-subject",
@@ -1399,7 +1777,9 @@
       "objectiveId": "cz.case.plural",
       "phase": "practice",
       "context": "Name the things that are open.",
-      "explanation": "Okna is the nominative plural subject. This neuter noun has the same form in the accusative plural."
+      "explanation": "Okna is the nominative plural subject. This neuter noun has the same form in the accusative plural.",
+      "usefulness": 68,
+      "complexity": 29
     },
     {
       "id": "cz.case.plural.talk-students",
@@ -1414,7 +1794,9 @@
       "objectiveId": "cz.case.plural",
       "phase": "practice",
       "context": "Name several people you are talking with.",
-      "explanation": "Se takes the instrumental. Studenty is instrumental plural here, with the same surface form as accusative plural in Vidím studenty."
+      "explanation": "Se takes the instrumental. Studenty is instrumental plural here, with the same surface form as accusative plural in Vidím studenty.",
+      "usefulness": 75,
+      "complexity": 54
     },
     {
       "id": "cz.case.plural.talk-neighbors",
@@ -1429,7 +1811,9 @@
       "objectiveId": "cz.case.plural",
       "phase": "transfer",
       "context": "Apply the companion pattern to several people.",
-      "explanation": "Se takes the instrumental. Sousedy is instrumental plural here; an identical form can serve a different role in another sentence."
+      "explanation": "Se takes the instrumental. Sousedy is instrumental plural here; an identical form can serve a different role in another sentence.",
+      "usefulness": 79,
+      "complexity": 54
     },
     {
       "id": "cz.case.address.call-pavel",
@@ -1444,7 +1828,9 @@
       "objectiveId": "cz.case.address",
       "phase": "practice",
       "context": "Call Pavel directly.",
-      "explanation": "Direct address uses the vocative: Pavel becomes Pavle."
+      "explanation": "Direct address uses the vocative: Pavel becomes Pavle.",
+      "usefulness": 68,
+      "complexity": 56
     },
     {
       "id": "cz.case.address.call-jana",
@@ -1459,7 +1845,9 @@
       "objectiveId": "cz.case.address",
       "phase": "practice",
       "context": "Ask Jana directly to wait.",
-      "explanation": "Jano is the vocative form used to address Jana."
+      "explanation": "Jano is the vocative form used to address Jana.",
+      "usefulness": 68,
+      "complexity": 56
     },
     {
       "id": "cz.case.address.call-marie",
@@ -1474,7 +1862,9 @@
       "objectiveId": "cz.case.address",
       "phase": "practice",
       "context": "Ask Marie directly to call you.",
-      "explanation": "Marie has the same nominative and vocative surface form. Direct address and the sentence context identify its role here."
+      "explanation": "Marie has the same nominative and vocative surface form. Direct address and the sentence context identify its role here.",
+      "usefulness": 79,
+      "complexity": 56
     },
     {
       "id": "cz.case.address.call-petr",
@@ -1489,7 +1879,9 @@
       "objectiveId": "cz.case.address",
       "phase": "transfer",
       "context": "Apply direct address to another familiar name in a new request.",
-      "explanation": "Petře is the vocative of Petr. The direct request is addressed to him."
+      "explanation": "Petře is the vocative of Petr. The direct request is addressed to him.",
+      "usefulness": 68,
+      "complexity": 56
     },
     {
       "id": "cz.case.exp260908.001",
@@ -1504,7 +1896,9 @@
       "objectiveId": "cz.case.roles",
       "phase": "practice",
       "context": "Name the object that has the pictures.",
-      "explanation": "Kniha is the subject of má: nominative singular."
+      "explanation": "Kniha is the subject of má: nominative singular.",
+      "usefulness": 73,
+      "complexity": 32
     },
     {
       "id": "cz.case.exp260908.002",
@@ -1519,7 +1913,9 @@
       "objectiveId": "cz.case.roles",
       "phase": "practice",
       "context": "Say what animal the children are drawing.",
-      "explanation": "Psa is the direct object of kreslí; masculine animate accusative singular uses psa."
+      "explanation": "Psa is the direct object of kreslí; masculine animate accusative singular uses psa.",
+      "usefulness": 77,
+      "complexity": 44
     },
     {
       "id": "cz.case.exp260908.003",
@@ -1534,7 +1930,9 @@
       "objectiveId": "cz.case.roles",
       "phase": "practice",
       "context": "Identify what the water is enough for.",
-      "explanation": "Stačit takes the dative for the recipient: květině."
+      "explanation": "Stačit takes the dative for the recipient: květině.",
+      "usefulness": 88,
+      "complexity": 45
     },
     {
       "id": "cz.case.exp260908.004",
@@ -1549,7 +1947,9 @@
       "objectiveId": "cz.case.roles",
       "phase": "practice",
       "context": "Identify what rolled away.",
-      "explanation": "Tužka is the subject of skutálela se: nominative singular."
+      "explanation": "Tužka is the subject of skutálela se: nominative singular.",
+      "usefulness": 75,
+      "complexity": 36
     },
     {
       "id": "cz.case.exp260908.005",
@@ -1564,7 +1964,9 @@
       "objectiveId": "cz.case.roles",
       "phase": "transfer",
       "context": "Say what building we are making.",
-      "explanation": "Školu is the direct object of stavíme: accusative singular."
+      "explanation": "Školu is the direct object of stavíme: accusative singular.",
+      "usefulness": 77,
+      "complexity": 42
     },
     {
       "id": "cz.case.exp260908.006",
@@ -1579,7 +1981,9 @@
       "objectiveId": "cz.case.absence",
       "phase": "practice",
       "context": "Say where the bookmark came from.",
-      "explanation": "Z requires the genitive for origin: z knihy."
+      "explanation": "Z requires the genitive for origin: z knihy.",
+      "usefulness": 73,
+      "complexity": 42
     },
     {
       "id": "cz.case.exp260908.007",
@@ -1594,7 +1998,9 @@
       "objectiveId": "cz.case.absence",
       "phase": "practice",
       "context": "Say whose ball it is.",
-      "explanation": "Psa expresses possession here: genitive singular."
+      "explanation": "Psa expresses possession here: genitive singular.",
+      "usefulness": 82,
+      "complexity": 42
     },
     {
       "id": "cz.case.exp260908.008",
@@ -1609,7 +2015,9 @@
       "objectiveId": "cz.case.absence",
       "phase": "practice",
       "context": "Identify the viewpoint.",
-      "explanation": "Od requires the genitive: od okna."
+      "explanation": "Od requires the genitive: od okna.",
+      "usefulness": 48,
+      "complexity": 46
     },
     {
       "id": "cz.case.exp260908.009",
@@ -1624,7 +2032,9 @@
       "objectiveId": "cz.case.absence",
       "phase": "practice",
       "context": "Say what is not needed.",
-      "explanation": "Bez always requires the genitive: bez cukru."
+      "explanation": "Bez always requires the genitive: bez cukru.",
+      "usefulness": 78,
+      "complexity": 42
     },
     {
       "id": "cz.case.exp260908.010",
@@ -1639,7 +2049,9 @@
       "objectiveId": "cz.case.absence",
       "phase": "transfer",
       "context": "Identify what the corner belongs to.",
-      "explanation": "Domu modifies roh and expresses belonging: genitive singular."
+      "explanation": "Domu modifies roh and expresses belonging: genitive singular.",
+      "usefulness": 77,
+      "complexity": 42
     },
     {
       "id": "cz.case.exp260908.011",
@@ -1654,7 +2066,9 @@
       "objectiveId": "cz.case.place",
       "phase": "practice",
       "context": "Describe where the search takes place.",
-      "explanation": "Na with a fixed location takes the locative: na zahradě."
+      "explanation": "Na with a fixed location takes the locative: na zahradě.",
+      "usefulness": 62,
+      "complexity": 40
     },
     {
       "id": "cz.case.exp260908.012",
@@ -1669,7 +2083,9 @@
       "objectiveId": "cz.case.place",
       "phase": "practice",
       "context": "Identify the place crossed by the path.",
-      "explanation": "Přes takes the accusative. Park is masculine inanimate, so its accusative matches the nominative."
+      "explanation": "Přes takes the accusative. Park is masculine inanimate, so its accusative matches the nominative.",
+      "usefulness": 65,
+      "complexity": 29
     },
     {
       "id": "cz.case.exp260908.013",
@@ -1684,7 +2100,9 @@
       "objectiveId": "cz.case.place",
       "phase": "practice",
       "context": "Say where we are returning.",
-      "explanation": "Do expresses a destination and requires the genitive: do školy."
+      "explanation": "Do expresses a destination and requires the genitive: do školy.",
+      "usefulness": 77,
+      "complexity": 42
     },
     {
       "id": "cz.case.exp260908.014",
@@ -1699,7 +2117,9 @@
       "objectiveId": "cz.case.place",
       "phase": "practice",
       "context": "Describe the snowman's fixed location.",
-      "explanation": "Před takes the instrumental for location: před domem."
+      "explanation": "Před takes the instrumental for location: před domem.",
+      "usefulness": 77,
+      "complexity": 46
     },
     {
       "id": "cz.case.exp260908.015",
@@ -1714,7 +2134,9 @@
       "objectiveId": "cz.case.place",
       "phase": "transfer",
       "context": "Say where the map was placed.",
-      "explanation": "Na takes the accusative for placement onto something. Stůl is masculine inanimate, so the form is unchanged."
+      "explanation": "Na takes the accusative for placement onto something. Stůl is masculine inanimate, so the form is unchanged.",
+      "usefulness": 90,
+      "complexity": 31
     },
     {
       "id": "cz.case.exp260908.016",
@@ -1729,7 +2151,9 @@
       "objectiveId": "cz.case.means",
       "phase": "practice",
       "context": "Identify the drawing tool.",
-      "explanation": "The tool is expressed with instrumental tužkou, without a preposition."
+      "explanation": "The tool is expressed with instrumental tužkou, without a preposition.",
+      "usefulness": 75,
+      "complexity": 46
     },
     {
       "id": "cz.case.exp260908.018",
@@ -1744,7 +2168,9 @@
       "objectiveId": "cz.case.means",
       "phase": "practice",
       "context": "Identify the companion.",
-      "explanation": "S meaning with takes the instrumental: se psem, here s naším psem."
+      "explanation": "S meaning with takes the instrumental: se psem, here s naším psem.",
+      "usefulness": 63,
+      "complexity": 46
     },
     {
       "id": "cz.case.exp260908.019",
@@ -1759,7 +2185,9 @@
       "objectiveId": "cz.case.means",
       "phase": "practice",
       "context": "Name the means of transport.",
-      "explanation": "The means of transport uses the instrumental without a preposition: autobusem."
+      "explanation": "The means of transport uses the instrumental without a preposition: autobusem.",
+      "usefulness": 81,
+      "complexity": 46
     },
     {
       "id": "cz.case.exp260908.020",
@@ -1774,7 +2202,9 @@
       "objectiveId": "cz.case.means",
       "phase": "transfer",
       "context": "Say what accompanies the greeting.",
-      "explanation": "S takes the instrumental: s květinou."
+      "explanation": "S takes the instrumental: s květinou.",
+      "usefulness": 65,
+      "complexity": 46
     },
     {
       "id": "cz.case.exp260908.021",
@@ -1789,7 +2219,9 @@
       "objectiveId": "cz.case.plural",
       "phase": "practice",
       "context": "Identify the collection we choose from.",
-      "explanation": "Z and několika require the genitive plural: knih, with a zero ending."
+      "explanation": "Z and několika require the genitive plural: knih, with a zero ending.",
+      "usefulness": 43,
+      "complexity": 50
     },
     {
       "id": "cz.case.exp260908.022",
@@ -1804,7 +2236,9 @@
       "objectiveId": "cz.case.plural",
       "phase": "practice",
       "context": "Identify who receives the explanation.",
-      "explanation": "The recipients take the dative plural: studentům."
+      "explanation": "The recipients take the dative plural: studentům.",
+      "usefulness": 75,
+      "complexity": 53
     },
     {
       "id": "cz.case.exp260908.023",
@@ -1819,7 +2253,9 @@
       "objectiveId": "cz.case.plural",
       "phase": "practice",
       "context": "Locate the reflections.",
-      "explanation": "V takes the locative for location: v oknech, locative plural."
+      "explanation": "V takes the locative for location: v oknech, locative plural.",
+      "usefulness": 54,
+      "complexity": 48
     },
     {
       "id": "cz.case.exp260908.024",
@@ -1834,7 +2270,9 @@
       "objectiveId": "cz.case.plural",
       "phase": "practice",
       "context": "Identify the people being invited.",
-      "explanation": "The direct object uses masculine animate accusative plural sousedy, distinct from nominative sousedé or sousedi."
+      "explanation": "The direct object uses masculine animate accusative plural sousedy, distinct from nominative sousedé or sousedi.",
+      "usefulness": 77,
+      "complexity": 37
     },
     {
       "id": "cz.case.exp260908.025",
@@ -1849,7 +2287,9 @@
       "objectiveId": "cz.case.plural",
       "phase": "transfer",
       "context": "Locate the hidden map.",
-      "explanation": "Mezi takes the instrumental for a fixed location: mezi knihami."
+      "explanation": "Mezi takes the instrumental for a fixed location: mezi knihami.",
+      "usefulness": 73,
+      "complexity": 54
     },
     {
       "id": "cz.case.exp260908.026",
@@ -1864,7 +2304,9 @@
       "objectiveId": "cz.case.address",
       "phase": "practice",
       "context": "Address Pavel directly.",
-      "explanation": "Direct address uses the vocative Pavle, with the mobile e absent from the stem Pavl-."
+      "explanation": "Direct address uses the vocative Pavle, with the mobile e absent from the stem Pavl-.",
+      "usefulness": 62,
+      "complexity": 56
     },
     {
       "id": "cz.case.exp260908.027",
@@ -1879,7 +2321,9 @@
       "objectiveId": "cz.case.address",
       "phase": "practice",
       "context": "Speak directly to Jana.",
-      "explanation": "The name Jana changes final -a to -o in the vocative: Jano."
+      "explanation": "The name Jana changes final -a to -o in the vocative: Jano.",
+      "usefulness": 90,
+      "complexity": 56
     },
     {
       "id": "cz.case.exp260908.028",
@@ -1894,7 +2338,9 @@
       "objectiveId": "cz.case.address",
       "phase": "practice",
       "context": "Invite Marie directly to help.",
-      "explanation": "Marie is vocative here even though it has the same form as the nominative."
+      "explanation": "Marie is vocative here even though it has the same form as the nominative.",
+      "usefulness": 43,
+      "complexity": 56
     },
     {
       "id": "cz.case.exp260908.029",
@@ -1909,7 +2355,9 @@
       "objectiveId": "cz.case.address",
       "phase": "practice",
       "context": "Thank Petr by addressing him.",
-      "explanation": "Direct address requires Petře; the stem consonant changes from r to ř."
+      "explanation": "Direct address requires Petře; the stem consonant changes from r to ř.",
+      "usefulness": 68,
+      "complexity": 56
     },
     {
       "id": "cz.case.exp260908.030",
@@ -1924,7 +2372,9 @@
       "objectiveId": "cz.case.address",
       "phase": "transfer",
       "context": "Address the talking dog in a fairy tale.",
-      "explanation": "Pse is the vocative singular of pes, used for direct address in this imaginary story."
+      "explanation": "Pse is the vocative singular of pes, used for direct address in this imaginary story.",
+      "usefulness": 43,
+      "complexity": 56
     }
   ]
 }

@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
 import * as verbNebulaCore from "../static/source/games/verb-nebula/verb-nebula-core.mjs";
+import * as verbExerciseFamilyCore from "../static/source/games/verb-nebula/verb-exercise-family-core.mjs";
 import * as childFacingAssets from "../static/source/child-facing-assets.mjs";
 import { filterPackagedImageKeymap } from "../../android/tooling/developer-image-catalog.mjs";
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
@@ -23,7 +24,10 @@ function between(start, end) {
 function harness({ catalog = keymap, search } = {}) {
   const browser = createBrowserHarness({ course });
   const state = { verbHintCache: new Map(), verbHintKeymapPromise: null, verbHintById: new Map(),
-    verbHintsEnabled: true, verbMatchedIds: new Set(), verbWrongIds: new Set(), verbRound: pairs };
+    verbHintsEnabled: true, verbMatchedIds: new Set(), verbWrongIds: new Set(), verbRound: pairs,
+    verbMemoryLoaded: true, verbDifficulty: 1, verbPairs: pairs, verbPairCount: 4, verbQueueIds: [],
+    verbEnglishRound: pairs, verbRoundNumber: 1, verbStats: { attempts: 0, matches: 0, rounds: 0 },
+    verbContentEncounterId: "image-test-encounter", verbContentGeneration: "image-test-generation" };
   const queries = [];
   let active = 0, peakActive = 0;
   const safePaths = Object.keys(catalog).filter(path => childFacingAssets.isChildFacingMacawActionAssetAllowed(path));
@@ -46,7 +50,12 @@ function harness({ catalog = keymap, search } = {}) {
       }).catch(() => this.onerror?.());
     }
   }
-  Object.assign(browser.context, { state, verbNebulaCore, childFacingAssets, Image,
+  Object.assign(browser.context, { state, verbNebulaCore, childFacingAssets, Image, course,
+    // The pure serializers require plain objects in their own realm.
+    verbExerciseFamilyCore: { ...verbExerciseFamilyCore,
+      migrateVerbMemoryToV3: value => verbExerciseFamilyCore.migrateVerbMemoryToV3(structuredClone(value)),
+      withVerbFamilyState: (memory, family, value) => verbExerciseFamilyCore.withVerbFamilyState(
+        structuredClone(memory), family, structuredClone(value)) },
     sourceLanguage: course.sourceLanguage, targetLanguage: course.targetLanguage,
     interfaceText: id => id, renderVerbNebula() {},
     verbGuidedInteractionLocked: () => false, verbGuidedTargetPending: () => false,
@@ -55,6 +64,8 @@ function harness({ catalog = keymap, search } = {}) {
   });
   browser.window.setTimeout = (callback, delay) => setTimeout(callback, delay === 6000 ? 25 : delay);
   vm.runInContext([
+    between('const verbStorageKey =', 'const verbHintKeymapUrl ='),
+    between('function parseStoredVerbMemory(', 'function validVerbIds('),
     between('const verbHintKeymapUrl =', 'const campaignContractGameIds ='),
     between('const verbHintLookupTimeoutMillis =', 'function verbSolutionRevealDuration'),
     between('function verbHintTokens(', 'function loadVerbImageSearch()'),
@@ -100,6 +111,16 @@ test("the reported saved board renders four images before and after matching wit
       assert.ok(!row.textContent.includes("learning.context"));
     }
   }
+  const memory = JSON.parse(game.localStorage.getItem(course.storage.verbMemory
+    || `${course.storage.namespace}.verb-memory.v3`)).families.meaning;
+  assert.deepEqual(memory.contentAssistedIds.sort(), board.map(pair => pair.id).sort());
+  assert.equal(memory.contentEncounterId, game.state.verbContentEncounterId);
+  assert.equal(memory.contentGeneration, game.state.verbContentGeneration);
+  game.state.verbHintsEnabled = false;
+  assert.equal(game.context.renderVerbHintSlot(board[0]).hidden, true);
+  game.context.saveVerbMemory();
+  assert.deepEqual(Array.from(game.context.readVerbMemory().contentAssistedIds).sort(), board.map(pair => pair.id).sort(),
+    "hiding a shown image and saving the board cannot erase assistance");
 });
 
 test("a stalled semantic lookup retains an available lexical picture at its deadline", async () => {

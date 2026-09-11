@@ -174,6 +174,8 @@ export function prepareLanguageRoleContent(
     sceneQuery: concept.sceneQuery,
     topic: concept.topic,
     difficulty: concept.difficulty,
+    ...(concept.usefulness === undefined ? {} : { usefulness: concept.usefulness }),
+    ...(concept.complexity === undefined ? {} : { complexity: concept.complexity }),
     audit: {
       languageTag: ENGLISH_AUDIT_LANGUAGE,
       text: concept.englishText

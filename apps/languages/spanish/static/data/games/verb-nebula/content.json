@@ -6,7 +6,9 @@
     "source": "be (identity)",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 9
   },
   {
     "id": "es.verb.estar",
@@ -15,7 +17,9 @@
     "source": "be (state or location)",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 17
   },
   {
     "id": "es.verb.tener",
@@ -24,7 +28,9 @@
     "source": "have",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 9
   },
   {
     "id": "es.verb.hacer",
@@ -33,7 +39,9 @@
     "source": "do or make",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 17
   },
   {
     "id": "es.verb.ir",
@@ -42,7 +50,9 @@
     "source": "go",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 15
   },
   {
     "id": "es.verb.venir",
@@ -51,7 +61,9 @@
     "source": "come",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 15
   },
   {
     "id": "es.verb.querer",
@@ -60,7 +72,9 @@
     "source": "want",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 15
   },
   {
     "id": "es.verb.poder",
@@ -69,7 +83,9 @@
     "source": "be able to",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 27
   },
   {
     "id": "es.verb.deber",
@@ -78,7 +94,9 @@
     "source": "should or owe",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 29
   },
   {
     "id": "es.verb.necesitar",
@@ -87,7 +105,9 @@
     "source": "need",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 98,
+    "complexity": 15
   },
   {
     "id": "es.verb.decir",
@@ -96,7 +116,9 @@
     "source": "say or tell",
     "difficulty": 1,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 23
   },
   {
     "id": "es.verb.hablar",
@@ -105,7 +127,9 @@
     "source": "speak",
     "difficulty": 1,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 15
   },
   {
     "id": "es.verb.preguntar",
@@ -114,7 +138,9 @@
     "source": "ask",
     "difficulty": 1,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es.verb.responder",
@@ -123,7 +149,9 @@
     "source": "answer",
     "difficulty": 1,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es.verb.escuchar",
@@ -132,7 +160,9 @@
     "source": "listen to",
     "difficulty": 1,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 24
   },
   {
     "id": "es.verb.oir",
@@ -141,7 +171,9 @@
     "source": "hear",
     "difficulty": 1,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es.verb.ver",
@@ -150,7 +182,9 @@
     "source": "see",
     "difficulty": 1,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es.verb.mirar",
@@ -159,7 +193,9 @@
     "source": "look at",
     "difficulty": 1,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 24
   },
   {
     "id": "es.verb.saber",
@@ -168,7 +204,9 @@
     "source": "know a fact or how to",
     "difficulty": 1,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 35
   },
   {
     "id": "es.verb.conocer",
@@ -177,7 +215,9 @@
     "source": "know or be acquainted with",
     "difficulty": 1,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 94,
+    "complexity": 23
   },
   {
     "id": "es.verb.entender",
@@ -186,7 +226,9 @@
     "source": "understand",
     "difficulty": 1,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 98,
+    "complexity": 15
   },
   {
     "id": "es.verb.recordar",
@@ -195,7 +237,9 @@
     "source": "remember",
     "difficulty": 1,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.olvidar",
@@ -204,7 +248,9 @@
     "source": "forget",
     "difficulty": 1,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.gustar",
@@ -213,7 +259,9 @@
     "source": "like; be pleasing to",
     "difficulty": 1,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 29
   },
   {
     "id": "es.verb.comer",
@@ -222,7 +270,9 @@
     "source": "eat",
     "difficulty": 1,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es.verb.beber",
@@ -231,7 +281,9 @@
     "source": "drink",
     "difficulty": 1,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es.verb.dormir",
@@ -240,7 +292,9 @@
     "source": "sleep",
     "difficulty": 1,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es.verb.levantarse",
@@ -249,7 +303,9 @@
     "source": "get up",
     "difficulty": 1,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "es.verb.lavarse",
@@ -258,7 +314,9 @@
     "source": "wash oneself",
     "difficulty": 1,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 24
   },
   {
     "id": "es.verb.vestirse",
@@ -267,7 +325,9 @@
     "source": "get dressed",
     "difficulty": 1,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "es.verb.abrir",
@@ -276,7 +336,9 @@
     "source": "open",
     "difficulty": 1,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es.verb.cerrar",
@@ -285,7 +347,9 @@
     "source": "close",
     "difficulty": 1,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es.verb.esperar",
@@ -294,7 +358,9 @@
     "source": "wait or hope",
     "difficulty": 1,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 23
   },
   {
     "id": "es.verb.descansar",
@@ -303,7 +369,9 @@
     "source": "rest",
     "difficulty": 1,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.comprar",
@@ -312,7 +380,9 @@
     "source": "buy",
     "difficulty": 1,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es.verb.vender",
@@ -321,7 +391,9 @@
     "source": "sell",
     "difficulty": 1,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "es.verb.pagar",
@@ -330,7 +402,9 @@
     "source": "pay",
     "difficulty": 1,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es.verb.cocinar",
@@ -339,7 +413,9 @@
     "source": "cook",
     "difficulty": 1,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 21
   },
   {
     "id": "es.verb.elegir",
@@ -348,7 +424,9 @@
     "source": "choose",
     "difficulty": 1,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.estudiar",
@@ -357,7 +435,9 @@
     "source": "study",
     "difficulty": 1,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 73,
+    "complexity": 21
   },
   {
     "id": "es.verb.leer",
@@ -366,7 +446,9 @@
     "source": "read",
     "difficulty": 1,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es.verb.escribir",
@@ -375,7 +457,9 @@
     "source": "write",
     "difficulty": 1,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es.verb.dibujar",
@@ -384,7 +468,9 @@
     "source": "draw",
     "difficulty": 1,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 62,
+    "complexity": 29
   },
   {
     "id": "es.verb.cantar",
@@ -393,7 +479,9 @@
     "source": "sing",
     "difficulty": 1,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es.verb.trabajar",
@@ -402,7 +490,9 @@
     "source": "work",
     "difficulty": 1,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es.verb.ayudar",
@@ -411,7 +501,9 @@
     "source": "help",
     "difficulty": 1,
     "category": "community-help-safety",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 99,
+    "complexity": 15
   },
   {
     "id": "es.verb.cuidar",
@@ -420,7 +512,9 @@
     "source": "care for",
     "difficulty": 1,
     "category": "community-help-safety",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 24
   },
   {
     "id": "es.verb.caminar",
@@ -429,7 +523,9 @@
     "source": "walk",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es.verb.correr",
@@ -438,7 +534,9 @@
     "source": "run",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.sentarse",
@@ -447,7 +545,9 @@
     "source": "sit down",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "es.verb.ponerse-de-pie",
@@ -456,7 +556,9 @@
     "source": "stand up",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "es.verb.entrar",
@@ -465,7 +567,9 @@
     "source": "enter",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.salir",
@@ -474,7 +578,9 @@
     "source": "go out or leave",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 40
   },
   {
     "id": "es.verb.volver",
@@ -483,7 +589,9 @@
     "source": "return",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.llamar",
@@ -492,7 +600,9 @@
     "source": "call",
     "difficulty": 1,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 21
   },
   {
     "id": "es.verb.jugar",
@@ -501,7 +611,9 @@
     "source": "play",
     "difficulty": 1,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 62,
+    "complexity": 21
   },
   {
     "id": "es.verb.vivir",
@@ -510,7 +622,9 @@
     "source": "live",
     "difficulty": 1,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es.verb.dar",
@@ -519,7 +633,9 @@
     "source": "give",
     "difficulty": 1,
     "category": "community-help-safety",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es.verb.llevar",
@@ -528,7 +644,9 @@
     "source": "carry, take, or wear",
     "difficulty": 1,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 32
   },
   {
     "id": "es.verb.poner",
@@ -537,7 +655,9 @@
     "source": "put",
     "difficulty": 1,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.quitar",
@@ -546,7 +666,9 @@
     "source": "remove",
     "difficulty": 2,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.permitir",
@@ -555,7 +677,9 @@
     "source": "allow",
     "difficulty": 2,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "es.verb.pertenecer",
@@ -564,7 +688,9 @@
     "source": "belong to",
     "difficulty": 2,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 41
   },
   {
     "id": "es.verb.presentar",
@@ -573,7 +699,9 @@
     "source": "introduce or present",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "es.verb.explicar",
@@ -582,7 +710,9 @@
     "source": "explain",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 21
   },
   {
     "id": "es.verb.conversar",
@@ -591,7 +721,9 @@
     "source": "chat or converse",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "es.verb.discutir",
@@ -600,7 +732,9 @@
     "source": "discuss or argue",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 37
   },
   {
     "id": "es.verb.estar-de-acuerdo",
@@ -609,7 +743,9 @@
     "source": "agree",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 46
   },
   {
     "id": "es.verb.discrepar",
@@ -618,7 +754,9 @@
     "source": "disagree",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 46
   },
   {
     "id": "es.verb.invitar",
@@ -627,7 +765,9 @@
     "source": "invite",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.sugerir",
@@ -636,7 +776,9 @@
     "source": "suggest",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 46
   },
   {
     "id": "es.verb.contactar",
@@ -645,7 +787,9 @@
     "source": "contact",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 72,
+    "complexity": 27
   },
   {
     "id": "es.verb.felicitar",
@@ -654,7 +798,9 @@
     "source": "congratulate",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es.verb.disculparse",
@@ -663,7 +809,9 @@
     "source": "apologize",
     "difficulty": 2,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "es.verb.pensar",
@@ -672,7 +820,9 @@
     "source": "think",
     "difficulty": 2,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.creer",
@@ -681,7 +831,9 @@
     "source": "believe",
     "difficulty": 2,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es.verb.sentir",
@@ -690,7 +842,9 @@
     "source": "feel",
     "difficulty": 2,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.notar",
@@ -699,7 +853,9 @@
     "source": "notice",
     "difficulty": 2,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.descubrir",
@@ -708,7 +864,9 @@
     "source": "discover",
     "difficulty": 2,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es.verb.comprobar",
@@ -717,7 +875,9 @@
     "source": "check or verify",
     "difficulty": 2,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 29
   },
   {
     "id": "es.verb.aprender",
@@ -726,7 +886,9 @@
     "source": "learn",
     "difficulty": 2,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es.verb.ensenar",
@@ -735,7 +897,9 @@
     "source": "teach",
     "difficulty": 2,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.practicar",
@@ -744,7 +908,9 @@
     "source": "practice",
     "difficulty": 2,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 73,
+    "complexity": 21
   },
   {
     "id": "es.verb.repetir",
@@ -753,7 +919,9 @@
     "source": "repeat",
     "difficulty": 2,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 21
   },
   {
     "id": "es.verb.resumir",
@@ -762,7 +930,9 @@
     "source": "summarize",
     "difficulty": 2,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es.verb.comparar",
@@ -771,7 +941,9 @@
     "source": "compare",
     "difficulty": 2,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es.verb.buscar",
@@ -780,7 +952,9 @@
     "source": "look for",
     "difficulty": 2,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 24
   },
   {
     "id": "es.verb.encontrar",
@@ -789,7 +963,9 @@
     "source": "find",
     "difficulty": 2,
     "category": "perception-cognition",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es.verb.perder",
@@ -798,7 +974,9 @@
     "source": "lose",
     "difficulty": 2,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "es.verb.ganar",
@@ -807,7 +985,9 @@
     "source": "win or earn",
     "difficulty": 2,
     "category": "identity-modality",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 36
   },
   {
     "id": "es.verb.llegar",
@@ -816,7 +996,9 @@
     "source": "arrive",
     "difficulty": 2,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.partir",
@@ -825,7 +1007,9 @@
     "source": "depart",
     "difficulty": 2,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.subir",
@@ -834,7 +1018,9 @@
     "source": "go up or get on",
     "difficulty": 2,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 40
   },
   {
     "id": "es.verb.bajar",
@@ -843,7 +1029,9 @@
     "source": "go down or get off",
     "difficulty": 2,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 40
   },
   {
     "id": "es.verb.cruzar",
@@ -852,7 +1040,9 @@
     "source": "cross",
     "difficulty": 2,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.visitar",
@@ -861,7 +1051,9 @@
     "source": "visit",
     "difficulty": 2,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 21
   },
   {
     "id": "es.verb.pasear",
@@ -870,7 +1062,9 @@
     "source": "take a walk",
     "difficulty": 2,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 34
   },
   {
     "id": "es.verb.viajar",
@@ -879,7 +1073,9 @@
     "source": "travel",
     "difficulty": 2,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.conducir",
@@ -888,7 +1084,9 @@
     "source": "drive",
     "difficulty": 2,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.montar",
@@ -897,7 +1095,9 @@
     "source": "ride or assemble",
     "difficulty": 2,
     "category": "movement-travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 29
   },
   {
     "id": "es.verb.cepillarse-los-dientes",
@@ -906,7 +1106,9 @@
     "source": "brush one's teeth",
     "difficulty": 2,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 30
   },
   {
     "id": "es.verb.ducharse",
@@ -915,7 +1117,9 @@
     "source": "take a shower",
     "difficulty": 2,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 35
   },
   {
     "id": "es.verb.peinarse",
@@ -924,7 +1128,9 @@
     "source": "comb one's hair",
     "difficulty": 2,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 88,
+    "complexity": 33
   },
   {
     "id": "es.verb.limpiar",
@@ -933,7 +1139,9 @@
     "source": "clean",
     "difficulty": 2,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 21
   },
   {
     "id": "es.verb.ordenar",
@@ -942,7 +1150,9 @@
     "source": "tidy up or order",
     "difficulty": 2,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 40
   },
   {
     "id": "es.verb.tender-la-ropa",
@@ -951,7 +1161,9 @@
     "source": "hang clothes to dry",
     "difficulty": 2,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 37
   },
   {
     "id": "es.verb.hacer-la-compra",
@@ -960,7 +1172,9 @@
     "source": "shop for groceries",
     "difficulty": 2,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 81,
+    "complexity": 27
   },
   {
     "id": "es.verb.hacer-ejercicio",
@@ -969,7 +1183,9 @@
     "source": "exercise",
     "difficulty": 2,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.mudarse",
@@ -978,7 +1194,9 @@
     "source": "move house",
     "difficulty": 2,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 77,
+    "complexity": 24
   },
   {
     "id": "es.verb.reservar",
@@ -987,7 +1205,9 @@
     "source": "make a reservation",
     "difficulty": 2,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 83,
+    "complexity": 31
   },
   {
     "id": "es.verb.pedir-comida",
@@ -996,7 +1216,9 @@
     "source": "order food",
     "difficulty": 2,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 88,
+    "complexity": 24
   },
   {
     "id": "es.verb.pagar-la-cuenta",
@@ -1005,7 +1227,9 @@
     "source": "pay the bill",
     "difficulty": 2,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 81,
+    "complexity": 31
   },
   {
     "id": "es.verb.devolver",
@@ -1014,7 +1238,9 @@
     "source": "return a purchase or give back",
     "difficulty": 2,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 35
   },
   {
     "id": "es.verb.cambiar-un-articulo",
@@ -1023,7 +1249,9 @@
     "source": "exchange an item",
     "difficulty": 2,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 47
   },
   {
     "id": "es.verb.probarse-ropa",
@@ -1032,7 +1260,9 @@
     "source": "try on clothes",
     "difficulty": 2,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 90,
+    "complexity": 28
   },
   {
     "id": "es.verb.empaquetar",
@@ -1041,7 +1271,9 @@
     "source": "pack",
     "difficulty": 2,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.calentar",
@@ -1050,7 +1282,9 @@
     "source": "heat up",
     "difficulty": 2,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "es.verb.hornear",
@@ -1059,7 +1293,9 @@
     "source": "bake",
     "difficulty": 2,
     "category": "food-shopping-services",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.repasar",
@@ -1068,7 +1304,9 @@
     "source": "review lessons",
     "difficulty": 2,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 29
   },
   {
     "id": "es.verb.hacer-los-deberes",
@@ -1077,7 +1315,9 @@
     "source": "do homework",
     "difficulty": 2,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 29
   },
   {
     "id": "es.verb.crear",
@@ -1086,7 +1326,9 @@
     "source": "create",
     "difficulty": 2,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.construir",
@@ -1095,7 +1337,9 @@
     "source": "build",
     "difficulty": 2,
     "category": "school-work-creation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.usar",
@@ -1104,7 +1348,9 @@
     "source": "use",
     "difficulty": 2,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.enviar",
@@ -1113,7 +1359,9 @@
     "source": "send",
     "difficulty": 2,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.recibir",
@@ -1122,7 +1370,9 @@
     "source": "receive",
     "difficulty": 2,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.guardar",
@@ -1131,7 +1381,9 @@
     "source": "save or store",
     "difficulty": 2,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 61,
+    "complexity": 29
   },
   {
     "id": "es.verb.encender",
@@ -1140,7 +1392,9 @@
     "source": "turn on",
     "difficulty": 2,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 90,
+    "complexity": 25
   },
   {
     "id": "es.verb.apagar",
@@ -1149,7 +1403,9 @@
     "source": "turn off",
     "difficulty": 2,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "es.verb.cargar",
@@ -1158,7 +1414,9 @@
     "source": "charge or load",
     "difficulty": 2,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 37
   },
   {
     "id": "es.verb.iniciar-sesion",
@@ -1167,7 +1425,9 @@
     "source": "sign in",
     "difficulty": 2,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 24
   },
   {
     "id": "es.verb.teclear",
@@ -1176,7 +1436,9 @@
     "source": "type on a keyboard",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 90,
+    "complexity": 31
   },
   {
     "id": "es.verb.proteger",
@@ -1185,7 +1447,9 @@
     "source": "protect",
     "difficulty": 3,
     "category": "community-help-safety",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "es.verb.prestar",
@@ -1194,7 +1458,9 @@
     "source": "lend",
     "difficulty": 3,
     "category": "community-help-safety",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 21
   },
   {
     "id": "es.verb.pedir-prestado",
@@ -1203,7 +1469,9 @@
     "source": "borrow",
     "difficulty": 3,
     "category": "community-help-safety",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 21
   },
   {
     "id": "es.verb.arreglar",
@@ -1212,7 +1480,9 @@
     "source": "fix",
     "difficulty": 3,
     "category": "home-routines",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.organizar",
@@ -1221,7 +1491,9 @@
     "source": "organize",
     "difficulty": 3,
     "category": "planning-collaboration",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 26
   },
   {
     "id": "es.verb.planificar",
@@ -1230,7 +1502,9 @@
     "source": "plan",
     "difficulty": 3,
     "category": "planning-collaboration",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.decidir",
@@ -1239,7 +1513,9 @@
     "source": "decide",
     "difficulty": 3,
     "category": "planning-collaboration",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es.verb.confirmar",
@@ -1248,7 +1524,9 @@
     "source": "confirm",
     "difficulty": 3,
     "category": "planning-collaboration",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "es.verb.avisar",
@@ -1257,7 +1535,9 @@
     "source": "notify or warn",
     "difficulty": 3,
     "category": "planning-collaboration",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 33
   },
   {
     "id": "es.verb.colaborar",
@@ -1266,7 +1546,9 @@
     "source": "collaborate",
     "difficulty": 3,
     "category": "planning-collaboration",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "es.verb.resolver",
@@ -1275,7 +1557,9 @@
     "source": "solve",
     "difficulty": 3,
     "category": "planning-collaboration",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es.verb.mejorar",
@@ -1284,7 +1568,9 @@
     "source": "improve",
     "difficulty": 3,
     "category": "planning-collaboration",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 26
   },
   {
     "id": "es.verb.completar",
@@ -1293,7 +1579,9 @@
     "source": "complete",
     "difficulty": 3,
     "category": "planning-collaboration",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 26
   },
   {
     "id": "es.verb.entregar",
@@ -1302,7 +1590,9 @@
     "source": "deliver or submit",
     "difficulty": 3,
     "category": "planning-collaboration",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 34
   },
   {
     "id": "es.verb.asistir",
@@ -1311,7 +1601,9 @@
     "source": "attend",
     "difficulty": 3,
     "category": "planning-collaboration",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "es.verb.programar",
@@ -1320,7 +1612,9 @@
     "source": "schedule or program",
     "difficulty": 3,
     "category": "planning-collaboration",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 34
   },
   {
     "id": "es.verb.aplazar",
@@ -1329,7 +1623,9 @@
     "source": "postpone",
     "difficulty": 3,
     "category": "planning-collaboration",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 83,
+    "complexity": 25
   },
   {
     "id": "es.verb.cancelar",
@@ -1338,7 +1634,9 @@
     "source": "cancel",
     "difficulty": 3,
     "category": "planning-collaboration",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 83,
+    "complexity": 25
   },
   {
     "id": "es.verb.alquilar",
@@ -1347,7 +1645,9 @@
     "source": "rent",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.incluir",
@@ -1356,7 +1656,9 @@
     "source": "include",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "es.verb.excluir",
@@ -1365,7 +1667,9 @@
     "source": "exclude",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.reparar",
@@ -1374,7 +1678,9 @@
     "source": "repair",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 21
   },
   {
     "id": "es.verb.mantener",
@@ -1383,7 +1689,9 @@
     "source": "maintain",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.gestionar",
@@ -1392,7 +1700,9 @@
     "source": "manage",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.presupuestar",
@@ -1401,7 +1711,9 @@
     "source": "budget",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 57,
+    "complexity": 29
   },
   {
     "id": "es.verb.ahorrar",
@@ -1410,7 +1722,9 @@
     "source": "save money or resources",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 61,
+    "complexity": 32
   },
   {
     "id": "es.verb.gastar",
@@ -1419,7 +1733,9 @@
     "source": "spend",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.transferir",
@@ -1428,7 +1744,9 @@
     "source": "transfer",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 57,
+    "complexity": 36
   },
   {
     "id": "es.verb.solicitar",
@@ -1437,7 +1755,9 @@
     "source": "apply for or request",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 91,
+    "complexity": 32
   },
   {
     "id": "es.verb.renovar",
@@ -1446,7 +1766,9 @@
     "source": "renew",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.identificar",
@@ -1455,7 +1777,9 @@
     "source": "identify",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.verificar",
@@ -1464,7 +1788,9 @@
     "source": "verify",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.compartir",
@@ -1473,7 +1799,9 @@
     "source": "share",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.hacer-copias-de-seguridad",
@@ -1482,7 +1810,9 @@
     "source": "back up files",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 52
   },
   {
     "id": "es.verb.actualizar",
@@ -1491,7 +1821,9 @@
     "source": "update",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 72,
+    "complexity": 27
   },
   {
     "id": "es.verb.descargar",
@@ -1500,7 +1832,9 @@
     "source": "download",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 61,
+    "complexity": 46
   },
   {
     "id": "es.verb.adjuntar",
@@ -1509,7 +1843,9 @@
     "source": "attach",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.seleccionar",
@@ -1518,7 +1854,9 @@
     "source": "select",
     "difficulty": 3,
     "category": "digital-admin-adult-life",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.separar",
@@ -1527,7 +1865,9 @@
     "source": "separate or sort",
     "difficulty": 3,
     "category": "environment-community",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 37
   },
   {
     "id": "es.verb.reciclar",
@@ -1536,7 +1876,9 @@
     "source": "recycle",
     "difficulty": 3,
     "category": "environment-community",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es.verb.reutilizar",
@@ -1545,7 +1887,9 @@
     "source": "reuse",
     "difficulty": 3,
     "category": "environment-community",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es.verb.plantar",
@@ -1554,7 +1898,9 @@
     "source": "plant",
     "difficulty": 3,
     "category": "environment-community",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 65,
+    "complexity": 26
   },
   {
     "id": "es.verb.conservar",
@@ -1563,7 +1909,9 @@
     "source": "conserve",
     "difficulty": 3,
     "category": "environment-community",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es.verb.reducir",
@@ -1572,7 +1920,9 @@
     "source": "reduce",
     "difficulty": 3,
     "category": "environment-community",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es.verb.respetar",
@@ -1581,7 +1931,9 @@
     "source": "respect",
     "difficulty": 3,
     "category": "community-help-safety",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es.verb.debatir",
@@ -1590,7 +1942,9 @@
     "source": "debate",
     "difficulty": 3,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.opinar",
@@ -1599,7 +1953,9 @@
     "source": "express an opinion",
     "difficulty": 3,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 52
   },
   {
     "id": "es.verb.recomendar",
@@ -1608,7 +1964,9 @@
     "source": "recommend",
     "difficulty": 3,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 46
   },
   {
     "id": "es.verb.prometer",
@@ -1617,7 +1975,9 @@
     "source": "promise",
     "difficulty": 3,
     "category": "communication-social",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 46
   },
   {
     "id": "es.verb.exp260908.jump",
@@ -1626,7 +1986,9 @@
     "target": "saltar",
     "source": "jump",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es.verb.exp260908.swim",
@@ -1635,7 +1997,9 @@
     "target": "nadar",
     "source": "swim",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es.verb.exp260908.dance",
@@ -1644,7 +2008,9 @@
     "target": "bailar",
     "source": "dance",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 62,
+    "complexity": 29
   },
   {
     "id": "es.verb.exp260908.smile",
@@ -1653,7 +2019,9 @@
     "target": "sonreír",
     "source": "smile",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.exp260908.laugh",
@@ -1662,7 +2030,9 @@
     "target": "reír",
     "source": "laugh",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.exp260908.cry",
@@ -1671,7 +2041,9 @@
     "target": "llorar",
     "source": "cry",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.exp260908.count",
@@ -1680,7 +2052,9 @@
     "target": "contar",
     "source": "count",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 73,
+    "complexity": 21
   },
   {
     "id": "es.verb.exp260908.touch",
@@ -1689,7 +2063,9 @@
     "target": "tocar",
     "source": "touch",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.exp260908.hold",
@@ -1698,7 +2074,9 @@
     "target": "sujetar",
     "source": "hold",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.exp260908.wash",
@@ -1707,7 +2085,9 @@
     "target": "lavar",
     "source": "wash",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 21
   },
   {
     "id": "es.verb.exp260908.sit",
@@ -1716,7 +2096,9 @@
     "target": "estar sentado",
     "source": "sit",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.exp260908.stand",
@@ -1725,7 +2107,9 @@
     "target": "estar de pie",
     "source": "stand",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.exp260908.wake-up",
@@ -1734,7 +2118,9 @@
     "target": "despertarse",
     "source": "wake up",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "es.verb.exp260908.fly",
@@ -1743,7 +2129,9 @@
     "target": "volar",
     "source": "fly",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es.verb.exp260908.grow",
@@ -1752,7 +2140,9 @@
     "target": "crecer",
     "source": "grow",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 65,
+    "complexity": 26
   },
   {
     "id": "es.verb.exp260908.smell",
@@ -1761,7 +2151,9 @@
     "target": "oler",
     "source": "smell",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 65,
+    "complexity": 26
   },
   {
     "id": "es.verb.exp260908.taste",
@@ -1770,7 +2162,9 @@
     "target": "saborear",
     "source": "taste",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 65,
+    "complexity": 26
   },
   {
     "id": "es.verb.exp260908.hug",
@@ -1779,7 +2173,9 @@
     "target": "abrazar",
     "source": "hug",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es.verb.exp260908.wave",
@@ -1788,7 +2184,9 @@
     "target": "saludar con la mano",
     "source": "wave",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es.verb.exp260908.clap",
@@ -1797,7 +2195,9 @@
     "target": "aplaudir",
     "source": "clap",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es.verb.exp260908.kick",
@@ -1806,7 +2206,9 @@
     "target": "chutar",
     "source": "kick",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es.verb.exp260908.catch",
@@ -1815,7 +2217,9 @@
     "target": "atrapar",
     "source": "catch",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.exp260908.throw",
@@ -1824,7 +2228,9 @@
     "target": "lanzar",
     "source": "throw",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.exp260908.crawl",
@@ -1833,7 +2239,9 @@
     "target": "gatear",
     "source": "crawl",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es.verb.exp260908.whisper",
@@ -1842,7 +2250,9 @@
     "target": "susurrar",
     "source": "whisper",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es.verb.exp260908.shout",
@@ -1851,7 +2261,9 @@
     "target": "gritar",
     "source": "shout",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es.verb.exp260908.hum",
@@ -1860,7 +2272,9 @@
     "target": "tararear",
     "source": "hum",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "es.verb.exp260908.whistle",
@@ -1869,7 +2283,9 @@
     "target": "silbar",
     "source": "whistle",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "es.verb.exp260908.bark",
@@ -1878,7 +2294,9 @@
     "target": "ladrar",
     "source": "bark",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "es.verb.exp260908.meow",
@@ -1887,7 +2305,9 @@
     "target": "maullar",
     "source": "meow",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "es.verb.exp260908.hop",
@@ -1896,7 +2316,9 @@
     "target": "saltar a la pata coja",
     "source": "hop",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es.verb.exp260908.slide",
@@ -1905,7 +2327,9 @@
     "target": "deslizarse",
     "source": "slide",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es.verb.exp260908.roll",
@@ -1914,7 +2338,9 @@
     "target": "hacer rodar",
     "source": "roll",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es.verb.exp260908.float",
@@ -1923,7 +2349,9 @@
     "target": "flotar",
     "source": "float",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es.verb.exp260908.splash",
@@ -1932,7 +2360,9 @@
     "target": "salpicar",
     "source": "splash",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es.verb.exp260908.bounce",
@@ -1941,7 +2371,9 @@
     "target": "botar",
     "source": "bounce",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es.verb.exp260908.fold",
@@ -1950,7 +2382,9 @@
     "target": "doblar",
     "source": "fold",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.exp260908.unfold",
@@ -1959,7 +2393,9 @@
     "target": "desplegar",
     "source": "unfold",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.exp260908.decorate",
@@ -1968,7 +2404,9 @@
     "target": "decorar",
     "source": "decorate",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.exp260908.glue",
@@ -1977,7 +2415,9 @@
     "target": "pegar",
     "source": "glue",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.exp260908.weave",
@@ -1986,7 +2426,9 @@
     "target": "tejer",
     "source": "weave",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.exp260908.knead",
@@ -1995,7 +2437,9 @@
     "target": "amasar",
     "source": "knead",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.exp260908.stir",
@@ -2004,7 +2448,9 @@
     "target": "remover",
     "source": "stir",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 78,
+    "complexity": 23
   },
   {
     "id": "es.verb.exp260908.pour",
@@ -2013,7 +2459,9 @@
     "target": "verter",
     "source": "pour",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 78,
+    "complexity": 23
   },
   {
     "id": "es.verb.exp260908.peel",
@@ -2022,7 +2470,9 @@
     "target": "pelar",
     "source": "peel",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 78,
+    "complexity": 23
   },
   {
     "id": "es.verb.exp260908.water",
@@ -2031,7 +2481,9 @@
     "target": "regar",
     "source": "water",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 98,
+    "complexity": 15
   },
   {
     "id": "es.verb.exp260908.sprout",
@@ -2040,7 +2492,9 @@
     "target": "brotar",
     "source": "sprout",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es.verb.exp260908.bloom",
@@ -2049,7 +2503,9 @@
     "target": "florecer",
     "source": "bloom",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es.verb.exp260908.collect",
@@ -2058,7 +2514,9 @@
     "target": "coleccionar",
     "source": "collect",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.exp260908.measure",
@@ -2067,7 +2525,9 @@
     "target": "medir",
     "source": "measure",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.exp260908.weigh",
@@ -2076,7 +2536,9 @@
     "target": "pesar",
     "source": "weigh",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.exp260908.guess",
@@ -2085,7 +2547,9 @@
     "target": "adivinar",
     "source": "guess",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.exp260908.explore",
@@ -2094,7 +2558,9 @@
     "target": "explorar",
     "source": "explore",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.exp260908.imagine",
@@ -2103,7 +2569,9 @@
     "target": "imaginar",
     "source": "imagine",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es.verb.exp260908.pretend",
@@ -2112,7 +2580,9 @@
     "target": "fingir",
     "source": "pretend",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es.verb.exp260908.celebrate",
@@ -2121,7 +2591,9 @@
     "target": "celebrar",
     "source": "celebrate",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es.verb.exp260908.thank",
@@ -2130,7 +2602,9 @@
     "target": "agradecer",
     "source": "thank",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 90,
+    "complexity": 15
   },
   {
     "id": "es.verb.exp260908.welcome",
@@ -2139,7 +2613,9 @@
     "target": "dar la bienvenida",
     "source": "welcome",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es.verb.exp260908.cheer",
@@ -2148,7 +2624,9 @@
     "target": "animar",
     "source": "cheer",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es.verb.exp260908.forgive",
@@ -2157,7 +2635,9 @@
     "target": "perdonar",
     "source": "forgive",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "es.verb.exp260908.comfort",
@@ -2166,7 +2646,9 @@
     "target": "consolar",
     "source": "comfort",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "es.verb.exp260908.balance",
@@ -2175,7 +2657,9 @@
     "target": "mantener el equilibrio",
     "source": "balance",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es.verb.exp260908.cooperate",
@@ -2184,7 +2668,9 @@
     "target": "cooperar",
     "source": "cooperate",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 42
   },
   {
     "id": "es.verb.exp260908.negotiate",
@@ -2193,7 +2679,9 @@
     "target": "negociar",
     "source": "negotiate",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 63
   },
   {
     "id": "es.verb.exp260908.persuade",
@@ -2202,7 +2690,9 @@
     "target": "convencer",
     "source": "persuade",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 60
   },
   {
     "id": "es.verb.exp260908.reassure",
@@ -2211,7 +2701,9 @@
     "target": "tranquilizar",
     "source": "reassure",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es.verb.exp260908.appreciate",
@@ -2220,7 +2712,9 @@
     "target": "apreciar",
     "source": "appreciate",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es.verb.exp260908.admire",
@@ -2229,7 +2723,9 @@
     "target": "admirar",
     "source": "admire",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es.verb.exp260908.wonder",
@@ -2238,7 +2734,9 @@
     "target": "preguntarse",
     "source": "wonder",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.exp260908.reflect",
@@ -2247,7 +2745,9 @@
     "target": "reflexionar",
     "source": "reflect",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 60
   },
   {
     "id": "es.verb.exp260908.concentrate",
@@ -2256,7 +2756,9 @@
     "target": "concentrarse",
     "source": "concentrate",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es.verb.exp260908.persevere",
@@ -2265,7 +2767,9 @@
     "target": "perseverar",
     "source": "persevere",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es.verb.exp260908.hesitate",
@@ -2274,7 +2778,9 @@
     "target": "dudar",
     "source": "hesitate",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es.verb.exp260908.anticipate",
@@ -2283,7 +2789,9 @@
     "target": "anticipar",
     "source": "anticipate",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es.verb.exp260908.investigate",
@@ -2292,7 +2800,9 @@
     "target": "investigar",
     "source": "investigate",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es.verb.exp260908.observe",
@@ -2301,7 +2811,9 @@
     "target": "observar",
     "source": "observe",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.exp260908.distinguish",
@@ -2310,7 +2822,9 @@
     "target": "distinguir",
     "source": "distinguish",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es.verb.exp260908.estimate",
@@ -2319,7 +2833,9 @@
     "target": "estimar",
     "source": "estimate",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es.verb.exp260908.interpret",
@@ -2328,7 +2844,9 @@
     "target": "interpretar",
     "source": "interpret",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 46
   },
   {
     "id": "es.verb.exp260908.justify",
@@ -2337,7 +2855,9 @@
     "target": "justificar",
     "source": "justify",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 63
   },
   {
     "id": "es.verb.exp260908.demonstrate",
@@ -2346,7 +2866,9 @@
     "target": "demostrar",
     "source": "demonstrate",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "es.verb.exp260908.invent",
@@ -2355,7 +2877,9 @@
     "target": "inventar",
     "source": "invent",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.exp260908.transform",
@@ -2364,7 +2888,9 @@
     "target": "transformar",
     "source": "transform",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "es.verb.exp260908.combine",
@@ -2373,7 +2899,9 @@
     "target": "combinar",
     "source": "combine",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.exp260908.adapt",
@@ -2382,7 +2910,9 @@
     "target": "adaptarse",
     "source": "adapt",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.exp260908.restore",
@@ -2391,7 +2921,9 @@
     "target": "restaurar",
     "source": "restore",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es.verb.exp260908.preserve",
@@ -2400,7 +2932,9 @@
     "target": "preservar",
     "source": "preserve",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es.verb.exp260908.contribute",
@@ -2409,7 +2943,9 @@
     "target": "contribuir",
     "source": "contribute",
     "category": "nature-play-cooperation",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es.verb.pair260908.pintar",
@@ -2418,7 +2954,9 @@
     "source": "paint",
     "difficulty": 1,
     "category": "art-play",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 62,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.cortar",
@@ -2427,7 +2965,9 @@
     "source": "cut",
     "difficulty": 1,
     "category": "crafts",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.pair260908.tirar",
@@ -2436,7 +2976,9 @@
     "source": "pull",
     "difficulty": 1,
     "category": "movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "es.verb.pair260908.empujar",
@@ -2445,7 +2987,9 @@
     "source": "push",
     "difficulty": 1,
     "category": "movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "es.verb.pair260908.intentar",
@@ -2454,7 +2998,9 @@
     "source": "try",
     "difficulty": 1,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.pair260908.traer",
@@ -2463,7 +3009,9 @@
     "source": "bring",
     "difficulty": 1,
     "category": "everyday",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.pair260908.recoger",
@@ -2472,7 +3020,9 @@
     "source": "pick up",
     "difficulty": 1,
     "category": "home",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "es.verb.pair260908.dejar",
@@ -2481,7 +3031,9 @@
     "source": "leave behind",
     "difficulty": 1,
     "category": "everyday",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "es.verb.pair260908.llenar",
@@ -2490,7 +3042,9 @@
     "source": "fill",
     "difficulty": 1,
     "category": "home",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.vaciar",
@@ -2499,7 +3053,9 @@
     "source": "empty",
     "difficulty": 1,
     "category": "home",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 84,
+    "complexity": 22
   },
   {
     "id": "es.verb.pair260908.secar",
@@ -2508,7 +3064,9 @@
     "source": "dry",
     "difficulty": 1,
     "category": "home",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es.verb.pair260908.mojar",
@@ -2517,7 +3075,9 @@
     "source": "wet",
     "difficulty": 1,
     "category": "nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es.verb.pair260908.tapar",
@@ -2526,7 +3086,9 @@
     "source": "cover",
     "difficulty": 1,
     "category": "home",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.destapar",
@@ -2535,7 +3097,9 @@
     "source": "uncover",
     "difficulty": 1,
     "category": "home",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.romper",
@@ -2544,7 +3108,9 @@
     "source": "break",
     "difficulty": 1,
     "category": "everyday",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.sonar",
@@ -2553,7 +3119,9 @@
     "source": "sound",
     "difficulty": 1,
     "category": "music",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 26
   },
   {
     "id": "es.verb.pair260908.brillar",
@@ -2562,7 +3130,9 @@
     "source": "shine",
     "difficulty": 1,
     "category": "nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es.verb.pair260908.rodar",
@@ -2571,7 +3141,9 @@
     "source": "roll along",
     "difficulty": 1,
     "category": "movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 31
   },
   {
     "id": "es.verb.pair260908.parar",
@@ -2580,7 +3152,9 @@
     "source": "stop",
     "difficulty": 1,
     "category": "movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 99,
+    "complexity": 15
   },
   {
     "id": "es.verb.pair260908.empezar",
@@ -2589,7 +3163,9 @@
     "source": "start",
     "difficulty": 1,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.pair260908.terminar",
@@ -2598,7 +3174,9 @@
     "source": "finish",
     "difficulty": 1,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.pair260908.seguir",
@@ -2607,7 +3185,9 @@
     "source": "follow",
     "difficulty": 1,
     "category": "movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.pasar",
@@ -2616,7 +3196,9 @@
     "source": "pass",
     "difficulty": 1,
     "category": "play",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "es.verb.pair260908.agitar",
@@ -2625,7 +3207,9 @@
     "source": "shake",
     "difficulty": 2,
     "category": "movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.estirar",
@@ -2634,7 +3218,9 @@
     "source": "stretch",
     "difficulty": 2,
     "category": "movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.encoger",
@@ -2643,7 +3229,9 @@
     "source": "shrink",
     "difficulty": 2,
     "category": "nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "es.verb.pair260908.girar",
@@ -2652,7 +3240,9 @@
     "source": "turn",
     "difficulty": 2,
     "category": "movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.pair260908.torcer",
@@ -2661,7 +3251,9 @@
     "source": "twist",
     "difficulty": 2,
     "category": "movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "es.verb.pair260908.inclinar",
@@ -2670,7 +3262,9 @@
     "source": "tilt",
     "difficulty": 2,
     "category": "movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.balancearse",
@@ -2679,7 +3273,9 @@
     "source": "sway",
     "difficulty": 2,
     "category": "movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.mecer",
@@ -2688,7 +3284,9 @@
     "source": "rock",
     "difficulty": 2,
     "category": "home",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.patinar",
@@ -2697,7 +3295,9 @@
     "source": "skate",
     "difficulty": 2,
     "category": "play",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es.verb.pair260908.pedalear",
@@ -2706,7 +3306,9 @@
     "source": "pedal",
     "difficulty": 2,
     "category": "play",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es.verb.pair260908.trepar",
@@ -2715,7 +3317,9 @@
     "source": "climb",
     "difficulty": 2,
     "category": "animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es.verb.pair260908.arrastrar",
@@ -2724,7 +3328,9 @@
     "source": "drag",
     "difficulty": 2,
     "category": "movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.despegar",
@@ -2733,7 +3339,9 @@
     "source": "take off",
     "difficulty": 2,
     "category": "travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "es.verb.pair260908.aterrizar",
@@ -2742,7 +3350,9 @@
     "source": "land",
     "difficulty": 2,
     "category": "travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.navegar",
@@ -2751,7 +3361,9 @@
     "source": "sail",
     "difficulty": 2,
     "category": "travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.remar",
@@ -2760,7 +3372,9 @@
     "source": "row",
     "difficulty": 2,
     "category": "play",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es.verb.pair260908.acampar",
@@ -2769,7 +3383,9 @@
     "source": "camp",
     "difficulty": 2,
     "category": "nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es.verb.pair260908.orientarse",
@@ -2778,7 +3394,9 @@
     "source": "find one's way",
     "difficulty": 2,
     "category": "travel",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 35
   },
   {
     "id": "es.verb.pair260908.apuntar",
@@ -2787,7 +3405,9 @@
     "source": "point",
     "difficulty": 2,
     "category": "movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.senalar",
@@ -2796,7 +3416,9 @@
     "source": "point out",
     "difficulty": 2,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "es.verb.pair260908.acariciar",
@@ -2805,7 +3427,9 @@
     "source": "stroke",
     "difficulty": 2,
     "category": "animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es.verb.pair260908.ronronear",
@@ -2814,7 +3438,9 @@
     "source": "purr",
     "difficulty": 2,
     "category": "animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "es.verb.pair260908.relinchar",
@@ -2823,7 +3449,9 @@
     "source": "neigh",
     "difficulty": 2,
     "category": "animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "es.verb.pair260908.cacarear",
@@ -2832,7 +3460,9 @@
     "source": "cluck",
     "difficulty": 2,
     "category": "animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "es.verb.pair260908.piar",
@@ -2841,7 +3471,9 @@
     "source": "chirp",
     "difficulty": 2,
     "category": "animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "es.verb.pair260908.zumbar",
@@ -2850,7 +3482,9 @@
     "source": "buzz",
     "difficulty": 2,
     "category": "animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "es.verb.pair260908.croar",
@@ -2859,7 +3493,9 @@
     "source": "croak",
     "difficulty": 2,
     "category": "animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "es.verb.pair260908.aullar",
@@ -2868,7 +3504,9 @@
     "source": "howl",
     "difficulty": 2,
     "category": "animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "es.verb.pair260908.mugir",
@@ -2877,7 +3515,9 @@
     "source": "moo",
     "difficulty": 2,
     "category": "animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "es.verb.pair260908.pastar",
@@ -2886,7 +3526,9 @@
     "source": "graze",
     "difficulty": 2,
     "category": "animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "es.verb.pair260908.anidar",
@@ -2895,7 +3537,9 @@
     "source": "nest",
     "difficulty": 2,
     "category": "animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 48,
+    "complexity": 37
   },
   {
     "id": "es.verb.pair260908.incubar",
@@ -2904,7 +3548,9 @@
     "source": "incubate",
     "difficulty": 2,
     "category": "animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es.verb.pair260908.aletear",
@@ -2913,7 +3559,9 @@
     "source": "flap",
     "difficulty": 2,
     "category": "animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "es.verb.pair260908.olfatear",
@@ -2922,7 +3570,9 @@
     "source": "sniff",
     "difficulty": 2,
     "category": "animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es.verb.pair260908.masticar",
@@ -2931,7 +3581,9 @@
     "source": "chew",
     "difficulty": 2,
     "category": "food",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.lamer",
@@ -2940,7 +3592,9 @@
     "source": "lick",
     "difficulty": 2,
     "category": "animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es.verb.pair260908.morder",
@@ -2949,7 +3603,9 @@
     "source": "bite",
     "difficulty": 2,
     "category": "animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es.verb.pair260908.bostezar",
@@ -2958,7 +3614,9 @@
     "source": "yawn",
     "difficulty": 2,
     "category": "everyday",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.estornudar",
@@ -2967,7 +3625,9 @@
     "source": "sneeze",
     "difficulty": 2,
     "category": "everyday",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.toser",
@@ -2976,7 +3636,9 @@
     "source": "cough",
     "difficulty": 2,
     "category": "everyday",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.respirar",
@@ -2985,7 +3647,9 @@
     "source": "breathe",
     "difficulty": 2,
     "category": "everyday",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.parpadear",
@@ -2994,7 +3658,9 @@
     "source": "blink",
     "difficulty": 2,
     "category": "everyday",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.guinar",
@@ -3003,7 +3669,9 @@
     "source": "wink",
     "difficulty": 2,
     "category": "everyday",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.asentir",
@@ -3012,7 +3680,9 @@
     "source": "nod",
     "difficulty": 2,
     "category": "friendship",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es.verb.pair260908.suspirar",
@@ -3021,7 +3691,9 @@
     "source": "sigh",
     "difficulty": 2,
     "category": "feelings",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es.verb.pair260908.temblar",
@@ -3030,7 +3702,9 @@
     "source": "tremble",
     "difficulty": 2,
     "category": "feelings",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 28
   },
   {
     "id": "es.verb.pair260908.abrigarse",
@@ -3039,7 +3713,9 @@
     "source": "wrap up warmly",
     "difficulty": 2,
     "category": "home",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 37
   },
   {
     "id": "es.verb.pair260908.abrochar",
@@ -3048,7 +3724,9 @@
     "source": "fasten",
     "difficulty": 2,
     "category": "clothes",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "es.verb.pair260908.desabrochar",
@@ -3057,7 +3735,9 @@
     "source": "unfasten",
     "difficulty": 2,
     "category": "clothes",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "es.verb.pair260908.atar",
@@ -3066,7 +3746,9 @@
     "source": "tie",
     "difficulty": 2,
     "category": "crafts",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.pair260908.desatar",
@@ -3075,7 +3757,9 @@
     "source": "untie",
     "difficulty": 2,
     "category": "crafts",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.pair260908.enrollar",
@@ -3084,7 +3768,9 @@
     "source": "roll up",
     "difficulty": 2,
     "category": "crafts",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 71,
+    "complexity": 31
   },
   {
     "id": "es.verb.pair260908.desenrollar",
@@ -3093,7 +3779,9 @@
     "source": "unroll",
     "difficulty": 2,
     "category": "crafts",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.envolver",
@@ -3102,7 +3790,9 @@
     "source": "wrap",
     "difficulty": 2,
     "category": "crafts",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.pair260908.desenvolver",
@@ -3111,7 +3801,9 @@
     "source": "unwrap",
     "difficulty": 2,
     "category": "crafts",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.pair260908.coser",
@@ -3120,7 +3812,9 @@
     "source": "sew",
     "difficulty": 2,
     "category": "crafts",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.pair260908.bordar",
@@ -3129,7 +3823,9 @@
     "source": "embroider",
     "difficulty": 2,
     "category": "crafts",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "es.verb.pair260908.recortar",
@@ -3138,7 +3834,9 @@
     "source": "cut out",
     "difficulty": 2,
     "category": "crafts",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 34
   },
   {
     "id": "es.verb.pair260908.colorear",
@@ -3147,7 +3845,9 @@
     "source": "color",
     "difficulty": 2,
     "category": "art-play",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es.verb.pair260908.borrar",
@@ -3156,7 +3856,9 @@
     "source": "erase",
     "difficulty": 2,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.subrayar",
@@ -3165,7 +3867,9 @@
     "source": "underline",
     "difficulty": 2,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.trazar",
@@ -3174,7 +3878,9 @@
     "source": "trace",
     "difficulty": 2,
     "category": "art-play",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.pair260908.calcar",
@@ -3183,7 +3889,9 @@
     "source": "trace over",
     "difficulty": 2,
     "category": "art-play",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 34
   },
   {
     "id": "es.verb.pair260908.modelar",
@@ -3192,7 +3900,9 @@
     "source": "model",
     "difficulty": 2,
     "category": "art-play",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.pair260908.moldear",
@@ -3201,7 +3911,9 @@
     "source": "mold",
     "difficulty": 2,
     "category": "crafts",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.pair260908.esculpir",
@@ -3210,7 +3922,9 @@
     "source": "sculpt",
     "difficulty": 2,
     "category": "art-play",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.pair260908.ilustrar",
@@ -3219,7 +3933,9 @@
     "source": "illustrate",
     "difficulty": 2,
     "category": "art-play",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.pair260908.fotografiar",
@@ -3228,7 +3944,9 @@
     "source": "photograph",
     "difficulty": 2,
     "category": "art-play",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.pair260908.filmar",
@@ -3237,7 +3955,9 @@
     "source": "film",
     "difficulty": 2,
     "category": "art-play",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "es.verb.pair260908.grabar",
@@ -3246,7 +3966,9 @@
     "source": "record",
     "difficulty": 2,
     "category": "music",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.pair260908.afinar",
@@ -3255,7 +3977,9 @@
     "source": "tune",
     "difficulty": 2,
     "category": "music",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.pair260908.ensayar",
@@ -3264,7 +3988,9 @@
     "source": "rehearse",
     "difficulty": 2,
     "category": "music",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.pair260908.actuar",
@@ -3273,7 +3999,9 @@
     "source": "act",
     "difficulty": 2,
     "category": "art-play",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.pair260908.imitar",
@@ -3282,7 +4010,9 @@
     "source": "imitate",
     "difficulty": 2,
     "category": "play",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.pair260908.rimar",
@@ -3291,7 +4021,9 @@
     "source": "rhyme",
     "difficulty": 2,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.deletrear",
@@ -3300,7 +4032,9 @@
     "source": "spell",
     "difficulty": 2,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.pair260908.pronunciar",
@@ -3309,7 +4043,9 @@
     "source": "pronounce",
     "difficulty": 2,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.traducir",
@@ -3318,7 +4054,9 @@
     "source": "translate",
     "difficulty": 2,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "es.verb.pair260908.narrar",
@@ -3327,7 +4065,9 @@
     "source": "narrate",
     "difficulty": 2,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.describir",
@@ -3336,7 +4076,9 @@
     "source": "describe",
     "difficulty": 2,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.nombrar",
@@ -3345,7 +4087,9 @@
     "source": "name",
     "difficulty": 2,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "es.verb.pair260908.enumerar",
@@ -3354,7 +4098,9 @@
     "source": "list",
     "difficulty": 2,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.sumar",
@@ -3363,7 +4109,9 @@
     "source": "add",
     "difficulty": 2,
     "category": "math",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.restar",
@@ -3372,7 +4120,9 @@
     "source": "subtract",
     "difficulty": 2,
     "category": "math",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.multiplicar",
@@ -3381,7 +4131,9 @@
     "source": "multiply",
     "difficulty": 2,
     "category": "math",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.dividir",
@@ -3390,7 +4142,9 @@
     "source": "divide",
     "difficulty": 2,
     "category": "math",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.agrupar",
@@ -3399,7 +4153,9 @@
     "source": "group",
     "difficulty": 2,
     "category": "math",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.clasificar",
@@ -3408,7 +4164,9 @@
     "source": "classify",
     "difficulty": 2,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es.verb.pair260908.mezclar",
@@ -3417,7 +4175,9 @@
     "source": "mix",
     "difficulty": 2,
     "category": "food",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.batir",
@@ -3426,7 +4186,9 @@
     "source": "whisk",
     "difficulty": 2,
     "category": "food",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.rallar",
@@ -3435,7 +4197,9 @@
     "source": "grate",
     "difficulty": 2,
     "category": "food",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.exprimir",
@@ -3444,7 +4208,9 @@
     "source": "squeeze",
     "difficulty": 2,
     "category": "food",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.untar",
@@ -3453,7 +4219,9 @@
     "source": "spread",
     "difficulty": 2,
     "category": "food",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.repartir",
@@ -3462,7 +4230,9 @@
     "source": "hand out",
     "difficulty": 2,
     "category": "friendship",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "es.verb.pair260908.servir",
@@ -3471,7 +4241,9 @@
     "source": "serve",
     "difficulty": 2,
     "category": "food",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.merendar",
@@ -3480,7 +4252,9 @@
     "source": "snack",
     "difficulty": 2,
     "category": "food",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.desayunar",
@@ -3489,7 +4263,9 @@
     "source": "eat breakfast",
     "difficulty": 2,
     "category": "food",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 32
   },
   {
     "id": "es.verb.pair260908.almorzar",
@@ -3498,7 +4274,9 @@
     "source": "eat lunch",
     "difficulty": 2,
     "category": "food",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 75,
+    "complexity": 26
   },
   {
     "id": "es.verb.pair260908.cenar",
@@ -3507,7 +4285,9 @@
     "source": "dine",
     "difficulty": 2,
     "category": "food",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.probar",
@@ -3516,7 +4296,9 @@
     "source": "try out",
     "difficulty": 2,
     "category": "discovery",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "es.verb.pair260908.pescar",
@@ -3525,7 +4307,9 @@
     "source": "fish",
     "difficulty": 2,
     "category": "nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.pair260908.cosechar",
@@ -3534,7 +4318,9 @@
     "source": "harvest",
     "difficulty": 2,
     "category": "nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es.verb.pair260908.sembrar",
@@ -3543,7 +4329,9 @@
     "source": "sow",
     "difficulty": 2,
     "category": "nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es.verb.pair260908.desherbar",
@@ -3552,7 +4340,9 @@
     "source": "weed",
     "difficulty": 2,
     "category": "nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es.verb.pair260908.podar",
@@ -3561,7 +4351,9 @@
     "source": "prune",
     "difficulty": 2,
     "category": "nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es.verb.pair260908.abonar",
@@ -3570,7 +4362,9 @@
     "source": "fertilize",
     "difficulty": 2,
     "category": "nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es.verb.pair260908.germinar",
@@ -3579,7 +4373,9 @@
     "source": "germinate",
     "difficulty": 2,
     "category": "nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es.verb.pair260908.madurar",
@@ -3588,7 +4384,9 @@
     "source": "ripen",
     "difficulty": 2,
     "category": "nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es.verb.pair260908.nevar",
@@ -3597,7 +4395,9 @@
     "source": "snow",
     "difficulty": 2,
     "category": "weather",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.pair260908.llover",
@@ -3606,7 +4406,9 @@
     "source": "rain",
     "difficulty": 2,
     "category": "weather",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.pair260908.granizar",
@@ -3615,7 +4417,9 @@
     "source": "hail",
     "difficulty": 2,
     "category": "weather",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.tronar",
@@ -3624,7 +4428,9 @@
     "source": "thunder",
     "difficulty": 2,
     "category": "weather",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es.verb.pair260908.lloviznar",
@@ -3633,7 +4439,9 @@
     "source": "drizzle",
     "difficulty": 2,
     "category": "weather",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.derretirse",
@@ -3642,7 +4450,9 @@
     "source": "melt",
     "difficulty": 2,
     "category": "nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es.verb.pair260908.congelarse",
@@ -3651,7 +4461,9 @@
     "source": "freeze",
     "difficulty": 2,
     "category": "nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es.verb.pair260908.gotear",
@@ -3660,7 +4472,9 @@
     "source": "drip",
     "difficulty": 2,
     "category": "nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 46,
+    "complexity": 38
   },
   {
     "id": "es.verb.pair260908.empaparse",
@@ -3669,7 +4483,9 @@
     "source": "get soaked",
     "difficulty": 2,
     "category": "weather",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "es.verb.pair260908.despejarse",
@@ -3678,7 +4494,9 @@
     "source": "clear up",
     "difficulty": 2,
     "category": "weather",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 32
   },
   {
     "id": "es.verb.pair260908.deducir",
@@ -3687,7 +4505,9 @@
     "source": "deduce",
     "difficulty": 3,
     "category": "reasoning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es.verb.pair260908.inferir",
@@ -3696,7 +4516,9 @@
     "source": "infer",
     "difficulty": 3,
     "category": "reasoning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es.verb.pair260908.relacionar",
@@ -3705,7 +4527,9 @@
     "source": "relate",
     "difficulty": 3,
     "category": "reasoning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.asociar",
@@ -3714,7 +4538,9 @@
     "source": "associate",
     "difficulty": 3,
     "category": "reasoning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.contrastar",
@@ -3723,7 +4549,9 @@
     "source": "contrast",
     "difficulty": 3,
     "category": "reasoning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 46
   },
   {
     "id": "es.verb.pair260908.diferenciar",
@@ -3732,7 +4560,9 @@
     "source": "differentiate",
     "difficulty": 3,
     "category": "reasoning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.evaluar",
@@ -3741,7 +4571,9 @@
     "source": "evaluate",
     "difficulty": 3,
     "category": "reasoning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es.verb.pair260908.valorar",
@@ -3750,7 +4582,9 @@
     "source": "value",
     "difficulty": 3,
     "category": "friendship",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "es.verb.pair260908.cuestionar",
@@ -3759,7 +4593,9 @@
     "source": "question",
     "difficulty": 3,
     "category": "reasoning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 73,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.argumentar",
@@ -3768,7 +4604,9 @@
     "source": "argue",
     "difficulty": 3,
     "category": "reasoning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.razonar",
@@ -3777,7 +4615,9 @@
     "source": "reason",
     "difficulty": 3,
     "category": "reasoning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 46
   },
   {
     "id": "es.verb.pair260908.aclarar",
@@ -3786,7 +4626,9 @@
     "source": "clarify",
     "difficulty": 3,
     "category": "friendship",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "es.verb.pair260908.precisar",
@@ -3795,7 +4637,9 @@
     "source": "specify",
     "difficulty": 3,
     "category": "reasoning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.reformular",
@@ -3804,7 +4648,9 @@
     "source": "rephrase",
     "difficulty": 3,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.sintetizar",
@@ -3813,7 +4659,9 @@
     "source": "synthesize",
     "difficulty": 3,
     "category": "reasoning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es.verb.pair260908.generalizar",
@@ -3822,7 +4670,9 @@
     "source": "generalize",
     "difficulty": 3,
     "category": "reasoning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.ejemplificar",
@@ -3831,7 +4681,9 @@
     "source": "exemplify",
     "difficulty": 3,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.representar",
@@ -3840,7 +4692,9 @@
     "source": "represent",
     "difficulty": 3,
     "category": "art-play",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "es.verb.pair260908.simbolizar",
@@ -3849,7 +4703,9 @@
     "source": "symbolize",
     "difficulty": 3,
     "category": "art-play",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "es.verb.pair260908.visualizar",
@@ -3858,7 +4714,9 @@
     "source": "visualize",
     "difficulty": 3,
     "category": "reasoning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.reconocer",
@@ -3867,7 +4725,9 @@
     "source": "recognize",
     "difficulty": 3,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.reconsiderar",
@@ -3876,7 +4736,9 @@
     "source": "reconsider",
     "difficulty": 3,
     "category": "reasoning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.rectificar",
@@ -3885,7 +4747,9 @@
     "source": "rectify",
     "difficulty": 3,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.revisar",
@@ -3894,7 +4758,9 @@
     "source": "revise",
     "difficulty": 3,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.corregir",
@@ -3903,7 +4769,9 @@
     "source": "correct",
     "difficulty": 3,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 90,
+    "complexity": 22
   },
   {
     "id": "es.verb.pair260908.perfeccionar",
@@ -3912,7 +4780,9 @@
     "source": "refine",
     "difficulty": 3,
     "category": "art-play",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es.verb.pair260908.simplificar",
@@ -3921,7 +4791,9 @@
     "source": "simplify",
     "difficulty": 3,
     "category": "reasoning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.ampliar",
@@ -3930,7 +4802,9 @@
     "source": "expand",
     "difficulty": 3,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.profundizar",
@@ -3939,7 +4813,9 @@
     "source": "deepen",
     "difficulty": 3,
     "category": "reasoning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.priorizar",
@@ -3948,7 +4824,9 @@
     "source": "prioritize",
     "difficulty": 3,
     "category": "planning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "es.verb.pair260908.coordinar",
@@ -3957,7 +4835,9 @@
     "source": "coordinate",
     "difficulty": 3,
     "category": "friendship",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es.verb.pair260908.distribuir",
@@ -3966,7 +4846,9 @@
     "source": "distribute",
     "difficulty": 3,
     "category": "planning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es.verb.pair260908.equilibrar",
@@ -3975,7 +4857,9 @@
     "source": "balance out",
     "difficulty": 3,
     "category": "planning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 44
   },
   {
     "id": "es.verb.pair260908.alternar",
@@ -3984,7 +4868,9 @@
     "source": "alternate",
     "difficulty": 3,
     "category": "friendship",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es.verb.pair260908.intercambiar",
@@ -3993,7 +4879,9 @@
     "source": "exchange",
     "difficulty": 3,
     "category": "friendship",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es.verb.pair260908.consensuar",
@@ -4002,7 +4890,9 @@
     "source": "reach consensus",
     "difficulty": 3,
     "category": "friendship",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 24
   },
   {
     "id": "es.verb.pair260908.reconciliarse",
@@ -4011,7 +4901,9 @@
     "source": "make up",
     "difficulty": 3,
     "category": "friendship",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 38
   },
   {
     "id": "es.verb.pair260908.empatizar",
@@ -4020,7 +4912,9 @@
     "source": "empathize",
     "difficulty": 3,
     "category": "friendship",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "es.verb.pair260908.comprender",
@@ -4029,7 +4923,9 @@
     "source": "comprehend",
     "difficulty": 3,
     "category": "reasoning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.tolerar",
@@ -4038,7 +4934,9 @@
     "source": "tolerate",
     "difficulty": 3,
     "category": "friendship",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "es.verb.pair260908.acompanar",
@@ -4047,7 +4945,9 @@
     "source": "accompany",
     "difficulty": 3,
     "category": "friendship",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "es.verb.pair260908.apoyar",
@@ -4056,7 +4956,9 @@
     "source": "support",
     "difficulty": 3,
     "category": "friendship",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "es.verb.pair260908.alentar",
@@ -4065,7 +4967,9 @@
     "source": "encourage",
     "difficulty": 3,
     "category": "friendship",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "es.verb.pair260908.inspirar",
@@ -4074,7 +4978,9 @@
     "source": "inspire",
     "difficulty": 3,
     "category": "art-play",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "es.verb.pair260908.motivar",
@@ -4083,7 +4989,9 @@
     "source": "motivate",
     "difficulty": 3,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "es.verb.pair260908.reconfortar",
@@ -4092,7 +5000,9 @@
     "source": "console",
     "difficulty": 3,
     "category": "friendship",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "es.verb.pair260908.involucrar",
@@ -4101,7 +5011,9 @@
     "source": "involve",
     "difficulty": 3,
     "category": "friendship",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "es.verb.pair260908.integrar",
@@ -4110,7 +5022,9 @@
     "source": "integrate",
     "difficulty": 3,
     "category": "friendship",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "es.verb.pair260908.participar",
@@ -4119,7 +5033,9 @@
     "source": "participate",
     "difficulty": 3,
     "category": "friendship",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 79,
+    "complexity": 25
   },
   {
     "id": "es.verb.pair260908.comprometerse",
@@ -4128,7 +5044,9 @@
     "source": "commit oneself",
     "difficulty": 3,
     "category": "friendship",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 46
   },
   {
     "id": "es.verb.pair260908.responsabilizarse",
@@ -4137,7 +5055,9 @@
     "source": "take responsibility",
     "difficulty": 3,
     "category": "friendship",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 55,
+    "complexity": 49
   },
   {
     "id": "es.verb.pair260908.beneficiar",
@@ -4146,7 +5066,9 @@
     "source": "benefit",
     "difficulty": 3,
     "category": "nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 52,
+    "complexity": 43
   },
   {
     "id": "es.verb.pair260908.enriquecer",
@@ -4155,7 +5077,9 @@
     "source": "enrich",
     "difficulty": 3,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.facilitar",
@@ -4164,7 +5088,9 @@
     "source": "facilitate",
     "difficulty": 3,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.posibilitar",
@@ -4173,7 +5099,9 @@
     "source": "enable",
     "difficulty": 3,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.prevenir",
@@ -4182,7 +5110,9 @@
     "source": "prevent",
     "difficulty": 3,
     "category": "planning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 88,
+    "complexity": 24
   },
   {
     "id": "es.verb.pair260908.evitar",
@@ -4191,7 +5121,9 @@
     "source": "avoid",
     "difficulty": 3,
     "category": "planning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 88,
+    "complexity": 24
   },
   {
     "id": "es.verb.pair260908.prever",
@@ -4200,7 +5132,9 @@
     "source": "foresee",
     "difficulty": 3,
     "category": "planning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.predecir",
@@ -4209,7 +5143,9 @@
     "source": "predict",
     "difficulty": 3,
     "category": "science",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "es.verb.pair260908.calcular",
@@ -4218,7 +5154,9 @@
     "source": "calculate",
     "difficulty": 3,
     "category": "math",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es.verb.pair260908.aproximar",
@@ -4227,7 +5165,9 @@
     "source": "approximate",
     "difficulty": 3,
     "category": "math",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "es.verb.pair260908.redondear",
@@ -4236,7 +5176,9 @@
     "source": "round off",
     "difficulty": 3,
     "category": "math",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 32
   },
   {
     "id": "es.verb.pair260908.proporcionar",
@@ -4245,7 +5187,9 @@
     "source": "provide",
     "difficulty": 3,
     "category": "planning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "es.verb.pair260908.obtener",
@@ -4254,7 +5198,9 @@
     "source": "obtain",
     "difficulty": 3,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.alcanzar",
@@ -4263,7 +5209,9 @@
     "source": "reach",
     "difficulty": 3,
     "category": "movement",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "es.verb.pair260908.superar",
@@ -4272,7 +5220,9 @@
     "source": "overcome",
     "difficulty": 3,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.persistir",
@@ -4281,7 +5231,9 @@
     "source": "persist",
     "difficulty": 3,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.retomar",
@@ -4290,7 +5242,9 @@
     "source": "resume",
     "difficulty": 3,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 57,
+    "complexity": 36
   },
   {
     "id": "es.verb.pair260908.continuar",
@@ -4299,7 +5253,9 @@
     "source": "continue",
     "difficulty": 3,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 70,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.interrumpir",
@@ -4308,7 +5264,9 @@
     "source": "interrupt",
     "difficulty": 3,
     "category": "friendship",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "es.verb.pair260908.sustituir",
@@ -4317,7 +5275,9 @@
     "source": "replace",
     "difficulty": 3,
     "category": "planning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "es.verb.pair260908.renunciar",
@@ -4326,7 +5286,9 @@
     "source": "renounce",
     "difficulty": 3,
     "category": "reasoning",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.desarrollar",
@@ -4335,7 +5297,9 @@
     "source": "develop",
     "difficulty": 3,
     "category": "school",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es.verb.pair260908.evolucionar",
@@ -4344,7 +5308,9 @@
     "source": "evolve",
     "difficulty": 3,
     "category": "nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "es.verb.pair260908.modificar",
@@ -4353,7 +5319,9 @@
     "source": "modify",
     "difficulty": 3,
     "category": "crafts",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.ajustar",
@@ -4362,7 +5330,9 @@
     "source": "adjust",
     "difficulty": 3,
     "category": "crafts",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 82,
+    "complexity": 26
   },
   {
     "id": "es.verb.pair260908.ensamblar",
@@ -4371,7 +5341,9 @@
     "source": "assemble",
     "difficulty": 3,
     "category": "crafts",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es.verb.pair260908.desmontar",
@@ -4380,7 +5352,9 @@
     "source": "take apart",
     "difficulty": 3,
     "category": "crafts",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 32
   },
   {
     "id": "es.verb.pair260908.reconstruir",
@@ -4389,7 +5363,9 @@
     "source": "reconstruct",
     "difficulty": 3,
     "category": "crafts",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es.verb.pair260908.disenar",
@@ -4398,7 +5374,9 @@
     "source": "design",
     "difficulty": 3,
     "category": "art-play",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.pair260908.componer",
@@ -4407,7 +5385,9 @@
     "source": "compose",
     "difficulty": 3,
     "category": "music",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 58,
+    "complexity": 31
   },
   {
     "id": "es.verb.pair260908.improvisar",
@@ -4416,7 +5396,9 @@
     "source": "improvise",
     "difficulty": 3,
     "category": "music",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 49,
+    "complexity": 39
   },
   {
     "id": "es.verb.pair260908.armonizar",
@@ -4425,7 +5407,9 @@
     "source": "harmonize",
     "difficulty": 3,
     "category": "music",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es.verb.pair260908.resonar",
@@ -4434,7 +5418,9 @@
     "source": "resonate",
     "difficulty": 3,
     "category": "music",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es.verb.pair260908.reverberar",
@@ -4443,7 +5429,9 @@
     "source": "reverberate",
     "difficulty": 3,
     "category": "science",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.vibrar",
@@ -4452,7 +5440,9 @@
     "source": "vibrate",
     "difficulty": 3,
     "category": "science",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.oscilar",
@@ -4461,7 +5451,9 @@
     "source": "oscillate",
     "difficulty": 3,
     "category": "science",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.rotar",
@@ -4470,7 +5462,9 @@
     "source": "rotate",
     "difficulty": 3,
     "category": "science",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.orbitar",
@@ -4479,7 +5473,9 @@
     "source": "orbit",
     "difficulty": 3,
     "category": "science",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es.verb.pair260908.gravitar",
@@ -4488,7 +5484,9 @@
     "source": "gravitate",
     "difficulty": 3,
     "category": "science",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.refractar",
@@ -4497,7 +5495,9 @@
     "source": "refract",
     "difficulty": 3,
     "category": "science",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es.verb.pair260908.absorber",
@@ -4506,7 +5506,9 @@
     "source": "absorb",
     "difficulty": 3,
     "category": "science",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.disolver",
@@ -4515,7 +5517,9 @@
     "source": "dissolve",
     "difficulty": 3,
     "category": "science",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es.verb.pair260908.evaporarse",
@@ -4524,7 +5528,9 @@
     "source": "evaporate",
     "difficulty": 3,
     "category": "science",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es.verb.pair260908.condensarse",
@@ -4533,7 +5539,9 @@
     "source": "condense",
     "difficulty": 3,
     "category": "science",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es.verb.pair260908.filtrar",
@@ -4542,7 +5550,9 @@
     "source": "filter",
     "difficulty": 3,
     "category": "science",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.oxidar",
@@ -4551,7 +5561,9 @@
     "source": "oxidize",
     "difficulty": 3,
     "category": "science",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 38,
+    "complexity": 29
   },
   {
     "id": "es.verb.pair260908.cristalizar",
@@ -4560,7 +5572,9 @@
     "source": "crystallize",
     "difficulty": 3,
     "category": "science",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es.verb.pair260908.erosionar",
@@ -4569,7 +5583,9 @@
     "source": "erode",
     "difficulty": 3,
     "category": "nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "es.verb.pair260908.polinizar",
@@ -4578,7 +5594,9 @@
     "source": "pollinate",
     "difficulty": 3,
     "category": "nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 33,
+    "complexity": 46
   },
   {
     "id": "es.verb.pair260908.migrar",
@@ -4587,7 +5605,9 @@
     "source": "migrate",
     "difficulty": 3,
     "category": "animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "es.verb.pair260908.hibernar",
@@ -4596,7 +5616,9 @@
     "source": "hibernate",
     "difficulty": 3,
     "category": "animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "es.verb.pair260908.camuflarse",
@@ -4605,7 +5627,9 @@
     "source": "camouflage oneself",
     "difficulty": 3,
     "category": "animals",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 54,
+    "complexity": 32
   },
   {
     "id": "es.verb.pair260908.regenerar",
@@ -4614,7 +5638,9 @@
     "source": "regenerate",
     "difficulty": 3,
     "category": "nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 34,
+    "complexity": 48
   },
   {
     "id": "es.verb.pair260908.reforestar",
@@ -4623,7 +5649,9 @@
     "source": "reforest",
     "difficulty": 3,
     "category": "nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   },
   {
     "id": "es.verb.pair260908.compostar",
@@ -4632,6 +5660,8 @@
     "source": "compost",
     "difficulty": 3,
     "category": "nature",
-    "reviewStatus": "native-review-required"
+    "reviewStatus": "native-review-required",
+    "usefulness": 44,
+    "complexity": 41
   }
 ]

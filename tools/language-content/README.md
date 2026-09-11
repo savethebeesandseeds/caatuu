@@ -1,5 +1,12 @@
 # Language content contract
 
+All game learning records have authored usefulness and complexity (1–100) within the
+three badge levels. The [progression guide](../../docs/CONTENT_PROGRESSION.md)
+defines gradual introductions, evidence and spaced review. Run
+`node tools/language-content/quality/content-progression-catalogs.mjs` in the
+established container to validate metadata coverage across every registered
+course, including nested forms/examples. This structural audit also runs in CI.
+
 Word World has one editable source per course:
 `apps/languages/<course>/content/word-world/content.json`. Every source uses the
 same record format and contains its English meaning, target sentence, word

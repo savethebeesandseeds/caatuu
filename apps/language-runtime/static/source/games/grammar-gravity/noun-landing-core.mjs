@@ -1,3 +1,4 @@
+import { normalizeContentProgression, selectContentItems } from "../content-progression.mjs";
 export const NOUN_LANDING_SCHEMA_VERSION = "caatuu-grammar-gravity-nouns-v2";
 
 const GAME_ID = "grammar-gravity";
@@ -161,6 +162,7 @@ export function normalizeNounLandingPack(value, options = {}) {
   const items = value.items.map((item, index) => {
     const location = `items[${index}]`;
     exactKeys(item, ["id", "revision", "targetText", "learnerBaseText", "english", "laneId",
+      ...["usefulness", "complexity", "urgency", "subdifficulty"].filter(key => Object.hasOwn(item, key)),
       ...(Object.hasOwn(item, "difficulty") ? ["difficulty"] : []),
       ...(Object.hasOwn(item, "acceptedLaneIds") ? ["acceptedLaneIds"] : [])], location);
     if (Object.hasOwn(item, "difficulty") && (!Number.isInteger(item.difficulty) || item.difficulty < 1 || item.difficulty > 3)) {
@@ -196,6 +198,7 @@ export function normalizeNounLandingPack(value, options = {}) {
     targetWords.add(targetKey);
     usedLanes.add(laneId);
     return {
+      ...normalizeContentProgression(item, location),
       id: itemId, revision: revision(item.revision, `${location}.revision`), targetText,
       learnerBaseText, english, laneId, ...(item.difficulty === undefined ? {} : { difficulty: item.difficulty }),
       ...(acceptedLaneIds === undefined ? {} : { acceptedLaneIds })
@@ -226,7 +229,7 @@ function shuffled(items, random) {
 }
 
 export function createNounLandingSession(pack, { random = Math.random, limit, avoidFirstItemId = null,
-  durationMs = FALL_DURATION_MS, difficulty = 3 } = {}) {
+  durationMs = FALL_DURATION_MS, difficulty = 3, history } = {}) {
   const content = normalizeNounLandingPack(pack, {
     courseId: pack?.courseId,
     learnerBaseLanguage: pack?.learnerBaseLanguage,
@@ -242,8 +245,9 @@ export function createNounLandingSession(pack, { random = Math.random, limit, av
   }
   const eligible = content.items.filter(item => item.difficulty === undefined || item.difficulty <= difficulty);
   if (!eligible.length) throw new Error("Noun landing needs eligible content for this difficulty.");
-  const candidates = shuffled(eligible, random);
-  if (candidates[0]?.id === avoidFirstItemId) {
+  const candidates = history === undefined ? shuffled(eligible, random)
+    : selectContentItems(eligible, { difficulty, history, minimumPool: Math.max(4, content.lanes.length), random });
+  if (history === undefined && candidates[0]?.id === avoidFirstItemId) {
     const nextIndex = candidates.findIndex((item) => item.id !== avoidFirstItemId);
     if (nextIndex > 0) [candidates[0], candidates[nextIndex]] = [candidates[nextIndex], candidates[0]];
   }

@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
+import { newContentEncounterId } from "../static/source/games/content-progression.mjs";
 
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { createInterfaceContent } from "../static/source/interface-content.mjs";
@@ -153,6 +154,7 @@ async function mountGame({ language = "mandarin-simplified", muted = true, voice
   };
   harness.window.parent = shell;
   Object.assign(harness.context, {
+    newContentEncounterId,
     fetchDeclaredCourseGameJson, readEmbeddedCourseProfile, createSpeechIcon,
     mountEmbeddedGameControls, mountRobotLoadingScreen, createSoundQuasarSession, evaluateSoundQuasarChoice,
     validateSoundQuasarCatalog, soundQuasarItemsForDifficulty, appendTargetToneText, testRandom: random,
@@ -193,6 +195,49 @@ async function mountGame({ language = "mandarin-simplified", muted = true, voice
     setReportResult(value) { reportOutcome = value; },
     setVoiceState(value) { voices = value; }, setSpeechResult(value) { audioResult = value; } };
 }
+
+test("listening distinguishes the first unaided attempt from correction without inflating exposure", async () => {
+  const game = await mountGame({ realLearning: true });
+  const history = () => game.shell.CaatuuLearning.contentHistory("sound-quasar", "words");
+  assert.equal(Object.keys(history()).length, 0);
+  await game.listen();
+  const id = game.current().id;
+  assert.equal(Object.keys(history()).length, 0);
+  const wrong = game.choices().find(button => button.dataset.choiceId !== id);
+  game.click(wrong);
+  assert.equal(history()[id].exposures, 1);
+  assert.equal(history()[id].lastEvidence, "independent");
+  assert.equal(history()[id].lastCorrect, false);
+  const answer = game.choice(id);
+  game.click(answer);
+  assert.equal(history()[id].exposures, 1);
+  assert.equal(history()[id].lastCorrect, false, "the assisted correction retains its failed first attempt for review");
+  assert.equal(history()[id].lastEvidence, "assisted");
+  assert.equal(history()[id].independentSuccesses, 0);
+  assert.equal(history()[id].assistedSuccesses, 1);
+  answer.click();
+  assert.equal(history()[id].exposures, 1);
+  assert.equal(Object.keys(history()).length, 1, "distractors earn no exposure");
+  game.controller.destroy();
+});
+
+test("a listening exercise shown before reset cannot add exposure to the new generation", async () => {
+  const game = await mountGame({ realLearning: true });
+  const learning = game.shell.CaatuuLearning;
+  const before = learning.contentGeneration();
+  await game.listen();
+  const staleId = game.current().id;
+  learning.resetProgress();
+  assert.notEqual(learning.contentGeneration(), before);
+  game.click(game.choice(staleId));
+  assert.equal(Object.keys(learning.contentHistory("sound-quasar", "words")).length, 0);
+  await game.clock.advance(1200);
+  await game.listen();
+  const freshId = game.current().id;
+  game.click(game.choice(freshId));
+  assert.equal(learning.contentHistory("sound-quasar", "words")[freshId].exposures, 1);
+  game.controller.destroy();
+});
 
 test("Spanish-base listening renders Spanish results and speaks only its English targets", async () => {
   const { createInterfaceContent } = await import("../static/source/interface-content.mjs");
@@ -1060,13 +1105,15 @@ for (const { mode, meaning, delay } of [
   { mode: "words", meaning: "a".repeat(80), delay: 5400 },
   { mode: "sentences", meaning: "a".repeat(160), delay: 8000 }
 ]) {
-  test(`${mode} results keep ${meaning.length} translation characters visible for ${delay}ms`, async () => {
+  test(`${mode} corrections keep ${meaning.length} translation characters visible for ${delay}ms`, async () => {
     const game = await mountGame({ mutateCatalog: (catalog) => {
       for (const item of [...catalog.items, ...catalog.sentences]) item.meaning = meaning;
     } });
     if (mode === "sentences") game.click(game.element("Sentences"));
     await game.listen();
-    game.click(game.choice(game.current().id));
+    const wrongChoices = game.choices().filter(button => button.dataset.choiceId !== game.current().id);
+    game.click(wrongChoices[0]);
+    game.click(wrongChoices[1]);
     assert.equal(game.clock.pending().length, 1);
     assert.equal(game.clock.latest().delay, delay);
     const firstProgress = game.element("Progress").textContent;

@@ -1,3 +1,4 @@
+import { normalizeContentProgression } from "./games/content-progression.mjs";
 import {
   assertLanguageAdapterMatchesTarget,
   assertValidLanguageAdapter,
@@ -600,6 +601,7 @@ function adaptStandardRecord(adapter, record) {
     sceneQuery: record.sceneQuery || record.en,
     topic: record.topic || "general",
     difficulty: record.difficulty,
+    ...normalizeContentProgression(record, record.id),
     preferredTokenIndex: Number.isInteger(record.targets?.[0]?.tokenIndex)
       ? record.targets[0].tokenIndex
       : 0,
@@ -740,6 +742,7 @@ function authoredSelectionRecord(adapter, record) {
     } : {}),
     targetText: record.target.text,
     difficulty: Math.max(1, Math.min(3, Math.floor(Number(record.difficulty) || 1))),
+    ...normalizeContentProgression(record, record.id),
     topic: record.topic || "general",
     targets: Object.freeze(record.target.tokens.map((token, tokenIndex) => Object.freeze({
       surface: token.surface,

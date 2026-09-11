@@ -245,7 +245,8 @@ test("Word World and embedding manifests declare the English-only shared MiniLM 
     path.join(repoRoot, "apps/language-runtime/embedding-runtimes.json"),
     "utf8"
   ));
-  assert.equal(wordWorld.recordCount, 250);
+  const authority = await json("content/word-world/content.json");
+  assert.equal(wordWorld.recordCount, authority.records.length);
   assert.equal(wordWorld.capabilities.llm, false);
   assert.equal(wordWorld.capabilities.generation, false);
   assert.equal(wordWorld.capabilities.chat, false);

@@ -78,7 +78,9 @@
                 "targetText": "dům",
                 "learnerBaseText": "house",
                 "englishAuditText": "house"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.novy.masculine.2",
@@ -94,7 +96,9 @@
                 "targetText": "telefon",
                 "learnerBaseText": "phone",
                 "englishAuditText": "phone"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.novy.masculine.3",
@@ -110,7 +114,9 @@
                 "targetText": "student",
                 "learnerBaseText": "student",
                 "englishAuditText": "student"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.novy.masculine.exp260908",
@@ -126,9 +132,13 @@
                 "targetText": "batoh",
                 "learnerBaseText": "backpack",
                 "englishAuditText": "backpack"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine": {
           "displayForm": "nová",
@@ -147,7 +157,9 @@
                 "targetText": "kniha",
                 "learnerBaseText": "book",
                 "englishAuditText": "book"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.novy.feminine.2",
@@ -163,7 +175,9 @@
                 "targetText": "škola",
                 "learnerBaseText": "school",
                 "englishAuditText": "school"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.novy.feminine.3",
@@ -179,7 +193,9 @@
                 "targetText": "otázka",
                 "learnerBaseText": "question",
                 "englishAuditText": "question"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.novy.feminine.exp260908",
@@ -195,9 +211,13 @@
                 "targetText": "stavebnice",
                 "learnerBaseText": "construction set",
                 "englishAuditText": "construction set"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "neuter": {
           "displayForm": "nové",
@@ -216,7 +236,9 @@
                 "targetText": "město",
                 "learnerBaseText": "city",
                 "englishAuditText": "city"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 33
             },
             {
               "id": "cz.agreement.novy.neuter.2",
@@ -232,7 +254,9 @@
                 "targetText": "auto",
                 "learnerBaseText": "car",
                 "englishAuditText": "car"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.novy.neuter.3",
@@ -248,7 +272,9 @@
                 "targetText": "okno",
                 "learnerBaseText": "window",
                 "englishAuditText": "window"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.novy.neuter.exp260908",
@@ -264,11 +290,17 @@
                 "targetText": "hřiště",
                 "learnerBaseText": "playground",
                 "englishAuditText": "playground"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 26
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 34
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "cz.agreement.maly",
@@ -299,7 +331,9 @@
                 "targetText": "stůl",
                 "learnerBaseText": "table",
                 "englishAuditText": "table"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "cz.agreement.maly.masculine.2",
@@ -315,7 +349,9 @@
                 "targetText": "pes",
                 "learnerBaseText": "dog",
                 "englishAuditText": "dog"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "cz.agreement.maly.masculine.3",
@@ -331,7 +367,9 @@
                 "targetText": "obchod",
                 "learnerBaseText": "shop",
                 "englishAuditText": "shop"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 22
             },
             {
               "id": "cz.agreement.maly.masculine.exp260908",
@@ -347,9 +385,13 @@
                 "targetText": "králík",
                 "learnerBaseText": "rabbit",
                 "englishAuditText": "rabbit"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 27
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 21
         },
         "feminine": {
           "displayForm": "malá",
@@ -368,7 +410,9 @@
                 "targetText": "taška",
                 "learnerBaseText": "bag",
                 "englishAuditText": "bag"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "cz.agreement.maly.feminine.2",
@@ -384,7 +428,9 @@
                 "targetText": "zahrada",
                 "learnerBaseText": "garden",
                 "englishAuditText": "garden"
-              }
+              },
+              "usefulness": 62,
+              "complexity": 22
             },
             {
               "id": "cz.agreement.maly.feminine.3",
@@ -400,7 +446,9 @@
                 "targetText": "kavárna",
                 "learnerBaseText": "café",
                 "englishAuditText": "café"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 22
             },
             {
               "id": "cz.agreement.maly.feminine.exp260908",
@@ -416,9 +464,13 @@
                 "targetText": "mušle",
                 "learnerBaseText": "shell",
                 "englishAuditText": "shell"
-              }
+              },
+              "usefulness": 46,
+              "complexity": 31
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 21
         },
         "neuter": {
           "displayForm": "malé",
@@ -437,7 +489,9 @@
                 "targetText": "dítě",
                 "learnerBaseText": "child",
                 "englishAuditText": "child"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.maly.neuter.2",
@@ -453,7 +507,9 @@
                 "targetText": "náměstí",
                 "learnerBaseText": "square",
                 "englishAuditText": "square"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 33
             },
             {
               "id": "cz.agreement.maly.neuter.3",
@@ -469,7 +525,9 @@
                 "targetText": "kolo",
                 "learnerBaseText": "bicycle",
                 "englishAuditText": "bicycle"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.maly.neuter.exp260908",
@@ -485,11 +543,17 @@
                 "targetText": "peříčko",
                 "learnerBaseText": "feather",
                 "englishAuditText": "feather"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 24
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 21
     },
     {
       "id": "cz.agreement.dobry",
@@ -520,7 +584,9 @@
                 "targetText": "nápad",
                 "learnerBaseText": "idea",
                 "englishAuditText": "idea"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.dobry.masculine.2",
@@ -536,7 +602,9 @@
                 "targetText": "film",
                 "learnerBaseText": "film",
                 "englishAuditText": "film"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.dobry.masculine.3",
@@ -552,7 +620,9 @@
                 "targetText": "přítel",
                 "learnerBaseText": "friend",
                 "englishAuditText": "friend"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.dobry.masculine.exp260908",
@@ -568,9 +638,13 @@
                 "targetText": "spoluhráč",
                 "learnerBaseText": "teammate",
                 "englishAuditText": "teammate"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine": {
           "displayForm": "dobrá",
@@ -589,7 +663,9 @@
                 "targetText": "zpráva",
                 "learnerBaseText": "news",
                 "englishAuditText": "news"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.dobry.feminine.2",
@@ -605,7 +681,9 @@
                 "targetText": "káva",
                 "learnerBaseText": "coffee",
                 "englishAuditText": "coffee"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 27
             },
             {
               "id": "cz.agreement.dobry.feminine.3",
@@ -621,7 +699,9 @@
                 "targetText": "odpověď",
                 "learnerBaseText": "answer",
                 "englishAuditText": "answer"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.dobry.feminine.exp260908",
@@ -637,9 +717,13 @@
                 "targetText": "rada",
                 "learnerBaseText": "piece of advice",
                 "englishAuditText": "piece of advice"
-              }
+              },
+              "usefulness": 55,
+              "complexity": 29
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "neuter": {
           "displayForm": "dobré",
@@ -658,7 +742,9 @@
                 "targetText": "jídlo",
                 "learnerBaseText": "food",
                 "englishAuditText": "food"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.dobry.neuter.2",
@@ -674,7 +760,9 @@
                 "targetText": "místo",
                 "learnerBaseText": "place",
                 "englishAuditText": "place"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.dobry.neuter.3",
@@ -690,7 +778,9 @@
                 "targetText": "počasí",
                 "learnerBaseText": "weather",
                 "englishAuditText": "weather"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 29
             },
             {
               "id": "cz.agreement.dobry.neuter.exp260908",
@@ -706,11 +796,17 @@
                 "targetText": "řešení",
                 "learnerBaseText": "solution",
                 "englishAuditText": "solution"
-              }
+              },
+              "usefulness": 52,
+              "complexity": 26
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 34
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "cz.agreement.cesky",
@@ -741,7 +837,9 @@
                 "targetText": "film",
                 "learnerBaseText": "film",
                 "englishAuditText": "film"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.cesky.masculine.2",
@@ -757,7 +855,9 @@
                 "targetText": "jazyk",
                 "learnerBaseText": "language",
                 "englishAuditText": "language"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.cesky.masculine.3",
@@ -773,7 +873,9 @@
                 "targetText": "hrad",
                 "learnerBaseText": "castle",
                 "englishAuditText": "castle"
-              }
+              },
+              "usefulness": 43,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.cesky.masculine.exp260908",
@@ -789,9 +891,13 @@
                 "targetText": "příběh",
                 "learnerBaseText": "story",
                 "englishAuditText": "story"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine": {
           "displayForm": "česká",
@@ -810,7 +916,9 @@
                 "targetText": "hudba",
                 "learnerBaseText": "music",
                 "englishAuditText": "music"
-              }
+              },
+              "usefulness": 62,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.cesky.feminine.2",
@@ -826,7 +934,9 @@
                 "targetText": "kniha",
                 "learnerBaseText": "book",
                 "englishAuditText": "book"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.cesky.feminine.3",
@@ -842,7 +952,9 @@
                 "targetText": "vesnice",
                 "learnerBaseText": "village",
                 "englishAuditText": "village"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.cesky.feminine.exp260908",
@@ -858,9 +970,13 @@
                 "targetText": "pohádka",
                 "learnerBaseText": "fairy tale",
                 "englishAuditText": "fairy tale"
-              }
+              },
+              "usefulness": 43,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "neuter": {
           "displayForm": "české",
@@ -879,7 +995,9 @@
                 "targetText": "slovo",
                 "learnerBaseText": "word",
                 "englishAuditText": "word"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.cesky.neuter.2",
@@ -895,7 +1013,9 @@
                 "targetText": "město",
                 "learnerBaseText": "city",
                 "englishAuditText": "city"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 33
             },
             {
               "id": "cz.agreement.cesky.neuter.3",
@@ -911,7 +1031,9 @@
                 "targetText": "sklo",
                 "learnerBaseText": "glass",
                 "englishAuditText": "glass"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.cesky.neuter.exp260908",
@@ -927,11 +1049,17 @@
                 "targetText": "loutkářství",
                 "learnerBaseText": "puppetry",
                 "englishAuditText": "puppetry"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 34
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "cz.agreement.velky",
@@ -962,7 +1090,9 @@
                 "targetText": "pokoj",
                 "learnerBaseText": "room",
                 "englishAuditText": "room"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "cz.agreement.velky.masculine.2",
@@ -978,7 +1108,9 @@
                 "targetText": "strom",
                 "learnerBaseText": "tree",
                 "englishAuditText": "tree"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 22
             },
             {
               "id": "cz.agreement.velky.masculine.3",
@@ -994,7 +1126,9 @@
                 "targetText": "problém",
                 "learnerBaseText": "problem",
                 "englishAuditText": "problem"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "cz.agreement.velky.masculine.exp260908",
@@ -1010,9 +1144,13 @@
                 "targetText": "slon",
                 "learnerBaseText": "elephant",
                 "englishAuditText": "elephant"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 22
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 21
         },
         "feminine": {
           "displayForm": "velká",
@@ -1031,7 +1169,9 @@
                 "targetText": "zahrada",
                 "learnerBaseText": "garden",
                 "englishAuditText": "garden"
-              }
+              },
+              "usefulness": 62,
+              "complexity": 22
             },
             {
               "id": "cz.agreement.velky.feminine.2",
@@ -1047,7 +1187,9 @@
                 "targetText": "rodina",
                 "learnerBaseText": "family",
                 "englishAuditText": "family"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 22
             },
             {
               "id": "cz.agreement.velky.feminine.3",
@@ -1063,7 +1205,9 @@
                 "targetText": "mapa",
                 "learnerBaseText": "map",
                 "englishAuditText": "map"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "cz.agreement.velky.feminine.exp260908",
@@ -1079,9 +1223,13 @@
                 "targetText": "velryba",
                 "learnerBaseText": "whale",
                 "englishAuditText": "whale"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 22
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 21
         },
         "neuter": {
           "displayForm": "velké",
@@ -1100,7 +1248,9 @@
                 "targetText": "okno",
                 "learnerBaseText": "window",
                 "englishAuditText": "window"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.velky.neuter.2",
@@ -1116,7 +1266,9 @@
                 "targetText": "letiště",
                 "learnerBaseText": "airport",
                 "englishAuditText": "airport"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.velky.neuter.3",
@@ -1132,7 +1284,9 @@
                 "targetText": "jezero",
                 "learnerBaseText": "lake",
                 "englishAuditText": "lake"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.velky.neuter.exp260908",
@@ -1148,11 +1302,17 @@
                 "targetText": "letadlo",
                 "learnerBaseText": "airplane",
                 "englishAuditText": "airplane"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 24
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 21
     },
     {
       "id": "cz.agreement.stary",
@@ -1183,7 +1343,9 @@
                 "targetText": "dům",
                 "learnerBaseText": "house",
                 "englishAuditText": "house"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.stary.masculine.2",
@@ -1199,7 +1361,9 @@
                 "targetText": "most",
                 "learnerBaseText": "bridge",
                 "englishAuditText": "bridge"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.stary.masculine.3",
@@ -1215,7 +1379,9 @@
                 "targetText": "telefon",
                 "learnerBaseText": "phone",
                 "englishAuditText": "phone"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.stary.masculine.exp260908",
@@ -1231,9 +1397,13 @@
                 "targetText": "dub",
                 "learnerBaseText": "oak tree",
                 "englishAuditText": "oak tree"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine": {
           "displayForm": "stará",
@@ -1252,7 +1422,9 @@
                 "targetText": "kniha",
                 "learnerBaseText": "book",
                 "englishAuditText": "book"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.stary.feminine.2",
@@ -1268,7 +1440,9 @@
                 "targetText": "škola",
                 "learnerBaseText": "school",
                 "englishAuditText": "school"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.stary.feminine.3",
@@ -1284,7 +1458,9 @@
                 "targetText": "fotografie",
                 "learnerBaseText": "photograph",
                 "englishAuditText": "photograph"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.stary.feminine.exp260908",
@@ -1300,9 +1476,13 @@
                 "targetText": "truhla",
                 "learnerBaseText": "chest",
                 "englishAuditText": "chest"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "neuter": {
           "displayForm": "staré",
@@ -1321,7 +1501,9 @@
                 "targetText": "auto",
                 "learnerBaseText": "car",
                 "englishAuditText": "car"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.stary.neuter.2",
@@ -1337,7 +1519,9 @@
                 "targetText": "nádraží",
                 "learnerBaseText": "station",
                 "englishAuditText": "station"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.stary.neuter.3",
@@ -1353,7 +1537,9 @@
                 "targetText": "rádio",
                 "learnerBaseText": "radio",
                 "englishAuditText": "radio"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.stary.neuter.exp260908",
@@ -1369,11 +1555,17 @@
                 "targetText": "hnízdo",
                 "learnerBaseText": "nest",
                 "englishAuditText": "nest"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 26
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 34
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "cz.agreement.dlouhy",
@@ -1404,7 +1596,9 @@
                 "targetText": "most",
                 "learnerBaseText": "bridge",
                 "englishAuditText": "bridge"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.dlouhy.masculine.2",
@@ -1420,7 +1614,9 @@
                 "targetText": "film",
                 "learnerBaseText": "film",
                 "englishAuditText": "film"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.dlouhy.masculine.3",
@@ -1436,7 +1632,9 @@
                 "targetText": "den",
                 "learnerBaseText": "day",
                 "englishAuditText": "day"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.dlouhy.masculine.exp260908",
@@ -1452,9 +1650,13 @@
                 "targetText": "ocas",
                 "learnerBaseText": "tail",
                 "englishAuditText": "tail"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine": {
           "displayForm": "dlouhá",
@@ -1473,7 +1675,9 @@
                 "targetText": "cesta",
                 "learnerBaseText": "journey",
                 "englishAuditText": "journey"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.dlouhy.feminine.2",
@@ -1489,7 +1693,9 @@
                 "targetText": "ulice",
                 "learnerBaseText": "street",
                 "englishAuditText": "street"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.dlouhy.feminine.3",
@@ -1505,7 +1711,9 @@
                 "targetText": "řeka",
                 "learnerBaseText": "river",
                 "englishAuditText": "river"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.dlouhy.feminine.exp260908",
@@ -1521,9 +1729,13 @@
                 "targetText": "stuha",
                 "learnerBaseText": "ribbon",
                 "englishAuditText": "ribbon"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "neuter": {
           "displayForm": "dlouhé",
@@ -1542,7 +1754,9 @@
                 "targetText": "ráno",
                 "learnerBaseText": "morning",
                 "englishAuditText": "morning"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.dlouhy.neuter.2",
@@ -1558,7 +1772,9 @@
                 "targetText": "slovo",
                 "learnerBaseText": "word",
                 "englishAuditText": "word"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.dlouhy.neuter.3",
@@ -1574,7 +1790,9 @@
                 "targetText": "čekání",
                 "learnerBaseText": "wait",
                 "englishAuditText": "wait"
-              }
+              },
+              "usefulness": 68,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.dlouhy.neuter.exp260908",
@@ -1590,11 +1808,17 @@
                 "targetText": "vyprávění",
                 "learnerBaseText": "narrative",
                 "englishAuditText": "narrative"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 29
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 34
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "cz.agreement.mlady",
@@ -1625,7 +1849,9 @@
                 "targetText": "hudebník",
                 "learnerBaseText": "male musician",
                 "englishAuditText": "male musician"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 27
             },
             {
               "id": "cz.agreement.mlady.masculine.2",
@@ -1641,7 +1867,9 @@
                 "targetText": "učitel",
                 "learnerBaseText": "male teacher",
                 "englishAuditText": "male teacher"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.mlady.masculine.3",
@@ -1657,7 +1885,9 @@
                 "targetText": "lékař",
                 "learnerBaseText": "male doctor",
                 "englishAuditText": "male doctor"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.mlady.masculine.exp260908",
@@ -1673,9 +1903,13 @@
                 "targetText": "tučňák",
                 "learnerBaseText": "penguin",
                 "englishAuditText": "penguin"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 27
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine": {
           "displayForm": "mladá",
@@ -1694,7 +1928,9 @@
                 "targetText": "sportovkyně",
                 "learnerBaseText": "female athlete",
                 "englishAuditText": "female athlete"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.mlady.feminine.2",
@@ -1710,7 +1946,9 @@
                 "targetText": "učitelka",
                 "learnerBaseText": "female teacher",
                 "englishAuditText": "female teacher"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.mlady.feminine.3",
@@ -1726,7 +1964,9 @@
                 "targetText": "lékařka",
                 "learnerBaseText": "female doctor",
                 "englishAuditText": "female doctor"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.mlady.feminine.exp260908",
@@ -1742,9 +1982,13 @@
                 "targetText": "liška",
                 "learnerBaseText": "fox",
                 "englishAuditText": "fox"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "neuter": {
           "displayForm": "mladé",
@@ -1763,7 +2007,9 @@
                 "targetText": "kotě",
                 "learnerBaseText": "kitten",
                 "englishAuditText": "kitten"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.mlady.neuter.2",
@@ -1779,7 +2025,9 @@
                 "targetText": "zvíře",
                 "learnerBaseText": "animal",
                 "englishAuditText": "animal"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.mlady.neuter.3",
@@ -1795,11 +2043,17 @@
                 "targetText": "štěně",
                 "learnerBaseText": "puppy",
                 "englishAuditText": "puppy"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 33
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 34
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "cz.agreement.rychly",
@@ -1830,7 +2084,9 @@
                 "targetText": "vlak",
                 "learnerBaseText": "train",
                 "englishAuditText": "train"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.rychly.masculine.2",
@@ -1846,7 +2102,9 @@
                 "targetText": "běžec",
                 "learnerBaseText": "runner",
                 "englishAuditText": "runner"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.rychly.masculine.3",
@@ -1862,9 +2120,13 @@
                 "targetText": "počítač",
                 "learnerBaseText": "computer",
                 "englishAuditText": "computer"
-              }
+              },
+              "usefulness": 72,
+              "complexity": 27
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine": {
           "displayForm": "rychlá",
@@ -1883,7 +2145,9 @@
                 "targetText": "odpověď",
                 "learnerBaseText": "answer",
                 "englishAuditText": "answer"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.rychly.feminine.2",
@@ -1899,7 +2163,9 @@
                 "targetText": "řeka",
                 "learnerBaseText": "river",
                 "englishAuditText": "river"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.rychly.feminine.3",
@@ -1915,7 +2181,9 @@
                 "targetText": "doprava",
                 "learnerBaseText": "transport",
                 "englishAuditText": "transport"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.rychly.feminine.exp260908",
@@ -1931,9 +2199,13 @@
                 "targetText": "veverka",
                 "learnerBaseText": "squirrel",
                 "englishAuditText": "squirrel"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "neuter": {
           "displayForm": "rychlé",
@@ -1952,7 +2224,9 @@
                 "targetText": "auto",
                 "learnerBaseText": "car",
                 "englishAuditText": "car"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.rychly.neuter.2",
@@ -1968,7 +2242,9 @@
                 "targetText": "spojení",
                 "learnerBaseText": "connection",
                 "englishAuditText": "connection"
-              }
+              },
+              "usefulness": 57,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.rychly.neuter.3",
@@ -1984,7 +2260,9 @@
                 "targetText": "řešení",
                 "learnerBaseText": "solution",
                 "englishAuditText": "solution"
-              }
+              },
+              "usefulness": 52,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.rychly.neuter.exp260908",
@@ -2000,11 +2278,17 @@
                 "targetText": "počítání",
                 "learnerBaseText": "counting",
                 "englishAuditText": "counting"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 29
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 34
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "cz.agreement.pomaly",
@@ -2035,7 +2319,9 @@
                 "targetText": "autobus",
                 "learnerBaseText": "bus",
                 "englishAuditText": "bus"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.pomaly.masculine.2",
@@ -2051,7 +2337,9 @@
                 "targetText": "výtah",
                 "learnerBaseText": "elevator",
                 "englishAuditText": "elevator"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 27
             },
             {
               "id": "cz.agreement.pomaly.masculine.3",
@@ -2067,7 +2355,9 @@
                 "targetText": "počítač",
                 "learnerBaseText": "computer",
                 "englishAuditText": "computer"
-              }
+              },
+              "usefulness": 72,
+              "complexity": 27
             },
             {
               "id": "cz.agreement.pomaly.masculine.exp260908",
@@ -2083,9 +2373,13 @@
                 "targetText": "šnek",
                 "learnerBaseText": "snail",
                 "englishAuditText": "snail"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine": {
           "displayForm": "pomalá",
@@ -2104,7 +2398,9 @@
                 "targetText": "hudba",
                 "learnerBaseText": "music",
                 "englishAuditText": "music"
-              }
+              },
+              "usefulness": 62,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.pomaly.feminine.2",
@@ -2120,7 +2416,9 @@
                 "targetText": "změna",
                 "learnerBaseText": "change",
                 "englishAuditText": "change"
-              }
+              },
+              "usefulness": 55,
+              "complexity": 34
             },
             {
               "id": "cz.agreement.pomaly.feminine.3",
@@ -2136,7 +2434,9 @@
                 "targetText": "doprava",
                 "learnerBaseText": "traffic",
                 "englishAuditText": "traffic"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.pomaly.feminine.exp260908",
@@ -2152,9 +2452,13 @@
                 "targetText": "želva",
                 "learnerBaseText": "turtle",
                 "englishAuditText": "turtle"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "neuter": {
           "displayForm": "pomalé",
@@ -2173,7 +2477,9 @@
                 "targetText": "auto",
                 "learnerBaseText": "car",
                 "englishAuditText": "car"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.pomaly.neuter.2",
@@ -2189,7 +2495,9 @@
                 "targetText": "připojení",
                 "learnerBaseText": "connection",
                 "englishAuditText": "connection"
-              }
+              },
+              "usefulness": 57,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.pomaly.neuter.3",
@@ -2205,11 +2513,17 @@
                 "targetText": "tempo",
                 "learnerBaseText": "pace",
                 "englishAuditText": "pace"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 34
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "cz.agreement.krasny",
@@ -2240,7 +2554,9 @@
                 "targetText": "den",
                 "learnerBaseText": "day",
                 "englishAuditText": "day"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.krasny.masculine.2",
@@ -2256,7 +2572,9 @@
                 "targetText": "park",
                 "learnerBaseText": "park",
                 "englishAuditText": "park"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.krasny.masculine.3",
@@ -2272,7 +2590,9 @@
                 "targetText": "výhled",
                 "learnerBaseText": "view",
                 "englishAuditText": "view"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 27
             },
             {
               "id": "cz.agreement.krasny.masculine.exp260908",
@@ -2288,9 +2608,13 @@
                 "targetText": "západ slunce",
                 "learnerBaseText": "sunset",
                 "englishAuditText": "sunset"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine": {
           "displayForm": "krásná",
@@ -2309,7 +2633,9 @@
                 "targetText": "zahrada",
                 "learnerBaseText": "garden",
                 "englishAuditText": "garden"
-              }
+              },
+              "usefulness": 62,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.krasny.feminine.2",
@@ -2325,7 +2651,9 @@
                 "targetText": "píseň",
                 "learnerBaseText": "song",
                 "englishAuditText": "song"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 36
             },
             {
               "id": "cz.agreement.krasny.feminine.3",
@@ -2341,7 +2669,9 @@
                 "targetText": "fotografie",
                 "learnerBaseText": "photograph",
                 "englishAuditText": "photograph"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.krasny.feminine.exp260908",
@@ -2357,9 +2687,13 @@
                 "targetText": "duha",
                 "learnerBaseText": "rainbow",
                 "englishAuditText": "rainbow"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "neuter": {
           "displayForm": "krásné",
@@ -2378,7 +2712,9 @@
                 "targetText": "město",
                 "learnerBaseText": "city",
                 "englishAuditText": "city"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 33
             },
             {
               "id": "cz.agreement.krasny.neuter.2",
@@ -2394,7 +2730,9 @@
                 "targetText": "ráno",
                 "learnerBaseText": "morning",
                 "englishAuditText": "morning"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.krasny.neuter.3",
@@ -2410,7 +2748,9 @@
                 "targetText": "místo",
                 "learnerBaseText": "place",
                 "englishAuditText": "place"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.krasny.neuter.exp260908",
@@ -2426,11 +2766,17 @@
                 "targetText": "představení",
                 "learnerBaseText": "performance",
                 "englishAuditText": "performance"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 26
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 34
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "cz.agreement.teply",
@@ -2461,7 +2807,9 @@
                 "targetText": "čaj",
                 "learnerBaseText": "tea",
                 "englishAuditText": "tea"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.teply.masculine.2",
@@ -2477,7 +2825,9 @@
                 "targetText": "svetr",
                 "learnerBaseText": "sweater",
                 "englishAuditText": "sweater"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.teply.masculine.3",
@@ -2493,7 +2843,9 @@
                 "targetText": "den",
                 "learnerBaseText": "day",
                 "englishAuditText": "day"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.teply.masculine.exp260908",
@@ -2509,9 +2861,13 @@
                 "targetText": "šátek",
                 "learnerBaseText": "scarf",
                 "englishAuditText": "scarf"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine": {
           "displayForm": "teplá",
@@ -2530,7 +2886,9 @@
                 "targetText": "polévka",
                 "learnerBaseText": "soup",
                 "englishAuditText": "soup"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.teply.feminine.2",
@@ -2546,7 +2904,9 @@
                 "targetText": "voda",
                 "learnerBaseText": "water",
                 "englishAuditText": "water"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.teply.feminine.3",
@@ -2562,7 +2922,9 @@
                 "targetText": "bunda",
                 "learnerBaseText": "jacket",
                 "englishAuditText": "jacket"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.teply.feminine.exp260908",
@@ -2578,9 +2940,13 @@
                 "targetText": "deka",
                 "learnerBaseText": "blanket",
                 "englishAuditText": "blanket"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "neuter": {
           "displayForm": "teplé",
@@ -2599,7 +2965,9 @@
                 "targetText": "jídlo",
                 "learnerBaseText": "food",
                 "englishAuditText": "food"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.teply.neuter.2",
@@ -2615,7 +2983,9 @@
                 "targetText": "moře",
                 "learnerBaseText": "sea",
                 "englishAuditText": "sea"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.teply.neuter.3",
@@ -2631,7 +3001,9 @@
                 "targetText": "počasí",
                 "learnerBaseText": "weather",
                 "englishAuditText": "weather"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 29
             },
             {
               "id": "cz.agreement.teply.neuter.exp260908",
@@ -2647,11 +3019,17 @@
                 "targetText": "kakao",
                 "learnerBaseText": "cocoa",
                 "englishAuditText": "cocoa"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 34
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "cz.agreement.zajimavy",
@@ -2682,7 +3060,9 @@
                 "targetText": "příběh",
                 "learnerBaseText": "story",
                 "englishAuditText": "story"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.zajimavy.masculine.2",
@@ -2698,7 +3078,9 @@
                 "targetText": "film",
                 "learnerBaseText": "film",
                 "englishAuditText": "film"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.zajimavy.masculine.3",
@@ -2714,7 +3096,9 @@
                 "targetText": "rozhovor",
                 "learnerBaseText": "conversation",
                 "englishAuditText": "conversation"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.zajimavy.masculine.exp260908",
@@ -2730,9 +3114,13 @@
                 "targetText": "pokus",
                 "learnerBaseText": "experiment",
                 "englishAuditText": "experiment"
-              }
+              },
+              "usefulness": 33,
+              "complexity": 31
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine": {
           "displayForm": "zajímavá",
@@ -2751,7 +3139,9 @@
                 "targetText": "otázka",
                 "learnerBaseText": "question",
                 "englishAuditText": "question"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.zajimavy.feminine.2",
@@ -2767,7 +3157,9 @@
                 "targetText": "kniha",
                 "learnerBaseText": "book",
                 "englishAuditText": "book"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.zajimavy.feminine.3",
@@ -2783,7 +3175,9 @@
                 "targetText": "myšlenka",
                 "learnerBaseText": "thought",
                 "englishAuditText": "thought"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.zajimavy.feminine.exp260908",
@@ -2799,9 +3193,13 @@
                 "targetText": "otázka",
                 "learnerBaseText": "question",
                 "englishAuditText": "question"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 27
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "neuter": {
           "displayForm": "zajímavé",
@@ -2820,7 +3218,9 @@
                 "targetText": "muzeum",
                 "learnerBaseText": "museum",
                 "englishAuditText": "museum"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.zajimavy.neuter.2",
@@ -2836,7 +3236,9 @@
                 "targetText": "místo",
                 "learnerBaseText": "place",
                 "englishAuditText": "place"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.zajimavy.neuter.3",
@@ -2852,7 +3254,9 @@
                 "targetText": "jméno",
                 "learnerBaseText": "name",
                 "englishAuditText": "name"
-              }
+              },
+              "usefulness": 68,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.zajimavy.neuter.exp260908",
@@ -2868,11 +3272,17 @@
                 "targetText": "pozorování",
                 "learnerBaseText": "observation",
                 "englishAuditText": "observation"
-              }
+              },
+              "usefulness": 52,
+              "complexity": 26
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 34
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "cz.agreement.dulezity",
@@ -2903,7 +3313,9 @@
                 "targetText": "úkol",
                 "learnerBaseText": "task",
                 "englishAuditText": "task"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.dulezity.masculine.2",
@@ -2919,7 +3331,9 @@
                 "targetText": "dokument",
                 "learnerBaseText": "document",
                 "englishAuditText": "document"
-              }
+              },
+              "usefulness": 61,
+              "complexity": 31
             },
             {
               "id": "cz.agreement.dulezity.masculine.3",
@@ -2935,7 +3349,9 @@
                 "targetText": "hovor",
                 "learnerBaseText": "call",
                 "englishAuditText": "call"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.dulezity.masculine.exp260908",
@@ -2951,9 +3367,13 @@
                 "targetText": "důkaz",
                 "learnerBaseText": "piece of evidence",
                 "englishAuditText": "piece of evidence"
-              }
+              },
+              "usefulness": 33,
+              "complexity": 31
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine": {
           "displayForm": "důležitá",
@@ -2972,7 +3392,9 @@
                 "targetText": "schůzka",
                 "learnerBaseText": "meeting",
                 "englishAuditText": "meeting"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.dulezity.feminine.2",
@@ -2988,7 +3410,9 @@
                 "targetText": "otázka",
                 "learnerBaseText": "question",
                 "englishAuditText": "question"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.dulezity.feminine.3",
@@ -3004,7 +3428,9 @@
                 "targetText": "zpráva",
                 "learnerBaseText": "message",
                 "englishAuditText": "message"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.dulezity.feminine.exp260908",
@@ -3020,9 +3446,13 @@
                 "targetText": "dohoda",
                 "learnerBaseText": "agreement",
                 "englishAuditText": "agreement"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "neuter": {
           "displayForm": "důležité",
@@ -3041,7 +3471,9 @@
                 "targetText": "rozhodnutí",
                 "learnerBaseText": "decision",
                 "englishAuditText": "decision"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 31
             },
             {
               "id": "cz.agreement.dulezity.neuter.2",
@@ -3057,7 +3489,9 @@
                 "targetText": "pravidlo",
                 "learnerBaseText": "rule",
                 "englishAuditText": "rule"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.dulezity.neuter.3",
@@ -3073,11 +3507,17 @@
                 "targetText": "upozornění",
                 "learnerBaseText": "warning",
                 "englishAuditText": "warning"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 26
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 34
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "cz.agreement.chytry",
@@ -3108,7 +3548,9 @@
                 "targetText": "student",
                 "learnerBaseText": "male student",
                 "englishAuditText": "male student"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.chytry.masculine.2",
@@ -3124,7 +3566,9 @@
                 "targetText": "pes",
                 "learnerBaseText": "dog",
                 "englishAuditText": "dog"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.chytry.masculine.3",
@@ -3140,7 +3584,9 @@
                 "targetText": "pomocník",
                 "learnerBaseText": "helper",
                 "englishAuditText": "helper"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 27
             },
             {
               "id": "cz.agreement.chytry.masculine.exp260908",
@@ -3156,9 +3602,13 @@
                 "targetText": "vynález",
                 "learnerBaseText": "invention",
                 "englishAuditText": "invention"
-              }
+              },
+              "usefulness": 52,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine": {
           "displayForm": "chytrá",
@@ -3177,7 +3627,9 @@
                 "targetText": "studentka",
                 "learnerBaseText": "female student",
                 "englishAuditText": "female student"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.chytry.feminine.2",
@@ -3193,7 +3645,9 @@
                 "targetText": "odpověď",
                 "learnerBaseText": "answer",
                 "englishAuditText": "answer"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.chytry.feminine.3",
@@ -3209,7 +3663,9 @@
                 "targetText": "myšlenka",
                 "learnerBaseText": "idea",
                 "englishAuditText": "idea"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.chytry.feminine.exp260908",
@@ -3225,9 +3681,13 @@
                 "targetText": "nápověda",
                 "learnerBaseText": "hint",
                 "englishAuditText": "hint"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "neuter": {
           "displayForm": "chytré",
@@ -3246,7 +3706,9 @@
                 "targetText": "zařízení",
                 "learnerBaseText": "device",
                 "englishAuditText": "device"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 29
             },
             {
               "id": "cz.agreement.chytry.neuter.2",
@@ -3262,7 +3724,9 @@
                 "targetText": "řešení",
                 "learnerBaseText": "solution",
                 "englishAuditText": "solution"
-              }
+              },
+              "usefulness": 52,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.chytry.neuter.3",
@@ -3278,7 +3742,9 @@
                 "targetText": "město",
                 "learnerBaseText": "city",
                 "englishAuditText": "city"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 33
             },
             {
               "id": "cz.agreement.chytry.neuter.exp260908",
@@ -3294,11 +3760,17 @@
                 "targetText": "využití",
                 "learnerBaseText": "use",
                 "englishAuditText": "use"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 26
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 34
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "cz.agreement.studeny",
@@ -3329,7 +3801,9 @@
                 "targetText": "vítr",
                 "learnerBaseText": "wind",
                 "englishAuditText": "wind"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 27
             },
             {
               "id": "cz.agreement.studeny.masculine.2",
@@ -3345,7 +3819,9 @@
                 "targetText": "nápoj",
                 "learnerBaseText": "drink",
                 "englishAuditText": "drink"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.studeny.masculine.3",
@@ -3361,7 +3837,9 @@
                 "targetText": "večer",
                 "learnerBaseText": "evening",
                 "englishAuditText": "evening"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 27
             },
             {
               "id": "cz.agreement.studeny.masculine.exp260908",
@@ -3377,9 +3855,13 @@
                 "targetText": "pramen",
                 "learnerBaseText": "spring (water source)",
                 "englishAuditText": "spring (water source)"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine": {
           "displayForm": "studená",
@@ -3398,7 +3880,9 @@
                 "targetText": "voda",
                 "learnerBaseText": "water",
                 "englishAuditText": "water"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.studeny.feminine.2",
@@ -3414,7 +3898,9 @@
                 "targetText": "polévka",
                 "learnerBaseText": "soup",
                 "englishAuditText": "soup"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.studeny.feminine.3",
@@ -3430,7 +3916,9 @@
                 "targetText": "noc",
                 "learnerBaseText": "night",
                 "englishAuditText": "night"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.studeny.feminine.exp260908",
@@ -3446,9 +3934,13 @@
                 "targetText": "rosa",
                 "learnerBaseText": "dew",
                 "englishAuditText": "dew"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "neuter": {
           "displayForm": "studené",
@@ -3467,7 +3959,9 @@
                 "targetText": "mléko",
                 "learnerBaseText": "milk",
                 "englishAuditText": "milk"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.studeny.neuter.2",
@@ -3483,7 +3977,9 @@
                 "targetText": "počasí",
                 "learnerBaseText": "weather",
                 "englishAuditText": "weather"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 29
             },
             {
               "id": "cz.agreement.studeny.neuter.3",
@@ -3499,7 +3995,9 @@
                 "targetText": "moře",
                 "learnerBaseText": "sea",
                 "englishAuditText": "sea"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.studeny.neuter.exp260908",
@@ -3515,11 +4013,17 @@
                 "targetText": "zábradlí",
                 "learnerBaseText": "railing",
                 "englishAuditText": "railing"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 26
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 34
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "cz.agreement.vysoky",
@@ -3550,7 +4054,9 @@
                 "targetText": "strom",
                 "learnerBaseText": "tree",
                 "englishAuditText": "tree"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.vysoky.masculine.2",
@@ -3566,7 +4072,9 @@
                 "targetText": "dům",
                 "learnerBaseText": "house",
                 "englishAuditText": "house"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.vysoky.masculine.3",
@@ -3582,7 +4090,9 @@
                 "targetText": "plot",
                 "learnerBaseText": "fence",
                 "englishAuditText": "fence"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.vysoky.masculine.exp260908",
@@ -3598,9 +4108,13 @@
                 "targetText": "stožár",
                 "learnerBaseText": "mast",
                 "englishAuditText": "mast"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine": {
           "displayForm": "vysoká",
@@ -3619,7 +4133,9 @@
                 "targetText": "věž",
                 "learnerBaseText": "tower",
                 "englishAuditText": "tower"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 27
             },
             {
               "id": "cz.agreement.vysoky.feminine.2",
@@ -3635,7 +4151,9 @@
                 "targetText": "hora",
                 "learnerBaseText": "mountain",
                 "englishAuditText": "mountain"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.vysoky.feminine.3",
@@ -3651,7 +4169,9 @@
                 "targetText": "cena",
                 "learnerBaseText": "price",
                 "englishAuditText": "price"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.vysoky.feminine.exp260908",
@@ -3667,9 +4187,13 @@
                 "targetText": "rozhledna",
                 "learnerBaseText": "observation tower",
                 "englishAuditText": "observation tower"
-              }
+              },
+              "usefulness": 52,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "neuter": {
           "displayForm": "vysoké",
@@ -3688,7 +4212,9 @@
                 "targetText": "číslo",
                 "learnerBaseText": "number",
                 "englishAuditText": "number"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.vysoky.neuter.2",
@@ -3704,7 +4230,9 @@
                 "targetText": "napětí",
                 "learnerBaseText": "voltage",
                 "englishAuditText": "voltage"
-              }
+              },
+              "usefulness": 33,
+              "complexity": 33
             },
             {
               "id": "cz.agreement.vysoky.neuter.3",
@@ -3720,7 +4248,9 @@
                 "targetText": "pohoří",
                 "learnerBaseText": "mountain range",
                 "englishAuditText": "mountain range"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.vysoky.neuter.exp260908",
@@ -3736,11 +4266,17 @@
                 "targetText": "skóre",
                 "learnerBaseText": "score",
                 "englishAuditText": "score"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 34
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "cz.agreement.kratky",
@@ -3771,7 +4307,9 @@
                 "targetText": "film",
                 "learnerBaseText": "film",
                 "englishAuditText": "film"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.kratky.masculine.2",
@@ -3787,7 +4325,9 @@
                 "targetText": "den",
                 "learnerBaseText": "day",
                 "englishAuditText": "day"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.kratky.masculine.3",
@@ -3803,9 +4343,13 @@
                 "targetText": "dopis",
                 "learnerBaseText": "letter",
                 "englishAuditText": "letter"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine": {
           "displayForm": "krátká",
@@ -3824,7 +4368,9 @@
                 "targetText": "cesta",
                 "learnerBaseText": "journey",
                 "englishAuditText": "journey"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.kratky.feminine.2",
@@ -3840,7 +4386,9 @@
                 "targetText": "přestávka",
                 "learnerBaseText": "break",
                 "englishAuditText": "break"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.kratky.feminine.3",
@@ -3856,9 +4404,13 @@
                 "targetText": "odpověď",
                 "learnerBaseText": "answer",
                 "englishAuditText": "answer"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "neuter": {
           "displayForm": "krátké",
@@ -3877,7 +4429,9 @@
                 "targetText": "slovo",
                 "learnerBaseText": "word",
                 "englishAuditText": "word"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.kratky.neuter.2",
@@ -3893,7 +4447,9 @@
                 "targetText": "sdělení",
                 "learnerBaseText": "message",
                 "englishAuditText": "message"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.kratky.neuter.3",
@@ -3909,7 +4465,9 @@
                 "targetText": "čekání",
                 "learnerBaseText": "wait",
                 "englishAuditText": "wait"
-              }
+              },
+              "usefulness": 68,
+              "complexity": 26
             },
             {
               "id": "cz.agreement.kratky.neuter.exp260908",
@@ -3925,11 +4483,17 @@
                 "targetText": "vysvětlení",
                 "learnerBaseText": "explanation",
                 "englishAuditText": "explanation"
-              }
+              },
+              "usefulness": 52,
+              "complexity": 26
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 34
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "cz.agreement.ten",
@@ -3960,7 +4524,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " dům"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 22
             },
             {
               "id": "cz.agreement.ten.masculine.2",
@@ -3976,7 +4542,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " telefon"
-              }
+              },
+              "usefulness": 79,
+              "complexity": 22
             },
             {
               "id": "cz.agreement.ten.masculine.exp260908",
@@ -3992,9 +4560,13 @@
                 "targetText": "buben",
                 "learnerBaseText": "drum",
                 "englishAuditText": "drum"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 22
             }
-          ]
+          ],
+          "usefulness": 88,
+          "complexity": 21
         },
         "feminine": {
           "displayForm": "ta",
@@ -4013,7 +4585,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " kniha"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 22
             },
             {
               "id": "cz.agreement.ten.feminine.2",
@@ -4029,7 +4603,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " mapa"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "cz.agreement.ten.feminine.exp260908",
@@ -4045,9 +4621,13 @@
                 "targetText": "hvězda",
                 "learnerBaseText": "star",
                 "englishAuditText": "star"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 22
             }
-          ]
+          ],
+          "usefulness": 88,
+          "complexity": 21
         },
         "neuter": {
           "displayForm": "to",
@@ -4066,7 +4646,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " okno"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.ten.neuter.2",
@@ -4082,7 +4664,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " kolo"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "cz.agreement.ten.neuter.exp260908",
@@ -4098,11 +4682,17 @@
                 "targetText": "vejce",
                 "learnerBaseText": "egg",
                 "englishAuditText": "egg"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 24
             }
-          ]
+          ],
+          "usefulness": 88,
+          "complexity": 24
         }
-      }
+      },
+      "usefulness": 88,
+      "complexity": 21
     },
     {
       "id": "cz.agreement.muj",
@@ -4133,7 +4723,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " batoh"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "cz.agreement.muj.masculine.2",
@@ -4149,7 +4741,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " klíč"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "cz.agreement.muj.masculine.exp260908",
@@ -4165,9 +4759,13 @@
                 "targetText": "kompas",
                 "learnerBaseText": "compass",
                 "englishAuditText": "compass"
-              }
+              },
+              "usefulness": 33,
+              "complexity": 35
             }
-          ]
+          ],
+          "usefulness": 83,
+          "complexity": 42
         },
         "feminine": {
           "displayForm": "moje",
@@ -4186,7 +4784,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " taška"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "cz.agreement.muj.feminine.2",
@@ -4202,7 +4802,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " rodina"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 35
             },
             {
               "id": "cz.agreement.muj.feminine.exp260908",
@@ -4218,9 +4820,13 @@
                 "targetText": "sbírka",
                 "learnerBaseText": "collection",
                 "englishAuditText": "collection"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             }
-          ]
+          ],
+          "usefulness": 83,
+          "complexity": 42
         },
         "neuter": {
           "displayForm": "moje",
@@ -4239,7 +4845,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " auto"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 37
             },
             {
               "id": "cz.agreement.muj.neuter.2",
@@ -4255,7 +4863,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " město"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 37
             },
             {
               "id": "cz.agreement.muj.neuter.exp260908",
@@ -4271,11 +4881,17 @@
                 "targetText": "přání",
                 "learnerBaseText": "wish",
                 "englishAuditText": "wish"
-              }
+              },
+              "usefulness": 55,
+              "complexity": 37
             }
-          ]
+          ],
+          "usefulness": 83,
+          "complexity": 45
         }
-      }
+      },
+      "usefulness": 83,
+      "complexity": 42
     },
     {
       "id": "cz.agreement.novy-plural",
@@ -4306,7 +4922,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " studenti"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 50
             },
             {
               "id": "cz.agreement.novy-plural.masculine-animate.2",
@@ -4322,7 +4940,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " učitelé"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 50
             },
             {
               "id": "cz.agreement.novy-plural.masculine-animate.exp260908",
@@ -4338,9 +4958,13 @@
                 "targetText": "spoluhráči",
                 "learnerBaseText": "teammates",
                 "englishAuditText": "teammates"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 50
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 57
         },
         "masculine-inanimate": {
           "displayForm": "nové",
@@ -4359,7 +4983,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " domy"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 50
             },
             {
               "id": "cz.agreement.novy-plural.masculine-inanimate.2",
@@ -4375,7 +5001,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " telefony"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 50
             },
             {
               "id": "cz.agreement.novy-plural.masculine-inanimate.exp260908",
@@ -4391,9 +5019,13 @@
                 "targetText": "dalekohledy",
                 "learnerBaseText": "telescopes",
                 "englishAuditText": "telescopes"
-              }
+              },
+              "usefulness": 33,
+              "complexity": 50
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 57
         },
         "feminine": {
           "displayForm": "nové",
@@ -4412,7 +5044,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " knihy"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 50
             },
             {
               "id": "cz.agreement.novy-plural.feminine.2",
@@ -4428,7 +5062,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " školy"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 50
             },
             {
               "id": "cz.agreement.novy-plural.feminine.exp260908",
@@ -4444,9 +5080,13 @@
                 "targetText": "loutky",
                 "learnerBaseText": "puppets",
                 "englishAuditText": "puppets"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 50
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 57
         },
         "neuter": {
           "displayForm": "nová",
@@ -4465,7 +5105,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " auta"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 52
             },
             {
               "id": "cz.agreement.novy-plural.neuter.2",
@@ -4481,7 +5123,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " letadla"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 52
             },
             {
               "id": "cz.agreement.novy-plural.neuter.exp260908",
@@ -4497,9 +5141,13 @@
                 "targetText": "pravidla",
                 "learnerBaseText": "rules",
                 "englishAuditText": "rules"
-              }
+              },
+              "usefulness": 44,
+              "complexity": 52
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 60
         }
       },
       "axes": [
@@ -4562,7 +5210,9 @@
             "label": "Neuter plural"
           }
         ]
-      }
+      },
+      "usefulness": 77,
+      "complexity": 57
     },
     {
       "id": "cz.agreement.dva",
@@ -4593,7 +5243,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " studenti"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 50
             },
             {
               "id": "cz.agreement.dva.masculine.2",
@@ -4609,7 +5261,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " stoly"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 50
             },
             {
               "id": "cz.agreement.dva.masculine.exp260908",
@@ -4625,9 +5279,13 @@
                 "targetText": "oblázky",
                 "learnerBaseText": "pebbles",
                 "englishAuditText": "pebbles"
-              }
+              },
+              "usefulness": 46,
+              "complexity": 50
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 57
         },
         "feminine": {
           "displayForm": "dvě",
@@ -4646,7 +5304,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " knihy"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 50
             },
             {
               "id": "cz.agreement.dva.feminine.2",
@@ -4662,7 +5322,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " židle"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 50
             },
             {
               "id": "cz.agreement.dva.feminine.exp260908",
@@ -4678,9 +5340,13 @@
                 "targetText": "stopy",
                 "learnerBaseText": "tracks",
                 "englishAuditText": "tracks"
-              }
+              },
+              "usefulness": 57,
+              "complexity": 50
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 57
         },
         "neuter": {
           "displayForm": "dvě",
@@ -4699,7 +5365,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " auta"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 52
             },
             {
               "id": "cz.agreement.dva.neuter.2",
@@ -4715,7 +5383,9 @@
               "slot": {
                 "beforeText": "",
                 "afterText": " okna"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 52
             },
             {
               "id": "cz.agreement.dva.neuter.exp260908",
@@ -4731,11 +5401,17 @@
                 "targetText": "křídla",
                 "learnerBaseText": "wings",
                 "englishAuditText": "wings"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 52
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 60
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 57
     }
   ],
   "gameplay": {

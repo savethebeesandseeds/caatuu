@@ -1,3 +1,4 @@
+import { normalizeContentProgression } from "../content-progression.mjs";
 import {
   GRAMMAR_JOURNEY_CONTRACT,
   buildMeaningChoices,
@@ -229,8 +230,10 @@ function validateExamples(examples, {
       "englishAuditText",
       "targetText",
       "anchor",
-      "slot"
+      "slot",
+      ...["usefulness", "complexity", "urgency", "subdifficulty"].filter(key => Object.hasOwn(example, key))
     ], exampleLocation);
+    normalizeContentProgression(example, exampleLocation);
     const id = requiredId(example.id, `${exampleLocation}.id`);
     if (exampleIds.has(id)) throw new Error(`Grammar Gravity repeats example ID ${id}.`);
     exampleIds.add(id);
@@ -280,7 +283,8 @@ function validateChallenges(pack, axisIds) {
   pack.challenges.forEach((challenge, index) => {
     const location = `challenges[${index}]`;
     const scoped = Object.hasOwn(challenge, "axes") || Object.hasOwn(challenge, "gameplay");
-    exactKeys(challenge, ["id", "revision", "difficulty", "focus", "forms", ...(scoped ? ["axes", "gameplay"] : [])], location);
+    exactKeys(challenge, ["id", "revision", "difficulty", "focus", "forms", ...["usefulness", "complexity", "urgency", "subdifficulty"].filter(key => Object.hasOwn(challenge, key)), ...(scoped ? ["axes", "gameplay"] : [])], location);
+    normalizeContentProgression(challenge, location);
     const familyAxisIds = scoped ? validateAxes(challenge.axes) : axisIds;
     if (scoped) validateGameplay(challenge.gameplay, challenge.axes);
     const id = requiredId(challenge.id, `${location}.id`);
@@ -304,7 +308,8 @@ function validateChallenges(pack, axisIds) {
     for (const axisId of familyAxisIds) {
       const formLocation = `${location}.forms.${axisId}`;
       const form = challenge.forms[axisId];
-      exactKeys(form, ["displayForm", "examples"], formLocation);
+      exactKeys(form, ["displayForm", "examples", ...["usefulness", "complexity", "urgency", "subdifficulty"].filter(key => Object.hasOwn(form, key))], formLocation);
+      normalizeContentProgression(form, formLocation);
       const displayForm = requiredText(form.displayForm, `${formLocation}.displayForm`);
       if (displayForm !== form.displayForm) throw new Error(`${formLocation}.displayForm cannot have surrounding whitespace.`);
       formOptions.add(normalizedText(displayForm, pack.targetLanguage));
@@ -440,6 +445,7 @@ export function buildGrammarGravityRounds(pack, difficulty, random = Math.random
           challengeId: challenge.id,
           challengeRevision: challenge.revision,
           difficulty: challenge.difficulty,
+          ...normalizeContentProgression({ ...challenge, ...form, ...example }, example.id),
           focus: challenge.focus,
           stages: gameplay.stages,
           flights: [flight]

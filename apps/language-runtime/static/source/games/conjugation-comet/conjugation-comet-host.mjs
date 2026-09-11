@@ -1,9 +1,10 @@
 import { fetchDeclaredCourseGameJson, readEmbeddedCourseProfile } from "../course-game-content.mjs?v=course-game-content-1";
 import {
   buildConjugationHelixRound, judgeConjugationHelixRound, splitConjugationDisplay,
-  buildConjugationVerbQueue, validateConjugationCometCatalog
+  buildConjugationVerbQueue, validateConjugationCometCatalog, selectConjugationPracticeVerbs
 } from "./conjugation-comet-core.mjs?v=conjugation-comet-core-2";
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-8";
+import { newContentEncounterId } from "../content-progression.mjs";
 
 const GAME_ID = "conjugation-comet";
 const RESOURCE_NAME = "conjugationCometCatalog";
@@ -501,11 +502,18 @@ function beginNextVerb(state) {
   state.waitingCampaign = false;
   if (!state.queue.length) {
     const level = Math.max(1, Math.min(3, Number(shellWindow().CaatuuLearning?.difficulty?.()) || 1));
-    const threshold = Math.max(level, Math.min(...state.catalog.verbs.map((verb) => verb.difficulty)));
-    state.queue = buildConjugationVerbQueue(state.catalog.verbs.filter((verb) => verb.difficulty <= threshold),
-      { previousVerbId: state.current?.id });
+    const learning = shellWindow().CaatuuLearning;
+    state.queue = learning?.contentHistory
+      ? selectConjugationPracticeVerbs(state.catalog.verbs, { difficulty: level,
+        history: learning.contentHistory(GAME_ID), formHistory: learning.contentHistory(GAME_ID, "forms") })
+      : buildConjugationVerbQueue(state.catalog.verbs.filter(verb => verb.difficulty <= level), { previousVerbId: state.current?.id });
+    if (!state.queue.length) throw new Error("Conjugation Comet has no content for this badge.");
+    if (!learning?.contentHistory && state.queue.length > 1 && state.queue[0].id === state.current?.id) state.queue.push(state.queue.shift());
   }
   state.current = state.queue.shift();
+  state.encounterId = newContentEncounterId();
+  state.attempted = false;
+  state.contentGeneration = shellWindow().CaatuuLearning?.contentGeneration?.() ?? null;
   state.round = buildConjugationHelixRound(state.catalog, state.current.id);
   state.subjectIndex = 0;
   state.targetIndex = 0;
@@ -539,6 +547,15 @@ function submitHelix(state) {
   state.lastCorrect = state.judgment.correct;
   state.phase = "result";
   state.correctCount = state.lastCorrect ? state.judgment.total : 0;
+  const evidence = state.attempted ? "assisted" : "independent";
+  state.attempted = true;
+  shellWindow().CaatuuLearning?.recordExposure?.(GAME_ID, {
+    itemId: state.current.id, encounterId: state.encounterId, generation: state.contentGeneration, evidence, correct: state.lastCorrect
+  });
+  for (const pair of state.judgment.pairs) shellWindow().CaatuuLearning?.recordExposure?.(GAME_ID, {
+    bankId: "forms", itemId: `${state.current.id}.${pair.subjectId}`, encounterId: state.encounterId,
+    generation: state.contentGeneration, evidence, correct: pair.correct
+  });
   recordLearning({ activities: 1, attempts: 1, successes: state.lastCorrect ? 1 : 0, xp: state.correctCount });
   element("conjugationCometHelp").hidden = true;
   element("conjugationCometCard").dataset.result = state.lastCorrect ? "correct" : "wrong";

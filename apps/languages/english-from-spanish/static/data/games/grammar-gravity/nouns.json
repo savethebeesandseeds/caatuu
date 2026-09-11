@@ -38,7 +38,9 @@
       "learnerBaseText": "libro",
       "english": "book",
       "laneId": "singular",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 73,
+      "complexity": 21
     },
     {
       "id": "es-en.gravity.noun.books",
@@ -47,7 +49,9 @@
       "learnerBaseText": "libros",
       "english": "books",
       "laneId": "plural",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 73,
+      "complexity": 21
     },
     {
       "id": "es-en.gravity.noun.cat",
@@ -56,7 +60,9 @@
       "learnerBaseText": "gato",
       "english": "cat",
       "laneId": "singular",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es-en.gravity.noun.cats",
@@ -65,7 +71,9 @@
       "learnerBaseText": "gatos",
       "english": "cats",
       "laneId": "plural",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es-en.gravity.noun.apple",
@@ -74,7 +82,9 @@
       "learnerBaseText": "manzana",
       "english": "apple",
       "laneId": "singular",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es-en.gravity.noun.apples",
@@ -83,7 +93,9 @@
       "learnerBaseText": "manzanas",
       "english": "apples",
       "laneId": "plural",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es-en.gravity.noun.chair",
@@ -92,7 +104,9 @@
       "learnerBaseText": "silla",
       "english": "chair",
       "laneId": "singular",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es-en.gravity.noun.chairs",
@@ -101,7 +115,9 @@
       "learnerBaseText": "sillas",
       "english": "chairs",
       "laneId": "plural",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es-en.gravity.noun.window",
@@ -110,7 +126,9 @@
       "learnerBaseText": "ventana",
       "english": "window",
       "laneId": "singular",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es-en.gravity.noun.windows",
@@ -119,7 +137,9 @@
       "learnerBaseText": "ventanas",
       "english": "windows",
       "laneId": "plural",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es-en.gravity.noun.teacher",
@@ -128,7 +148,9 @@
       "learnerBaseText": "profesor",
       "english": "teacher",
       "laneId": "singular",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "es-en.gravity.noun.teachers",
@@ -137,7 +159,9 @@
       "learnerBaseText": "profesores",
       "english": "teachers",
       "laneId": "plural",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 77,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.student",
@@ -146,7 +170,9 @@
       "learnerBaseText": "estudiante",
       "english": "student",
       "laneId": "singular",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "es-en.gravity.noun.students",
@@ -155,7 +181,9 @@
       "learnerBaseText": "estudiantes",
       "english": "students",
       "laneId": "plural",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.child",
@@ -164,7 +192,9 @@
       "learnerBaseText": "niño",
       "english": "child",
       "laneId": "singular",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "es-en.gravity.noun.children",
@@ -173,7 +203,9 @@
       "learnerBaseText": "niños",
       "english": "children",
       "laneId": "plural",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 77,
+      "complexity": 44
     },
     {
       "id": "es-en.gravity.noun.person",
@@ -182,7 +214,9 @@
       "learnerBaseText": "persona",
       "english": "person",
       "laneId": "singular",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "es-en.gravity.noun.people",
@@ -191,7 +225,9 @@
       "learnerBaseText": "personas",
       "english": "people",
       "laneId": "plural",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 79,
+      "complexity": 40
     },
     {
       "id": "es-en.gravity.noun.box",
@@ -200,7 +236,9 @@
       "learnerBaseText": "caja",
       "english": "box",
       "laneId": "singular",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "es-en.gravity.noun.boxes",
@@ -209,7 +247,9 @@
       "learnerBaseText": "cajas",
       "english": "boxes",
       "laneId": "plural",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "es-en.gravity.noun.city",
@@ -218,7 +258,9 @@
       "learnerBaseText": "ciudad",
       "english": "city",
       "laneId": "singular",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.cities",
@@ -227,7 +269,9 @@
       "learnerBaseText": "ciudades",
       "english": "cities",
       "laneId": "plural",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.bus",
@@ -236,7 +280,9 @@
       "learnerBaseText": "autobús",
       "english": "bus",
       "laneId": "singular",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "es-en.gravity.noun.buses",
@@ -245,7 +291,9 @@
       "learnerBaseText": "autobuses",
       "english": "buses",
       "laneId": "plural",
-      "difficulty": 1
+      "difficulty": 1,
+      "usefulness": 81,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.mouse",
@@ -254,7 +302,9 @@
       "learnerBaseText": "ratón",
       "english": "mouse",
       "laneId": "singular",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.mice",
@@ -263,7 +313,9 @@
       "learnerBaseText": "ratones",
       "english": "mice",
       "laneId": "plural",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 65,
+      "complexity": 41
     },
     {
       "id": "es-en.gravity.noun.tooth",
@@ -272,7 +324,9 @@
       "learnerBaseText": "diente",
       "english": "tooth",
       "laneId": "singular",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.teeth",
@@ -281,7 +335,9 @@
       "learnerBaseText": "dientes",
       "english": "teeth",
       "laneId": "plural",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 54,
+      "complexity": 44
     },
     {
       "id": "es-en.gravity.noun.woman",
@@ -290,7 +346,9 @@
       "learnerBaseText": "mujer",
       "english": "woman",
       "laneId": "singular",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "es-en.gravity.noun.women",
@@ -299,7 +357,9 @@
       "learnerBaseText": "mujeres",
       "english": "women",
       "laneId": "plural",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 79,
+      "complexity": 40
     },
     {
       "id": "es-en.gravity.noun.man",
@@ -308,7 +368,9 @@
       "learnerBaseText": "hombre",
       "english": "man",
       "laneId": "singular",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "es-en.gravity.noun.men",
@@ -317,7 +379,9 @@
       "learnerBaseText": "hombres",
       "english": "men",
       "laneId": "plural",
-      "difficulty": 2
+      "difficulty": 2,
+      "usefulness": 79,
+      "complexity": 40
     },
     {
       "id": "es-en.gravity.noun.some-water",
@@ -326,7 +390,9 @@
       "learnerBaseText": "algo de agua",
       "english": "some water",
       "laneId": "singular",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 88,
+      "complexity": 32
     },
     {
       "id": "es-en.gravity.noun.some-books",
@@ -335,7 +401,9 @@
       "learnerBaseText": "algunos libros",
       "english": "some books",
       "laneId": "plural",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 73,
+      "complexity": 24
     },
     {
       "id": "es-en.gravity.noun.much-rice",
@@ -344,7 +412,9 @@
       "learnerBaseText": "mucho arroz",
       "english": "much rice",
       "laneId": "singular",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 25
     },
     {
       "id": "es-en.gravity.noun.many-cars",
@@ -353,7 +423,9 @@
       "learnerBaseText": "muchos coches",
       "english": "many cars",
       "laneId": "plural",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 84,
+      "complexity": 25
     },
     {
       "id": "es-en.gravity.noun.a-little-milk",
@@ -362,7 +434,9 @@
       "learnerBaseText": "un poco de leche",
       "english": "a little milk",
       "laneId": "singular",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "es-en.gravity.noun.a-few-eggs",
@@ -371,7 +445,9 @@
       "learnerBaseText": "unos pocos huevos",
       "english": "a few eggs",
       "laneId": "plural",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 76,
+      "complexity": 27
     },
     {
       "id": "es-en.gravity.noun.much-information",
@@ -380,7 +456,9 @@
       "learnerBaseText": "mucha información",
       "english": "much information",
       "laneId": "singular",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 84,
+      "complexity": 25
     },
     {
       "id": "es-en.gravity.noun.many-questions",
@@ -389,7 +467,9 @@
       "learnerBaseText": "muchas preguntas",
       "english": "many questions",
       "laneId": "plural",
-      "difficulty": 3
+      "difficulty": 3,
+      "usefulness": 73,
+      "complexity": 25
     },
     {
       "id": "es-en.gravity.noun.exp260908.ball",
@@ -398,7 +478,9 @@
       "targetText": "ball",
       "learnerBaseText": "pelota",
       "english": "ball",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "es-en.gravity.noun.exp260908.rabbit",
@@ -407,7 +489,9 @@
       "targetText": "rabbit",
       "learnerBaseText": "conejo",
       "english": "rabbit",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.exp260908.duck",
@@ -416,7 +500,9 @@
       "targetText": "duck",
       "learnerBaseText": "pato",
       "english": "duck",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.exp260908.fish",
@@ -425,7 +511,9 @@
       "targetText": "fish",
       "learnerBaseText": "pez",
       "english": "fish",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es-en.gravity.noun.exp260908.horse",
@@ -434,7 +522,9 @@
       "targetText": "horse",
       "learnerBaseText": "caballo",
       "english": "horse",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.exp260908.bear",
@@ -443,7 +533,9 @@
       "targetText": "bear",
       "learnerBaseText": "oso",
       "english": "bear",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.exp260908.bee",
@@ -452,7 +544,9 @@
       "targetText": "bee",
       "learnerBaseText": "abeja",
       "english": "bee",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.exp260908.butterfly",
@@ -461,7 +555,9 @@
       "targetText": "butterfly",
       "learnerBaseText": "mariposa",
       "english": "butterfly",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.exp260908.flower",
@@ -470,7 +566,9 @@
       "targetText": "flower",
       "learnerBaseText": "flor",
       "english": "flower",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.exp260908.sun",
@@ -479,7 +577,9 @@
       "targetText": "sun",
       "learnerBaseText": "sol",
       "english": "sun",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.exp260908.moon",
@@ -488,7 +588,9 @@
       "targetText": "moon",
       "learnerBaseText": "luna",
       "english": "moon",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.exp260908.star",
@@ -497,7 +599,9 @@
       "targetText": "star",
       "learnerBaseText": "estrella",
       "english": "star",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.exp260908.cloud",
@@ -506,7 +610,9 @@
       "targetText": "cloud",
       "learnerBaseText": "nube",
       "english": "cloud",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.exp260908.rain",
@@ -515,7 +621,9 @@
       "targetText": "rain",
       "learnerBaseText": "lluvia",
       "english": "rain",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es-en.gravity.noun.exp260908.snow",
@@ -524,7 +632,9 @@
       "targetText": "snow",
       "learnerBaseText": "nieve",
       "english": "snow",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es-en.gravity.noun.exp260908.pencil",
@@ -533,7 +643,9 @@
       "targetText": "pencil",
       "learnerBaseText": "lápiz",
       "english": "pencil",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.exp260908.crayon",
@@ -542,7 +654,9 @@
       "targetText": "crayon",
       "learnerBaseText": "lápiz de cera",
       "english": "crayon",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.exp260908.notebook",
@@ -551,7 +665,9 @@
       "targetText": "notebook",
       "learnerBaseText": "cuaderno",
       "english": "notebook",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.exp260908.backpack",
@@ -560,7 +676,9 @@
       "targetText": "backpack",
       "learnerBaseText": "mochila",
       "english": "backpack",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.exp260908.bicycle",
@@ -569,7 +687,9 @@
       "targetText": "bicycle",
       "learnerBaseText": "bicicleta",
       "english": "bicycle",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es-en.gravity.noun.exp260908.boat",
@@ -578,7 +698,9 @@
       "targetText": "boat",
       "learnerBaseText": "barco",
       "english": "boat",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.exp260908.hat",
@@ -587,7 +709,9 @@
       "targetText": "hat",
       "learnerBaseText": "sombrero",
       "english": "hat",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es-en.gravity.noun.exp260908.sock",
@@ -596,7 +720,9 @@
       "targetText": "sock",
       "learnerBaseText": "calcetín",
       "english": "sock",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es-en.gravity.noun.exp260908.shoe",
@@ -605,7 +731,9 @@
       "targetText": "shoe",
       "learnerBaseText": "zapato",
       "english": "shoe",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es-en.gravity.noun.exp260908.spoon",
@@ -614,7 +742,9 @@
       "targetText": "spoon",
       "learnerBaseText": "cuchara",
       "english": "spoon",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es-en.gravity.noun.exp260908.plate",
@@ -623,7 +753,9 @@
       "targetText": "plate",
       "learnerBaseText": "plato",
       "english": "plate",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es-en.gravity.noun.exp260908.cup",
@@ -632,7 +764,9 @@
       "targetText": "cup",
       "learnerBaseText": "taza",
       "english": "cup",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es-en.gravity.noun.exp260908.bread",
@@ -641,7 +775,9 @@
       "targetText": "bread",
       "learnerBaseText": "pan",
       "english": "bread",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 75,
+      "complexity": 21
     },
     {
       "id": "es-en.gravity.noun.exp260908.cheese",
@@ -650,7 +786,9 @@
       "targetText": "cheese",
       "learnerBaseText": "queso",
       "english": "cheese",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es-en.gravity.noun.exp260908.egg",
@@ -659,7 +797,9 @@
       "targetText": "egg",
       "learnerBaseText": "huevo",
       "english": "egg",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es-en.gravity.noun.exp260908.hedgehog",
@@ -668,7 +808,9 @@
       "targetText": "hedgehog",
       "learnerBaseText": "erizo",
       "english": "hedgehog",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.exp260908.squirrel",
@@ -677,7 +819,9 @@
       "targetText": "squirrel",
       "learnerBaseText": "ardilla",
       "english": "squirrel",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.exp260908.owl",
@@ -686,7 +830,9 @@
       "targetText": "owl",
       "learnerBaseText": "búho",
       "english": "owl",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.exp260908.turtle",
@@ -695,7 +841,9 @@
       "targetText": "turtle",
       "learnerBaseText": "tortuga",
       "english": "turtle",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.exp260908.snail",
@@ -704,7 +852,9 @@
       "targetText": "snail",
       "learnerBaseText": "caracol",
       "english": "snail",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.exp260908.whale",
@@ -713,7 +863,9 @@
       "targetText": "whale",
       "learnerBaseText": "ballena",
       "english": "whale",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.exp260908.dolphin",
@@ -722,7 +874,9 @@
       "targetText": "dolphin",
       "learnerBaseText": "delfín",
       "english": "dolphin",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.exp260908.penguin",
@@ -731,7 +885,9 @@
       "targetText": "penguin",
       "learnerBaseText": "pingüino",
       "english": "penguin",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.exp260908.nest",
@@ -740,7 +896,9 @@
       "targetText": "nest",
       "learnerBaseText": "nido",
       "english": "nest",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.exp260908.feather",
@@ -749,7 +907,9 @@
       "targetText": "feather",
       "learnerBaseText": "pluma",
       "english": "feather",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.exp260908.seed",
@@ -758,7 +918,9 @@
       "targetText": "seed",
       "learnerBaseText": "semilla",
       "english": "seed",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.exp260908.root",
@@ -767,7 +929,9 @@
       "targetText": "root",
       "learnerBaseText": "raíz",
       "english": "root",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.exp260908.branch",
@@ -776,7 +940,9 @@
       "targetText": "branch",
       "learnerBaseText": "rama",
       "english": "branch",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.exp260908.pond",
@@ -785,7 +951,9 @@
       "targetText": "pond",
       "learnerBaseText": "estanque",
       "english": "pond",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.exp260908.meadow",
@@ -794,7 +962,9 @@
       "targetText": "meadow",
       "learnerBaseText": "pradera",
       "english": "meadow",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.exp260908.waterfall",
@@ -803,7 +973,9 @@
       "targetText": "waterfall",
       "learnerBaseText": "cascada",
       "english": "waterfall",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.exp260908.rainbow",
@@ -812,7 +984,9 @@
       "targetText": "rainbow",
       "learnerBaseText": "arcoíris",
       "english": "rainbow",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.exp260908.island",
@@ -821,7 +995,9 @@
       "targetText": "island",
       "learnerBaseText": "isla",
       "english": "island",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.exp260908.shell",
@@ -830,7 +1006,9 @@
       "targetText": "shell",
       "learnerBaseText": "concha",
       "english": "shell",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.exp260908.pebble",
@@ -839,7 +1017,9 @@
       "targetText": "pebble",
       "learnerBaseText": "guijarro",
       "english": "pebble",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.exp260908.puppet",
@@ -848,7 +1028,9 @@
       "targetText": "puppet",
       "learnerBaseText": "marioneta",
       "english": "puppet",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "es-en.gravity.noun.exp260908.costume",
@@ -857,7 +1039,9 @@
       "targetText": "costume",
       "learnerBaseText": "disfraz",
       "english": "costume",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "es-en.gravity.noun.exp260908.stage",
@@ -866,7 +1050,9 @@
       "targetText": "stage",
       "learnerBaseText": "escenario",
       "english": "stage",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "es-en.gravity.noun.exp260908.drum",
@@ -875,7 +1061,9 @@
       "targetText": "drum",
       "learnerBaseText": "tambor",
       "english": "drum",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "es-en.gravity.noun.exp260908.flute",
@@ -884,7 +1072,9 @@
       "targetText": "flute",
       "learnerBaseText": "flauta",
       "english": "flute",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "es-en.gravity.noun.exp260908.riddle",
@@ -893,7 +1083,9 @@
       "targetText": "riddle",
       "learnerBaseText": "adivinanza",
       "english": "riddle",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.exp260908.compass",
@@ -902,7 +1094,9 @@
       "targetText": "compass",
       "learnerBaseText": "brújula",
       "english": "compass",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "es-en.gravity.noun.exp260908.telescope",
@@ -911,7 +1105,9 @@
       "targetText": "telescope",
       "learnerBaseText": "telescopio",
       "english": "telescope",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "es-en.gravity.noun.exp260908.rocket",
@@ -920,7 +1116,9 @@
       "targetText": "rocket",
       "learnerBaseText": "cohete",
       "english": "rocket",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.exp260908.planet",
@@ -929,7 +1127,9 @@
       "targetText": "planet",
       "learnerBaseText": "planeta",
       "english": "planet",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.exp260908.patience",
@@ -938,7 +1138,9 @@
       "targetText": "patience",
       "learnerBaseText": "paciencia",
       "english": "patience",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "es-en.gravity.noun.exp260908.kindness",
@@ -947,7 +1149,9 @@
       "targetText": "kindness",
       "learnerBaseText": "amabilidad",
       "english": "kindness",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es-en.gravity.noun.exp260908.courage",
@@ -956,7 +1160,9 @@
       "targetText": "courage",
       "learnerBaseText": "valentía",
       "english": "courage",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es-en.gravity.noun.exp260908.curiosity",
@@ -965,7 +1171,9 @@
       "targetText": "curiosity",
       "learnerBaseText": "curiosidad",
       "english": "curiosity",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es-en.gravity.noun.exp260908.imagination",
@@ -974,7 +1182,9 @@
       "targetText": "imagination",
       "learnerBaseText": "imaginación",
       "english": "imagination",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es-en.gravity.noun.exp260908.friendship",
@@ -983,7 +1193,9 @@
       "targetText": "friendship",
       "learnerBaseText": "amistad",
       "english": "friendship",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 70,
+      "complexity": 34
     },
     {
       "id": "es-en.gravity.noun.exp260908.cooperation",
@@ -992,7 +1204,9 @@
       "targetText": "cooperation",
       "learnerBaseText": "cooperación",
       "english": "cooperation",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es-en.gravity.noun.exp260908.agreement",
@@ -1001,7 +1215,9 @@
       "targetText": "agreement",
       "learnerBaseText": "acuerdo",
       "english": "agreement",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es-en.gravity.noun.exp260908.difference",
@@ -1010,7 +1226,9 @@
       "targetText": "difference",
       "learnerBaseText": "diferencia",
       "english": "difference",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es-en.gravity.noun.exp260908.similarity",
@@ -1019,7 +1237,9 @@
       "targetText": "similarity",
       "learnerBaseText": "semejanza",
       "english": "similarity",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es-en.gravity.noun.exp260908.evidence",
@@ -1028,7 +1248,9 @@
       "targetText": "evidence",
       "learnerBaseText": "prueba",
       "english": "evidence",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "es-en.gravity.noun.exp260908.explanation",
@@ -1037,7 +1259,9 @@
       "targetText": "explanation",
       "learnerBaseText": "explicación",
       "english": "explanation",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es-en.gravity.noun.exp260908.solution",
@@ -1046,7 +1270,9 @@
       "targetText": "solution",
       "learnerBaseText": "solución",
       "english": "solution",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es-en.gravity.noun.exp260908.discovery",
@@ -1055,7 +1281,9 @@
       "targetText": "discovery",
       "learnerBaseText": "descubrimiento",
       "english": "discovery",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es-en.gravity.noun.exp260908.invention",
@@ -1064,7 +1292,9 @@
       "targetText": "invention",
       "learnerBaseText": "invento",
       "english": "invention",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es-en.gravity.noun.exp260908.experiment",
@@ -1073,7 +1303,9 @@
       "targetText": "experiment",
       "learnerBaseText": "experimento",
       "english": "experiment",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "es-en.gravity.noun.exp260908.observation",
@@ -1082,7 +1314,9 @@
       "targetText": "observation",
       "learnerBaseText": "observación",
       "english": "observation",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es-en.gravity.noun.exp260908.prediction",
@@ -1091,7 +1325,9 @@
       "targetText": "prediction",
       "learnerBaseText": "predicción",
       "english": "prediction",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es-en.gravity.noun.exp260908.possibility",
@@ -1100,7 +1336,9 @@
       "targetText": "possibility",
       "learnerBaseText": "posibilidad",
       "english": "possibility",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "es-en.gravity.noun.exp260908.responsibility",
@@ -1109,7 +1347,9 @@
       "targetText": "responsibility",
       "learnerBaseText": "responsabilidad",
       "english": "responsibility",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "es-en.gravity.noun.exp260908.permission",
@@ -1118,7 +1358,9 @@
       "targetText": "permission",
       "learnerBaseText": "permiso",
       "english": "permission",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "es-en.gravity.noun.exp260908.decision",
@@ -1127,7 +1369,9 @@
       "targetText": "decision",
       "learnerBaseText": "decisión",
       "english": "decision",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "es-en.gravity.noun.exp260908.achievement",
@@ -1136,7 +1380,9 @@
       "targetText": "achievement",
       "learnerBaseText": "logro",
       "english": "achievement",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es-en.gravity.noun.exp260908.challenge",
@@ -1145,7 +1391,9 @@
       "targetText": "challenge",
       "learnerBaseText": "reto",
       "english": "challenge",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es-en.gravity.noun.exp260908.effort",
@@ -1154,7 +1402,9 @@
       "targetText": "effort",
       "learnerBaseText": "esfuerzo",
       "english": "effort",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es-en.gravity.noun.exp260908.balance",
@@ -1163,7 +1413,9 @@
       "targetText": "balance",
       "learnerBaseText": "equilibrio",
       "english": "balance",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 44,
+      "complexity": 41
     },
     {
       "id": "es-en.gravity.noun.exp260908.habitat",
@@ -1172,7 +1424,9 @@
       "targetText": "habitat",
       "learnerBaseText": "hábitat",
       "english": "habitat",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.exp260908.pollination",
@@ -1181,7 +1435,9 @@
       "targetText": "pollination",
       "learnerBaseText": "polinización",
       "english": "pollination",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.exp260908.constellation",
@@ -1190,7 +1446,9 @@
       "targetText": "constellation",
       "learnerBaseText": "constelación",
       "english": "constellation",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.exp260908.reflection",
@@ -1199,7 +1457,9 @@
       "targetText": "reflection",
       "learnerBaseText": "reflejo",
       "english": "reflection",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.lion",
@@ -1208,7 +1468,9 @@
       "targetText": "lion",
       "learnerBaseText": "león",
       "english": "lion",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.tigers",
@@ -1217,7 +1479,9 @@
       "targetText": "tigers",
       "learnerBaseText": "tigres",
       "english": "tigers",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.elephant",
@@ -1226,7 +1490,9 @@
       "targetText": "elephant",
       "learnerBaseText": "elefante",
       "english": "elephant",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.giraffes",
@@ -1235,7 +1501,9 @@
       "targetText": "giraffes",
       "learnerBaseText": "jirafas",
       "english": "giraffes",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.zebra",
@@ -1244,7 +1512,9 @@
       "targetText": "zebra",
       "learnerBaseText": "cebra",
       "english": "zebra",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.monkeys",
@@ -1253,7 +1523,9 @@
       "targetText": "monkeys",
       "learnerBaseText": "monos",
       "english": "monkeys",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.cow",
@@ -1262,7 +1534,9 @@
       "targetText": "cow",
       "learnerBaseText": "vaca",
       "english": "cow",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.pair260908.pigs",
@@ -1271,7 +1545,9 @@
       "targetText": "pigs",
       "learnerBaseText": "cerdos",
       "english": "pigs",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.pair260908.sheep",
@@ -1280,7 +1556,9 @@
       "targetText": "sheep",
       "learnerBaseText": "oveja",
       "english": "sheep",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.pair260908.goats",
@@ -1289,7 +1567,9 @@
       "targetText": "goats",
       "learnerBaseText": "cabras",
       "english": "goats",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.pair260908.hen",
@@ -1298,7 +1578,9 @@
       "targetText": "hen",
       "learnerBaseText": "gallina",
       "english": "hen",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.pair260908.roosters",
@@ -1307,7 +1589,9 @@
       "targetText": "roosters",
       "learnerBaseText": "gallos",
       "english": "roosters",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.chick",
@@ -1316,7 +1600,9 @@
       "targetText": "chick",
       "learnerBaseText": "pollito",
       "english": "chick",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.donkeys",
@@ -1325,7 +1611,9 @@
       "targetText": "donkeys",
       "learnerBaseText": "burros",
       "english": "donkeys",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.birds",
@@ -1334,7 +1622,9 @@
       "targetText": "birds",
       "learnerBaseText": "pájaros",
       "english": "birds",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.pair260908.ant",
@@ -1343,7 +1633,9 @@
       "targetText": "ant",
       "learnerBaseText": "hormiga",
       "english": "ant",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.pair260908.spiders",
@@ -1352,7 +1644,9 @@
       "targetText": "spiders",
       "learnerBaseText": "arañas",
       "english": "spiders",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.pair260908.frog",
@@ -1361,7 +1655,9 @@
       "targetText": "frog",
       "learnerBaseText": "rana",
       "english": "frog",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.pair260908.worms",
@@ -1370,7 +1666,9 @@
       "targetText": "worms",
       "learnerBaseText": "gusanos",
       "english": "worms",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.pair260908.tree",
@@ -1379,7 +1677,9 @@
       "targetText": "tree",
       "learnerBaseText": "árbol",
       "english": "tree",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.pair260908.leaves",
@@ -1388,7 +1688,9 @@
       "targetText": "leaves",
       "learnerBaseText": "hojas",
       "english": "leaves",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.pair260908.stone",
@@ -1397,7 +1699,9 @@
       "targetText": "stone",
       "learnerBaseText": "piedra",
       "english": "stone",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.pair260908.rivers",
@@ -1406,7 +1710,9 @@
       "targetText": "rivers",
       "learnerBaseText": "ríos",
       "english": "rivers",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.pair260908.mountain",
@@ -1415,7 +1721,9 @@
       "targetText": "mountain",
       "learnerBaseText": "montaña",
       "english": "mountain",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.pair260908.beaches",
@@ -1424,7 +1732,9 @@
       "targetText": "beaches",
       "learnerBaseText": "playas",
       "english": "beaches",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 62,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.pair260908.forest",
@@ -1433,7 +1743,9 @@
       "targetText": "forest",
       "learnerBaseText": "bosque",
       "english": "forest",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.pair260908.oranges",
@@ -1442,7 +1754,9 @@
       "targetText": "oranges",
       "learnerBaseText": "naranjas",
       "english": "oranges",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es-en.gravity.noun.pair260908.banana",
@@ -1451,7 +1765,9 @@
       "targetText": "banana",
       "learnerBaseText": "plátano",
       "english": "banana",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es-en.gravity.noun.pair260908.pears",
@@ -1460,7 +1776,9 @@
       "targetText": "pears",
       "learnerBaseText": "peras",
       "english": "pears",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es-en.gravity.noun.pair260908.strawberry",
@@ -1469,7 +1787,9 @@
       "targetText": "strawberry",
       "learnerBaseText": "fresa",
       "english": "strawberry",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es-en.gravity.noun.pair260908.grapes",
@@ -1478,7 +1798,9 @@
       "targetText": "grapes",
       "learnerBaseText": "uvas",
       "english": "grapes",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es-en.gravity.noun.pair260908.lemon",
@@ -1487,7 +1809,9 @@
       "targetText": "lemon",
       "learnerBaseText": "limón",
       "english": "lemon",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es-en.gravity.noun.pair260908.tomatoes",
@@ -1496,7 +1820,9 @@
       "targetText": "tomatoes",
       "learnerBaseText": "tomates",
       "english": "tomatoes",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.potato",
@@ -1505,7 +1831,9 @@
       "targetText": "potato",
       "learnerBaseText": "patata",
       "english": "potato",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es-en.gravity.noun.pair260908.carrots",
@@ -1514,7 +1842,9 @@
       "targetText": "carrots",
       "learnerBaseText": "zanahorias",
       "english": "carrots",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es-en.gravity.noun.pair260908.cookie",
@@ -1523,7 +1853,9 @@
       "targetText": "cookie",
       "learnerBaseText": "galleta",
       "english": "cookie",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es-en.gravity.noun.pair260908.sandwiches",
@@ -1532,7 +1864,9 @@
       "targetText": "sandwiches",
       "learnerBaseText": "bocadillos",
       "english": "sandwiches",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es-en.gravity.noun.pair260908.ice-cream",
@@ -1541,7 +1875,9 @@
       "targetText": "ice cream",
       "learnerBaseText": "helado",
       "english": "ice cream",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 78,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.pair260908.bottles",
@@ -1550,7 +1886,9 @@
       "targetText": "bottles",
       "learnerBaseText": "botellas",
       "english": "bottles",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es-en.gravity.noun.pair260908.drinking-glass",
@@ -1559,7 +1897,9 @@
       "targetText": "drinking glass",
       "learnerBaseText": "vaso",
       "english": "drinking glass",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 75,
+      "complexity": 24
     },
     {
       "id": "es-en.gravity.noun.pair260908.forks",
@@ -1568,7 +1908,9 @@
       "targetText": "forks",
       "learnerBaseText": "tenedores",
       "english": "forks",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es-en.gravity.noun.pair260908.bowl",
@@ -1577,7 +1919,9 @@
       "targetText": "bowl",
       "learnerBaseText": "cuenco",
       "english": "bowl",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es-en.gravity.noun.pair260908.napkins",
@@ -1586,7 +1930,9 @@
       "targetText": "napkins",
       "learnerBaseText": "servilletas",
       "english": "napkins",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "es-en.gravity.noun.pair260908.bed",
@@ -1595,7 +1941,9 @@
       "targetText": "bed",
       "learnerBaseText": "cama",
       "english": "bed",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "es-en.gravity.noun.pair260908.pillows",
@@ -1604,7 +1952,9 @@
       "targetText": "pillows",
       "learnerBaseText": "almohadas",
       "english": "pillows",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "es-en.gravity.noun.pair260908.blanket",
@@ -1613,7 +1963,9 @@
       "targetText": "blanket",
       "learnerBaseText": "manta",
       "english": "blanket",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "es-en.gravity.noun.pair260908.sofas",
@@ -1622,7 +1974,9 @@
       "targetText": "sofas",
       "learnerBaseText": "sofás",
       "english": "sofas",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "es-en.gravity.noun.pair260908.lamp",
@@ -1631,7 +1985,9 @@
       "targetText": "lamp",
       "learnerBaseText": "lámpara",
       "english": "lamp",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "es-en.gravity.noun.pair260908.clocks",
@@ -1640,7 +1996,9 @@
       "targetText": "clocks",
       "learnerBaseText": "relojes",
       "english": "clocks",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "es-en.gravity.noun.pair260908.toys",
@@ -1649,7 +2007,9 @@
       "targetText": "toys",
       "learnerBaseText": "juguetes",
       "english": "toys",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "es-en.gravity.noun.pair260908.doll",
@@ -1658,7 +2018,9 @@
       "targetText": "doll",
       "learnerBaseText": "muñeca",
       "english": "doll",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "es-en.gravity.noun.pair260908.balloons",
@@ -1667,7 +2029,9 @@
       "targetText": "balloons",
       "learnerBaseText": "globos",
       "english": "balloons",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "es-en.gravity.noun.pair260908.gift",
@@ -1676,7 +2040,9 @@
       "targetText": "gift",
       "learnerBaseText": "regalo",
       "english": "gift",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "es-en.gravity.noun.pair260908.kites",
@@ -1685,7 +2051,9 @@
       "targetText": "kites",
       "learnerBaseText": "cometas",
       "english": "kites",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "es-en.gravity.noun.pair260908.swing",
@@ -1694,7 +2062,9 @@
       "targetText": "swing",
       "learnerBaseText": "columpio",
       "english": "swing",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "es-en.gravity.noun.pair260908.slides",
@@ -1703,7 +2073,9 @@
       "targetText": "slides",
       "learnerBaseText": "toboganes",
       "english": "slides",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "es-en.gravity.noun.pair260908.airplanes",
@@ -1712,7 +2084,9 @@
       "targetText": "airplanes",
       "learnerBaseText": "aviones",
       "english": "airplanes",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.fox",
@@ -1721,7 +2095,9 @@
       "targetText": "fox",
       "learnerBaseText": "zorro",
       "english": "fox",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.wolves",
@@ -1730,7 +2106,9 @@
       "targetText": "wolves",
       "learnerBaseText": "lobos",
       "english": "wolves",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.deer",
@@ -1739,7 +2117,9 @@
       "targetText": "deer",
       "learnerBaseText": "ciervo",
       "english": "deer",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.two-reindeer",
@@ -1748,7 +2128,9 @@
       "targetText": "two reindeer",
       "learnerBaseText": "dos renos",
       "english": "two reindeer",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 40
     },
     {
       "id": "es-en.gravity.noun.pair260908.moose",
@@ -1757,7 +2139,9 @@
       "targetText": "moose",
       "learnerBaseText": "alce",
       "english": "moose",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.beavers",
@@ -1766,7 +2150,9 @@
       "targetText": "beavers",
       "learnerBaseText": "castores",
       "english": "beavers",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.otter",
@@ -1775,7 +2161,9 @@
       "targetText": "otter",
       "learnerBaseText": "nutria",
       "english": "otter",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.raccoons",
@@ -1784,7 +2172,9 @@
       "targetText": "raccoons",
       "learnerBaseText": "mapaches",
       "english": "raccoons",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.badger",
@@ -1793,7 +2183,9 @@
       "targetText": "badger",
       "learnerBaseText": "tejón",
       "english": "badger",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.bats",
@@ -1802,7 +2194,9 @@
       "targetText": "bats",
       "learnerBaseText": "murciélagos",
       "english": "bats",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.seal",
@@ -1811,7 +2205,9 @@
       "targetText": "seal",
       "learnerBaseText": "foca",
       "english": "seal",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.walruses",
@@ -1820,7 +2216,9 @@
       "targetText": "walruses",
       "learnerBaseText": "morsas",
       "english": "walruses",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.kangaroo",
@@ -1829,7 +2227,9 @@
       "targetText": "kangaroo",
       "learnerBaseText": "canguro",
       "english": "kangaroo",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.koalas",
@@ -1838,7 +2238,9 @@
       "targetText": "koalas",
       "learnerBaseText": "koalas",
       "english": "koalas",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.panda",
@@ -1847,7 +2249,9 @@
       "targetText": "panda",
       "learnerBaseText": "panda",
       "english": "panda",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.camels",
@@ -1856,7 +2260,9 @@
       "targetText": "camels",
       "learnerBaseText": "camellos",
       "english": "camels",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.hippopotamus",
@@ -1865,7 +2271,9 @@
       "targetText": "hippopotamus",
       "learnerBaseText": "hipopótamo",
       "english": "hippopotamus",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.rhinoceroses",
@@ -1874,7 +2282,9 @@
       "targetText": "rhinoceroses",
       "learnerBaseText": "rinocerontes",
       "english": "rhinoceroses",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.crocodile",
@@ -1883,7 +2293,9 @@
       "targetText": "crocodile",
       "learnerBaseText": "cocodrilo",
       "english": "crocodile",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.lizards",
@@ -1892,7 +2304,9 @@
       "targetText": "lizards",
       "learnerBaseText": "lagartos",
       "english": "lizards",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.snake",
@@ -1901,7 +2315,9 @@
       "targetText": "snake",
       "learnerBaseText": "serpiente",
       "english": "snake",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.octopuses",
@@ -1910,7 +2326,9 @@
       "targetText": "octopuses",
       "learnerBaseText": "pulpos",
       "english": "octopuses",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.squid",
@@ -1919,7 +2337,9 @@
       "targetText": "squid",
       "learnerBaseText": "calamar",
       "english": "squid",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.crabs",
@@ -1928,7 +2348,9 @@
       "targetText": "crabs",
       "learnerBaseText": "cangrejos",
       "english": "crabs",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.jellyfish",
@@ -1937,7 +2359,9 @@
       "targetText": "jellyfish",
       "learnerBaseText": "medusa",
       "english": "jellyfish",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.sharks",
@@ -1946,7 +2370,9 @@
       "targetText": "sharks",
       "learnerBaseText": "tiburones",
       "english": "sharks",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.seahorse",
@@ -1955,7 +2381,9 @@
       "targetText": "seahorse",
       "learnerBaseText": "caballito de mar",
       "english": "seahorse",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.two-starfish",
@@ -1964,7 +2392,9 @@
       "targetText": "two starfish",
       "learnerBaseText": "dos estrellas de mar",
       "english": "two starfish",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 40
     },
     {
       "id": "es-en.gravity.noun.pair260908.tarantula",
@@ -1973,7 +2403,9 @@
       "targetText": "tarantula",
       "learnerBaseText": "tarántula",
       "english": "tarantula",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.ladybugs",
@@ -1982,7 +2414,9 @@
       "targetText": "ladybugs",
       "learnerBaseText": "mariquitas",
       "english": "ladybugs",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.beetle",
@@ -1991,7 +2425,9 @@
       "targetText": "beetle",
       "learnerBaseText": "escarabajo",
       "english": "beetle",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.grasshoppers",
@@ -2000,7 +2436,9 @@
       "targetText": "grasshoppers",
       "learnerBaseText": "saltamontes",
       "english": "grasshoppers",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.cricket",
@@ -2009,7 +2447,9 @@
       "targetText": "cricket",
       "learnerBaseText": "grillo",
       "english": "cricket",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.dragonflies",
@@ -2018,7 +2458,9 @@
       "targetText": "dragonflies",
       "learnerBaseText": "libélulas",
       "english": "dragonflies",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.caterpillar",
@@ -2027,7 +2469,9 @@
       "targetText": "caterpillar",
       "learnerBaseText": "oruga",
       "english": "caterpillar",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.cocoons",
@@ -2036,7 +2480,9 @@
       "targetText": "cocoons",
       "learnerBaseText": "capullos",
       "english": "cocoons",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.eagle",
@@ -2045,7 +2491,9 @@
       "targetText": "eagle",
       "learnerBaseText": "águila",
       "english": "eagle",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.parrots",
@@ -2054,7 +2502,9 @@
       "targetText": "parrots",
       "learnerBaseText": "loros",
       "english": "parrots",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.swan",
@@ -2063,7 +2513,9 @@
       "targetText": "swan",
       "learnerBaseText": "cisne",
       "english": "swan",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.geese",
@@ -2072,7 +2524,9 @@
       "targetText": "geese",
       "learnerBaseText": "gansos",
       "english": "geese",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 52
     },
     {
       "id": "es-en.gravity.noun.pair260908.turkey",
@@ -2081,7 +2535,9 @@
       "targetText": "turkey",
       "learnerBaseText": "pavo",
       "english": "turkey",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.peacocks",
@@ -2090,7 +2546,9 @@
       "targetText": "peacocks",
       "learnerBaseText": "pavos reales",
       "english": "peacocks",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.swallow",
@@ -2099,7 +2557,9 @@
       "targetText": "swallow",
       "learnerBaseText": "golondrina",
       "english": "swallow",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.robins",
@@ -2108,7 +2568,9 @@
       "targetText": "robins",
       "learnerBaseText": "petirrojos",
       "english": "robins",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.sparrow",
@@ -2117,7 +2579,9 @@
       "targetText": "sparrow",
       "learnerBaseText": "gorrión",
       "english": "sparrow",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.flamingos",
@@ -2126,7 +2590,9 @@
       "targetText": "flamingos",
       "learnerBaseText": "flamencos",
       "english": "flamingos",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.seagull",
@@ -2135,7 +2601,9 @@
       "targetText": "seagull",
       "learnerBaseText": "gaviota",
       "english": "seagull",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.pelicans",
@@ -2144,7 +2612,9 @@
       "targetText": "pelicans",
       "learnerBaseText": "pelícanos",
       "english": "pelicans",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.hummingbird",
@@ -2153,7 +2623,9 @@
       "targetText": "hummingbird",
       "learnerBaseText": "colibrí",
       "english": "hummingbird",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.storks",
@@ -2162,7 +2634,9 @@
       "targetText": "storks",
       "learnerBaseText": "cigüeñas",
       "english": "storks",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.tree-trunk",
@@ -2171,7 +2645,9 @@
       "targetText": "tree trunk",
       "learnerBaseText": "tronco",
       "english": "tree trunk",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 65,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.tree-bark",
@@ -2180,7 +2656,9 @@
       "targetText": "tree bark",
       "learnerBaseText": "corteza",
       "english": "tree bark",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 65,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.acorn",
@@ -2189,7 +2667,9 @@
       "targetText": "acorn",
       "learnerBaseText": "bellota",
       "english": "acorn",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.pine-cones",
@@ -2198,7 +2678,9 @@
       "targetText": "pine cones",
       "learnerBaseText": "piñas",
       "english": "pine cones",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 40
     },
     {
       "id": "es-en.gravity.noun.pair260908.petal",
@@ -2207,7 +2689,9 @@
       "targetText": "petal",
       "learnerBaseText": "pétalo",
       "english": "petal",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.thorns",
@@ -2216,7 +2700,9 @@
       "targetText": "thorns",
       "learnerBaseText": "espinas",
       "english": "thorns",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.stem",
@@ -2225,7 +2711,9 @@
       "targetText": "stem",
       "learnerBaseText": "tallo",
       "english": "stem",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.pair260908.shoots",
@@ -2234,7 +2722,9 @@
       "targetText": "sprouts",
       "learnerBaseText": "brotes",
       "english": "sprouts",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.pair260908.shrub",
@@ -2243,7 +2733,9 @@
       "targetText": "shrub",
       "learnerBaseText": "arbusto",
       "english": "shrub",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.ferns",
@@ -2252,7 +2744,9 @@
       "targetText": "ferns",
       "learnerBaseText": "helechos",
       "english": "ferns",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.moss",
@@ -2261,7 +2755,9 @@
       "targetText": "moss",
       "learnerBaseText": "musgo",
       "english": "moss",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.mushrooms",
@@ -2270,7 +2766,9 @@
       "targetText": "mushrooms",
       "learnerBaseText": "setas",
       "english": "mushrooms",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.oak",
@@ -2279,7 +2777,9 @@
       "targetText": "oak",
       "learnerBaseText": "roble",
       "english": "oak",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.pine-trees",
@@ -2288,7 +2788,9 @@
       "targetText": "pine trees",
       "learnerBaseText": "pinos",
       "english": "pine trees",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 65,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.birch",
@@ -2297,7 +2799,9 @@
       "targetText": "birch",
       "learnerBaseText": "abedul",
       "english": "birch",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.willows",
@@ -2306,7 +2810,9 @@
       "targetText": "willows",
       "learnerBaseText": "sauces",
       "english": "willows",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.sunflower",
@@ -2315,7 +2821,9 @@
       "targetText": "sunflower",
       "learnerBaseText": "girasol",
       "english": "sunflower",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.daisies",
@@ -2324,7 +2832,9 @@
       "targetText": "daisies",
       "learnerBaseText": "margaritas",
       "english": "daisies",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.tulip",
@@ -2333,7 +2843,9 @@
       "targetText": "tulip",
       "learnerBaseText": "tulipán",
       "english": "tulip",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.poppies",
@@ -2342,7 +2854,9 @@
       "targetText": "poppies",
       "learnerBaseText": "amapolas",
       "english": "poppies",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 48,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.sand-dune",
@@ -2351,7 +2865,9 @@
       "targetText": "sand dune",
       "learnerBaseText": "duna",
       "english": "sand dune",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 46,
+      "complexity": 41
     },
     {
       "id": "es-en.gravity.noun.pair260908.cliffs",
@@ -2360,7 +2876,9 @@
       "targetText": "cliffs",
       "learnerBaseText": "acantilados",
       "english": "cliffs",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.pair260908.cave",
@@ -2369,7 +2887,9 @@
       "targetText": "cave",
       "learnerBaseText": "cueva",
       "english": "cave",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.pair260908.valleys",
@@ -2378,7 +2898,9 @@
       "targetText": "valleys",
       "learnerBaseText": "valles",
       "english": "valleys",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.pair260908.hill",
@@ -2387,7 +2909,9 @@
       "targetText": "hill",
       "learnerBaseText": "colina",
       "english": "hill",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.pair260908.trails",
@@ -2396,7 +2920,9 @@
       "targetText": "trails",
       "learnerBaseText": "senderos",
       "english": "trails",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.pair260908.stream",
@@ -2405,7 +2931,9 @@
       "targetText": "stream",
       "learnerBaseText": "arroyo",
       "english": "stream",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.pair260908.lakes",
@@ -2414,7 +2942,9 @@
       "targetText": "lakes",
       "learnerBaseText": "lagos",
       "english": "lakes",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.pair260908.volcano",
@@ -2423,7 +2953,9 @@
       "targetText": "volcano",
       "learnerBaseText": "volcán",
       "english": "volcano",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.pair260908.deserts",
@@ -2432,7 +2964,9 @@
       "targetText": "deserts",
       "learnerBaseText": "desiertos",
       "english": "deserts",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.pair260908.oasis",
@@ -2441,7 +2975,9 @@
       "targetText": "oasis",
       "learnerBaseText": "oasis",
       "english": "oasis",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.pair260908.glaciers",
@@ -2450,7 +2986,9 @@
       "targetText": "glaciers",
       "learnerBaseText": "glaciares",
       "english": "glaciers",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.pair260908.iceberg",
@@ -2459,7 +2997,9 @@
       "targetText": "iceberg",
       "learnerBaseText": "iceberg",
       "english": "iceberg",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.pair260908.puddles",
@@ -2468,7 +3008,9 @@
       "targetText": "puddles",
       "learnerBaseText": "charcos",
       "english": "puddles",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.pair260908.snowflake",
@@ -2477,7 +3019,9 @@
       "targetText": "snowflake",
       "learnerBaseText": "copo de nieve",
       "english": "snowflake",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.pair260908.drops",
@@ -2486,7 +3030,9 @@
       "targetText": "drops",
       "learnerBaseText": "gotas",
       "english": "drops",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.pair260908.wave",
@@ -2495,7 +3041,9 @@
       "targetText": "wave",
       "learnerBaseText": "ola",
       "english": "wave",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "es-en.gravity.noun.pair260908.breezes",
@@ -2504,7 +3052,9 @@
       "targetText": "breezes",
       "learnerBaseText": "brisas",
       "english": "breezes",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 46,
+      "complexity": 38
     },
     {
       "id": "es-en.gravity.noun.pair260908.storm",
@@ -2513,7 +3063,9 @@
       "targetText": "storm",
       "learnerBaseText": "tormenta",
       "english": "storm",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.pair260908.lightning-flashes",
@@ -2522,7 +3074,9 @@
       "targetText": "lightning flashes",
       "learnerBaseText": "relámpagos",
       "english": "lightning flashes",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 46,
+      "complexity": 41
     },
     {
       "id": "es-en.gravity.noun.pair260908.thunderclap",
@@ -2531,7 +3085,9 @@
       "targetText": "thunderclap",
       "learnerBaseText": "trueno",
       "english": "thunderclap",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.flashlights",
@@ -2540,7 +3096,9 @@
       "targetText": "flashlights",
       "learnerBaseText": "linternas",
       "english": "flashlights",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.magnifying-glass",
@@ -2549,7 +3107,9 @@
       "targetText": "magnifying glass",
       "learnerBaseText": "lupa",
       "english": "magnifying glass",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 76,
+      "complexity": 24
     },
     {
       "id": "es-en.gravity.noun.pair260908.microscopes",
@@ -2558,7 +3118,9 @@
       "targetText": "microscopes",
       "learnerBaseText": "microscopios",
       "english": "microscopes",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "es-en.gravity.noun.pair260908.ruler",
@@ -2567,7 +3129,9 @@
       "targetText": "ruler",
       "learnerBaseText": "regla",
       "english": "ruler",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.pair260908.balance-scales",
@@ -2576,7 +3140,9 @@
       "targetText": "balance scales",
       "learnerBaseText": "balanzas",
       "english": "balance scales",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 34,
+      "complexity": 51
     },
     {
       "id": "es-en.gravity.noun.pair260908.thermometer",
@@ -2585,7 +3151,9 @@
       "targetText": "thermometer",
       "learnerBaseText": "termómetro",
       "english": "thermometer",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "es-en.gravity.noun.pair260908.magnets",
@@ -2594,7 +3162,9 @@
       "targetText": "magnets",
       "learnerBaseText": "imanes",
       "english": "magnets",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.battery",
@@ -2603,7 +3173,9 @@
       "targetText": "battery",
       "learnerBaseText": "pila",
       "english": "battery",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 72,
+      "complexity": 27
     },
     {
       "id": "es-en.gravity.noun.pair260908.light-bulbs",
@@ -2612,7 +3184,9 @@
       "targetText": "light bulbs",
       "learnerBaseText": "bombillas",
       "english": "light bulbs",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 70,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.light-switch",
@@ -2621,7 +3195,9 @@
       "targetText": "light switch",
       "learnerBaseText": "interruptor",
       "english": "light switch",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 70,
+      "complexity": 37
     },
     {
       "id": "es-en.gravity.noun.pair260908.wheels",
@@ -2630,7 +3206,9 @@
       "targetText": "wheels",
       "learnerBaseText": "ruedas",
       "english": "wheels",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.axle",
@@ -2639,7 +3217,9 @@
       "targetText": "axle",
       "learnerBaseText": "eje",
       "english": "axle",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.gears",
@@ -2648,7 +3228,9 @@
       "targetText": "gears",
       "learnerBaseText": "engranajes",
       "english": "gears",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.pulley",
@@ -2657,7 +3239,9 @@
       "targetText": "pulley",
       "learnerBaseText": "polea",
       "english": "pulley",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.ramps",
@@ -2666,7 +3250,9 @@
       "targetText": "ramps",
       "learnerBaseText": "rampas",
       "english": "ramps",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.bridge",
@@ -2675,7 +3261,9 @@
       "targetText": "bridge",
       "learnerBaseText": "puente",
       "english": "bridge",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.pair260908.tunnels",
@@ -2684,7 +3272,9 @@
       "targetText": "tunnels",
       "learnerBaseText": "túneles",
       "english": "tunnels",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.lighthouse",
@@ -2693,7 +3283,9 @@
       "targetText": "lighthouse",
       "learnerBaseText": "faro",
       "english": "lighthouse",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.mills",
@@ -2702,7 +3294,9 @@
       "targetText": "mills",
       "learnerBaseText": "molinos",
       "english": "mills",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.greenhouse",
@@ -2711,7 +3305,9 @@
       "targetText": "greenhouse",
       "learnerBaseText": "invernadero",
       "english": "greenhouse",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.libraries",
@@ -2720,7 +3316,9 @@
       "targetText": "libraries",
       "learnerBaseText": "bibliotecas",
       "english": "libraries",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "es-en.gravity.noun.pair260908.museum",
@@ -2729,7 +3327,9 @@
       "targetText": "museum",
       "learnerBaseText": "museo",
       "english": "museum",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "es-en.gravity.noun.pair260908.aquariums",
@@ -2738,7 +3338,9 @@
       "targetText": "aquariums",
       "learnerBaseText": "acuarios",
       "english": "aquariums",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.theater",
@@ -2747,7 +3349,9 @@
       "targetText": "theater",
       "learnerBaseText": "teatro",
       "english": "theater",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "es-en.gravity.noun.pair260908.auditoriums",
@@ -2756,7 +3360,9 @@
       "targetText": "auditoriums",
       "learnerBaseText": "auditorios",
       "english": "auditoriums",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.paintbrush",
@@ -2765,7 +3371,9 @@
       "targetText": "paintbrush",
       "learnerBaseText": "pincel",
       "english": "paintbrush",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "es-en.gravity.noun.pair260908.paint-palettes",
@@ -2774,7 +3382,9 @@
       "targetText": "paint palettes",
       "learnerBaseText": "paletas",
       "english": "paint palettes",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 62,
+      "complexity": 32
     },
     {
       "id": "es-en.gravity.noun.pair260908.canvas",
@@ -2783,7 +3393,9 @@
       "targetText": "canvas",
       "learnerBaseText": "lienzo",
       "english": "canvas",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.watercolor-paintings",
@@ -2792,7 +3404,9 @@
       "targetText": "watercolor paintings",
       "learnerBaseText": "acuarelas",
       "english": "watercolor paintings",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 63,
+      "complexity": 31
     },
     {
       "id": "es-en.gravity.noun.pair260908.easel",
@@ -2801,7 +3415,9 @@
       "targetText": "easel",
       "learnerBaseText": "caballete",
       "english": "easel",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.mosaics",
@@ -2810,7 +3426,9 @@
       "targetText": "mosaics",
       "learnerBaseText": "mosaicos",
       "english": "mosaics",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.sculpture",
@@ -2819,7 +3437,9 @@
       "targetText": "sculpture",
       "learnerBaseText": "escultura",
       "english": "sculpture",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "es-en.gravity.noun.pair260908.masks",
@@ -2828,7 +3448,9 @@
       "targetText": "masks",
       "learnerBaseText": "máscaras",
       "english": "masks",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "es-en.gravity.noun.pair260908.violin",
@@ -2837,7 +3459,9 @@
       "targetText": "violin",
       "learnerBaseText": "violín",
       "english": "violin",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "es-en.gravity.noun.pair260908.guitars",
@@ -2846,7 +3470,9 @@
       "targetText": "guitars",
       "learnerBaseText": "guitarras",
       "english": "guitars",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "es-en.gravity.noun.pair260908.piano",
@@ -2855,7 +3481,9 @@
       "targetText": "piano",
       "learnerBaseText": "piano",
       "english": "piano",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "es-en.gravity.noun.pair260908.trumpets",
@@ -2864,7 +3492,9 @@
       "targetText": "trumpets",
       "learnerBaseText": "trompetas",
       "english": "trumpets",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 58,
+      "complexity": 31
     },
     {
       "id": "es-en.gravity.noun.pair260908.xylophone",
@@ -2873,7 +3503,9 @@
       "targetText": "xylophone",
       "learnerBaseText": "xilófono",
       "english": "xylophone",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.tambourines",
@@ -2882,7 +3514,9 @@
       "targetText": "tambourines",
       "learnerBaseText": "panderetas",
       "english": "tambourines",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.hypothesis",
@@ -2891,7 +3525,9 @@
       "targetText": "hypothesis",
       "learnerBaseText": "hipótesis",
       "english": "hypothesis",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 33,
+      "complexity": 65
     },
     {
       "id": "es-en.gravity.noun.pair260908.analyses",
@@ -2900,7 +3536,9 @@
       "targetText": "analyses",
       "learnerBaseText": "análisis",
       "english": "analyses",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.conclusion",
@@ -2909,7 +3547,9 @@
       "targetText": "conclusion",
       "learnerBaseText": "conclusión",
       "english": "conclusion",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "es-en.gravity.noun.pair260908.criteria",
@@ -2918,7 +3558,9 @@
       "targetText": "criteria",
       "learnerBaseText": "criterios",
       "english": "criteria",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.phenomenon",
@@ -2927,7 +3569,9 @@
       "targetText": "phenomenon",
       "learnerBaseText": "fenómeno",
       "english": "phenomenon",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.sequences",
@@ -2936,7 +3580,9 @@
       "targetText": "sequences",
       "learnerBaseText": "secuencias",
       "english": "sequences",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.pattern",
@@ -2945,7 +3591,9 @@
       "targetText": "pattern",
       "learnerBaseText": "patrón",
       "english": "pattern",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.symmetries",
@@ -2954,7 +3602,9 @@
       "targetText": "symmetries",
       "learnerBaseText": "simetrías",
       "english": "symmetries",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.proportion",
@@ -2963,7 +3613,9 @@
       "targetText": "proportion",
       "learnerBaseText": "proporción",
       "english": "proportion",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.fractions",
@@ -2972,7 +3624,9 @@
       "targetText": "fractions",
       "learnerBaseText": "fracciones",
       "english": "fractions",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "es-en.gravity.noun.pair260908.denominator",
@@ -2981,7 +3635,9 @@
       "targetText": "denominator",
       "learnerBaseText": "denominador",
       "english": "denominator",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.numerators",
@@ -2990,7 +3646,9 @@
       "targetText": "numerators",
       "learnerBaseText": "numeradores",
       "english": "numerators",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.percentage",
@@ -2999,7 +3657,9 @@
       "targetText": "percentage",
       "learnerBaseText": "porcentaje",
       "english": "percentage",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "es-en.gravity.noun.pair260908.probabilities",
@@ -3008,7 +3668,9 @@
       "targetText": "probabilities",
       "learnerBaseText": "probabilidades",
       "english": "probabilities",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "es-en.gravity.noun.pair260908.variable",
@@ -3017,7 +3679,9 @@
       "targetText": "variable",
       "learnerBaseText": "variable",
       "english": "variable",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.estimates",
@@ -3026,7 +3690,9 @@
       "targetText": "estimates",
       "learnerBaseText": "estimaciones",
       "english": "estimates",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "es-en.gravity.noun.pair260908.measurement",
@@ -3035,7 +3701,9 @@
       "targetText": "measurement",
       "learnerBaseText": "medición",
       "english": "measurement",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.units",
@@ -3044,7 +3712,9 @@
       "targetText": "units",
       "learnerBaseText": "unidades",
       "english": "units",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.scale",
@@ -3053,7 +3723,9 @@
       "targetText": "scale",
       "learnerBaseText": "escala",
       "english": "scale",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.distances",
@@ -3062,7 +3734,9 @@
       "targetText": "distances",
       "learnerBaseText": "distancias",
       "english": "distances",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.speed",
@@ -3071,7 +3745,9 @@
       "targetText": "speed",
       "learnerBaseText": "velocidad",
       "english": "speed",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.accelerations",
@@ -3080,7 +3756,9 @@
       "targetText": "accelerations",
       "learnerBaseText": "aceleraciones",
       "english": "accelerations",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.gravity",
@@ -3089,7 +3767,9 @@
       "targetText": "gravity",
       "learnerBaseText": "gravedad",
       "english": "gravity",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.energy",
@@ -3098,7 +3778,9 @@
       "targetText": "energy",
       "learnerBaseText": "energía",
       "english": "energy",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.electricity",
@@ -3107,7 +3789,9 @@
       "targetText": "electricity",
       "learnerBaseText": "electricidad",
       "english": "electricity",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.magnetism",
@@ -3116,7 +3800,9 @@
       "targetText": "magnetism",
       "learnerBaseText": "magnetismo",
       "english": "magnetism",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.friction",
@@ -3125,7 +3811,9 @@
       "targetText": "friction",
       "learnerBaseText": "fricción",
       "english": "friction",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.densities",
@@ -3134,7 +3822,9 @@
       "targetText": "densities",
       "learnerBaseText": "densidades",
       "english": "densities",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.temperature",
@@ -3143,7 +3833,9 @@
       "targetText": "temperature",
       "learnerBaseText": "temperatura",
       "english": "temperature",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.humidity",
@@ -3152,7 +3844,9 @@
       "targetText": "humidity",
       "learnerBaseText": "humedad",
       "english": "humidity",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.evaporation",
@@ -3161,7 +3855,9 @@
       "targetText": "evaporation",
       "learnerBaseText": "evaporación",
       "english": "evaporation",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.condensation",
@@ -3170,7 +3866,9 @@
       "targetText": "condensation",
       "learnerBaseText": "condensación",
       "english": "condensation",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.erosion",
@@ -3179,7 +3877,9 @@
       "targetText": "erosion",
       "learnerBaseText": "erosión",
       "english": "erosion",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.biodiversity",
@@ -3188,7 +3888,9 @@
       "targetText": "biodiversity",
       "learnerBaseText": "biodiversidad",
       "english": "biodiversity",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 16,
+      "complexity": 53
     },
     {
       "id": "es-en.gravity.noun.pair260908.ecosystem",
@@ -3197,7 +3899,9 @@
       "targetText": "ecosystem",
       "learnerBaseText": "ecosistema",
       "english": "ecosystem",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "es-en.gravity.noun.pair260908.adaptations",
@@ -3206,7 +3910,9 @@
       "targetText": "adaptations",
       "learnerBaseText": "adaptaciones",
       "english": "adaptations",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.migration",
@@ -3215,7 +3921,9 @@
       "targetText": "migration",
       "learnerBaseText": "migración",
       "english": "migration",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.hibernation",
@@ -3224,7 +3932,9 @@
       "targetText": "hibernation",
       "learnerBaseText": "hibernación",
       "english": "hibernation",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.metamorphosis",
@@ -3233,7 +3943,9 @@
       "targetText": "metamorphosis",
       "learnerBaseText": "metamorfosis",
       "english": "metamorphosis",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.cycles",
@@ -3242,7 +3954,9 @@
       "targetText": "cycles",
       "learnerBaseText": "ciclos",
       "english": "cycles",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.orbit",
@@ -3251,7 +3965,9 @@
       "targetText": "orbit",
       "learnerBaseText": "órbita",
       "english": "orbit",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "es-en.gravity.noun.pair260908.satellites",
@@ -3260,7 +3976,9 @@
       "targetText": "satellites",
       "learnerBaseText": "satélites",
       "english": "satellites",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.asteroid",
@@ -3269,7 +3987,9 @@
       "targetText": "asteroid",
       "learnerBaseText": "asteroide",
       "english": "asteroid",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.meteorites",
@@ -3278,7 +3998,9 @@
       "targetText": "meteorites",
       "learnerBaseText": "meteoritos",
       "english": "meteorites",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.galaxy",
@@ -3287,7 +4009,9 @@
       "targetText": "galaxy",
       "learnerBaseText": "galaxia",
       "english": "galaxy",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.nebulae",
@@ -3296,7 +4020,9 @@
       "targetText": "nebulae",
       "learnerBaseText": "nebulosas",
       "english": "nebulae",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "es-en.gravity.noun.pair260908.eclipse",
@@ -3305,7 +4031,9 @@
       "targetText": "eclipse",
       "learnerBaseText": "eclipse",
       "english": "eclipse",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.equinoxes",
@@ -3314,7 +4042,9 @@
       "targetText": "equinoxes",
       "learnerBaseText": "equinoccios",
       "english": "equinoxes",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.solstice",
@@ -3323,7 +4053,9 @@
       "targetText": "solstice",
       "learnerBaseText": "solsticio",
       "english": "solstice",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.atmospheres",
@@ -3332,7 +4064,9 @@
       "targetText": "atmospheres",
       "learnerBaseText": "atmósferas",
       "english": "atmospheres",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 34,
+      "complexity": 48
     },
     {
       "id": "es-en.gravity.noun.pair260908.solidarity",
@@ -3341,7 +4075,9 @@
       "targetText": "solidarity",
       "learnerBaseText": "solidaridad",
       "english": "solidarity",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es-en.gravity.noun.pair260908.empathy",
@@ -3350,7 +4086,9 @@
       "targetText": "empathy",
       "learnerBaseText": "empatía",
       "english": "empathy",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es-en.gravity.noun.pair260908.generosity",
@@ -3359,7 +4097,9 @@
       "targetText": "generosity",
       "learnerBaseText": "generosidad",
       "english": "generosity",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es-en.gravity.noun.pair260908.honesty",
@@ -3368,7 +4108,9 @@
       "targetText": "honesty",
       "learnerBaseText": "honestidad",
       "english": "honesty",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es-en.gravity.noun.pair260908.trust",
@@ -3377,7 +4119,9 @@
       "targetText": "trust",
       "learnerBaseText": "confianza",
       "english": "trust",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 70,
+      "complexity": 34
     },
     {
       "id": "es-en.gravity.noun.pair260908.gratitude",
@@ -3386,7 +4130,9 @@
       "targetText": "gratitude",
       "learnerBaseText": "gratitud",
       "english": "gratitude",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es-en.gravity.noun.pair260908.respect",
@@ -3395,7 +4141,9 @@
       "targetText": "respect",
       "learnerBaseText": "respeto",
       "english": "respect",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 55,
+      "complexity": 46
     },
     {
       "id": "es-en.gravity.noun.pair260908.initiatives",
@@ -3404,7 +4152,9 @@
       "targetText": "initiatives",
       "learnerBaseText": "iniciativas",
       "english": "initiatives",
-      "laneId": "plural"
+      "laneId": "plural",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es-en.gravity.noun.pair260908.autonomy",
@@ -3413,7 +4163,9 @@
       "targetText": "autonomy",
       "learnerBaseText": "autonomía",
       "english": "autonomy",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 52,
+      "complexity": 43
     },
     {
       "id": "es-en.gravity.noun.pair260908.perseverance",
@@ -3422,7 +4174,9 @@
       "targetText": "perseverance",
       "learnerBaseText": "perseverancia",
       "english": "perseverance",
-      "laneId": "singular"
+      "laneId": "singular",
+      "usefulness": 52,
+      "complexity": 43
     }
   ]
 }

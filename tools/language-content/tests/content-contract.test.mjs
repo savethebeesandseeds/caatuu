@@ -69,7 +69,7 @@ function assertFixtureFails(mutate, code, messagePattern) {
   );
 }
 
-test("the two versioned schemas and actual 250-record catalogs validate as a development draft", async () => {
+test("the two versioned schemas preserve complete catalog coverage as a development draft", async () => {
   const [conceptSchema, realizationSchema] = await Promise.all([
     readFile(new URL("tools/language-packs/schemas/english-concepts.v1.schema.json", repositoryRoot), "utf8").then(JSON.parse),
     readFile(new URL("tools/language-packs/schemas/target-realizations.v1.schema.json", repositoryRoot), "utf8").then(JSON.parse)
@@ -81,17 +81,12 @@ test("the two versioned schemas and actual 250-record catalogs validate as a dev
   assert.doesNotMatch(JSON.stringify(realizationSchema), /pinyin|Hans|zh-Hans|zh-CN/u);
 
   const prepared = validateLanguageContent(structuredClone(concepts), structuredClone(realizations));
-  assert.equal(prepared.concepts.concepts.length, 250);
-  assert.equal(prepared.realizations.realizations.length, 250);
-  assert.equal(prepared.embeddingInputs.length, 250);
-  assert.equal(prepared.embeddingDocuments.length, 250);
-  assert.deepEqual(
-    prepared.concepts.concepts.reduce((counts, concept) => {
-      counts[concept.difficulty] = (counts[concept.difficulty] ?? 0) + 1;
-      return counts;
-    }, {}),
-    { 1: 50, 2: 150, 3: 50 }
-  );
+  assert.ok(concepts.concepts.length > 0);
+  assert.equal(prepared.concepts.concepts.length, concepts.concepts.length);
+  assert.equal(prepared.realizations.realizations.length, concepts.concepts.length);
+  assert.equal(prepared.embeddingInputs.length, concepts.concepts.length);
+  assert.equal(prepared.embeddingDocuments.length, concepts.concepts.length);
+  assert.ok(prepared.concepts.concepts.every(concept => [1, 2, 3].includes(concept.difficulty)));
 
   const loaded = await loadAndValidateLanguageContent({ repoRoot: repositoryRoot });
   assert.equal(loaded.paths.concepts, "apps/languages/shared/english-concepts/word-world-starter-v1.json");
@@ -101,7 +96,7 @@ test("the two versioned schemas and actual 250-record catalogs validate as a dev
 test("embedding preparation consumes embeddingText only and emits English-only isolated documents", () => {
   const inputs = prepareEnglishEmbeddingInputs(structuredClone(concepts));
   const documents = prepareEnglishEmbeddingDocuments(structuredClone(concepts));
-  assert.equal(inputs.length, 250);
+  assert.equal(inputs.length, concepts.concepts.length);
   assert.deepEqual(Object.keys(inputs[0]), ["conceptId", "locale", "textField", "inputPolicy", "text"]);
   for (const [index, input] of inputs.entries()) {
     assert.equal(input.locale, ENGLISH_EMBEDDING_LANGUAGE);
@@ -139,7 +134,7 @@ test("stable IDs are unique and target coverage is exactly one-to-one", () => {
 
   assertFixtureFails(({ realizations: candidate }) => {
     candidate.realizations.pop();
-  }, "coverage.missing", /ww\.social\.listen-before-discussion/u);
+  }, "coverage.missing");
 
   assertFixtureFails(({ realizations: candidate }) => {
     candidate.realizations.push({

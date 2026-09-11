@@ -71,7 +71,9 @@
                 "targetText": "book",
                 "learnerBaseText": "libro",
                 "englishAuditText": "book"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 22
             },
             {
               "id": "es-en.agreement.near.singular.example-2",
@@ -87,7 +89,9 @@
                 "targetText": "apple",
                 "learnerBaseText": "manzana",
                 "englishAuditText": "apple"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "es-en.agreement.near.singular.exp260908",
@@ -103,7 +107,9 @@
                 "targetText": "feather",
                 "learnerBaseText": "pluma",
                 "englishAuditText": "feather"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 22
             },
             {
               "id": "es-en.agreement.near.pair260908.1.singular",
@@ -119,7 +125,9 @@
                 "targetText": "flashlight",
                 "learnerBaseText": "linterna",
                 "englishAuditText": "flashlight"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "es-en.agreement.near.pair260908.2.singular",
@@ -135,7 +143,9 @@
                 "targetText": "bowl",
                 "learnerBaseText": "cuenco",
                 "englishAuditText": "bowl"
-              }
+              },
+              "usefulness": 78,
+              "complexity": 22
             },
             {
               "id": "es-en.agreement.near.pair260908.3.singular",
@@ -151,7 +161,9 @@
                 "targetText": "kite",
                 "learnerBaseText": "cometa",
                 "englishAuditText": "kite"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 22
             },
             {
               "id": "es-en.agreement.near.pair260908.4.singular",
@@ -167,7 +179,9 @@
                 "targetText": "shell",
                 "learnerBaseText": "concha",
                 "englishAuditText": "shell"
-              }
+              },
+              "usefulness": 46,
+              "complexity": 22
             },
             {
               "id": "es-en.agreement.near.pair260908.5.singular",
@@ -183,7 +197,9 @@
                 "targetText": "drawing",
                 "learnerBaseText": "dibujo",
                 "englishAuditText": "drawing"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 22
             },
             {
               "id": "es-en.agreement.near.pair260908.6.singular",
@@ -199,7 +215,9 @@
                 "targetText": "cookie",
                 "learnerBaseText": "galleta",
                 "englishAuditText": "cookie"
-              }
+              },
+              "usefulness": 78,
+              "complexity": 22
             },
             {
               "id": "es-en.agreement.near.pair260908.7.singular",
@@ -215,7 +233,9 @@
                 "targetText": "glove",
                 "learnerBaseText": "guante",
                 "englishAuditText": "glove"
-              }
+              },
+              "usefulness": 80,
+              "complexity": 22
             },
             {
               "id": "es-en.agreement.near.pair260908.8.singular",
@@ -231,9 +251,13 @@
                 "targetText": "whistle",
                 "learnerBaseText": "silbato",
                 "englishAuditText": "whistle"
-              }
+              },
+              "usefulness": 49,
+              "complexity": 22
             }
-          ]
+          ],
+          "usefulness": 88,
+          "complexity": 21
         },
         "plural": {
           "displayForm": "these",
@@ -252,7 +276,9 @@
                 "targetText": "books",
                 "learnerBaseText": "libros",
                 "englishAuditText": "books"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 26
             },
             {
               "id": "es-en.agreement.near.plural.example-2",
@@ -268,7 +294,9 @@
                 "targetText": "apples",
                 "learnerBaseText": "manzanas",
                 "englishAuditText": "apples"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "es-en.agreement.near.plural.exp260908",
@@ -284,7 +312,9 @@
                 "targetText": "footprints",
                 "learnerBaseText": "huellas",
                 "englishAuditText": "footprints"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "es-en.agreement.near.pair260908.1.plural",
@@ -300,7 +330,9 @@
                 "targetText": "flashlights",
                 "learnerBaseText": "linternas",
                 "englishAuditText": "flashlights"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "es-en.agreement.near.pair260908.2.plural",
@@ -316,7 +348,9 @@
                 "targetText": "bowls",
                 "learnerBaseText": "cuencos",
                 "englishAuditText": "bowls"
-              }
+              },
+              "usefulness": 78,
+              "complexity": 26
             },
             {
               "id": "es-en.agreement.near.pair260908.3.plural",
@@ -332,7 +366,9 @@
                 "targetText": "kites",
                 "learnerBaseText": "cometas",
                 "englishAuditText": "kites"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 26
             },
             {
               "id": "es-en.agreement.near.pair260908.4.plural",
@@ -348,7 +384,9 @@
                 "targetText": "shells",
                 "learnerBaseText": "conchas",
                 "englishAuditText": "shells"
-              }
+              },
+              "usefulness": 46,
+              "complexity": 26
             },
             {
               "id": "es-en.agreement.near.pair260908.5.plural",
@@ -364,7 +402,9 @@
                 "targetText": "drawings",
                 "learnerBaseText": "dibujos",
                 "englishAuditText": "drawings"
-              }
+              },
+              "usefulness": 63,
+              "complexity": 26
             },
             {
               "id": "es-en.agreement.near.pair260908.6.plural",
@@ -380,7 +420,9 @@
                 "targetText": "cookies",
                 "learnerBaseText": "galletas",
                 "englishAuditText": "cookies"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "es-en.agreement.near.pair260908.7.plural",
@@ -396,7 +438,9 @@
                 "targetText": "gloves",
                 "learnerBaseText": "guantes",
                 "englishAuditText": "gloves"
-              }
+              },
+              "usefulness": 80,
+              "complexity": 26
             },
             {
               "id": "es-en.agreement.near.pair260908.8.plural",
@@ -412,11 +456,17 @@
                 "targetText": "whistles",
                 "learnerBaseText": "silbatos",
                 "englishAuditText": "whistles"
-              }
+              },
+              "usefulness": 49,
+              "complexity": 26
             }
-          ]
+          ],
+          "usefulness": 88,
+          "complexity": 27
         }
-      }
+      },
+      "usefulness": 88,
+      "complexity": 21
     },
     {
       "id": "es-en.agreement.far",
@@ -447,7 +497,9 @@
                 "targetText": "chair",
                 "learnerBaseText": "silla",
                 "englishAuditText": "chair"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "es-en.agreement.far.singular.example-2",
@@ -463,7 +515,9 @@
                 "targetText": "window",
                 "learnerBaseText": "ventana",
                 "englishAuditText": "window"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "es-en.agreement.far.singular.exp260908",
@@ -479,7 +533,9 @@
                 "targetText": "lighthouse",
                 "learnerBaseText": "faro",
                 "englishAuditText": "lighthouse"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "es-en.agreement.far.pair260908.9.singular",
@@ -495,7 +551,9 @@
                 "targetText": "mill",
                 "learnerBaseText": "molino",
                 "englishAuditText": "mill"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "es-en.agreement.far.pair260908.10.singular",
@@ -511,7 +569,9 @@
                 "targetText": "hill",
                 "learnerBaseText": "colina",
                 "englishAuditText": "hill"
-              }
+              },
+              "usefulness": 46,
+              "complexity": 22
             },
             {
               "id": "es-en.agreement.far.pair260908.12.singular",
@@ -527,7 +587,9 @@
                 "targetText": "cabin",
                 "learnerBaseText": "cabaña",
                 "englishAuditText": "cabin"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "es-en.agreement.far.pair260908.13.singular",
@@ -543,7 +605,9 @@
                 "targetText": "sailboat",
                 "learnerBaseText": "velero",
                 "englishAuditText": "sailboat"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "es-en.agreement.far.pair260908.14.singular",
@@ -559,7 +623,9 @@
                 "targetText": "deer",
                 "learnerBaseText": "ciervo",
                 "englishAuditText": "deer"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 22
             },
             {
               "id": "es-en.agreement.far.pair260908.15.singular",
@@ -575,7 +641,9 @@
                 "targetText": "mountain",
                 "learnerBaseText": "montaña",
                 "englishAuditText": "mountain"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 22
             },
             {
               "id": "es-en.agreement.far.pair260908.16.singular",
@@ -591,9 +659,13 @@
                 "targetText": "seagull",
                 "learnerBaseText": "gaviota",
                 "englishAuditText": "seagull"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 22
             }
-          ]
+          ],
+          "usefulness": 88,
+          "complexity": 21
         },
         "plural": {
           "displayForm": "those",
@@ -612,7 +684,9 @@
                 "targetText": "chairs",
                 "learnerBaseText": "sillas",
                 "englishAuditText": "chairs"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "es-en.agreement.far.plural.example-2",
@@ -628,7 +702,9 @@
                 "targetText": "windows",
                 "learnerBaseText": "ventanas",
                 "englishAuditText": "windows"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "es-en.agreement.far.plural.exp260908",
@@ -644,7 +720,9 @@
                 "targetText": "mountains",
                 "learnerBaseText": "montañas",
                 "englishAuditText": "mountains"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 26
             },
             {
               "id": "es-en.agreement.far.pair260908.9.plural",
@@ -660,7 +738,9 @@
                 "targetText": "mills",
                 "learnerBaseText": "molinos",
                 "englishAuditText": "mills"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "es-en.agreement.far.pair260908.10.plural",
@@ -676,7 +756,9 @@
                 "targetText": "hills",
                 "learnerBaseText": "colinas",
                 "englishAuditText": "hills"
-              }
+              },
+              "usefulness": 46,
+              "complexity": 26
             },
             {
               "id": "es-en.agreement.far.pair260908.11.plural",
@@ -692,7 +774,9 @@
                 "targetText": "lighthouses",
                 "learnerBaseText": "faros",
                 "englishAuditText": "lighthouses"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "es-en.agreement.far.pair260908.12.plural",
@@ -708,7 +792,9 @@
                 "targetText": "cabins",
                 "learnerBaseText": "cabañas",
                 "englishAuditText": "cabins"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "es-en.agreement.far.pair260908.13.plural",
@@ -724,7 +810,9 @@
                 "targetText": "sailboats",
                 "learnerBaseText": "veleros",
                 "englishAuditText": "sailboats"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "es-en.agreement.far.pair260908.14.plural",
@@ -740,7 +828,9 @@
                 "targetText": "deer",
                 "learnerBaseText": "ciervos",
                 "englishAuditText": "deer"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 26
             },
             {
               "id": "es-en.agreement.far.pair260908.16.plural",
@@ -756,11 +846,17 @@
                 "targetText": "seagulls",
                 "learnerBaseText": "gaviotas",
                 "englishAuditText": "seagulls"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 26
             }
-          ]
+          ],
+          "usefulness": 88,
+          "complexity": 27
         }
-      }
+      },
+      "usefulness": 88,
+      "complexity": 21
     },
     {
       "id": "es-en.agreement.present-be",
@@ -791,7 +887,9 @@
                 "targetText": "The dog",
                 "learnerBaseText": "El perro",
                 "englishAuditText": "The dog"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.present-be.singular.example-2",
@@ -807,7 +905,9 @@
                 "targetText": "The room",
                 "learnerBaseText": "La habitación",
                 "englishAuditText": "The room"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.present-be.singular.exp260908",
@@ -823,7 +923,9 @@
                 "targetText": "butterfly",
                 "learnerBaseText": "mariposa",
                 "englishAuditText": "butterfly"
-              }
+              },
+              "usefulness": 90,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.present-be.pair260908.17.singular",
@@ -839,7 +941,9 @@
                 "targetText": "flashlight",
                 "learnerBaseText": "linterna",
                 "englishAuditText": "flashlight"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.present-be.pair260908.18.singular",
@@ -855,7 +959,9 @@
                 "targetText": "seedling",
                 "learnerBaseText": "plántula",
                 "englishAuditText": "seedling"
-              }
+              },
+              "usefulness": 62,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.present-be.pair260908.19.singular",
@@ -871,7 +977,9 @@
                 "targetText": "sheep",
                 "learnerBaseText": "oveja",
                 "englishAuditText": "sheep"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.present-be.pair260908.20.singular",
@@ -887,7 +995,9 @@
                 "targetText": "mouse",
                 "learnerBaseText": "ratón",
                 "englishAuditText": "mouse"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.present-be.pair260908.21.singular",
@@ -903,7 +1013,9 @@
                 "targetText": "paintbrush",
                 "learnerBaseText": "pincel",
                 "englishAuditText": "paintbrush"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.present-be.pair260908.22.singular",
@@ -919,7 +1031,9 @@
                 "targetText": "blueberry",
                 "learnerBaseText": "arándano",
                 "englishAuditText": "blueberry"
-              }
+              },
+              "usefulness": 78,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.present-be.pair260908.23.singular",
@@ -935,7 +1049,9 @@
                 "targetText": "child",
                 "learnerBaseText": "niño",
                 "englishAuditText": "child"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.present-be.pair260908.24.singular",
@@ -951,9 +1067,13 @@
                 "targetText": "bread",
                 "learnerBaseText": "pan",
                 "englishAuditText": "bread"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 27
             }
-          ]
+          ],
+          "usefulness": 92,
+          "complexity": 21
         },
         "plural": {
           "displayForm": "are",
@@ -972,7 +1092,9 @@
                 "targetText": "The dogs",
                 "learnerBaseText": "Los perros",
                 "englishAuditText": "The dogs"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.present-be.plural.example-2",
@@ -988,7 +1110,9 @@
                 "targetText": "The rooms",
                 "learnerBaseText": "Las habitaciones",
                 "englishAuditText": "The rooms"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.present-be.plural.exp260908",
@@ -1004,7 +1128,9 @@
                 "targetText": "lanterns",
                 "learnerBaseText": "farolillos",
                 "englishAuditText": "lanterns"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.present-be.pair260908.17.plural",
@@ -1020,7 +1146,9 @@
                 "targetText": "flashlights",
                 "learnerBaseText": "linternas",
                 "englishAuditText": "flashlights"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.present-be.pair260908.18.plural",
@@ -1036,7 +1164,9 @@
                 "targetText": "seedlings",
                 "learnerBaseText": "plántulas",
                 "englishAuditText": "seedlings"
-              }
+              },
+              "usefulness": 62,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.present-be.pair260908.19.plural",
@@ -1052,7 +1182,9 @@
                 "targetText": "sheep",
                 "learnerBaseText": "ovejas",
                 "englishAuditText": "sheep"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.present-be.pair260908.20.plural",
@@ -1068,7 +1200,9 @@
                 "targetText": "mice",
                 "learnerBaseText": "ratones",
                 "englishAuditText": "mice"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.present-be.pair260908.21.plural",
@@ -1084,7 +1218,9 @@
                 "targetText": "paintbrushes",
                 "learnerBaseText": "pinceles",
                 "englishAuditText": "paintbrushes"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.present-be.pair260908.22.plural",
@@ -1100,7 +1236,9 @@
                 "targetText": "blueberries",
                 "learnerBaseText": "arándanos",
                 "englishAuditText": "blueberries"
-              }
+              },
+              "usefulness": 78,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.present-be.pair260908.23.plural",
@@ -1116,7 +1254,9 @@
                 "targetText": "children",
                 "learnerBaseText": "niños",
                 "englishAuditText": "children"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.present-be.pair260908.24.plural",
@@ -1132,11 +1272,17 @@
                 "targetText": "rolls",
                 "learnerBaseText": "panecillos",
                 "englishAuditText": "rolls"
-              }
+              },
+              "usefulness": 71,
+              "complexity": 31
             }
-          ]
+          ],
+          "usefulness": 92,
+          "complexity": 27
         }
-      }
+      },
+      "usefulness": 92,
+      "complexity": 21
     },
     {
       "id": "es-en.agreement.present-have",
@@ -1167,7 +1313,9 @@
                 "targetText": "The girl",
                 "learnerBaseText": "La niña",
                 "englishAuditText": "The girl"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.present-have.singular.example-2",
@@ -1183,7 +1331,9 @@
                 "targetText": "The teacher",
                 "learnerBaseText": "El profesor",
                 "englishAuditText": "The teacher"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.present-have.singular.exp260908",
@@ -1199,7 +1349,9 @@
                 "targetText": "telescope",
                 "learnerBaseText": "telescopio",
                 "englishAuditText": "telescope"
-              }
+              },
+              "usefulness": 33,
+              "complexity": 36
             },
             {
               "id": "es-en.agreement.present-have.pair260908.25.singular",
@@ -1215,7 +1367,9 @@
                 "targetText": "puppet",
                 "learnerBaseText": "marioneta",
                 "englishAuditText": "puppet"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.present-have.pair260908.26.singular",
@@ -1231,7 +1385,9 @@
                 "targetText": "fox",
                 "learnerBaseText": "zorro",
                 "englishAuditText": "fox"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.present-have.pair260908.27.singular",
@@ -1247,7 +1403,9 @@
                 "targetText": "bus",
                 "learnerBaseText": "autobús",
                 "englishAuditText": "bus"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.present-have.pair260908.28.singular",
@@ -1263,7 +1421,9 @@
                 "targetText": "book",
                 "learnerBaseText": "libro",
                 "englishAuditText": "book"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.present-have.pair260908.29.singular",
@@ -1279,7 +1439,9 @@
                 "targetText": "robot",
                 "learnerBaseText": "robot",
                 "englishAuditText": "robot"
-              }
+              },
+              "usefulness": 43,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.present-have.pair260908.30.singular",
@@ -1295,7 +1457,9 @@
                 "targetText": "bicycle",
                 "learnerBaseText": "bicicleta",
                 "englishAuditText": "bicycle"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.present-have.pair260908.31.singular",
@@ -1311,7 +1475,9 @@
                 "targetText": "leaf",
                 "learnerBaseText": "hoja",
                 "englishAuditText": "leaf"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.present-have.pair260908.32.singular",
@@ -1327,9 +1493,13 @@
                 "targetText": "person",
                 "learnerBaseText": "persona",
                 "englishAuditText": "person"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 27
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 31
         },
         "plural": {
           "displayForm": "have",
@@ -1348,7 +1518,9 @@
                 "targetText": "The girls",
                 "learnerBaseText": "Las niñas",
                 "englishAuditText": "The girls"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.present-have.plural.example-2",
@@ -1364,7 +1536,9 @@
                 "targetText": "The teachers",
                 "learnerBaseText": "Los profesores",
                 "englishAuditText": "The teachers"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.present-have.plural.exp260908",
@@ -1380,7 +1554,9 @@
                 "targetText": "inventors",
                 "learnerBaseText": "inventores",
                 "englishAuditText": "inventors"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.present-have.pair260908.25.plural",
@@ -1396,7 +1572,9 @@
                 "targetText": "puppets",
                 "learnerBaseText": "marionetas",
                 "englishAuditText": "puppets"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.present-have.pair260908.26.plural",
@@ -1412,7 +1590,9 @@
                 "targetText": "foxes",
                 "learnerBaseText": "zorros",
                 "englishAuditText": "foxes"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.present-have.pair260908.27.plural",
@@ -1428,7 +1608,9 @@
                 "targetText": "buses",
                 "learnerBaseText": "autobuses",
                 "englishAuditText": "buses"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.present-have.pair260908.28.plural",
@@ -1444,7 +1626,9 @@
                 "targetText": "books",
                 "learnerBaseText": "libros",
                 "englishAuditText": "books"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.present-have.pair260908.29.plural",
@@ -1460,7 +1644,9 @@
                 "targetText": "robots",
                 "learnerBaseText": "robots",
                 "englishAuditText": "robots"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.present-have.pair260908.30.plural",
@@ -1476,7 +1662,9 @@
                 "targetText": "bicycles",
                 "learnerBaseText": "bicicletas",
                 "englishAuditText": "bicycles"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.present-have.pair260908.31.plural",
@@ -1492,7 +1680,9 @@
                 "targetText": "leaves",
                 "learnerBaseText": "hojas",
                 "englishAuditText": "leaves"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 40
             },
             {
               "id": "es-en.agreement.present-have.pair260908.32.plural",
@@ -1508,11 +1698,17 @@
                 "targetText": "people",
                 "learnerBaseText": "personas",
                 "englishAuditText": "people"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 31
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 37
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "es-en.agreement.past-be",
@@ -1543,7 +1739,9 @@
                 "targetText": "The shop",
                 "learnerBaseText": "La tienda",
                 "englishAuditText": "The shop"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 35
             },
             {
               "id": "es-en.agreement.past-be.singular.example-2",
@@ -1559,7 +1757,9 @@
                 "targetText": "The student",
                 "learnerBaseText": "El estudiante",
                 "englishAuditText": "The student"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 35
             },
             {
               "id": "es-en.agreement.past-be.singular.exp260908",
@@ -1575,7 +1775,9 @@
                 "targetText": "constellation",
                 "learnerBaseText": "constelación",
                 "englishAuditText": "constellation"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 35
             },
             {
               "id": "es-en.agreement.past-be.pair260908.33.singular",
@@ -1591,7 +1793,9 @@
                 "targetText": "model",
                 "learnerBaseText": "maqueta",
                 "englishAuditText": "model"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 35
             },
             {
               "id": "es-en.agreement.past-be.pair260908.34.singular",
@@ -1607,7 +1811,9 @@
                 "targetText": "footprint",
                 "learnerBaseText": "huella",
                 "englishAuditText": "footprint"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "es-en.agreement.past-be.pair260908.35.singular",
@@ -1623,7 +1829,9 @@
                 "targetText": "goose",
                 "learnerBaseText": "ganso",
                 "englishAuditText": "goose"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 35
             },
             {
               "id": "es-en.agreement.past-be.pair260908.36.singular",
@@ -1639,7 +1847,9 @@
                 "targetText": "illustration",
                 "learnerBaseText": "ilustración",
                 "englishAuditText": "illustration"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 35
             },
             {
               "id": "es-en.agreement.past-be.pair260908.37.singular",
@@ -1655,7 +1865,9 @@
                 "targetText": "answer",
                 "learnerBaseText": "respuesta",
                 "englishAuditText": "answer"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 35
             },
             {
               "id": "es-en.agreement.past-be.pair260908.38.singular",
@@ -1671,7 +1883,9 @@
                 "targetText": "seed",
                 "learnerBaseText": "semilla",
                 "englishAuditText": "seed"
-              }
+              },
+              "usefulness": 71,
+              "complexity": 35
             },
             {
               "id": "es-en.agreement.past-be.pair260908.39.singular",
@@ -1687,7 +1901,9 @@
                 "targetText": "child",
                 "learnerBaseText": "niño",
                 "englishAuditText": "child"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 35
             },
             {
               "id": "es-en.agreement.past-be.pair260908.40.singular",
@@ -1703,9 +1919,13 @@
                 "targetText": "information",
                 "learnerBaseText": "información",
                 "englishAuditText": "information"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 35
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 42
         },
         "plural": {
           "displayForm": "were",
@@ -1724,7 +1944,9 @@
                 "targetText": "The shops",
                 "learnerBaseText": "Las tiendas",
                 "englishAuditText": "The shops"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 39
             },
             {
               "id": "es-en.agreement.past-be.plural.example-2",
@@ -1740,7 +1962,9 @@
                 "targetText": "The students",
                 "learnerBaseText": "Los estudiantes",
                 "englishAuditText": "The students"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 39
             },
             {
               "id": "es-en.agreement.past-be.plural.exp260908",
@@ -1756,7 +1980,9 @@
                 "targetText": "instructions",
                 "learnerBaseText": "instrucciones",
                 "englishAuditText": "instructions"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es-en.agreement.past-be.pair260908.33.plural",
@@ -1772,7 +1998,9 @@
                 "targetText": "models",
                 "learnerBaseText": "maquetas",
                 "englishAuditText": "models"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 39
             },
             {
               "id": "es-en.agreement.past-be.pair260908.34.plural",
@@ -1788,7 +2016,9 @@
                 "targetText": "footprints",
                 "learnerBaseText": "huellas",
                 "englishAuditText": "footprints"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es-en.agreement.past-be.pair260908.35.plural",
@@ -1804,7 +2034,9 @@
                 "targetText": "geese",
                 "learnerBaseText": "gansos",
                 "englishAuditText": "geese"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 39
             },
             {
               "id": "es-en.agreement.past-be.pair260908.36.plural",
@@ -1820,7 +2052,9 @@
                 "targetText": "illustrations",
                 "learnerBaseText": "ilustraciones",
                 "englishAuditText": "illustrations"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es-en.agreement.past-be.pair260908.37.plural",
@@ -1836,7 +2070,9 @@
                 "targetText": "answers",
                 "learnerBaseText": "respuestas",
                 "englishAuditText": "answers"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 39
             },
             {
               "id": "es-en.agreement.past-be.pair260908.38.plural",
@@ -1852,7 +2088,9 @@
                 "targetText": "seeds",
                 "learnerBaseText": "semillas",
                 "englishAuditText": "seeds"
-              }
+              },
+              "usefulness": 71,
+              "complexity": 39
             },
             {
               "id": "es-en.agreement.past-be.pair260908.39.plural",
@@ -1868,7 +2106,9 @@
                 "targetText": "children",
                 "learnerBaseText": "niños",
                 "englishAuditText": "children"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 39
             },
             {
               "id": "es-en.agreement.past-be.pair260908.40.plural",
@@ -1884,11 +2124,17 @@
                 "targetText": "details",
                 "learnerBaseText": "detalles",
                 "englishAuditText": "details"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 39
             }
-          ]
+          ],
+          "usefulness": 77,
+          "complexity": 48
         }
-      }
+      },
+      "usefulness": 77,
+      "complexity": 42
     },
     {
       "id": "es-en.agreement.negative-do",
@@ -1919,7 +2165,9 @@
                 "targetText": "The child",
                 "learnerBaseText": "El niño",
                 "englishAuditText": "The child"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 50
             },
             {
               "id": "es-en.agreement.negative-do.singular.example-2",
@@ -1935,7 +2183,9 @@
                 "targetText": "The bus",
                 "learnerBaseText": "El autobús",
                 "englishAuditText": "The bus"
-              }
+              },
+              "usefulness": 81,
+              "complexity": 50
             },
             {
               "id": "es-en.agreement.negative-do.singular.exp260908",
@@ -1951,7 +2201,9 @@
                 "targetText": "observation",
                 "learnerBaseText": "observación",
                 "englishAuditText": "observation"
-              }
+              },
+              "usefulness": 79,
+              "complexity": 50
             },
             {
               "id": "es-en.agreement.negative-do.pair260908.41.singular",
@@ -1967,7 +2219,9 @@
                 "targetText": "snail",
                 "learnerBaseText": "caracol",
                 "englishAuditText": "snail"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 50
             },
             {
               "id": "es-en.agreement.negative-do.pair260908.42.singular",
@@ -1983,7 +2237,9 @@
                 "targetText": "magnet",
                 "learnerBaseText": "imán",
                 "englishAuditText": "magnet"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 50
             },
             {
               "id": "es-en.agreement.negative-do.pair260908.43.singular",
@@ -1999,7 +2255,9 @@
                 "targetText": "puppet",
                 "learnerBaseText": "marioneta",
                 "englishAuditText": "puppet"
-              }
+              },
+              "usefulness": 72,
+              "complexity": 50
             },
             {
               "id": "es-en.agreement.negative-do.pair260908.44.singular",
@@ -2015,7 +2273,9 @@
                 "targetText": "penguin",
                 "learnerBaseText": "pingüino",
                 "englishAuditText": "penguin"
-              }
+              },
+              "usefulness": 71,
+              "complexity": 50
             },
             {
               "id": "es-en.agreement.negative-do.pair260908.45.singular",
@@ -2031,7 +2291,9 @@
                 "targetText": "bicycle",
                 "learnerBaseText": "bicicleta",
                 "englishAuditText": "bicycle"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 50
             },
             {
               "id": "es-en.agreement.negative-do.pair260908.46.singular",
@@ -2047,7 +2309,9 @@
                 "targetText": "child",
                 "learnerBaseText": "niño",
                 "englishAuditText": "child"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 50
             },
             {
               "id": "es-en.agreement.negative-do.pair260908.47.singular",
@@ -2063,7 +2327,9 @@
                 "targetText": "deer",
                 "learnerBaseText": "ciervo",
                 "englishAuditText": "deer"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 50
             },
             {
               "id": "es-en.agreement.negative-do.pair260908.48.singular",
@@ -2079,9 +2345,13 @@
                 "targetText": "paint",
                 "learnerBaseText": "pintura",
                 "englishAuditText": "paint"
-              }
+              },
+              "usefulness": 62,
+              "complexity": 50
             }
-          ]
+          ],
+          "usefulness": 92,
+          "complexity": 57
         },
         "plural": {
           "displayForm": "do not",
@@ -2100,7 +2370,9 @@
                 "targetText": "The children",
                 "learnerBaseText": "Los niños",
                 "englishAuditText": "The children"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 54
             },
             {
               "id": "es-en.agreement.negative-do.plural.example-2",
@@ -2116,7 +2388,9 @@
                 "targetText": "The buses",
                 "learnerBaseText": "Los autobuses",
                 "englishAuditText": "The buses"
-              }
+              },
+              "usefulness": 81,
+              "complexity": 54
             },
             {
               "id": "es-en.agreement.negative-do.plural.exp260908",
@@ -2132,7 +2406,9 @@
                 "targetText": "measurements",
                 "learnerBaseText": "medidas",
                 "englishAuditText": "measurements"
-              }
+              },
+              "usefulness": 34,
+              "complexity": 54
             },
             {
               "id": "es-en.agreement.negative-do.pair260908.41.plural",
@@ -2148,7 +2424,9 @@
                 "targetText": "snails",
                 "learnerBaseText": "caracoles",
                 "englishAuditText": "snails"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 54
             },
             {
               "id": "es-en.agreement.negative-do.pair260908.42.plural",
@@ -2164,7 +2442,9 @@
                 "targetText": "magnets",
                 "learnerBaseText": "imanes",
                 "englishAuditText": "magnets"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 54
             },
             {
               "id": "es-en.agreement.negative-do.pair260908.43.plural",
@@ -2180,7 +2460,9 @@
                 "targetText": "puppets",
                 "learnerBaseText": "marionetas",
                 "englishAuditText": "puppets"
-              }
+              },
+              "usefulness": 72,
+              "complexity": 54
             },
             {
               "id": "es-en.agreement.negative-do.pair260908.44.plural",
@@ -2196,7 +2478,9 @@
                 "targetText": "penguins",
                 "learnerBaseText": "pingüinos",
                 "englishAuditText": "penguins"
-              }
+              },
+              "usefulness": 71,
+              "complexity": 54
             },
             {
               "id": "es-en.agreement.negative-do.pair260908.45.plural",
@@ -2212,7 +2496,9 @@
                 "targetText": "bicycles",
                 "learnerBaseText": "bicicletas",
                 "englishAuditText": "bicycles"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 54
             },
             {
               "id": "es-en.agreement.negative-do.pair260908.46.plural",
@@ -2228,7 +2514,9 @@
                 "targetText": "children",
                 "learnerBaseText": "niños",
                 "englishAuditText": "children"
-              }
+              },
+              "usefulness": 77,
+              "complexity": 54
             },
             {
               "id": "es-en.agreement.negative-do.pair260908.47.plural",
@@ -2244,7 +2532,9 @@
                 "targetText": "deer",
                 "learnerBaseText": "ciervos",
                 "englishAuditText": "deer"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 54
             },
             {
               "id": "es-en.agreement.negative-do.pair260908.48.plural",
@@ -2260,11 +2550,17 @@
                 "targetText": "layers",
                 "learnerBaseText": "capas",
                 "englishAuditText": "layers"
-              }
+              },
+              "usefulness": 71,
+              "complexity": 54
             }
-          ]
+          ],
+          "usefulness": 92,
+          "complexity": 63
         }
-      }
+      },
+      "usefulness": 92,
+      "complexity": 57
     },
     {
       "id": "es-en.agreement.pair260908.existential",
@@ -2295,7 +2591,9 @@
                 "targetText": "robin",
                 "learnerBaseText": "petirrojo",
                 "englishAuditText": "robin"
-              }
+              },
+              "usefulness": 62,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.pair260908.existential.pair260908.50.singular",
@@ -2311,7 +2609,9 @@
                 "targetText": "compass",
                 "learnerBaseText": "brújula",
                 "englishAuditText": "compass"
-              }
+              },
+              "usefulness": 33,
+              "complexity": 36
             },
             {
               "id": "es-en.agreement.pair260908.existential.pair260908.51.singular",
@@ -2327,7 +2627,9 @@
                 "targetText": "mosaic",
                 "learnerBaseText": "mosaico",
                 "englishAuditText": "mosaic"
-              }
+              },
+              "usefulness": 90,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.pair260908.existential.pair260908.52.singular",
@@ -2343,7 +2645,9 @@
                 "targetText": "mitten",
                 "learnerBaseText": "manopla",
                 "englishAuditText": "mitten"
-              }
+              },
+              "usefulness": 80,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.pair260908.existential.pair260908.53.singular",
@@ -2359,7 +2663,9 @@
                 "targetText": "fern",
                 "learnerBaseText": "helecho",
                 "englishAuditText": "fern"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.pair260908.existential.pair260908.54.singular",
@@ -2375,7 +2681,9 @@
                 "targetText": "reflection",
                 "learnerBaseText": "reflejo",
                 "englishAuditText": "reflection"
-              }
+              },
+              "usefulness": 46,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.pair260908.existential.pair260908.55.singular",
@@ -2391,7 +2699,9 @@
                 "targetText": "riddle",
                 "learnerBaseText": "adivinanza",
                 "englishAuditText": "riddle"
-              }
+              },
+              "usefulness": 90,
+              "complexity": 27
             },
             {
               "id": "es-en.agreement.pair260908.existential.pair260908.56.singular",
@@ -2407,9 +2717,13 @@
                 "targetText": "feather",
                 "learnerBaseText": "pluma",
                 "englishAuditText": "feather"
-              }
+              },
+              "usefulness": 90,
+              "complexity": 27
             }
-          ]
+          ],
+          "usefulness": 92,
+          "complexity": 21
         },
         "plural": {
           "displayForm": "there are",
@@ -2428,7 +2742,9 @@
                 "targetText": "robins",
                 "learnerBaseText": "petirrojos",
                 "englishAuditText": "robins"
-              }
+              },
+              "usefulness": 62,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.pair260908.existential.pair260908.50.plural",
@@ -2444,7 +2760,9 @@
                 "targetText": "compasses",
                 "learnerBaseText": "brújulas",
                 "englishAuditText": "compasses"
-              }
+              },
+              "usefulness": 33,
+              "complexity": 40
             },
             {
               "id": "es-en.agreement.pair260908.existential.pair260908.51.plural",
@@ -2460,7 +2778,9 @@
                 "targetText": "mosaics",
                 "learnerBaseText": "mosaicos",
                 "englishAuditText": "mosaics"
-              }
+              },
+              "usefulness": 90,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.pair260908.existential.pair260908.52.plural",
@@ -2476,7 +2796,9 @@
                 "targetText": "mittens",
                 "learnerBaseText": "manoplas",
                 "englishAuditText": "mittens"
-              }
+              },
+              "usefulness": 80,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.pair260908.existential.pair260908.53.plural",
@@ -2492,7 +2814,9 @@
                 "targetText": "ferns",
                 "learnerBaseText": "helechos",
                 "englishAuditText": "ferns"
-              }
+              },
+              "usefulness": 48,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.pair260908.existential.pair260908.54.plural",
@@ -2508,7 +2832,9 @@
                 "targetText": "reflections",
                 "learnerBaseText": "reflejos",
                 "englishAuditText": "reflections"
-              }
+              },
+              "usefulness": 46,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.pair260908.existential.pair260908.55.plural",
@@ -2524,7 +2850,9 @@
                 "targetText": "riddles",
                 "learnerBaseText": "adivinanzas",
                 "englishAuditText": "riddles"
-              }
+              },
+              "usefulness": 90,
+              "complexity": 31
             },
             {
               "id": "es-en.agreement.pair260908.existential.pair260908.56.plural",
@@ -2540,11 +2868,17 @@
                 "targetText": "feathers",
                 "learnerBaseText": "plumas",
                 "englishAuditText": "feathers"
-              }
+              },
+              "usefulness": 90,
+              "complexity": 31
             }
-          ]
+          ],
+          "usefulness": 92,
+          "complexity": 27
         }
-      }
+      },
+      "usefulness": 92,
+      "complexity": 21
     },
     {
       "id": "es-en.agreement.pair260908.negative-be",
@@ -2575,7 +2909,9 @@
                 "targetText": "scarf",
                 "learnerBaseText": "bufanda",
                 "englishAuditText": "scarf"
-              }
+              },
+              "usefulness": 71,
+              "complexity": 35
             },
             {
               "id": "es-en.agreement.pair260908.negative-be.pair260908.58.singular",
@@ -2591,7 +2927,9 @@
                 "targetText": "kite",
                 "learnerBaseText": "cometa",
                 "englishAuditText": "kite"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 35
             },
             {
               "id": "es-en.agreement.pair260908.negative-be.pair260908.59.singular",
@@ -2607,7 +2945,9 @@
                 "targetText": "vase",
                 "learnerBaseText": "jarrón",
                 "englishAuditText": "vase"
-              }
+              },
+              "usefulness": 84,
+              "complexity": 35
             },
             {
               "id": "es-en.agreement.pair260908.negative-be.pair260908.60.singular",
@@ -2623,7 +2963,9 @@
                 "targetText": "sheep",
                 "learnerBaseText": "oveja",
                 "englishAuditText": "sheep"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 35
             },
             {
               "id": "es-en.agreement.pair260908.negative-be.pair260908.61.singular",
@@ -2639,7 +2981,9 @@
                 "targetText": "guitar",
                 "learnerBaseText": "guitarra",
                 "englishAuditText": "guitar"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 35
             },
             {
               "id": "es-en.agreement.pair260908.negative-be.pair260908.62.singular",
@@ -2655,7 +2999,9 @@
                 "targetText": "cookie",
                 "learnerBaseText": "galleta",
                 "englishAuditText": "cookie"
-              }
+              },
+              "usefulness": 78,
+              "complexity": 35
             },
             {
               "id": "es-en.agreement.pair260908.negative-be.pair260908.63.singular",
@@ -2671,7 +3017,9 @@
                 "targetText": "answer",
                 "learnerBaseText": "respuesta",
                 "englishAuditText": "answer"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 35
             },
             {
               "id": "es-en.agreement.pair260908.negative-be.pair260908.64.singular",
@@ -2687,9 +3035,13 @@
                 "targetText": "water",
                 "learnerBaseText": "agua",
                 "englishAuditText": "water"
-              }
+              },
+              "usefulness": 88,
+              "complexity": 35
             }
-          ]
+          ],
+          "usefulness": 92,
+          "complexity": 42
         },
         "plural": {
           "displayForm": "are not",
@@ -2708,7 +3060,9 @@
                 "targetText": "scarves",
                 "learnerBaseText": "bufandas",
                 "englishAuditText": "scarves"
-              }
+              },
+              "usefulness": 71,
+              "complexity": 39
             },
             {
               "id": "es-en.agreement.pair260908.negative-be.pair260908.58.plural",
@@ -2724,7 +3078,9 @@
                 "targetText": "kites",
                 "learnerBaseText": "cometas",
                 "englishAuditText": "kites"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 39
             },
             {
               "id": "es-en.agreement.pair260908.negative-be.pair260908.59.plural",
@@ -2740,7 +3096,9 @@
                 "targetText": "vases",
                 "learnerBaseText": "jarrones",
                 "englishAuditText": "vases"
-              }
+              },
+              "usefulness": 84,
+              "complexity": 39
             },
             {
               "id": "es-en.agreement.pair260908.negative-be.pair260908.60.plural",
@@ -2756,7 +3114,9 @@
                 "targetText": "sheep",
                 "learnerBaseText": "ovejas",
                 "englishAuditText": "sheep"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 39
             },
             {
               "id": "es-en.agreement.pair260908.negative-be.pair260908.61.plural",
@@ -2772,7 +3132,9 @@
                 "targetText": "guitars",
                 "learnerBaseText": "guitarras",
                 "englishAuditText": "guitars"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 39
             },
             {
               "id": "es-en.agreement.pair260908.negative-be.pair260908.62.plural",
@@ -2788,7 +3150,9 @@
                 "targetText": "cookies",
                 "learnerBaseText": "galletas",
                 "englishAuditText": "cookies"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 39
             },
             {
               "id": "es-en.agreement.pair260908.negative-be.pair260908.63.plural",
@@ -2804,7 +3168,9 @@
                 "targetText": "answers",
                 "learnerBaseText": "respuestas",
                 "englishAuditText": "answers"
-              }
+              },
+              "usefulness": 73,
+              "complexity": 39
             },
             {
               "id": "es-en.agreement.pair260908.negative-be.pair260908.64.plural",
@@ -2820,11 +3186,17 @@
                 "targetText": "drinks",
                 "learnerBaseText": "bebidas",
                 "englishAuditText": "drinks"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 39
             }
-          ]
+          ],
+          "usefulness": 92,
+          "complexity": 48
         }
-      }
+      },
+      "usefulness": 92,
+      "complexity": 42
     },
     {
       "id": "es-en.agreement.pair260908.small-quantity",
@@ -2855,7 +3227,9 @@
                 "targetText": "glue",
                 "learnerBaseText": "pegamento",
                 "englishAuditText": "glue"
-              }
+              },
+              "usefulness": 58,
+              "complexity": 50
             },
             {
               "id": "es-en.agreement.pair260908.small-quantity.pair260908.66.singular",
@@ -2871,7 +3245,9 @@
                 "targetText": "soup",
                 "learnerBaseText": "sopa",
                 "englishAuditText": "soup"
-              }
+              },
+              "usefulness": 78,
+              "complexity": 50
             },
             {
               "id": "es-en.agreement.pair260908.small-quantity.pair260908.67.singular",
@@ -2887,7 +3263,9 @@
                 "targetText": "cinnamon",
                 "learnerBaseText": "canela",
                 "englishAuditText": "cinnamon"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 50
             },
             {
               "id": "es-en.agreement.pair260908.small-quantity.pair260908.68.singular",
@@ -2903,7 +3281,9 @@
                 "targetText": "clay",
                 "learnerBaseText": "arcilla",
                 "englishAuditText": "clay"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 50
             },
             {
               "id": "es-en.agreement.pair260908.small-quantity.pair260908.69.singular",
@@ -2919,7 +3299,9 @@
                 "targetText": "water",
                 "learnerBaseText": "agua",
                 "englishAuditText": "water"
-              }
+              },
+              "usefulness": 83,
+              "complexity": 50
             },
             {
               "id": "es-en.agreement.pair260908.small-quantity.pair260908.70.singular",
@@ -2935,7 +3317,9 @@
                 "targetText": "time",
                 "learnerBaseText": "tiempo",
                 "englishAuditText": "time"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 50
             },
             {
               "id": "es-en.agreement.pair260908.small-quantity.pair260908.71.singular",
@@ -2951,7 +3335,9 @@
                 "targetText": "flour",
                 "learnerBaseText": "harina",
                 "englishAuditText": "flour"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 50
             },
             {
               "id": "es-en.agreement.pair260908.small-quantity.pair260908.72.singular",
@@ -2967,9 +3353,13 @@
                 "targetText": "help",
                 "learnerBaseText": "ayuda",
                 "englishAuditText": "help"
-              }
+              },
+              "usefulness": 83,
+              "complexity": 50
             }
-          ]
+          ],
+          "usefulness": 83,
+          "complexity": 57
         },
         "plural": {
           "displayForm": "a few",
@@ -2988,7 +3378,9 @@
                 "targetText": "stickers",
                 "learnerBaseText": "pegatinas",
                 "englishAuditText": "stickers"
-              }
+              },
+              "usefulness": 68,
+              "complexity": 54
             },
             {
               "id": "es-en.agreement.pair260908.small-quantity.pair260908.66.plural",
@@ -3004,7 +3396,9 @@
                 "targetText": "carrots",
                 "learnerBaseText": "zanahorias",
                 "englishAuditText": "carrots"
-              }
+              },
+              "usefulness": 78,
+              "complexity": 54
             },
             {
               "id": "es-en.agreement.pair260908.small-quantity.pair260908.67.plural",
@@ -3020,7 +3414,9 @@
                 "targetText": "raisins",
                 "learnerBaseText": "pasas",
                 "englishAuditText": "raisins"
-              }
+              },
+              "usefulness": 78,
+              "complexity": 54
             },
             {
               "id": "es-en.agreement.pair260908.small-quantity.pair260908.68.plural",
@@ -3036,7 +3432,9 @@
                 "targetText": "scraps",
                 "learnerBaseText": "recortes",
                 "englishAuditText": "scraps"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 54
             },
             {
               "id": "es-en.agreement.pair260908.small-quantity.pair260908.69.plural",
@@ -3052,7 +3450,9 @@
                 "targetText": "drops",
                 "learnerBaseText": "gotas",
                 "englishAuditText": "drops"
-              }
+              },
+              "usefulness": 65,
+              "complexity": 54
             },
             {
               "id": "es-en.agreement.pair260908.small-quantity.pair260908.70.plural",
@@ -3068,7 +3468,9 @@
                 "targetText": "minutes",
                 "learnerBaseText": "minutos",
                 "englishAuditText": "minutes"
-              }
+              },
+              "usefulness": 70,
+              "complexity": 54
             },
             {
               "id": "es-en.agreement.pair260908.small-quantity.pair260908.71.plural",
@@ -3084,7 +3486,9 @@
                 "targetText": "eggs",
                 "learnerBaseText": "huevos",
                 "englishAuditText": "eggs"
-              }
+              },
+              "usefulness": 75,
+              "complexity": 54
             },
             {
               "id": "es-en.agreement.pair260908.small-quantity.pair260908.72.plural",
@@ -3100,11 +3504,17 @@
                 "targetText": "suggestions",
                 "learnerBaseText": "sugerencias",
                 "englishAuditText": "suggestions"
-              }
+              },
+              "usefulness": 54,
+              "complexity": 54
             }
-          ]
+          ],
+          "usefulness": 83,
+          "complexity": 63
         }
-      }
+      },
+      "usefulness": 83,
+      "complexity": 57
     }
   ],
   "gameplay": {

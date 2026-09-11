@@ -1914,6 +1914,10 @@ function saveVerbMemory() {
       matchedIds: [...state.verbMatchedIds],
       hintsEnabled: state.verbHintsEnabled,
       roundNumber: state.verbRoundNumber,
+      contentEncounterId: state.verbContentEncounterId,
+      contentGeneration: state.verbContentGeneration,
+      contentAttemptedIds: [...(state.verbContentAttemptedIds || [])],
+      contentAssistedIds: [...(state.verbContentAssistedIds || [])],
       stats: state.verbStats
     };
     const current = readVerbMemoryEnvelope()
@@ -1977,6 +1981,12 @@ function loadVerbMemory() {
   state.verbPairCount = verbNebulaCore.normalizeVerbPairCount(memory?.pairCount, 4);
   state.verbHintsEnabled = memory ? Boolean(memory.hintsEnabled) : true;
   state.verbRoundNumber = safeVerbStat(memory?.roundNumber);
+  state.verbContentEncounterId = typeof memory?.contentEncounterId === "string" && memory.contentEncounterId
+    ? memory.contentEncounterId : verbNebulaCore.newContentEncounterId();
+  state.verbContentGeneration = typeof memory?.contentGeneration === "string"
+    ? memory.contentGeneration : null;
+  state.verbContentAttemptedIds = new Set(validVerbIds(memory?.contentAttemptedIds, pairById));
+  state.verbContentAssistedIds = new Set(validVerbIds(memory?.contentAssistedIds, pairById));
   state.verbStats = {
     attempts: safeVerbStat(memory?.stats?.attempts),
     matches: safeVerbStat(memory?.stats?.matches),
@@ -2002,6 +2012,9 @@ function loadVerbMemory() {
 
   if (canRestoreRound) {
     state.verbRound = restoredRoundIds.map((id) => pairById.get(id));
+    if (!Array.isArray(memory?.contentAssistedIds) || !Array.isArray(memory?.contentAttemptedIds)) {
+      state.verbContentAssistedIds = new Set(restoredRoundIds);
+    }
     const englishIds = validVerbIds(memory?.englishRoundIds, pairById)
       .filter((id) => restoredRoundSet.has(id));
     state.verbEnglishRound = englishIds.length === restoredRoundIds.length
@@ -2050,9 +2063,13 @@ function returnUnmatchedVerbsToQueue() {
 
 function planVerbRound() {
   if (state.verbGuidedMode && state.verbGuidedPlan) return state.verbGuidedPlan;
+  const candidates = verbNebulaCore.selectContentItems(state.verbPairs, {
+    difficulty: state.verbDifficulty, minimumPool: state.verbPairCount,
+    history: window.CaatuuLearning?.contentHistory?.("verb-nebula") || {}
+  });
   const dealt = verbNebulaCore.dealVerbRound(
-    state.verbPairs,
-    state.verbQueueIds,
+    candidates,
+    candidates.map(pair => pair.id),
     state.verbPairCount
   );
   return {
@@ -2075,6 +2092,8 @@ function applyVerbRound(plan, preloadedHints = null) {
   state.verbRoundInterstitial = false;
   state.verbRoundRewardXp = 0;
   state.verbHintById.clear();
+  state.verbContentAttemptedIds = new Set();
+  state.verbContentAssistedIds = new Set();
   if (state.verbHintsEnabled && preloadedHints instanceof Map) {
     plan.round.forEach((pair) => {
       state.verbHintById.set(pair.id, preloadedHints.get(pair.id) || {
@@ -2083,6 +2102,8 @@ function applyVerbRound(plan, preloadedHints = null) {
     });
   }
   state.verbRoundNumber += 1;
+  state.verbContentEncounterId = verbNebulaCore.newContentEncounterId();
+  state.verbContentGeneration = window.CaatuuLearning?.contentGeneration?.() ?? null;
   saveVerbMemory();
 
   if (state.verbRound.length) {
@@ -2304,6 +2325,11 @@ function renderVerbHintSlot(pair) {
   }
 
   if (hint.status === "ready") {
+    state.verbContentAssistedIds ||= new Set();
+    if (!state.verbContentAssistedIds.has(pair.id)) {
+      state.verbContentAssistedIds.add(pair.id);
+      saveVerbMemory();
+    }
     const image = document.createElement("img");
     image.src = hint.assetPath;
     image.alt = interfaceText("verbnebula.hints.picture");
@@ -2703,6 +2729,7 @@ async function toggleVerbSolution() {
     state.verbSolutionAdvanceTimer = window.setTimeout(() => {
       state.verbSolutionAdvanceTimer = null;
       if (!state.verbSolutionRevealed || state.verbRoundTransitioning) return;
+      state.verbRound.forEach(pair => recordVerbContentExposure(pair, null));
       void transitionToNextVerbRound({ holdMillis: 0 });
     }, revealDuration);
   }
@@ -2775,6 +2802,23 @@ function recordVerbSemanticAttempt(pair, {
   }).catch(() => {});
 }
 
+function recordVerbContentExposure(pair, correct) {
+  if (!pair || state.verbGuidedMode) return;
+  // The encounter survives restoring the existing saved board. A wrong choice
+  // and its correction remain one encounter, including after reload.
+  const revealed = state.verbSolutionRevealed || correct === null;
+  const assisted = state.verbContentAttemptedIds?.has(pair.id) || state.verbContentAssistedIds?.has(pair.id)
+    || state.verbHintsEnabled && state.verbHintById.get(pair.id)?.status === "ready";
+  state.verbContentAttemptedIds ||= new Set();
+  state.verbContentAttemptedIds.add(pair.id);
+  window.CaatuuLearning?.recordExposure?.("verb-nebula", {
+    itemId: pair.id, encounterId: state.verbContentEncounterId,
+    generation: state.verbContentGeneration,
+    evidence: revealed ? "exposure" : assisted ? "assisted" : "independent",
+    correct: revealed ? null : correct
+  });
+}
+
 async function settleVerbMatch() {
   const czechId = state.verbSelectedCzechId;
   const englishId = state.verbSelectedEnglishId;
@@ -2833,6 +2877,7 @@ async function settleVerbMatch() {
       }), "correct");
     }
     if (!state.verbGuidedMode) {
+      recordVerbContentExposure(pair, true);
       window.CaatuuLearning?.record("verb-nebula", {
         activities: 1,
         attempts: 1,
@@ -2866,6 +2911,7 @@ async function settleVerbMatch() {
   const pair = state.verbRound.find((item) => item.id === czechId);
   const chosenPair = state.verbEnglishRound.find((item) => item.id === englishId);
   if (!state.verbGuidedMode) {
+    recordVerbContentExposure(pair, false);
     window.CaatuuLearning?.record("verb-nebula", { activities: 1, attempts: 1 });
     recordVerbSemanticAttempt(pair, {
       correct: false,

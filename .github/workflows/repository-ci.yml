@@ -138,7 +138,7 @@ jobs:
         run: |
           docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace node:24-bookworm \
             bash -lc \
-            "node tools/language-packs/restore-ci-runtime.mjs && node tools/language-content/validate.mjs && node tools/language-content/project-word-world-runtime.mjs --check && node apps/server/tooling/refresh-setup-assets.mjs --all-browser-courses --check && node --test apps/language-runtime/tests/*.test.mjs apps/languages/*/tests/*.test.mjs tools/language-content/tests/*.test.mjs tools/language-packs/tests/*.test.mjs tools/semantic-index/tests/*.test.mjs tools/czech-ml/tests/*.test.mjs"
+            "node tools/language-packs/restore-ci-runtime.mjs && node tools/language-content/validate.mjs && node tools/language-content/quality/content-progression-catalogs.mjs && node tools/language-content/project-word-world-runtime.mjs --check && node apps/server/tooling/refresh-setup-assets.mjs --all-browser-courses --check && node --test apps/language-runtime/tests/*.test.mjs apps/languages/*/tests/*.test.mjs tools/language-content/tests/*.test.mjs tools/language-content/quality/content-progression-catalogs.test.mjs tools/language-packs/tests/*.test.mjs tools/semantic-index/tests/*.test.mjs tools/czech-ml/tests/*.test.mjs"
 
       - name: Validate Compose boundaries
         if: needs.changes.outputs.compose == 'true'

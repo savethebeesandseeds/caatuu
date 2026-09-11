@@ -5,6 +5,7 @@ import {
 import { fetchDeclaredCourseGameJson } from "../course-game-content.mjs?v=course-game-content-1";
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-8";
 import { createNounVisual } from "./noun-visual.mjs?v=noun-visual-4";
+import { newContentEncounterId } from "../content-progression.mjs";
 
 const LANDING_MS = 180;
 const SUCCESS_FEEDBACK_MS = LANDING_MS + 900;
@@ -21,8 +22,11 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
   const listeners = [];
   const creditedNouns = new Set();
   const recordedLandings = new Set();
+  const contentGenerations = new Map();
+  const assistedNouns = new Set();
   let pack;
   let session;
+  let cycleEncounterId;
   let frame = 0;
   let lastTime = null;
   let active = Boolean(initialActive);
@@ -76,7 +80,18 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     return engaged() && (session?.phase === "feedback" || session?.phase === "falling");
   }
   function schedule() {
+    rememberSupport();
+    if (engaged() && session?.phase === "falling" && !contentGenerations.has(session.item.id)) {
+      contentGenerations.set(session.item.id, shell.CaatuuLearning?.contentGeneration?.() ?? null);
+    }
     if (canRun() && !frame) frame = scope.requestAnimationFrame(tick);
+  }
+  function rememberSupport() {
+    const illustration = element("gravityNounVisual");
+    if (engaged() && session?.phase === "falling" && iconsVisible
+        && illustration && !illustration.hidden && illustration.getAttribute("src")) {
+      assistedNouns.add(session.item.id);
+    }
   }
   function syncClock() {
     syncLoadingScreen();
@@ -202,7 +217,7 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     laneButtons.forEach((button) => { button.disabled = !engaged() || session?.phase !== "falling"; });
     updateClock();
   }
-  function recordLanding(previous, fraction = fallFraction(previous)) {
+  function recordLanding(previous, fraction = fallFraction(previous), timedOut = false) {
     if (previous.phase !== "falling" || session.phase !== "feedback") return;
     restorePlayFocus = !inControls(document.activeElement) && element("gravityNounArena").contains(document.activeElement);
     segmentCount += 1;
@@ -216,6 +231,12 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
       recordedLandings.add(landingId);
       const earned = session.correct && !creditedNouns.has(session.item.id);
       if (earned) creditedNouns.add(session.item.id);
+      shell.CaatuuLearning?.recordExposure?.("grammar-gravity", {
+        bankId: "nouns", itemId: session.item.id, encounterId: cycleEncounterId,
+        generation: contentGenerations.get(session.item.id) ?? null, correct: session.correct,
+        evidence: timedOut ? "exposure" : assistedNouns.has(session.item.id) || previous.attemptsByItem[session.item.id]
+          ? "assisted" : "independent"
+      });
       shell.CaatuuLearning?.record?.("grammar-gravity", {
         activities: 1, attempts: 1, successes: session.correct ? 1 : 0, xp: earned ? 1 : 0
       });
@@ -243,7 +264,7 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     }
     const previous = session;
     session = advanceNounFall(session, elapsed);
-    if (session.phase === "feedback") recordLanding(previous, 1);
+    if (session.phase === "feedback") recordLanding(previous, 1, true);
     else { positionBlock(); schedule(); }
   }
   function next() {
@@ -282,12 +303,16 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     lastAutoplayItem = "";
     creditedNouns.clear();
     recordedLandings.clear();
+    contentGenerations.clear();
+    assistedNouns.clear();
     roundRecorded = false;
     feedbackElapsed = 0;
     restorePlayFocus = false;
     soundError = false;
     const difficulty = Math.max(1, Math.min(3, Math.floor(Number(shell.CaatuuLearning?.difficulty?.()) || 1)));
-    session = startNounLanding(createNounLandingSession(pack, { avoidFirstItemId, durationMs, difficulty }));
+    cycleEncounterId = newContentEncounterId();
+    session = startNounLanding(createNounLandingSession(pack, { avoidFirstItemId, durationMs, difficulty,
+      history: shell.CaatuuLearning?.contentHistory?.("grammar-gravity", "nouns") }));
   }
   function resumeSegment() {
     if (destroyed || !segmentWaiting) return;
@@ -312,6 +337,7 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
   }
   function choose(laneId) {
     if (!engaged() || session?.phase !== "falling") return;
+    rememberSupport();
     const previous = session;
     const selected = selectNounLane(session, laneId);
     if (selected.selectedLane !== laneId) return;
