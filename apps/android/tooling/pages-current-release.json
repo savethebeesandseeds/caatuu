@@ -213,6 +213,27 @@
         "bytes": 67850240,
         "sha256": "6ef91e452363e64168dc188a1a0878b76d37fe996c9b0f8b2ad26024f05359c4"
       }
+    },
+    {
+      "versionCode": 174,
+      "versionName": "0.1.22",
+      "sourceRevision": "e73e9cf85fb615bc0733b967359ba9b96794f872",
+      "manifest": {
+        "bytes": 1041,
+        "sha256": "1fdcb4ff8a7ab3a80a867348686cc471cdaf08f26a07036e9248d4a982c54cca"
+      },
+      "apk": {
+        "bytes": 3392521,
+        "sha256": "fd7c6330253c4b47f0656e1a0ef09345e594f65c531c5cdcf226ccf868e44395"
+      },
+      "receipt": {
+        "bytes": 1360,
+        "sha256": "60a919e7f4843a1dcbfdf50e1c8dcea3448b7bc9739ca1d7a0ce5fa75ebc3619"
+      },
+      "setup": {
+        "bytes": 68741120,
+        "sha256": "8401c27cab648911c0930abd4f5a539967badcbc20ed5c53f404baeb62dccd41"
+      }
     }
   ],
   "setupEntries": [
