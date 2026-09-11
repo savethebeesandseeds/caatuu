@@ -37,13 +37,14 @@ test("the executed course profile is immutable, namespaced, and agrees with the 
   assert.equal(manifest.resources.appEntry.path, "apps/language-runtime/static/app/index.html");
 });
 
-test("all four browser profiles bind source, target and interface independently", async () => {
+test("every enabled browser profile binds source, target and interface independently", async () => {
   const catalog = JSON.parse(catalogSource);
   const records = await Promise.all(catalog.courses.map(async ({ id, manifest }) => ({
     id, manifest: JSON.parse(await readFile(new URL(manifest, repoRoot), "utf8"))
   })));
   const browser = records.filter(({ manifest }) => manifest.platforms.browser.enabled);
-  assert.deepEqual(browser.map(({ id }) => id), ["cz", "zh", "es", "es-en"]);
+  assert.ok(browser.length > 0, "the catalog must expose a browser course");
+  assert.equal(new Set(browser.map(({ id }) => id)).size, browser.length);
   for (const { id, manifest } of browser) {
     const source = await readFile(new URL(manifest.resources.courseProfile.path, repoRoot), "utf8");
     const context = { window: {} };

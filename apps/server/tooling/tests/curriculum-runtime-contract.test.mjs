@@ -21,14 +21,15 @@ const retiredRootDataPaths = [
   new URL("data/word-world/", staticRoot)
 ];
 
-const [profileSource, indexHtml, cometHtml, cometSource, serviceWorker, verbs, wordManifest] = await Promise.all([
+const [profileSource, indexHtml, cometHtml, cometSource, serviceWorker, verbs, wordManifest, courseManifest] = await Promise.all([
   readFile(new URL("source/shared/course-profile.js", staticRoot), "utf8"),
   readFile(appEntry, "utf8"),
   readFile(new URL("conjugation-comet.html", sharedGameRoot), "utf8"),
   readFile(new URL("conjugation-comet/conjugation-comet-host.mjs", sharedGameSourceRoot), "utf8"),
   readFile(new URL("setup-assets.json", staticRoot), "utf8"),
   readFile(new URL("data/games/conjugation-comet/content.json", staticRoot), "utf8").then(JSON.parse),
-  readFile(new URL("data/games/word-world/manifest.json", staticRoot), "utf8").then(JSON.parse)
+  readFile(new URL("data/games/word-world/manifest.json", staticRoot), "utf8").then(JSON.parse),
+  readFile(new URL("../course.json", staticRoot), "utf8").then(JSON.parse)
 ]);
 
 const context = { window: {} };
@@ -63,12 +64,14 @@ test("curated game JSON is the learner-facing content boundary", () => {
   assert.equal(verbs.language, "cs");
   assert.ok(Array.isArray(verbs.verbs) && verbs.verbs.length >= 4);
   assert.equal(typeof wordManifest.corpusVersion, "string");
-  assert.equal(
-    course.gameContent["conjugation-comet"].conjugationCometCatalog,
-    "data/games/conjugation-comet/content.json?v=conjugation-comet-verbs-4"
-  );
+  const catalogReference = course.gameContent["conjugation-comet"].conjugationCometCatalog;
+  const catalogUrl = new URL(catalogReference, staticRoot);
+  const resource = courseManifest.resources.conjugationCometCatalog;
+  assert.equal(catalogUrl.pathname, new URL(resource.path, repoRoot).pathname);
+  assert.equal(catalogUrl.searchParams.get("v"), resource.revision);
   assert.match(cometSource, /fetchDeclaredCourseGameJson/u);
-  assert.match(serviceWorker, /\.\/data\/games\/conjugation-comet\/verbs\.json\?v=conjugation-comet-verbs-4/);
+  assert.ok(JSON.parse(serviceWorker).offline.assets.includes(`./${catalogReference}`),
+    "the offline package includes the exact catalog declared by the course profile");
   assert.match(serviceWorker, /\.\/data\/games\/word-world\/manifest\.json/);
   assert.doesNotMatch(serviceWorker, /data\/curriculum|curriculum-service/);
 });

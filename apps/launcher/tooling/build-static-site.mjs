@@ -636,11 +636,13 @@ function transformKeymap(input, publishedVisualPaths, artifactKey) {
 function transformProductOutput(workspaceRoot, stagingDir) {
   const czDir = join(stagingDir, "cz");
   const sharedSourceDir = join(stagingDir, "language-runtime/static/source");
-  const caseContentPath = join(czDir, "source/games/case-cosmos/case-cosmos-content.mjs");
-  writeText(caseContentPath, exactReplace(readText(caseContentPath),
-    "../../../../../../language-runtime/static/source/games/curriculum-progression.mjs",
-    "/language-runtime/static/source/games/curriculum-progression.mjs",
-    "published Case Cosmos curriculum import"));
+  for (const [moduleName, importCount] of [["case-cosmos-content.mjs", 2], ["case-cosmos.js", 1]]) {
+    const modulePath = join(czDir, "source/games/case-cosmos", moduleName);
+    writeText(modulePath, exactReplace(readText(modulePath),
+      "../../../../../../language-runtime/static/source/",
+      "/language-runtime/static/source/",
+      `published ${moduleName} shared imports`, importCount));
+  }
   writeText(join(czDir, "source/shared/course-profile.js"), transformCourseProfile(readText(join(czDir, "source/shared/course-profile.js"))));
   writeText(join(czDir, "source/shared/runtime.js"), transformRuntime(readText(join(czDir, "source/shared/runtime.js"))));
   writeText(join(czDir, "index.html"), transformLanguageIndex(readText(join(czDir, "index.html"))));

@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { wordWorldLicenseArtifact } from "../../../language-runtime/static/source/license-catalog.mjs";
 
 const repoRoot = new URL("../../../../", import.meta.url);
 
@@ -104,8 +105,15 @@ test("product surfaces disclose code terms and keep reviewed models and corpora 
   assert.doesNotMatch(productText, /MIT app|Caatuu app code is provided under the MIT license/u);
 
   const wordWorldManifest = JSON.parse(wordWorldManifestSource);
-  assert.match(workspace, /key: "caatuu-word-world-standard-v0\.1"/u);
-  assert.match(workspace, new RegExp(`Corpus standard-v0\\.1 · ${wordWorldManifest.recordCount} rows`, "u"));
+  assert.match(workspace, /legal\.wordWorldLicenseArtifact\(await loadJson\(path\), \{ courseId: course\.id, sourceUrl: path \}\)/u);
+  const attribution = wordWorldLicenseArtifact(wordWorldManifest, {
+    courseId: "cz", sourceUrl: "data/games/word-world/manifest.json"
+  });
+  assert.equal(attribution.entryCount, wordWorldManifest.recordCount);
+  assert.equal(attribution.sourceUrl, "data/games/word-world/manifest.json");
+  assert.equal(attribution.license, "MIT", "the historical Czech corpus retains its separate scoped grant");
+  assert.equal(attribution.artifactKind, "guided-learning-corpus");
+  assert.ok(attribution.intendedUse.includes(wordWorldManifest.corpusVersion));
 
   const activeModels = Object.entries(JSON.parse(modelConfigsSource).models)
     .filter(([, model]) => model.status === "active" && !model.deprecated)

@@ -187,6 +187,16 @@ Editorial complexity is a starting judgment, not a substitute for that evidence.
 
 Run in the canonical checkout's established development container:
 
+After changing the Czech Word World corpus, regenerate the static dictionary
+supplement before website publication. Its provenance hash covers metadata as
+well as wording:
+
+```powershell
+docker exec -w /workspace caatuu-dev python3 apps/launcher/tooling/build-static-word-world-dictionary.py
+```
+
+Then validate content, behavior and generated assets:
+
 ```powershell
 docker exec -w /workspace caatuu-dev node tools/language-content/quality/content-progression-catalogs.mjs
 docker exec -w /workspace caatuu-dev node --test apps/language-runtime/tests/content-progression.test.mjs apps/language-runtime/tests/content-exposure-persistence.test.mjs apps/language-runtime/tests/content-progression-games.test.mjs apps/language-runtime/tests/word-world-progression.test.mjs apps/language-runtime/tests/word-world-exposure-lifecycle.test.mjs tools/language-content/quality/content-progression-catalogs.test.mjs

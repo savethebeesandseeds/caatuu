@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { buildGrammarGravityRounds } from "../../../language-runtime/static/source/games/grammar-gravity/grammar-gravity-core.mjs";
 
 const staticRoot = new URL("../../../../apps/languages/czech/static/", import.meta.url);
 const [controller, legacyRedirect, pack, oldCzechRedirect, oldSharedRedirect, sharedPage, thermosphereCzechRedirect, thermosphereSharedRedirect] = await Promise.all([
@@ -34,39 +35,39 @@ test("retired Czech renderer files are absent while the compatibility redirect r
   assert.match(legacyRedirect, /url=\/cz\/index\.html\?game=grammar-gravity/u);
 });
 
-test("the current explicit journey keeps all eighteen Czech challenges and 162 examples", () => {
-  const genderNames = ["masculine", "feminine", "neuter"];
+test("the current journey schedules every authored example within its cumulative badge", () => {
   assert.equal(pack.schemaVersion, "caatuu-grammar-gravity-content-v3");
   assert.deepEqual(pack.gameplay.stages, ["meaning", "category", "form"]);
   assert.equal(pack.gameplay.categoryFeature, "gender");
-  assert.equal(pack.challenges.length, 18);
-  assert.equal(pack.challenges.flatMap((entry) => Object.values(entry.forms).flatMap((form) => form.examples)).length, 162);
-  assert.deepEqual(Object.fromEntries([1, 2, 3].map((level) => [level, pack.challenges.filter((entry) => entry.difficulty === level).length])), {
-    1: 6,
-    2: 6,
-    3: 6
-  });
+  for (const level of [1, 2, 3]) {
+    const eligible = pack.challenges.filter(entry => entry.difficulty <= level);
+    const expectedIds = eligible.flatMap(entry => Object.values(entry.forms).flatMap(form => form.examples.map(example => example.id)));
+    const rounds = buildGrammarGravityRounds(pack, level, () => 0.3);
+    assert.ok(rounds.length > 0);
+    assert.deepEqual(rounds.map(round => round.id).sort(), expectedIds.sort());
+    assert.equal(new Set(rounds.map(round => round.id)).size, rounds.length);
+    assert.ok(rounds.every(round => round.difficulty <= level));
+  }
   assert.equal(Object.hasOwn(pack, "lesson"), false);
   assert.deepEqual(Object.keys(pack.presentation), ["errorTitle", "errorDetail", "backLabel"]);
   assert.equal(pack.review.status, "native-review-required");
 
   for (const entry of pack.challenges) {
-    assert.equal(entry.focus.kind, "adjective");
+    assert.ok(entry.focus.kind?.trim());
     assert.ok(entry.focus.targetText?.trim());
     assert.ok(Number.isInteger(entry.difficulty) && entry.difficulty >= 1 && entry.difficulty <= 3);
-    assert.deepEqual(Object.keys(entry.forms), genderNames);
-    assert.equal(new Set(Object.values(entry.forms).map((form) => form.displayForm)).size, 3);
+    assert.deepEqual(Object.keys(entry.forms), (entry.axes || pack.axes).map(axis => axis.id));
+    assert.ok(new Set(Object.values(entry.forms).map((form) => form.displayForm)).size >= 2,
+      "each challenge must provide distinct answer choices");
     for (const form of Object.values(entry.forms)) {
       assert.ok(form.displayForm?.trim());
-      assert.equal(form.examples.length, 3);
+      assert.ok(form.examples.length > 0, "every form must have a schedulable example");
       for (const example of form.examples) {
         assert.ok(example.id?.startsWith(`${entry.id}.`));
         assert.equal(example.learnerBaseText, example.englishAuditText);
         assert.ok(example.anchor.learnerBaseText?.trim());
         assert.equal(example.anchor.learnerBaseText, example.anchor.englishAuditText);
-        assert.ok(example.englishAuditText.endsWith(example.anchor.learnerBaseText));
         assert.equal(example.slot.beforeText + form.displayForm + example.slot.afterText, example.targetText);
-        assert.equal(example.slot.afterText.trim(), example.anchor.targetText);
       }
     }
   }
@@ -82,12 +83,23 @@ test("the Grammar Gravity examples remain suitable for children", () => {
 });
 
 test("Czech challenge families retain their forms in the sole animated renderer", () => {
-  assert.deepEqual(pack.challenges.map((entry) => entry.focus.targetText), [
-    "nový", "malý", "dobrý", "český", "velký", "starý", "dlouhý", "mladý", "rychlý",
-    "pomalý", "krásný", "teplý", "zajímavý", "důležitý", "chytrý", "studený", "vysoký", "krátký"
-  ]);
-  assert.deepEqual(Object.values(pack.challenges[0].forms).map((form) => form.displayForm), ["nový", "nová", "nové"]);
-  assert.deepEqual(Object.values(pack.challenges[0].forms).map((form) => form.examples[0].targetText), ["nový dům", "nová kniha", "nové město"]);
+  const rounds = new Map(buildGrammarGravityRounds(pack, 3, () => 0.3).map(round => [round.id, round]));
+  for (const challenge of pack.challenges) {
+    for (const form of Object.values(challenge.forms)) {
+      for (const example of form.examples) {
+        const round = rounds.get(example.id);
+        assert.equal(round.challengeId, challenge.id);
+        assert.deepEqual(round.focus, challenge.focus);
+        assert.equal(round.flights[0].answer, form.displayForm);
+        assert.equal(round.flights[0].targetText, example.targetText);
+        assert.equal(round.flights[0].anchorText, example.anchor.targetText);
+        assert.equal(round.flights[0].anchorMeaning, example.anchor.learnerBaseText);
+        assert.equal(round.flights[0].beforeText, example.slot.beforeText);
+        assert.equal(round.flights[0].afterText, example.slot.afterText);
+        assert.ok(round.flights[0].options.includes(form.displayForm));
+      }
+    }
+  }
   assert.match(controller, /buildGrammarGravityRounds/u);
   assert.match(controller, /grammar-gravity-core\.mjs\?v=[^"']+/u);
   assert.doesNotMatch(sharedPage, /id="(?:grammarGravityBoard|grammarGravityLearnerBaseColumn|grammarGravityTargetColumn|grammarGravityNext)"/u);

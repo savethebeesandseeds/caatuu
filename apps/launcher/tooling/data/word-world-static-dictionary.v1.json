@@ -2,7 +2,7 @@
   "schema_name": "caatuu-static-word-world-dictionary",
   "schema_version": 1,
   "corpus_version": "standard-v0.1",
-  "corpus_sha256": "b154ef48960191c169e1a1886cc66f33c567e88cbb017f1498ecfce21a8e39ed",
+  "corpus_sha256": "55f63c965334a83c417ed077fdef94f72e3fe3ee9729889632493652ab843b38",
   "source_dictionary": {
     "key": "kaikki-cs-en-2026-07-09",
     "database_sha256": "80e47c922b3abb42ecb363b06844a26c8fc2fd5ae2578203824dc6b94f130a71",

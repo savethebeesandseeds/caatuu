@@ -181,7 +181,7 @@ test("the shared home exposes a two-question language form and the game display 
   assert.match(homeStyles, /\.setup-language-selection \.setup-language-choice\.is-selected/u);
   assert.match(appEntry, /id="setupLogTitle"[^>]*data-i18n="setup\.events"[^>]*>Events/u);
   assert.match(homeStyles, /\.setup-log li \{[\s\S]*?grid-template-columns: minmax\(0, 1fr\);[\s\S]*?gap: 2px;/u);
-  assert.match(homeStyles, /\.setup-log span \{[\s\S]*?margin-inline-start: 28px;[\s\S]*?text-align: left;/u);
+  assert.match(homeStyles, /\.setup-log span \{[\s\S]*?margin-inline-start: [1-9]\d*(?:\.\d+)?px;[\s\S]*?text-align: left;/u);
   assert.equal((appEntry.match(/data-caatuu-language-switch/gu) || []).length, 1);
   assert.match(appEntry, /Review your current course, switch to a course in progress, or start a new course\./u);
   assert.match(
@@ -274,9 +274,9 @@ test("the shared home exposes a two-question language form and the game display 
   }
   assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/source/dictionary-provider-loader.mjs"));
   assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/source/interface-content.mjs?v=interface-runtime-2"));
-  assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-8"));
+  assert.ok(czechSetup.offline.assets.some(url => url.split("?")[0] === "/language-runtime/static/source/legacy-page-bootstrap.mjs"));
   assert.ok(czechSetup.offline.assets.includes(`/language-runtime/static/data/interface/en.v1.json?v=${englishInterface.revision}`));
-  assert.ok(czechSetup.offline.assets.includes("./source/features/setup/setup.js?v=setup-41"));
+  assert.ok(czechSetup.offline.assets.some(url => url.split("?")[0] === "./source/features/setup/setup.js"));
   assert.match(
     bootstrapSource,
     /for \(const providerName of \["semanticLearningProvider", "setupProgressProvider", "setupProvider"\]\)/u

@@ -124,6 +124,7 @@ function control() {
       hidden: true,
       disabled: true,
       textContent: "",
+      querySelector: () => null,
       closest: () => row,
       classList: { toggle: (name, enabled) => enabled ? buttonClasses.add(name) : buttonClasses.delete(name) },
       setAttribute: (name, value) => attributes.set(name, value),
@@ -143,6 +144,21 @@ test("native self-update control stays hidden until a newer version is known", (
   assert.equal(button.disabled, true);
   assert.equal(button.getAttribute("aria-disabled"), "true");
   assert.equal(row.hidden, true);
+});
+
+test("update controls change their nested label without replacing existing artwork", () => {
+  const { button } = control();
+  const label = { textContent: "" };
+  button.textContent = "existing-artwork";
+  button.querySelector = selector => selector === "[data-app-update-label]" ? label : null;
+  ui.setUpdateAppControl(button, { env: "android" }, {
+    selfUpdateEnabled: true, updateAvailable: true, currentVersionCode: 1,
+    latestVersionCode: 2, latestVersionName: "fixture-version"
+  });
+  assert.equal(label.textContent, englishInterfaceContent.t("maintenance.action.updateversion", { version: "fixture-version" }));
+  assert.equal(button.textContent, "existing-artwork");
+  assert.equal(button.hidden, false);
+  assert.equal(button.disabled, false);
 });
 
 test("a current app needs no update button or explanatory card", () => {
