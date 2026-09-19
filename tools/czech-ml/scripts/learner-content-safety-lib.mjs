@@ -6,7 +6,7 @@ import { validateSoundQuasarCatalog } from "../../../apps/language-runtime/stati
 import { validateConjugationCometCatalog } from "../../../apps/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs";
 import { validatePack as validateCaseCosmosPack } from "../../../apps/languages/czech/static/source/games/case-cosmos/case-cosmos-content.mjs";
 
-export const LEARNER_CONTENT_SAFETY_POLICY_VERSION = "caatuu-child-content-safety-v3";
+export const LEARNER_CONTENT_SAFETY_POLICY_VERSION = "caatuu-child-content-safety-v4";
 
 // Assigned by validated game extractors, never trusted from authored JSON or UI copy.
 const FIXED_LESSON_EXAMPLE = Symbol("fixed-language-example");
@@ -150,6 +150,8 @@ const TOKEN_RULES = Object.freeze([
       en: /^(?:diarrhea|fracture|injuries|injury|vomit|vomiting|wound|wounds)$/u,
       cs: /^(?:průjem|průjmu|rána|ránu|rány|zlomenina|zlomeninu|zlomeniny|zranění|zvracení|zvracím)$/u,
     }),
+    // Here rána is the genitive of ráno (morning), not the noun for a wound.
+    excludesToken: ({ token, index, tokens }) => token === "rána" && ["od", "do"].includes(tokens[index - 1]),
   }),
   Object.freeze({
     id: "review.accident",
@@ -310,7 +312,8 @@ export function inspectLearnerField(field) {
   const findings = [];
   for (const rule of TOKEN_RULES) {
     const patterns = relevantPatterns(rule.patterns, field?.locale);
-    if (!tokens.some((token) => patterns.some((pattern) => pattern.test(token)))) continue;
+    if (!tokens.some((token, index) => patterns.some((pattern) => pattern.test(token))
+      && !rule.excludesToken?.({ token, index, tokens }))) continue;
     findings.push(toFinding(field, rule, normalized));
   }
   for (const rule of PHRASE_RULES) {

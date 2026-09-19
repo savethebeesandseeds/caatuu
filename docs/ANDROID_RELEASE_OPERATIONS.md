@@ -308,3 +308,16 @@ normal PATH precedence. The native network suite verifies multiple discovery
 results using the real process runner, including captured output and exit code.
 No global PATH or Git identity change is required. Device testing remains
 separate from the successful package and publication checks.
+
+### Reference incident: Czech morning homograph
+
+Android 175 (`0.1.23`) from `f2793d069e1c0c16df21196903501e29e0be3d53`
+stopped at `:product:generateProductAssets` before any candidate was sealed.
+The learner safety scanner classified `od rána` (since morning) as a wound
+reference. Its token rule now recognizes `od rána` and `do rána` as morning
+phrases while checking every other matching token independently. Focused
+regressions retain wound findings even when the same sentence also mentions
+morning. Source CI also caught a fixed stylesheet revision in the browser
+setup test; that test now verifies the current entrypoint reference is present
+in the offline catalog. Retry the same unsealed version after committing these
+source fixes; no release safeguard or published artifact needs replacement.

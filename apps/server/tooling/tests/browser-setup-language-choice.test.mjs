@@ -259,7 +259,7 @@ test("the shared home exposes a two-question language form and the game display 
     /\.setup-actions > \.setup-action,\s*\.setup-actions > \.setup-small-action \{\s*flex: 1 1 96px;/u
   );
   assert.match(appEntry, /initial-theme\.js\?v=theme-3/u);
-  assert.match(appEntry, /caatuu-theme\.css\?v=theme-7/u);
+  const themeUrl = revisionedReference(appEntry, "/language-runtime/static/styles/caatuu-theme.css", "theme");
   const homeUrl = revisionedReference(appEntry, "/language-runtime/static/styles/caatuu-home.css", "home");
   const chromeStyleUrl = revisionedReference(appEntry, "/language-runtime/static/styles/caatuu-chrome.css", "chrome-style");
   assert.doesNotMatch(appEntry, /caatuu-chrome\.js/u);
@@ -269,7 +269,7 @@ test("the shared home exposes a two-question language form and the game display 
   const workspaceUrl = revisionedReference(bootstrapSource, "/language-runtime/static/source/caatuu-workspace.js", "workspace");
   assert.match(czechSetup.offline.cacheName, /^caatuu-czech-pwa-v[1-9]\d*$/u);
   assert.ok(czechWorker.includes(`// Offline catalog revision: ${czechSetup.offline.cacheName}`));
-  for (const url of [homeUrl, bootstrapUrl, chromeUrl, workspaceUrl, chromeStyleUrl]) {
+  for (const url of [themeUrl, homeUrl, bootstrapUrl, chromeUrl, workspaceUrl, chromeStyleUrl]) {
     assert.ok(czechSetup.offline.assets.includes(url), `Offline setup must contain the current shared reference ${url}`);
   }
   assert.ok(czechSetup.offline.assets.includes("/language-runtime/static/source/dictionary-provider-loader.mjs"));

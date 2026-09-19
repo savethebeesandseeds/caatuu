@@ -49,6 +49,18 @@ test("normalizes learner text to NFC before matching", () => {
   assert.deepEqual(ruleIds("VI\u0301NO!", "cs"), ["blocked.adult-substances.alcohol"]);
 });
 
+test("Czech morning phrases do not suppress separate medical references", () => {
+  for (const locale of ["cs", "und"]) {
+    for (const text of ["Ten studený vítr fouká od rána.", "vítr fouká od rána.", "Počkáme do rána."]) {
+      assert.deepEqual(ruleIds(text, locale), [], text);
+    }
+    for (const text of ["Rána bolí.", "Mám ránu.", "Rány bolí.", "Od rána mě bolí rána.", "Rána mě bolí od rána.", "Od rána mám zranění."]) {
+      assert.deepEqual(ruleIds(text, locale), ["review.graphic-medical-detail"], text);
+    }
+    assert.deepEqual(ruleIds("Od rána pije víno.", locale), ["blocked.adult-substances.alcohol"]);
+  }
+});
+
 test("catches the reported double meaning without rejecting clear sports contexts", () => {
   assert.deepEqual(ruleIds("I have two balls."), ["review.ambiguous-first-person-balls"]);
   assert.deepEqual(ruleIds("Well, I have two balls."), ["review.ambiguous-first-person-balls"]);
