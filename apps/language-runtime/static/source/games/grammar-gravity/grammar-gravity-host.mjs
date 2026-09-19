@@ -1,5 +1,6 @@
 import {
   buildGrammarGravityRounds,
+  scopeGrammarGravityMeaningChoices,
   validateGrammarGravityCategories,
   normalizeGrammarGravityPack
 } from "./grammar-gravity-core.mjs?v=grammar-gravity-core-7";
@@ -186,8 +187,9 @@ function startGrammarRound() {
 function makeRounds(previousAnchor = "") {
   const rounds = buildGrammarGravityRounds(state.pack, state.difficulty, Math.random, previousAnchor);
   if (!state.shell?.CaatuuLearning?.contentHistory) return rounds;
-  return selectContentItems(rounds, { difficulty: state.difficulty, minimumPool: 4,
+  const selected = selectContentItems(rounds, { difficulty: state.difficulty, minimumPool: 4,
     history: state.shell?.CaatuuLearning?.contentHistory?.(GAME_ID, `phrases-${state.practiceMode}`) || {} });
+  return scopeGrammarGravityMeaningChoices(selected, rounds);
 }
 
 function configureDifficulty() {
@@ -536,11 +538,11 @@ export async function mountGrammarGravity() {
     });
     validateGrammarGravityCategories(state.pack, state.nounGame.snapshot()?.lanes);
     configurePackPresentation();
-    configureDifficulty();
     if (!["sequence", "meaning", "nouns", "forms"].includes(requestedPractice)) throw new Error(`Unsupported Grammar Gravity mode: ${requestedPractice}`);
+    state.practiceMode = requestedPractice;
+    configureDifficulty();
     const choice = state.practiceOptions.find(({ value }) => value === requestedPractice);
     if (choice?.input.disabled) throw new Error(`Unavailable Grammar Gravity mode: ${requestedPractice}`);
-    state.practiceMode = requestedPractice;
     syncPracticeChoices();
     if (requestedPractice !== "nouns") enterMode("phrases");
     render();

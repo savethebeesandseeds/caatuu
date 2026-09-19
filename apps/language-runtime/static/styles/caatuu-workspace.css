@@ -5468,10 +5468,10 @@ html[data-theme="dark"] .dictionary-search-head .dictionary-count {
 }
 
 .verb-display-options button.is-active {
-  border-color: var(--green-dark);
-  background: var(--green-dark);
+  border-color: var(--theme-display-selected-bg);
+  background: var(--theme-display-selected-bg);
   color: #fff;
-  box-shadow: 0 2px 0 color-mix(in srgb, var(--green-dark) 72%, #000);
+  box-shadow: 0 2px 0 color-mix(in srgb, var(--theme-display-selected-bg) 72%, #000);
 }
 
 .verb-display-options img {

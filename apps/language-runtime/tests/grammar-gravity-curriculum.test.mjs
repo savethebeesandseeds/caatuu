@@ -7,16 +7,22 @@ const authored=JSON.parse(await readFile(new URL('../../languages/czech/content/
 const pack=normalizeGrammarGravityPack(raw,{courseId:'cz'});
 const all=buildGrammarGravityRounds(pack,3,()=>.37);
 test('all original families and compatible additions play through the original three stages',()=>{
-  const withoutProgression=value=>Array.isArray(value)?value.map(withoutProgression)
-    :value&&typeof value==='object'?Object.fromEntries(Object.entries(value).filter(([key])=>!['usefulness','complexity','urgency','subdifficulty'].includes(key)).map(([key,child])=>[key,withoutProgression(child)])):value;
   const originalActive=authored.challenges.filter(family=>pack.challenges.some(active=>active.id===family.id));
   assert.ok(originalActive.length>0);
   for(const family of originalActive){
     const active=pack.challenges.find(item=>item.id===family.id);
-    const retained={...active,forms:Object.fromEntries(Object.entries(family.forms).map(([key,form])=>[key,{
-      ...active.forms[key],examples:form.examples.map(example=>active.forms[key].examples.find(item=>item.id===example.id))
-    }]))};
-    assert.deepEqual(withoutProgression(retained),withoutProgression(family));
+    // Stable identities preserve learners' history through editorial revisions.
+    // The current catalog, rather than an old wording snapshot, owns the text.
+    assert.equal(active.difficulty,family.difficulty);
+    assert.ok(active.revision>=family.revision);
+    for(const [axis,form] of Object.entries(family.forms)){
+      assert.ok(active.forms[axis]);
+      for(const example of form.examples){
+        const retained=active.forms[axis].examples.find(item=>item.id===example.id);
+        assert.ok(retained,`retained learning identity ${example.id}`);
+        assert.ok(retained.revision>=example.revision);
+      }
+    }
   }
   assert.equal(all.length,pack.challenges.flatMap(family=>Object.values(family.forms).flatMap(form=>form.examples)).length);
   for(const round of all) {

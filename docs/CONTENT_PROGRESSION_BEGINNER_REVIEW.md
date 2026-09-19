@@ -1,5 +1,9 @@
 # Content progression and beginner review
 
+The subsequent [Grammar Gravity review of 19 September](GRAMMAR_GRAVITY_BEGINNER_REVIEW_20260919.md)
+corrects phrase-level beginner demand and expands the four applicable grammar
+banks. The figures below describe the earlier 11 September pass.
+
 Date: 11 September 2026. Scope: all five authoritative Word World catalogs and
 their coordinated listening/grammar starter material. This document records
 the current 1–100 regrading and the earlier additions in the same initiative.

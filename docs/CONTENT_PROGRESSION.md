@@ -67,10 +67,16 @@ Current conservative defaults are explicit product heuristics:
   The selector rotates review, practice and new material; its nominal mix is
   two review slots, two practice slots and one introduction slot, with fallbacks
   when a category is empty. Tiny banks remain playable.
-- The initial daily introduction budget is six, or the number of distinct
+- The initial daily introduction target is six, or the number of distinct
   records required to build a playable game. Established delayed evidence can
   increase it modestly. A large unresolved practice backlog reduces it to about
-  a third, with at least one introduction possible.
+  a third, with at least one introduction possible. This is a pacing target,
+  not a daily lock: once reached, continued play may include one fresh item
+  within the existing challenge window, only in an introduction slot. A board
+  or listening batch can therefore mix one fresh item with familiar practice;
+  single-task queues leave four practice turns between further introductions.
+  Rebuilding a queue without completing anything cannot advance this rotation.
+  Continued introductions do not grant recall credit or widen the window.
 - The initial challenge window spans 18 complexity points. The queue's internal
   readiness signal uses spaced successes, independent practice days and the
   current interval together, opening at most 24 points beyond a practiced item.
@@ -84,7 +90,7 @@ Current conservative defaults are explicit product heuristics:
   of easier items first. These thresholds govern exploration, not a claim that
   learning is complete.
 
-The daily budget considers the whole practice bank even when a caller filters
+The daily target considers the whole practice bank even when a caller filters
 its candidates. A necessary distinct-answer pool may exceed the ordinary budget
 or challenge window; it never exceeds the chosen badge. An explicit Word World
 word request can start practice around that chosen word. Queue construction is

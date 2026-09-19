@@ -28,6 +28,7 @@ html[data-theme="light"] {
   --theme-green-strong: #2c564a;
   --theme-green-hover: #244a3f;
   --theme-green-filled: #376a5a;
+  --theme-display-selected-bg: #2c564a;
   --theme-blue: #496d84;
   --theme-blue-hover: #3c5d72;
   --theme-blue-filled: #496d84;
@@ -71,6 +72,7 @@ html[data-theme="dark"] {
   --theme-green-strong: #a3cbb7;
   --theme-green-hover: #afd5c1;
   --theme-green-filled: #456f5d;
+  --theme-display-selected-bg: #456f5d;
   --theme-blue: #98b3c4;
   --theme-blue-hover: #aac2d1;
   --theme-blue-filled: #4d6d80;

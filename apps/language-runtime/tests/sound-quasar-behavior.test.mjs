@@ -484,6 +484,99 @@ test("robot transitions retain sentence mode and six options, then resume automa
   game.controller.destroy();
 });
 
+test("continued listening batches introduce fresh easy targets without earning same-day spaced credit", async (t) => {
+  const now = Date.parse("2026-09-19T12:00:00.000Z");
+  t.mock.method(Date, "now", () => now);
+  class SameDayDate extends Date {
+    constructor(...args) { super(...(args.length ? args : [now])); }
+    static now() { return now; }
+  }
+  const fixtureBank = (mode) => Array.from({ length: 32 }, (_, index) => {
+    const id = `fixture-${mode}-${String(index).padStart(2, "0")}`;
+    return { id, revision: "fixture-v1", target: `${mode} target ${index}`,
+      meaning: `Fixture meaning ${index}`, englishAuditText: `Fixture meaning ${index}`,
+      sourceId: id, sourceReviewStatus: "pending", usefulness: 75,
+      difficulty: index < 28 ? 1 : 2, complexity: index < 24 || index >= 28 ? 10 : 90 };
+  });
+  const game = await mountGame({ realLearning: true, mutateCatalog(raw) {
+    raw.items = fixtureBank("words");
+    raw.provenance.sourceItemIds = raw.items.map(item => item.sourceId);
+    raw.sentences = fixtureBank("sentences");
+    raw.sentenceProvenance.sourceItemIds = raw.sentences.map(item => item.sourceId);
+  } });
+  game.parent.context.Date = SameDayDate;
+  const history = mode => JSON.parse(JSON.stringify(game.shell.CaatuuLearning.contentHistory("sound-quasar", mode)));
+  const completedHistories = {};
+  try {
+    for (const [mode, choiceCount] of [["words", 4], ["sentences", 6]]) {
+      if (mode === "sentences") {
+        game.click(game.element("Sentences"));
+        game.click(game.element("SixChoices"));
+      }
+      assert.deepEqual(history(mode), {}, "changing mode must not borrow another mode's listening evidence");
+      const bank = mode === "words" ? game.catalog.items : game.catalog.sentences;
+      const byId = new Map(bank.map(item => [item.id, item]));
+      const seen = new Set();
+      for (let batch = 0; batch < 8; batch += 1) {
+        const before = history(mode);
+        const rotation = Object.values(before).reduce((sum, progress) => sum + progress.exposures, 0) % 5;
+        const answers = [];
+        for (let index = 0; index < 5; index += 1) {
+          await game.listen();
+          const item = game.current();
+          assert.ok(byId.has(item.id), "the answer must belong to the selected mode");
+          assert.equal(item.difficulty, 1);
+          assert.equal(item.complexity, 10, "same-day repetition cannot widen the challenge frontier");
+          assert.equal(answers.includes(item.id), false, "a batch must have distinct answers");
+          answers.push(item.id);
+          seen.add(item.id);
+          const options = game.choices().map(button => byId.get(button.dataset.choiceId));
+          assert.equal(options.length, choiceCount);
+          assert.ok(options.every(option => option && option.difficulty === 1 && option.complexity === 10));
+          assert.equal(new Set(options.map(option => option.id)).size, choiceCount);
+          assert.equal(new Set(options.map(option => option.target)).size, choiceCount);
+          assert.equal(options.filter(option => option.id === item.id).length, 1);
+          game.click(game.choice(item.id));
+          await game.advance();
+        }
+        const newIndexes = answers.flatMap((id, index) => before[id] ? [] : [index]);
+        if (Object.keys(before).length >= 6) {
+          assert.equal(newIndexes.length, 1, "continued play keeps one fresh target among practiced material");
+          assert.equal((rotation + newIndexes[0]) % 5, 2, "the fresh target belongs in the new-material slot");
+        }
+        assert.equal(game.element("Transition").hidden, false);
+        await game.advance();
+        assert.equal(game.element("Transition").hidden, true, "the next batch must start automatically");
+        assert.equal(game.element("Game").dataset.mode, mode);
+        assert.equal(game.choices().length, choiceCount);
+      }
+      assert.ok(seen.size > 6, "continued listening must progress beyond the initial six targets");
+      const progress = history(mode);
+      assert.deepEqual(new Set(Object.keys(progress)), seen, "distractors and unplayed next-batch items earn no exposure");
+      assert.equal(Object.values(progress).reduce((sum, item) => sum + item.exposures, 0), 40);
+      assert.ok(Object.values(progress).some(item => item.exposures > 1), "introductions stay mixed with practice");
+      for (const item of Object.values(progress)) {
+        assert.equal(item.independentSuccesses, item.exposures);
+        assert.equal(item.spacedSuccesses, 0);
+        assert.equal(item.independentDays, 1);
+        assert.equal(item.practiceDays, 1);
+        assert.equal(item.intervalMs, 24 * 60 * 60 * 1000);
+      }
+      completedHistories[mode] = progress;
+      assert.deepEqual(history("words"), completedHistories.words, "sentence practice must leave word history intact");
+    }
+    const restored = createBrowserHarness({ course: game.course, localStorageValues: game.parent.localStorage.snapshot() });
+    restored.context.Date = SameDayDate;
+    vm.runInContext(learningProfileSource, restored.context, { filename: "learning-profile.js" });
+    for (const mode of ["words", "sentences"]) {
+      assert.deepEqual(JSON.parse(JSON.stringify(restored.window.CaatuuLearning.contentHistory("sound-quasar", mode))),
+        completedHistories[mode], "actual listening evidence must survive a reload in its own bank");
+    }
+  } finally {
+    game.controller.destroy();
+  }
+});
+
 for (const reason of ["hidden", "inactive", "destroyed"]) {
   test(`a ${reason} game invalidates the robot transition timer`, async () => {
     const game = await mountGame();

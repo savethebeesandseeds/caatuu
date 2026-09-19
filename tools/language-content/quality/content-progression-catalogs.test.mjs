@@ -47,6 +47,50 @@ test('editorial task demand can vary independently from a retained badge', () =>
   assert.equal(parent.difficulty, 1);
 });
 
+test('agreement grading distinguishes a bare phrase, a finite clause, past tense and added setting', () => {
+  const english = ['a blue cup', 'We see a blue cup.', 'We saw a blue cup.', 'We saw a blue cup near the door.'];
+  const translations = {
+    nb: ['en blå kopp', 'Vi ser en blå kopp.', 'Vi så en blå kopp.', 'Vi så en blå kopp ved døren.'],
+    cz: ['modrý hrnek', 'Vidíme modrý hrnek.', 'Viděli jsme modrý hrnek.', 'Viděli jsme modrý hrnek u dveří.'],
+    es: ['una taza azul', 'Vemos una taza azul.', 'Vimos una taza azul.', 'Vimos una taza azul junto a la puerta.'],
+    'es-en': english
+  };
+  const parent = { id: 'synthetic.agreement', difficulty: 1 };
+  for (const [courseId, targets] of Object.entries(translations)) {
+    const scores = targets.map((targetText, index) => proposeProgression({
+      kind: 'agreement-example', parent, courseId,
+      item: { targetText, englishAuditText: english[index], learnerBaseText: 'Separate learner translation' }
+    }).complexity);
+    for (let index = 1; index < scores.length; index += 1) {
+      assert.ok(scores[index] > scores[index - 1], `${courseId}: added grammatical demand must raise the proposal`);
+    }
+  }
+});
+
+test('agreement context grading recognizes regular past tense without using length alone', () => {
+  const grade = englishAuditText => proposeProgression({ kind: 'agreement-example', courseId: 'es-en',
+    parent: { id: 'synthetic.agreement', difficulty: 1 }, item: { englishAuditText, targetText: englishAuditText } }).complexity;
+  assert.ok(grade('They painted a blue box.') > grade('They paint a blue box.'));
+  assert.ok(grade('They paint a blue box.') > grade('a blue box'));
+  assert.ok(grade('They paint a blue box near the door.') > grade('They paint a blue box.'));
+  assert.equal(grade('a painted wooden box'), grade('a wooden painted box'), 'an attributive past participle is not a past-tense clause');
+});
+
+test('whole-example regrading is explicit and preserves authored grades during normal migration', () => {
+  const record = { kind: 'agreement-example', parent: { id: 'synthetic.agreement', difficulty: 1 },
+    item: { id: 'synthetic.context', englishAuditText: 'We saw a blue cup near the door.',
+      targetText: 'Vi så en blå kopp ved døren.', usefulness: 88, complexity: 9 } };
+  const retained = stripProgression(structuredClone(record.item));
+  migrateProgressionRecord(record, { courseId: 'nb' });
+  assert.equal(record.item.usefulness, 88);
+  assert.equal(record.item.complexity, 9);
+  migrateProgressionRecord(record, { courseId: 'nb', regrade: true });
+  const bare = proposeProgression({ kind: 'agreement-example', parent: record.parent, courseId: 'nb',
+    item: { targetText: 'en blå kopp', englishAuditText: 'a blue cup' } });
+  assert.ok(record.item.complexity > bare.complexity);
+  assert.deepEqual(stripProgression(record.item), retained);
+});
+
 test('migration preserves authored new scores and all retained data on repeat runs', () => {
   const record = { kind: 'lexeme', item: { id: 'example', difficulty: 2, meaning: 'walk', urgency: 5, subdifficulty: 4,
     usefulness: 83, complexity: 37, annotations: { note: 'retained' }, tokens: ['retained'] } };

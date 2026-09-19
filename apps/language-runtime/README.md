@@ -43,6 +43,16 @@ The shared document authors the one component tree. The Word World renderer
 binds behavior to that existing tree; it must not create a replacement page or
 generate an alternative layout for a course.
 
+Campaign uses `campaignGameIds(course)` from the shared shell policy: exactly
+the playable menu games, excluding Campaign itself. There is no separate
+eligibility list. A shuffled queue visits every game once per cycle, avoids
+immediate repeats between cycles, and retains unvisited games when Campaign
+is reopened in the same session. Cancelled transitions return their unvisited
+destination to the queue. Every playable game must report round completion and
+support preparing its next round; embedded games use the verified frame message
+bridge, while inline games use their shared host. The campaign coverage tests
+exercise every registered course and its generated browser profile.
+
 Optional browser providers are manifest resources rather than capability
 side effects. The generated profile's `browserProviders` map may name a
 revisioned course runtime, semantic-learning provider, setup-progress provider,

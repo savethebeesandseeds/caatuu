@@ -6,7 +6,7 @@ import vm from "node:vm";
 import { mountRobotLoadingScreen } from "../static/source/games/embedded-game-controls.mjs";
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { createInterfaceContent } from "../static/source/interface-content.mjs";
-import { buildGrammarGravityRounds, validateGrammarGravityCategories, normalizeGrammarGravityPack } from "../static/source/games/grammar-gravity/grammar-gravity-core.mjs";
+import { buildGrammarGravityRounds, scopeGrammarGravityMeaningChoices, validateGrammarGravityCategories, normalizeGrammarGravityPack } from "../static/source/games/grammar-gravity/grammar-gravity-core.mjs";
 import { mountGrammarFlight } from "../static/source/games/grammar-gravity/adjective-flight-host.mjs";
 async function json(url) { return JSON.parse(await readFile(url,"utf8")); }
 
@@ -35,7 +35,7 @@ test("authored grammar banks retain every example while separating repeated word
 });
 
 async function mountSequence({ language = "spanish", nounReady = true, phraseFails = false, deferPhrase = false,
-  distinctAudit = false, requestedPractice = "", invalidContent = false, progression = false } = {}) {
+  distinctAudit = false, requestedPractice = "", invalidContent = false, progression = false, mutateContent, contentHistory } = {}) {
   const spanishBase = language === "english-from-spanish";
   const course = { id: spanishBase ? "es-en" : language === "czech" ? "cz" : "es", routePrefix: spanishBase ? "/es-en" : language === "czech" ? "/cz" : "/es",
     sourceLanguage: { id: spanishBase ? "es" : "en", locale: spanishBase ? "es-ES" : "en" },
@@ -64,7 +64,7 @@ async function mountSequence({ language = "spanish", nounReady = true, phraseFai
   const messages = [];
   let difficulty = 1;
   shell.CaatuuLearning = { difficulty: () => difficulty, record: (id, delta) => records.push({ id, ...delta }) };
-  if (progression) Object.assign(shell.CaatuuLearning, { contentHistory: () => ({}),
+  if (progression) Object.assign(shell.CaatuuLearning, { contentHistory: contentHistory || (() => ({})),
     contentGeneration: () => "before-reset",
     recordExposure: (gameId, event) => exposures.push({ gameId, ...event }) });
   shell.postMessage = (message) => messages.push(message);
@@ -106,6 +106,7 @@ async function mountSequence({ language = "spanish", nounReady = true, phraseFai
     }
   }
   if (invalidContent) delete content.gameplay;
+  mutateContent?.(content);
   Object.assign(browser.context, {
     selectContentItems, newContentEncounterId,
     parent: shell,
@@ -113,7 +114,7 @@ async function mountSequence({ language = "spanish", nounReady = true, phraseFai
     removeEventListener: browser.window.removeEventListener,
     requestAnimationFrame: (callback) => { frames.set(++frameId, callback); return frameId; },
     cancelAnimationFrame: (id) => frames.delete(id),
-    buildGrammarGravityRounds, validateGrammarGravityCategories, normalizeGrammarGravityPack, mountGrammarFlight, mountRobotLoadingScreen,
+    buildGrammarGravityRounds, scopeGrammarGravityMeaningChoices, validateGrammarGravityCategories, normalizeGrammarGravityPack, mountGrammarFlight, mountRobotLoadingScreen,
     readEmbeddedCourseProfile: () => course,
     fetchDeclaredCourseGameJson: async () => {
       if (deferPhrase) await new Promise((resolve) => { finishPhrase = resolve; });
@@ -340,6 +341,88 @@ test("grammar meaning correction is assisted and an unanswered timed task is exp
   assert.equal(game.exposures[1].evidence, "exposure");
   assert.equal(game.exposures[1].correct, false);
   game.controller.destroy();
+});
+
+function syntheticAgreementBank(content) {
+  content.challenges = [1, 1, 2, 3].map((difficulty, familyIndex) => ({
+    id: `fixture.family${familyIndex}`, revision: 1, difficulty, usefulness: 75, complexity: 90,
+    focus: { kind: "synthetic", label: "Fixture", targetText: "Fixture", resultTitle: "Fixture", summary: "Fixture" },
+    forms: Object.fromEntries(content.axes.map((axis, axisIndex) => [axis.id, {
+      displayForm: `form${axisIndex}`, usefulness: 75, complexity: 80,
+      examples: Array.from({ length: 3 }, (_, index) => {
+        const id = `fixture.family${familyIndex}.form${axisIndex}.example${index}`;
+        const noun = `token${familyIndex}${axisIndex}${index}`;
+        const meaning = `${familyIndex === 0 ? "Basic" : "Advanced"} meaning ${index}`;
+        const translation = `Fixture sentence ${familyIndex} ${axisIndex} ${index}`;
+        return { id, revision: 1, usefulness: 75, complexity: familyIndex === 0 ? 10 : 95,
+          targetText: `${noun} form${axisIndex}`, learnerBaseText: translation, englishAuditText: translation,
+          anchor: { targetText: noun, learnerBaseText: meaning, englishAuditText: meaning },
+          slot: { beforeText: `${noun} `, afterText: "" } };
+      })
+    }]))
+  }));
+}
+
+for (const practiceMode of ["sequence", "meaning", "forms"]) {
+  test(`${practiceMode} startup uses its own history and scopes meaning distractors to whole-example demand`, async () => {
+    const banks = [];
+    const game = await mountSequence({ progression: true, requestedPractice: practiceMode,
+      mutateContent: syntheticAgreementBank, contentHistory(gameId, bankId) {
+        assert.equal(gameId, "grammar-gravity");
+        banks.push(bankId);
+        return {};
+      } });
+    try {
+      assert.deepEqual(game.errors, []);
+      assert.deepEqual(banks, [`phrases-${practiceMode}`]);
+      const rounds = game.state.rounds;
+      const meanings = new Set(rounds.map(round => round.flights[0].anchorMeaning));
+      const candidates = buildGrammarGravityRounds(game.state.pack, 1, () => 0);
+      assert.deepEqual(Array.from(rounds, round => round.id),
+        selectContentItems(candidates, { difficulty: 1, history: {}, minimumPool: 4, random: () => 0 }).map(round => round.id),
+        "meaning-choice preparation must preserve progression priority");
+      for (const round of rounds) {
+        assert.equal(round.complexity, 10, "the example grade must override its form and family grades");
+        const flight = round.flights[0];
+        assert.deepEqual(new Set(flight.meaningPool), meanings);
+        assert.equal(flight.beforeText + flight.answer + flight.afterText, flight.targetText);
+        const family = game.state.pack.challenges.find(challenge => challenge.id === round.challengeId);
+        assert.deepEqual(new Set(flight.options), new Set(Object.values(family.forms).map(form => form.displayForm)),
+          "authored form contrasts remain complete");
+        assert.deepEqual(flight.categoryOptions, game.state.pack.gameplay.categoryOptions);
+      }
+      for (const count of [6, 3, 6]) {
+        game.state.adjectiveGame.setMeaningOptionCount(count);
+        const flight = game.state.adjectiveGame.snapshot().current;
+        assert.equal(flight.meaningOptions.length, Math.min(count, meanings.size));
+        assert.equal(new Set(flight.meaningOptions).size, flight.meaningOptions.length);
+        assert.ok(flight.meaningOptions.includes(flight.anchorMeaning));
+        assert.ok(flight.meaningOptions.every(meaning => meanings.has(meaning)), "changing choice count cannot restore advanced distractors");
+      }
+      game.completeRound();
+      assert.equal(game.exposures[0].bankId, `phrases-${practiceMode}`);
+    } finally { game.controller.destroy(); }
+  });
+}
+
+test("one-meaning cohorts borrow only a minimal equally easy contrast and never an advanced distractor", async () => {
+  const pack = await json(new URL("../../languages/spanish/static/data/games/grammar-gravity/content.json", import.meta.url));
+  syntheticAgreementBank(pack);
+  const rounds = buildGrammarGravityRounds(pack, 1, () => 0);
+  const chosen = rounds.filter(round => round.complexity === 10 && round.flights[0].anchorMeaning === "Basic meaning 0");
+  const original = JSON.stringify(chosen);
+  const scoped = scopeGrammarGravityMeaningChoices(chosen, rounds, () => 0);
+  assert.deepEqual(scoped.map(round => round.id), chosen.map(round => round.id));
+  for (const { flights: [flight] } of scoped) {
+    assert.equal(flight.meaningPool.length, 2);
+    assert.equal(flight.meaningOptions.length, 2);
+    assert.ok(flight.meaningOptions.includes(flight.anchorMeaning));
+    assert.ok(flight.meaningOptions.every(meaning => meaning.startsWith("Basic")));
+  }
+  assert.equal(JSON.stringify(chosen), original, "scoping must not mutate the full authored rounds");
+  assert.throws(() => scopeGrammarGravityMeaningChoices(chosen,
+    [...chosen, ...rounds.filter(round => round.complexity === 95)], () => 0), /distinct authored distractor/u,
+  "a bank without a second eligible meaning must not silently widen its demand");
 });
 
 test("difficulty changes replace the current modern round without skipped challenge kinds",async()=>{

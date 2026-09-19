@@ -671,6 +671,7 @@
     let errorTimer = 0;
     let transitionId = 0;
     let transitioning = false;
+    let waitingCampaign = false;
     let destroyed = false;
     let active = isActive();
     let cancelArtworkLoad = () => {};
@@ -829,6 +830,7 @@
     }
 
     function setActive(value) {
+      if (!destroyed && value && waitingCampaign && !inCampaign()) prepareRound();
       if (destroyed || active === Boolean(value)) return;
       active = Boolean(value);
       loadingScreen.setActive(active);
@@ -1035,7 +1037,14 @@
           xp: 1,
           rounds: 1
         });
-        prepareRound(state.pieceCount, { holdMillis: SOLVED_HOLD_MILLIS });
+        if (inCampaign()) {
+          waitingCampaign = true;
+          scheduleRoundTask(() => {
+            if (!inCampaign()) { prepareRound(); return; }
+            global.postMessage({ source: "caatuu-game", type: "round-success",
+              gameId: "naturalization-nucleus" }, global.location.origin);
+          }, SOLVED_HOLD_MILLIS);
+        } else prepareRound(state.pieceCount, { holdMillis: SOLVED_HOLD_MILLIS });
       }
     }
 
@@ -1125,6 +1134,7 @@
     }
 
     function prepareRound(pieceCount = state.pieceCount, { holdMillis = 0 } = {}) {
+      waitingCampaign = false;
       transitionId += 1;
       const activeTransition = transitionId;
       clearRoundTimers();
@@ -1353,10 +1363,18 @@
       });
     }
 
+    function inCampaign() {
+      return global.document.body.dataset.campaignActive === "true";
+    }
     prepareRound();
     const session = Object.freeze({
       catalog,
       setActive,
+      advanceCampaignRound() {
+        if (destroyed || !waitingCampaign || !solved()) return false;
+        prepareRound();
+        return true;
+      },
       destroy() {
         if (destroyed) return;
         destroyed = true;
@@ -1495,6 +1513,9 @@
 
   global.CaatuuNaturalizationNucleus = Object.freeze({
     mount,
+    advanceCampaignRound({ root = global.document } = {}) {
+      return mountedBoards.get(root.querySelector("#naturalizationNucleusBoard"))?.advanceCampaignRound() ?? false;
+    },
     validateCatalog,
     createRound,
     filterChallengesForDifficulty,

@@ -377,7 +377,7 @@ function withSharedRobotLoadingCss(source) {
   ],
   [
     ".word-net-display-options button.is-active",
-    ".word-net-display-options button.is-active {\n  border-color: var(--green-dark);\n  background: var(--green-dark);\n  color: #fff;\n  box-shadow: 0 2px 0 color-mix(in srgb, var(--green-dark) 72%, #000);\n}"
+    ".word-net-display-options button.is-active {\n  border-color: var(--theme-display-selected-bg);\n  background: var(--theme-display-selected-bg);\n  color: #fff;\n  box-shadow: 0 2px 0 color-mix(in srgb, var(--theme-display-selected-bg) 72%, #000);\n}"
   ],
   [
     ".word-net-display-options img",

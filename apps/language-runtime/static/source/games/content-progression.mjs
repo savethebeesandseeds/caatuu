@@ -101,6 +101,12 @@ export function selectContentItems(items, {
     || Math.floor((a.complexity - 1) / 10) - Math.floor((b.complexity - 1) / 10)
     || b.usefulness - a.usefulness || a.complexity - b.complexity || a.id.localeCompare(b.id, "en");
   const allowance = Math.max(0, dailyBudget - introducedToday);
+  // The daily target slows introductions without trapping continued play in the
+  // same small cohort. Keep further introductions inside the existing window
+  // and reserve them for the new-material slot, leaving room for practice.
+  const continuedIntroduction = allowance === 0
+    && introduced.length >= Math.min(minimumPool, rows.length);
+  const introductionLimit = continuedIntroduction ? 1 : allowance;
   const experienced = introduced.filter(row => row.readiness >= 0.5 || count(row.progress.practiceDays) >= 8);
   const anchor = experienced.length ? Math.max(...experienced.map(row => row.position)) : 0;
   const band = position => Math.floor((position - 1) / 10);
@@ -113,7 +119,7 @@ export function selectContentItems(items, {
     : null;
   const novel = challenge ? [challenge] : [];
   for (const row of unseen.filter(row => row.position <= frontier).sort(editorialOrder)) {
-    if (novel.length >= allowance) break;
+    if (novel.length >= introductionLimit) break;
     if (row !== challenge) novel.push(row);
   }
   // Supply the distinct answers a game needs, even in a tiny or sparse new bank.
@@ -134,6 +140,7 @@ export function selectContentItems(items, {
   while (selected.length < size) {
     const category = pattern[(rotation + selected.length) % pattern.length];
     const queues = category === "new" ? [novel, due, rested, practice]
+      : continuedIntroduction ? (category === "review" ? [due, rested, practice] : [rested, due, practice])
       : category === "review" ? [due, rested, novel, practice] : [rested, due, novel, practice];
     let next;
     for (const queue of queues) {

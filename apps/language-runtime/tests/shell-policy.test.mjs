@@ -11,6 +11,7 @@ import {
   availableDeveloperLinks,
   availableGames,
   availableGameIds,
+  campaignGameIds,
   availableSettingsSectionIds,
   derivePrimaryNavigation,
   deriveShellPolicy,
@@ -117,13 +118,9 @@ test("one declarative planet contract governs IDs, requirements, and Campaign el
     NON_CAMPAIGN_GAME_IDS,
     Object.keys(PLANET_GAME_CONTRACT.planets)
   );
-  assert.deepEqual(CAMPAIGN_GAME_IDS, [
-    "verb-lab",
-    "word-net",
-    "conjugation-comet",
-    "case-cosmos",
-    "grammar-gravity"
-  ]);
+  assert.deepEqual(CAMPAIGN_GAME_IDS, NON_CAMPAIGN_GAME_IDS.filter(
+    (id) => PLANET_GAME_CONTRACT.planets[id].implementationState !== "unimplemented"
+  ));
   assert.equal(PLANET_GAME_CONTRACT.campaign.minimumEligibleGames, 1);
   assert.deepEqual(
     PLANET_GAME_CONTRACT.planets["naturalization-nucleus"].linguisticFeatures,
@@ -135,7 +132,9 @@ test("one declarative planet contract governs IDs, requirements, and Campaign el
   );
   assert.deepEqual(PLANET_GAME_CONTRACT.planets["sound-quasar"].capabilities, ["speech"]);
   assert.equal(PLANET_GAME_CONTRACT.planets["sound-quasar"].implementationState, "implemented");
-  assert.equal(PLANET_GAME_CONTRACT.planets["sound-quasar"].campaignEligible, false);
+  for (const game of Object.values(PLANET_GAME_CONTRACT.planets)) {
+    assert.equal(Object.hasOwn(game, "campaignEligible"), false, "playability also determines Campaign participation");
+  }
   assert.equal(
     PLANET_GAME_CONTRACT.planets["conjugation-comet"].sharedHost,
     "/language-runtime/static/games/conjugation-comet.html"
@@ -233,11 +232,12 @@ test("Spanish projects its authored grammar games through the same shared shell 
   assert.equal(gameState(spanish, "sound-quasar"), "playable");
 });
 
-test("Sounds Quasar is shared speech practice outside Campaign", () => {
+test("Sounds Quasar joins Campaign wherever speech practice is playable", () => {
   for (const course of [czech, mandarin, spanish]) {
     assert.equal(course.upcomingGames.includes("sound-quasar"), false, course.id);
     assert.equal(gameState(course, "sound-quasar"), "playable", course.id);
     assert.equal(isGameAvailable("sound-quasar", course), true, course.id);
+    assert.ok(campaignGameIds(course).includes("sound-quasar"));
     assert.equal(course.routes.soundQuasar, "/language-runtime/static/games/sound-quasar.html");
     assert.equal(typeof course.resources.soundQuasarCatalog.revision, "string");
     assert.ok(course.resources.soundQuasarCatalog.revision.length > 0);
@@ -248,7 +248,7 @@ test("Sounds Quasar is shared speech practice outside Campaign", () => {
     delete noRoute.routes.soundQuasar;
     assert.equal(isGameAvailable("sound-quasar", noRoute), false);
   }
-  assert.equal(CAMPAIGN_GAME_IDS.includes("sound-quasar"), false);
+  assert.equal(CAMPAIGN_GAME_IDS.includes("sound-quasar"), true);
 });
 
 test("Games remains visible when Word World is the only playable game and verbs are disabled", () => {
@@ -301,7 +301,7 @@ test("game lookup is fail-closed for unknown IDs, undeclared games, and missing 
   }), false);
 });
 
-test("Campaign is synthesized only from explicitly eligible playable planets", () => {
+test("Campaign includes every playable planet and excludes unimplemented games", () => {
   const naturalizationOnly = {
     capabilities: {},
     linguisticFeatures: ["hanzi-pinyin"],
@@ -309,7 +309,8 @@ test("Campaign is synthesized only from explicitly eligible playable planets", (
     routes: { naturalizationNucleus: "index.html?game=naturalization-nucleus" }
   };
   assert.equal(isGameAvailable("naturalization-nucleus", naturalizationOnly), true);
-  assert.equal(isGameAvailable("campaign", naturalizationOnly), false);
+  assert.equal(isGameAvailable("campaign", naturalizationOnly), true);
+  assert.deepEqual(campaignGameIds(naturalizationOnly), ["naturalization-nucleus"]);
 
   const memoryOnly = {
     capabilities: { memory: true },
@@ -317,7 +318,7 @@ test("Campaign is synthesized only from explicitly eligible playable planets", (
     games: ["memory-moon"],
     routes: { memoryMoon: "index.html?game=memory-moon" }
   };
-  assert.equal(isGameAvailable("memory-moon", memoryOnly), true);
+  assert.equal(isGameAvailable("memory-moon", memoryOnly), false);
   assert.equal(isGameAvailable("campaign", memoryOnly), false);
 });
 
@@ -334,8 +335,7 @@ test("course game routes are explicit while capability-only fixtures stay usable
   assert.equal(gameState({ ...course, upcomingGames: ["sound-quasar"] }, "sound-quasar"), "upcoming");
   assert.deepEqual(availableGameIds({ wordWorld: true, memory: true }), [
     "campaign",
-    "word-net",
-    "memory-moon"
+    "word-net"
   ]);
 });
 

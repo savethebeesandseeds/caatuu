@@ -33,6 +33,7 @@ import { validateSoundQuasarCatalog } from "../../../apps/language-runtime/stati
 import { validateVerbNebulaCatalog } from "../../../apps/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs";
 import { resolveWordWorldGenerationStrategy } from "../../../apps/language-runtime/static/source/word-world-provider.mjs";
 import {
+  campaignGameIds,
   GAME_IDS,
   LEARNER_BASE_PRESENTATION_CONTRACT,
   NON_CAMPAIGN_GAME_IDS,
@@ -1140,9 +1141,7 @@ function validateCapabilityResources(course, issues) {
   }
   const campaign = PLANET_GAME_CONTRACT.campaign;
   if (declaredGames.has(campaign.id)) {
-    const eligibleGames = [...declaredGames].filter(
-      (gameId) => GAME_REQUIREMENTS[gameId]?.campaignEligible === true
-    );
+    const eligibleGames = campaignGameIds(course);
     if (eligibleGames.length < campaign.minimumEligibleGames) {
       const gameLabel = campaign.minimumEligibleGames === 1 ? "game" : "games";
       issues.push({

@@ -53,18 +53,50 @@ test('small new introductions continue alongside supported practice without a co
   assert.ok(selected.length <= 6);
 });
 
-test('daily introduction budget limits a rapid run and backlog slows fresh introductions', () => {
+test('continued same-day practice paces fresh material without locking the bank', () => {
   const items = Array.from({ length: 40 }, (_, i) => item(`easy-${i}`));
   const history = {};
+  const introductionSteps = [];
   for (let step = 0; step < 100; step++) {
     const [row] = choose(items, { history, limit: 1, now: NOW + step * 1000 });
+    if (!history[row.id]) introductionSteps.push(step);
     history[row.id] = { exposures: (history[row.id]?.exposures || 0) + 1,
       firstSeenAt: history[row.id]?.firstSeenAt ?? NOW, lastSeenAt: NOW + step * 1000 };
   }
-  assert.equal(Object.keys(history).length, 6);
-  for (const row of items.slice(0, 20)) history[row.id] = { exposures: 1, firstSeenAt: NOW - DAY, lastSeenAt: NOW - DAY };
+  assert.ok(introductionSteps.length > 6, 'continuing learners can encounter more than the initial daily target');
+  assert.ok(introductionSteps.length <= 6 + Math.ceil(100 / 5), 'continued introductions leave room for practice');
+  const continuedSteps = introductionSteps.slice(6);
+  for (let i = 1; i < continuedSteps.length; i++) {
+    assert.ok(continuedSteps[i] - continuedSteps[i - 1] >= 5, 'at least four practice turns separate continued introductions');
+  }
+  assert.ok(Object.values(history).every(progress => contentPracticeReadiness(progress) === 0));
+});
+
+test('a large practice backlog slows the initial daily introductions', () => {
+  const items = Array.from({ length: 40 }, (_, i) => item(`easy-${i}`));
+  const history = Object.fromEntries(items.slice(0, 20).map(row => [row.id, {
+    exposures: 1, firstSeenAt: NOW - DAY, lastSeenAt: NOW - DAY
+  }]));
   const novel = choose(items, { history }).filter(row => !history[row.id]);
   assert.ok(novel.length >= 1 && novel.length <= 2);
+});
+
+test('continued board introductions stay within the existing challenge range and leave room for due review', () => {
+  const items = [...Array.from({ length: 20 }, (_, i) => item(`easy-${i}`)),
+    item('harder', 40), item('higher-badge', 1, 100, 2)];
+  const history = Object.fromEntries(items.slice(0, 8).map(row => [row.id, {
+    exposures: 1, firstSeenAt: NOW, lastSeenAt: NOW - 1000, dueAt: NOW - 1
+  }]));
+  const options = { history, minimumPool: 8, difficulty: 1 };
+  const before = structuredClone(history);
+  const selected = choose(items, options);
+  assert.equal(selected.length, 8);
+  assert.equal(new Set(selected.map(row => row.id)).size, 8);
+  assert.equal(selected.filter(row => !history[row.id]).length, 1);
+  assert.ok(selected.every(row => row.complexity === 10 && row.difficulty === 1));
+  assert.ok(history[selected[0].id], 'due review keeps its priority');
+  assert.deepEqual(choose(items, options), selected, 'rebuilding a board does not advance introductions');
+  assert.deepEqual(history, before);
 });
 
 test('an error or early practice does not monopolize selection or erase due review', () => {
@@ -142,13 +174,17 @@ test('supported practice across separate days permits slow exploration without r
   assert.ok(choose(sparse, { minimumPool: 1, history: { first: history[items[0].id] } }).some(row => row.id === 'next'));
 });
 
-test('filtering a bank does not reset its daily introduction budget', () => {
+test('filtering a bank retains the daily pacing target and supplies enough distinct answers', () => {
   const items = Array.from({ length: 15 }, (_, i) => item(`filtered-${i}`));
   const history = Object.fromEntries(items.slice(0, 8).map(row => [row.id, {
     exposures: 1, firstSeenAt: NOW, lastSeenAt: NOW - 1000
   }]));
   const selected = choose(items.slice(4), { history, minimumPool: 4 });
-  assert.ok(selected.every(row => history[row.id]));
+  assert.equal(selected.filter(row => !history[row.id]).length, 1, 'filtering does not grant another full daily allowance');
+  assert.ok(selected.filter(row => history[row.id]).length >= 3);
+  const mostlyUnseen = choose(items.slice(7), { history, minimumPool: 4 });
+  assert.ok(mostlyUnseen.length >= 4, 'playability fallback still supplies a full answer pool');
+  assert.equal(new Set(mostlyUnseen.map(row => row.id)).size, mostlyUnseen.length);
 });
 test('large easy banks cannot become implicit prerequisites for the next challenge band', () => {
   for (const easyCount of [12, 300]) {

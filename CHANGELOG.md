@@ -5,6 +5,21 @@ governed beta or stable release.
 
 ## Unreleased
 
+### Android 0.1.23 (175): complete Campaign rotation and clearer game controls
+
+- Cycle Campaign through every playable game for the selected course, including
+  Sounds Quasar and Naturalization Nucleus. Preserve unvisited games when
+  reopening Campaign and recover cancelled transitions without skipping a game.
+- Leave correct Word World results visible longer, pronounce target-language
+  word cards when rebuilding from a learner-base sentence, and center dictionary
+  headings. Enlarge Sounds Quasar text and unify green display-setting selections.
+- Continue introducing practice after the daily target instead of repeating a
+  small pool indefinitely. Expand and regrade beginner Grammar Gravity content
+  across four courses, and keep meaning choices within the current practice demand.
+- Refresh browser offline assets. Native-language reviews remain pending;
+  physical-device installation, update, offline use and saved-progress checks
+  remain unverified for this candidate.
+
 ### Android 0.1.22 (174): gradual practice and spaced review
 
 - Keep the three course badges and add finer usefulness and complexity scores

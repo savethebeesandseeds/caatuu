@@ -25,6 +25,56 @@ const campaignCompletionSource = sourceBetween(
   "async function startCampaign()"
 );
 
+function wordWorldCampaign() {
+  const state = { campaignActive: true, campaignTransitioning: false,
+    campaignTransitionId: 0, trainTab: "word-net", campaignQueue: [] };
+  const calls = [];
+  const waits = [];
+  const window = { location: { origin: "https://local.test" },
+    CaatuuWordWorldHost: { next: () => calls.push("next-sentence") } };
+  const context = vm.createContext({
+    state, window, Promise, campaignTransitionMillis: 1600,
+    nextCampaignTab: () => "verb-lab",
+    showCampaignTransition: () => calls.push("show-transition"),
+    hideCampaignTransition: () => calls.push("hide-transition"),
+    ensureCampaignGameLoaded: () => calls.push("load-next-game"),
+    waitForCampaignGameReady: async () => {},
+    setTrainTab: (id) => { state.trainTab = id; },
+    waitForVerbTransition: (delay) => new Promise((resolve) => waits.push({ delay, resolve }))
+  });
+  vm.runInContext(workspace.match(/^const wordWorldResultHoldMillis = .+;$/mu)[0]
+    + "\n" + campaignCompletionSource, context);
+  return { state, calls, waits, complete: () => context.completeCampaignRound("word-net", window) };
+}
+
+test("Campaign leaves the Word World result visible for reading before loading the next round", async () => {
+  const game = wordWorldCampaign();
+  const completed = game.complete();
+  assert.equal(game.waits.length, 1);
+  assert.ok(game.waits[0].delay >= 4000, "the result needs at least four seconds of reading time");
+  assert.deepEqual(game.calls, [], "neither the loader nor the next sentence may cover the result");
+  await game.complete();
+  assert.equal(game.waits.length, 1, "duplicate success events cannot start another transition");
+  game.waits[0].resolve();
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.deepEqual(game.calls, ["show-transition", "next-sentence", "load-next-game"]);
+  game.waits[1].resolve();
+  await completed;
+  assert.equal(game.state.trainTab, "verb-lab");
+  assert.equal(game.state.campaignTransitioning, false);
+});
+
+test("leaving Campaign while reading a Word World result cancels its delayed transition", async () => {
+  const game = wordWorldCampaign();
+  const completed = game.complete();
+  game.state.campaignActive = false;
+  game.state.campaignTransitionId += 1;
+  game.waits[0].resolve();
+  await completed;
+  assert.deepEqual(game.calls, []);
+  assert.equal(game.state.trainTab, "word-net");
+});
+
 for (const gameId of ["sound-quasar", "conjugation-comet"]) test(`${gameId} batch completion uses the campaign transition only for the verified game frame`, () => {
   const calls = [];
   const messages = [];
@@ -77,10 +127,11 @@ test("a one-game Campaign consumes each completed Verb round before the next cyc
   let clearedSolutionAdvances = 0;
   let resetSelections = 0;
 
-  const browserWindow = { location: { origin: "https://local.test" } };
+  const browserWindow = { location: { origin: "https://local.test" },
+    CaatuuShellPolicy: { campaignGameIds: () => ["verb-lab"] } };
   browserWindow.window = browserWindow;
   const context = vm.createContext({
-    campaignPlayableTabs: ["verb-lab"],
+    course: {},
     campaignTransitionMillis: 0,
     clearVerbSolutionAdvance() {
       clearedSolutionAdvances += 1;

@@ -8,6 +8,7 @@ import { createInterfaceContent } from "../static/source/interface-content.mjs";
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 
 const workspace = await readFile(new URL("../static/source/caatuu-workspace.js", import.meta.url), "utf8");
+const learningProfile = await readFile(new URL("../static/source/learning-profile.js", import.meta.url), "utf8");
 const json = async (relative) => JSON.parse(await readFile(new URL(relative, import.meta.url), "utf8"));
 const course = await json("../../languages/english-from-spanish/course.json");
 const rows = await json("../../languages/english-from-spanish/static/data/games/verb-nebula/content.json");
@@ -55,6 +56,76 @@ function harness() {
     between("function speakVerbCzechOnTap(verbId)", "function renderVerbMatchStats")
   ].join("\n"), browser.context);
   return { ...browser, state, attempts, searches, feedback, speech };
+}
+
+for (const assisted of [false, true]) {
+  test(`completed eight-pair Nebula boards keep introducing suitable verbs (${assisted ? "assisted" : "independent"})`, async () => {
+    const game = harness();
+    const clock = { now: Date.UTC(2026, 8, 19, 12) };
+    const synthetic = verbNebulaCore.validateVerbNebulaCatalog([
+      ...Array.from({ length: 32 }, (_, index) => ({
+        id: `fixture.verb.${index}`, kind: "verb", target: `target ${index}`,
+        source: `meaning ${index}`, englishAuditText: `action ${index}`,
+        difficulty: 1, usefulness: 80, complexity: 12
+      })),
+      { id: "fixture.frontier", kind: "verb", target: "complex target", source: "complex meaning",
+        englishAuditText: "complex action", difficulty: 1, usefulness: 100, complexity: 80 },
+      { id: "fixture.badge", kind: "verb", target: "later target", source: "later meaning",
+        englishAuditText: "later action", difficulty: 2, usefulness: 100, complexity: 1 }
+    ], { learnerBaseLanguage: course.sourceLanguage.locale });
+    game.context.Date = class extends Date {
+      constructor(...args) { super(...(args.length ? args : [clock.now])); }
+      static now() { return clock.now; }
+    };
+    game.window.navigator.locks = { request: async (_name, action) => action() };
+    vm.runInContext(learningProfile, game.context);
+    const learning = game.window.CaatuuLearning;
+    let completedBoards = 0;
+    Object.assign(game.state, {
+      verbPairs: synthetic, verbDifficulty: 1, verbPairCount: 8,
+      verbHintsEnabled: assisted, verbQueueIds: [], verbRoundNumber: 0
+    });
+    Object.assign(game.context, {
+      verbNebulaCore: { ...verbNebulaCore,
+        selectContentItems: (items, options) => verbNebulaCore.selectContentItems(items, {
+          ...options, now: clock.now, random: () => 0
+        }) },
+      clearVerbSolutionAdvance() {},
+      transitionToNextVerbRound() { completedBoards += 1; }
+    });
+    vm.runInContext(between("function planVerbRound()", "async function startVerbRound"), game.context);
+    const visited = new Set(), encounters = new Set();
+    for (let board = 0; board < 12; board += 1) {
+      clock.now += 60_000;
+      const plan = game.context.planVerbRound();
+      const ids = plan.round.map(pair => pair.id);
+      assert.equal(ids.length, game.state.verbPairCount);
+      assert.equal(new Set(ids).size, ids.length, "a board needs distinct pairs");
+      assert.ok(plan.round.every(pair => pair.difficulty === 1 && pair.complexity === 12),
+        "same-day practice must not cross the badge ceiling or widen the complexity frontier");
+      game.context.applyVerbRound(plan);
+      assert.ok(!encounters.has(game.state.verbContentEncounterId), "a fresh board has a fresh encounter");
+      encounters.add(game.state.verbContentEncounterId);
+      for (const pair of plan.round) {
+        if (assisted) game.state.verbHintById.set(pair.id, { status: "ready", assetPath: "/fixture.png" });
+        game.state.verbSelectedCzechId = pair.id;
+        game.state.verbSelectedEnglishId = pair.id;
+        await game.context.settleVerbMatch();
+        visited.add(pair.id);
+      }
+      assert.ok(verbNebulaCore.isVerbRoundComplete(game.state.verbRound, game.state.verbMatchedIds));
+      await learning.retryPendingSaves();
+    }
+    assert.equal(completedBoards, 12);
+    const history = Object.values(learning.contentHistory("verb-nebula"));
+    assert.equal(history.reduce((total, item) => total + item.exposures, 0), completedBoards * 8);
+    assert.ok(history.every(item => item.spacedSuccesses === 0 && item.practiceDays === 1),
+      "new material and immediate rehearsal must not earn delayed-learning credit");
+    assert.equal(history.reduce((total, item) => total + item.independentSuccesses, 0), assisted ? 0 : completedBoards * 8);
+    assert.equal(history.reduce((total, item) => total + item.assistedSuccesses, 0), assisted ? completedBoards * 8 : 0);
+    assert.ok(visited.size > game.state.verbPairCount,
+      "continuing completed boards should introduce fresh eligible IDs beyond the initial board");
+  });
 }
 
 for (const savedGeneration of ["before-reset", undefined]) {

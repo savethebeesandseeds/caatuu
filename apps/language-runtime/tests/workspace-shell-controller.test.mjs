@@ -235,7 +235,8 @@ function wordWorldOnlyBrowser(options = {}) {
     },
     CaatuuI18n: options.interfaceContent === false ? undefined : interfaceContent,
     CaatuuShellPolicy: {
-      get CAMPAIGN_GAME_IDS() {
+      campaignGameIds(candidate) {
+        assert.equal(candidate, course);
         shellPolicyReads.campaignGameIds += 1;
         return ["word-net"];
       },
@@ -474,7 +475,7 @@ test("a Word-World-only course initializes and navigates without unrelated cours
   assert.deepEqual(browser.fetches, [corpusFetch]);
   assert.deepEqual(browser.errors, []);
   assert.deepEqual(JSON.parse(JSON.stringify(workspaceReady)), { ready: true });
-  assert.equal(browser.shellPolicyReads.campaignGameIds, 1);
+  assert.equal(browser.shellPolicyReads.campaignGameIds, 0, "availability is resolved when Campaign is selected");
   assert.equal(Object.isFrozen(browser.window.CaatuuWorkspaceShell), true);
   assert.equal(typeof browser.window.CaatuuWorkspaceShell.setView, "function");
   assert.equal(typeof browser.window.CaatuuWorkspaceShell.setTrainTab, "function");

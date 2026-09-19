@@ -1604,7 +1604,7 @@ test("browser courses declare only known, unique linguistic features and games",
       code: "game.campaign",
       message: /campaign requires at least 1 campaign-eligible enabled game/,
       mutate(candidate) {
-        candidate.courses[1].course.games = ["campaign", "naturalization-nucleus"];
+        candidate.courses[1].course.games = ["campaign"];
         candidate.courses[1].course.routes.campaign = "index.html";
       }
     }

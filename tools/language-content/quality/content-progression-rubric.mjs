@@ -229,6 +229,33 @@ function sentenceComplexity(text, item, courseId, reasons) {
   return score;
 }
 
+function agreementContextDemand(text, reasons) {
+  // Editorial cues from the shared English audit, not a grammar parser or a
+  // learner assessment. Agreement examples also require reading the context
+  // around the slot; a simple answer form does not make that context a fragment.
+  const audit = normalize(text);
+  const subject = String.raw`\b(?:i|you|he|she|it|we|they|(?:the|a|an|this|that|these|those|my|your|our|their|his|her)\s+(?:[\p{Letter}'-]+\s+){0,3}[\p{Letter}'-]+)\s+`;
+  const irregularPast = new RegExp(subject + String.raw`(?:was|were|had|did|found|saw|went|came|took|gave|made|said|bought|brought|ate|drank|slept|wrote|knew|ran|stood|sat|felt|left|met|kept|held|heard|told|built|chose|fell|grew|lost)\b`, 'u').test(audit);
+  // A pronoun subject distinguishes regular past-tense verbs from attributive
+  // participles such as "a painted wooden box". Ambiguous noun-led cases remain
+  // for editorial review instead of treating every -ed word as a finite verb.
+  const regularPast = /\b(?:i|you|he|she|it|we|they)\s+(?:(?:just|already|recently|never)\s+)?\p{Letter}{2,}ed\b/u.test(audit);
+  const present = new RegExp(subject + String.raw`(?:am|is|are|has|have|do|does|can|will|must|should|(?:see|find|want|need|like|love|look|hear|eat|drink|play|paint|walk|live|work|help|buy|carry|hold|wear|open|close|come|go|sit|stand|read|write)(?:s|es)?)\b`, 'u').test(audit);
+  if (!present && !irregularPast && !regularPast) return 0;
+  let demand = 6;
+  reasons.push('finite clause around the agreement slot');
+  if (irregularPast || regularPast) {
+    demand += 9;
+    reasons.push('past-tense context beyond the agreement form');
+  }
+  const settings = [...audit.matchAll(/\b(?:in|on|at|near|under|over|behind|beside|between|through|across|outside|inside|from|to)\s+(?:the|a|an|this|that|these|those|my|your|our|their|his|her)\b/gu)].length;
+  if (settings) {
+    demand += Math.min(12, settings * 6);
+    reasons.push('additional setting or movement relationship');
+  }
+  return demand;
+}
+
 export function proposeProgression({ item, kind, parent, detail = '', courseId = '' }) {
   const english = englishAuditText(item) || englishAuditText(parent || {});
   const category = normalize(item.category || item.cat || item.topic || parent?.category || '');
@@ -284,6 +311,7 @@ export function proposeProgression({ item, kind, parent, detail = '', courseId =
     usefulness = Math.min(agreementUsefulness(parent), usefulness);
     const [base, reason] = agreementFeatures(parent);
     complexity = Math.max(complexity, base - 7);
+    complexity += agreementContextDemand(english, reasons);
     if (/plural/u.test(detail)) complexity += 4;
     if (/neuter/u.test(detail)) complexity += 2;
     reasons.push(reason, 'contextual agreement');

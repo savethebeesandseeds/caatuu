@@ -114,6 +114,64 @@ function createLoadingHarness({ fetchImpl = async () => ({ ok: true, json: async
     syncPanelVisibility() { observers.filter((observer) => !observer.disconnected).forEach((observer) => observer.callback()); } };
 }
 
+function solveBoard(fixture) {
+  const tiles = () => fixture.element("Deck").querySelectorAll("button[data-naturalization-piece-id]");
+  const count = tiles().length;
+  assert.ok(count > 0);
+  for (let index = 0; index < count; index += 1) {
+    const tile = tiles()[0], id = tile.dataset.naturalizationPieceId.split("--")[0];
+    tile.click();
+    fixture.element("Ring").querySelector(`[data-naturalization-challenge-id="${id}"]`).click();
+  }
+  assert.equal(tiles().length, 0);
+}
+
+test("Campaign Nucleus reports one completion and waits for the shell to prepare its next board", async () => {
+  const fixture = createLoadingHarness();
+  const messages = [];
+  fixture.document.body.dataset.campaignActive = "true";
+  fixture.window.postMessage = (message, origin) => messages.push({ message, origin });
+  await fixture.api.mount();
+  await fixture.advance(1600);
+  assert.equal(fixture.api.advanceCampaignRound(), false, "an unfinished board cannot advance");
+  solveBoard(fixture);
+  assert.equal(messages.length, 0, "the solved board remains visible before the completion signal");
+  await fixture.advance(10000);
+  assert.equal(messages.length, 1);
+  assert.equal(messages[0].message.gameId, "naturalization-nucleus");
+  assert.equal(messages[0].message.type, "round-success");
+  assert.equal(messages[0].message.source, "caatuu-game");
+  assert.equal(messages[0].origin, fixture.window.location.origin);
+  assert.equal(fixture.element("Deck").querySelectorAll("button[data-naturalization-piece-id]").length, 0);
+  assert.equal(fixture.api.advanceCampaignRound(), true);
+  assert.equal(fixture.api.advanceCampaignRound(), false, "duplicate advances do not replace a fresh round");
+  await fixture.advance(1600);
+  solveBoard(fixture);
+  await fixture.advance(10000);
+  assert.equal(messages.length, 2, "the next visit also completes");
+  fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+});
+
+test("leaving Campaign resumes standalone Nucleus instead of stranding a completed board", async () => {
+  for (const leaveAfterSignal of [false, true]) {
+    const fixture = createLoadingHarness();
+    fixture.document.body.dataset.campaignActive = "true";
+    fixture.window.postMessage = () => {};
+    await fixture.api.mount();
+    await fixture.advance(1600);
+    solveBoard(fixture);
+    if (leaveAfterSignal) await fixture.advance(10000);
+    fixture.panel.hidden = true;
+    fixture.syncPanelVisibility();
+    delete fixture.document.body.dataset.campaignActive;
+    fixture.panel.hidden = false;
+    fixture.syncPanelVisibility();
+    await fixture.advance(1600);
+    assert.ok(fixture.element("Deck").querySelectorAll("button[data-naturalization-piece-id]").length > 0);
+    fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+  }
+});
+
 test("Nucleus records each practiced character only after the board is completed", async () => {
   const fixture = createLoadingHarness();
   const exposures=[];
@@ -623,7 +681,7 @@ test("the course-owned controller exposes its engine boundary and stays CSP-safe
   assert.equal(typeof game.describeChain, "function");
   assert.doesNotMatch(controller, /innerHTML/u);
   assert.doesNotMatch(controller, /\.style\b/u);
-  assert.doesNotMatch(controller, /round-success|postMessage/u);
+  assert.equal(typeof game.advanceCampaignRound, "function");
 });
 
 test("the static audio menu mounts the shared voice and music controls", () => {

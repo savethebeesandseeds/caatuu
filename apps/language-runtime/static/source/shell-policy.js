@@ -66,7 +66,6 @@
           "static/data/games/verb-nebula/content.json",
           "verb-nebula-items-v1"
         )]),
-        campaignEligible: true,
         learnerBasePresentationContract: "authored-game-three-role-v1"
       }),
       "word-net": Object.freeze({
@@ -79,7 +78,6 @@
           "static/data/games/word-world/manifest.json",
           "word-world-manifest-v1"
         )]),
-        campaignEligible: true,
         learnerBasePresentationContract: "word-world-concept-id-projection-v1"
       }),
       "conjugation-comet": Object.freeze({
@@ -93,7 +91,6 @@
           "static/data/games/conjugation-comet/content.json",
           "conjugation-comet-items-v1"
         )]),
-        campaignEligible: true,
         learnerBasePresentationContract: "authored-game-three-role-v1"
       }),
       "case-cosmos": Object.freeze({
@@ -105,8 +102,7 @@
           "caseCosmosCatalog",
           "static/data/games/case-cosmos/content.json",
           "case-cosmos-items-v1"
-        )]),
-        campaignEligible: true
+        )])
       }),
       "grammar-gravity": Object.freeze({
         id: "grammar-gravity",
@@ -126,7 +122,6 @@
             "grammar-gravity-nouns-v1"
           )
         ]),
-        campaignEligible: true,
         learnerBasePresentationContract: "authored-game-three-role-v1"
       }),
       "naturalization-nucleus": Object.freeze({
@@ -138,16 +133,15 @@
           "naturalizationNucleusCatalog",
           "static/data/games/naturalization-nucleus/content.json",
           "naturalization-nucleus-items-v1"
-        )]),
-        campaignEligible: false
+        )])
       }),
       "memory-moon": Object.freeze({
         id: "memory-moon",
+        implementationState: "unimplemented",
         route: "memoryMoon",
         capabilities: Object.freeze(["memory"]),
         linguisticFeatures: Object.freeze([]),
-        resources: Object.freeze([]),
-        campaignEligible: false
+        resources: Object.freeze([])
       }),
       "sound-quasar": Object.freeze({
         id: "sound-quasar",
@@ -161,8 +155,7 @@
           "static/data/games/sound-quasar/content.json",
           "sound-quasar-items-v2"
         )]),
-        learnerBasePresentationContract: "authored-game-three-role-v1",
-        campaignEligible: false
+        learnerBasePresentationContract: "authored-game-three-role-v1"
       })
     })
   });
@@ -170,7 +163,7 @@
   const NON_CAMPAIGN_GAME_REGISTRY = PLANET_GAME_CONTRACT.planets;
   const NON_CAMPAIGN_GAME_IDS = Object.freeze(Object.keys(NON_CAMPAIGN_GAME_REGISTRY));
   const CAMPAIGN_GAME_IDS = Object.freeze(NON_CAMPAIGN_GAME_IDS.filter(
-    (gameId) => NON_CAMPAIGN_GAME_REGISTRY[gameId].campaignEligible
+    (gameId) => NON_CAMPAIGN_GAME_REGISTRY[gameId].implementationState !== "unimplemented"
   ));
   const GAME_IDS = Object.freeze([PLANET_GAME_CONTRACT.campaign.id, ...NON_CAMPAIGN_GAME_IDS]);
 
@@ -283,6 +276,12 @@
 
   function availableGames(course) {
     return availableGameIds(course);
+  }
+
+  // Campaign contains exactly the playable menu games. There is deliberately
+  // no separate eligibility flag or course-specific Campaign allowlist.
+  function campaignGameIds(course) {
+    return Object.freeze(availableGameIds(course).filter((gameId) => gameId !== "campaign"));
   }
 
   function gameState(courseOrCapabilities, gameId) {
@@ -432,6 +431,7 @@
     isGameAvailable,
     availableGameIds,
     availableGames,
+    campaignGameIds,
     gameState,
     presentedGameIds,
     hasAvailableGames,

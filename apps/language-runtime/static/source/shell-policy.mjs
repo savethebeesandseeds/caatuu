@@ -20,6 +20,7 @@ export const {
   isGameAvailable,
   availableGameIds,
   availableGames,
+  campaignGameIds,
   gameState,
   presentedGameIds,
   hasAvailableGames,

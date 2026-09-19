@@ -473,3 +473,39 @@ export function buildGrammarGravityRounds(pack, difficulty, random = Math.random
   }
   return deepFreeze(ordered);
 }
+
+/** Keep meaning distractors inside the selected practice demand, without changing answer order. */
+export function scopeGrammarGravityMeaningChoices(rounds, candidates = rounds, random = Math.random) {
+  const meanings = new Map();
+  const addMeanings = round => {
+    for (const flight of round.flights) {
+      if (!flight.stages.includes("meaning")) continue;
+      const key = normalizedText(flight.anchorMeaning);
+      if (!meanings.has(key)) meanings.set(key, flight.anchorMeaning);
+    }
+  };
+  rounds.forEach(addMeanings);
+  if (!meanings.size) return rounds;
+  if (meanings.size < 2) {
+    const demand = round => (round.difficulty - 1) * 100 + round.complexity;
+    const ceiling = Math.max(...rounds.map(demand));
+    // A queue can contain several examples of one noun. Fill only the missing
+    // contrast, from material no harder than the selected cohort; do not widen
+    // introductions or borrow an advanced noun merely to display six buttons.
+    const fallback = candidates.filter(round => demand(round) <= ceiling)
+      .sort((left, right) => demand(left) - demand(right) || right.usefulness - left.usefulness
+        || left.id.localeCompare(right.id, "en"));
+    for (const round of fallback) {
+      addMeanings(round);
+      if (meanings.size >= 2) break;
+    }
+  }
+  const meaningPool = [...meanings.values()];
+  return deepFreeze(rounds.map(round => ({ ...round, flights: round.flights.map(flight => {
+    if (!flight.stages.includes("meaning")) return flight;
+    const pool = meaningPool.map(meaning => normalizedText(meaning) === normalizedText(flight.anchorMeaning)
+      ? flight.anchorMeaning : meaning);
+    return validateGrammarFlight({ ...flight, meaningPool: pool,
+      meaningOptions: buildMeaningChoices(flight.anchorMeaning, pool, 3, random) });
+  }) })));
+}

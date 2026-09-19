@@ -515,7 +515,7 @@ async function loadCourseFeatureProviders() {
   if (naturalizationNucleus) {
     await Promise.all([
       loadStyle("source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-18"),
-      loadScript("source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-18-files-2")
+      loadScript("source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-18-files-3")
     ]);
   }
   const courseRuntime = declaredBrowserProvider("courseRuntime");
@@ -533,7 +533,7 @@ async function loadCourseFeatureProviders() {
     origin: location.origin,
     routeBase,
     async initializeWorkspace() {
-      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-32");
+      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-34");
       const workspace = await globalThis.CaatuuWorkspaceReady;
       if (workspace?.ready !== true) {
         throw workspace?.error instanceof Error
@@ -571,7 +571,7 @@ async function start() {
   await initializeHomeCourseSetup(globalThis);
   configureGameRoutes();
   applyCapabilityBoundaries();
-  await import("./word-world-host.mjs?v=word-world-host-23");
+  await import("./word-world-host.mjs?v=word-world-host-24");
   await loadCourseFeatureProviders();
   document.documentElement.dataset.caatuuShellReady = "true";
   document.body.classList.remove("app-starting");

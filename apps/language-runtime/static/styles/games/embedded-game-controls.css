@@ -85,6 +85,52 @@
   background: var(--theme-soft-green, #e8f5ee);
   color: var(--theme-green-strong, #1c4a40);
 }
+/* Theme and text size share Word World's display-menu presentation. */
+.caatuu-game-controls-popover:has(.caatuu-game-size-options) {
+  padding: 10px;
+  gap: 8px;
+  border-radius: 12px;
+  background: var(--theme-panel, #faf7f0);
+  font-size: 1rem;
+}
+.caatuu-game-controls-popover:has(.caatuu-game-size-options) .caatuu-game-controls-setting {
+  gap: 7px;
+}
+.caatuu-game-controls-popover:has(.caatuu-game-size-options) .caatuu-game-controls-setting + .caatuu-game-controls-setting {
+  padding-top: 8px;
+  border-top: 1px solid color-mix(in srgb, var(--theme-line, #cfd8d1) 72%, transparent);
+}
+.caatuu-game-controls-popover:has(.caatuu-game-size-options) legend {
+  padding-bottom: 6px;
+  color: var(--theme-quiet, #74817b);
+  font-size: .56rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+.caatuu-game-controls-popover:has(.caatuu-game-size-options) .caatuu-game-control-option {
+  min-width: 0;
+  padding: 7px;
+  border-color: var(--theme-line-strong, #a6b4aa);
+  border-radius: 9px;
+  background: var(--theme-input, #fffdf8);
+  color: var(--theme-ink, #25312c);
+}
+.caatuu-game-controls-popover:has(.caatuu-game-size-options) .caatuu-game-control-option > img {
+  width: 17px;
+  height: 17px;
+}
+.caatuu-game-controls-popover:has(.caatuu-game-size-options) .caatuu-game-control-option:is(:hover, :focus-visible) {
+  border-color: var(--theme-green, #22594d);
+  background: var(--theme-soft-green, #e8f5ee);
+}
+.caatuu-game-controls-popover:has(.caatuu-game-size-options) .caatuu-game-control-option[aria-pressed="true"] {
+  border-color: var(--theme-display-selected-bg);
+  background: var(--theme-display-selected-bg);
+  color: #fff;
+  box-shadow: 0 2px 0 color-mix(in srgb, var(--theme-display-selected-bg) 72%, #000);
+}
 .caatuu-game-controls :is(button, select, input):focus-visible { outline: 3px solid var(--theme-focus-ring, #5b8fc3); outline-offset: 2px; }
 .caatuu-game-controls select { width: 100%; min-height: 44px; color: inherit; background: var(--theme-control-bg, #fffefa); font: inherit; border: 1px solid var(--theme-control-border, #b8c5bd); border-radius: 6px; }
 .caatuu-game-controls input[type="range"] { width: 100%; min-height: 30px; margin: 0; accent-color: var(--theme-green, #22594d); }

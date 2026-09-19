@@ -467,6 +467,7 @@ const state = {
   trainTab: "galaxy",
   campaignActive: false,
   campaignQueue: [],
+  campaignPendingTab: "",
   campaignTransitioning: false,
   campaignTransitionId: 0,
   verbDifficulty: 1,
@@ -1319,11 +1320,8 @@ const verbHintExactAssets = new Map([
     alt: "The robed macaw looks carefully through a magnifying glass."
   }]
 ]);
-const campaignContractGameIds = window.CaatuuShellPolicy?.CAMPAIGN_GAME_IDS;
-const campaignPlayableTabs = Object.freeze(
-  Array.isArray(campaignContractGameIds) ? [...campaignContractGameIds] : []
-);
 const campaignTransitionMillis = 1600;
+const wordWorldResultHoldMillis = 4000;
 const campaignGameReadyTimeoutMillis = 8000;
 const verbSolutionRouteColors = [
   "#b84e45",
@@ -4543,10 +4541,7 @@ function ensureEmbeddedGameLoaded(gameId) {
 }
 
 function campaignAvailableTabs() {
-  return campaignPlayableTabs.filter((gameId) => (
-    courseGameAvailable(gameId)
-    && Boolean(document.querySelector(`[data-train-tab="${gameId}"]`))
-  ));
+  return window.CaatuuShellPolicy.campaignGameIds(course);
 }
 
 function shuffledCampaignTabs(tabs) {
@@ -4631,6 +4626,10 @@ function advanceCompletedCampaignGame(gameId, sourceWindow) {
     window.CaatuuWordWorldHost?.next?.();
     return;
   }
+  if (gameId === "naturalization-nucleus" && sourceWindow === window) {
+    window.CaatuuNaturalizationNucleus?.advanceCampaignRound?.();
+    return;
+  }
   if (sourceWindow === window || !sourceWindow?.postMessage) return;
   if (!["word-net", "case-cosmos", "grammar-gravity", "sound-quasar", "conjugation-comet"].includes(gameId)) return;
   sourceWindow.postMessage({
@@ -4643,10 +4642,15 @@ async function completeCampaignRound(gameId, sourceWindow) {
   if (!state.campaignActive || state.campaignTransitioning || gameId !== state.trainTab) return;
   const nextGameId = nextCampaignTab(gameId);
   if (!nextGameId) return;
+  state.campaignPendingTab = nextGameId;
 
   state.campaignTransitioning = true;
   const transitionId = state.campaignTransitionId + 1;
   state.campaignTransitionId = transitionId;
+  if (gameId === "word-net") {
+    await waitForVerbTransition(wordWorldResultHoldMillis);
+    if (transitionId !== state.campaignTransitionId || !state.campaignActive) return;
+  }
   showCampaignTransition(transitionId);
   advanceCompletedCampaignGame(gameId, sourceWindow);
   ensureCampaignGameLoaded(nextGameId);
@@ -4658,12 +4662,13 @@ async function completeCampaignRound(gameId, sourceWindow) {
   if (transitionId !== state.campaignTransitionId || !state.campaignActive) return;
 
   setTrainTab(nextGameId);
+  state.campaignPendingTab = "";
   state.campaignTransitioning = false;
   hideCampaignTransition();
 }
 
 async function startCampaign() {
-  state.campaignQueue = [];
+  if (state.campaignActive) return;
   state.campaignActive = true;
   document.body.dataset.campaignActive = "true";
   const firstGameId = nextCampaignTab(state.trainTab);
@@ -4691,10 +4696,12 @@ async function startCampaign() {
 }
 
 function stopCampaign() {
+  // A cancelled transition has not visited its reserved destination yet.
+  if (state.campaignPendingTab) state.campaignQueue.unshift(state.campaignPendingTab);
+  state.campaignPendingTab = "";
   state.campaignTransitionId += 1;
   state.campaignActive = false;
   state.campaignTransitioning = false;
-  state.campaignQueue = [];
   delete document.body.dataset.campaignActive;
   hideCampaignTransition();
 }
@@ -4705,7 +4712,7 @@ function handleCampaignGameMessage(event) {
   if (message?.source !== "caatuu-game" || !(message.type === "round-success"
     || (message.type === "round-complete" && ["sound-quasar", "conjugation-comet"].includes(message.gameId)))) return;
   const gameId = String(message.gameId || "");
-  if (gameId === "word-net" && event.source === window) {
+  if (["word-net", "naturalization-nucleus"].includes(gameId) && event.source === window) {
     void completeCampaignRound(gameId, window);
     return;
   }

@@ -1385,7 +1385,7 @@ function speakCzechWithBrowser(text, source, pace) {
   }
 }
 
-function toggleCzechSpeech(text, source) {
+function toggleCzechSpeech(text, source, { restart = false } = {}) {
   const normalizedText = String(text || "").normalize("NFC").trim();
   if (speechGloballyMuted()) {
     syncSpeechControl();
@@ -1402,7 +1402,7 @@ function toggleCzechSpeech(text, source) {
   );
   if (state.speechSession || state.speechState === "speaking") {
     cancelCzechSpeech();
-    if (sameSpeech) return;
+    if (sameSpeech && !restart) return;
   }
   if (!speechControlSupported() || state.busy || !normalizedText) {
     syncSpeechControl();
@@ -3668,7 +3668,13 @@ function stabilizeReconstructionResultViewport() {
   });
 }
 
+function speakReconstructionOption(round, option) {
+  if (round.answerSide !== "target" || course.capabilities?.speech !== true) return;
+  toggleCzechSpeech(option.text, "word", { restart: true });
+}
+
 function selectReconstructionOption(id) {
+  if (state.busy) return;
   if ($("#wordNetReconstruction")?.classList.contains("is-transferring")) return;
   const round = ensureReconstructionChallenge();
   const option = round?.challenge.options.find((candidate) => candidate.id === id);
@@ -3678,11 +3684,13 @@ function selectReconstructionOption(id) {
   const restoreFocus = source === document.activeElement;
   round.selectedIds.push(id);
   round.announcement = interfaceText("wordworld.reconstruction.added", { word: option.text });
+  speakReconstructionOption(round, option);
   renderReconstruction();
   animateReconstructionTransfer(id, sourceRect, "answer", { restoreFocus });
 }
 
 function removeReconstructionOption(id) {
+  if (state.busy) return;
   if ($("#wordNetReconstruction")?.classList.contains("is-transferring")) return;
   const round = ensureReconstructionChallenge();
   const option = round?.challenge.options.find((candidate) => candidate.id === id);
@@ -3692,6 +3700,7 @@ function removeReconstructionOption(id) {
   const restoreFocus = source === document.activeElement;
   round.selectedIds = round.selectedIds.filter((selectedId) => selectedId !== id);
   round.announcement = interfaceText("wordworld.reconstruction.removed", { word: option.text });
+  speakReconstructionOption(round, option);
   renderReconstruction();
   animateReconstructionTransfer(id, sourceRect, "bank", { restoreFocus });
 }
