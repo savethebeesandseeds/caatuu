@@ -234,6 +234,27 @@
         "bytes": 68741120,
         "sha256": "8401c27cab648911c0930abd4f5a539967badcbc20ed5c53f404baeb62dccd41"
       }
+    },
+    {
+      "versionCode": 175,
+      "versionName": "0.1.23",
+      "sourceRevision": "4b09e90d3db2a7487d605534a007ad4fe8132e0d",
+      "manifest": {
+        "bytes": 1041,
+        "sha256": "417c6ba20b947409079672377aa1725f00daed1c455f490cbe5abc8bc8a02d1d"
+      },
+      "apk": {
+        "bytes": 3392521,
+        "sha256": "b2a17f08aff8409331597bfd6f0d8bd10c2c37fe41812ffc4e1dc67adeb8315f"
+      },
+      "receipt": {
+        "bytes": 1360,
+        "sha256": "c35a527a02dd9437b75c00f7e51770e057caba0b88d0ba2a86cde0564340af8b"
+      },
+      "setup": {
+        "bytes": 69478400,
+        "sha256": "9e59e7108cc76a712a1e1e0a49176428872a5e3f810c7ad530e54e7ac3396acd"
+      }
     }
   ],
   "setupEntries": [
