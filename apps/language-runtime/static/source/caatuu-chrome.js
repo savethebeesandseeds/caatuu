@@ -1966,12 +1966,9 @@
     ).join("");
   }
 
-  function renderLearningDirection(root, goal) {
-    const selected = goal || { id: "balanced", kind: "balanced" };
-    const name = root.querySelector("#learningGoalDirection");
+  function renderLearningDirection(root) {
     const detail = root.querySelector("#learningGoalIntent");
-    if (name) name.textContent = learningGoalLabel(selected);
-    if (detail) detail.textContent = interfaceMessage(`settings.learninggoal.intent.${selected.kind}`);
+    if (detail) detail.textContent = interfaceMessage("settings.learninggoal.select");
   }
 
   function practiceGameLabel(gameId) {
@@ -2096,7 +2093,7 @@
     if (badgeName) badgeName.textContent = profile.difficultyOption.label;
     const goalSelect = root.querySelector("#learningGoal");
     if (goalSelect) goalSelect.value = profile.goal?.id || "balanced";
-    renderLearningDirection(root, profile.goal);
+    renderLearningDirection(root);
     renderCoursePractice(root);
     const xp = root.querySelector("#courseProgressXp");
     if (xp) xp.textContent = String(rewards.xp);
@@ -2438,15 +2435,6 @@
   }
 
   function applySemanticSkillCompassCopy(panel) {
-    const textBindings = [
-      ["#semanticSkillCompassEyebrow", "eyebrow"],
-      ["#semanticSkillCompassTitle", "title"],
-      ["#semanticSkillCompassSummaryState", "summary"]
-    ];
-    for (const [selector, key] of textBindings) {
-      const target = panel.querySelector(selector);
-      if (target) target.textContent = semanticSkillCompassText(key);
-    }
     panel.querySelector("#semanticSkillCompassLegendPractice")
       ?.append(semanticSkillCompassText("practiceLabel"));
     panel.querySelector("#semanticSkillCompassLegendStrength")
@@ -2458,9 +2446,9 @@
   }
 
   function semanticSkillCompassIsVisible(panel) {
-    const details = panel?.querySelector("#semanticSkillCompass");
+    const compass = panel?.querySelector("#semanticSkillCompass");
     const stats = panel?.querySelector("#statsViewPanel");
-    return Boolean(details?.open && !panel.hidden && stats && !stats.hidden);
+    return Boolean(compass && !panel.hidden && stats && !stats.hidden);
   }
 
   function preparedSemanticSkillCompass() {
@@ -2497,17 +2485,18 @@
     }
   }
 
-  function setSemanticSkillCompassStatus(panel, state, message, summary) {
-    const details = panel.querySelector("#semanticSkillCompass");
+  function setSemanticSkillCompassStatus(panel, state, message = "") {
+    const compass = panel.querySelector("#semanticSkillCompass");
     const body = panel.querySelector("#semanticSkillCompassBody");
     const status = panel.querySelector("#semanticSkillCompassStatus");
-    const summaryState = panel.querySelector("#semanticSkillCompassSummaryState");
     const retry = panel.querySelector("#semanticSkillCompassRetry");
     const progress = panel.querySelector("#semanticSkillCompassProgress");
-    if (details) details.dataset.state = state;
+    if (compass) compass.dataset.state = state;
     if (body) body.setAttribute("aria-busy", String(state === "loading"));
-    if (status) status.textContent = message;
-    if (summaryState) summaryState.textContent = summary;
+    if (status) {
+      status.hidden = !["loading", "error", "partial", "unavailable"].includes(state);
+      status.textContent = status.hidden ? "" : message;
+    }
     if (retry) retry.hidden = !["error", "partial", "unavailable"].includes(state);
     if (progress && state !== "loading") progress.hidden = true;
   }
@@ -2630,12 +2619,7 @@
     });
     svg.replaceChildren(title, description, grid, axes, practice, strength, strengthPoints, center);
     renderSemanticSkillCompassAxisList(panel);
-    setSemanticSkillCompassStatus(
-      panel,
-      "idle",
-      semanticSkillCompassText("idleMessage"),
-      semanticSkillCompassText("summary")
-    );
+    setSemanticSkillCompassStatus(panel, "idle");
   }
 
   function clearSemanticSkillCompassShapes(panel) {
@@ -2654,12 +2638,7 @@
     renderSemanticSkillCompassAxisList(panel);
     const description = panel.querySelector("#semanticSkillCompassChartDescription");
     if (description) description.textContent = semanticSkillCompassText("emptyChartDescription");
-    setSemanticSkillCompassStatus(
-      panel,
-      "empty",
-      semanticSkillCompassText("emptyMessage"),
-      semanticSkillCompassText("emptySummary")
-    );
+    setSemanticSkillCompassStatus(panel, "empty");
   }
 
   function renderSemanticSkillCompassProjection(panel, projection) {
@@ -2700,8 +2679,7 @@
     if (description) description.textContent = semanticSkillCompassText("projectionDescription", replacements);
     const state = projection?.status || "unavailable";
     setSemanticSkillCompassStatus(panel, state,
-      semanticSkillCompassText(state === "partial" ? "partialMessage" : state === "unavailable" ? "unavailableMessage" : "completeMessage", replacements),
-      semanticSkillCompassText(state === "partial" ? "partialSummary" : state === "unavailable" ? "errorSummary" : "summary"));
+      semanticSkillCompassText(state === "partial" ? "partialMessage" : state === "unavailable" ? "unavailableMessage" : "completeMessage", replacements));
   }
   async function loadSemanticSkillCompass(panel, { force = false } = {}) {
     const controller = semanticSkillCompassController(panel);
@@ -2722,8 +2700,7 @@
     setSemanticSkillCompassStatus(
       panel,
       "loading",
-      semanticSkillCompassText("loadingMessage"),
-      semanticSkillCompassText("loadingSummary")
+      semanticSkillCompassText("loadingMessage")
     );
 
     try {
@@ -2756,8 +2733,7 @@
         setSemanticSkillCompassStatus(
           panel,
           "error",
-          semanticSkillCompassText("errorMessage"),
-          semanticSkillCompassText("errorSummary")
+          semanticSkillCompassText("errorMessage")
         );
         controller.rendered = true;
         controller.renderedRevision = revision;
@@ -2808,32 +2784,18 @@
       progress.removeAttribute("value");
     }
     if (wasLoading) {
-      setSemanticSkillCompassStatus(
-        panel,
-        controller.rendered ? "ready" : "idle",
-        controller.rendered
-          ? semanticSkillCompassText("changedMessage")
-          : semanticSkillCompassText("closedMessage"),
-        controller.rendered
-          ? semanticSkillCompassText("updateReadySummary")
-          : semanticSkillCompassText("closedSummary")
-      );
+      setSemanticSkillCompassStatus(panel, controller.rendered ? "ready" : "idle");
     }
   }
 
   function bindSemanticSkillCompass(panel) {
-    const details = panel.querySelector("#semanticSkillCompass");
-    if (!details) return;
+    if (!panel.querySelector("#semanticSkillCompass")) return;
     renderSemanticSkillCompassFrame(panel);
-    details.addEventListener("toggle", () => {
-      if (details.open) scheduleSemanticSkillCompassLoad(panel);
-      else pauseSemanticSkillCompass(panel);
-    });
     panel.querySelector("#semanticSkillCompassRetry")?.addEventListener("click", () => {
       scheduleSemanticSkillCompassLoad(panel, { force: true });
     });
     document.addEventListener("caatuu:settings-open", () => {
-      if (details.open) scheduleSemanticSkillCompassLoad(panel);
+      scheduleSemanticSkillCompassLoad(panel);
     });
     const refresh = () => {
       semanticSkillCompassPreparationRevision += 1;
@@ -2842,10 +2804,6 @@
       controller.revision += 1;
       controller.abortController?.abort("Semantic evidence changed");
       if (semanticSkillCompassIsVisible(panel)) scheduleSemanticSkillCompassLoad(panel);
-      else if (controller.rendered) {
-        const summary = panel.querySelector("#semanticSkillCompassSummaryState");
-        if (summary) summary.textContent = semanticSkillCompassText("updateReadySummary");
-      }
     };
     window.addEventListener("caatuu:learning-change", event => {
       if (event.detail?.reason !== "goal" && event.detail?.reason !== "difficulty") refresh();
@@ -2854,6 +2812,31 @@
       const key = String(event?.key || "");
       if (key.startsWith(`${course.storage.namespace}.learning.content.`)
         || key === `${learning?.storage?.performanceStorageKey}.reset`) refresh();
+    });
+  }
+
+  function closeStatsDetails(panel) {
+    panel.querySelectorAll(".stats-details-dialog").forEach(dialog => {
+      if (dialog.open) dialog.close();
+    });
+  }
+
+  function bindStatsDetails(panel) {
+    panel.querySelectorAll("[data-stats-dialog]").forEach(button => {
+      const dialog = panel.querySelector(`#${button.dataset.statsDialog}`);
+      if (!dialog) return;
+      button.addEventListener("click", () => {
+        if (!dialog.open) dialog.showModal();
+      });
+      dialog.querySelector("[data-stats-dialog-close]")?.addEventListener("click", () => dialog.close());
+      dialog.addEventListener("click", event => {
+        if (event.target === dialog) dialog.close();
+      });
+      // Let the native dialog handle Escape without closing Backpack as well.
+      dialog.addEventListener("keydown", event => {
+        if (event.key === "Escape") event.stopPropagation();
+      });
+      dialog.addEventListener("close", () => button.focus());
     });
   }
 
@@ -4493,26 +4476,21 @@
           </section>
 
           <section class="settings-view-panel" id="statsViewPanel" data-settings-view-panel="stats" role="tabpanel" aria-labelledby="statsViewTab" hidden>
-            <section class="backpack-card backpack-stats-card side-card" aria-label="${interfaceHtml("settings.stats.arialabel")}">
-              <header class="backpack-section-intro">
-                <img src="/assets/icons/stats_icon.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
-                <span>
-                  <span class="settings-kicker kicker">${interfaceHtml("settings.journey.record")}</span>
-                  <strong>${interfaceHtml("settings.stats.title")}</strong>
-                  <small>${interfaceHtml("settings.stats.description")}</small>
-                </span>
+            <section class="backpack-stats" aria-label="${interfaceHtml("settings.stats.arialabel")}">
+              <header class="backpack-card backpack-stats-header side-card">
+                <div class="backpack-section-intro">
+                  <div class="stats-compass-badge" aria-hidden="true">
+                    <img src="/assets/icons/stats_icon.png" alt="" loading="lazy" decoding="async">
+                  </div>
+                  <div class="backpack-section-copy">
+                    <span class="settings-kicker kicker">${interfaceHtml("settings.journey.record")}</span>
+                    <h3>${interfaceHtml("settings.stats.title")}</h3>
+                  </div>
+                </div>
               </header>
               <div id="backpackStatsMount">
-                <details class="skill-compass" id="semanticSkillCompass" data-state="idle" open>
-                  <summary aria-controls="semanticSkillCompassBody">
-                    <span class="skill-compass-summary-copy">
-                      <small id="semanticSkillCompassEyebrow"></small>
-                      <strong id="semanticSkillCompassTitle"></strong>
-                    </span>
-                    <span class="skill-compass-summary-state" id="semanticSkillCompassSummaryState"></span>
-                  </summary>
+                <div class="skill-compass" id="semanticSkillCompass" data-state="idle">
                   <div class="skill-compass-body" id="semanticSkillCompassBody" aria-busy="false">
-                    <div class="skill-compass-map">
                       <figure class="skill-compass-figure">
                         <svg class="skill-compass-chart" id="semanticSkillCompassChart" viewBox="0 0 340 290" role="img" aria-labelledby="semanticSkillCompassChartTitle semanticSkillCompassChartDescription"></svg>
                         <figcaption class="skill-compass-legend" aria-label="">
@@ -4520,32 +4498,42 @@
                           <span id="semanticSkillCompassLegendStrength"><i class="is-strength" aria-hidden="true"></i></span>
                         </figcaption>
                       </figure>
-                    </div>
                     <progress class="skill-compass-progress" id="semanticSkillCompassProgress" aria-label="" hidden></progress>
-                    <p class="skill-compass-status" id="semanticSkillCompassStatus" role="status" aria-live="polite"></p>
-                    <p class="skill-compass-explanation">${interfaceHtml("settings.compass.explanation")}</p>
+                    <p class="skill-compass-status" id="semanticSkillCompassStatus" role="status" aria-live="polite" hidden></p>
                     <button class="skill-compass-retry" id="semanticSkillCompassRetry" type="button" hidden>${interfaceHtml("settings.compass.retry")}</button>
-                    <details class="skill-compass-values"><summary>${interfaceHtml("settings.compass.details")}</summary>
-                      <ul class="skill-compass-axis-list" id="semanticSkillCompassAxes"></ul>
-                    </details>
                   </div>
-                </details>
+                </div>
+                <div class="stats-info">
+                  <span class="stats-info-icon" aria-hidden="true">i</span>
+                  <p>${interfaceHtml("settings.compass.help")}</p>
+                </div>
+                <div class="stats-detail-actions">
+                  <button type="button" data-stats-dialog="coursePracticeDetailsDialog" aria-haspopup="dialog" aria-controls="coursePracticeDetailsDialog">${interfaceHtml("settings.practice.details")}</button>
+                  <button type="button" data-stats-dialog="skillCompassDetailsDialog" aria-haspopup="dialog" aria-controls="skillCompassDetailsDialog">${interfaceHtml("settings.compass.details")}</button>
+                </div>
                 <section class="learning-direction-card" aria-labelledby="learningDirectionTitle">
-                  <header class="learning-direction-heading">
-                    <span class="learning-direction-arrow" aria-hidden="true">↗</span>
-                    <div><small class="stats-eyebrow" id="learningDirectionTitle">${interfaceHtml("settings.learninggoal.direction")}</small>
-                      <strong id="learningGoalDirection"></strong></div>
-                  </header>
-                  <p id="learningGoalIntent"></p>
                   <label class="setting-select" for="learningGoal">
-                    <span><b>${interfaceHtml("settings.learninggoal.label")}</b>
-                      <small id="learningGoalDescription">${interfaceHtml("settings.learninggoal.description")}</small></span>
-                    <select id="learningGoal" aria-describedby="learningGoalDescription">${learningGoalOptions()}</select>
+                    <span class="learning-direction-heading">
+                      <span class="learning-direction-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M7 6h11v11"/></svg></span>
+                      <span class="learning-direction-copy"><b id="learningDirectionTitle">${interfaceHtml("settings.learninggoal.label")}</b><span id="learningGoalIntent"></span></span>
+                    </span>
+                    <select id="learningGoal" aria-describedby="learningGoalIntent">${learningGoalOptions()}</select>
                   </label>
                   <p class="learning-status" id="learningGoalStatus" role="status" aria-live="polite" aria-atomic="true"></p>
                 </section>
 
-                <details class="course-practice-details"><summary>${interfaceHtml("settings.practice.details")}</summary>
+                <dialog class="stats-details-dialog" id="skillCompassDetailsDialog" aria-labelledby="skillCompassDetailsTitle">
+                  <div class="stats-details-content skill-compass-values">
+                    <header class="stats-details-heading"><h3 id="skillCompassDetailsTitle">${interfaceHtml("settings.compass.details")}</h3>
+                      <button type="button" data-stats-dialog-close autofocus>${interfaceHtml("common.close")}</button></header>
+                    <p class="course-practice-note">${interfaceHtml("settings.compass.explanation")}</p>
+                    <ul class="skill-compass-axis-list" id="semanticSkillCompassAxes"></ul>
+                  </div>
+                </dialog>
+                <dialog class="stats-details-dialog" id="coursePracticeDetailsDialog" aria-labelledby="coursePracticeDetailsTitle">
+                  <div class="stats-details-content">
+                    <header class="stats-details-heading"><h3 id="coursePracticeDetailsTitle">${interfaceHtml("settings.practice.details")}</h3>
+                      <button type="button" data-stats-dialog-close autofocus>${interfaceHtml("common.close")}</button></header>
                 <section class="course-practice-card" aria-labelledby="coursePracticeTitle">
                   <header class="course-practice-heading"><small class="stats-eyebrow">${interfaceHtml("settings.practice.recorded")}</small>
                     <h3 id="coursePracticeTitle">${interfaceHtml("settings.practice.title", { language: targetLanguageName })}</h3></header>
@@ -4566,7 +4554,8 @@
                   <p class="course-practice-note" id="coursePracticeLegacy" hidden>${interfaceHtml("settings.practice.legacy")}</p>
                   <p class="course-practice-activity">${interfaceHtml("progress.activities")}: <strong id="courseProgressActivities">0</strong></p>
                 </section>
-                </details>
+                  </div>
+                </dialog>
 
 
               </div>
@@ -4937,6 +4926,7 @@
     bindSettingsReport(panel);
     bindAndroidInstallDiscovery(panel);
     bindSemanticSkillCompass(panel);
+    bindStatsDetails(panel);
     bindSpeechVoiceControl(panel);
     bindSpeechPaceControl(panel);
     renderLearningControls(panel);
@@ -5028,7 +5018,10 @@
       }
       void stopSpeech();
     }
-    if (view !== "stats") pauseSemanticSkillCompass(panel);
+    if (view !== "stats") {
+      closeStatsDetails(panel);
+      pauseSemanticSkillCompass(panel);
+    }
     if (sheet) sheet.dataset.settingsCurrentView = view;
     document.querySelectorAll(".settings-section-switcher [data-settings-view]").forEach((button) => {
       const active = button.dataset.settingsView === view;
@@ -5190,6 +5183,7 @@
   function closeSharedSettings({ restoreFocus = true } = {}) {
     const panel = document.querySelector("#settingsPanel");
     if (!panel) return;
+    closeStatsDetails(panel);
     closeLanguageSelectorHost(activeLanguageSelectorHost);
     cancelSettingsViewTransition(panel);
     pauseSemanticSkillCompass(panel);

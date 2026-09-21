@@ -9,7 +9,8 @@ const DEFAULT_WEIGHTS = Object.freeze({ usefulness: .7, goal: 2, weakness: 1.4,
   semanticGoal: .7, semanticDiversity: 1, recency: 1 });
 const DEFAULT_PATTERN = ['review', 'practice', 'new', 'review', 'practice'];
 const NORMAL_ACCESS = Object.freeze({ uniformScores: false, frontier: true,
-  introductions: true, slots: true, recency: true, outsideExploration: 0 });
+  introductions: true, slots: true, recency: true, outsideExploration: 0,
+  softFrontier: false, crossCategoryRecency: false });
 const count = value => Number.isSafeInteger(value) && value >= 0 ? value : 0;
 const timestamp = value => {
   const time = typeof value === 'string' ? Date.parse(value) : Number(value);
@@ -79,7 +80,16 @@ export function createAdaptiveDecision(items, options = {}) {
   return samplingDecision(items, options, NORMAL_ACCESS);
 }
 
-/** Manual Evaluator B ablations only; gameplay never opts into these controls. */
+/**
+ * Manual Evaluator B ablations only; gameplay never opts into these controls.
+ * softFrontier admits unseen items without the frontier/challenge-band exclusion,
+ * retaining introduction, category, badge and answer-group rules. It subtracts
+ * 2 * max(0, (position - frontier) / 100) from the score of unseen items only.
+ * This fixed experimental penalty is not a fitted probability or configurable weight.
+ * crossCategoryRecency tries another otherwise allowed category before repeating
+ * an item in recentIds/excludeIds. Continued-introduction slot rules still apply;
+ * exhausted alternatives retain the ordinary explicit playability fallback.
+ */
 export function createSamplingExperiment(items, options = {}, controls = {}) {
   if (!controls || typeof controls !== 'object' || Array.isArray(controls)) throw new TypeError('Experiment controls must be an object.');
   const access = { ...NORMAL_ACCESS };
@@ -109,6 +119,7 @@ function samplingDecision(items, {
   if (!Array.isArray(recentIds)) throw new TypeError('recentIds must be an array.');
   if (!Array.isArray(excludeIds)) throw new TypeError('excludeIds must be an array.');
   const resolved = settings(config, goal);
+  const hardFrontier = access.frontier && !access.softFrontier;
   const recent = new Set(recentIds.map(String));
   const excluded = new Set(excludeIds.map(String));
   const rows = [], ids = new Set();
@@ -161,13 +172,13 @@ function samplingDecision(items, {
   const anchor = experienced.length ? Math.max(...experienced.map(row => row.position)) : 0;
   const band = position => Math.floor((position - 1) / 10);
   const challengeUsedToday = introduced.some(row => introducedToday(row.progress) && band(row.position) > band(anchor));
-  const higher = access.frontier && allowance && anchor && !challengeUsedToday ? unseen.filter(row => band(row.position) > band(anchor)) : [];
+  const higher = hardFrontier && allowance && anchor && !challengeUsedToday ? unseen.filter(row => band(row.position) > band(anchor)) : [];
   const nextBand = higher.length ? Math.min(...higher.map(row => band(row.position))) : null;
-  const novel = unseen.filter(row => !access.frontier || row.position <= frontier || band(row.position) === nextBand);
+  const novel = unseen.filter(row => !hardFrontier || row.position <= frontier || band(row.position) === nextBand);
   const playable = new Set();
   // Sparse banks can exceed the ordinary frontier to provide enough distinct answers.
   const playableGroups = () => new Set([...introducedGroups,
-    ...novel.filter(row => !access.frontier || row.position <= frontier || playable.has(row.id)).map(row => row.groupKey)]);
+    ...novel.filter(row => !hardFrontier || row.position <= frontier || playable.has(row.id)).map(row => row.groupKey)]);
   const playableCount = () => {
     const covered = playableGroups();
     return covered.size + Number(novel.some(row => !covered.has(row.groupKey)));
@@ -216,6 +227,9 @@ function samplingDecision(items, {
     };
     row.contributions = Object.fromEntries(Object.entries(row.features).map(([key, value]) => [key, value === null ? 0 : value * resolved.weights[key]]));
     row.score = Object.values(row.contributions).reduce((sum, value) => sum + value, 0);
+    const scoreBeforePenalty = row.score;
+    const softFrontierPenalty = !row.visits ? 2 * Math.max(0, (row.position - frontier) / 100) : 0;
+    if (access.softFrontier) row.score -= softFrontierPenalty;
     trace.candidates.push({ id: row.id, groupKey: row.groupKey, difficulty: row.badge, complexity: row.complexity,
       position: row.position, readiness: row.readiness,
       categories: [...new Set(itemCategories.filter(value => typeof value === 'string'))],
@@ -226,6 +240,7 @@ function samplingDecision(items, {
         challenge: response === null ? 'editorial-frontier-heuristic' : 'supplied-response-probability',
         uncertainty: 'missing-independent-evidence-indicator', weakness: recall === null ? 'unavailable' : 'supplied-recall-probability' },
       features: row.features, contributions: row.contributions, score: row.score,
+      ...(access.softFrontier ? { scoreBeforePenalty, softFrontierPenalty } : {}),
       missingFeatures: Object.keys(row.features).filter(key => row.features[key] === null) });
   }
   Object.assign(trace.constraints, { difficulty, minimumPool, frontier, dailyBudget, introducedToday: todayCount,
@@ -259,7 +274,7 @@ function samplingDecision(items, {
       restriction('frontier', 'soft', hardRemaining.filter(row => !row.visits && !novelIds.has(row.id)));
       restriction('introduction-budget', 'soft', access.introductions && introductions >= introductionLimit
         ? hardRemaining.filter(row => !row.visits) : []);
-      restriction('one-frontier-challenge-per-board', 'soft', access.frontier && challengeChosen
+      restriction('one-frontier-challenge-per-board', 'soft', hardFrontier && challengeChosen
         ? hardRemaining.filter(row => !row.visits && row.position > frontier && !playable.has(row.id)) : []);
       stage('hard-remaining', hardRemaining);
     }
@@ -267,7 +282,7 @@ function samplingDecision(items, {
     const remainingIntroducedGroups = [...introducedGroups].filter(key => !selectedGroups.has(key)).length;
     const requiredNewGroups = Math.max(0, requiredSize - selected.length - remainingIntroducedGroups);
     const availableNew = introductions < introductionLimit ? novel.filter(row =>
-      (!access.frontier || playable.has(row.id) || row.position <= frontier || !challengeChosen)
+      (!hardFrontier || playable.has(row.id) || row.position <= frontier || !challengeChosen)
       // Reserve scarce introduction slots for genuinely missing answer groups,
       // instead of spending them on unseen homophones of already known groups.
       && (introductionLimit - introductions > requiredNewGroups || !introducedGroups.has(row.groupKey))) : [];
@@ -312,6 +327,24 @@ function samplingDecision(items, {
       ? [] : [`${requestedCategory}-empty-or-paced`];
     if (minimumFallback || category === 'new' && introductions >= ordinaryIntroductionLimit) {
       reasons.push('distinct-group-minimum-overrides-pacing');
+    }
+    if (access.crossCategoryRecency && access.recency && access.slots) {
+      const fresh = row => !recent.has(row.id) && !excluded.has(row.id);
+      if (!candidates.some(fresh)) {
+        let alternativeCategory = '';
+        // Reuse only pools already permitted by this slot's pacing. In particular,
+        // an exhausted daily allowance must not turn every repeat into a new item.
+        for (const key of order) {
+          if (key === category) continue;
+          const alternatives = pools[key].filter(row => !selectedGroups.has(row.groupKey) && fresh(row));
+          if (alternatives.length) { candidates = alternatives; alternativeCategory = key; break; }
+        }
+        if (alternativeCategory) {
+          category = alternativeCategory;
+          reasons.push('cross-category-recency-alternative');
+        } else reasons.push('cross-category-recency-exhausted');
+      }
+      stage('cross-category-recency', candidates);
     }
     const unexcluded = access.recency ? candidates.filter(row => !excluded.has(row.id)) : candidates;
     if (accessDiagnostics) restriction('recent-exclusion-list', 'soft', unexcluded.length

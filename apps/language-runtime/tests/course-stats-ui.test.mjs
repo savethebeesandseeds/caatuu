@@ -69,7 +69,6 @@ async function browser(t, { course = courses[0], storage = createMemoryStorage()
   stats.hidden = true;
   const direction = node("section", "", stats);
   direction.className = "learning-direction-card";
-  node("strong", "learningGoalDirection", direction);
   node("p", "learningGoalIntent", direction);
   const select = node("select", "learningGoal", direction);
   node("p", "learningGoalStatus", direction);
@@ -156,7 +155,7 @@ test("goal controls belong only to Stats, difficulty remains in Items, and chang
     assert.equal(app.template.match(/id="learningGoal"/gu).length, 1);
     assert.ok(statsMarkup.includes('class="learning-direction-card"'));
     assert.ok(statsMarkup.includes('<label class="setting-select" for="learningGoal">'));
-    assert.ok(statsMarkup.includes('<select id="learningGoal" aria-describedby="learningGoalDescription">'));
+    assert.ok(statsMarkup.includes('<select id="learningGoal" aria-describedby="learningGoalIntent">'));
     assert.ok(statsMarkup.includes('id="learningGoalStatus" role="status" aria-live="polite"'));
     const before = plain(app.learning.practiceSummary());
     for (const goal of [app.learning.goalOptions().find(goal => goal.id === "review"), app.learning.goalOptions().find(goal => goal.kind === "topic")]) {
@@ -166,8 +165,7 @@ test("goal controls belong only to Stats, difficulty remains in Items, and chang
       assert.equal(app.learning.difficulty(), 2);
       assert.deepEqual(plain(app.learning.practiceSummary()), before);
       const label = goal.kind === "topic" ? goal.label : app.content.t(`settings.learninggoal.${goal.kind}`);
-      assert.equal(app.element("learningGoalDirection").textContent, label);
-      assert.equal(app.element("learningGoalIntent").textContent, app.content.t(`settings.learninggoal.intent.${goal.kind}`));
+      assert.equal(app.select.value, goal.id);
       assert.equal(app.element("learningGoalStatus").textContent, app.content.t("settings.learninggoal.selected", { goal: label }));
       assert.equal(app.element("coursePracticeIndependent").textContent, "1");
     }
@@ -210,7 +208,6 @@ test("zero practice shows real zeros and a useful empty state while goals remain
   assert.ok(app.list.children.length > 0);
   assert.ok(app.list.children.every(row => row.querySelector("small").textContent === app.content.t("settings.practice.notstarted")));
   assert.equal(app.select.value, "balanced");
-  assert.equal(app.element("learningGoalDirection").textContent, app.content.t("settings.learninggoal.balanced"));
 });
 
 test("partial history keeps available evidence visible and explains the read problem", async t => {
@@ -244,7 +241,7 @@ test("unavailable or wrong-course summaries never display fabricated zeros or an
     app.select.value = "explore";
     app.document.dispatchEvent({ type: "change", target: app.select });
     assert.equal(app.learning.goal().id, "explore");
-    assert.equal(app.element("learningGoalDirection").textContent, app.content.t("settings.learninggoal.explore"));
+    assert.equal(app.select.value, "explore");
     assert.equal(app.element("coursePracticeItems").textContent, "—");
   }
 });

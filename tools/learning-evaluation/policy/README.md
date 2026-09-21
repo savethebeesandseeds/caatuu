@@ -242,7 +242,11 @@ thresholds in default tests, CI, release gates, schedules, telemetry or services
 ## Manual candidate-access investigation
 
 This remains evaluator B, selected by `--study` on the same entrypoint. The
-original config, fixture, fixed model and default outcomes remain unchanged.
+original config, fixture and fixed model remain unchanged. The maintained
+production bridge now shares gameplay's four-most-recent-identity input; the
+earlier adaptive trajectories omitted that input. Historical adaptive results
+require their recorded source versions for exact reproduction. Preserve those
+artifacts and use fresh output folders with the current bridge.
 `--assert-baseline PATH` requires exact equality of the resolved configuration
 and every complete run against a saved result, including trajectories and metrics.
 The [study record](STUDY_RECORD.md) records the reviewed shortlist and artifact paths.
@@ -265,7 +269,8 @@ controls are opt-in and do not alter the production default.
 
 The independently authored [held-out fixture](studies/heldout-fixture.json) and
 [held-out plan](studies/heldout-plan.json) were written before the screen. After
-review, freeze two or three screened variants **before** running held-out results.
+review, freeze the declared screened variants **before** running held-out results
+(the bounded API accepts two through five).
 Freeze writes a record and executes zero learning runs. It captures the shortlist,
 primary metrics, plan and screen hashes, exact hypothesis constants, and all
 declared executable/config/fixture hashes. Execution rejects changed frozen
@@ -333,3 +338,29 @@ cell-level differences and subgroup summaries expose opposing effects. Descripti
 pooled means are not independent replication; seed SD/ranges are not confidence
 intervals or evidence of human learning. A broad-coverage gain in these synthetic
 banks is insufficient by itself to change production pacing.
+
+## Gameplay recent-history alignment and five-policy comparison
+
+The [follow-up design](../../../docs/ADAPTIVE_POLICY_RUNTIME_ALIGNMENT.md) fixes
+the missing recent-history input, then compares five predeclared variants with
+fresh seeds. The historical comparison fixture has already been studied; this
+is fresh-seed confirmation, not unseen-content validation. All five arms are
+declared before outcomes, and all five are frozen without selection or tuning.
+The screen has 60 runs; confirmation has 360 runs across four short/long scenarios.
+Production defaults do not enable either new experimental control.
+
+```powershell
+docker exec -w /workspace caatuu-dev node --test tools/learning-evaluation/policy/runtime-inputs.test.mjs tools/learning-evaluation/policy/policy.test.mjs tools/learning-evaluation/policy/investigation.test.mjs apps/language-runtime/tests/adaptive-sampling.test.mjs apps/language-runtime/tests/adaptive-access.test.mjs apps/language-runtime/tests/adaptive-experiment-controls.test.mjs apps/language-runtime/tests/adaptive-game-integration.test.mjs
+
+docker exec -w /workspace caatuu-dev node tools/learning-evaluation/policy/run.mjs --study tools/learning-evaluation/policy/studies/runtime-aligned-screen.json --out runtime-aligned-20260921-screen
+
+docker exec -w /workspace caatuu-dev node tools/learning-evaluation/policy/run.mjs --study tools/learning-evaluation/policy/studies/runtime-aligned-heldout-plan.json --freeze-from artifacts/learning-evaluation/policy/runtime-aligned-20260921-screen/results.json --variants adaptive-paced,uniform-hard,outside-exploration-.05,soft-frontier,cross-category-recency --out runtime-aligned-20260921-freeze
+
+docker exec -w /workspace caatuu-dev node tools/learning-evaluation/policy/run.mjs --study tools/learning-evaluation/policy/studies/runtime-aligned-heldout-plan.json --freeze artifacts/learning-evaluation/policy/runtime-aligned-20260921-freeze/results.json --out runtime-aligned-20260921-confirmation
+```
+
+Choose new output names for later reruns. The shared recent-history helper is
+included in both the production dependency list and study source hashes. Freeze
+also rejects changed shared executable/configuration/fixture hashes since the
+screen. A comparison matches the selector input for this single-item case, not
+all game-specific exclusions, board sizes, grouped evidence or semantic features.

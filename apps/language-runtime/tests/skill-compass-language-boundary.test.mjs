@@ -36,18 +36,26 @@ function mount(course, projection) {
   const panel = make("section", "settingsPanel", app.document.body);
   const sheet = make("section", "", panel); sheet.className = "settings-sheet";
   const stats = make("section", "statsViewPanel", sheet); stats.dataset.settingsViewPanel = "stats"; stats.hidden = true;
-  const compass = make("details", "semanticSkillCompass", stats); compass.open = true;
+  const compass = make("div", "semanticSkillCompass", stats);
   const body = make("div", "semanticSkillCompassBody", compass);
   const chart = make("svg", "semanticSkillCompassChart", body);
-  for (const id of ["semanticSkillCompassEyebrow", "semanticSkillCompassTitle", "semanticSkillCompassSummaryState",
-    "semanticSkillCompassLegendPractice", "semanticSkillCompassLegendStrength", "semanticSkillCompassStatus"])
+  for (const id of ["semanticSkillCompassLegendPractice", "semanticSkillCompassLegendStrength", "semanticSkillCompassStatus"])
     make("span", id, body);
   make("progress", "semanticSkillCompassProgress", body);
   make("button", "semanticSkillCompassRetry", body);
-  make("ul", "semanticSkillCompassAxes", body);
+  const dialogs = ["skillCompassDetailsDialog", "coursePracticeDetailsDialog"].map(id => {
+    const trigger = make("button", "", stats);
+    trigger.dataset.statsDialog = id;
+    const dialog = make("dialog", id, stats);
+    dialog.className = "stats-details-dialog";
+    const close = make("button", "", dialog);
+    close.setAttribute("data-stats-dialog-close", "");
+    return { trigger, dialog, close };
+  });
+  make("ul", "semanticSkillCompassAxes", dialogs[0].dialog);
   vm.runInContext(chromeSource, app.context);
   app.window.CaatuuChrome.openSharedSettings({ view: "stats" });
-  return { ...app, panel, compass, chart, content };
+  return { ...app, panel, stats, compass, chart, content, dialogs };
 }
 
 test("all courses render the same seven-axis polygon for the same evidence", async t => {
@@ -77,7 +85,11 @@ test("all courses render the same seven-axis polygon for the same evidence", asy
     assert.equal(practice.getAttribute("points"), reference, "goals do not change recorded shape");
     assert.equal(app.chart.querySelector("title").textContent, app.content.t("settings.compass.charttitle"));
     assert.ok(app.panel.innerHTML.indexOf('id="semanticSkillCompass"') < app.panel.innerHTML.indexOf('class="learning-direction-card"'));
-    assert.ok(app.panel.innerHTML.includes('class="course-practice-details"'));
+    assert.ok(app.panel.innerHTML.includes('<div class="skill-compass"'));
+    assert.ok(app.panel.innerHTML.includes('<dialog class="stats-details-dialog" id="coursePracticeDetailsDialog"'));
+    const detailsMarkup = app.panel.innerHTML.split('id="skillCompassDetailsDialog"')[1].split('</dialog>')[0];
+    assert.ok(detailsMarkup.includes(app.content.t("settings.compass.explanation")),
+      "Stats details retain the shared evidence interpretation in the learner's interface language");
   }
 });
 
@@ -92,7 +104,9 @@ test("empty, partial, unavailable and failed mapping preserve the common polygon
     assert.equal(app.compass.hidden, false);
     assert.equal(app.compass.dataset.state, projection instanceof Error ? "error" : projection.status);
     assert.equal(app.chart.querySelector("[data-semantic-compass-strength]").classList.contains("is-hidden"), true);
-    assert.ok(app.document.querySelector("#semanticSkillCompassStatus").textContent);
+    const status = app.document.querySelector("#semanticSkillCompassStatus");
+    assert.equal(status.hidden, projection.status === "empty");
+    assert.equal(Boolean(status.textContent), projection.status !== "empty");
   }
 });
 
@@ -150,4 +164,38 @@ test("Stats has no course-owned switch or legacy mastery projection dependency",
   assert.doesNotMatch(chromeSource, /course\.(?:capabilities\??\.)?skillCompass|CaatuuSemanticLearning\.(?:projectRadar|readEvidence)|\.mastery|assessmentConfidence/);
   assert.doesNotMatch(JSON.stringify(sharedPracticeAxes), /Czech|Mandarin|Norwegian|\bcz\b/);
   assert.doesNotMatch(chromeSource, /if \(!semanticSkillCompassAvailable\)/);
+});
+
+test("detail popups preserve Stats and return focus; leaving Stats dismisses them", async t => {
+  const course = generateCourseProfileObject(catalog.courses[0].course);
+  const app = mount(course, projectPracticeCompass({ courseId: course.id, items: [], axisVectors: {} }));
+  t.after(() => app.window.dispatchEvent({ type: "pagehide" }));
+  await flush();
+  for (const { trigger, dialog, close } of app.dialogs) {
+    assert.equal(dialog.open, false);
+    trigger.click();
+    assert.equal(dialog.open, true);
+    assert.equal(app.stats.hidden, false);
+    assert.equal(app.compass.dataset.state, "empty", "the map loads without a disclosure toggle");
+    const escape = { type: "keydown", key: "Escape", bubbles: true };
+    close.dispatchEvent(escape);
+    assert.equal(escape.propagationStopped, true, "Escape must not reach Backpack's close handler");
+    assert.equal(escape.defaultPrevented, false, "native Escape dismissal remains available");
+    assert.equal(app.panel.hidden, false);
+    close.click();
+    assert.equal(dialog.open, false);
+    assert.equal(app.document.activeElement, trigger);
+    trigger.click();
+    dialog.click();
+    assert.equal(dialog.open, false, "clicking the backdrop dismisses the popup");
+    assert.equal(app.document.activeElement, trigger);
+    trigger.click();
+    app.window.CaatuuChrome.openSharedSettings({ view: "items" });
+    assert.equal(dialog.open, false, "a hidden Stats view cannot leave a modal blocking the page");
+    app.window.CaatuuChrome.openSharedSettings({ view: "stats" });
+    trigger.click();
+    app.window.CaatuuChrome.closeSharedSettings();
+    assert.equal(dialog.open, false);
+    app.window.CaatuuChrome.openSharedSettings({ view: "stats" });
+  }
 });

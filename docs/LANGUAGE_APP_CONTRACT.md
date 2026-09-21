@@ -359,6 +359,13 @@ separate reviewed pronunciation policy is approved.
 
 ## Adding a directional course
 
+The [manual learning evaluation tools](../tools/learning-evaluation/README.md)
+are available during onboarding. Use evaluator C to inspect the new course's
+content distributions, English meanings and playable inventory. A checks
+learner-state/Stats evidence; B compares sampling policies in simulation.
+These independent diagnostics complement the required validations below and
+do not replace linguistic review or introduce a new publication gate.
+
 1. Add a development manifest to `apps/languages/catalog.json` with a unique
    canonical source-to-target pair. A reversed pair is a different course, not
    a mode of the existing one. Give it its own stable route and namespaces, and

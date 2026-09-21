@@ -6,7 +6,7 @@ import { createExperimentPolicy } from '../production-policy.mjs';
 export const jsonHash = value => createHash('sha256').update(JSON.stringify(value)).digest('hex');
 const mean = values => values.reduce((a, b) => a + b, 0) / values.length;
 const PRIMARY = ['delayedRetention', 'delayedGoalRecall'];
-const BOOLEAN_CONTROLS = ['uniformScores', 'frontier', 'introductions', 'slots', 'recency'];
+const BOOLEAN_CONTROLS = ['uniformScores', 'frontier', 'introductions', 'slots', 'recency', 'softFrontier', 'crossCategoryRecency'];
 
 export function validateStudy(plan, { allowUnfrozen = false } = {}) {
   if (plan?.schemaVersion !== 1 || !['screen', 'heldout'].includes(plan.phase) || !plan.id) throw new TypeError('Invalid study identity/phase.');
@@ -36,17 +36,32 @@ export function validateStudy(plan, { allowUnfrozen = false } = {}) {
 export function freezeStudy({ proposedPlan, screen, selectedIds, provenance, createdAt }) {
   validateStudy(proposedPlan, { allowUnfrozen: true }); validateStudy(screen.configuration);
   if (proposedPlan.phase !== 'heldout' || screen.configuration.phase !== 'screen') throw new TypeError('Freeze requires a screen and a held-out plan.');
-  if (selectedIds.length < 2 || selectedIds.length > 3 || new Set(selectedIds).size !== selectedIds.length) throw new TypeError('Freeze two or three distinct policies.');
+  if (!Array.isArray(selectedIds) || selectedIds.length < 2 || selectedIds.length > 5
+      || new Set(selectedIds).size !== selectedIds.length) throw new TypeError('Freeze two to five distinct policies.');
   if (proposedPlan.seeds.some(seed => screen.configuration.seeds.includes(seed))) throw new TypeError('Held-out seeds overlap the development screen.');
+  const screenSources = screen.provenance?.sourceSha256, frozenSources = provenance?.sourceSha256;
+  if (!screenSources || !frozenSources) throw new TypeError('Screen and freeze require source provenance.');
+  // Plan paths differ between stages; every shared executable/config/fixture
+  // must nevertheless describe the same bytes that produced the screen.
+  const sharedSources = Object.keys(screenSources).filter(file => Object.hasOwn(frozenSources, file));
+  if (!sharedSources.length) throw new TypeError('Screen and freeze have no shared source provenance.');
+  for (const file of sharedSources) {
+    if (screenSources[file] !== frozenSources[file]) throw new Error(`Screen executable/config/fixture changed before freeze: ${file}`);
+  }
   const variants = selectedIds.map(id => {
     const variant = screen.configuration.variants.find(row => row.id === id);
     if (!variant) throw new TypeError(`Variant ${id} was not screened.`);
     return structuredClone(variant);
   });
+  if (proposedPlan.variants.length && jsonHash(variants) !== jsonHash(proposedPlan.variants)) {
+    throw new TypeError('Freeze must retain every predeclared variant and its unchanged controls in declared order.');
+  }
   const plan = { ...structuredClone(proposedPlan), variants };
   validateStudy(plan);
   return { schemaVersion: 1, kind: 'policy-study-freeze', createdAt,
-    statement: 'Coordinator-selected shortlist frozen before held-out execution; no automatic winner selection.',
+    statement: proposedPlan.variants.length
+      ? 'All predeclared policies frozen before held-out execution; no outcome-based shortlist or control changes.'
+      : 'Coordinator-selected shortlist frozen before held-out execution; no automatic winner selection.',
     screenResultSha256: jsonHash(screen), proposedPlanSha256: jsonHash(proposedPlan), planSha256: jsonHash(plan), plan,
     hypotheses: structuredClone(SIMULATOR_MODELS), provenance };
 }
@@ -145,11 +160,11 @@ export function renderStudyMarkdown(result) {
     `Stage: ${result.configuration.phase}; ${result.runs.length} runs; seeds ${result.configuration.seeds.join(', ')}.`,
     result.configuration.notes, '', result.units, result.semanticScope, '',
     'Primary outcomes remain delayed whole-bank recall and delayed goal-weighted recall. Summary means below are descriptive; profile/goal cells are repeated conditions, not independent experimental replicates.', '',
-    '| Scenario | Policy | Delayed recall | Delayed goal | Learning gain | Exposure coverage | Independent coverage | Mean H | Mean A | Backlog | Recall feature available |',
-    '| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |'];
-  for (const row of result.summary) lines.push(`| ${row.scenarioId} | ${row.policyId} | ${['delayedRetention','delayedGoalRecall','learningGain','exposureCoverage','independentAssessmentCoverage','meanHardEligibleCount','meanAvailableCount','finalReviewBacklog','recallFeatureAvailability'].map(key => fmt(row.metrics[key]?.mean)).join(' | ')} |`);
+    '| Scenario | Policy | Delayed recall | Delayed goal | Learning gain | Exposure coverage | Independent coverage | Recent repetition | Mean H | Mean A | Mean review backlog | Final review backlog | Recall feature available |',
+    '| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |'];
+  for (const row of result.summary) lines.push(`| ${row.scenarioId} | ${row.policyId} | ${['delayedRetention','delayedGoalRecall','learningGain','exposureCoverage','independentAssessmentCoverage','recentRepetition','meanHardEligibleCount','meanAvailableCount','meanReviewBacklog','finalReviewBacklog','recallFeatureAvailability'].map(key => fmt(row.metrics[key]?.mean)).join(' | ')} |`);
   lines.push('', '## Paired differences and seed variation', '',
-    'Subtract the reference within each identical scenario/profile/goal/seed. Aggregate by equal-weight cell mean within each seed before reporting seed SD/range. With only two development or three held-out seeds these are descriptive uncertainty summaries, not confidence intervals. Negative recall differences remain visible.', '',
+    `Subtract the reference within each identical scenario/profile/goal/seed. Aggregate by equal-weight cell mean within each seed before reporting seed SD/range. This stage has ${result.configuration.seeds.length} independent seed units; these are descriptive uncertainty summaries, not confidence intervals. Negative recall differences remain visible.`, '',
     '| Scenario | Policy minus reference | Paired cells | Seed units | Delayed recall mean / SD / range | Delayed goal mean / SD / range |',
     '| --- | --- | --- | --- | --- | --- |');
   const spread = stat => `${fmt(stat.mean)} / ${fmt(stat.sd)} / [${fmt(stat.min)}, ${fmt(stat.max)}]`;
@@ -171,6 +186,9 @@ export function renderStudyMarkdown(result) {
     const first = result.runs.find(row => row.scenarioId === scenario.id).diagnostics.calendar;
     lines.push(`- ${scenario.id}: ${scenario.interactions} interactions over ${first.practiceDays} practice days; ${scenario.configuration.interactionsPerDay}/day, ${scenario.configuration.stepMinutes} minutes apart; ${first.start} through ${first.finalInteraction}; probe ${scenario.configuration.delayDays} days after the final interaction.`);
   }
+  lines.push('', `- This fixture has ${result.runs[0]?.eligibleIds?.length ?? 'unavailable'} hard-eligible item identities. Fixture reuse and seed novelty are declared in the plan notes; fresh seeds on previously studied content are not fresh-content validation.`,
+    `- The runtime-aligned bridge uses the four most recently practiced distinct item IDs. Recent repetition instead counts selection within the preceding ${result.baseConfiguration?.recentWindow ?? result.scenarios[0]?.configuration?.recentWindow ?? 'configured'} turns; these windows are not interchangeable.`,
+    '- This one-item study does not reproduce Word World excludeIds, its four-item minimum pool, grouped histories, semantic inputs, or Review/Reinforce/Explore practice modes.');
   lines.push('', '- Fixed model: spacing does not improve half-life. Editorial difficulty/complexity and goal suitability do not change learning dynamics. Transfer only follows authored directed edges. Modality factors are fixed hypotheses, not measured costs.',
     '- Spacing hypothesis changes memory stability after genuinely retrieved independent spaced practice; its exact formula and constants were authored before outcomes and are embedded in JSON. It does not prove a spacing benefit in people.',
     '- Low-benefit hypothesis keeps fixed forgetting, disables transfer and discounts repeated direct gains. It is intentionally unfavorable to reinforcement.',

@@ -6,7 +6,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-czech-pwa-v716",
+    "cacheName": "caatuu-czech-pwa-v717",
     "cachePrefix": "caatuu-czech-pwa-",
     "assets": [
       "/language-runtime/static/source/practice-compass.mjs?v=practice-compass-4",
@@ -16,6 +16,7 @@
       "/language-runtime/static/source/games/content-progression.mjs",
       "/language-runtime/static/source/games/adaptive-sampling.mjs",
       "/language-runtime/static/source/games/adaptive-practice.mjs",
+      "/language-runtime/static/source/games/recent-practice.mjs",
       "/language-runtime/static/source/learner-state.mjs",
       "/language-runtime/static/source/learning-semantics.mjs",
       "/language-runtime/static/source/word-world-progression.mjs",

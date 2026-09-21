@@ -7,7 +7,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-nb-pwa-v18",
+    "cacheName": "caatuu-nb-pwa-v19",
     "cachePrefix": "caatuu-nb-pwa-",
     "assets": [
       "/language-runtime/static/source/semantic-learning-core.mjs?v=semantic-learning-core-5",
@@ -19,6 +19,7 @@
       "/language-runtime/static/source/games/content-progression.mjs",
       "/language-runtime/static/source/games/adaptive-sampling.mjs",
       "/language-runtime/static/source/games/adaptive-practice.mjs",
+      "/language-runtime/static/source/games/recent-practice.mjs",
       "/language-runtime/static/source/learner-state.mjs",
       "/language-runtime/static/source/learning-semantics.mjs",
       "/language-runtime/static/source/word-world-progression.mjs",
@@ -375,8 +376,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/caatuu-chrome.js",
       "browserRequired": true,
-      "bytes": 251608,
-      "sha256": "95a85d32197c28cfdc09ca91bbe5f7556a09387fa6984d20dbbc682c74535b35"
+      "bytes": 251746,
+      "sha256": "1d9e0b7ed0f08027eb02412b8137adb1a88298899698bbc59267009bc4ea5f60"
     },
     {
       "key": "learning-profile",
@@ -455,8 +456,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/styles/caatuu-chrome.css",
       "browserRequired": true,
-      "bytes": 113547,
-      "sha256": "b4aaf7957b8b464c9936756ba8c669c4fb4e6c5ee42e9f62fb7aa98f07c7694e"
+      "bytes": 114464,
+      "sha256": "1c11d538ec6ff1dde354af86a1f3a88ef25a0eb4bf0db70e4aa828a64be1e31e"
     },
     {
       "key": "shared-word-world-style",
@@ -528,7 +529,7 @@
       "url": "/nb/sw.js",
       "browserRequired": true,
       "bytes": 137,
-      "sha256": "c2356f7add598c01a221ff587e07f7af85c6690641eb824a770681f9e9aa7a45"
+      "sha256": "7b0c566093abfcfd40373cf485d8889d1315b575ced319c94aa15abaa5c24533"
     },
     {
       "key": "shared-course-service-worker",

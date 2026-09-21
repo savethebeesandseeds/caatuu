@@ -5,13 +5,15 @@ import { createHash } from 'node:crypto';
 import { createEnvironment } from './environment.mjs';
 import { baselinePolicies } from './policies.mjs';
 import { simulateRun, validateInputs } from './runner.mjs';
-import { pairedStudyComparisons, validateStudy, freezeStudy, applyFreeze } from './study.mjs';
+import { pairedStudyComparisons, validateStudy, freezeStudy, applyFreeze, renderStudyMarkdown } from './study.mjs';
 import { createExperimentPolicy } from '../production-policy.mjs';
 import { evidenceDiagnostics } from './diagnostics.mjs';
 
 const read = async name => JSON.parse(await readFile(new URL(name, import.meta.url), 'utf8'));
 const fixture = await read('./fixture.json'), base = await read('./config.json');
 const screen = await read('./studies/screen.json'), heldout = await read('./studies/heldout-plan.json');
+const runtimeScreen = await read('./studies/runtime-aligned-screen.json');
+const runtimeHeldout = await read('./studies/runtime-aligned-heldout-plan.json');
 const start = Date.parse(base.startTime), DAY = 86400000;
 const options = { fixture, profile: fixture.profiles[0], goal: fixture.goals[0], seed: 17 };
 const fixed = { id: 'inspect', create: () => ({ select: input => input.candidates[0].id }) };
@@ -182,12 +184,131 @@ test('study freeze validates controls, held-out seeds, metrics and unchanged sou
   assert.throws(() => validateInputs({ ...base, stateMode: 'guessed' }, fixture), /stateMode/);
   assert.throws(() => validateInputs({ ...base, simulatorModel: 'miracle' }, fixture), /simulatorModel/);
   const provenance = { sourceSha256: { 'source.mjs': 'frozen' } };
-  const freeze = freezeStudy({ proposedPlan: heldout, screen: { configuration: screen },
+  const freeze = freezeStudy({ proposedPlan: heldout, screen: { configuration: screen, provenance },
     selectedIds: ['adaptive-paced', 'uniform-hard'], provenance, createdAt: '2026-09-20T00:00:00Z' });
   assert.equal(applyFreeze(heldout, freeze, provenance).variants.length, 2);
   assert.throws(() => applyFreeze(heldout, freeze, { sourceSha256: { 'source.mjs': 'changed' } }), /changed/);
-  assert.throws(() => freezeStudy({ proposedPlan: { ...heldout, seeds: [17] }, screen: { configuration: screen },
+  assert.throws(() => freezeStudy({ proposedPlan: { ...heldout, seeds: [17] }, screen: { configuration: screen, provenance },
     selectedIds: ['adaptive-paced', 'uniform-hard'], provenance }), /overlap/);
+});
+
+test('runtime-aligned plans predeclare all five isolated variants and complete observable cells', () => {
+  const variants = [
+    { id: 'adaptive-paced', controls: {} },
+    { id: 'uniform-hard', controls: { uniformScores: true, frontier: false, introductions: false, slots: false, recency: false } },
+    { id: 'outside-exploration-.05', controls: { outsideExploration: .05 } },
+    { id: 'soft-frontier', controls: { softFrontier: true } },
+    { id: 'cross-category-recency', controls: { crossCategoryRecency: true } }
+  ];
+  const previousSeeds = new Set([...base.seeds, ...screen.seeds, ...heldout.seeds]);
+  for (const plan of [runtimeScreen, runtimeHeldout]) {
+    validateStudy(plan);
+    assert.deepEqual(plan.variants, variants);
+    assert.equal(plan.cells, undefined, 'use every default profile/goal cell');
+    assert.ok(plan.seeds.every(seed => !previousSeeds.has(seed)));
+    assert.ok(plan.scenarios.every(row => row.stateMode === 'observable-real'));
+    assert.match(plan.notes, /already been studied/);
+    assert.match(plan.notes, /not (?:fresh content|content)/);
+  }
+  assert.equal(runtimeScreen.fixture, 'original');
+  assert.equal(runtimeHeldout.fixture, 'heldout');
+  assert.deepEqual(runtimeScreen.seeds, [503, 607]);
+  assert.deepEqual(runtimeHeldout.seeds, [709, 811, 907]);
+  assert.deepEqual(runtimeScreen.scenarios, [{ id: 'short-fixed-observable', interactions: 120, stateMode: 'observable-real', simulatorModel: 'fixed' }]);
+  assert.deepEqual(runtimeHeldout.scenarios.map(({ id, interactions, simulatorModel }) => [id, interactions, simulatorModel]), [
+    ['short-fixed-observable', 120, 'fixed'], ['long-fixed-observable', 432, 'fixed'],
+    ['long-spacing-observable', 432, 'spacing'], ['long-low-benefit-observable', 432, 'low-benefit']
+  ]);
+  const runCount = plan => base.profiles.length * base.goals.length * plan.variants.length * plan.seeds.length * plan.scenarios.length;
+  assert.equal(runCount(runtimeScreen), 60);
+  assert.equal(runCount(runtimeHeldout), 360);
+  assert.deepEqual([base.interactionsPerDay, base.stepMinutes, base.delayDays], [12, 2, 7]);
+});
+
+test('new experimental controls require booleans and a freeze accepts at most five distinct policies', () => {
+  for (const key of ['softFrontier', 'crossCategoryRecency']) {
+    for (const value of [true, false]) validateStudy({ ...runtimeScreen, variants: [{ id: key, controls: { [key]: value } }] });
+    for (const value of [1, 'true', null]) assert.throws(() => validateStudy({
+      ...runtimeScreen, variants: [{ id: key, controls: { [key]: value } }]
+    }), /control/);
+  }
+  const provenance = { sourceSha256: { 'apps/language-runtime/static/source/games/recent-practice.mjs': 'frozen' } };
+  const selectedIds = runtimeScreen.variants.map(row => row.id);
+  const freeze = freezeStudy({ proposedPlan: runtimeHeldout, screen: { configuration: runtimeScreen, provenance },
+    selectedIds, provenance, createdAt: '2026-09-21T00:00:00Z' });
+  assert.deepEqual(applyFreeze(runtimeHeldout, freeze, provenance).variants, runtimeHeldout.variants);
+  assert.match(freeze.statement, /All predeclared policies/);
+  for (const ids of [undefined, [], selectedIds.slice(0, 1), [...selectedIds, selectedIds[0]], selectedIds.map(() => selectedIds[0])]) {
+    assert.throws(() => freezeStudy({ proposedPlan: runtimeHeldout, screen: { configuration: runtimeScreen, provenance },
+      selectedIds: ids, provenance }), /two to five distinct/);
+  }
+  // Six distinct screened policies exceed the cap, independently of duplication.
+  assert.throws(() => freezeStudy({ proposedPlan: heldout, screen: { configuration: screen, provenance },
+    selectedIds: screen.variants.slice(0, 6).map(row => row.id), provenance }), /two to five distinct/);
+  assert.throws(() => freezeStudy({ proposedPlan: runtimeHeldout, screen: { configuration: runtimeScreen, provenance },
+    selectedIds: selectedIds.slice(0, 3), provenance }), /every predeclared variant/);
+  const changedScreen = structuredClone(runtimeScreen);
+  changedScreen.variants.find(row => row.id === 'soft-frontier').controls = { softFrontier: true, crossCategoryRecency: true };
+  assert.throws(() => freezeStudy({ proposedPlan: runtimeHeldout, screen: { configuration: changedScreen, provenance },
+    selectedIds, provenance }), /unchanged controls/);
+  assert.throws(() => applyFreeze(runtimeHeldout, freeze, { sourceSha256: {
+    'apps/language-runtime/static/source/games/recent-practice.mjs': 'changed'
+  } }), /recent-practice/);
+});
+
+test('freeze rejects changed shared screen inputs while allowing distinct stage plan paths', () => {
+  const shared = { 'source.mjs': 'same-source', 'config.json': 'same-config', 'fixture.json': 'same-fixture' };
+  const provenance = { sourceSha256: { ...shared, 'heldout-plan.json': 'heldout-plan' } };
+  const screened = { configuration: runtimeScreen,
+    provenance: { sourceSha256: { ...shared, 'screen-plan.json': 'screen-plan' } } };
+  const args = { proposedPlan: runtimeHeldout, screen: screened,
+    selectedIds: runtimeScreen.variants.map(row => row.id), provenance, createdAt: '2026-09-21T00:00:00Z' };
+  assert.deepEqual(freezeStudy(args).plan.variants, runtimeHeldout.variants);
+  for (const file of Object.keys(shared)) {
+    assert.throws(() => freezeStudy({ ...args, provenance: {
+      sourceSha256: { ...provenance.sourceSha256, [file]: 'edited-after-screen' }
+    } }), /changed before freeze/);
+  }
+  assert.throws(() => freezeStudy({ ...args, screen: { configuration: runtimeScreen } }), /require source provenance/);
+});
+
+test('study summary displays repetition and both backlog measures with the actual seed count', () => {
+  const metrics = Object.fromEntries([
+    'delayedRetention', 'delayedGoalRecall', 'learningGain', 'exposureCoverage', 'independentAssessmentCoverage',
+    'meanHardEligibleCount', 'meanAvailableCount', 'recallFeatureAvailability', 'longestUnchangedFrontierDays',
+    'exposureShare', 'assistedShare', 'independentShare', 'maximumPracticeDays', 'maximumIndependentDays', 'maximumSpacedSuccesses'
+  ].map(key => [key, { mean: 0, max: 0 }]));
+  Object.assign(metrics, { recentRepetition: { mean: .375 }, meanReviewBacklog: { mean: 2.5 }, finalReviewBacklog: { mean: 4 } });
+  const result = { kind: 'policy-access-study', scope: 'Synthetic fixture',
+    configuration: { ...runtimeScreen, seeds: [1, 2, 3, 4] }, units: 'One item', semanticScope: 'No semantic inference',
+    summary: [{ scenarioId: 'sample', policyId: 'adaptive-paced', metrics }], pairedComparisons: [],
+    scenarios: [{ id: 'sample', interactions: 1, configuration: base }],
+    runs: [{ scenarioId: 'sample', policyId: 'adaptive-paced', eligibleIds: ['item-a', 'item-b'], diagnostics: {
+      hardEligibleNeverAdmittedIds: [], calendar: { practiceDays: 1, start: base.startTime, finalInteraction: base.startTime }
+    } }] };
+  const markdown = renderStudyMarkdown(result);
+  const lines = markdown.split('\n'), header = lines.find(line => line.startsWith('| Scenario | Policy | Delayed recall'));
+  const values = lines[lines.indexOf(header) + 2].split('|').map(value => value.trim());
+  const columns = header.split('|').map(value => value.trim());
+  assert.equal(values[columns.indexOf('Recent repetition')], '0.3750');
+  assert.equal(values[columns.indexOf('Mean review backlog')], '2.5000');
+  assert.equal(values[columns.indexOf('Final review backlog')], '4.0000');
+  assert.match(markdown, /This stage has 4 independent seed units/);
+  assert.match(markdown, /2 hard-eligible item identities/);
+  assert.match(markdown, /four most recently practiced distinct item IDs/);
+  assert.match(markdown, /preceding 5 turns/);
+  assert.match(markdown, /not fresh-content validation/);
+  assert.match(markdown, /Word World excludeIds/);
+  assert.match(markdown, /Review\/Reinforce\/Explore/);
+  assert.doesNotMatch(markdown, /two development or three held-out seeds/);
+});
+
+test('CLI help advertises the bounded five-policy freeze and predeclared constraint', async () => {
+  const { main } = await import('./run.mjs');
+  const output = [], original = console.log;
+  console.log = value => output.push(value);
+  try { await main(['--help']); } finally { console.log = original; }
+  assert.match(output.join('\n'), /Freeze 2-5 screened variants; retain all predeclared variants/);
 });
 
 test('importing the CLI and study modules does not execute an experiment', async () => {

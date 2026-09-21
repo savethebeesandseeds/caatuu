@@ -3,10 +3,13 @@ import test from 'node:test';
 import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
 import { loadProgressionCatalogs } from '../../../tools/language-content/quality/content-progression-catalogs.mjs';
+import { loadCourseCatalog } from '../../../tools/language-packs/lib/course-contract.mjs';
+import { browserSharedRuntimeClosureIssues } from '../../../tools/language-packs/lib/browser-shared-runtime-closure.mjs';
 import { selectContentItems, practiceEnglishText } from '../static/source/games/adaptive-practice.mjs';
+import { createSamplingExperiment } from '../static/source/games/adaptive-sampling.mjs';
 import { selectContentItems as legacy } from '../static/source/games/content-progression.mjs';
-import { extractCoreVerbPairs } from '../static/source/games/verb-nebula/verb-nebula-core.mjs';
-import { validateConjugationCometCatalog, selectConjugationPracticeVerbs, buildConjugationHelixRound } from '../static/source/games/conjugation-comet/conjugation-comet-core.mjs';
+import { extractCoreVerbPairs, dealVerbRound } from '../static/source/games/verb-nebula/verb-nebula-core.mjs';
+import { validateConjugationCometCatalog, selectConjugationPracticeVerbs, buildConjugationHelixRound, judgeConjugationHelixRound } from '../static/source/games/conjugation-comet/conjugation-comet-core.mjs';
 import { buildGrammarGravityRounds } from '../static/source/games/grammar-gravity/grammar-gravity-core.mjs';
 import { createNounLandingSession } from '../static/source/games/grammar-gravity/noun-landing-core.mjs';
 import { createSoundQuasarSession } from '../static/source/games/sound-quasar/sound-quasar-core.mjs';
@@ -15,6 +18,12 @@ import { progressiveWordWorldSelection, wordWorldPracticeHistory } from '../stat
 
 const now = Date.parse('2026-09-20T12:00:00Z');
 const random = () => .31;
+const gameplayVariants = [
+  { id: 'production', controls: null },
+  { id: 'outside-exploration', controls: { outsideExploration: .05 } },
+  { id: 'soft-frontier', controls: { softFrontier: true } },
+  { id: 'cross-category-recency', controls: { crossCategoryRecency: true } }
+];
 const catalogsPromise = loadProgressionCatalogs();
 const nucleusPromise = (async () => {
   const context = { window: {} };
@@ -24,6 +33,49 @@ const nucleusPromise = (async () => {
 const scope = (courseId, gameId, bankId = 'default', onDecision = () => {}) => ({
   identity: { courseId, gameId, bankId, assessmentDirection: bankId },
   goal: { id: 'balanced', kind: 'balanced' }, semanticsEnabled: false, onDecision
+});
+
+test('adaptive practice shared import closure is packaged and cached by every browser course', async () => {
+  const repoRoot = new URL('../../../', import.meta.url);
+  const sharedSourceRoot = new URL('../static/source/', import.meta.url);
+  const pending = [new URL('games/adaptive-practice.mjs', sharedSourceRoot)];
+  const dependencies = new Set();
+  while (pending.length) {
+    const moduleUrl = pending.pop();
+    moduleUrl.search = ''; moduleUrl.hash = '';
+    assert.ok(moduleUrl.href.startsWith(sharedSourceRoot.href), `Sampling import escapes shared source: ${moduleUrl}`);
+    const sourcePath = `apps/language-runtime/static/source/${decodeURIComponent(moduleUrl.href.slice(sharedSourceRoot.href.length))}`;
+    if (dependencies.has(sourcePath)) continue;
+    dependencies.add(sourcePath);
+    const source = await readFile(moduleUrl, 'utf8');
+    // Match the literal import/re-export forms checked by the static compiler.
+    // Computed optional model imports are outside the sampling module closure.
+    const patterns = [
+      /(?:^|\n)\s*import\s+(?:[^;]*?\s+from\s+)?["']([^"']+)["']/gu,
+      /(?:^|\n)\s*export\s+[^;]*?\s+from\s*["']([^"']+)["']/gu,
+      /\bimport\s*\(\s*["']([^"']+)["']\s*\)/gu
+    ];
+    for (const pattern of patterns) for (const [, reference] of source.matchAll(pattern)) {
+      if (reference.startsWith('.')) pending.push(new URL(reference, moduleUrl));
+      else if (reference.startsWith('/language-runtime/static/source/')) pending.push(new URL(`apps${reference}`, repoRoot));
+    }
+  }
+  const appAssetCatalog = JSON.parse(await readFile(new URL('../app-assets.json', import.meta.url), 'utf8'));
+  const mappings = [...dependencies].map(source => {
+    const matching = appAssetCatalog.assets.filter(mapping => mapping.source === source);
+    assert.equal(matching.length, 1, `Sampling dependency must have one shared asset mapping: ${source}`);
+    assert.equal(matching[0].output, source.slice('apps/'.length), `Sampling dependency must keep its shared public path: ${source}`);
+    return matching[0];
+  });
+  const loaded = await loadCourseCatalog({ repoRoot });
+  const browserCourses = loaded.courses.filter(({ course }) => course.platforms?.browser?.enabled);
+  assert.ok(browserCourses.length, 'The authoritative catalog must contain browser courses');
+  for (const { course } of browserCourses) {
+    assert.equal(course.resources.setupCatalog.state, 'present', `${course.id} requires an offline catalog`);
+    const setupCatalog = JSON.parse(await readFile(new URL(course.resources.setupCatalog.path, repoRoot), 'utf8'));
+    assert.deepEqual(browserSharedRuntimeClosureIssues({ appAssetCatalog: { assets: mappings }, setupCatalog,
+      courseId: course.id, routePrefix: course.routePrefix }), [], `${course.id} must cache the complete sampling import graph`);
+  }
 });
 
 test('legacy callers retain established selection and adaptive English never uses learner-base text', () => {
@@ -46,7 +98,7 @@ test('one Word World decision is one draw and recent exclusions have an inspecta
   assert.ok(!trace.draws[0].distribution.some(row => row.id === 'item-0'));
 });
 
-test('every authored game bank builds playable adaptive selections under its difficulty ceiling', async () => {
+for (const variant of gameplayVariants) test(`every authored game bank builds playable adaptive selections under its difficulty ceiling (${variant.id})`, async () => {
   const catalogs = await catalogsPromise;
   const nucleus = await nucleusPromise;
   const seen = new Set();
@@ -57,18 +109,28 @@ test('every authored game bank builds playable adaptive selections under its dif
       : game === 'sound-quasar' ? 'words' : game === 'word-world' ? 'sentences'
         : game === 'naturalization-nucleus' ? 'recognize-hanzi-pinyin' : 'default';
     const policy = scope(course.id, gameId, bankId, value => { trace = value; });
+    if (variant.controls) policy.select = (items, options) => createSamplingExperiment(items, options, variant.controls);
     const options = { difficulty, history: {}, random, now, policy };
     let items;
     if (game === 'word-world') {
       items = [progressiveWordWorldSelection(document.records, options)];
     } else if (game === 'verb-nebula') {
       items = selectContentItems(extractCoreVerbPairs(document, { learnerBaseLanguage: course.sourceLanguage.locale }), options);
+      const board = dealVerbRound(items, items.map(item => item.id), 4, random);
+      assert.equal(board.round.length, 4);
+      assert.equal(new Set(board.round.map(item => item.id)).size, 4);
     } else if (game === 'conjugation-comet') {
       const pack = validateConjugationCometCatalog(document, { expectedCourseId: course.id,
         expectedTargetLanguageId: course.targetLanguage.id, expectedLearnerBaseLanguageId: course.sourceLanguage.id,
         expectedTargetLocale: course.targetLanguage.locale });
       items = selectConjugationPracticeVerbs(pack.verbs, options);
-      for (const item of items) assert.ok(buildConjugationHelixRound(pack, item.id, { rng: random }));
+      for (const item of items) {
+        const board = buildConjugationHelixRound(pack, item.id, { rng: random });
+        assert.equal(board.subjects.length, item.forms.length);
+        assert.equal(board.options.length, item.forms.length);
+        assert.ok(board.options.some((_, offset) => judgeConjugationHelixRound(board, 0, offset).correct),
+          'every selected paradigm retains a complete solvable helix');
+      }
     } else if (game === 'case-cosmos') {
       items = buildCasePracticeRounds(document, difficulty, options);
       assert.ok(items.every(item => item.practiceQuestions.length === 1));
@@ -91,37 +153,47 @@ test('every authored game bank builds playable adaptive selections under its dif
       items = rounds.map(round => document.items.find(item => item.id === round.answerId));
     } else if (game === 'naturalization-nucleus') {
       const pack = nucleus.validateCatalog(document);
-      const pieceCount = Math.min(...pack.roundSettings.pieceCounts);
-      let decisions = 0;
-      policy.onDecision = value => { trace = value; decisions++; };
-      const round = nucleus.createRound(pack, pieceCount, random, '', difficulty, { selectContentItems, history: {}, policy });
-      items = Array.from(round.solution, piece => piece.left);
-      assert.equal(decisions, 1, 'one policy decision owns the actual Nucleus board');
-      assert.equal(items.length, pieceCount);
-      assert.equal(new Set(items.map(nucleus.readingKey)).size, pieceCount);
-      assert.deepEqual(trace.draws.map(draw => draw.chosenId), items.map(item => item.id));
-      assert.equal(nucleus.countConnections(round.solution), pieceCount, 'selected items remain a complete solvable ring');
+      for (const pieceCount of pack.roundSettings.pieceCounts) {
+        let decisions = 0;
+        policy.onDecision = value => { trace = value; decisions++; };
+        const round = nucleus.createRound(pack, pieceCount, random, '', difficulty, { selectContentItems, history: {}, policy });
+        items = Array.from(round.solution, piece => piece.left);
+        assert.equal(decisions, 1, 'one policy decision owns the actual Nucleus board');
+        assert.equal(items.length, pieceCount);
+        assert.equal(new Set(items.map(nucleus.readingKey)).size, pieceCount);
+        assert.ok(items.every(item => item.difficulty <= difficulty));
+        assert.deepEqual(trace.draws.map(draw => draw.chosenId), items.map(item => item.id));
+        assert.equal(nucleus.countConnections(round.solution), pieceCount, 'selected items remain a complete solvable ring');
+      }
     } else throw new Error(`Uncovered game: ${game}`);
     assert.ok(items.length && items.every(Boolean), `${course.id}/${game} has a playable selection`);
     assert.ok(items.every(item => (item.difficulty ?? 1) <= difficulty), `${course.id}/${game} preserves difficulty ${difficulty}`);
     assert.equal(new Set(items.map(item => item.id)).size, items.length, `${course.id}/${game} keeps distinct selections`);
     assert.deepEqual(trace.identity, policy.identity, `${course.id}/${game} keeps its real game and evidence-bank identity`);
     assert.equal(trace.semanticStatus, 'disabled');
+    assert.equal(new Set(trace.draws.map(draw => draw.chosenGroupKey)).size, trace.draws.length,
+      `${course.id}/${game} keeps distinct answer groups`);
+    if (variant.controls) for (const [key, value] of Object.entries(variant.controls)) {
+      assert.equal(trace.experimentalControls[key], value);
+    } else assert.equal(trace.experimentalControls, undefined);
     seen.add(`${course.id}/${game}`);
   }
   assert.deepEqual(seen, new Set(catalogs.map(({ course, game }) => `${course.id}/${game}`)));
 });
 
-test('listening words and sentences use separate adaptive evidence banks on every available course', async () => {
+for (const variant of gameplayVariants) test(`listening words and sentences use separate adaptive evidence banks on every available course (${variant.id})`, async () => {
   for (const { document, course } of (await catalogsPromise).filter(catalog => catalog.game === 'sound-quasar')) {
-    for (const mode of ['words', 'sentences']) {
+    for (const mode of ['words', 'sentences']) for (const difficulty of [1, 2, 3]) {
       const bank = mode === 'words' ? document.items : document.sentences;
-      const eligible = bank.filter(row => (row.difficulty ?? 1) <= 3);
+      const eligible = bank.filter(row => (row.difficulty ?? 1) <= difficulty);
       let trace;
-      const rounds = createSoundQuasarSession(document, { history: {}, difficulty: 3, mode, random,
-        policy: scope(course.id, 'sound-quasar', mode, value => { trace = value; }) });
+      const policy = scope(course.id, 'sound-quasar', mode, value => { trace = value; });
+      if (variant.controls) policy.select = (items, options) => createSamplingExperiment(items, options, variant.controls);
+      const rounds = createSoundQuasarSession(document, { history: {}, difficulty, mode, random, policy });
       const ids = new Set(eligible.map(row => row.id));
       assert.equal(trace.identity.bankId, mode);
+      assert.ok(rounds.length);
+      assert.equal(new Set(rounds.map(round => round.answerId)).size, rounds.length);
       assert.ok(rounds.every(round => ids.has(round.answerId) && round.choices.every(choice => ids.has(choice.id))));
       assert.deepEqual(rounds.map(round => round.answerId), trace.draws.slice(0, rounds.length).map(draw => draw.chosenId));
     }

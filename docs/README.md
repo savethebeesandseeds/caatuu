@@ -23,6 +23,8 @@ and implementation details stay beside the relevant app or tool.
 | [Image retrieval and databases](IMAGE_RETRIEVAL_AND_DATABASES.md) | Shared artwork embeddings, course data ownership, generation and validation |
 | [Game content catalogs](GAME_CONTENT_CATALOGS.md) | Normalized runtime filenames, difficulty selection, inventory and recovery evidence |
 | [Adaptive practice and evaluation](ADAPTIVE_LEARNING.md) | Sampling policy, course goals, evidence limits and three independent manual evaluators |
+| [Adaptive-learning current state](ADAPTIVE_LEARNING_CURRENT_STATE.md) | Completed milestone, production/experimental boundaries, final checks, report provenance and the single deferred research direction |
+| [Manual evaluation tools: start here](../tools/learning-evaluation/README.md) | Choose and run content, policy or Stats diagnostics when adding languages, reviewing content or changing learning behavior |
 | [Shared practice mapping audit](PRACTICE_MAPPING_AUDIT.md) | Real profile accounting, all-course inspection, reproducible embedding and bounded mapping corrections |
 | [Candidate-access investigation](ADAPTIVE_POLICY_INVESTIGATION.md) | Reproduced policy gap, controlled ablations, simulator limits, course capabilities and evidence/UI follow-up |
 | [Game ownership decision](decisions/0001-game-source-delivery-and-language-ownership.md) | Separation of authored games, generated delivery, language adapters, and Android packaging |

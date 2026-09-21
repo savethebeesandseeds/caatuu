@@ -2118,7 +2118,8 @@ body.settings-open {
   gap: 14px;
 }
 
-.traveler-badge {
+.traveler-badge,
+.stats-compass-badge {
   min-height: 132px;
   padding: 9px 8px 11px;
   border: 2px solid color-mix(in srgb, var(--theme-amber, #c19138) 76%, var(--line));
@@ -2205,13 +2206,16 @@ body.settings-open {
   object-fit: contain;
 }
 
-.backpack-section-intro > span {
+.backpack-section-intro > span,
+.backpack-section-copy {
   min-width: 0;
   display: grid;
   gap: 2px;
 }
 
-.backpack-section-intro strong {
+.backpack-section-intro strong,
+.backpack-section-intro h3 {
+  margin: 0;
   color: var(--ink);
   font-size: 1rem;
 }
@@ -2222,9 +2226,32 @@ body.settings-open {
   font-weight: 700;
 }
 
+.backpack-stats,
 #backpackStatsMount {
   display: grid;
   gap: 14px;
+}
+
+.backpack-stats-header .backpack-section-intro {
+  grid-template-columns: 80px minmax(0, 1fr);
+  gap: 14px;
+  padding: 2px;
+  border: 0;
+}
+
+.stats-compass-badge {
+  width: 80px;
+  height: 80px;
+  min-height: 0;
+  padding: 8px;
+  border-radius: 50%;
+}
+
+.stats-compass-badge img {
+  display: block;
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
 }
 
 .learning-direction-card,
@@ -2239,25 +2266,30 @@ body.settings-open {
 }
 
 .learning-direction-card {
+  padding: 10px 12px;
+  gap: 6px;
   border: 2px dashed color-mix(in srgb, #8150aa 50%, var(--line));
   background: linear-gradient(125deg, color-mix(in srgb, #8150aa 16%, var(--panel)), color-mix(in srgb, #d79252 13%, var(--panel)));
 }
 
 .learning-direction-heading { display: flex; align-items: center; gap: 12px; }
-.learning-direction-heading > div,
 .course-practice-heading { display: grid; gap: 4px; }
 .stats-eyebrow { color: var(--muted); font-size: 0.63rem; font-weight: 850; text-transform: uppercase; }
-.learning-direction-heading strong,
 .course-practice-heading h3 { margin: 0; font-size: 1rem; line-height: 1.3; overflow-wrap: anywhere; }
-.learning-direction-arrow { width: 44px; height: 44px; flex: 0 0 44px; display: grid; place-items: center; border-radius: 14px; background: #8150aa; color: white; font-size: 1.7rem; font-weight: 850; }
+.learning-direction-card .learning-direction-arrow { width: 32px; height: 32px; flex: 0 0 32px; display: grid; place-items: center; border-radius: 9px; background: #8150aa; color: white; }
+.learning-direction-arrow svg { display: block; width: 22px; height: 22px; }
+.learning-direction-card .learning-direction-copy { display: grid; gap: 2px; }
+.learning-direction-copy #learningGoalIntent { color: var(--muted); font-size: 0.65rem; font-weight: 500; line-height: 1.3; }
 .learning-direction-card p { margin: 0; font-size: 0.74rem; line-height: 1.5; }
-.learning-direction-card .setting-select { display: grid; grid-template-columns: minmax(0, 1fr); gap: 7px; }
-.learning-direction-card .setting-select > span { display: grid; gap: 4px; }
+.learning-direction-card .setting-select { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 14px; }
+.learning-direction-card .setting-select > span { display: flex; justify-content: flex-start; gap: 9px; }
 .learning-direction-card .setting-select b { font-size: 0.73rem; }
-.learning-direction-card .setting-select small { color: var(--muted); font-size: 0.67rem; line-height: 1.4; text-align: start; }
-.learning-direction-card select { width: 100%; min-width: 0; min-height: 44px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--theme-control-bg, var(--panel)); color: inherit; font: inherit; font-size: 0.8rem; }
+.learning-direction-card select { width: 100%; min-width: 0; min-height: 44px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--theme-control-bg, var(--panel)); color: inherit; font: inherit; font-size: 0.75rem; }
 .learning-direction-card select:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
 .learning-direction-card .learning-status:empty { display: none; }
+@media (max-width: 480px) {
+  .learning-direction-card .setting-select { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+}
 .course-practice-totals { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; margin: 0; }
 .course-practice-totals > div { min-width: 0; padding: 12px 7px; border-radius: 12px; background: color-mix(in srgb, #519c91 15%, var(--panel)); }
 .course-practice-totals > div:nth-child(2) { background: color-mix(in srgb, #568bd9 17%, var(--panel)); }
@@ -2512,117 +2544,117 @@ body.settings-open {
 }
 
 .skill-compass {
-  border: 1px solid color-mix(in srgb, var(--green) 24%, var(--line));
-  border-radius: 10px;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 22% 20%, color-mix(in srgb, var(--green) 9%, transparent), transparent 44%),
-    color-mix(in srgb, var(--theme-control-bg, var(--panel)) 72%, transparent);
-  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--theme-panel-raised, var(--panel)) 72%, transparent);
-}
-
-.skill-compass > summary {
-  min-height: 50px;
-  padding: 8px 10px;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto 24px;
-  align-items: center;
-  gap: 9px;
-  color: var(--ink);
-  cursor: pointer;
-  list-style: none;
-}
-
-.skill-compass > summary::-webkit-details-marker {
-  display: none;
-}
-
-.skill-compass > summary::after {
-  width: 22px;
-  height: 22px;
-  border: 1px solid color-mix(in srgb, var(--green) 25%, var(--line));
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  content: "+";
-  color: var(--green-dark, var(--green));
-  font-size: 0.88rem;
-  font-weight: 950;
-  line-height: 1;
-}
-
-.skill-compass[open] > summary::after {
-  content: "-";
-}
-
-.skill-compass-summary-copy {
   min-width: 0;
-  display: grid;
-  gap: 1px;
-}
-
-.skill-compass-summary-copy small {
-  color: var(--muted);
-  font-size: 0.58rem;
-  font-weight: 850;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.skill-compass-summary-copy strong {
-  color: var(--green-dark, var(--green));
-  font-size: 0.9rem;
-}
-
-.skill-compass-summary-state {
-  padding: 4px 7px;
-  border: 1px solid color-mix(in srgb, var(--green) 17%, var(--line));
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--green) 8%, transparent);
-  color: var(--muted);
-  font-size: 0.58rem;
-  font-weight: 850;
-  white-space: nowrap;
 }
 
 .skill-compass-body {
-  padding: 10px;
-  border-top: 1px solid color-mix(in srgb, var(--green) 18%, var(--line));
   display: grid;
   gap: 8px;
 }
 
-.skill-compass-status,
-.skill-compass-explanation { margin: 0; color: var(--muted); font-size: 0.66rem; line-height: 1.5; }
-.skill-compass-status { color: var(--ink); }
+.skill-compass-status { margin: 0; color: var(--ink); font-size: 0.66rem; line-height: 1.5; }
+.skill-compass-status[hidden] { display: none; }
 .skill-compass-retry { justify-self: start; padding: 7px 10px; min-height: 40px; border: 1px solid var(--line); border-radius: 9px; background: var(--panel); color: var(--ink); font: inherit; font-size: 0.7rem; }
 .skill-compass-retry[hidden] { display: none; }
-.skill-compass-values > summary,
-.course-practice-details > summary { cursor: pointer; padding: 10px 0; color: var(--muted); font-size: 0.72rem; font-weight: 750; }
+.stats-detail-actions { display: flex; justify-content: space-evenly; gap: 12px; }
+.stats-info {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  align-items: start;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--theme-paper, var(--panel));
+  color: var(--muted);
+}
+.stats-info p { margin: 0; font-size: 0.67rem; line-height: 1.5; }
+.stats-info-icon {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border: 1px solid color-mix(in srgb, var(--green) 35%, var(--line));
+  border-radius: 50%;
+  color: var(--green-dark, var(--green));
+  font: 800 0.68rem/1 Georgia, serif;
+}
+.stats-detail-actions button {
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 750;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.stats-detail-actions button:hover { color: var(--green); }
+.stats-details-heading button {
+  min-height: 44px;
+  padding: 9px 13px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--theme-control-bg, var(--panel));
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+.stats-details-heading button:hover { border-color: var(--green); }
+.stats-detail-actions button:focus-visible,
+.stats-details-heading button:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
+.stats-details-dialog {
+  width: min(640px, calc(100% - 24px));
+  max-width: none;
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--panel);
+  color: var(--ink);
+  box-shadow: 0 20px 70px #0005;
+  overscroll-behavior: contain;
+}
+.stats-details-dialog::backdrop { background: #152a25a6; backdrop-filter: blur(4px); }
+.stats-details-content { padding: 16px; display: grid; gap: 14px; }
+.stats-details-heading {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--panel);
+}
+.stats-details-heading h3 { margin: 0; font-size: 1rem; }
+.stats-details-dialog .course-practice-card { border: 0; padding: 0; }
+@media (max-width: 440px) {
+  .stats-details-dialog .course-practice-totals { grid-template-columns: minmax(0, 1fr); }
+  .stats-details-dialog .course-practice-totals > div { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 12px; }
+  .stats-details-dialog .course-practice-totals dd { margin: 0; font-size: 1.2rem; }
+}
 .skill-compass-values .skill-compass-axis-list li { grid-template-columns: minmax(0, 1fr); }
 .skill-compass-values .skill-compass-axis-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .skill-compass-values .skill-compass-axis-metrics dt { font-size: 0.59rem; text-transform: none; }
 .skill-compass-values .skill-compass-axis-metrics dd { font-size: 0.7rem; }
-
-.skill-compass-map {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 8px;
-}
 
 .skill-compass-figure {
   min-width: 0;
   width: 100%;
   margin: 0;
   padding: 12px 8px 10px;
-  border: 1px solid color-mix(in srgb, var(--green) 20%, var(--line));
-  border-radius: 14px;
   display: grid;
   justify-items: center;
   gap: 7px;
-  background:
-    radial-gradient(circle at 50% 43%, color-mix(in srgb, var(--green) 10%, transparent), transparent 58%),
-    color-mix(in srgb, var(--theme-panel-raised, var(--panel)) 68%, transparent);
 }
 
 .skill-compass-chart {
@@ -4764,11 +4796,4 @@ html[data-caatuu-runtime="android"] .settings-section-switcher {
     grid-column: auto;
   }
 
-  .skill-compass > summary {
-    grid-template-columns: minmax(0, 1fr) 22px;
-  }
-
-  .skill-compass-summary-state {
-    display: none;
-  }
 }

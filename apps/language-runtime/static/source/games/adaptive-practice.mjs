@@ -1,5 +1,6 @@
 import { selectContentItems as existingSelector } from './content-progression.mjs';
 import { createAdaptiveDecision } from './adaptive-sampling.mjs';
+import { recentPracticeIds } from './recent-practice.mjs';
 import { createLearningSemantics } from '../learning-semantics.mjs';
 import { normalizeSharedEnglishText } from '../english-image-search.mjs';
 
@@ -57,8 +58,7 @@ export function selectContentItems(items, { policy = null, ...options } = {}) {
   const getId = options.getId || (item => item.id);
   const getGroupKey = options.getGroupKey || getId;
   const history = options.history || {};
-  const recentIds = Object.entries(history).filter(([, row]) => row?.lastSeenAt)
-    .sort((a, b) => Date.parse(b[1].lastSeenAt) - Date.parse(a[1].lastSeenAt)).slice(0, 4).map(([id]) => id);
+  const recentIds = recentPracticeIds(history);
   const candidates = [];
   for (const item of items) {
     try {

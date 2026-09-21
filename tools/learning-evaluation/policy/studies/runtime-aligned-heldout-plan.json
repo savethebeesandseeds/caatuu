@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "runtime-aligned-heldout-plan-v1",
+  "phase": "heldout",
+  "fixture": "heldout",
+  "primaryMetrics": ["delayedRetention", "delayedGoalRecall"],
+  "seeds": [709, 811, 907],
+  "variants": [
+    {"id":"adaptive-paced","controls":{}},
+    {"id":"uniform-hard","controls":{"uniformScores":true,"frontier":false,"introductions":false,"slots":false,"recency":false}},
+    {"id":"outside-exploration-.05","controls":{"outsideExploration":0.05}},
+    {"id":"soft-frontier","controls":{"softFrontier":true}},
+    {"id":"cross-category-recency","controls":{"crossCategoryRecency":true}}
+  ],
+  "scenarios": [
+    {"id":"short-fixed-observable","interactions":120,"stateMode":"observable-real","simulatorModel":"fixed"},
+    {"id":"long-fixed-observable","interactions":432,"stateMode":"observable-real","simulatorModel":"fixed"},
+    {"id":"long-spacing-observable","interactions":432,"stateMode":"observable-real","simulatorModel":"spacing"},
+    {"id":"long-low-benefit-observable","interactions":432,"stateMode":"observable-real","simulatorModel":"low-benefit"}
+  ],
+  "notes": "360 runs: all default 3 profiles by 2 goals, 5 predeclared policies, 3 fresh held-out seeds and 4 observable-state scenarios. The existing heldout fixture has already been studied; only seeds are fresh, not content, and this is not a fresh-content validation. All five policies and controls are declared before screen outcomes; freeze them unchanged before held-out execution, without outcome-based tuning or selection. Soft frontier and cross-category recency remain separate, with no combined variant. The base calendar retains 12 interactions/day, 2 minutes apart, and a 7-day delayed probe; 120/432 interactions span 10/36 practice days."
+}

@@ -322,6 +322,19 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     render();
     syncClock();
   }
+  function rebaseDifficulty() {
+    if (destroyed || !pack || !session) return;
+    // Retire the old board without recording an unfinished attempt. Completed
+    // landings already belong to the course profile and remain untouched.
+    cancelFrame();
+    controls?.close();
+    void stopSpeech();
+    segmentWaiting = false;
+    segmentCount = 0;
+    beginCycle();
+    render();
+    syncClock();
+  }
   function setDurationMs(value) {
     if (![0, 5000, 10000, 15000, 20000].includes(value)) return false;
     durationMs = value;
@@ -412,6 +425,9 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
   listen(document, "visibilitychange", syncLoadingScreen);
   listen(scope, "pagehide", () => { loadingPageHidden = true; syncLoadingScreen(); });
   listen(scope, "pageshow", () => { loadingPageHidden = false; syncLoadingScreen(); });
+  listen(shell, "caatuu:learning-change", event => {
+    if (event.detail?.reason === "difficulty") rebaseDifficulty();
+  });
   loadingScreen.show();
   element("gravityNounHelp").textContent = t("help");
   element("gravityNounClock")?.setAttribute("aria-label", shell.CaatuuI18n.t("games.grammargravity.controls.falltime"));

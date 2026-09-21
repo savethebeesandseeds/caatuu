@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "runtime-aligned-screen-v1",
+  "phase": "screen",
+  "fixture": "original",
+  "primaryMetrics": ["delayedRetention", "delayedGoalRecall"],
+  "seeds": [503, 607],
+  "variants": [
+    {"id":"adaptive-paced","controls":{}},
+    {"id":"uniform-hard","controls":{"uniformScores":true,"frontier":false,"introductions":false,"slots":false,"recency":false}},
+    {"id":"outside-exploration-.05","controls":{"outsideExploration":0.05}},
+    {"id":"soft-frontier","controls":{"softFrontier":true}},
+    {"id":"cross-category-recency","controls":{"crossCategoryRecency":true}}
+  ],
+  "scenarios": [
+    {"id":"short-fixed-observable","interactions":120,"stateMode":"observable-real","simulatorModel":"fixed"}
+  ],
+  "notes": "60 runs: all default 3 profiles by 2 goals, 5 predeclared policies, 2 fresh seeds and one 120-interaction fixed observable-state scenario. The original fixture has already been studied; this is fresh seed replication, not fresh content. All five variants and unchanged controls are declared before outcomes and must enter the held-out stage; no outcome-based tuning or shortlist selection. Soft frontier and cross-category recency are separate variants, never combined. The base calendar remains 12 interactions/day, 2 minutes apart, with a 7-day delayed probe."
+}

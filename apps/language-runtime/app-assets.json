@@ -69,6 +69,7 @@
     { "source": "apps/language-runtime/static/source/games/content-progression.mjs", "output": "language-runtime/static/source/games/content-progression.mjs" },
     { "source": "apps/language-runtime/static/source/games/adaptive-sampling.mjs", "output": "language-runtime/static/source/games/adaptive-sampling.mjs" },
     { "source": "apps/language-runtime/static/source/games/adaptive-practice.mjs", "output": "language-runtime/static/source/games/adaptive-practice.mjs" },
+    { "source": "apps/language-runtime/static/source/games/recent-practice.mjs", "output": "language-runtime/static/source/games/recent-practice.mjs" },
     { "source": "apps/language-runtime/static/source/learner-state.mjs", "output": "language-runtime/static/source/learner-state.mjs" },
     { "source": "apps/language-runtime/static/source/learning-semantics.mjs", "output": "language-runtime/static/source/learning-semantics.mjs" },
     { "source": "apps/language-runtime/static/source/word-world-progression.mjs", "output": "language-runtime/static/source/word-world-progression.mjs" },

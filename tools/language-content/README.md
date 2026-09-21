@@ -7,6 +7,14 @@ defines gradual introductions, evidence and spaced review. Run
 established container to validate metadata coverage across every registered
 course, including nested forms/examples. This structural audit also runs in CI.
 
+For new-language content, expansions or deeper inspection, see the
+[manual learning evaluation tools](../learning-evaluation/README.md).
+[Evaluator C](../learning-evaluation/content/README.md) inspects complete
+metadata and a bounded English semantic sample for selected courses using
+`--courses <id>`. The guide also identifies A for learner-state/Stats evidence
+and B for sampling-policy experiments. These are optional manual diagnostics,
+separate from structural validation and linguistic review.
+
 Word World has one editable source per course:
 `apps/languages/<course>/content/word-world/content.json`. Every source uses the
 same record format and contains its English meaning, target sentence, word

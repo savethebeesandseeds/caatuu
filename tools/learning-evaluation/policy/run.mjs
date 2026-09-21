@@ -20,7 +20,7 @@ const help = `Manual sampling-policy evaluator (run in existing caatuu-dev at /w
   --assert-baseline PATH        Require unchanged configuration and complete runs
   --study PATH                  Manual staged study JSON (no default test registration)
   --freeze-from PATH            Screen results to freeze, with --study held-out plan
-  --variants ID,ID              Coordinator-selected 2-3 screened variants for freeze
+  --variants ID,ID              Freeze 2-5 screened variants; retain all predeclared variants
   --freeze PATH                 Pre-outcome freeze required to execute held-out study
   --out NAME                    Report folder under artifacts/learning-evaluation/policy/
   --help                        Show usage
@@ -104,7 +104,8 @@ async function studyMain(options) {
     'tools/learning-evaluation/production-policy.mjs', 'tools/learning-evaluation/stats/harness.mjs',
     'apps/language-runtime/tests/helpers/fake-browser.mjs', 'apps/language-runtime/static/source/learning-profile.js',
     'apps/language-runtime/static/source/learner-state.mjs', 'apps/language-runtime/static/source/games/adaptive-sampling.mjs',
-    'apps/language-runtime/static/source/games/content-progression.mjs'
+    'apps/language-runtime/static/source/games/content-progression.mjs',
+    'apps/language-runtime/static/source/games/recent-practice.mjs'
   ].map(file => resolve(root, file)));
   const sourceSha256 = Object.fromEntries(await Promise.all([...new Set(sources)].map(async file => [relative(root, file), await hashFile(file)])));
   const provenance = { node: process.version, gitHead: git('rev-parse', 'HEAD'), sourceSha256,

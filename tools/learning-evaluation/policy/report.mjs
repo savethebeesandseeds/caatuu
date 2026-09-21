@@ -30,7 +30,11 @@ export function renderMarkdown(result) {
   const { configuration: config, policies } = result;
   const all = result.summary.filter(row => row.profileId === null);
   const lines = ['# Sampling-policy evaluation', '', result.scope, '',
-    'This manually invoked evaluator is independent of stats/content evaluator execution. The default input is perfect synthetic recall, not an estimate from production activity.', '',
+    'This manually invoked evaluator is independent of stats/content evaluator execution.',
+    config.stateMode === 'observable-real'
+      ? 'State input: observable-real. The production journal/reducer supplies observed evidence; latent recall and response probabilities are unavailable to the selector.'
+      : 'State input: perfect synthetic probabilities, supplied diagnostically rather than estimated from production activity.',
+    'The maintained production adapter shares gameplay\'s four-most-recent-identity input. This differs from the five-turn repetition diagnostic; semantic inputs and complete game boards remain outside this simulation.', '',
     `- Seeds: ${config.seeds.join(', ')}. Profiles: ${config.profiles.map(cell).join(', ')}. Goals: ${config.goals.map(cell).join(', ')}.`,
     `- Each run: ${config.interactions} interactions; ${config.interactionsPerDay} per day; ${config.stepMinutes} minutes apart; start ${config.startTime}.`,
     `- Badge ceiling: ${config.difficulty}; minimumPool: ${config.minimumPool}; delayed probe: ${config.delayDays} days.`,

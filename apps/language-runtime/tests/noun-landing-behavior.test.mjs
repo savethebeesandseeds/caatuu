@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
+import { loadCourseCatalog } from "../../../tools/language-packs/lib/course-contract.mjs";
 import { newContentEncounterId } from "../static/source/games/content-progression.mjs";
 
 import { mountRobotLoadingScreen } from "../static/source/games/embedded-game-controls.mjs";
@@ -47,11 +48,10 @@ async function mountGame({ language = "czech", syntheticBase = false, reducedMot
   const raw = JSON.parse(await readFile(new URL(
     "../../languages/" + language + "/static/data/games/grammar-gravity/nouns.json", import.meta.url
   ), "utf8"));
-  const czech = language === "czech";
   const course = {
-    id: czech ? "cz" : "es", routePrefix: czech ? "/cz" : "/es",
-    sourceLanguage: { id: "en", locale: "en", direction: "ltr" },
-    targetLanguage: { id: czech ? "cs" : "es", locale: czech ? "cs-CZ" : "es-ES" },
+    id: raw.courseId, routePrefix: `/${raw.courseId}`,
+    sourceLanguage: { id: raw.learnerBaseLanguage.split("-")[0], locale: raw.learnerBaseLanguage, direction: "ltr" },
+    targetLanguage: { id: raw.targetLanguage.split("-")[0], locale: raw.targetLanguage },
     capabilities: { speech, embeddings: visuals, semanticSearch: visuals },
     gameContent: { "grammar-gravity": {
       grammarGravityNouns: unsafePath ? "../outside.json" : "data/games/grammar-gravity/nouns.json?v=fixture-2"
@@ -191,12 +191,96 @@ async function mountGame({ language = "czech", syntheticBase = false, reducedMot
   return { ...harness, shell, get controller() { return controller; }, raw, course, element, click, lane, answer,
     frame, finishFeedback, frames, fetches, records, messages, errors, controls, segments, outsideControl,
     mediaListeners, speechCalls, visualCalls, companion, finishSpeech: () => finishSpeech?.(), speechStops: () => speechStops,
+    setDifficulty(value) {
+      difficulty = value;
+      harness.window.dispatchEvent({ type: "caatuu:learning-change", detail: { reason: "difficulty", difficulty } });
+    },
     async finishFetch() { finishFetch?.(); controller = await mounting; return controller; } };
 }
 
 async function settle() {
   for (let index = 0; index < 12; index += 1) await Promise.resolve();
 }
+
+test("Navigator to Explorer retires the current noun queue and pending speech in every noun course", async t => {
+  const catalog = await loadCourseCatalog({ repoRoot: new URL("../../../", import.meta.url) });
+  const nounCourses = catalog.courses.filter(({ course }) => course.resources?.grammarGravityNouns?.state === "present");
+  assert.ok(nounCourses.length, "the course catalog declares noun practice");
+  for (const { course } of nounCourses) await t.test(course.id, async t => {
+    const exposures = [];
+    const game = await mountGame({ language: course.directoryName, difficulty: 3, speech: true, deferSpeech: true,
+      mutateContent: raw => raw.items.sort((a, b) => (b.difficulty ?? 1) - (a.difficulty ?? 1)),
+      beforeMount({ shell }) {
+        shell.CaatuuLearning.contentGeneration = () => "retained-generation";
+        shell.CaatuuLearning.recordExposure = (gameId, event) => exposures.push({ gameId, ...event });
+      } });
+    t.after(() => game.controller.destroy());
+    assert.ok(game.controller.snapshot().item.difficulty > 1, "begin with an above-Explorer noun");
+    game.answer();
+    game.finishFeedback();
+    assert.ok(game.controller.snapshot().item.difficulty > 1, "another higher-level attempt is active");
+    game.click(game.element("gravityNounSpeak"));
+    await settle();
+    const completed = JSON.stringify({ records: game.records, exposures });
+    assert.equal(exposures.length, 1);
+    const stops = game.speechStops();
+    const oldFrames = [...game.frames.keys()];
+
+    game.setDifficulty(1);
+    const replacement = game.controller.snapshot();
+    assert.equal(replacement.phase, "falling");
+    assert.ok([replacement.item, ...replacement.queue].every(item => (item.difficulty ?? 1) <= 1));
+    assert.equal(game.element("gravityNounWord").textContent, replacement.item.targetText);
+    assert.ok(oldFrames.every(id => !game.frames.has(id)), "old falling work is cancelled");
+    assert.equal(game.frames.size, 1);
+    assert.equal(game.speechStops(), stops + 1);
+    assert.equal(JSON.stringify({ records: game.records, exposures }), completed, "completed progress survives without crediting the abandoned attempt");
+
+    game.finishSpeech();
+    await settle();
+    assert.equal(game.controller.snapshot(), replacement, "late speech completion cannot revive the old attempt");
+    assert.equal(game.element("gravityNounFeedback").textContent, "");
+    game.answer();
+    assert.equal(exposures.length, 2);
+    assert.equal(exposures[1].itemId, replacement.item.id);
+    assert.notEqual(exposures[1].encounterId, exposures[0].encounterId);
+    const savedAfterExplorer = JSON.stringify({ records: game.records, exposures });
+    game.setDifficulty(3);
+    const restored = game.controller.snapshot();
+    assert.equal(restored.phase, "falling");
+    assert.ok([restored.item, ...restored.queue].some(item => (item.difficulty ?? 1) > 1),
+      "returning to Navigator restores its broader eligible noun pool");
+    assert.equal(JSON.stringify({ records: game.records, exposures }), savedAfterExplorer);
+  });
+});
+
+test("badge changes replace noun feedback and release an old segment wait without awarding completion", async t => {
+  for (const waiting of [false, true]) await t.test(waiting ? "segment handoff" : "feedback", async t => {
+    const game = await mountGame({ difficulty: 3, segmentSize: 1, mountControls: false,
+      mutateContent: raw => raw.items.sort((a, b) => (b.difficulty ?? 1) - (a.difficulty ?? 1)) });
+    t.after(() => game.controller.destroy());
+    game.answer();
+    if (waiting) {
+      game.finishFeedback();
+      assert.equal(game.frames.size, 0);
+      assert.equal(game.segments.length, 1);
+    } else assert.equal(game.controller.snapshot().phase, "feedback");
+    const records = JSON.stringify(game.records), completions = game.segments.length;
+    game.controller.setActive(false);
+    game.setDifficulty(1);
+    assert.equal(game.controller.snapshot().phase, "falling");
+    assert.ok([game.controller.snapshot().item, ...game.controller.snapshot().queue]
+      .every(item => (item.difficulty ?? 1) <= 1));
+    assert.equal(JSON.stringify(game.records), records);
+    assert.equal(game.segments.length, completions);
+    assert.equal(game.frames.size, 0, "a hidden noun mode remains paused");
+    game.controller.setActive(true);
+    assert.equal(game.frames.size, 1, "a fresh segment can run when nouns become active");
+    game.answer();
+    game.finishFeedback();
+    assert.equal(game.segments.length, completions + 1);
+  });
+});
 
 test("noun cohorts create exposure only at landing and use one encounter across retries", async () => {
   const exposures = [];

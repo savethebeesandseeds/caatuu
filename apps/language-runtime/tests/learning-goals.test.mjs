@@ -223,7 +223,7 @@ test("goal controls are labelled, localized and update the real persisted prefer
     // the real output, then mount the control to exercise its delegated handler.
     assert.ok(panel.innerHTML.includes('<label class="setting-select" for="learningGoal">'));
     assert.ok(panel.innerHTML.includes(app.content.t("settings.learninggoal.label")));
-    assert.ok(panel.innerHTML.includes('<select id="learningGoal" aria-describedby="learningGoalDescription">'));
+    assert.ok(panel.innerHTML.includes('<select id="learningGoal" aria-describedby="learningGoalIntent">'));
     const select = app.document.createElement("select");
     select.id = "learningGoal";
     const status = app.document.createElement("p");

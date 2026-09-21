@@ -7,6 +7,7 @@ tooling. It does not contain deployable Caatuu applications.
 | --- | --- |
 | [`czech-ml`](czech-ml/) | Czech datasets, model workflows, and ML scripts |
 | [`dev-container`](dev-container/) | Shared Docker development and ML environment |
+| [Learning evaluation](learning-evaluation/README.md) | Three independent manual tools for course content, sampling policy, and learner-state/Stats inspection |
 | [`on-device-models`](on-device-models/) | On-device model preparation and benchmark workflows |
 | [`repository`](repository/) | Repository policy checks and local cleanup |
 

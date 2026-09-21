@@ -32,6 +32,11 @@
 - Do not substitute Codex's bundled Python or Node runtimes for a repository container build merely because those runtimes are available.
 - If the required container is unavailable or the documented container workflow fails, stop and report the blocker instead of creating a host-side environment.
 
+## Manual learning evaluation tools
+
+- When adding a language, inspecting or expanding content, or changing sampling or Stats, consult [the evaluation tool guide](tools/learning-evaluation/README.md). It identifies C for content inspection, B for policy simulation, and A for learner-state/Stats evidence, with commands and report locations.
+- Choose the relevant independent tool; these are manually run diagnostics, not a required three-tool pipeline or additional CI/publication gates. Keep reports and captured learner profiles in ignored artifacts.
+
 ## Asset catalog work
 
 - For asset moves driven by a keymap, perform the direct catalog operation first: filter the authoritative keymap, move the matching files, rewrite the affected keymaps, and validate exact file-to-key parity.
