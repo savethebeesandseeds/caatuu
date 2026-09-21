@@ -16,12 +16,49 @@ const start = Date.parse(base.startTime), DAY = 86400000;
 const options = { fixture, profile: fixture.profiles[0], goal: fixture.goals[0], seed: 17 };
 const fixed = { id: 'inspect', create: () => ({ select: input => input.candidates[0].id }) };
 
-test('the preserved original uniform trajectory remains byte-for-byte identical', async () => {
-  // Immutable reference from the reproduced pre-investigation artifact. This is
-  // a deterministic implementation fixture, never a pedagogical score threshold.
-  const result = await simulateRun({ ...options, config: base, policy: baselinePolicies()[0] });
-  assert.equal(createHash('sha256').update(JSON.stringify(result)).digest('hex'),
+function assertHistoricalRun(actual, expected, path = '$') {
+  assert.equal(typeof actual, typeof expected, `${path}: value type changed`);
+  if (typeof expected === 'number') {
+    assert.ok(Number.isFinite(actual) && Number.isFinite(expected), `${path}: non-finite number`);
+    if (Number.isInteger(expected) || Number.isInteger(actual)) {
+      assert.equal(actual, expected, `${path}: integer value changed`);
+    } else {
+      // V8 versions can round exponentiation differently. Keep the historical
+      // reference intact and permit only tightly bounded floating-point noise.
+      const tolerance = 1e-12 * Math.max(1, Math.abs(expected));
+      assert.ok(Math.abs(actual - expected) <= tolerance,
+        `${path}: ${actual} differs from historical ${expected} by more than ${tolerance}`);
+    }
+  } else if (expected !== null && typeof expected === 'object') {
+    assert.ok(actual !== null, `${path}: object became null`);
+    assert.equal(Array.isArray(actual), Array.isArray(expected), `${path}: container type changed`);
+    assert.deepEqual(Object.keys(actual), Object.keys(expected), `${path}: keys or array length changed`);
+    for (const key of Object.keys(expected)) assertHistoricalRun(actual[key], expected[key], `${path}.${key}`);
+  } else assert.equal(actual, expected, `${path}: value changed`);
+}
+
+test('the original uniform trajectory preserves its historical reference across runtimes', async () => {
+  // Extracted without rerunning from investigation-baseline/results.json:
+  // uniform / novice / daily-life / seed 17, Node v22.23.2, recorded Git HEAD
+  // 685a109ca9d98c9ed959c8def02f8dbcb1a3c756. Preserve the original hash;
+  // this is an implementation fixture, never a pedagogical score threshold.
+  const historical = await read('./fixtures/original-uniform-run.json');
+  assert.equal(createHash('sha256').update(JSON.stringify(historical)).digest('hex'),
     'caee88334324032a505722c58cd7d7077fdba9ab654242ae960a0d79e3e5789e');
+  const result = await simulateRun({ ...options, config: base, policy: baselinePolicies()[0] });
+  assertHistoricalRun(result, historical);
+});
+
+test('historical comparison tolerates numeric rounding without accepting changed trajectories', () => {
+  const historical = { id: 'item', step: 1, correct: false, recall: 0.25, trace: [0.4] };
+  assertHistoricalRun({ ...historical, recall: historical.recall + Number.EPSILON }, historical);
+  for (const changed of [
+    { ...historical, id: 'other' }, { ...historical, step: 2 },
+    { ...historical, step: 1 + Number.EPSILON }, { ...historical, correct: true },
+    { ...historical, recall: 0.25000001 }, { ...historical, recall: NaN },
+    { ...historical, recall: '0.25' }, { ...historical, extra: null },
+    { ...historical, trace: [] }, { ...historical, trace: { 0: 0.4 } }
+  ]) assert.throws(() => assertHistoricalRun(changed, historical), assert.AssertionError);
 });
 
 test('observable input hides simulator truth and invokes the actual reducer and adapter', async () => {
