@@ -368,8 +368,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/caatuu-chrome.js",
       "browserRequired": true,
-      "bytes": 251611,
-      "sha256": "22c3000ab70df703bb347f051f75efa5d5288452aa14921856d1e858ecd33e1b"
+      "bytes": 251608,
+      "sha256": "95a85d32197c28cfdc09ca91bbe5f7556a09387fa6984d20dbbc682c74535b35"
     },
     {
       "key": "learning-profile",
