@@ -413,8 +413,12 @@ function withSharedRobotLoadingCss(source) {
   source = source.replace(".word-net-panel-actions > .theme-toggle {",
     ".word-net-image-toggle[aria-pressed=\"true\"] {\n  border-color: var(--theme-green, #22594d);\n  background: var(--theme-soft-green, #e8f5ee);\n}\n\n.word-net-panel-actions > .theme-toggle {");
   return source
+    // The shared cover appears immediately and intercepts input until its exit
+    // fade ends; word-world-robot-loading.test.mjs verifies that behavior.
     .replace(/^\.word-net-loading \{[^}]*\}/mu,
-      ".word-net-loading {\n  opacity: 0;\n  pointer-events: none;\n  transition: opacity 240ms ease;\n}")
+      ".word-net-loading {\n  opacity: 0;\n  pointer-events: auto;\n  transition: opacity 240ms ease;\n}")
+    .replace(/^\.word-net-loading\.is-visible \{[^}]*\}/mu,
+      ".word-net-loading.is-visible {\n  opacity: 1;\n  transition: none;\n}")
     .replace(/^[ \t]*\.word-net-loading-(?:art(?:\[hidden\])?|copy|spinner) \{[^}]*\}\n\n?/gmu, "")
     .replace(/^[ \t]*\.word-net-loading-(?:spinner|art),\n/gmu, "")
     .replace(/@keyframes word-net-(?:spin|robot-breathe) \{(?:[^{}]|\{[^{}]*\})*\}\n\n?/gu, "");
