@@ -31,6 +31,7 @@ import { normalizeNounLandingPack } from "../../../apps/language-runtime/static/
 import { validateConjugationCometCatalog } from "../../../apps/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs";
 import { validateSoundQuasarCatalog } from "../../../apps/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs";
 import { validateVerbNebulaCatalog } from "../../../apps/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs";
+import { validateEnglishEmbeddingPayload } from "../../../apps/language-runtime/static/source/english-minilm-ranker.mjs";
 import { resolveWordWorldGenerationStrategy } from "../../../apps/language-runtime/static/source/word-world-provider.mjs";
 import {
   campaignGameIds,
@@ -101,7 +102,6 @@ const CAPABILITY_KEYS = [
   "chat",
   "embeddings",
   "semanticSearch",
-  "skillCompass",
   "dictionary",
   "memory",
   "verbs",
@@ -141,7 +141,7 @@ const COURSE_KEYS = [
   "storage",
   "cache",
   "capabilities",
-  "skillCompass",
+  "learningGoals",
   "linguisticFeatures",
   "games",
   "upcomingGames",
@@ -149,39 +149,7 @@ const COURSE_KEYS = [
   "platforms",
   "resources"
 ];
-const REQUIRED_COURSE_KEYS = COURSE_KEYS.filter((key) => !["linguisticFeatures", "games", "upcomingGames"].includes(key));
-const SKILL_COMPASS_COPY_KEYS = [
-  "eyebrow",
-  "title",
-  "summary",
-  "chartTitle",
-  "chartDescription",
-  "legendLabel",
-  "practiceLabel",
-  "strengthLabel",
-  "confidenceLabel",
-  "progressLabel",
-  "notMapped",
-  "building",
-  "notAssessed",
-  "idleMessage",
-  "emptyChartDescription",
-  "emptyMessage",
-  "emptySummary",
-  "projectionDescription",
-  "unmappedMessage",
-  "practiceOnlyMessage",
-  "partialStrengthMessage",
-  "completeMessage",
-  "loadingMessage",
-  "loadingSummary",
-  "errorMessage",
-  "errorSummary",
-  "changedMessage",
-  "closedMessage",
-  "updateReadySummary",
-  "closedSummary"
-];
+const REQUIRED_COURSE_KEYS = COURSE_KEYS.filter((key) => !["linguisticFeatures", "games", "upcomingGames", "learningGoals"].includes(key));
 const BASE_RESOURCE_KEYS = [
   "staticRoot",
   "interfaceCatalog",
@@ -201,7 +169,6 @@ const DICTIONARY_RESOURCE_KEYS = [
 ];
 const BROWSER_PROVIDER_RESOURCE_KEYS = [
   "courseRuntime",
-  "semanticLearningProvider",
   "setupProgressProvider",
   "setupProvider"
 ];
@@ -588,39 +555,41 @@ function validateCourseShape(course, issues) {
       }
     }
   }
-  if (isObject(course.skillCompass)) {
-    const pack = course.skillCompass;
-    const packKeys = ["schemaVersion", "id", "version", "modelId", "minimumConfidence", "copy", "axes"];
-    if (addUnknownAndMissingKeys(issues, pack, packKeys, packKeys, `${courseId}.skillCompass`, "manifest.shape")) {
-      if (pack.schemaVersion !== 1) issues.push({ code: "manifest.shape", message: `${courseId}.skillCompass.schemaVersion must be 1.` });
-      for (const key of ["id", "version", "modelId"]) addStringIssue(issues, pack[key], `${courseId}.skillCompass.${key}`, "manifest.shape");
-      if (typeof pack.minimumConfidence !== "number" || pack.minimumConfidence < 0 || pack.minimumConfidence > 1) {
-        issues.push({ code: "manifest.shape", message: `${courseId}.skillCompass.minimumConfidence must be a number from 0 to 1.` });
-      }
-      if (addUnknownAndMissingKeys(issues, pack.copy, SKILL_COMPASS_COPY_KEYS, SKILL_COMPASS_COPY_KEYS, `${courseId}.skillCompass.copy`, "manifest.shape")) {
-        for (const key of SKILL_COMPASS_COPY_KEYS) addStringIssue(issues, pack.copy[key], `${courseId}.skillCompass.copy.${key}`, "manifest.shape");
-      }
-      if (!Array.isArray(pack.axes) || pack.axes.length < 3) {
-        issues.push({ code: "manifest.shape", message: `${courseId}.skillCompass.axes must contain at least three axes.` });
-      } else {
-        const axisIds = new Set();
-        for (const [index, axis] of pack.axes.entries()) {
-          const label = `${courseId}.skillCompass.axes[${index}]`;
-          const allowedKeys = ["id", "label", "chartLabel", "chartLabelBelow", "emblem", "probe"];
-          if (!addUnknownAndMissingKeys(issues, axis, allowedKeys, ["id", "label", "chartLabel", "emblem", "probe"], label, "manifest.shape")) continue;
-          for (const key of ["id", "label", "chartLabel", "emblem"]) addStringIssue(issues, axis[key], `${label}.${key}`, "manifest.shape");
-          if (axisIds.has(axis.id)) issues.push({ code: "manifest.shape", message: `${courseId}.skillCompass.axes contains duplicate id ${axis.id}.` });
-          axisIds.add(axis.id);
-          if (axis.chartLabelBelow !== undefined && typeof axis.chartLabelBelow !== "boolean") issues.push({ code: "manifest.shape", message: `${label}.chartLabelBelow must be boolean when present.` });
-          if (addUnknownAndMissingKeys(issues, axis.probe, ["locale", "revision", "text"], ["locale", "revision", "text"], `${label}.probe`, "manifest.shape")) {
-            for (const key of ["locale", "revision", "text"]) addStringIssue(issues, axis.probe[key], `${label}.probe.${key}`, "manifest.shape");
-            if (!isBcp47ish(axis.probe.locale)) issues.push({ code: "locale.invalid", message: `${label}.probe.locale is not a BCP47-like language tag.` });
+  if (course.learningGoals !== undefined) {
+    if (!Array.isArray(course.learningGoals) || course.learningGoals.length > 12) {
+      issues.push({ code: "manifest.learning-goals", message: `${courseId}.learningGoals must be an array of at most 12 authored topic goals.` });
+    } else {
+      const ids = new Set();
+      for (const [index, goal] of course.learningGoals.entries()) {
+        const label = `${courseId}.learningGoals[${index}]`;
+        const keys = ["id", "label", "embeddingText", "categories"];
+        if (!addUnknownAndMissingKeys(issues, goal, keys, keys, label, "manifest.learning-goals")) continue;
+        if (typeof goal.id !== "string" || !COURSE_ID_PATTERN.test(goal.id) || goal.id.length > 64 || ids.has(goal.id)) {
+          issues.push({ code: "manifest.learning-goals", message: `${label}.id must be a unique lowercase goal ID of at most 64 characters.` });
+        }
+        ids.add(goal.id);
+        if (typeof goal.label !== "string" || !goal.label.trim() || goal.label.length > 120 || /[\u0000-\u001f\u007f]/u.test(goal.label)) {
+          issues.push({ code: "manifest.learning-goals", message: `${label}.label must be 1 to 120 characters of learner-base display text.` });
+        }
+        try {
+          // English authoring is explicit, independent of the learner's UI language.
+          // This boundary rejects target scripts; it does not detect language.
+          if (typeof goal.embeddingText !== "string" || goal.embeddingText.length > 1024) {
+            throw new Error("Use at most 1024 characters of authored English text.");
           }
+          validateEnglishEmbeddingPayload({ inputLanguage: "en", query: { embeddingText: goal.embeddingText },
+            candidates: [{ conceptId: "learning-goal.audit", embeddingText: "English topic goal" }] });
+          if (!/^[\u0020-\u007e]+$/u.test(goal.embeddingText)) throw new Error("Use printable ASCII English probe text.");
+        } catch (error) {
+          issues.push({ code: "manifest.learning-goals", message: `${label}.embeddingText must be authored English for the existing embedding model: ${error.message}` });
+        }
+        if (!Array.isArray(goal.categories) || !goal.categories.length || goal.categories.length > 32
+            || goal.categories.some(category => typeof category !== "string" || !COURSE_ID_PATTERN.test(category) || category.length > 80)
+            || new Set(goal.categories).size !== goal.categories.length) {
+          issues.push({ code: "manifest.learning-goals", message: `${label}.categories must contain 1 to 32 unique authored topic IDs, each at most 80 characters.` });
         }
       }
     }
-  } else if (course.skillCompass !== null) {
-    issues.push({ code: "manifest.shape", message: `${courseId}.skillCompass must be an object or null.` });
   }
   if (course.linguisticFeatures !== undefined) {
     validateKnownUniqueStringArray(
@@ -684,6 +653,10 @@ function validateCourseShape(course, issues) {
   } else {
     for (const [name, resource] of Object.entries(course.resources)) {
       const label = `${courseId}.resources.${name}`;
+      if (name === "semanticLearningProvider") {
+        issues.push({ code: "manifest.shape", message: `${label} is unexpected; Stats uses the shared runtime provider for every course.` });
+        continue;
+      }
       const allowedResourceKeys = [
         "kind", "path", "scope", "state", "revision",
         ...(name === "dictionaryProvider" ? ["providerId", "gapReporting"] : [])
@@ -948,9 +921,6 @@ function validateCapabilityResources(course, issues) {
   if (capabilities.chat && (!capabilities.llm || !capabilities.generation)) issues.push({ code: "capability.contradiction", message: `${course.id} chat requires llm and generation.` });
   if (capabilities.offlineModels && !capabilities.llm) issues.push({ code: "capability.contradiction", message: `${course.id} offlineModels requires llm.` });
   if (capabilities.semanticSearch && !capabilities.embeddings) issues.push({ code: "capability.contradiction", message: `${course.id} semanticSearch requires embeddings.` });
-  if (capabilities.skillCompass && (!capabilities.semanticSearch || !capabilities.embeddings)) issues.push({ code: "capability.contradiction", message: `${course.id} skillCompass requires semanticSearch and embeddings.` });
-  if (capabilities.skillCompass && !isObject(course.skillCompass)) issues.push({ code: "capability.contradiction", message: `${course.id} skillCompass capability requires an authored skillCompass pack.` });
-  if (!capabilities.skillCompass && course.skillCompass !== null) issues.push({ code: "capability.contradiction", message: `${course.id} declares a skillCompass pack while the capability is disabled.` });
   if (capabilities.embeddings) requireResource("embeddingCatalog", "embeddings are enabled");
   if (capabilities.dictionary) {
     for (const name of DICTIONARY_RESOURCE_KEYS) {
@@ -3006,7 +2976,7 @@ export function generateCourseProfileObject(course, catalogCourses = [course]) {
     storage: { ...course.storage },
     cache: { ...course.cache },
     capabilities: Object.fromEntries(CAPABILITY_KEYS.map((key) => [key, course.capabilities[key]])),
-    skillCompass: course.skillCompass ? JSON.parse(JSON.stringify(course.skillCompass)) : null,
+    learningGoals: course.learningGoals ? JSON.parse(JSON.stringify(course.learningGoals)) : [],
     platforms: {
       browser: {
         enabled: course.platforms.browser.enabled,

@@ -93,7 +93,6 @@
     "chat": false,
     "embeddings": true,
     "semanticSearch": true,
-    "skillCompass": false,
     "dictionary": false,
     "memory": false,
     "verbs": false,
@@ -103,7 +102,56 @@
     "speech": true,
     "pronunciationGuides": false
   },
-  "skillCompass": null,
+  "learningGoals": [
+    {
+      "id": "people-social",
+      "label": "People & conversations",
+      "embeddingText": "Greet people, introduce family and friends, ask questions and share everyday experiences.",
+      "categories": ["people", "family-people", "identity", "identity-people-family", "first-contact", "greetings", "greetings-social", "conversation-questions", "friendship", "communication", "community-politeness", "experience-opinion"]
+    },
+    {
+      "id": "home-routines",
+      "label": "Home & daily life",
+      "embeddingText": "Describe home, clothing, household objects and everyday routines.",
+      "categories": ["home", "home-objects-location", "routines-home", "objects", "adult-housing", "daily-life", "clothes"]
+    },
+    {
+      "id": "food-shopping",
+      "label": "Food, drinks & shopping",
+      "embeddingText": "Talk about food and drinks, order a meal and shop for everyday needs.",
+      "categories": ["food", "food-and-drink", "food-drink", "shopping-services"]
+    },
+    {
+      "id": "school-work",
+      "label": "School, work & technology",
+      "embeddingText": "Study at school, discuss science and mathematics, work with others and organize tasks using technology.",
+      "categories": ["school", "school-learning", "classroom-language", "science", "math", "work-tasks", "work-collaboration", "digital-organization", "technology-communication"]
+    },
+    {
+      "id": "travel-services",
+      "label": "Travel, places & services",
+      "embeddingText": "Find places, plan travel, use transport and ask for practical services.",
+      "categories": ["locations", "travel", "transit-travel", "travel-logistics", "objects-location-services", "adult-services"]
+    },
+    {
+      "id": "nature-weather",
+      "label": "Animals, nature & weather",
+      "embeddingText": "Describe animals, nature and the weather, and discuss caring for the environment.",
+      "categories": ["animals", "nature", "nature-animals", "weather", "weather-routine", "environment-community"]
+    },
+    {
+      "id": "plans-time",
+      "label": "Time, plans & explanations",
+      "embeddingText": "Discuss time, make plans, compare choices, explain reasons and solve everyday problems.",
+      "categories": ["numbers-time", "planning", "plans", "plans-comparison", "problems-plans", "daily-problem-solving", "reasoning", "connected-reasoning"]
+    },
+    {
+      "id": "creativity-play",
+      "label": "Play, art & imagination",
+      "embeddingText": "Talk about play, art, music, creative ideas and imaginary stories.",
+      "categories": ["play", "art", "music", "creativity", "imagination"]
+    }
+  ],
   "platforms": {
     "browser": {
       "enabled": true,
@@ -160,7 +208,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-32"
+      "revision": "interface-en-37"
     },
     "courseProfile": {
       "kind": "file",

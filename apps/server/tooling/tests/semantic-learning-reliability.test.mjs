@@ -2,9 +2,9 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
-import * as core from "../../../languages/czech/static/source/shared/semantic-learning-core.mjs";
+import * as core from "../../../language-runtime/static/source/semantic-learning-core.mjs";
 
-const source = await readFile(new URL("../../../languages/czech/static/source/shared/semantic-learning.js", import.meta.url), "utf8");
+const source = await readFile(new URL("../../../language-runtime/static/source/semantic-learning.js", import.meta.url), "utf8");
 const prefix = "caatuu-test.semantic-learning.pending-attempt.v1.";
 
 // A dependency-free IndexedDB transaction double. Operations finish asynchronously;

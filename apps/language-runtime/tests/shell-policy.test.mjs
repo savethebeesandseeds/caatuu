@@ -91,13 +91,14 @@ test("feature bootstrap follows independent game and provider declarations", asy
   assert.doesNotMatch(providers, /source\/games\/(?:case-cosmos|grammar-gravity)\/launcher\.css/u);
   assert.doesNotMatch(providers, /capabilities\?\.verbs|\bconst verbs\b/u);
   for (const provider of [
-    "semanticLearningProvider",
     "setupProgressProvider",
     "setupProvider"
   ]) {
     assert.match(providers, new RegExp(`"${provider}"`, "u"));
   }
   assert.match(providers, /declaredBrowserProvider\(providerName\)/u);
+  assert.doesNotMatch(providers, /semanticLearningProvider/u);
+  assert.match(providers, /loadSharedScript\("\/language-runtime\/static\/source\/semantic-learning\.js/u);
 });
 
 test("classic source exposes an immutable browser-compatible global", async () => {

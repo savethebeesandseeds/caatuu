@@ -969,7 +969,7 @@ test("reviewed non-English learner-base presentation is registered per shared ga
     true
   );
   course.capabilities.dictionary = false;
-  for (const capability of ["generation", "chat", "skillCompass"]) {
+  for (const capability of ["generation", "chat"]) {
     course.capabilities[capability] = true;
     assert.equal(
       learnerSourceReadinessIssues(course).some(({ code, message }) => (
@@ -982,7 +982,7 @@ test("reviewed non-English learner-base presentation is registered per shared ga
   }
   assert.deepEqual(
     Object.keys(LEARNER_BASE_PRESENTATION_CONTRACT.capabilities).sort(),
-    ["chat", "dictionary", "generation", "skillCompass"]
+    ["chat", "dictionary", "generation"]
   );
 });
 
@@ -1047,37 +1047,49 @@ test("English-base Word World delivery packages every course and shared projecti
   );
 });
 
-test("skill-compass packs are explicit, structured, and independent from semantic search", async () => {
-  const czech = loaded.courses.find(({ course }) => course.id === "cz").course;
-  const mandarin = loaded.courses.find(({ course }) => course.id === "zh").course;
-  assert.equal(czech.capabilities.skillCompass, true);
-  assert.equal(czech.skillCompass.id, "cz-everyday-compass");
-  assert.equal(mandarin.capabilities.semanticSearch, true);
-  assert.equal(mandarin.capabilities.skillCompass, false);
-  assert.equal(mandarin.skillCompass, null);
-
-  for (const invalidPack of ["cz-everyday-compass", []]) {
-    const candidate = cloneLoaded(loaded);
-    candidate.courses.find(({ course }) => course.id === "cz").course.skillCompass = invalidPack;
-    await assert.rejects(
-      validateCourseCatalog(candidate, { checkExistence: false }),
-      (error) => hasIssue(error, "manifest.shape", /skillCompass must be an object or null/)
-    );
+test("Stats has one shared implementation without course-owned configuration or capability", () => {
+  for (const { course } of loaded.courses) {
+    const profile = generateCourseProfileObject(course, loaded.courses);
+    for (const value of [course, profile]) {
+      assert.equal(Object.hasOwn(value, "skillCompass"), false, course.id);
+      assert.equal(Object.hasOwn(value.capabilities, "skillCompass"), false, course.id);
+    }
+    assert.equal(Object.hasOwn(course.resources, "semanticLearningProvider"), false, course.id);
+    assert.equal(Object.hasOwn(profile.browserProviders, "semanticLearningProvider"), false, course.id);
+    assert.deepEqual(profile.learningGoals, course.learningGoals || [], `${course.id} keeps its content goals`);
   }
+});
 
-  const missingPack = cloneLoaded(loaded);
-  missingPack.courses.find(({ course }) => course.id === "cz").course.skillCompass = null;
-  await assert.rejects(
-    validateCourseCatalog(missingPack, { checkExistence: false }),
-    (error) => hasIssue(error, "capability.contradiction", /requires an authored skillCompass pack/)
-  );
+test("course contracts reject reintroduced Stats configuration, capability and provider", async () => {
+  for (const { course } of loaded.courses) {
+    for (const [field, mutate] of [
+      ["skillCompass", candidate => { candidate.skillCompass = null; }],
+      ["skillCompass", candidate => { candidate.skillCompass = { axes: [] }; }],
+      ["skillCompass", candidate => { candidate.capabilities.skillCompass = false; }],
+      ["skillCompass", candidate => { candidate.capabilities.skillCompass = true; }],
+      ["semanticLearningProvider", candidate => {
+        candidate.resources.semanticLearningProvider = { kind: "file", scope: "course", state: "present",
+          path: `apps/languages/${candidate.directoryName}/static/source/semantic-learning.js`, revision: "stats-1" };
+      }]
+    ]) {
+      const candidate = cloneLoaded(loaded);
+      mutate(candidate.courses.find(record => record.course.id === course.id).course);
+      await assert.rejects(validateCourseCatalog(candidate, { checkExistence: false }),
+        error => hasIssue(error, "manifest.shape", new RegExp(field, "u")), `${course.id}: ${field}`);
+    }
+  }
+});
 
-  const undeclaredPack = cloneLoaded(loaded);
-  undeclaredPack.courses.find(({ course }) => course.id === "cz").course.capabilities.skillCompass = false;
-  await assert.rejects(
-    validateCourseCatalog(undeclaredPack, { checkExistence: false }),
-    (error) => hasIssue(error, "capability.contradiction", /declares a skillCompass pack while the capability is disabled/)
-  );
+test("published course schema excludes course-owned Stats configuration and provider", async () => {
+  const schema = JSON.parse(await readFile(new URL("../schemas/course-pack.v1.schema.json", import.meta.url), "utf8"));
+  assert.equal(Object.hasOwn(schema.properties, "skillCompass"), false);
+  assert.equal(schema.required.includes("skillCompass"), false);
+  assert.equal(Object.hasOwn(schema.$defs, "skillCompass"), false);
+  assert.equal(Object.hasOwn(schema.$defs.capabilities.properties, "skillCompass"), false);
+  assert.equal(schema.$defs.capabilities.required.includes("skillCompass"), false);
+  assert.equal(schema.additionalProperties, false);
+  assert.equal(schema.$defs.capabilities.additionalProperties, false);
+  assert.deepEqual(schema.properties.resources.propertyNames, { not: { const: "semanticLearningProvider" } });
 });
 
 test("learner-base preview supports web and Android development delivery without enabling active previews", () => {
@@ -1168,7 +1180,6 @@ test("launcher and course-profile compatibility views match the current consumer
   assert.equal(Object.hasOwn(context.window.CaatuuCourse.platforms.browser, "pagesEnabled"), false);
   assert.deepEqual(JSON.parse(JSON.stringify(context.window.CaatuuCourse.browserProviders)), {
     courseRuntime: `source/shared/runtime.js?v=${czech.resources.courseRuntime.revision}`,
-    semanticLearningProvider: `source/shared/semantic-learning.js?v=${czech.resources.semanticLearningProvider.revision}`,
     setupProgressProvider: `source/features/setup/setup-progress.js?v=${czech.resources.setupProgressProvider.revision}`,
     setupProvider: `source/features/setup/setup.js?v=${czech.resources.setupProvider.revision}`
   });

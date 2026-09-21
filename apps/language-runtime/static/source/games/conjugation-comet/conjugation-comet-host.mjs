@@ -505,7 +505,8 @@ function beginNextVerb(state) {
     const learning = shellWindow().CaatuuLearning;
     state.queue = learning?.contentHistory
       ? selectConjugationPracticeVerbs(state.catalog.verbs, { difficulty: level,
-        history: learning.contentHistory(GAME_ID), formHistory: learning.contentHistory(GAME_ID, "forms") })
+        history: learning.contentHistory(GAME_ID), formHistory: learning.contentHistory(GAME_ID, "forms"),
+        policy: learning.samplingContext?.(GAME_ID) })
       : buildConjugationVerbQueue(state.catalog.verbs.filter(verb => verb.difficulty <= level), { previousVerbId: state.current?.id });
     if (!state.queue.length) throw new Error("Conjugation Comet has no content for this badge.");
     if (!learning?.contentHistory && state.queue.length > 1 && state.queue[0].id === state.current?.id) state.queue.push(state.queue.shift());

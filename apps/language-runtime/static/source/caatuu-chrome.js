@@ -135,14 +135,13 @@
     (_, index) => `/assets/stores/stores%20(${index + 1}).png`
   ));
   const learning = window.CaatuuLearning;
-  const semanticSkillCompassAxisPack = course.capabilities?.skillCompass === true
-    && course.skillCompass
-    && Array.isArray(course.skillCompass.axes)
-    && course.skillCompass.axes.length >= 3
-    ? course.skillCompass
-    : null;
-  const semanticSkillCompassAvailable = Boolean(semanticSkillCompassAxisPack);
-  const semanticSkillCompassCopy = semanticSkillCompassAxisPack?.copy || null;
+  const practiceCompass = window.CaatuuPracticeCompass;
+  const semanticSkillCompassAxisPack = {
+    axes: (practiceCompass?.axes || []).map(axis => ({ ...axis,
+      label: interfaceMessage(`settings.compass.axis.${axis.id.replaceAll("-", "")}.label`),
+      chartLabel: interfaceMessage(`settings.compass.axis.${axis.id.replaceAll("-", "")}.short`)
+    }))
+  };
   const semanticSkillCompassLayout = Object.freeze({
     width: 340,
     height: 290,
@@ -153,7 +152,6 @@
     labelRadius: 137,
     rings: Object.freeze([0.25, 0.5, 0.75, 1])
   });
-  const semanticSkillCompassMinimumConfidence = semanticSkillCompassAxisPack?.minimumConfidence ?? 0;
   const semanticSkillCompassControllers = new WeakMap();
   let semanticSkillCompassPrepared = null;
   let semanticSkillCompassPreparation = null;
@@ -1958,6 +1956,94 @@
     `).join("");
   }
 
+  function learningGoalLabel(goal) {
+    return goal.kind === "topic" ? goal.label : interfaceMessage(`settings.learninggoal.${goal.kind}`);
+  }
+
+  function learningGoalOptions() {
+    return (learning?.goalOptions?.() || []).map(goal =>
+      `<option value="${escapeHtmlText(goal.id)}">${escapeHtmlText(learningGoalLabel(goal))}</option>`
+    ).join("");
+  }
+
+  function renderLearningDirection(root, goal) {
+    const selected = goal || { id: "balanced", kind: "balanced" };
+    const name = root.querySelector("#learningGoalDirection");
+    const detail = root.querySelector("#learningGoalIntent");
+    if (name) name.textContent = learningGoalLabel(selected);
+    if (detail) detail.textContent = interfaceMessage(`settings.learninggoal.intent.${selected.kind}`);
+  }
+
+  function practiceGameLabel(gameId) {
+    const names = {
+      "word-world": "wordworld", "word-net": "wordworld",
+      "verb-nebula": "verblab", "verb-lab": "verblab",
+      "conjugation-comet": "conjugationcomet", "case-cosmos": "casecosmos",
+      "grammar-gravity": "grammargravity", "sound-quasar": "soundsquasar",
+      "naturalization-nucleus": "naturalizationnucleus", campaign: "campaign"
+    };
+    return names[gameId] ? interfaceMessage(`games.${names[gameId]}.title`)
+      : interfaceMessage("settings.practice.othergame");
+  }
+
+  function renderCoursePractice(root = document) {
+    const view = root.querySelector("#statsViewPanel");
+    const list = root.querySelector("#coursePracticeGames");
+    if (!list || view?.hidden) return;
+    let summary = null;
+    try { summary = learning?.practiceSummary?.(); } catch { /* Keep goals usable if history cannot be read. */ }
+    const valid = summary?.courseId === course.id && summary.totals && Array.isArray(summary.games);
+    const counts = valid ? summary.totals : null;
+    for (const [id, field] of [["coursePracticeItems", "encounteredItems"],
+      ["coursePracticeIndependent", "independentItems"], ["coursePracticeDue", "dueItems"]]) {
+      const element = root.querySelector(`#${id}`);
+      if (element) element.textContent = counts ? String(counts[field]) : "—";
+    }
+    const status = root.querySelector("#coursePracticeStatus");
+    if (status) {
+      status.hidden = valid && summary.status === "ready";
+      status.textContent = interfaceMessage(valid ? "settings.practice.partial" : "settings.practice.unavailable");
+    }
+    const empty = root.querySelector("#coursePracticeEmpty");
+    if (empty) empty.hidden = !valid || summary.status !== "ready" || counts.encounteredItems > 0;
+    const legacy = root.querySelector("#coursePracticeLegacy");
+    if (legacy) legacy.hidden = !valid || counts.legacyItems === 0;
+    list.replaceChildren();
+    if (!valid) return;
+    // Only recorded item identities are counted. The largest count sets the
+    // drawing scale; neither bar length nor answer evidence is a mastery score.
+    const maximum = Math.max(1, ...summary.games.map(game => game.counts.encounteredItems));
+    for (const game of summary.games) {
+      if (game.gameId === "campaign" && !game.counts.encounteredItems) continue;
+      const item = document.createElement("li");
+      item.className = "course-practice-game";
+      item.dataset.gameId = game.gameId;
+      const heading = document.createElement("div");
+      heading.className = "course-practice-game-heading";
+      const label = document.createElement("strong");
+      label.textContent = practiceGameLabel(game.gameId);
+      const total = document.createElement("span");
+      total.textContent = String(game.counts.encounteredItems);
+      heading.append(label, total);
+      const chart = semanticCompassSvgElement("svg", { viewBox: "0 0 100 8",
+        preserveAspectRatio: "none", class: "course-practice-bar", "aria-hidden": "true", focusable: "false" });
+      chart.append(semanticCompassSvgElement("rect", { width: 100, height: 8, rx: 4, class: "practice-track" }));
+      let offset = 0;
+      for (const [field, kind] of [["independentItems", "independent"], ["supportedOnlyItems", "supported"], ["unknownItems", "unknown"]]) {
+        const width = game.counts[field] / maximum * 100;
+        if (width > 0) chart.append(semanticCompassSvgElement("rect", { x: offset, width, height: 8, class: `practice-${kind}` }));
+        offset += width;
+      }
+      const detail = document.createElement("small");
+      detail.textContent = game.counts.encounteredItems
+        ? interfaceMessage("settings.practice.breakdown", { independent: game.counts.independentItems,
+          supported: game.counts.supportedOnlyItems, other: game.counts.unknownItems })
+        : interfaceMessage("settings.practice.notstarted");
+      item.append(heading, chart, detail);
+      list.append(item);
+    }
+  }
+
   function normalizeRewardCount(value) {
     const count = Number(value);
     return Number.isFinite(count) ? Math.max(0, Math.floor(count)) : 0;
@@ -2008,14 +2094,16 @@
     if (level) level.textContent = interfaceMessage("progress.level", { level: profile.difficulty });
     const badgeName = root.querySelector("#difficultyBadgeName");
     if (badgeName) badgeName.textContent = profile.difficultyOption.label;
+    const goalSelect = root.querySelector("#learningGoal");
+    if (goalSelect) goalSelect.value = profile.goal?.id || "balanced";
+    renderLearningDirection(root, profile.goal);
+    renderCoursePractice(root);
     const xp = root.querySelector("#courseProgressXp");
     if (xp) xp.textContent = String(rewards.xp);
     const coins = root.querySelector("#courseProgressCoins");
     if (coins) coins.textContent = String(rewards.coins);
     const activities = root.querySelector("#courseProgressActivities");
-    if (activities) activities.textContent = String(journey.activities);
-    const accuracy = root.querySelector("#courseProgressAccuracy");
-    if (accuracy) accuracy.textContent = journey.accuracy === null ? "—" : `${journey.accuracy}%`;
+    if (activities) activities.textContent = String(profile.summary.activities);
     const summary = root.querySelector("#courseProgressSummary");
     if (summary) {
       summary.textContent = journey.activities
@@ -2346,15 +2434,10 @@
   }
 
   function semanticSkillCompassText(key, replacements = {}) {
-    let value = String(semanticSkillCompassCopy?.[key] || "");
-    for (const [name, replacement] of Object.entries(replacements)) {
-      value = value.replaceAll(`{${name}}`, String(replacement));
-    }
-    return value;
+    return interfaceMessage(`settings.compass.${key.toLowerCase()}`, replacements);
   }
 
   function applySemanticSkillCompassCopy(panel) {
-    if (!semanticSkillCompassAvailable) return;
     const textBindings = [
       ["#semanticSkillCompassEyebrow", "eyebrow"],
       ["#semanticSkillCompassTitle", "title"],
@@ -2387,27 +2470,18 @@
   }
 
   async function preloadBackpackStats() {
-    if (!semanticSkillCompassAvailable) return null;
     const prepared = preparedSemanticSkillCompass();
     if (prepared) return prepared;
     if (semanticSkillCompassPreparation) return semanticSkillCompassPreparation;
 
     const revision = semanticSkillCompassPreparationRevision;
-    const semanticLearning = window.CaatuuSemanticLearning;
-    if (typeof semanticLearning?.readEvidence !== "function"
-      || typeof semanticLearning?.projectRadar !== "function") {
-      throw new Error("Semantic learning is unavailable.");
+    if (typeof practiceCompass?.project !== "function") {
+      throw new Error("Practice mapping is unavailable.");
     }
 
     const preparation = (async () => {
-      const evidence = await semanticLearning.readEvidence();
-      const result = evidence.length
-        ? {
-            revision,
-            empty: false,
-            projection: await semanticLearning.projectRadar(semanticSkillCompassAxisPack)
-          }
-        : { revision, empty: true, projection: null };
+      const projection = await practiceCompass.project();
+      const result = { revision, empty: projection.status === "empty", projection };
       if (revision === semanticSkillCompassPreparationRevision) {
         semanticSkillCompassPrepared = result;
       }
@@ -2434,7 +2508,7 @@
     if (body) body.setAttribute("aria-busy", String(state === "loading"));
     if (status) status.textContent = message;
     if (summaryState) summaryState.textContent = summary;
-    if (retry) retry.hidden = state !== "error";
+    if (retry) retry.hidden = !["error", "partial", "unavailable"].includes(state);
     if (progress && state !== "loading") progress.hidden = true;
   }
 
@@ -2445,15 +2519,11 @@
     list.replaceChildren();
     for (const axis of semanticSkillCompassAxisPack.axes) {
       const projected = projectedById.get(axis.id);
-      const confidence = clampSemanticCompassValue(projected?.assessmentConfidence);
-      const strengthIsReady = Number.isFinite(projected?.mastery)
-        && confidence >= semanticSkillCompassMinimumConfidence;
       const item = document.createElement("li");
       item.dataset.axisId = axis.id;
-      item.title = axis.probe.text;
       item.style.setProperty(
         "--axis-practice",
-        projected ? semanticCompassPercent(projected.coverage) : "0%"
+        Number.isFinite(projected?.practice) ? semanticCompassPercent(projected.practice) : "0%"
       );
       const heading = document.createElement("span");
       heading.className = "skill-compass-axis-heading";
@@ -2464,13 +2534,10 @@
       const metrics = document.createElement("dl");
       metrics.className = "skill-compass-axis-metrics";
       const metricValues = [
-        ["practice", semanticSkillCompassText("practiceLabel"), projected ? semanticCompassPercent(projected.coverage) : semanticSkillCompassText("notMapped")],
-        ["strength", semanticSkillCompassText("strengthLabel"), !projected
-          ? semanticSkillCompassText("notMapped")
-          : (strengthIsReady
-            ? semanticCompassPercent(projected.mastery)
-            : (Number.isFinite(projected.mastery) ? semanticSkillCompassText("building") : semanticSkillCompassText("notAssessed")))],
-        ["confidence", semanticSkillCompassText("confidenceLabel"), projected ? semanticCompassPercent(confidence) : semanticSkillCompassText("notMapped")]
+        ["practice", semanticSkillCompassText("practiceLabel"), Number.isFinite(projected?.practice)
+          ? String(projected.mappedItems) : semanticSkillCompassText("notMapped")],
+        ["strength", semanticSkillCompassText("strengthLabel"), Number.isFinite(projected?.independent)
+          ? String(projected.independentItems) : semanticSkillCompassText("notMapped")]
       ];
       for (const [metricId, label, value] of metricValues) {
         const metric = document.createElement("div");
@@ -2596,88 +2663,46 @@
   }
 
   function renderSemanticSkillCompassProjection(panel, projection) {
-    const projectedById = new Map((projection?.axes || []).map((axis) => [axis.id, axis]));
-    const projectedAxes = semanticSkillCompassAxisPack.axes.map((axis) => projectedById.get(axis.id) || {
-      id: axis.id,
-      coverage: 0,
-      mastery: null,
-      assessmentConfidence: 0
+    const projectedById = new Map((projection?.axes || []).map(axis => [axis.id, axis]));
+    const projectedAxes = semanticSkillCompassAxisPack.axes.map(axis => projectedById.get(axis.id) || {
+      id: axis.id, practice: null, independent: null, mappedItems: 0, independentItems: 0
     });
-    const practiceValues = projectedAxes.map((axis) => clampSemanticCompassValue(axis.coverage));
-    const practice = panel.querySelector("[data-semantic-compass-practice]");
-    if (practice) {
-      practice.setAttribute("points", semanticCompassPolygonPoints(practiceValues));
-      practice.classList.toggle("is-hidden", !practiceValues.some((value) => value > 0));
+    for (const [field, selector] of [["practice", "[data-semantic-compass-practice]"],
+      ["independent", "[data-semantic-compass-strength]"]]) {
+      const polygon = panel.querySelector(selector);
+      if (!polygon) continue;
+      const values = projectedAxes.map(axis => axis[field]);
+      const known = values.length > 0 && values.every(Number.isFinite);
+      polygon.setAttribute("points", semanticCompassPolygonPoints(values));
+      polygon.classList.toggle("is-hidden", !known || !values.some(value => value > 0));
     }
-
-    const strengthValues = projectedAxes.map((axis) => {
-      const confidence = clampSemanticCompassValue(axis.assessmentConfidence);
-      return Number.isFinite(axis.mastery) && confidence >= semanticSkillCompassMinimumConfidence
-        ? clampSemanticCompassValue(axis.mastery)
-        : null;
-    });
-    const strength = panel.querySelector("[data-semantic-compass-strength]");
-    if (strength) {
-      const complete = strengthValues.every((value) => value !== null);
-      if (complete) strength.setAttribute("points", semanticCompassPolygonPoints(strengthValues));
-      strength.classList.toggle("is-hidden", !complete);
-    }
-    const strengthPoints = panel.querySelector("[data-semantic-compass-strength-points]");
-    if (strengthPoints) {
-      strengthPoints.replaceChildren();
-      strengthValues.forEach((value, index) => {
-        if (value === null) return;
-        const point = semanticCompassPoint(index, strengthValues.length, value);
-        strengthPoints.append(semanticCompassSvgElement("circle", {
-          cx: point.x.toFixed(2),
-          cy: point.y.toFixed(2),
-          r: 3
-        }));
+    const points = panel.querySelector("[data-semantic-compass-strength-points]");
+    if (points) {
+      points.replaceChildren();
+      projectedAxes.forEach((axis, index) => {
+        if (!Number.isFinite(axis.independent) || axis.independent <= 0) return;
+        const point = semanticCompassPoint(index, projectedAxes.length, axis.independent);
+        points.append(semanticCompassSvgElement("circle", { cx: point.x.toFixed(2), cy: point.y.toFixed(2), r: 3 }));
       });
     }
-
     renderSemanticSkillCompassAxisList(panel, projectedAxes);
-    const practicedCount = practiceValues.filter((value) => value > 0).length;
-    const strengthCount = strengthValues.filter((value) => value !== null).length;
+    const replacements = {
+      mapped: projection?.counts?.mappedItems || 0,
+      total: projection?.counts?.encounteredItems || 0,
+      independent: projection?.counts?.mappedIndependentItems || 0,
+      unmapped: projection?.counts?.unmappedItems || 0,
+      unmatched: projection?.mappingCounts?.unmatched || 0,
+      pending: projection?.mappingCounts?.pending || 0,
+      unavailable: ["identity-unresolved", "english-unavailable", "evidence-unavailable", "vector-unavailable"]
+        .reduce((sum, status) => sum + (projection?.mappingCounts?.[status] || 0), 0)
+    };
     const description = panel.querySelector("#semanticSkillCompassChartDescription");
-    if (description) {
-      description.textContent = semanticSkillCompassText("projectionDescription", {
-        practicedCount,
-        topicCount: projectedAxes.length,
-        strengthCount
-      });
-    }
-    if (!practicedCount) {
-      setSemanticSkillCompassStatus(
-        panel,
-        "ready",
-        semanticSkillCompassText("unmappedMessage"),
-        semanticSkillCompassText("summary")
-      );
-    } else if (!strengthCount) {
-      setSemanticSkillCompassStatus(
-        panel,
-        "ready",
-        semanticSkillCompassText("practiceOnlyMessage"),
-        semanticSkillCompassText("summary")
-      );
-    } else if (strengthCount < projectedAxes.length) {
-      setSemanticSkillCompassStatus(
-        panel,
-        "ready",
-        semanticSkillCompassText("partialStrengthMessage"),
-        semanticSkillCompassText("summary")
-      );
-    } else {
-      setSemanticSkillCompassStatus(
-        panel,
-        "ready",
-        semanticSkillCompassText("completeMessage"),
-        semanticSkillCompassText("summary")
-      );
-    }
+    if (description) description.textContent = semanticSkillCompassText("projectionDescription", replacements);
+    const state = projection?.status || "unavailable";
+    setSemanticSkillCompassStatus(panel, state,
+      semanticSkillCompassText(state === "partial" ? "partialMessage" : state === "unavailable" ? "unavailableMessage" : "completeMessage", replacements),
+      semanticSkillCompassText(state === "partial" ? "partialSummary" : state === "unavailable" ? "errorSummary" : "summary"));
   }
-
   async function loadSemanticSkillCompass(panel, { force = false } = {}) {
     const controller = semanticSkillCompassController(panel);
     if (force) controller.revision += 1;
@@ -2702,20 +2727,10 @@
     );
 
     try {
-      const semanticLearning = window.CaatuuSemanticLearning;
-      if (typeof semanticLearning?.readEvidence !== "function"
-        || typeof semanticLearning?.projectRadar !== "function") {
-        throw new Error("Semantic learning is unavailable.");
+      if (typeof practiceCompass?.project !== "function") {
+        throw new Error("Practice mapping is unavailable.");
       }
-      const evidence = await semanticLearning.readEvidence();
-      if (request !== controller.request || signal.aborted) return;
-      if (!evidence.length) {
-        renderSemanticSkillCompassEmpty(panel);
-        controller.rendered = true;
-        controller.renderedRevision = revision;
-        return;
-      }
-      const projection = await semanticLearning.projectRadar(semanticSkillCompassAxisPack, {
+      const projection = await practiceCompass.project({
         signal,
         onProgress({ completed, total }) {
           if (request !== controller.request || signal.aborted || !progress) return;
@@ -2725,14 +2740,19 @@
       });
       if (request !== controller.request || signal.aborted) return;
       if (revision === semanticSkillCompassPreparationRevision) {
-        semanticSkillCompassPrepared = { revision, empty: false, projection };
+        semanticSkillCompassPrepared = { revision, empty: projection.status === "empty", projection };
       }
-      renderSemanticSkillCompassProjection(panel, projection);
+      if (projection.status === "empty") renderSemanticSkillCompassEmpty(panel);
+      else renderSemanticSkillCompassProjection(panel, projection);
       controller.rendered = true;
       controller.renderedRevision = revision;
     } catch (error) {
       if (request !== controller.request) return;
       if (error?.name !== "AbortError") {
+        clearSemanticSkillCompassShapes(panel);
+        renderSemanticSkillCompassAxisList(panel);
+        const description = panel.querySelector("#semanticSkillCompassChartDescription");
+        if (description) description.textContent = semanticSkillCompassText("errorMessage");
         setSemanticSkillCompassStatus(
           panel,
           "error",
@@ -2802,7 +2822,6 @@
   }
 
   function bindSemanticSkillCompass(panel) {
-    if (!semanticSkillCompassAvailable) return;
     const details = panel.querySelector("#semanticSkillCompass");
     if (!details) return;
     renderSemanticSkillCompassFrame(panel);
@@ -2816,7 +2835,7 @@
     document.addEventListener("caatuu:settings-open", () => {
       if (details.open) scheduleSemanticSkillCompassLoad(panel);
     });
-    window.addEventListener("caatuu:semantic-learning-change", () => {
+    const refresh = () => {
       semanticSkillCompassPreparationRevision += 1;
       semanticSkillCompassPrepared = null;
       const controller = semanticSkillCompassController(panel);
@@ -2827,10 +2846,27 @@
         const summary = panel.querySelector("#semanticSkillCompassSummaryState");
         if (summary) summary.textContent = semanticSkillCompassText("updateReadySummary");
       }
+    };
+    window.addEventListener("caatuu:learning-change", event => {
+      if (event.detail?.reason !== "goal" && event.detail?.reason !== "difficulty") refresh();
+    });
+    window.addEventListener("storage", event => {
+      const key = String(event?.key || "");
+      if (key.startsWith(`${course.storage.namespace}.learning.content.`)
+        || key === `${learning?.storage?.performanceStorageKey}.reset`) refresh();
     });
   }
 
   function bindLearningControls() {
+    document.addEventListener("change", (event) => {
+      if (event.target?.id !== "learningGoal" || !learning?.setGoal) return;
+      const selected = learning.setGoal(event.target.value);
+      renderLearningControls(document);
+      const status = document.querySelector("#learningGoalStatus");
+      if (status && selected) status.textContent = interfaceMessage("settings.learninggoal.selected", {
+        goal: learningGoalLabel(selected)
+      });
+    });
     document.addEventListener("click", async (event) => {
       const streakReminderButton = event.target.closest?.("[data-streak-reminder-toggle]");
       if (streakReminderButton) {
@@ -2886,8 +2922,14 @@
 
     window.addEventListener("storage", (event) => {
       const key = String(event?.key || "");
+      if (key.startsWith(`${course.storage.namespace}.learning.content.`)
+        || key === `${learning?.storage?.performanceStorageKey}.reset`) {
+        renderCoursePractice(document);
+        return;
+      }
       if (
         key !== learning?.storage?.streakStorageKey
+        && key !== learning?.storage?.goalStorageKey
         && !key.endsWith(".learning.performance.v1")
       ) return;
       renderLearningControls(document);
@@ -4461,17 +4503,6 @@
                 </span>
               </header>
               <div id="backpackStatsMount">
-                <div class="journey-ledger" aria-label="${interfaceHtml("settings.stats.performance")}">
-                  <div>
-                    <span>${interfaceHtml("progress.activities")}</span>
-                    <strong id="courseProgressActivities">0</strong>
-                  </div>
-                  <div>
-                    <span>${interfaceHtml("progress.accuracy")}</span>
-                    <strong id="courseProgressAccuracy">—</strong>
-                  </div>
-                </div>
-
                 <details class="skill-compass" id="semanticSkillCompass" data-state="idle" open>
                   <summary aria-controls="semanticSkillCompassBody">
                     <span class="skill-compass-summary-copy">
@@ -4491,8 +4522,53 @@
                       </figure>
                     </div>
                     <progress class="skill-compass-progress" id="semanticSkillCompassProgress" aria-label="" hidden></progress>
+                    <p class="skill-compass-status" id="semanticSkillCompassStatus" role="status" aria-live="polite"></p>
+                    <p class="skill-compass-explanation">${interfaceHtml("settings.compass.explanation")}</p>
+                    <button class="skill-compass-retry" id="semanticSkillCompassRetry" type="button" hidden>${interfaceHtml("settings.compass.retry")}</button>
+                    <details class="skill-compass-values"><summary>${interfaceHtml("settings.compass.details")}</summary>
+                      <ul class="skill-compass-axis-list" id="semanticSkillCompassAxes"></ul>
+                    </details>
                   </div>
                 </details>
+                <section class="learning-direction-card" aria-labelledby="learningDirectionTitle">
+                  <header class="learning-direction-heading">
+                    <span class="learning-direction-arrow" aria-hidden="true">↗</span>
+                    <div><small class="stats-eyebrow" id="learningDirectionTitle">${interfaceHtml("settings.learninggoal.direction")}</small>
+                      <strong id="learningGoalDirection"></strong></div>
+                  </header>
+                  <p id="learningGoalIntent"></p>
+                  <label class="setting-select" for="learningGoal">
+                    <span><b>${interfaceHtml("settings.learninggoal.label")}</b>
+                      <small id="learningGoalDescription">${interfaceHtml("settings.learninggoal.description")}</small></span>
+                    <select id="learningGoal" aria-describedby="learningGoalDescription">${learningGoalOptions()}</select>
+                  </label>
+                  <p class="learning-status" id="learningGoalStatus" role="status" aria-live="polite" aria-atomic="true"></p>
+                </section>
+
+                <details class="course-practice-details"><summary>${interfaceHtml("settings.practice.details")}</summary>
+                <section class="course-practice-card" aria-labelledby="coursePracticeTitle">
+                  <header class="course-practice-heading"><small class="stats-eyebrow">${interfaceHtml("settings.practice.recorded")}</small>
+                    <h3 id="coursePracticeTitle">${interfaceHtml("settings.practice.title", { language: targetLanguageName })}</h3></header>
+                  <dl class="course-practice-totals">
+                    <div><dt>${interfaceHtml("settings.practice.items")}</dt><dd id="coursePracticeItems">—</dd></div>
+                    <div><dt>${interfaceHtml("settings.practice.independent")}</dt><dd id="coursePracticeIndependent">—</dd></div>
+                    <div><dt>${interfaceHtml("settings.practice.due")}</dt><dd id="coursePracticeDue">—</dd></div>
+                  </dl>
+                  <p class="course-practice-status" id="coursePracticeStatus" role="status" hidden></p>
+                  <p class="course-practice-empty" id="coursePracticeEmpty">${interfaceHtml("settings.practice.empty")}</p>
+                  <ul class="course-practice-legend" aria-label="${interfaceHtml("settings.practice.legend")}">
+                    <li><i class="practice-independent" aria-hidden="true"></i>${interfaceHtml("settings.practice.independent")}</li>
+                    <li><i class="practice-supported" aria-hidden="true"></i>${interfaceHtml("settings.practice.supported")}</li>
+                    <li><i class="practice-unknown" aria-hidden="true"></i>${interfaceHtml("settings.practice.other")}</li>
+                  </ul>
+                  <ul class="course-practice-games" id="coursePracticeGames" aria-label="${interfaceHtml("settings.practice.bygame")}"></ul>
+                  <p class="course-practice-note">${interfaceHtml("settings.practice.explanation")}</p>
+                  <p class="course-practice-note" id="coursePracticeLegacy" hidden>${interfaceHtml("settings.practice.legacy")}</p>
+                  <p class="course-practice-activity">${interfaceHtml("progress.activities")}: <strong id="courseProgressActivities">0</strong></p>
+                </section>
+                </details>
+
+
               </div>
             </section>
           </section>
@@ -4851,8 +4927,7 @@
       || course.capabilities?.offlineModels === true;
     if (!supportsSpeech) panel.querySelector(".speech-settings-card")?.remove();
     configureAiSettingsAvailability(panel, supportsAi);
-    if (!semanticSkillCompassAvailable) panel.querySelector("#semanticSkillCompass")?.remove();
-    else applySemanticSkillCompassCopy(panel);
+    applySemanticSkillCompassCopy(panel);
     if (course.platforms?.android?.enabled === false) {
       panel.querySelector("#installAndroidAction")?.remove();
 
@@ -4940,7 +5015,7 @@
     if (panel.dataset.settingsViewInitialized === "true"
       && sheet?.dataset.settingsCurrentView === view) {
       if (body) body.scrollTop = 0;
-      if (view === "stats") scheduleSemanticSkillCompassLoad(panel);
+      if (view === "stats") { renderCoursePractice(panel); scheduleSemanticSkillCompassLoad(panel, { force: true }); }
       if (view === "settings") void refreshSpeechVoiceControl(panel);
       return;
     }
@@ -4975,7 +5050,7 @@
       }[view];
     }
     if (body) body.scrollTop = 0;
-    if (view === "stats") scheduleSemanticSkillCompassLoad(panel);
+    if (view === "stats") { renderCoursePractice(panel); scheduleSemanticSkillCompassLoad(panel, { force: true }); }
     if (view === "settings") void refreshSpeechVoiceControl(panel);
   }
 

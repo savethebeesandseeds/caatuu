@@ -43,8 +43,6 @@
     "source/shared/course-profile.js",
     "source/shared/feedback-outbox.mjs",
     "source/shared/runtime.js",
-    "source/shared/semantic-learning-core.mjs",
-    "source/shared/semantic-learning.js",
     "source/shared/vector-db.js",
     "sw.js",
     "vendor/sql.js/LICENSE",

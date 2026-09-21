@@ -47,7 +47,7 @@
       schemaVersion: 1,
       locale: "en",
       direction: "ltr",
-      revision: "interface-en-32",
+      revision: "interface-en-37",
       catalog: "/language-runtime/static/data/interface/en.v1.json"
     },
     learnerBasePreview: false,
@@ -150,7 +150,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-32",
+            revision: "interface-en-37",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -207,7 +207,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-32",
+            revision: "interface-en-37",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -268,7 +268,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-32",
+            revision: "interface-en-37",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -329,7 +329,7 @@
             schemaVersion: 1,
             locale: "es-ES",
             direction: "ltr",
-            revision: "interface-es-7",
+            revision: "interface-es-12",
             catalog: "/language-runtime/static/data/interface/es.v1.json"
           },
           targetLanguage: {
@@ -390,7 +390,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-32",
+            revision: "interface-en-37",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -439,7 +439,6 @@
       chat: false,
       embeddings: true,
       semanticSearch: true,
-      skillCompass: false,
       dictionary: false,
       memory: false,
       verbs: false,
@@ -449,7 +448,121 @@
       speech: true,
       pronunciationGuides: false
     },
-    skillCompass: null,
+    learningGoals: [
+      {
+        id: "people-social",
+        label: "People, feelings & cooperation",
+        embeddingText: "Greet people, introduce yourself, talk about friendship and feelings, and cooperate with others.",
+        categories: [
+          "first-contact",
+          "greetings",
+          "introductions",
+          "friendship",
+          "feelings",
+          "feelings-and-cooperation",
+          "communication",
+          "cooperation",
+          "celebrations"
+        ]
+      },
+      {
+        id: "home-routines",
+        label: "Home, family & routines",
+        embeddingText: "Talk about home, family chores, clothing, daily routines and resting.",
+        categories: [
+          "home",
+          "home-and-community",
+          "family-and-chores",
+          "daily-routines",
+          "clothing",
+          "body-and-rest",
+          "cabin-life"
+        ]
+      },
+      {
+        id: "food-shopping",
+        label: "Food, cooking & shopping",
+        embeddingText: "Talk about food, cook meals and shop for everyday needs.",
+        categories: [
+          "food",
+          "cooking",
+          "meals",
+          "shopping"
+        ]
+      },
+      {
+        id: "school-learning",
+        label: "School, learning & science",
+        embeddingText: "Talk about school, learning, thinking, science and technology.",
+        categories: [
+          "school",
+          "learning",
+          "learning-and-thinking",
+          "science",
+          "technology"
+        ]
+      },
+      {
+        id: "travel-needs",
+        label: "Travel & practical needs",
+        embeddingText: "Travel around town, use public transport, ask permission and explain practical needs.",
+        categories: [
+          "travel",
+          "public-transport",
+          "town",
+          "practical-needs",
+          "travel-and-practical-needs",
+          "requests-and-permission",
+          "community"
+        ]
+      },
+      {
+        id: "nature-weather",
+        label: "Outdoors, nature & weather",
+        embeddingText: "Explore forests and the seaside, describe animals, seasons and weather, and care for nature.",
+        categories: [
+          "animals",
+          "nature",
+          "forest",
+          "seaside",
+          "outdoor-exploration",
+          "adventures",
+          "environment",
+          "nature-and-environment",
+          "weather",
+          "seasons",
+          "weather-and-seasons"
+        ]
+      },
+      {
+        id: "plans-time",
+        label: "Time, plans & experiences",
+        embeddingText: "Discuss numbers and time, make plans, compare quantities and explain past experiences.",
+        categories: [
+          "numbers-and-time",
+          "planning",
+          "plans-and-time",
+          "past-experiences",
+          "comparison-and-quantity",
+          "explanations"
+        ]
+      },
+      {
+        id: "stories-play",
+        label: "Stories, play & creativity",
+        embeddingText: "Talk about books, imaginary stories, games, puzzles, sports, music and art.",
+        categories: [
+          "books-and-stories",
+          "playful-stories",
+          "play",
+          "games-and-puzzles",
+          "imagination",
+          "sports",
+          "music-and-art",
+          "creativity-and-feelings"
+        ]
+      }
+    ],
     platforms: {
       browser: {
         enabled: true,

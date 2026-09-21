@@ -7,6 +7,7 @@ import { transformSetupJs } from "../../android/tooling/build-product-assets.mjs
 import { initializeWorkspaceAfterDictionaryProvider } from "../static/source/dictionary-provider-loader.mjs";
 import { initializeHomeCourseSetup } from "../static/source/course-setup.mjs";
 import { installMusic } from "../static/source/music.mjs";
+import { createPracticeCompass, sharedPracticeAxes } from "../static/source/practice-compass.mjs";
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { englishInterfaceContent, installEnglishInterfaceContent } from "./helpers/english-interface-content.mjs";
 
@@ -25,6 +26,7 @@ const setupSource = transformSetupJs(await readFile(new URL(
 const setupProgressSource = await readFile(new URL(
   "../../languages/czech/static/source/features/setup/setup-progress.js", import.meta.url
 ), "utf8");
+const learningProfileSource = await readFile(new URL("../static/source/learning-profile.js", import.meta.url), "utf8");
 
 function deferred() {
   let resolve;
@@ -43,6 +45,7 @@ function startHarness({ dictionary = false, failScript = "", serviceWorker = nul
     id: "en-zh-Hans",
     routePrefix: "/zh",
     status: "active",
+    storage: { namespace: "caatuu-readiness" },
     sourceLanguage: { id: "en", locale: "en", label: "English" },
     targetLanguage: { id: "zh-Hans", locale: "zh-Hans", label: "Simplified Chinese" },
     capabilities: { dictionary, offlineModels: false },
@@ -58,6 +61,8 @@ function startHarness({ dictionary = false, failScript = "", serviceWorker = nul
   };
   const harness = createBrowserHarness({ course });
   const { context, document } = harness;
+  // The app document loads its course-isolated learning profile before bootstrap.
+  vm.runInContext(learningProfileSource, context);
   if (nativeSetup) {
     harness.runtime.env = "android";
     harness.runtime.setup = { status: () => nativeSetup.promise };
@@ -124,7 +129,10 @@ function startHarness({ dictionary = false, failScript = "", serviceWorker = nul
   }
   Object.assign(context, {
     CaatuuCourse: course,
+    CaatuuLearning: harness.window.CaatuuLearning,
     CaatuuShellPolicy: {},
+    createPracticeCompass,
+    sharedPracticeAxes,
     initializeWorkspaceAfterDictionaryProvider,
     installMusic,
     addEventListener: harness.window.addEventListener.bind(harness.window),

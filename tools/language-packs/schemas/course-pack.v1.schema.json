@@ -22,7 +22,6 @@
     "cache",
     "publication",
     "capabilities",
-    "skillCompass",
     "platforms",
     "resources"
   ],
@@ -121,11 +120,24 @@
     "capabilities": {
       "$ref": "#/$defs/capabilities"
     },
-    "skillCompass": {
-      "oneOf": [
-        { "type": "null" },
-        { "$ref": "#/$defs/skillCompass" }
-      ]
+    "learningGoals": {
+      "type": "array",
+      "maxItems": 12,
+      "description": "Optional course-authored topic goals. Labels use the learner-base language; embeddingText is authored English, and categories refer to this course's Word World topic IDs. This is a selection of available content, not a complete curriculum.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "embeddingText", "categories"],
+        "properties": {
+          "id": { "type": "string", "maxLength": 64, "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+          "label": { "type": "string", "minLength": 1, "maxLength": 120, "pattern": "^(?=\\s*\\S)[^\\u0000-\\u001f\\u007f]+$" },
+          "embeddingText": { "type": "string", "minLength": 1, "maxLength": 1024, "pattern": "^(?=.*[A-Za-z])[\\u0020-\\u007e]+$" },
+          "categories": {
+            "type": "array", "minItems": 1, "maxItems": 32, "uniqueItems": true,
+            "items": { "type": "string", "maxLength": 80, "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" }
+          }
+        }
+      }
     },
     "linguisticFeatures": {
       "type": "array",
@@ -173,6 +185,9 @@
     "resources": {
       "type": "object",
       "required": ["interfaceCatalog"],
+      "propertyNames": {
+        "not": { "const": "semanticLearningProvider" }
+      },
       "properties": {
         "dictionaryProvider": { "$ref": "#/$defs/dictionaryProviderResource" },
         "interfaceCatalog": { "$ref": "#/$defs/interfaceCatalogResource" }
@@ -403,29 +418,6 @@
               }
             }
           }
-        }
-      }
-    },
-    {
-      "if": {
-        "properties": {
-          "capabilities": {
-            "properties": {
-              "skillCompass": { "const": true }
-            },
-            "required": ["skillCompass"]
-          }
-        },
-        "required": ["capabilities"]
-      },
-      "then": {
-        "properties": {
-          "skillCompass": { "$ref": "#/$defs/skillCompass" }
-        }
-      },
-      "else": {
-        "properties": {
-          "skillCompass": { "type": "null" }
         }
       }
     },
@@ -701,7 +693,6 @@
         "chat",
         "embeddings",
         "semanticSearch",
-        "skillCompass",
         "dictionary",
         "memory",
         "verbs",
@@ -717,7 +708,6 @@
         "chat": { "type": "boolean" },
         "embeddings": { "type": "boolean" },
         "semanticSearch": { "type": "boolean" },
-        "skillCompass": { "type": "boolean" },
         "dictionary": { "type": "boolean" },
         "memory": { "type": "boolean" },
         "verbs": { "type": "boolean" },
@@ -726,119 +716,6 @@
         "offlineModels": { "type": "boolean" },
         "speech": { "type": "boolean" },
         "pronunciationGuides": { "type": "boolean" }
-      }
-    },
-    "skillCompass": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["schemaVersion", "id", "version", "modelId", "minimumConfidence", "copy", "axes"],
-      "properties": {
-        "schemaVersion": { "const": 1 },
-        "id": { "$ref": "#/$defs/nonEmptyString" },
-        "version": { "$ref": "#/$defs/nonEmptyString" },
-        "modelId": { "$ref": "#/$defs/nonEmptyString" },
-        "minimumConfidence": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 1
-        },
-        "copy": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "eyebrow",
-            "title",
-            "summary",
-            "chartTitle",
-            "chartDescription",
-            "legendLabel",
-            "practiceLabel",
-            "strengthLabel",
-            "confidenceLabel",
-            "progressLabel",
-            "notMapped",
-            "building",
-            "notAssessed",
-            "idleMessage",
-            "emptyChartDescription",
-            "emptyMessage",
-            "emptySummary",
-            "projectionDescription",
-            "unmappedMessage",
-            "practiceOnlyMessage",
-            "partialStrengthMessage",
-            "completeMessage",
-            "loadingMessage",
-            "loadingSummary",
-            "errorMessage",
-            "errorSummary",
-            "changedMessage",
-            "closedMessage",
-            "updateReadySummary",
-            "closedSummary"
-          ],
-          "properties": {
-            "eyebrow": { "$ref": "#/$defs/nonEmptyString" },
-            "title": { "$ref": "#/$defs/nonEmptyString" },
-            "summary": { "$ref": "#/$defs/nonEmptyString" },
-            "chartTitle": { "$ref": "#/$defs/nonEmptyString" },
-            "chartDescription": { "$ref": "#/$defs/nonEmptyString" },
-            "legendLabel": { "$ref": "#/$defs/nonEmptyString" },
-            "practiceLabel": { "$ref": "#/$defs/nonEmptyString" },
-            "strengthLabel": { "$ref": "#/$defs/nonEmptyString" },
-            "confidenceLabel": { "$ref": "#/$defs/nonEmptyString" },
-            "progressLabel": { "$ref": "#/$defs/nonEmptyString" },
-            "notMapped": { "$ref": "#/$defs/nonEmptyString" },
-            "building": { "$ref": "#/$defs/nonEmptyString" },
-            "notAssessed": { "$ref": "#/$defs/nonEmptyString" },
-            "idleMessage": { "$ref": "#/$defs/nonEmptyString" },
-            "emptyChartDescription": { "$ref": "#/$defs/nonEmptyString" },
-            "emptyMessage": { "$ref": "#/$defs/nonEmptyString" },
-            "emptySummary": { "$ref": "#/$defs/nonEmptyString" },
-            "projectionDescription": { "$ref": "#/$defs/nonEmptyString" },
-            "unmappedMessage": { "$ref": "#/$defs/nonEmptyString" },
-            "practiceOnlyMessage": { "$ref": "#/$defs/nonEmptyString" },
-            "partialStrengthMessage": { "$ref": "#/$defs/nonEmptyString" },
-            "completeMessage": { "$ref": "#/$defs/nonEmptyString" },
-            "loadingMessage": { "$ref": "#/$defs/nonEmptyString" },
-            "loadingSummary": { "$ref": "#/$defs/nonEmptyString" },
-            "errorMessage": { "$ref": "#/$defs/nonEmptyString" },
-            "errorSummary": { "$ref": "#/$defs/nonEmptyString" },
-            "changedMessage": { "$ref": "#/$defs/nonEmptyString" },
-            "closedMessage": { "$ref": "#/$defs/nonEmptyString" },
-            "updateReadySummary": { "$ref": "#/$defs/nonEmptyString" },
-            "closedSummary": { "$ref": "#/$defs/nonEmptyString" }
-          }
-        },
-        "axes": {
-          "type": "array",
-          "minItems": 3,
-          "uniqueItems": true,
-          "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": ["id", "label", "chartLabel", "emblem", "probe"],
-            "properties": {
-              "id": { "$ref": "#/$defs/courseId" },
-              "label": { "$ref": "#/$defs/nonEmptyString" },
-              "chartLabel": { "$ref": "#/$defs/nonEmptyString" },
-              "chartLabelBelow": { "type": "boolean" },
-              "emblem": {
-                "enum": ["people", "home", "food", "journey", "actions", "time", "world"]
-              },
-              "probe": {
-                "type": "object",
-                "additionalProperties": false,
-                "required": ["locale", "revision", "text"],
-                "properties": {
-                  "locale": { "$ref": "#/$defs/languageTag" },
-                  "revision": { "$ref": "#/$defs/nonEmptyString" },
-                  "text": { "$ref": "#/$defs/nonEmptyString" }
-                }
-              }
-            }
-          }
-        }
       }
     },
     "platforms": {

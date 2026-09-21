@@ -297,7 +297,8 @@ function currentQuestion() {
 function makePracticeRounds() {
   const learning = window.CaatuuLearning;
   return learning?.contentHistory
-    ? buildCasePracticeRounds(state.pack, state.difficulty, { history: learning.contentHistory("case-cosmos") })
+    ? buildCasePracticeRounds(state.pack, state.difficulty, { history: learning.contentHistory("case-cosmos"),
+      policy: learning.samplingContext?.("case-cosmos") })
     : buildRounds(state.pack, state.difficulty);
 }
 

@@ -17,7 +17,8 @@ const pairs = verbNebulaCore.validateVerbNebulaCatalog(rows, { learnerBaseLangua
 const between = (startMarker, endMarker) => {
   const start = workspace.indexOf(startMarker);
   const end = workspace.indexOf(endMarker, start);
-  assert.ok(start >= 0 && end > start, startMarker);
+  assert.ok(start >= 0, `Missing workspace start marker: ${startMarker}`);
+  assert.ok(end > start, `Missing workspace end marker: ${endMarker}`);
   return workspace.slice(start, end);
 };
 
@@ -251,7 +252,7 @@ test("unsupported verb clues stay empty instead of showing unrelated actions or 
     preloadVerbHintAsset: async () => {}
   });
   vm.runInContext([
-    between("const verbHintExactAssets =", "const campaignContractGameIds"),
+    between("const verbHintExactAssets =", "const campaignTransitionMillis ="),
     between("const verbHintStopwords =", "function verbSolutionRevealDuration"),
     between("function verbHintTokens(value)", "function normalizeVerbHintPath"),
     between("async function fallbackVerbHintCandidates(pair)", "function loadableVerbHint"),

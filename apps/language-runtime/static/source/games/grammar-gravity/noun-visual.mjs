@@ -1,4 +1,4 @@
-import { createEnglishImageSearch } from "../../english-image-search.mjs?v=english-image-search-3";
+import { createEnglishImageSearch } from "../../english-image-search.mjs?v=english-image-search-4";
 
 const VISUAL_PREFIX = "/assets/miscellaneous/";
 const CACHE_LIMIT = 32;

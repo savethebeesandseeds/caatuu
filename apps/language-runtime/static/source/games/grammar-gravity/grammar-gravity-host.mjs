@@ -11,7 +11,7 @@ import {
 import { mountNounLanding } from "./noun-landing-host.mjs?v=noun-landing-host-23";
 import { mountGrammarFlight } from "./adjective-flight-host.mjs?v=adjective-flight-host-18";
 import { mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-8";
-import { selectContentItems, newContentEncounterId } from "../content-progression.mjs";
+import { selectContentItems, newContentEncounterId } from "../adaptive-practice.mjs";
 
 const GAME_ID = "grammar-gravity";
 const RESOURCE_NAME = "grammarGravityCatalog";
@@ -188,7 +188,8 @@ function makeRounds(previousAnchor = "") {
   const rounds = buildGrammarGravityRounds(state.pack, state.difficulty, Math.random, previousAnchor);
   if (!state.shell?.CaatuuLearning?.contentHistory) return rounds;
   const selected = selectContentItems(rounds, { difficulty: state.difficulty, minimumPool: 4,
-    history: state.shell?.CaatuuLearning?.contentHistory?.(GAME_ID, `phrases-${state.practiceMode}`) || {} });
+    history: state.shell?.CaatuuLearning?.contentHistory?.(GAME_ID, `phrases-${state.practiceMode}`) || {},
+    policy: state.shell?.CaatuuLearning?.samplingContext?.(GAME_ID, `phrases-${state.practiceMode}`) });
   return scopeGrammarGravityMeaningChoices(selected, rounds);
 }
 

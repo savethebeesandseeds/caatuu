@@ -1,4 +1,4 @@
-import { normalizeContentProgression, selectContentItems } from "../content-progression.mjs";
+import { normalizeContentProgression, selectContentItems } from "../adaptive-practice.mjs";
 export const NOUN_LANDING_SCHEMA_VERSION = "caatuu-grammar-gravity-nouns-v2";
 
 const GAME_ID = "grammar-gravity";
@@ -229,7 +229,7 @@ function shuffled(items, random) {
 }
 
 export function createNounLandingSession(pack, { random = Math.random, limit, avoidFirstItemId = null,
-  durationMs = FALL_DURATION_MS, difficulty = 3, history } = {}) {
+  durationMs = FALL_DURATION_MS, difficulty = 3, history, policy = null } = {}) {
   const content = normalizeNounLandingPack(pack, {
     courseId: pack?.courseId,
     learnerBaseLanguage: pack?.learnerBaseLanguage,
@@ -246,7 +246,7 @@ export function createNounLandingSession(pack, { random = Math.random, limit, av
   const eligible = content.items.filter(item => item.difficulty === undefined || item.difficulty <= difficulty);
   if (!eligible.length) throw new Error("Noun landing needs eligible content for this difficulty.");
   const candidates = history === undefined ? shuffled(eligible, random)
-    : selectContentItems(eligible, { difficulty, history, minimumPool: Math.max(4, content.lanes.length), random });
+    : selectContentItems(eligible, { difficulty, history, minimumPool: Math.max(4, content.lanes.length), random, policy });
   if (history === undefined && candidates[0]?.id === avoidFirstItemId) {
     const nextIndex = candidates.findIndex((item) => item.id !== avoidFirstItemId);
     if (nextIndex > 0) [candidates[0], candidates[nextIndex]] = [candidates[nextIndex], candidates[0]];

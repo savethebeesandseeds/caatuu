@@ -1102,9 +1102,9 @@
       if (cached) return { vector: cached, cached: true };
     }
 
-    const embed = window.CaatuuRuntime?.vector?.embed;
-    if (typeof embed !== "function") throw new Error("The semantic embedding runtime is unavailable.");
-    const result = await embed(normalizedText, { modelId });
+    const { embedSharedEnglishTexts } = await import("./english-image-search.mjs?v=english-image-search-4");
+    const [sharedVector] = await embedSharedEnglishTexts([normalizedText], { owner: window });
+    const result = { modelId: defaultEmbeddingModelId, vector: sharedVector };
     assertCurrent();
     if (result.modelId !== modelId) {
       throw new Error(`Embedding model mismatch: requested ${modelId}, received ${result.modelId || "unknown"}.`);

@@ -7,19 +7,26 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-nb-pwa-v10",
+    "cacheName": "caatuu-nb-pwa-v18",
     "cachePrefix": "caatuu-nb-pwa-",
     "assets": [
+      "/language-runtime/static/source/semantic-learning-core.mjs?v=semantic-learning-core-5",
+      "/language-runtime/static/source/semantic-learning.js?v=semantic-learning-11",
+      "/language-runtime/static/source/practice-compass.mjs?v=practice-compass-4",
       "/language-runtime/static/source/image-embedding-index.mjs?v=image-index-runtime-1",
       "/language-runtime/static/data/image-embeddings/minilm-v1.json?v=image-index-1",
       "/language-runtime/static/source/games/curriculum-progression.mjs",
       "/language-runtime/static/source/games/content-progression.mjs",
+      "/language-runtime/static/source/games/adaptive-sampling.mjs",
+      "/language-runtime/static/source/games/adaptive-practice.mjs",
+      "/language-runtime/static/source/learner-state.mjs",
+      "/language-runtime/static/source/learning-semantics.mjs",
       "/language-runtime/static/source/word-world-progression.mjs",
-      "/language-runtime/static/source/english-image-search.mjs?v=english-image-search-3",
+      "/language-runtime/static/source/english-image-search.mjs?v=english-image-search-4",
       "/language-runtime/static/source/learner-base-token-meanings.mjs?v=learner-base-token-meanings-1",
       "/language-runtime/static/source/launcher-interface.mjs?v=launcher-interface-1",
       "manifest.webmanifest",
-      "source/shared/course-profile.js?v=course-64",
+      "source/shared/course-profile.js?v=course-68",
       "source/language/adapter.mjs",
       "data/embeddings/catalog.json",
       "data/games/verb-nebula/content.json",
@@ -31,7 +38,7 @@
       "/language-runtime/contract.mjs",
       "/language-runtime/embedding-runtimes.json",
       "/language-runtime/static/source/initial-theme.js?v=theme-3",
-      "/language-runtime/static/source/app-bootstrap.mjs?v=app-91",
+      "/language-runtime/static/source/app-bootstrap.mjs?v=app-98",
       "/language-runtime/static/source/interface-content.mjs?v=interface-runtime-2",
       "/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-10",
       "/language-runtime/static/source/dictionary-provider-loader.mjs",
@@ -55,7 +62,7 @@
       "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs?v=conjugation-comet-shared-13",
       "/language-runtime/static/styles/games/grammar-gravity.css?v=grammar-gravity-shared-37",
       "/language-runtime/static/styles/games/conjugation-comet.css?v=conjugation-comet-shared-5",
-      "/language-runtime/static/source/caatuu-workspace.js?v=workspace-34",
+      "/language-runtime/static/source/caatuu-workspace.js?v=workspace-36",
       "/language-runtime/static/source/maintenance-ui.js?v=maintenance-25",
       "/language-runtime/static/source/child-facing-assets.mjs?v=child-facing-assets-2",
       "/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-14",
@@ -64,10 +71,10 @@
       "/language-runtime/static/source/word-world-provider.mjs?v=word-world-provider-28",
       "/language-runtime/static/source/catalog-runtime.mjs",
       "/language-runtime/static/source/browser-shell.mjs?v=browser-shell-2",
-      "/language-runtime/static/source/shell-policy.js?v=shell-policy-16",
+      "/language-runtime/static/source/shell-policy.js?v=shell-policy-17",
       "/language-runtime/static/source/shell-policy.mjs",
-      "/language-runtime/static/source/caatuu-chrome.js?v=chrome-168",
-      "/language-runtime/static/source/learning-profile.js?v=learning-11",
+      "/language-runtime/static/source/caatuu-chrome.js?v=chrome-174",
+      "/language-runtime/static/source/learning-profile.js?v=learning-13",
       "/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-28",
       "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-21",
       "/language-runtime/static/source/word-net-queue.mjs?v=word-net-queue-6",
@@ -76,11 +83,11 @@
       "/language-runtime/static/styles/caatuu-theme.css?v=theme-8",
       "/language-runtime/static/styles/caatuu-workspace.css?v=shell-97",
       "/language-runtime/static/styles/caatuu-home.css?v=home-60",
-      "/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-138",
+      "/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-141",
       "/language-runtime/static/styles/caatuu-word-world.css?v=word-net-93",
       "/language-runtime/static/styles/dictionary-word-card.css?v=dictionary-card-2",
       "/language-runtime/static/assets/caatuu-shell-512.png",
-      "/language-runtime/static/data/interface/en.v1.json?v=interface-en-32",
+      "/language-runtime/static/data/interface/en.v1.json?v=interface-en-37",
       "/language-runtime/static/data/english-concepts/word-world-nb-v1.json",
       "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
       "/language-runtime/static/data/english-concepts/word-world-es-en-v1.json",
@@ -241,23 +248,23 @@
       "url": "/nb/index.html",
       "browserRequired": true,
       "bytes": 93289,
-      "sha256": "444bff055ac3a98a8b1ada381ec3965832db037a7712d063eb340f76876352fd"
+      "sha256": "9f528d707b4b3b97d0068fb440568fea28ebecc62549cf2092a2cdc2ab9502d3"
     },
     {
       "key": "course-profile",
       "kind": "course-contract",
       "url": "/nb/source/shared/course-profile.js",
       "browserRequired": true,
-      "bytes": 16014,
-      "sha256": "e965b06622bb246247a4e6f5e2566ce04673b4319d6de73fa2813d8fcee1085e"
+      "bytes": 19284,
+      "sha256": "545abc11534612b699b0638c3f766e53ed9a52be50c0e3f5ab98efa49217b6c8"
     },
     {
       "key": "shared-app-bootstrap",
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/app-bootstrap.mjs",
       "browserRequired": true,
-      "bytes": 24928,
-      "sha256": "80f23dbdda4384b90a1f457e1be36635f956bf94b4f2f18d08d6b253b7154f13"
+      "bytes": 25277,
+      "sha256": "0e154feaf49093cf5d8a4b71c8771551dde5a199983cf67bea580cfef5694080"
     },
     {
       "key": "initial-theme",
@@ -312,16 +319,16 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/shell-policy.js",
       "browserRequired": true,
-      "bytes": 17457,
-      "sha256": "445dac22c578f024a81c146f1c66c4797ab39787bb7516f65db3caa8e390cab3"
+      "bytes": 17431,
+      "sha256": "9cbcb6cd1f431ddbefde76f09c09f502ca14307d6db77cfc30292c1d7d7cf7bb"
     },
     {
       "key": "caatuu-workspace",
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/caatuu-workspace.js",
       "browserRequired": true,
-      "bytes": 184672,
-      "sha256": "612999f4d3c644a5bb24709c0f1300067150e082676a517cc8cb83207609f27a"
+      "bytes": 184741,
+      "sha256": "78d9ea297eee740f5986a276d175c8854c64d70ee202ef238ff5557e4ed6d965"
     },
     {
       "key": "child-facing-assets",
@@ -336,8 +343,8 @@
       "kind": "shared-game-runtime",
       "url": "/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs",
       "browserRequired": true,
-      "bytes": 20491,
-      "sha256": "db0827e6b6eb3ee0238c65f44442f194d38362e6e5965180abb79f73a6e89aa1"
+      "bytes": 20489,
+      "sha256": "71e0f6f176ae6227ecd211784fba2fd9e4950994ecd71f2cd5fa403d901d085a"
     },
     {
       "key": "verb-exercise-family-core",
@@ -368,24 +375,24 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/caatuu-chrome.js",
       "browserRequired": true,
-      "bytes": 244101,
-      "sha256": "5d4f9622fa1cc1a1628822a51d48e88eabc6dba81b84bc60f7cdfb4c8a7c55c5"
+      "bytes": 251611,
+      "sha256": "22c3000ab70df703bb347f051f75efa5d5288452aa14921856d1e858ecd33e1b"
     },
     {
       "key": "learning-profile",
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/learning-profile.js",
       "browserRequired": true,
-      "bytes": 66671,
-      "sha256": "c42b0a1b573f8b4e3c80218e0fe66d59270a8d747939b008e156c6ea7db809fd"
+      "bytes": 73749,
+      "sha256": "78a4eb26a80ad9140136eb3101fbb38ee10352a125597cb7a136a8a67c95bea8"
     },
     {
       "key": "product-word-world",
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/product-word-world.mjs",
       "browserRequired": true,
-      "bytes": 239250,
-      "sha256": "1a115567e027d9c85f36d1b6a243570a2eeb77ae3f2d0be86c0d861a3a247520"
+      "bytes": 239264,
+      "sha256": "8b9d7a831b89258ec0a0349e8a1da99bf3e6756da3f52e79b4ec54d2acf5f54f"
     },
     {
       "key": "word-net-core",
@@ -448,8 +455,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/styles/caatuu-chrome.css",
       "browserRequired": true,
-      "bytes": 107854,
-      "sha256": "fd6a29610729133012ddd85360812360c560d15c4884afaff5e773c147098e25"
+      "bytes": 113547,
+      "sha256": "b4aaf7957b8b464c9936756ba8c669c4fb4e6c5ee42e9f62fb7aa98f07c7694e"
     },
     {
       "key": "shared-word-world-style",
@@ -521,7 +528,7 @@
       "url": "/nb/sw.js",
       "browserRequired": true,
       "bytes": 137,
-      "sha256": "0618d92bf1d927b97b75b3b8664715cfbe9652d0bf614c4094dfd5ca4fa20582"
+      "sha256": "c2356f7add598c01a221ff587e07f7af85c6690641eb824a770681f9e9aa7a45"
     },
     {
       "key": "shared-course-service-worker",

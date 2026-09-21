@@ -881,6 +881,9 @@ export function productApkAuditPlan(profile) {
       "assets/caatuu-course-bundle.json",
       "assets/index.html",
       "assets/language-runtime/contract.mjs",
+      "assets/language-runtime/static/source/practice-compass.mjs",
+      "assets/language-runtime/static/source/semantic-learning.js",
+      "assets/language-runtime/static/source/semantic-learning-core.mjs",
     ];
     const hasEmbeddings = bundledCourses.some((course) => course?.capabilities?.embeddings === true);
     const hasWordWorld = bundledCourses.some((course) => course?.capabilities?.wordWorld === true);
@@ -908,8 +911,8 @@ export function productApkAuditPlan(profile) {
             `assets/${prefix}/data/embeddings/all-minilm-l6-v2-qint8-v0.1/manifest.json`,
             `assets/${prefix}/source/shared/runtime.js`,
             `assets/${prefix}/source/shared/vector-db.js`,
-            `assets/${prefix}/source/shared/semantic-learning.js`,
-            `assets/${prefix}/source/shared/semantic-learning-core.mjs`,
+            "assets/language-runtime/static/source/semantic-learning.js",
+            "assets/language-runtime/static/source/semantic-learning-core.mjs",
           );
         } else if (embeddingProvider.implementation === "webview-english-minilm-v1") {
           requiredEntries.push("assets/language-runtime/static/source/english-minilm-ranker.mjs");

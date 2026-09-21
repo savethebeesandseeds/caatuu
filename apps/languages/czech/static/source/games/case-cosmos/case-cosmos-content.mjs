@@ -1,5 +1,5 @@
 import { normalizeCurriculum, normalizeCurriculumItem } from "../../../../../../language-runtime/static/source/games/curriculum-progression.mjs";
-import { normalizeContentProgression, selectContentItems } from "../../../../../../language-runtime/static/source/games/content-progression.mjs";
+import { normalizeContentProgression, selectContentItems } from "../../../../../../language-runtime/static/source/games/adaptive-practice.mjs";
 
 export const CZECH_CASES = Object.freeze([
   Object.freeze({ case: "Nominative", meaning: "naming or subject", question: "Who or what is the subject?" }),
@@ -199,14 +199,14 @@ export function buildRounds(pack, difficulty) {
 }
 
 /** Schedule individual authored sentences while keeping each noun's checked contrasts. */
-export function buildCasePracticeRounds(pack, difficulty, { history = {}, random = Math.random } = {}) {
+export function buildCasePracticeRounds(pack, difficulty, { history = {}, random = Math.random, policy = null } = {}) {
   const items = buildRounds(pack, difficulty).flatMap(round => buildQuestions(round, random).map(question => {
     const nounKey = Array.from(round.noun).map(char => char.codePointAt(0).toString(16)).join("-");
     const id = question.id || `legacy-${nounKey}-${question.case.toLowerCase()}`;
     return Object.freeze({ ...round, id, ...normalizeContentProgression({ ...round, ...question }),
       practiceQuestions: Object.freeze([Object.freeze({ ...question, id })]) });
   }));
-  return Object.freeze(selectContentItems(items, { difficulty, history, minimumPool: 4, random }));
+  return Object.freeze(selectContentItems(items, { difficulty, history, minimumPool: 4, random, policy }));
 }
 
 function randomIndex(length, random) {

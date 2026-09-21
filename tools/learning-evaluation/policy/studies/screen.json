@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "access-screen-v1",
+  "phase": "screen",
+  "fixture": "original",
+  "primaryMetrics": ["delayedRetention", "delayedGoalRecall"],
+  "seeds": [17, 29],
+  "variants": [
+    {"id":"uniform-paced","controls":{"uniformScores":true}},
+    {"id":"adaptive-paced","controls":{}},
+    {"id":"uniform-hard","controls":{"uniformScores":true,"frontier":false,"introductions":false,"slots":false,"recency":false}},
+    {"id":"adaptive-hard","controls":{"frontier":false,"introductions":false,"slots":false,"recency":false}},
+    {"id":"no-frontier","controls":{"frontier":false}},
+    {"id":"no-introduction-budget","controls":{"introductions":false}},
+    {"id":"no-slots","controls":{"slots":false}},
+    {"id":"outside-exploration-.05","controls":{"outsideExploration":0.05}}
+  ],
+  "scenarios": [{"id":"original-fixed-perfect","interactions":120,"stateMode":"perfect","simulatorModel":"fixed"}],
+  "notes": "96 runs: all original 3 profiles and 2 goals, two development seeds, unchanged score weights and calendar. Screening only; no model/weight search. Freeze shortlist before held-out access."
+}

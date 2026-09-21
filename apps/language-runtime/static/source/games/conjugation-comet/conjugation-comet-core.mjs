@@ -1,4 +1,4 @@
-import { normalizeContentProgression, selectContentItems } from "../content-progression.mjs";
+import { normalizeContentProgression, selectContentItems } from "../adaptive-practice.mjs";
 export const CONJUGATION_COMET_CATALOG_SCHEMA = "caatuu-conjugation-comet-catalog-v1";
 
 const CONTENT_ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
@@ -783,7 +783,7 @@ function conjugationPairMatches(subject, option) {
  * Prefer an unsolved starting alignment whenever a wrong rotation exists.
  */
 /** The complete helix practices every form; its forms contribute review demand and complexity. */
-export function selectConjugationPracticeVerbs(verbs, { difficulty = 3, history = {}, formHistory = {}, random = Math.random, now = Date.now() } = {}) {
+export function selectConjugationPracticeVerbs(verbs, { difficulty = 3, history = {}, formHistory = {}, random = Math.random, now = Date.now(), policy = null } = {}) {
   const combined = {};
   const candidates = verbs.map(verb => {
     const forms = verb.forms || [];
@@ -793,18 +793,21 @@ export function selectConjugationPracticeVerbs(verbs, { difficulty = 3, history 
       spacedSuccesses: Math.min(...progress.map(item => Number.isSafeInteger(item.spacedSuccesses) ? item.spacedSuccesses : 0)),
       independentDays: Math.min(...progress.map(item => Number.isSafeInteger(item.independentDays) ? item.independentDays : 0)),
       practiceDays: Math.min(...progress.map(item => Number.isSafeInteger(item.practiceDays) ? item.practiceDays : 0)),
-      lastPracticeDayAt: progress.map(item => item.lastPracticeDayAt || "").sort()[0] || "",
+      lastPracticeDayAt: progress.map(item => item.lastPracticeDayAt || "").sort()[0] || null,
       intervalMs: Math.min(...progress.map(item => Number(item.intervalMs) || 0)),
-      dueAt: progress.map(item => item.dueAt || "").sort()[0] || "",
+      dueAt: progress.map(item => item.dueAt || "").sort()[0] || null,
       lastCorrect: progress.some(item => item.lastCorrect === false) ? false : progress[0].lastCorrect,
-      lastSeenAt: progress.map(item => item.lastSeenAt || "").sort()[0] || ""
+      lastSeenAt: progress.map(item => item.lastSeenAt || "").sort()[0] || null
     };
     const grades = [verb, ...forms].map(item => normalizeContentProgression(item));
     return { ...verb, usefulness: Math.max(...grades.map(item => item.usefulness)),
       complexity: Math.max(...grades.map(item => item.complexity)) };
   });
   const originals = new Map(verbs.map(verb => [verb.id, verb]));
-  return selectContentItems(candidates, { difficulty, history: combined, minimumPool: 4, random, now })
+  // Forms contribute scheduling demand, but their outcomes must never be
+  // relabelled as assessed evidence for the parent verb.
+  const scopedPolicy = policy ? { ...policy, learner: { ...policy.learner, evidenceByItem: history } } : null;
+  return selectContentItems(candidates, { difficulty, history: combined, minimumPool: 4, random, now, policy: scopedPolicy })
     .map(item => originals.get(item.id));
 }
 

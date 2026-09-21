@@ -312,7 +312,8 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     const difficulty = Math.max(1, Math.min(3, Math.floor(Number(shell.CaatuuLearning?.difficulty?.()) || 1)));
     cycleEncounterId = newContentEncounterId();
     session = startNounLanding(createNounLandingSession(pack, { avoidFirstItemId, durationMs, difficulty,
-      history: shell.CaatuuLearning?.contentHistory?.("grammar-gravity", "nouns") }));
+      history: shell.CaatuuLearning?.contentHistory?.("grammar-gravity", "nouns"),
+      policy: shell.CaatuuLearning?.samplingContext?.("grammar-gravity", "nouns") }));
   }
   function resumeSegment() {
     if (destroyed || !segmentWaiting) return;

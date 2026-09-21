@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "access-heldout-plan-v1",
+  "phase": "heldout",
+  "fixture": "heldout",
+  "primaryMetrics": ["delayedRetention", "delayedGoalRecall"],
+  "seeds": [211, 307, 401],
+  "variants": [],
+  "cells": [
+    {"profileId":"novice","goalId":"daily-life"},
+    {"profileId":"novice","goalId":"work"},
+    {"profileId":"returning","goalId":"work"},
+    {"profileId":"supported","goalId":"daily-life"}
+  ],
+  "scenarios": [
+    {"id":"short-fixed-perfect","interactions":120,"stateMode":"perfect","simulatorModel":"fixed"},
+    {"id":"short-fixed-observable","interactions":120,"stateMode":"observable-real","simulatorModel":"fixed"},
+    {"id":"long-fixed-perfect","interactions":432,"stateMode":"perfect","simulatorModel":"fixed"},
+    {"id":"long-fixed-observable","interactions":432,"stateMode":"observable-real","simulatorModel":"fixed"},
+    {"id":"long-spacing-observable","interactions":432,"stateMode":"observable-real","simulatorModel":"spacing"},
+    {"id":"long-low-benefit-observable","interactions":432,"stateMode":"observable-real","simulatorModel":"low-benefit"}
+  ],
+  "notes": "Freeze 2-3 shortlisted policies after coordinator review of screen. With 3 policies: 216 paired runs. Deliberately incomplete profile/goal cells; every scenario uses the SAME four cells and three held-out seeds, allowing matched state-mode, model and horizon comparisons. All profiles and both goals appear; no claim to every profile-goal interaction. The 36-day horizon retains 12 interactions/day, 2 minutes apart, and a 7-day final probe."
+}

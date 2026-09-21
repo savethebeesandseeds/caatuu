@@ -71,7 +71,7 @@ jobs:
           }
 
           emit browser '^(\.github/workflows/(repository-ci|pages)\.yml|LICENSE$|CHANGELOG\.md$|\.dockerignore$|compose\.yaml$|compose/|archive/|apps/(android|games|language-runtime|languages|launcher)/|apps/server/(profiles|tooling)/|apps/animated-fabric/assets/reference-packages/|tools/(czech-ml|language-content|language-packs|on-device-models|semantic-index)/|docs/(COMPONENT_RELEASE_VALIDATORS|DEPLOYMENT_STANDARD|FIRST_ANDROID_RELEASE|LEGAL_INVENTORY|RELEASING|schemas/))'
-          emit language '^(\.github/workflows/repository-ci\.yml|apps/(language-runtime|languages)/|apps/launcher/static/|apps/server/tooling/refresh-setup-assets\.mjs|tools/(language-content|language-packs|semantic-index)/|tools/czech-ml/data/(curriculum|word-world)/)'
+          emit language '^(\.github/workflows/repository-ci\.yml|apps/(language-runtime|languages)/|apps/launcher/static/|apps/server/tooling/refresh-setup-assets\.mjs|tools/(language-content|language-packs|learning-evaluation|semantic-index)/|tools/czech-ml/data/(curriculum|word-world)/)'
           emit compose '^(\.github/workflows/repository-ci\.yml|compose\.yaml|compose/.*\.yaml)$'
           emit rust '^(\.github/workflows/repository-ci\.yml|\.dockerignore$|compose\.yaml|apps/server/(Cargo\.(toml|lock)|src/|tooling/Dockerfile|\.caatuu-runtime\.lock)|tools/czech-ml/vector-schema\.sql)$'
           emit scenery_evidence '^(\.github/workflows/repository-ci\.yml|apps/launcher/static/assets/scenery/|apps/games/(evidence/scenery-package-evidence\.test\.mjs|tooling/(json-schema-subset|validate-scenery-package)\.mjs|test/(json-schema-subset|scenery-package-validator)\.test\.mjs))'
@@ -138,7 +138,7 @@ jobs:
         run: |
           docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace node:24-bookworm \
             bash -lc \
-            "node tools/language-packs/restore-ci-runtime.mjs && node tools/language-content/validate.mjs && node tools/language-content/quality/content-progression-catalogs.mjs && node tools/language-content/project-word-world-runtime.mjs --check && node apps/server/tooling/refresh-setup-assets.mjs --all-browser-courses --check && node --test apps/language-runtime/tests/*.test.mjs apps/languages/*/tests/*.test.mjs tools/language-content/tests/*.test.mjs tools/language-content/quality/content-progression-catalogs.test.mjs tools/language-packs/tests/*.test.mjs tools/semantic-index/tests/*.test.mjs tools/czech-ml/tests/*.test.mjs"
+            "node tools/language-packs/restore-ci-runtime.mjs && node tools/language-content/validate.mjs && node tools/language-content/quality/content-progression-catalogs.mjs && node tools/language-content/project-word-world-runtime.mjs --check && node apps/server/tooling/refresh-setup-assets.mjs --all-browser-courses --check && node --test apps/language-runtime/tests/*.test.mjs apps/languages/*/tests/*.test.mjs tools/language-content/tests/*.test.mjs tools/language-content/quality/content-progression-catalogs.test.mjs tools/language-packs/tests/*.test.mjs tools/learning-evaluation/policy/*.test.mjs tools/learning-evaluation/content/*.test.mjs tools/semantic-index/tests/*.test.mjs tools/czech-ml/tests/*.test.mjs"
 
       - name: Validate Compose boundaries
         if: needs.changes.outputs.compose == 'true'

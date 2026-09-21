@@ -28,7 +28,6 @@
     "chat": false,
     "embeddings": true,
     "semanticSearch": true,
-    "skillCompass": false,
     "dictionary": false,
     "memory": true,
     "verbs": false,
@@ -38,7 +37,6 @@
     "speech": false,
     "pronunciationGuides": false
   },
-  "skillCompass": null,
   "platforms": {
     "android": {
       "enabled": true,

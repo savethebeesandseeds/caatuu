@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "revision": "independently-authored-access-heldout-v1",
+  "description": "Authored before screen results: changed item identities, editorial spacing, latent parameters and asymmetric transfer. Values are hypotheses independent of the policy scores. No real learner claims.",
+  "identity": {"courseId":"synthetic-heldout","gameId":"synthetic-recall","bankId":"recognition"},
+  "profiles": [
+    {"id":"novice","initialRecallOffset":-0.06,"learningMultiplier":0.85,"forgettingMultiplier":1.2,"slipProbability":0.07,"assistanceProbability":0.14,"exposureProbability":0.09},
+    {"id":"returning","initialRecallOffset":0.22,"learningMultiplier":1.1,"forgettingMultiplier":0.8,"slipProbability":0.05,"assistanceProbability":0.08,"exposureProbability":0.04},
+    {"id":"supported","initialRecallOffset":-0.02,"learningMultiplier":0.75,"forgettingMultiplier":1.3,"slipProbability":0.14,"assistanceProbability":0.36,"exposureProbability":0.18}
+  ],
+  "items": [
+    {"id":"meet-neighbor","category":"social","difficulty":1,"usefulness":82,"complexity":5,"validTask":true,"simulation":{"initialRecall":0.21,"learningRate":0.23,"halfLifeDays":10,"guessProbability":0.25}},
+    {"id":"ask-name","category":"social","difficulty":1,"usefulness":68,"complexity":19,"validTask":true,"simulation":{"initialRecall":0.35,"learningRate":0.14,"halfLifeDays":22,"guessProbability":0.2}},
+    {"id":"request-repeat","category":"repair","difficulty":1,"usefulness":99,"complexity":31,"validTask":true,"simulation":{"initialRecall":0.09,"learningRate":0.31,"halfLifeDays":8,"guessProbability":0.25}},
+    {"id":"buy-ticket","category":"daily","difficulty":1,"usefulness":90,"complexity":48,"validTask":true,"simulation":{"initialRecall":0.27,"learningRate":0.19,"halfLifeDays":17,"guessProbability":0.1}},
+    {"id":"read-opening-hours","category":"daily","difficulty":1,"usefulness":74,"complexity":65,"validTask":true,"simulation":{"initialRecall":0.42,"learningRate":0.27,"halfLifeDays":7,"guessProbability":0.2}},
+    {"id":"change-reservation","category":"daily","difficulty":1,"usefulness":60,"complexity":84,"validTask":true,"simulation":{"initialRecall":0.06,"learningRate":0.29,"halfLifeDays":19,"guessProbability":0.05}},
+    {"id":"state-job","category":"work","difficulty":2,"usefulness":51,"complexity":8,"validTask":true,"simulation":{"initialRecall":0.31,"learningRate":0.15,"halfLifeDays":13,"guessProbability":0.2}},
+    {"id":"confirm-shift","category":"work","difficulty":2,"usefulness":86,"complexity":25,"validTask":true,"simulation":{"initialRecall":0.13,"learningRate":0.34,"halfLifeDays":9,"guessProbability":0.25}},
+    {"id":"explain-delay","category":"work","difficulty":2,"usefulness":71,"complexity":41,"validTask":true,"simulation":{"initialRecall":0.17,"learningRate":0.21,"halfLifeDays":21,"guessProbability":0.05}},
+    {"id":"request-clarification","category":"repair","difficulty":2,"usefulness":96,"complexity":55,"validTask":true,"simulation":{"initialRecall":0.08,"learningRate":0.18,"halfLifeDays":12,"guessProbability":0.1}},
+    {"id":"tell-weekend-story","category":"social","difficulty":2,"usefulness":38,"complexity":74,"validTask":true,"simulation":{"initialRecall":0.4,"learningRate":0.25,"halfLifeDays":6,"guessProbability":0.02}},
+    {"id":"summarize-plan","category":"work","difficulty":2,"usefulness":79,"complexity":93,"validTask":true,"simulation":{"initialRecall":0.05,"learningRate":0.16,"halfLifeDays":25,"guessProbability":0.02}},
+    {"id":"debate-contract","category":"work","difficulty":3,"usefulness":92,"complexity":15,"validTask":true,"simulation":{"initialRecall":0.18,"learningRate":0.2,"halfLifeDays":15,"guessProbability":0.1}},
+    {"id":"unplayable-missing-contrast","category":"repair","difficulty":1,"usefulness":100,"complexity":2,"validTask":false,"simulation":{"initialRecall":0.5,"learningRate":0.3,"halfLifeDays":24,"guessProbability":0.25}}
+  ],
+  "goals": [
+    {"id":"daily-life","label":"Daily interaction","weights":{"meet-neighbor":2,"ask-name":1,"request-repeat":3,"buy-ticket":3,"read-opening-hours":2,"change-reservation":2,"state-job":0.5,"confirm-shift":0,"explain-delay":0.5,"request-clarification":2,"tell-weekend-story":2,"summarize-plan":0.5}},
+    {"id":"work","label":"Work interaction","weights":{"meet-neighbor":0.5,"ask-name":1,"request-repeat":2,"buy-ticket":0,"read-opening-hours":0.5,"change-reservation":0,"state-job":2,"confirm-shift":3,"explain-delay":3,"request-clarification":3,"tell-weekend-story":0,"summarize-plan":3}}
+  ],
+  "transferEdges": [
+    {"from":"meet-neighbor","to":"ask-name","weight":0.3},
+    {"from":"ask-name","to":"meet-neighbor","weight":0.15},
+    {"from":"request-repeat","to":"request-clarification","weight":0.2},
+    {"from":"buy-ticket","to":"change-reservation","weight":0.1},
+    {"from":"state-job","to":"confirm-shift","weight":0.25},
+    {"from":"explain-delay","to":"summarize-plan","weight":0.15}
+  ]
+}

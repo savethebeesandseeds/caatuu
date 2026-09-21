@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "seed": "shared-practice-mapping-20260921",
+  "perStratum": 12,
+  "maxNewTexts": 96,
+  "reviewMeanings": [
+    {"english": "thank you", "description": "Polite social exchange; people, with possible polite-request overlap."},
+    {"english": "yes", "description": "Generic affirmation; no strong topic expected."},
+    {"english": "no", "description": "Generic negation; no strong topic expected."},
+    {"english": "maybe", "description": "Generic uncertainty; no strong topic expected."},
+    {"english": "to eat", "description": "Food and an action: legitimate overlap."},
+    {"english": "to travel", "description": "Travel and an action: legitimate overlap."},
+    {"english": "school", "description": "Clear school setting."},
+    {"english": "money", "description": "Money and shopping."},
+    {"english": "tomorrow", "description": "Time and future plans."},
+    {"english": "weather", "description": "World and weather."},
+    {"english": "friend", "description": "People and relationships."},
+    {"english": "excuse me", "description": "Social politeness; potentially weak without context."}
+  ]
+}

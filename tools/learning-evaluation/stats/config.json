@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "seed": 260920,
+  "learners": 12,
+  "rounds": 12,
+  "startAt": "2030-01-01T10:00:00.000Z",
+  "daysBetweenRounds": 2,
+  "longGapDays": 180,
+  "halfLifeDays": 45,
+  "learningGain": 0.22,
+  "assistedGain": 0.12,
+  "exposureGain": 0.025,
+  "guessRate": 0.12,
+  "slipRate": 0.04,
+  "relatedTransferFraction": 0.03
+}

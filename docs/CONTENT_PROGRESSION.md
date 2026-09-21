@@ -45,8 +45,13 @@ prerequisites and no dependency graph. The shared selector mixes due review,
 rested practice and small introductions. Games preserve that priority when
 choosing the next task; they may shuffle its visible answer arrangement.
 
+The [adaptive practice policy](ADAPTIVE_LEARNING.md) retains those constraints
+and adds configurable scoring, course goals and stochastic exploration within
+each available slot. Its trace explains the actual conditional draw. The older
+selector remains available as an explicit fallback and evaluation baseline.
+
 Introductions start near the lowest complexity available. Within a badge and
-rough ten-point complexity band, more useful material comes first. Delayed
+rough ten-point complexity band, usefulness contributes to priority. Delayed
 independent evidence gradually expands the challenge range. A separate,
 slower participation signal keeps supported study explorable after repeated
 practice on separate days, without granting recall credit. One difficult item

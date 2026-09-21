@@ -218,12 +218,18 @@ internal manifest remains the authority for both views.
 
 Optional browser implementations are explicit resources, not consequences of
 a broad capability flag. When present, `courseRuntime`,
-`semanticLearningProvider`, `setupProgressProvider`, and `setupProvider` must
+`setupProgressProvider`, and `setupProvider` must
 each be a revisioned JavaScript file beneath that course's declared static
 source root. The generated profile exposes them through `browserProviders`,
 and the shared bootstrap loads only those declared modules in dependency
-order. A future course therefore cannot inherit Czech runtime, semantic, or
-setup code merely by enabling a similarly named capability.
+order. A future course therefore cannot inherit course-owned runtime or setup
+code merely by enabling a similarly named capability.
+
+Stats is a shared product feature. The bootstrap installs the same practice
+compass and semantic persistence provider for every course; course manifests
+cannot declare `skillCompass` axes/capabilities or `semanticLearningProvider`.
+Shared topic definitions, evidence rules and formulas live in the common runtime.
+Courses supply confined content resources and separate storage namespaces.
 
 The browser `backend` is also explicit. `dictionary-api-v1` requests the
 versioned dictionary server protocol and requires the dictionary capability;

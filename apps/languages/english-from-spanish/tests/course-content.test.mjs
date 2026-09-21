@@ -55,7 +55,7 @@ test('the Spanish-to-English course owns direction, identity, resources and isol
   assert.deepEqual(availableGameIds(course), ['campaign', ...course.games]);
   assert.deepEqual(CAMPAIGN_GAME_IDS.filter((id) => availableGameIds(course).includes(id)),
     course.games);
-  for (const key of ['generation', 'llm', 'chat', 'dictionary', 'skillCompass', 'memory']) {
+  for (const key of ['generation', 'llm', 'chat', 'dictionary', 'memory']) {
     assert.equal(course.capabilities[key], false, key);
   }
   for (const value of Object.values(course.storage)) assert.ok(value.startsWith('caatuu-es-en'), value);

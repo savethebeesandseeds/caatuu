@@ -5,6 +5,24 @@ governed beta or stable release.
 
 ## Unreleased
 
+### Android 0.1.24 (176): shared practice Stats and adaptive learning
+
+- Use the same seven-topic practice polygon and detailed practice counts in all
+  five courses. Show independent practice separately, including unaided mistakes,
+  and distinguish unmatched items, pending mapping and unavailable inputs.
+- Apply the shared adaptive selector across supported games, with optional
+  learning goals, paced introductions and review. Goals guide upcoming practice
+  without changing recorded evidence or the chosen difficulty.
+- Make topic embeddings independent of batch composition and keep bounded
+  processing moving through large histories. Preserve completed topic weights
+  when raw vectors leave the cache.
+- Add three independent, manually run developer evaluators and document the
+  policy investigation and mapping audit. The practice map is not an ability,
+  accuracy, recall or completion estimate.
+- Physical-device installation, fresh practice, course switching and offline
+  use remain unverified for this candidate. Development-course review status
+  remains unchanged.
+
 ### Android 0.1.23 (175): complete Campaign rotation and clearer game controls
 
 - Cycle Campaign through every playable game for the selected course, including

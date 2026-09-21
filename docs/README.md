@@ -22,6 +22,9 @@ and implementation details stay beside the relevant app or tool.
 | [Course content gameplay recovery](COURSE_CONTENT_GAMEPLAY_RECOVERY.md) | Selective repair, preserved content, recovery snapshot and verification evidence |
 | [Image retrieval and databases](IMAGE_RETRIEVAL_AND_DATABASES.md) | Shared artwork embeddings, course data ownership, generation and validation |
 | [Game content catalogs](GAME_CONTENT_CATALOGS.md) | Normalized runtime filenames, difficulty selection, inventory and recovery evidence |
+| [Adaptive practice and evaluation](ADAPTIVE_LEARNING.md) | Sampling policy, course goals, evidence limits and three independent manual evaluators |
+| [Shared practice mapping audit](PRACTICE_MAPPING_AUDIT.md) | Real profile accounting, all-course inspection, reproducible embedding and bounded mapping corrections |
+| [Candidate-access investigation](ADAPTIVE_POLICY_INVESTIGATION.md) | Reproduced policy gap, controlled ablations, simulator limits, course capabilities and evidence/UI follow-up |
 | [Game ownership decision](decisions/0001-game-source-delivery-and-language-ownership.md) | Separation of authored games, generated delivery, language adapters, and Android packaging |
 | [Product readiness](PRODUCT_READINESS.md) | Current release posture and the path to a governed beta |
 | [First Android release map](RELEASE_MAP.md) | Ordered product, content, packaging, legal, business, testing, and Play gates for `v0.1.0` |

@@ -1,4 +1,4 @@
-import { normalizeContentProgression, selectContentItems } from "../content-progression.mjs";
+import { normalizeContentProgression, selectContentItems } from "../adaptive-practice.mjs";
 const GAME_ID = "sound-quasar";
 const ID_PATTERN = /^[a-z0-9]+(?:[.-][a-z0-9]+)*$/u;
 const SOURCE_ID_PATTERN = /^(?:[a-z0-9]+(?:[.-][a-z0-9]+)*|\/(?:0|[1-9][0-9]*))$/u;
@@ -326,14 +326,14 @@ export function buildSoundQuasarRound(catalog, { index = 0, random = Math.random
 }
 
 /** A finite session never repeats an answer. The host owns playback and progress. */
-export function createSoundQuasarSession(catalog, { random = Math.random, roundLength = 5, choiceCount = 4, mode = "words", difficulty = 3, history } = {}) {
+export function createSoundQuasarSession(catalog, { random = Math.random, roundLength = 5, choiceCount = 4, mode = "words", difficulty = 3, history, policy = null } = {}) {
   const validated = asCatalog(catalog);
   const items = soundQuasarItemsForDifficulty(validated, { mode, difficulty });
   requireCondition(items.length >= 2, "difficulty needs at least two eligible listening items.");
   integer(choiceCount, "choiceCount", 2, modeItems(validated, mode).length);
   integer(roundLength, "roundLength", 1, 500);
   const pool = history === undefined ? items
-    : selectContentItems(items, { difficulty, history, minimumPool: Math.max(2, choiceCount), random });
+    : selectContentItems(items, { difficulty, history, minimumPool: Math.max(2, choiceCount), random, policy });
   const answers = history === undefined
     ? shuffled(items, random).slice(0, Math.min(roundLength, items.length))
     : pool.slice(0, roundLength);

@@ -279,8 +279,10 @@ test("the shared home exposes a two-question language form and the game display 
   assert.ok(czechSetup.offline.assets.some(url => url.split("?")[0] === "./source/features/setup/setup.js"));
   assert.match(
     bootstrapSource,
-    /for \(const providerName of \["semanticLearningProvider", "setupProgressProvider", "setupProvider"\]\)/u
+    /for \(const providerName of \["setupProgressProvider", "setupProvider"\]\)/u
   );
+  assert.match(bootstrapSource, /loadSharedScript\("\/language-runtime\/static\/source\/semantic-learning\.js/u);
+  assert.doesNotMatch(bootstrapSource, /semanticLearningProvider/u);
   assert.match(
     bootstrapSource,
     /const providerModule = declaredBrowserProvider\(providerName\);\s*if \(providerModule\) await loadScript\(providerModule\);/u

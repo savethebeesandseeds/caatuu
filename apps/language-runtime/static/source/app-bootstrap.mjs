@@ -1,6 +1,7 @@
 import { initializeWorkspaceAfterDictionaryProvider } from "./dictionary-provider-loader.mjs";
 import { initializeHomeCourseSetup } from "./course-setup.mjs";
 import { installMusic } from "./music.mjs";
+import { createPracticeCompass, sharedPracticeAxes } from "./practice-compass.mjs?v=practice-compass-4";
 import {
   installInterfaceContent,
   loadInterfaceContent
@@ -515,14 +516,15 @@ async function loadCourseFeatureProviders() {
   if (naturalizationNucleus) {
     await Promise.all([
       loadStyle("source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-18"),
-      loadScript("source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-18-files-3")
+      loadScript("source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-18-files-4")
     ]);
   }
   const courseRuntime = declaredBrowserProvider("courseRuntime");
   if (courseRuntime) await loadScript(courseRuntime);
   installSharedSpeechRuntime();
   await loadSharedScript("/language-runtime/static/source/maintenance-ui.js?v=maintenance-25");
-  for (const providerName of ["semanticLearningProvider", "setupProgressProvider", "setupProvider"]) {
+  await loadSharedScript("/language-runtime/static/source/semantic-learning.js?v=semantic-learning-11");
+  for (const providerName of ["setupProgressProvider", "setupProvider"]) {
     const providerModule = declaredBrowserProvider(providerName);
     if (providerModule) await loadScript(providerModule);
   }
@@ -533,7 +535,7 @@ async function loadCourseFeatureProviders() {
     origin: location.origin,
     routeBase,
     async initializeWorkspace() {
-      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-34");
+      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-36");
       const workspace = await globalThis.CaatuuWorkspaceReady;
       if (workspace?.ready !== true) {
         throw workspace?.error instanceof Error
@@ -564,7 +566,11 @@ async function start() {
   if (!declaredBrowserProvider("setupProvider")) renderStartingCourseHome();
   installMusic(globalThis);
   setCourseIdentity();
-  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-168");
+  globalThis.CaatuuPracticeCompass = Object.freeze({
+    axes: sharedPracticeAxes,
+    ...createPracticeCompass({ course, learning: globalThis.CaatuuLearning })
+  });
+  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-174");
   globalThis.CaatuuMusicUi?.mountAll();
   // Keep the canonical Home and its language controls available while native
   // setup verifies the selected course. Curriculum and game artwork wait for it.

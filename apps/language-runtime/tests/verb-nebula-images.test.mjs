@@ -18,7 +18,8 @@ const raw = await json("apps/languages/english-from-spanish/static/data/games/ve
 const pairs = verbNebulaCore.validateVerbNebulaCatalog(raw, { learnerBaseLanguage: "es-ES" });
 function between(start, end) {
   const first = workspace.indexOf(start), last = workspace.indexOf(end, first);
-  assert.ok(first >= 0 && last > first, start);
+  assert.ok(first >= 0, `Missing workspace start marker: ${start}`);
+  assert.ok(last > first, `Missing workspace end marker: ${end}`);
   return workspace.slice(first, last);
 }
 function harness({ catalog = keymap, search } = {}) {
@@ -66,7 +67,7 @@ function harness({ catalog = keymap, search } = {}) {
   vm.runInContext([
     between('const verbStorageKey =', 'const verbHintKeymapUrl ='),
     between('function parseStoredVerbMemory(', 'function validVerbIds('),
-    between('const verbHintKeymapUrl =', 'const campaignContractGameIds ='),
+    between('const verbHintKeymapUrl =', 'const campaignTransitionMillis ='),
     between('const verbHintLookupTimeoutMillis =', 'function verbSolutionRevealDuration'),
     between('function verbHintTokens(', 'function loadVerbImageSearch()'),
     between('async function vectorVerbHintCandidates(', 'async function loadVerbHintsForRound()'),

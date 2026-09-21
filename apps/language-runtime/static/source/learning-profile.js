@@ -4,6 +4,8 @@
 
   const namespace = course.storage.namespace || `caatuu-${course.id}`;
   const preferenceStorageKey = course.storage.learningPreferences || `${namespace}.learning.preferences.v1`;
+  // Cached clients rewrite difficulty preferences, so keep the learning goal independent.
+  const goalStorageKey = `${namespace}.learning.goal.v1`;
   const performanceStorageKey = course.storage.learningPerformance || `${namespace}.learning.performance.v1`;
   const streakStorageKey = "caatuu.learning.streak.v1";
   const schemaVersion = 1;
@@ -57,6 +59,29 @@
     return difficultyLevels.some((option) => option.level === level) ? level : 1;
   };
 
+  const commonGoals = [
+    { id: "balanced", kind: "balanced", label: "Balanced practice" },
+    { id: "reinforce", kind: "reinforce", label: "Strengthen practiced material" },
+    { id: "explore", kind: "explore", label: "Explore new material" },
+    { id: "review", kind: "review", label: "Focus on review" }
+  ];
+  // Authored topic goals are course content; they do not require a stats compass.
+  const topicGoals = Array.isArray(course.learningGoals)
+    ? course.learningGoals.filter(goal => typeof goal?.id === "string" && goal.id.trim()
+      && typeof goal.label === "string" && goal.label.trim()
+      && typeof goal.embeddingText === "string" && goal.embeddingText.trim()
+      && Array.isArray(goal.categories) && goal.categories.length
+      && goal.categories.every(category => typeof category === "string" && category.trim()))
+      .map(goal => ({ id: `topic:${goal.id}`, kind: "topic", label: goal.label,
+        embeddingText: goal.embeddingText, categories: Object.freeze([...goal.categories]) }))
+    : [];
+  const learningGoals = Object.freeze([...commonGoals, ...topicGoals]
+    .filter((goal, index, goals) => goals.findIndex(other => other.id === goal.id) === index)
+    .map(goal => Object.freeze(goal)));
+  const normalizeGoal = id => learningGoals.find(goal => goal.id === id) || learningGoals[0];
+  const goalOptions = () => [...learningGoals];
+  const validGoalPreference = value => value?.schemaVersion === schemaVersion && typeof value.goal === "string";
+
   const saveFailures = new Map();
   const retryHandlers = new Set();
   const pendingValues = new Map();
@@ -105,7 +130,7 @@
     if (typeof options.validate === "function") gameStateValidators.set(key, options.validate);
     if (includePending && pendingValues.has(key)) return pendingValues.get(key);
     const maximumVersion = gameStateVersions.get(key)
-      ?? ([performanceStorageKey, preferenceStorageKey, streakStorageKey].includes(key) ? schemaVersion : Infinity);
+      ?? ([performanceStorageKey, preferenceStorageKey, goalStorageKey, streakStorageKey].includes(key) ? schemaVersion : Infinity);
     const decode = (raw) => {
       const cacheable = key === contentStorageKey && options.contentCheckpoint === true;
       const validator = gameStateValidators.get(key);
@@ -667,6 +692,14 @@
   };
 
   const readDifficulty = () => normalizeDifficulty(readJson(preferenceStorageKey)?.difficulty);
+  const readGoal = () => normalizeGoal(readJson(goalStorageKey, {
+    maxSchemaVersion: schemaVersion, validate: validGoalPreference
+  })?.goal);
+  const samplingContext = (gameId, bankId = "default", assessmentDirection = bankId) => ({
+    identity: { courseId: course.id, gameId, bankId, assessmentDirection },
+    semanticsEnabled: course.capabilities?.embeddings === true,
+    goal: readGoal()
+  });
 
   const contentObject = value => Boolean(value) && typeof value === "object" && !Array.isArray(value);
   const contentIdentifier = value => typeof value === "string" && value.length > 0 && value.length <= 256
@@ -1015,13 +1048,14 @@
     }
     return { value, entries };
   };
-  const legacyContentBank = (gameId, bankId, generation) => {
-    const stored = readJson(legacyContentStorageKey, { maxSchemaVersion: 1, validate: validLegacyContentState });
+  const legacyContentBank = (gameId, bankId, generation, source = null) => {
+    const stored = source ? source.stored
+      : readJson(legacyContentStorageKey, { maxSchemaVersion: 1, validate: validLegacyContentState });
     const key = JSON.stringify([canonicalPerformanceGameId(gameId), bankId]);
     const bank = stored?.generation === generation && Object.hasOwn(stored.banks, key)
       ? JSON.parse(JSON.stringify(stored.banks[key])) : {};
     const applied = new Set(stored?.generation === generation ? stored.applied : []);
-    for (const event of contentJournalEntries(legacyContentStorageKey)) {
+    for (const event of source ? source.entries : contentJournalEntries(legacyContentStorageKey)) {
       if (event.generation !== generation || applied.has(event.id) || canonicalPerformanceGameId(event.gameId) !== canonicalPerformanceGameId(gameId)
         || event.bankId !== bankId) continue;
       const item = Object.hasOwn(bank, event.itemId) ? bank[event.itemId]
@@ -1054,6 +1088,83 @@
       }
       return [id, summary];
     }));
+  };
+  const emptyPracticeCounts = () => ({ encounteredItems: 0, independentItems: 0, supportedOnlyItems: 0,
+    unknownItems: 0, legacyItems: 0, legacyOnlyItems: 0, dueItems: 0 });
+  // A count is a game/bank/item identity, never a curriculum percentage or a
+  // claim about recall. Legacy scores have no reliable support provenance.
+  // This reads the same reducers as contentHistory without saving or loading
+  // models. Incomplete reads remain visible instead of looking like no practice.
+  const practiceSummary = ({ now = Date.now() } = {}) => {
+    if (!Number.isFinite(now) || !Number.isFinite(new Date(now).getTime())) {
+      throw new TypeError("now must be valid epoch milliseconds.");
+    }
+    const { value } = contentState();
+    const legacySource = {
+      stored: readJson(legacyContentStorageKey, { maxSchemaVersion: 1, validate: validLegacyContentState }),
+      entries: contentJournalEntries(legacyContentStorageKey).filter(event => event.generation === value.generation)
+    };
+    const legacyBanks = legacySource.stored?.generation === value.generation ? legacySource.stored.banks : {};
+    const bankKeys = new Set([...Object.keys(value.banks), ...Object.keys(legacyBanks),
+      ...legacySource.entries.map(event => JSON.stringify([canonicalPerformanceGameId(event.gameId), event.bankId]))]);
+    const games = new Map();
+    const gameRow = gameId => {
+      if (!games.has(gameId)) games.set(gameId, { gameId, counts: emptyPracticeCounts(), banks: [] });
+      return games.get(gameId);
+    };
+    for (const id of course.games || []) {
+      // Menu routes predate the item-evidence IDs used by these two hosts.
+      const gameId = canonicalPerformanceGameId(id === "verb-lab" ? "verb-nebula" : id === "word-net" ? "word-world" : id);
+      if (/^[a-z0-9-]{1,40}$/u.test(gameId)) gameRow(gameId);
+    }
+    let partial = false;
+    for (const key of bankKeys) {
+      let identity;
+      try { identity = JSON.parse(key); } catch { partial = true; continue; }
+      if (!Array.isArray(identity) || identity.length !== 2 || typeof identity[0] !== "string"
+        || !/^[a-z0-9-]{1,40}$/u.test(identity[0]) || !contentIdentifier(identity[1])
+        || canonicalPerformanceGameId(identity[0]) !== identity[0]) {
+        partial = true;
+        continue;
+      }
+      const [gameId, bankId] = identity;
+      const bank = Object.hasOwn(value.banks, key) ? value.banks[key] : {};
+      const legacy = legacyContentBank(gameId, bankId, value.generation, legacySource);
+      const counts = emptyPracticeCounts();
+      for (const itemId of new Set([...Object.keys(bank), ...Object.keys(legacy)])) {
+        const item = Object.hasOwn(bank, itemId) ? bank[itemId] : null;
+        const old = Object.hasOwn(legacy, itemId) ? legacy[itemId] : null;
+        counts.encounteredItems += 1;
+        // Match learnerItemState: a retained latest unaided error is an
+        // assessment too, but older aggregate mistakes cannot prove that.
+        const independent = item && (item.independentSuccesses > 0
+          || (item.lastEvidence === "independent" && item.lastCorrect !== null && item.lastAttemptAt !== null));
+        const supported = item && (item.assistedSuccesses > 0 || item.lastAssistedAt !== null || item.lastEvidence === "assisted");
+        if (independent) counts.independentItems += 1;
+        else if (supported) counts.supportedOnlyItems += 1;
+        else counts.unknownItems += 1;
+        if (old) {
+          counts.legacyItems += 1;
+          if (!item) counts.legacyOnlyItems += 1;
+        }
+        if (item?.dueAt !== null && Number.isFinite(Date.parse(item?.dueAt)) && Date.parse(item.dueAt) <= now) {
+          counts.dueItems += 1;
+        }
+      }
+      const game = gameRow(gameId);
+      game.banks.push({ bankId, counts });
+      for (const field of Object.keys(counts)) game.counts[field] += counts[field];
+    }
+    const totals = emptyPracticeCounts();
+    const rows = [...games.values()].sort((left, right) => left.gameId.localeCompare(right.gameId));
+    for (const game of rows) {
+      game.banks.sort((left, right) => left.bankId.localeCompare(right.bankId));
+      for (const field of Object.keys(totals)) totals[field] += game.counts[field];
+    }
+    partial ||= [...saveFailures.keys()].some(key => key === `read:${contentStorageKey}`
+      || key === `read:${legacyContentStorageKey}` || key === "content-generation"
+      || /^(?:legacy-)?content-journal(?::|-read$)/u.test(key));
+    return { courseId: course.id, asOf: new Date(now).toISOString(), status: partial ? "partial" : "ready", totals, games: rows };
   };
   const persistContentEvent = event => {
     const key = `${contentJournalPrefix}${event.id}`;
@@ -1218,6 +1329,7 @@
       schemaVersion,
       difficulty,
       difficultyOption: difficultyOption(difficulty),
+      goal: readGoal(),
       performance,
       summary: summarize(performance),
       journey: { summary: summarizeCourseRows(courses), courses },
@@ -1238,6 +1350,14 @@
     writeJson(preferenceStorageKey, { schemaVersion, difficulty });
     announceChange("difficulty");
     return difficulty;
+  };
+
+  const setGoal = (id) => {
+    const goal = normalizeGoal(id);
+    if (goal.id === readGoal().id) return goal;
+    writeJson(goalStorageKey, { schemaVersion, goal: goal.id });
+    announceChange("goal");
+    return goal;
   };
 
   const record = (gameId, delta = {}) => {
@@ -1299,13 +1419,17 @@
 
   window.CaatuuLearning = Object.freeze({
     schemaVersion,
-    storage: Object.freeze({ preferenceStorageKey, performanceStorageKey, streakStorageKey }),
+    storage: Object.freeze({ preferenceStorageKey, goalStorageKey, performanceStorageKey, streakStorageKey }),
     streakArtwork,
     streakReminderHours,
     difficultyLevels,
     difficulty: readDifficulty,
     difficultyOption,
     setDifficulty,
+    goal: readGoal,
+    setGoal,
+    goalOptions,
+    samplingContext,
     performance: readPerformance,
     summarize,
     courseSummaries,
@@ -1313,6 +1437,7 @@
     snapshot,
     record,
     contentHistory,
+    practiceSummary,
     contentGeneration,
     recordExposure,
     refreshStreak,

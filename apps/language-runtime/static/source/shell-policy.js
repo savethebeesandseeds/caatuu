@@ -38,8 +38,7 @@
     capabilities: Object.freeze({
       dictionary: null,
       generation: null,
-      chat: null,
-      skillCompass: null
+      chat: null
     })
   });
 

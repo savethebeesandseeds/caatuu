@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "seed": "content-inspection-v1",
+  "courses": [],
+  "semantic": {
+    "mode": "embed",
+    "maxDocuments": 384,
+    "batchSize": 32,
+    "nearSimilarity": 0.75
+  },
+  "diagnostics": {
+    "complexityGap": 25,
+    "difficultyGap": 2,
+    "exampleLimit": 20
+  }
+}

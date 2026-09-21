@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; object-src 'none'; base-uri 'none'; frame-src 'self'">
+<title>Local practice mapping capture</title></head><body>
+<h1>Local practice mapping capture</h1>
+<p>Manual development diagnostic. Reads retained course histories and the shared projection. It does not record answers or change goals. Captured data stays in this browser until you export it. This page is excluded from release assets.</p>
+<button id="capture">Capture all course profiles</button>
+<p id="status" role="status">Ready.</p>
+<pre id="summary"></pre>
+<a id="download" download="caatuu-practice-map-capture.json" hidden>Save captured JSON</a>
+<details><summary>Captured JSON</summary><pre id="output"></pre></details>
+<div id="courses"></div>
+<script type="module" src="source/practice-map-capture.mjs"></script>
+</body></html>

@@ -317,6 +317,17 @@
   }
 
   function selectChallenges(challenges, pieceCount, random, difficulty = 3, progression = {}) {
+    if (progression.policy?.identity && progression.policy.id !== 'existing' && progression.selectContentItems) {
+      // One policy decision owns the board's pacing and conditional draws.
+      // Distinct readings are part of selection, never discarded afterward.
+      const result = progression.selectContentItems(filterChallengesForDifficulty(challenges, difficulty), {
+        difficulty, history: progression.history || {}, minimumPool: pieceCount,
+        limit: pieceCount, getGroupKey: readingKey, random, policy: progression.policy
+      });
+      assert(result.length === pieceCount && new Set(result.map(readingKey)).size === pieceCount,
+        `cannot create a ${pieceCount}-piece round from the available distinct readings.`);
+      return result;
+    }
     const selected = [];
     const readings = new Set();
     const eligible = filterChallengesForDifficulty(challenges, difficulty);
@@ -325,7 +336,7 @@
       // Select by actual practice evidence before excluding homophones. Each
       // board stays unambiguous without hiding a due or useful reading peer.
       const ordered = progression.selectContentItems
-        ? progression.selectContentItems(remaining, { difficulty, history: progression.history || {}, minimumPool: pieceCount, random })
+        ? progression.selectContentItems(remaining, { difficulty, history: progression.history || {}, minimumPool: pieceCount, random, policy: progression.policy })
         : shuffled(remaining, random);
       if (!ordered.length) break;
       for (const challenge of ordered) {
@@ -1112,7 +1123,8 @@
       state.practiceBank = `recognize-${presentation.deck}-${presentation.ring}`;
       state.round = createRound(catalog, pieceCount, global.Math.random, previousArtworkSrc, state.difficulty, {
         ...progression,
-        history: practiceHistory(state.practiceBank)
+        history: practiceHistory(state.practiceBank),
+        policy: global.CaatuuLearning?.samplingContext?.("naturalization-nucleus", state.practiceBank)
       });
       state.encounterId = progression.newContentEncounterId();
       state.contentGeneration = global.CaatuuLearning?.contentGeneration?.() ?? null;
@@ -1486,7 +1498,7 @@
         active: isActive() });
       loadingScreen.show();
       const catalog = await loadCatalog(requiredText(dataUrl, "mount.dataUrl", 500), Boolean(forceReload));
-      const progression = await import("/language-runtime/static/source/games/content-progression.mjs");
+      const progression = await import("/language-runtime/static/source/games/adaptive-practice.mjs");
       if (disposed) return null;
       session = createGame(root, catalog, { loadingScreen, isActive, disposeLoading, progression });
       return catalog;

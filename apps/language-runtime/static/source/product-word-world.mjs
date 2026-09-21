@@ -23,9 +23,9 @@ import {
 import { WordNetBranchQueue } from "./word-net-queue.mjs?v=word-net-queue-6";
 import { localAiAvailability } from "./shell-policy.mjs";
 import { mountRobotLoadingScreen } from "./games/embedded-game-controls.mjs?v=embedded-game-controls-8";
-import { createEnglishImageSearch } from "./english-image-search.mjs?v=english-image-search-3";
+import { createEnglishImageSearch } from "./english-image-search.mjs?v=english-image-search-4";
 import { newContentEncounterId } from "./games/content-progression.mjs";
-import { progressiveWordWorldSelection, wordWorldProgressionPool,
+import { progressiveWordWorldSelection,
   wordWorldEvidenceBank, wordWorldPracticeHistory } from "./word-world-progression.mjs";
 
 let WORD_NET_MODEL_KEY = "";
@@ -2566,9 +2566,13 @@ function createControllerSelectionProvider(selectionProvider) {
     return { ...selection, record };
   };
   const sourceRecord = (record) => providerRecordSources.get(record) || record;
+  let selectionIds = new Set();
   const selectProgressive = (options = {}, selectedWord = "") => progressiveWordWorldSelection(records, {
     ...options,
     history: wordWorldSelectionHistory(),
+    policy: window.CaatuuLearning?.samplingContext?.("word-world",
+      state.translationMode === "reconstruct" ? wordWorldEvidenceBank(state.contentNextPromptSide) : "sentences"),
+    onPool: pool => { selectionIds = new Set(pool.map(record => record.id)); },
     selectedWord,
     matchesWord: (record, word) => recordMatchesSelectedWord(record, word, providerContext?.normalization?.searchKey)
   });
@@ -2589,10 +2593,7 @@ function createControllerSelectionProvider(selectionProvider) {
       const fallback = selectProgressive(options);
       return fallback ? { record: fallback, fallback: true, requestedWord: word } : null;
     },
-    canSelectRecord: (record, options) => wordWorldProgressionPool(records, { ...options,
-      history: wordWorldSelectionHistory(),
-      matchesWord: (candidate, word) => recordMatchesSelectedWord(candidate, word, providerContext?.normalization?.searchKey)
-    }).some(candidate => candidate.id === record.id),
+    canSelectRecord: record => selectionIds.has(record.id),
     primaryWord: (record, ...args) => selectionProvider.primaryWord(sourceRecord(record), ...args),
     markUsed: (record) => selectionProvider.markUsed(sourceRecord(record)),
     getRecordById: (id) => byId.get(recordIdentifier(id)) || null,

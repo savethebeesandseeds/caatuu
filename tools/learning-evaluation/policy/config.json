@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "seeds": [17, 29, 43, 71, 103],
+  "profiles": ["novice", "returning", "supported"],
+  "goals": ["daily-life", "work"],
+  "interactions": 120,
+  "interactionsPerDay": 12,
+  "stepMinutes": 2,
+  "startTime": "2026-01-05T09:00:00.000Z",
+  "delayDays": 7,
+  "difficulty": 2,
+  "minimumPool": 1,
+  "recentWindow": 5,
+  "weakRecallCutoff": 0.6,
+  "suitableRecallRange": [0.35, 0.85],
+  "transfer": { "rate": 0.1, "totalCap": 0.12, "maxPerStep": 0.025 }
+}

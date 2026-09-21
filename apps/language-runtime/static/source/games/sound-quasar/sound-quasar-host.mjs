@@ -250,7 +250,8 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     const available = soundQuasarItemsForDifficulty(catalog, { mode: state.mode, difficulty }).length;
     const choiceCount = available >= state.choiceCount ? state.choiceCount : Math.min(4, available);
     state.rounds = createSoundQuasarSession(catalog, { random, roundLength: 5, mode: state.mode, choiceCount, difficulty,
-      history: shell.CaatuuLearning?.contentHistory?.(GAME_ID, state.mode) });
+      history: shell.CaatuuLearning?.contentHistory?.(GAME_ID, state.mode),
+      policy: shell.CaatuuLearning?.samplingContext?.(GAME_ID, state.mode) });
     for (const button of node("quasarChoiceOptions").querySelectorAll("button[data-count]")) {
       const count = Number(button.dataset.count);
       button.textContent = t("soundquasar.options.count", { count });

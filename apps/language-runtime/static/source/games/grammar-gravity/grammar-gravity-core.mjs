@@ -444,6 +444,7 @@ export function buildGrammarGravityRounds(pack, difficulty, random = Math.random
           revision: example.revision,
           challengeId: challenge.id,
           challengeRevision: challenge.revision,
+          englishAuditText: example.englishAuditText,
           difficulty: challenge.difficulty,
           ...normalizeContentProgression({ ...challenge, ...form, ...example }, example.id),
           focus: challenge.focus,

@@ -92,8 +92,6 @@ const CZECH_EMBEDDING_REQUIRED_COURSE_PATHS = [
   "data/embeddings/all-minilm-l6-v2-qint8-v0.1/manifest.json",
   "source/shared/runtime.js",
   "source/shared/vector-db.js",
-  "source/shared/semantic-learning.js",
-  "source/shared/semantic-learning-core.mjs",
   "vendor/sql.js/sql-wasm.js",
   "vendor/sql.js/sql-wasm.wasm",
   "vendor/sql.js/LICENSE",

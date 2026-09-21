@@ -113,7 +113,6 @@ test("Spanish identity and unavailable systems fail closed in the course contrac
     chat: false,
     embeddings: true,
     semanticSearch: true,
-    skillCompass: false,
     dictionary: false,
     memory: false,
     verbs: false,
@@ -123,7 +122,7 @@ test("Spanish identity and unavailable systems fail closed in the course contrac
     speech: true,
     pronunciationGuides: false
   });
-  assert.equal(course.skillCompass, null);
+  assert.equal(Object.hasOwn(course, "skillCompass"), false);
   assert.equal(course.publication.contract, "language-content-v1");
   assert.equal(course.publication.runtimeProjection.policyId, "spanish-spain-word-world-v1");
   assert.equal(course.publication.learnerBaseRealizations, null);

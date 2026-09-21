@@ -47,7 +47,7 @@
       schemaVersion: 1,
       locale: "en",
       direction: "ltr",
-      revision: "interface-en-32",
+      revision: "interface-en-37",
       catalog: "/language-runtime/static/data/interface/en.v1.json"
     },
     learnerBasePreview: false,
@@ -144,7 +144,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-32",
+            revision: "interface-en-37",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -201,7 +201,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-32",
+            revision: "interface-en-37",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -262,7 +262,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-32",
+            revision: "interface-en-37",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -323,7 +323,7 @@
             schemaVersion: 1,
             locale: "es-ES",
             direction: "ltr",
-            revision: "interface-es-7",
+            revision: "interface-es-12",
             catalog: "/language-runtime/static/data/interface/es.v1.json"
           },
           targetLanguage: {
@@ -384,7 +384,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-32",
+            revision: "interface-en-37",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -432,7 +432,6 @@
       chat: false,
       embeddings: true,
       semanticSearch: true,
-      skillCompass: false,
       dictionary: false,
       memory: true,
       verbs: false,
@@ -442,7 +441,129 @@
       speech: true,
       pronunciationGuides: false
     },
-    skillCompass: null,
+    learningGoals: [
+      {
+        id: "people-social",
+        label: "People & conversations",
+        embeddingText: "Greet people, introduce family and friends, ask questions and talk about feelings.",
+        categories: [
+          "people",
+          "family-people",
+          "identity",
+          "identity-people-family",
+          "first-contact",
+          "greetings",
+          "greetings-social",
+          "conversation-questions",
+          "friendship",
+          "feelings",
+          "communication",
+          "community-politeness"
+        ]
+      },
+      {
+        id: "home-routines",
+        label: "Home & daily life",
+        embeddingText: "Describe home, household objects and everyday routines.",
+        categories: [
+          "home",
+          "home-objects-location",
+          "home-skills",
+          "routines-home",
+          "objects",
+          "adult-housing",
+          "daily-life",
+          "everyday",
+          "everyday-life"
+        ]
+      },
+      {
+        id: "food-shopping",
+        label: "Food, drinks & shopping",
+        embeddingText: "Talk about food and drinks, order a meal and shop for everyday needs.",
+        categories: [
+          "food",
+          "food-and-drink",
+          "food-drink",
+          "shopping-services"
+        ]
+      },
+      {
+        id: "school-work",
+        label: "Learning & working together",
+        embeddingText: "Learn at school, work with other people, cooperate and organize tasks using technology.",
+        categories: [
+          "school",
+          "school-learning",
+          "classroom-language",
+          "work-tasks",
+          "work-collaboration",
+          "cooperation",
+          "digital-organization",
+          "technology-communication"
+        ]
+      },
+      {
+        id: "travel-services",
+        label: "Travel, places & services",
+        embeddingText: "Travel around town, find places, use transport and ask for practical services.",
+        categories: [
+          "town",
+          "locations",
+          "transit-travel",
+          "travel-logistics",
+          "objects-location-services",
+          "adult-services"
+        ]
+      },
+      {
+        id: "nature-weather",
+        label: "Animals, nature & weather",
+        embeddingText: "Describe animals, forests, gardens, oceans, seasons and the weather, and care for the environment.",
+        categories: [
+          "animals",
+          "animal-friends",
+          "nature",
+          "nature-animals",
+          "forest",
+          "garden",
+          "ocean",
+          "weather",
+          "weather-routine",
+          "seasons",
+          "planet-care",
+          "environment-community"
+        ]
+      },
+      {
+        id: "plans-time",
+        label: "Time, plans & explanations",
+        embeddingText: "Discuss time, make plans, compare choices, explain reasons and solve everyday problems.",
+        categories: [
+          "numbers-time",
+          "plans",
+          "plans-comparison",
+          "problems-plans",
+          "daily-problem-solving",
+          "reasoning",
+          "connected-reasoning",
+          "experience-opinion"
+        ]
+      },
+      {
+        id: "creativity-play",
+        label: "Play, music & imagination",
+        embeddingText: "Talk about play, music, creative ideas, imaginary stories and discoveries.",
+        categories: [
+          "play",
+          "music",
+          "music-play",
+          "creativity",
+          "imagination",
+          "discovery"
+        ]
+      }
+    ],
     platforms: {
       browser: {
         enabled: true,

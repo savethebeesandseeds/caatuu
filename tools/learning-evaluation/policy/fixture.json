@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "description": "Synthetic exercise IDs and independent latent parameters; no real learner or measured learning-effect claims.",
+  "identity": { "courseId": "synthetic-cs", "gameId": "synthetic-recall", "bankId": "recognition" },
+  "profiles": [
+    { "id": "novice", "initialRecallOffset": -0.08, "learningMultiplier": 0.9, "forgettingMultiplier": 1.15, "slipProbability": 0.06, "assistanceProbability": 0.12, "exposureProbability": 0.08 },
+    { "id": "returning", "initialRecallOffset": 0.25, "learningMultiplier": 1.2, "forgettingMultiplier": 0.75, "slipProbability": 0.04, "assistanceProbability": 0.06, "exposureProbability": 0.04 },
+    { "id": "supported", "initialRecallOffset": 0, "learningMultiplier": 0.7, "forgettingMultiplier": 1.35, "slipProbability": 0.16, "assistanceProbability": 0.4, "exposureProbability": 0.15 }
+  ],
+  "items": [
+    { "id": "greeting-recognition", "difficulty": 1, "usefulness": 95, "complexity": 8, "validTask": true, "simulation": { "initialRecall": 0.3, "learningRate": 0.18, "halfLifeDays": 12, "guessProbability": 0.25 } },
+    { "id": "greeting-listening", "difficulty": 1, "usefulness": 78, "complexity": 15, "validTask": true, "simulation": { "initialRecall": 0.12, "learningRate": 0.32, "halfLifeDays": 7, "guessProbability": 0.25 } },
+    { "id": "help-request", "difficulty": 1, "usefulness": 100, "complexity": 18, "validTask": true, "simulation": { "initialRecall": 0.2, "learningRate": 0.12, "halfLifeDays": 20, "guessProbability": 0.2 } },
+    { "id": "food-recognition", "difficulty": 1, "usefulness": 85, "complexity": 28, "validTask": true, "simulation": { "initialRecall": 0.4, "learningRate": 0.26, "halfLifeDays": 9, "guessProbability": 0.25 } },
+    { "id": "food-listening", "difficulty": 1, "usefulness": 64, "complexity": 40, "validTask": true, "simulation": { "initialRecall": 0.08, "learningRate": 0.2, "halfLifeDays": 15, "guessProbability": 0.2 } },
+    { "id": "directions-recognition", "difficulty": 1, "usefulness": 92, "complexity": 58, "validTask": true, "simulation": { "initialRecall": 0.22, "learningRate": 0.3, "halfLifeDays": 6, "guessProbability": 0.25 } },
+    { "id": "directions-production", "difficulty": 2, "usefulness": 70, "complexity": 12, "validTask": true, "simulation": { "initialRecall": 0.05, "learningRate": 0.17, "halfLifeDays": 18, "guessProbability": 0.02 } },
+    { "id": "work-introduction", "difficulty": 1, "usefulness": 48, "complexity": 72, "validTask": true, "simulation": { "initialRecall": 0.35, "learningRate": 0.24, "halfLifeDays": 16, "guessProbability": 0.2 } },
+    { "id": "work-schedule", "difficulty": 2, "usefulness": 77, "complexity": 22, "validTask": true, "simulation": { "initialRecall": 0.1, "learningRate": 0.34, "halfLifeDays": 8, "guessProbability": 0.25 } },
+    { "id": "work-clarification", "difficulty": 2, "usefulness": 91, "complexity": 47, "validTask": true, "simulation": { "initialRecall": 0.15, "learningRate": 0.13, "halfLifeDays": 24, "guessProbability": 0.2 } },
+    { "id": "culture-recognition", "difficulty": 1, "usefulness": 25, "complexity": 88, "validTask": true, "simulation": { "initialRecall": 0.5, "learningRate": 0.19, "halfLifeDays": 11, "guessProbability": 0.25 } },
+    { "id": "past-event", "difficulty": 2, "usefulness": 58, "complexity": 71, "validTask": true, "simulation": { "initialRecall": 0.04, "learningRate": 0.28, "halfLifeDays": 14, "guessProbability": 0.1 } },
+    { "id": "formal-negotiation", "difficulty": 3, "usefulness": 97, "complexity": 20, "validTask": true, "simulation": { "initialRecall": 0.2, "learningRate": 0.25, "halfLifeDays": 12, "guessProbability": 0.2 } },
+    { "id": "invalid-no-answer", "difficulty": 1, "usefulness": 100, "complexity": 1, "validTask": false, "simulation": { "initialRecall": 0.6, "learningRate": 0.4, "halfLifeDays": 25, "guessProbability": 0.25 } }
+  ],
+  "goals": [
+    { "id": "daily-life", "label": "Daily-life recall", "weights": { "greeting-recognition": 2, "greeting-listening": 2, "help-request": 3, "food-recognition": 2, "food-listening": 2, "directions-recognition": 3, "directions-production": 2, "work-introduction": 0, "work-schedule": 0, "work-clarification": 0, "culture-recognition": 1, "past-event": 0.5, "formal-negotiation": 0, "invalid-no-answer": 0 } },
+    { "id": "work", "label": "Workplace recall", "weights": { "greeting-recognition": 1, "greeting-listening": 1, "help-request": 2, "food-recognition": 0, "food-listening": 0, "directions-recognition": 0.5, "directions-production": 0.5, "work-introduction": 3, "work-schedule": 3, "work-clarification": 3, "culture-recognition": 0, "past-event": 2, "formal-negotiation": 0, "invalid-no-answer": 0 } }
+  ],
+  "transferEdges": [
+    { "from": "greeting-recognition", "to": "greeting-listening", "weight": 0.5 },
+    { "from": "greeting-listening", "to": "greeting-recognition", "weight": 0.35 },
+    { "from": "food-recognition", "to": "food-listening", "weight": 0.45 },
+    { "from": "food-listening", "to": "food-recognition", "weight": 0.3 },
+    { "from": "directions-recognition", "to": "directions-production", "weight": 0.2 },
+    { "from": "directions-production", "to": "directions-recognition", "weight": 0.4 },
+    { "from": "work-introduction", "to": "work-schedule", "weight": 0.15 }
+  ]
+}

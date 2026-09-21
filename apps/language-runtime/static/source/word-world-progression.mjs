@@ -1,4 +1,4 @@
-import { selectContentItems } from "./games/content-progression.mjs";
+import { selectContentItems } from "./games/adaptive-practice.mjs";
 
 /** Keep evidence for recognizing meaning and assembling the target language separate. */
 export function wordWorldEvidenceBank(promptSide) {
@@ -21,9 +21,15 @@ export function wordWorldPracticeHistory(exposureHistory = {}, modeHistory = {})
 /** Apply spaced practice after adapting either legacy or modern course records. */
 export function progressiveWordWorldSelection(records, {
   difficulty = 1, history = {}, excludeIds = [], selectedWord = "", matchesWord = () => false,
-  random = Math.random, now = Date.now()
+  random = Math.random, now = Date.now(), policy = null, onPool = () => {}
 } = {}) {
-  const pool = wordWorldProgressionPool(records, { difficulty, history, random, selectedWord, matchesWord, now });
+  const adaptive = policy?.identity && policy.id !== 'existing';
+  const pool = wordWorldProgressionPool(records, { difficulty, history, random, selectedWord, matchesWord, now,
+    policy, excludeIds, limit: adaptive ? 1 : Infinity });
+  onPool(pool);
+  // The adaptive decision already accounts for recent exclusions and reports
+  // its actual conditional probability. Never filter or resample it afterward.
+  if (adaptive) return pool[0] || null;
   const excluded = new Set(excludeIds);
   // If recent history covers the eligible practice pool, repeat within that pool.
   const available = pool.filter(record => !excluded.has(record.id));
@@ -32,8 +38,8 @@ export function progressiveWordWorldSelection(records, {
 
 export function wordWorldProgressionPool(records, {
   difficulty = 1, history = {}, random = Math.random, selectedWord = "", matchesWord = () => false,
-  now = Date.now()
+  now = Date.now(), policy = null, excludeIds = [], limit = Infinity
 } = {}) {
   const candidates = selectedWord ? records.filter(record => matchesWord(record, selectedWord)) : records;
-  return selectContentItems(candidates, { difficulty, history, random, minimumPool: 4, now });
+  return selectContentItems(candidates, { difficulty, history, random, minimumPool: 4, now, policy, excludeIds, limit });
 }

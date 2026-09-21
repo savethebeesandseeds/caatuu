@@ -41,8 +41,9 @@ function tokens(value) { return (String(value).toLowerCase().match(/[a-z0-9]+/gu
 
 // Games and developer tools share one model; Android WebViews cannot afford a
 // separate WASM model and simultaneous inference for each image panel.
-const SHARED_RANKING = Symbol.for("caatuu.sharedImageRanking.v1");
-function rankingOwner() {
+const SHARED_RANKING = Symbol.for("caatuu.sharedImageRanking.v2");
+const textCacheKey = (text, individualInputs = false) => JSON.stringify([individualInputs ? "individual-input-v1" : "legacy-batch-v1", text]);
+export function sharedEnglishEmbeddingOwner() {
   try {
     if (globalThis.window?.parent?.location?.origin === globalThis.location?.origin) return window.parent;
   } catch { /* A cross-origin frame owns its own runtime. */ }
@@ -53,6 +54,108 @@ function createRankingState(options = {}) {
   return { engine: new EnglishMiniLmRanker(), tail: Promise.resolve(), indexPromise: null, queries: new Map(), ...options };
 }
 
+function sharedRanking(owner) {
+  // A live page can still have an older consumer. Keep its model and queue so
+  // cache-version migration cannot create overlapping inference operations.
+  const legacy = Symbol.for("caatuu.sharedImageRanking.v1");
+  const ranking = owner[SHARED_RANKING] ||= owner[legacy] || createRankingState();
+  owner[legacy] ||= ranking;
+  return ranking;
+}
+
+const SHARED_TEXT_CACHE_LIMIT = 256;
+
+export function normalizeSharedEnglishText(text) {
+  return validateEnglishEmbeddingPayload({ inputLanguage: "en", query: { embeddingText: text },
+    candidates: [{ conceptId: "shared-english-text", embeddingText: "English text" }] }).query.embeddingText;
+}
+
+function cachedTextVector(ranking, text) {
+  const vector = ranking?.queries.get(text);
+  if (vector) { ranking.queries.delete(text); ranking.queries.set(text, vector); }
+  return vector || null;
+}
+
+function rememberTextVector(ranking, text, vector) {
+  ranking.queries.delete(text);
+  ranking.queries.set(text, vector);
+  while (ranking.queries.size > SHARED_TEXT_CACHE_LIMIT) ranking.queries.delete(ranking.queries.keys().next().value);
+}
+
+/** A cache read never constructs a model or starts inference. */
+export function peekSharedEnglishVector(text, { owner = sharedEnglishEmbeddingOwner(), individualInputs = false } = {}) {
+  return cachedTextVector(owner[SHARED_RANKING], textCacheKey(normalizeSharedEnglishText(text), individualInputs));
+}
+
+function checkedTextVector(values) {
+  if (!values || values.length !== 384) throw new Error("English embeddings require 384 dimensions.");
+  const vector = Float32Array.from(values);
+  let squared = 0;
+  for (const value of vector) {
+    if (!Number.isFinite(value)) throw new Error("English embedding contains a non-finite value.");
+    squared += value * value;
+  }
+  if (!(squared > 0) || !Number.isFinite(squared)) throw new Error("English embedding has an invalid norm.");
+  const norm = Math.sqrt(squared);
+  return vector.map(value => value / norm);
+}
+
+/**
+ * Bounded optional consumers share image search's model, queue and text cache.
+ * A timeout releases the caller, not the underlying model lock: a stalled
+ * inference must never allow a second model operation to run concurrently.
+ */
+export async function embedSharedEnglishTexts(texts, {
+  owner = sharedEnglishEmbeddingOwner(), encoder, timeoutMs = 5000, individualInputs = false
+} = {}) {
+  if (!Array.isArray(texts) || !texts.length || texts.length > 32) throw new TypeError("Supply 1 to 32 English texts.");
+  if (encoder !== undefined && typeof encoder !== "function") throw new TypeError("encoder must be a function.");
+  if (!Number.isFinite(timeoutMs) || timeoutMs < 1 || timeoutMs > 10000) throw new TypeError("timeoutMs must be 1 to 10000.");
+  const normalized = texts.map(normalizeSharedEnglishText);
+  const key = text => textCacheKey(text, individualInputs);
+  const ranking = sharedRanking(owner);
+  const pending = ranking.textRequests ||= new Map();
+  const missing = [...new Set(normalized)].filter(text => !cachedTextVector(ranking, key(text)) && !pending.has(key(text)));
+  if (pending.size + missing.length > 64) throw new Error("Shared English embedding queue is full.");
+  if (missing.length) {
+    let expired = false;
+    const expiry = setTimeout(() => { expired = true; }, timeoutMs);
+    const request = ranking.tail.then(async () => {
+      if (expired) throw new Error("Shared English embedding request timed out before inference.");
+      // Earlier image queries may have supplied some of these vectors while
+      // this request waited for the shared model lock.
+      const absent = missing.filter(text => !cachedTextVector(ranking, key(text)));
+      const encode = texts => encoder ? encoder(texts) : ranking.engine.embedBatch(texts);
+      let vectors = [];
+      if (individualInputs) {
+        // The pinned model's output depends on batch companions. One input per model
+        // call gives each text a stable vector; the outer request stays bounded.
+        for (const text of absent) {
+          if (expired) throw new Error("Shared English embedding request timed out before inference.");
+          const value = await encode([text]);
+          if (!Array.isArray(value) || value.length !== 1) throw new Error("English embedding batch size does not match its input.");
+          const checked = checkedTextVector(value[0]);
+          vectors.push(checked);
+          rememberTextVector(ranking, key(text), checked);
+        }
+      } else if (absent.length) vectors = await encode(absent);
+      if (!Array.isArray(vectors) || vectors.length !== absent.length) throw new Error("English embedding batch size does not match its input.");
+      const checked = individualInputs ? vectors : vectors.map(checkedTextVector);
+      absent.forEach((text, index) => rememberTextVector(ranking, key(text), checked[index]));
+      return missing.map(text => cachedTextVector(ranking, key(text)));
+    }).finally(() => { clearTimeout(expiry); missing.forEach(text => pending.delete(key(text))); });
+    ranking.tail = request.catch(() => {});
+    missing.forEach((text, index) => pending.set(key(text), request.then(vectors => vectors[index])));
+  }
+  let timer;
+  try {
+    return await Promise.race([
+      Promise.all(normalized.map(text => cachedTextVector(ranking, key(text)) || pending.get(key(text)))),
+      new Promise((_, reject) => { timer = setTimeout(() => reject(new Error("Shared English embeddings timed out.")), timeoutMs); })
+    ]);
+  } finally { clearTimeout(timer); }
+}
+
 export function createEnglishImageSearch({
   loadJson = async (path) => {
     const response = await fetch(path, { cache: "force-cache" });
@@ -61,11 +164,11 @@ export function createEnglishImageSearch({
   },
   ranker,
   embedQuery,
-  owner = rankingOwner(),
+  owner = sharedEnglishEmbeddingOwner(),
   timeoutMs = 10000
 } = {}) {
   const ranking = ranker || embedQuery ? createRankingState({ ranker, embedQuery })
-    : (owner[SHARED_RANKING] ||= createRankingState());
+    : sharedRanking(owner);
   const catalogPromises = new Map();
   function loadSource(source) {
     if (!catalogPromises.has(source.kind)) {
@@ -98,17 +201,16 @@ export function createEnglishImageSearch({
     ranking.indexPromise ||= Promise.resolve().then(() => loadJson(IMAGE_EMBEDDING_INDEX_URL))
       .then(readImageEmbeddingIndex).catch(error => { ranking.indexPromise = null; throw error; });
     const index = await ranking.indexPromise;
-    if (!ranking.queries.has(query)) {
+    const key = textCacheKey(query);
+    if (!ranking.queries.has(key)) {
       const vector = ranking.embedQuery ? await ranking.embedQuery(query) : (await ranking.engine.embedBatch([query]))[0];
-      ranking.queries.set(query, vector);
-      if (ranking.queries.size > 128) ranking.queries.delete(ranking.queries.keys().next().value);
+      rememberTextVector(ranking, key, checkedTextVector(vector));
     }
-    return rankIndexedImages(rows, index, ranking.queries.get(query));
+    return rankIndexedImages(rows, index, ranking.queries.get(key));
   }
   return async (query, { sourceKind = "", signal } = {}) => {
     // Reject target-language text before touching either the model or asset catalogs.
-    validateEnglishEmbeddingPayload({ inputLanguage: "en", query: { embeddingText: query },
-      candidates: [{ conceptId: "image-validation", embeddingText: "image" }] });
+    query = normalizeSharedEnglishText(query);
     signal?.throwIfAborted();
     if (sourceKind && !IMAGE_SOURCES.some(source => source.kind === sourceKind)) throw new Error("Unknown image source kind.");
     const sources = IMAGE_SOURCES.filter((source) => !sourceKind || source.kind === sourceKind);

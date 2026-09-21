@@ -2063,7 +2063,8 @@ function planVerbRound() {
   if (state.verbGuidedMode && state.verbGuidedPlan) return state.verbGuidedPlan;
   const candidates = verbNebulaCore.selectContentItems(state.verbPairs, {
     difficulty: state.verbDifficulty, minimumPool: state.verbPairCount,
-    history: window.CaatuuLearning?.contentHistory?.("verb-nebula") || {}
+    history: window.CaatuuLearning?.contentHistory?.("verb-nebula") || {},
+    policy: window.CaatuuLearning?.samplingContext?.("verb-nebula")
   });
   const dealt = verbNebulaCore.dealVerbRound(
     candidates,
@@ -2985,7 +2986,7 @@ function isChildSafeVerbHintAsset(assetPath, action = "") {
 
 function loadVerbImageSearch() {
   if (!verbImageSearchPromise) {
-    verbImageSearchPromise = import("/language-runtime/static/source/english-image-search.mjs?v=english-image-search-3")
+    verbImageSearchPromise = import("/language-runtime/static/source/english-image-search.mjs?v=english-image-search-4")
       .then(({ createEnglishImageSearch }) => createEnglishImageSearch({ timeoutMs: verbHintLookupTimeoutMillis }))
       .catch((error) => { verbImageSearchPromise = null; throw error; });
   }
