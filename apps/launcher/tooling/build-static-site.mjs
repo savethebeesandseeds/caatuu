@@ -340,14 +340,6 @@ function transformCourseProfile(input) {
   let source = normalizeText(input);
   source = exactReplace(source, "      embeddings: true", "      embeddings: false", "static embeddings capability");
   source = exactReplace(source, "      semanticSearch: true", "      semanticSearch: false", "static semantic-search capability");
-  source = exactReplace(source, "      skillCompass: true", "      skillCompass: false", "static skill-compass capability");
-  source = replaceBetween(
-    source,
-    "    skillCompass: {",
-    "    platforms: {",
-    "    skillCompass: null,\n",
-    "static skill-compass configuration"
-  );
   source = replaceBetween(
     source,
     "    platforms: {",
@@ -1284,6 +1276,8 @@ function assertNoServerOrModelBoundary(outputDir, files) {
     /(^|\/)source\/features\/home\/home\.css$/iu,
     /(^|\/)source\/games\/verb-nebula\/app\.(?:css|js)$/iu,
     /(^|\/)source\/shared\/(?:chrome\.(?:css|js)|learning-profile\.js|theme\.css)$/iu,
+    /(^|\/)source\/shared\/semantic-learning(?:-core)?\.(?:js|mjs)$/iu,
+    /(^|\/)practice-map-capture\.(?:html|mjs)$/iu,
     /(^|\/)language-runtime\/static\/styles\/course-shell\.css$/iu
   ];
   for (const path of files) {
@@ -1481,8 +1475,8 @@ function assertGameBoundary(outputDir, workspaceRoot) {
   const courseProfile = readText(join(outputDir, "cz/source/shared/course-profile.js"));
   assert.match(courseProfile, /embeddings:\s*false/u);
   assert.match(courseProfile, /semanticSearch:\s*false/u);
-  assert.match(courseProfile, /skillCompass:\s*false/u);
-  assert.match(courseProfile, /skillCompass:\s*null/u);
+  assert.doesNotMatch(courseProfile, /\b(?:skillCompass|semanticLearningProvider)\s*:/u,
+    "Stats definitions and providers belong to the shared runtime");
   assert.doesNotMatch(courseProfile, /\/android\//u);
   const runtime = readText(join(outputDir, "cz/source/shared/runtime.js"));
   assert.match(runtime, /runtime: "static-keymap-only"/u);
@@ -1536,8 +1530,8 @@ export function validateStaticSite({
   assert.match(course, /embeddings: false/u);
   assert.match(course, /offlineModels: false/u);
   assert.match(course, /semanticSearch: false/u);
-  assert.match(course, /skillCompass: false/u);
-  assert.match(course, /skillCompass: null/u);
+  assert.doesNotMatch(course, /\b(?:skillCompass|semanticLearningProvider)\s*:/u,
+    "Static course profiles must not restore course-specific Stats configuration");
   const registry = JSON.parse(readText(join(resolvedOutput, "languages.json")));
   const czech = registry.languages.find((language) => language.id === "cz");
   assert.ok(czech?.platforms?.browser?.enabled);

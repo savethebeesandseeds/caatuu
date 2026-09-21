@@ -36,6 +36,23 @@ test("static compiler closes the complete Pages payload", { timeout: 300_000 }, 
       assert.ok(!manifest.files.some(({ path }) => path === androidInstallerAsset),
         `${androidInstallerAsset} requires the APK registry and must not enter Pages`);
     }
+    for (const excludedStatsAsset of [
+      "cz/source/shared/semantic-learning.js",
+      "cz/source/shared/semantic-learning-core.mjs",
+      "language-runtime/static/practice-map-capture.html",
+      "language-runtime/static/source/practice-map-capture.mjs"
+    ]) {
+      assert.ok(!manifest.files.some(({ path }) => path === excludedStatsAsset),
+        `${excludedStatsAsset} is obsolete or local-only and must not enter Pages`);
+    }
+    const profile = JSON.parse(readFileSync(join(outputDir, "cz/caatuu-profile.json"), "utf8"));
+    assert.equal(profile.capabilities.stats, true, "Shared Stats remains available in the model-free static core");
+    assert.equal(profile.capabilities.embeddings, false);
+    const courseProfile = readFileSync(join(outputDir, "cz/source/shared/course-profile.js"), "utf8");
+    assert.doesNotMatch(courseProfile, /\b(?:skillCompass|semanticLearningProvider)\s*:/u);
+    const bootstrap = readFileSync(join(outputDir, "language-runtime/static/source/app-bootstrap.mjs"), "utf8");
+    assert.match(bootstrap, /import\s+\{[^}]*createPracticeCompass[^}]*\}\s+from\s+["']\.\/practice-compass\.mjs(?:\?[^"']*)?["']/u);
+    assert.match(bootstrap, /loadSharedScript\(["']\/language-runtime\/static\/source\/semantic-learning\.js(?:\?[^"']*)?["']\)/u);
     assert.equal(built.totalBytes, manifest.files.reduce((sum, file) => sum + file.bytes, 0)
       + statSync(join(outputDir, "caatuu-web-bundle.json")).size);
     const setup = JSON.parse(readFileSync(join(outputDir, "cz/setup-assets.json"), "utf8"));
@@ -73,6 +90,9 @@ test("static compiler closes the complete Pages payload", { timeout: 300_000 }, 
         "Music must download during setup instead of root worker precache");
     }
     for (const sharedAsset of [
+      "/language-runtime/static/source/practice-compass.mjs",
+      "/language-runtime/static/source/semantic-learning.js",
+      "/language-runtime/static/source/semantic-learning-core.mjs",
       "/language-runtime/static/source/course-setup.mjs",
       "/language-runtime/static/source/word-world-provider.mjs",
       "/language-runtime/static/source/product-word-world.mjs",
@@ -84,6 +104,7 @@ test("static compiler closes the complete Pages payload", { timeout: 300_000 }, 
       "/language-runtime/static/source/developer-tools/browser-model-service.mjs",
       "/language-runtime/static/styles/caatuu-developer-tools.css"
     ]) {
+      assert.ok(manifest.files.some(({ path }) => path === sharedAsset.slice(1)), `${sharedAsset} must enter the shared bundle`);
       assert.ok(serviceWorker.includes(JSON.stringify(sharedAsset)), `${sharedAsset} must be available on the first offline return`);
     }
   } finally {

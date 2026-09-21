@@ -3,6 +3,7 @@ import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
 import * as contentProgression from "../../../language-runtime/static/source/games/content-progression.mjs";
+import * as adaptivePractice from "../../../language-runtime/static/source/games/adaptive-practice.mjs";
 import { createBrowserHarness } from "../../../language-runtime/tests/helpers/fake-browser.mjs";
 import { mountRobotLoadingScreen } from "../../../language-runtime/static/source/games/embedded-game-controls.mjs";
 
@@ -91,9 +92,9 @@ function createLoadingHarness({ fetchImpl = async () => ({ ok: true, json: async
   harness.document.querySelectorAll = (selector) => harness.registry.querySelectorAll(selector).filter((node) => node.isConnected);
   harness.document.querySelector = (selector) => harness.document.querySelectorAll(selector)[0] || null;
   harness.context.nucleusLoadingModule = loadingModule;
-  harness.context.nucleusProgressionModule = contentProgression;
+  harness.context.nucleusProgressionModule = adaptivePractice;
   vm.runInContext(controller.replace(/import\("\/language-runtime\/static\/source\/games\/embedded-game-controls\.mjs\?v=[^"]+"\)/u,
-    "Promise.resolve(nucleusLoadingModule)").replace(/import\("\/language-runtime\/static\/source\/games\/content-progression\.mjs"\)/u,
+    "Promise.resolve(nucleusLoadingModule)").replace(/import\("\/language-runtime\/static\/source\/games\/adaptive-practice\.mjs"\)/u,
     "Promise.resolve(nucleusProgressionModule)"), harness.context);
   async function advance(milliseconds) {
     const until = now + milliseconds;
@@ -258,9 +259,9 @@ test("Nucleus shares daily exposure for exploration while retaining direction-sp
   const directional = { [second.id]: { exposures: 2, practiceDays: 2,
     lastPracticeDayAt: "2026-09-10T09:00:00Z", independentSuccesses: 1 } };
   const histories = [];
-  fixture.context.nucleusProgressionModule = { ...contentProgression, selectContentItems(items, options) {
+  fixture.context.nucleusProgressionModule = { ...adaptivePractice, selectContentItems(items, options) {
     histories.push(options.history);
-    return contentProgression.selectContentItems(items, options);
+    return adaptivePractice.selectContentItems(items, options);
   } };
   fixture.window.CaatuuLearning = { difficulty: () => 1,
     contentHistory: (_game, bank) => bank ? directional : common,
