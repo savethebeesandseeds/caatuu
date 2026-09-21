@@ -2,6 +2,7 @@
   "schemaVersion": 1,
   "appEntry": "apps/language-runtime/static/app/index.html",
   "assets": [
+    { "source": "apps/language-runtime/static/assets/initial-image.png", "output": "language-runtime/static/assets/initial-image.png" },
     { "source": "apps/language-runtime/static/source/practice-compass.mjs", "output": "language-runtime/static/source/practice-compass.mjs" },
     { "source": "apps/language-runtime/static/source/semantic-learning.js", "output": "language-runtime/static/source/semantic-learning.js" },
     { "source": "apps/language-runtime/static/source/semantic-learning-core.mjs", "output": "language-runtime/static/source/semantic-learning-core.mjs" },

@@ -5,6 +5,20 @@ governed beta or stable release.
 
 ## Unreleased
 
+### Android 0.1.25 (177): clearer startup, working updates and persistent game settings
+
+- Add an illustrated loading screen and wait for app controls and the first
+  voice check before showing Home as ready. Successful pronunciation clears
+  voice warnings even when the browser does not list its device-default voice.
+- Keep confirmed Home and Settings updates downloading while background checks
+  run, with shared progress through verification and installer handoff.
+- Remember Sounds Quasar's words or sentences setting per course and cover
+  Word World transitions immediately so the next challenge cannot appear early.
+- Simplify the practice Stats layout, clarify its legend and help, and compact
+  the learning-goal selector while preserving recorded learning evidence.
+- Physical-device installation, update, voice playback and offline behavior
+  remain unverified for this candidate. Course review status is unchanged.
+
 ### Android 0.1.24 (176): shared practice Stats and adaptive learning
 
 - Use the same seven-topic practice polygon and detailed practice counts in all

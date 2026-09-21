@@ -76,6 +76,7 @@
   let progressSaveFailed = false;
   let browserSpeechVoiceEventsBound = false;
   let activeBrowserSpeechSession = null;
+  let lastSpeechPlayback = null;
   const defaultSpeechVolume = 0.5;
   let speechVolumeFallback = defaultSpeechVolume;
   let lastAudibleSpeechVolume = defaultSpeechVolume;
@@ -1154,6 +1155,7 @@
 
   function writeStoredSpeechVoice(value) {
     const normalized = normalizeStoredSpeechVoice(value);
+    if (normalized !== readStoredSpeechVoice()) lastSpeechPlayback = null;
     try {
       if (normalized) localStorage.setItem(speechVoiceStorageKey, normalized);
       else localStorage.removeItem(speechVoiceStorageKey);
@@ -1464,10 +1466,14 @@
       ? speechStatus.localVoiceAvailable
       : voices.some((voice) => voice.localService);
     const reason = String(speechStatus.reason || "");
+    const playbackStatus = lastSpeechPlayback?.backend === backend
+      && lastSpeechPlayback.preference === readStoredSpeechVoice()
+      ? lastSpeechPlayback.status : "unchecked";
     return {
       backend,
-      available,
-      reason,
+      available: available || playbackStatus === "confirmed",
+      reason: playbackStatus === "confirmed" ? "" : reason,
+      playbackStatus,
       activeVoice,
       activeVoiceLocal: speechStatus.localService === true,
       localVoiceAvailable,
@@ -1510,6 +1516,12 @@
   }
 
   function describeSpeechVoiceState(result) {
+    if (result.playbackStatus === "confirmed") {
+      return interfaceMessage("speech.voice.playbackconfirmed", { language: targetLanguageName });
+    }
+    if (result.playbackStatus === "failed") {
+      return interfaceMessage("speech.voice.deviceplaybackfailed", { language: targetLanguageName });
+    }
     if (result.unavailablePreference) {
       const activeName = speechVoiceName(result, result.activeVoice);
       return activeName
@@ -1536,6 +1548,9 @@
     }
     if (result.backend === "android") {
       return interfaceMessage("speech.voice.devicenotready", { language: targetLanguageName });
+    }
+    if (result.available) {
+      return interfaceMessage("speech.voice.browserunverified", { language: targetLanguageName });
     }
     return interfaceMessage("speech.voice.browsermissing", { language: targetLanguageName });
   }
@@ -1595,6 +1610,32 @@
     if (normalizedText.length > 1_000) {
       throw new Error(interfaceMessage("speech.text.toolong", { language: targetLanguageName, count: 1000 }));
     }
+    const backend = speechVoiceBackend();
+    const preference = readStoredSpeechVoice();
+    const record = (status) => {
+      // Keep evidence local to this course, backend and current voice selection.
+      // A late completion from a previous selection must not validate the new one.
+      if (backend !== speechVoiceBackend() || preference !== readStoredSpeechVoice()) return;
+      if (options.voice != null && String(options.voice).trim() !== getSpeechVoicePreference()) return;
+      lastSpeechPlayback = { backend, preference, status };
+      window.dispatchEvent(new CustomEvent("caatuu:speech-playback-state", {
+        detail: { backend, locale: speechLocale, status }
+      }));
+    };
+    try {
+      const result = await performSpeech(normalizedText, options);
+      if (result?.outcome === "completed") record("confirmed");
+      else if (result?.outcome === "error") record("failed");
+      return result;
+    } catch (error) {
+      if (error?.name !== "AbortError" && !/^(canceled|cancelled|interrupted)$/iu.test(String(error?.message))) {
+        record("failed");
+      }
+      throw error;
+    }
+  }
+
+  async function performSpeech(normalizedText, options) {
     const locale = speechLocale;
     const rate = clampSpeechControl(options.rate, 0.5, 1.5, resolveSpeechPace().rate);
     const pitch = clampSpeechControl(options.pitch, 0.5, 1.5, 1);

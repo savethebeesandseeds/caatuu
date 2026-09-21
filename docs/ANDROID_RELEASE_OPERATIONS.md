@@ -220,6 +220,16 @@ executable regression, and update this runbook plus adjacent tooling details
 when behavior changes. Avoid a parallel repair script or a session-only command
 sequence. Preserve useful recovery artifacts; cleanup needs separate authority.
 
+Home and Settings update regressions can be checked without building an APK:
+`shared-maintenance-runtime.test.mjs` and `maintenance-ui.test.mjs` exercise the
+shared controller against a simulated native bridge. They reproduce a user
+Update action being lost during a background check, and transfer progress being
+replaced by “Checking for updates”. Keep confirmation/download ownership separate
+from metadata checks, preserve progress across Settings and resume events, and
+accept the native verified installer result without a second network gate.
+These source tests do not verify a download on an installed phone; check that
+separately when the corrected sources are included in a later APK.
+
 Android 169 (`0.1.17`, source `f66f1e7f423dc87a69195ac288d489003013502a`)
 introduced selected-course delivery but also redirected every launch to a
 separate basic setup page. The follow-up restores the canonical illustrated

@@ -162,7 +162,7 @@
     return latest > current;
   }
 
-  function setUpdateAppControl(button, runtime, status, { busy = false, checked = false } = {}) {
+  function setUpdateAppControl(button, runtime, status, { busy = false, checked = false, phase = "" } = {}) {
     if (!button) return;
     const native = runtime?.env === "android";
     const available = native ? hasNativeAppUpdate(status) : status?.updateAvailable === true;
@@ -173,15 +173,17 @@
     const latestName = String(status?.latestVersionName || "").trim();
     const currentName = String(status?.currentVersionName || "").trim();
     const statusProblem = status?.serverReachable === false || Boolean(status?.updateError);
+    const operationLabel = phase === "preparing" ? t("maintenance.progress.preparing")
+      : phase === "verifying" ? t("maintenance.progress.verifying") : "";
     const label = button.querySelector("[data-app-update-label]") || button;
-    label.textContent = !native && !busy ? t("settings.update.title") : busy
+    label.textContent = operationLabel || (available && downloadState === "active"
+      ? t("maintenance.action.downloading", { percent: updateDownloadPercent(status).toFixed(0) })
+      : !native && !busy ? t("settings.update.title") : busy
       ? t("maintenance.action.checking")
       : available && downloadState === "ready"
         ? latestName
           ? t("maintenance.action.installversion", { version: latestName })
           : t("maintenance.action.installupdate")
-        : available && downloadState === "active"
-          ? t("maintenance.action.downloading", { percent: updateDownloadPercent(status).toFixed(0) })
         : available && downloadState === "partial"
           ? t("maintenance.action.resume")
           : available && downloadState === "failed"
@@ -194,7 +196,7 @@
               ? t("maintenance.action.retrycheck")
               : checked
                 ? t("maintenance.action.uptodate")
-                : t("maintenance.action.check");
+                : t("maintenance.action.check"));
     button.setAttribute("aria-disabled", button.disabled ? "true" : "false");
     button.setAttribute("aria-busy", busy ? "true" : "false");
     button.classList?.toggle("is-busy", busy);
@@ -207,15 +209,12 @@
         if (!native) { copy.textContent = t("maintenance.browser.description"); return; }
         const latestDisplay = latestName || status?.downloadedVersionName || status?.latestVersionCode || t("maintenance.version.new");
         const currentDisplay = currentName || status?.currentVersionCode || t("maintenance.version.unknownvalue");
-        copy.textContent = busy
+        copy.textContent = operationLabel || (available && downloadState === "active"
+          ? t("maintenance.copy.downloading", { version: latestDisplay, percent: updateDownloadPercent(status).toFixed(0) })
+          : busy
           ? t("maintenance.copy.contacting")
           : available && downloadState === "ready"
             ? t("maintenance.copy.ready", { version: latestDisplay })
-            : available && downloadState === "active"
-              ? t("maintenance.copy.downloading", {
-                version: latestName || status?.latestVersionCode || t("maintenance.version.new"),
-                percent: updateDownloadPercent(status).toFixed(0)
-              })
             : available && downloadState === "partial"
               ? t("maintenance.copy.partial", {
                 percent: updateDownloadPercent(status).toFixed(0),
@@ -234,7 +233,7 @@
                     ? t("maintenance.copy.current", {
                       version: currentName || status?.currentVersionCode || t("maintenance.version.thisversion")
                     })
-                    : t("maintenance.copy.installed", { version: currentDisplay });
+                    : t("maintenance.copy.installed", { version: currentDisplay }));
       }
     }
   }
@@ -245,6 +244,9 @@
     let currentStatus = null;
     let checkedAt = 0;
     let inFlight = null;
+    let activation = null;
+    let phase = "";
+    let currentMessage = "";
     let confirmedCurrent = false;
     let activePoll = null;
     const serviceWorker = runtime.env === "android" ? null : window.navigator?.serviceWorker;
@@ -289,7 +291,7 @@
     function scheduleActivePoll(status) {
       if (activePoll !== null) window.clearTimeout(activePoll);
       activePoll = null;
-      if (runtime.env !== "android" || window.CaatuuCourse?.browserProviders?.setupProvider
+      if (runtime.env !== "android" || phase
         || updateDownloadState(status) !== "active" || document.visibilityState === "hidden") return;
       activePoll = window.setTimeout?.(() => {
         activePoll = null;
@@ -300,12 +302,13 @@
     const statusNode = () => document.querySelector("#maintenanceStatus");
     const versionNode = () => document.querySelector("#settingsVersion");
     const setMessage = (message) => {
+      currentMessage = message;
       const node = statusNode();
       if (node) { node.textContent = message; node.hidden = !message; }
       const homeStatus = document.querySelector("#homeUpdateStatus");
       if (homeStatus) { homeStatus.textContent = message; homeStatus.hidden = !message; }
     };
-    const render = (status = currentStatus, { busy = false } = {}) => {
+    const render = (status = currentStatus, { busy = Boolean(inFlight || phase) } = {}) => {
       scheduleActivePoll(status);
       buttons().forEach((button) => {
         // Settings is created lazily, after the Home control may already exist.
@@ -315,6 +318,7 @@
         }
         setUpdateAppControl(button, runtime, status || { updateAvailable: false }, {
           busy,
+          phase,
           checked: confirmedCurrent
         });
       });
@@ -323,16 +327,19 @@
       }
       const browserInstall = document.querySelector("#browserInstallActions");
       if (browserInstall) browserInstall.hidden = runtime.env === "android";
+      setMessage(currentMessage);
     };
 
     async function refresh({ force = false, announce = true } = {}) {
+      // A live update owns its progress. Opening Settings or resuming the app
+      // must not replace it with a metadata check or re-enable another action.
+      if (phase) { render(); return currentStatus; }
+      if (inFlight) return inFlight;
       if (!force && currentStatus && Date.now() - checkedAt < UPDATE_STATUS_FRESH_MS) {
         render(currentStatus);
         if (announce && runtime.env === "android") setMessage(updateStatusLine(currentStatus));
         return currentStatus;
       }
-      if (inFlight) return inFlight;
-
       confirmedCurrent = false;
       render(currentStatus || { updateAvailable: false, selfUpdateEnabled: true }, { busy: true });
       if (announce) setMessage(t("maintenance.status.checkingserver"));
@@ -343,7 +350,7 @@
           confirmedCurrent = !hasNativeAppUpdate(status)
             && status?.serverReachable !== false
             && !status?.updateError;
-          render(status);
+          render(status, { busy: false });
           if (status?.currentVersionName || status?.currentVersionCode) setVersionNote(versionNode(), status);
           if (announce && runtime.env === "android") setMessage(updateStatusLine(status));
           return status;
@@ -356,7 +363,7 @@
             updateError: error?.message || String(error)
           };
           confirmedCurrent = false;
-          render(currentStatus);
+          render(currentStatus, { busy: false });
           if (announce) setMessage(t("maintenance.copy.checkfailed"));
           return currentStatus;
         })
@@ -366,23 +373,36 @@
       return inFlight;
     }
 
-    async function activate() {
-      if (inFlight) return inFlight;
+    function activate() {
+      if (activation) return activation;
+      activation = runActivation().finally(() => {
+        activation = null;
+        phase = "";
+        render();
+      });
+      return activation;
+    }
+
+    async function runActivation() {
       if (runtime.env !== "android") {
         if (!currentStatus?.updateAvailable) return refresh({ force: true, announce: false });
-        render(currentStatus, { busy: true });
+        // Finish a background check before giving the update exclusive UI ownership.
+        if (inFlight) await inFlight;
+        phase = "updating";
+        render();
         setMessage(t("maintenance.action.checking"));
-        inFlight = Promise.resolve().then(() => runtime.maintenance.updateApp())
+        return Promise.resolve().then(() => runtime.maintenance.updateApp())
           .then((result) => {
             setMessage(t(result?.offline ? "maintenance.browser.offline" : "maintenance.browser.checked"));
             return result;
-          }).catch(() => setMessage(t("maintenance.copy.checkfailed")))
-          .finally(() => { inFlight = null; render(); });
-        return inFlight;
+          }).catch(() => setMessage(t("maintenance.copy.checkfailed")));
       }
-      const status = await refresh({ force: true, announce: true });
-      if (!hasNativeAppUpdate(status)) return status;
+      // Reuse a recent or pending check; a click must continue after that check,
+      // rather than silently becoming another check-only action.
+      const status = await refresh({ announce: true });
+      if (!hasNativeAppUpdate(status) || updateDownloadState(status) === "active") return status;
 
+      phase = "confirming";
       setMessage(t("maintenance.status.readyforconfirmation", {
         version: status.latestVersionName || status.latestVersionCode || t("maintenance.version.available")
       }));
@@ -391,29 +411,41 @@
         setMessage(t("maintenance.status.postponed"));
         return status;
       }
-      render(status, { busy: true });
-      if (!window.CaatuuCourse?.browserProviders?.setupProvider) {
-        // Courses without a setup provider must complete the confirmed update here.
-        inFlight = runtime.maintenance.updateApp({
+      phase = "preparing";
+      render();
+      setMessage(t("maintenance.progress.preparing"));
+      try {
+        // APK updates use the same native operation for every course. Reloading
+        // Home to hand off the confirmation adds checks and can lose the action.
+        const result = await runtime.maintenance.updateApp({
           onEvent(message) {
+            if (message.kind === "progress" && message.phase === "download") {
+              const bytes = Math.max(0, Number(message.bytes) || 0);
+              const totalBytes = Math.max(0, Number(message.totalBytes) || 0);
+              phase = totalBytes > 0 && bytes >= totalBytes ? "verifying" : "downloading";
+              currentStatus = { ...status, downloadActive: true, downloadReady: false, readyToInstall: false,
+                downloadState: "downloading", partialBytes: bytes, latestBytes: totalBytes, downloadProgress: 0 };
+              render();
+            }
             const progress = updateProgressMessage(message, (bytes) => `${Math.round(Number(bytes || 0) / 1048576)} MB`);
-            if (progress) setMessage(progress);
+            if (phase === "verifying") setMessage(t("maintenance.progress.verifying"));
+            else if (progress) setMessage(progress);
           }
-        }).then(async (result) => {
-          try { currentStatus = await runtime.maintenance.updateStatus(); }
-          catch { currentStatus = status; } // Opening the installer remains a success if a later check fails.
-          render(currentStatus);
-          setMessage(updateResultMessage(result));
-          return result;
-        }).catch(() => {
-          render(status);
-          setMessage(t("maintenance.copy.failed"));
-        }).finally(() => { inFlight = null; });
-        return inFlight;
+        });
+        // Completion already means native verification and installer handoff
+        // succeeded. Do not block that result on another network request.
+        const downloadedVersionCode = result.downloadedVersionCode || status.latestVersionCode;
+        const downloadedVersionName = result.downloadedVersionName || status.latestVersionName;
+        currentStatus = { ...status, ...result, downloadActive: false, downloadReady: true, readyToInstall: true,
+          downloadState: "ready", downloadedVersionCode, downloadedVersionName,
+          latestVersionCode: downloadedVersionCode, latestVersionName: downloadedVersionName };
+        checkedAt = Date.now();
+        setMessage(updateResultMessage(result));
+        return result;
+      } catch {
+        currentStatus = status;
+        setMessage(t("maintenance.copy.failed"));
       }
-      setMessage(t("maintenance.status.openingsetup"));
-      beginAppUpdate(status);
-      return status;
     }
 
     render({ updateAvailable: false, selfUpdateEnabled: runtime.env === "android" });

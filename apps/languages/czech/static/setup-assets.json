@@ -9,6 +9,7 @@
     "cacheName": "caatuu-czech-pwa-v717",
     "cachePrefix": "caatuu-czech-pwa-",
     "assets": [
+      "/language-runtime/static/assets/initial-image.png",
       "/language-runtime/static/source/practice-compass.mjs?v=practice-compass-4",
       "/language-runtime/static/source/image-embedding-index.mjs?v=image-index-runtime-1",
       "/language-runtime/static/data/image-embeddings/minilm-v1.json?v=image-index-1",

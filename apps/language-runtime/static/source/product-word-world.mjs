@@ -2811,63 +2811,67 @@ async function generateStandardFromConfiguredMode(mode = state.generationMode, {
     setStatus(interfaceText("wordworld.generation.selectfirst"), { tone: "muted" });
     return;
   }
-  const phraseRequestId = state.phraseRequestId;
-  const provider = state.standardProvider || await initializeStandardCorpus();
-  if (state.contentMode !== "standard" || phraseRequestId !== state.phraseRequestId) return;
-  if (!provider) {
-    setStatus(state.standardCorpusError || interfaceText("wordworld.standard.unavailable"), { tone: "error" });
-    return;
-  }
-  const difficulty = learningDifficulty();
-  const englishQuery = mode === "selected" ? selectedEnglishSemanticQuery() : "";
-  const ownsSemanticBusy = Boolean(
-    mode === "selected" && englishQuery && typeof providerContext?.searchEnglish === "function" && !state.busy
-  );
-  if (ownsSemanticBusy) {
-    setBusy(true);
-    setStatus(interfaceText("wordworld.standard.rankingenglish"), { tone: "active" });
-  }
-  const outcome = await runOwnedSemanticSelection({
-    select: () => selectStandardTurn(provider, {
-      generationMode: mode,
-      selectedWord: state.selectedWord,
-      difficulty,
-      excludeIds: mode === "selected" ? [state.currentEntryId].filter(Boolean) : recentStandardEntryIds(),
-      allowSelectedRandomFallback: false,
-      englishQuery,
-      searchEnglish: providerContext?.searchEnglish,
-      searchKey: providerContext?.normalization?.searchKey
-    }),
-    canPresent: () => state.contentMode === "standard" && phraseRequestId === state.phraseRequestId,
-    async present(selection) {
-      state.semanticSelectionMode = mode === "selected" ? selection.semanticMode || "provider" : "";
-      await showStandardPhrase(selection, { difficulty });
-    },
-    releaseBusy() {
-      if (ownsSemanticBusy && state.busy) setBusy(false);
-    },
-    onSelectionError(error) {
-      state.semanticSelectionMode = mode === "selected" ? "provider" : "";
-      console.warn("Word World sentence selection failed.", error);
-      setStatus(interfaceText("wordworld.standard.selectionfailed"), { tone: "error" });
-    }
-  });
-  if (outcome.error || outcome.skipped || outcome.presented) return;
-  const selection = outcome.selection;
-  state.semanticSelectionMode = mode === "selected" ? selection?.semanticMode || "provider" : "";
-  if (!selection?.record) {
-    if (mode === "selected") {
-      setStatus(
-        interfaceText("wordworld.standard.nomatching", {
-          level: difficulty,
-          word: state.selectedWord
-        }),
-        { tone: "active" }
-      );
+  // Claim navigation before any provider or selection await, including random
+  // turns. Otherwise repeated Next/swipe actions can queue competing rounds.
+  const phraseRequestId = ++state.phraseRequestId;
+  const ownsSelectionBusy = !state.busy;
+  if (ownsSelectionBusy) setBusy(true);
+  const isCurrent = () => state.contentMode === "standard" && phraseRequestId === state.phraseRequestId;
+  try {
+    const provider = state.standardProvider || await initializeStandardCorpus();
+    if (!isCurrent()) return;
+    if (!provider) {
+      setStatus(state.standardCorpusError || interfaceText("wordworld.standard.unavailable"), { tone: "error" });
       return;
     }
-    setStatus(interfaceText("wordworld.standard.none", { level: difficulty }), { tone: "error" });
-    return;
+    const difficulty = learningDifficulty();
+    const englishQuery = mode === "selected" ? selectedEnglishSemanticQuery() : "";
+    if (mode === "selected" && englishQuery && typeof providerContext?.searchEnglish === "function") {
+      setStatus(interfaceText("wordworld.standard.rankingenglish"), { tone: "active" });
+    }
+    const outcome = await runOwnedSemanticSelection({
+      select: () => selectStandardTurn(provider, {
+        generationMode: mode,
+        selectedWord: state.selectedWord,
+        difficulty,
+        excludeIds: mode === "selected" ? [state.currentEntryId].filter(Boolean) : recentStandardEntryIds(),
+        allowSelectedRandomFallback: false,
+        englishQuery,
+        searchEnglish: providerContext?.searchEnglish,
+        searchKey: providerContext?.normalization?.searchKey
+      }),
+      canPresent: isCurrent,
+      async present(selection) {
+        state.semanticSelectionMode = mode === "selected" ? selection.semanticMode || "provider" : "";
+        await showStandardPhrase(selection, { difficulty });
+      },
+      onSelectionError(error) {
+        if (!isCurrent()) return;
+        state.semanticSelectionMode = mode === "selected" ? "provider" : "";
+        console.warn("Word World sentence selection failed.", error);
+        setStatus(interfaceText("wordworld.standard.selectionfailed"), { tone: "error" });
+      }
+    });
+    if (!isCurrent() || outcome.error || outcome.skipped || outcome.presented) return;
+    const selection = outcome.selection;
+    state.semanticSelectionMode = mode === "selected" ? selection?.semanticMode || "provider" : "";
+    if (!selection?.record) {
+      if (mode === "selected") {
+        setStatus(
+          interfaceText("wordworld.standard.nomatching", {
+            level: difficulty,
+            word: state.selectedWord
+          }),
+          { tone: "active" }
+        );
+        return;
+      }
+      setStatus(interfaceText("wordworld.standard.none", { level: difficulty }), { tone: "error" });
+    }
+  } finally {
+    // Presentation takes ownership with a new request ID. A cancelled request
+    // must never unlock a newer round that is still being prepared.
+    if (ownsSelectionBusy && isCurrent() && state.busy) setBusy(false);
   }
 }
 
@@ -4481,9 +4485,9 @@ function setBusy(busy, { cover = busy, immediate = false } = {}) {
     if (cover) {
       state.loadingScreen?.show();
       syncRobotLoadingActivity();
-      window.requestAnimationFrame(() => {
-        if (state.busy && !loading.hidden) loading.classList.add("is-visible");
-      });
+      // Cover the old round before rendering the next one. Fading in exposed
+      // the new prompt and navigation underneath the loading screen.
+      loading.classList.add("is-visible");
     } else if (immediate) {
       loading.classList.remove("is-visible");
       state.loadingScreen?.hide();
@@ -5840,6 +5844,7 @@ function bindUi() {
       || event.isPrimary === false
       || (event.pointerType && event.pointerType !== "touch")
       || isReservedEdgeGesture(event.clientX, window.innerWidth)
+      || event.target.closest(".word-net-loading")
       || event.target.closest("button, a, input, select, textarea, dialog")
     ) return;
     state.swipeStart = {

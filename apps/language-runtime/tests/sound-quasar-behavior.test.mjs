@@ -1314,6 +1314,39 @@ for (const language of ["czech", "mandarin-simplified", "spanish"]) {
   });
 }
 
+test("listening mode survives closing and reopening, independently for each course", async () => {
+  const first = await mountGame();
+  first.click(first.element("Sentences"));
+  first.click(first.element("SixChoices"));
+  const stored = first.parent.localStorage.snapshot();
+  first.controller.destroy();
+  const reopened = await mountGame({ localStorageValues: stored });
+  assert.equal(reopened.element("Game").dataset.mode, "sentences");
+  assert.equal(reopened.element("Sentences").getAttribute("aria-pressed"), "true");
+  assert.equal(reopened.choices().length, 6);
+  await reopened.listen();
+  assert.ok(reopened.catalog.sentences.some(item => item.id === reopened.current().id));
+  reopened.click(reopened.element("Words"));
+  const words = reopened.parent.localStorage.snapshot();
+  reopened.controller.destroy();
+  for (const options of [{ localStorageValues: words }, { language: "czech", localStorageValues: stored }]) {
+    const game = await mountGame(options);
+    assert.equal(game.element("Game").dataset.mode, "words");
+    game.noCredit();
+    game.controller.destroy();
+  }
+});
+
+test("invalid or inaccessible listening preferences keep a playable session", async () => {
+  const game = await mountGame({ localStorageValues: { "caatuu-zh.soundQuasar.mode.v1": "invalid" } });
+  assert.equal(game.element("Game").dataset.mode, "words");
+  game.shell.localStorage.setItem = () => { throw new Error("Storage unavailable"); };
+  game.click(game.element("Sentences"));
+  assert.equal(game.element("Game").dataset.mode, "sentences");
+  game.noCredit();
+  game.controller.destroy();
+});
+
 test("six-answer preference survives remounting and safely falls back for smaller catalogs", async () => {
   const key = "caatuu-zh.soundQuasar.choiceCount.v1";
   const game = await mountGame({ localStorageValues: { [key]: "6" } });

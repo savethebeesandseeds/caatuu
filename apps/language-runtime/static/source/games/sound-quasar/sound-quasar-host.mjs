@@ -76,7 +76,9 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     }, 1200);
   }
   const choiceCountKey = `${course.storage?.namespace || course.id}.soundQuasar.choiceCount.v1`;
+  const modeKey = `${course.storage?.namespace || course.id}.soundQuasar.mode.v1`;
   try { if (shell.localStorage?.getItem(choiceCountKey) === "6") state.choiceCount = 6; } catch { /* Keep the session default when storage is unavailable. */ }
+  try { if (shell.localStorage?.getItem(modeKey) === "sentences") state.mode = "sentences"; } catch { /* Keep the session default when storage is unavailable. */ }
   const disposers = [];
   const listen = (target, event, handler) => {
     target?.addEventListener?.(event, handler);
@@ -469,6 +471,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     const mode = event.target?.closest?.("button[data-mode]")?.dataset.mode;
     if (!state.active || state.destroyed || !["words", "sentences"].includes(mode) || mode === state.mode) return;
     state.mode = mode;
+    try { shell.localStorage?.setItem(modeKey, mode); } catch { /* Keep the session choice when storage is unavailable. */ }
     state.pendingAutoplay = false;
     controls.close();
     startSession();

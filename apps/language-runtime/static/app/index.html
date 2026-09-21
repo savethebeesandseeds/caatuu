@@ -21,8 +21,12 @@
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-word-world.css?v=word-net-93">
     <link rel="stylesheet" href="/language-runtime/static/styles/games/embedded-game-controls.css?v=embedded-game-controls-9">
   </head>
-  <body class="games-page setup-blocked">
-    <div class="app-shell">
+  <body class="games-page setup-blocked app-loading">
+    <div class="app-loading-screen" id="appLoadingScreen" role="status" aria-live="polite">
+      <img src="/language-runtime/static/assets/initial-image.png" width="400" height="400" alt="" fetchpriority="high">
+      <p data-i18n="app.loading">Caatuu is loading…</p>
+    </div>
+    <div class="app-shell" inert>
       <header class="app-header" data-caatuu-app-header data-caatuu-page-kicker="Caatuu" data-caatuu-page-title="Home" data-caatuu-page-icon="/assets/icons/home_icon.png"></header>
 
       <main class="workspace">
@@ -100,6 +104,9 @@
                   <div>
                     <p class="home-kicker" data-i18n="setup.local">Local setup</p>
                     <h2 id="setupTitle" data-i18n="setup.preparing">Preparing Caatuu</h2>
+                    <span class="setup-voice-warning" id="setupVoiceWarning" role="img" aria-label="Voice needs checking" data-i18n-aria-label="setup.voice.warning" hidden>
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.3 4.2a2 2 0 0 1 3.4 0l8 13.8a2 2 0 0 1-1.7 3H4a2 2 0 0 1-1.7-3Z"/><path d="M12 9v4m0 3v.1"/></svg>
+                    </span>
                   </div>
                   <div class="setup-head-meta">
                     <button class="setup-detail-link" id="setupDetailsToggle" type="button" aria-expanded="false" aria-controls="setupDetails" data-i18n="setup.details.show">Show details</button>

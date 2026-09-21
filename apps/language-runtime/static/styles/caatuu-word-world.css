@@ -1709,12 +1709,13 @@ html[data-theme="dark"] .word-net-report-toggle {
 
 .word-net-loading {
   opacity: 0;
-  pointer-events: none;
+  pointer-events: auto;
   transition: opacity 240ms ease;
 }
 
 .word-net-loading.is-visible {
   opacity: 1;
+  transition: none;
 }
 
 .word-net-loading[hidden],

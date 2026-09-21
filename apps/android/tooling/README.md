@@ -601,6 +601,13 @@ Gradle.
 
 ## Update channel contract
 
+Home and Settings share the maintenance controller. A confirmed APK update runs
+directly through `update_app` for every course, without reloading Home for setup.
+Background metadata checks cannot replace an active transfer or discard a user
+action. Native progress drives both controls through preparation, download and
+verification; native completion supplies the verified version and installer result.
+The legacy persisted setup handoff remains readable for older entrypoints.
+
 - `caatuu-debug.apk` is the frozen version 161 compatibility artifact, not a
   current development channel.
 - `publish-release.sh` creates the local `caatuu.apk` and `caatuu.json` aliases.

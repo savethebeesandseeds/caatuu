@@ -148,6 +148,85 @@ test("speech pace migrates from the course key and subsequent choices use global
   assert.equal(browser.storedValue(legacyPaceKey), "slow", "migration must not rewrite course-owned history");
 });
 
+test("device-default browser playback validates speech without an enumerated voice and failures revoke it", async () => {
+  const browser = browserSpeechContext();
+  browser.context.speechSynthesis.getVoices = () => [];
+  const events = [];
+  browser.context.dispatchEvent = event => events.push(event);
+  vm.runInNewContext(chromeSource, browser.context);
+  const speech = browser.context.CaatuuChrome;
+  assert.equal((await speech.listSpeechVoiceOptions()).playbackStatus, "unchecked");
+  await speech.speakText("你好");
+  assert.equal(browser.spokenUtterance().voice, undefined, "the engine resolves the requested locale itself");
+  const state = await speech.listSpeechVoiceOptions();
+  assert.equal(state.playbackStatus, "confirmed");
+  assert.equal(state.voices.length, 0);
+  assert.equal(state.reason, "");
+  assert.equal(events.at(-1).type, "caatuu:speech-playback-state");
+  assert.equal(events.at(-1).detail.status, "confirmed");
+  assert.equal(events.at(-1).detail.locale, "zh-CN");
+  browser.context.speechSynthesis.speak = utterance => utterance.onerror({ error: "synthesis-failed" });
+  await assert.rejects(speech.speakText("你好"), /synthesis-failed/u);
+  assert.equal((await speech.listSpeechVoiceOptions()).playbackStatus, "failed");
+  assert.equal(events.at(-1).detail.status, "failed");
+});
+
+test("mute, cancellation, and invalid input do not validate or invalidate voice playback", async () => {
+  const browser = browserSpeechContext({ "caatuu.speech.muted.v1": "true" });
+  vm.runInNewContext(chromeSource, browser.context);
+  const speech = browser.context.CaatuuChrome;
+  await speech.speakText("你好");
+  assert.equal((await speech.listSpeechVoiceOptions()).playbackStatus, "unchecked");
+  speech.setSpeechMuted(false);
+  await speech.speakText("你好");
+  await assert.rejects(speech.speakText(" "));
+  browser.context.speechSynthesis.speak = utterance => utterance.onerror({ error: "interrupted" });
+  await assert.rejects(speech.speakText("你好"), /interrupted/u);
+  assert.equal((await speech.listSpeechVoiceOptions()).playbackStatus, "confirmed");
+  browser.context.speechSynthesis.speak = () => {};
+  const pending = speech.speakText("你好");
+  await new Promise(setImmediate);
+  await speech.stopSpeech();
+  assert.equal((await pending).outcome, "stopped");
+  assert.equal((await speech.listSpeechVoiceOptions()).playbackStatus, "confirmed");
+});
+
+test("voice selection changes invalidate evidence and reject a late completion for the old voice", async () => {
+  const browser = browserSpeechContext();
+  vm.runInNewContext(chromeSource, browser.context);
+  const speech = browser.context.CaatuuChrome;
+  await speech.speakText("你好");
+  speech.setSpeechVoicePreference("browser:zh-tw-local");
+  assert.equal((await speech.listSpeechVoiceOptions()).playbackStatus, "unchecked");
+  let utterance;
+  browser.context.speechSynthesis.speak = value => { utterance = value; };
+  const pending = speech.speakText("你好");
+  await new Promise(setImmediate);
+  speech.setSpeechVoicePreference("browser:zh-cn-network");
+  utterance.onend();
+  await pending;
+  assert.equal((await speech.listSpeechVoiceOptions()).playbackStatus, "unchecked");
+});
+
+test("native speech completion also updates availability and returned failures revoke confirmation", async () => {
+  const browser = browserSpeechContext();
+  let outcome = "completed";
+  browser.context.CaatuuRuntime = { env: "android", speech: {
+    async status() { return { available: false, voices: [] }; },
+    async speak() { return { outcome }; },
+    async stop() { return { stopped: true }; }
+  } };
+  vm.runInNewContext(chromeSource, browser.context);
+  const speech = browser.context.CaatuuChrome;
+  await speech.speakText("你好");
+  const state = await speech.listSpeechVoiceOptions();
+  assert.equal(state.available, true);
+  assert.equal(state.playbackStatus, "confirmed");
+  outcome = "error";
+  await speech.speakText("你好");
+  assert.equal((await speech.listSpeechVoiceOptions()).playbackStatus, "failed");
+});
+
 for (const backend of ["browser", "android"]) {
   test(`${backend} applies the independent logarithmic voice volume and suppresses synthesis at zero`, async () => {
     const musicPreference = JSON.stringify({ volume: 0.42, trackId: "woodland-fantasy" });

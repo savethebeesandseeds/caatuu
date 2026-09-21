@@ -216,13 +216,66 @@ test("confirmed Mandarin updates run through the native installer without a miss
   const second = controller.activate();
   assert.equal(h.requests.length, 2, "double clicks cannot start a second download");
   h.reply(h.requests[1], { action: "installer", reused: true });
-  await flush();
-  assert.equal(h.requests[2].type, "update_app_status");
-  h.reply(h.requests[2], { ...available, downloadReady: true, downloadedVersionCode: 2 });
   await Promise.all([activated, second]);
+  assert.equal(h.requests.length, 2, "installer completion does not depend on another network check");
   assert.equal(h.document.getElementById("updateApp").disabled, false);
   assert.equal(home.disabled, false);
   assert.equal(h.context.location.href, location);
+});
+
+test("an Update click during a background check continues into exactly one download", async () => {
+  const h = harness();
+  const controller = h.ui.getUpdateController();
+  const checking = controller.refresh({ announce: false });
+  const activation = controller.activate();
+  const duplicate = controller.activate();
+  h.reply(h.requests[0], { selfUpdateEnabled: true, updateAvailable: true, currentVersionCode: 1, latestVersionCode: 2 });
+  await flush();
+  assert.deepEqual(h.requests.map(({ type }) => type), ["update_app_status", "update_app"]);
+  h.reply(h.requests[1], { action: "installer" });
+  await Promise.all([checking, activation, duplicate]);
+});
+
+test("Home and lazy Settings retain download progress through refreshes and app resume", async () => {
+  const timers = new Map();
+  const h = harness({ timers });
+  const home = h.document.createElement("button");
+  home.setAttribute("data-app-update-control", "");
+  const homeStatus = h.document.createElement("p");
+  homeStatus.id = "homeUpdateStatus";
+  h.document.body.append(home, homeStatus);
+  const controller = h.ui.getUpdateController();
+  const activation = controller.activate();
+  h.reply(h.requests[0], { selfUpdateEnabled: true, updateAvailable: true, currentVersionCode: 1, latestVersionCode: 2 });
+  await flush();
+  const download = h.requests[1];
+  h.context.CaatuuNative.receive({ id: download.id, kind: "progress", phase: "download", bytes: 25, totalBytes: 100 });
+  const expected = englishInterfaceContent.t("maintenance.action.downloading", { percent: "25" });
+  assert.equal(home.textContent, expected);
+  h.document.getElementById("updateApp").remove();
+  const settings = h.document.createElement("button");
+  settings.id = "updateApp";
+  h.row.append(settings);
+  controller.render();
+  h.document.dispatchEvent({ type: "caatuu:settings-open" });
+  h.document.visibilityState = "visible";
+  h.document.dispatchEvent({ type: "visibilitychange" });
+  await flush();
+  assert.equal(settings.textContent, expected);
+  assert.ok(home.disabled && settings.disabled);
+  assert.equal(homeStatus.textContent, h.document.getElementById("maintenanceStatus").textContent);
+  assert.ok(homeStatus.textContent.includes("25.0%"));
+  assert.equal(h.requests.length, 2, "refreshes must not add metadata checks during the download");
+  assert.equal(timers.size, 0, "the live native request owns progress without competing polls");
+  h.context.CaatuuNative.receive({ id: download.id, kind: "progress", phase: "download", bytes: 100, totalBytes: 100 });
+  assert.equal(home.textContent, englishInterfaceContent.t("maintenance.progress.verifying"));
+  assert.ok(home.disabled && settings.disabled, "full byte count still waits for native verification");
+  h.reply(download, { action: "installer" });
+  await activation;
+  assert.equal(home.disabled, false);
+  assert.equal(settings.disabled, false);
+  assert.equal(home.textContent, englishInterfaceContent.t("maintenance.action.installupdate"));
+  assert.equal(h.requests.length, 2, "opening the installer must not wait on another network check");
 });
 
 test("Home confirmation escapes hidden Settings and supports cancel, download and retry", async () => {
@@ -407,19 +460,40 @@ test("installer success survives a subsequent status failure", async () => {
   await flush();
   const result = { action: "installer", reused: true };
   h.reply(h.requests[1], result);
-  await flush();
-  h.context.CaatuuNative.receive({ id: h.requests[2].id, kind: "error", message: "offline" });
   await activation;
+  const checking = h.ui.getUpdateController().refresh({ force: true, announce: false });
+  h.context.CaatuuNative.receive({ id: h.requests[2].id, kind: "error", message: "offline" });
+  await checking;
   assert.equal(h.document.getElementById("maintenanceStatus").textContent, h.ui.updateResultMessage(result));
   assert.equal(h.document.getElementById("updateApp").disabled, false);
 });
 
-test("courses with a setup provider retain their confirmed update handoff", async () => {
+test("courses with a setup provider start the confirmed update without reloading Home", async () => {
   const h = harness({ setupProvider: true });
+  const location = h.context.location.href;
   const activation = h.ui.getUpdateController().activate();
   h.reply(h.requests[0], { selfUpdateEnabled: true, updateAvailable: true, currentVersionCode: 1, latestVersionCode: 2 });
+  await flush();
+  assert.equal(h.requests[1].type, "update_app");
+  h.reply(h.requests[1], { action: "installer" });
   await activation;
-  assert.equal(h.requests.length, 1);
-  assert.equal(h.context.location.href, "index.html");
-  assert.equal(h.ui.pendingAppUpdate().latestVersionCode, 2);
+  assert.equal(h.requests.length, 2);
+  assert.equal(h.context.location.href, location);
+  assert.equal(h.ui.pendingAppUpdate(), null);
+});
+
+test("a recent available update starts without rechecking and adopts the native verified version", async () => {
+  const h = harness();
+  const controller = h.ui.getUpdateController();
+  const checking = controller.refresh({ announce: false });
+  h.reply(h.requests[0], { selfUpdateEnabled: true, updateAvailable: true, currentVersionCode: 1, latestVersionCode: 2 });
+  await checking;
+  const activation = controller.activate();
+  await flush();
+  assert.deepEqual(h.requests.map(({ type }) => type), ["update_app_status", "update_app"]);
+  h.reply(h.requests[1], { action: "installer", downloadedVersionCode: 3, downloadedVersionName: "fixture-version", verified: true });
+  await activation;
+  assert.equal(h.document.getElementById("updateApp").textContent,
+    englishInterfaceContent.t("maintenance.action.installversion", { version: "fixture-version" }));
+  assert.equal(h.document.getElementById("updateApp").disabled, false);
 });

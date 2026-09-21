@@ -223,10 +223,23 @@ test("a new busy request cancels a pending hide and immediate completion hides t
   game.loader.destroy();
 });
 
+test("Word World covers the prompt synchronously before the next browser paint", () => {
+  const game = runtimeFixture();
+  const frames = [];
+  game.window.requestAnimationFrame = callback => { frames.push(callback); return frames.length; };
+  game.context.setBusy(true);
+  assert.equal(game.loading.hidden, false);
+  assert.equal(game.loading.classList.contains("is-visible"), true,
+    "the next prompt cannot peek through while waiting for an animation frame");
+  assert.match(styleSource, /\.word-net-loading\.is-visible\s*\{[^}]*transition:\s*none;/u);
+  assert.match(styleSource, /\.word-net-loading\s*\{[^}]*pointer-events:\s*auto;/u,
+    "the loading cover must intercept taps until its exit fade ends");
+  game.loader.destroy();
+});
+
 test("Word World retains only its fade policy and has no separate robot art, asset picker, or blink", () => {
   assert.doesNotMatch(runtimeSource, /ROBOT_KEYMAP|ROBOT_FALLBACK|loadingRobotRows|showLoadingRobot|hideLoadingRobot|LOADING_ROBOT_/u);
   assert.doesNotMatch(styleSource, /word-net-loading-(?:art|copy|spinner)|word-net-robot-breathe|word-net-spin/u);
-  assert.match(styleSource, /\.word-net-loading\s*\{\s*opacity: 0;\s*pointer-events: none;\s*transition: opacity 240ms ease;/u);
   assert.match(runtimeSource, /pause\(\)\s*\{\s*state\.loadingActive = false;\s*syncRobotLoadingActivity\(\)/u);
   assert.match(runtimeSource, /resume\(\)\s*\{\s*state\.loadingActive = true;\s*syncRobotLoadingActivity\(\)/u);
 });

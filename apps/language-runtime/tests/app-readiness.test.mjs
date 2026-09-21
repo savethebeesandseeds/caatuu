@@ -40,7 +40,7 @@ function deferred() {
 
 const flush = () => new Promise((resolve) => setImmediate(resolve));
 
-function startHarness({ dictionary = false, failScript = "", serviceWorker = null, interfaceGate = null, nativeSetup = null, homeSetup = null } = {}) {
+function startHarness({ dictionary = false, failScript = "", serviceWorker = null, interfaceGate = null, nativeSetup = null, homeSetup = null, speech = null } = {}) {
   const course = {
     id: "en-zh-Hans",
     routePrefix: "/zh",
@@ -48,7 +48,7 @@ function startHarness({ dictionary = false, failScript = "", serviceWorker = nul
     storage: { namespace: "caatuu-readiness" },
     sourceLanguage: { id: "en", locale: "en", label: "English" },
     targetLanguage: { id: "zh-Hans", locale: "zh-Hans", label: "Simplified Chinese" },
-    capabilities: { dictionary, offlineModels: false },
+    capabilities: { dictionary, offlineModels: false, speech: Boolean(speech) },
     ...(nativeSetup ? {
       browserProviders: { setupProvider: "source/features/setup/setup.js?v=setup-test-1" }
     } : {}),
@@ -61,6 +61,10 @@ function startHarness({ dictionary = false, failScript = "", serviceWorker = nul
   };
   const harness = createBrowserHarness({ course });
   const { context, document } = harness;
+  if (speech) {
+    context.CaatuuChrome = { listSpeechVoiceOptions: speech };
+    harness.window.CaatuuChrome = context.CaatuuChrome;
+  }
   // The app document loads its course-isolated learning profile before bootstrap.
   vm.runInContext(learningProfileSource, context);
   if (nativeSetup) {
@@ -86,7 +90,12 @@ function startHarness({ dictionary = false, failScript = "", serviceWorker = nul
     return node;
   }
 
-  const home = element("section", "view-home", document.body);
+  const loading = element("div", "appLoadingScreen", document.body);
+  document.body.classList.add("app-loading");
+  const shell = element("div", null, document.body);
+  shell.className = "app-shell";
+  shell.setAttribute("inert", "");
+  const home = element("section", "view-home", shell);
   const main = element("div", null, home);
   main.className = "home-main";
   element("img", null, main).className = "stage-art";
@@ -99,6 +108,7 @@ function startHarness({ dictionary = false, failScript = "", serviceWorker = nul
   for (const id of ["setupAction", "setupAbort", "setupReportBug", "setupDetailsToggle"]) {
     element("button", id, card);
   }
+  element("span", "setupVoiceWarning", card).hidden = true;
   element("div", null, card).className = "setup-progress-meta";
   const nav = element("nav", null, document.body);
   nav.setAttribute("data-caatuu-bottom-nav", "");
@@ -138,7 +148,10 @@ function startHarness({ dictionary = false, failScript = "", serviceWorker = nul
     addEventListener: harness.window.addEventListener.bind(harness.window),
     removeEventListener: harness.window.removeEventListener.bind(harness.window),
     dispatchEvent: harness.window.dispatchEvent.bind(harness.window),
-    initializeHomeCourseSetup: homeSetup ? () => homeSetup.promise : initializeHomeCourseSetup,
+    initializeHomeCourseSetup: homeSetup ? (_scope, { onSetupRequired }) => {
+      homeSetup.reveal = onSetupRequired;
+      return homeSetup.promise;
+    } : initializeHomeCourseSetup,
     loadInterfaceContent: async () => {
       if (interfaceGate) await interfaceGate.promise;
       return englishInterfaceContent;
@@ -167,6 +180,7 @@ function startHarness({ dictionary = false, failScript = "", serviceWorker = nul
         }
         if (node.src.includes("features/setup/setup.js")) {
           harness.window.CaatuuShellReady = context.CaatuuShellReady;
+          harness.window.CaatuuSetupSpeechCheck = context.CaatuuSetupSpeechCheck;
           vm.runInContext(setupSource, context);
         }
         if (node.src.includes("caatuu-workspace.js")) {
@@ -183,7 +197,7 @@ function startHarness({ dictionary = false, failScript = "", serviceWorker = nul
   };
   vm.runInContext(bootstrapSource, context, { filename: "app-bootstrap.mjs" });
   return {
-    ...harness, card, nav, workspace, dictionaryMount, errors, scriptUrls, clickNavigation,
+    ...harness, card, nav, loading, shell, workspace, dictionaryMount, errors, scriptUrls, clickNavigation,
     get navigationCalls() { return navigationCalls; },
     get readyEvents() { return readyEvents; },
     get workerCalls() { return workerCalls; }
@@ -207,6 +221,9 @@ function assertLoading(harness) {
 }
 
 function assertReady(harness) {
+  assert.equal(harness.loading.hidden, true);
+  assert.equal(harness.shell.hasAttribute("inert"), false);
+  assert.equal(harness.document.body.classList.contains("app-loading"), false);
   assert.equal(harness.document.documentElement.dataset.caatuuAppReady, "true");
   assert.equal(harness.document.documentElement.dataset.caatuuShellReady, "true");
   assert.equal(harness.document.body.classList.contains("app-starting"), false);
@@ -223,6 +240,8 @@ function assertReady(harness) {
 }
 
 function assertFailed(harness) {
+  assert.equal(harness.loading.hidden, true, "the loading screen must not cover startup errors");
+  assert.equal(harness.shell.hasAttribute("inert"), false);
   assert.equal(harness.document.documentElement.dataset.caatuuAppReady, "error");
   assert.equal(harness.document.documentElement.dataset.caatuuShellReady, "error");
   assert.equal(harness.document.body.classList.contains("app-starting"), true);
@@ -245,6 +264,11 @@ test("canonical Home loads before native setup, while game and workspace imports
   assert.ok(harness.scriptUrls.some((url) => url.includes("caatuu-chrome.js")));
   assert.equal(harness.scriptUrls.some((url) => /workspace|dictionary|naturalization/u.test(url)), false);
   assertLoading(harness);
+  assert.equal(harness.loading.hidden, false);
+  homeSetup.reveal();
+  assert.equal(harness.loading.hidden, true, "first-time setup remains visible and interactive");
+  assert.equal(harness.shell.hasAttribute("inert"), false);
+  assertLoading(harness);
   homeSetup.resolve(true);
   await flush();
   assert.ok(harness.scriptUrls.some((url) => url.includes("caatuu-workspace.js")));
@@ -258,6 +282,8 @@ test("bootstrap locks navigation immediately and renders ready only after worksp
   const interfaceGate = deferred();
   const harness = startHarness({ interfaceGate });
   assert.equal(typeof harness.context.CaatuuShellReady?.then, "function");
+  assert.equal(harness.loading.hidden, false);
+  assert.equal(harness.shell.hasAttribute("inert"), true);
   assertLoading(harness);
 
   interfaceGate.resolve();
@@ -269,6 +295,7 @@ test("bootstrap locks navigation immediately and renders ready only after worksp
   const controls = harness.document.querySelector('#setupArtifacts [data-kind="app-controls"]');
   assert.equal(controls.dataset.ready, "false", "downloaded files do not imply working app controls");
   assert.equal(controls.dataset.status, "active");
+  assert.equal(harness.loading.hidden, false, "loading waits for usable controls");
   assert.equal(harness.document.getElementById("setupDetails").hidden, false);
 
   harness.workspace.resolve({ ready: true });
@@ -326,6 +353,36 @@ test("verified native files retain a pending app-controls row until the workspac
   assert.equal(controls().dataset.ready, "true");
   assertReady(harness);
 });
+
+for (const native of [false, true]) {
+  for (const available of [false, true]) {
+  test(`${native ? "native" : "browser"} readiness waits for the first voice result (${available ? "available" : "missing"})`, async t => {
+    const voice = deferred();
+    const nativeSetup = native ? deferred() : null;
+    nativeSetup?.resolve({ ready: true, staticAssets: { assets: [{ key: "course", ready: true, bytes: 1 }] } });
+    const harness = startHarness({ nativeSetup, speech: () => voice.promise });
+    t.after(() => harness.context.CaatuuSetupSpeechCheck?.dispose());
+    await flush();
+    assertLoading(harness);
+    assert.equal(harness.document.querySelector('[data-kind="speech-voice"]').dataset.ready, "false");
+    harness.workspace.resolve({ ready: true });
+    await flush();
+    assertLoading(harness);
+    assert.equal(harness.loading.hidden, false, "the loading screen waits for voice validation");
+    assert.equal(harness.document.getElementById("setupVoiceWarning").hidden, true);
+    voice.resolve({ backend: native ? "android" : "browser", available, voices: available ? [{ id: "voice" }] : [] });
+    const shell = await harness.context.CaatuuShellReady;
+    assert.equal(shell.ready, true, shell.error?.stack);
+    await flush();
+    assert.equal(harness.document.querySelector('#setupArtifacts [data-kind="app-controls"]').dataset.ready, "true");
+    assert.equal(harness.document.getElementById("setupTitle").textContent, englishInterfaceContent.t("setup.readytitle"));
+    assert.equal(harness.document.querySelector('[data-kind="speech-voice"]').dataset.ready, String(available));
+    assert.equal(harness.document.getElementById("setupVoiceWarning").hidden, available,
+      "Ready and its voice warning must be revealed together");
+    assertReady(harness);
+  });
+  }
+}
 
 test("a loaded workspace script cannot report ready when initialization fails", { timeout: 2_000 }, async () => {
   const harness = startHarness();

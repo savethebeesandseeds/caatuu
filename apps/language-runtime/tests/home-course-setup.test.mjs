@@ -89,12 +89,14 @@ function home({ id = "cz", pathname = null, status = { ready: false }, pendingCo
     window.CaatuuNative.receive({ id: request.id, kind, ...(kind === "error" ? { message: result } : { result }) });
   }
   let settled = false;
-  const completion = initializeHomeCourseSetup(window);
+  let setupVisible = false;
+  const completion = initializeHomeCourseSetup(window, { onSetupRequired: () => { setupVisible = true; } });
   completion.then(() => { settled = true; }, () => {});
   return {
     ...harness, nodes, requests, navigations, polling, completion, priorReceiver, content,
     setStatus(value) { status = value; },
     settled: () => settled,
+    setupVisible: () => setupVisible,
     reply,
     select(source, target) {
       const choose = (parent, value) => {
@@ -124,6 +126,7 @@ test("missing content keeps the original Home and both source languages without 
   assert.equal(fixture.nodes.homeLanguageCard.isConnected, true);
   assert.equal(fixture.nodes.setupTargetLanguageQuestion.disabled, true);
   assert.equal(fixture.nodes.nativeSetup.classList.contains("is-ready"), false);
+  assert.equal(fixture.setupVisible(), true, "course selection must dismiss the startup screen");
   assert.equal(fixture.document.body.classList.contains("setup-blocked"), true);
   assert.equal(fixture.localStorage.getItem("caatuu.appearance.theme.v1"), "dark");
   assert.equal(fixture.localStorage.getItem("caatuu-czech.learning.performance.v1"), "saved progress");
@@ -201,6 +204,7 @@ test("confirming a new native course in Home prepares that course without a seco
 test("verified saved courses continue without downloads and without awaiting the later shell barrier", async () => {
   const fixture = home({ id: "es-en", status: { ready: true } });
   assert.equal(await fixture.completion, true);
+  assert.equal(fixture.setupVisible(), false, "verified files keep the splash until app controls are ready");
   assert.deepEqual(fixture.requests.map(({ type }) => type), ["setup_status"]);
   assert.equal(fixture.window.CaatuuNative, fixture.priorReceiver);
   assert.equal(fixture.nodes.setupAction.onclick, null);

@@ -40,6 +40,13 @@ function t(messageId, parameters = {}) {
   return value;
 }
 
+function revealApplication() {
+  const loading = document.getElementById("appLoadingScreen");
+  if (loading) loading.hidden = true;
+  document.body.classList.remove("app-loading");
+  document.querySelector(".app-shell")?.removeAttribute("inert");
+}
+
 function languageName(language) {
   const value = globalThis.CaatuuI18n?.languageName?.(language);
   if (typeof value !== "string" || !value.trim()) {
@@ -311,6 +318,179 @@ function setCourseIdentity() {
   nav?.setAttribute("aria-label", t("navigation.sections", { target: targetLabel }));
 }
 
+function installSetupSpeechCheck() {
+  if (course.capabilities?.speech !== true) return;
+  const language = languageName(course.targetLanguage);
+  const row = document.createElement("div");
+  row.className = "setup-artifact setup-voice-check";
+  row.dataset.kind = "speech-voice";
+  const icon = document.createElement("i");
+  icon.className = "setup-artifact-icon";
+  const label = document.createElement("strong");
+  label.textContent = t("setup.voice.label");
+  const status = document.createElement("span");
+  const note = document.createElement("p");
+  note.setAttribute("role", "status");
+  note.setAttribute("aria-live", "polite");
+  const actions = document.createElement("div");
+  actions.className = "setup-voice-actions";
+  const retry = document.createElement("button");
+  retry.type = "button";
+  retry.textContent = t("setup.voice.recheck");
+  const test = document.createElement("button");
+  test.type = "button";
+  test.textContent = t("setup.voice.test");
+  actions.append(test, retry);
+  row.append(icon, label, status, note, actions);
+
+  const retryDelays = [250, 750, 1500, 3000, 5000];
+  let state = "checking";
+  let voice = null;
+  let feedback = "";
+  let checking = null;
+  let checkAgain = false;
+  let playing = false;
+  let disposed = false;
+  let attempts = 0;
+  let checked = false;
+  let playbackRevision = 0;
+  let finishInitialCheck;
+  const initialCheck = new Promise(resolve => { finishInitialCheck = resolve; });
+  let retryTimer;
+  const listeners = [];
+  const listen = (target, name, handler) => {
+    target?.addEventListener?.(name, handler);
+    listeners.push(() => target?.removeEventListener?.(name, handler));
+  };
+
+  function render() {
+    if (disposed) return;
+    const container = document.getElementById("setupArtifacts");
+    if (container && row.parentElement !== container) container.append(row);
+    const available = state === "available";
+    row.dataset.ready = String(available);
+    row.dataset.status = available ? "ready" : state === "checking" ? "active" : "warning";
+    row.style.setProperty("--artifact-progress", available ? "100%" : "0%");
+    icon.textContent = available ? "✓" : state === "checking" ? "•" : "!";
+    status.textContent = t(available ? "setup.voice.available" : state === "checking" ? "setup.checking"
+      : state === "unverified" ? "setup.voice.unverified" : "common.unavailable");
+    note.textContent = feedback || (available
+      ? t(voice?.playbackStatus === "confirmed" ? "speech.voice.playbackconfirmed" : "setup.voice.availablemessage", { language })
+      : state === "checking" ? t("speech.voices.checking", { language })
+        : globalThis.CaatuuChrome?.describeSpeechVoiceState?.(voice || { voices: [] })
+          || t("speech.voices.unavailable", { language }));
+    // An empty browser voice list does not prevent device-default playback.
+    test.disabled = voice?.available !== true || playing;
+    test.textContent = t(playing ? "speech.test.playing" : "setup.voice.test");
+    retry.disabled = Boolean(checking) || playing;
+    const card = document.getElementById("nativeSetup");
+    // Voice availability must never release the controls/content startup barrier.
+    const controlsReady = document.documentElement.dataset.caatuuShellReady === "true"
+      && card?.classList.contains("is-ready")
+      && !["is-error", "is-updating", "is-app-update-lock"].some(name => card.classList.contains(name));
+    if (controlsReady) document.getElementById("setupTitle").textContent = t("setup.readytitle");
+    const warning = document.getElementById("setupVoiceWarning");
+    if (warning) warning.hidden = !controlsReady || !checked || available;
+  }
+
+  function refresh({ restart = true } = {}) {
+    if (disposed || playing) return Promise.resolve();
+    if (restart) attempts = 0;
+    if (checking) { checkAgain = true; return checking; }
+    globalThis.clearTimeout(retryTimer);
+    if (state !== "available") state = "checking";
+    feedback = "";
+    const revision = playbackRevision;
+    checking = (async () => {
+      let timeout;
+      try {
+        const result = await Promise.race([
+          Promise.resolve().then(() => globalThis.CaatuuChrome.listSpeechVoiceOptions()),
+          new Promise((_, reject) => {
+            timeout = globalThis.setTimeout(() => reject(new Error("Voice check timed out")), 4000);
+          })
+        ]);
+        if (disposed || revision !== playbackRevision) return;
+        voice = result;
+        // Successful synthesis also validates browsers that never list a voice.
+        const available = voice?.available === true
+          && (voice.playbackStatus === "confirmed" || voice.backend === "android" || voice.voices?.length > 0);
+        state = voice?.playbackStatus === "failed" ? "unavailable" : available ? "available"
+          : attempts < retryDelays.length ? "checking" : voice?.available ? "unverified" : "unavailable";
+      } catch {
+        if (disposed || revision !== playbackRevision) return;
+        voice = null;
+        state = attempts < retryDelays.length ? "checking" : "unavailable";
+      } finally {
+        globalThis.clearTimeout(timeout);
+        checking = null;
+        if (!disposed) {
+          checked = true;
+          render();
+          finishInitialCheck();
+          if (checkAgain) {
+            checkAgain = false;
+            void refresh();
+          } else if (state === "checking") {
+            retryTimer = globalThis.setTimeout(() => { void refresh({ restart: false }); }, retryDelays[attempts++]);
+          }
+        }
+      }
+    })();
+    render();
+    return checking;
+  }
+
+  retry.addEventListener("click", () => { void refresh(); });
+  test.addEventListener("click", async () => {
+    if (playing || voice?.available !== true) return;
+    playbackRevision++;
+    globalThis.clearTimeout(retryTimer);
+    playing = true;
+    feedback = t("speech.voice.playingsample", { language });
+    render();
+    try {
+      const result = await globalThis.CaatuuChrome.previewSpeech();
+      if (result?.outcome === "error") throw new Error("Voice playback failed");
+      if (result?.outcome === "completed") state = "available";
+      feedback = result?.muted ? t("speech.audio.mutednotice")
+        : result?.stopped || result?.outcome === "stopped" ? "" : t("setup.voice.testfinished");
+    } catch {
+      state = "unavailable";
+      feedback = t("speech.voice.deviceplaybackfailed", { language });
+    } finally {
+      playing = false;
+      globalThis.clearTimeout(retryTimer);
+      render();
+      if (state === "checking") void refresh({ restart: false });
+    }
+  });
+  const recheck = () => { void refresh(); };
+  listen(globalThis, "caatuu:speech-playback-state", () => {
+    playbackRevision++;
+    recheck();
+  });
+  listen(globalThis.speechSynthesis, "voiceschanged", recheck);
+  for (const event of ["focus", "pageshow", "caatuu:speech-voice-change", "caatuu:speech-voices-refresh"]) {
+    listen(globalThis, event, recheck);
+  }
+  listen(document, "visibilitychange", () => {
+    if (document.visibilityState === "visible") recheck();
+  });
+  function dispose() {
+    disposed = true;
+    finishInitialCheck();
+    globalThis.clearTimeout(retryTimer);
+    listeners.forEach(remove => remove());
+  }
+  listen(globalThis, "pagehide", event => {
+    if (event.persisted) globalThis.clearTimeout(retryTimer);
+    else dispose();
+  });
+  globalThis.CaatuuSetupSpeechCheck = Object.freeze({ render, refresh, dispose, initialCheck });
+  void refresh();
+}
+
 const READY_HOME_ART = "/assets/icons/hello.png";
 
 function setHomeText(selector, value) {
@@ -414,6 +594,7 @@ function renderReadyCourseHome() {
     detailsToggle.textContent = t("common.showdetails");
   }
   bindReadyHomeDetails(card);
+  globalThis.CaatuuSetupSpeechCheck?.render();
 }
 
 function renderStartingCourseHome() {
@@ -522,6 +703,7 @@ async function loadCourseFeatureProviders() {
   const courseRuntime = declaredBrowserProvider("courseRuntime");
   if (courseRuntime) await loadScript(courseRuntime);
   installSharedSpeechRuntime();
+  installSetupSpeechCheck();
   await loadSharedScript("/language-runtime/static/source/maintenance-ui.js?v=maintenance-25");
   await loadSharedScript("/language-runtime/static/source/semantic-learning.js?v=semantic-learning-11");
   for (const providerName of ["setupProgressProvider", "setupProvider"]) {
@@ -574,11 +756,14 @@ async function start() {
   globalThis.CaatuuMusicUi?.mountAll();
   // Keep the canonical Home and its language controls available while native
   // setup verifies the selected course. Curriculum and game artwork wait for it.
-  await initializeHomeCourseSetup(globalThis);
+  await initializeHomeCourseSetup(globalThis, { onSetupRequired: revealApplication });
   configureGameRoutes();
   applyCapabilityBoundaries();
   await import("./word-world-host.mjs?v=word-world-host-24");
   await loadCourseFeatureProviders();
+  // Publish the usable-controls and voice results together. Further voice
+  // retries can recover a late engine without delaying entry to the app.
+  await globalThis.CaatuuSetupSpeechCheck?.initialCheck;
   document.documentElement.dataset.caatuuShellReady = "true";
   document.body.classList.remove("app-starting");
   document.querySelectorAll("[data-caatuu-bottom-nav]").forEach((nav) => {
@@ -593,12 +778,15 @@ async function start() {
   }
   settleShellReady(Object.freeze({ ready: true }));
   document.documentElement.dataset.caatuuAppReady = "true";
+  revealApplication();
   document.dispatchEvent(new CustomEvent("caatuu:app-ready", { detail: Object.freeze({ courseId: course.id }) }));
   void registerCourseServiceWorker();
 }
 
 start().catch((error) => {
   if (error?.name === "AbortError") return;
+  revealApplication();
+  globalThis.CaatuuSetupSpeechCheck?.dispose();
   document.documentElement.dataset.caatuuAppReady = "error";
   document.documentElement.dataset.caatuuShellReady = "error";
   settleShellReady(Object.freeze({ ready: false, error }));

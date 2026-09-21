@@ -170,7 +170,7 @@ function retryVerifiedSetupImages(scope) {
 }
 
 /** Prepare native product content in the existing Home, before game imports. */
-export function initializeHomeCourseSetup(scope = globalThis) {
+export function initializeHomeCourseSetup(scope = globalThis, { onSetupRequired = () => {} } = {}) {
   const native = scope.CaatuuAndroid;
   // The full development shell and browser already own their setup providers.
   if (typeof native?.postMessage !== "function" || typeof native.isCourseBundled !== "function") {
@@ -233,6 +233,7 @@ export function initializeHomeCourseSetup(scope = globalThis) {
     document.body.classList.toggle("choosing-setup-language", choosing);
   };
   const setBusy = (busy) => {
+    if (busy) onSetupRequired();
     installing = busy;
     card.setAttribute("aria-busy", String(busy));
     action.hidden = busy;
@@ -265,6 +266,7 @@ export function initializeHomeCourseSetup(scope = globalThis) {
   };
   const showRecovery = (error, retry = download, { cancelled = false } = {}) => {
     if (closed) return;
+    onSetupRequired();
     stopPolling();
     showPreparing();
     setBusy(false);
@@ -309,6 +311,7 @@ export function initializeHomeCourseSetup(scope = globalThis) {
   };
   function showChoices() {
     if (closed || installing) return;
+    onSetupRequired();
     stopPolling();
     setChoosing(true);
     card.classList.remove("is-ready", "is-error");

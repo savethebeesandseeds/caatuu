@@ -4,6 +4,7 @@ import test from "node:test";
 import vm from "node:vm";
 
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
+import { englishInterfaceContent } from "./helpers/english-interface-content.mjs";
 
 const source = await readFile(new URL("../../languages/czech/static/source/features/setup/setup.js", import.meta.url), "utf8");
 const readinessStart = source.indexOf("  async function waitForShellControlsBeforeReady(status)");
@@ -80,6 +81,7 @@ function setupBrowser({ shellReady = Promise.resolve({ ready: true }), preload =
   let status = {};
   let preloads = 0;
   window.CaatuuShellReady = shellReady;
+  window.CaatuuI18n = englishInterfaceContent;
   window.CaatuuChrome = {
     async preloadBackpackStats() {
       preloads += 1;
@@ -164,7 +166,7 @@ test("verified local files wait for working app controls and saved stats before 
 
   stats.resolve();
   await rendering;
-  assert.equal(browser.copy.get("#setupTitle"), "Caatuu is ready");
+  assert.equal(browser.copy.get("#setupTitle"), englishInterfaceContent.t("setup.readytitle"));
   assert.equal(browser.card.classList.contains("is-ready"), true);
   assert.equal(browser.state().setupComplete, true);
   assert.equal(browser.state().navigationLocked, false);
@@ -198,7 +200,7 @@ test("failed or missing app-controls readiness never announces ready or unlocks 
     assert.equal(browser.state().setupComplete, false);
     assert.equal(browser.state().navigationLocked, true);
     assert.equal(browser.card.classList.contains("is-ready"), false);
-    assert.equal(browser.messages.some(({ value }) => value === "Caatuu is ready"), false);
+    assert.equal(browser.messages.some(({ value }) => value === englishInterfaceContent.t("setup.readytitle")), false);
     assert.equal(browser.preloads(), 0);
   }
 });
@@ -218,7 +220,7 @@ test("up-to-date and installed-update checks do not claim readiness while app pr
     await browser.checkUpdate();
     assert.equal(browser.copy.get("#setupTitle"), "Preparing Caatuu");
     assert.equal(browser.copy.get("#setupCount"), "Preparing");
-    assert.equal(browser.messages.some(({ value }) => value === "Caatuu is ready"), false);
+    assert.equal(browser.messages.some(({ value }) => value === englishInterfaceContent.t("setup.readytitle")), false);
     assert.equal(browser.state().setupComplete, false);
     assert.equal(browser.state().navigationLocked, true);
   }
@@ -228,7 +230,7 @@ test("update checks retain ready copy once files and app controls are ready", as
   const browser = setupBrowser();
   await browser.render();
   await browser.checkUpdate();
-  assert.equal(browser.copy.get("#setupTitle"), "Caatuu is ready");
+  assert.equal(browser.copy.get("#setupTitle"), englishInterfaceContent.t("setup.readytitle"));
   assert.equal(browser.copy.get("#setupCount"), "Ready");
   assert.equal(browser.state().navigationLocked, false);
 });

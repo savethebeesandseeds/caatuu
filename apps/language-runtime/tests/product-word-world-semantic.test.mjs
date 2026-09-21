@@ -397,6 +397,44 @@ test("presentation takes busy ownership without a late selection release", async
   assert.equal(busy, true, "presentation remains responsible for clearing its own busy state");
 });
 
+test("a pending next challenge owns navigation from selection through presentation", async () => {
+  const source = await readFile(new URL("../static/source/product-word-world.mjs", import.meta.url), "utf8");
+  const generation = source.slice(source.indexOf("async function generateStandardFromConfiguredMode("), source.indexOf("async function showStandardPhrase("));
+  let resolveSelection;
+  let finishPresentation;
+  let selections = 0;
+  const presented = [];
+  const state = { contentMode: "standard", generationMode: "random", phraseRequestId: 1,
+    standardProvider: {}, busy: false };
+  const context = vm.createContext({
+    state, providerContext: {}, console, learningDifficulty: () => 1, recentStandardEntryIds: () => [],
+    setBusy(value) { state.busy = value; }, setStatus() {}, interfaceText: () => "",
+    selectStandardTurn: () => {
+      selections++;
+      return new Promise(resolve => { resolveSelection = resolve; });
+    },
+    runOwnedSemanticSelection,
+    showStandardPhrase: async selection => {
+      state.phraseRequestId++;
+      presented.push(selection.record.id);
+      await new Promise(resolve => { finishPresentation = resolve; });
+      state.busy = false;
+    }
+  });
+  vm.runInContext(generation, context);
+  const first = vm.runInContext("generateStandardFromConfiguredMode()", context);
+  assert.equal(state.busy, true, "lock the forward arrow before the first asynchronous selection");
+  await vm.runInContext("generateStandardFromConfiguredMode()", context);
+  assert.equal(selections, 1, "a second activation cannot queue another challenge");
+  resolveSelection({ record: { id: "next" } });
+  await new Promise(resolve => setImmediate(resolve));
+  assert.deepEqual(presented, ["next"]);
+  assert.equal(state.busy, true, "the new challenge remains locked while its scene loads");
+  finishPresentation();
+  await first;
+  assert.equal(state.busy, false);
+});
+
 test("difficulty changes replace a pending Word World turn and discard prepared lower-level content", async () => {
   const source = await readFile(new URL("../static/source/product-word-world.mjs", import.meta.url), "utf8");
   const generation = source.slice(source.indexOf("async function generateStandardFromConfiguredMode("), source.indexOf("async function showStandardPhrase("));

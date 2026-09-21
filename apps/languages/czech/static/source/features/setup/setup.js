@@ -1012,6 +1012,7 @@
       row.append(icon, title, meta);
       return row;
     }));
+    window.CaatuuSetupSpeechCheck?.render();
   }
 
   function pushLog(kind, title, detail = "") {
@@ -1158,7 +1159,7 @@
       card.classList.toggle("is-error", false);
     }
     if (ready) lastSetupAttention = null;
-    setText("#setupTitle", ready ? "Caatuu is ready" : "Preparing Caatuu");
+    setText("#setupTitle", ready ? window.CaatuuI18n?.t("setup.readytitle") || "Ready" : "Preparing Caatuu");
     updateSummary(message || (ready ? readyText : "Preparing local intelligence."), ready ? "ready" : "status");
     if (ready) {
       stopSetupMessageCycle();
@@ -1486,7 +1487,7 @@
         if (completed) {
           const currentVersion = status?.currentVersionName || status?.currentVersionCode || "";
           pushLog("ready", "Update installed", `Caatuu ${currentVersion} is installed locally.`);
-          setText("#setupTitle", setupComplete ? "Caatuu is ready" : "Preparing Caatuu");
+          setText("#setupTitle", setupComplete ? window.CaatuuI18n?.t("setup.readytitle") || "Ready" : "Preparing Caatuu");
           setText("#setupPhase", "Update installed");
           setText("#setupMessage", setupComplete
             ? `Caatuu ${currentVersion} is installed and ready.`
@@ -1509,7 +1510,7 @@
         } else {
           const label = updateStatusLabel(status);
           pushLog("status", "App is up to date", `No newer APK is exposed by the server (${label}).`);
-          setText("#setupTitle", setupComplete ? "Caatuu is ready" : "Preparing Caatuu");
+          setText("#setupTitle", setupComplete ? window.CaatuuI18n?.t("setup.readytitle") || "Ready" : "Preparing Caatuu");
           setText("#setupPhase", setupComplete ? "App is ready" : "App is up to date");
           setText("#setupMessage", `No newer app update is exposed by the server (${label}).`);
           setText("#setupCount", setupComplete ? "Ready" : "Preparing");
@@ -1619,6 +1620,7 @@
       updateRunning = false;
       setNavigationLocked(appUpdateLocked || !setupComplete);
       setControls();
+      window.CaatuuSetupSpeechCheck?.render();
       scheduleUpdateStatusPoll();
     }
   }
