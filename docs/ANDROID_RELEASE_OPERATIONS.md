@@ -98,6 +98,15 @@ content-addressed setup assets may come from the sealed APK. Existing website
 or immutable release bytes cannot be overwritten. Pages still transports a
 complete site artifact; that transport is not a website rebuild.
 
+Website scope also verifies the live inventory's `websiteSnapshot.sourceRevision`
+after Pages reports deployment success. During version 177 publication, the live
+website briefly retained the prior snapshot after the deployment completed, then
+converged without another deployment. The verifier retries stale inventory and
+transient fetch failures for up to 31 bounded attempts, allowing ten minutes of
+publication propagation before failing the job.
+Recheck the live inventory before retrying a delayed publication; do not rebuild
+or replace a sealed Android candidate to recover a website publication.
+
 Downloadable curriculum/artwork comes from the sealed companion archive,
 published as `caatuu-<versionCode>-setup-payload.tar` alongside the existing
 GitHub Release assets. The append-only Pages descriptor pins its hash and byte

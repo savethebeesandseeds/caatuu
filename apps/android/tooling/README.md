@@ -201,6 +201,10 @@ artifact, preserves its current file inventory, and overlays the sealed Android
 release and download aliases. Website changes require an explicit
 `deployment_scope=website` dispatch of the existing Pages workflow.
 
+Website scope verifies the live `caatuu-web-bundle.json` snapshot revision after
+Pages completes. It allows bounded retries for publication propagation and fails
+if the public site still serves another revision, even when Pages reports success.
+
 The routine entrypoint orchestrates both operations with one command:
 
 ```powershell
