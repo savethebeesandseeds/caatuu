@@ -57,12 +57,12 @@ test('Word World loads the three declared JSON roles and covers eligible content
       }
     });
     const provider = context.selectionProvider;
-    const eligible = provider.records.filter(record => record.difficulty <= difficulty);
+    const eligible = provider.records.filter(record => record.difficulty === difficulty);
     assert.ok(eligible.length);
     const seen = new Set();
     for (let i = 0; i < eligible.length; i++) {
       const {record} = provider.nextRandom({difficulty});
-      assert.ok(record.difficulty <= difficulty);
+      assert.equal(record.difficulty, difficulty);
       assert.ok(!seen.has(record.id), `Repeated before coverage: ${record.id}`);
       seen.add(record.id);
       provider.markUsed(record);
@@ -79,7 +79,7 @@ test('Verb Nebula deals a shuffled eligible queue without losing or repeating en
   const catalog = validateVerbNebulaCatalog(await resource('verbNebulaCatalog'), {learnerBaseLanguage: 'es-ES'});
   for (const difficulty of [1, 2, 3]) {
     const eligible = filterVerbPairsForDifficulty(catalog, difficulty);
-    assert.ok(eligible.every(item => item.difficulty <= difficulty));
+    assert.ok(eligible.every(item => item.difficulty === difficulty));
     let queue = [];
     const seen = [];
     while (seen.length < eligible.length) {
@@ -91,13 +91,13 @@ test('Verb Nebula deals a shuffled eligible queue without losing or repeating en
   }
 });
 
-test('Conjugation Comet currently shuffles within ascending eligible difficulty tiers', async () => {
+test('Conjugation Comet shuffles the selected difficulty band without losing entries', async () => {
   const catalog = validateConjugationCometCatalog(await resource('conjugationCometCatalog'));
   for (const difficulty of [1, 2, 3]) {
-    const eligible = catalog.verbs.filter(verb => verb.difficulty <= difficulty);
+    const eligible = catalog.verbs.filter(verb => verb.difficulty === difficulty);
     const queue = buildConjugationVerbQueue(eligible, {random: () => 0.37});
     assert.deepEqual(new Set(queue.map(verb => verb.id)), new Set(eligible.map(verb => verb.id)));
-    assert.ok(queue.every((verb, index) => !index || verb.difficulty >= queue[index - 1].difficulty));
+    assert.ok(queue.every(verb => verb.difficulty === difficulty));
   }
 });
 
@@ -106,11 +106,11 @@ test('Grammar Gravity uses only eligible JSON phrase examples and avoids adjacen
     courseId: course.id, learnerBaseLanguage: course.sourceLanguage.locale, targetLanguage: course.targetLanguage.locale
   });
   for (const difficulty of [1, 2, 3]) {
-    const expected = pack.challenges.filter(c => c.difficulty <= difficulty)
+    const expected = pack.challenges.filter(c => c.difficulty === difficulty)
       .flatMap(c => Object.values(c.forms).flatMap(f => f.examples.map(example => example.id)));
     const rounds = buildGrammarGravityRounds(pack, difficulty, () => 0.37);
     assert.deepEqual(new Set(rounds.map(round => round.id)), new Set(expected));
-    assert.ok(rounds.every(round => round.difficulty <= difficulty));
+    assert.ok(rounds.every(round => round.difficulty === difficulty));
     assert.ok(rounds.every((round, index) => !index
       || round.flights[0].anchorEnglishAuditText !== rounds[index - 1].flights[0].anchorEnglishAuditText));
   }
@@ -118,10 +118,10 @@ test('Grammar Gravity uses only eligible JSON phrase examples and avoids adjacen
 
 test('Sounds Quasar sessions draw distinct answers and distractors from their selected JSON bank', async () => {
   const catalog = validateSoundQuasarCatalog(await resource('soundQuasarCatalog'));
-  for (const mode of ['words', 'sentences']) {
-    const bank = mode === 'words' ? catalog.items : catalog.sentences;
+  for (const mode of ['words', 'sentences']) for (const difficulty of [1, 2, 3]) {
+    const bank = (mode === 'words' ? catalog.items : catalog.sentences).filter(item => item.difficulty === difficulty);
     const ids = new Set(bank.map(item => item.id));
-    const session = createSoundQuasarSession(catalog, {mode, roundLength: bank.length, random: () => 0.37});
+    const session = createSoundQuasarSession(catalog, {mode, difficulty, roundLength: bank.length, random: () => 0.37});
     assert.equal(session.length, bank.length);
     assert.deepEqual(new Set(session.map(round => round.answerId)), ids);
     for (const round of session) {

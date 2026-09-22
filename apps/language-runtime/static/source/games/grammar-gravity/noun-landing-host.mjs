@@ -74,7 +74,7 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     lastTime = null;
   }
   function engaged() {
-    return !destroyed && active && !document.hidden && !segmentWaiting && !visual.loading;
+    return Boolean(session) && !destroyed && active && !document.hidden && !segmentWaiting && !visual.loading;
   }
   function canRun() {
     return engaged() && (session?.phase === "feedback" || session?.phase === "falling");
@@ -311,9 +311,19 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     soundError = false;
     const difficulty = Math.max(1, Math.min(3, Math.floor(Number(shell.CaatuuLearning?.difficulty?.()) || 1)));
     cycleEncounterId = newContentEncounterId();
-    session = startNounLanding(createNounLandingSession(pack, { avoidFirstItemId, durationMs, difficulty,
-      history: shell.CaatuuLearning?.contentHistory?.("grammar-gravity", "nouns"),
-      policy: shell.CaatuuLearning?.samplingContext?.("grammar-gravity", "nouns") }));
+    try {
+      session = startNounLanding(createNounLandingSession(pack, { avoidFirstItemId, durationMs, difficulty,
+        history: shell.CaatuuLearning?.contentHistory?.("grammar-gravity", "nouns"),
+        policy: shell.CaatuuLearning?.samplingContext?.("grammar-gravity", "nouns") }));
+      element("gravityNounError").hidden = true;
+    } catch (error) {
+      session = null;
+      visual.setActive(false);
+      element("gravityNounArena").hidden = true;
+      if (active && element("gravityNounClock")) element("gravityNounClock").hidden = true;
+      element("gravityNounError").textContent = t("loaderror");
+      element("gravityNounError").hidden = false;
+    }
   }
   function resumeSegment() {
     if (destroyed || !segmentWaiting) return;
@@ -323,7 +333,7 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     syncClock();
   }
   function rebaseDifficulty() {
-    if (destroyed || !pack || !session) return;
+    if (destroyed || !pack) return;
     // Retire the old board without recording an unfinished attempt. Completed
     // landings already belong to the course profile and remain untouched.
     cancelFrame();

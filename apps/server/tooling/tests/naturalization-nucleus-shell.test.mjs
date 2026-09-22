@@ -289,7 +289,7 @@ test("homophone exclusion preserves scheduler priority and fills enough distinct
   const synthetic={...validatedCatalog,challenges:[lower,second,...other]};
   for(const value of [0,.1,.37,.99]){
     const calls=[];
-    const round=game.createRound(synthetic,5,()=>value,"",3,{selectContentItems(items){
+    const round=game.createRound(synthetic,5,()=>value,"",first.difficulty,{selectContentItems(items){
       calls.push(items);
       return items.includes(second) ? [second,lower] : items.slice(0,4);
     }});
@@ -302,7 +302,7 @@ test("homophone exclusion preserves scheduler priority and fills enough distinct
 
 test("a due difficult homophone reaches the board ahead of its recently practiced easy peer", () => {
   const first = validatedCatalog.challenges[0];
-  const easier = { ...first, id: "fixture.earlier", difficulty: 1, usefulness: 100, complexity: 1 };
+  const easier = { ...first, id: "fixture.earlier", difficulty: 3, usefulness: 100, complexity: 1 };
   const harder = { ...first, id: "fixture.later", difficulty: 3, usefulness: 1, complexity: 100 };
   const other = validatedCatalog.challenges.filter(item => game.readingKey(item) !== game.readingKey(first));
   const synthetic = { ...validatedCatalog, challenges: [easier, harder, ...other] };
@@ -719,7 +719,7 @@ test("the matched-word dictionary card keeps intrinsic shared sizing", () => {
   );
 });
 
-test("the catalog supplies every round size at each cumulative badge and mirrors the authored ship collection", () => {
+test("the catalog supplies every round size at each exact badge and mirrors the authored ship collection", () => {
   assert.equal(catalog.$schema, NUCLEUS_SCHEMA_URL);
   assert.equal(validatedCatalog.$schema, NUCLEUS_SCHEMA_URL);
   assert.equal(catalog.schemaVersion, 1);
@@ -737,7 +737,7 @@ test("the catalog supplies every round size at each cumulative badge and mirrors
   for (const difficulty of [1, 2, 3]) {
     assert.ok(catalog.challenges.some(challenge => challenge.difficulty === difficulty));
     const eligible = game.filterChallengesForDifficulty(validatedCatalog.challenges, difficulty);
-    assert.deepEqual(new Set(eligible.map(item => item.id)), new Set(catalog.challenges.filter(item => item.difficulty <= difficulty).map(item => item.id)));
+    assert.deepEqual(new Set(eligible.map(item => item.id)), new Set(catalog.challenges.filter(item => item.difficulty === difficulty).map(item => item.id)));
     assert.ok(new Set(eligible.map(game.readingKey)).size >= Math.max(...catalog.roundSettings.pieceCounts));
   }
   assert.ok(catalog.challenges.every(({ sourceConceptIds }) => (
@@ -920,24 +920,24 @@ test("every challenge cites a Word World concept with the exact Hanzi and pinyin
   }
 });
 
-test("difficulty metadata is explicit, cumulative, validated, and runtime-compatible", () => {
+test("difficulty metadata selects one exact band and keeps each band playable", () => {
   const leveledCatalog = structuredClone(catalog);
   leveledCatalog.challenges.forEach((challenge, index) => {
-    challenge.difficulty = index < 9 ? 1 : (index < 15 ? 2 : 3);
+    challenge.difficulty = index < 12 ? 1 : (index < 24 ? 2 : 3);
   });
   const validated = game.validateCatalog(leveledCatalog);
 
-  assert.equal(game.filterChallengesForDifficulty(validated.challenges, 1).length, 9);
-  assert.equal(game.filterChallengesForDifficulty(validated.challenges, 2).length, 15);
-  assert.equal(game.filterChallengesForDifficulty(validated.challenges, 3).length, validated.challenges.length);
-  assert.equal(game.filterChallengesForDifficulty(validated.challenges, 99).length, 9);
+  assert.equal(game.filterChallengesForDifficulty(validated.challenges, 1).length, 12);
+  assert.equal(game.filterChallengesForDifficulty(validated.challenges, 2).length, 12);
+  assert.equal(game.filterChallengesForDifficulty(validated.challenges, 3).length, validated.challenges.length - 24);
+  assert.equal(game.filterChallengesForDifficulty(validated.challenges, 99).length, 12);
 
   for (const difficulty of [1, 2, 3]) {
     for (let seed = 1; seed <= 12; seed += 1) {
       const round = game.createRound(validated, 9, seededRandom((difficulty * 100) + seed), "", difficulty);
       assert.equal(round.difficulty, difficulty);
       assert.ok(round.pieces.every(({ left, right }) => (
-        left.difficulty <= difficulty && right.difficulty <= difficulty
+        left.difficulty === difficulty && right.difficulty === difficulty
       )));
     }
   }

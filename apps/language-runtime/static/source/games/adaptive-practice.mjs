@@ -1,10 +1,10 @@
-import { selectContentItems as existingSelector } from './content-progression.mjs';
+import { selectContentItems as existingSelector, matchesContentDifficulty } from './content-progression.mjs';
 import { createAdaptiveDecision } from './adaptive-sampling.mjs';
 import { recentPracticeIds } from './recent-practice.mjs';
 import { createLearningSemantics } from '../learning-semantics.mjs';
 import { normalizeSharedEnglishText } from '../english-image-search.mjs';
 
-export { normalizeContentProgression, newContentEncounterId } from './content-progression.mjs';
+export { normalizeContentProgression, newContentEncounterId, matchesContentDifficulty } from './content-progression.mjs';
 
 const SERVICES = Symbol.for('caatuu.adaptivePractice.v1');
 function serviceOwner() {
@@ -54,13 +54,15 @@ export function practiceEnglishText(item, identity = {}) {
  */
 export function selectContentItems(items, { policy = null, ...options } = {}) {
   if (!policy?.identity || policy.id === 'existing') return existingSelector(items, options);
+  const difficulty = options.difficulty === undefined ? 3 : options.difficulty;
+  const eligibleItems = items.filter(item => matchesContentDifficulty(item, difficulty));
   const state = services();
   const getId = options.getId || (item => item.id);
   const getGroupKey = options.getGroupKey || getId;
   const history = options.history || {};
   const recentIds = recentPracticeIds(history);
   const candidates = [];
-  for (const item of items) {
+  for (const item of eligibleItems) {
     try {
       candidates.push({ id: String(getId(item)), englishText: normalizeSharedEnglishText(practiceEnglishText(item, policy.identity)) });
     } catch { /* Missing or unusable English leaves semantic features unavailable. */ }
@@ -71,11 +73,10 @@ export function selectContentItems(items, { policy = null, ...options } = {}) {
   const semantic = semantics?.features({ candidates, recentIds, goalText })
     || { byItem: {}, status: 'disabled' };
   const decide = typeof policy.select === 'function' ? policy.select : createAdaptiveDecision;
-  const decision = decide(items, { ...options, ...policy, recentIds,
+  const decision = decide(eligibleItems, { ...options, ...policy, recentIds,
     semantic: policy.semantic || semantic });
-  const eligibleIds = new Set(items.filter(item => (item.difficulty ?? 1) <= (options.difficulty ?? 3)).map(getId));
   if (!decision || !Array.isArray(decision.items)
-      || decision.items.some(item => !items.includes(item) || !eligibleIds.has(getId(item)))
+      || decision.items.some(item => !eligibleItems.includes(item))
       || new Set(decision.items.map(getId)).size !== decision.items.length
       || decision.items.some(item => !String(getGroupKey(item) ?? ''))
       || new Set(decision.items.map(item => String(getGroupKey(item)))).size !== decision.items.length) {

@@ -470,6 +470,7 @@ const state = {
   campaignPendingTab: "",
   campaignTransitioning: false,
   campaignTransitionId: 0,
+  campaignContinueResult: null,
   verbDifficulty: 1,
   verbPairs: [],
   verbQueueIds: [],
@@ -4624,7 +4625,7 @@ function advanceCompletedCampaignGame(gameId, sourceWindow) {
     return;
   }
   if (gameId === "word-net" && sourceWindow === window) {
-    window.CaatuuWordWorldHost?.next?.();
+    window.CaatuuWordWorldHost?.advanceCampaignRound?.();
     return;
   }
   if (gameId === "naturalization-nucleus" && sourceWindow === window) {
@@ -4639,6 +4640,32 @@ function advanceCompletedCampaignGame(gameId, sourceWindow) {
   }, window.location.origin);
 }
 
+function waitForWordWorldCampaignResult() {
+  return new Promise((resolve) => {
+    const finish = () => {
+      window.clearTimeout(timer);
+      if (state.campaignContinueResult === finish) state.campaignContinueResult = null;
+      resolve();
+    };
+    const timer = window.setTimeout(finish, wordWorldResultHoldMillis);
+    state.campaignContinueResult = finish;
+  });
+}
+
+function completeWordWorldCampaignRound() {
+  if (!state.campaignActive || state.trainTab !== "word-net") return false;
+  void completeCampaignRound("word-net", window);
+  return true;
+}
+
+function continueWordWorldCampaign() {
+  if (!state.campaignActive || state.trainTab !== "word-net" || !state.campaignTransitioning) return false;
+  // The arrow and the timeout release the same result hold. Once released,
+  // further clicks belong to the in-progress campaign transition as well.
+  state.campaignContinueResult?.();
+  return true;
+}
+
 async function completeCampaignRound(gameId, sourceWindow) {
   if (!state.campaignActive || state.campaignTransitioning || gameId !== state.trainTab) return;
   const nextGameId = nextCampaignTab(gameId);
@@ -4649,7 +4676,7 @@ async function completeCampaignRound(gameId, sourceWindow) {
   const transitionId = state.campaignTransitionId + 1;
   state.campaignTransitionId = transitionId;
   if (gameId === "word-net") {
-    await waitForVerbTransition(wordWorldResultHoldMillis);
+    await waitForWordWorldCampaignResult();
     if (transitionId !== state.campaignTransitionId || !state.campaignActive) return;
   }
   showCampaignTransition(transitionId);
@@ -4703,6 +4730,7 @@ function stopCampaign() {
   state.campaignTransitionId += 1;
   state.campaignActive = false;
   state.campaignTransitioning = false;
+  state.campaignContinueResult?.();
   delete document.body.dataset.campaignActive;
   hideCampaignTransition();
 }
@@ -4983,6 +5011,8 @@ function registerServiceWorker() {
 window.CaatuuWorkspaceShell = Object.freeze({
   setView,
   setTrainTab,
+  completeWordWorldRound: completeWordWorldCampaignRound,
+  continueWordWorld: continueWordWorldCampaign,
   state() {
     return Object.freeze({
       activeView: state.activeView,

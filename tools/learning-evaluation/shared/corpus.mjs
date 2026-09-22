@@ -164,14 +164,18 @@ function actualPlayableUnits(catalog, rows, { naturalizationValidator } = {}) {
     });
   } else if (game === 'case-cosmos') {
     normalizer = 'buildRounds + buildQuestions';
-    for (const round of buildRounds(document, 3)) for (const question of buildQuestions(round, () => 0.5)) {
+    // The game builders select one exact band. Inventory every band rather
+    // than treating the highest badge as an inclusive catalog request.
+    for (const difficulty of [1, 2, 3]) for (const round of buildRounds(document, difficulty)) for (const question of buildQuestions(round, () => 0.5)) {
       const row = question.id ? byItemId.get(question.id) : rows.find(row => row.kind === 'case-context' && row.parent?.noun === round.noun && row.detail === question.case);
       const nounKey = Array.from(round.noun).map(char => char.codePointAt(0).toString(16)).join('-');
       add({ ...round, ...question }, 'case-context', [row], normalizer, question.id || `legacy-${nounKey}-${question.case.toLowerCase()}`);
     }
   } else if (game === 'grammar-gravity') {
     normalizer = 'buildGrammarGravityRounds';
-    for (const item of buildGrammarGravityRounds(document, 3, () => 0.5)) add(item, 'agreement-example', [byItemId.get(item.id)], normalizer);
+    for (const difficulty of [1, 2, 3]) for (const item of buildGrammarGravityRounds(document, difficulty, () => 0.5)) {
+      add(item, 'agreement-example', [byItemId.get(item.id)], normalizer);
+    }
   } else if (game === 'grammar-gravity-nouns') {
     normalizer = 'normalizeNounLandingPack';
     const pack = normalizeNounLandingPack(document, { courseId: course.id, targetLanguage: course.targetLanguage.locale, learnerBaseLanguage: course.sourceLanguage.locale });

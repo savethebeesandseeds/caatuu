@@ -4,7 +4,7 @@ import {
   buildConjugationVerbQueue, validateConjugationCometCatalog, selectConjugationPracticeVerbs
 } from "./conjugation-comet-core.mjs?v=conjugation-comet-core-2";
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-8";
-import { newContentEncounterId } from "../content-progression.mjs";
+import { newContentEncounterId, matchesContentDifficulty } from "../content-progression.mjs";
 
 const GAME_ID = "conjugation-comet";
 const RESOURCE_NAME = "conjugationCometCatalog";
@@ -507,11 +507,22 @@ function beginNextVerb(state) {
       ? selectConjugationPracticeVerbs(state.catalog.verbs, { difficulty: level,
         history: learning.contentHistory(GAME_ID), formHistory: learning.contentHistory(GAME_ID, "forms"),
         policy: learning.samplingContext?.(GAME_ID) })
-      : buildConjugationVerbQueue(state.catalog.verbs.filter(verb => verb.difficulty <= level), { previousVerbId: state.current?.id });
-    if (!state.queue.length) throw new Error("Conjugation Comet has no content for this badge.");
+      : buildConjugationVerbQueue(state.catalog.verbs.filter(verb => matchesContentDifficulty(verb, level)), { previousVerbId: state.current?.id });
+    if (!state.queue.length) {
+      state.current = null;
+      state.round = null;
+      state.phase = "error";
+      state.pendingVerbSpeech = false;
+      state.transitionScreen.hide();
+      syncInteraction(state);
+      showError(new Error("Conjugation Comet has no content for this badge."));
+      return;
+    }
     if (!learning?.contentHistory && state.queue.length > 1 && state.queue[0].id === state.current?.id) state.queue.push(state.queue.shift());
   }
   state.current = state.queue.shift();
+  element("conjugationCometError").hidden = true;
+  element("conjugationCometGame").hidden = false;
   state.encounterId = newContentEncounterId();
   state.attempted = false;
   state.contentGeneration = shellWindow().CaatuuLearning?.contentGeneration?.() ?? null;

@@ -1344,11 +1344,18 @@
     }));
   };
 
+  let announcedDifficulty = readDifficulty();
+  const announceDifficultyChange = () => {
+    const difficulty = readDifficulty();
+    if (difficulty === announcedDifficulty) return;
+    announcedDifficulty = difficulty;
+    announceChange("difficulty");
+  };
+
   const setDifficulty = (value) => {
     const difficulty = normalizeDifficulty(value);
-    if (difficulty === readDifficulty()) return difficulty;
-    writeJson(preferenceStorageKey, { schemaVersion, difficulty });
-    announceChange("difficulty");
+    if (difficulty !== readDifficulty()) writeJson(preferenceStorageKey, { schemaVersion, difficulty });
+    announceDifficultyChange();
     return difficulty;
   };
 
@@ -1456,6 +1463,10 @@
     removeGameState,
     registerSaveRetry(handler) { retryHandlers.add(handler); return () => retryHandlers.delete(handler); },
     resetProgress
+  });
+  window.addEventListener?.("storage", (event) => {
+    if (event.storageArea && event.storageArea !== window.localStorage) return;
+    if (event.key === preferenceStorageKey || event.key === null) announceDifficultyChange();
   });
   window.addEventListener?.("pageshow", () => { void retryPendingSaves(); });
   window.addEventListener?.("focus", () => { void retryPendingSaves(); });

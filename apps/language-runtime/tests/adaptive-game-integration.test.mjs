@@ -8,8 +8,8 @@ import { browserSharedRuntimeClosureIssues } from '../../../tools/language-packs
 import { selectContentItems, practiceEnglishText } from '../static/source/games/adaptive-practice.mjs';
 import { createSamplingExperiment } from '../static/source/games/adaptive-sampling.mjs';
 import { selectContentItems as legacy } from '../static/source/games/content-progression.mjs';
-import { extractCoreVerbPairs, dealVerbRound } from '../static/source/games/verb-nebula/verb-nebula-core.mjs';
-import { validateConjugationCometCatalog, selectConjugationPracticeVerbs, buildConjugationHelixRound, judgeConjugationHelixRound } from '../static/source/games/conjugation-comet/conjugation-comet-core.mjs';
+import { extractCoreVerbPairs, filterVerbPairsForDifficulty, dealVerbRound } from '../static/source/games/verb-nebula/verb-nebula-core.mjs';
+import { validateConjugationCometCatalog, selectConjugationPracticeVerbs, buildConjugationHelixRound, judgeConjugationHelixRound, buildConjugationMeaningRound } from '../static/source/games/conjugation-comet/conjugation-comet-core.mjs';
 import { buildGrammarGravityRounds } from '../static/source/games/grammar-gravity/grammar-gravity-core.mjs';
 import { createNounLandingSession } from '../static/source/games/grammar-gravity/noun-landing-core.mjs';
 import { createSoundQuasarSession } from '../static/source/games/sound-quasar/sound-quasar-core.mjs';
@@ -80,7 +80,7 @@ test('adaptive practice shared import closure is packaged and cached by every br
 
 test('legacy callers retain established selection and adaptive English never uses learner-base text', () => {
   const rows = Array.from({ length: 20 }, (_, i) => ({ id: `item-${i}`, difficulty: 1, usefulness: 50, complexity: i + 1 }));
-  assert.deepEqual(selectContentItems(rows, { random, now }), legacy(rows, { random, now }));
+  assert.deepEqual(selectContentItems(rows, { difficulty: 1, random, now }), legacy(rows, { difficulty: 1, random, now }));
   assert.equal(practiceEnglishText({ en: 'Me gusta aprender.', englishAuditText: 'I like learning.' }, { courseId: 'es-en', gameId: 'word-world' }), 'I like learning.');
   assert.equal(practiceEnglishText({ en: 'Me gusta aprender.' }, { courseId: 'es-en', gameId: 'word-world' }), '');
 });
@@ -88,7 +88,7 @@ test('legacy callers retain established selection and adaptive English never use
 test('one Word World decision is one draw and recent exclusions have an inspectable conditional distribution', () => {
   const rows = Array.from({ length: 8 }, (_, i) => ({ id: `item-${i}`, difficulty: 1, usefulness: 50, complexity: 1 }));
   let calls = 0, trace, pool;
-  const selected = progressiveWordWorldSelection(rows, { now, random: () => { calls++; return .2; },
+  const selected = progressiveWordWorldSelection(rows, { difficulty: 1, now, random: () => { calls++; return .2; },
     excludeIds: ['item-0'], policy: scope('cz', 'word-world', 'reconstruct-target', value => { trace = value; }),
     onPool: value => { pool = value; } });
   assert.equal(calls, 1);
@@ -98,7 +98,7 @@ test('one Word World decision is one draw and recent exclusions have an inspecta
   assert.ok(!trace.draws[0].distribution.some(row => row.id === 'item-0'));
 });
 
-for (const variant of gameplayVariants) test(`every authored game bank builds playable adaptive selections under its difficulty ceiling (${variant.id})`, async () => {
+for (const variant of gameplayVariants) test(`every authored game bank builds playable adaptive selections at its exact selected difficulty (${variant.id})`, async () => {
   const catalogs = await catalogsPromise;
   const nucleus = await nucleusPromise;
   const seen = new Set();
@@ -115,7 +115,7 @@ for (const variant of gameplayVariants) test(`every authored game bank builds pl
     if (game === 'word-world') {
       items = [progressiveWordWorldSelection(document.records, options)];
     } else if (game === 'verb-nebula') {
-      items = selectContentItems(extractCoreVerbPairs(document, { learnerBaseLanguage: course.sourceLanguage.locale }), options);
+      items = selectContentItems(filterVerbPairsForDifficulty(extractCoreVerbPairs(document, { learnerBaseLanguage: course.sourceLanguage.locale }), difficulty), options);
       const board = dealVerbRound(items, items.map(item => item.id), 4, random);
       assert.equal(board.round.length, 4);
       assert.equal(new Set(board.round.map(item => item.id)).size, 4);
@@ -125,6 +125,9 @@ for (const variant of gameplayVariants) test(`every authored game bank builds pl
         expectedTargetLocale: course.targetLanguage.locale });
       items = selectConjugationPracticeVerbs(pack.verbs, options);
       for (const item of items) {
+        const meaning = buildConjugationMeaningRound(pack, item.id, { random });
+        assert.ok(meaning.options.every(option => pack.verbs.find(verb => verb.id === option.id).difficulty === difficulty),
+          'meaning distractors stay in the selected band');
         const board = buildConjugationHelixRound(pack, item.id, { rng: random });
         assert.equal(board.subjects.length, item.forms.length);
         assert.equal(board.options.length, item.forms.length);
@@ -161,13 +164,13 @@ for (const variant of gameplayVariants) test(`every authored game bank builds pl
         assert.equal(decisions, 1, 'one policy decision owns the actual Nucleus board');
         assert.equal(items.length, pieceCount);
         assert.equal(new Set(items.map(nucleus.readingKey)).size, pieceCount);
-        assert.ok(items.every(item => item.difficulty <= difficulty));
+        assert.ok(items.every(item => item.difficulty === difficulty));
         assert.deepEqual(trace.draws.map(draw => draw.chosenId), items.map(item => item.id));
         assert.equal(nucleus.countConnections(round.solution), pieceCount, 'selected items remain a complete solvable ring');
       }
     } else throw new Error(`Uncovered game: ${game}`);
     assert.ok(items.length && items.every(Boolean), `${course.id}/${game} has a playable selection`);
-    assert.ok(items.every(item => (item.difficulty ?? 1) <= difficulty), `${course.id}/${game} preserves difficulty ${difficulty}`);
+    assert.ok(items.every(item => (item.difficulty ?? 1) === difficulty), `${course.id}/${game} preserves difficulty ${difficulty}`);
     assert.equal(new Set(items.map(item => item.id)).size, items.length, `${course.id}/${game} keeps distinct selections`);
     assert.deepEqual(trace.identity, policy.identity, `${course.id}/${game} keeps its real game and evidence-bank identity`);
     assert.equal(trace.semanticStatus, 'disabled');
@@ -185,7 +188,7 @@ for (const variant of gameplayVariants) test(`listening words and sentences use 
   for (const { document, course } of (await catalogsPromise).filter(catalog => catalog.game === 'sound-quasar')) {
     for (const mode of ['words', 'sentences']) for (const difficulty of [1, 2, 3]) {
       const bank = mode === 'words' ? document.items : document.sentences;
-      const eligible = bank.filter(row => (row.difficulty ?? 1) <= difficulty);
+      const eligible = bank.filter(row => (row.difficulty ?? 1) === difficulty);
       let trace;
       const policy = scope(course.id, 'sound-quasar', mode, value => { trace = value; });
       if (variant.controls) policy.select = (items, options) => createSamplingExperiment(items, options, variant.controls);
@@ -244,7 +247,7 @@ test('shared Word World exposure does not manufacture evidence in the selected r
   const rows = [{ id: 'sentence', difficulty: 1, usefulness: 60, complexity: 10 }];
   const exposure = { sentence: { exposures: 20, successes: 20, firstSeenAt: new Date(now - 86400000).toISOString(), lastSeenAt: new Date(now).toISOString() } };
   let trace;
-  progressiveWordWorldSelection(rows, { now, random, history: wordWorldPracticeHistory(exposure, {}),
+  progressiveWordWorldSelection(rows, { difficulty: 1, now, random, history: wordWorldPracticeHistory(exposure, {}),
     policy: scope('es-en', 'word-world', 'reconstruct-target', value => { trace = value; }) });
   assert.equal(trace.identity.bankId, 'reconstruct-target');
   assert.equal(trace.candidates[0].evidenceStatus, 'exposure-only');
@@ -264,10 +267,10 @@ test('disabled semantics never calls a provider; a failed optional warmup leaves
   }]]) };
   try {
     const rows = [{ id: 'known', difficulty: 1, usefulness: 70, complexity: 10, englishAuditText: 'To learn' }];
-    assert.equal(selectContentItems(rows, { policy, now, random })[0], rows[0]);
+    assert.equal(selectContentItems(rows, { difficulty: 1, policy, now, random })[0], rows[0]);
     assert.equal(features, 0); assert.equal(warmups, 0);
     assert.equal(globalThis[key].latest.semanticStatus, 'disabled');
-    assert.equal(selectContentItems(rows, { policy: { ...policy, semanticsEnabled: true }, now, random })[0], rows[0]);
+    assert.equal(selectContentItems(rows, { difficulty: 1, policy: { ...policy, semanticsEnabled: true }, now, random })[0], rows[0]);
     await new Promise(resolve => setImmediate(resolve));
     assert.equal(features, 1); assert.equal(warmups, 1);
     assert.equal(globalThis[key].latest.semanticStatus, 'unavailable');
@@ -279,18 +282,18 @@ test('disabled semantics never calls a provider; a failed optional warmup leaves
 test('replacement policies cannot return duplicate answer groups or out-of-bank objects', () => {
   const rows = [{ id: 'a', reading: 'same', difficulty: 1 }, { id: 'b', reading: 'same', difficulty: 1 }];
   const policy = scope('fixture', 'naturalization-nucleus');
-  assert.throws(() => selectContentItems(rows, { getGroupKey: row => row.reading, policy: {
+  assert.throws(() => selectContentItems(rows, { difficulty: 1, getGroupKey: row => row.reading, policy: {
     ...policy, select: () => ({ items: rows, trace: {} })
   } }), /invalid|ineligible|group/i);
-  assert.throws(() => selectContentItems(rows, { policy: {
+  assert.throws(() => selectContentItems(rows, { difficulty: 1, policy: {
     ...policy, select: () => ({ items: [{ ...rows[0] }], trace: {} })
   } }), /invalid|ineligible/i);
 });
 
 test('explicit existing-policy fallback preserves Word World recent exclusions', () => {
   const rows = Array.from({ length: 8 }, (_, index) => ({ id: `fallback-${index}`, difficulty: 1, usefulness: 50, complexity: 10 }));
-  const first = progressiveWordWorldSelection(rows, { now, random });
-  const options = { now, random, excludeIds: [first.id] };
+  const first = progressiveWordWorldSelection(rows, { difficulty: 1, now, random });
+  const options = { difficulty: 1, now, random, excludeIds: [first.id] };
   const legacySelection = progressiveWordWorldSelection(rows, options);
   const explicitFallback = progressiveWordWorldSelection(rows, { ...options, policy: { ...scope('cz', 'word-world'), id: 'existing' } });
   assert.equal(explicitFallback.id, legacySelection.id);
@@ -332,7 +335,7 @@ test('an assisted form error cannot become an independent parent error during co
   formHistory[`${verb.id}.${verb.forms[0].id}`] = { ...independent, independentSuccesses: 0,
     lastEvidence: 'assisted', lastCorrect: false, lastAssistedAt: at };
   let trace;
-  selectConjugationPracticeVerbs([verb], { now, random, history, formHistory,
+  selectConjugationPracticeVerbs([verb], { difficulty: 1, now, random, history, formHistory,
     policy: scope(catalog.course.id, 'conjugation-comet', 'default', value => { trace = value; }) });
   assert.notEqual(trace.candidates[0].features.error, 1,
     'a parent independent-success timestamp must not be combined with an assisted form result to invent independent failure');

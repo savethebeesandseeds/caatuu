@@ -45,10 +45,13 @@ test("keeps level one strictly within very-simple level-one records", () => {
   for (let index = 0; index < 12; index += 1) {
     assert.equal(selectStandardTurn(corpus, { difficulty: 1 })?.record.difficulty, 1);
   }
-  assert.deepEqual(corpus.eligible(2).map((record) => record.id), ["l1", "l2"]);
+  for (const difficulty of [1, 2, 3]) {
+    assert.deepEqual(corpus.eligible(difficulty).map((record) => record.id), [`l${difficulty}`]);
+    assert.equal(corpus.nextRandom({ difficulty }).record.difficulty, difficulty);
+  }
 });
 
-test("prefers current-level material while retaining cumulative review", () => {
+test("repeats within the selected level instead of falling back to easier review", () => {
   const rolls = [0.1, 0, 0.95, 0];
   const corpus = provider({
     records: [
@@ -59,7 +62,8 @@ test("prefers current-level material while retaining cumulative review", () => {
   });
 
   assert.equal(corpus.nextRandom({ difficulty: 2 }).record.id, "current");
-  assert.equal(corpus.nextRandom({ difficulty: 2 }).record.id, "review");
+  assert.equal(corpus.nextRandom({ difficulty: 2, excludeIds: ['current'] }).record.id, "current");
+  assert.equal(corpus.nextRandom({ difficulty: 3 }), null);
 });
 
 test("deduplicates immutable rows and cycles through least-used records", () => {

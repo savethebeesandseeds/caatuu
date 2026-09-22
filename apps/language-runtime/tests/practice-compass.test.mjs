@@ -129,8 +129,11 @@ async function courseSamples(manifest) {
   }
   const gravity = await resource("grammarGravityCatalog");
   if (gravity) {
-    const round = buildGrammarGravityRounds(gravity, 3, () => 0.5)[0];
-    for (const mode of ["sequence", "forms", "meaning", "nouns"]) add("grammar-gravity", `phrases-${mode}`, round.id, round.englishAuditText);
+    for (const difficulty of [1, 2, 3]) {
+      const round = buildGrammarGravityRounds(gravity, difficulty, () => 0.5)[0];
+      assert.equal(round.difficulty, difficulty);
+      for (const mode of ["sequence", "forms", "meaning", "nouns"]) add("grammar-gravity", `phrases-${mode}`, round.id, round.englishAuditText);
+    }
     const noun = (await resource("grammarGravityNouns")).items[0];
     add("grammar-gravity", "nouns", noun.id, noun.english);
   }
@@ -153,7 +156,7 @@ async function courseSamples(manifest) {
   return rows;
 }
 
-test("all five actual course catalogs map every supported game and directional bank using authored English", async t => {
+test("all five actual course catalogs map every supported bank and recorded Grammar difficulty using authored English", async t => {
   for (const { course: manifest } of loaded.courses) await t.test(manifest.id, async () => {
     const course = generateCourseProfileObject(manifest, loaded.courses);
     const samples = await courseSamples(manifest);

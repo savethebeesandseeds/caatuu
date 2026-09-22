@@ -24,7 +24,7 @@ import { WordNetBranchQueue } from "./word-net-queue.mjs?v=word-net-queue-6";
 import { localAiAvailability } from "./shell-policy.mjs";
 import { mountRobotLoadingScreen } from "./games/embedded-game-controls.mjs?v=embedded-game-controls-8";
 import { createEnglishImageSearch } from "./english-image-search.mjs?v=english-image-search-4";
-import { newContentEncounterId } from "./games/content-progression.mjs";
+import { matchesContentDifficulty, newContentEncounterId } from "./games/content-progression.mjs";
 import { progressiveWordWorldSelection,
   wordWorldEvidenceBank, wordWorldPracticeHistory } from "./word-world-progression.mjs";
 
@@ -371,7 +371,7 @@ export async function selectStandardTurn(provider, {
           || (provider.preservesPracticeOrder
             ? recordIdentifier(record) !== recordIdentifier(deterministic?.record)
             : provider.canSelectRecord && !provider.canSelectRecord(record, { difficulty, selectedWord }))
-          || Math.max(1, Math.floor(Number(record.difficulty) || 1)) > level
+          || !matchesContentDifficulty(record, level)
           || !recordMatchesSelectedWord(record, selectedWord, searchKey)) continue;
       return {
         record,
@@ -2013,9 +2013,7 @@ function syncDiagnostics() {
   const contentMode = contentModeLabel(state.contentMode);
   const difficulty = learningDifficulty();
   const standardCounts = state.standardProvider?.difficultyCounts?.() || { 1: 0, 2: 0, 3: 0 };
-  const eligibleStandard = standardCounts[1]
-    + (difficulty >= 2 ? standardCounts[2] : 0)
-    + (difficulty >= 3 ? standardCounts[3] : 0);
+  const eligibleStandard = standardCounts[difficulty] || 0;
   const history = state.historyCursor
     ? interfaceText("wordworld.diagnostics.history.back", {
         count: state.history.length,
@@ -3030,7 +3028,7 @@ function reconstructionCandidateTexts() {
   const currentObjective = String(current?.learning?.objective || "").toLocaleLowerCase("en-US");
   const answerLength = reconstructionWordCount(state.currentTranslation);
   const scoredRecords = (state.standardProvider?.records || [])
-    .filter((record) => record?.id !== current?.id)
+    .filter((record) => record?.id !== current?.id && matchesContentDifficulty(record, learningDifficulty()))
     .map((record) => {
       const signals = reconstructionGrammarSignals(record);
       const sharedSignals = signals.filter((signal) => currentSignals.has(signal)).length;
@@ -3045,9 +3043,12 @@ function reconstructionCandidateTexts() {
     .sort((left, right) => right.score - left.score || left.record.id.localeCompare(right.record.id, "en-US"))
     .slice(0, 48)
     .flatMap(({ record }) => [record.en, ...(record.enAlternates || [])]);
-  const historyTexts = state.history.map((entry) => entry.en).filter(Boolean);
+  const historyTexts = state.history.filter(entry => entry.difficulty === learningDifficulty())
+    .map((entry) => entry.en).filter(Boolean);
   const seen = new Set();
-  const fallbacks = sourcePrimaryLanguage === "en" ? reconstructionFallbackTexts : [];
+  // Unclassified fallback phrases are not part of an authored difficulty band.
+  const fallbacks = state.currentContentMode === "generated" && sourcePrimaryLanguage === "en"
+    ? reconstructionFallbackTexts : [];
   return [...scoredRecords, ...historyTexts, ...fallbacks].filter((text) => {
     const value = String(text || "").trim();
     const key = value.toLocaleLowerCase("en-US");
@@ -3123,13 +3124,14 @@ function targetReconstructionCandidateParts() {
   const currentId = String(state.currentEntryId || "");
   const parts = [];
   for (const candidate of state.standardProvider?.records || []) {
-    if (String(candidate?.id || "") === currentId) continue;
+    if (String(candidate?.id || "") === currentId || !matchesContentDifficulty(candidate, learningDifficulty())) continue;
     const record = preparedTargetRecord(candidate?.id);
     parts.push(...targetReconstructionParts(record?.target?.text || candidate?.cs, record));
     if (parts.length >= 240) break;
   }
   if (!parts.length) {
     for (const entry of state.history.slice(0, 48)) {
+      if (entry.difficulty !== learningDifficulty()) continue;
       parts.push(...targetReconstructionParts(entry.sentence, null));
     }
   }
@@ -3813,7 +3815,7 @@ function shouldBlockReconstructionAdvance() {
   return true;
 }
 
-async function activateNextSentence() {
+async function activateNextSentence({ campaignAdvance = false } = {}) {
   if (state.guidedRequested) {
     const round = ensureReconstructionChallenge();
     if (!round?.submitted || state.busy || state.guidedEvidencePending) return;
@@ -3850,6 +3852,7 @@ async function activateNextSentence() {
   }
   if (state.busy) return;
   if (shouldBlockReconstructionAdvance()) return;
+  if (!campaignAdvance && window.CaatuuWorkspaceShell?.continueWordWorld?.() === true) return;
   completeWordWorldExposure(null);
   generateFromConfiguredMode(state.generationMode, { force: true });
 }
@@ -6037,6 +6040,9 @@ function announceCampaignRoundSuccess() {
     courseId: course.id
   };
   lifecycleOptions.onRoundSuccess?.(payload);
+  // Claim the campaign transition synchronously, before the result's Next
+  // control can run. postMessage delivery would leave a second advance path.
+  if (window.CaatuuWorkspaceShell?.completeWordWorldRound?.() === true) return;
   window.postMessage?.(payload, window.location.origin);
 }
 
@@ -6182,6 +6188,7 @@ export async function mountProductWordWorld(root, preparedContext, options = {})
 
   return Object.freeze({
     next: () => activateNextSentence(),
+    advanceCampaignRound: () => activateNextSentence({ campaignAdvance: true }),
     pause() {
       state.loadingActive = false;
       syncRobotLoadingActivity();

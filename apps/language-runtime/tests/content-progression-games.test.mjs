@@ -48,10 +48,10 @@ test("conjugation exploration counts separate practice days conservatively acros
   const history = Object.fromEntries(verbs.slice(0, 4).map(verb => [verb.id, { ...progress }]));
   const formHistory = Object.fromEntries(verbs.slice(0, 4).flatMap(verb => verb.forms.map(form =>
     [`${verb.id}.${form.id}`, { ...progress }])));
-  assert.ok(selectConjugationPracticeVerbs(verbs, { history, formHistory, now, random })
+  assert.ok(selectConjugationPracticeVerbs(verbs, { difficulty: 1, history, formHistory, now, random })
     .some(verb => verb.id === "practice-4"), "supported practice over days allows sparse-bank exploration");
   for (const verb of verbs.slice(0, 4)) formHistory[`${verb.id}.two`].practiceDays = 0;
-  assert.ok(!selectConjugationPracticeVerbs(verbs, { history, formHistory, now, random })
+  assert.ok(!selectConjugationPracticeVerbs(verbs, { difficulty: 1, history, formHistory, now, random })
     .some(verb => verb.id === "practice-4"), "parent practice cannot stand in for an unpracticed form");
 });
 
@@ -94,7 +94,7 @@ test("grammar concrete examples retain their own usefulness and complexity withi
   Object.assign(form, { usefulness: 55, complexity: 60 });
   const example = form.examples[0];
   Object.assign(example, { usefulness: 98, complexity: 7 });
-  const round = buildGrammarGravityRounds(raw, 3).find(item => item.id === example.id);
+  const round = buildGrammarGravityRounds(raw, family.difficulty).find(item => item.id === example.id);
   assert.equal(round.usefulness, 98);
   assert.equal(round.complexity, 7);
   assert.equal(round.difficulty, family.difficulty);
@@ -107,7 +107,7 @@ test("case practice schedules stable sentence IDs with exactly one valid contras
   for (const round of rounds) {
     assert.equal(round.practiceQuestions.length, 1);
     assert.equal(round.practiceQuestions[0].candidates.filter(choice => choice.matches).length, 1);
-    assert.ok(round.difficulty <= 1);
+    assert.equal(round.difficulty, 1);
     assert.ok(Number.isInteger(round.usefulness) && Number.isInteger(round.complexity));
   }
 });

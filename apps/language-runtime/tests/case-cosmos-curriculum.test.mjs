@@ -53,7 +53,7 @@ test("content validation rejects broken references, invalid structure and unsolv
 
 test("all new contexts produce exactly one correct answer while retaining only authored sentence boundaries", () => {
   let count = 0;
-  for (const round of buildRounds(catalog, 3).filter(({ contextItem }) => contextItem)) {
+  for (const round of [1, 2, 3].flatMap(level => buildRounds(catalog, level)).filter(({ contextItem }) => contextItem)) {
     for (const sample of [0, 0.2, 0.49, 0.8, 0.999]) {
       const [question] = buildQuestions(round, () => sample);
       count += 1;
@@ -102,6 +102,6 @@ test("existing seven-case noun rounds remain first and every added context is re
     assert.deepEqual(rounds.slice(0, original.length), original);
     assert.ok(original.every(round => buildQuestions(round).length === 7));
     assert.deepEqual(rounds.slice(original.length).map(round => round.id),
-      catalog.contexts.filter(item => item.difficulty <= level).map(item => item.id));
+      catalog.contexts.filter(item => item.difficulty === level).map(item => item.id));
   }
 });

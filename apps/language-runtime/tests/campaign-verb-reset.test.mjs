@@ -7,6 +7,7 @@ const workspace = await readFile(
   new URL("../static/source/caatuu-workspace.js", import.meta.url),
   "utf8"
 );
+const wordWorld = await readFile(new URL("../static/source/product-word-world.mjs", import.meta.url), "utf8");
 
 function sourceBetween(startMarker, endMarker) {
   const start = workspace.indexOf(startMarker);
@@ -25,16 +26,25 @@ const campaignCompletionSource = sourceBetween(
   "async function startCampaign()"
 );
 
-function wordWorldCampaign() {
+function wordWorldCampaign({ nextGameId = "verb-lab" } = {}) {
   const state = { campaignActive: true, campaignTransitioning: false,
     campaignTransitionId: 0, trainTab: "word-net", campaignQueue: [] };
   const calls = [];
   const waits = [];
+  const timers = new Set();
   const window = { location: { origin: "https://local.test" },
-    CaatuuWordWorldHost: { next: () => calls.push("next-sentence") } };
+    setTimeout(callback, delay) {
+      const timer = { delay, resolve: callback };
+      waits.push(timer);
+      timers.add(timer);
+      return timer;
+    },
+    clearTimeout(timer) { timers.delete(timer); },
+    CaatuuWordWorldHost: { advanceCampaignRound: () => calls.push("next-sentence") } };
   const context = vm.createContext({
     state, window, Promise, campaignTransitionMillis: 1600,
-    nextCampaignTab: () => "verb-lab",
+    nextCampaignTab: () => nextGameId,
+    document: { body: { dataset: {} } },
     showCampaignTransition: () => calls.push("show-transition"),
     hideCampaignTransition: () => calls.push("hide-transition"),
     ensureCampaignGameLoaded: () => calls.push("load-next-game"),
@@ -43,8 +53,14 @@ function wordWorldCampaign() {
     waitForVerbTransition: (delay) => new Promise((resolve) => waits.push({ delay, resolve }))
   });
   vm.runInContext(workspace.match(/^const wordWorldResultHoldMillis = .+;$/mu)[0]
-    + "\n" + campaignCompletionSource, context);
-  return { state, calls, waits, complete: () => context.completeCampaignRound("word-net", window) };
+    + "\n" + campaignCompletionSource
+    + sourceBetween("function stopCampaign()", "function handleCampaignGameMessage"), context);
+  window.CaatuuWorkspaceShell = {
+    completeWordWorldRound: () => context.completeWordWorldCampaignRound(),
+    continueWordWorld: () => context.continueWordWorldCampaign()
+  };
+  return { state, calls, waits, timers, window, context,
+    complete: () => context.completeCampaignRound("word-net", window) };
 }
 
 test("Campaign leaves the Word World result visible for reading before loading the next round", async () => {
@@ -67,12 +83,95 @@ test("Campaign leaves the Word World result visible for reading before loading t
 test("leaving Campaign while reading a Word World result cancels its delayed transition", async () => {
   const game = wordWorldCampaign();
   const completed = game.complete();
-  game.state.campaignActive = false;
-  game.state.campaignTransitionId += 1;
+  game.context.stopCampaign();
+  assert.equal(game.timers.size, 0);
   game.waits[0].resolve();
   await completed;
-  assert.deepEqual(game.calls, []);
+  assert.deepEqual(game.calls, ["hide-transition"]);
   assert.equal(game.state.trainTab, "word-net");
+});
+
+test("a cancelled result timer cannot release a later campaign round", async () => {
+  const game = wordWorldCampaign();
+  const oldCompletion = game.complete();
+  const oldTimer = game.waits[0];
+  game.context.stopCampaign();
+  game.state.campaignActive = true;
+  const newCompletion = game.complete();
+  oldTimer.resolve();
+  await oldCompletion;
+  assert.equal(game.timers.size, 1);
+  assert.deepEqual(game.calls, ["hide-transition"]);
+  game.context.continueWordWorldCampaign();
+  await new Promise((resolve) => setImmediate(resolve));
+  game.waits.at(-1).resolve();
+  await newCompletion;
+  assert.equal(game.calls.filter((call) => call === "next-sentence").length, 1);
+});
+
+function attachWordWorld(game) {
+  const state = { guidedRequested: false, busy: false, reconstruction: { submitted: true, correct: true } };
+  let generated = 0;
+  const context = vm.createContext({
+    state, window: game.window, lifecycleOptions: {}, course: { id: "test" },
+    shouldBlockReconstructionAdvance: () => !state.reconstruction.submitted,
+    completeWordWorldExposure() {},
+    generateFromConfiguredMode() { generated++; state.busy = true; }
+  });
+  vm.runInContext(wordWorld.slice(wordWorld.indexOf("async function activateNextSentence("),
+    wordWorld.indexOf("function beginWordWorldEncounter()"))
+    + wordWorld.slice(wordWorld.indexOf("function announceCampaignRoundSuccess()"),
+      wordWorld.indexOf("function suspendStarterWordPresentation()")), context);
+  game.window.CaatuuWordWorldHost.advanceCampaignRound = () => context.activateNextSentence({ campaignAdvance: true });
+  return { state, generated: () => generated, next: () => context.activateNextSentence(),
+    success: () => context.announceCampaignRoundSuccess() };
+}
+
+for (const nextGameId of ["verb-lab", "word-net"]) {
+  for (const first of ["click", "timer"]) test(`${first} and repeated Next clicks consume one campaign round before ${nextGameId}`, async () => {
+    const game = wordWorldCampaign({ nextGameId });
+    const round = attachWordWorld(game);
+    round.success();
+    assert.equal(game.state.campaignTransitioning, true, "success claims the transition synchronously");
+    const oldTimer = game.waits[0];
+    if (first === "click") await round.next();
+    else oldTimer.resolve();
+    await round.next();
+    oldTimer.resolve(); // A timer callback already queued before cancellation is harmless.
+    await new Promise((resolve) => setImmediate(resolve));
+    await round.next();
+    assert.equal(round.generated(), 1);
+    assert.equal(game.timers.size, 0);
+    assert.equal(game.waits.length, 2, "only one result hold and one game transition");
+    game.waits[1].resolve();
+    await new Promise((resolve) => setImmediate(resolve));
+    assert.equal(game.state.trainTab, nextGameId);
+    assert.equal(game.state.campaignTransitioning, false);
+    assert.equal(round.generated(), 1);
+  });
+}
+
+test("ordinary Word World and an incorrect campaign answer continue within the game", async () => {
+  for (const campaignActive of [false, true]) {
+    const game = wordWorldCampaign();
+    const round = attachWordWorld(game);
+    game.state.campaignActive = campaignActive;
+    round.state.reconstruction.correct = false;
+    await round.next();
+    assert.equal(round.generated(), 1);
+    assert.equal(game.state.trainTab, "word-net");
+    assert.equal(game.state.campaignTransitioning, false);
+    assert.equal(game.waits.length, 0);
+  }
+});
+
+test("Next cannot skip an unsubmitted reconstruction", async () => {
+  const game = wordWorldCampaign();
+  const round = attachWordWorld(game);
+  round.state.reconstruction.submitted = false;
+  await round.next();
+  assert.equal(round.generated(), 0);
+  assert.equal(game.state.campaignTransitioning, false);
 });
 
 for (const gameId of ["sound-quasar", "conjugation-comet"]) test(`${gameId} batch completion uses the campaign transition only for the verified game frame`, () => {

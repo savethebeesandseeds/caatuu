@@ -17,7 +17,7 @@ const json = async path => JSON.parse(await readFile(new URL(path, root), 'utf8'
 const catalog = await json('apps/languages/catalog.json');
 const courses = await Promise.all(catalog.courses.map(entry => json(entry.manifest)));
 const random = () => 0.37;
-const eligible = (rows, level) => rows.filter(row => row.difficulty === undefined || row.difficulty <= level);
+const eligible = (rows, level) => rows.filter(row => (row.difficulty ?? 1) === level);
 const sameIds = (actual, expected) => assert.deepEqual(new Set(actual.map(row => row.id)), new Set(expected.map(row => row.id)));
 
 for (const course of courses) {
@@ -69,7 +69,7 @@ for (const course of courses) {
         for (const difficulty of [1, 2, 3]) {
           const rounds = buildGrammarGravityRounds(pack, difficulty, random);
           assert.ok(rounds.length > 0);
-          assert.ok(rounds.every(round => round.difficulty <= difficulty));
+          assert.ok(rounds.every(round => round.difficulty === difficulty));
           assert.deepEqual(new Set(rounds.map(round => round.challengeId)), new Set(eligible(pack.challenges, difficulty).map(row => row.id)));
           for (const round of rounds) for (const flight of round.flights) {
             assert.ok(flight.options.includes(flight.answer));
@@ -87,7 +87,7 @@ for (const course of courses) {
         });
         for (const difficulty of [1, 2, 3]) {
           const rows = eligible(pack.verbs, difficulty);
-          assert.ok(rows.length > 0, 'A beginner must not need the host fallback to harder material.');
+          assert.ok(rows.length > 0, 'Every selected band must be playable without borrowing another level.');
           const queue = buildConjugationVerbQueue(rows, { random });
           sameIds(queue, rows);
           for (const verb of queue) {
@@ -104,7 +104,7 @@ for (const course of courses) {
         for (const difficulty of [1, 2, 3]) {
           const rounds = buildRounds(pack, difficulty);
           assert.ok(rounds.length > 0);
-          assert.ok(rounds.every(round => round.difficulty <= difficulty));
+          assert.ok(rounds.every(round => round.difficulty === difficulty));
           let count = 0;
           for (const round of rounds) for (const question of buildQuestions(round, random)) {
             count++;
@@ -124,7 +124,7 @@ for (const course of courses) {
             const round = api.createRound(pack, count, random, '', difficulty);
             assert.equal(round.pieces.length, count);
             assert.equal(new Set(round.pieces.map(piece => api.readingKey(piece.left))).size, count);
-            assert.ok(round.pieces.every(piece => piece.left.difficulty <= difficulty && piece.right.difficulty <= difficulty));
+            assert.ok(round.pieces.every(piece => piece.left.difficulty === difficulty && piece.right.difficulty === difficulty));
           }
           t.diagnostic(`L${difficulty}: ${rows.length} characters; all board sizes`);
         }
@@ -153,7 +153,7 @@ for (const course of courses) {
           for (let i = 0; i < rows.length; i++) {
             const turn = provider.nextRandom({ difficulty, excludeIds: seen, allowExcludedFallback: false });
             assert.ok(turn?.record);
-            assert.ok(turn.record.difficulty <= difficulty);
+            assert.ok(turn.record.difficulty === difficulty);
             seen.push(turn.record.id);
           }
           assert.deepEqual(new Set(seen), new Set(rows.map(row => row.id)));

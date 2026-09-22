@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
+import { matchesContentDifficulty } from '../static/source/games/content-progression.mjs';
 
 globalThis.localStorage = {
   getItem() { return null; },
@@ -220,14 +221,15 @@ function selectionProvider(records, searchKey) {
     getRecordById(id) {
       return records.find((record) => record.id === id) || null;
     },
-    nextRandom() {
+    nextRandom({ difficulty = 1 } = {}) {
       calls.nextRandom += 1;
-      return { record: records[0], fallback: false, requestedWord: "" };
+      const record = records.find(candidate => candidate.difficulty === difficulty);
+      return record ? { record, fallback: false, requestedWord: "" } : null;
     },
-    nextForWord(word) {
+    nextForWord(word, { difficulty = 1 } = {}) {
       calls.nextForWord += 1;
       const requestedWord = searchKey(word);
-      const record = records.find((candidate) => candidate.targets.some((target) => (
+      const record = records.find((candidate) => candidate.difficulty === difficulty && candidate.targets.some((target) => (
         target.playable !== false && searchKey(target.surface) === requestedWord
       )));
       return record ? { record, fallback: false, requestedWord } : null;
@@ -285,7 +287,7 @@ for (const fixture of fixtures) {
     const selection = await selectStandardTurn(provider, {
       generationMode: "selected",
       selectedWord: fixture.selectedWord,
-      difficulty: 3,
+      difficulty: fixture.records.find(record => record.id === fixture.rankedIds[0]).difficulty,
       englishQuery: fixture.englishQuery,
       searchKey: fixture.searchKey,
       async searchEnglish(query) {
@@ -315,7 +317,7 @@ test("selected-word generation fails back to the deterministic target index", as
   const selection = await selectStandardTurn(provider, {
     generationMode: "selected",
     selectedWord: "tava",
-    difficulty: 3,
+    difficulty: 1,
     englishQuery: "bright star",
     searchKey,
     searchEnglish: async () => { throw new Error("model unavailable"); }
@@ -371,6 +373,50 @@ test("a selection exception releases its owned busy interval and reports the err
   assert.equal(releases, 1);
   assert.equal(presentations, 0);
   assert.deepEqual(errors, ["provider selection failed"]);
+});
+
+test("semantic preference cannot replace the selected difficulty with an easier sentence", async () => {
+  const searchKey = value => String(value).toLowerCase();
+  const records = [1, 2, 3].map(difficulty => ({ id: `band-${difficulty}`, difficulty,
+    targets: [{ surface: 'tava', playable: true }] }));
+  const provider = selectionProvider(records, searchKey);
+  for (const difficulty of [2, 3]) {
+    const chosen = await selectStandardTurn(provider, { generationMode: 'selected', selectedWord: 'tava',
+      difficulty, englishQuery: 'star', searchKey,
+      searchEnglish: async () => ({ mode: 'embedding', records: [{ conceptId: 'band-1' }] }) });
+    assert.equal(chosen.record.difficulty, difficulty);
+    assert.equal(chosen.semanticMode, 'provider');
+  }
+});
+
+test('reconstruction distractors use only the chosen band, including saved-history fallback', async () => {
+  const source = await readFile(new URL('../static/source/product-word-world.mjs', import.meta.url), 'utf8');
+  const sourceCandidates = source.slice(source.indexOf('function reconstructionGrammarSignals('),
+    source.indexOf('function preparedTargetRecord('));
+  const targetCandidates = source.slice(source.indexOf('function targetReconstructionCandidateParts('),
+    source.indexOf('function buildTargetReconstructionChallenge('));
+  const records = [1, 2, 3].map(difficulty => ({ id: `band-${difficulty}`, difficulty,
+    en: `source ${difficulty}`, cs: `target ${difficulty}` }));
+  const state = { currentEntryId: 'current', currentStandardRecord: { id: 'current' },
+    currentTranslation: 'answer', currentContentMode: 'standard', standardProvider: { records },
+    history: [...records.map(row => ({ ...row, en: `history ${row.difficulty}`, sentence: `saved ${row.difficulty}` })),
+      { difficulty: null, en: 'unclassified', sentence: 'unclassified' }] };
+  let difficulty = 1;
+  const context = vm.createContext({ state, learningDifficulty: () => difficulty, matchesContentDifficulty,
+    sourcePrimaryLanguage: 'en', reconstructionFallbackTexts: ['unclassified fallback'],
+    preparedTargetRecord: () => null, targetReconstructionParts: text => [{ text }] });
+  vm.runInContext(sourceCandidates + targetCandidates, context);
+  for (difficulty of [1, 2, 3]) {
+    assert.deepEqual(Array.from(vm.runInContext('reconstructionCandidateTexts()', context)),
+      [`source ${difficulty}`, `history ${difficulty}`]);
+    assert.deepEqual(Array.from(vm.runInContext('targetReconstructionCandidateParts()', context), part => part.text),
+      [`target ${difficulty}`]);
+  }
+  state.standardProvider.records = [];
+  difficulty = 2;
+  assert.deepEqual(Array.from(vm.runInContext('targetReconstructionCandidateParts()', context), part => part.text), ['saved 2']);
+  state.history = [];
+  assert.equal(vm.runInContext('reconstructionCandidateTexts().length + targetReconstructionCandidateParts().length', context), 0);
 });
 
 test("presentation takes busy ownership without a late selection release", async () => {

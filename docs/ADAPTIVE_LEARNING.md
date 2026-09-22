@@ -11,7 +11,7 @@ directions remain distinct. There is no new learned model or training service.
 [adaptive-sampling.mjs](../apps/language-runtime/static/source/games/adaptive-sampling.mjs)
 scores eligible items using authored usefulness, goal relevance, recent independent
 errors, missing evidence, challenge, novelty, due review, recency and optional
-English semantic features. Difficulty badges remain a hard ceiling; usefulness
+English semantic features. Difficulty badges select one exact authored level; usefulness
 and complexity are editorial 1–100 grades, not measured learner probabilities.
 Static importance uses usefulness; review urgency comes from history. Missing
 features remain explicit and contribute zero rather than fabricated precision.
@@ -20,8 +20,13 @@ The selector retains gradual challenge expansion, daily introduction pacing,
 review/practice/new slots and distinct-answer requirements. Within each available
 slot it mixes score softmax with uniform exploration: normally 15%, or 25% for
 Explore. Small banks may relax pacing/frontier limits to remain playable, never
-the badge ceiling. Recent/excluded items yield to alternatives within the available
+the selected difficulty. Recent/excluded items yield to alternatives within the available
 category; exhausted categories have explicit fallback explanations.
+The difficulty filter runs before progression, history and scoring: Explorer
+selects level 1, Traveler level 2, and Navigator level 3. Older reviews and
+semantic suggestions cannot introduce a different level. Empty bands stay empty;
+sparse bands never borrow another difficulty. Changing a badge replaces active
+practice, while completed evidence remains available in Stats across all levels.
 
 [learner-state.mjs](../apps/language-runtime/static/source/learner-state.mjs)
 adapts real history without changing persistence. It reports retained evidence,
@@ -36,7 +41,7 @@ independent simulation through the same policy interface.
 
 Backpack → Stats offers optional Balanced, Reinforce, Explore, Review and
 authored course topics. Balanced is the default; difficulty remains separate in
-Items. Changes apply when the next practice selection is made; an already
+Items. Goal changes apply when the next practice selection is made; an already
 assembled board is preserved. The direction card describes this future intent
 separately from the recorded-practice polygon above it.
 All five current course manifests provide optional `learningGoals`; courses may

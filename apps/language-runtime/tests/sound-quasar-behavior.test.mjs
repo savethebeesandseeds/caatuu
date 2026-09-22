@@ -328,12 +328,33 @@ test("shell difficulty changes reset a hidden listening round and ignore stale a
   game.controller.destroy();
 });
 
+test("an insufficient listening band retires its board without a retry loop and recovers through another badge", async () => {
+  const game = await mountGame({ realLearning: true, mutateCatalog(raw) {
+    const last = raw.items.find(item => item.difficulty === 3);
+    raw.items.forEach(item => { if (item.difficulty === 3 && item !== last) item.difficulty = 1; });
+  } });
+  game.shell.CaatuuLearning.setDifficulty(3);
+  await settle();
+  assert.equal(game.element("Game").hidden, true);
+  assert.equal(game.element("Error").hidden, false);
+  assert.equal(game.choices().length, 0);
+  assert.equal(game.clock.pending().length, 0);
+  game.shell.CaatuuLearning.setDifficulty(2);
+  await settle();
+  assert.equal(game.element("Game").hidden, false);
+  assert.equal(game.element("Error").hidden, true);
+  const ids = new Set(game.catalog.items.filter(item => item.difficulty === 2).map(item => item.id));
+  assert.ok(game.choices().length >= 2 && game.choices().every(button => ids.has(button.dataset.choiceId)));
+  game.noCredit();
+  game.controller.destroy();
+});
+
 test("the listening host uses the selected course difficulty for both answers and choices", async () => {
   const game = await mountGame({ language: "english-from-spanish", realLearning: true });
   for (const difficulty of [1, 2, 3]) {
     game.shell.CaatuuLearning.setDifficulty(difficulty);
     await settle();
-    const eligible = new Set(game.catalog.items.filter(row => row.difficulty <= difficulty).map(row => row.id));
+    const eligible = new Set(game.catalog.items.filter(row => row.difficulty === difficulty).map(row => row.id));
     assert.ok(game.choices().every(button => eligible.has(button.dataset.choiceId)));
     await game.listen();
     assert.ok(eligible.has(game.current().id));

@@ -1,10 +1,10 @@
-import { normalizeContentProgression } from "../content-progression.mjs";
+import { normalizeContentProgression, matchesContentDifficulty } from "../content-progression.mjs";
 export { selectContentItems, newContentEncounterId } from "../adaptive-practice.mjs";
 export const VERB_NEBULA_PAIR_COUNTS = Object.freeze([2, 4, 6, 8]);
 
 const verbKindPattern = /^V(?:\s|$)/u;
 const deliberateSlashSeparator = /\s+\/\s+/u;
-const defaultVerbDifficulty = 3;
+const defaultVerbDifficulty = 1;
 
 function normalizedLabel(value) {
   return String(value || "").trim().normalize("NFC");
@@ -443,23 +443,7 @@ export function buildGuidedVerbRound(pairs, targetPair, {
 }
 
 export function filterVerbPairsForDifficulty(pairs, difficulty) {
-  const catalog = Array.from(pairs || []);
-  const maximumDifficulty = normalizeVerbDifficulty(difficulty, 1);
-
-  // During an app upgrade, an older service-worker cache can briefly pair the
-  // new game code with the pre-tier dictionary. Keep that legacy catalog
-  // playable until the authored metadata arrives on the next refresh. A
-  // partially classified catalog remains conservative: unclassified verbs
-  // stay at Navigator level.
-  const catalogHasAuthoredDifficulty = catalog.some((pair) => (
-    pair?.difficultyIsAuthored === true
-      || (pair?.difficultyIsAuthored == null && hasVerbDifficultyMetadata(pair?.difficulty))
-  ));
-  if (!catalogHasAuthoredDifficulty) return catalog;
-
-  return catalog.filter((pair) => (
-    normalizeVerbDifficulty(pair?.difficulty) <= maximumDifficulty
-  ));
+  return Array.from(pairs || []).filter((pair) => matchesContentDifficulty(pair, difficulty));
 }
 
 export function verbHintSearchText(pair) {

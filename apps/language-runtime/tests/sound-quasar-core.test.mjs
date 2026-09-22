@@ -62,7 +62,7 @@ for (const course of courses) {
       assert.equal(item.englishAuditText, source.source ?? source.en);
       assert.equal(item.sourceReviewStatus, source.reviewStatus ?? "not-declared");
     }
-    const session = createSoundQuasarSession(catalog, { random: seededRandom(12) });
+    const session = createSoundQuasarSession(catalog, { difficulty: 1, random: seededRandom(12) });
     assert.equal(session.length, 5);
     assert.equal(new Set(session.map(({ answerId }) => answerId)).size, 5);
   });
@@ -87,7 +87,7 @@ for (const course of courses) {
       assert.equal(item.englishAuditText, englishText);
     }
     for (let seed = 1; seed <= 20; seed += 1) {
-      const session = createSoundQuasarSession(catalog, { mode: "sentences", random: seededRandom(seed) });
+      const session = createSoundQuasarSession(catalog, { difficulty: 1, mode: "sentences", random: seededRandom(seed) });
       assert.equal(session.length, 5);
       assert.equal(new Set(session.map(({ answerId }) => answerId)).size, 5);
       for (const round of session) {
@@ -121,7 +121,7 @@ test("Mandarin word and sentence readings preserve the exact source units and ta
   const need = catalog.items.find(item => item.target === "需要");
   assert.deepEqual(need.reading.tokens[0].units, [{ surface: "需", notation: "xū" }, { surface: "要", notation: "yào" }]);
   for (const mode of ["words", "sentences"]) {
-    const round = buildSoundQuasarRound(catalog, { mode, random: () => 0 });
+    const round = buildSoundQuasarRound(catalog, { difficulty: 1, mode, random: () => 0 });
     assert.ok(round.reading.tokens.length);
     assert.ok(round.choices.every(choice => choice.reading.tokens.length));
   }
@@ -164,9 +164,9 @@ test("word-only catalogs stay compatible and unknown or unavailable modes fail e
   delete raw.sentences;
   delete raw.sentenceProvenance;
   const catalog = validateSoundQuasarCatalog(raw);
-  assert.equal(createSoundQuasarSession(catalog)[0].mode, "words");
-  assert.throws(() => createSoundQuasarSession(catalog, { mode: "sentences" }), /does not contain sentences/u);
-  assert.throws(() => createSoundQuasarSession(catalog, { mode: "unknown" }), /mode/u);
+  assert.equal(createSoundQuasarSession(catalog, { difficulty: 1 })[0].mode, "words");
+  assert.throws(() => createSoundQuasarSession(catalog, { difficulty: 1, mode: "sentences" }), /does not contain sentences/u);
+  assert.throws(() => createSoundQuasarSession(catalog, { difficulty: 1, mode: "unknown" }), /mode/u);
 });
 
 test("catalog validation copies and deeply freezes the selected content", () => {
@@ -246,9 +246,10 @@ test("invalid provenance, duplicate IDs, missing English text, and unbounded con
 test("each sampled round has one correct answer and three distinct catalog distractors", () => {
   const catalog = validateSoundQuasarCatalog(sample());
   const answerPositions = new Set();
-  for (let seed = 1; seed <= 40; seed += 1) {
-    const session = createSoundQuasarSession(catalog, { random: seededRandom(seed), roundLength: catalog.items.length });
-    assert.equal(new Set(session.map(({ answerId }) => answerId)).size, catalog.items.length);
+  for (const difficulty of [1, 2]) for (let seed = 1; seed <= 40; seed += 1) {
+    const eligible = catalog.items.filter(item => item.difficulty === difficulty);
+    const session = createSoundQuasarSession(catalog, { difficulty, random: seededRandom(seed), roundLength: catalog.items.length });
+    assert.deepEqual(new Set(session.map(({ answerId }) => answerId)), new Set(eligible.map(item => item.id)));
     for (const round of session) {
       assert.equal(round.choices.length, 4);
       assert.equal(new Set(round.choices.map(({ target }) => target)).size, 4);
@@ -257,7 +258,7 @@ test("each sampled round has one correct answer and three distinct catalog distr
       assert.equal(Object.isFrozen(round.choices), true);
       answerPositions.add(round.choices.findIndex(({ id }) => id === round.answerId));
       for (const choice of round.choices) {
-        assert.ok(catalog.items.some(({ id, target }) => id === choice.id && target === choice.target));
+        assert.ok(eligible.some(({ id, target }) => id === choice.id && target === choice.target));
         assert.equal(evaluateSoundQuasarChoice(round, choice.id), choice.id === round.answerId);
       }
     }
@@ -267,24 +268,25 @@ test("each sampled round has one correct answer and three distinct catalog distr
 
 test("round building cycles explicit indices and caps finite sessions without duplicate answers", () => {
   const catalog = validateSoundQuasarCatalog(sample());
-  const first = buildSoundQuasarRound(catalog, { index: 0, random: () => 0 });
-  const repeated = buildSoundQuasarRound(catalog, { index: catalog.items.length, random: () => 0 });
+  const eligibleCount = catalog.items.filter(item => item.difficulty === 1).length;
+  const first = buildSoundQuasarRound(catalog, { difficulty: 1, index: 0, random: () => 0 });
+  const repeated = buildSoundQuasarRound(catalog, { difficulty: 1, index: eligibleCount, random: () => 0 });
   assert.deepEqual(first, repeated);
-  const session = createSoundQuasarSession(catalog, { roundLength: 100, random: () => 0 });
-  assert.equal(session.length, Math.min(100, catalog.items.length));
+  const session = createSoundQuasarSession(catalog, { difficulty: 1, roundLength: 100, random: () => 0 });
+  assert.equal(session.length, Math.min(100, eligibleCount));
   assert.equal(new Set(session.map(({ answerId }) => answerId)).size, session.length);
   assert.equal(Object.isFrozen(session), true);
 });
 
 test("invalid choices and invalid random or round parameters are rejected", () => {
   const catalog = validateSoundQuasarCatalog(sample());
-  const round = buildSoundQuasarRound(catalog, { random: () => 0 });
+  const round = buildSoundQuasarRound(catalog, { difficulty: 1, random: () => 0 });
   assert.throws(() => evaluateSoundQuasarChoice(round, "not-an-option"), /not an option/u);
   assert.throws(() => evaluateSoundQuasarChoice(round, { id: round.answerId }), /not an option/u);
-  for (const index of [-1, 1.5, NaN]) assert.throws(() => buildSoundQuasarRound(catalog, { index }), /index/u);
-  for (const choiceCount of [1, catalog.items.length + 1, 2.5]) assert.throws(() => buildSoundQuasarRound(catalog, { choiceCount }), /choiceCount/u);
-  for (const roundLength of [0, -1, 2.5]) assert.throws(() => createSoundQuasarSession(catalog, { roundLength }), /roundLength/u);
+  for (const index of [-1, 1.5, NaN]) assert.throws(() => buildSoundQuasarRound(catalog, { difficulty: 1, index }), /index/u);
+  for (const choiceCount of [1, catalog.items.length + 1, 2.5]) assert.throws(() => buildSoundQuasarRound(catalog, { difficulty: 1, choiceCount }), /choiceCount/u);
+  for (const roundLength of [0, -1, 2.5]) assert.throws(() => createSoundQuasarSession(catalog, { difficulty: 1, roundLength }), /roundLength/u);
   for (const value of [1, -0.1, NaN, Infinity, "0.5"]) {
-    assert.throws(() => createSoundQuasarSession(catalog, { random: () => value }), /random/u);
+    assert.throws(() => createSoundQuasarSession(catalog, { difficulty: 1, random: () => value }), /random/u);
   }
 });

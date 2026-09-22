@@ -35,18 +35,18 @@ test("retired Czech renderer files are absent while the compatibility redirect r
   assert.match(legacyRedirect, /url=\/cz\/index\.html\?game=grammar-gravity/u);
 });
 
-test("the current journey schedules every authored example within its cumulative badge", () => {
+test("the current journey schedules every authored example within its selected badge", () => {
   assert.equal(pack.schemaVersion, "caatuu-grammar-gravity-content-v3");
   assert.deepEqual(pack.gameplay.stages, ["meaning", "category", "form"]);
   assert.equal(pack.gameplay.categoryFeature, "gender");
   for (const level of [1, 2, 3]) {
-    const eligible = pack.challenges.filter(entry => entry.difficulty <= level);
+    const eligible = pack.challenges.filter(entry => entry.difficulty === level);
     const expectedIds = eligible.flatMap(entry => Object.values(entry.forms).flatMap(form => form.examples.map(example => example.id)));
     const rounds = buildGrammarGravityRounds(pack, level, () => 0.3);
     assert.ok(rounds.length > 0);
     assert.deepEqual(rounds.map(round => round.id).sort(), expectedIds.sort());
     assert.equal(new Set(rounds.map(round => round.id)).size, rounds.length);
-    assert.ok(rounds.every(round => round.difficulty <= level));
+    assert.ok(rounds.every(round => round.difficulty === level));
   }
   assert.equal(Object.hasOwn(pack, "lesson"), false);
   assert.deepEqual(Object.keys(pack.presentation), ["errorTitle", "errorDetail", "backLabel"]);
@@ -83,7 +83,8 @@ test("the Grammar Gravity examples remain suitable for children", () => {
 });
 
 test("Czech challenge families retain their forms in the sole animated renderer", () => {
-  const rounds = new Map(buildGrammarGravityRounds(pack, 3, () => 0.3).map(round => [round.id, round]));
+  const rounds = new Map([1, 2, 3].flatMap(difficulty => buildGrammarGravityRounds(pack, difficulty, () => 0.3))
+    .map(round => [round.id, round]));
   for (const challenge of pack.challenges) {
     for (const form of Object.values(challenge.forms)) {
       for (const example of form.examples) {

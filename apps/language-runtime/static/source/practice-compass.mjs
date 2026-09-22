@@ -265,7 +265,9 @@ export function createPracticeCompass({ course, learning, runtimeHref = globalTh
       } else if (kind === "nouns") result = { nouns: englishRows(normalizeNounLandingPack(document, {
         courseId: course.id, targetLanguage: course.targetLanguage.locale, learnerBaseLanguage: course.sourceLanguage.locale
       }).items, row => row.id, row => row.english) };
-      else if (gameId === "grammar-gravity") result = { phrases: englishRows(buildGrammarGravityRounds(document, 3, () => 0.5)) };
+      else if (gameId === "grammar-gravity") result = { phrases: englishRows(
+        // Stats resolves all recorded evidence, independently of the selected badge.
+        [1, 2, 3].flatMap(difficulty => buildGrammarGravityRounds(document, difficulty, () => 0.5))) };
       else if (gameId === "sound-quasar") {
         const pack = validateSoundQuasarCatalog(document, { courseId: course.id, targetLanguageId: course.targetLanguage.id,
           learnerBaseLanguage: course.sourceLanguage.locale });

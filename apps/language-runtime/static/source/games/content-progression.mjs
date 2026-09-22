@@ -3,6 +3,14 @@ export const CONTENT_DAY_MS = 24 * 60 * 60 * 1000;
 export const CONTENT_PRACTICE_GAP_MS = 5 * 60 * 1000;
 export const CONTENT_INTRODUCTION_BUDGET = 6;
 
+/** The selected badge is an exact content band; cached unclassified items belong to level 1. */
+export function matchesContentDifficulty(item, difficulty) {
+  if (![1, 2, 3].includes(difficulty)) throw new TypeError("difficulty must be 1, 2, or 3.");
+  const authored = item.difficulty === undefined ? 1 : item.difficulty;
+  if (![1, 2, 3].includes(authored)) throw new TypeError("Authored difficulty must be 1, 2, or 3.");
+  return authored === difficulty;
+}
+
 export function normalizeContentProgression(item, label = "item") {
   const result = {};
   for (const [field, legacy] of [["usefulness", "urgency"], ["complexity", "subdifficulty"]]) {
@@ -44,8 +52,9 @@ export function contentPracticeReadiness(progress = {}) {
 }
 
 /**
- * Mix due review, rested practice and gradual introductions. Delayed independent
- * evidence widens the challenge range; completion counts only rotate the queue.
+ * Mix due review, rested practice and gradual introductions within the selected
+ * difficulty band. Delayed independent evidence widens the challenge range;
+ * completion counts only rotate the queue.
  * No item gates another. Constructing a queue never changes learning history.
  * The budgets and readiness curve are tunable product heuristics, not claims
  * that a particular number of answers proves learning.
@@ -62,9 +71,8 @@ export function selectContentItems(items, {
   const ids = new Set();
   const rows = [];
   for (const item of items) {
+    if (!matchesContentDifficulty(item, difficulty)) continue;
     const badge = item.difficulty === undefined ? 1 : item.difficulty;
-    if (![1, 2, 3].includes(badge)) throw new TypeError("Authored difficulty must be 1, 2, or 3.");
-    if (badge > difficulty) continue;
     const id = String(getId(item) ?? "");
     if (!id || ids.has(id)) continue;
     ids.add(id);

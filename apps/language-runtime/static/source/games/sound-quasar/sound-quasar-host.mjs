@@ -66,7 +66,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
   }
   function syncBatch() {
     cancelBatch();
-    if (!state.finished || state.waitingCampaign || !state.active || state.destroyed || state.pageHidden
+    if (!state.finished || !state.rounds.length || state.waitingCampaign || !state.active || state.destroyed || state.pageHidden
       || shell.document.visibilityState === "hidden" || state.report || controls.isOpen()) return;
     const request = state.batchRequest;
     state.batchTimer = scope.setTimeout(() => {
@@ -250,6 +250,20 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     cancelAdvance();
     const difficulty = Math.max(1, Math.min(3, Math.floor(Number(shell.CaatuuLearning?.difficulty?.()) || 1)));
     const available = soundQuasarItemsForDifficulty(catalog, { mode: state.mode, difficulty }).length;
+    if (available < 2) {
+      state.rounds = [];
+      state.finished = true;
+      state.pendingAutoplay = false;
+      transitionScreen.hide();
+      node("quasarChoices").replaceChildren();
+      node("quasarGame").hidden = true;
+      node("quasarErrorText").textContent = "Sounds Quasar needs at least two listening items for this badge.";
+      node("quasarError").hidden = false;
+      syncButtons();
+      return;
+    }
+    node("quasarError").hidden = true;
+    node("quasarGame").hidden = false;
     const choiceCount = available >= state.choiceCount ? state.choiceCount : Math.min(4, available);
     state.rounds = createSoundQuasarSession(catalog, { random, roundLength: 5, mode: state.mode, choiceCount, difficulty,
       history: shell.CaatuuLearning?.contentHistory?.(GAME_ID, state.mode),
@@ -548,7 +562,6 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
   }
   startSession();
   loadingScreen.hide();
-  node("quasarGame").hidden = false;
   node("quasarRoot").setAttribute("aria-busy", "false");
   void checkAudio();
   return Object.freeze({ destroy });

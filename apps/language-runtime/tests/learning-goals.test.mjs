@@ -70,6 +70,30 @@ test("goals persist independently from difficulty, old-client writes, activity a
   await reloaded.learning.retryPendingSaves();
 });
 
+test("difficulty changes in another tab invalidate the active game without rewriting evidence", () => {
+  const app = browser();
+  const changes = [];
+  app.window.addEventListener('caatuu:learning-change', event => changes.push(event.detail.reason));
+  app.learning.setDifficulty(3);
+  const key = app.learning.storage.preferenceStorageKey;
+  app.localStorage.setItem(key, JSON.stringify({ schemaVersion: 1, difficulty: 1 }));
+  app.window.dispatchEvent({ type: 'storage', key, storageArea: app.localStorage });
+  assert.equal(app.learning.difficulty(), 1);
+  assert.deepEqual(changes, ['difficulty', 'difficulty']);
+  app.learning.setDifficulty(1);
+  assert.equal(changes.length, 2, 'clicking an already synchronized badge does not restart again');
+  app.localStorage.setItem(key, JSON.stringify({ schemaVersion: 1, difficulty: 2 }));
+  app.learning.setDifficulty(2);
+  assert.equal(changes.length, 3, 'a click also catches an external write before its storage event arrives');
+  app.window.dispatchEvent({ type: 'storage', key });
+  assert.equal(changes.length, 3, 'a late storage notification is not a second restart');
+  app.localStorage.setItem(key, JSON.stringify({ schemaVersion: 1, difficulty: 1 }));
+  app.window.dispatchEvent({ type: 'storage', key: null });
+  assert.equal(app.learning.difficulty(), 1);
+  assert.equal(changes.length, 4);
+  assert.equal(app.learning.summarize().attempts, 0);
+});
+
 test("goals and supplied policy context remain course, bank and direction scoped", () => {
   const first = browser();
   first.learning.setGoal("reinforce");

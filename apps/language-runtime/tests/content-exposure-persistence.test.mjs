@@ -423,7 +423,7 @@ test('actual persisted overdue mistakes and assisted practice rotate fairly thro
   const selectedCounts = new Map();
   for (let step = 0; step < 120; step++) {
     const history = a.learning.contentHistory('sound-quasar', 'words');
-    const [row] = selectContentItems(rows, { history, now: clock.now, limit: 1, random: () => 0 });
+    const [row] = selectContentItems(rows, { difficulty: 1, history, now: clock.now, limit: 1, random: () => 0 });
     selectedCounts.set(row.id, (selectedCounts.get(row.id) || 0) + 1);
     a.learning.recordExposure('sound-quasar', event(`attempt-${step}`, { itemId: row.id,
       correct: step % 2 === 0 ? false : true, evidence: step % 2 === 0 ? 'independent' : 'assisted' }));

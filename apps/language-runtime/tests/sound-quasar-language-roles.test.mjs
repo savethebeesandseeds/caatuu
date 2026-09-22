@@ -31,7 +31,7 @@ const expected = { courseId: "es-en", targetLanguageId: "en", learnerBaseLanguag
 
 test("Spanish listening meanings stay separate from English speech and audit authority", () => {
   const catalog = validateSoundQuasarCatalog(spanishToEnglish(), expected);
-  const round = buildSoundQuasarRound(catalog, { random: () => 0 });
+  const round = buildSoundQuasarRound(catalog, { difficulty: 1, random: () => 0 });
   assert.equal(catalog.learnerBaseLanguage, "es-ES");
   assert.equal(catalog.audio.locale, "en-US");
   assert.equal(catalog.auditLanguage, "en");

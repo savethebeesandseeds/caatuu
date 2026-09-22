@@ -3,6 +3,7 @@ import { seededRandom } from './random.mjs';
 import { recordOutcome } from './evidence.mjs';
 import { baselinePolicies } from './policies.mjs';
 import { compactDecision, evidenceDiagnostics, summarizeDiagnostics } from './diagnostics.mjs';
+import { matchesContentDifficulty } from '../../../apps/language-runtime/static/source/games/content-progression.mjs';
 
 const DAY = 86400000;
 const mean = values => values.reduce((a, b) => a + b, 0) / values.length;
@@ -19,7 +20,7 @@ function freeze(value) {
 
 /** Eligibility contains no frontier, introduction pacing, review or policy score. */
 export function eligibleCandidates(fixture, config) {
-  return fixture.items.filter(item => item.validTask && item.difficulty <= config.difficulty)
+  return fixture.items.filter(item => item.validTask && matchesContentDifficulty(item, config.difficulty))
     .map(({ simulation, ...item }) => structuredClone(item));
 }
 

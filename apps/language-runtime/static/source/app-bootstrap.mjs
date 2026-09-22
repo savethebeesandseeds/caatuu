@@ -717,7 +717,7 @@ async function loadCourseFeatureProviders() {
     origin: location.origin,
     routeBase,
     async initializeWorkspace() {
-      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-36");
+      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-37");
       const workspace = await globalThis.CaatuuWorkspaceReady;
       if (workspace?.ready !== true) {
         throw workspace?.error instanceof Error
@@ -752,14 +752,14 @@ async function start() {
     axes: sharedPracticeAxes,
     ...createPracticeCompass({ course, learning: globalThis.CaatuuLearning })
   });
-  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-174");
+  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-175");
   globalThis.CaatuuMusicUi?.mountAll();
   // Keep the canonical Home and its language controls available while native
   // setup verifies the selected course. Curriculum and game artwork wait for it.
   await initializeHomeCourseSetup(globalThis, { onSetupRequired: revealApplication });
   configureGameRoutes();
   applyCapabilityBoundaries();
-  await import("./word-world-host.mjs?v=word-world-host-24");
+  await import("./word-world-host.mjs?v=word-world-host-25");
   await loadCourseFeatureProviders();
   // Publish the usable-controls and voice results together. Further voice
   // retries can recover a late engine without delaying entry to the app.

@@ -30,7 +30,7 @@ test('Sounds accepts 6,000 records per collection and retains difficulty, choice
   assert.equal(catalog.sentences.at(-1).id, raw.sentences.at(-1).id);
   for (const mode of ['words', 'sentences']) for (const difficulty of [1, 2, 3]) {
     const eligibleIds = new Set((mode === 'words' ? catalog.items : catalog.sentences)
-      .filter(item => item.difficulty <= difficulty).map(item => item.id));
+      .filter(item => item.difficulty === difficulty).map(item => item.id));
     const rounds = createSoundQuasarSession(catalog, { mode, difficulty, choiceCount: 8, roundLength: 5, random });
     assert.equal(rounds.length, 5);
     for (const round of rounds) {
@@ -65,11 +65,11 @@ test('Grammar accepts more than 48 families with every example reachable at its 
   const catalog = normalizeGrammarGravityPack(raw, { courseId: 'es', learnerBaseLanguage: 'en', targetLanguage: 'es-ES' });
   assert.equal(catalog.challenges.length, 256);
   for (const difficulty of [1, 2, 3]) {
-    const expected = raw.challenges.filter(item => item.difficulty <= difficulty)
+    const expected = raw.challenges.filter(item => item.difficulty === difficulty)
       .flatMap(item => Object.values(item.forms).flatMap(form => form.examples.map(example => example.id)));
     const rounds = buildGrammarGravityRounds(catalog, difficulty, random);
     assert.deepEqual(new Set(rounds.map(round => round.id)), new Set(expected));
-    assert.ok(rounds.every(round => round.difficulty <= difficulty));
+    assert.ok(rounds.every(round => round.difficulty === difficulty));
     for (const round of rounds) for (const flight of round.flights) assert.ok(flight.options.includes(flight.answer));
   }
   const duplicate = structuredClone(raw);
@@ -115,7 +115,7 @@ test('Case accepts new JSON banks beyond the former ceilings and keeps duplicate
   assert.equal(validated.paradigms.length, cases.paradigms.length + 201);
   for (const difficulty of [1, 2, 3]) {
     const rounds = buildRounds(expanded, difficulty).filter(round => round.contextItem);
-    assert.deepEqual(rounds.map(round => round.id), expanded.contexts.filter(item => item.difficulty <= difficulty).map(item => item.id));
+    assert.deepEqual(rounds.map(round => round.id), expanded.contexts.filter(item => item.difficulty === difficulty).map(item => item.id));
     const [question] = buildQuestions(rounds.at(-1), random);
     assert.equal(question.candidates.filter(item => item.matches).length, 1);
   }

@@ -1,5 +1,5 @@
 import { normalizeCurriculum, normalizeCurriculumItem } from "../../../../../../language-runtime/static/source/games/curriculum-progression.mjs";
-import { normalizeContentProgression, selectContentItems } from "../../../../../../language-runtime/static/source/games/adaptive-practice.mjs";
+import { normalizeContentProgression, selectContentItems, matchesContentDifficulty } from "../../../../../../language-runtime/static/source/games/adaptive-practice.mjs";
 
 export const CZECH_CASES = Object.freeze([
   Object.freeze({ case: "Nominative", meaning: "naming or subject", question: "Who or what is the subject?" }),
@@ -182,7 +182,7 @@ export function buildRounds(pack, difficulty) {
   const checked = validatePack(pack);
   if (!Array.isArray(checked)) {
     const paradigms = new Map(checked.paradigms.map((paradigm) => [paradigm.id, paradigm]));
-    const contexts = checked.contexts.filter((item) => item.difficulty <= difficulty).map((item) => {
+    const contexts = checked.contexts.filter((item) => matchesContentDifficulty(item, difficulty)).map((item) => {
       const paradigm = paradigms.get(item.paradigmId);
       const definition = CZECH_CASES.find(({ case: name }) => name === item.case);
       return Object.freeze({ ...item, noun: paradigm.noun, number: paradigm.number,
@@ -191,7 +191,7 @@ export function buildRounds(pack, difficulty) {
     });
     return Object.freeze([...buildRounds(checked.legacyNouns, difficulty), ...contexts]);
   }
-  return Object.freeze(checked.filter((entry) => entry.difficulty <= difficulty)
+  return Object.freeze(checked.filter((entry) => matchesContentDifficulty(entry, difficulty))
     .sort((a, b) => a.difficulty - b.difficulty)
     .map((entry) => Object.freeze({ noun: entry.noun, difficulty: entry.difficulty, ...normalizeContentProgression(entry),
       matches: Object.freeze(CZECH_CASES.map((definition) => Object.freeze({ ...definition, ...entry.cases[definition.case] })))

@@ -18,7 +18,7 @@ test("authored grammar banks retain every example while separating repeated word
     const raw = await json(new URL(`../../languages/${language}/static/data/games/grammar-gravity/content.json`, import.meta.url));
     const pack = normalizeGrammarGravityPack(raw, { courseId, learnerBaseLanguage, targetLanguage });
     for (const difficulty of [1, 2, 3]) {
-      const expected = pack.challenges.filter((challenge) => challenge.difficulty <= difficulty)
+      const expected = pack.challenges.filter((challenge) => challenge.difficulty === difficulty)
         .flatMap((challenge) => Object.values(challenge.forms).flatMap((form) => form.examples.map(({ id }) => id))).sort();
       let previous = "";
       for (const sample of [0, .5, .999]) {
@@ -344,7 +344,7 @@ test("grammar meaning correction is assisted and an unanswered timed task is exp
 });
 
 function syntheticAgreementBank(content) {
-  content.challenges = [1, 1, 2, 3].map((difficulty, familyIndex) => ({
+  content.challenges = [1, 1, 2, 2, 3, 3].map((difficulty, familyIndex) => ({
     id: `fixture.family${familyIndex}`, revision: 1, difficulty, usefulness: 75, complexity: 90,
     focus: { kind: "synthetic", label: "Fixture", targetText: "Fixture", resultTitle: "Fixture", summary: "Fixture" },
     forms: Object.fromEntries(content.axes.map((axis, axisIndex) => [axis.id, {
@@ -428,7 +428,7 @@ test("one-meaning cohorts borrow only a minimal equally easy contrast and never 
 test("difficulty changes replace the current modern round without skipped challenge kinds",async()=>{
   const game=await mountSequence();
   game.setDifficulty(3);
-  const authored = game.state.pack.challenges;
+  const authored = game.state.pack.challenges.filter(challenge=>challenge.difficulty===3);
   assert.deepEqual(new Set(game.state.rounds.map(round=>round.challengeId)),new Set(authored.map(challenge=>challenge.id)));
   assert.equal(game.state.rounds.length,authored.flatMap(challenge=>Object.values(challenge.forms).flatMap(form=>form.examples)).length);
   game.state.index=Math.min(1,game.state.rounds.length-1);

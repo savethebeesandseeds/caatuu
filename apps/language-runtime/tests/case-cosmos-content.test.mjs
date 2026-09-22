@@ -72,7 +72,7 @@ test("sentence challenges change only the noun, keep one true form, and never mi
   const random = () => ((state = (Math.imul(state, 1664525) + 1013904223) >>> 0) / 4294967296);
   const correctPositions = new Set();
   let total = 0;
-  for (const round of buildRounds(pack, 3)) {
+  for (const round of [1, 2, 3].flatMap(level => buildRounds(pack, level))) {
     const original = JSON.stringify(round);
     for (let iteration = 0; iteration < 100; iteration += 1) {
       const challenges = buildQuestions(round, random);

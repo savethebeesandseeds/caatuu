@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
-import { selectContentItems, newContentEncounterId } from "../static/source/games/content-progression.mjs";
+import { selectContentItems, newContentEncounterId, matchesContentDifficulty } from "../static/source/games/content-progression.mjs";
 
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { createInterfaceContent } from "../static/source/interface-content.mjs";
@@ -58,10 +58,11 @@ function seedGameMarkup(harness) {
   }
 }
 
-async function mountGame({ language = "czech", difficulty = 3, syntheticBase = false, framed = false, syncretic = false, speech = false, autoplay = false, muted = false, speechResult, duringLoad, reducedMotion = false, localStorageValues = {} } = {}) {
+async function mountGame({ language = "czech", difficulty = 3, syntheticBase = false, framed = false, syncretic = false, speech = false, autoplay = false, muted = false, speechResult, duringLoad, reducedMotion = false, localStorageValues = {}, mutateCatalog } = {}) {
   const raw = JSON.parse(await readFile(new URL(
     `../../languages/${language}/static/data/games/conjugation-comet/content.json`, import.meta.url
   ), "utf8"));
+  mutateCatalog?.(raw);
   const czech = language === "czech";
   const course = {
     id: czech ? "cz" : "es",
@@ -189,7 +190,7 @@ async function mountGame({ language = "czech", difficulty = 3, syntheticBase = f
     rejectCatalog = reject;
   }) : Promise.resolve();
   Object.assign(harness.context, {
-    selectConjugationPracticeVerbs, newContentEncounterId,
+    selectConjugationPracticeVerbs, newContentEncounterId, matchesContentDifficulty,
     fetchDeclaredCourseGameJson,
     readEmbeddedCourseProfile,
     buildConjugationHelixRound(...args) {
@@ -753,6 +754,25 @@ test("an incorrect whole-board check grades every pair, awards no XP, and retrie
   assert.equal(game.attempts().length, 2);
   assert.equal(game.attempts()[1].xp, result.total);
   assert.equal(game.attempts()[1].successes, 1);
+  game.controller.destroy();
+});
+
+test("an unavailable conjugation band retires the board and can recover through another badge", async () => {
+  const game = await mountGame({ difficulty: 1, mutateCatalog(raw) {
+    raw.verbs = raw.verbs.filter(verb => verb.difficulty !== 3);
+  } });
+  const saved = JSON.stringify(game.records);
+  game.shell.CaatuuLearning.difficulty = () => 3;
+  game.window.dispatchEvent({ type: "caatuu:learning-change", detail: { reason: "difficulty" } });
+  assert.equal(game.element("conjugationCometError").hidden, false);
+  assert.equal(game.element("conjugationCometGame").hidden, true);
+  assert.equal(game.element("conjugationCometSubmit").disabled, true);
+  game.shell.CaatuuLearning.difficulty = () => 2;
+  game.window.dispatchEvent({ type: "caatuu:learning-change", detail: { reason: "difficulty" } });
+  assert.equal(game.element("conjugationCometError").hidden, true);
+  assert.equal(game.element("conjugationCometGame").hidden, false);
+  assert.equal(game.current().difficulty, 2);
+  assert.equal(JSON.stringify(game.records), saved);
   game.controller.destroy();
 });
 

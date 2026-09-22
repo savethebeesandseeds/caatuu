@@ -162,7 +162,7 @@ test('English grammar uses number and subject agreement with Spanish phrase pres
       assert.ok(['singular', 'plural'].includes(flight.categoryId));
     }
   }
-  assert.equal(buildGrammarGravityRounds(grammar, 3).length,
+  assert.equal([1, 2, 3].flatMap(difficulty => buildGrammarGravityRounds(grammar, difficulty)).length,
     raw.challenges.flatMap(challenge => Object.values(challenge.forms).flatMap(form => form.examples)).length);
   const nounSource = await json('static/data/games/grammar-gravity/nouns.json');
   const nouns = normalizeNounLandingPack(nounSource, options);

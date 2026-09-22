@@ -40,7 +40,9 @@ successes or lengthening the review interval.
 
 ## Review and gradual introductions
 
-The selected badge is a hard ceiling. There are no authored record-to-record
+The selected badge is an exact content filter: level 1 for Explorer, level 2
+for Traveler, and level 3 for Navigator. Apply it before using history or
+progression; review and fallback selections stay within that level. There are no authored record-to-record
 prerequisites and no dependency graph. The shared selector mixes due review,
 rested practice and small introductions. Games preserve that priority when
 choosing the next task; they may shuffle its visible answer arrangement.

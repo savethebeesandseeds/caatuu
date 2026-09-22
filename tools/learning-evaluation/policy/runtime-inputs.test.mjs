@@ -54,6 +54,30 @@ test('production bridge declares the shared input helper for provenance hashing'
   assert.ok(policyMetadata.sourceFiles.includes('apps/language-runtime/static/source/games/recent-practice.mjs'));
 });
 
+test('both evaluator bridges match exact-band gameplay, including the default third band', () => {
+  const bank = [1, 2, 3].flatMap(difficulty => [10, 30].map(complexity => ({
+    id: `band-${difficulty}-${complexity}`, difficulty, complexity, usefulness: 70
+  })));
+  for (const courseId of ['cz', 'zh', 'es', 'es-en', 'nb']) for (const difficulty of [1, 2, 3, undefined]) {
+    const identity = { courseId, gameId: 'fixture', bankId: 'mixed-bands' };
+    const learner = { mode: 'observable-real', evidenceByItem: {} };
+    const goal = { id: 'balanced', kind: 'balanced' };
+    const input = { identity, candidates: bank, learner, goal, now, difficulty, minimumPool: 1, random: () => .31 };
+    let runtimeTrace;
+    const selected = selectContentItems(bank, { history: {}, now, difficulty, minimumPool: 1, limit: 1,
+      random: input.random, policy: { identity, learner, goal, semanticsEnabled: false,
+        onDecision: value => { runtimeTrace = value; } } });
+    assert.equal(selected[0].difficulty, difficulty ?? 3);
+    for (const bridge of [createPolicy(), createExperimentPolicy({ id: 'current', controls: {} }).create()]) {
+      assert.equal(bridge.select(input), selected[0].id);
+      const trace = bridge.lastDecision();
+      assert.deepEqual(trace.candidates, runtimeTrace.candidates);
+      assert.deepEqual(trace.draws[0].distribution, runtimeTrace.draws[0].distribution);
+      assert.ok(trace.candidates.every(row => row.id.startsWith(`band-${difficulty ?? 3}-`)));
+    }
+  }
+});
+
 test('ordinary evaluation reports identify actual state input mode', () => {
   const report = stateMode => renderMarkdown({ configuration: { stateMode, seeds: [1], profiles: ['fixture'],
     goals: ['fixture'], interactions: 1, interactionsPerDay: 1, stepMinutes: 2,
@@ -63,4 +87,6 @@ test('ordinary evaluation reports identify actual state input mode', () => {
   assert.match(report('observable-real'), /State input: observable-real/);
   assert.doesNotMatch(report('observable-real'), /State input: perfect synthetic/);
   assert.match(report('perfect'), /State input: perfect synthetic/);
+  assert.match(report('perfect'), /Exact difficulty band: 1/);
+  assert.doesNotMatch(report('perfect'), /Badge ceiling/);
 });

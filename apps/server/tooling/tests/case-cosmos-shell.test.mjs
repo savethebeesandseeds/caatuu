@@ -17,8 +17,8 @@ test("Case Cosmos loads its authored catalog from the course manifest", () => {
 test("all declared content reaches its difficulty without pinning vocabulary or catalog counts", () => {
   for (const difficulty of [1, 2, 3]) {
     const rounds = buildRounds(catalog, difficulty);
-    const nouns = catalog.legacyNouns.filter(item => item.difficulty <= difficulty);
-    const contexts = catalog.contexts.filter(item => item.difficulty <= difficulty);
+    const nouns = catalog.legacyNouns.filter(item => item.difficulty === difficulty);
+    const contexts = catalog.contexts.filter(item => item.difficulty === difficulty);
     assert.equal(rounds.length, nouns.length + contexts.length);
     assert.deepEqual(rounds.filter(round => !round.contextItem).map(round => round.noun),
       [...nouns].sort((a, b) => a.difficulty - b.difficulty).map(item => item.noun));

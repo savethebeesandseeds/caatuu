@@ -8,9 +8,30 @@ completed follow-up work on canonical `main`.
 
 ## Implemented and production behavior
 
+22 September follow-up: difficulty now filters to the exact selected level
+before progression and adaptive scoring. Previously the cumulative ceiling
+could keep presenting level-1 material after selecting level 3. Game answers,
+distractors and Word World suggestions now respect the selected band, including
+recent-history fallback. Difficulty changes in another tab also refresh active
+practice. Saved evidence and Stats still cover all practiced levels. Pacing and
+score coefficients remain unchanged. The retained experiments below used the
+earlier cumulative rule; they are historical evidence, not fresh measurements
+of this correction.
+
+Focused reproduction of the difficulty correction:
+
+```powershell
+docker exec -w /workspace caatuu-dev node --test apps/language-runtime/tests/selected-difficulty.test.mjs apps/language-runtime/tests/adaptive-game-integration.test.mjs apps/language-runtime/tests/content-difficulty-selection.test.mjs apps/language-runtime/tests/word-world-progression.test.mjs apps/language-runtime/tests/product-word-world-semantic.test.mjs apps/language-runtime/tests/learning-goals.test.mjs
+```
+
+The regression checks passed, including all five courses and supported games.
+The local Norwegian browser also changed from a level-3 sentence to level 1
+immediately on a badge change. Offline metadata/cache revisions were refreshed
+and checked for all five courses. No policy experiments or publication ran.
+
 - One shared adaptive sampler serves manifest-supported game paths across
   Czech, Mandarin, Spanish, Spanish-to-English and Norwegian Bokmål. Course
-  content and capabilities determine availability. Difficulty ceilings,
+  content and capabilities determine availability. Exact difficulty filters,
   answer-equivalence groups and playable-board constraints remain enforced.
 - Current production pacing remains the default: existing feature weights,
   temperature 0.7, 15% within-pool exploration, frontier, introductions and

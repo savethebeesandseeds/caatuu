@@ -39,7 +39,7 @@ function assertHistoricalRun(actual, expected, path = '$') {
   } else assert.equal(actual, expected, `${path}: value changed`);
 }
 
-test('the original uniform trajectory preserves its historical reference across runtimes', async () => {
+test('the uniform simulator preserves its historical reference for the same candidate universe', async () => {
   // Extracted without rerunning from investigation-baseline/results.json:
   // uniform / novice / daily-life / seed 17, Node v22.23.2, recorded Git HEAD
   // 685a109ca9d98c9ed959c8def02f8dbcb1a3c756. Preserve the original hash;
@@ -47,7 +47,14 @@ test('the original uniform trajectory preserves its historical reference across 
   const historical = await read('./fixtures/original-uniform-run.json');
   assert.equal(createHash('sha256').update(JSON.stringify(historical)).digest('hex'),
     'caee88334324032a505722c58cd7d7077fdba9ab654242ae960a0d79e3e5789e');
-  const result = await simulateRun({ ...options, config: base, policy: baselinePolicies()[0] });
+  // Preserve the historical candidate IDs for this simulator-only regression.
+  // Production eligibility now means an exact band; grades do not affect the
+  // uniform policy or environment. This is not a replay of today's selector.
+  const fixedUniverse = structuredClone(fixture);
+  for (const item of fixedUniverse.items) {
+    if (historical.eligibleIds.includes(item.id)) item.difficulty = base.difficulty;
+  }
+  const result = await simulateRun({ ...options, fixture: fixedUniverse, config: base, policy: baselinePolicies()[0] });
   assertHistoricalRun(result, historical);
 });
 

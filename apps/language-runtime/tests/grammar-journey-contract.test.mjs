@@ -35,17 +35,19 @@ function futurePack() {
 }
 
 const firstExample = (pack) => pack.challenges[0].forms.one.examples[0];
+const allRounds = (pack, random = Math.random) => [1, 2, 3]
+  .flatMap(difficulty => core.buildGrammarGravityRounds(pack, difficulty, random));
 
 test("future language uses the same modern contract without language-specific switches", () => {
   const pack = core.validateGrammarGravityPack(futurePack());
   const before = JSON.stringify(pack);
-  const rounds = core.buildGrammarGravityRounds(pack, 3, () => 0.999);
+  const rounds = allRounds(pack, () => 0.999);
   assert.equal(rounds.length, 16);
   assert.equal(new Set(rounds.map(({ id }) => id)).size, 16);
   assert.ok(rounds.every((round) => round.flights.length === 1 && round.stages.join() === "meaning,category,form"));
   assert.equal(JSON.stringify(pack), before);
   assert.equal(Object.isFrozen(rounds[0].flights[0]), true);
-  assert.notDeepEqual(core.buildGrammarGravityRounds(pack, 3, () => 0), rounds);
+  assert.notDeepEqual(allRounds(pack, () => 0), rounds);
 });
 
 test("legacy arrays, v2 packs and deleted exports cannot choose a renderer", () => {
@@ -106,7 +108,7 @@ test("English audit text does not become Spanish question or answer text", () =>
     example.englishAuditText = "INDEPENDENT ENGLISH AUDIT";
     example.anchor.englishAuditText = "INDEPENDENT ANCHOR AUDIT";
   }
-  const rounds = core.buildGrammarGravityRounds(pack, 3);
+  const rounds = allRounds(pack);
   for (const { flights: [flight] } of rounds) {
     assert.equal(flight.anchorEnglishAuditText, "INDEPENDENT ANCHOR AUDIT");
     for (const value of [flight.anchorMeaning, flight.learnerBaseText, ...flight.meaningOptions, ...flight.options]) assert.doesNotMatch(value, /AUDIT/u);
@@ -129,9 +131,9 @@ for (const [directory, id, expectedChallenges, expectedExamples] of [["czech", "
     const raw = JSON.parse(await readFile(new URL(`../../languages/${directory}/static/data/games/grammar-gravity/content.json`, import.meta.url), "utf8"));
     const pack = core.validateGrammarGravityPack(raw, { courseId: id });
     assert.ok(pack.challenges.length >= expectedChallenges);
-    assert.ok(core.buildGrammarGravityRounds(pack, 3).length >= expectedExamples);
+    assert.ok(allRounds(pack).length >= expectedExamples);
     for (const level of [1, 2, 3]) {
-      const eligible = pack.challenges.filter(({ difficulty }) => difficulty <= level);
+      const eligible = pack.challenges.filter(({ difficulty }) => difficulty === level);
       const authored = new Map(eligible.flatMap((challenge) => (challenge.axes || pack.axes).flatMap((axis) => challenge.forms[axis.id].examples
         .map((example) => [example.id, { challenge, axis, form: challenge.forms[axis.id], example }]))));
       const rounds = core.buildGrammarGravityRounds(pack, level, () => 0.999);

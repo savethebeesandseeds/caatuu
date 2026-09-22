@@ -8,7 +8,8 @@ test('all reviewed listening content is reachable in the original manually selec
   assert.equal(catalog.items.length,raw.items.length);assert.equal(catalog.sentences.length,raw.sentences.length);
   for(const mode of ['words','sentences']) {
     const bank=mode==='words'?catalog.items:catalog.sentences;
-    const session=bank.map((_,index)=>buildSoundQuasarRound(catalog,{mode,index,random:()=>.37}));
+    const session=[1,2,3].flatMap(difficulty=>bank.filter(item=>item.difficulty===difficulty)
+      .map((_,index)=>buildSoundQuasarRound(catalog,{mode,difficulty,index,random:()=>.37})));
     assert.deepEqual(new Set(session.map(r=>r.answerId)),new Set(bank.map(i=>i.id)));
     assert.ok(session.every(r=>r.mode===mode && r.choices.length===4));
   }

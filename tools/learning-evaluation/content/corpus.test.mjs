@@ -1,7 +1,27 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { readFile } from 'node:fs/promises';
 import { buildEvaluationCorpus, englishAuthority } from '../shared/corpus.mjs';
 import { fixtureCatalogs } from './fixture.mjs';
+
+test('playable corpus covers every exact band of the real Case and Grammar banks once', async () => {
+  const read = async path => JSON.parse(await readFile(new URL(`../../../${path}`, import.meta.url), 'utf8'));
+  const course = await read('apps/languages/czech/course.json');
+  const catalogs = await Promise.all([
+    ['caseCosmosCatalog', 'case-cosmos'], ['grammarGravityCatalog', 'grammar-gravity']
+  ].map(async ([resource, game]) => ({ course, resource, game,
+    path: course.resources[resource].path, document: await read(course.resources[resource].path) })));
+  const corpus = buildEvaluationCorpus(catalogs);
+  assert.ok(corpus.adapters.every(adapter => adapter.status === 'ok'), JSON.stringify(corpus.adapters));
+  assert.equal(new Set(corpus.playableUnits.map(unit => unit.id)).size, corpus.playableUnits.length);
+  for (const kind of ['case-context', 'agreement-example']) {
+    const records = corpus.records.filter(record => record.kind === kind);
+    const units = corpus.playableUnits.filter(unit => unit.kind === kind);
+    assert.ok(records.length > 0);
+    assert.deepEqual([...new Set(units.map(unit => unit.metadata.difficulty))].sort(), [1, 2, 3]);
+    assert.deepEqual(units.flatMap(unit => unit.recordIds).sort(), records.map(record => record.id).sort());
+  }
+});
 
 test('authoring traversal, static playable units, and English documents remain distinct', () => {
   const corpus = buildEvaluationCorpus(fixtureCatalogs);
@@ -57,7 +77,7 @@ test('runtime defaults do not conceal missing authored grades or translations', 
   assert.deepEqual(missing.metadata, { difficulty: null, usefulness: null, complexity: null });
   assert.equal(corpus.findings.filter(finding => finding.recordId === missing.id && finding.code === 'missing-or-invalid-metadata').length, 2);
   const playable = corpus.playableUnits.find(unit => unit.itemId === missing.itemId);
-  assert.equal(playable.metadata.difficulty, 3);
+  assert.equal(playable.metadata.difficulty, 1, 'unclassified cached content belongs to the first exact band');
   assert.ok(corpus.findings.some(finding => finding.code === 'missing-target-translation'));
   assert.ok(corpus.findings.some(finding => finding.code === 'missing-authored-English'));
 });

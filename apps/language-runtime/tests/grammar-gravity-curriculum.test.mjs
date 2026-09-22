@@ -5,7 +5,7 @@ import {normalizeGrammarGravityPack,buildGrammarGravityRounds} from '../static/s
 const raw=JSON.parse(await readFile(new URL('../../languages/czech/static/data/games/grammar-gravity/content.json',import.meta.url),'utf8'));
 const authored=JSON.parse(await readFile(new URL('../../languages/czech/content/quality-pilot/grammar-gravity.json',import.meta.url),'utf8'));
 const pack=normalizeGrammarGravityPack(raw,{courseId:'cz'});
-const all=buildGrammarGravityRounds(pack,3,()=>.37);
+const all=[1,2,3].flatMap(difficulty=>buildGrammarGravityRounds(pack,difficulty,()=>.37));
 test('all original families and compatible additions play through the original three stages',()=>{
   const originalActive=authored.challenges.filter(family=>pack.challenges.some(active=>active.id===family.id));
   assert.ok(originalActive.length>0);

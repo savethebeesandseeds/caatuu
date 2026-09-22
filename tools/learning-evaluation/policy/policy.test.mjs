@@ -13,7 +13,7 @@ const fixture = JSON.parse(await readFile(new URL('./fixture.json', import.meta.
 const defaults = JSON.parse(await readFile(new URL('./config.json', import.meta.url), 'utf8'));
 const DAY = 86400000;
 const NOW = Date.parse(defaults.startTime);
-const config = { ...defaults, interactions: 16, seeds: [17, 29],
+const config = { ...defaults, difficulty: 1, interactions: 16, seeds: [17, 29],
   profiles: [fixture.profiles[0].id], goals: [fixture.goals[0].id] };
 const profile = fixture.profiles[0];
 const goal = fixture.goals[0];
@@ -58,7 +58,7 @@ test('extra policy random draws cannot change environment outcomes for fixed act
 });
 
 test('every policy sees the full hard-eligible universe, beyond scheduler introductions', async () => {
-  const expected = fixture.items.filter(row => row.validTask && row.difficulty <= config.difficulty)
+  const expected = fixture.items.filter(row => row.validTask && row.difficulty === config.difficulty)
     .map(row => row.id);
   const candidates = eligibleCandidates(fixture, config);
   assert.deepEqual(candidates.map(row => row.id), expected);
@@ -73,6 +73,16 @@ test('every policy sees the full hard-eligible universe, beyond scheduler introd
   const result = await run(policy);
   assert.deepEqual(result.eligibleIds, expected);
   assert.ok(result.trace.every(row => row.itemId === expected.at(-1)));
+});
+
+test('hard eligibility admits exactly the selected difficulty for every policy', () => {
+  for (const difficulty of [1, 2, 3]) {
+    const candidates = eligibleCandidates(fixture, { ...config, difficulty });
+    assert.deepEqual(candidates.map(item => item.id), fixture.items
+      .filter(item => item.validTask && item.difficulty === difficulty).map(item => item.id));
+    assert.ok(candidates.length > 0);
+    assert.ok(candidates.every(item => !Object.hasOwn(item, 'simulation')));
+  }
 });
 
 test('out-of-universe selections and invalid policy instances fail explicitly', async () => {

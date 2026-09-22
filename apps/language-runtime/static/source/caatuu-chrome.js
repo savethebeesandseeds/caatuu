@@ -1956,6 +1956,12 @@
   }
 
   function syncNativeSystemTheme(theme) {
+    // The shared course shell starts before optional course runtimes, and most
+    // courses do not install the legacy appearance adapter at all.
+    if (typeof window.CaatuuAndroid?.setTheme === "function") {
+      window.CaatuuAndroid.setTheme(normalizeTheme(theme));
+      return;
+    }
     window.CaatuuRuntime?.appearance?.setSystemTheme?.(normalizeTheme(theme));
   }
 

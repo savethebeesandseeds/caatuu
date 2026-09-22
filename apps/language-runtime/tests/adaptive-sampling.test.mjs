@@ -11,7 +11,7 @@ const iso = time => new Date(time).toISOString();
 const seen = (extra = {}) => ({ exposures: 1, firstSeenAt: iso(NOW - DAY), lastSeenAt: iso(NOW - DAY), ...extra });
 const retained = () => seen({ exposures: 20, independentSuccesses: 8, independentDays: 5,
   spacedSuccesses: 4, intervalMs: 16 * DAY, dueAt: iso(NOW - 1000) });
-const decide = (items, options = {}) => createAdaptiveDecision(items, { now: NOW, random: () => .4, ...options });
+const decide = (items, options = {}) => createAdaptiveDecision(items, { difficulty: 1, now: NOW, random: () => .4, ...options });
 const probability = (decision, id, step = 0) => decision.trace.draws[step].distribution.find(row => row.id === id)?.probability ?? 0;
 
 test('hard difficulty, unique identity and original item references survive stochastic selection', () => {
@@ -258,7 +258,7 @@ test('explore changes selection without semantic features while preserving exhau
 test('selection is read only and adapter emits exactly its own trace', () => {
   const rows = bank(8), history = { 'item-0': retained() };
   const original = structuredClone({ rows, history });
-  const options = { now: NOW, history, random: () => .42 };
+  const options = { difficulty: 1, now: NOW, history, random: () => .42 };
   const first = createAdaptiveDecision(rows, options);
   assert.deepEqual(createAdaptiveDecision(rows, options), first);
   let trace, calls = 0;

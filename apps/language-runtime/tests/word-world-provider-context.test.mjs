@@ -166,6 +166,13 @@ test("authored preparation exposes the complete renderer-neutral provider seam",
   ]) assert.equal(typeof context.selectionProvider[method], "function", method);
   assert.deepEqual(context.selectionProvider.difficultyCounts(), Object.fromEntries([1, 2, 3]
     .map(level => [level, englishCatalog.concepts.filter(item => item.difficulty === level).length])));
+  for (const difficulty of [1, 2, 3]) {
+    const eligible = context.selectionProvider.records.filter(record => record.difficulty === difficulty);
+    const selected = context.selectionProvider.nextRandom({ difficulty,
+      excludeIds: eligible.map(record => record.id) });
+    assert.equal(selected?.record.difficulty ?? null, eligible.length ? difficulty : null,
+      'exhausting a selected band must never borrow another difficulty');
+  }
 
   const book = context.sessionRecord("ww.object.book");
   assert.equal(book.target.text, "这是一本书。");
@@ -205,7 +212,7 @@ test("authored preparation exposes the complete renderer-neutral provider seam",
   ]);
 
   const selected = context.selectionProvider.nextForWord("书", {
-    difficulty: 3,
+    difficulty: book.difficulty,
     allowRandomFallback: false
   });
   assert.equal(selected.fallback, false);

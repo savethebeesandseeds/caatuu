@@ -1,4 +1,4 @@
-import { normalizeContentProgression, selectContentItems } from "../adaptive-practice.mjs";
+import { normalizeContentProgression, selectContentItems, matchesContentDifficulty } from "../adaptive-practice.mjs";
 export const CONJUGATION_COMET_CATALOG_SCHEMA = "caatuu-conjugation-comet-catalog-v1";
 
 const CONTENT_ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
@@ -689,7 +689,7 @@ export function buildConjugationMeaningRound(catalog, verbId, {
   const usedMeaningKeys = new Set([meaningKey(current.meaningChoiceBaseText)]);
   const distractors = [];
   for (const candidate of shuffleConjugationItems(
-    catalog.verbs.filter((verb) => verb.id !== current.id),
+    catalog.verbs.filter((verb) => verb.id !== current.id && matchesContentDifficulty(verb, current.difficulty)),
     random
   )) {
     const key = meaningKey(candidate.meaningChoiceBaseText);
@@ -698,10 +698,10 @@ export function buildConjugationMeaningRound(catalog, verbId, {
     distractors.push(candidate);
     if (distractors.length === count - 1) break;
   }
-  if (distractors.length !== count - 1) {
+  if (!distractors.length) {
     throw catalogError(
       "CONJUGATION_COMET_ROUND_INVALID",
-      `The catalog needs at least ${count} verbs for a ${count}-choice meaning round.`
+      "A meaning round needs at least two distinct meanings at the selected difficulty."
     );
   }
   const options = shuffleConjugationItems([current, ...distractors], random).map((verb) => ({

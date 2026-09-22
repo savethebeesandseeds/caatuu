@@ -743,10 +743,10 @@ test("difficulty changes rebuild eligible noun rounds and clear pending feedback
   assert.equal(game.api.state.answer, null);
   assert.equal(game.api.state.index, 0);
   assert.equal(game.api.state.questionIndex, 0);
-  assert.ok(game.api.state.rounds.length > initialCount);
-  assert.ok(game.api.state.rounds.every((round) => round.difficulty <= 2));
+  assert.ok(game.api.state.rounds.length > 0);
+  assert.ok(game.api.state.rounds.every((round) => round.difficulty === 2));
   game.difficulty(3);
-  assert.equal(game.api.state.rounds.length, catalog.legacyNouns.length + catalog.contexts.length);
+  assert.equal(game.api.state.rounds.length, [...catalog.legacyNouns, ...catalog.contexts].filter(item => item.difficulty === 3).length);
   game.difficulty(99);
   assert.equal(game.api.state.difficulty, 1);
   assert.equal(game.api.state.rounds.length, initialCount);

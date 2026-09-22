@@ -347,6 +347,27 @@ test("an open Home voice picker updates when browser voices finish loading", asy
   assert.equal(menu.open, true);
 });
 
+test("Android system bars follow the stored theme and controls without a course runtime", () => {
+  const systemThemes = [];
+  const harness = createBrowserHarness({
+    course: fixtureCourse(),
+    localStorageValues: { "caatuu.appearance.theme.v1": "dark" }
+  });
+  harness.window.CaatuuRuntime = undefined;
+  harness.window.CaatuuAndroid = { setTheme: (theme) => systemThemes.push(theme) };
+  const light = harness.document.createElement("button");
+  light.dataset.themeOption = "light";
+  harness.document.body.append(light);
+  runChrome(harness);
+  assert.deepEqual(systemThemes, ["dark"], "native bars synchronize before optional providers load");
+  harness.document.dispatchEvent({ type: "click", target: light });
+  assert.deepEqual(systemThemes, ["dark", "light"]);
+  assert.equal(harness.document.documentElement.dataset.theme, "light");
+  harness.localStorage.setItem("caatuu.appearance.theme.v1", "dark");
+  harness.window.dispatchEvent({ type: "storage", key: "caatuu.appearance.theme.v1" });
+  assert.deepEqual(systemThemes, ["dark", "light", "dark"]);
+});
+
 test("stored appearance is applied and real controls persist immediate changes", () => {
   const systemThemes = [];
   const harness = createBrowserHarness({

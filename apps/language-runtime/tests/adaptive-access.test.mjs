@@ -115,7 +115,7 @@ test('real course metadata gaps remain bridgeable on a fresh new slot after eith
   for (const [bank, units] of banks) {
     const rows = units.map(unit => ({ id: unit.itemId, ...unit.metadata }));
     for (const difficulty of [1, 2, 3]) {
-      const eligible = rows.filter(row => row.difficulty <= difficulty);
+      const eligible = rows.filter(row => row.difficulty === difficulty);
       const position = row => (row.difficulty - 1) * 100 + row.complexity;
       const band = row => Math.floor((position(row) - 1) / 10);
       const bands = [...Map.groupBy(eligible, band)].sort((a, b) => a[0] - b[0]);
@@ -126,11 +126,11 @@ test('real course metadata gaps remain bridgeable on a fresh new slot after eith
           const history = { [anchor.id]: { exposures: 2, firstSeenAt: at, lastSeenAt: at,
             dueAt: new Date(now + day).toISOString(), ...progress } };
           const result = createAdaptiveDecision(rows, { ...options, difficulty, history, accessDiagnostics: true });
-          const label = `${bank}, ceiling ${difficulty}, ${scenario}, band ${bands[index][0]} -> ${nextBand}`;
+          const label = `${bank}, level ${difficulty}, ${scenario}, band ${bands[index][0]} -> ${nextBand}`;
           assert.equal(result.trace.constraints.nextChallengeBand, nextBand, label);
           assert.equal(band(result.items[0]), nextBand, label);
           assert.ok(result.trace.draws[0].fallbackReasons.includes('nearest-challenge-band-reserved'), label);
-          assert.ok(result.items[0].difficulty <= difficulty, label);
+          assert.equal(result.items[0].difficulty, difficulty, label);
           const summary = checked[units[0].courseId] ||= { snapshots: 0, maximumPositionGap: 0 };
           summary.snapshots++;
           summary.maximumPositionGap = Math.max(summary.maximumPositionGap,

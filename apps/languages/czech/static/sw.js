@@ -1,4 +1,4 @@
 "use strict";
 
-// Offline catalog revision: caatuu-czech-pwa-v717
+// Offline catalog revision: caatuu-czech-pwa-v718
 importScripts("/language-runtime/static/source/course-service-worker.js");

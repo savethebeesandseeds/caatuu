@@ -230,8 +230,8 @@
   }
 
   function filterChallengesForDifficulty(challenges, difficulty) {
-    const maximumDifficulty = normalizeDifficulty(difficulty, 1);
-    return challenges.filter((challenge) => normalizeDifficulty(challenge?.difficulty, 1) <= maximumDifficulty);
+    const selectedDifficulty = normalizeDifficulty(difficulty, 1);
+    return challenges.filter((challenge) => normalizeDifficulty(challenge?.difficulty, 1) === selectedDifficulty);
   }
 
   function validateCatalog(value) {

@@ -26,7 +26,8 @@ function campaign(course, random = () => 0.5) {
     postMessage(message, origin) { resets.push({ id, message, origin }); }
   } }]));
   const window = { location: { origin: "https://local.test" }, CaatuuShellPolicy: policy,
-    CaatuuWordWorldHost: { next: () => resets.push({ id: "word-net" }) },
+    setTimeout: (callback) => setImmediate(callback), clearTimeout: clearImmediate,
+    CaatuuWordWorldHost: { advanceCampaignRound: () => resets.push({ id: "word-net" }) },
     CaatuuNaturalizationNucleus: { advanceCampaignRound: () => resets.push({ id: "naturalization-nucleus" }) } };
   const context = vm.createContext({ state, course, window,
     document: { body: { dataset: {} } }, // Selection must not silently depend on DOM proxies.

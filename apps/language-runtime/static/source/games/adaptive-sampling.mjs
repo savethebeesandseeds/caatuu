@@ -1,5 +1,5 @@
 import {
-  normalizeContentProgression, contentPracticeReadiness,
+  normalizeContentProgression, contentPracticeReadiness, matchesContentDifficulty,
   CONTENT_DAY_MS as DAY, CONTENT_PRACTICE_GAP_MS as GAP, CONTENT_INTRODUCTION_BUDGET as BUDGET
 } from './content-progression.mjs';
 import { learnerItemState } from '../learner-state.mjs';
@@ -50,7 +50,7 @@ function settings(config, goal) {
 
 /**
  * Pure sequential selection without replacement. All candidates are already
- * course/game/bank scoped by the caller; difficulty remains a hard ceiling.
+ * course/game/bank scoped by the caller; difficulty selects one exact band.
  * Optional learner.evidenceByItem supplies actual bank evidence separately from
  * aggregate scheduling history (e.g. a complete conjugation board's readiness).
  * Optional learner.knowledgeByItem[id] contains explicitly supplied probabilities,
@@ -124,9 +124,8 @@ function samplingDecision(items, {
   const excluded = new Set(excludeIds.map(String));
   const rows = [], ids = new Set();
   for (const item of items) {
+    if (!matchesContentDifficulty(item, difficulty)) continue;
     const badge = item.difficulty === undefined ? 1 : item.difficulty;
-    if (![1, 2, 3].includes(badge)) throw new TypeError('Authored difficulty must be 1, 2, or 3.');
-    if (badge > difficulty) continue;
     const id = String(getId(item) ?? '');
     if (!id || ids.has(id)) continue;
     const groupKey = String(getGroupKey(item) ?? '');

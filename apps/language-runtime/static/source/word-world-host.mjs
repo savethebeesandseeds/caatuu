@@ -87,7 +87,7 @@ async function loadController() {
   try {
     const manifest = await loadJson(courseUrl("data/games/word-world/manifest.json"));
     stage.dataset.provider = String(manifest.sessionProvider?.kind || manifest.mode || "course-content");
-    const { mountWordWorld } = await import("./word-world-provider.mjs?v=word-world-provider-28");
+    const { mountWordWorld } = await import("./word-world-provider.mjs?v=word-world-provider-29");
     const controller = await mountWordWorld(root, course, manifest);
     if (!controller || typeof controller !== "object") {
       throw new Error("The shared Word World renderer did not return its controller.");
@@ -143,15 +143,15 @@ function ready() {
   return Boolean(state.controller);
 }
 
-function next() {
-  state.controller?.next?.();
+function advanceCampaignRound() {
+  state.controller?.advanceCampaignRound?.();
 }
 
 export const CaatuuWordWorldHost = Object.freeze({
   ensureLoaded,
   setActive,
   ready,
-  next
+  advanceCampaignRound
 });
 
 globalThis.CaatuuWordWorldHost = CaatuuWordWorldHost;

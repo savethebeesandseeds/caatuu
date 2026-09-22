@@ -1,4 +1,4 @@
-import { normalizeContentProgression, selectContentItems } from "../adaptive-practice.mjs";
+import { normalizeContentProgression, selectContentItems, matchesContentDifficulty } from "../adaptive-practice.mjs";
 export const NOUN_LANDING_SCHEMA_VERSION = "caatuu-grammar-gravity-nouns-v2";
 
 const GAME_ID = "grammar-gravity";
@@ -243,7 +243,7 @@ export function createNounLandingSession(pack, { random = Math.random, limit, av
   if (avoidFirstItemId !== null && typeof avoidFirstItemId !== "string") {
     throw new Error("avoidFirstItemId must be an item ID string or null.");
   }
-  const eligible = content.items.filter(item => item.difficulty === undefined || item.difficulty <= difficulty);
+  const eligible = content.items.filter(item => matchesContentDifficulty(item, difficulty));
   if (!eligible.length) throw new Error("Noun landing needs eligible content for this difficulty.");
   const candidates = history === undefined ? shuffled(eligible, random)
     : selectContentItems(eligible, { difficulty, history, minimumPool: Math.max(4, content.lanes.length), random, policy });

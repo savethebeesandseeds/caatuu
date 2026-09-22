@@ -24,8 +24,9 @@ function fixture() {
   };
 }
 function falling(raw = fixture(), options = {}) {
+  raw = { ...raw, items: raw.items.map(item => ({ ...item, difficulty: 1 })) };
   return startNounLanding(createNounLandingSession(normalizeNounLandingPack(raw, expected), {
-    random: () => 0.999, difficulty: 3, ...options
+    random: () => 0.999, difficulty: 1, ...options
   }));
 }
 

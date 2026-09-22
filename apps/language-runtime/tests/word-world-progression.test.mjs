@@ -49,3 +49,21 @@ test('general exposure is reusable but directional recall evidence does not tran
   assert.equal(wordWorldEvidenceBank('source'), 'reconstruct-target');
   assert.equal(Object.getPrototypeOf(wordWorldPracticeHistory(JSON.parse('{"__proto__":{"exposures":2}}'))), null);
 });
+
+test('changing difficulty filters before old due reviews and exhausted recent history', () => {
+  const history = Object.fromEntries(records.filter(row => row.difficulty === 1).map(row => [row.id, {
+    exposures: 20, firstSeenAt: new Date(now - 20 * DAY).toISOString(),
+    lastSeenAt: new Date(now - DAY).toISOString(), dueAt: new Date(now - DAY).toISOString(),
+    independentDays: 5, spacedSuccesses: 4, intervalMs: 16 * DAY
+  }]));
+  const original = structuredClone(history);
+  for (const policy of [null, { identity: { courseId: 'test', gameId: 'word-world', bankId: 'sentences' } }]) {
+    for (const difficulty of [2, 1, 2]) {
+      const chosen = progressiveWordWorldSelection(records, { difficulty, history, policy,
+        excludeIds: records.map(row => row.id), random: () => 0, now });
+      assert.equal(chosen.difficulty, difficulty);
+    }
+    assert.equal(progressiveWordWorldSelection(records, { difficulty: 3, history, policy, now }), null);
+  }
+  assert.deepEqual(history, original, 'changing difficulty never rewrites completed evidence');
+});

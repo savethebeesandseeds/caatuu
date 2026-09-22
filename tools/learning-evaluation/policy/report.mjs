@@ -37,7 +37,7 @@ export function renderMarkdown(result) {
     'The maintained production adapter shares gameplay\'s four-most-recent-identity input. This differs from the five-turn repetition diagnostic; semantic inputs and complete game boards remain outside this simulation.', '',
     `- Seeds: ${config.seeds.join(', ')}. Profiles: ${config.profiles.map(cell).join(', ')}. Goals: ${config.goals.map(cell).join(', ')}.`,
     `- Each run: ${config.interactions} interactions; ${config.interactionsPerDay} per day; ${config.stepMinutes} minutes apart; start ${config.startTime}.`,
-    `- Badge ceiling: ${config.difficulty}; minimumPool: ${config.minimumPool}; delayed probe: ${config.delayDays} days.`,
+    `- Exact difficulty band: ${config.difficulty}; minimumPool: ${config.minimumPool}; delayed probe: ${config.delayDays} days.`,
     `- Executed runs: ${result.runs.length}. Every policy has the same hard-eligible IDs, initial states, goals, time schedule and seed set.`,
     `- Diagnostic recall band: ${config.suitableRecallRange.join('–')}; weak cutoff: ${config.weakRecallCutoff}; recent window: ${config.recentWindow}. These are simulator diagnostics, not pedagogical gates.`, '',
     '## Policy status', '', '| Policy | Status | Implementation / limitation |', '| --- | --- | --- |'];

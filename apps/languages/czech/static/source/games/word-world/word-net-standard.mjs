@@ -349,7 +349,7 @@ export class StandardWordWorldProvider {
 
   eligible(level = 1, records = this.records) {
     const difficulty = boundedDifficulty(level);
-    return records.filter((record) => record.difficulty <= difficulty);
+    return records.filter((record) => record.difficulty === difficulty);
   }
 
   choose(records, { difficulty = 1, excludeIds = [], allowExcludedFallback = true } = {}) {

@@ -202,6 +202,26 @@ async function settle() {
   for (let index = 0; index < 12; index += 1) await Promise.resolve();
 }
 
+test("an unavailable noun band retires the board and can recover through another badge", async () => {
+  const game = await mountGame({ mutateContent(raw) {
+    raw.items = raw.items.filter(item => item.difficulty !== 3);
+  } });
+  game.answer();
+  const saved = JSON.stringify(game.records);
+  game.setDifficulty(3);
+  assert.equal(game.controller.snapshot(), null);
+  assert.equal(game.controller.ready(), false);
+  assert.equal(game.frames.size, 0);
+  assert.equal(game.element("gravityNounArena").hidden, true);
+  assert.equal(game.element("gravityNounError").hidden, false);
+  game.setDifficulty(2);
+  assert.equal(game.controller.ready(), true);
+  assert.ok([game.controller.snapshot().item, ...game.controller.snapshot().queue].every(item => item.difficulty === 2));
+  assert.equal(game.element("gravityNounError").hidden, true);
+  assert.equal(JSON.stringify(game.records), saved);
+  game.controller.destroy();
+});
+
 test("Navigator to Explorer retires the current noun queue and pending speech in every noun course", async t => {
   const catalog = await loadCourseCatalog({ repoRoot: new URL("../../../", import.meta.url) });
   const nounCourses = catalog.courses.filter(({ course }) => course.resources?.grammarGravityNouns?.state === "present");
@@ -229,7 +249,7 @@ test("Navigator to Explorer retires the current noun queue and pending speech in
     game.setDifficulty(1);
     const replacement = game.controller.snapshot();
     assert.equal(replacement.phase, "falling");
-    assert.ok([replacement.item, ...replacement.queue].every(item => (item.difficulty ?? 1) <= 1));
+    assert.ok([replacement.item, ...replacement.queue].every(item => (item.difficulty ?? 1) === 1));
     assert.equal(game.element("gravityNounWord").textContent, replacement.item.targetText);
     assert.ok(oldFrames.every(id => !game.frames.has(id)), "old falling work is cancelled");
     assert.equal(game.frames.size, 1);
@@ -248,8 +268,8 @@ test("Navigator to Explorer retires the current noun queue and pending speech in
     game.setDifficulty(3);
     const restored = game.controller.snapshot();
     assert.equal(restored.phase, "falling");
-    assert.ok([restored.item, ...restored.queue].some(item => (item.difficulty ?? 1) > 1),
-      "returning to Navigator restores its broader eligible noun pool");
+    assert.ok([restored.item, ...restored.queue].every(item => (item.difficulty ?? 1) === 3),
+      "returning to Navigator restores only its authored noun band");
     assert.equal(JSON.stringify({ records: game.records, exposures }), savedAfterExplorer);
   });
 });
@@ -270,7 +290,7 @@ test("badge changes replace noun feedback and release an old segment wait withou
     game.setDifficulty(1);
     assert.equal(game.controller.snapshot().phase, "falling");
     assert.ok([game.controller.snapshot().item, ...game.controller.snapshot().queue]
-      .every(item => (item.difficulty ?? 1) <= 1));
+      .every(item => (item.difficulty ?? 1) === 1));
     assert.equal(JSON.stringify(game.records), records);
     assert.equal(game.segments.length, completions);
     assert.equal(game.frames.size, 0, "a hidden noun mode remains paused");
@@ -516,7 +536,7 @@ for (const language of ["czech", "spanish"]) {
     assert.equal(game.controls.options.settings, undefined);
     assert.equal(game.element("gravityNounBlock").style.transform, "translateY(0px)");
     assert.equal(game.element("gravityNounLoading").hidden, true);
-    assert.equal(game.controller.snapshot().total, game.raw.items.filter(item => item.difficulty === undefined || item.difficulty <= 1).length);
+    assert.equal(game.controller.snapshot().total, game.raw.items.filter(item => (item.difficulty ?? 1) === 1).length);
     assert.equal(game.fetches.length, 1);
     assert.equal(game.fetches[0].url,
       "https://caatuu.test/" + game.course.id + "/data/games/grammar-gravity/nouns.json?v=fixture-2");
@@ -987,12 +1007,12 @@ test("destruction makes pending animation and speech callbacks inert", async () 
   assert.equal(game.controls.destroys, 1);
 });
 
-test("continuous full-pack cycles credit once and restart without a completion gate or repeated boundary noun", async () => {
+test("continuous selected-band cycles credit once and restart without a completion gate or repeated boundary noun", async () => {
   for (const outcome of ["perfect", "recovered", "unresolved"]) {
     const game = await mountGame({ reducedMotion: true, difficulty: 3 });
     const missedId = game.controller.snapshot().item.id;
     const outsideControl = game.outsideControl;
-    const count = game.raw.items.length;
+    const count = game.raw.items.filter(item => item.difficulty === 3).length;
     let turns = 0;
     let lastId;
     const seen = new Set();
@@ -1007,7 +1027,7 @@ test("continuous full-pack cycles credit once and restart without a completion g
       game.finishFeedback();
       turns += 1;
     }
-    assert.equal(seen.size, count, "every noun in the JSON pool is practiced");
+    assert.equal(seen.size, count, "every noun in the selected band is practiced");
     assert.equal(game.controller.snapshot().phase, "falling");
     assert.equal(game.controller.snapshot().total, count);
     assert.notEqual(game.controller.snapshot().item.id, lastId, "cycle boundaries avoid repeating the previous noun");
@@ -1121,14 +1141,15 @@ test("noun cards start below the in-arena header without changing the landing di
   game.controller.destroy();
 });
 
-test("six-decision segments hand off without discarding the full noun pool or its bounded retry queue", async () => {
+test("six-decision segments hand off without discarding the selected noun band or its bounded retry queue", async () => {
   const game = await mountGame({ segmentSize: 6, mountControls: false, difficulty: 3 });
+  const count = game.raw.items.filter(item => item.difficulty === 3).length;
   assert.equal(game.controls.mounts, 0, "the parent owns the single shared toolbar");
   const seen = new Set();
   const first = game.controller.snapshot().item;
   const wrong = game.raw.lanes.find((lane) => lane.id !== first.laneId).id;
   let attempts = 0;
-  while (!game.records.some((record) => record.rounds === 1) && attempts < game.raw.items.length * 2) {
+  while (!game.records.some((record) => record.rounds === 1) && attempts < count * 2) {
     const item = game.controller.snapshot().item;
     seen.add(item.id);
     game.answer(attempts === 0 ? wrong : item.laneId);
@@ -1149,11 +1170,11 @@ test("six-decision segments hand off without discarding the full noun pool or it
       assert.equal(game.controller.snapshot().item.id, waiting.item.id);
     }
   }
-  assert.equal(seen.size, game.raw.items.length);
-  assert.equal(attempts, game.raw.items.length + 1, "one missed noun is retried once across segments");
+  assert.equal(seen.size, count);
+  assert.equal(attempts, count + 1, "one missed noun is retried once across segments");
   assert.equal(game.segments.length, Math.floor(attempts / 6));
   assert.equal(game.records.filter((record) => record.rounds === 1).length, 1);
-  assert.equal(game.records.reduce((sum, record) => sum + (record.xp || 0), 0), game.raw.items.length);
+  assert.equal(game.records.reduce((sum, record) => sum + (record.xp || 0), 0), count);
   game.controller.destroy();
 });
 

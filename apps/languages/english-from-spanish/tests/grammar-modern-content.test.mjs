@@ -27,7 +27,7 @@ for (const entry of courseCases) {
     const byId = new Map(allExamples(raw).map(example => [example.id, example]));
     for (const level of [1, 2, 3]) {
       const rounds = buildGrammarGravityRounds(pack, level, () => 0.37);
-      const eligible = raw.challenges.filter(challenge => challenge.difficulty <= level)
+      const eligible = raw.challenges.filter(challenge => challenge.difficulty === level)
         .flatMap(challenge => Object.values(challenge.forms).flatMap(form => form.examples));
       assert.equal(rounds.length, eligible.length);
       assert.deepEqual(new Set(rounds.map(row => row.id)), new Set(eligible.map(row => row.id)));
@@ -60,7 +60,10 @@ test('Spanish determiner rounds use the authored noun anchor rather than the com
   const families = pack.challenges.filter(challenge => challenge.focus.kind === 'determiner');
   assert.ok(families.length > 0);
   const examples = new Map(families.flatMap(challenge => Object.values(challenge.forms).flatMap(form => form.examples)).map(row => [row.id, row]));
-  for (const round of buildGrammarGravityRounds(pack, 3, () => 0.37).filter(row => examples.has(row.id))) {
+  const rounds = [1, 2, 3].flatMap(difficulty => buildGrammarGravityRounds(pack, difficulty, () => 0.37))
+    .filter(row => examples.has(row.id));
+  assert.equal(rounds.length, examples.size);
+  for (const round of rounds) {
     const example = examples.get(round.id), flight = round.flights[0];
     assert.equal(flight.anchorMeaning, example.anchor.learnerBaseText);
     assert.equal(flight.anchorEnglishAuditText, example.anchor.englishAuditText);
@@ -75,7 +78,7 @@ test('English form questions preserve arbitrary Spanish anchors and complete pre
   const changed = structuredClone(pack);
   const changedExample = changed.challenges[0].forms[changed.axes[0].id].examples[0];
   changedExample.anchor.learnerBaseText = 'synthetic-context-cue';
-  const rounds = buildGrammarGravityRounds(changed, 3, () => 0.37);
+  const rounds = buildGrammarGravityRounds(changed, changed.challenges[0].difficulty, () => 0.37);
   const flight = rounds.find(row => row.id === example.id).flights[0];
   assert.equal(flight.anchorMeaning, 'synthetic-context-cue');
   assert.equal(flight.targetText, example.targetText);

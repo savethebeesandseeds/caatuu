@@ -61,7 +61,7 @@ test("similar word options use existing Pinyin while preserving the displayed ch
   const words = [["妈", "mā"], ...nearby, ["桌", "zhuō"], ["听", "tīng"], ["喝", "hē"], ["书", "shū"], ["去", "qù"]];
   const catalog = catalogFor(words.map(([target, notation]) => ({ target, notation })), { mandarin: true });
   for (let seed = 1; seed <= 12; seed += 1) {
-    const round = buildSoundQuasarRound(catalog, { random: seededRandom(seed) });
+    const round = buildSoundQuasarRound(catalog, { difficulty: 1, random: seededRandom(seed) });
     for (const choice of round.choices) {
       if (choice.id !== round.answerId) assert.ok(nearby.some(([target]) => target === choice.target));
       assert.equal(choice.reading.tokens[0].units[0].notation, words.find(([target]) => target === choice.target)[1]);

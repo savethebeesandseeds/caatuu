@@ -9,10 +9,10 @@ const bank = (n = 24) => Array.from({ length: n }, (_, i) => item(`item-${String
 const retained = () => ({ exposures: 20, independentSuccesses: 8, independentDays: 5,
   spacedSuccesses: 4, intervalMs: 16 * DAY, firstSeenAt: NOW - 20 * DAY,
   lastSeenAt: NOW - DAY, dueAt: NOW - 1000 });
-const choose = (items, options = {}) => selectContentItems(items, { now: NOW, random: () => 0, ...options });
+const choose = (items, options = {}) => selectContentItems(items, { difficulty: 1, now: NOW, random: () => 0, ...options });
 
 // Synthetic records exercise scheduling contracts; real phrase wording is not an assertion.
-test('badge remains a hard ceiling; useful, simple introductions come first', () => {
+test('badge selects an exact band; useful, simple introductions come first', () => {
   const items = [item('ordinary', 2, 20), item('essential', 8, 95), item('later', 70), item('badge-two', 1, 100, 2)];
   const selected = choose(items, { difficulty: 1, minimumPool: 1 });
   assert.equal(selected[0].id, 'essential');

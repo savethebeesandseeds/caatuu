@@ -26,7 +26,7 @@ function fixture() {
 }
 
 function session(options) {
-  return createNounLandingSession(normalizeNounLandingPack(fixture(), expected), { random: () => 0.999, ...options });
+  return createNounLandingSession(normalizeNounLandingPack(fixture(), expected), { random: () => 0.999, difficulty: 1, ...options });
 }
 
 function answer(state, laneId = state.item.laneId) {
@@ -123,7 +123,7 @@ test("lane images are optional course-owned PNGs with no URL or path escape", ()
   const pack = normalizeNounLandingPack(raw, expected);
   assert.equal(pack.lanes[0].image, raw.lanes[0].image);
   assert.equal(Object.hasOwn(pack.lanes[1], "image"), false);
-  assert.equal(createNounLandingSession(pack).lanes[0].image, raw.lanes[0].image);
+  assert.equal(createNounLandingSession(pack, { difficulty: 1 }).lanes[0].image, raw.lanes[0].image);
   for (const image of [
     "https://example.org/male_gender.png", "//example.org/male_gender.png",
     "/assets/micelaneous/../male_gender.png", "/assets/micelaneous/%2e%2e/male_gender.png",
@@ -156,7 +156,7 @@ test("native-review and license metadata cannot imply approval without required 
 test("session starts ready, bounded and deterministic, without consuming or mutating the pack", () => {
   const pack = normalizeNounLandingPack(fixture(), expected);
   const before = JSON.stringify(pack);
-  const state = createNounLandingSession(pack, { random: () => 0.999, limit: 2 });
+  const state = createNounLandingSession(pack, { difficulty: 1, random: () => 0.999, limit: 2 });
   assert.equal(state.phase, "ready");
   assert.equal(state.item.id, "es.noun.mapa");
   assert.deepEqual(state.queue.map((item) => item.id), ["es.noun.mano"]);
@@ -166,10 +166,10 @@ test("session starts ready, bounded and deterministic, without consuming or muta
   assert.equal(JSON.stringify(pack), before);
   assert.ok(Object.isFrozen(state.attemptsByItem));
   for (const limit of [0, -1, 1.5, NaN, Infinity]) {
-    assert.throws(() => createNounLandingSession(pack, { limit }), /limit/);
+    assert.throws(() => createNounLandingSession(pack, { difficulty: 1, limit }), /limit/);
   }
   for (const value of [-1, 1, 4, NaN, Infinity]) {
-    const bounded = createNounLandingSession(pack, { random: () => value, limit: 99 });
+    const bounded = createNounLandingSession(pack, { difficulty: 1, random: () => value, limit: 99 });
     assert.equal(bounded.total, 3);
     assert.equal(new Set([bounded.item, ...bounded.queue].map((item) => item.id)).size, 3);
   }
@@ -183,27 +183,27 @@ test("the default session includes the entire JSON pool instead of an arbitrary 
     laneId: index % 2 ? "feminine" : "masculine"
   }));
   const pack = normalizeNounLandingPack(raw, expected);
-  const state = createNounLandingSession(pack, { random: () => 0.999 });
+  const state = createNounLandingSession(pack, { difficulty: 1, random: () => 0.999 });
   assert.equal(state.total, 25);
   assert.equal(new Set([state.item, ...state.queue].map(({ id }) => id)).size, 25);
-  assert.equal(createNounLandingSession(pack, { limit: 7 }).total, 7);
+  assert.equal(createNounLandingSession(pack, { difficulty: 1, limit: 7 }).total, 7);
 });
 
 test("a new cycle can avoid the last noun with one bounded swap without mutating content", () => {
   const pack = normalizeNounLandingPack(fixture(), expected);
   const before = JSON.stringify(pack);
   const avoidFirstItemId = pack.items[0].id;
-  const state = createNounLandingSession(pack, { random: () => 0.999, avoidFirstItemId });
+  const state = createNounLandingSession(pack, { difficulty: 1, random: () => 0.999, avoidFirstItemId });
   assert.notEqual(state.item.id, avoidFirstItemId);
   assert.equal(state.total, pack.items.length);
   assert.equal(new Set([state.item, ...state.queue].map(({ id }) => id)).size, pack.items.length);
-  const bounded = createNounLandingSession(pack, { random: () => 0.999, avoidFirstItemId, limit: 1 });
+  const bounded = createNounLandingSession(pack, { difficulty: 1, random: () => 0.999, avoidFirstItemId, limit: 1 });
   assert.notEqual(bounded.item.id, avoidFirstItemId);
   assert.equal(bounded.total, 1);
-  const unknown = createNounLandingSession(pack, { random: () => 0.999, avoidFirstItemId: "es.noun.unknown" });
+  const unknown = createNounLandingSession(pack, { difficulty: 1, random: () => 0.999, avoidFirstItemId: "es.noun.unknown" });
   assert.equal(unknown.item.id, pack.items[0].id);
   assert.equal(JSON.stringify(pack), before);
-  assert.throws(() => createNounLandingSession(pack, { avoidFirstItemId: 1 }), /avoidFirstItemId/);
+  assert.throws(() => createNounLandingSession(pack, { difficulty: 1, avoidFirstItemId: 1 }), /avoidFirstItemId/);
 });
 
 test("ready, feedback and complete phases reject premature or duplicate actions", () => {

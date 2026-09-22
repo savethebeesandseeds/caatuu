@@ -1,4 +1,4 @@
-import { normalizeContentProgression, selectContentItems } from "../adaptive-practice.mjs";
+import { normalizeContentProgression, selectContentItems, matchesContentDifficulty } from "../adaptive-practice.mjs";
 const GAME_ID = "sound-quasar";
 const ID_PATTERN = /^[a-z0-9]+(?:[.-][a-z0-9]+)*$/u;
 const SOURCE_ID_PATTERN = /^(?:[a-z0-9]+(?:[.-][a-z0-9]+)*|\/(?:0|[1-9][0-9]*))$/u;
@@ -313,7 +313,7 @@ function makeRound(items, answer, random, choiceCount, mode) {
 
 export function soundQuasarItemsForDifficulty(catalog, { mode = "words", difficulty = 3 } = {}) {
   integer(difficulty, "difficulty", 1, 3);
-  return modeItems(asCatalog(catalog), mode).filter(item => item.difficulty === undefined || item.difficulty <= difficulty);
+  return modeItems(asCatalog(catalog), mode).filter(item => matchesContentDifficulty(item, difficulty));
 }
 
 export function buildSoundQuasarRound(catalog, { index = 0, random = Math.random, choiceCount = 4, mode = "words", difficulty = 3 } = {}) {

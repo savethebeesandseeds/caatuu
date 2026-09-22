@@ -141,11 +141,11 @@ test("the Mandarin Verb Nebula catalog is a complete, stable, runtime-playable c
   );
 });
 
-test("Mandarin verb tiers preserve authored categories and cumulative progression", async () => {
+test("Mandarin verb tiers preserve authored categories within the exact selected band", async () => {
   const dictionary = JSON.parse(await readFile(mandarinDictionaryUrl, "utf8"));
   const pairs = extractCoreVerbPairs(dictionary);
   for (const level of [1, 2, 3]) {
-    const expectedRows = dictionary.filter((row) => row.difficulty <= level);
+    const expectedRows = dictionary.filter((row) => row.difficulty === level);
     const pool = filterVerbPairsForDifficulty(pairs, level);
     assert.deepEqual(pool.map((pair) => pair.id), expectedRows.map((row) => row.id));
     assert.ok(dictionary.some((row) => row.difficulty === level), `badge ${level} must be represented`);
@@ -155,7 +155,7 @@ test("Mandarin verb tiers preserve authored categories and cumulative progressio
       new Set(expectedRows.map((row) => row.category))
     );
   }
-  assert.deepEqual(filterVerbPairsForDifficulty(pairs, 3), pairs);
+  assert.deepEqual(filterVerbPairsForDifficulty(pairs, 3), pairs.filter(pair => pair.difficulty === 3));
 });
 
 test("Mandarin Verb Nebula content retains its child-safety exclusions", async () => {
@@ -429,7 +429,7 @@ test("strict runtime lookup rejects missing, mismatched, and reordered catalog p
   }
 });
 
-test("keeps the curated difficulty metadata and defaults unclassified verbs to Navigator", () => {
+test("keeps the curated difficulty metadata and defaults unclassified verbs to Explorer", () => {
   const pairs = extractCoreVerbPairs([
     { kind: "V", cs: "one", en: "first", difficulty: 1 },
     { kind: "V", cs: "two", en: "second", difficulty: "2" },
@@ -437,9 +437,9 @@ test("keeps the curated difficulty metadata and defaults unclassified verbs to N
     { kind: "V", cs: "missing", en: "missing" },
   ]);
 
-  assert.deepEqual(pairs.map((pair) => pair.difficulty), [1, 2, 3, 3]);
+  assert.deepEqual(pairs.map((pair) => pair.difficulty), [1, 2, 1, 1]);
   assert.deepEqual(pairs.map((pair) => pair.difficultyIsAuthored), [true, true, false, false]);
-  assert.deepEqual(filterVerbPairsForDifficulty(pairs, 1).map((pair) => pair.id), ["core-verb-0"]);
+  assert.deepEqual(filterVerbPairsForDifficulty(pairs, 1).map((pair) => pair.id), ["core-verb-0", "core-verb-2", "core-verb-3"]);
 });
 
 test("keeps a wholly pre-tier cached catalog playable during an app upgrade", () => {
@@ -450,9 +450,11 @@ test("keeps a wholly pre-tier cached catalog playable during an app upgrade", ()
 
   assert.deepEqual(legacyPairs.map((pair) => pair.difficultyIsAuthored), [false, false]);
   assert.deepEqual(filterVerbPairsForDifficulty(legacyPairs, 1), legacyPairs);
+  assert.deepEqual(filterVerbPairsForDifficulty(legacyPairs, 2), []);
+  assert.deepEqual(filterVerbPairsForDifficulty(legacyPairs, 3), []);
 });
 
-test("Core verb difficulty tiers preserve authored progression and remain cumulatively playable", async () => {
+test("Core verb difficulty tiers preserve authored progression and each remain playable", async () => {
   const dictionary = JSON.parse(await readFile(dictionaryUrl, "utf8"));
   const verbRows = dictionary.filter((row) => /^V(?:\s|$)/u.test(String(row?.kind || "")));
   const rowTierCounts = verbRows.reduce((counts, row) => {
@@ -476,13 +478,13 @@ test("Core verb difficulty tiers preserve authored progression and remain cumula
   }
   for (const level of [1, 2, 3]) {
     const pool = filterVerbPairsForDifficulty(pairs, level);
-    assert.deepEqual(pool, pairs.filter((pair) => dictionary[pair.sourceIndex].difficulty <= level));
+    assert.deepEqual(pool, pairs.filter((pair) => dictionary[pair.sourceIndex].difficulty === level));
     assert.ok(pool.length >= Math.max(...VERB_NEBULA_PAIR_COUNTS));
   }
-  assert.deepEqual(filterVerbPairsForDifficulty(pairs, 3), pairs);
+  assert.deepEqual(filterVerbPairsForDifficulty(pairs, 3), pairs.filter(pair => pair.difficulty === 3));
 });
 
-test("difficulty filtering is cumulative, stable, and conservative for invalid settings", () => {
+test("difficulty filtering is exact, stable, and rejects invalid settings", () => {
   const pairs = [
     { id: "one", difficulty: 1 },
     { id: "two", difficulty: 2 },
@@ -490,12 +492,12 @@ test("difficulty filtering is cumulative, stable, and conservative for invalid s
     { id: "unclassified" },
   ];
 
-  assert.deepEqual(filterVerbPairsForDifficulty(pairs, 1).map((pair) => pair.id), ["one"]);
-  assert.deepEqual(filterVerbPairsForDifficulty(pairs, 2).map((pair) => pair.id), ["one", "two"]);
+  assert.deepEqual(filterVerbPairsForDifficulty(pairs, 1).map((pair) => pair.id), ["one", "unclassified"]);
+  assert.deepEqual(filterVerbPairsForDifficulty(pairs, 2).map((pair) => pair.id), ["two"]);
   assert.deepEqual(filterVerbPairsForDifficulty(pairs, 3).map((pair) => pair.id), [
-    "one", "two", "three", "unclassified",
+    "three",
   ]);
-  assert.deepEqual(filterVerbPairsForDifficulty(pairs, 99).map((pair) => pair.id), ["one"]);
+  assert.throws(() => filterVerbPairsForDifficulty(pairs, 99), /difficulty/u);
 });
 
 test("a lower difficulty cannot restore locked verbs into its queue", () => {

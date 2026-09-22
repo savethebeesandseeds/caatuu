@@ -1,4 +1,4 @@
-import { normalizeContentProgression } from "../content-progression.mjs";
+import { normalizeContentProgression, matchesContentDifficulty } from "../content-progression.mjs";
 import {
   GRAMMAR_JOURNEY_CONTRACT,
   buildMeaningChoices,
@@ -335,7 +335,7 @@ function validateChallenges(pack, axisIds) {
   }
   if (pack.gameplay.stages.includes("meaning")) {
     for (const difficulty of [1, 2, 3]) {
-      const meanings = new Set(pack.challenges.filter((challenge) => challenge.difficulty <= difficulty)
+      const meanings = new Set(pack.challenges.filter((challenge) => matchesContentDifficulty(challenge, difficulty))
         .flatMap((challenge) => Object.values(challenge.forms).flatMap((form) => form.examples
           .map((example) => normalizedText(example.anchor.learnerBaseText, pack.learnerBaseLanguage)))));
       if (meanings.size < 2) throw new Error(`Difficulty ${difficulty} must provide at least two distinct authored anchor meanings.`);
@@ -411,7 +411,7 @@ export function buildGrammarGravityRounds(pack, difficulty, random = Math.random
   validateGrammarGravityPack(pack);
   const level = Number(difficulty);
   if (!Number.isInteger(level) || level < 1 || level > 3) throw new Error("Grammar Gravity difficulty must be 1, 2, or 3.");
-  const challenges = pack.challenges.filter((challenge) => challenge.difficulty <= level);
+  const challenges = pack.challenges.filter((challenge) => matchesContentDifficulty(challenge, level));
   const meaningPool = [...new Set(challenges.flatMap((challenge) => Object.values(challenge.forms).flatMap((form) =>
     form.examples.map((example) => example.anchor.learnerBaseText))))];
   const rounds = challenges.flatMap((challenge) => {
