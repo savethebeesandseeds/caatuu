@@ -3,7 +3,7 @@ import {
   buildConjugationHelixRound, judgeConjugationHelixRound, splitConjugationDisplay,
   buildConjugationVerbQueue, validateConjugationCometCatalog, selectConjugationPracticeVerbs
 } from "./conjugation-comet-core.mjs?v=conjugation-comet-core-2";
-import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-8";
+import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-9";
 import { newContentEncounterId, matchesContentDifficulty } from "../content-progression.mjs";
 
 const GAME_ID = "conjugation-comet";
@@ -692,8 +692,8 @@ function bindUi(state) {
     else if (button.dataset.speakText) void speakTargetText(state, button.dataset.speakText);
   });
   listen(document, "keydown", (event) => {
-    if (event.repeat || event.isComposing || event.ctrlKey || event.altKey || event.metaKey || event.shiftKey
-      || event.target.closest?.('input, textarea, select, [contenteditable="true"], [role="dialog"], #conjugationCometControls')
+    if (event.defaultPrevented || event.repeat || event.isComposing || event.ctrlKey || event.altKey || event.metaKey || event.shiftKey
+      || event.target.closest?.('input, textarea, select, [contenteditable]:not([contenteditable="false"]), [role="textbox"], dialog, [role="dialog"], #conjugationCometControls')
       || !canInteract(state) || state.phase !== "question") return;
     const button = event.target.closest?.("button");
     const strand = event.target.closest?.(".conjugation-comet-strand");

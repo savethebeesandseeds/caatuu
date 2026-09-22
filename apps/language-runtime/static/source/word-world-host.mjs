@@ -1,4 +1,4 @@
-import { mountRobotLoadingScreen } from "./games/embedded-game-controls.mjs?v=embedded-game-controls-8";
+import { mountRobotLoadingScreen } from "./games/embedded-game-controls.mjs?v=embedded-game-controls-9";
 
 const course = globalThis.CaatuuCourse;
 
@@ -87,7 +87,7 @@ async function loadController() {
   try {
     const manifest = await loadJson(courseUrl("data/games/word-world/manifest.json"));
     stage.dataset.provider = String(manifest.sessionProvider?.kind || manifest.mode || "course-content");
-    const { mountWordWorld } = await import("./word-world-provider.mjs?v=word-world-provider-29");
+    const { mountWordWorld } = await import("./word-world-provider.mjs?v=word-world-provider-31");
     const controller = await mountWordWorld(root, course, manifest);
     if (!controller || typeof controller !== "object") {
       throw new Error("The shared Word World renderer did not return its controller.");

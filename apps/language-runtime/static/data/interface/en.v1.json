@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "locale": "en",
   "direction": "ltr",
-  "revision": "interface-en-37",
+  "revision": "interface-en-38",
   "messages": {
     "music.volume": "Music volume",
     "speech.volume": "Voice volume",
@@ -1023,6 +1023,9 @@
     "verbnebula.status.accuracy": "accuracy",
     "verbnebula.status.matched": "matched",
     "verbnebula.status.waiting": "waiting",
+    "verbnebula.targettext.pinyin": "Show pinyin",
+    "verbnebula.targettext.title": "Chinese text",
+    "verbnebula.targettext.tones": "Tone colors",
     "wordworld.audio.autoplay": "Autoplay sentences",
     "wordworld.audio.installvoice": "Install target-language voice",
     "wordworld.audio.settings": "Target-language audio settings",

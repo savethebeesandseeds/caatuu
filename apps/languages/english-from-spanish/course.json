@@ -212,7 +212,7 @@
       "path": "apps/language-runtime/static/data/interface/es.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-es-12"
+      "revision": "interface-es-13"
     },
     "courseProfile": {
       "kind": "file",

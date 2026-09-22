@@ -438,6 +438,7 @@ export function mountEmbeddedGameControls({ container, shell, course, onLayoutCh
   listen(document.defaultView.visualViewport, "scroll", constrainOpenPopovers);
   if (shell.document !== document) listen(shell.document, "click", () => close());
   listen(document, "keydown", (event) => {
+    if (event.defaultPrevented || event.isComposing || event.keyCode === 229) return;
     if (event.key !== "Escape" || !panels.some(({ panel }) => !panel.hidden)) return;
     event.preventDefault();
     close({ restoreFocus: true });

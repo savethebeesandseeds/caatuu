@@ -8,9 +8,9 @@ import {
   fetchDeclaredCourseGameJson,
   readEmbeddedCourseProfile
 } from "../course-game-content.mjs?v=course-game-content-1";
-import { mountNounLanding } from "./noun-landing-host.mjs?v=noun-landing-host-23";
-import { mountGrammarFlight } from "./adjective-flight-host.mjs?v=adjective-flight-host-18";
-import { mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-8";
+import { mountNounLanding } from "./noun-landing-host.mjs?v=noun-landing-host-24";
+import { mountGrammarFlight } from "./adjective-flight-host.mjs?v=adjective-flight-host-19";
+import { mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-9";
 import { selectContentItems, newContentEncounterId } from "../adaptive-practice.mjs";
 
 const GAME_ID = "grammar-gravity";

@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
 import { newContentEncounterId } from "../static/source/games/content-progression.mjs";
+import { bindHorizontalGesture } from "../static/source/horizontal-gesture.mjs";
 
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { englishInterfaceContent } from "./helpers/english-interface-content.mjs";
@@ -183,7 +184,8 @@ async function mountGame({ difficulty = 1, pack = catalog, status = 200, duringL
   harness.context.clearTimeout = harness.window.clearTimeout = clearTimer;
   harness.context.console = { ...console, error: (...values) => errors.push(values) };
   Object.assign(harness.context, { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen,
-    CZECH_CASES, validatePack, buildRounds, buildQuestions, buildCasePracticeRounds, newContentEncounterId, assertEnglishCzechCourse });
+    CZECH_CASES, validatePack, buildRounds, buildQuestions, buildCasePracticeRounds, newContentEncounterId, assertEnglishCzechCourse,
+    bindHorizontalGesture });
   // Capture the actual initialization promise, without exposing test APIs in production.
   assert.match(source, /\binit\(\);\s*$/u);
   const executable = source
@@ -424,6 +426,18 @@ test("swipes ignore controls, notes, answer buttons, and open menus", async () =
   pointer(game, "pointerdown", 150);
   pointer(game, "pointerup", 240);
   assert.equal(game.records.length, 0);
+});
+
+test("a second contact outside the vessel and either reserved screen edge cannot answer", async () => {
+  for (const kind of ["outside", "left-edge", "right-edge"]) {
+    const game = await mountGame();
+    const start = kind === "left-edge" ? 20 : kind === "right-edge" ? game.window.innerWidth - 20 : 150;
+    pointer(game, "pointerdown", start);
+    if (kind === "outside") pointer(game, "pointerdown", 300, 100,
+      { target: game.element("Controls"), isPrimary: false, pointerId: 2 });
+    pointer(game, "pointerup", start + (kind === "right-edge" ? -100 : 100));
+    assert.equal(game.records.length, 0, kind);
+  }
 });
 
 test("changing cards, layout, focus, or visibility cancels an in-flight swipe", async () => {
@@ -756,7 +770,8 @@ test("difficulty changes rebuild eligible noun rounds and clear pending feedback
 test("yes/no keyboard shortcuts ignore modified, repeated, and editable-field events", async () => {
   for (const [key, answer] of [["y", true], ["Y", true], ["1", true], ["n", false], ["N", false], ["2", false]]) {
     const game = await mountGame();
-    for (const values of [{ ctrlKey: true }, { altKey: true }, { metaKey: true }, { shiftKey: true }, { repeat: true }]) {
+    for (const values of [{ ctrlKey: true }, { altKey: true }, { metaKey: true }, { shiftKey: true }, { repeat: true },
+      { isComposing: true }, { keyCode: 229 }, { defaultPrevented: true }]) {
       game.key(key, values);
       assert.equal(game.api.state.phase, "question");
     }

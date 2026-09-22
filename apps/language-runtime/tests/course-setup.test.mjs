@@ -136,6 +136,53 @@ test("cancelling setup keeps the installer recoverable and never activates parti
   assert.equal(fixture.elements["[data-back]"].hidden, false);
 });
 
+test("a cancelled download cannot update, unlock, or complete its replacement", async () => {
+  const fixture = screen("install", { pathname: "/en-fr/index.html" });
+  await initializeCourseSetup(fixture.scope);
+  const action = fixture.elements["[data-action]"];
+  const first = action.onclick();
+  const oldRequest = fixture.requests.at(-1);
+  await action.onclick();
+  assert.equal(fixture.requests.filter(({ type }) => type === "setup_download").length, 1);
+  const stopping = fixture.elements["[data-cancel]"].onclick();
+  const abort = fixture.requests.at(-1);
+  await fixture.elements["[data-cancel]"].onclick();
+  assert.equal(fixture.requests.filter(({ type }) => type === "setup_abort").length, 1);
+  fixture.scope.CaatuuNative.receive({ id: abort.id, kind: "done", result: { ready: false } });
+  await stopping;
+  const second = action.onclick();
+  const currentRequest = fixture.requests.at(-1);
+  const currentStatus = fixture.elements["[data-status]"].textContent;
+  const currentProgress = fixture.elements["[data-progress]"].value;
+  fixture.scope.CaatuuNative.receive({ id: oldRequest.id, kind: "progress", bytes: 1234, totalBytes: 1234 });
+  fixture.scope.CaatuuNative.receive({ id: oldRequest.id, kind: "done", result: { ready: true } });
+  await first;
+  assert.equal(fixture.reloads(), 0);
+  assert.equal(action.disabled, true);
+  assert.equal(fixture.elements["[data-progress]"].hidden, false);
+  assert.equal(fixture.elements["[data-progress]"].value, currentProgress);
+  assert.equal(fixture.elements["[data-status]"].textContent, currentStatus);
+  fixture.scope.CaatuuNative.receive({ id: currentRequest.id, kind: "done", result: { ready: true } });
+  await second;
+  assert.equal(fixture.reloads(), 1);
+});
+
+test("retiring the installer leaves pending operations unable to mutate its controls", async () => {
+  const fixture = screen("install", { pathname: "/en-fr/index.html" });
+  await initializeCourseSetup(fixture.scope);
+  const action = fixture.elements["[data-action]"];
+  const pending = action.onclick();
+  fixture.callbacks.get("pagehide")();
+  const status = fixture.elements["[data-status]"].textContent;
+  await pending;
+  assert.equal(fixture.reloads(), 0);
+  assert.equal(action.disabled, true);
+  assert.equal(fixture.elements["[data-status]"].textContent, status);
+  const count = fixture.requests.length;
+  await action.onclick();
+  assert.equal(fixture.requests.length, count);
+});
+
 test("download estimates exclude verified shared files and include unverified full-length files", () => {
   assert.equal(missingSetupBytes({ staticAssets: { assets: [
     { expectedBytes: 500, bytes: 500, ready: true },

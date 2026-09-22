@@ -25,6 +25,7 @@ product UI.
 | `static/source/word-world-host.mjs` | The sole lazy-loading boundary between the workspace controller and the shared Word World provider/renderer. |
 | `static/source/word-world-provider.mjs` | Prepares one frozen context from standard or authored course content, adapter tools, English-only ranking, meanings, and optional hooks. |
 | `static/source/product-word-world.mjs` | The shared Word World controller bound to the exact shared DOM: meanings, learner-base/target reconstruction, XP, history, display controls, swipes, speech, and reporting. |
+| `static/source/target-text.mjs` / `static/styles/caatuu-target-text.css` | Shared authored pronunciation display: aligned characters, optional readings above them, and optional tone colors. |
 | `static/games/*` and `static/source/games/*` | Shared game documents, mechanics, and hosts. Conjugation Comet and Grammar Gravity resolve revisioned course-owned catalogs only through the generated `gameContent` projection; they never infer a language directory. |
 | `static/source/games/embedded-game-controls.mjs` | Reusable embedded-game display, layout, and audio controls. Interface copy comes from the parent catalog; theme, text size, mute, pace, and voice use the existing shell owner. Optional game layout is session-only. |
 | `static/styles/caatuu-*.css` | The shared theme, workspace, Home, Chrome, and Word World presentation used without per-course copies. |
@@ -66,6 +67,26 @@ learner-base catalog, policy-defined supplemental outputs, and
 `resources.wordWorldManifest`. Projection policies may adapt target
 pronunciation and supplementary aids, but they cannot introduce a different
 component tree or silently redirect a manifest reference to another output.
+
+### Shared target-text presentation
+
+Use `renderTargetText(document, host, text, { units, showGuide, colorTones,
+guideLanguage })` from `static/source/target-text.mjs` for character-aligned
+pronunciation display. The shared renderer and `caatuu-target-text.css`
+formalize Word World's existing ruby pattern: authored units must reproduce
+the exact text, readings use `ruby`/`rt` above their glyphs, and guide visibility
+and tone colors are independent. The renderer owns the common classes,
+light/dark tone palette, guide language and accessibility attributes, and safe
+plain-text fallback when readings are absent or misaligned. It never infers a
+pronunciation from the characters.
+
+Hosts retain content and sense lookup, saved preferences, speech text, and
+exercise reveal rules. When an exercise withholds the answer, an accessible
+label or tone color must not reveal it: Naturalization reveals both readings
+and colors only after a match, while Sounds Quasar's answer choices do not show
+pinyin. Reuse the
+shared presentation without changing those game rules or replacing interactive
+cards when a display preference changes.
 
 ## Interface content and directional courses
 

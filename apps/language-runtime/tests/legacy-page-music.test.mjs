@@ -33,7 +33,9 @@ test("legacy games receive music after their locale and saved mute preferences a
     assert.equal(window.CaatuuChrome.getSpeechMuted(), true);
     const style = document.querySelector("link[data-caatuu-music-styles]");
     assert.equal(style.rel, "stylesheet");
-    assert.equal(style.href, "/language-runtime/static/styles/music-controls.css");
+    const stylesheetUrl = new URL(style.href, window.location.href);
+    assert.equal(stylesheetUrl.origin, new URL(window.location.href).origin);
+    assert.equal(stylesheetUrl.pathname, "/language-runtime/static/styles/music-controls.css");
     music = { savedMute: true };
     window.CaatuuMusic = music;
     assert.deepEqual(ready, [], "mounting music must not imply setup or page readiness");

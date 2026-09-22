@@ -3,9 +3,7 @@ import {
   buildTokenReconstructionChallenge,
   buildWordReconstructionChallenge,
   cleanTranslation,
-  interpretHorizontalSwipe,
   isMiscellaneousAssetPath,
-  isReservedEdgeGesture,
   isPlausibleSentence,
   isRecentSentence,
   isWordReconstructionCorrect,
@@ -21,9 +19,11 @@ import {
   tokenizeCzechSentence as tokenizeLegacySentence
 } from "./word-net-core.mjs?v=word-net-core-21";
 import { WordNetBranchQueue } from "./word-net-queue.mjs?v=word-net-queue-6";
+import { bindHorizontalGesture } from "./horizontal-gesture.mjs";
 import { localAiAvailability } from "./shell-policy.mjs";
-import { mountRobotLoadingScreen } from "./games/embedded-game-controls.mjs?v=embedded-game-controls-8";
+import { mountRobotLoadingScreen } from "./games/embedded-game-controls.mjs?v=embedded-game-controls-9";
 import { createEnglishImageSearch } from "./english-image-search.mjs?v=english-image-search-4";
+import { renderTargetText } from "./target-text.mjs?v=target-text-1";
 import { matchesContentDifficulty, newContentEncounterId } from "./games/content-progression.mjs";
 import { progressiveWordWorldSelection,
   wordWorldEvidenceBank, wordWorldPracticeHistory } from "./word-world-progression.mjs";
@@ -545,7 +545,7 @@ const state = {
   sceneRequestId: 0,
   history: loadHistory(),
   historyCursor: 0,
-  swipeStart: null,
+  swipeGesture: null,
   recentSentences: loadRecentSentences(),
   translationCache: loadTranslationCache(),
   branchQueue: new WordNetBranchQueue({
@@ -2275,12 +2275,14 @@ function toggleTranslationMenu() {
 }
 
 function handleTranslationToggleKeydown(event) {
+  if (event.defaultPrevented || event.isComposing || event.keyCode === 229) return;
   if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
   event.preventDefault();
   openTranslationMenu({ focus: event.key === "ArrowUp" ? "last" : "selected" });
 }
 
 function handleTranslationMenuKeydown(event) {
+  if (event.defaultPrevented || event.isComposing || event.keyCode === 229) return;
   const menu = $("#wordNetTranslationMenu");
   if (!menu || menu.hidden) return;
   if (event.key === "Escape") {
@@ -4136,42 +4138,12 @@ function targetTextUnits(prepared) {
 }
 
 function replaceTargetText(host, text, prepared) {
-  if (!host) return false;
-  const surface = String(text || "").normalize("NFC");
-  const units = targetTextUnits(prepared);
-  const validUnits = Array.isArray(units)
-    && units.length > 0
-    && units.every((unit) => String(unit?.surface || "") && String(unit?.notation || ""))
-    && units.map((unit) => String(unit.surface)).join("") === surface;
-  host.classList.toggle("has-target-text-guide", validUnits && state.targetTextPreferences.showGuide);
-  host.classList.toggle("has-target-text-colors", validUnits && state.targetTextPreferences.colorTones);
-  if (!validUnits) {
-    host.textContent = surface;
-    return false;
-  }
-
-  const run = document.createElement("span");
-  run.className = "word-net-target-text";
-  for (const unit of units) {
-    const wrapper = document.createElement(state.targetTextPreferences.showGuide ? "ruby" : "span");
-    wrapper.className = "word-net-target-text-unit";
-    if (state.targetTextPreferences.colorTones) wrapper.dataset.tone = String(unit.tone || 5);
-    const glyph = document.createElement("span");
-    glyph.className = "word-net-target-text-glyph";
-    glyph.textContent = unit.surface;
-    wrapper.append(glyph);
-    if (state.targetTextPreferences.showGuide) {
-      const guide = document.createElement("rt");
-      guide.className = "word-net-target-text-notation";
-      guide.lang = providerContext.targetTextGuide?.languageTag || "";
-      guide.setAttribute("aria-hidden", "true");
-      guide.textContent = unit.notation;
-      wrapper.append(guide);
-    }
-    run.append(wrapper);
-  }
-  host.replaceChildren(run);
-  return true;
+  return renderTargetText(document, host, text, {
+    units: targetTextUnits(prepared),
+    showGuide: state.targetTextPreferences.showGuide,
+    colorTones: state.targetTextPreferences.colorTones,
+    guideLanguage: providerContext?.targetTextGuide?.languageTag || ""
+  });
 }
 
 function abortWordLookup() {
@@ -4437,6 +4409,7 @@ function robotLoadingActive() {
 
 function syncRobotLoadingActivity() {
   const active = robotLoadingActive();
+  if (!active) state.swipeGesture?.cancel();
   state.loadingScreen?.setActive(active);
   if (!active) {
     for (const release of state.loadingActivityWaiters) release();
@@ -4465,6 +4438,7 @@ async function holdSentenceTransition() {
 }
 
 function setBusy(busy, { cover = busy, immediate = false } = {}) {
+  if (busy) state.swipeGesture?.cancel();
   state.busy = busy;
   if (busy) {
     closeAudioMenu();
@@ -5678,6 +5652,27 @@ async function submitSentenceFeedback(event) {
   }
 }
 
+function bindSentenceGestures() {
+  const surface = $(".word-net-sentence-panel");
+  if (!surface) return;
+  state.swipeGesture?.dispose();
+  state.swipeGesture = bindHorizontalGesture({
+    surface, document, window,
+    available: () => robotLoadingActive() && !state.busy
+      && !["#wordNetDisplayMenu", "#wordNetAudioMenu", "#wordNetTranslationMenu", "#wordNetGenerationMenu"]
+        .some((selector) => { const menu = $(selector); return menu && !menu.hidden; }),
+    identity: () => [state.phraseRequestId, state.reconstruction, state.currentSentence],
+    pointerTypes: ["touch"], capturePointer: true,
+    exclude: ".word-net-loading",
+    minDistance: () => Math.max(48, Math.min(72, window.innerWidth * 0.12)),
+    maxVerticalRatio: 0.72, maxDurationMs: 1200,
+    onAction(direction) {
+      if (direction === "left") activateNextSentence();
+      else showPreviousSentence();
+    }
+  });
+}
+
 function bindUi() {
   window.CaatuuLearning?.registerProgressResetPreparation?.(prepareGuidedWordProgressReset);
   window.addEventListener("caatuu:progress-reset-cancelled", () => {
@@ -5693,6 +5688,7 @@ function bindUi() {
     window.requestAnimationFrame(syncDisplaySettingsControl);
   });
   $("#wordNetDisplayMenu")?.addEventListener("keydown", (event) => {
+    if (event.defaultPrevented || event.isComposing || event.keyCode === 229) return;
     if (event.key !== "Escape") return;
     event.preventDefault();
     closeDisplayMenu({ restoreFocus: true });
@@ -5764,6 +5760,7 @@ function bindUi() {
   $("#wordNetNext")?.addEventListener("click", activateNextSentence);
   $("#wordNetSound")?.addEventListener("click", toggleAudioMenu);
   $("#wordNetSound")?.addEventListener("keydown", (event) => {
+    if (event.defaultPrevented || event.isComposing || event.keyCode === 229) return;
     if (event.key !== "ArrowDown") return;
     event.preventDefault();
     openAudioMenu();
@@ -5791,6 +5788,7 @@ function bindUi() {
     }
   });
   $("#wordNetAudioMenu")?.addEventListener("keydown", (event) => {
+    if (event.defaultPrevented || event.isComposing || event.keyCode === 229) return;
     if (event.key !== "Escape") return;
     event.preventDefault();
     closeAudioMenu({ restoreFocus: true });
@@ -5817,6 +5815,7 @@ function bindUi() {
     closeGenerationMenu();
   });
   document.addEventListener("keydown", (event) => {
+    if (event.defaultPrevented || event.isComposing || event.keyCode === 229) return;
     if (event.key === "Escape") {
       closeDisplayMenu();
       closeAudioMenu();
@@ -5839,53 +5838,7 @@ function bindUi() {
       ? interfaceText("wordworld.word.guidedsupport", { word: button.dataset.word })
       : interfaceText("wordworld.word.selected", { word: button.dataset.word }), { tone: "muted" });
   });
-  const sentencePanel = $(".word-net-sentence-panel");
-  sentencePanel?.addEventListener("pointerdown", (event) => {
-    if (
-      state.busy
-      || event.button > 0
-      || event.isPrimary === false
-      || (event.pointerType && event.pointerType !== "touch")
-      || isReservedEdgeGesture(event.clientX, window.innerWidth)
-      || event.target.closest(".word-net-loading")
-      || event.target.closest("button, a, input, select, textarea, dialog")
-    ) return;
-    state.swipeStart = {
-      pointerId: event.pointerId,
-      x: event.clientX,
-      y: event.clientY,
-      time: event.timeStamp
-    };
-  });
-  window.addEventListener("pointermove", (event) => {
-    const start = state.swipeStart;
-    if (!start || start.pointerId !== event.pointerId) return;
-    const deltaX = Math.abs(event.clientX - start.x);
-    const deltaY = Math.abs(event.clientY - start.y);
-    if (deltaY > 18 && deltaY > deltaX * 1.15) state.swipeStart = null;
-  }, { passive: true });
-  window.addEventListener("pointerup", (event) => {
-    const start = state.swipeStart;
-    state.swipeStart = null;
-    if (!start || start.pointerId !== event.pointerId || state.busy) return;
-    const action = interpretHorizontalSwipe(start, {
-      x: event.clientX,
-      y: event.clientY,
-      time: event.timeStamp
-    }, {
-      minDistance: Math.max(48, Math.min(72, window.innerWidth * 0.12)),
-      maxVerticalRatio: 0.72,
-      maxDurationMs: 1200
-    });
-    if (action === "random") {
-      activateNextSentence();
-    } else if (action === "previous") {
-      showPreviousSentence();
-    }
-  });
-  window.addEventListener("pointercancel", () => {
-    state.swipeStart = null;
-  });
+  bindSentenceGestures();
   $("#wordNetReportToggle")?.addEventListener("click", openSentenceFeedback);
   $("#wordNetFeedbackCancel")?.addEventListener("click", closeSentenceFeedback);
   $("#wordNetFeedbackForm")?.addEventListener("submit", submitSentenceFeedback);
@@ -6050,7 +6003,7 @@ function suspendStarterWordPresentation() {
   clearTranslationTimer();
   cancelBackgroundWork();
   abortWordLookup();
-  state.swipeStart = null;
+  state.swipeGesture?.cancel();
 }
 
 function targetLanguageCopy(value) {

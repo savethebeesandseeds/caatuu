@@ -50,6 +50,8 @@ services:
       - ./apps/language-runtime:/workspace/apps/language-runtime:ro
       - ./apps/languages:/workspace/apps/languages:ro
       - ./apps/launcher/static:/workspace/apps/launcher/static:ro
+      - ./apps/games/lab:/workspace/apps/games/lab:ro
+      - ./apps/games/caatuu-game/character-workshop:/workspace/apps/games/caatuu-game/character-workshop:ro
       - ./artifacts/android:/workspace/artifacts/android:ro
       - ./artifacts/games:/workspace/artifacts/games:ro
       - ./artifacts/dictionary-gaps:/var/lib/caatuu/dictionary-gaps

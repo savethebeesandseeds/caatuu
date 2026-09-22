@@ -6,6 +6,8 @@ let dictionaryCatalogDocument = null;
 let dictionaryPresentationRuntimePromise = null;
 let verbNebulaCore = null;
 let verbExerciseFamilyCore = null;
+let verbTargetTextRenderer = null;
+let verbTargetTextReadings = new Map();
 let childFacingAssets = null;
 let verbImageSearchPromise = null;
 let deferredPwaInstallPrompt = null;
@@ -56,7 +58,7 @@ function setShellRobotLoading(container, visible, label) {
   if (!entry) {
     entry = { container, screen: null, retired: false };
     shellRobotScreens.set(container, entry);
-    shellRobotModulePromise ||= import("/language-runtime/static/source/games/embedded-game-controls.mjs?v=embedded-game-controls-8");
+    shellRobotModulePromise ||= import("/language-runtime/static/source/games/embedded-game-controls.mjs?v=embedded-game-controls-9");
     void shellRobotModulePromise.then(({ mountRobotLoadingScreen }) => {
       if (entry.retired || !container.isConnected) return;
       entry.screen = mountRobotLoadingScreen({
@@ -192,6 +194,7 @@ const themeOptions = {
 };
 const chatSettingsStorageKey = course.storage.chatSettings;
 const verbSpeakOnTapStorageKey = `${course.storage.namespace}.verbNebula.speakOnTap.v1`;
+const verbTargetTextStorageKey = `${course.storage.namespace}.verbNebula.targetTextPreferences.v1`;
 const defaultModelKey = "cstinyllama-1.2b-czech-word-sentence-001";
 const browserFallbackModel = "Qwen3-0.6B-q4f16_1-MLC";
 const browserFallbackLabel = "Browser fallback";
@@ -451,6 +454,10 @@ async function loadContentData() {
       import("/language-runtime/static/source/games/verb-nebula/verb-exercise-family-core.mjs?v=verb-exercise-family-core-3"),
       import("/language-runtime/static/source/child-facing-assets.mjs?v=child-facing-assets-2")
     ]);
+    if (verbUsesTargetTextGuide()) {
+      verbTargetTextRenderer = await import("/language-runtime/static/source/target-text.mjs?v=target-text-1");
+      verbTargetTextReadings = indexVerbTargetTextReadings(countryDictionary);
+    }
   }
 }
 
@@ -481,6 +488,7 @@ const state = {
   verbSelectedEnglishId: "",
   verbPairCount: 4,
   verbSpeakOnTap: loadVerbSpeakOnTap(),
+  verbTargetTextPreferences: loadVerbTargetTextPreferences(),
   verbRoundNumber: 0,
   verbStats: { attempts: 0, matches: 0, rounds: 0 },
   verbMemoryLoaded: false,
@@ -2162,6 +2170,90 @@ function saveVerbSpeakOnTap() {
   }
 }
 
+function verbUsesTargetTextGuide() {
+  return course.linguisticFeatures?.includes("hanzi-pinyin") === true;
+}
+
+function loadVerbTargetTextPreferences() {
+  const defaults = { colorTones: true, showGuide: true };
+  try {
+    const stored = JSON.parse(window.localStorage.getItem(verbTargetTextStorageKey));
+    for (const key of Object.keys(defaults)) {
+      if (typeof stored?.[key] === "boolean") defaults[key] = stored[key];
+    }
+  } catch (error) {
+    // Missing or unavailable storage leaves the course's reading aids enabled.
+  }
+  return defaults;
+}
+
+function indexVerbTargetTextReadings(rows) {
+  const readings = new Map();
+  for (const row of rows) {
+    const reading = row.reading;
+    if (reading?.system !== "pinyin" || !Array.isArray(reading.tokens) || !reading.tokens.length) continue;
+    if (reading.tokens.some((token) => typeof token?.surface !== "string" || !token.surface
+        || !Array.isArray(token.units) || !token.units.length
+        || token.units.some((unit) => typeof unit?.surface !== "string"
+          || Array.from(unit.surface).length !== 1 || typeof unit.notation !== "string"
+          || !/^[\p{Script=Latin}\p{M}]+[1-5]?$/u.test(unit.notation))
+        || token.units.map((unit) => unit.surface).join("") !== token.surface)) continue;
+    const target = row.target ?? row.cz;
+    if (reading.tokens.map((token) => token.surface).join("") !== target) continue;
+    // Keep authored readings outside the matching core's language-neutral projection.
+    // Both identity and surface must match; homographs can have different readings.
+    readings.set(row.id, { target, reading });
+  }
+  return readings;
+}
+
+function renderVerbTargetTextCopy(copy, pair) {
+  const target = pair.target ?? pair.cz;
+  const authored = verbTargetTextReadings.get(pair.id);
+  const reading = authored?.target === target ? authored.reading : null;
+  verbTargetTextRenderer.renderTargetText(document, copy, target, {
+    units: reading?.tokens.flatMap((token) => token.units),
+    ...state.verbTargetTextPreferences,
+    guideLanguage: "zh-Latn-pinyin"
+  });
+}
+
+function renderVerbTargetTextControls() {
+  const settings = $("#verbTargetTextSettings");
+  const available = verbUsesTargetTextGuide();
+  if (settings) settings.hidden = !available;
+  document.querySelectorAll("[data-verb-target-text-setting]").forEach((button) => {
+    const enabled = state.verbTargetTextPreferences[button.dataset.verbTargetTextSetting] === true;
+    button.disabled = !available;
+    button.setAttribute("aria-checked", String(enabled));
+    button.classList.toggle("is-active", enabled);
+  });
+}
+
+function changeVerbTargetTextPreference(event) {
+  const button = event.target.closest("[data-verb-target-text-setting]");
+  if (event.defaultPrevented || !button || button.disabled || button.closest("[hidden], [inert]")
+      || document.visibilityState === "hidden" || state.activeView !== "verbs" || state.trainTab !== "verb-lab"
+      || !verbUsesTargetTextGuide()) return;
+  const key = button.dataset.verbTargetTextSetting;
+  if (key !== "colorTones" && key !== "showGuide") return;
+  state.verbTargetTextPreferences[key] = !state.verbTargetTextPreferences[key];
+  try {
+    window.localStorage.setItem(verbTargetTextStorageKey, JSON.stringify(state.verbTargetTextPreferences));
+  } catch (error) {
+    // The preference remains active for this session when storage is unavailable.
+  }
+  renderVerbTargetTextControls();
+  // Update copy in place: selecting a reading aid must not restart the round,
+  // replace the focused card, or interfere with matching/transition ownership.
+  document.querySelectorAll("#verbCzechColumn .verb-match-card-cz").forEach((card) => {
+    const pair = state.verbRound.find((item) => item.id === card.dataset.verbId);
+    const copy = card.querySelector(".verb-match-card-copy");
+    if (pair && copy) renderVerbTargetTextCopy(copy, pair);
+  });
+  if (state.verbSolutionRevealed) renderVerbSolutionArrows();
+}
+
 function applyVerbLanguageCopy() {
   const board = $("#verbMeaningBoard");
   if (board) board.setAttribute("aria-label", verbMatchInstruction());
@@ -2208,6 +2300,7 @@ function renderVerbAudioControls() {
 }
 
 function renderVerbDisplayControls() {
+  renderVerbTargetTextControls();
   const theme = document.documentElement.dataset.theme === "dark" ? "dark" : "light";
   const fontSize = document.documentElement.dataset.fontSize || "largest";
   document.querySelectorAll(".verb-display-menu [data-theme-option]").forEach((button) => {
@@ -2373,6 +2466,7 @@ function createVerbMatchCard(pair, side) {
   const label = side === "cz" ? (pair.target ?? pair.cz) : (pair.source ?? pair.eng);
   copy.textContent = label;
   copy.lang = side === "cz" ? targetLanguage.locale : sourceLanguage.locale;
+  if (side === "cz" && verbUsesTargetTextGuide()) renderVerbTargetTextCopy(copy, pair);
   if (state.verbSolutionRevealed) {
     button.setAttribute("aria-label", interfaceText("verbnebula.match.meaning", {
       target: pair.target ?? pair.cz, meaning: pair.source ?? pair.eng
@@ -2575,6 +2669,7 @@ function renderVerbNebula() {
   );
   renderVerbPairCountControls();
   renderVerbAudioControls();
+  renderVerbTargetTextControls();
   renderVerbMatchStats();
   renderVerbHintButton();
   renderVerbGuidedStatus();
@@ -2908,6 +3003,16 @@ async function settleVerbMatch() {
   // storing bare ids would also mark the two correct counterparts and reveal
   // the answer during the mistake animation.
   state.verbWrongIds = new Set([`cz:${czechId}`, `en:${englishId}`]);
+  const wrongIds = state.verbWrongIds;
+  const wrongTimer = window.setTimeout(() => {
+    if (state.verbWrongTimer !== wrongTimer || state.verbWrongIds !== wrongIds) return;
+    state.verbSelectedEnglishId = "";
+    state.verbWrongIds.clear();
+    state.verbWrongTimer = null;
+    renderVerbNebula();
+  }, 560);
+  // Own the feedback phase before learning callbacks can synchronously notify listeners.
+  state.verbWrongTimer = wrongTimer;
   const pair = state.verbRound.find((item) => item.id === czechId);
   const chosenPair = state.verbEnglishRound.find((item) => item.id === englishId);
   if (!state.verbGuidedMode) {
@@ -2921,17 +3026,15 @@ async function settleVerbMatch() {
   setVerbMatchFeedback(interfaceText("verbnebula.match.retry"), "wrong");
   saveVerbMemory();
   renderVerbNebula();
-  state.verbWrongTimer = window.setTimeout(() => {
-    state.verbSelectedEnglishId = "";
-    state.verbWrongIds.clear();
-    state.verbWrongTimer = null;
-    renderVerbNebula();
-  }, 560);
 }
 
 function chooseVerbMatchCard(event) {
   const card = event.target.closest("button[data-verb-side][data-verb-id]");
-  if (!card || card.disabled || state.verbWrongTimer) return;
+  if (event.defaultPrevented || !card || card.disabled || state.verbWrongTimer
+    || state.activeView !== "verbs" || state.trainTab !== "verb-lab"
+    || document.hidden || document.visibilityState === "hidden"
+    || state.verbRoundTransitioning || state.campaignTransitioning || state.verbGuidedEvidencePending
+    || verbGuidedInteractionLocked()) return;
   const id = card.dataset.verbId;
 
   if (card.dataset.verbSide === "cz") {
@@ -3336,7 +3439,8 @@ function bindVerbNebulaControls() {
       saveVerbSpeakOnTap();
       renderVerbAudioControls();
       if (state.verbSpeakOnTap) void refreshVerbAudioVoiceControls();
-    } else if (event.target.closest("button[data-verb-side]")) chooseVerbMatchCard(event);
+    } else if (event.target.closest("[data-verb-target-text-setting]")) changeVerbTargetTextPreference(event);
+    else if (event.target.closest("button[data-verb-side]")) chooseVerbMatchCard(event);
     else if (event.target.closest("[data-verb-pair-count]")) changeVerbPairCount(event);
   });
   document.querySelectorAll("#verbMeaningBoard details.verb-toolbar-menu").forEach((menu) => {

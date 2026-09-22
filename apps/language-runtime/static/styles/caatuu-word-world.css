@@ -85,7 +85,7 @@
   position: absolute;
   top: 14px;
   right: 14px;
-  z-index: 3;
+  z-index: 4;
   display: flex;
   gap: 8px;
 }
@@ -155,7 +155,7 @@
 
 .word-net-display-options button {
   min-width: 0;
-  min-height: 43px;
+  min-height: var(--caatuu-control-target-size, 44px);
   padding: 7px;
   border: 1px solid var(--theme-line-strong, var(--line));
   border-radius: 9px;
@@ -265,7 +265,7 @@
 
 .word-net-audio-voice select {
   width: 100%;
-  min-height: 38px;
+  min-height: var(--caatuu-control-target-size, 44px);
   padding: 6px 30px 6px 9px;
   border: 1px solid var(--theme-control-border, #b8c5bd);
   border-radius: 7px;
@@ -282,7 +282,7 @@
 }
 
 .word-net-audio-install {
-  min-height: 32px;
+  min-height: var(--caatuu-control-target-size, 44px);
   padding: 6px 10px;
   border: 1px solid var(--theme-green, #22594d);
   border-radius: 7px;
@@ -309,7 +309,7 @@
 }
 
 .word-net-audio-autoplay {
-  min-height: 34px;
+  min-height: var(--caatuu-control-target-size, 44px);
   border: 1px solid var(--theme-control-border, #b8c5bd);
   border-radius: 7px;
   background: var(--theme-control-bg, #fffefa);
@@ -491,7 +491,7 @@
 
 .word-net-generation-menu button {
   min-width: 0;
-  min-height: 36px;
+  min-height: var(--caatuu-control-target-size, 44px);
   padding: 6px 8px;
   border: 0;
   border-radius: 6px;
@@ -556,7 +556,7 @@
 
 .word-net-translation-menu button {
   position: relative;
-  min-height: 40px;
+  min-height: var(--caatuu-control-target-size, 44px);
   padding: 6px 8px 6px 34px;
   border: 0;
   border-radius: 7px;
@@ -650,7 +650,7 @@
 }
 
 .word-net-translation-timers button {
-  min-height: 34px;
+  min-height: var(--caatuu-control-target-size, 44px);
   padding: 5px 4px 5px 24px;
   display: block;
   font-size: 0.66rem;
@@ -698,7 +698,7 @@
 
 .word-net-generation-menu .word-net-content-source-options button {
   min-width: 0;
-  min-height: 42px;
+  min-height: var(--caatuu-control-target-size, 44px);
   padding: 5px 6px 6px;
   border-bottom-width: 2px;
   font-size: 0.64rem;
@@ -725,8 +725,9 @@
 }
 
 .word-net-icon-button {
-  width: 44px;
-  height: 44px;
+  width: var(--caatuu-control-target-size, 44px);
+  height: var(--caatuu-control-target-size, 44px);
+  flex-shrink: 0;
   border: 1px solid var(--theme-control-border, #b8c5bd);
   border-radius: 999px;
   background: var(--theme-control-bg, #fffefa);
@@ -745,10 +746,10 @@
 }
 
 .word-net-panel-actions > .theme-toggle {
-  width: 44px;
-  min-width: 44px;
-  height: 44px;
-  min-height: 44px;
+  width: var(--caatuu-control-target-size, 44px);
+  min-width: var(--caatuu-control-target-size, 44px);
+  height: var(--caatuu-control-target-size, 44px);
+  min-height: var(--caatuu-control-target-size, 44px);
   padding: 0;
   border: 1px solid var(--theme-control-border, #b8c5bd);
   background: var(--theme-control-bg, #fffefa);
@@ -818,7 +819,7 @@ html[data-theme] .word-net-panel-actions > .theme-toggle:hover {
   position: absolute;
   top: 50%;
   z-index: 2;
-  width: 38px;
+  width: var(--caatuu-control-target-size, 44px);
   height: 58px;
   padding: 0;
   border: 0;
@@ -994,7 +995,7 @@ html[data-theme] .word-net-panel-actions > .theme-toggle:hover {
 
 .word-net-sentence-row {
   position: relative;
-  min-height: 34px;
+  min-height: var(--caatuu-control-target-size, 44px);
   width: 100%;
   display: flex;
   align-items: center;
@@ -1004,7 +1005,7 @@ html[data-theme] .word-net-panel-actions > .theme-toggle:hover {
 
 .word-net-sentence-row .cz-sentence-renderer {
   width: auto;
-  padding: 0;
+  padding: 0 calc(var(--caatuu-control-target-size, 44px) + 4px);
 }
 
 .word-net-phrase-pronounce.word-net-sound-toggle {
@@ -1012,8 +1013,8 @@ html[data-theme] .word-net-panel-actions > .theme-toggle:hover {
   top: 50%;
   right: 0;
   left: auto;
-  width: 34px;
-  height: 34px;
+  width: var(--caatuu-control-target-size, 44px);
+  height: var(--caatuu-control-target-size, 44px);
   border-radius: 999px;
   transform: translateY(-50%);
 }
@@ -1033,7 +1034,8 @@ html[data-theme] .word-net-panel-actions > .theme-toggle:hover {
 }
 
 .cz-word-token {
-  min-height: 37px;
+  min-width: var(--caatuu-control-target-size, 44px);
+  min-height: var(--caatuu-control-target-size, 44px);
   border: 1px solid color-mix(in srgb, var(--theme-line, #cfd8d1) 44%, transparent);
   border-radius: 7px;
   background: color-mix(in srgb, var(--theme-soft-green, #e8f5ee) 10%, transparent);
@@ -1201,7 +1203,8 @@ html[data-theme="dark"] .cz-word-token.is-curriculum-focus {
 
 .word-net-reconstruction-token,
 .word-net-reconstruction-result button {
-  min-height: 44px;
+  min-width: var(--caatuu-control-target-size, 44px);
+  min-height: var(--caatuu-control-target-size, 44px);
   border: 1px solid var(--theme-control-border, #b8c5bd);
   border-radius: 7px;
   background: var(--theme-control-bg, #fffefa);
@@ -1265,10 +1268,10 @@ html[data-theme="dark"] .cz-word-token.is-curriculum-focus {
 }
 
 .word-net-reconstruction-submit {
-  width: 42px;
-  min-width: 42px;
-  height: 42px;
-  min-height: 42px;
+  width: var(--caatuu-control-target-size, 44px);
+  min-width: var(--caatuu-control-target-size, 44px);
+  height: var(--caatuu-control-target-size, 44px);
+  min-height: var(--caatuu-control-target-size, 44px);
   padding: 0;
   border: 1px solid var(--theme-green-strong, #1c4a40);
   border-radius: 999px;
@@ -1581,12 +1584,12 @@ html[data-theme="dark"] .cz-word-token.is-curriculum-focus {
 }
 
 .word-net-feedback .word-net-feedback-status {
-  bottom: 38px;
+  bottom: calc(var(--caatuu-control-target-size, 44px) + 10px);
   max-width: min(360px, calc(100% - 24px));
 }
 
 .word-net-report-toggle {
-  min-height: 28px;
+  min-height: var(--caatuu-control-target-size, 44px);
   padding: 2px 6px;
   border: 0;
   border-radius: 6px;
@@ -1665,7 +1668,7 @@ html[data-theme="dark"] .word-net-report-toggle {
 }
 
 .word-net-feedback-form select {
-  min-height: 32px;
+  min-height: var(--caatuu-control-target-size, 44px);
   padding: 4px 7px;
 }
 
@@ -1678,12 +1681,13 @@ html[data-theme="dark"] .word-net-report-toggle {
 .word-net-feedback-actions {
   grid-column: 1 / -1;
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
   gap: 7px;
 }
 
 .word-net-feedback-actions button {
-  min-height: 30px;
+  min-height: var(--caatuu-control-target-size, 44px);
   padding: 4px 10px;
   border: 1px solid var(--theme-control-border, #b8c5bd);
   border-radius: 6px;
@@ -1969,7 +1973,7 @@ html[data-theme="dark"] .word-net-report-toggle {
 }
 
 .word-net-generative-dialog-actions button {
-  min-height: 36px;
+  min-height: var(--caatuu-control-target-size, 44px);
   padding: 6px 13px;
   border: 1px solid var(--theme-control-border, #b8c5bd);
   border-radius: 7px;
@@ -2016,6 +2020,7 @@ html[data-theme="dark"] .word-net-report-toggle {
 }
 
 .word-net-diagnostics summary {
+  min-height: var(--caatuu-control-target-size, 44px);
   display: flex;
   align-items: center;
   gap: 7px;
@@ -2174,18 +2179,6 @@ html[data-theme="dark"] .word-net-trail-head {
     gap: 6px;
   }
 
-  .word-net-icon-button {
-    width: 40px;
-    height: 40px;
-  }
-
-  .word-net-panel-actions > .theme-toggle {
-    width: 40px;
-    min-width: 40px;
-    height: 40px;
-    min-height: 40px;
-  }
-
   .word-net-display-menu {
     right: 0;
     left: auto;
@@ -2200,7 +2193,6 @@ html[data-theme="dark"] .word-net-trail-head {
   }
 
   .word-net-side-nav {
-    width: 34px;
     height: 52px;
     font-size: 1.75rem;
   }
@@ -2237,7 +2229,6 @@ html[data-theme="dark"] .word-net-trail-head {
   }
 
   .cz-word-token {
-    min-height: 40px;
     font-size: clamp(1.28rem, 5.2vw, 2rem);
   }
 
@@ -2259,7 +2250,6 @@ html[data-theme="dark"] .word-net-trail-head {
   }
 
   .word-net-reconstruction-token {
-    min-height: 44px;
     padding: 4px 8px;
   }
 
@@ -2334,34 +2324,6 @@ html[data-theme="dark"] .word-net-trail-head {
   padding-top: 8px;
 }
 
-.word-net-target-text {
-  min-width: 0;
-  display: inline-flex;
-  align-items: baseline;
-  justify-content: center;
-  white-space: nowrap;
-}
-
-.word-net-target-text-unit {
-  line-height: 1.08;
-  ruby-align: center;
-  ruby-position: over;
-}
-
-.word-net-target-text-unit + .word-net-target-text-unit {
-  margin-left: 0.02em;
-}
-
-.word-net-target-text-notation {
-  color: var(--theme-quiet, #74817b);
-  font-family: var(--theme-font-sans, system-ui, sans-serif);
-  font-size: max(0.42em, 0.55rem);
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: 1;
-  text-transform: none;
-}
-
 .cz-sentence-renderer.is-source-language-prompt {
   min-height: 49px;
   color: var(--theme-green-strong, #1c4a40);
@@ -2373,42 +2335,6 @@ html[data-theme="dark"] .word-net-trail-head {
 .word-net-reconstruction-token.has-target-text-guide {
   min-height: 51px;
   padding-top: 9px;
-}
-
-.word-net-target-text-unit[data-tone="1"] .word-net-target-text-glyph {
-  color: #d93a3a;
-}
-
-.word-net-target-text-unit[data-tone="2"] .word-net-target-text-glyph {
-  color: #b68100;
-}
-
-.word-net-target-text-unit[data-tone="3"] .word-net-target-text-glyph {
-  color: #258a45;
-}
-
-.word-net-target-text-unit[data-tone="4"] .word-net-target-text-glyph {
-  color: #277fb8;
-}
-
-.word-net-target-text-unit[data-tone="5"] .word-net-target-text-glyph {
-  color: var(--theme-quiet, #74817b);
-}
-
-html[data-theme="dark"] .word-net-target-text-unit[data-tone="1"] .word-net-target-text-glyph {
-  color: #ff7771;
-}
-
-html[data-theme="dark"] .word-net-target-text-unit[data-tone="2"] .word-net-target-text-glyph {
-  color: #e7bd4c;
-}
-
-html[data-theme="dark"] .word-net-target-text-unit[data-tone="3"] .word-net-target-text-glyph {
-  color: #67c47d;
-}
-
-html[data-theme="dark"] .word-net-target-text-unit[data-tone="4"] .word-net-target-text-glyph {
-  color: #6eb6e2;
 }
 
 .word-net-reconstruction-result h2.has-target-text-guide,
@@ -2429,4 +2355,59 @@ html[data-theme="dark"] .word-net-target-text-unit[data-tone="4"] .word-net-targ
 
 .word-net-trail-base {
   color: var(--theme-green-strong, #1c4a40);
+}
+
+/* Phone layouts keep real targets in separate rows. Normal flow also lets
+   larger text and wrapped answer tiles grow without covering other controls. */
+@media (max-width: 520px) {
+  .word-net-sentence-panel {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .word-net-panel-actions {
+    position: relative;
+    inset: auto;
+    order: -2;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .word-net-word-translation.dictionary-word-card {
+    position: relative;
+    inset: auto;
+    order: -1;
+    width: min(244px, 100%);
+    max-width: none;
+  }
+
+  .word-net-scene {
+    position: relative;
+    inset: auto;
+    flex: 0 0 auto;
+    width: 100%;
+    transform: none;
+  }
+
+  .word-net-phrase-stack {
+    position: static;
+    width: 100%;
+    margin-top: auto;
+  }
+
+  .word-net-feedback {
+    position: relative;
+    inset: auto;
+    display: grid;
+    justify-items: end;
+    gap: 4px;
+  }
+
+  .word-net-feedback .word-net-report-toggle,
+  .word-net-feedback .word-net-feedback-status {
+    position: static;
+    max-width: 100%;
+  }
 }

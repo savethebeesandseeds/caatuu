@@ -528,6 +528,18 @@
     window.requestAnimationFrame(() => updateBottomDockHeight(dock));
   }
 
+  function closeBottomDockMenu({ restoreFocus = true } = {}) {
+    const menu = document.querySelector("[data-caatuu-bottom-dock]")?.dataset.openMenu;
+    if (!menu) return false;
+    if (menu === "home") closeHomeMenu({ restoreFocus });
+    else if (menu === "games") closeGameMenu({ restoreFocus });
+    else {
+      setBottomDockMenu();
+      if (restoreFocus) document.querySelector("[data-caatuu-bottom-nav] #openSettings")?.focus();
+    }
+    return true;
+  }
+
   function syncHomeMenuSelection(target = activeHomeMenuTarget) {
     const normalizedTarget = ["social", "store"].includes(target) ? target : "home";
     activeHomeMenuTarget = normalizedTarget;
@@ -889,8 +901,7 @@
       if (homeNav && document.querySelector("#view-home")) {
         event.preventDefault();
         event.stopImmediatePropagation();
-        if (homeMenuPanel && !homeMenuPanel.hidden) closeHomeMenu();
-        else openHomeMenu(homeNav);
+        if (!homeMenuPanel || homeMenuPanel.hidden) openHomeMenu(homeNav);
         return;
       }
 
@@ -946,8 +957,7 @@
         event.preventDefault();
         event.stopImmediatePropagation();
         if (homeMenuPanel && !homeMenuPanel.hidden) closeHomeMenu({ restoreFocus: false });
-        if (gameMenuPanel && !gameMenuPanel.hidden) closeGameMenu();
-        else openGameMenu(gameNav);
+        if (!gameMenuPanel || gameMenuPanel.hidden) openGameMenu(gameNav);
         return;
       }
       const backpackButton = event.target.closest?.('[data-caatuu-bottom-nav] #openSettings');
@@ -956,8 +966,7 @@
         event.stopImmediatePropagation();
         if (homeMenuPanel && !homeMenuPanel.hidden) closeHomeMenu({ restoreFocus: false });
         if (gameMenuPanel && !gameMenuPanel.hidden) closeGameMenu({ restoreFocus: false });
-        const dock = mountBottomDockMenus();
-        setBottomDockMenu(dock?.dataset.openMenu === "settings" ? "" : "settings");
+        setBottomDockMenu("settings");
         return;
       }
       const otherNavigation = event.target.closest?.("[data-caatuu-bottom-nav] a, [data-caatuu-bottom-nav] button");
@@ -965,8 +974,18 @@
         if (homeMenuPanel && !homeMenuPanel.hidden) closeHomeMenu({ restoreFocus: false });
         if (gameMenuPanel && !gameMenuPanel.hidden) closeGameMenu({ restoreFocus: false });
       }
+      const dock = document.querySelector("[data-caatuu-bottom-dock]");
+      if (dock?.dataset.openMenu && !dock.contains(event.target)) {
+        closeBottomDockMenu({ restoreFocus: false });
+      }
     }, true);
     document.addEventListener("keydown", (event) => {
+      if (event.defaultPrevented || event.isComposing || event.keyCode === 229) return;
+      if (event.key === "Escape" && closeBottomDockMenu()) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        return;
+      }
       const homePanel = document.querySelector("#homeMenuPanel");
       if (event.key === "Escape" && homePanel && !homePanel.hidden) {
         event.preventDefault();
@@ -3004,6 +3023,7 @@
       closeWorkspaceDisplayMenu();
     }, true);
     document.addEventListener("keydown", (event) => {
+      if (event.defaultPrevented || event.isComposing || event.keyCode === 229) return;
       if (event.key !== "Escape" || !document.querySelector("#setupDisplayMenu")?.open) return;
       event.preventDefault();
       closeWorkspaceDisplayMenu({ restoreFocus: true });
@@ -3033,6 +3053,7 @@
       if (menu.open && !menu.contains(event.target)) menu.open = false;
     }, true);
     document.addEventListener("keydown", (event) => {
+      if (event.defaultPrevented || event.isComposing || event.keyCode === 229) return;
       if (event.key !== "Escape" || !menu.open) return;
       event.preventDefault();
       menu.open = false;
@@ -3432,6 +3453,7 @@
     if (languageSelectorDismissalBound) return;
     languageSelectorDismissalBound = true;
     document.addEventListener("keydown", (event) => {
+      if (event.defaultPrevented || event.isComposing || event.keyCode === 229) return;
       if (event.key !== "Escape" || !activeLanguageSelectorHost) return;
       event.preventDefault();
       closeLanguageSelectorHost(activeLanguageSelectorHost, { restoreFocus: true });
@@ -3857,6 +3879,7 @@
 
     menu.caatuuResetDraft();
     menu.addEventListener("keydown", (event) => {
+      if (event.defaultPrevented || event.isComposing || event.keyCode === 229) return;
       const entries = languageSelectorOptions(menu);
       if (!entries.length) return;
       const currentIndex = entries.indexOf(document.activeElement);
@@ -4091,6 +4114,7 @@
       setLanguageSelectorOpen(host, menu.hidden, { opener: element });
     });
     element.addEventListener("keydown", (event) => {
+      if (event.defaultPrevented || event.isComposing || event.keyCode === 229) return;
       if (event.key === "ArrowDown" || event.key === "ArrowUp") {
         event.preventDefault();
         setLanguageSelectorOpen(host, true, {
@@ -4346,7 +4370,7 @@
       if (!visible) return;
       root.textContent = interfaceMessage("developer.tools.loading");
       try {
-        const { mountDeveloperTools } = await import("/language-runtime/static/source/developer-tools/developer-tools.mjs?v=developer-tools-3");
+        const { mountDeveloperTools } = await import("/language-runtime/static/source/developer-tools/developer-tools.mjs?v=developer-tools-4");
         if (request !== sequence) return;
         const inspectorCourse = {
           ...course,
@@ -5260,8 +5284,7 @@
       const open = event.target.closest?.("#openSettings");
       if (open && document.querySelector("#settingsPanel")) {
         event.preventDefault();
-        const dock = mountBottomDockMenus();
-        setBottomDockMenu(dock?.dataset.openMenu === "settings" ? "" : "settings");
+        setBottomDockMenu("settings");
         return;
       }
       const panel = document.querySelector("#settingsPanel");
@@ -5279,6 +5302,7 @@
     });
     document.addEventListener("keydown", (event) => {
       const currentView = event.target.closest?.(".settings-section-switcher [data-settings-view]");
+      if (event.defaultPrevented || event.isComposing || event.keyCode === 229) return;
       if (currentView) {
         const tabs = Array.from(currentView.parentElement?.querySelectorAll("[data-settings-view]") || []);
         const currentIndex = tabs.indexOf(currentView);
@@ -5431,6 +5455,7 @@
   }
 
   function handleAndroidBack() {
+    if (closeBottomDockMenu({ restoreFocus: false })) return true;
     const homeMenuPanel = document.querySelector("#homeMenuPanel");
     if (homeMenuPanel && !homeMenuPanel.hidden) {
       closeHomeMenu({ restoreFocus: false });

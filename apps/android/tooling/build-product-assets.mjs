@@ -1897,8 +1897,8 @@ export function transformProductInterfaceCatalog(input) {
 
 export function transformProductDeveloperTools(input) {
   let source = exactReplace(normalizeText(input),
-    'import { mountEmbeddingImages, mountDebugChat } from "./model-tools.mjs";',
-    'import { mountEmbeddingImages } from "./model-tools.mjs";', "product developer imports");
+    'import { mountEmbeddingImages, mountDebugChat } from "./model-tools.mjs?v=model-tools-2";',
+    'import { mountEmbeddingImages } from "./model-tools.mjs?v=model-tools-2";', "product developer imports");
   return exactReplace(source,
     '  { id: "debug-chat", label: "developer.tools.chat", mount: mountDebugChat, language: true }\n',
     "", "product developer chat entry");
@@ -2296,6 +2296,7 @@ const REQUIRED_SHARED_APP_FILES = Object.freeze([
   "language-runtime/static/source/interface-content.mjs",
   "language-runtime/static/source/learning-profile.js",
   "language-runtime/static/source/legacy-page-bootstrap.mjs",
+  "language-runtime/static/source/horizontal-gesture.mjs",
   "language-runtime/static/source/product-word-world.mjs",
   "language-runtime/static/source/word-net-core.mjs",
   "language-runtime/static/source/word-net-queue.mjs",

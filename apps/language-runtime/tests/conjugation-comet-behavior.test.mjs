@@ -907,7 +907,13 @@ test("next skips an unfinished board without credit and invalidates pending call
 });
 
 test("a non-English base supplies subject labels and meanings without English audit text", async () => {
-  const game = await mountGame({ language: "spanish", syntheticBase: true });
+  const game = await mountGame({ language: "spanish", syntheticBase: true, mutateCatalog(catalog) {
+    // Real English audit words such as "solve" can also occur in legitimate
+    // Spanish targets such as "resolver". Sentinels detect actual audit leaks.
+    catalog.verbs.forEach((verb, index) => {
+      verb.englishAuditText = `Internal English audit phrase ${index}`;
+    });
+  } });
   assert.match(game.element("conjugationCometMeaning").textContent, /^Grundbedeutung /u);
   for (const button of game.strandButtons("subject")) assert.match(button.textContent, /Grundform /u);
   assert.equal(game.catalog.auditLanguageId, "en");
@@ -937,11 +943,25 @@ test("strand shortcuts ignore held or modified keys, text entry, popovers and in
   const game = await mountGame();
   const original = game.offset("subject");
   const press = (details = {}) => game.document.dispatchEvent({ type: "keydown", key: "ArrowDown", target: game.selectedButton("subject"), ...details });
-  for (const property of ["repeat", "isComposing", "ctrlKey", "altKey", "metaKey", "shiftKey"]) press({ [property]: true });
+  for (const property of ["defaultPrevented", "repeat", "isComposing", "ctrlKey", "altKey", "metaKey", "shiftKey"]) press({ [property]: true });
   for (const tag of ["input", "textarea", "select"]) {
     const field = game.document.createElement(tag);
     game.document.body.append(field);
     press({ target: field });
+  }
+  const button = game.selectedButton("subject");
+  const originalParent = button.parentElement;
+  for (const [tag, attributes] of [
+    ["div", { contenteditable: "" }], ["div", { contenteditable: "plaintext-only" }],
+    ["div", { role: "textbox" }], ["dialog", {}], ["div", { role: "dialog" }]
+  ]) {
+    const owner = game.document.createElement(tag);
+    Object.entries(attributes).forEach(([name, value]) => owner.setAttribute(name, value));
+    game.document.body.append(owner);
+    owner.append(button);
+    press({ target: button });
+    originalParent.append(button);
+    owner.remove();
   }
   game.setControlsOpen(true); press(); game.setControlsOpen(false);
   game.setActive(false); press();

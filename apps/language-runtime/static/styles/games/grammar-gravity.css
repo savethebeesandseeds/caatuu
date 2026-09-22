@@ -801,7 +801,7 @@ button {
 
 .gravity-adjective-translation { display: flex; align-items: center; justify-content: space-between; gap: 8px; text-align: left; }
 .gravity-adjective-translation #gravityAdjectiveMeaning { flex: 1; min-width: 0; }
-.gravity-adjective-translation .gravity-adjective-speak { position: static; flex: 0 0 36px; width: 36px; height: 36px; min-height: 36px; padding: 6px; }
+.gravity-adjective-translation .gravity-adjective-speak { position: static; flex: 0 0 var(--caatuu-control-target-size, 44px); width: var(--caatuu-control-target-size, 44px); height: var(--caatuu-control-target-size, 44px); min-height: var(--caatuu-control-target-size, 44px); padding: 6px; }
 .gravity-adjective-speak:disabled { opacity: 0.4; cursor: default; }
 
 #gravityAdjectiveNoun {

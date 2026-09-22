@@ -3,7 +3,7 @@ import {
   selectNounLane, advanceNounFall, landNoun, nextNoun, setNounFallDuration
 } from "./noun-landing-core.mjs?v=noun-landing-core-11";
 import { fetchDeclaredCourseGameJson } from "../course-game-content.mjs?v=course-game-content-1";
-import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-8";
+import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-9";
 import { createNounVisual } from "./noun-visual.mjs?v=noun-visual-4";
 import { newContentEncounterId } from "../content-progression.mjs";
 
@@ -494,6 +494,8 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
       else { lastAutoplayItem = ""; maybeAutoplay(); }
     });
     listen(element("gravityNounArena"), "keydown", (event) => {
+      if (event.defaultPrevented || event.isComposing
+        || event.target?.closest?.('input, textarea, select, [contenteditable]:not([contenteditable="false"]), [role="textbox"], dialog, [role="dialog"]')) return;
       if (inControls(event.target)) return;
       if (element("gravityNounSpeak").contains(event.target)) return;
       const laneTarget = event.target?.closest?.(".gravity-noun-lane");

@@ -105,6 +105,34 @@ test("image tool opens without downloading or searching and releases its UI", as
   assert.equal(root.children.length, 0);
 });
 
+test("image-search shortcuts respect composition, consumed keys and one pending operation", async () => {
+  const harness = createBrowserHarness();
+  const root = harness.document.createElement("div");
+  harness.document.body.append(root);
+  const requests = [];
+  harness.window.fetch = () => new Promise((resolve) => requests.push(resolve));
+  const cleanup = await mountEmbeddingImages({ root, host: harness.window, t });
+  const prompt = root.querySelector("textarea");
+  const run = root.querySelector("button");
+  for (const option of [{ isComposing: true }, { keyCode: 229 }, { repeat: true }, { defaultPrevented: true }, { altKey: true }]) {
+    prompt.dispatchEvent({ type: "keydown", key: "Enter", ctrlKey: true, ...option });
+  }
+  assert.equal(requests.length, 0);
+  prompt.dispatchEvent({ type: "keydown", key: "Enter", ctrlKey: true });
+  await settle();
+  const count = requests.length;
+  assert.ok(count > 0);
+  assert.equal(run.disabled, true);
+  prompt.dispatchEvent({ type: "keydown", key: "Enter", ctrlKey: true });
+  root.querySelector("form").dispatchEvent({ type: "submit" });
+  await settle();
+  assert.equal(requests.length, count);
+  cleanup();
+  requests.forEach((resolve) => resolve({ ok: true, json: async () => imageCatalog }));
+  await settle();
+  assert.equal(root.children.length, 0, "late responses cannot remount a retired tool");
+});
+
 test("Android cannot access browser model imports, GPU requests, or model downloads", async () => {
   let called = false;
   const forbidden = async () => { called = true; throw new Error("Forbidden"); };

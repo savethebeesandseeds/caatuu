@@ -49,7 +49,9 @@ async function mountGame({ language = "czech", active = true, reducedMotion = fa
   const pack = normalizeGrammarGravityPack(raw, {
     courseId: course.id, learnerBaseLanguage: course.sourceLanguage.locale, targetLanguage: course.targetLanguage.locale
   });
-  const authoredRounds = buildGrammarGravityRounds(pack, 3, () => 0.999);
+  const authoredDifficulty = focusKind
+    ? pack.challenges.find((challenge) => challenge.focus.kind === focusKind)?.difficulty : 3;
+  const authoredRounds = buildGrammarGravityRounds(pack, authoredDifficulty, () => 0.999);
   const authored = authoredRounds.find((candidate) => !focusKind || candidate.focus.kind === focusKind);
   assert.ok(authored, "authored content supplies a modern grammar round");
   // Exercise a deliberately authored future-course subset, never an inferred fallback.
@@ -1167,7 +1169,7 @@ test("keyboard choices work in the arena but leave outside controls and modifier
     assert.equal(event.defaultPrevented, false);
   }
   game.arena.focus();
-  for (const modifier of ["ctrlKey", "altKey", "metaKey", "repeat"]) {
+  for (const modifier of ["ctrlKey", "altKey", "metaKey", "shiftKey", "repeat", "isComposing", "defaultPrevented"]) {
     game.arena.dispatchEvent({ type: "keydown", key, [modifier]: true });
   }
   assert.equal(game.attempts.length, 0);
@@ -1176,6 +1178,28 @@ test("keyboard choices work in the arena but leave outside controls and modifier
   assert.equal(event.defaultPrevented, true);
   assert.equal(game.attempts.length, 1);
   assert.equal(game.attempts[0].correct, true);
+  game.controller.destroy();
+});
+
+test("grammar shortcuts leave nested editable fields and dialogs in control of their keys", async () => {
+  const game = await mountGame({ language: "spanish" });
+  for (const [tag, attributes] of [
+    ["input", {}], ["textarea", {}], ["select", {}],
+    ["div", { contenteditable: "" }], ["div", { contenteditable: "plaintext-only" }],
+    ["div", { role: "textbox" }], ["dialog", {}], ["div", { role: "dialog" }]
+  ]) {
+    const owner = game.document.createElement(tag);
+    Object.entries(attributes).forEach(([name, value]) => owner.setAttribute(name, value));
+    const target = game.document.createElement("span");
+    owner.append(target);
+    game.arena.append(owner);
+    const event = { type: "keydown", key: "1", bubbles: true };
+    target.dispatchEvent(event);
+    assert.equal(event.defaultPrevented, false);
+    assert.equal(game.attempts.length, 0);
+  }
+  game.arena.dispatchEvent({ type: "keydown", key: "1" });
+  assert.equal(game.attempts.length, 1);
   game.controller.destroy();
 });
 

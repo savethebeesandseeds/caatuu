@@ -534,7 +534,8 @@ export async function initializeCourseSetup(scope = globalThis) {
     if (typeof scope.CaatuuAndroid?.postMessage !== "function") throw new Error(messages.native);
     const client = createNativeSetupClient(scope);
     let installing = false;
-    let cancelled = false;
+    let stopping = false;
+    let generation = 0;
     let latest;
     const downloadProgress = createSetupDownloadProgress();
     const renderDownloadProgress = (value) => {
@@ -580,11 +581,16 @@ export async function initializeCourseSetup(scope = globalThis) {
       action.onclick = download;
     };
     const refresh = async () => {
+      if (closed || stopping) return;
+      const current = generation;
       action.disabled = true;
       status.textContent = messages.checking;
-      try { showStatus(await client.request("setup_status")); }
+      try {
+        const result = await client.request("setup_status");
+        if (!closed && current === generation) showStatus(result);
+      }
       catch (error) {
-        if (closed) return;
+        if (closed || current !== generation) return;
         setBusy(false);
         status.textContent = error.message || messages.unavailable;
         action.textContent = messages.retry;
@@ -593,41 +599,58 @@ export async function initializeCourseSetup(scope = globalThis) {
       }
     };
     async function download() {
-      if (installing) return;
-      cancelled = false;
+      if (closed || installing || stopping) return;
+      const current = ++generation;
+      const ownsScreen = () => !closed && current === generation;
+      let followingActiveDownload = false;
+      stopRefresh();
       setBusy(true);
       progress.hidden = false;
       renderDownloadProgress(downloadProgress.snapshot());
       status.textContent = messages.downloading;
       try {
         const result = await client.request("setup_download", (event) => {
+          if (!ownsScreen()) return;
           status.textContent = messages.downloading;
           renderDownloadProgress(downloadProgress.update(event));
         });
-        if (!cancelled) {
+        if (ownsScreen()) {
           status.textContent = messages.verifying;
-          showStatus(result.ready === true ? result : await client.request("setup_status"));
+          const verified = result.ready === true ? result : await client.request("setup_status");
+          if (!ownsScreen()) return;
+          followingActiveDownload = verified.setupActive === true && verified.ready !== true;
+          showStatus(verified);
         }
       } catch (error) {
-        status.textContent = cancelled ? messages.cancelled : error.message || messages.unavailable;
+        if (!ownsScreen()) return;
+        status.textContent = error.message || messages.unavailable;
         action.textContent = messages.retry;
       } finally {
-        progress.hidden = true;
-        setBusy(false);
+        if (ownsScreen() && !followingActiveDownload) {
+          progress.hidden = true;
+          setBusy(false);
+        }
       }
     }
     async function stopDownload() {
-      if (cancel.disabled) return;
+      if (closed || !installing || stopping) return;
+      stopping = true;
+      const current = ++generation;
       cancel.disabled = true;
-      cancelled = true;
       stopRefresh();
       try {
-        latest = await client.request("setup_abort");
+        const result = await client.request("setup_abort");
+        if (closed || current !== generation) return;
+        latest = result;
         downloadProgress.reset(latest);
         status.textContent = messages.cancelled;
         detail.textContent = `${messages.required}: ${formatSetupBytes(missingSetupBytes(latest), locale)}`;
-      } catch (error) { status.textContent = error.message || messages.unavailable; }
+      } catch (error) {
+        if (!closed && current === generation) status.textContent = error.message || messages.unavailable;
+      }
       finally {
+        if (closed || current !== generation) return;
+        stopping = false;
         cancel.disabled = false;
         setBusy(false);
         progress.hidden = true;
@@ -645,6 +668,7 @@ export async function initializeCourseSetup(scope = globalThis) {
     scope.CaatuuHandleAndroidBack = handleBack;
     scope.addEventListener("pagehide", () => {
       closed = true;
+      generation++;
       stopRefresh();
       client.dispose();
       if (scope.CaatuuHandleAndroidBack === handleBack) scope.CaatuuHandleAndroidBack = previousBack;

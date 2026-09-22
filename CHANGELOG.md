@@ -5,6 +5,20 @@ governed beta or stable release.
 
 ## Unreleased
 
+### Android 0.1.26 (178): consistent interactions and Chinese reading guides
+
+- Unify tap and swipe handling, preserve normal scrolling and cancellation,
+  and prevent repeated activation while asynchronous game actions are pending.
+- Keep Word World's manual and timed continuation under one transition owner,
+  including Campaign changes, backgrounding and cancelled callbacks.
+- Add saved Mandarin Verb Nebula tone-color and pinyin toggles, enabled by
+  default. Word World and Verb Nebula share aligned pinyin above each character.
+- Improve touch targets, pairs-menu placement and compact reading-card spacing.
+  Refresh all five courses' offline assets and update runtime boundary checks.
+- Mandarin readings retain their machine-assisted preview and pending native
+  review status. Physical-device installation, update, offline use and saved-data
+  preservation remain unverified for this candidate.
+
 ### Android 0.1.25 (177): clearer startup, working updates and persistent game settings
 
 - Add an illustrated loading screen and wait for app controls and the first

@@ -197,6 +197,7 @@ export async function mountAudioLab({ root, course, host = globalThis, t = host.
   let refreshing = 0;
   let playback = 0;
   let busy = false;
+  let stopping = false;
   let checking = false;
   let available = false;
   const listeners = [];
@@ -271,7 +272,7 @@ export async function mountAudioLab({ root, course, host = globalThis, t = host.
   const sync = () => {
     play.disabled = checking || busy || !available || muted();
     play.setAttribute("aria-busy", String(busy));
-    stop.disabled = !busy;
+    stop.disabled = !busy || stopping;
     voice.disabled = checking || busy || !available;
     text.disabled = busy;
     refresh.disabled = checking || busy;
@@ -333,11 +334,18 @@ export async function mountAudioLab({ root, course, host = globalThis, t = host.
     }
   });
   async function stopPreview() {
-    playback += 1;
-    busy = false;
+    if (disposed || stopping || !busy) return;
+    const token = ++playback;
+    stopping = true;
     sync();
-    try { await service.stop(); setStatus(muted() ? "muted" : "stopped"); }
-    catch (error) { setStatus("failed", { detail: error?.message || String(error) }); }
+    try {
+      await service.stop();
+      if (!disposed && token === playback) setStatus(muted() ? "muted" : "stopped");
+    } catch (error) {
+      if (!disposed && token === playback) setStatus("failed", { detail: error?.message || String(error) });
+    } finally {
+      if (!disposed && token === playback) { stopping = false; busy = false; sync(); }
+    }
   }
   listen(stop, "click", stopPreview);
   listen(refresh, "click", refreshVoices);

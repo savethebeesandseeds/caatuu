@@ -298,6 +298,12 @@ test("Home audio controls reuse global mute and speed, and dismiss on Escape or 
   menu.dispatchEvent({ type: "toggle" });
   harness.document.dispatchEvent({ type: "click", target: mute });
   assert.equal(menu.open, true, "inside controls keep their menu open");
+  mute.focus();
+  for (const ignored of [{ isComposing: true }, { keyCode: 229 }, { defaultPrevented: true }]) {
+    harness.document.dispatchEvent({ type: "keydown", key: "Escape", target: mute, ...ignored });
+    assert.equal(menu.open, true, "composition and handled Escape belong to the active control");
+    assert.equal(harness.document.activeElement, mute);
+  }
   harness.document.dispatchEvent({ type: "keydown", key: "Escape" });
   assert.equal(menu.open, false);
   assert.equal(harness.document.activeElement, summary);
@@ -447,6 +453,12 @@ test("Home display settings stays open for inside controls and dismisses outside
   assert.equal(harness.document.activeElement, outside, "outside dismissal must not steal focus");
 
   menu.open = true;
+  darkTheme.focus();
+  for (const ignored of [{ isComposing: true }, { keyCode: 229 }, { defaultPrevented: true }]) {
+    harness.document.dispatchEvent({ type: "keydown", key: "Escape", target: darkTheme, ...ignored });
+    assert.equal(menu.open, true, "composition and handled Escape do not dismiss display settings");
+    assert.equal(harness.document.activeElement, darkTheme);
+  }
   const escape = { type: "keydown", key: "Escape", target: darkTheme };
   harness.document.dispatchEvent(escape);
   assert.equal(menu.open, false);
@@ -581,6 +593,43 @@ test("the transparent header renders compact journey stats with exact accessible
   assert.equal(coins.querySelector("[data-caatuu-header-coins-count]").textContent, "1K");
   assert.equal(streakStat.querySelector("[data-caatuu-streak-count]").textContent, "4");
   harness.window.dispatchEvent({ type: "pagehide" });
+});
+
+test("navigation launchers keep one menu open across repeated pointer and keyboard activations", () => {
+  const course = fixtureCourse();
+  course.games = ["word-net"];
+  course.capabilities.wordWorld = true;
+  const { document, nav, window } = executeChromeWithHomeMenu({ course });
+  const panel = document.createElement("section");
+  panel.id = "settingsPanel";
+  panel.hidden = true;
+  const settingsMenu = document.createElement("div");
+  settingsMenu.className = "settings-section-switcher";
+  panel.append(settingsMenu);
+  document.body.append(panel);
+  const dock = nav.closest("[data-caatuu-bottom-dock]");
+
+  for (const [key, menu] of [["home", "home"], ["games", "games"], ["backpack", "settings"]]) {
+    const trigger = nav.querySelector(`[data-nav-key="${key}"]`);
+    trigger.click();
+    trigger.dispatchEvent({ type: "click", detail: 2, bubbles: true });
+    trigger.dispatchEvent({ type: "click", detail: 0, bubbles: true });
+    assert.equal(dock.dataset.openMenu, menu, `${key} is an open request, not a toggle`);
+    assert.equal(trigger.getAttribute("aria-expanded"), "true");
+    trigger.dispatchEvent({ type: "keydown", key: "Escape", isComposing: true, bubbles: true });
+    assert.equal(dock.dataset.openMenu, menu, "IME Escape must not dismiss navigation");
+    trigger.dispatchEvent({ type: "keydown", key: "Escape", bubbles: true });
+    assert.equal(dock.dataset.openMenu, undefined);
+    assert.equal(document.activeElement, trigger);
+    assert.equal(panel.hidden, true, "dismissing a menu must not open the underlying Settings");
+
+    trigger.click();
+    assert.equal(window.CaatuuChrome.handleAndroidBack(), true);
+    assert.equal(dock.dataset.openMenu, undefined, "Android Back dismisses the menu first");
+    trigger.click();
+    document.body.click();
+    assert.equal(dock.dataset.openMenu, undefined, "outside click dismisses without navigating");
+  }
 });
 
 test("the Home submenu exposes shared section semantics and availability", () => {
@@ -739,6 +788,8 @@ test("the Home submenu navigates Social and Store, redraws Store, and restores f
 
   trigger.click();
   trigger.click();
+  assert.equal(trigger.getAttribute("aria-expanded"), "true", "repeated open requests retain the menu");
+  backdrop.click();
   assert.equal(trigger.getAttribute("aria-expanded"), "false");
   assert.equal(document.activeElement, trigger);
 
@@ -1695,6 +1746,11 @@ test("the Home language form resets drafts and supports keyboard dismissal", () 
   assert.equal(assignments.length, 0);
   assert.equal(harness.document.activeElement, trigger);
 
+  for (const ignored of [{ isComposing: true }, { keyCode: 229 }, { defaultPrevented: true }]) {
+    trigger.dispatchEvent({ type: "keydown", key: "ArrowDown", ...ignored });
+    assert.equal(menu.hidden, true, "composition or a handled arrow must not open the selector");
+    assert.equal(harness.document.activeElement, trigger);
+  }
   trigger.dispatchEvent({ type: "keydown", key: "ArrowDown" });
   const enabledOptions = menu.querySelectorAll(
     '[data-language-selector-option]:not([aria-disabled="true"])'
@@ -1706,6 +1762,15 @@ test("the Home language form resets drafts and supports keyboard dismissal", () 
   assert.equal(menu.querySelector('[data-language-base-option="en"]').getAttribute("aria-checked"), "false");
   assert.equal(menu.querySelector('[data-language-course-option="cz"]').disabled, true);
 
+  for (const ignored of [{ isComposing: true }, { keyCode: 229 }, { defaultPrevented: true }]) {
+    for (const key of ["ArrowDown", "End", "Escape"]) {
+      menu.dispatchEvent({ type: "keydown", key, ...ignored });
+      assert.equal(menu.open, true, "composition or a handled key cannot dismiss the selector");
+      assert.equal(harness.document.activeElement, enabledOptions[0], "the selector does not steal composition navigation");
+    }
+    harness.document.dispatchEvent({ type: "keydown", key: "Escape", ...ignored });
+    assert.equal(menu.open, true, "the document-level fallback respects the same input ownership");
+  }
   menu.dispatchEvent({ type: "keydown", key: "End" });
   assert.equal(harness.document.activeElement, enabledOptions.at(-1));
   menu.dispatchEvent({ type: "keydown", key: "Escape" });

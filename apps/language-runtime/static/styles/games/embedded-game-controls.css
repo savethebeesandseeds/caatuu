@@ -1,5 +1,10 @@
 @import url("../music-controls.css");
 
+:root { --caatuu-control-target-size: 44px; }
+@media (any-pointer: coarse) {
+  :root { --caatuu-control-target-size: 48px; }
+}
+
 .caatuu-game-controls {
   position: relative;
   display: flex;
@@ -8,9 +13,9 @@
   z-index: 5;
 }
 .caatuu-game-control-toggle {
-  width: 44px;
-  min-width: 44px;
-  height: 44px;
+  width: var(--caatuu-control-target-size, 44px);
+  min-width: var(--caatuu-control-target-size, 44px);
+  height: var(--caatuu-control-target-size, 44px);
   padding: 0;
   border: 1px solid var(--theme-control-border, #b8c5bd);
   border-radius: 50%;
@@ -60,7 +65,7 @@
 .caatuu-game-sound-icon[data-speech-icon="muted"] { color: var(--theme-quiet, #767b78); }
 .caatuu-game-controls-setting legend { padding: 0 0 8px; font-size: 0.78rem; font-weight: 750; }
 .caatuu-game-control-option, .caatuu-game-control-mute {
-  min-height: 44px;
+  min-height: var(--caatuu-control-target-size, 44px);
   padding: 8px;
   flex: 1 1 0;
   border: 1px solid var(--theme-control-border, #b8c5bd);
@@ -132,8 +137,8 @@
   box-shadow: 0 2px 0 color-mix(in srgb, var(--theme-display-selected-bg) 72%, #000);
 }
 .caatuu-game-controls :is(button, select, input):focus-visible { outline: 3px solid var(--theme-focus-ring, #5b8fc3); outline-offset: 2px; }
-.caatuu-game-controls select { width: 100%; min-height: 44px; color: inherit; background: var(--theme-control-bg, #fffefa); font: inherit; border: 1px solid var(--theme-control-border, #b8c5bd); border-radius: 6px; }
-.caatuu-game-controls input[type="range"] { width: 100%; min-height: 30px; margin: 0; accent-color: var(--theme-green, #22594d); }
+.caatuu-game-controls select { width: 100%; min-height: var(--caatuu-control-target-size, 44px); color: inherit; background: var(--theme-control-bg, #fffefa); font: inherit; border: 1px solid var(--theme-control-border, #b8c5bd); border-radius: 6px; }
+.caatuu-game-controls input[type="range"] { width: 100%; min-height: var(--caatuu-control-target-size, 44px); margin: 0; accent-color: var(--theme-green, #22594d); touch-action: pan-y pinch-zoom; }
 .caatuu-game-speed-labels { display: flex; width: 100%; justify-content: space-between; gap: 6px; font-size: 0.68rem; }
 .caatuu-game-voice-status { width: 100%; margin: 4px 0; color: var(--theme-muted, #5d6b65); font-size: 0.75rem; }
 .caatuu-game-control-mute { justify-content: space-between; }

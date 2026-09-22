@@ -781,6 +781,8 @@
     }
 
     function openToolbarMenu(entry) {
+      if (!active || !isActive() || destroyed) return;
+      cancelDrag();
       closeToolbarMenus(entry.menu);
       if (entry.menu === displayMenu) syncDisplayControls();
       if (entry.menu === audioMenu) {
@@ -811,6 +813,24 @@
 
     function solved() {
       return state.placements.length === state.pieceCount && state.placements.every(Boolean);
+    }
+
+    function canUseBoard() {
+      return active && isActive() && !destroyed && !transitioning
+        && !toolbarMenus.some(({ menu }) => !menu.hidden);
+    }
+
+    function cancelDrag() {
+      state.draggingPieceId = "";
+      ring.querySelectorAll("[data-drop-target]").forEach((node) => node.removeAttribute("data-drop-target"));
+      deck.querySelectorAll("[data-dragging]").forEach((node) => node.removeAttribute("data-dragging"));
+      board.dataset.tileSelected = String(Boolean(state.selectedPieceId));
+    }
+
+    function ignoresBoardKey(event) {
+      return event.defaultPrevented || event.isComposing || event.keyCode === 229 || event.repeat
+        || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey
+        || event.target?.closest?.('input, textarea, select, [contenteditable]:not([contenteditable="false"]), [role="textbox"], dialog, [role="dialog"]');
     }
 
     function clearRoundTimers() {
@@ -846,6 +866,8 @@
       active = Boolean(value);
       loadingScreen.setActive(active);
       if (!active) {
+        cancelDrag();
+        state.feedbackSequence += 1;
         closeToolbarMenus();
         roundTimers.forEach((task) => {
           global.clearTimeout(task.timer);
@@ -976,7 +998,7 @@
     }
 
     function speak(challenge) {
-      if (!challenge) return Promise.resolve();
+      if (!challenge || !active || !isActive() || destroyed) return Promise.resolve();
       const speakText = global.CaatuuChrome?.speakText;
       if (typeof speakText !== "function") return Promise.resolve();
       const piece = state.round?.solution.find(item => item.left.id === challenge.id);
@@ -1076,7 +1098,7 @@
 
     function selectPiece(pieceId) {
       const piece = pieceForId(pieceId);
-      if (!piece || transitioning || solved() || state.placements.includes(piece.id)) return;
+      if (!canUseBoard() || !piece || solved() || state.placements.includes(piece.id)) return;
       state.feedbackChallenge = piece.left;
       state.feedbackRevealed = false;
       if (state.selectedSocketIndex >= 0) {
@@ -1096,8 +1118,9 @@
 
     function tryPlacement(pieceId, socketIndex) {
       const piece = pieceForId(pieceId);
-      if (!piece || transitioning || solved() || state.placements.includes(piece.id)) return;
+      if (!canUseBoard() || !piece || solved() || state.placements.includes(piece.id)) return;
       if (!Number.isInteger(socketIndex) || socketIndex < 0 || socketIndex >= state.pieceCount) return;
+      if (state.errorPieceId === pieceId && state.errorSlot === socketIndex) return;
       if (state.placements[socketIndex]) {
         rejectPlacement(piece.id, socketIndex, "That position is already matched. Choose another position.");
         return;
@@ -1107,11 +1130,11 @@
         acceptPlacement(transition);
       } else {
         const target = socketTargets()[socketIndex];
-        recordPractice(piece.left, false,
-          state.mistakeIds.has(piece.left.id) || state.assistedIds.has(piece.left.id) ? "assisted" : "independent");
+        const evidence = state.mistakeIds.has(piece.left.id) || state.assistedIds.has(piece.left.id) ? "assisted" : "independent";
         state.mistakeIds.add(piece.left.id);
         state.mistakeIds.add(target.id);
         rejectPlacement(piece.id, socketIndex, "That tile does not match this position. Try another position.");
+        recordPractice(piece.left, false, evidence);
       }
     }
 
@@ -1146,6 +1169,7 @@
     }
 
     function prepareRound(pieceCount = state.pieceCount, { holdMillis = 0 } = {}) {
+      cancelDrag();
       waitingCampaign = false;
       transitionId += 1;
       const activeTransition = transitionId;
@@ -1208,11 +1232,12 @@
 
     listen(deck, "click", (event) => {
       const domino = eventDeckDomino(event);
-      if (!domino || state.suppressClick) return;
+      if (event.defaultPrevented || !domino || state.suppressClick) return;
       selectPiece(domino.dataset.naturalizationPieceId || "");
     });
 
     listen(deck, "keydown", (event) => {
+      if (!canUseBoard() || ignoresBoardKey(event)) return;
       const domino = eventDeckDomino(event);
       if (!domino) return;
       if (event.key === "Escape" && (state.selectedPieceId || state.selectedSocketIndex >= 0)) {
@@ -1235,7 +1260,7 @@
 
     listen(deck, "dragstart", (event) => {
       const domino = eventDeckDomino(event);
-      if (!domino) return;
+      if (!canUseBoard() || !domino || solved()) { event.preventDefault(); return; }
       state.draggingPieceId = domino.dataset.naturalizationPieceId || "";
       domino.dataset.dragging = "true";
       board.dataset.tileSelected = "true";
@@ -1249,7 +1274,7 @@
 
     listen(ring, "dragover", (event) => {
       const target = eventSocketTarget(event);
-      if (!target || !state.draggingPieceId || solved()) return;
+      if (!canUseBoard() || !target || !state.draggingPieceId || solved()) return;
       event.preventDefault();
       ring.querySelectorAll('[data-drop-target="true"]').forEach((node) => { node.dataset.dropTarget = "false"; });
       target.dataset.dropTarget = "true";
@@ -1264,7 +1289,7 @@
 
     listen(ring, "drop", (event) => {
       const target = eventSocketTarget(event);
-      if (!target || !state.draggingPieceId || solved()) return;
+      if (!canUseBoard() || !target || !state.draggingPieceId || solved()) { cancelDrag(); return; }
       event.preventDefault();
       const pieceId = state.draggingPieceId;
       const socketIndex = Number.parseInt(target.dataset.naturalizationSocketIndex || "", 10);
@@ -1275,14 +1300,11 @@
       global.setTimeout(() => { state.suppressClick = false; }, 0);
     });
 
-    listen(deck, "dragend", () => {
-      state.draggingPieceId = "";
-      ring.querySelectorAll("[data-drop-target]").forEach((node) => node.removeAttribute("data-drop-target"));
-      deck.querySelectorAll("[data-dragging]").forEach((node) => node.removeAttribute("data-dragging"));
-      board.dataset.tileSelected = String(Boolean(state.selectedPieceId));
-    });
+    listen(deck, "dragend", cancelDrag);
+    listen(global, "blur", cancelDrag);
 
     listen(ring, "click", (event) => {
+      if (event.defaultPrevented || !canUseBoard() || state.suppressClick) return;
       const review = event.target.closest?.("[data-naturalization-review-id]");
       if (review) {
         const challenge = catalog.challenges.find(({ id }) => id === review.dataset.naturalizationReviewId);
@@ -1313,6 +1335,7 @@
     });
 
     listen(ring, "keydown", (event) => {
+      if (!canUseBoard() || ignoresBoardKey(event)) return;
       if (event.key !== "Escape" || state.selectedSocketIndex < 0) return;
       event.preventDefault();
       const socketIndex = state.selectedSocketIndex;
@@ -1329,6 +1352,7 @@
     toolbarMenus.forEach((entry) => {
       listen(entry.toggle, "click", () => toggleToolbarMenu(entry));
       listen(entry.toggle, "keydown", (event) => {
+        if (event.defaultPrevented || event.isComposing || event.keyCode === 229) return;
         if (event.key !== "ArrowDown") return;
         event.preventDefault();
         openToolbarMenu(entry);
@@ -1337,6 +1361,7 @@
         });
       });
       listen(entry.menu, "keydown", (event) => {
+        if (event.defaultPrevented || event.isComposing || event.keyCode === 229) return;
         if (event.key !== "Escape") return;
         event.preventDefault();
         closeToolbarMenu(entry, { restoreFocus: true });
@@ -1491,7 +1516,7 @@
     listen(global, "pageshow", () => { pageHidden = false; syncActivity(); });
     syncActivity();
     const mounting = (async () => {
-      const { mountRobotLoadingScreen } = await import("/language-runtime/static/source/games/embedded-game-controls.mjs?v=embedded-game-controls-8");
+      const { mountRobotLoadingScreen } = await import("/language-runtime/static/source/games/embedded-game-controls.mjs?v=embedded-game-controls-9");
       if (disposed) return null;
       loadingScreen = mountRobotLoadingScreen({ container: interstitial,
         label: global.CaatuuI18n?.t?.("verbnebula.round.preparing") || "Preparing a Naturalization Nucleus round",

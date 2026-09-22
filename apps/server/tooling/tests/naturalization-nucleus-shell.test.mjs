@@ -573,6 +573,118 @@ test("dictionary previews disappear when a tile is deselected by click or Escape
   fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
 });
 
+test("Nucleus rejects hidden board input and cancels a drag when leaving, blurring or opening settings", async () => {
+  const fixture = createLoadingHarness();
+  await fixture.api.mount();
+  await fixture.advance(1600);
+  const tiles = () => fixture.element("Deck").querySelectorAll("button[data-naturalization-piece-id]");
+  const originalCount = tiles().length;
+  const tile = tiles()[0];
+  const id = tile.dataset.naturalizationPieceId.split("--")[0];
+  const socket = () => fixture.element("Ring").querySelector(`[data-naturalization-challenge-id="${id}"]`);
+  const drag = () => tile.dispatchEvent({ type: "dragstart", bubbles: true });
+  const drop = () => socket().dispatchEvent({ type: "drop", bubbles: true });
+  fixture.panel.hidden = true;
+  tile.click();
+  socket().click();
+  const rejected = { type: "dragstart", bubbles: true };
+  tile.dispatchEvent(rejected);
+  assert.equal(rejected.defaultPrevented, true);
+  assert.equal(fixture.element("Feedback").hidden, true);
+  fixture.panel.hidden = false;
+  for (const cancel of [
+    () => { fixture.panel.hidden = true; fixture.syncPanelVisibility(); fixture.panel.hidden = false; fixture.syncPanelVisibility(); },
+    () => fixture.window.dispatchEvent({ type: "blur" }),
+    () => { fixture.element("OptionsToggle").click(); fixture.element("OptionsToggle").click(); }
+  ]) {
+    drag(); cancel(); drop();
+    assert.equal(tiles().length, originalCount, "a cancelled drag cannot place a tile later");
+  }
+  drag(); drop();
+  assert.equal(tiles().length, originalCount - 1, "a fresh intentional drag still works");
+  fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+});
+
+test("Nucleus consumes a drop's trailing click without selecting the next socket", async () => {
+  const fixture = createLoadingHarness();
+  await fixture.api.mount();
+  await fixture.advance(1600);
+  const tiles = () => fixture.element("Deck").querySelectorAll("button[data-naturalization-piece-id]");
+  const first = tiles()[0], second = tiles()[1];
+  const firstId = first.dataset.naturalizationPieceId.split("--")[0];
+  const secondId = second.dataset.naturalizationPieceId.split("--")[0];
+  const socket = (id) => fixture.element("Ring").querySelector(`[data-naturalization-challenge-id="${id}"]`);
+  first.dispatchEvent({ type: "dragstart", bubbles: true });
+  socket(firstId).dispatchEvent({ type: "drop", bubbles: true });
+  const remaining = tiles().length;
+  socket(secondId).click();
+  await fixture.advance(0);
+  fixture.element("Deck").querySelector(`[data-naturalization-piece-id="${second.dataset.naturalizationPieceId}"]`).click();
+  assert.equal(tiles().length, remaining, "the trailing click must not preselect a socket for the next tile");
+  socket(secondId).click();
+  assert.equal(tiles().length, remaining - 1);
+  fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+});
+
+test("Nucleus owns one wrong placement until its feedback completes and then permits retry", async () => {
+  const fixture = createLoadingHarness();
+  const exposures = [];
+  let reenter;
+  fixture.window.CaatuuLearning = { recordExposure: (_game, event) => {
+    exposures.push(event);
+    const callback = reenter;
+    reenter = null;
+    callback?.();
+  } };
+  await fixture.api.mount();
+  await fixture.advance(1600);
+  const tile = fixture.element("Deck").querySelector("button[data-naturalization-piece-id]");
+  const id = tile.dataset.naturalizationPieceId.split("--")[0];
+  tile.click();
+  const wrongSocket = () => fixture.element("Ring").querySelectorAll("[data-naturalization-challenge-id]")
+    .find((node) => node.dataset.naturalizationChallengeId !== id);
+  reenter = () => wrongSocket().click();
+  wrongSocket().click();
+  wrongSocket().click();
+  assert.equal(exposures.filter(({ correct }) => correct === false).length, 1);
+  await fixture.advance(900);
+  wrongSocket().click();
+  assert.equal(exposures.filter(({ correct }) => correct === false).length, 2);
+  fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+});
+
+test("Nucleus preserves selection during composition, modified keys and settings input", async () => {
+  const fixture = createLoadingHarness();
+  await fixture.api.mount();
+  await fixture.advance(1600);
+  const tile = () => fixture.element("Deck").querySelector("button[data-naturalization-piece-id]");
+  tile().click();
+  for (const property of ["defaultPrevented", "repeat", "isComposing", "altKey", "ctrlKey", "metaKey", "shiftKey"]) {
+    tile().dispatchEvent({ type: "keydown", key: "Escape", bubbles: true, [property]: true });
+    assert.equal(fixture.element("Feedback").hidden, false);
+  }
+  fixture.element("OptionsToggle").click();
+  for (const ignored of [{ isComposing: true }, { keyCode: 229 }, { defaultPrevented: true }]) {
+    fixture.element("OptionsMenu").dispatchEvent({ type: "keydown", key: "Escape", ...ignored });
+    assert.equal(fixture.element("OptionsMenu").hidden, false);
+  }
+  tile().dispatchEvent({ type: "keydown", key: "Escape", bubbles: true });
+  assert.equal(fixture.element("Feedback").hidden, false, "settings own input while open");
+  fixture.element("OptionsToggle").click();
+  for (const ignored of [{ isComposing: true }, { keyCode: 229 }, { defaultPrevented: true }]) {
+    fixture.element("OptionsToggle").dispatchEvent({ type: "keydown", key: "ArrowDown", ...ignored });
+    assert.equal(fixture.element("OptionsMenu").hidden, true);
+  }
+  fixture.element("OptionsToggle").dispatchEvent({ type: "keydown", key: "ArrowDown" });
+  assert.equal(fixture.element("OptionsMenu").hidden, false);
+  fixture.element("OptionsMenu").dispatchEvent({ type: "keydown", key: "Escape" });
+  assert.equal(fixture.element("OptionsMenu").hidden, true);
+  assert.equal(fixture.document.activeElement, fixture.element("OptionsToggle"));
+  tile().dispatchEvent({ type: "keydown", key: "Escape", bubbles: true });
+  assert.equal(fixture.element("Feedback").hidden, true);
+  fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+});
+
 test("catalog failure dismisses the Nucleus loader and preserves the loading error", async () => {
   const fixture = createLoadingHarness({ fetchImpl: async () => ({ ok: false, status: 503 }) });
   await assert.rejects(fixture.api.mount(), /503/u);
@@ -633,7 +745,7 @@ test("target-first selection waits without error and submits the same pair as ti
       ring: { querySelector() { return { focus() {} }; } },
       listen(_target, _event, handler) { ringClick = handler; },
       eventSocketTarget() { return target; },
-      pieceForId(id) { return { id }; }, solved() { return false; }, render() {},
+      pieceForId(id) { return { id }; }, solved() { return false; }, canUseBoard() { return true; }, render() {},
       tryPlacement(id, slot) { attempts.push([id, slot]); },
       rejectPlacement() { errors += 1; }
     });

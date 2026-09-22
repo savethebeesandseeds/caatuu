@@ -871,6 +871,7 @@ test("modified, out-of-range and speech-button keyboard input cannot accidentall
   const arena = game.element("gravityNounArena");
   for (const event of [
     { key: "6" }, { key: "1", altKey: true }, { key: "1", ctrlKey: true },
+    { key: "1", isComposing: true }, { key: "ArrowLeft", defaultPrevented: true },
     { key: "ArrowLeft", metaKey: true }, { key: "Enter" }, { key: " " }
   ]) arena.dispatchEvent({ type: "keydown", ...event });
   game.element("gravityNounSpeak").dispatchEvent({ type: "keydown", key: "1", bubbles: true });
@@ -905,6 +906,31 @@ test("in-arena header and controls keep their keyboard input out of noun answers
   assert.equal(game.records.length, 0, "controls remain isolated if moved outside the header");
   arena.dispatchEvent({ type: "keydown", key: "1" });
   assert.equal(game.records.length, 1, "arena answer shortcuts are still available");
+  game.controller.destroy();
+});
+
+test("noun shortcuts do not consume keys inside editable content or dialogs", async () => {
+  const game = await mountGame();
+  const arena = game.element("gravityNounArena");
+  for (const [tag, attributes] of [
+    ["input", {}], ["textarea", {}], ["select", {}],
+    ["div", { contenteditable: "" }], ["div", { contenteditable: "plaintext-only" }],
+    ["div", { role: "textbox" }], ["dialog", {}], ["div", { role: "dialog" }]
+  ]) {
+    const owner = game.document.createElement(tag);
+    Object.entries(attributes).forEach(([name, value]) => owner.setAttribute(name, value));
+    const target = game.document.createElement("span");
+    owner.append(target);
+    arena.append(owner);
+    for (const key of ["1", "ArrowLeft", "ArrowRight"]) {
+      const event = { type: "keydown", key, bubbles: true };
+      target.dispatchEvent(event);
+      assert.equal(event.defaultPrevented, false);
+      assert.equal(game.records.length, 0);
+    }
+  }
+  arena.dispatchEvent({ type: "keydown", key: "1" });
+  assert.equal(game.records.length, 1);
   game.controller.destroy();
 });
 

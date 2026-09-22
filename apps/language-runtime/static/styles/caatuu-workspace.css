@@ -5354,8 +5354,8 @@ html[data-theme="dark"] .dictionary-search-head .dictionary-count {
 
 .verb-toolbar-menu > summary {
   position: relative;
-  width: 36px;
-  height: 36px;
+  width: var(--caatuu-control-target-size, 44px);
+  height: var(--caatuu-control-target-size, 44px);
   display: grid;
   place-items: center;
   border: 1px solid var(--theme-line-strong, var(--line));
@@ -5451,7 +5451,7 @@ html[data-theme="dark"] .dictionary-search-head .dictionary-count {
 
 .verb-display-options button {
   min-width: 0;
-  min-height: 43px;
+  min-height: var(--caatuu-control-target-size, 44px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -5499,9 +5499,20 @@ html[data-theme="dark"] .dictionary-search-head .dictionary-count {
   font-size: 0.7rem;
 }
 
-.verb-audio-popover button {
+.verb-target-text-options {
+  display: grid;
+  gap: 7px;
+  margin-top: 7px;
+}
+
+#verbTargetTextSettings[hidden] {
+  display: none;
+}
+
+.verb-audio-popover button,
+.verb-target-text-options button {
   width: 100%;
-  min-height: 42px;
+  min-height: var(--caatuu-control-target-size, 44px);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -5517,7 +5528,8 @@ html[data-theme="dark"] .dictionary-search-head .dictionary-count {
   text-align: left;
 }
 
-.verb-audio-popover button i {
+.verb-audio-popover button i,
+.verb-target-text-options button i {
   position: relative;
   width: 34px;
   height: 20px;
@@ -5527,7 +5539,8 @@ html[data-theme="dark"] .dictionary-search-head .dictionary-count {
   box-shadow: inset 0 0 0 1px var(--line);
 }
 
-.verb-audio-popover button i::after {
+.verb-audio-popover button i::after,
+.verb-target-text-options button i::after {
   content: "";
   position: absolute;
   top: 3px;
@@ -5540,11 +5553,13 @@ html[data-theme="dark"] .dictionary-search-head .dictionary-count {
   transition: transform 140ms ease;
 }
 
-.verb-audio-popover button[aria-checked="true"] i {
+.verb-audio-popover button[aria-checked="true"] i,
+.verb-target-text-options button[aria-checked="true"] i {
   background: var(--green-dark);
 }
 
-.verb-audio-popover button[aria-checked="true"] i::after {
+.verb-audio-popover button[aria-checked="true"] i::after,
+.verb-target-text-options button[aria-checked="true"] i::after {
   transform: translateX(14px);
 }
 
@@ -5558,7 +5573,7 @@ html[data-theme="dark"] .dictionary-search-head .dictionary-count {
 
 .verb-audio-settings select {
   width: 100%;
-  min-height: 38px;
+  min-height: var(--caatuu-control-target-size, 44px);
   margin-top: 6px;
   padding: 6px 28px 6px 8px;
   border: 1px solid var(--theme-line-strong, var(--line));
@@ -5648,21 +5663,19 @@ html[data-theme="dark"] .dictionary-search-head .dictionary-count {
   position: absolute;
   z-index: 4;
   top: calc(100% + 7px);
-  right: 0;
-  min-width: 126px;
-  padding: 8px;
+  right: calc(50% - var(--caatuu-control-target-size, 44px) - 15px);
+  width: calc(var(--caatuu-control-target-size, 44px) * 2 + 30px);
+  min-width: 0;
+  padding: 10px;
   border: 1px solid var(--line);
   border-radius: 12px;
   background: var(--panel);
   box-shadow: 0 12px 30px rgba(17, 37, 31, 0.16);
 }
 
-.verb-pair-menu .verb-pair-count legend {
-  margin: 0 0 5px;
-  color: var(--muted);
-  font-size: 0.58rem;
-  font-weight: 900;
-  text-transform: uppercase;
+.verb-pair-menu .verb-popover-label {
+  margin-bottom: 8px;
+  text-align: center;
 }
 
 .verb-pair-count {
@@ -5673,14 +5686,14 @@ html[data-theme="dark"] .dictionary-search-head .dictionary-count {
 }
 
 .verb-pair-count > div {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
 }
 
 .verb-pair-count button,
 .verb-match-control-cluster > button {
-  min-height: 34px;
+  min-height: var(--caatuu-control-target-size, 44px);
   border: 1px solid var(--theme-line-strong, var(--line));
   border-radius: 999px;
   background: var(--theme-input, var(--panel));
@@ -5692,10 +5705,10 @@ html[data-theme="dark"] .dictionary-search-head .dictionary-count {
 }
 
 .verb-match-control-cluster > .theme-toggle {
-  width: 36px;
-  min-width: 36px;
-  height: 36px;
-  min-height: 36px;
+  width: var(--caatuu-control-target-size, 44px);
+  min-width: var(--caatuu-control-target-size, 44px);
+  height: var(--caatuu-control-target-size, 44px);
+  min-height: var(--caatuu-control-target-size, 44px);
   padding: 0;
   display: grid;
   place-items: center;
@@ -5725,9 +5738,11 @@ html[data-theme] .verb-match-control-cluster > .theme-toggle:focus-visible {
 }
 
 .verb-pair-count button {
-  min-width: 34px;
-  min-height: 34px;
-  padding: 0 9px;
+  width: var(--caatuu-control-target-size, 44px);
+  height: var(--caatuu-control-target-size, 44px);
+  min-width: var(--caatuu-control-target-size, 44px);
+  min-height: var(--caatuu-control-target-size, 44px);
+  padding: 0;
 }
 
 .verb-pair-count button:hover,
@@ -5745,7 +5760,11 @@ html[data-theme] .verb-match-control-cluster > .theme-toggle:focus-visible {
 }
 
 .verb-match-control-cluster .verb-hint-button {
-  width: 34px;
+  width: var(--caatuu-control-target-size, 44px);
+  height: var(--caatuu-control-target-size, 44px);
+  flex: 0 0 var(--caatuu-control-target-size, 44px);
+  display: grid;
+  place-items: center;
   padding: 0;
   color: var(--blue);
   font-size: 0.95rem;
@@ -6384,19 +6403,13 @@ html[data-theme="dark"] .verb-match-board {
     padding: 7px;
   }
 
+  body[data-target-script^="Han"] .verb-match-board {
+    --verb-hint-size: 48px;
+    column-gap: 16px;
+  }
+
   .verb-match-control-cluster {
     gap: 4px;
-  }
-
-  .verb-pair-count button,
-  .verb-match-control-cluster > button {
-    min-width: 31px;
-    min-height: 31px;
-  }
-
-  .verb-match-control-cluster > .theme-toggle {
-    width: 31px;
-    height: 31px;
   }
 
   .verb-match-card-row {
@@ -6417,12 +6430,16 @@ html[data-theme="dark"] .verb-match-board {
 /* Keep Hanzi and pinyin legible in Standard and Small; the global root font
    scale supplies the gentle step between them without changing Smaller. */
 html[data-font-size="large"] body[data-target-script^="Han"] .word-net-target-text-glyph,
-html[data-font-size="largest"] body[data-target-script^="Han"] .word-net-target-text-glyph {
+html[data-font-size="largest"] body[data-target-script^="Han"] .word-net-target-text-glyph,
+html[data-font-size="large"] body[data-target-script^="Han"] #wordWorldRoot .caatuu-target-text-glyph,
+html[data-font-size="largest"] body[data-target-script^="Han"] #wordWorldRoot .caatuu-target-text-glyph {
   font-size: 1.38em;
 }
 
 html[data-font-size="large"] body[data-target-script^="Han"] .word-net-target-text-notation,
-html[data-font-size="largest"] body[data-target-script^="Han"] .word-net-target-text-notation {
+html[data-font-size="largest"] body[data-target-script^="Han"] .word-net-target-text-notation,
+html[data-font-size="large"] body[data-target-script^="Han"] #wordWorldRoot .caatuu-target-text-notation,
+html[data-font-size="largest"] body[data-target-script^="Han"] #wordWorldRoot .caatuu-target-text-notation {
   font-size: max(0.56em, 0.7rem);
 }
 

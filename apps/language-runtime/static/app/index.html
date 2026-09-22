@@ -12,14 +12,15 @@
     <script src="/language-runtime/static/source/learning-profile.js?v=learning-13"></script>
     <script src="/language-runtime/static/source/initial-theme.js?v=theme-3"></script>
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-theme.css?v=theme-8">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-workspace.css?v=shell-97">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-home.css?v=home-60">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-141">
-    <link rel="stylesheet" href="/language-runtime/static/styles/music-controls.css">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-workspace.css?v=shell-101">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-home.css?v=home-61">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-142">
+    <link rel="stylesheet" href="/language-runtime/static/styles/music-controls.css?v=music-controls-2">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-developer-tools.css?v=developer-tools-2">
-    <link rel="stylesheet" href="/language-runtime/static/styles/dictionary-word-card.css?v=dictionary-card-2">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-word-world.css?v=word-net-93">
-    <link rel="stylesheet" href="/language-runtime/static/styles/games/embedded-game-controls.css?v=embedded-game-controls-9">
+    <link rel="stylesheet" href="/language-runtime/static/styles/dictionary-word-card.css?v=dictionary-card-3">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-target-text.css?v=target-text-1">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-word-world.css?v=word-net-95">
+    <link rel="stylesheet" href="/language-runtime/static/styles/games/embedded-game-controls.css?v=embedded-game-controls-10">
   </head>
   <body class="games-page setup-blocked app-loading">
     <div class="app-loading-screen" id="appLoadingScreen" role="status" aria-live="polite">
@@ -351,6 +352,13 @@
                             <button type="button" data-font-size-option="standard" aria-pressed="false"><b aria-hidden="true">A</b><span data-i18n="common.smaller">Smaller</span></button>
                           </div>
                         </section>
+                        <section class="verb-popover-setting" id="verbTargetTextSettings" aria-labelledby="verbTargetTextLabel" hidden>
+                          <span class="verb-popover-setting-title" id="verbTargetTextLabel" data-i18n="verbnebula.targettext.title">Chinese text</span>
+                          <div class="verb-target-text-options">
+                            <button type="button" id="verbTargetTextToneColors" data-verb-target-text-setting="colorTones" role="switch" aria-checked="true"><span data-i18n="verbnebula.targettext.tones">Tone colors</span><i aria-hidden="true"></i></button>
+                            <button type="button" id="verbTargetTextNotation" data-verb-target-text-setting="showGuide" role="switch" aria-checked="true"><span data-i18n="verbnebula.targettext.pinyin">Show pinyin</span><i aria-hidden="true"></i></button>
+                          </div>
+                        </section>
                       </div>
                     </details>
                     <details class="verb-toolbar-menu verb-pair-menu">
@@ -360,15 +368,15 @@
                         </span>
                         <span class="verb-pair-current" id="verbPairCurrent">4</span>
                       </summary>
-                      <fieldset class="verb-pair-count">
-                        <legend data-i18n="verbnebula.pairs.title">Pairs</legend>
+                      <div class="verb-pair-count" role="group" aria-labelledby="verbPairCountLabel">
+                        <span class="verb-popover-label" id="verbPairCountLabel" data-i18n="verbnebula.pairs.title">Pairs</span>
                         <div role="group" aria-label="Number of verb pairs" data-i18n-aria-label="verbnebula.pairs.number">
                           <button type="button" data-verb-pair-count="2" aria-pressed="false">2</button>
                           <button type="button" data-verb-pair-count="4" aria-pressed="true">4</button>
                           <button type="button" data-verb-pair-count="6" aria-pressed="false">6</button>
                           <button type="button" data-verb-pair-count="8" aria-pressed="false">8</button>
                         </div>
-                      </fieldset>
+                      </div>
                     </details>
 
                     <details class="verb-toolbar-menu verb-audio-menu">
@@ -1150,6 +1158,6 @@
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true" data-i18n-aria-label="print.book.label"></section>
 
     <script src="/language-runtime/static/source/shell-policy.js?v=shell-policy-17"></script>
-    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-99"></script>
+    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-102"></script>
   </body>
 </html>

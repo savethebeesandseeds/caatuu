@@ -1,6 +1,6 @@
 import { grammarFeedbackDuration, highlightedFormParts, buildMeaningChoices, validateGrammarFlight, validateGrammarStages } from "./adjective-flight-core.mjs?v=grammar-journey-3";
 import { createNounVisual } from "./noun-visual.mjs?v=noun-visual-4";
-import { createSpeechIcon, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-8";
+import { createSpeechIcon, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-9";
 
 const LANDING_MS = 180;
 const PREVIEW_MS = 4000;
@@ -469,7 +469,9 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
   });
   listen(arena, "keydown", (event) => {
     if (speechButton.contains(event.target) || headerContains(event.target)) return;
-    if (event.ctrlKey || event.altKey || event.metaKey || event.repeat || !/^[1-6]$/u.test(event.key)) return;
+    if (event.defaultPrevented || event.isComposing || event.ctrlKey || event.altKey || event.metaKey
+      || event.shiftKey || event.repeat || !/^[1-6]$/u.test(event.key)
+      || event.target?.closest?.('input, textarea, select, [contenteditable]:not([contenteditable="false"]), [role="textbox"], dialog, [role="dialog"]')) return;
     const form = currentOptions()[Number(event.key) - 1];
     if (form && engaged() && ["preview", "falling"].includes(phase)) { event.preventDefault(); choose(form); }
   });

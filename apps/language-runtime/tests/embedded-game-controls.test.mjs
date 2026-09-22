@@ -257,6 +257,12 @@ test("menus are exclusive, keyboard dismissible, and removed with their listener
   toggles[1].click();
   assert.equal(toggles[0].getAttribute("aria-expanded"), "false");
   assert.equal(toggles[1].getAttribute("aria-expanded"), "true");
+  const focused = frame.document.activeElement;
+  for (const ignored of [{ isComposing: true }, { keyCode: 229 }, { defaultPrevented: true }]) {
+    frame.document.dispatchEvent({ type: "keydown", key: "Escape", ...ignored });
+    assert.equal(toggles[1].getAttribute("aria-expanded"), "true");
+    assert.equal(frame.document.activeElement, focused);
+  }
   frame.document.dispatchEvent({ type: "keydown", key: "Escape" });
   assert.equal(toggles[1].getAttribute("aria-expanded"), "false");
   assert.equal(frame.document.activeElement, toggles[1]);

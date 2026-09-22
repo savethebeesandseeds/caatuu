@@ -166,7 +166,10 @@ export async function mountEmbeddingImages({ root, host, t }) {
     } finally { if (!scope.disposed) run.disabled = false; }
   };
   scope.listen(form, "submit", submit);
-  scope.listen(prompt, "keydown", (event) => { if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) void submit(event); });
+  scope.listen(prompt, "keydown", (event) => {
+    if (event.defaultPrevented || event.repeat || event.isComposing || event.keyCode === 229 || event.altKey) return;
+    if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) void submit(event);
+  });
   return () => { controller?.abort(); scope.cleanup(); };
 }
 

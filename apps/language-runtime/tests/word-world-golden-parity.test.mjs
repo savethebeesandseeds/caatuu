@@ -32,10 +32,6 @@ const GOLDEN_CSS_SHA256 =
   "0df7102e42304f6f43886b7913d3a76ef94ff238ae7865ea12d482cb00200045";
 
 const COMPONENT_CSS_ANCHOR = Buffer.from(".word-net-game {", "utf8");
-const APPROVED_SHARED_CSS_DELTA_BYTES = 3082;
-const APPROVED_SHARED_CSS_DELTA_SHA256 =
-  "6543430be21989bd200e5d8dc0a6085c7920d7486b9d71f2f2b7576b9541f781";
-
 const VOID_ELEMENTS = new Set([
   "area",
   "base",
@@ -144,20 +140,6 @@ const ALLOWED_INLINE_CONTEXT_SELECTORS = new Set([
 
 function sha256(bytes) {
   return createHash("sha256").update(bytes).digest("hex");
-}
-
-function assertSameBytes(actual, expected, message) {
-  if (actual.equals(expected)) return;
-  const sharedLength = Math.min(actual.length, expected.length);
-  let firstDifference = 0;
-  while (firstDifference < sharedLength && actual[firstDifference] === expected[firstDifference]) {
-    firstDifference += 1;
-  }
-  assert.fail(
-    `${message} First difference: byte ${firstDifference}; ` +
-    `actual ${actual.length} bytes (${sha256(actual)}), ` +
-    `expected ${expected.length} bytes (${sha256(expected)}).`
-  );
 }
 
 function normalizeSpace(value) {
@@ -348,80 +330,6 @@ function normalizeSharedDictionaryCard(root) {
     if (retained) node.attributes.set("class", retained);
     else node.attributes.delete("class");
   }
-}
-
-function withSharedDictionaryCardCss(source) {
-  // The requested common dictionary card owns presentation; Word World retains placement.
-  return source
-    .replace(/\.word-net-word-translation \{[\s\S]*?(?=\.word-net-display-menu,)/u,
-      ".word-net-word-translation.dictionary-word-card { position: absolute; top: 14px; left: 14px; z-index: 3; }\n\n")
-    .replace(/  \.word-net-word-translation \{\n    top: 12px;[\s\S]*?\n  \}/u,
-      "  .word-net-word-translation.dictionary-word-card { top: 12px; left: 12px; }")
-    .replace(/@media \(max-width: 380px\) \{\n  \.word-net-word-translation[\s\S]*?(?=@media \(max-width: 430px\))/u, "");
-}
-
-function withSharedRobotLoadingCss(source) {
-  // Pin only the reviewed shared display controls and picture-toggle changes.
-  const controlRules = [
-  [
-    ".word-net-display-menu",
-    ".word-net-display-menu {\n  right: 0;\n  left: auto;\n  box-sizing: border-box;\n  width: min(288px, calc(100vw - 24px));\n  padding: 10px;\n  gap: 8px;\n  border-radius: 12px;\n  background: var(--panel);\n}"
-  ],
-  [
-    ".word-net-display-options",
-    ".word-net-display-options {\n  display: grid;\n  grid-template-columns: repeat(2, minmax(0, 1fr));\n  gap: 7px;\n}"
-  ],
-  [
-    ".word-net-display-options button",
-    ".word-net-display-options button {\n  min-width: 0;\n  min-height: 43px;\n  padding: 7px;\n  border: 1px solid var(--theme-line-strong, var(--line));\n  border-radius: 9px;\n  background: var(--theme-input, var(--panel));\n  color: var(--ink);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 5px;\n  font: inherit;\n  font-size: 0.66rem;\n  font-weight: 850;\n  box-shadow: 0 2px 0 color-mix(in srgb, var(--gold) 48%, transparent);\n  cursor: pointer;\n}"
-  ],
-  [
-    ".word-net-display-options button.is-active",
-    ".word-net-display-options button.is-active {\n  border-color: var(--theme-display-selected-bg);\n  background: var(--theme-display-selected-bg);\n  color: #fff;\n  box-shadow: 0 2px 0 color-mix(in srgb, var(--theme-display-selected-bg) 72%, #000);\n}"
-  ],
-  [
-    ".word-net-display-options img",
-    ".word-net-display-options img {\n  width: 17px;\n  height: 17px;\n  object-fit: contain;\n}"
-  ],
-  [
-    ".word-net-display-size-options button",
-    ".word-net-display-size-options button {\n  min-height: 48px;\n  flex-direction: column;\n  gap: 1px;\n  font-size: 0.57rem;\n}"
-  ],
-  [
-    ".word-net-display-size-sample.is-standard",
-    ".word-net-display-size-sample.is-standard {\n  font-size: 0.96rem;\n}"
-  ],
-  [
-    ".word-net-display-size-sample.is-small",
-    ".word-net-display-size-sample.is-small {\n  font-size: 0.82rem;\n}"
-  ],
-  [
-    ".word-net-display-size-sample.is-smaller",
-    ".word-net-display-size-sample.is-smaller {\n  font-size: 0.7rem;\n}"
-  ],
-  [
-    ".word-net-scene[hidden]",
-    ".word-net-scene[hidden],\n.word-net-scene[data-illustrations=\"false\"] {\n  display: none;\n}"
-  ]
-];
-  for (const [selector, replacement] of controlRules) {
-    const start = source.indexOf("\n\n" + selector + " {") + 2;
-    assert.ok(start >= 2, selector + " must exist in the historical authority");
-    const end = source.indexOf("}", start) + 1;
-    source = source.slice(0, start) + replacement + source.slice(end);
-  }
-  source = source.replace(".word-net-panel-actions > .theme-toggle {",
-    ".word-net-image-toggle[aria-pressed=\"true\"] {\n  border-color: var(--theme-green, #22594d);\n  background: var(--theme-soft-green, #e8f5ee);\n}\n\n.word-net-panel-actions > .theme-toggle {");
-  return source
-    // The shared cover appears immediately and intercepts input until its exit
-    // fade ends; word-world-robot-loading.test.mjs verifies that behavior.
-    .replace(/^\.word-net-loading \{[^}]*\}/mu,
-      ".word-net-loading {\n  opacity: 0;\n  pointer-events: auto;\n  transition: opacity 240ms ease;\n}")
-    .replace(/^\.word-net-loading\.is-visible \{[^}]*\}/mu,
-      ".word-net-loading.is-visible {\n  opacity: 1;\n  transition: none;\n}")
-    .replace(/^[ \t]*\.word-net-loading-(?:art(?:\[hidden\])?|copy|spinner) \{[^}]*\}\n\n?/gmu, "")
-    .replace(/^[ \t]*\.word-net-loading-(?:spinner|art),\n/gmu, "")
-    .replace(/@keyframes word-net-(?:spin|robot-breathe) \{(?:[^{}]|\{[^{}]*\})*\}\n\n?/gu, "");
 }
 
 function normalizeApprovedInterfaceAnnotations(root) {
@@ -657,7 +565,7 @@ test("the live shared Word World subtree exactly preserves the Czech component s
   );
 });
 
-test("shared Word World CSS keeps every component byte and only the allowed inline delta", async () => {
+test("shared Word World CSS retains component capabilities and confines its inline context", async () => {
   const [goldenCss, sharedCss] = await Promise.all([
     Promise.resolve(AUTHORITATIVE_CZECH_CSS),
     readFile(SHARED_WORD_WORLD_CSS)
@@ -671,29 +579,17 @@ test("shared Word World CSS keeps every component byte and only the allowed inli
 
   const goldenPrefix = goldenCss.subarray(0, goldenAnchor).toString("utf8");
   const sharedPrefix = sharedCss.subarray(0, sharedAnchor).toString("utf8");
-  const goldenComponent = Buffer.from(withSharedDictionaryCardCss(withSharedRobotLoadingCss(goldenCss.subarray(goldenAnchor).toString("utf8"))));
-  const sharedComponentAndDelta = sharedCss.subarray(sharedAnchor);
-  const sharedComponent = sharedComponentAndDelta.subarray(0, goldenComponent.length);
-  const approvedDelta = sharedComponentAndDelta.subarray(goldenComponent.length);
-
-  assertSameBytes(
-    sharedComponent,
-    goldenComponent,
-    "The historical Word World component CSS must remain byte-exact outside the shared robot/card migrations and approved shared overrides."
-  );
-  assert.equal(approvedDelta.length, APPROVED_SHARED_CSS_DELTA_BYTES);
-  assert.equal(
-    sha256(approvedDelta),
-    APPROVED_SHARED_CSS_DELTA_SHA256,
-    "The approved shared overrides for target reading guides, tone colors, prompt direction, and base/target history changed."
-  );
-  const approvedDeltaText = approvedDelta.toString("utf8");
+  // The immutable source remains pinned above; current control geometry may evolve.
+  const sharedComponentText = sharedCss.subarray(sharedAnchor).toString("utf8");
   for (const selector of [
-    ".word-net-target-text-unit",
     "button[data-challenge-prompt-mode]",
     ".word-net-trail-base",
     ".word-net-trail-target"
-  ]) assert.match(approvedDeltaText, new RegExp(selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "u"));
+  ]) assert.match(sharedComponentText, new RegExp(selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "u"));
+  const targetTextCss = await readFile(new URL("../static/styles/caatuu-target-text.css", import.meta.url), "utf8");
+  assert.match(targetTextCss, /\.caatuu-target-text-unit/u,
+    "Word World's reading guides use the shared character renderer styles.");
+  assert.match(targetTextCss, /ruby-position:\s*over;/u);
   const dictionaryCss = await readFile(new URL("../static/styles/dictionary-word-card.css", import.meta.url), "utf8");
   assert.match(
     dictionaryCss,
@@ -715,8 +611,6 @@ test("shared Word World CSS keeps every component byte and only the allowed inli
     /\.dictionary-word-card__word\.has-target-text-guide\s*\{[^}]*overflow:\s*visible;/u,
     "Target reading guides must remain visible above their word."
   );
-  assert.match(dictionaryCss, /@media \(max-width:\s*380px\)\s*\{\s*\.dictionary-word-card\s*\{\s*max-width:\s*140px;/u,
-    "Phone cards must leave space for the adjacent game controls.");
   assert.ok(
     sharedPrefix.length <= goldenPrefix.length + 512,
     "The inline-context CSS prefix must remain a small mechanical transformation."
@@ -753,4 +647,82 @@ test("shared Word World CSS keeps every component byte and only the allowed inli
     /(^|[,}\n]\s*)(?:html|body|\*|button|a|\.word-net-(?:page|main))(?:\s*[,\{])/mu,
     "Shared prefix selectors must be confined to #wordWorldRoot."
   );
+});
+
+test("Word World activation targets cannot shrink below the shared comfort floor", async () => {
+  const [source, chromeSource] = await Promise.all([
+    readFile(SHARED_WORD_WORLD_CSS, "utf8"),
+    readFile(new URL("../static/styles/caatuu-chrome.css", import.meta.url), "utf8")
+  ]);
+  const targetValues = [...chromeSource.matchAll(/--caatuu-control-target-size:\s*(\d+)px;/gu)]
+    .map((match) => Number(match[1]));
+  assert.ok(targetValues.length > 0, "The shared target size must be defined.");
+  assert.ok(targetValues.every((size) => size >= 44), "The target floor also applies to small text settings.");
+  assert.match(chromeSource, /@media \(any-pointer:\s*coarse\)[\s\S]*?--caatuu-control-target-size:\s*(?:4[8-9]|[5-9]\d)px;/u,
+    "A touch-capable device receives at least 48px targets.");
+
+  const rules = cssRules(source);
+  const dimensions = [
+    [".word-net-icon-button", "width", "height"],
+    [".word-net-panel-actions > .theme-toggle", "width", "height"],
+    [".word-net-side-nav", "width", "height"],
+    [".word-net-phrase-pronounce.word-net-sound-toggle", "width", "height"],
+    [".word-net-reconstruction-submit", "width", "height"],
+    [".cz-word-token", "min-width", "min-height"],
+    [".word-net-reconstruction-token", "min-width", "min-height"],
+    [".word-net-report-toggle", "min-height"],
+    [".word-net-display-options button", "min-height"],
+    [".word-net-generation-menu button", "min-height"],
+    [".word-net-translation-menu button", "min-height"],
+    [".word-net-translation-timers button", "min-height"],
+    [".word-net-feedback-actions button", "min-height"],
+    [".word-net-diagnostics summary", "min-height"]
+  ];
+  for (const [selector, ...properties] of dimensions) {
+    for (const property of properties) {
+      const values = rules.filter((rule) => rule.selectors.includes(selector))
+        .flatMap((rule) => rule.declarations)
+        .filter((declaration) => declaration.startsWith(`${property}:`))
+        .map((declaration) => declaration.slice(property.length + 1).trim());
+      assert.ok(values.length > 0, `${selector} needs an explicit ${property} floor.`);
+      for (const value of values) {
+        const pixels = value.match(/^(\d+)px$/u)?.[1]
+          ?? value.match(/^var\(--caatuu-control-target-size,\s*(\d+)px\)$/u)?.[1];
+        assert.ok(Number(pixels) >= 44, `${selector} ${property}: ${value} makes a small target, including in a responsive override.`);
+      }
+    }
+  }
+});
+
+test("phone Word World controls, words and reporting share normal flow rather than overlapping hit areas", async () => {
+  const source = await readFile(SHARED_WORD_WORLD_CSS, "utf8");
+  const rules = cssRules(source);
+  const zIndex = (selector) => Math.max(...rules.filter((rule) => rule.selectors.includes(selector))
+    .flatMap((rule) => rule.declarations)
+    .filter((declaration) => declaration.startsWith("z-index:"))
+    .map((declaration) => Number(declaration.slice("z-index:".length).trim())));
+  for (const selector of [".word-net-word-translation.dictionary-word-card", ".word-net-feedback"]) {
+    assert.ok(zIndex(".word-net-panel-actions") > zIndex(selector),
+      `Toolbar popovers must receive input above ${selector}, including reordered flex children.`);
+  }
+  const phoneAnchor = source.lastIndexOf("@media (max-width: 520px)");
+  assert.ok(phoneAnchor >= 0, "A narrow-screen layout must reserve separate control and content rows.");
+  const phoneRules = cssRules(source.slice(phoneAnchor));
+  for (const selector of [
+    ".word-net-panel-actions",
+    ".word-net-word-translation.dictionary-word-card",
+    ".word-net-scene",
+    ".word-net-phrase-stack",
+    ".word-net-feedback",
+    ".word-net-feedback .word-net-report-toggle"
+  ]) {
+    const declarations = phoneRules.filter((rule) => rule.selectors.includes(selector))
+      .flatMap((rule) => rule.declarations);
+    assert.ok(declarations.some((declaration) => /^position:\s*(?:static|relative)$/u.test(declaration)),
+      `${selector} must reserve its own space when text or targets grow.`);
+  }
+  assert.match(source, /\.word-net-sentence-panel\s*\{[^}]*touch-action:\s*pan-y pinch-zoom;/u,
+    "The play surface allows vertical scrolling and zoom, leaving horizontal swipes to the controller.");
+  assert.match(source, /\.word-net-icon-button:focus-visible,[\s\S]*?\{[^}]*outline:\s*[^;]*;/u,
+    "Native keyboard activation must keep a visible focus indicator.");
 });

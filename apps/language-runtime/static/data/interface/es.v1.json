@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "locale": "es-ES",
   "direction": "ltr",
-  "revision": "interface-es-12",
+  "revision": "interface-es-13",
   "messages": {
     "music.volume": "Volumen de la música",
     "speech.volume": "Volumen de la voz",
@@ -1023,6 +1023,9 @@
     "verbnebula.status.accuracy": "precisión",
     "verbnebula.status.matched": "emparejados",
     "verbnebula.status.waiting": "en espera",
+    "verbnebula.targettext.pinyin": "Mostrar pinyin",
+    "verbnebula.targettext.title": "Texto chino",
+    "verbnebula.targettext.tones": "Colores de los tonos",
     "wordworld.audio.autoplay": "Reproducir frases automáticamente",
     "wordworld.audio.installvoice": "Instalar voz del idioma de aprendizaje",
     "wordworld.audio.settings": "Ajustes de audio del idioma de aprendizaje",

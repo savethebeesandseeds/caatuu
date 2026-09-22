@@ -244,3 +244,48 @@ test("disposing a mounted native tool ignores a late voice response and preserve
   assert.equal(harness.root.children[0], replacement);
   assert.equal(harness.voiceListeners(), 0);
 });
+
+test("native Stop owns its controls until completion; old playback cannot overwrite the next preview", async () => {
+  const harness = browser();
+  const stopping = deferred();
+  const previews = [];
+  let stops = 0;
+  harness.host.CaatuuRuntime = { env: "android", speech: {
+    status: async () => ({ available: true, locale: "zh-CN", voices: [] }),
+    speak(_text, _options, handlers) {
+      const pending = deferred();
+      previews.push(pending);
+      handlers.onEvent({ kind: "speech", phase: "started" });
+      return pending.promise;
+    },
+    stop() { stops += 1; return stopping.promise; }
+  } };
+  const cleanup = await mountAudioLab({ root: harness.root, course: selectedCourse, host: harness.host, t: translate });
+  await flush();
+  harness.control("text").value = "你好";
+  harness.control("play").click();
+  await flush();
+  assert.equal(previews.length, 1);
+  harness.control("stop").click();
+  harness.control("stop").click();
+  harness.control("play").click();
+  await flush();
+  assert.equal(stops, 1, "repeated Stop is one native operation");
+  assert.equal(previews.length, 1, "Play cannot race the pending native Stop");
+  assert.equal(harness.control("play").disabled, true);
+  assert.equal(harness.control("stop").disabled, true);
+  stopping.resolve({ stopped: true });
+  await flush();
+  assert.equal(harness.control("play").disabled, false);
+  harness.control("play").click();
+  await flush();
+  assert.equal(previews.length, 2);
+  const current = harness.control("status").textContent;
+  previews[0].resolve({ outcome: "completed" });
+  await flush();
+  assert.equal(harness.control("status").textContent, current);
+  assert.equal(harness.control("play").disabled, true);
+  previews[1].resolve({ outcome: "completed" });
+  await flush();
+  await cleanup();
+});

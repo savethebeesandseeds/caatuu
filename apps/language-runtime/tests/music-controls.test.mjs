@@ -1,9 +1,27 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { englishInterfaceContent } from "./helpers/english-interface-content.mjs";
 import { MUSIC_TRACKS } from "../static/source/background-music.mjs";
 import { mountMusicControls, mountMusicCredits, mountVoiceControls } from "../static/source/music-controls.mjs";
+
+test("volume sliders reserve the target inside their border without borrowing neighboring hit areas", async () => {
+  const css = await readFile(new URL("../static/styles/music-controls.css", import.meta.url), "utf8");
+  const meter = css.match(/\.caatuu-music-meter\s*\{([^}]*)\}/u)?.[1] ?? "";
+  const slider = css.match(/\.caatuu-music-controls input\.caatuu-music-slider\s*\{([^}]*)\}/u)?.[1] ?? "";
+  const borderPixels = Number(meter.match(/border:\s*([\d.]+)px/u)?.[1]);
+  const extraPixels = Number(meter.match(/height:\s*calc\(var\(--caatuu-control-target-size,\s*44px\)\s*\+\s*([\d.]+)px\)/u)?.[1]);
+  assert.ok(borderPixels > 0 && extraPixels >= 2 * borderPixels,
+    "Border-box sizing must leave at least the target height for the input itself.");
+  assert.match(meter, /box-sizing:\s*border-box;/u);
+  assert.match(slider, /inset:\s*0;/u, "The slider must stay inside its own meter.");
+  assert.match(slider, /height:\s*100%;/u);
+  assert.match(slider, /touch-action:\s*pan-y pinch-zoom;/u);
+  assert.match(css, /:root\s*\{\s*--caatuu-control-target-size:\s*44px;/u,
+    "The standalone launcher cannot depend on Chrome to establish a target floor.");
+  assert.match(css, /@media \(any-pointer:\s*coarse\)[\s\S]*?--caatuu-control-target-size:\s*48px;/u);
+});
 
 function fixture() {
   const browser = createBrowserHarness();

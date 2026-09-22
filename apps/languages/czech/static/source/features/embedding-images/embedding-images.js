@@ -18,6 +18,21 @@ const runButton = document.querySelector("#embeddingDebugRun");
 const randomButton = document.querySelector("#embeddingDebugRandom");
 const status = document.querySelector("#embeddingDebugStatus");
 const results = document.querySelector("#embeddingDebugResults");
+let searching = false;
+let searchRequest = 0;
+let pageHidden = false;
+
+function syncSearchControls() {
+  if (runButton) runButton.disabled = searching || pageHidden;
+  if (randomButton) randomButton.disabled = searching || pageHidden;
+}
+
+function cancelPendingSearch() {
+  searchRequest += 1;
+  if (searching) setStatus("Search interrupted. Try again.");
+  searching = false;
+  syncSearchControls();
+}
 
 function setStatus(message) {
   if (status) status.textContent = message;
@@ -151,6 +166,7 @@ async function searchSourceKind(runtime, text, sourceKind) {
 }
 
 async function runSearch() {
+  if (searching || pageHidden || document.visibilityState === "hidden") return;
   const text = prompt?.value.trim() || "";
   if (!text) {
     setStatus("Write an English prompt first.");
@@ -163,20 +179,22 @@ async function runSearch() {
     return;
   }
 
-  if (runButton) runButton.disabled = true;
-  if (randomButton) randomButton.disabled = true;
+  const request = ++searchRequest;
+  searching = true;
+  syncSearchControls();
   setStatus("Searching local vectors.");
   try {
     const payloads = await Promise.all(sourceKinds.map((sourceKind) => searchSourceKind(runtime, text, sourceKind)));
+    if (request !== searchRequest) return;
     const rows = payloads.flatMap(normalizeRows);
     renderResults(rows);
     setStatus(`${rows.length} image matches.`);
   } catch (error) {
+    if (request !== searchRequest) return;
     renderResults([]);
     setStatus(error?.message || "Image search failed.");
   } finally {
-    if (runButton) runButton.disabled = false;
-    if (randomButton) randomButton.disabled = false;
+    if (request === searchRequest) { searching = false; syncSearchControls(); }
   }
 }
 
@@ -191,13 +209,21 @@ form?.addEventListener("submit", (event) => {
 });
 
 randomButton?.addEventListener("click", () => {
+  if (searching || pageHidden) return;
   pickRandomPrompt();
   runSearch();
 });
 
 prompt?.addEventListener("keydown", (event) => {
+  if (event.defaultPrevented || event.repeat || event.isComposing || event.keyCode === 229 || event.altKey) return;
   if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
     event.preventDefault();
     runSearch();
   }
+});
+
+window.addEventListener("pagehide", () => { pageHidden = true; cancelPendingSearch(); });
+window.addEventListener("pageshow", () => { pageHidden = false; syncSearchControls(); });
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "hidden") cancelPendingSearch();
 });

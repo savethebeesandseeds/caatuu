@@ -60,6 +60,7 @@ function harness({ catalog = keymap, search } = {}) {
     sourceLanguage: course.sourceLanguage, targetLanguage: course.targetLanguage,
     interfaceText: id => id, renderVerbNebula() {},
     verbGuidedInteractionLocked: () => false, verbGuidedTargetPending: () => false,
+    verbUsesTargetTextGuide: () => false,
     runtimeAdapter: () => { throw new Error("Course vector database must not be used for shared images"); },
     fetch: async () => ({ ok: true, json: async () => catalog }),
   });

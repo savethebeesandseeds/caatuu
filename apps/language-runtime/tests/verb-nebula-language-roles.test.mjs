@@ -26,6 +26,7 @@ function harness() {
   const browser = createBrowserHarness({ course });
   const attempts = [], searches = [], feedback = [], speech = [];
   const state = {
+    activeView: "verbs", trainTab: "verb-lab",
     verbRound: pairs.slice(0, 4), verbEnglishRound: pairs.slice(0, 4),
     verbMatchedIds: new Set(), verbWrongIds: new Set(), verbHintById: new Map(),
     verbStats: { attempts: 0, matches: 0, rounds: 0 }, verbPairCount: 4,
@@ -38,8 +39,10 @@ function harness() {
     verbTargetLabel: "Inglés", verbSourceLabel: "Español", verbTargetNativeLabel: "English",
     interfaceText: (id, parameters) => i18n.t(id, parameters),
     verbGuidedInteractionLocked: () => false, verbGuidedTargetPending: () => false,
+    verbUsesTargetTextGuide: () => false,
     renderVerbHintSlot: () => browser.document.createElement("span"),
     renderVerbNebula() {}, saveVerbMemory() {},
+    trackVerbGuidedOperation: (operation) => operation(),
     resetVerbSelections() { state.verbSelectedCzechId = ""; state.verbSelectedEnglishId = ""; },
     verbRoundComplete: () => verbNebulaCore.isVerbRoundComplete(state.verbRound, state.verbMatchedIds),
     setVerbMatchFeedback: (message, kind) => feedback.push({ message, kind }),
@@ -53,6 +56,7 @@ function harness() {
     between("function createVerbMatchCard(pair, side)", "function verbMatchCardForId"),
     between("function recordVerbSemanticAttempt(pair", "async function settleVerbMatch"),
     between("async function settleVerbMatch()", "function chooseVerbMatchCard"),
+    between("function chooseVerbMatchCard(event)", "function changeVerbPairCount"),
     between("async function vectorVerbHintCandidates(pair)", "async function loadVerbHintKeymap"),
     between("function speakVerbCzechOnTap(verbId)", "function renderVerbMatchStats")
   ].join("\n"), browser.context);
@@ -235,6 +239,77 @@ test("Spanish-base matching feedback uses Spanish while English alone feeds imag
       assert.ok(!signal.text.includes(pair.source));
     }
   }
+});
+
+test("Nebula claims wrong-answer feedback before reentrant learning callbacks and ignores cancelled timers", async () => {
+  const game = harness();
+  const { context, state, window, document } = game;
+  const timers = new Map();
+  let timerId = 0;
+  window.setTimeout = (callback) => { timers.set(++timerId, callback); return timerId; };
+  window.clearTimeout = (id) => timers.delete(id);
+  vm.runInContext(between("function resetVerbSelections()", "function returnUnmatchedVerbsToQueue"), context);
+  const choose = (side, pair) => {
+    const card = context.createVerbMatchCard(pair, side);
+    document.body.append(card);
+    const button = side === "cz" ? card.querySelector("button") : card;
+    context.chooseVerbMatchCard({ target: button });
+  };
+  let reentered = false;
+  let recorded = 0;
+  window.CaatuuLearning = {
+    recordExposure() {
+      if (reentered) return;
+      reentered = true;
+      void context.settleVerbMatch();
+      choose("en", pairs[2]);
+    },
+    record() { recorded += 1; }
+  };
+  choose("cz", pairs[0]);
+  choose("en", pairs[1]);
+  assert.equal(state.verbStats.attempts, 1);
+  assert.equal(recorded, 1);
+  assert.equal(state.verbSelectedEnglishId, pairs[1].id, "feedback retains the accepted answer");
+  const staleTimer = timers.get(state.verbWrongTimer);
+  context.resetVerbSelections();
+  choose("cz", pairs[0]);
+  choose("en", pairs[2]);
+  const liveTimerId = state.verbWrongTimer;
+  staleTimer();
+  assert.equal(state.verbWrongTimer, liveTimerId);
+  assert.equal(state.verbSelectedEnglishId, pairs[2].id, "a cancelled timer cannot clear the newer answer");
+  timers.get(liveTimerId)();
+  choose("en", pairs[0]);
+  assert.equal(state.verbStats.attempts, 3);
+  assert.equal(state.verbStats.matches, 1, "the correction is accepted after feedback completes");
+});
+
+test("Nebula ignores inactive, hidden, pending and consumed clicks but keeps intentional deselection", () => {
+  const { context, state, document } = harness();
+  const card = context.createVerbMatchCard(pairs[0], "cz");
+  document.body.append(card);
+  const button = card.querySelector("button");
+  for (const [key, value] of [
+    ["activeView", "home"], ["trainTab", "word-net"], ["verbRoundTransitioning", true],
+    ["campaignTransitioning", true], ["verbGuidedEvidencePending", true]
+  ]) {
+    const previous = state[key];
+    state[key] = value;
+    context.chooseVerbMatchCard({ target: button });
+    assert.equal(state.verbSelectedCzechId, "");
+    state[key] = previous;
+  }
+  document.hidden = true;
+  context.chooseVerbMatchCard({ target: button });
+  document.hidden = false;
+  context.chooseVerbMatchCard({ target: button, defaultPrevented: true });
+  assert.equal(state.verbSelectedCzechId, "");
+  context.chooseVerbMatchCard({ target: button });
+  assert.equal(state.verbSelectedCzechId, pairs[0].id);
+  context.chooseVerbMatchCard({ target: button });
+  assert.equal(state.verbSelectedCzechId, "");
+  assert.equal(state.verbStats.attempts, 0);
 });
 
 test("unsupported verb clues stay empty instead of showing unrelated actions or incidental description matches", async () => {

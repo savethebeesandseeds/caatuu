@@ -1,6 +1,6 @@
-import { mountAudioLab } from "./audio-lab.mjs";
+import { mountAudioLab } from "./audio-lab.mjs?v=audio-lab-2";
 import { mountVerbDifficulty, mountDictionaryInspector } from "./catalog-inspectors.mjs";
-import { mountEmbeddingImages, mountDebugChat } from "./model-tools.mjs";
+import { mountEmbeddingImages, mountDebugChat } from "./model-tools.mjs?v=model-tools-2";
 
 export const DEVELOPER_TOOLS = Object.freeze([
   { id: "audio-lab", label: "developer.tools.audio", mount: mountAudioLab, language: true },

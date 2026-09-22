@@ -377,6 +377,7 @@ body.app-loading .app-shell { visibility: hidden; }
   padding: 8px 10px 8px 14px;
   border-bottom: 1px solid color-mix(in srgb, var(--setup-accent) 20%, var(--setup-line));
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
@@ -400,7 +401,7 @@ html[data-theme="dark"] .home-language-ongoing-head {
 
 .home-language-manage {
   flex: 0 0 auto;
-  min-height: 30px;
+  min-height: var(--caatuu-control-target-size, 44px);
   padding: 6px 9px 6px 11px;
   border: 1px solid color-mix(in srgb, var(--setup-accent) 40%, var(--setup-line));
   border-radius: 999px;
@@ -656,7 +657,7 @@ dialog.home-language-selector-menu {
 
 .language-selector-action {
   min-width: 0;
-  min-height: 40px;
+  min-height: var(--caatuu-control-target-size, 44px);
   padding: 8px 12px;
   border: 1px solid color-mix(in srgb, var(--setup-accent) 44%, var(--setup-line));
   border-radius: 9px;
@@ -1074,7 +1075,7 @@ body.app-update-lock [data-caatuu-app-header] button {
 
 .setup-detail-link,
 .setup-update-link {
-  min-height: 28px;
+  min-height: var(--caatuu-control-target-size, 44px);
   padding: 4px 0;
   border: 0;
   background: transparent;
@@ -1176,10 +1177,8 @@ body.app-update-lock [data-caatuu-app-header] button {
 }
 
 .setup-report-link {
-  position: absolute;
-  right: 12px;
-  bottom: 9px;
-  min-height: 24px;
+  justify-self: end;
+  min-height: var(--caatuu-control-target-size, 44px);
   padding: 0;
   border: 0;
   background: transparent;
@@ -1387,7 +1386,7 @@ body.app-update-lock [data-caatuu-app-header] button {
 }
 .setup-voice-actions { grid-column: 2 / -1; display: flex; flex-wrap: wrap; gap: 8px 16px; }
 .setup-voice-actions button {
-  min-height: 36px;
+  min-height: var(--caatuu-control-target-size, 44px);
   padding: 3px 0;
   border: 0;
   background: none;
@@ -1483,7 +1482,7 @@ body.app-update-lock [data-caatuu-app-header] button {
 
 .setup-action,
 .setup-small-action {
-  min-height: 40px;
+  min-height: var(--caatuu-control-target-size, 44px);
   border: 1px solid var(--setup-line-strong);
   border-radius: 8px;
   background: var(--setup-panel-raised);

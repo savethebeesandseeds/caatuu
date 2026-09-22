@@ -27,7 +27,7 @@ and `/ws` remain retired as `410 Gone`.
 The image uses a pinned Rust builder stage and a `debian:bookworm-slim` runtime
 stage. `cargo build --release --locked` runs during the image build; Rust and
 the source tree are not present in the final image. The running container
-mounts only the static/model roots and generated game artifacts it serves,
+mounts only the static/model roots, source-backed art labs and generated game artifacts it serves,
 Android artifacts, and the private dictionary-gap data directory.
 
 Build the Debian server image only after server or image-definition changes:
@@ -142,13 +142,29 @@ write mode automatically before packaging. After that preflight, run the full
 boundary audit:
 
 ```powershell
-node apps\server\tooling\audit-runtime-boundary.mjs
+docker exec -w /workspace caatuu-dev node apps/server/tooling/audit-runtime-boundary.mjs --base-url http://127.0.0.1:9172
 ```
 
 The audit checks that the root browser launcher, `/cz/` Czech app, `/zh/`
 Mandarin app, `/es/` Spanish app, compatibility `/zh-hans` redirects,
 unreachable deprecated Chinese UI, retired top-level backend paths, and rebuilt
 Android APK package contents still match the intended split.
+
+For source and local HTTP validation without inspecting an APK, add `--skip-apk`.
+That mode does not build or certify an Android binary. The audit also runs the
+all-course setup inspector in read-only mode: source hashes, the current shared
+module graph, exact interface catalog revisions and cache namespaces must agree.
+The served registry is compared with the validated course projection, preserving
+development status and publication gates. Launcher checks follow usable controls
+and catalog-declared routes instead of English copy, artwork or revision pins.
+
+Native dictionary checks follow per-course provider factories and trusted URL
+routing. Update checks execute the shared control renderer across native/browser
+availability and download states. Preview checks retain the art-lab gate and
+retired Godot boundaries, including the two read-only lab source mounts in the
+local `caatuu` service. These source checks complement the controller and Axum
+behavior tests; they do not replace device validation. Focused audit regressions
+live in `tests/runtime-boundary-*.test.mjs` and `tests/runtime-*-contracts.test.mjs`.
 
 ## Public hosting and local phone tests
 

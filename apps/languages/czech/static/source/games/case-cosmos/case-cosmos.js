@@ -1,4 +1,5 @@
-import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "/language-runtime/static/source/games/embedded-game-controls.mjs?v=embedded-game-controls-8";
+import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "/language-runtime/static/source/games/embedded-game-controls.mjs?v=embedded-game-controls-9";
+import { bindHorizontalGesture } from "/language-runtime/static/source/horizontal-gesture.mjs";
 
 import { CZECH_CASES, validatePack, buildRounds, buildQuestions, buildCasePracticeRounds } from "./case-cosmos-content.mjs?v=case-cosmos-content-4";
 import { newContentEncounterId } from "../../../../../../language-runtime/static/source/games/content-progression.mjs";
@@ -45,7 +46,7 @@ const state = {
   error: ""
 };
 const listeners = [];
-let swipe = null;
+let swipeController = null;
 
 function listen(target, type, handler) {
   target.addEventListener(type, handler);
@@ -95,54 +96,25 @@ function syncActivity() {
 }
 
 function resetSwipe() {
-  const pointerId = swipe?.pointerId;
-  swipe = null;
+  swipeController?.cancel();
   delete $("#caseCosmosBoard").dataset.swipeAnswer;
-  const vessel = $("#caseCosmosVessel");
-  if (pointerId !== undefined && vessel.hasPointerCapture?.(pointerId)) {
-    vessel.releasePointerCapture(pointerId);
-  }
 }
 
 function bindSwipes() {
   const vessel = $("#caseCosmosVessel");
-  const ready = () => engaged() && state.phase === "question" && !state.controls?.isOpen();
-  listen(document, "pointerdown", (event) => {
-    // A second contact cancels the gesture so pinching cannot answer a question.
-    if (swipe) { resetSwipe(); return; }
-    if (!ready() || event.isPrimary === false || event.button !== 0
-        || !vessel.contains(event.target)
-        || event.target?.closest?.("button, a, input, select, textarea, [contenteditable], #caseCosmosFeedback")) return;
-    swipe = {
-      pointerId: event.pointerId, x: event.clientX, y: event.clientY,
-      question: currentQuestion(), threshold: Math.max(52, Math.min(96, vessel.getBoundingClientRect().width * 0.15))
-    };
-    try { vessel.setPointerCapture?.(event.pointerId); }
-    catch { /* A pointer can leave the document before capture is acquired. */ }
+  swipeController = bindHorizontalGesture({
+    surface: vessel, document, window,
+    available: () => engaged() && state.phase === "question" && !state.controls?.isOpen(),
+    identity: currentQuestion, capturePointer: true, exclude: "#caseCosmosFeedback",
+    minDistance: () => Math.max(52, Math.min(96, vessel.getBoundingClientRect().width * 0.15)),
+    maxVerticalRatio: 1 / 1.5, verticalCancelDistance: 12, verticalCancelRatio: 1,
+    onPreview(direction) {
+      if (direction) $("#caseCosmosBoard").dataset.swipeAnswer = direction === "right" ? "yes" : "no";
+      else delete $("#caseCosmosBoard").dataset.swipeAnswer;
+    },
+    onAction: (direction) => chooseAnswer(direction === "right")
   });
-  listen(document, "pointermove", (event) => {
-    if (!swipe || event.pointerId !== swipe.pointerId) return;
-    if (!ready() || swipe.question !== currentQuestion()) { resetSwipe(); return; }
-    const dx = event.clientX - swipe.x;
-    const dy = event.clientY - swipe.y;
-    if (Math.abs(dy) > 12 && Math.abs(dy) > Math.abs(dx)) { resetSwipe(); return; }
-    $("#caseCosmosBoard").dataset.swipeAnswer = Math.abs(dx) >= swipe.threshold && Math.abs(dx) > Math.abs(dy) * 1.5
-      ? (dx > 0 ? "yes" : "no") : "";
-  });
-  listen(document, "pointerup", (event) => {
-    if (!swipe || event.pointerId !== swipe.pointerId) return;
-    const gesture = swipe;
-    resetSwipe();
-    const dx = event.clientX - gesture.x;
-    const dy = event.clientY - gesture.y;
-    if (ready() && gesture.question === currentQuestion()
-        && Math.abs(dx) >= gesture.threshold && Math.abs(dx) > Math.abs(dy) * 1.5) {
-      chooseAnswer(dx > 0);
-    }
-  });
-  listen(document, "pointercancel", resetSwipe);
-  listen(vessel, "lostpointercapture", resetSwipe);
-  listen(window, "blur", resetSwipe);
+  listeners.push(() => swipeController.dispose());
 }
 
 function syncSpeech() {
@@ -476,7 +448,8 @@ function bindUi() {
   listen($("#caseCosmosNext"), "click", () => { void nextRound(); });
   listen($("#caseCosmosSpeak"), "click", () => { void speakSentence(); });
   listen($("#caseCosmosPanel"), "keydown", (event) => {
-    if (event.repeat || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey
+    if (event.defaultPrevented || event.isComposing || event.keyCode === 229
+        || event.repeat || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey
         || $("#caseCosmosControls").contains(event.target)
         || event.target?.closest?.("input, select, textarea, [contenteditable]")) return;
     const key = String(event.key).toLowerCase();
