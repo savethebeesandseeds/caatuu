@@ -2,10 +2,9 @@
 
 The canonical durable `caatuu-dev` recreation path is the direct
 `debian:latest` command and idempotent `setup.sh` documented in the root
-[README](../../README.md#replicate-the-development-environment). The legacy
-Compose definitions remain available to current CI and specialist services
-during their separate retirement work; they are not required to recreate the
-durable development container.
+[README](../../README.md#replicate-the-development-environment). The optional
+Compose development definition remains available for explicitly coordinated
+environment work; routine development reuses the durable container.
 
 It includes:
 
@@ -20,8 +19,7 @@ git, git-lfs, CMake, Ninja, GCC/G++, Make
 Pinned Temurin JDK 17 for Android builds, unzip, zip, rsync, jq
 Pinned Android SDK and Gradle distribution in the durable container writable
 layer for repeat Android builds
-Animated Fabric Python 3.12 tool environment at `/opt/animated-fabric`
-PySide6, OpenCV, Ruff, mypy, pytest, and the locked Animated Fabric dependencies
+Pinned Pillow in /opt/caatuu-ml for deterministic Home artwork generation
 ```
 
 For ordinary local use after following the root recreation steps, start the
@@ -32,42 +30,23 @@ docker start caatuu-dev
 docker exec --interactive --tty --workdir /workspace caatuu-dev bash --login
 ```
 
-The existing CPU-compatible Compose definition remains used by current CI. Its
-optional GPU overlay also remains available to specialist work while that
-legacy path is retired separately:
-
-```powershell
-docker compose -f compose.yaml -f compose/dev-gpu.yaml --profile dev `
-  up -d --build caatuu-dev
-```
-
 Verify the environment:
 
 ```bash
 check-caatuu-dev
 ```
 
-Run Animated Fabric work through the same running container:
+Verify the committed Home artwork through the provisioned Python environment:
 
 ```bash
-docker exec -w /workspace/apps/animated-fabric caatuu-dev \
-  caatuu-animated-fabric ruff format --check .
-docker exec -w /workspace/apps/animated-fabric caatuu-dev \
-  caatuu-animated-fabric pytest -q
-docker exec -w /workspace/apps/animated-fabric caatuu-dev \
-  caatuu-animated-fabric python -m animated_fabric doctor
+docker exec -w /workspace caatuu-dev \
+  python apps/language-runtime/tooling/build-home-art.py --check
 ```
 
-`caatuu-animated-fabric` selects the provisioned Python 3.12 environment and the
-canonical source mounted at `/workspace/apps/animated-fabric`. Do not create a
-second source mount, virtual environment, development container, or Compose
-project for this application.
-
-The direct setup records the canonical Animated Fabric lock beneath
-`/opt/caatuu-dev/state`. The legacy image keeps its byte-identical build-context
-mirror beneath `/tmp`; the helper and `check-caatuu-dev` accept either
-provisioned location and reject any drift from
-`apps/animated-fabric/constraints/linux-py312.txt`.
+Pillow is pinned in `requirements-ml.txt` to preserve the existing PNG bytes.
+Animated Fabric's pipelines and automatic provisioning are retired; its
+[source and artwork](../../apps/animated-fabric/README.md) remain historical
+material. Setup does not delete any previously installed environment or data.
 
 Run Czech ML tasks:
 
@@ -90,14 +69,14 @@ Run phone-bench preparation:
 
 ```bash
 cd /workspace/tools/on-device-models
-bash scripts/prepare-model.sh qwen3-lora-003-hard
+bash scripts/prepare-model.sh cstinyllama-1.2b-czech-word-sentence-001
 ```
 
-Publish the stable, non-debuggable Android product inside this Linux container:
+Publish the stable Android product from PowerShell with the maintained release
+entrypoint, which reuses this container:
 
-```bash
-docker exec -w /workspace caatuu-dev \
-  bash apps/android/tooling/publish-release.sh
+```powershell
+pwsh -NoProfile -File apps/android/tooling/release-android.ps1
 ```
 
 The release publisher uses the Android toolchain already provisioned in the
@@ -105,6 +84,7 @@ durable container. Do not launch a new container for routine publishes. The
 retired `publish-public-debug.sh` command is not a public publisher; its
 explicit `--local-build` mode is only for a development artifact.
 
-The default service is CPU-compatible. The GPU override requests all available
-GPUs, and training still depends on the host Docker NVIDIA integration being
-available.
+The default service is CPU-compatible. `compose/dev-gpu.yaml` remains an
+optional override for explicitly coordinated GPU work; applying it requires
+host Docker NVIDIA integration and an intentional container configuration
+change.

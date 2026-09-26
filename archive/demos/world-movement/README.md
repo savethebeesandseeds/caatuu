@@ -1,15 +1,16 @@
 # World Movement Lab
 
-An isolated Caatuu browser project for establishing convincing character
-locomotion before any animation is promoted into the game.
+An archived Caatuu browser experiment for establishing convincing character
+locomotion before any animation was promoted into the game.
 
-Open the main lab at `/demos/world-movement/`. The professional motion viewer
-is available at `/demos/world-movement/motion-reference/`.
+Its historical routes `/demos/world-movement/` and
+`/demos/world-movement/motion-reference/` are no longer served by the Caatuu
+runtime or public site. The source and review notes remain for reference.
 
 ## Project layout
 
 ```text
-demos/world-movement/
+archive/demos/world-movement/
   index.html, world-movement.*  interactive world and animation comparison
   frame-review.*                curated human-frame review
   macaw-guided-review.html      paired silhouette/Macaw review
@@ -24,7 +25,7 @@ the production `/assets/` catalog for shared town scenery, robots, existing
 Macaw sprites, and the controlled-foot rig; those assets remain in their
 canonical game locations instead of being duplicated here.
 
-## What currently works
+## Preserved experiment capabilities
 
 - Continuous WASD, arrow-key, click-to-walk, and mobile-pad movement.
 - Camera tracking, facing, depth layering, ground shadow, and distance-driven
@@ -36,7 +37,7 @@ canonical game locations instead of being duplicated here.
 - A separate eight-frame silhouette-guided Macaw transfer candidate.
 - Frame-by-frame review pages and selectable legacy experiments for comparison.
 
-## Current conclusion
+## Recorded conclusion
 
 The human reference proves that the browser playback system can show a clear
 walk. Human silhouettes are also useful conditioning guides for the Macaw:
@@ -52,7 +53,7 @@ been promoted into the production game animation system.
 See `docs/effort-log.md` for the complete work record and
 `docs/resume-checklist.md` before continuing.
 
-## Pipeline rules
+## Historical pipeline rules
 
 - Preserve generated originals locally under the ignored
   `research/generated-candidates/` workspace. Promote only reviewed runtime

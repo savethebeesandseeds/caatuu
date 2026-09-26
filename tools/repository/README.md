@@ -15,10 +15,10 @@ These dependency-free Node scripts keep the public repository boundary clean:
   exact sizes and hashes, containment, component envelopes, evidence status,
   and channel publication policy. The JSON Schemas are structural descriptions.
 
-Run both in a container from the repository root:
+Run both in the existing `caatuu-dev` container from the repository root:
 
 ```powershell
-docker run --rm -v "${PWD}:/workspace" -w /workspace node:24-bookworm `
+docker exec -w /workspace caatuu-dev `
   bash -lc "node tools/repository/check-tracked-files.mjs && node tools/repository/check-markdown-links.mjs"
 ```
 
@@ -27,14 +27,14 @@ The repository workflow runs the same commands on GitHub Actions.
 Inspect either checked-in synthetic example in structural authoring mode:
 
 ```powershell
-docker run --rm -v "${PWD}:/workspace" -w /workspace node:24-bookworm `
+docker exec -w /workspace caatuu-dev `
   node tools/repository/validate-release-manifest.mjs `
   --structure-only `
   docs/examples/release-manifest.v1.example.json
 ```
 
-The mutable Node tag above is acceptable only for authoring and CI feedback; it
-is not a recorded release environment.
+These development commands provide authoring feedback; they do not establish
+a recorded release environment.
 
 `--structure-only` must not be used for publication. Release automation should
 validate a complete local release tree and bind both the immutable release and

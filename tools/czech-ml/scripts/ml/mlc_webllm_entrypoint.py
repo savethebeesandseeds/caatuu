@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run MLC WebLLM conversion inside the Caatuu MLC Docker image."""
+"""Run CPU WebLLM conversion in the existing Caatuu development container."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ import argparse
 import json
 from pathlib import Path
 
-ROOT = Path("/models")
+ROOT = Path(__file__).resolve().parents[2] / "data" / "models"
 SPEC_PATH = ROOT / "export-spec.json"
 
 

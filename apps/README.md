@@ -5,7 +5,7 @@ behavior belongs in contracts and services, not in a catch-all app.
 
 | Directory | Responsibility |
 | --- | --- |
-| [`animated-fabric`](animated-fabric/) | 2D rigging and animation application/library using the shared Caatuu development environment |
+| [`animated-fabric`](animated-fabric/) | Retired animation application; source, artwork, and provenance retained for reference |
 | [`android`](android/) | Native Android shell and offline model bridge |
 | [`games`](games/) | Language-independent authored games and their delivery manifests |
 | [`languages/czech`](languages/czech/) | Current Czech language world and browser experience |

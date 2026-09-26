@@ -13,11 +13,6 @@ if (-not (Test-Path -LiteralPath (Join-Path $repoRoot '.git'))) {
 }
 
 $targets = @(
-    @{ Path = 'apps/animated-fabric/.mypy_cache'; Reason = 'Python type-check cache' }
-    @{ Path = 'apps/animated-fabric/.pytest_cache'; Reason = 'Python test cache' }
-    @{ Path = 'apps/animated-fabric/.ruff_cache'; Reason = 'Python lint cache' }
-    @{ Path = 'apps/animated-fabric/.tmp'; Reason = 'Temporary test and render output' }
-    @{ Path = 'apps/animated-fabric/build'; Reason = 'Generated application build' }
     @{ Path = 'apps/android/.gradle'; Reason = 'Gradle cache' }
     @{ Path = 'apps/android/.kotlin'; Reason = 'Kotlin cache' }
     @{ Path = 'apps/android/app/.cxx'; Reason = 'Android native build cache' }

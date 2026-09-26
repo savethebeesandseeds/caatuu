@@ -111,12 +111,14 @@ is a compatibility redirect only.
 
 ## Tooling container
 
-Heavy build, ML, embedding, model-export, Android helper, and Animated Fabric
-work runs in the single shared development service:
+Heavy build, ML, embedding, model-export, Android helper, and image work runs
+in the single shared development container. Follow the
+[root recreation instructions](../README.md#replicate-the-development-environment)
+to provision it. For normal use:
 
 ```powershell
-docker compose --profile dev up -d --build caatuu-dev
-docker compose exec caatuu-dev bash
+docker start caatuu-dev
+docker exec --interactive --tty --workdir /workspace caatuu-dev bash --login
 ```
 
 Inside the container:
@@ -125,20 +127,16 @@ Inside the container:
 check-caatuu-dev
 ```
 
-Animated Fabric selects its baked Python 3.12 tool environment through the
-wrapper while retaining the same repository mount and container:
+Animated Fabric is [retired](../apps/animated-fabric/README.md). Its source and
+artwork remain available for reference; its CI, Compose workers, GUI override,
+and automatic dependency provisioning are removed.
 
-```powershell
-docker exec -w /workspace/apps/animated-fabric caatuu-dev `
-  caatuu-animated-fabric python -m animated_fabric doctor
-```
-
-GPU and native-X11 overrides modify this same service in the same `caatuu`
-Compose project; they do not define additional development containers:
+CI validates the retained Compose development definition. It remains available
+for explicitly coordinated environment work; its GPU override modifies the
+same service in the same `caatuu` Compose project:
 
 ```powershell
 docker compose -f compose.yaml -f compose/dev-gpu.yaml --profile dev config --quiet
-docker compose -f compose.yaml -f compose/dev-gui.yaml --profile dev config --quiet
 ```
 
 The main ML workspace is [`tools/czech-ml`](../tools/czech-ml/). Follow
@@ -171,7 +169,6 @@ Validate Compose configuration:
 docker compose config --quiet
 docker compose --profile tools --profile dev config --quiet
 docker compose -f compose.yaml -f compose/dev-gpu.yaml --profile dev config --quiet
-docker compose -f compose.yaml -f compose/dev-gui.yaml --profile dev config --quiet
 docker compose -f compose.yaml -f compose/phone-debug.yaml config --quiet
 ```
 

@@ -4,7 +4,8 @@ Caatuu Chinese is the archived Chinese trainer static app. It is preserved
 outside the active `apps/` tree for later reuse, but it is not part of the
 active language-selection path.
 
-In the unified Caatuu container it is served at:
+These historical routes are no longer served by the Caatuu runtime or public
+site:
 
 ```text
 /archive/chinese/
@@ -12,16 +13,8 @@ In the unified Caatuu container it is served at:
 /archive/chinese/ws
 ```
 
-Compatibility redirects keep the old `/zh/` entry points working, but new code
-and docs should use `/archive/chinese/`.
-
-Use the workspace README for container and Cloudflare commands:
-
-```text
-C:\Work\caatuu\README.md
-```
-
-The Rust server lives in `apps/server`. Chinese API and WebSocket
-routes are exposed only through the `/archive/chinese/` prefix so the archived
-trainer can coexist with the active Czech app without looking like an active
-language target.
+The active `/zh/` route belongs to the modern Mandarin course under
+[`apps/languages/mandarin-simplified`](../../apps/languages/mandarin-simplified/).
+It does not redirect to this archive. The archived API and WebSocket sources
+remain historical material; restoring them would require a separate scope and
+runtime integration.

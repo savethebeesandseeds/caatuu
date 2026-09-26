@@ -141,7 +141,7 @@ It does not call any paid API.
 Run:
 
 ```powershell
-docker compose --profile dev run --rm caatuu-dev `
+docker exec -w /workspace caatuu-dev `
   node tools/czech-ml/scripts/validate-curriculum-curated.mjs `
     --dataset-dir tools/czech-ml/data/curriculum/core-v0.2
 ```

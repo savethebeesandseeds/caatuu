@@ -19,7 +19,7 @@ data/curriculum/common-phrases-v0.1/curated/common-phrases.en.jsonl
 Run the builder through the repository development container:
 
 ```powershell
-docker compose --profile dev run --rm caatuu-dev `
+docker exec -w /workspace caatuu-dev `
   node tools/czech-ml/scripts/build-curriculum-core.mjs --max-items 5000
 ```
 
@@ -44,7 +44,7 @@ data/curriculum/core-v0.1/curated/curriculum-core.en.jsonl
 Run:
 
 ```powershell
-docker compose --profile dev run --rm caatuu-dev `
+docker exec -w /workspace caatuu-dev `
   node tools/czech-ml/scripts/validate-curriculum-curated.mjs
 ```
 

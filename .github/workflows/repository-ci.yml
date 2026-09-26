@@ -70,7 +70,7 @@ jobs:
             printf '%s=%s\n' "$name" "$value" >> "$GITHUB_OUTPUT"
           }
 
-          emit browser '^(\.github/workflows/(repository-ci|pages)\.yml|LICENSE$|CHANGELOG\.md$|\.dockerignore$|compose\.yaml$|compose/|archive/|apps/(android|games|language-runtime|languages|launcher)/|apps/server/(profiles|tooling)/|apps/animated-fabric/assets/reference-packages/|tools/(czech-ml|language-content|language-packs|on-device-models|semantic-index)/|docs/(COMPONENT_RELEASE_VALIDATORS|DEPLOYMENT_STANDARD|FIRST_ANDROID_RELEASE|LEGAL_INVENTORY|RELEASING|schemas/))'
+          emit browser '^(\.github/workflows/(repository-ci|pages)\.yml|LICENSE$|CHANGELOG\.md$|\.dockerignore$|compose\.yaml$|compose/|archive/|apps/(android|games|language-runtime|languages|launcher)/|apps/server/(profiles|tooling)/|tools/(czech-ml|language-content|language-packs|on-device-models|semantic-index)/|docs/(COMPONENT_RELEASE_VALIDATORS|DEPLOYMENT_STANDARD|FIRST_ANDROID_RELEASE|LEGAL_INVENTORY|RELEASING|schemas/))'
           emit language '^(\.github/workflows/repository-ci\.yml|apps/(language-runtime|languages)/|apps/launcher/static/|apps/server/tooling/refresh-setup-assets\.mjs|tools/(language-content|language-packs|learning-evaluation|semantic-index)/|tools/czech-ml/data/(curriculum|word-world)/)'
           emit compose '^(\.github/workflows/repository-ci\.yml|compose\.yaml|compose/.*\.yaml)$'
           emit rust '^(\.github/workflows/repository-ci\.yml|\.dockerignore$|compose\.yaml|apps/server/(Cargo\.(toml|lock)|src/|tooling/Dockerfile|\.caatuu-runtime\.lock)|tools/czech-ml/vector-schema\.sql)$'
@@ -148,7 +148,6 @@ jobs:
           docker compose config --quiet
           docker compose --profile tools --profile dev config --quiet
           docker compose -f compose.yaml -f compose/dev-gpu.yaml --profile dev config --quiet
-          docker compose -f compose.yaml -f compose/dev-gui.yaml --profile dev config --quiet
           docker compose -f compose.yaml -f compose/phone-debug.yaml config --quiet
 
   rust:

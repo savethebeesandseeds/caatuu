@@ -10,9 +10,15 @@ import android.content.pm.Signature
 import android.database.Cursor
 import android.net.Uri
 import android.os.Build
+import android.os.SystemClock
 import android.provider.Settings
 import androidx.core.content.FileProvider
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.sync.Mutex
@@ -57,6 +63,7 @@ class AppUpdateManager(context: Context) {
         val error: String,
         val verifiedBytes: Long = 0L,
         val verifiedLastModified: Long = 0L,
+        val transport: String = "managed",
     )
 
     private data class ManagedDownloadStatus(
@@ -76,6 +83,7 @@ class AppUpdateManager(context: Context) {
         val downloadedBytes: Long,
         val totalBytes: Long,
         val error: String = "",
+        val waitReason: String = "",
     ) {
         val ready: Boolean = state == DOWNLOAD_STATE_READY
     }
@@ -85,6 +93,7 @@ class AppUpdateManager(context: Context) {
     private val updatePrefs = appContext.getSharedPreferences(UPDATE_PREFS, Context.MODE_PRIVATE)
     private val updatesDir = File(appContext.filesDir, "updates")
     private val updateApk = File(updatesDir, BuildConfig.CAATUU_UPDATE_APK_NAME)
+    private val directPartial = File(updatesDir, "${BuildConfig.CAATUU_UPDATE_APK_NAME}.part")
     private val updateBaseUrl = BuildConfig.CAATUU_UPDATE_BASE_URL.trimEnd('/')
     private val updateApkUrl = "$updateBaseUrl/${BuildConfig.CAATUU_UPDATE_APK_NAME}"
     private val updateManifestUrl = "$updateBaseUrl/${BuildConfig.CAATUU_UPDATE_MANIFEST_NAME}"
@@ -113,16 +122,35 @@ class AppUpdateManager(context: Context) {
                     .put("updateManagement", "store")
             }
 
+            takeObservationFailure()?.let { return@withContext status.putLocalSnapshot(it) }
+            val requestContext = coroutineContext
             try {
-                val remote = updateTarget(fetchJson(updateManifestUrl), requireNewer = false)
+                // Progress observation never depends on the mutable release manifest.
+                val remote = AppUpdateTransferPolicy.localOrRemote(
+                    local = { synchronized(PROCESS_STATE_LOCK) {
+                        reconcileLocalStateLocked()?.takeIf { AppUpdateTransferPolicy.pinsTarget(it.state) }?.target
+                    } },
+                    pinned = { true },
+                    remote = {
+                        requestContext.ensureActive()
+                        updateTarget(fetchJson(updateManifestUrl), requireNewer = false).also { requestContext.ensureActive() }
+                    },
+                )
                 val local = synchronized(PROCESS_STATE_LOCK) {
                     reconcileServerTargetLocked(remote)
+                }
+                if (local != null && AppUpdateTransferPolicy.pinsTarget(local.state)) {
+                    ensureTransferMonitor()
+                    return@withContext status.putLocalSnapshot(local)
                 }
                 status.putManifestStatus(remote)
                 if (local != null) status.putDownloadSnapshot(local)
                 status
+            } catch (error: CancellationException) {
+                throw error
             } catch (error: Exception) {
                 val local = synchronized(PROCESS_STATE_LOCK) { reconcileLocalStateLocked() }
+                if (local != null && AppUpdateTransferPolicy.pinsTarget(local.state)) ensureTransferMonitor()
                 val fallback = status
                     .put("serverReachable", false)
                     .put("updateAvailable", false)
@@ -133,6 +161,10 @@ class AppUpdateManager(context: Context) {
 
     fun clearDownloadedUpdate(): JSONObject =
         synchronized(PROCESS_STATE_LOCK) {
+            processTransferJob?.cancel()
+            processTransferJob = null
+            PROCESS_OBSERVATION_FAILURES.consume()
+            processLastSnapshot = null
             val stored = loadStoredStateLocked()
             val managedRoot = managedUpdatesRootOrNull()
             val bytesDeleted = directorySize(updatesDir) + directorySize(managedRoot)
@@ -161,7 +193,7 @@ class AppUpdateManager(context: Context) {
                 .put("deleted", internalDeleted && managedDeleted)
         }
 
-    suspend fun downloadLatest(onProgress: (ModelProgress) -> Unit): JSONObject =
+    suspend fun downloadLatest(onProgress: (JSONObject) -> Unit): JSONObject =
         withContext(Dispatchers.IO) {
             require(BuildConfig.CAATUU_SELF_UPDATE_ENABLED) {
                 "This Caatuu build is updated by its app store."
@@ -169,8 +201,20 @@ class AppUpdateManager(context: Context) {
 
             var snapshot = synchronized(PROCESS_STATE_LOCK) { reconcileLocalStateLocked() }
             var target = snapshot?.target
+            val requestContext = coroutineContext
             val remote = try {
-                updateTarget(fetchJson(updateManifestUrl), requireNewer = false)
+                AppUpdateTransferPolicy.localOrRemote(
+                    local = { synchronized(PROCESS_STATE_LOCK) {
+                        reconcileLocalStateLocked()?.takeIf { AppUpdateTransferPolicy.pinsTarget(it.state) }?.target
+                    } },
+                    pinned = { true },
+                    remote = {
+                        requestContext.ensureActive()
+                        updateTarget(fetchJson(updateManifestUrl), requireNewer = false).also { requestContext.ensureActive() }
+                    },
+                )
+            } catch (error: CancellationException) {
+                throw error
             } catch (error: Exception) {
                 if (
                     snapshot == null ||
@@ -185,9 +229,12 @@ class AppUpdateManager(context: Context) {
             if (remote != null) {
                 if (remote.versionCode <= BuildConfig.VERSION_CODE.toLong()) {
                     synchronized(PROCESS_STATE_LOCK) {
-                        clearStoredArtifactsLocked(loadStoredStateLocked())
+                        val raced = reconcileLocalStateLocked()
+                        if (raced == null || !AppUpdateTransferPolicy.pinsTarget(raced.state)) {
+                            clearStoredArtifactsLocked(loadStoredStateLocked())
+                            updateTarget(remote.manifest(), requireNewer = true)
+                        }
                     }
-                    updateTarget(remote.manifest(), requireNewer = true)
                 }
                 snapshot = synchronized(PROCESS_STATE_LOCK) {
                     reconcileServerTargetLocked(remote)
@@ -203,15 +250,20 @@ class AppUpdateManager(context: Context) {
             // publication was changing. Do not keep retrying that stale target:
             // discard it and fetch the current manifest before downloading again.
             if (snapshot?.state == DOWNLOAD_STATE_FAILED) {
-                clearDownloadedUpdate()
-                snapshot = null
+                snapshot = synchronized(PROCESS_STATE_LOCK) {
+                    val raced = reconcileLocalStateLocked()
+                    if (raced?.state == DOWNLOAD_STATE_FAILED) {
+                        clearStoredArtifactsLocked(loadStoredStateLocked())
+                        null
+                    } else raced
+                }
             }
 
             val downloadTarget = target ?: snapshot?.target
                 ?: error("Could not determine the available Caatuu update.")
             val hadManagedDownload = snapshot?.state == DOWNLOAD_STATE_DOWNLOADING ||
+                snapshot?.state == DOWNLOAD_STATE_PENDING || snapshot?.state == DOWNLOAD_STATE_RECOVERING ||
                 snapshot?.state == DOWNLOAD_STATE_PAUSED
-            var integrityRetryCount = 0
 
             if (snapshot == null || snapshot.state == DOWNLOAD_STATE_IDLE || snapshot.state == DOWNLOAD_STATE_FAILED) {
                 snapshot = PROCESS_UPDATE_MUTEX.withLock {
@@ -219,20 +271,27 @@ class AppUpdateManager(context: Context) {
                         val raced = reconcileLocalStateLocked()
                         when {
                             raced?.ready == true -> raced
-                            raced?.state == DOWNLOAD_STATE_DOWNLOADING || raced?.state == DOWNLOAD_STATE_PAUSED -> raced
+                            raced != null && AppUpdateTransferPolicy.pinsTarget(raced.state) -> raced
                             else -> startManagedDownloadLocked(downloadTarget)
                         }
                     }
                 }
             }
 
+            ensureTransferMonitor()
             var activeTarget = snapshot.target
             while (true) {
                 coroutineContext.ensureActive()
+                takeObservationFailure()?.let {
+                    onProgress(JSONObject().putLocalSnapshot(it))
+                    error(it.error)
+                }
+                ensureTransferMonitor()
                 val current = synchronized(PROCESS_STATE_LOCK) { reconcileLocalStateLocked() }
                     ?: error("The managed app update disappeared. Start the update again.")
                 activeTarget = current.target
-                onProgress(ModelProgress(current.downloadedBytes, current.totalBytes))
+                onProgress(JSONObject().putLocalSnapshot(current))
+                if (current.waitReason == "status") error(current.error)
 
                 when (current.state) {
                     DOWNLOAD_STATE_READY -> {
@@ -243,41 +302,6 @@ class AppUpdateManager(context: Context) {
                         )
                     }
                     DOWNLOAD_STATE_FAILED -> {
-                        if (
-                            integrityRetryCount < MAX_UPDATE_INTEGRITY_RETRIES &&
-                            isRetryableIntegrityFailure(current.error)
-                        ) {
-                            PROCESS_UPDATE_MUTEX.withLock {
-                                val raced = synchronized(PROCESS_STATE_LOCK) {
-                                    reconcileLocalStateLocked()
-                                }
-                                when {
-                                    raced?.ready == true -> raced
-                                    raced?.state == DOWNLOAD_STATE_DOWNLOADING ||
-                                        raced?.state == DOWNLOAD_STATE_PAUSED -> raced
-                                    else -> {
-                                        val retryTarget = updateTarget(
-                                            fetchJson(updateManifestUrl),
-                                            requireNewer = false,
-                                        )
-                                        synchronized(PROCESS_STATE_LOCK) {
-                                            val reconciled = reconcileServerTargetLocked(retryTarget)
-                                            if (retryTarget.versionCode <= BuildConfig.VERSION_CODE.toLong()) {
-                                                updateTarget(retryTarget.manifest(), requireNewer = true)
-                                            }
-                                            when {
-                                                reconciled?.ready == true -> reconciled
-                                                reconciled?.state == DOWNLOAD_STATE_DOWNLOADING ||
-                                                    reconciled?.state == DOWNLOAD_STATE_PAUSED -> reconciled
-                                                else -> startManagedDownloadLocked(retryTarget)
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            integrityRetryCount += 1
-                            continue
-                        }
                         error(current.error.ifBlank { "Android could not finish the app update download." })
                     }
                     DOWNLOAD_STATE_IDLE -> {
@@ -347,6 +371,95 @@ class AppUpdateManager(context: Context) {
         }
     }
 
+    /** Also attached by status observation after a document/activity/process has been recreated. */
+    private fun ensureTransferMonitor() {
+        synchronized(PROCESS_STATE_LOCK) {
+            if (PROCESS_OBSERVATION_FAILURES.hasPending()) return
+            if (processTransferJob?.isActive == true) return
+            val initial = reconcileLocalStateLocked() ?: return
+            if (initial.state !in ACTIVE_DOWNLOAD_STATES) return
+            processTransferJob = PROCESS_TRANSFER_SCOPE.launch {
+                val stall = AppUpdateStallWatch(SystemClock::elapsedRealtime)
+                while (true) {
+                    coroutineContext.ensureActive()
+                    val current = synchronized(PROCESS_STATE_LOCK) { reconcileLocalStateLocked() } ?: return@launch
+                    if (current.state !in ACTIVE_DOWNLOAD_STATES) return@launch
+                    if (current.waitReason == "status") return@launch
+                    if (current.state == DOWNLOAD_STATE_RECOVERING ||
+                        stall.shouldRecover(current.downloadedBytes, current.waitReason)
+                    ) {
+                        try {
+                            recoverPinnedDownload(current.target)
+                        } catch (error: CancellationException) {
+                            throw error
+                        } catch (error: Exception) {
+                            synchronized(PROCESS_STATE_LOCK) {
+                                coroutineContext.ensureActive()
+                                loadStoredStateLocked()?.takeIf { it.target.sameArtifact(current.target) }?.let {
+                                    persistStateLocked(it.copy(state = DOWNLOAD_STATE_FAILED,
+                                        error = error.message ?: "App update recovery could not start. Try again."))
+                                }
+                            }
+                            return@launch
+                        }
+                    }
+                    delay(DOWNLOAD_POLL_MILLIS)
+                }
+            }
+        }
+    }
+
+    private fun takeObservationFailure(): UpdateSnapshot? = synchronized(PROCESS_STATE_LOCK) {
+        if (!PROCESS_OBSERVATION_FAILURES.consume()) return@synchronized null
+        processLastSnapshot?.copy(state = DOWNLOAD_STATE_PAUSED, downloadActive = true, resumable = true,
+            waitReason = "status", error = "Android could not report download progress. Check download status to reconnect.")
+    }
+
+    private suspend fun recoverPinnedDownload(target: UpdateTarget) {
+        val jobContext = coroutineContext
+        jobContext.ensureActive()
+        val direct = synchronized(PROCESS_STATE_LOCK) {
+            jobContext.ensureActive()
+            val stored = loadStoredStateLocked() ?: return
+            if (!stored.target.sameArtifact(target) || stored.state !in ACTIVE_DOWNLOAD_STATES) return
+            if (stored.transport == "direct") stored else {
+                val managed = stored.downloadId?.let(::queryManagedDownloadLocked)
+                // Android may change its network policy while the stall timer expires.
+                if (managed?.status == DownloadManager.STATUS_PAUSED && managed.reason in setOf(
+                        DownloadManager.PAUSED_WAITING_FOR_NETWORK, DownloadManager.PAUSED_QUEUED_FOR_WIFI,
+                    )) return
+                val partial = managed?.file ?: managedDownloadFileOrNull(stored)
+                AppUpdatePartialFile.importManaged(partial, directPartial, managed?.bytes ?: 0L, target.bytes,
+                    checkActive = { jobContext.ensureActive() })
+                cleanupManagedDownloadLocked(stored)
+                stored.copy(downloadId = null, downloadFileName = "", transport = "direct",
+                    state = DOWNLOAD_STATE_RECOVERING, error = "").also(::persistStateLocked)
+            }
+        }
+        try {
+            AppUpdateTransfer().download(target.apkUrl, directPartial, target.bytes,
+                checkActive = { jobContext.ensureActive() })
+            jobContext.ensureActive()
+            synchronized(PROCESS_STATE_LOCK) {
+                jobContext.ensureActive()
+                val current = loadStoredStateLocked() ?: return
+                if (current.transport != "direct" || !current.target.sameArtifact(target)) return
+                promoteManagedDownloadLocked(direct, null, directPartial)
+            }
+        } catch (error: CancellationException) {
+            throw error
+        } catch (error: Exception) {
+            synchronized(PROCESS_STATE_LOCK) {
+                jobContext.ensureActive()
+                val current = loadStoredStateLocked()
+                if (current?.transport == "direct" && current.target.sameArtifact(target)) {
+                    persistStateLocked(current.copy(state = DOWNLOAD_STATE_FAILED,
+                        error = error.message ?: "App update download could not finish. Try again."))
+                }
+            }
+        }
+    }
+
     private fun canRequestPackageInstalls(): Boolean =
         Build.VERSION.SDK_INT < Build.VERSION_CODES.O ||
             appContext.packageManager.canRequestPackageInstalls()
@@ -376,8 +489,8 @@ class AppUpdateManager(context: Context) {
 
     private fun fetchJsonOnce(url: String): JSONObject {
         val connection = (URL(url).openConnection() as HttpURLConnection).apply {
-            connectTimeout = 10_000
-            readTimeout = 10_000
+            connectTimeout = 5_000
+            readTimeout = 5_000
             instanceFollowRedirects = false
             useCaches = false
             setRequestProperty("Cache-Control", "no-cache")
@@ -553,6 +666,9 @@ class AppUpdateManager(context: Context) {
 
     private fun reconcileServerTargetLocked(remote: UpdateTarget): UpdateSnapshot? {
         val local = reconcileLocalStateLocked()
+        // A manifest request may have started before the user began a download.
+        // Its delayed response must not cancel or replace that transfer.
+        if (local != null && AppUpdateTransferPolicy.pinsTarget(local.state)) return local
         if (remote.versionCode <= BuildConfig.VERSION_CODE.toLong()) {
             if (local != null || loadStoredStateLocked() != null || updateApk.exists()) {
                 clearStoredArtifactsLocked(loadStoredStateLocked())
@@ -630,13 +746,27 @@ class AppUpdateManager(context: Context) {
             persistStateLocked(stored)
         }
 
-        var managed = stored.downloadId?.let(::queryManagedDownloadLocked)
-        if (managed == null) {
-            managed = findManagedDownloadLocked(stored)
-            if (managed != null && stored.downloadId != managed.id) {
-                stored = stored.copy(downloadId = managed.id)
+        if (stored.transport == "direct") {
+            val state = if (stored.state == DOWNLOAD_STATE_FAILED) DOWNLOAD_STATE_FAILED else DOWNLOAD_STATE_RECOVERING
+            return snapshot(stored, state, directPartial.length(), stored.target.bytes,
+                waitReason = if (state == DOWNLOAD_STATE_RECOVERING) "recovering" else "")
+        }
+
+        val managed = try {
+            val found = stored.downloadId?.let(::queryManagedDownloadLocked) ?: findManagedDownloadLocked(stored)
+            if (found != null && stored.downloadId != found.id) {
+                stored = stored.copy(downloadId = found.id)
                 persistStateLocked(stored)
             }
+            found
+        } catch (error: Exception) {
+            // The Android job can still be running. Keep its identity and never
+            // start a replacement simply because its progress cannot be read.
+            val message = "Android could not report download progress. Progress will be checked again."
+            stored = persistStateHintLocked(stored, DOWNLOAD_STATE_PAUSED, message)
+            return snapshot(stored, DOWNLOAD_STATE_PAUSED,
+                managedDownloadFileOrNull(stored)?.length() ?: 0L, stored.target.bytes,
+                error = message, waitReason = "status")
         }
 
         val stagedFile = managed?.file ?: managedDownloadFileOrNull(stored)
@@ -684,7 +814,10 @@ class AppUpdateManager(context: Context) {
 
         val totalBytes = managed.totalBytes.takeIf { it > 0L } ?: stored.target.bytes
         return when (managed.status) {
-            DownloadManager.STATUS_PENDING,
+            DownloadManager.STATUS_PENDING -> {
+                stored = persistStateHintLocked(stored, DOWNLOAD_STATE_PENDING, "")
+                snapshot(stored, DOWNLOAD_STATE_PENDING, managed.bytes, totalBytes, waitReason = "system")
+            }
             DownloadManager.STATUS_RUNNING,
             -> {
                 stored = persistStateHintLocked(stored, DOWNLOAD_STATE_DOWNLOADING, "")
@@ -692,7 +825,13 @@ class AppUpdateManager(context: Context) {
             }
             DownloadManager.STATUS_PAUSED -> {
                 stored = persistStateHintLocked(stored, DOWNLOAD_STATE_PAUSED, "")
-                snapshot(stored, DOWNLOAD_STATE_PAUSED, managed.bytes, totalBytes)
+                val reason = when (managed.reason) {
+                    DownloadManager.PAUSED_WAITING_FOR_NETWORK -> "network"
+                    DownloadManager.PAUSED_QUEUED_FOR_WIFI -> "wifi"
+                    DownloadManager.PAUSED_WAITING_TO_RETRY -> "retry"
+                    else -> "system"
+                }
+                snapshot(stored, DOWNLOAD_STATE_PAUSED, managed.bytes, totalBytes, waitReason = reason)
             }
             DownloadManager.STATUS_FAILED -> {
                 val message = "Android download failed${managed.reason?.let { " (reason $it)" } ?: ""}."
@@ -742,16 +881,18 @@ class AppUpdateManager(context: Context) {
         downloadedBytes: Long,
         totalBytes: Long,
         error: String = stored.error,
+        waitReason: String = "",
     ): UpdateSnapshot =
         UpdateSnapshot(
             target = stored.target,
             state = state,
-            downloadActive = state == DOWNLOAD_STATE_DOWNLOADING,
-            resumable = state == DOWNLOAD_STATE_DOWNLOADING || state == DOWNLOAD_STATE_PAUSED,
+            downloadActive = state in ACTIVE_DOWNLOAD_STATES,
+            resumable = state in ACTIVE_DOWNLOAD_STATES,
             downloadedBytes = downloadedBytes.coerceAtLeast(0L),
             totalBytes = totalBytes.takeIf { it > 0L } ?: stored.target.bytes,
             error = error,
-        )
+            waitReason = waitReason,
+        ).also { processLastSnapshot = it }
 
     private fun queryManagedDownloadLocked(downloadId: Long): ManagedDownloadStatus? {
         val cursor = downloadManager.query(DownloadManager.Query().setFilterById(downloadId))
@@ -825,6 +966,7 @@ class AppUpdateManager(context: Context) {
         stored?.let { managedDownloadFileOrNull(it)?.delete() }
         updateApk.delete()
         File(updatesDir, "${BuildConfig.CAATUU_UPDATE_APK_NAME}.verified").delete()
+        directPartial.delete()
         managedRoot?.deleteRecursively()
         check(updatePrefs.edit().remove(UPDATE_STATE_KEY).commit()) {
             "Could not clear persisted app update state."
@@ -850,6 +992,7 @@ class AppUpdateManager(context: Context) {
             .put("error", stored.error)
             .put("verifiedBytes", stored.verifiedBytes)
             .put("verifiedLastModified", stored.verifiedLastModified)
+            .put("transport", stored.transport)
             .toString()
         check(updatePrefs.edit().putString(UPDATE_STATE_KEY, body).commit()) {
             "Could not persist app update state."
@@ -871,6 +1014,7 @@ class AppUpdateManager(context: Context) {
                 error = body.optString("error"),
                 verifiedBytes = body.optLong("verifiedBytes", 0L),
                 verifiedLastModified = body.optLong("verifiedLastModified", 0L),
+                transport = body.optString("transport", "managed"),
             )
         } catch (_: Exception) {
             updatePrefs.edit().remove(UPDATE_STATE_KEY).commit()
@@ -912,9 +1056,6 @@ class AppUpdateManager(context: Context) {
             file.length() == stored.verifiedBytes &&
             stored.verifiedLastModified > 0L &&
             file.lastModified() == stored.verifiedLastModified
-
-    private fun isRetryableIntegrityFailure(error: String): Boolean =
-        error.startsWith("APK size mismatch:") || error.startsWith("APK SHA-256 mismatch:")
 
     private fun verifyUpdateArchive(file: File, manifest: JSONObject) {
         val archive = archivePackageInfo(file)
@@ -1071,6 +1212,8 @@ class AppUpdateManager(context: Context) {
             .put("progress", progress)
             .put("downloadProgress", progress)
             .put("downloadError", snapshot.error)
+            .put("downloadWaitReason", snapshot.waitReason)
+            .put("downloadObservationFailed", snapshot.waitReason == "status")
     }
 
     private fun JSONObject.putManifestStatus(target: UpdateTarget): JSONObject {
@@ -1126,7 +1269,7 @@ class AppUpdateManager(context: Context) {
     }
 
     private fun pruneStaleUpdateFilesLocked(stored: StoredUpdateState?) {
-        val allowedInternal = if (stored == null) emptySet() else setOf(BuildConfig.CAATUU_UPDATE_APK_NAME)
+        val allowedInternal = if (stored == null) emptySet() else setOf(BuildConfig.CAATUU_UPDATE_APK_NAME, directPartial.name)
         updatesDir.listFiles()?.forEach { file ->
             if (file.isFile && file.name !in allowedInternal) file.delete()
         }
@@ -1191,14 +1334,15 @@ class AppUpdateManager(context: Context) {
         private const val LEGACY_UPDATES_DIRECTORY = "updates"
         private const val DOWNLOAD_STATE_READY = "ready"
         private const val DOWNLOAD_STATE_DOWNLOADING = "downloading"
+        private const val DOWNLOAD_STATE_PENDING = "pending"
+        private const val DOWNLOAD_STATE_RECOVERING = "recovering"
         private const val DOWNLOAD_STATE_PAUSED = "paused"
         private const val DOWNLOAD_STATE_FAILED = "failed"
         private const val DOWNLOAD_STATE_IDLE = "idle"
         private const val DOWNLOAD_POLL_MILLIS = 750L
         private const val MAX_UPDATE_MANIFEST_BYTES = 64 * 1024
         private const val MAX_UPDATE_APK_BYTES = 1024L * 1024L * 1024L
-        private const val UPDATE_MANIFEST_ATTEMPTS = 4
-        private const val MAX_UPDATE_INTEGRITY_RETRIES = 1
+        private const val UPDATE_MANIFEST_ATTEMPTS = 2
         private val UPDATE_RETRY_DELAYS_MILLIS = longArrayOf(600L, 1_400L, 2_800L)
         private val RETRYABLE_HTTP_CODES = setOf(408, 425, 429)
         private val DOWNLOAD_STATES = setOf(
@@ -1207,9 +1351,17 @@ class AppUpdateManager(context: Context) {
             DOWNLOAD_STATE_PAUSED,
             DOWNLOAD_STATE_FAILED,
             DOWNLOAD_STATE_IDLE,
+            DOWNLOAD_STATE_PENDING,
+            DOWNLOAD_STATE_RECOVERING,
         )
+        private val ACTIVE_DOWNLOAD_STATES = setOf(DOWNLOAD_STATE_PENDING, DOWNLOAD_STATE_DOWNLOADING,
+            DOWNLOAD_STATE_PAUSED, DOWNLOAD_STATE_RECOVERING)
         private val SHA256_PATTERN = Regex("^[0-9a-fA-F]{64}$")
         private val PROCESS_UPDATE_MUTEX = Mutex()
         private val PROCESS_STATE_LOCK = Any()
+        private val PROCESS_OBSERVATION_FAILURES = AppUpdateObservationFailures()
+        private val PROCESS_TRANSFER_SCOPE = CoroutineScope(SupervisorJob() + Dispatchers.IO + PROCESS_OBSERVATION_FAILURES.handler)
+        private var processTransferJob: Job? = null
+        private var processLastSnapshot: UpdateSnapshot? = null
     }
 }

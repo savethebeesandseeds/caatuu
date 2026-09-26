@@ -9,9 +9,8 @@ When source advanced before the first Pages handoff, receipt-only deployment
 also requires `-ExpectedSourceRevision` with that exact recorded commit.
 
 This folder keeps the Android build environment out of Windows. Repeat
-publishes use the reusable `caatuu-dev` container and shared Docker volumes for
-downloaded tools, with the canonical checkout mounted at `/workspace`. Legacy
-bootstrap helpers are not alternate release environments; creating a replacement
+publishes use the configured toolchains in the existing `caatuu-dev` container,
+with the canonical checkout mounted at `/workspace`. Creating a replacement
 container requires explicit authorization under the repository safety policy.
 
 Android has two deliberate distributions. The full development
@@ -74,6 +73,39 @@ First-party and scoped corpus notices are exact copies of tracked authorities.
 Supplemental upstream texts retain their provenance in the audit; never rewrite
 already-published, hash-pinned runtime objects to add a notice.
 
+## In-app APK download ownership
+
+Home and Settings share one update controller. An update check discovers an
+available release; once a download is pending, running, paused, recovering or
+verified, status reads observe that local transfer without fetching the release
+manifest. A manifest response that arrives after a download starts cannot replace
+its pinned URL, size or hash, cancel its Android job, or delete its files.
+
+Android's queued and paused states are reported with their waiting reason.
+Progress polling is quiet, including after reopening the app. Repeated observation
+failures offer **Check download status**, which reconnects without enqueueing a
+second APK. An actual failed transfer offers **Retry update**.
+
+A process-owned monitor observes persisted downloads after document or Activity
+recreation. After 30 seconds without byte movement, a stalled Android job can
+handoff to a bounded HTTP transfer of the same pinned APK. Network/Wi-Fi waits
+retain Android's restriction. Recovery validates resume ranges, keeps partial
+bytes across interruption, limits retries and elapsed time, and still requires
+the existing size, SHA-256, package, version and signing checks before installation.
+
+Focused regression checks use the production transfer policy and a local HTTP
+fixture for interrupted bodies, ranges, stalled progress, cancellation and retry
+limits. Run these in the established container; the unit-test task does not
+assemble or publish an APK:
+
+```powershell
+docker exec -w /workspace/apps/android caatuu-dev gradle -PcaatuuDistributionProfile=product :product:testDebugUnitTest --tests com.caatuu.android.AppUpdateTransferTest --offline --no-daemon --console=plain
+docker exec -w /workspace caatuu-dev node --test apps/language-runtime/tests/shared-maintenance-runtime.test.mjs apps/server/tooling/tests/maintenance-ui.test.mjs
+```
+
+These tests cover executable transfer and UI behavior. They do not substitute for
+install/update smoke testing on a physical Android device.
+
 ## Startup and setup delivery
 
 Android starts the canonical illustrated Home for the last visited bundled
@@ -86,7 +118,7 @@ verified installation. The legacy `/setup.html` entry redirects to Home.
 Essential Home artwork is packaged, so this first screen also renders offline.
 The smaller UI artwork preserves the original assets and logical URLs.
 Regenerate those reviewed copies with
-`docker exec -w /workspace caatuu-dev caatuu-animated-fabric python /workspace/apps/language-runtime/tooling/build-home-art.py`;
+`docker exec -w /workspace caatuu-dev python apps/language-runtime/tooling/build-home-art.py`;
 append `--check` for a read-only reproducibility check.
 
 `build-product-assets.mjs` writes the companion folder beside the product
@@ -358,25 +390,16 @@ The release key remains the existing ignored
 or mismatched, stop and recover the original key. Generating a replacement
 would break updates for existing installations.
 
-## Bootstrap/fallback debug build
+## Local debug build
 
-This legacy bootstrap section is for a separately authorized development
-environment only. Its disposable-container command is not the routine build,
-publication or release-recovery path. Reuse `caatuu-dev` for this repository;
-do not create a replacement container without the explicit authorization and
-configuration checks required by `AGENTS.md`.
+Build development APKs in the existing `caatuu-dev` container configured by the
+[root setup procedure](../../../README.md#replicate-the-development-environment).
+The [canonical release workflow](#canonical-release-workflow) handles publication.
 
 From PowerShell:
 
 ```powershell
-docker run --rm -it `
-  -v C:\Work\caatuu:/workspace `
-  -v caatuu-android-sdk:/opt/android-sdk `
-  -v caatuu-gradle-dist:/opt/gradle `
-  -v caatuu-gradle-cache:/root/.gradle `
-  -w /workspace `
-  debian:12 `
-  bash -lc "bash apps/android/tooling/setup-container.sh && bash apps/android/tooling/setup-sdk.sh && bash apps/android/tooling/build-debug-apk.sh"
+docker exec -w /workspace caatuu-dev bash apps/android/tooling/build-debug-apk.sh
 ```
 
 The debug APK is written to:
@@ -412,8 +435,8 @@ same installed debug package. If you delete it, future debug APKs will be signed
 with a new key and Android may require uninstalling the old debug app first.
 
 By default the APK targets Android 11 / API 30 or newer. To test a different
-minimum SDK, pass `-e CAATUU_ANDROID_MIN_SDK=33` or another API level to the
-Docker command.
+minimum SDK, pass `-e CAATUU_ANDROID_MIN_SDK=33` or another API level to
+`docker exec`.
 
 Debug and release builds default to `targetSdk` 36. Override
 `CAATUU_ANDROID_TARGET_SDK` only for a deliberate compatibility experiment;

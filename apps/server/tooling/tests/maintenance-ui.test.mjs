@@ -305,6 +305,15 @@ test("a failed system download becomes an explicit retry instead of an install a
   assert.match(ui.updateStatusLine(status), /download stopped/i);
 });
 
+test("native fractional percentages are not mistaken for normalized ratios", () => {
+  const { button } = control();
+  ui.setUpdateAppControl(button, { env: "android" }, {
+    selfUpdateEnabled: true, currentVersionCode: 1, latestVersionCode: 2,
+    downloadActive: true, downloadState: "downloading", downloadProgress: 0.5
+  });
+  assert.equal(button.textContent, englishInterfaceContent.t("maintenance.action.downloading", { percent: "1" }));
+});
+
 test("a stale or mismatched cached APK is never offered for installation", () => {
   for (const status of [
     {

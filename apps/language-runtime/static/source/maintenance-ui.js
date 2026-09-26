@@ -131,7 +131,7 @@
     if ((status?.downloadReady || status?.readyToInstall) && targetsNewerVersion && matchesLatest) return "ready";
     if (targetsNewerVersion && (
       status?.downloadActive ||
-      ["downloading", "pending", "running"].includes(nativeState)
+      ["downloading", "pending", "running", "recovering"].includes(nativeState)
     )) return "active";
     if (targetsNewerVersion && nativeState === "failed") return "failed";
     if (targetsNewerVersion && (
@@ -145,7 +145,8 @@
   function updateDownloadPercent(status) {
     const explicit = Number(status?.downloadProgress);
     if (Number.isFinite(explicit) && explicit > 0) {
-      return Math.max(0, Math.min(99, explicit <= 1 ? explicit * 100 : explicit));
+      // The native contract is a percentage, including values below one percent.
+      return Math.max(0, Math.min(99, explicit));
     }
     const bytes = Number(status?.partialBytes || 0);
     const total = Number(status?.latestBytes || 0);
@@ -162,6 +163,21 @@
     return latest > current;
   }
 
+  function downloadWaitMessage(status) {
+    if (status?.downloadObservationFailed) return t("maintenance.download.observationfailed");
+    const state = String(status?.downloadState || "");
+    if (state === "pending") return t("maintenance.download.pending");
+    if (state === "recovering") {
+      // Recovery owns a real transfer too; once bytes are present, keep showing
+      // its percentage rather than covering all progress with a waiting label.
+      return Number(status?.partialBytes || status?.bytes || 0) > 0 ? "" : t("maintenance.download.recovering");
+    }
+    if (state !== "paused") return "";
+    const reason = String(status?.downloadWaitReason || "");
+    const key = ["network", "wifi", "retry"].includes(reason) ? reason : "paused";
+    return t(`maintenance.download.${key}`);
+  }
+
   function setUpdateAppControl(button, runtime, status, { busy = false, checked = false, phase = "" } = {}) {
     if (!button) return;
     const native = runtime?.env === "android";
@@ -170,13 +186,14 @@
     const downloadState = updateDownloadState(status);
     button.hidden = !visible;
     button.disabled = busy || !visible || downloadState === "active";
+    if (status?.downloadObservationFailed) button.disabled = busy || !visible;
     const latestName = String(status?.latestVersionName || "").trim();
     const currentName = String(status?.currentVersionName || "").trim();
     const statusProblem = status?.serverReachable === false || Boolean(status?.updateError);
     const operationLabel = phase === "preparing" ? t("maintenance.progress.preparing")
-      : phase === "verifying" ? t("maintenance.progress.verifying") : "";
+      : phase === "verifying" ? t("maintenance.progress.verifying") : downloadWaitMessage(status);
     const label = button.querySelector("[data-app-update-label]") || button;
-    label.textContent = operationLabel || (available && downloadState === "active"
+    label.textContent = status?.downloadObservationFailed ? t("maintenance.download.recheck") : operationLabel || (available && downloadState === "active"
       ? t("maintenance.action.downloading", { percent: updateDownloadPercent(status).toFixed(0) })
       : !native && !busy ? t("settings.update.title") : busy
       ? t("maintenance.action.checking")
@@ -209,7 +226,7 @@
         if (!native) { copy.textContent = t("maintenance.browser.description"); return; }
         const latestDisplay = latestName || status?.downloadedVersionName || status?.latestVersionCode || t("maintenance.version.new");
         const currentDisplay = currentName || status?.currentVersionCode || t("maintenance.version.unknownvalue");
-        copy.textContent = operationLabel || (available && downloadState === "active"
+        copy.textContent = status?.downloadObservationFailed ? t("maintenance.download.observationfailed") : operationLabel || (available && downloadState === "active"
           ? t("maintenance.copy.downloading", { version: latestDisplay, percent: updateDownloadPercent(status).toFixed(0) })
           : busy
           ? t("maintenance.copy.contacting")
@@ -249,6 +266,7 @@
     let currentMessage = "";
     let confirmedCurrent = false;
     let activePoll = null;
+    let observationFailures = 0;
     const serviceWorker = runtime.env === "android" ? null : window.navigator?.serviceWorker;
     let previousController = serviceWorker?.controller;
     let browserUpdateAvailable = false;
@@ -291,11 +309,11 @@
     function scheduleActivePoll(status) {
       if (activePoll !== null) window.clearTimeout(activePoll);
       activePoll = null;
-      if (runtime.env !== "android" || phase
+      if (runtime.env !== "android" || phase || status?.downloadObservationFailed
         || updateDownloadState(status) !== "active" || document.visibilityState === "hidden") return;
       activePoll = window.setTimeout?.(() => {
         activePoll = null;
-        void refresh({ force: true, announce: true });
+        void refresh({ force: true, announce: false });
       }, 2500) ?? null;
     }
 
@@ -340,11 +358,13 @@
         if (announce && runtime.env === "android") setMessage(updateStatusLine(currentStatus));
         return currentStatus;
       }
+      const observingDownload = runtime.env === "android" && updateDownloadState(currentStatus) === "active";
       confirmedCurrent = false;
-      render(currentStatus || { updateAvailable: false, selfUpdateEnabled: true }, { busy: true });
-      if (announce) setMessage(t("maintenance.status.checkingserver"));
+      render(currentStatus || { updateAvailable: false, selfUpdateEnabled: true }, { busy: !observingDownload });
+      if (announce && !observingDownload) setMessage(t("maintenance.status.checkingserver"));
       inFlight = (runtime.env === "android" ? runtime.maintenance.updateStatus() : browserUpdateStatus())
         .then((status) => {
+          observationFailures = 0;
           currentStatus = status;
           checkedAt = Date.now();
           confirmedCurrent = !hasNativeAppUpdate(status)
@@ -352,19 +372,24 @@
             && !status?.updateError;
           render(status, { busy: false });
           if (status?.currentVersionName || status?.currentVersionCode) setVersionNote(versionNode(), status);
-          if (announce && runtime.env === "android") setMessage(updateStatusLine(status));
+          if (runtime.env === "android" && (announce || observingDownload || updateDownloadState(status) === "active")) {
+            setMessage(updateStatusLine(status));
+          }
           return status;
         })
         .catch((error) => {
+          if (observingDownload) observationFailures += 1;
           currentStatus = {
             ...currentStatus,
+            downloadObservationFailed: observingDownload && observationFailures >= 3,
             updateAvailable: currentStatus?.updateAvailable === true || browserUpdateAvailable,
             serverReachable: false,
             updateError: error?.message || String(error)
           };
           confirmedCurrent = false;
           render(currentStatus, { busy: false });
-          if (announce) setMessage(t("maintenance.copy.checkfailed"));
+          if (currentStatus.downloadObservationFailed) setMessage(t("maintenance.download.observationfailed"));
+          else if (announce && !observingDownload) setMessage(t("maintenance.copy.checkfailed"));
           return currentStatus;
         })
         .finally(() => {
@@ -384,6 +409,9 @@
     }
 
     async function runActivation() {
+      // An unreadable transfer may still be running. This action reconnects to
+      // its status; it must never enqueue another APK or ask for installation.
+      if (currentStatus?.downloadObservationFailed) return refresh({ force: true, announce: false });
       if (runtime.env !== "android") {
         if (!currentStatus?.updateAvailable) return refresh({ force: true, announce: false });
         // Finish a background check before giving the update exclusive UI ownership.
@@ -423,8 +451,11 @@
               const bytes = Math.max(0, Number(message.bytes) || 0);
               const totalBytes = Math.max(0, Number(message.totalBytes) || 0);
               phase = totalBytes > 0 && bytes >= totalBytes ? "verifying" : "downloading";
-              currentStatus = { ...status, downloadActive: true, downloadReady: false, readyToInstall: false,
-                downloadState: "downloading", partialBytes: bytes, latestBytes: totalBytes, downloadProgress: 0 };
+              currentStatus = { ...currentStatus, ...status, ...message,
+                downloadObservationFailed: message.downloadObservationFailed === true,
+                downloadActive: message.downloadActive !== false, downloadReady: false, readyToInstall: false,
+                downloadState: message.downloadState || "downloading", partialBytes: bytes,
+                latestBytes: totalBytes, downloadProgress: totalBytes > 0 ? bytes / totalBytes * 100 : 0 };
               render();
             }
             const progress = updateProgressMessage(message, (bytes) => `${Math.round(Number(bytes || 0) / 1048576)} MB`);
@@ -442,9 +473,12 @@
         checkedAt = Date.now();
         setMessage(updateResultMessage(result));
         return result;
-      } catch {
-        currentStatus = status;
-        setMessage(t("maintenance.copy.failed"));
+      } catch (error) {
+        // Keep the bytes and native diagnosis from this attempt. Restoring the
+        // pre-download manifest erased progress and hid why the transfer stopped.
+        currentStatus = { ...currentStatus, downloadActive: false, downloadReady: false, readyToInstall: false,
+          downloadState: "failed", downloadError: error?.message || currentStatus?.downloadError || "" };
+        setMessage(updateStatusLine(currentStatus));
       }
     }
 
@@ -572,6 +606,7 @@
   }
 
   function updateStatusLine(status) {
+    if (status?.downloadObservationFailed) return t("maintenance.download.observationfailed");
     const versionName = status?.currentVersionName || t("maintenance.version.unknownvalue");
     const versionCode = status?.currentVersionCode || "?";
     if (status?.selfUpdateEnabled === false) {
@@ -581,6 +616,8 @@
       const latestName = status.latestVersionName || t("maintenance.version.latestvalue");
       const latestCode = status.latestVersionCode || "?";
       const downloadState = updateDownloadState(status);
+      const waitMessage = downloadWaitMessage(status);
+      if (waitMessage) return waitMessage;
       if (downloadState === "ready") {
         return t("maintenance.status.downloaded", { version: latestName, code: latestCode });
       }
@@ -599,7 +636,7 @@
         });
       }
       if (downloadState === "failed") {
-        return t("maintenance.status.failed", { version: latestName, code: latestCode });
+        return [t("maintenance.status.failed", { version: latestName, code: latestCode }), status.downloadError].filter(Boolean).join(" ");
       }
       return t("maintenance.status.available", {
         latest: latestName,
@@ -634,6 +671,8 @@
 
   function updateProgressMessage(message, formatBytes) {
     if (message?.kind === "progress" && message.phase === "download") {
+      const waitMessage = downloadWaitMessage(message);
+      if (waitMessage) return waitMessage;
       const total = Number(message.totalBytes || 0);
       const bytes = Number(message.bytes || 0);
       if (total > 0) {

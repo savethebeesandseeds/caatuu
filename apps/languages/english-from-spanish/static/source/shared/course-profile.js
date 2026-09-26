@@ -47,7 +47,7 @@
       schemaVersion: 1,
       locale: "es-ES",
       direction: "ltr",
-      revision: "interface-es-13",
+      revision: "interface-es-14",
       catalog: "/language-runtime/static/data/interface/es.v1.json"
     },
     learnerBasePreview: true,
@@ -148,7 +148,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-38",
+            revision: "interface-en-39",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -205,7 +205,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-38",
+            revision: "interface-en-39",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -266,7 +266,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-38",
+            revision: "interface-en-39",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -327,7 +327,7 @@
             schemaVersion: 1,
             locale: "es-ES",
             direction: "ltr",
-            revision: "interface-es-13",
+            revision: "interface-es-14",
             catalog: "/language-runtime/static/data/interface/es.v1.json"
           },
           targetLanguage: {
@@ -388,7 +388,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-38",
+            revision: "interface-en-39",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {

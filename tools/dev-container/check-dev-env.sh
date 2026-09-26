@@ -59,6 +59,7 @@ packages = [
     "huggingface_hub",
     "safetensors",
     "sentencepiece",
+    "PIL",
 ]
 for package in packages:
     module = importlib.import_module(package)
@@ -85,62 +86,10 @@ cd /workspace/tools/czech-ml
 npm run check
 python scripts/ml/train_lora.py --help >/tmp/caatuu-train-lora-help.txt
 python scripts/ml/export_webllm.py --help >/tmp/caatuu-export-webllm-help.txt
-/opt/caatuu-mlc/bin/python scripts/ml/export_webllm.py --stage status >/tmp/caatuu-export-webllm-status.json
+# The status stage refreshes an export manifest; environment checks must not.
+/opt/caatuu-mlc/bin/python scripts/ml/export_webllm.py --help >/tmp/caatuu-export-webllm-mlc-help.txt
 
 cd /workspace/tools/on-device-models
 python scripts/resolve-model-config.py >/tmp/caatuu-phone-model-config.env
 
-echo
-echo "== Animated Fabric environment =="
-lock_snapshot="/opt/caatuu-dev/state/animated-fabric-linux-py312.txt"
-if [[ ! -f "$lock_snapshot" ]] && [[ -f /tmp/animated-fabric-linux-py312.txt ]]; then
-  lock_snapshot="/tmp/animated-fabric-linux-py312.txt"
-fi
-if [[ ! -f "$lock_snapshot" ]]; then
-  echo "The provisioned Animated Fabric dependency lock is missing." >&2
-  exit 1
-fi
-cmp "$lock_snapshot" \
-  /workspace/apps/animated-fabric/constraints/linux-py312.txt || {
-  echo "The provisioned Animated Fabric dependency lock differs from the canonical application lock." >&2
-  exit 1
-}
-af_python_version="$(caatuu-animated-fabric python --version 2>&1)"
-printf "%-24s %s\n" "python" "$af_python_version"
-[[ "$af_python_version" == Python\ 3.12.* ]] || {
-  echo "Animated Fabric must use the baked Python 3.12 environment." >&2
-  exit 1
-}
-caatuu-animated-fabric python - <<'PY'
-import importlib
-
-for package in [
-    "cv2",
-    "hypothesis",
-    "mypy",
-    "numpy",
-    "PIL",
-    "platformdirs",
-    "pydantic",
-    "PySide6",
-    "pytest",
-    "pytestqt",
-    "rich",
-    "ruff",
-    "typer",
-]:
-    importlib.import_module(package)
-    print(f"{package}: ready")
-PY
-caatuu-animated-fabric python -m pip check
-caatuu-animated-fabric python -m animated_fabric --help >/tmp/animated-fabric-help.txt
-caatuu-animated-fabric python -m animated_fabric doctor >/tmp/animated-fabric-doctor.txt
-animated-fabric --help >/tmp/animated-fabric-console-help.txt
-caatuu-animated-fabric python - <<'PY'
-from animated_fabric.gui.app import main
-
-assert callable(main)
-PY
-command -v animated-fabric-gui >/dev/null
-
-echo "Caatuu dev environment, including Animated Fabric, is ready."
+echo "Caatuu dev environment is ready."

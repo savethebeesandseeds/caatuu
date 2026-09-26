@@ -2,7 +2,7 @@
 """Build the small Home PNGs without changing the original launcher artwork.
 
 Run with the existing, pinned Pillow environment in caatuu-dev:
-  docker exec -w /workspace caatuu-dev caatuu-animated-fabric python \
+  docker exec -w /workspace caatuu-dev python \
     /workspace/apps/language-runtime/tooling/build-home-art.py
 Append --check to verify the committed runtime files without writing them.
 """

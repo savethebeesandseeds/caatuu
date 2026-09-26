@@ -118,7 +118,6 @@ docker run --detach --interactive --tty `
   --env HF_HUB_ENABLE_HF_TRANSFER=1 `
   --env HF_XET_HIGH_PERFORMANCE=1 `
   --env PYTHONUNBUFFERED=1 `
-  --env QT_QPA_PLATFORM=offscreen `
   --env CAATUU_REQUIRE_NVIDIA=0 `
   debian:latest `
   sleep infinity

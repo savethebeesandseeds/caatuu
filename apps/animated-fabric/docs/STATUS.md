@@ -1,10 +1,23 @@
 # Animated Fabric status
 
+**Current state:** Retired from active Caatuu pipelines on 2026-09-26.
+
+The dedicated CI workflows, root Compose workers, GUI override, and automatic
+development-environment provisioning have been removed. Source, tests,
+artwork, approvals, provenance, and existing local research outputs are
+preserved. The specification and execution instructions describe the
+historical application; no ticket is active or authorized to resume.
+
+Retirement changes are confined to orchestration and documentation. They do
+not change or revalidate the retained rendering, animation, or model results.
+
+## Historical implementation status
+
 **Target version:** 0.1.0
 
-**Current state:** Milestones M0 through M5 plus AF-045 and AF-055 complete; the local reconstruction baseline is a GO and AF-056 remains paused pending a scoped reconstruction-to-rig decision
+**State before retirement:** Milestones M0 through M5 plus AF-045 and AF-055 complete; the local reconstruction baseline was a GO and AF-056 was paused pending a scoped reconstruction-to-rig decision
 
-**Last updated:** 2026-08-03
+**Last implementation update:** 2026-08-03
 
 ## Completed work
 
@@ -1331,7 +1344,7 @@ Infrastructure and cutout checks retained from the preceding M0/M1 verification 
 - [ ] M8 Quadrupeds
 - [ ] M9 Cut Studio, after the MVP
 
-## Next permitted work
+## Historical next planned work (inactive)
 
 - Define and approve a bounded post-AF-045 ticket for candidate scoring, normalization, joint
   estimation, skin-weight proposal, and deformation feasibility. AF-056 remains paused until that

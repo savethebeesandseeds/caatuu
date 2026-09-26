@@ -6,7 +6,6 @@ readonly python_sha256="5c8462af5790baf43a321a1559dbe0db06d1be4300fb85fb53c40060
 readonly python_prefix="/opt/cpython312"
 readonly ml_environment="/opt/caatuu-ml"
 readonly mlc_environment="/opt/caatuu-mlc"
-readonly animated_fabric_environment="/opt/animated-fabric"
 readonly setup_state_root="/opt/caatuu-dev/state"
 
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
@@ -52,11 +51,8 @@ fi
 required_sources=(
   "$script_dir/setup.sh"
   "$script_dir/tools/dev-container/requirements-ml.txt"
-  "$script_dir/apps/animated-fabric/constraints/linux-py312.txt"
   "$script_dir/tools/dev-container/check-dev-env.sh"
   "$script_dir/tools/dev-container/check-gpu-readiness.sh"
-  "$script_dir/tools/dev-container/animated-fabric.sh"
-  "$script_dir/tools/dev-container/animated-fabric-entrypoint.sh"
   "$script_dir/apps/android/tooling/setup-jdk.sh"
   "$script_dir/apps/android/tooling/setup-sdk.sh"
   "$script_dir/apps/android/tooling/versions.env"
@@ -86,16 +82,12 @@ setup_is_complete() {
   [[ -x "$python_prefix/bin/python3.12" ]] || return 1
   [[ -x "$ml_environment/bin/python" ]] || return 1
   [[ -x "$mlc_environment/bin/python" ]] || return 1
-  [[ -x "$animated_fabric_environment/bin/python" ]] || return 1
   command -v node >/dev/null 2>&1 || return 1
   command -v cargo >/dev/null 2>&1 || return 1
   [[ -x /opt/jdk-17/bin/java ]] || return 1
   [[ -x "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" ]] || return 1
   [[ -x "$ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION/aapt2" ]] || return 1
   [[ -x "$GRADLE_HOME/bin/gradle" ]] || return 1
-  cmp --silent \
-    "$setup_state_root/animated-fabric-linux-py312.txt" \
-    "$script_dir/apps/animated-fabric/constraints/linux-py312.txt" || return 1
 }
 
 if [[ "$force_setup" -eq 0 ]] && setup_is_complete; then
@@ -125,29 +117,14 @@ apt_packages=(
   jq
   less
   libbz2-dev
-  libdbus-1-3
-  libegl1
   libexpat1-dev
   libffi-dev
-  libfontconfig1
-  libfreetype6
   libgdbm-dev
-  libgl1
-  libglib2.0-0
   liblzma-dev
   libncursesw5-dev
   libreadline-dev
   libsqlite3-dev
   libssl-dev
-  libxcb-cursor0
-  libxcb-icccm4
-  libxcb-image0
-  libxcb-keysyms1
-  libxcb-render-util0
-  libxcb-render0
-  libxcb-shape0
-  libxcb-util1
-  libxkbcommon-x11-0
   make
   nano
   ninja-build
@@ -167,7 +144,6 @@ apt_packages=(
   vim-tiny
   wget
   xz-utils
-  xvfb
   zip
   zlib1g-dev
 )
@@ -292,24 +268,11 @@ bash "$script_dir/apps/android/tooling/setup-jdk.sh"
 echo "==> Installing the Android SDK and Gradle"
 bash "$script_dir/apps/android/tooling/setup-sdk.sh"
 
-echo "==> Installing the Animated Fabric environment"
-ensure_venv "$animated_fabric_environment"
-"$animated_fabric_environment/bin/python" -m pip install --no-cache-dir \
-  -r "$script_dir/apps/animated-fabric/constraints/linux-py312.txt"
-
 echo "==> Installing Caatuu helper commands"
 install -m 0755 "$script_dir/tools/dev-container/check-dev-env.sh" \
   /usr/local/bin/check-caatuu-dev
 install -m 0755 "$script_dir/tools/dev-container/check-gpu-readiness.sh" \
   /usr/local/bin/check-caatuu-gpu-readiness
-install -m 0755 "$script_dir/tools/dev-container/animated-fabric.sh" \
-  /usr/local/bin/caatuu-animated-fabric
-install -m 0755 "$script_dir/tools/dev-container/animated-fabric-entrypoint.sh" \
-  /usr/local/bin/caatuu-animated-fabric-entrypoint
-install -m 0644 "$script_dir/apps/animated-fabric/constraints/linux-py312.txt" \
-  "$setup_state_root/animated-fabric-linux-py312.txt"
-ln -sfn /usr/local/bin/caatuu-animated-fabric-entrypoint /usr/local/bin/animated-fabric
-ln -sfn /usr/local/bin/caatuu-animated-fabric-entrypoint /usr/local/bin/animated-fabric-gui
 ln -sfn "$ml_environment/bin/python" /usr/local/bin/python
 ln -sfn "$ml_environment/bin/pip" /usr/local/bin/pip
 ln -sfn "$CARGO_HOME/bin/cargo" /usr/local/bin/cargo
@@ -336,7 +299,6 @@ printf '%s\n' \
   'export HF_HUB_ENABLE_HF_TRANSFER="${HF_HUB_ENABLE_HF_TRANSFER:-1}"' \
   'export HF_XET_HIGH_PERFORMANCE="${HF_XET_HIGH_PERFORMANCE:-1}"' \
   'export PYTHONUNBUFFERED="${PYTHONUNBUFFERED:-1}"' \
-  'export QT_QPA_PLATFORM="${QT_QPA_PLATFORM:-offscreen}"' \
   'export CAATUU_REQUIRE_NVIDIA="${CAATUU_REQUIRE_NVIDIA:-0}"' \
   > "$profile_file"
 chmod 0644 "$profile_file"

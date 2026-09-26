@@ -453,6 +453,194 @@ test("a download started by an earlier page becomes installable without reopenin
   assert.equal(timers.size, 0);
 });
 
+test("recovered download polls and resume keep progress visible without announcing server checks", async () => {
+  const timers = new Map();
+  const h = harness({ timers });
+  const home = h.document.createElement("p");
+  home.id = "homeUpdateStatus";
+  h.document.body.append(home);
+  const controller = h.ui.getUpdateController();
+  const active = { selfUpdateEnabled: true, updateAvailable: true, currentVersionCode: 1,
+    latestVersionCode: 2, downloadActive: true, downloadState: "downloading", partialBytes: 20, latestBytes: 100 };
+  const initial = controller.refresh({ announce: false });
+  h.reply(h.requests[0], active);
+  await initial;
+  const status = h.document.getElementById("maintenanceStatus");
+  assert.match(status.textContent, /20%/u);
+  const beforePoll = status.textContent;
+  const [id, poll] = [...timers].find(([, timer]) => timer.delay === 2500);
+  timers.delete(id);
+  poll.callback();
+  assert.equal(status.textContent, beforePoll, "waiting for the progress query must not replace the download message");
+  assert.equal(h.document.getElementById("updateApp").getAttribute("aria-busy"), "false");
+  // Settings and resume join the pending observation instead of adding checks.
+  h.document.dispatchEvent({ type: "caatuu:settings-open" });
+  h.document.visibilityState = "visible";
+  h.document.dispatchEvent({ type: "visibilitychange" });
+  assert.equal(h.requests.length, 2);
+  h.reply(h.requests[1], { ...active, partialBytes: 40 });
+  await flush();
+  assert.match(status.textContent, /40%/u);
+  assert.equal(home.textContent, status.textContent);
+  const next = controller.refresh({ force: true });
+  assert.match(status.textContent, /40%/u, "even an explicit refresh observes the active transfer quietly");
+  h.context.CaatuuNative.receive({ id: h.requests[2].id, kind: "error", message: "Temporary bridge error" });
+  await next;
+  assert.match(status.textContent, /40%/u, "an observation error does not erase actual download progress");
+  assert.ok([...timers.values()].some(timer => timer.delay === 2500), "observation retries remain scheduled");
+  const done = controller.refresh({ force: true, announce: false });
+  h.reply(h.requests[3], { ...active, downloadActive: false, downloadState: "ready", downloadReady: true, downloadedVersionCode: 2 });
+  await done;
+  assert.equal(status.textContent, h.ui.updateStatusLine({ ...active, downloadActive: false, downloadState: "ready", downloadReady: true, downloadedVersionCode: 2 }));
+  assert.equal(h.document.getElementById("updateApp").disabled, false);
+  assert.equal(timers.size, 0);
+});
+
+test("queued, paused and recovery events show the native transfer state on Home and Settings", async () => {
+  const h = harness();
+  const home = h.document.createElement("button");
+  home.setAttribute("data-app-update-control", "");
+  h.document.body.append(home);
+  const activation = h.ui.getUpdateController().activate();
+  h.reply(h.requests[0], { selfUpdateEnabled: true, updateAvailable: true, currentVersionCode: 1, latestVersionCode: 2 });
+  await flush();
+  const download = h.requests[1];
+  for (const [downloadState, downloadWaitReason, messageKey] of [
+    ["pending", "", "pending"], ["paused", "network", "network"], ["paused", "wifi", "wifi"],
+    ["paused", "retry", "retry"], ["recovering", "", "recovering"]
+  ]) {
+    h.context.CaatuuNative.receive({ id: download.id, kind: "progress", phase: "download",
+      bytes: 0, totalBytes: 100, downloadState, downloadWaitReason, downloadActive: true });
+    const expected = englishInterfaceContent.t(`maintenance.download.${messageKey}`);
+    assert.equal(home.textContent, expected);
+    assert.equal(h.document.getElementById("updateApp").textContent, expected);
+    assert.equal(h.document.getElementById("maintenanceStatus").textContent, expected);
+    assert.equal(home.disabled, true);
+  }
+  h.context.CaatuuNative.receive({ id: download.id, kind: "progress", phase: "download",
+    bytes: 30, totalBytes: 100, downloadState: "recovering", downloadActive: true });
+  assert.match(home.textContent, /30%/u);
+  assert.match(h.document.getElementById("maintenanceStatus").textContent, /30.0%/u,
+    "recovery must display advancing bytes, not a permanent waiting label");
+  h.context.CaatuuNative.receive({ id: download.id, kind: "error", message: "Download stopped after bounded retries." });
+  await activation;
+  assert.equal(home.disabled, false, "an exhausted transfer must leave an enabled retry action");
+  assert.equal(home.textContent, englishInterfaceContent.t("maintenance.action.retryupdate"));
+  assert.match(h.document.getElementById("maintenanceStatus").textContent, /bounded retries/u);
+});
+
+test("paused managed transfers remain observed until Android resumes or reports failure", async () => {
+  const timers = new Map();
+  const h = harness({ timers });
+  const checking = h.ui.getUpdateController().refresh({ announce: false });
+  h.reply(h.requests[0], { selfUpdateEnabled: true, updateAvailable: true, currentVersionCode: 1,
+    latestVersionCode: 2, downloadActive: true, downloadState: "paused", downloadWaitReason: "wifi" });
+  await checking;
+  assert.equal(h.document.getElementById("maintenanceStatus").textContent, englishInterfaceContent.t("maintenance.download.wifi"));
+  assert.ok([...timers.values()].some(timer => timer.delay === 2500));
+});
+
+test("persistent observation errors stop polling and offer a status recheck without starting another download", async () => {
+  const timers = new Map();
+  const h = harness({ timers });
+  const controller = h.ui.getUpdateController();
+  const active = { selfUpdateEnabled: true, updateAvailable: true, currentVersionCode: 1,
+    latestVersionCode: 2, downloadActive: true, downloadState: "downloading", partialBytes: 12, latestBytes: 100 };
+  const initial = controller.refresh({ announce: false });
+  h.reply(h.requests[0], active);
+  await initial;
+  for (let i = 0; i < 3; i += 1) {
+    const [id, poll] = [...timers].find(([, timer]) => timer.delay === 2500);
+    timers.delete(id);
+    poll.callback();
+    h.context.CaatuuNative.receive({ id: h.requests.at(-1).id, kind: "error", message: "Download provider unavailable" });
+    await flush();
+  }
+  assert.equal(timers.size, 0, "a permanent observation failure must not poll forever");
+  const button = h.document.getElementById("updateApp");
+  assert.equal(button.disabled, false);
+  assert.equal(button.textContent, englishInterfaceContent.t("maintenance.download.recheck"));
+  const reconnect = controller.activate();
+  assert.equal(h.requests.at(-1).type, "update_app_status");
+  h.reply(h.requests.at(-1), { ...active, partialBytes: 60 });
+  await reconnect;
+  assert.equal(h.requests.some(request => request.type === "update_app"), false);
+  assert.match(button.textContent, /60%/u);
+  assert.equal(button.disabled, true);
+  assert.ok([...timers.values()].some(timer => timer.delay === 2500));
+});
+
+test("recovered status polling follows queued, paused, recovering and ready states without discovery messages", async () => {
+  const timers = new Map();
+  const h = harness({ timers });
+  const controller = h.ui.getUpdateController();
+  const available = { selfUpdateEnabled: true, updateAvailable: true, currentVersionCode: 1, latestVersionCode: 2 };
+  let pending = controller.refresh({ announce: false });
+  for (const [downloadState, downloadWaitReason, partialBytes] of [
+    ["pending", "system", 0], ["paused", "network", 0], ["downloading", "", 15],
+    ["recovering", "recovering", 15], ["ready", "", 100]
+  ]) {
+    const status = { ...available, downloadState, downloadWaitReason, partialBytes, latestBytes: 100,
+      downloadActive: downloadState !== "ready", downloadReady: downloadState === "ready" };
+    h.reply(h.requests.at(-1), status);
+    await pending;
+    await flush();
+    const message = h.document.getElementById("maintenanceStatus").textContent;
+    assert.equal(message, h.ui.updateStatusLine(status));
+    if (downloadState !== "ready") {
+      const [id, poll] = [...timers].find(([, timer]) => timer.delay === 2500);
+      timers.delete(id);
+      poll.callback();
+      assert.equal(h.document.getElementById("maintenanceStatus").textContent, message);
+      pending = controller.refresh({ force: true });
+    }
+  }
+  assert.equal(timers.size, 0);
+  assert.equal(h.document.getElementById("updateApp").disabled, false);
+  assert.ok(h.requests.every(request => request.type === "update_app_status"));
+});
+
+test("an actual retry after download failure starts one operation and becomes installable", async () => {
+  const h = harness();
+  const controller = h.ui.getUpdateController();
+  const first = controller.activate();
+  h.reply(h.requests[0], { selfUpdateEnabled: true, updateAvailable: true, currentVersionCode: 1, latestVersionCode: 2 });
+  await flush();
+  h.context.CaatuuNative.receive({ id: h.requests[1].id, kind: "progress", phase: "download", bytes: 42, totalBytes: 100 });
+  h.context.CaatuuNative.receive({ id: h.requests[1].id, kind: "error", message: "Connection stopped" });
+  await first;
+  const retry = controller.activate();
+  const duplicate = controller.activate();
+  await flush();
+  assert.deepEqual(h.requests.map(request => request.type), ["update_app_status", "update_app", "update_app"]);
+  h.reply(h.requests[2], { action: "installer", downloadedVersionCode: 2, verified: true });
+  await Promise.all([retry, duplicate]);
+  assert.equal(h.document.getElementById("updateApp").disabled, false);
+  assert.equal(h.document.getElementById("maintenanceStatus").textContent, h.ui.updateResultMessage({ action: "installer" }));
+});
+
+test("a native progress-query failure releases the live UI for status-only reconnection", async () => {
+  const h = harness({ timers: new Map() });
+  const controller = h.ui.getUpdateController();
+  const activation = controller.activate();
+  const available = { selfUpdateEnabled: true, updateAvailable: true, currentVersionCode: 1, latestVersionCode: 2 };
+  h.reply(h.requests[0], available);
+  await flush();
+  h.context.CaatuuNative.receive({ id: h.requests[1].id, kind: "progress", phase: "download", bytes: 12, totalBytes: 100,
+    downloadState: "paused", downloadWaitReason: "status", downloadActive: true, downloadObservationFailed: true });
+  h.context.CaatuuNative.receive({ id: h.requests[1].id, kind: "error", message: "Unable to read Android download status" });
+  await activation;
+  const button = h.document.getElementById("updateApp");
+  assert.equal(button.disabled, false);
+  assert.equal(button.textContent, englishInterfaceContent.t("maintenance.download.recheck"));
+  const recheck = controller.activate();
+  assert.equal(h.requests.at(-1).type, "update_app_status");
+  h.reply(h.requests.at(-1), { ...available, downloadActive: true, downloadState: "downloading", partialBytes: 24, latestBytes: 100 });
+  await recheck;
+  assert.equal(h.requests.filter(request => request.type === "update_app").length, 1);
+  assert.match(button.textContent, /24%/u);
+});
+
 test("installer success survives a subsequent status failure", async () => {
   const h = harness();
   const activation = h.ui.getUpdateController().activate();

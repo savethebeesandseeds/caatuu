@@ -20,7 +20,7 @@ if grep -Eq '^[[:space:]]*CAATUU_ENABLE_ANDROID_DEBUG_DOWNLOADS[[:space:]]*=[[:s
   cat >&2 <<'EOF'
 Public Android debug downloads are enabled, so a generic sideload build would
 overwrite the live manifest with an invalid update origin. Use:
-  bash apps/android/tooling/publish-public-debug.sh
+  bash apps/android/tooling/publish-public-debug.sh --local-build
 or disable CAATUU_ENABLE_ANDROID_DEBUG_DOWNLOADS before building locally.
 EOF
   exit 1

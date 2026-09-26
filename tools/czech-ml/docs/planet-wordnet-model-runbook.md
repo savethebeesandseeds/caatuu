@@ -1,6 +1,10 @@
 # Planet Word Net Model Runbook
 
-This is the repeatable path for training and publishing a Czech Planet Word Net utility model. The goal is narrow: given one selected word, return one Czech sentence that contains that exact word.
+This preserves the training and publishing workflow for the historical Czech
+Planet Word Net utility model: given one selected word, return one Czech
+sentence containing that word. Its model configurations are now deprecated;
+the [on-device model guide](../../on-device-models/README.md) describes the
+active models. Example run IDs below record the earlier experiment.
 
 Keep the base model and every trained adapter separate. Do not overwrite `cstinyllama-1.2b-base` or a previous run.
 
@@ -221,35 +225,29 @@ Keep the user-visible chat message as the raw word.
 
 ## 8. Build And Verify APK
 
-Build:
+For an explicitly requested local debug build, reuse the existing development
+container and its provisioned Android toolchain:
 
 ```powershell
-docker run --rm -i `
-  -v C:\Work\caatuu:/workspace `
-  -v caatuu-android-sdk:/opt/android-sdk `
-  -v caatuu-gradle-dist:/opt/gradle `
-  -v caatuu-gradle-cache:/root/.gradle `
-  -w /workspace `
-  debian:latest `
-  bash -lc "bash apps/android/tooling/setup-container.sh && bash apps/android/tooling/setup-sdk.sh && bash apps/android/tooling/build-debug-apk.sh"
+docker exec -w /workspace caatuu-dev bash apps/android/tooling/build-debug-apk.sh
 ```
 
-Verify:
+This produces a local sideload artifact. Public Android publication and update
+verification follow the current
+[release operations guide](../../../docs/ANDROID_RELEASE_OPERATIONS.md);
+the earlier public-debug endpoints are retired.
+
+After a separately authorized model publication, verify its catalog and bytes:
 
 ```powershell
-Invoke-WebRequest http://127.0.0.1:8765/android/caatuu-debug.json -UseBasicParsing
-Invoke-WebRequest https://caatuu.waajacu.com/android/caatuu-debug.json -UseBasicParsing
 Invoke-WebRequest https://caatuu.waajacu.com/cz/data/models/phone-bench/models.json -UseBasicParsing
 Invoke-WebRequest https://caatuu.waajacu.com/cz/data/models/phone-bench/<model-file>.gguf -Method Head -UseBasicParsing
 ```
 
-Check these fields before telling the app to update:
+Check model metadata against the published catalog and per-model manifest:
 
 ```text
-version_code
-version_name
-apk sha256
 model bytes
 model sha256
-HTTP 200 from local and public URLs
+HTTP 200 from the public model URLs
 ```

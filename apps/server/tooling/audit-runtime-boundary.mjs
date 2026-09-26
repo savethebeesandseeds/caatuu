@@ -1898,6 +1898,7 @@ function auditAndroidSource() {
   const staticAssetManager = readFileSync(staticAssetManagerPath, "utf8");
   const bridge = readFileSync(bridgePath, "utf8");
   const appUpdateManager = readFileSync(appUpdateManagerPath, "utf8");
+  const appUpdateTransfer = readFileSync(join(workspaceRoot, "apps/android/app/src/main/java/com/caatuu/android/AppUpdateTransfer.kt"), "utf8");
   const filePaths = readFileSync(filePathsPath, "utf8");
   const gradle = readFileSync(gradlePath, "utf8");
   const playManifest = readFileSync(playManifestPath, "utf8");
@@ -2082,7 +2083,10 @@ function auditAndroidSource() {
   assert(appUpdateManager.includes('.addRequestHeader("Cache-Control", "no-cache")'), "Android updater should bypass cached APK responses");
   assert(appUpdateManager.includes("if (managed?.status == DownloadManager.STATUS_SUCCESSFUL)"), "Android updater should promote a managed destination only after DownloadManager reports completion");
   assert(!appUpdateManager.includes("stagedFile.length() == stored.target.bytes"), "Android updater should never infer completion from a potentially preallocated file length");
-  assert(appUpdateManager.includes("integrityRetryCount < MAX_UPDATE_INTEGRITY_RETRIES"), "Android updater should retry one clean download after a transport integrity failure");
+  assert(appUpdateManager.includes("AppUpdateTransfer().download(")
+    && appUpdateTransfer.includes("repeat(attempts)")
+    && appUpdateTransfer.includes("clock() - started >= deadlineMillis"),
+  "Android update recovery should use bounded transfer attempts and an elapsed-time deadline");
   assert(appUpdateManager.includes("val raced = reconcileLocalStateLocked()"), "Android updater should reconcile again inside its retry mutex before replacing a download");
   assert(appUpdateManager.includes("managedDownloadIdsUnderRootLocked(managedRoot).toMutableSet()"), "Android updater should discover orphaned managed downloads before a clean restart");
   assert(appUpdateManager.includes("downloadManager.remove(*downloadIds.toLongArray())"), "Android updater should cancel orphaned managed downloads before deleting their files");
@@ -2097,7 +2101,10 @@ function auditAndroidSource() {
   assert(appUpdateManager.includes("appContext.getSharedPreferences(UPDATE_PREFS"), "Android updater should persist its target and managed download id");
   assert(appUpdateManager.includes('File(appContext.filesDir, "updates")'), "verified update APKs should survive cache eviction");
   assert(filePaths.includes("<files-path") && filePaths.includes('path="updates/"'), "FileProvider should expose persistent verified update APKs");
-  assert(/downloadActive = state == DOWNLOAD_STATE_DOWNLOADING,\s*\n/.test(appUpdateManager), "paused updates should not be reported as actively downloading");
+  assert(appUpdateManager.includes("downloadActive = state in ACTIVE_DOWNLOAD_STATES")
+    && appUpdateManager.includes('DownloadManager.PAUSED_WAITING_FOR_NETWORK -> "network"')
+    && appUpdateManager.includes('put("downloadWaitReason", snapshot.waitReason)'),
+  "Android updater should retain ownership of paused jobs while exposing their actual waiting reason");
   assert(appUpdateManager.includes('put("downloadProgress", progress)'), "Android update status should expose progress under the shared UI field name");
   assert(bridge.includes('"update_app_status" -> emitDone(id, appUpdateManager.statusJson())'), "update status should remain readable while an update operation owns its mutex");
   assert(/LLAMA_CPP_COMMIT="\$\{LLAMA_CPP_COMMIT:-[0-9a-f]{40}\}"/.test(androidVersions), "Android versions should pin llama.cpp to a full commit hash");

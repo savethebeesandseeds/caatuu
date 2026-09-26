@@ -1,5 +1,18 @@
 # Animated Fabric
 
+**Retired on 2026-09-26.** This application is no longer used by Caatuu.
+Its source, tests, original artwork, approvals, and provenance are retained at
+their existing paths. Its dedicated CI workflows, root Compose workers, GUI
+override, and automatic development-environment provisioning have been removed.
+Existing local research outputs and Docker data are preserved.
+
+The specification, milestone plan, setup instructions, and commands below are
+historical reference and do not describe a maintained or provisioned workflow.
+Do not run the old commands or resume a ticket without an explicit request to
+reactivate this application and a reviewed container plan.
+
+## Historical application documentation
+
 Animated Fabric is a Linux-first desktop application and Python library for turning prepared 2D
 image layers or explicitly approved, bounded 3D prerender sources into reusable animation frames
 and spritesheets.

@@ -29,9 +29,8 @@ repository history only. The runtime does not mount it; `/zh-hans/*` redirects
 to the canonical `/zh/*` course and deprecated trainer routes fail closed.
 
 The local browser/server container does not contain the training stack. Model
-training, export, Android builds, image work, and animation tooling use the
-shared `caatuu-dev` environment plus narrowly bounded Compose profiles so daily
-runtime startup remains small and reproducible. Public hosting has no
+training, export, Android builds, and image work use the shared `caatuu-dev`
+environment so daily runtime startup remains small and reproducible. Public hosting has no
 long-running workstation container or Cloudflare Tunnel.
 
 ## Application ownership
@@ -108,11 +107,11 @@ other public path bypasses the Worker and goes to GitHub Pages.
 
 ### `apps/animated-fabric`
 
-Is a Linux-first desktop application and Python library for layered 2D
-animation. It retains its own specification, tests, and Python dependency
-boundary while using the shared `caatuu-dev` environment and root Compose
-project. Caatuu may consume deliberate exports; it does not import the Python
-package at runtime.
+Retains the retired layered-2D animation application, experiments, source
+artwork, approvals, and provenance. Its specifications and commands are
+historical reference. Animated Fabric has no active CI, Compose workers, or
+development-environment provisioning, and Caatuu does not import its Python
+package at runtime. See its [retirement notice](../apps/animated-fabric/README.md).
 
 ## Supporting areas
 
@@ -131,9 +130,8 @@ profiles. Files under `compose/` are narrow overrides for exceptional modes.
 
 | File | Responsibility |
 | --- | --- |
-| `compose.yaml` | Local runtime plus opt-in `tools`, `dev`, and specialist profiles; no public tunnel |
+| `compose.yaml` | Local runtime plus opt-in `tools` and `dev` profiles; no public tunnel |
 | `compose/dev-gpu.yaml` | Adds GPU access to the same `caatuu-dev` service and project |
-| `compose/dev-gui.yaml` | Adds native-X11 forwarding to the same `caatuu-dev` service and project |
 | `compose/phone-debug.yaml` | Explicit trusted-LAN exposure for phone debugging |
 
 Profiles keep build and ML services out of normal startup. Explicit overrides

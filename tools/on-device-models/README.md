@@ -1,23 +1,22 @@
 # On-device models
 
-This folder is for the first honest offline-phone test of the Czech model.
-
-The current browser path uses WebLLM and needs WebGPU. This benchmark uses
-`llama.cpp` through Termux on Android so the phone can run the model locally
-without the browser WebGPU requirement.
+This folder prepares the Czech GGUF models used by the Android app's optional
+Generative mode and preserves manual Termux benchmarks. The Android runtime
+uses `llama.cpp`; its vendor checkout is also owned here.
 
 ## Model Configs
 
-Model preparation is driven by `model-configs.json`. The current entries are:
+Model preparation is driven by [`model-configs.json`](model-configs.json).
+Its active models are downloaded on demand, rather than during initial setup:
 
-- `qwen3-lora-003-hard`: legacy/deprecated Caatuu Czech Qwen3 LoRA model.
-- `cstinyllama-1.2b-base`: legacy/deprecated raw `BUT-FIT/CSTinyLlama-1.2B` baseline.
-- `cstinyllama-1.2b-planet-wordnet-002-copy`: legacy/deprecated Planet Word Net CSTinyLlama LoRA, backed by the 003 clean SFT adapter.
+- `qwen3-1.7b-translation-cs-en-001`: Czech-to-English translation.
+- `cstinyllama-1.2b-czech-word-sentence-001`: Word World sentence generation
+  and the configured default.
 
-Do not treat these entries as the recommended future generation models. They
-remain published so existing app installs and tests keep working while the
-curriculum translation and word-sentence LoRAs are evaluated, merged, quantized,
-and intentionally wired into the app.
+The Qwen3 003 Hard, raw CSTinyLlama, Planet Word Net and CSTinyLlama translation
+entries are deprecated historical configurations. The app's generated model
+catalog contains the active models; deprecated configuration entries are not
+recommendations or evidence that a download remains publicly available.
 
 Use `scripts/prepare-model.sh <model-key>` so the Hugging Face source,
 artifact path, basename, license metadata, and manifest stay consistent.
@@ -32,12 +31,12 @@ It runs tokenizer normalization when needed, GGUF conversion, Q4 quantization,
 static publishing, and F16 cleanup. It does not edit Android/Kotlin or HTML
 selectors; new model keys still need intentional app wiring and an APK rebuild.
 
-## What We Test
+## Model Artifacts
 
-- Default legacy model: `qwen3-lora-003-hard`
+- Default model: `cstinyllama-1.2b-czech-word-sentence-001`
 - Source: merged Hugging Face export in `tools/czech-ml/data/models`
 - Phone format: GGUF, quantized as `Q4_K_M`
-- Runtime: native `llama.cpp` built on the phone through Termux
+- Runtime: native `llama.cpp` in Android; separate Termux scripts for benchmarks
 
 Generated models and cloned runtimes stay out of Git:
 
@@ -60,37 +59,24 @@ by default so the shared Windows workspace does not get a large virtualenv.
 
 ## Build The Phone Model
 
-Run this from PowerShell. It uses a temporary Debian container and writes the
-GGUF files into the shared workspace.
+Use the existing `caatuu-dev` container provisioned through the root
+[setup guide](../../README.md#replicate-the-development-environment).
+From PowerShell, enter the model workspace:
 
 ```powershell
-docker run --rm -it `
-  -v C:\Work\caatuu:/workspace `
-  -w /workspace/tools/on-device-models `
-  debian:latest `
-  bash
+docker exec --interactive --tty --workdir /workspace/tools/on-device-models caatuu-dev bash --login
 ```
 
 Inside that shell:
 
 ```bash
-apt-get update
-apt-get install -y ca-certificates git cmake build-essential python3 python3-venv python3-pip curl
-bash scripts/prepare-model.sh qwen3-lora-003-hard
-bash scripts/publish-static-model.sh qwen3-lora-003-hard
+bash scripts/publish-configured-model.sh cstinyllama-1.2b-czech-word-sentence-001
 ```
 
-For the raw CSTinyLlama base model, use:
+For the active translation model:
 
 ```bash
-bash scripts/prepare-model.sh cstinyllama-1.2b-base
-bash scripts/publish-static-model.sh cstinyllama-1.2b-base
-```
-
-For the Planet Word Net fine-tuned CSTinyLlama model, use:
-
-```bash
-bash scripts/publish-configured-model.sh cstinyllama-1.2b-planet-wordnet-002-copy
+bash scripts/publish-configured-model.sh qwen3-1.7b-translation-cs-en-001
 ```
 
 The output lands under the configured artifact directory:
@@ -99,19 +85,16 @@ The output lands under the configured artifact directory:
 tools/on-device-models/artifacts/models/<artifact_subdir>/
 ```
 
-After publishing, the phone can download the model from:
+The wrapper updates the local static catalog under
+`apps/languages/czech/static/data/models/phone-bench/`. Public delivery remains
+a separate release step. Use the catalog and per-model manifests for exact
+filenames, sizes and hashes.
 
-```text
-https://caatuu.waajacu.com/cz/data/models/phone-bench/caatuu-czech-qwen3-1.7b-003-hard-q4_k_m.gguf
-```
+## Historical Termux Benchmarks
 
-For the CSTinyLlama base model, the published file name is:
-
-```text
-caatuu-czech-cstinyllama-1.2b-base-q4_k_m.gguf
-```
-
-## Run On The Phone
+These scripts retain the original Qwen3 benchmark defaults. Before running an
+old benchmark, check its configured model URL and availability; it does not
+select the current Android model catalog automatically.
 
 Install Termux on the phone. In Termux:
 
@@ -149,5 +132,5 @@ The useful numbers are:
 - eval/decode tokens per second
 - whether the Czech spelling and diacritics remain acceptable
 
-If `Qwen3-1.7B Q4_K_M` is too slow, the next test should be a smaller model
-with the same benchmark prompts before investing in an Android UI wrapper.
+Compare candidate models with the same benchmark prompts and keep the results
+separate from the Android app's release validation.

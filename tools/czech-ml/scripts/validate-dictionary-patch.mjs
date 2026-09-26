@@ -14,7 +14,7 @@ const defaultCatalogUrl = new URL(
   import.meta.url
 );
 const runtimeUrl = new URL("../../../apps/languages/czech/static/source/shared/runtime.js", import.meta.url);
-const serviceWorkerUrl = new URL("../../../apps/languages/czech/static/sw.js", import.meta.url);
+const setupCatalogUrl = new URL("../../../apps/languages/czech/static/setup-assets.json", import.meta.url);
 
 function patchPathFromArgs(args) {
   const optionIndex = args.indexOf("--patch");
@@ -110,18 +110,25 @@ export function validatePatchAgainstDatabase(patch, database) {
   return errors;
 }
 
-async function validateRevisionReferences(patch) {
-  const [runtime, serviceWorker] = await Promise.all([
-    readFile(runtimeUrl, "utf8"),
-    readFile(serviceWorkerUrl, "utf8")
-  ]);
-  const versionedPath = `data/dictionaries/patches/reviewed-cs-en.v1.json?v=${patch.digest}`;
+export function validateRevisionReferences(patch, { runtime, setupCatalog }) {
+  const patchPath = "data/dictionaries/patches/reviewed-cs-en.v1.json";
+  const versionedPath = `${patchPath}?v=${patch.digest}`;
   const errors = [];
   if (!runtime.includes(`const dictionaryPatchPath = "${versionedPath}";`)) {
     errors.push(`runtime.js must reference ${versionedPath}.`);
   }
-  if (!serviceWorker.includes(`"./${versionedPath}"`)) {
-    errors.push(`sw.js must precache ./${versionedPath}.`);
+  // The shared service worker precaches offline.assets from this course catalog.
+  const assets = setupCatalog?.offline?.assets;
+  if (!Array.isArray(assets)) {
+    errors.push("setup-assets.json offline.assets must be an array.");
+  } else {
+    const references = assets
+      .filter((asset) => typeof asset === "string")
+      .map((asset) => asset.replace(/^\.\//u, ""))
+      .filter((asset) => asset.split(/[?#]/u, 1)[0] === patchPath);
+    if (references.length !== 1 || references[0] !== versionedPath) {
+      errors.push(`setup-assets.json offline.assets must reference ${versionedPath} exactly once.`);
+    }
   }
   return errors;
 }
@@ -155,7 +162,14 @@ async function main() {
   if (compiled.patch.digest !== computedDigest) {
     semanticErrors.push(`$.digest must be ${computedDigest} for the current patch content.`);
   }
-  semanticErrors.push(...await validateRevisionReferences(compiled.patch));
+  const [runtime, setupCatalogSource] = await Promise.all([
+    readFile(runtimeUrl, "utf8"),
+    readFile(setupCatalogUrl, "utf8")
+  ]);
+  semanticErrors.push(...validateRevisionReferences(compiled.patch, {
+    runtime,
+    setupCatalog: JSON.parse(setupCatalogSource)
+  }));
   if (semanticErrors.length) {
     for (const error of semanticErrors) process.stderr.write(`- ${error}\n`);
     throw new Error(`Dictionary patch validation failed with ${semanticErrors.length} base/runtime error(s).`);

@@ -640,16 +640,8 @@ class ProductBridge(
     private suspend fun updateApp(id: String) {
         check(updateMutex.tryLock()) { "An app update or cache operation is already running." }
         try {
-            emit(id, "status", JSONObject().put("message", "Checking for a Caatuu update."))
             val result = appUpdateManager.downloadLatest { progress ->
-                emit(
-                    id,
-                    "progress",
-                    JSONObject()
-                        .put("phase", "download")
-                        .put("bytes", progress.bytesRead)
-                        .put("totalBytes", progress.totalBytes),
-                )
+                emit(id, "progress", progress.put("phase", "download"))
             }
             val action = appUpdateManager.openInstaller()
             emitDone(id, result.put("action", action))

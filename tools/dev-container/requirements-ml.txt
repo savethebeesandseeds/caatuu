@@ -5,6 +5,8 @@ hf_transfer>=0.1
 huggingface_hub>=0.24
 numpy
 peft>=0.12
+# Preserve deterministic Home artwork encoding without Animated Fabric.
+pillow==12.3.0
 protobuf
 psutil
 safetensors

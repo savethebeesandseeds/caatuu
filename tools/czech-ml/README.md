@@ -2,6 +2,14 @@
 
 This folder contains the model-building side of Caatuu Czech.
 
+Run the commands below inside the existing `caatuu-dev` container configured by
+the root [setup guide](../../README.md#replicate-the-development-environment).
+From PowerShell, enter the workspace with:
+
+```powershell
+docker exec --interactive --tty --workdir /workspace/tools/czech-ml caatuu-dev bash --login
+```
+
 The browser app is here:
 
 ```text
@@ -53,20 +61,20 @@ Python remains only for the hard ML steps:
 - merge PEFT adapters into Hugging Face models
 - convert/export through MLC/WebLLM
 
-Create the environment inside Debian only when doing that work:
+The root `setup.sh` provisions the training environment at `/opt/caatuu-ml`
+and the separate MLC/WebLLM conversion environment at `/opt/caatuu-mlc`.
+Select the existing training environment inside the container:
 
 ```bash
-python3 -m venv /opt/caatuu-ml
 . /opt/caatuu-ml/bin/activate
-python -m pip install -U pip wheel setuptools
 ```
 
-Install PyTorch, Transformers, PEFT, Accelerate, and MLC packages inside that
-environment before training or exporting.
+Use `caatuu-mlc-python` for conversion. If either environment is unavailable,
+repair the documented container setup before running a model workflow.
 
-## Current Model
+## Historical WebLLM Model
 
-The current trained/exported run is:
+The retained browser WebLLM run is:
 
 ```text
 qwen3-1.7b-lora-003-hard
@@ -84,7 +92,9 @@ The browser-ready WebLLM export remains in the app:
 C:\Work\caatuu\apps\languages\czech\static\data\models\czech-finetuned\exports\qwen3-1.7b-lora-003-hard\
 ```
 
-No retraining is needed to run the current demo.
+This is a historical export, not the current native model default. The active
+on-demand translation and word-sentence models are declared in
+[`tools/on-device-models/model-configs.json`](../on-device-models/model-configs.json).
 
 ## Future Training
 
@@ -114,26 +124,30 @@ python scripts/ml/czech_language_benchmark.py \
 Export:
 
 ```bash
-python scripts/ml/export_webllm.py --run-id qwen3-1.7b-lora-next --stage all
+python scripts/ml/export_webllm.py --run-id qwen3-1.7b-lora-next --stage merge
+caatuu-mlc-python scripts/ml/export_webllm.py --run-id qwen3-1.7b-lora-next --stage mlc
 npm run finalize:webllm -- --run-id qwen3-1.7b-lora-next
 ```
 
 After validating a new export, copy only the browser-ready WebLLM export and
 small UI metadata back into `apps/languages/czech/static/data/models/`.
 
-## Phone Benchmark Export
+The PowerShell wrappers in [`scripts/ml`](scripts/ml/README.md) dispatch to
+these same environments in `caatuu-dev`; they do not create another container
+or run model tools on Windows.
 
-For phones whose browser cannot run WebGPU, use the separate native benchmark
-workspace:
+## Native Model Export
+
+Use the native model preparation workspace:
 
 ```text
 /workspace/tools/on-device-models
 ```
 
-That path converts the merged Hugging Face export to a quantized GGUF file and
-benchmarks it with `llama.cpp` on Android through Termux. It is for measuring
-whether the current Czech model is operational on the phone before we build an
-Android UI wrapper.
+That path converts merged Hugging Face exports to quantized GGUF files for the
+Android app's optional Generative mode. Its historical Termux scripts remain
+available for manual phone benchmarks; see the
+[on-device model guide](../on-device-models/README.md).
 
 ## Vector Database Infrastructure
 

@@ -2,6 +2,17 @@
 
 These instructions govern all Codex work in this application.
 
+## Retirement status
+
+Animated Fabric was retired on 2026-09-26. Preserve the retained source,
+original artwork, approvals, provenance, and local research outputs. There is
+no active ticket or maintained execution pipeline. The specification, ADRs,
+and ticket workflow below record the historical application and do not
+authorize running its former setup, CI, or Compose commands. Do not restore
+workers, dependencies, or automation unless the user explicitly requests
+reactivation and approves its scope. Repository cleanup and documentation
+maintenance do not require the retired application test suite.
+
 ## 1. Sources of truth
 
 Read these files before writing code:
