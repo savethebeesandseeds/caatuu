@@ -1,0 +1,259 @@
+{
+  "$schema": "../../../tools/language-packs/schemas/course-pack.v1.schema.json",
+  "schemaVersion": 1,
+  "id": "la",
+  "directoryName": "latin-scientific",
+  "status": "development",
+  "brandLabel": "Caatuu",
+  "workspaceLabel": "Caatuu Scientific Latin",
+  "routePrefix": "/la",
+  "entryPath": "/la/index.html",
+  "sourceLanguage": {
+    "id": "en",
+    "label": "English",
+    "nativeLabel": "English",
+    "shortCode": "EN",
+    "locale": "en",
+    "direction": "ltr",
+    "flagClass": "en-flag",
+    "flagSrc": "/assets/icons/english_flag.png"
+  },
+  "targetLanguage": {
+    "id": "la",
+    "label": "Scientific Latin",
+    "nativeLabel": "Latīnum scientificum",
+    "shortCode": "LA",
+    "locale": "la",
+    "script": "Latn",
+    "speechLocale": "la",
+    "direction": "ltr",
+    "flagClass": "latin-mark",
+    "flagSrc": "/assets/icons/latin_mark.png"
+  },
+  "linguisticFeatures": [
+    "verb-conjugation",
+    "grammatical-agreement",
+    "grammatical-case"
+  ],
+  "games": [
+    "verb-lab",
+    "word-net",
+    "conjugation-comet",
+    "grammar-gravity"
+  ],
+  "upcomingGames": [
+    "memory-moon"
+  ],
+  "launcher": {
+    "flagClass": "flag-icon"
+  },
+  "routes": {
+    "conjugationComet": "/language-runtime/static/games/conjugation-comet.html",
+    "grammarGravity": "/language-runtime/static/games/grammar-gravity.html",
+    "languageSelection": "/",
+    "home": "index.html",
+    "games": "index.html",
+    "verbNebula": "index.html?game=verb-lab",
+    "wordWorld": "index.html?game=word-net",
+    "settings": "index.html"
+  },
+  "storage": {
+    "namespace": "caatuu-la",
+    "theme": "caatuu-la.theme",
+    "fontSize": "caatuu-la.font-size",
+    "learningPreferences": "caatuu-la.learning.preferences.v1",
+    "learningPerformance": "caatuu-la.learning.performance.v1",
+    "semanticLearningDatabase": "caatuu-la.semantic-learning",
+    "verbMemory": "caatuu-la.verb-memory.v3",
+    "wordWorldTranslationMode": "caatuu-la.word-world.translation-mode",
+    "wordWorldRecentSentences": "caatuu-la.word-world.recent-sentences.v1"
+  },
+  "cache": {
+    "prefix": "caatuu-la-pwa-",
+    "setupFallback": "caatuu-la-setup-v1"
+  },
+  "publication": {
+    "contract": "language-content-v1",
+    "concepts": "apps/languages/shared/english-concepts/word-world-la-v1.json",
+    "realizations": "apps/languages/latin-scientific/content/word-world/starter-v1.realizations.json",
+    "learnerBaseRealizations": null,
+    "runtimeProjection": {
+      "policyId": "latin-scientific-word-world-v1",
+      "conceptsRuntime": "apps/language-runtime/static/data/english-concepts/word-world-la-v1.json",
+      "targetRealizationsRuntime": "apps/languages/latin-scientific/static/data/games/word-world/content.json",
+      "learnerBaseRuntime": null,
+      "supplementalOutputs": {},
+      "manifest": "apps/languages/latin-scientific/static/data/games/word-world/manifest.json"
+    }
+  },
+  "capabilities": {
+    "llm": false,
+    "generation": false,
+    "chat": false,
+    "embeddings": true,
+    "semanticSearch": true,
+    "dictionary": false,
+    "memory": false,
+    "verbs": false,
+    "wordWorld": true,
+    "conjugationComet": true,
+    "offlineModels": false,
+    "speech": false,
+    "pronunciationGuides": false
+  },
+  "learningGoals": [
+    {
+      "id": "foundations",
+      "label": "Foundations and scientific reading",
+      "embeddingText": "Read basic Latin statements and recognize subjects, objects, possession and agreement.",
+      "categories": [
+        "foundations",
+        "scientific-reading"
+      ]
+    },
+    {
+      "id": "measurements",
+      "label": "Quantities and measurement",
+      "embeddingText": "Describe measurements, proportions, units and comparisons.",
+      "categories": [
+        "measurement",
+        "comparison"
+      ]
+    },
+    {
+      "id": "natural-philosophy",
+      "label": "Motion, geometry and light",
+      "embeddingText": "Read descriptions of motion, force, geometric figures, light and observations.",
+      "categories": [
+        "motion",
+        "geometry",
+        "optics"
+      ]
+    },
+    {
+      "id": "arguments",
+      "label": "Definitions and arguments",
+      "embeddingText": "Follow definitions, hypotheses, experiments, causes, deductions and proofs.",
+      "categories": [
+        "definitions",
+        "experiments",
+        "arguments"
+      ]
+    }
+  ],
+  "platforms": {
+    "browser": {
+      "enabled": true,
+      "pagesEnabled": false,
+      "entryPath": "/la/index.html",
+      "backend": "static"
+    },
+    "android": {
+      "enabled": false,
+      "channels": []
+    }
+  },
+  "resources": {
+    "androidAssetCatalog": {
+      "kind": "file",
+      "path": "apps/languages/latin-scientific/android-assets.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "staticRoot": {
+      "kind": "directory",
+      "path": "apps/languages/latin-scientific/static",
+      "scope": "course",
+      "state": "present"
+    },
+    "appEntry": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/app/index.html",
+      "scope": "shared",
+      "state": "present"
+    },
+    "interfaceCatalog": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/data/interface/en.v1.json",
+      "scope": "shared",
+      "state": "present",
+      "revision": "interface-en-41"
+    },
+    "courseProfile": {
+      "kind": "file",
+      "path": "apps/languages/latin-scientific/static/source/shared/course-profile.js",
+      "scope": "course",
+      "state": "present"
+    },
+    "languageAdapter": {
+      "kind": "file",
+      "path": "apps/languages/latin-scientific/static/source/language/adapter.mjs",
+      "scope": "course",
+      "state": "present"
+    },
+    "webManifest": {
+      "kind": "file",
+      "path": "apps/languages/latin-scientific/static/manifest.webmanifest",
+      "scope": "course",
+      "state": "present"
+    },
+    "setupCatalog": {
+      "kind": "file",
+      "path": "apps/languages/latin-scientific/static/setup-assets.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "sourceLanguageFlag": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/assets/home/english_flag.png",
+      "scope": "shared",
+      "state": "present"
+    },
+    "embeddingCatalog": {
+      "kind": "file",
+      "path": "apps/languages/latin-scientific/static/data/embeddings/catalog.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "wordWorldManifest": {
+      "kind": "file",
+      "path": "apps/languages/latin-scientific/static/data/games/word-world/manifest.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "word-world-content-1"
+    },
+    "verbNebulaCatalog": {
+      "kind": "file",
+      "path": "apps/languages/latin-scientific/static/data/games/verb-nebula/content.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "conjugationCometCatalog": {
+      "kind": "file",
+      "path": "apps/languages/latin-scientific/static/data/games/conjugation-comet/content.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "conjugation-comet-content-1"
+    },
+    "grammarGravityCatalog": {
+      "kind": "file",
+      "path": "apps/languages/latin-scientific/static/data/games/grammar-gravity/content.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "grammar-gravity-content-1"
+    },
+    "grammarGravityNouns": {
+      "kind": "file",
+      "path": "apps/languages/latin-scientific/static/data/games/grammar-gravity/nouns.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "grammar-gravity-nouns-1"
+    },
+    "launcherFlag": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/assets/home/latin_mark.png",
+      "scope": "shared",
+      "state": "present"
+    }
+  }
+}

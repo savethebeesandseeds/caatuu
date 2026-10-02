@@ -35,6 +35,14 @@
     {
       "id": "nb",
       "manifest": "apps/languages/norwegian-bokmal/course.json"
+    },
+    {
+      "id": "ar",
+      "manifest": "apps/languages/arabic-standard/course.json"
+    },
+    {
+      "id": "la",
+      "manifest": "apps/languages/latin-scientific/course.json"
     }
   ]
 }

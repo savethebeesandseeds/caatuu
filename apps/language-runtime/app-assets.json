@@ -2,246 +2,985 @@
   "schemaVersion": 1,
   "appEntry": "apps/language-runtime/static/app/index.html",
   "assets": [
-    { "source": "apps/language-runtime/static/assets/initial-image.png", "output": "language-runtime/static/assets/initial-image.png" },
-    { "source": "apps/language-runtime/static/source/practice-compass.mjs", "output": "language-runtime/static/source/practice-compass.mjs" },
-    { "source": "apps/language-runtime/static/source/semantic-learning.js", "output": "language-runtime/static/source/semantic-learning.js" },
-    { "source": "apps/language-runtime/static/source/semantic-learning-core.mjs", "output": "language-runtime/static/source/semantic-learning-core.mjs" },
-    {"source": "apps/language-runtime/static/data/english-concepts/word-world-nb-v1.json", "output": "language-runtime/static/data/english-concepts/word-world-nb-v1.json"},
-    {"source": "apps/language-runtime/static/assets/home/norway_flag.png", "output": "assets/icons/norway_flag.png"},
-    { "source": "apps/language-runtime/static/source/license-catalog.mjs", "output": "language-runtime/static/source/license-catalog.mjs" },
-    { "source": "apps/language-runtime/static/legal/CAATUU-LICENSE.txt", "output": "language-runtime/static/legal/CAATUU-LICENSE.txt" },
-    { "source": "apps/language-runtime/static/legal/APACHE-2.0-LICENSE.txt", "output": "language-runtime/static/legal/APACHE-2.0-LICENSE.txt" },
-    { "source": "apps/language-runtime/static/legal/ONNX-RUNTIME-LICENSE.txt", "output": "language-runtime/static/legal/ONNX-RUNTIME-LICENSE.txt" },
-    { "source": "apps/language-runtime/static/legal/ANDROID-NOTICES.txt", "output": "language-runtime/static/legal/ANDROID-NOTICES.txt" },
-    { "source": "apps/language-runtime/static/legal/android-dependencies.json", "output": "language-runtime/static/legal/android-dependencies.json" },
-    { "source": "apps/language-runtime/static/legal/SQL-JS-LICENSE.txt", "output": "language-runtime/static/legal/SQL-JS-LICENSE.txt" },
-    { "source": "apps/language-runtime/static/legal/CZECH-WORD-WORLD-NOTICE.txt", "output": "language-runtime/static/legal/CZECH-WORD-WORLD-NOTICE.txt" },
-    { "source": "apps/language-runtime/static/legal/CZECH-DICTIONARY-ATTRIBUTION.txt", "output": "language-runtime/static/legal/CZECH-DICTIONARY-ATTRIBUTION.txt" },
-    { "source": "apps/language-runtime/static/legal/CC-BY-SA-4.0.txt", "output": "language-runtime/static/legal/CC-BY-SA-4.0.txt" },
-    { "source": "apps/language-runtime/static/source/music.mjs", "output": "language-runtime/static/source/music.mjs" },
-    { "source": "apps/language-runtime/static/source/music-controls.mjs", "output": "language-runtime/static/source/music-controls.mjs" },
-    { "source": "apps/language-runtime/static/source/background-music.mjs", "output": "language-runtime/static/source/background-music.mjs" },
-    { "source": "apps/language-runtime/static/styles/music-controls.css", "output": "language-runtime/static/styles/music-controls.css" },
-    { "source": "apps/launcher/static/assets/music/audio/Woodland_Fantasy.mp3", "output": "assets/music/audio/Woodland_Fantasy.mp3" },
-    { "source": "apps/launcher/static/assets/music/audio/Salt_Marsh_Birds.mp3", "output": "assets/music/audio/Salt_Marsh_Birds.mp3" },
-    { "source": "apps/launcher/static/assets/music/audio/Town_Theme_RPG.mp3", "output": "assets/music/audio/Town_Theme_RPG.mp3" },
-    { "source": "apps/launcher/static/assets/music/MUSIC_CREDITS.txt", "output": "assets/music/MUSIC_CREDITS.txt" },
-    { "source": "apps/launcher/static/assets/music/licenses/CC-BY-3.0.txt", "output": "assets/music/licenses/CC-BY-3.0.txt" },
-    { "source": "apps/launcher/static/assets/music/licenses/CC0-1.0.txt", "output": "assets/music/licenses/CC0-1.0.txt" },
-    { "source": "apps/language-runtime/static/app/setup.html", "output": "setup.html" },
-    { "source": "apps/language-runtime/static/app/course-install.html", "output": "course-install.html" },
-    { "source": "apps/language-runtime/static/source/course-setup.mjs", "output": "language-runtime/static/source/course-setup.mjs" },
-    { "source": "apps/language-runtime/static/styles/course-setup.css", "output": "language-runtime/static/styles/course-setup.css" },
-    { "source": "apps/language-runtime/static/source/english-image-search.mjs", "output": "language-runtime/static/source/english-image-search.mjs" },
-    { "source": "apps/language-runtime/static/source/image-embedding-index.mjs", "output": "language-runtime/static/source/image-embedding-index.mjs" },
-    { "source": "apps/language-runtime/static/data/image-embeddings/minilm-v1.json", "output": "language-runtime/static/data/image-embeddings/minilm-v1.json" },
-    { "source": "apps/language-runtime/static/source/learner-base-token-meanings.mjs", "output": "language-runtime/static/source/learner-base-token-meanings.mjs" },
-    { "source": "apps/language-runtime/static/source/launcher-interface.mjs", "output": "language-runtime/static/source/launcher-interface.mjs" },
-    { "source": "apps/language-runtime/static/data/interface/es.v1.json", "output": "language-runtime/static/data/interface/es.v1.json" },
-    { "source": "apps/language-runtime/static/games/sound-quasar.html", "output": "language-runtime/static/games/sound-quasar.html" },
-    { "source": "apps/language-runtime/static/source/games/sound-quasar/sound-quasar-host.mjs", "output": "language-runtime/static/source/games/sound-quasar/sound-quasar-host.mjs" },
-    { "source": "apps/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs", "output": "language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs" },
-    { "source": "apps/language-runtime/static/styles/games/sound-quasar.css", "output": "language-runtime/static/styles/games/sound-quasar.css" },
-    { "source": "apps/launcher/static/assets/visual-vocabulary/keymap.json", "output": "assets/miscellaneous/keymap.json" },
-    { "source": "apps/launcher/static/assets/macaw/actions/keymaps.json", "output": "assets/macaw/actions/keymaps.json" },
-    { "source": "apps/launcher/static/assets/macaw/actions/180-hear_listen.png", "output": "assets/macaw/actions/180-hear_listen.png" },
-    { "source": "apps/launcher/static/assets/macaw/actions/181-see_look.png", "output": "assets/macaw/actions/181-see_look.png" },
-    { "source": "apps/language-runtime/static/source/developer-tools/browser-model-service.mjs", "output": "language-runtime/static/source/developer-tools/browser-model-service.mjs" },
-    { "source": "apps/language-runtime/static/source/developer-tools/developer-tools.mjs", "output": "language-runtime/static/source/developer-tools/developer-tools.mjs" },
-    { "source": "apps/language-runtime/static/source/developer-tools/audio-lab.mjs", "output": "language-runtime/static/source/developer-tools/audio-lab.mjs" },
-    { "source": "apps/language-runtime/static/source/developer-tools/catalog-inspectors.mjs", "output": "language-runtime/static/source/developer-tools/catalog-inspectors.mjs" },
-    { "source": "apps/language-runtime/static/source/developer-tools/model-tools.mjs", "output": "language-runtime/static/source/developer-tools/model-tools.mjs" },
-    { "source": "apps/language-runtime/static/styles/caatuu-developer-tools.css", "output": "language-runtime/static/styles/caatuu-developer-tools.css" },
-    { "source": "apps/language-runtime/contract.mjs", "output": "language-runtime/contract.mjs" },
-    { "source": "apps/language-runtime/embedding-runtimes.json", "output": "language-runtime/embedding-runtimes.json" },
-    { "source": "apps/language-runtime/static/games/grammar-gravity.html", "output": "language-runtime/static/games/grammar-gravity.html" },
-    { "source": "apps/language-runtime/static/games/triangular-thermosphere.html", "output": "language-runtime/static/games/triangular-thermosphere.html" },
-    { "source": "apps/language-runtime/static/games/agreement-aurora.html", "output": "language-runtime/static/games/agreement-aurora.html" },
-    { "source": "apps/language-runtime/static/games/conjugation-comet.html", "output": "language-runtime/static/games/conjugation-comet.html" },
-    { "source": "apps/language-runtime/static/source/app-bootstrap.mjs", "output": "language-runtime/static/source/app-bootstrap.mjs" },
-    { "source": "apps/language-runtime/static/source/browser-shell.mjs", "output": "language-runtime/static/source/browser-shell.mjs" },
-    { "source": "apps/language-runtime/static/source/caatuu-chrome.js", "output": "language-runtime/static/source/caatuu-chrome.js" },
-    { "source": "apps/language-runtime/static/source/caatuu-workspace.js", "output": "language-runtime/static/source/caatuu-workspace.js" },
-    { "source": "apps/language-runtime/static/source/child-facing-assets.mjs", "output": "language-runtime/static/source/child-facing-assets.mjs" },
-    { "source": "apps/language-runtime/static/source/catalog-runtime.mjs", "output": "language-runtime/static/source/catalog-runtime.mjs" },
-    { "source": "apps/language-runtime/static/source/course-service-worker.js", "output": "language-runtime/static/source/course-service-worker.js" },
-    { "source": "apps/language-runtime/static/source/games/course-game-content.mjs", "output": "language-runtime/static/source/games/course-game-content.mjs" },
-    { "source": "apps/language-runtime/static/source/games/curriculum-progression.mjs", "output": "language-runtime/static/source/games/curriculum-progression.mjs" },
-    { "source": "apps/language-runtime/static/source/games/content-progression.mjs", "output": "language-runtime/static/source/games/content-progression.mjs" },
-    { "source": "apps/language-runtime/static/source/games/adaptive-sampling.mjs", "output": "language-runtime/static/source/games/adaptive-sampling.mjs" },
-    { "source": "apps/language-runtime/static/source/games/adaptive-practice.mjs", "output": "language-runtime/static/source/games/adaptive-practice.mjs" },
-    { "source": "apps/language-runtime/static/source/games/recent-practice.mjs", "output": "language-runtime/static/source/games/recent-practice.mjs" },
-    { "source": "apps/language-runtime/static/source/learner-state.mjs", "output": "language-runtime/static/source/learner-state.mjs" },
-    { "source": "apps/language-runtime/static/source/learning-semantics.mjs", "output": "language-runtime/static/source/learning-semantics.mjs" },
-    { "source": "apps/language-runtime/static/source/word-world-progression.mjs", "output": "language-runtime/static/source/word-world-progression.mjs" },
-    { "source": "apps/language-runtime/static/source/games/embedded-game-controls.mjs", "output": "language-runtime/static/source/games/embedded-game-controls.mjs" },
-    { "source": "apps/language-runtime/static/source/games/grammar-gravity/grammar-gravity-core.mjs", "output": "language-runtime/static/source/games/grammar-gravity/grammar-gravity-core.mjs" },
-    { "source": "apps/language-runtime/static/source/games/grammar-gravity/grammar-gravity-host.mjs", "output": "language-runtime/static/source/games/grammar-gravity/grammar-gravity-host.mjs" },
-    { "source": "apps/language-runtime/static/source/games/grammar-gravity/noun-landing-core.mjs", "output": "language-runtime/static/source/games/grammar-gravity/noun-landing-core.mjs" },
-    { "source": "apps/language-runtime/static/source/games/grammar-gravity/noun-landing-host.mjs", "output": "language-runtime/static/source/games/grammar-gravity/noun-landing-host.mjs" },
-    { "source": "apps/language-runtime/static/source/games/grammar-gravity/adjective-flight-core.mjs", "output": "language-runtime/static/source/games/grammar-gravity/adjective-flight-core.mjs" },
-    { "source": "apps/language-runtime/static/source/games/grammar-gravity/adjective-flight-host.mjs", "output": "language-runtime/static/source/games/grammar-gravity/adjective-flight-host.mjs" },
-    { "source": "apps/language-runtime/static/source/games/grammar-gravity/noun-visual.mjs", "output": "language-runtime/static/source/games/grammar-gravity/noun-visual.mjs" },
-    { "source": "apps/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs", "output": "language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs" },
-    { "source": "apps/language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs", "output": "language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs" },
-    { "source": "apps/language-runtime/static/source/dictionary-provider-loader.mjs", "output": "language-runtime/static/source/dictionary-provider-loader.mjs" },
-    { "source": "apps/language-runtime/static/source/embedded-game-bootstrap.js", "output": "language-runtime/static/source/embedded-game-bootstrap.js" },
-    { "source": "apps/language-runtime/static/source/embedding-runtime-contract.mjs", "output": "language-runtime/static/source/embedding-runtime-contract.mjs" },
-    { "source": "apps/language-runtime/static/source/english-minilm-ranker.mjs", "output": "language-runtime/static/source/english-minilm-ranker.mjs" },
-    { "source": "apps/language-runtime/static/source/initial-theme.js", "output": "language-runtime/static/source/initial-theme.js" },
-    { "source": "apps/language-runtime/static/source/interface-content.mjs", "output": "language-runtime/static/source/interface-content.mjs" },
-    { "source": "apps/language-runtime/static/source/learning-profile.js", "output": "language-runtime/static/source/learning-profile.js" },
-    { "source": "apps/language-runtime/static/source/legacy-page-bootstrap.mjs", "output": "language-runtime/static/source/legacy-page-bootstrap.mjs" },
-    { "source": "apps/language-runtime/static/source/maintenance-ui.js", "output": "language-runtime/static/source/maintenance-ui.js" },
-    { "source": "apps/language-runtime/static/source/product-word-world.mjs", "output": "language-runtime/static/source/product-word-world.mjs" },
-    { "source": "apps/language-runtime/static/source/shell-policy.js", "output": "language-runtime/static/source/shell-policy.js" },
-    { "source": "apps/language-runtime/static/source/shell-policy.mjs", "output": "language-runtime/static/source/shell-policy.mjs" },
-    { "source": "apps/language-runtime/static/source/target-text-tones.mjs", "output": "language-runtime/static/source/target-text-tones.mjs" },
-    { "source": "apps/language-runtime/static/source/target-text.mjs", "output": "language-runtime/static/source/target-text.mjs" },
-    { "source": "apps/language-runtime/static/source/word-net-core.mjs", "output": "language-runtime/static/source/word-net-core.mjs" },
-    { "source": "apps/language-runtime/static/source/word-net-queue.mjs", "output": "language-runtime/static/source/word-net-queue.mjs" },
-    { "source": "apps/language-runtime/static/source/horizontal-gesture.mjs", "output": "language-runtime/static/source/horizontal-gesture.mjs" },
-    { "source": "apps/language-runtime/static/source/word-world-host.mjs", "output": "language-runtime/static/source/word-world-host.mjs" },
-    { "source": "apps/language-runtime/static/source/word-world-provider.mjs", "output": "language-runtime/static/source/word-world-provider.mjs" },
-    { "source": "apps/language-runtime/static/source/games/verb-nebula/verb-exercise-family-core.mjs", "output": "language-runtime/static/source/games/verb-nebula/verb-exercise-family-core.mjs" },
-    { "source": "apps/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs", "output": "language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs" },
-    { "source": "apps/language-runtime/static/styles/caatuu-chrome.css", "output": "language-runtime/static/styles/caatuu-chrome.css" },
-    { "source": "apps/language-runtime/static/styles/caatuu-home.css", "output": "language-runtime/static/styles/caatuu-home.css" },
-    { "source": "apps/language-runtime/static/styles/caatuu-theme.css", "output": "language-runtime/static/styles/caatuu-theme.css" },
-    { "source": "apps/language-runtime/static/styles/caatuu-word-world.css", "output": "language-runtime/static/styles/caatuu-word-world.css" },
-    { "source": "apps/language-runtime/static/styles/caatuu-target-text.css", "output": "language-runtime/static/styles/caatuu-target-text.css" },
-    { "source": "apps/language-runtime/static/styles/dictionary-word-card.css", "output": "language-runtime/static/styles/dictionary-word-card.css" },
-    { "source": "apps/language-runtime/static/styles/caatuu-workspace.css", "output": "language-runtime/static/styles/caatuu-workspace.css" },
-    { "source": "apps/language-runtime/static/styles/games/grammar-gravity.css", "output": "language-runtime/static/styles/games/grammar-gravity.css" },
-    { "source": "apps/language-runtime/static/styles/games/gravity-paper.svg", "output": "language-runtime/static/styles/games/gravity-paper.svg" },
-    { "source": "apps/language-runtime/static/styles/games/conjugation-comet.css", "output": "language-runtime/static/styles/games/conjugation-comet.css" },
-    { "source": "apps/language-runtime/static/styles/games/embedded-game-controls.css", "output": "language-runtime/static/styles/games/embedded-game-controls.css" },
-    { "source": "apps/language-runtime/static/assets/caatuu-shell-512.png", "output": "language-runtime/static/assets/caatuu-shell-512.png" },
-    { "source": "apps/language-runtime/static/assets/caatuu-shell-512.png", "output": "assets/caatuu-shell-512.png" },
-    { "source": "apps/language-runtime/static/data/interface/en.v1.json", "output": "language-runtime/static/data/interface/en.v1.json" },
-    { "source": "apps/language-runtime/static/data/english-concepts/word-world-starter-v1.json", "output": "language-runtime/static/data/english-concepts/word-world-starter-v1.json" },
-    { "source": "apps/language-runtime/static/data/english-concepts/word-world-es-v1.json", "output": "language-runtime/static/data/english-concepts/word-world-es-v1.json" },
-    { "source": "apps/language-runtime/static/data/english-concepts/word-world-es-en-v1.json", "output": "language-runtime/static/data/english-concepts/word-world-es-en-v1.json" },
-    { "source": "apps/launcher/static/assets/icons/backpack_icon.png", "output": "assets/icons/backpack_icon.png" },
-    { "source": "apps/launcher/static/assets/icons/coin_icon_ui.png", "output": "assets/icons/coin_icon_ui.png" },
-    { "source": "apps/launcher/static/assets/icons/clock_icon.png", "output": "assets/icons/clock_icon.png" },
-    { "source": "apps/launcher/static/assets/icons/china_flag.png", "output": "assets/icons/china_flag.png" },
-    { "source": "apps/launcher/static/assets/icons/czech_flag_ui.png", "output": "assets/icons/czech_flag_ui.png" },
-    { "source": "apps/language-runtime/static/assets/home/english_flag.png", "output": "assets/icons/english_flag.png" },
-    { "source": "apps/language-runtime/static/assets/home/spain_flag.png", "output": "assets/icons/spain_flag.png" },
-    { "source": "apps/launcher/static/assets/icons/dark_mode_ui.png", "output": "assets/icons/dark_mode_ui.png" },
-    { "source": "apps/launcher/static/assets/icons/difficulty_medal_1_ui.png", "output": "assets/icons/difficulty_medal_1_ui.png" },
-    { "source": "apps/launcher/static/assets/icons/difficulty_medal_2_ui.png", "output": "assets/icons/difficulty_medal_2_ui.png" },
-    { "source": "apps/launcher/static/assets/icons/difficulty_medal_3_ui.png", "output": "assets/icons/difficulty_medal_3_ui.png" },
-    { "source": "apps/launcher/static/assets/icons/games_icon.png", "output": "assets/icons/games_icon.png" },
-    { "source": "apps/launcher/static/assets/icons/gear_icon.png", "output": "assets/icons/gear_icon.png" },
-    { "source": "apps/language-runtime/static/assets/home/hello.png", "output": "assets/icons/hello.png" },
-    { "source": "apps/launcher/static/assets/icons/home_icon.png", "output": "assets/icons/home_icon.png" },
-    { "source": "apps/launcher/static/assets/icons/homebase_icon.png", "output": "assets/icons/homebase_icon.png" },
-    { "source": "apps/language-runtime/static/assets/home/icon_gem.png", "output": "assets/icons/icon_gem.png" },
-    { "source": "apps/launcher/static/assets/icons/items_icon.png", "output": "assets/icons/items_icon.png" },
-    { "source": "apps/launcher/static/assets/icons/light_mode_ui.png", "output": "assets/icons/light_mode_ui.png" },
-    { "source": "apps/launcher/static/assets/icons/paper_plane_submit_ui.png", "output": "assets/icons/paper_plane_submit_ui.png" },
-    { "source": "apps/launcher/static/assets/icons/social_icon.png", "output": "assets/icons/social_icon.png" },
-    { "source": "apps/launcher/static/assets/icons/stats_icon.png", "output": "assets/icons/stats_icon.png" },
-    { "source": "apps/language-runtime/static/assets/home/store_icon.png", "output": "assets/icons/store_icon.png" },
-    { "source": "apps/language-runtime/static/assets/home/streak_icon.png", "output": "assets/icons/streak_icon.png" },
-    { "source": "apps/launcher/static/assets/micelaneous/male_gender.png", "output": "assets/micelaneous/male_gender.png" },
-    { "source": "apps/launcher/static/assets/micelaneous/female_gender.png", "output": "assets/micelaneous/female_gender.png" },
-    { "source": "apps/launcher/static/assets/micelaneous/neutral_gender.png", "output": "assets/micelaneous/neutral_gender.png" },
-    { "source": "apps/launcher/static/assets/micelaneous/parashute.png", "output": "assets/micelaneous/parashute.png" },
-    { "source": "apps/launcher/static/assets/macaw/cases/floating_boat (1).png", "output": "assets/macaw/cases/floating_boat (1).png" },
-    { "source": "apps/launcher/static/assets/macaw/cases/floating_boat (2).png", "output": "assets/macaw/cases/floating_boat (2).png" },
-    { "source": "apps/launcher/static/assets/macaw/cases/floating_boat (3).png", "output": "assets/macaw/cases/floating_boat (3).png" },
-    { "source": "apps/launcher/static/assets/macaw/cases/floating_boat (4).png", "output": "assets/macaw/cases/floating_boat (4).png" },
-    { "source": "apps/launcher/static/assets/macaw/cases/floating_boat (5).png", "output": "assets/macaw/cases/floating_boat (5).png" },
-    { "source": "apps/launcher/static/assets/macaw/cases/floating_boat (6).png", "output": "assets/macaw/cases/floating_boat (6).png" },
-    { "source": "apps/launcher/static/assets/macaw/cases/floating_boat (7).png", "output": "assets/macaw/cases/floating_boat (7).png" },
-    { "source": "apps/launcher/static/assets/macaw/cases/floating_boat (8).png", "output": "assets/macaw/cases/floating_boat (8).png" },
-    { "source": "apps/launcher/static/assets/macaw/cases/floating_boat (9).png", "output": "assets/macaw/cases/floating_boat (9).png" },
-    { "source": "apps/launcher/static/assets/planets/grammar-gravity.png", "output": "assets/planets/grammar-gravity.png" },
-    { "source": "apps/launcher/static/assets/planets/campaign-mode.png", "output": "assets/planets/campaign-mode.png" },
-    { "source": "apps/launcher/static/assets/planets/case-cosmos.png", "output": "assets/planets/case-cosmos.png" },
-    { "source": "apps/launcher/static/assets/planets/conjugation-comet.png", "output": "assets/planets/conjugation-comet.png" },
-    { "source": "apps/launcher/static/assets/planets/memory-moon.png", "output": "assets/planets/memory-moon.png" },
-    { "source": "apps/launcher/static/assets/planets/naturalization-nucleus.png", "output": "assets/planets/naturalization-nucleus.png" },
-    { "source": "apps/launcher/static/assets/planets/sounds-quasar.png", "output": "assets/planets/sounds-quasar.png" },
-    { "source": "apps/launcher/static/assets/stores/stores (1).png", "output": "assets/stores/stores (1).png" },
-    { "source": "apps/launcher/static/assets/stores/stores (2).png", "output": "assets/stores/stores (2).png" },
-    { "source": "apps/launcher/static/assets/stores/stores (3).png", "output": "assets/stores/stores (3).png" },
-    { "source": "apps/launcher/static/assets/stores/stores (4).png", "output": "assets/stores/stores (4).png" },
-    { "source": "apps/launcher/static/assets/stores/stores (5).png", "output": "assets/stores/stores (5).png" },
-    { "source": "apps/launcher/static/assets/stores/stores (6).png", "output": "assets/stores/stores (6).png" },
-    { "source": "apps/launcher/static/assets/stores/stores (7).png", "output": "assets/stores/stores (7).png" },
-    { "source": "apps/launcher/static/assets/stores/stores (8).png", "output": "assets/stores/stores (8).png" },
-    { "source": "apps/launcher/static/assets/stores/stores (9).png", "output": "assets/stores/stores (9).png" },
-    { "source": "apps/launcher/static/assets/stores/stores (10).png", "output": "assets/stores/stores (10).png" },
-    { "source": "apps/launcher/static/assets/stores/stores (11).png", "output": "assets/stores/stores (11).png" },
-    { "source": "apps/launcher/static/assets/stores/stores (12).png", "output": "assets/stores/stores (12).png" },
-    { "source": "apps/launcher/static/assets/stores/stores (13).png", "output": "assets/stores/stores (13).png" },
-    { "source": "apps/launcher/static/assets/stores/stores (14).png", "output": "assets/stores/stores (14).png" },
-    { "source": "apps/launcher/static/assets/stores/stores (15).png", "output": "assets/stores/stores (15).png" },
-    { "source": "apps/launcher/static/assets/stores/stores (16).png", "output": "assets/stores/stores (16).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (1).png", "output": "assets/ships/ship (1).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (2).png", "output": "assets/ships/ship (2).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (3).png", "output": "assets/ships/ship (3).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (4).png", "output": "assets/ships/ship (4).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (5).png", "output": "assets/ships/ship (5).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (6).png", "output": "assets/ships/ship (6).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (7).png", "output": "assets/ships/ship (7).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (8).png", "output": "assets/ships/ship (8).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (9).png", "output": "assets/ships/ship (9).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (10).png", "output": "assets/ships/ship (10).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (11).png", "output": "assets/ships/ship (11).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (12).png", "output": "assets/ships/ship (12).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (13).png", "output": "assets/ships/ship (13).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (14).png", "output": "assets/ships/ship (14).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (15).png", "output": "assets/ships/ship (15).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (16).png", "output": "assets/ships/ship (16).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (17).png", "output": "assets/ships/ship (17).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (18).png", "output": "assets/ships/ship (18).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (19).png", "output": "assets/ships/ship (19).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (20).png", "output": "assets/ships/ship (20).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (21).png", "output": "assets/ships/ship (21).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (22).png", "output": "assets/ships/ship (22).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (23).png", "output": "assets/ships/ship (23).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (24).png", "output": "assets/ships/ship (24).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (25).png", "output": "assets/ships/ship (25).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (26).png", "output": "assets/ships/ship (26).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (27).png", "output": "assets/ships/ship (27).png" },
-    { "source": "apps/launcher/static/assets/ships/ship (28).png", "output": "assets/ships/ship (28).png" },
-    { "source": "apps/launcher/static/assets/planets/verb-nebula.png", "output": "assets/planets/verb-nebula.png" },
-    { "source": "apps/launcher/static/assets/planets/word-world.png", "output": "assets/planets/word-world.png" },
-    { "source": "apps/launcher/static/assets/robots/robot (1).png", "output": "assets/robots/robot (1).png" },
-    { "source": "apps/launcher/static/assets/visual-vocabulary/calendar-days.png", "output": "assets/miscellaneous/calendar-days.png" },
-    { "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_001.png", "output": "assets/miscellaneous/burrow-review_001.png" },
-    { "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_002.png", "output": "assets/miscellaneous/burrow-review_002.png" },
-    { "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_003.png", "output": "assets/miscellaneous/burrow-review_003.png" },
-    { "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_004.png", "output": "assets/miscellaneous/burrow-review_004.png" },
-    { "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_005.png", "output": "assets/miscellaneous/burrow-review_005.png" },
-    { "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_006.png", "output": "assets/miscellaneous/burrow-review_006.png" },
-    { "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_007.png", "output": "assets/miscellaneous/burrow-review_007.png" },
-    { "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_008.png", "output": "assets/miscellaneous/burrow-review_008.png" },
-    { "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_009.png", "output": "assets/miscellaneous/burrow-review_009.png" },
-    { "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_010.png", "output": "assets/miscellaneous/burrow-review_010.png" },
-    { "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_011.png", "output": "assets/miscellaneous/burrow-review_011.png" },
-    { "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_012.png", "output": "assets/miscellaneous/burrow-review_012.png" },
-    { "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_014.png", "output": "assets/miscellaneous/burrow-review_014.png" },
-    { "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_015.png", "output": "assets/miscellaneous/burrow-review_015.png" },
-    { "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_016.png", "output": "assets/miscellaneous/burrow-review_016.png" },
-    { "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_033.png", "output": "assets/miscellaneous/burrow-review_033.png" },
-    { "source": "apps/launcher/static/assets/macaw/music/music (1).png", "output": "assets/macaw/music/music (1).png" },
-    { "source": "apps/launcher/static/assets/macaw/music/music (2).png", "output": "assets/macaw/music/music (2).png" },
-    { "source": "apps/launcher/static/assets/macaw/music/music (3).png", "output": "assets/macaw/music/music (3).png" },
-    { "source": "apps/launcher/static/assets/macaw/music/music (4).png", "output": "assets/macaw/music/music (4).png" },
-    { "source": "apps/launcher/static/assets/macaw/music/music (5).png", "output": "assets/macaw/music/music (5).png" },
-    { "source": "apps/launcher/static/assets/macaw/music/music (6).png", "output": "assets/macaw/music/music (6).png" },
-    { "source": "apps/launcher/static/assets/macaw/music/music (7).png", "output": "assets/macaw/music/music (7).png" },
-    { "source": "apps/launcher/static/assets/macaw/music/music (8).png", "output": "assets/macaw/music/music (8).png" },
-    { "source": "apps/launcher/static/assets/macaw/music/music (9).png", "output": "assets/macaw/music/music (9).png" },
-    { "source": "apps/launcher/static/assets/macaw/music/music (10).png", "output": "assets/macaw/music/music (10).png" },
-    { "source": "apps/launcher/static/assets/macaw/music/music (11).png", "output": "assets/macaw/music/music (11).png" },
-    { "source": "apps/launcher/static/assets/macaw/music/music (12).png", "output": "assets/macaw/music/music (12).png" },
-    { "source": "apps/launcher/static/assets/macaw/actions/macaw (49).png", "output": "assets/macaw/actions/macaw (49).png" }
+    {
+      "source": "apps/language-runtime/static/assets/initial-image.png",
+      "output": "language-runtime/static/assets/initial-image.png"
+    },
+    {
+      "source": "apps/language-runtime/static/source/practice-compass.mjs",
+      "output": "language-runtime/static/source/practice-compass.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/semantic-learning.js",
+      "output": "language-runtime/static/source/semantic-learning.js"
+    },
+    {
+      "source": "apps/language-runtime/static/source/semantic-learning-core.mjs",
+      "output": "language-runtime/static/source/semantic-learning-core.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/data/english-concepts/word-world-nb-v1.json",
+      "output": "language-runtime/static/data/english-concepts/word-world-nb-v1.json"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/home/norway_flag.png",
+      "output": "assets/icons/norway_flag.png"
+    },
+    {
+      "source": "apps/language-runtime/static/source/license-catalog.mjs",
+      "output": "language-runtime/static/source/license-catalog.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/legal/CAATUU-LICENSE.txt",
+      "output": "language-runtime/static/legal/CAATUU-LICENSE.txt"
+    },
+    {
+      "source": "apps/language-runtime/static/legal/APACHE-2.0-LICENSE.txt",
+      "output": "language-runtime/static/legal/APACHE-2.0-LICENSE.txt"
+    },
+    {
+      "source": "apps/language-runtime/static/legal/ONNX-RUNTIME-LICENSE.txt",
+      "output": "language-runtime/static/legal/ONNX-RUNTIME-LICENSE.txt"
+    },
+    {
+      "source": "apps/language-runtime/static/legal/ANDROID-NOTICES.txt",
+      "output": "language-runtime/static/legal/ANDROID-NOTICES.txt"
+    },
+    {
+      "source": "apps/language-runtime/static/legal/android-dependencies.json",
+      "output": "language-runtime/static/legal/android-dependencies.json"
+    },
+    {
+      "source": "apps/language-runtime/static/legal/SQL-JS-LICENSE.txt",
+      "output": "language-runtime/static/legal/SQL-JS-LICENSE.txt"
+    },
+    {
+      "source": "apps/language-runtime/static/legal/CZECH-WORD-WORLD-NOTICE.txt",
+      "output": "language-runtime/static/legal/CZECH-WORD-WORLD-NOTICE.txt"
+    },
+    {
+      "source": "apps/language-runtime/static/legal/CZECH-DICTIONARY-ATTRIBUTION.txt",
+      "output": "language-runtime/static/legal/CZECH-DICTIONARY-ATTRIBUTION.txt"
+    },
+    {
+      "source": "apps/language-runtime/static/legal/CC-BY-SA-4.0.txt",
+      "output": "language-runtime/static/legal/CC-BY-SA-4.0.txt"
+    },
+    {
+      "source": "apps/language-runtime/static/source/music.mjs",
+      "output": "language-runtime/static/source/music.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/music-controls.mjs",
+      "output": "language-runtime/static/source/music-controls.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/background-music.mjs",
+      "output": "language-runtime/static/source/background-music.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/styles/music-controls.css",
+      "output": "language-runtime/static/styles/music-controls.css"
+    },
+    {
+      "source": "apps/launcher/static/assets/music/audio/Woodland_Fantasy.mp3",
+      "output": "assets/music/audio/Woodland_Fantasy.mp3"
+    },
+    {
+      "source": "apps/launcher/static/assets/music/audio/Salt_Marsh_Birds.mp3",
+      "output": "assets/music/audio/Salt_Marsh_Birds.mp3"
+    },
+    {
+      "source": "apps/launcher/static/assets/music/audio/Town_Theme_RPG.mp3",
+      "output": "assets/music/audio/Town_Theme_RPG.mp3"
+    },
+    {
+      "source": "apps/launcher/static/assets/music/MUSIC_CREDITS.txt",
+      "output": "assets/music/MUSIC_CREDITS.txt"
+    },
+    {
+      "source": "apps/launcher/static/assets/music/licenses/CC-BY-3.0.txt",
+      "output": "assets/music/licenses/CC-BY-3.0.txt"
+    },
+    {
+      "source": "apps/launcher/static/assets/music/licenses/CC0-1.0.txt",
+      "output": "assets/music/licenses/CC0-1.0.txt"
+    },
+    {
+      "source": "apps/language-runtime/static/app/setup.html",
+      "output": "setup.html"
+    },
+    {
+      "source": "apps/language-runtime/static/app/course-install.html",
+      "output": "course-install.html"
+    },
+    {
+      "source": "apps/language-runtime/static/source/course-setup.mjs",
+      "output": "language-runtime/static/source/course-setup.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/styles/course-setup.css",
+      "output": "language-runtime/static/styles/course-setup.css"
+    },
+    {
+      "source": "apps/language-runtime/static/source/english-image-search.mjs",
+      "output": "language-runtime/static/source/english-image-search.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/image-embedding-index.mjs",
+      "output": "language-runtime/static/source/image-embedding-index.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "output": "language-runtime/static/data/image-embeddings/minilm-v1.json"
+    },
+    {
+      "source": "apps/language-runtime/static/source/learner-base-token-meanings.mjs",
+      "output": "language-runtime/static/source/learner-base-token-meanings.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/launcher-interface.mjs",
+      "output": "language-runtime/static/source/launcher-interface.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/data/interface/es.v1.json",
+      "output": "language-runtime/static/data/interface/es.v1.json"
+    },
+    {
+      "source": "apps/language-runtime/static/games/sound-quasar.html",
+      "output": "language-runtime/static/games/sound-quasar.html"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/sound-quasar/sound-quasar-host.mjs",
+      "output": "language-runtime/static/source/games/sound-quasar/sound-quasar-host.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs",
+      "output": "language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/styles/games/sound-quasar.css",
+      "output": "language-runtime/static/styles/games/sound-quasar.css"
+    },
+    {
+      "source": "apps/launcher/static/assets/visual-vocabulary/keymap.json",
+      "output": "assets/miscellaneous/keymap.json"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/actions/keymaps.json",
+      "output": "assets/macaw/actions/keymaps.json"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/actions/180-hear_listen.png",
+      "output": "assets/macaw/actions/180-hear_listen.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/actions/181-see_look.png",
+      "output": "assets/macaw/actions/181-see_look.png"
+    },
+    {
+      "source": "apps/language-runtime/static/source/developer-tools/browser-model-service.mjs",
+      "output": "language-runtime/static/source/developer-tools/browser-model-service.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/developer-tools/developer-tools.mjs",
+      "output": "language-runtime/static/source/developer-tools/developer-tools.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/developer-tools/audio-lab.mjs",
+      "output": "language-runtime/static/source/developer-tools/audio-lab.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/developer-tools/catalog-inspectors.mjs",
+      "output": "language-runtime/static/source/developer-tools/catalog-inspectors.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/developer-tools/model-tools.mjs",
+      "output": "language-runtime/static/source/developer-tools/model-tools.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/styles/caatuu-developer-tools.css",
+      "output": "language-runtime/static/styles/caatuu-developer-tools.css"
+    },
+    {
+      "source": "apps/language-runtime/contract.mjs",
+      "output": "language-runtime/contract.mjs"
+    },
+    {
+      "source": "apps/language-runtime/embedding-runtimes.json",
+      "output": "language-runtime/embedding-runtimes.json"
+    },
+    {
+      "source": "apps/language-runtime/static/games/grammar-gravity.html",
+      "output": "language-runtime/static/games/grammar-gravity.html"
+    },
+    {
+      "source": "apps/language-runtime/static/games/triangular-thermosphere.html",
+      "output": "language-runtime/static/games/triangular-thermosphere.html"
+    },
+    {
+      "source": "apps/language-runtime/static/games/agreement-aurora.html",
+      "output": "language-runtime/static/games/agreement-aurora.html"
+    },
+    {
+      "source": "apps/language-runtime/static/games/conjugation-comet.html",
+      "output": "language-runtime/static/games/conjugation-comet.html"
+    },
+    {
+      "source": "apps/language-runtime/static/source/app-bootstrap.mjs",
+      "output": "language-runtime/static/source/app-bootstrap.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/browser-shell.mjs",
+      "output": "language-runtime/static/source/browser-shell.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/caatuu-chrome.js",
+      "output": "language-runtime/static/source/caatuu-chrome.js"
+    },
+    {
+      "source": "apps/language-runtime/static/source/caatuu-workspace.js",
+      "output": "language-runtime/static/source/caatuu-workspace.js"
+    },
+    {
+      "source": "apps/language-runtime/static/source/child-facing-assets.mjs",
+      "output": "language-runtime/static/source/child-facing-assets.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/catalog-runtime.mjs",
+      "output": "language-runtime/static/source/catalog-runtime.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/course-service-worker.js",
+      "output": "language-runtime/static/source/course-service-worker.js"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/course-game-content.mjs",
+      "output": "language-runtime/static/source/games/course-game-content.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/curriculum-progression.mjs",
+      "output": "language-runtime/static/source/games/curriculum-progression.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/content-progression.mjs",
+      "output": "language-runtime/static/source/games/content-progression.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/adaptive-sampling.mjs",
+      "output": "language-runtime/static/source/games/adaptive-sampling.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/adaptive-practice.mjs",
+      "output": "language-runtime/static/source/games/adaptive-practice.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/recent-practice.mjs",
+      "output": "language-runtime/static/source/games/recent-practice.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/learner-state.mjs",
+      "output": "language-runtime/static/source/learner-state.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/learning-semantics.mjs",
+      "output": "language-runtime/static/source/learning-semantics.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/word-world-progression.mjs",
+      "output": "language-runtime/static/source/word-world-progression.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/embedded-game-controls.mjs",
+      "output": "language-runtime/static/source/games/embedded-game-controls.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/grammar-gravity/grammar-gravity-core.mjs",
+      "output": "language-runtime/static/source/games/grammar-gravity/grammar-gravity-core.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/grammar-gravity/grammar-gravity-host.mjs",
+      "output": "language-runtime/static/source/games/grammar-gravity/grammar-gravity-host.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/grammar-gravity/noun-landing-core.mjs",
+      "output": "language-runtime/static/source/games/grammar-gravity/noun-landing-core.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/grammar-gravity/noun-landing-host.mjs",
+      "output": "language-runtime/static/source/games/grammar-gravity/noun-landing-host.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/grammar-gravity/adjective-flight-core.mjs",
+      "output": "language-runtime/static/source/games/grammar-gravity/adjective-flight-core.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/grammar-gravity/adjective-flight-host.mjs",
+      "output": "language-runtime/static/source/games/grammar-gravity/adjective-flight-host.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/grammar-gravity/noun-visual.mjs",
+      "output": "language-runtime/static/source/games/grammar-gravity/noun-visual.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs",
+      "output": "language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs",
+      "output": "language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/dictionary-provider-loader.mjs",
+      "output": "language-runtime/static/source/dictionary-provider-loader.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/embedded-game-bootstrap.js",
+      "output": "language-runtime/static/source/embedded-game-bootstrap.js"
+    },
+    {
+      "source": "apps/language-runtime/static/source/embedding-runtime-contract.mjs",
+      "output": "language-runtime/static/source/embedding-runtime-contract.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/english-minilm-ranker.mjs",
+      "output": "language-runtime/static/source/english-minilm-ranker.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/initial-theme.js",
+      "output": "language-runtime/static/source/initial-theme.js"
+    },
+    {
+      "source": "apps/language-runtime/static/source/interface-content.mjs",
+      "output": "language-runtime/static/source/interface-content.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/learning-profile.js",
+      "output": "language-runtime/static/source/learning-profile.js"
+    },
+    {
+      "source": "apps/language-runtime/static/source/legacy-page-bootstrap.mjs",
+      "output": "language-runtime/static/source/legacy-page-bootstrap.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/maintenance-ui.js",
+      "output": "language-runtime/static/source/maintenance-ui.js"
+    },
+    {
+      "source": "apps/language-runtime/static/source/product-word-world.mjs",
+      "output": "language-runtime/static/source/product-word-world.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/shell-policy.js",
+      "output": "language-runtime/static/source/shell-policy.js"
+    },
+    {
+      "source": "apps/language-runtime/static/source/shell-policy.mjs",
+      "output": "language-runtime/static/source/shell-policy.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/target-text-tones.mjs",
+      "output": "language-runtime/static/source/target-text-tones.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/target-text.mjs",
+      "output": "language-runtime/static/source/target-text.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/word-net-core.mjs",
+      "output": "language-runtime/static/source/word-net-core.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/word-net-queue.mjs",
+      "output": "language-runtime/static/source/word-net-queue.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/horizontal-gesture.mjs",
+      "output": "language-runtime/static/source/horizontal-gesture.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/word-world-host.mjs",
+      "output": "language-runtime/static/source/word-world-host.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/word-world-provider.mjs",
+      "output": "language-runtime/static/source/word-world-provider.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/verb-nebula/verb-exercise-family-core.mjs",
+      "output": "language-runtime/static/source/games/verb-nebula/verb-exercise-family-core.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs",
+      "output": "language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/styles/caatuu-chrome.css",
+      "output": "language-runtime/static/styles/caatuu-chrome.css"
+    },
+    {
+      "source": "apps/language-runtime/static/styles/caatuu-home.css",
+      "output": "language-runtime/static/styles/caatuu-home.css"
+    },
+    {
+      "source": "apps/language-runtime/static/styles/caatuu-theme.css",
+      "output": "language-runtime/static/styles/caatuu-theme.css"
+    },
+    {
+      "source": "apps/language-runtime/static/styles/caatuu-word-world.css",
+      "output": "language-runtime/static/styles/caatuu-word-world.css"
+    },
+    {
+      "source": "apps/language-runtime/static/styles/caatuu-target-text.css",
+      "output": "language-runtime/static/styles/caatuu-target-text.css"
+    },
+    {
+      "source": "apps/language-runtime/static/styles/dictionary-word-card.css",
+      "output": "language-runtime/static/styles/dictionary-word-card.css"
+    },
+    {
+      "source": "apps/language-runtime/static/styles/caatuu-workspace.css",
+      "output": "language-runtime/static/styles/caatuu-workspace.css"
+    },
+    {
+      "source": "apps/language-runtime/static/styles/games/grammar-gravity.css",
+      "output": "language-runtime/static/styles/games/grammar-gravity.css"
+    },
+    {
+      "source": "apps/language-runtime/static/styles/games/gravity-paper.svg",
+      "output": "language-runtime/static/styles/games/gravity-paper.svg"
+    },
+    {
+      "source": "apps/language-runtime/static/styles/games/conjugation-comet.css",
+      "output": "language-runtime/static/styles/games/conjugation-comet.css"
+    },
+    {
+      "source": "apps/language-runtime/static/styles/games/embedded-game-controls.css",
+      "output": "language-runtime/static/styles/games/embedded-game-controls.css"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/caatuu-shell-512.png",
+      "output": "language-runtime/static/assets/caatuu-shell-512.png"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/caatuu-shell-512.png",
+      "output": "assets/caatuu-shell-512.png"
+    },
+    {
+      "source": "apps/language-runtime/static/data/interface/en.v1.json",
+      "output": "language-runtime/static/data/interface/en.v1.json"
+    },
+    {
+      "source": "apps/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
+      "output": "language-runtime/static/data/english-concepts/word-world-starter-v1.json"
+    },
+    {
+      "source": "apps/language-runtime/static/data/english-concepts/word-world-es-v1.json",
+      "output": "language-runtime/static/data/english-concepts/word-world-es-v1.json"
+    },
+    {
+      "source": "apps/language-runtime/static/data/english-concepts/word-world-es-en-v1.json",
+      "output": "language-runtime/static/data/english-concepts/word-world-es-en-v1.json"
+    },
+    {
+      "source": "apps/launcher/static/assets/icons/backpack_icon.png",
+      "output": "assets/icons/backpack_icon.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/icons/coin_icon_ui.png",
+      "output": "assets/icons/coin_icon_ui.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/icons/clock_icon.png",
+      "output": "assets/icons/clock_icon.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/icons/china_flag.png",
+      "output": "assets/icons/china_flag.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/icons/czech_flag_ui.png",
+      "output": "assets/icons/czech_flag_ui.png"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/home/english_flag.png",
+      "output": "assets/icons/english_flag.png"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/home/spain_flag.png",
+      "output": "assets/icons/spain_flag.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/icons/dark_mode_ui.png",
+      "output": "assets/icons/dark_mode_ui.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/icons/difficulty_medal_1_ui.png",
+      "output": "assets/icons/difficulty_medal_1_ui.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/icons/difficulty_medal_2_ui.png",
+      "output": "assets/icons/difficulty_medal_2_ui.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/icons/difficulty_medal_3_ui.png",
+      "output": "assets/icons/difficulty_medal_3_ui.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/icons/games_icon.png",
+      "output": "assets/icons/games_icon.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/icons/gear_icon.png",
+      "output": "assets/icons/gear_icon.png"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/home/hello.png",
+      "output": "assets/icons/hello.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/icons/home_icon.png",
+      "output": "assets/icons/home_icon.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/icons/homebase_icon.png",
+      "output": "assets/icons/homebase_icon.png"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/home/icon_gem.png",
+      "output": "assets/icons/icon_gem.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/icons/items_icon.png",
+      "output": "assets/icons/items_icon.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/icons/light_mode_ui.png",
+      "output": "assets/icons/light_mode_ui.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/icons/paper_plane_submit_ui.png",
+      "output": "assets/icons/paper_plane_submit_ui.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/icons/social_icon.png",
+      "output": "assets/icons/social_icon.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/icons/stats_icon.png",
+      "output": "assets/icons/stats_icon.png"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/home/store_icon.png",
+      "output": "assets/icons/store_icon.png"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/home/streak_icon.png",
+      "output": "assets/icons/streak_icon.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/micelaneous/male_gender.png",
+      "output": "assets/micelaneous/male_gender.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/micelaneous/female_gender.png",
+      "output": "assets/micelaneous/female_gender.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/micelaneous/neutral_gender.png",
+      "output": "assets/micelaneous/neutral_gender.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/micelaneous/parashute.png",
+      "output": "assets/micelaneous/parashute.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/cases/floating_boat (1).png",
+      "output": "assets/macaw/cases/floating_boat (1).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/cases/floating_boat (2).png",
+      "output": "assets/macaw/cases/floating_boat (2).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/cases/floating_boat (3).png",
+      "output": "assets/macaw/cases/floating_boat (3).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/cases/floating_boat (4).png",
+      "output": "assets/macaw/cases/floating_boat (4).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/cases/floating_boat (5).png",
+      "output": "assets/macaw/cases/floating_boat (5).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/cases/floating_boat (6).png",
+      "output": "assets/macaw/cases/floating_boat (6).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/cases/floating_boat (7).png",
+      "output": "assets/macaw/cases/floating_boat (7).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/cases/floating_boat (8).png",
+      "output": "assets/macaw/cases/floating_boat (8).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/cases/floating_boat (9).png",
+      "output": "assets/macaw/cases/floating_boat (9).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/planets/grammar-gravity.png",
+      "output": "assets/planets/grammar-gravity.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/planets/campaign-mode.png",
+      "output": "assets/planets/campaign-mode.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/planets/case-cosmos.png",
+      "output": "assets/planets/case-cosmos.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/planets/conjugation-comet.png",
+      "output": "assets/planets/conjugation-comet.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/planets/memory-moon.png",
+      "output": "assets/planets/memory-moon.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/planets/naturalization-nucleus.png",
+      "output": "assets/planets/naturalization-nucleus.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/planets/sounds-quasar.png",
+      "output": "assets/planets/sounds-quasar.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/stores/stores (1).png",
+      "output": "assets/stores/stores (1).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/stores/stores (2).png",
+      "output": "assets/stores/stores (2).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/stores/stores (3).png",
+      "output": "assets/stores/stores (3).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/stores/stores (4).png",
+      "output": "assets/stores/stores (4).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/stores/stores (5).png",
+      "output": "assets/stores/stores (5).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/stores/stores (6).png",
+      "output": "assets/stores/stores (6).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/stores/stores (7).png",
+      "output": "assets/stores/stores (7).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/stores/stores (8).png",
+      "output": "assets/stores/stores (8).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/stores/stores (9).png",
+      "output": "assets/stores/stores (9).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/stores/stores (10).png",
+      "output": "assets/stores/stores (10).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/stores/stores (11).png",
+      "output": "assets/stores/stores (11).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/stores/stores (12).png",
+      "output": "assets/stores/stores (12).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/stores/stores (13).png",
+      "output": "assets/stores/stores (13).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/stores/stores (14).png",
+      "output": "assets/stores/stores (14).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/stores/stores (15).png",
+      "output": "assets/stores/stores (15).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/stores/stores (16).png",
+      "output": "assets/stores/stores (16).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (1).png",
+      "output": "assets/ships/ship (1).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (2).png",
+      "output": "assets/ships/ship (2).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (3).png",
+      "output": "assets/ships/ship (3).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (4).png",
+      "output": "assets/ships/ship (4).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (5).png",
+      "output": "assets/ships/ship (5).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (6).png",
+      "output": "assets/ships/ship (6).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (7).png",
+      "output": "assets/ships/ship (7).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (8).png",
+      "output": "assets/ships/ship (8).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (9).png",
+      "output": "assets/ships/ship (9).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (10).png",
+      "output": "assets/ships/ship (10).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (11).png",
+      "output": "assets/ships/ship (11).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (12).png",
+      "output": "assets/ships/ship (12).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (13).png",
+      "output": "assets/ships/ship (13).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (14).png",
+      "output": "assets/ships/ship (14).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (15).png",
+      "output": "assets/ships/ship (15).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (16).png",
+      "output": "assets/ships/ship (16).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (17).png",
+      "output": "assets/ships/ship (17).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (18).png",
+      "output": "assets/ships/ship (18).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (19).png",
+      "output": "assets/ships/ship (19).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (20).png",
+      "output": "assets/ships/ship (20).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (21).png",
+      "output": "assets/ships/ship (21).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (22).png",
+      "output": "assets/ships/ship (22).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (23).png",
+      "output": "assets/ships/ship (23).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (24).png",
+      "output": "assets/ships/ship (24).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (25).png",
+      "output": "assets/ships/ship (25).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (26).png",
+      "output": "assets/ships/ship (26).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (27).png",
+      "output": "assets/ships/ship (27).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (28).png",
+      "output": "assets/ships/ship (28).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/planets/verb-nebula.png",
+      "output": "assets/planets/verb-nebula.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/planets/word-world.png",
+      "output": "assets/planets/word-world.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (1).png",
+      "output": "assets/robots/robot (1).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/visual-vocabulary/calendar-days.png",
+      "output": "assets/miscellaneous/calendar-days.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_001.png",
+      "output": "assets/miscellaneous/burrow-review_001.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_002.png",
+      "output": "assets/miscellaneous/burrow-review_002.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_003.png",
+      "output": "assets/miscellaneous/burrow-review_003.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_004.png",
+      "output": "assets/miscellaneous/burrow-review_004.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_005.png",
+      "output": "assets/miscellaneous/burrow-review_005.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_006.png",
+      "output": "assets/miscellaneous/burrow-review_006.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_007.png",
+      "output": "assets/miscellaneous/burrow-review_007.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_008.png",
+      "output": "assets/miscellaneous/burrow-review_008.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_009.png",
+      "output": "assets/miscellaneous/burrow-review_009.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_010.png",
+      "output": "assets/miscellaneous/burrow-review_010.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_011.png",
+      "output": "assets/miscellaneous/burrow-review_011.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_012.png",
+      "output": "assets/miscellaneous/burrow-review_012.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_014.png",
+      "output": "assets/miscellaneous/burrow-review_014.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_015.png",
+      "output": "assets/miscellaneous/burrow-review_015.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_016.png",
+      "output": "assets/miscellaneous/burrow-review_016.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/visual-vocabulary/burrow-review_033.png",
+      "output": "assets/miscellaneous/burrow-review_033.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/music/music (1).png",
+      "output": "assets/macaw/music/music (1).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/music/music (2).png",
+      "output": "assets/macaw/music/music (2).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/music/music (3).png",
+      "output": "assets/macaw/music/music (3).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/music/music (4).png",
+      "output": "assets/macaw/music/music (4).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/music/music (5).png",
+      "output": "assets/macaw/music/music (5).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/music/music (6).png",
+      "output": "assets/macaw/music/music (6).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/music/music (7).png",
+      "output": "assets/macaw/music/music (7).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/music/music (8).png",
+      "output": "assets/macaw/music/music (8).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/music/music (9).png",
+      "output": "assets/macaw/music/music (9).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/music/music (10).png",
+      "output": "assets/macaw/music/music (10).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/music/music (11).png",
+      "output": "assets/macaw/music/music (11).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/music/music (12).png",
+      "output": "assets/macaw/music/music (12).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/macaw/actions/macaw (49).png",
+      "output": "assets/macaw/actions/macaw (49).png"
+    },
+    {
+      "source": "apps/language-runtime/static/data/english-concepts/word-world-ar-v1.json",
+      "output": "language-runtime/static/data/english-concepts/word-world-ar-v1.json"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/home/arabic_mark.png",
+      "output": "assets/icons/arabic_mark.png"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/home/latin_mark.png",
+      "output": "assets/icons/latin_mark.png"
+    },
+    {
+      "source": "apps/language-runtime/static/data/english-concepts/word-world-la-v1.json",
+      "output": "language-runtime/static/data/english-concepts/word-world-la-v1.json"
+    }
   ]
 }

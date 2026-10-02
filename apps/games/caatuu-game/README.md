@@ -9,6 +9,11 @@ Start at the [resume guide](../lab/RESUME.md). Review the animations at
 <http://127.0.0.1:8765/games/lab/motion> and movement at
 <http://127.0.0.1:8765/games/lab/scenary>, through the existing local service.
 
+The current 40 walking poses and five standing poses used by Scenery are in
+the [walking source folder](../lab/assets/macaw/walk/README.md), with editable
+strips, prompts and stride calibration. The older 55-frame workshop remains a
+historical animation reference.
+
 The old Godot project, humanoid experiment, rigid parts costume and export
 pipeline are preserved in the
 [legacy archive](../../../archive/demos/caatuu-game-godot-v1/README.md).

@@ -19,9 +19,9 @@ button:focus-visible { outline: 3px solid var(--theme-focus-ring); outline-offse
 .conjugation-comet-dot[data-result="correct"] { background: var(--theme-green); border-color: var(--theme-green); }
 .conjugation-comet-dot[data-result="wrong"] { background: var(--theme-red); border-color: var(--theme-red); }
 .conjugation-comet-card { position: relative; isolation: isolate; display: flex; flex: 1; min-height: 0; flex-direction: column; border: 1px solid color-mix(in srgb, #967647 34%, var(--theme-line)); border-radius: 18px; background: radial-gradient(ellipse at 50% 40%, color-mix(in srgb, #b79a58 10%, transparent), transparent 48%), var(--theme-panel-raised); box-shadow: inset 0 0 0 3px color-mix(in srgb, #ba9855 7%, transparent); }
-.conjugation-comet-board { position: relative; display: flex; flex: 1; min-height: 0; padding: 0 60px 10px; }
-.conjugation-comet-strand-controls { position: absolute; inset: 0; z-index: 6; pointer-events: none; }
-.conjugation-comet-strand-controls > div { position: absolute; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 46px; }
+.conjugation-comet-board { --comet-board-padding: 60px; position: relative; display: block; flex: 1; min-height: 0; padding: 0 var(--comet-board-padding) 10px; }
+.conjugation-comet-strand-controls { position: sticky; top: 50dvh; height: 0; width: calc(100% + var(--comet-board-padding) * 2); margin-inline: calc(-1 * var(--comet-board-padding)); z-index: 6; pointer-events: none; }
+.conjugation-comet-strand-controls > div { position: absolute; top: 0; transform: translateY(-50%); display: flex; flex-direction: column; gap: 46px; }
 .conjugation-comet-strand-controls > div:first-child { left: 14px; }
 .conjugation-comet-strand-controls > div:last-child { right: 14px; }
 .conjugation-comet-step { display: grid; place-items: center; justify-self: center; pointer-events: auto; width: 48px; min-height: 56px; padding: 0; border: 1px solid color-mix(in srgb, var(--theme-green) 45%, var(--theme-line)); border-radius: 8px; background: color-mix(in srgb, var(--theme-green) 22%, var(--theme-panel-raised)); box-shadow: none; font-size: 2rem; font-weight: 500; line-height: 1; transition: transform 150ms, background 150ms; }
@@ -30,7 +30,7 @@ button:focus-visible { outline: 3px solid var(--theme-focus-ring); outline-offse
 .conjugation-comet-step:hover:not(:disabled) { background: color-mix(in srgb, var(--theme-green) 32%, var(--theme-panel-raised)); transform: translateY(-1px); }
 .conjugation-comet-step:active:not(:disabled) { transform: translateY(1px); }
 .conjugation-comet-step:disabled { opacity: .4; }
-.conjugation-comet-helix { position: relative; flex: 1; min-width: 0; height: max(calc(100dvh - 76px), calc(var(--helix-rows, 6) * 70px + 60px)); min-height: 500px; overflow: hidden; }
+.conjugation-comet-helix { position: relative; flex: 1; min-width: 0; height: max(calc(100dvh - 76px), calc(var(--helix-rows, 6) * 70px + 60px), var(--helix-content-height, 0px)); min-height: 500px; overflow: hidden; }
 .conjugation-comet-pair-backgrounds { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
 .conjugation-comet-pair-background { position: absolute; border: 0; border-radius: 10px; background: color-mix(in srgb, var(--theme-green) 7%, transparent); box-shadow: none; pointer-events: none; transition: background-color 180ms ease; }
 .conjugation-comet-pair-background[data-result="correct"] { background: color-mix(in srgb, var(--theme-green) 24%, transparent); }
@@ -98,7 +98,7 @@ button:focus-visible { outline: 3px solid var(--theme-focus-ring); outline-offse
 
   #conjugationCometQuestion, #conjugationCometFeedback { text-align: left; }
 }
-@media (max-width: 540px) { .conjugation-comet { padding: 6px; } .conjugation-comet-header { position: relative; padding: 8px; } .conjugation-comet-header-actions { gap: 5px; } .conjugation-comet-controls .caatuu-game-controls { flex-wrap: wrap; max-width: 104px; } .conjugation-comet-node { padding-inline: 3px; font-size: .86rem; } .conjugation-comet-helix { height: max(calc(100dvh - 172px), calc(var(--helix-rows, 6) * 80px + 60px)); margin-top: -64px; } .conjugation-comet-board { padding-inline: 38px; padding-bottom: 54px; } .conjugation-comet-strand-controls > div:first-child { left: 4px; } .conjugation-comet-strand-controls > div:last-child { right: 4px; } .conjugation-comet-step { width: 40px; } }
+@media (max-width: 540px) { .conjugation-comet { padding: 6px; } .conjugation-comet-header { position: relative; padding: 8px; } .conjugation-comet-header-actions { gap: 5px; } .conjugation-comet-controls .caatuu-game-controls { flex-wrap: wrap; max-width: 104px; } .conjugation-comet-node { padding-inline: 3px; font-size: .86rem; } .conjugation-comet-helix { height: max(calc(100dvh - 172px), calc(var(--helix-rows, 6) * 80px + 60px), var(--helix-content-height, 0px)); margin-top: -64px; } .conjugation-comet-board { --comet-board-padding: 38px; padding-bottom: 54px; } .conjugation-comet-strand-controls > div:first-child { left: 4px; } .conjugation-comet-strand-controls > div:last-child { right: 4px; } .conjugation-comet-step { width: 40px; } }
 @media (prefers-reduced-motion: reduce) { *, *::before { animation: none !important; transition: none !important; } }
 
 html[data-theme="dark"] .conjugation-comet-game { --strand-subject: var(--theme-ink); --strand-target: var(--theme-ink); --comet-emphasis: #78baff; }

@@ -1,7 +1,7 @@
 import { initializeWorkspaceAfterDictionaryProvider } from "./dictionary-provider-loader.mjs";
 import { initializeHomeCourseSetup } from "./course-setup.mjs?v=course-setup-2";
 import { installMusic } from "./music.mjs";
-import { createPracticeCompass, sharedPracticeAxes } from "./practice-compass.mjs?v=practice-compass-4";
+import { createPracticeCompass, sharedPracticeAxes } from "./practice-compass.mjs?v=practice-compass-5";
 import {
   installInterfaceContent,
   loadInterfaceContent
@@ -717,7 +717,7 @@ async function loadCourseFeatureProviders() {
     origin: location.origin,
     routeBase,
     async initializeWorkspace() {
-      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-40");
+      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-41");
       const workspace = await globalThis.CaatuuWorkspaceReady;
       if (workspace?.ready !== true) {
         throw workspace?.error instanceof Error
@@ -759,7 +759,7 @@ async function start() {
   await initializeHomeCourseSetup(globalThis, { onSetupRequired: revealApplication });
   configureGameRoutes();
   applyCapabilityBoundaries();
-  await import("./word-world-host.mjs?v=word-world-host-27");
+  await import("./word-world-host.mjs?v=word-world-host-28");
   await loadCourseFeatureProviders();
   // Publish the usable-controls and voice results together. Further voice
   // retries can recover a late engine without delaying entry to the app.

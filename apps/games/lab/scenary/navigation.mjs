@@ -257,11 +257,13 @@ export function planRoute(nav, fromValue, targetValue) {
 }
 
 /** Mutates caller-owned position/waypoints/action/direction/distanceRemaining. */
-export function advanceRoute(state, dt) {
+export function advanceRoute(state, dt, speed) {
   if (!Number.isFinite(dt) || dt < 0) throw new RangeError('dt must be finite and nonnegative.');
+  const unitsPerSecond = speed ?? (state.action === 'run' ? 3.6 : state.action === 'walk' ? 1.55 : 0);
+  if (!Number.isFinite(unitsPerSecond) || unitsPerSecond < 0) throw new RangeError('Speed must be finite and nonnegative.');
   state.position = point(state.position);
   state.waypoints ??= [];
-  let budget = (state.action === 'run' ? 3.6 : state.action === 'walk' ? 1.55 : 0) * dt;
+  let budget = state.action === 'idle' ? 0 : unitsPerSecond * dt;
   while (state.waypoints.length) {
     const next = point(state.waypoints[0]);
     const remaining = distance(state.position, next);

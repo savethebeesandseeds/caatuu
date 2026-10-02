@@ -1,0 +1,77 @@
+{
+  "date": "2026-10-02",
+  "authorization": "User requested removal of temporary images after promoting the final step images; retain original videos.",
+  "retired": [
+    {
+      "path": "artifacts/research/world-movement/generated-candidates/macaw-walking-20261001-v1",
+      "absolute_path": "C:\\Work\\caatuu\\artifacts\\research\\world-movement\\generated-candidates\\macaw-walking-20261001-v1",
+      "files": 1903,
+      "bytes": 441217816.0
+    },
+    {
+      "path": "artifacts/research/world-movement/generated-candidates/macaw-walking-keyposes-20261002-v1",
+      "absolute_path": "C:\\Work\\caatuu\\artifacts\\research\\world-movement\\generated-candidates\\macaw-walking-keyposes-20261002-v1",
+      "files": 144,
+      "bytes": 33568638.0
+    },
+    {
+      "path": "artifacts/research/world-movement/generated-candidates/macaw-standing-20261002-v1",
+      "absolute_path": "C:\\Work\\caatuu\\artifacts\\research\\world-movement\\generated-candidates\\macaw-standing-20261002-v1",
+      "files": 20,
+      "bytes": 4776110.0
+    },
+    {
+      "path": "artifacts/research/world-movement/generated-candidates/macaw-walking-refined-20261002-v1",
+      "absolute_path": "C:\\Work\\caatuu\\artifacts\\research\\world-movement\\generated-candidates\\macaw-walking-refined-20261002-v1",
+      "files": 293,
+      "bytes": 71553989.0
+    },
+    {
+      "path": "apps/games/lab/assets/walking-drafts/video-20261002",
+      "absolute_path": "C:\\Work\\caatuu\\apps\\games\\lab\\assets\\walking-drafts\\video-20261002",
+      "files": 46,
+      "bytes": 6424048.0
+    },
+    {
+      "path": "apps/games/lab/assets/walking-drafts/video-20261002-refined-v1",
+      "absolute_path": "C:\\Work\\caatuu\\apps\\games\\lab\\assets\\walking-drafts\\video-20261002-refined-v1",
+      "files": 63,
+      "bytes": 20412862.0
+    }
+  ],
+  "preserved_source": "apps/games/lab/assets/macaw/walk",
+  "preserved_videos": {
+    "source_directory": "artifacts/research/world-movement/source/macaw-walking",
+    "created": "2026-10-01",
+    "originals_preserved": true,
+    "sources": [
+      {
+        "file": "east.mp4",
+        "bytes": 2911064,
+        "sha256": "8e65c427f7e85d774009e7a803599f0a36c43840fb079a80e46bc596af27c888"
+      },
+      {
+        "file": "north-east.mp4",
+        "bytes": 1106105,
+        "sha256": "a9491ba6a520ba5b76ab99ad780fe8e48f6b89ee365374ce6b90090ff7b0eb23"
+      },
+      {
+        "file": "north.mp4",
+        "bytes": 2457273,
+        "sha256": "8a69e6469e978944be70b27b9d61eaa1927d8c25e4c1271d1c2b3306919af39d"
+      },
+      {
+        "file": "south-west.mp4",
+        "bytes": 1062677,
+        "sha256": "1b6dd573735bc392d5d7c0592a5c0707f356cd300fb58954f4b21ec5f2738bf8"
+      },
+      {
+        "file": "south.mp4",
+        "bytes": 1425725,
+        "sha256": "e4db25aacdab602ca4f9365e8970485a59ae63ab971607607cc73c5148e47e37"
+      }
+    ]
+  },
+  "selected_frames_verified": 45,
+  "metadata_preserved": "Generation prompts, selection, registration, normalization and video hashes in provenance/."
+}

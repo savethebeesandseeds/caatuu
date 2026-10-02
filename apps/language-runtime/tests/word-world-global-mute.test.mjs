@@ -41,6 +41,7 @@ function fixture({ native = false } = {}) {
   let supported = true;
   const context = {
     state,
+    course: { capabilities: { speech: true } },
     document: { visibilityState: "visible" },
     window: {
       CaatuuChrome: { getSpeechMuted: () => muted },

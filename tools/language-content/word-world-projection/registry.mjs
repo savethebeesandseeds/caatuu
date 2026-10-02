@@ -1,9 +1,13 @@
 import { englishAmericanWordWorldProjectionPolicy } from "./english-american.mjs";
+import { arabicStandardWordWorldProjectionPolicy } from "./arabic-standard.mjs";
+import { latinScientificWordWorldProjectionPolicy } from "./latin-scientific.mjs";
 import { mandarinSimplifiedWordWorldProjectionPolicy } from "./mandarin-simplified.mjs";
 import { norwegianBokmalWordWorldProjectionPolicy } from "./norwegian-bokmal.mjs";
 import { spanishSpainWordWorldProjectionPolicy } from "./spanish-spain.mjs";
 
 const POLICIES = new Map([
+  [latinScientificWordWorldProjectionPolicy.contentPolicyId, latinScientificWordWorldProjectionPolicy],
+  [arabicStandardWordWorldProjectionPolicy.contentPolicyId, arabicStandardWordWorldProjectionPolicy],
   [englishAmericanWordWorldProjectionPolicy.contentPolicyId, englishAmericanWordWorldProjectionPolicy],
   [norwegianBokmalWordWorldProjectionPolicy.contentPolicyId, norwegianBokmalWordWorldProjectionPolicy],
 

@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Learn languages. Explore new worlds. Free guided practice, games, and language tools with Caatuu.">
     <title>Caatuu · Learn languages. Explore new worlds.</title>
-    <link rel="stylesheet" href="/app.css?v=47">
-    <link rel="stylesheet" href="/language-runtime/static/styles/music-controls.css?v=music-controls-2">
-    <script type="module" src="/language-runtime/static/source/music.mjs"></script>
-    <script src="/launcher.js?v=23" defer></script>
+    <link rel="stylesheet" href="/app.css?v=49">
+    <script src="/launcher.js?v=26" defer></script>
   </head>
   <body class="home-page landing-page">
     <a class="landing-skip" href="#learn" data-i18n="launcher.skip">Skip to content</a>
@@ -27,18 +25,10 @@
             <a href="#about" data-i18n="launcher.nav.about">About</a>
           </nav>
         </div>
-        <div class="landing-header-controls">
-          <details class="launcher-audio-menu" data-audio-menu>
-            <summary aria-label="Audio settings" title="Audio settings" data-i18n-aria-label="common.audio.settings" data-i18n-title="common.audio.settings">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4 6 8H3v8h3l5 4zM15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg>
-            </summary>
-            <div class="launcher-audio-panel" data-music-controls></div>
-          </details>
-          <label class="launcher-language-control" data-language-control hidden>
-            <span class="launcher-language-symbol" aria-hidden="true"><span>a</span><span>&#x3042;</span></span>
-            <select data-page-language aria-label="Page language" data-i18n-aria-label="launcher.language"></select>
-          </label>
-        </div>
+        <label class="launcher-language-control" data-language-control hidden>
+          <span class="launcher-language-symbol" aria-hidden="true"><span>a</span><span>&#x3042;</span></span>
+          <select data-page-language aria-label="Page language" data-i18n-aria-label="launcher.language"></select>
+        </label>
       </header>
       <main>
         <section class="landing-hero" id="learn" aria-labelledby="homeTitle">
@@ -80,8 +70,14 @@
                 <span class="language-choice-start" data-i18n="launcher.start">Start</span></a></li>
               <li aria-label="Norwegian Bokmål (Norsk bokmål), Preview" data-language-id="nb" data-course-status="development">
                 <a class="language-choice" href="/nb/index.html">
-                  <img class="flag-icon" src="/assets/icons/norway_flag.png?caatuu_asset=11" alt="" decoding="async">
+                  <img class="flag-icon" src="/assets/icons/norway_flag.png?caatuu_asset=25" alt="" decoding="async">
                   <strong class="language-choice-name">Norwegian Bokmål</strong><span class="language-choice-code">NB</span>
+                  <span class="language-choice-status">Preview</span>
+                <span class="language-choice-start" data-i18n="launcher.start">Start</span></a></li>
+              <li aria-label="Arabic (العربية الفصحى), Preview" data-language-id="ar" data-course-status="development">
+                <a class="language-choice" href="/ar/index.html">
+                  <img class="flag-icon" src="/assets/icons/arabic_mark.png?caatuu_asset=25" alt="" decoding="async">
+                  <strong class="language-choice-name" data-i18n="languages.ar">Arabic</strong><span class="language-choice-code">AR</span>
                   <span class="language-choice-status">Preview</span>
                 <span class="language-choice-start" data-i18n="launcher.start">Start</span></a></li>
             </ul>
@@ -114,6 +110,10 @@ No registration, no credit cards, no cookies. Open source. Truly free.</p></div>
         <section class="landing-about" id="about" aria-labelledby="aboutTitle">
           <h2 id="aboutTitle" data-i18n="launcher.about">A language to learn. A world to discover.</h2>
           <p data-i18n="launcher.about.detail">Caatuu brings guided practice, games, and language tools together in a free learning experience that also works offline.</p>
+          <a class="landing-repo-link" href="https://github.com/savethebeesandseeds/caatuu" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"/></svg>
+            <span>https://github.com/savethebeesandseeds/caatuu</span>
+          </a>
         </section>
       </main>
       <dialog class="landing-course-dialog" data-course-dialog aria-labelledby="courseDialogTitle" aria-describedby="courseDialogPrompt">

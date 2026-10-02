@@ -2466,6 +2466,7 @@ function createVerbMatchCard(pair, side) {
   const label = side === "cz" ? (pair.target ?? pair.cz) : (pair.source ?? pair.eng);
   copy.textContent = label;
   copy.lang = side === "cz" ? targetLanguage.locale : sourceLanguage.locale;
+  copy.dir = (side === "cz" ? targetLanguage : sourceLanguage).direction || "auto";
   if (side === "cz" && verbUsesTargetTextGuide()) renderVerbTargetTextCopy(copy, pair);
   if (state.verbSolutionRevealed) {
     button.setAttribute("aria-label", interfaceText("verbnebula.match.meaning", {

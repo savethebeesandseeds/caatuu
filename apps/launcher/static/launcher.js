@@ -7,7 +7,6 @@
   const download = document.querySelector("[data-android-download]");
   const localeSelect = document.querySelector("[data-page-language]");
   const localeControl = document.querySelector("[data-language-control]");
-  const audioMenu = document.querySelector("[data-audio-menu]");
   const localePreferenceKey = "caatuu.launcher.interfaceLocale.v1";
   const courseDialog = document.querySelector("[data-course-dialog]");
   const courseAndroid = document.querySelector("[data-course-dialog-android]");
@@ -312,15 +311,6 @@
 
   previousCourses?.addEventListener("click", () => scrollCourses(-1));
   nextCourses?.addEventListener("click", () => scrollCourses(1));
-  document.addEventListener("click", (event) => {
-    if (audioMenu?.open && !audioMenu.contains(event.target)) audioMenu.open = false;
-  });
-  audioMenu?.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape" || !audioMenu.open) return;
-    event.preventDefault();
-    audioMenu.open = false;
-    audioMenu.querySelector("summary")?.focus();
-  });
 
   async function removeLegacyRootServiceWorker() {
     if (!("serviceWorker" in navigator) || !navigator.serviceWorker.getRegistrations) return;

@@ -2,7 +2,7 @@ import { fetchDeclaredCourseGameJson, readEmbeddedCourseProfile } from "../cours
 import {
   buildConjugationHelixRound, judgeConjugationHelixRound, splitConjugationDisplay,
   buildConjugationVerbQueue, validateConjugationCometCatalog, selectConjugationPracticeVerbs
-} from "./conjugation-comet-core.mjs?v=conjugation-comet-core-2";
+} from "./conjugation-comet-core.mjs?v=conjugation-comet-core-3";
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-9";
 import { newContentEncounterId, matchesContentDifficulty } from "../content-progression.mjs";
 
@@ -384,6 +384,7 @@ function renderStrand(state, side, { fresh = false, shift = 0 } = {}) {
       node.type = "button";
       node.className = "conjugation-comet-node";
       node.lang = subjects ? state.sourceLocale : state.targetLocale;
+      node.dir = (subjects ? state.course.sourceLanguage : state.course.targetLanguage)?.direction || "auto";
       node.dataset.helixSide = side;
       node.dataset.helixIndex = String(index);
       node.dataset.formId = item.id;
@@ -413,9 +414,18 @@ function renderStrand(state, side, { fresh = false, shift = 0 } = {}) {
   });
 }
 function renderPairBackgrounds(state) {
-  if (state.destroyed || !state.round || !["question", "result"].includes(state.phase)
-    || !document.createRange) return;
+  if (state.destroyed || !state.round || !["question", "result"].includes(state.phase)) return;
   const helix = element("conjugationCometHelix");
+  // Authored cues may wrap when a course has more person slots or the learner
+  // increases text size. Keep each row tall enough for its complete tap target.
+  const phrases = ["conjugationCometSubjects", "conjugationCometTargets"]
+    .flatMap((id) => [...element(id).querySelectorAll("button")]);
+  const tallest = Math.max(0, ...phrases.map((node) => node.getBoundingClientRect().height));
+  const contentHeight = `${Math.ceil((state.round.subjects.length + 1.2) * (tallest + 14))}px`;
+  if (helix.style.getPropertyValue("--helix-content-height") !== contentHeight) {
+    helix.style.setProperty("--helix-content-height", contentHeight);
+  }
+  if (!document.createRange) return;
   const bounds = helix.getBoundingClientRect();
   if (!bounds.width || !bounds.height) return;
   const backgrounds = element("conjugationCometPairBackgrounds");
@@ -592,6 +602,7 @@ function showSummary(state) {
       const phrase = document.createElement("span");
       phrase.textContent = text;
       phrase.lang = locale;
+      phrase.dir = (side === "subject" ? state.course.sourceLanguage : state.course.targetLanguage)?.direction || "auto";
       row.append(phrase);
       const source = Array.from(element(side === "subject" ? "conjugationCometSubjects" : "conjugationCometTargets").children)
         .find((node) => node.textContent === text);
@@ -665,6 +676,9 @@ function bindUi(state) {
     }
     const bounds = board.getBoundingClientRect();
     if (!bounds.width || !Number.isFinite(event.clientX)) return;
+    // A board taller than the game viewport needs normal page scrolling.
+    // Its visible arrow buttons and keyboard controls still rotate each strand.
+    if (bounds.height > window.innerHeight) { wheel.delta = 0; return; }
     event.preventDefault();
     // Momentum during a rotation must not queue up more steps or scroll the page.
     if (state.phase === "moving") { wheel.delta = 0; return; }
@@ -830,7 +844,9 @@ export async function mountSharedConjugationComet({ scope = globalThis, fetchImp
   document.title = `${catalog.copy.title} — ${course.workspaceLabel || "Caatuu"}`;
   element("conjugationCometTitle").textContent = catalog.copy.title;
   element("conjugationCometFormLemma").lang = state.targetLocale;
+  element("conjugationCometFormLemma").dir = course.targetLanguage?.direction || "auto";
   element("conjugationCometMeaning").lang = state.sourceLocale;
+  element("conjugationCometMeaning").dir = course.sourceLanguage?.direction || "auto";
   element("conjugationCometSubmitLabel").textContent = copy(state, "submit");
   element("conjugationCometSubjectLabel").textContent = interfaceContent.languageName(course.sourceLanguage);
   element("conjugationCometTargetLabel").textContent = state.targetLanguageName;

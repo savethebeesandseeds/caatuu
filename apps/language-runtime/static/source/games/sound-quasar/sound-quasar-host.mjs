@@ -136,6 +136,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     node("quasarResult").dataset.tone = correct ? "success" : "error";
     const target = node("quasarResultTarget");
     target.lang = course.targetLanguage.locale || course.targetLanguage.id;
+    target.dir = course.targetLanguage.direction || "auto";
     target.replaceChildren();
     appendTargetToneText(doc, target, round.target, round.reading);
     const reading = node("quasarResultReading");
@@ -143,6 +144,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
       ? round.reading.tokens.flatMap((token) => token.units.map((unit) => unit.notation)).join(" ") : "";
     reading.hidden = !reading.textContent;
     node("quasarResultMeaning").lang = catalog.learnerBaseLanguage;
+    node("quasarResultMeaning").dir = course.sourceLanguage.direction || "auto";
     node("quasarResultMeaning").textContent = round.meaning;
     node("quasarResult").hidden = false;
     node("quasarResult").focus();
@@ -228,6 +230,8 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
       number.textContent = `${index + 1}.`;
       const target = doc.createElement("span");
       target.className = "quasar-choice-target";
+      target.lang = course.targetLanguage.locale || course.targetLanguage.id;
+      target.dir = course.targetLanguage.direction || "auto";
       appendTargetToneText(doc, target, choice.target, choice.reading);
       button.append(number, target);
       button.addEventListener("click", () => choose(choice.id));

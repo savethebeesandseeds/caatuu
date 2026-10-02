@@ -8,11 +8,12 @@ implementation queue.
 
 | Work | Authority |
 | --- | --- |
+| Current 40 walking poses, five standing poses and measured stride | [Walking source](assets/macaw/walk/README.md) |
 | Standing, walking and running; eight directions | [Character workshop](../caatuu-game/character-workshop/README.md) |
 | Transparent strips for editing, idle first | [Motion manifest](../caatuu-game/character-workshop/manifest.json) |
 | Generation, splitting, registration and review process | [Animation workflow](../caatuu-game/docs/CHARACTER_ANIMATION_WORKFLOW.md) |
 | Visual review findings and known limitations | [Motion review](../caatuu-game/docs/MACAW_MOTION_REVIEW.md) |
-| Click-to-move grove, short walks and longer runs | [Scenery](scenary/index.html) and [navigation](scenary/navigation.mjs) |
+| Click-to-move grove with size-scaled walking | [Scenery](scenary/index.html) and [locomotion](assets/locomotion.mjs) |
 | Approved world B, The Sheltered Sea | [Map workshop](world-map/README.md) |
 | Concept status and source pointers | [Concept record](concept.json) |
 
@@ -22,6 +23,13 @@ Frames are registered on 512 × 512 canvases and normalized by direction and gai
 The 24 horizontal strips cover walking, running and complete motion in all
 eight directions. Every download begins with standing; idle is not played
 inside the run cycle. Keep the selected artwork and its provenance together.
+
+The October 2 walking refinement is the current Scenery source: eight walking
+poses per authored direction and separate standing images. Scenery now walks
+all routes using the measured stride and actor size; future running artwork
+will receive its own gait profile. The historical Motion workshop above stays
+available as a reference. Temporary walking-image workspaces have been removed;
+the original five videos and selected source package are retained.
 
 The chosen map has a separate dark island with one purple source of magic.
 Its approved 1536 × 1024 master is immutable. Geography, prompts and planned

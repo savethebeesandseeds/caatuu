@@ -1,0 +1,1391 @@
+{
+  "method": "One fixed source-canvas scale, centered and anchored at baseline 480. No per-pose contain-fit.",
+  "alpha_cleanup": "Only alpha 1/255 pixels removed from registered copies; raw generations preserved.",
+  "frames": [
+    {
+      "id": "E-walk-01",
+      "raw_file": "generated-originals/E-walk-01.png",
+      "raw_sha256": "72910f7fa482979163cd54e688e0894807cd75663eb696eaa8796665ceab296c",
+      "preserved_draft_sha256": "8527083aa56be423379e70e1c47cda57e9f9cedb6aa59d5f338dc51476dd16ba",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          163,
+          152,
+          1088,
+          1181
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          67,
+          60,
+          445,
+          480
+        ]
+      },
+      "guide_sha256": "de14d2ddbfd143002b41625a57d1e59970039f0fcf5be78c1b13099399a421ae",
+      "generation_record": "generation-records/E-walk-01.json"
+    },
+    {
+      "id": "E-walk-02",
+      "raw_file": "generated-originals/E-walk-02.png",
+      "raw_sha256": "4aa59077249899cfb165e3c898396dafdd55bc4db4e33c458cfbdab233a94200",
+      "preserved_draft_sha256": "18b928f67ffd901890ebb83491656012b35ff6abb7e6e8d4cc485905b3a0e35b",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          143,
+          150,
+          1113,
+          1180
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          58,
+          59,
+          454,
+          480
+        ]
+      },
+      "guide_sha256": "ebf2952c0b330dad3ec105f6df000056e1d7f6df40e8d082dbc8944356e9c9d4",
+      "generation_record": "generation-records/E-walk-02.json"
+    },
+    {
+      "id": "E-walk-03",
+      "raw_file": "generated-originals/E-walk-03.png",
+      "raw_sha256": "10dd35841cc500d5ddcf2c542ece212aeb5b15c9ec2d287223fcc56685a78272",
+      "preserved_draft_sha256": "28b6682716df426245f483df323363d17a88043f5aba51a558f2e946b9587d88",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          130,
+          168,
+          1121,
+          1181
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          54,
+          66,
+          459,
+          480
+        ]
+      },
+      "guide_sha256": "586dab1a87faf4e1d2b167bdbaed54379fd79646382de708417161f47ba532aa",
+      "generation_record": "generation-records/E-walk-03.json"
+    },
+    {
+      "id": "E-walk-04",
+      "raw_file": "generated-originals/E-walk-04.png",
+      "raw_sha256": "6aaffe850c70ac2e8c928b67f047dd4c1174259e6e69f2bd84f8c1848d47925e",
+      "preserved_draft_sha256": "ae50584cac68feeaab5b1687dc05d6643bfa2509f088cb4f0aa26c30afa1eaf2",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          137,
+          157,
+          1119,
+          1182
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          56,
+          61,
+          457,
+          480
+        ]
+      },
+      "guide_sha256": "b9f89bdff4e78c81a519f40c4225c8195d3835872f9839c9440989a1654c2365",
+      "generation_record": "generation-records/E-walk-04.json"
+    },
+    {
+      "id": "E-walk-05",
+      "raw_file": "generated-originals/E-walk-05.png",
+      "raw_sha256": "cb420190a49c61915a5f9c831902524edb96f7b56ae561cb50d1d4280b1d5764",
+      "preserved_draft_sha256": "b39d9d5cb760e8cf557096f19703c9fba5979975b1425fc1c0a5a6de74efddb3",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          136,
+          130,
+          1120,
+          1179
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          55,
+          52,
+          457,
+          480
+        ]
+      },
+      "guide_sha256": "5e92492af442ede22daa49c2d4ec665d1439166233daa5ee7084c0b8c79960f5",
+      "generation_record": "generation-records/E-walk-05.json"
+    },
+    {
+      "id": "E-walk-06",
+      "raw_file": "generated-originals/E-walk-06.png",
+      "raw_sha256": "42e6e776081399369ef8845a201acd9a5ae0d10fbb97503ebe2da0254e7578a3",
+      "preserved_draft_sha256": "17b1abc6d0db2f5479411110e7386a59cf7e8d0a5b5ca8e9eef515e0854e1ea3",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          115,
+          143,
+          1132,
+          1184
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          48,
+          56,
+          463,
+          480
+        ]
+      },
+      "guide_sha256": "573b42d9e6d6e88c26a23ead70666b791d77e15858e699e5b94c830baf73a737",
+      "generation_record": "generation-records/E-walk-06.json"
+    },
+    {
+      "id": "E-walk-07",
+      "raw_file": "generated-originals/E-walk-07.png",
+      "raw_sha256": "59db236d1141db17cce5e6b7a7138671f7a64c1762f5b78daf9ef406fac455fb",
+      "preserved_draft_sha256": "84b2aa711ec2f2eba774d4d47d224de86707e21665ed67e954407993d65ff1c6",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          130,
+          161,
+          1127,
+          1186
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          52,
+          61,
+          459,
+          480
+        ]
+      },
+      "guide_sha256": "ad1879e361357998358799376192bab2ff862ca0db5829d57a841b9374e16a55",
+      "generation_record": "generation-records/E-walk-07.json"
+    },
+    {
+      "id": "E-walk-08",
+      "raw_file": "generated-originals/E-walk-08.png",
+      "raw_sha256": "115b38ae559a71e0a640549723426ecc8690221b1fccfdebc32352b2f93f720f",
+      "preserved_draft_sha256": "9d54e7fe08d511b4b07f775e31b14cd43e10d8a7fa564a292e3830afa123f9ad",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          131,
+          185,
+          1123,
+          1182
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          54,
+          73,
+          459,
+          480
+        ]
+      },
+      "guide_sha256": "d80a56c54c71340be9494e14fa4cb0dea2031ad1b7faccadbe72feaab7b802fb",
+      "generation_record": "generation-records/E-walk-08.json"
+    },
+    {
+      "id": "NE-walk-01",
+      "raw_file": "generated-originals/NE-walk-01.png",
+      "raw_sha256": "ac23e5a374772aa7cfc2ae75877816d9c8ac451420f3098a1705382aab7c17a6",
+      "preserved_draft_sha256": "4fb91281e59ad5f41a18b3f1a653de5b345cb20b71f2f6bc80d4a0f3ad6823b9",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          289,
+          146,
+          966,
+          1178
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          118,
+          60,
+          394,
+          480
+        ]
+      },
+      "guide_sha256": "4fb91281e59ad5f41a18b3f1a653de5b345cb20b71f2f6bc80d4a0f3ad6823b9",
+      "generation_record": "generation-records/NE-walk-01.json"
+    },
+    {
+      "id": "NE-walk-02",
+      "raw_file": "generated-originals/NE-walk-02.png",
+      "raw_sha256": "3e1129d032a1888ecc6696d397358f3b5e21453f5582d6c308c03bc3c51ab82b",
+      "preserved_draft_sha256": "c07e57b9be3aff1657bff5577b4537f4dc2c752f6f09dd8c379a3682ad9a917d",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          291,
+          176,
+          957,
+          1158
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          120,
+          79,
+          392,
+          480
+        ]
+      },
+      "guide_sha256": "eea8f16024afef0ee60a1af59b28365c3eacb0a70ab33a60f0e82384bc0c68e8",
+      "generation_record": "generation-records/NE-walk-02.json"
+    },
+    {
+      "id": "NE-walk-03",
+      "raw_file": "generated-originals/NE-walk-03.png",
+      "raw_sha256": "2e3a2124f27ba18823dfff0d60d7cdf515e30b894ab1d95535ee6d595c072de4",
+      "preserved_draft_sha256": "b29628e5bb23f6733d11b3e451e78fad881597af2f342ea8c9a6ad2d17c5d5a5",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          273,
+          150,
+          986,
+          1178
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          110,
+          61,
+          401,
+          480
+        ]
+      },
+      "guide_sha256": "c1619d322b28303f5e4e2e130a25df6134f7ed073b747d547dc475451be0f074",
+      "generation_record": "generation-records/NE-walk-03.json"
+    },
+    {
+      "id": "NE-walk-04",
+      "raw_file": "generated-originals/NE-walk-04.png",
+      "raw_sha256": "cc18f4986090b4d50d16013ee19a21a56b7f61398f54771c2f5f65e5c353f2d3",
+      "preserved_draft_sha256": "f23bc4af6b4fee5a6bd97fe27da846955a72ee27f7554bc7552e8c49ab7cad24",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          257,
+          138,
+          1006,
+          1179
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          103,
+          55,
+          409,
+          480
+        ]
+      },
+      "guide_sha256": "7cec0c6f82afd199689681c5d870c78d67c7139cfcc834f604f48655bded967f",
+      "generation_record": "generation-records/NE-walk-04.json"
+    },
+    {
+      "id": "NE-walk-05",
+      "raw_file": "generated-originals/NE-walk-05.png",
+      "raw_sha256": "1c3f53c19a0affbdcc93ca4d3396d6714425afe0bd04abebce85a688b2e18df7",
+      "preserved_draft_sha256": "ffe6f522979b45a48eb3d436da823508ed29a91dab926c88ef765f56943c6d39",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          259,
+          159,
+          1027,
+          1171
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          99,
+          67,
+          413,
+          480
+        ]
+      },
+      "guide_sha256": "765f2bf629866c8bf6f3d1ccaa95c53b88a845ec7f15e3402eb2a8d2130ba1ef",
+      "generation_record": "generation-records/NE-walk-05.json"
+    },
+    {
+      "id": "NE-walk-06",
+      "raw_file": "generated-originals/NE-walk-06.png",
+      "raw_sha256": "064ab7e3df52f86d01790d7ad7563a775e34fc666f33dce84102060e7f145cff",
+      "preserved_draft_sha256": "5be24ee4353f7501744f0e61c2de974c3b5c7f1ae1f36f4091d58637a7456587",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          271,
+          136,
+          998,
+          1157
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          108,
+          63,
+          405,
+          480
+        ]
+      },
+      "guide_sha256": "c8b89b386849e764c194ebcf3007b89ca00df12ad675075961b7dffb4fa59d35",
+      "generation_record": "generation-records/NE-walk-06.json"
+    },
+    {
+      "id": "NE-walk-07",
+      "raw_file": "generated-originals/NE-walk-07.png",
+      "raw_sha256": "0beaf5a72dd376ee167d17089d4343767bf249f11acd6fe461a6cbdd100a91a0",
+      "preserved_draft_sha256": "53e3f33220ae728087bfd1624fe8e71a2de35c939d7bce2c9efa2862b295d238",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          315,
+          155,
+          999,
+          1171
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          116,
+          66,
+          395,
+          480
+        ]
+      },
+      "guide_sha256": "53e3f33220ae728087bfd1624fe8e71a2de35c939d7bce2c9efa2862b295d238",
+      "generation_record": "generation-records/NE-walk-07.json"
+    },
+    {
+      "id": "NE-walk-08",
+      "raw_file": "generated-originals/NE-walk-08.png",
+      "raw_sha256": "05585143a55dbc56b2b59e66d9fa3d0ab75c1cb95b1e06c17e72dbfa816a69dd",
+      "preserved_draft_sha256": "8c115c185359a8a311864ca14fdca71ad9ebe48fd53eb0a377ea6ac83aeff13e",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          294,
+          145,
+          959,
+          1176
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          120,
+          59,
+          392,
+          480
+        ]
+      },
+      "guide_sha256": "52d2d724ef1a6b3bbb8314c826cbf2a6203e5223889c23149dbbd56500030607",
+      "generation_record": "generation-records/NE-walk-08.json"
+    },
+    {
+      "id": "N-walk-01",
+      "raw_file": "generated-originals/N-walk-01.png",
+      "raw_sha256": "67764084684e42b60b4bff51f9adba4f4e14a6b4c96fbb5d8e642b8f2fc7f240",
+      "preserved_draft_sha256": "d4c0d1a43158196e489204a51ff86c51086c08ee2b9570e5db518e66865b8058",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          311,
+          118,
+          943,
+          1178
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          127,
+          48,
+          385,
+          480
+        ]
+      },
+      "guide_sha256": "8c0652b2b582107f478a6adda38a1c5224719b094b1ffd56846340d4996cadbd",
+      "generation_record": "generation-records/N-walk-01.json"
+    },
+    {
+      "id": "N-walk-02",
+      "raw_file": "generated-originals/N-walk-02.png",
+      "raw_sha256": "6a8d3adfd4169b265047052642694dcf0b71fd70948a0935b59604e09a209e73",
+      "preserved_draft_sha256": "fb4c17525bf8b183c0f25f3aec1fc19c4b5c2dfc37c1e08287c5b25b3cd010fa",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          314,
+          129,
+          942,
+          1174
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          128,
+          54,
+          384,
+          480
+        ]
+      },
+      "guide_sha256": "3764bbba7c904f99dd45400882bbac08c816cc92b682e1cf873c624e7c95c355",
+      "generation_record": "generation-records/N-walk-02.json"
+    },
+    {
+      "id": "N-walk-03",
+      "raw_file": "generated-originals/N-walk-03.png",
+      "raw_sha256": "b93343198e6fe93616471f989b464074d99f6cdbc3d5d300d9583a195f0fed2e",
+      "preserved_draft_sha256": "c9505f0113514e986de1172943f3d42422379460d231217bfde3fee76f560450",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          299,
+          120,
+          958,
+          1175
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          122,
+          49,
+          391,
+          480
+        ]
+      },
+      "guide_sha256": "25c43fffd3a21419bb24d7957df2949d875c4cdfd222bedbc12d8567c2cb5491",
+      "generation_record": "generation-records/N-walk-03.json"
+    },
+    {
+      "id": "N-walk-04",
+      "raw_file": "generated-originals/N-walk-04.png",
+      "raw_sha256": "68db253fb34078cff6b0666932e52d6e060a4a1902ecaf46afbe073659a6d83a",
+      "preserved_draft_sha256": "6c8b7b0ab224e2504df749bf73062c69a2eb560cb429c93db24f69433900fd35",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          298,
+          161,
+          964,
+          1178
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          120,
+          65,
+          392,
+          480
+        ]
+      },
+      "guide_sha256": "6f43dde5e39251d2fdb04cf8c3a9a681fa9ab9b13c6c4e1b028ccc9c3fe8c360",
+      "generation_record": "generation-records/N-walk-04.json"
+    },
+    {
+      "id": "N-walk-05",
+      "raw_file": "generated-originals/N-walk-05.png",
+      "raw_sha256": "69c3805b3f8eb98d6beda0e465e4281f9414500f26ae8c07cf0fd555927fe37e",
+      "preserved_draft_sha256": "e44aada2c11e9dda2f8052a23f7313fd673e0bb2e5a82a5cf1012fe81627ddbe",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          301,
+          156,
+          956,
+          1179
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          122,
+          62,
+          389,
+          480
+        ]
+      },
+      "guide_sha256": "b73bebf0fce24d0705e75e00cf5bb5a9423a84ded5709e3c0d68d2b173bc1106",
+      "generation_record": "generation-records/N-walk-05.json"
+    },
+    {
+      "id": "N-walk-06",
+      "raw_file": "generated-originals/N-walk-06.png",
+      "raw_sha256": "fcbbea78048d97d4c5898682151913f2bc8b26ce2e892f84dc5b0df8b0364fc5",
+      "preserved_draft_sha256": "18362a4d1b1767d8afcc865f2b44c3bdf16f06b61cf1369afb03dd19183065bc",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          306,
+          147,
+          949,
+          1181
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          124,
+          59,
+          387,
+          480
+        ]
+      },
+      "guide_sha256": "0389556d13b6b6c0b9478d2de307cb7f43a93cceaac656fc8eb1da92adbf6ba6",
+      "generation_record": "generation-records/N-walk-06.json"
+    },
+    {
+      "id": "N-walk-07",
+      "raw_file": "generated-originals/N-walk-07.png",
+      "raw_sha256": "d1d4490f96ca592a4b54656721fdea693e4a5c8fb1b3acc863ee894e97d300d0",
+      "preserved_draft_sha256": "5b070e2e8325685ec6b2589b883d80c3b4ba17fc62556ad746973066cdf99e18",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          310,
+          159,
+          946,
+          1182
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          126,
+          62,
+          386,
+          480
+        ]
+      },
+      "guide_sha256": "f10051e1476cca0dd6c419ad0c5e6968f658dd28ade5541ba2150b580772ddec",
+      "generation_record": "generation-records/N-walk-07.json"
+    },
+    {
+      "id": "N-walk-08",
+      "raw_file": "generated-originals/N-walk-08.png",
+      "raw_sha256": "bcd70533c72b4b90e8477bbff66d410331bdffc20e462ed428a277a3479f6457",
+      "preserved_draft_sha256": "b2eebddab11aeb1613fa70e51e3b4e6fc35a112f4ceb8bc3c3a72fb91d9fbe56",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          314,
+          201,
+          939,
+          1176
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          128,
+          82,
+          383,
+          480
+        ]
+      },
+      "guide_sha256": "6e1025d25e818d6aabf68ccd0368da4382671a7cb4951fe140cda09befc8bc34",
+      "generation_record": "generation-records/N-walk-08.json"
+    },
+    {
+      "id": "SW-walk-01",
+      "raw_file": "generated-originals/SW-walk-01.png",
+      "raw_sha256": "d93f9b848563de9d4d6ce5a67cb56343c431c8cc29c681d217afa6e3b1898fe2",
+      "preserved_draft_sha256": "a5d9c9675e4d9187619be61bf508d6f8c1c8ffcafee34a8c80f1dceee3594376",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          260,
+          134,
+          997,
+          1183
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          106,
+          53,
+          407,
+          480
+        ]
+      },
+      "guide_sha256": "595ab52c3e8b5f88addc45a93a92231213bedbefad41b1589dab2e6ca3f78e5e",
+      "generation_record": "generation-records/SW-walk-01.json"
+    },
+    {
+      "id": "SW-walk-02",
+      "raw_file": "generated-originals/SW-walk-02.png",
+      "raw_sha256": "e3c7e8718eddad9880dc27d9b519eb2743c9eafa55758b22c2e634b7cef0c7b2",
+      "preserved_draft_sha256": "736fe45ff382895cb25caebad1e92d94265e27a7bfdbdd89e7e252468d055046",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          220,
+          135,
+          1050,
+          1179
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          86,
+          54,
+          425,
+          480
+        ]
+      },
+      "guide_sha256": "f90bc755c2399ac233a2ecaf26255ad5560c87218ad85502089ca78ce55db8ef",
+      "generation_record": "generation-records/SW-walk-02.json"
+    },
+    {
+      "id": "SW-walk-03",
+      "raw_file": "generated-originals/SW-walk-03.png",
+      "raw_sha256": "f6aea9322da585543ed96f0ee983b7e37b2453e7c1f7ba36218cf185627a7820",
+      "preserved_draft_sha256": "9a10697b3ed3f0f8d14da07fe551c08e4785a220ae5195410d42755ade335a16",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          228,
+          161,
+          1026,
+          1174
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          93,
+          66,
+          419,
+          480
+        ]
+      },
+      "guide_sha256": "88a016f2f3ebcb69fd610971d0e784ca7e8f7628f82d91ad9fc0e8ca6749051c",
+      "generation_record": "generation-records/SW-walk-03.json"
+    },
+    {
+      "id": "SW-walk-04",
+      "raw_file": "generated-originals/SW-walk-04.png",
+      "raw_sha256": "45e5d1fc3bfe6e26fae144c18720cdcd4c9be565d5d5688dd5c16a47898d6a93",
+      "preserved_draft_sha256": "e5981cead6aa82c47a2e8036000df62379be3e215e008c84e30fd745613cf1d9",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          282,
+          159,
+          984,
+          1153
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          112,
+          74,
+          399,
+          480
+        ]
+      },
+      "guide_sha256": "78d4b5ceffff90f23a2201042d754d38d597d4f76ea38c35dab12de808983dc1",
+      "generation_record": "generation-records/SW-walk-04.json"
+    },
+    {
+      "id": "SW-walk-05",
+      "raw_file": "generated-originals/SW-walk-05.png",
+      "raw_sha256": "5e884a47fbbcd1a33aacb7f0b116b29bcf6aa988bebee95c63b6400f0a64df95",
+      "preserved_draft_sha256": "97ce3575913f2ed5b49279ea3737c920b806f4c9c28c18f1e499d0b50459cf0c",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          239,
+          138,
+          1015,
+          1176
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          98,
+          56,
+          415,
+          480
+        ]
+      },
+      "guide_sha256": "cf5c0ab875f44141bba6576b0cb96a8924aff11ca85ff8311fb537df99753d36",
+      "generation_record": "generation-records/SW-walk-05.json"
+    },
+    {
+      "id": "SW-walk-06",
+      "raw_file": "generated-originals/SW-walk-06.png",
+      "raw_sha256": "a3e0ff96a61ecdc0bc01557158c3fe1dbf6b588bb0ca3b7f735af03fa979f3a7",
+      "preserved_draft_sha256": "0dbe51bce62906d7393b823f53d5fee6abf251634b04d8570924d7521d685091",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          226,
+          148,
+          1046,
+          1164
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          88,
+          65,
+          423,
+          480
+        ]
+      },
+      "guide_sha256": "eefaad92c6eb067a9656abd8c0bb0732188de2322c614900b69e8f6ead1cc0da",
+      "generation_record": "generation-records/SW-walk-06.json"
+    },
+    {
+      "id": "SW-walk-07",
+      "raw_file": "generated-originals/SW-walk-07.png",
+      "raw_sha256": "7cae14d0b96e2a8da4426238f29b6153158496311ff03908be99555c0fa330e2",
+      "preserved_draft_sha256": "e2029da6ec3c66342a765f305f73ac3ca26e70143c5b85d0dc88e9d9aa1e6d2e",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          216,
+          161,
+          1038,
+          1183
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          88,
+          63,
+          424,
+          480
+        ]
+      },
+      "guide_sha256": "bdab4a6c13146db7268261d720a89f1c363412631905547dfed9b1462d8354ae",
+      "generation_record": "generation-records/SW-walk-07.json"
+    },
+    {
+      "id": "SW-walk-08",
+      "raw_file": "generated-originals/SW-walk-08.png",
+      "raw_sha256": "7f0656a4e697c986711591befd8dfaa17403e0be40719f29ffa55189ec6195b2",
+      "preserved_draft_sha256": "5780b0da48afbb5142049da2ad8060c443f4c1843510484386cab65cd1c54d42",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          242,
+          130,
+          1015,
+          1181
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          98,
+          51,
+          414,
+          480
+        ]
+      },
+      "guide_sha256": "63305f46c919da1c06041758f6a40b9537469124b841729065f3affd0b1ca226",
+      "generation_record": "generation-records/SW-walk-08.json"
+    },
+    {
+      "id": "S-walk-01",
+      "raw_file": "generated-originals/S-walk-01.png",
+      "raw_sha256": "e62e6992209b8a27f63431f3ecc2efae09cb7e8560c94b79edaea84a0efccae9",
+      "preserved_draft_sha256": "47917ef68740509019b037e9abfd588e983ba73f9313896707908c840afb288b",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          289,
+          159,
+          963,
+          1180
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          118,
+          63,
+          393,
+          480
+        ]
+      },
+      "guide_sha256": "7f74239e75ac1dfc36fa4f30500c90423f68992b260a58a7aa5e10d49948ddc4",
+      "generation_record": "generation-records/S-walk-01.json"
+    },
+    {
+      "id": "S-walk-02",
+      "raw_file": "generated-originals/S-walk-02.png",
+      "raw_sha256": "7afb01bb810e082926e2c118e8b0d9d45b49c1fd130a2cc689bc59ee83b07d73",
+      "preserved_draft_sha256": "c0ce04907c2945275cf19776e339e4c34572673412a34c710a0b78e82c090310",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          286,
+          149,
+          969,
+          1183
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          116,
+          59,
+          395,
+          480
+        ]
+      },
+      "guide_sha256": "f18cfd96829d546fe0e4938612e6db5015af241d0ba39c1990ec9a9edd95a803",
+      "generation_record": "generation-records/S-walk-02.json"
+    },
+    {
+      "id": "S-walk-03",
+      "raw_file": "generated-originals/S-walk-03.png",
+      "raw_sha256": "0e497e6e93e03148e04f08a871268c3f1e57ba5dd99c78dc1c064dbb6fa59df7",
+      "preserved_draft_sha256": "d148c63c8bbae75fc2706b7ea3b8d50e09789ce743a1080eeaee1a3372116d26",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          275,
+          144,
+          980,
+          1182
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          112,
+          56,
+          400,
+          480
+        ]
+      },
+      "guide_sha256": "12daf679063430aae89e05cee9c6775ed5e7c4c2ace18f5f6777d45854494b86",
+      "generation_record": "generation-records/S-walk-03.json"
+    },
+    {
+      "id": "S-walk-04",
+      "raw_file": "generated-originals/S-walk-04.png",
+      "raw_sha256": "6629c31d099f3c237d65fddd19eb0e2333b21d24443cc72c0854995170675d58",
+      "preserved_draft_sha256": "a0fd35bfc63b22e1132bb39951f4ab17284e0954ffc05fe21412e43c0b48131b",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          285,
+          157,
+          976,
+          1154
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          115,
+          74,
+          397,
+          480
+        ]
+      },
+      "guide_sha256": "54e126e0a30109582fd54b49f2081c7ce500d8def4595e5d42feeebba350e904",
+      "generation_record": "generation-records/S-walk-04.json"
+    },
+    {
+      "id": "S-walk-05",
+      "raw_file": "generated-originals/S-walk-05.png",
+      "raw_sha256": "dcee99ffbe59e35fe94bb19cc99df918514d2bf5c03c9e7253d4e9b74163fe58",
+      "preserved_draft_sha256": "e0363ce0df96bc70ae85f0d21a50fa7a7d1ee97c4f347514c20dd930b462f36d",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          286,
+          161,
+          978,
+          1162
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          114,
+          71,
+          397,
+          480
+        ]
+      },
+      "guide_sha256": "080582a45440c8a9b7f6351e7067994c14fa7369581fc1267f3d8e4d30494892",
+      "generation_record": "generation-records/S-walk-05.json"
+    },
+    {
+      "id": "S-walk-06",
+      "raw_file": "generated-originals/S-walk-06.png",
+      "raw_sha256": "03dceb1be99d044d828932727b62708e70f2104e9bc25b1751d9c7ebafd8353b",
+      "preserved_draft_sha256": "f608df234967d80ca60620a60b2b78909bf3bd77f0afce527e72a5cd5c1f0739",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          270,
+          138,
+          984,
+          1171
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          110,
+          58,
+          402,
+          480
+        ]
+      },
+      "guide_sha256": "c6f44f76fa75452159394f73aa4b6b39742e1b8aa4e6163e131b1badd9b79cd2",
+      "generation_record": "generation-records/S-walk-06.json"
+    },
+    {
+      "id": "S-walk-07",
+      "raw_file": "generated-originals/S-walk-07.png",
+      "raw_sha256": "f2a0a98e96b8ee6f35e6cc15d10223c3b846280011bf67802e55de0f77465714",
+      "preserved_draft_sha256": "f2730b8a0f1683c96aa954aa80313e437611371bedeae2caacbfa45aef9f3c48",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          271,
+          137,
+          984,
+          1181
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          110,
+          54,
+          401,
+          480
+        ]
+      },
+      "guide_sha256": "16e7b7fac3a2790adf035ea0407a722061e7e29ac6942e5ed68e9f21f740563e",
+      "generation_record": "generation-records/S-walk-07.json"
+    },
+    {
+      "id": "S-walk-08",
+      "raw_file": "generated-originals/S-walk-08.png",
+      "raw_sha256": "9ae3b031ef93f3a2fb6e7cca5c8c088535d09e47357dce1aad7a32ee2d9c65e1",
+      "preserved_draft_sha256": "e8cdad42fa49291eb7671d3d06c968922a258171c3c1827429a47bffa23cf63c",
+      "registration": {
+        "source": "regenerated exact-pose guide",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          1254,
+          1254
+        ],
+        "source_visible_bounds": [
+          290,
+          155,
+          965,
+          1162
+        ],
+        "canvas_scale": 0.4082934609250399,
+        "registered_alpha_bounds": [
+          118,
+          69,
+          394,
+          480
+        ]
+      },
+      "guide_sha256": "43ec72aeabf634cc69a337172333354fbb54bf6afb61e75bd4fc72b3a1569533",
+      "generation_record": "generation-records/S-walk-08.json"
+    },
+    {
+      "id": "S-idle",
+      "raw_file": "source/images/s-idle-v1.png",
+      "raw_sha256": "44f7edd24add2d0c767abcf6e4dd0f3da0c04a72c7caa3b3222435447b44c7cb",
+      "preserved_draft_sha256": "44f7edd24add2d0c767abcf6e4dd0f3da0c04a72c7caa3b3222435447b44c7cb",
+      "registration": {
+        "source": "preserved standing pose",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          512,
+          512
+        ],
+        "source_visible_bounds": [
+          123,
+          64,
+          389,
+          479
+        ],
+        "canvas_scale": 1.0,
+        "registered_alpha_bounds": [
+          123,
+          65,
+          389,
+          480
+        ]
+      }
+    },
+    {
+      "id": "N-idle",
+      "raw_file": "source/images/n-idle-v1.png",
+      "raw_sha256": "faaa495b9306693ae3c3a104d3d02333513ecb396548be59441ae69397d0e7b1",
+      "preserved_draft_sha256": "faaa495b9306693ae3c3a104d3d02333513ecb396548be59441ae69397d0e7b1",
+      "registration": {
+        "source": "preserved standing pose",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          512,
+          512
+        ],
+        "source_visible_bounds": [
+          124,
+          65,
+          389,
+          480
+        ],
+        "canvas_scale": 1.0,
+        "registered_alpha_bounds": [
+          124,
+          65,
+          389,
+          480
+        ]
+      }
+    },
+    {
+      "id": "E-idle",
+      "raw_file": "source/images/e-idle-v1.png",
+      "raw_sha256": "8b71f32870afc164723a2f0f853866adaf77a539aad221067721d6d7b02d7cba",
+      "preserved_draft_sha256": "8b71f32870afc164723a2f0f853866adaf77a539aad221067721d6d7b02d7cba",
+      "registration": {
+        "source": "preserved standing pose",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          512,
+          512
+        ],
+        "source_visible_bounds": [
+          75,
+          65,
+          436,
+          479
+        ],
+        "canvas_scale": 1.0,
+        "registered_alpha_bounds": [
+          76,
+          66,
+          437,
+          480
+        ]
+      }
+    },
+    {
+      "id": "NE-idle",
+      "raw_file": "source/images/ne-idle-v1.png",
+      "raw_sha256": "5a523836bc99ecf2dd94b02b87a9809645897e2ee2c1af110f6dda4c74b1728f",
+      "preserved_draft_sha256": "5a523836bc99ecf2dd94b02b87a9809645897e2ee2c1af110f6dda4c74b1728f",
+      "registration": {
+        "source": "preserved standing pose",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          512,
+          512
+        ],
+        "source_visible_bounds": [
+          128,
+          64,
+          383,
+          480
+        ],
+        "canvas_scale": 1.0,
+        "registered_alpha_bounds": [
+          128,
+          64,
+          383,
+          480
+        ]
+      }
+    },
+    {
+      "id": "SW-idle",
+      "raw_file": "source/images/sw-idle-v1.png",
+      "raw_sha256": "3c37b7a00db5d0eae08120e3d3855e177471f066298b97f3ed6c8c02bbfd2f47",
+      "preserved_draft_sha256": "3c37b7a00db5d0eae08120e3d3855e177471f066298b97f3ed6c8c02bbfd2f47",
+      "registration": {
+        "source": "preserved standing pose",
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0,
+        "source_canvas": [
+          512,
+          512
+        ],
+        "source_visible_bounds": [
+          108,
+          64,
+          403,
+          479
+        ],
+        "canvas_scale": 1.0,
+        "registered_alpha_bounds": [
+          108,
+          65,
+          403,
+          480
+        ]
+      }
+    }
+  ]
+}

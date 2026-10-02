@@ -56,14 +56,6 @@
 .landing-nav a { padding: 12px 0; }
 .landing-nav a:hover { color: #11808a; text-decoration: underline; text-underline-offset: 6px; }
 .landing-page .launcher-language-control { background: rgba(255,255,255,.94); border-color: #9fcce3; width: 48px; height: 48px; flex-basis: 48px; border-radius: 8px; }
-.landing-header-controls { display: flex; align-items: center; gap: 10px; flex: 0 0 auto; }
-.launcher-audio-menu { position: relative; color: var(--green); }
-.launcher-audio-menu > summary { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid #9fcce3; border-radius: 8px; background: rgba(255,255,255,.94); cursor: pointer; list-style: none; }
-.launcher-audio-menu > summary::-webkit-details-marker { display: none; }
-.launcher-audio-menu > summary svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.launcher-audio-menu > summary:hover, .launcher-audio-menu[open] > summary { background: #e2f1f4; border-color: #398399; }
-.launcher-audio-menu > summary:focus-visible { outline: 3px solid #087d9e; outline-offset: 3px; }
-.launcher-audio-panel { position: absolute; inset-block-start: calc(100% + 10px); inset-inline-end: 0; z-index: 5; width: min(300px, calc(100vw - 32px)); padding: 18px; border: 1px solid #b7d3e2; border-radius: 14px; background: #fffefa; color: var(--ink); box-shadow: 0 12px 38px #285e7930; }
 .landing-hero { display: flex; align-items: flex-start; min-height: 480px; padding: 66px 0 58px; }
 .landing-hero-copy { width: 53%; position: relative; }
 .landing-hero-copy::before { content: ""; position: absolute; inset: -26px -12px -20px -30px; z-index: -1; background: radial-gradient(ellipse, #ffffffdb 15%, #ffffff8c 50%, transparent 73%); filter: blur(12px); }
@@ -151,6 +143,10 @@
 .landing-about { max-width: 620px; margin: 20px auto 0; padding: 28px 0; text-align: center; }
 .landing-about h2 { margin: 0 0 12px; font-size: 22px; letter-spacing: -.5px; }
 .landing-about p { margin: 0; font-size: 15px; line-height: 1.7; color: var(--muted); }
+.landing-repo-link { display: inline-flex; align-items: center; gap: 10px; max-width: 100%; min-height: 48px; margin-top: 22px; padding: 12px 16px; border: 1px solid #cce0dc; border-radius: 12px; background: #edf7f5; color: #123d43; font-size: 14px; font-weight: 650; line-height: 1.5; }
+.landing-repo-link svg { width: 24px; height: 24px; flex: 0 0 24px; fill: currentColor; }
+.landing-repo-link span { min-width: 0; overflow-wrap: anywhere; text-align: left; }
+.landing-repo-link:hover { border-color: #659e9b; background: #e2f1ef; color: #0a5960; text-decoration: underline; text-underline-offset: 3px; }
 .landing-page .app-footer { padding: 14px 0 28px; }
 
 @media (max-width: 1000px) {
@@ -180,8 +176,7 @@
   .landing-brand img { width: 40px; height: 40px; }
   .landing-nav { width: 100%; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; font-size: 12px; }
   .landing-nav a { padding: 7px 0; }
-  .landing-header-controls { flex-direction: column; gap: 8px; padding-top: 7px; }
-  .landing-page .launcher-language-control { margin-top: 0; }
+  .landing-page .launcher-language-control { margin-top: 7px; }
   .landing-hero { min-height: 645px; padding: 30px 6px 300px; }
   .landing-hero-copy { width: 100%; }
   .landing-hero h1 { font-size: clamp(32px, 6.7vw, 43px); letter-spacing: -1.6px; }

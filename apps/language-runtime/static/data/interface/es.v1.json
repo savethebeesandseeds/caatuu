@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "locale": "es-ES",
   "direction": "ltr",
-  "revision": "interface-es-14",
+  "revision": "interface-es-16",
   "messages": {
     "music.volume": "Volumen de la música",
     "speech.volume": "Volumen de la voz",
@@ -1286,6 +1286,8 @@
     "wordworld.word.meaning": "Significado de la palabra seleccionada",
     "wordworld.word.play": "Escuchar la palabra seleccionada del idioma de aprendizaje",
     "wordworld.word.selected": "Has seleccionado «{word}». Elige ↻ en Generación para continuar con ella.",
-    "wordworld.word.selectmeaning": "Seleccionar {word} y mostrar su significado"
+    "wordworld.word.selectmeaning": "Seleccionar {word} y mostrar su significado",
+    "languages.ar": "Árabe estándar moderno",
+    "languages.la": "Latín científico"
   }
 }

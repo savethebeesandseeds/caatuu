@@ -1,4 +1,6 @@
 import { buildNavigation, planRoute, advanceRoute, project, unproject } from './navigation.mjs';
+import { WALKING_MOTION_BASE, parseWalkingMotion, walkingMotionURL, walkingMotionPose } from '/games/lab/assets/walking-motion.mjs';
+import {walkingMetrics, advanceWalkingCycles} from '/games/lab/assets/locomotion.mjs';
 
 const canvas = document.querySelector('#scene');
 const context = canvas.getContext('2d');
@@ -7,18 +9,25 @@ const message = document.querySelector('#scene-message');
 const loading = document.querySelector('#loading');
 const view = document.querySelector('#view');
 const returnButton = document.querySelector('#return');
+const actorSize = document.querySelector('#actor-size');
+const help = document.querySelector('#scene-help');
 const SCENERY = '/assets/scenery/';
-const MOTION = '/games/lab/motion/';
 const C = Math.SQRT1_2;
 const COS30 = Math.sqrt(3) / 2;
 const names = {N:'North',NE:'Northeast',E:'East',SE:'Southeast',S:'South',SW:'Southwest',W:'West',NW:'Northwest'};
-const authored = ['S','N','E','SE','NE'];
 const textureCache = new Map();
 let world, catalog, navigation, actor, spawn, terrain;
-let props = [], frames = new Map(), mappings = new Map();
+let props = [], frames = new Map();
 let viewport = {width:1200,height:720,dpr:1};
 let bounds, camera, destination = null, lastTime = 0, animationTime = 0;
 let ready = false, wasMoving = false, pointerStart = null;
+let motion, actorScale = 1, walkingCycles = 0, travelledDistance = 0;
+
+function selectSize() {
+  actorScale = Number(actorSize.value);
+  walkingMetrics(motion.profile, actorScale);
+  updateStatus();draw();
+}
 
 async function json(url) {
   const response = await fetch(url, {cache:'no-store'});
@@ -41,11 +50,6 @@ function image(url) {
 function sceneryURL(file) {
   if (!/^images\/[a-z0-9-]+\.png$/.test(file)) throw new Error('Scenery must use the reviewed runtime images.');
   return SCENERY + file;
-}
-
-function frameURL(frame) {
-  if (!/^images\/[a-z0-9-]+\.png$/.test(frame.file) || !/^[a-f0-9]{64}$/.test(frame.sha256)) throw new Error('Invalid motion frame.');
-  return `${MOTION}${frame.file}?v=${frame.sha256}`;
 }
 
 function sceneBounds() {
@@ -122,20 +126,27 @@ function drawPath() {
 }
 
 function drawMacaw() {
-  const mapping = mappings.get(actor.direction);
-  const count = actor.action==='run'?6:4, fps=actor.action==='run'?10:6;
-  const phase = actor.action==='idle'?0:Math.floor(animationTime*fps)%count+1;
-  const id = phase ? `${mapping.source}-${actor.action}-${String(phase).padStart(2,'0')}` : `${mapping.source}-idle`;
-  const frame = frames.get(id), p=toScreen(actor.position);
-  const size = camera.unit*2.1, k=size/512;
+  const pose = walkingMotionPose(motion, actor.direction, actor.action, walkingCycles);
+  const mapping = pose.mapping, phase = pose.slot, id = pose.frame.id, frame = frames.get(id);
+  const metrics = walkingMetrics(motion.profile, actorScale);
+  const p=toScreen(actor.position);
+  const size = camera.unit*metrics.canvasWorldSize, k=size/512;
   context.save();
-  context.fillStyle='#15281755';context.beginPath();context.ellipse(p.x,p.y,camera.unit*.25,camera.unit*.12,0,0,Math.PI*2);context.fill();
+  context.fillStyle='#15281755';context.beginPath();context.ellipse(p.x,p.y,camera.unit*.25*actorScale,camera.unit*.12*actorScale,0,0,Math.PI*2);context.fill();
   context.translate(p.x,p.y);
   if (mapping.mirror) context.scale(-1,1);
   context.imageSmoothingEnabled=false;
   context.drawImage(frame.image,-256*k,-480*k,size,size);
   context.restore();
   canvas.dataset.frame=id;
+  canvas.dataset.pose=String(phase);
+  canvas.dataset.mirror=String(mapping.mirror);
+  canvas.dataset.motionSet='walking';
+  canvas.dataset.actorScale=String(actorScale);
+  canvas.dataset.walkingSpeed=metrics.speed.toFixed(6);
+  canvas.dataset.cycleDistance=metrics.cycleDistance.toFixed(6);
+  canvas.dataset.walkingCycles=walkingCycles.toFixed(6);
+  canvas.dataset.travelledDistance=travelledDistance.toFixed(6);
   canvas.dataset.action=actor.action;
   canvas.dataset.direction=actor.direction;
   canvas.dataset.x=actor.position.x.toFixed(4);
@@ -178,17 +189,18 @@ function moveTo(point) {
   const route=planRoute(navigation,actor.position,point);
   actor.position={...route.start};
   actor.waypoints=route.waypoints;
-  actor.action=route.action;
+  actor.action=route.action==='idle'?'idle':'walk';
   actor.distanceRemaining=route.length;
   destination=route.target;
   animationTime=0;
+  walkingCycles=0;travelledDistance=0;
   wasMoving=actor.action!=='idle';
-  canvas.dataset.trip=route.action;
+  canvas.dataset.trip=actor.action;
   canvas.dataset.targetX=route.target.x.toFixed(4);
   canvas.dataset.targetZ=route.target.z.toFixed(4);
   canvas.dataset.adjusted=String(route.adjusted);
   if (actor.action==='idle') message.textContent='We are already here. Pick another spot.';
-  else message.textContent=route.adjusted ? 'Heading to the nearest clear spot.' : actor.action==='run' ? 'A little farther — let’s run.' : 'Just a little walk.';
+  else message.textContent=route.adjusted ? 'Heading to the nearest clear spot.' : 'Just a little walk.';
   updateStatus();
 }
 
@@ -202,7 +214,12 @@ function tick(time) {
   if (ready && !document.hidden) {
     const dt=lastTime?Math.min((time-lastTime)/1000,.05):0;
     if (actor.action!=='idle') animationTime+=dt;
-    advanceRoute(actor,dt);
+    const metrics = walkingMetrics(motion.profile, actorScale);
+    const before = actor.distanceRemaining;
+    advanceRoute(actor,dt,metrics.speed);
+    const travelled = Math.max(0,before-actor.distanceRemaining);
+    travelledDistance += travelled;
+    walkingCycles = advanceWalkingCycles(walkingCycles,travelled,metrics);
     if (wasMoving && actor.action==='idle') { message.textContent='Here we are. Pick the next spot.'; destination=null; wasMoving=false; }
     updateCamera();updateStatus();draw();
   }
@@ -220,28 +237,20 @@ canvas.addEventListener('pointerup',event=>{
 });
 returnButton.addEventListener('click',()=>{if(ready)moveTo(spawn);});
 view.addEventListener('change',()=>{if(ready){updateCamera();draw();}});
+actorSize.addEventListener('change',()=>{if(ready)selectSize();});
 document.addEventListener('visibilitychange',()=>{lastTime=0;});
 new ResizeObserver(resize).observe(canvas);
 
 async function start() {
-  const manifest = await json(`${MOTION}manifest.json`);
+  motion = parseWalkingMotion(await json(`${WALKING_MOTION_BASE}manifest.json`));
   [world,catalog] = await Promise.all([json(`${SCENERY}metadata/world.json`),json(`${SCENERY}metadata/catalog.json`)]);
-  if (!manifest.complete || manifest.frames.length!==55) throw new Error('The complete motion set is not available yet.');
-  for (const direction of authored) for(const action of ['idle','walk','run']) {
-    const count=action==='idle'?1:action==='walk'?4:6;
-    for(let phase=1;phase<=count;phase++) {
-      const id=action==='idle'?`${direction}-idle`:`${direction}-${action}-${String(phase).padStart(2,'0')}`;
-      if(!manifest.frames.some(frame=>frame.id===id)) throw new Error(`Missing ${id}.`);
-    }
-  }
-  mappings=new Map(manifest.directions.map(entry=>[entry.id,entry]));
   navigation=buildNavigation(world,catalog);
   spawn=navigation.nearestWalkable(world.spawn_points[0].position);
   actor={position:{...spawn},waypoints:[],action:'idle',direction:'NE',distanceRemaining:0};
   loading.textContent='Inviting the macaw…';
   const [atlas,loadedFrames,loadedProps]=await Promise.all([
     image(sceneryURL(world.terrain.render_tiles.texture)),
-    Promise.all(manifest.frames.map(async frame=>({...frame,image:await image(frameURL(frame))}))),
+    Promise.all([...motion.frames.values()].map(async frame=>({...frame,image:await image(walkingMotionURL(frame))}))),
     Promise.all(world.placements.map(async placement=>{
       const definition=catalog.objects[placement.object];
       const [width,height]=definition.image_size_px;
@@ -253,9 +262,11 @@ async function start() {
   frames=new Map(loadedFrames.map(frame=>[frame.id,frame]));
   props=loadedProps;terrain=makeTerrain(atlas);bounds=sceneBounds();ready=true;
   canvas.dataset.ready='true';canvas.dataset.loadedFrames=String(frames.size);
-  loading.hidden=true;returnButton.disabled=false;
+  loading.hidden=true;returnButton.disabled=false;actorSize.disabled=false;
+  help.textContent='Click or tap the ground to walk. Pick another spot to change course.';
   message.textContent='Choose a spot in the grove to begin.';
-  resize();updateStatus();requestAnimationFrame(tick);
+  resize();selectSize();
+  requestAnimationFrame(tick);
 }
 
 start().catch(error=>{

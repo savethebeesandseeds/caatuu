@@ -113,43 +113,72 @@
       "id": "people",
       "label": "People & conversations",
       "embeddingText": "Talk with people about feelings, friendship and everyday conversations.",
-      "categories": ["people", "feelings", "friendship", "conversation"]
+      "categories": [
+        "people",
+        "feelings",
+        "friendship",
+        "conversation"
+      ]
     },
     {
       "id": "home-school",
       "label": "Home & school",
       "embeddingText": "Talk about home, school, learning and everyday technology.",
-      "categories": ["home", "school", "technology"]
+      "categories": [
+        "home",
+        "school",
+        "technology"
+      ]
     },
     {
       "id": "food-shopping",
       "label": "Food & shopping",
       "embeddingText": "Talk about food, meals, shopping and things to buy.",
-      "categories": ["food", "shopping"]
+      "categories": [
+        "food",
+        "shopping"
+      ]
     },
     {
       "id": "places-travel",
       "label": "Places & travel",
       "embeddingText": "Find places, describe locations and travel by different kinds of transport.",
-      "categories": ["location", "transport", "travel"]
+      "categories": [
+        "location",
+        "transport",
+        "travel"
+      ]
     },
     {
       "id": "creative-play",
       "label": "Play & creativity",
       "embeddingText": "Talk about playing, music and creative activities.",
-      "categories": ["play", "music", "creativity"]
+      "categories": [
+        "play",
+        "music",
+        "creativity"
+      ]
     },
     {
       "id": "time-plans",
       "label": "Time & daily plans",
       "embeddingText": "Tell the time, describe daily routines and make plans.",
-      "categories": ["time", "plans", "routine", "daily-life"]
+      "categories": [
+        "time",
+        "plans",
+        "routine",
+        "daily-life"
+      ]
     },
     {
       "id": "world-description",
       "label": "Animals, nature & weather",
       "embeddingText": "Describe animals, nature and the weather.",
-      "categories": ["animals", "nature", "weather"]
+      "categories": [
+        "animals",
+        "nature",
+        "weather"
+      ]
     }
   ],
   "platforms": {
@@ -202,7 +231,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-39"
+      "revision": "interface-en-41"
     },
     "courseProfile": {
       "kind": "file",

@@ -47,7 +47,7 @@
       schemaVersion: 1,
       locale: "en",
       direction: "ltr",
-      revision: "interface-en-39",
+      revision: "interface-en-41",
       catalog: "/language-runtime/static/data/interface/en.v1.json"
     },
     learnerBasePreview: false,
@@ -144,7 +144,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-39",
+            revision: "interface-en-41",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -201,7 +201,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-39",
+            revision: "interface-en-41",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -262,7 +262,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-39",
+            revision: "interface-en-41",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -323,7 +323,7 @@
             schemaVersion: 1,
             locale: "es-ES",
             direction: "ltr",
-            revision: "interface-es-14",
+            revision: "interface-es-16",
             catalog: "/language-runtime/static/data/interface/es.v1.json"
           },
           targetLanguage: {
@@ -384,7 +384,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-39",
+            revision: "interface-en-41",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -397,6 +397,125 @@
             direction: "ltr",
             flagClass: "norway-flag",
             flagSrc: "/assets/icons/norway_flag.png"
+          }
+        },
+        {
+          id: "ar",
+          status: "development",
+          routePrefix: "/ar",
+          entryPath: "/ar/index.html",
+          storage: {
+            learningPerformance: "caatuu-ar.learning.performance.v1"
+          },
+          developerContext: {
+            gameContent: {
+              "verb-lab": {
+                verbNebulaCatalog: "data/games/verb-nebula/content.json"
+              },
+              "word-net": {
+                wordWorldManifest: "data/games/word-world/manifest.json?v=word-world-content-1"
+              },
+              "conjugation-comet": {
+                conjugationCometCatalog: "data/games/conjugation-comet/content.json?v=conjugation-comet-content-1"
+              },
+              "grammar-gravity": {
+                grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-1",
+                grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1"
+              },
+              "sound-quasar": {
+                soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-content-1"
+              }
+            },
+            dictionaryContent: null,
+            embeddingContent: {
+              catalog: "data/embeddings/catalog.json"
+            }
+          },
+          sourceLanguage: {
+            id: "en",
+            label: "English",
+            nativeLabel: "English",
+            shortCode: "EN",
+            locale: "en",
+            direction: "ltr",
+            flagClass: "en-flag",
+            flagSrc: "/assets/icons/english_flag.png"
+          },
+          interfaceContent: {
+            schemaVersion: 1,
+            locale: "en",
+            direction: "ltr",
+            revision: "interface-en-41",
+            catalog: "/language-runtime/static/data/interface/en.v1.json"
+          },
+          targetLanguage: {
+            id: "ar",
+            label: "Modern Standard Arabic",
+            nativeLabel: "العربية الفصحى",
+            shortCode: "AR",
+            locale: "ar",
+            speechLocale: "ar",
+            direction: "rtl",
+            flagClass: "arabic-mark",
+            flagSrc: "/assets/icons/arabic_mark.png"
+          }
+        },
+        {
+          id: "la",
+          status: "development",
+          routePrefix: "/la",
+          entryPath: "/la/index.html",
+          storage: {
+            learningPerformance: "caatuu-la.learning.performance.v1"
+          },
+          developerContext: {
+            gameContent: {
+              "verb-lab": {
+                verbNebulaCatalog: "data/games/verb-nebula/content.json"
+              },
+              "word-net": {
+                wordWorldManifest: "data/games/word-world/manifest.json?v=word-world-content-1"
+              },
+              "conjugation-comet": {
+                conjugationCometCatalog: "data/games/conjugation-comet/content.json?v=conjugation-comet-content-1"
+              },
+              "grammar-gravity": {
+                grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-1",
+                grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1"
+              }
+            },
+            dictionaryContent: null,
+            embeddingContent: {
+              catalog: "data/embeddings/catalog.json"
+            }
+          },
+          sourceLanguage: {
+            id: "en",
+            label: "English",
+            nativeLabel: "English",
+            shortCode: "EN",
+            locale: "en",
+            direction: "ltr",
+            flagClass: "en-flag",
+            flagSrc: "/assets/icons/english_flag.png"
+          },
+          interfaceContent: {
+            schemaVersion: 1,
+            locale: "en",
+            direction: "ltr",
+            revision: "interface-en-41",
+            catalog: "/language-runtime/static/data/interface/en.v1.json"
+          },
+          targetLanguage: {
+            id: "la",
+            label: "Scientific Latin",
+            nativeLabel: "Latīnum scientificum",
+            shortCode: "LA",
+            locale: "la",
+            speechLocale: "la",
+            direction: "ltr",
+            flagClass: "latin-mark",
+            flagSrc: "/assets/icons/latin_mark.png"
           }
         }
       ]

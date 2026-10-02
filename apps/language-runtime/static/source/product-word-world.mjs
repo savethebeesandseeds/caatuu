@@ -817,6 +817,7 @@ function androidSpeechRuntime() {
 }
 
 function speechControlSupported() {
+  if (course.capabilities?.speech !== true) return false;
   return androidSpeechRuntime()
     ? state.nativeSpeechAvailable
     : browserSpeechSynthesisSupported();
@@ -1387,7 +1388,7 @@ function speakCzechWithBrowser(text, source, pace) {
 
 function toggleCzechSpeech(text, source, { restart = false } = {}) {
   const normalizedText = String(text || "").normalize("NFC").trim();
-  if (speechGloballyMuted()) {
+  if (course.capabilities?.speech !== true || speechGloballyMuted()) {
     syncSpeechControl();
     return;
   }

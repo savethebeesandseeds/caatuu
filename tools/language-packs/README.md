@@ -247,9 +247,9 @@ runtime; missing entrypoints, assets, stale markers, or route collisions fail
 before publication output is mutated. Active modern courses require recorded
 native review and release-cleared licensing. Pages-enabled development previews
 retain their declared draft review and provenance status and remain `noindex`;
-they use the same shared app and offline graph. All four current
-catalog courses enable browser, Pages, and Android delivery, while Czech alone
-has active status.
+they use the same shared app and offline graph. Delivery flags are authoritative
+per course: Arabic currently enables only the local browser, with its Android
+source asset catalog prepared for later enablement. Czech alone has active status.
 
 ## Validation in the established development container
 

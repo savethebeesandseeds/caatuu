@@ -1,0 +1,721 @@
+(() => {
+  const deepFreeze = (value) => {
+    if (!value || typeof value !== "object" || Object.isFrozen(value)) return value;
+    Object.values(value).forEach(deepFreeze);
+    return Object.freeze(value);
+  };
+
+  window.CaatuuCourse = deepFreeze({
+    schemaVersion: 1,
+    id: "ar",
+    status: "development",
+    brandLabel: "Caatuu",
+    workspaceLabel: "Caatuu Arabic",
+    routePrefix: "/ar",
+    entryPath: "/ar/index.html",
+    sourceLanguage: {
+      id: "en",
+      label: "English",
+      nativeLabel: "English",
+      shortCode: "EN",
+      locale: "en",
+      direction: "ltr",
+      flagClass: "en-flag",
+      flagSrc: "/assets/icons/english_flag.png"
+    },
+    targetLanguage: {
+      id: "ar",
+      label: "Modern Standard Arabic",
+      nativeLabel: "العربية الفصحى",
+      shortCode: "AR",
+      locale: "ar",
+      script: "Arab",
+      speechLocale: "ar",
+      direction: "rtl",
+      flagClass: "arabic-mark",
+      flagSrc: "/assets/icons/arabic_mark.png"
+    },
+    languageRoles: {
+      pair: "en->ar",
+      learnerBaseLanguage: "en",
+      interfaceLanguage: "en",
+      targetLanguage: "ar",
+      auditLanguage: "en",
+      retrievalLanguage: "en"
+    },
+    interfaceContent: {
+      schemaVersion: 1,
+      locale: "en",
+      direction: "ltr",
+      revision: "interface-en-41",
+      catalog: "/language-runtime/static/data/interface/en.v1.json"
+    },
+    learnerBasePreview: false,
+    linguisticFeatures: [
+      "verb-conjugation",
+      "grammatical-agreement",
+      "grammatical-case"
+    ],
+    games: [
+      "verb-lab",
+      "word-net",
+      "conjugation-comet",
+      "grammar-gravity",
+      "sound-quasar"
+    ],
+    upcomingGames: [
+      "memory-moon"
+    ],
+    languageAdapter: {
+      schemaVersion: 1,
+      module: "source/language/adapter.mjs"
+    },
+    browserProviders: {},
+    gameContent: {
+      "verb-lab": {
+        verbNebulaCatalog: "data/games/verb-nebula/content.json"
+      },
+      "word-net": {
+        wordWorldManifest: "data/games/word-world/manifest.json?v=word-world-content-1"
+      },
+      "conjugation-comet": {
+        conjugationCometCatalog: "data/games/conjugation-comet/content.json?v=conjugation-comet-content-1"
+      },
+      "grammar-gravity": {
+        grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-1",
+        grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1"
+      },
+      "sound-quasar": {
+        soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-content-1"
+      }
+    },
+    dictionaryContent: null,
+    embeddingContent: {
+      catalog: "data/embeddings/catalog.json"
+    },
+    courseSelector: {
+      schemaVersion: 1,
+      courses: [
+        {
+          id: "cz",
+          status: "active",
+          routePrefix: "/cz",
+          entryPath: "/cz/index.html",
+          storage: {
+            learningPerformance: "caatuu-czech.learning.performance.v1"
+          },
+          developerContext: {
+            gameContent: {
+              "verb-lab": {
+                verbNebulaCatalog: "data/games/verb-nebula/content.json"
+              },
+              "word-net": {
+                wordWorldManifest: "data/games/word-world/manifest.json?v=word-world-token-hints-1"
+              },
+              "conjugation-comet": {
+                conjugationCometCatalog: "data/games/conjugation-comet/content.json?v=conjugation-comet-verbs-5"
+              },
+              "case-cosmos": {
+                caseCosmosCatalog: "data/games/case-cosmos/content.json?v=case-cosmos-data-8"
+              },
+              "grammar-gravity": {
+                grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-data-7",
+                grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-4"
+              },
+              "sound-quasar": {
+                soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-retained-levels-1"
+              }
+            },
+            dictionaryContent: {
+              providerId: "czech-full-dictionary-v1",
+              catalog: "data/dictionaries/catalog.json",
+              coreEntries: "data/games/verb-nebula/content.json",
+              scriptLines: "data/language/scripts.json",
+              referenceDocument: "data/dictionaries/reference.html"
+            },
+            embeddingContent: {
+              catalog: "data/embeddings/models.json"
+            }
+          },
+          sourceLanguage: {
+            id: "en",
+            label: "English",
+            nativeLabel: "English",
+            shortCode: "EN",
+            locale: "en",
+            direction: "ltr",
+            flagClass: "en-flag",
+            flagSrc: "/assets/icons/english_flag.png"
+          },
+          interfaceContent: {
+            schemaVersion: 1,
+            locale: "en",
+            direction: "ltr",
+            revision: "interface-en-41",
+            catalog: "/language-runtime/static/data/interface/en.v1.json"
+          },
+          targetLanguage: {
+            id: "cs",
+            label: "Czech",
+            nativeLabel: "Čeština",
+            shortCode: "CZ",
+            locale: "cs-CZ",
+            speechLocale: "cs-CZ",
+            direction: "ltr",
+            flagClass: "cz-flag",
+            flagSrc: "/assets/icons/czech_flag_ui.png"
+          }
+        },
+        {
+          id: "zh",
+          status: "development",
+          routePrefix: "/zh",
+          entryPath: "/zh/index.html",
+          storage: {
+            learningPerformance: "caatuu-zh-hans.learning.performance.v1"
+          },
+          developerContext: {
+            gameContent: {
+              "verb-lab": {
+                verbNebulaCatalog: "data/games/verb-nebula/content.json"
+              },
+              "word-net": {
+                wordWorldManifest: "data/games/word-world/manifest.json?v=catalog-files-2"
+              },
+              "naturalization-nucleus": {
+                naturalizationNucleusCatalog: "data/games/naturalization-nucleus/content.json"
+              },
+              "sound-quasar": {
+                soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-retained-levels-1"
+              }
+            },
+            dictionaryContent: null,
+            embeddingContent: {
+              catalog: "data/embeddings/catalog.json"
+            }
+          },
+          sourceLanguage: {
+            id: "en",
+            label: "English",
+            nativeLabel: "English",
+            shortCode: "EN",
+            locale: "en",
+            direction: "ltr",
+            flagClass: "en-flag",
+            flagSrc: "/assets/icons/english_flag.png"
+          },
+          interfaceContent: {
+            schemaVersion: 1,
+            locale: "en",
+            direction: "ltr",
+            revision: "interface-en-41",
+            catalog: "/language-runtime/static/data/interface/en.v1.json"
+          },
+          targetLanguage: {
+            id: "zh",
+            label: "Mandarin",
+            nativeLabel: "中文",
+            shortCode: "ZH",
+            locale: "zh-Hans",
+            speechLocale: "zh-CN",
+            direction: "ltr",
+            flagClass: "zh-hans-flag",
+            flagSrc: "/assets/icons/china_flag.png"
+          }
+        },
+        {
+          id: "es",
+          status: "development",
+          routePrefix: "/es",
+          entryPath: "/es/index.html",
+          storage: {
+            learningPerformance: "caatuu-es.learning.performance.v1"
+          },
+          developerContext: {
+            gameContent: {
+              "verb-lab": {
+                verbNebulaCatalog: "data/games/verb-nebula/content.json"
+              },
+              "word-net": {
+                wordWorldManifest: "data/games/word-world/manifest.json?v=word-world-context-hints-1"
+              },
+              "conjugation-comet": {
+                conjugationCometCatalog: "data/games/conjugation-comet/content.json?v=conjugation-comet-content-1"
+              },
+              "grammar-gravity": {
+                grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-3",
+                grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-4"
+              },
+              "sound-quasar": {
+                soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-retained-levels-1"
+              }
+            },
+            dictionaryContent: null,
+            embeddingContent: {
+              catalog: "data/embeddings/catalog.json"
+            }
+          },
+          sourceLanguage: {
+            id: "en",
+            label: "English",
+            nativeLabel: "English",
+            shortCode: "EN",
+            locale: "en",
+            direction: "ltr",
+            flagClass: "en-flag",
+            flagSrc: "/assets/icons/english_flag.png"
+          },
+          interfaceContent: {
+            schemaVersion: 1,
+            locale: "en",
+            direction: "ltr",
+            revision: "interface-en-41",
+            catalog: "/language-runtime/static/data/interface/en.v1.json"
+          },
+          targetLanguage: {
+            id: "es",
+            label: "Spanish",
+            nativeLabel: "Español",
+            shortCode: "ES",
+            locale: "es-ES",
+            speechLocale: "es-ES",
+            direction: "ltr",
+            flagClass: "spain-flag",
+            flagSrc: "/assets/icons/spain_flag.png"
+          }
+        },
+        {
+          id: "es-en",
+          status: "development",
+          routePrefix: "/es-en",
+          entryPath: "/es-en/index.html",
+          storage: {
+            learningPerformance: "caatuu-es-en.learning.performance.v1"
+          },
+          developerContext: {
+            gameContent: {
+              "verb-lab": {
+                verbNebulaCatalog: "data/games/verb-nebula/content.json"
+              },
+              "word-net": {
+                wordWorldManifest: "data/games/word-world/manifest.json?v=word-world-context-hints-1"
+              },
+              "conjugation-comet": {
+                conjugationCometCatalog: "data/games/conjugation-comet/content.json?v=conjugation-comet-content-1"
+              },
+              "grammar-gravity": {
+                grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-2",
+                grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-3"
+              },
+              "sound-quasar": {
+                soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-items-v3"
+              }
+            },
+            dictionaryContent: null,
+            embeddingContent: {
+              catalog: "data/embeddings/catalog.json"
+            }
+          },
+          sourceLanguage: {
+            id: "es",
+            label: "Spanish",
+            nativeLabel: "Español",
+            shortCode: "ES",
+            locale: "es-ES",
+            direction: "ltr",
+            flagClass: "spain-flag",
+            flagSrc: "/assets/icons/spain_flag.png"
+          },
+          interfaceContent: {
+            schemaVersion: 1,
+            locale: "es-ES",
+            direction: "ltr",
+            revision: "interface-es-16",
+            catalog: "/language-runtime/static/data/interface/es.v1.json"
+          },
+          targetLanguage: {
+            id: "en",
+            label: "English",
+            nativeLabel: "English",
+            shortCode: "EN",
+            locale: "en-US",
+            speechLocale: "en-US",
+            direction: "ltr",
+            flagClass: "en-flag",
+            flagSrc: "/assets/icons/english_flag.png"
+          }
+        },
+        {
+          id: "nb",
+          status: "development",
+          routePrefix: "/nb",
+          entryPath: "/nb/index.html",
+          storage: {
+            learningPerformance: "caatuu-nb.learning.performance.v1"
+          },
+          developerContext: {
+            gameContent: {
+              "verb-lab": {
+                verbNebulaCatalog: "data/games/verb-nebula/content.json"
+              },
+              "word-net": {
+                wordWorldManifest: "data/games/word-world/manifest.json?v=word-world-content-1"
+              },
+              "conjugation-comet": {
+                conjugationCometCatalog: "data/games/conjugation-comet/content.json?v=conjugation-comet-content-1"
+              },
+              "grammar-gravity": {
+                grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-1",
+                grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1"
+              },
+              "sound-quasar": {
+                soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-content-1"
+              }
+            },
+            dictionaryContent: null,
+            embeddingContent: {
+              catalog: "data/embeddings/catalog.json"
+            }
+          },
+          sourceLanguage: {
+            id: "en",
+            label: "English",
+            nativeLabel: "English",
+            shortCode: "EN",
+            locale: "en",
+            direction: "ltr",
+            flagClass: "en-flag",
+            flagSrc: "/assets/icons/english_flag.png"
+          },
+          interfaceContent: {
+            schemaVersion: 1,
+            locale: "en",
+            direction: "ltr",
+            revision: "interface-en-41",
+            catalog: "/language-runtime/static/data/interface/en.v1.json"
+          },
+          targetLanguage: {
+            id: "nb",
+            label: "Norwegian Bokmål",
+            nativeLabel: "Norsk bokmål",
+            shortCode: "NB",
+            locale: "nb-NO",
+            speechLocale: "nb-NO",
+            direction: "ltr",
+            flagClass: "norway-flag",
+            flagSrc: "/assets/icons/norway_flag.png"
+          }
+        },
+        {
+          id: "ar",
+          status: "development",
+          routePrefix: "/ar",
+          entryPath: "/ar/index.html",
+          storage: {
+            learningPerformance: "caatuu-ar.learning.performance.v1"
+          },
+          developerContext: {
+            gameContent: {
+              "verb-lab": {
+                verbNebulaCatalog: "data/games/verb-nebula/content.json"
+              },
+              "word-net": {
+                wordWorldManifest: "data/games/word-world/manifest.json?v=word-world-content-1"
+              },
+              "conjugation-comet": {
+                conjugationCometCatalog: "data/games/conjugation-comet/content.json?v=conjugation-comet-content-1"
+              },
+              "grammar-gravity": {
+                grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-1",
+                grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1"
+              },
+              "sound-quasar": {
+                soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-content-1"
+              }
+            },
+            dictionaryContent: null,
+            embeddingContent: {
+              catalog: "data/embeddings/catalog.json"
+            }
+          },
+          sourceLanguage: {
+            id: "en",
+            label: "English",
+            nativeLabel: "English",
+            shortCode: "EN",
+            locale: "en",
+            direction: "ltr",
+            flagClass: "en-flag",
+            flagSrc: "/assets/icons/english_flag.png"
+          },
+          interfaceContent: {
+            schemaVersion: 1,
+            locale: "en",
+            direction: "ltr",
+            revision: "interface-en-41",
+            catalog: "/language-runtime/static/data/interface/en.v1.json"
+          },
+          targetLanguage: {
+            id: "ar",
+            label: "Modern Standard Arabic",
+            nativeLabel: "العربية الفصحى",
+            shortCode: "AR",
+            locale: "ar",
+            speechLocale: "ar",
+            direction: "rtl",
+            flagClass: "arabic-mark",
+            flagSrc: "/assets/icons/arabic_mark.png"
+          }
+        },
+        {
+          id: "la",
+          status: "development",
+          routePrefix: "/la",
+          entryPath: "/la/index.html",
+          storage: {
+            learningPerformance: "caatuu-la.learning.performance.v1"
+          },
+          developerContext: {
+            gameContent: {
+              "verb-lab": {
+                verbNebulaCatalog: "data/games/verb-nebula/content.json"
+              },
+              "word-net": {
+                wordWorldManifest: "data/games/word-world/manifest.json?v=word-world-content-1"
+              },
+              "conjugation-comet": {
+                conjugationCometCatalog: "data/games/conjugation-comet/content.json?v=conjugation-comet-content-1"
+              },
+              "grammar-gravity": {
+                grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-1",
+                grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1"
+              }
+            },
+            dictionaryContent: null,
+            embeddingContent: {
+              catalog: "data/embeddings/catalog.json"
+            }
+          },
+          sourceLanguage: {
+            id: "en",
+            label: "English",
+            nativeLabel: "English",
+            shortCode: "EN",
+            locale: "en",
+            direction: "ltr",
+            flagClass: "en-flag",
+            flagSrc: "/assets/icons/english_flag.png"
+          },
+          interfaceContent: {
+            schemaVersion: 1,
+            locale: "en",
+            direction: "ltr",
+            revision: "interface-en-41",
+            catalog: "/language-runtime/static/data/interface/en.v1.json"
+          },
+          targetLanguage: {
+            id: "la",
+            label: "Scientific Latin",
+            nativeLabel: "Latīnum scientificum",
+            shortCode: "LA",
+            locale: "la",
+            speechLocale: "la",
+            direction: "ltr",
+            flagClass: "latin-mark",
+            flagSrc: "/assets/icons/latin_mark.png"
+          }
+        }
+      ]
+    },
+    routes: {
+      soundQuasar: "/language-runtime/static/games/sound-quasar.html",
+      conjugationComet: "/language-runtime/static/games/conjugation-comet.html",
+      grammarGravity: "/language-runtime/static/games/grammar-gravity.html",
+      languageSelection: "/",
+      home: "index.html",
+      games: "index.html",
+      verbNebula: "index.html?game=verb-lab",
+      wordWorld: "index.html?game=word-net",
+      settings: "index.html"
+    },
+    storage: {
+      namespace: "caatuu-ar",
+      theme: "caatuu-ar.theme",
+      fontSize: "caatuu-ar.font-size",
+      learningPreferences: "caatuu-ar.learning.preferences.v1",
+      learningPerformance: "caatuu-ar.learning.performance.v1",
+      semanticLearningDatabase: "caatuu-ar.semantic-learning",
+      verbMemory: "caatuu-ar.verb-memory.v3",
+      wordWorldTranslationMode: "caatuu-ar.word-world.translation-mode",
+      wordWorldRecentSentences: "caatuu-ar.word-world.recent-sentences.v1"
+    },
+    cache: {
+      prefix: "caatuu-ar-pwa-",
+      setupFallback: "caatuu-ar-setup-v1"
+    },
+    capabilities: {
+      llm: false,
+      generation: false,
+      chat: false,
+      embeddings: true,
+      semanticSearch: true,
+      dictionary: false,
+      memory: false,
+      verbs: false,
+      wordWorld: true,
+      conjugationComet: true,
+      offlineModels: false,
+      speech: true,
+      pronunciationGuides: false
+    },
+    learningGoals: [
+      {
+        id: "people-social",
+        label: "People, feelings & cooperation",
+        embeddingText: "Greet people, introduce yourself, talk about friendship and feelings, and cooperate with others.",
+        categories: [
+          "first-contact",
+          "greetings",
+          "introductions",
+          "friendship",
+          "relationships",
+          "feelings",
+          "feelings-and-cooperation",
+          "communication",
+          "cooperation",
+          "cooperation-and-boundaries",
+          "celebrations"
+        ]
+      },
+      {
+        id: "home-routines",
+        label: "Home, family & routines",
+        embeddingText: "Talk about home, family chores, clothing, daily routines and resting.",
+        categories: [
+          "home",
+          "home-and-community",
+          "family-and-chores",
+          "daily-routines",
+          "clothing",
+          "body-and-rest",
+          "cabin-life"
+        ]
+      },
+      {
+        id: "food-shopping",
+        label: "Food, cooking & shopping",
+        embeddingText: "Talk about food, cook meals and shop for everyday needs.",
+        categories: [
+          "food",
+          "food-shopping",
+          "cooking",
+          "meals",
+          "shopping",
+          "money-and-payments"
+        ]
+      },
+      {
+        id: "school-learning",
+        label: "Learning, work & science",
+        embeddingText: "Talk about school, learning, work, thinking, science and technology.",
+        categories: [
+          "school",
+          "learning",
+          "learning-and-thinking",
+          "work",
+          "science",
+          "technology"
+        ]
+      },
+      {
+        id: "travel-needs",
+        label: "Travel & practical needs",
+        embeddingText: "Travel around town, use public transport, ask permission, arrange deliveries and repairs, use public services and explain accessibility needs.",
+        categories: [
+          "travel",
+          "public-transport",
+          "town",
+          "practical-needs",
+          "travel-and-practical-needs",
+          "requests-and-permission",
+          "post-and-delivery",
+          "repairs-and-services",
+          "public-services",
+          "accessibility",
+          "community"
+        ]
+      },
+      {
+        id: "nature-weather",
+        label: "Outdoors, nature & weather",
+        embeddingText: "Explore forests and the seaside, describe animals, seasons and weather, and care for nature.",
+        categories: [
+          "animals",
+          "nature",
+          "forest",
+          "seaside",
+          "outdoor-exploration",
+          "adventures",
+          "environment",
+          "nature-and-environment",
+          "weather",
+          "seasons",
+          "weather-and-seasons"
+        ]
+      },
+      {
+        id: "plans-time",
+        label: "Time, plans & experiences",
+        embeddingText: "Discuss numbers and time, make plans, compare quantities and explain past experiences.",
+        categories: [
+          "numbers-and-time",
+          "planning",
+          "plans-and-time",
+          "time-and-plans",
+          "past-experiences",
+          "comparison-and-quantity",
+          "comparison",
+          "explanations"
+        ]
+      },
+      {
+        id: "stories-play",
+        label: "Stories, play & creativity",
+        embeddingText: "Talk about books, imaginary stories, games, puzzles, sports, music and art.",
+        categories: [
+          "books-and-stories",
+          "playful-stories",
+          "play",
+          "leisure",
+          "games-and-puzzles",
+          "imagination",
+          "sports",
+          "music-and-art",
+          "creativity-and-feelings"
+        ]
+      },
+      {
+        id: "language-structure",
+        label: "Negation, agreement & reference",
+        embeddingText: "Use Arabic negation, agreement in gender and number, possession, relative clauses and clear references in everyday situations.",
+        categories: [
+          "negation",
+          "people-and-number",
+          "reference-and-possession",
+          "scope-and-reference"
+        ]
+      }
+    ],
+    platforms: {
+      browser: {
+        enabled: true,
+        entryPath: "/ar/index.html",
+        backend: "static"
+      },
+      android: {
+        enabled: false,
+        channels: []
+      }
+    }
+  });
+})();

@@ -1,0 +1,1344 @@
+{
+  "created": "2026-10-02",
+  "status": "draft walking pose selection awaiting user review",
+  "source_batch": "artifacts/research/world-movement/generated-candidates/macaw-walking-20261001-v1",
+  "source_manifest_sha256": "144497dd0c05b54f1daf49faea60cf53882cdc3ad35ed53192d7f8be7f6d0b3c",
+  "original_videos_preserved": true,
+  "existing_609_frame_batch_preserved": true,
+  "physical_frame_count": 40,
+  "poses_per_orientation": 8,
+  "canvas": [
+    512,
+    512
+  ],
+  "baseline_y": 480,
+  "preview_fps": 8,
+  "normalization": "Per-pose uniform contain-fit and bottom-centre placement for reference review only; original pixels preserved separately. Source bobbing/scale/timing require later review.",
+  "background_processing": "None in this batch; existing imperfect transparent frames reused.",
+  "cycle_choices": {
+    "east": {
+      "frames": [
+        1,
+        5,
+        9,
+        12,
+        16,
+        20,
+        23,
+        27
+      ],
+      "period": 30,
+      "fps": 30
+    },
+    "north-east": {
+      "frames": [
+        26,
+        33,
+        40,
+        46,
+        53,
+        60,
+        66,
+        73
+      ],
+      "period": 54,
+      "fps": 24
+    },
+    "north": {
+      "frames": [
+        1,
+        5,
+        9,
+        13,
+        17,
+        21,
+        25,
+        29
+      ],
+      "period": 32,
+      "fps": 30
+    },
+    "south-west": {
+      "frames": [
+        26,
+        32,
+        39,
+        45,
+        52,
+        58,
+        64,
+        71
+      ],
+      "period": 51,
+      "fps": 24
+    },
+    "south": {
+      "frames": [
+        26,
+        29,
+        32,
+        35,
+        38,
+        42,
+        45,
+        48
+      ],
+      "period": 25,
+      "fps": 24
+    }
+  },
+  "directions": [
+    {
+      "id": "north",
+      "arrow": "\u2191",
+      "source": "north",
+      "mirror": false
+    },
+    {
+      "id": "north-east",
+      "arrow": "\u2197",
+      "source": "north-east",
+      "mirror": false
+    },
+    {
+      "id": "east",
+      "arrow": "\u2192",
+      "source": "east",
+      "mirror": false
+    },
+    {
+      "id": "south-east",
+      "arrow": "\u2198",
+      "source": "south-west",
+      "mirror": true
+    },
+    {
+      "id": "south",
+      "arrow": "\u2193",
+      "source": "south",
+      "mirror": false
+    },
+    {
+      "id": "south-west",
+      "arrow": "\u2199",
+      "source": "south-west",
+      "mirror": false
+    },
+    {
+      "id": "west",
+      "arrow": "\u2190",
+      "source": "east",
+      "mirror": true
+    },
+    {
+      "id": "north-west",
+      "arrow": "\u2196",
+      "source": "north-east",
+      "mirror": true
+    }
+  ],
+  "warnings": [],
+  "frames": [
+    {
+      "id": "walk-east-01",
+      "direction": "east",
+      "slot": 1,
+      "source_frame": 1,
+      "source_timestamp_seconds": 0.0,
+      "source_hold_ms": 133,
+      "file": "frames/east/walk_01.png",
+      "sha256": "8527083aa56be423379e70e1c47cda57e9f9cedb6aa59d5f338dc51476dd16ba",
+      "raw_selected_file": "selected-source/east/east_000001.png",
+      "raw_selected_sha256": "1f7c6665b3ee0f977de79313f0617641cba4db50ad1edd0988ca20d7c96a157e",
+      "original_guide": "original-guides/east/east_000001.png",
+      "original_guide_sha256": "3d5231b2e0fa803ff4ebdc42690b0d08ad4ee3f27764f75d653013fb8195dde3",
+      "source_bbox": [
+        335,
+        51,
+        862,
+        635
+      ],
+      "uniform_scale": 0.7123287671232876,
+      "resized_dimensions": [
+        375,
+        416
+      ],
+      "placement": [
+        68,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-east-02",
+      "direction": "east",
+      "slot": 2,
+      "source_frame": 5,
+      "source_timestamp_seconds": 0.13333333333333333,
+      "source_hold_ms": 133,
+      "file": "frames/east/walk_02.png",
+      "sha256": "18b928f67ffd901890ebb83491656012b35ff6abb7e6e8d4cc485905b3a0e35b",
+      "raw_selected_file": "selected-source/east/east_000005.png",
+      "raw_selected_sha256": "fc4d849ea8c1ca5f95b1880f4aefa60a67ebca303a203dfe1ac3d6d62468bd95",
+      "original_guide": "original-guides/east/east_000005.png",
+      "original_guide_sha256": "8c0bada55c26293952ea05470c05f066e5d65de17995b032442761dea0b7d368",
+      "source_bbox": [
+        320,
+        62,
+        870,
+        648
+      ],
+      "uniform_scale": 0.7098976109215017,
+      "resized_dimensions": [
+        390,
+        416
+      ],
+      "placement": [
+        61,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-east-03",
+      "direction": "east",
+      "slot": 3,
+      "source_frame": 9,
+      "source_timestamp_seconds": 0.26666666666666666,
+      "source_hold_ms": 100,
+      "file": "frames/east/walk_03.png",
+      "sha256": "28b6682716df426245f483df323363d17a88043f5aba51a558f2e946b9587d88",
+      "raw_selected_file": "selected-source/east/east_000009.png",
+      "raw_selected_sha256": "5334e64e64eb3cd739d0ffb1ab9c36cc49489245d5b017934e5b900030c75f15",
+      "original_guide": "original-guides/east/east_000009.png",
+      "original_guide_sha256": "deafba403a56b069fbaf984ce594b155b5c12973f1064ae0383c90edf6d9aca2",
+      "source_bbox": [
+        324,
+        74,
+        886,
+        648
+      ],
+      "uniform_scale": 0.7247386759581882,
+      "resized_dimensions": [
+        407,
+        416
+      ],
+      "placement": [
+        52,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-east-04",
+      "direction": "east",
+      "slot": 4,
+      "source_frame": 12,
+      "source_timestamp_seconds": 0.36666666666666664,
+      "source_hold_ms": 133,
+      "file": "frames/east/walk_04.png",
+      "sha256": "ae50584cac68feeaab5b1687dc05d6643bfa2509f088cb4f0aa26c30afa1eaf2",
+      "raw_selected_file": "selected-source/east/east_000012.png",
+      "raw_selected_sha256": "95bc01b23b59428f672a5645ce612b292a1569b5d4497f09fe12ac5f3493ff07",
+      "original_guide": "original-guides/east/east_000012.png",
+      "original_guide_sha256": "e538e6605f16cadd43829c657b559187397a0a7147df25a4307ba21ed44d9730",
+      "source_bbox": [
+        327,
+        66,
+        888,
+        648
+      ],
+      "uniform_scale": 0.7147766323024055,
+      "resized_dimensions": [
+        401,
+        416
+      ],
+      "placement": [
+        55,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-east-05",
+      "direction": "east",
+      "slot": 5,
+      "source_frame": 16,
+      "source_timestamp_seconds": 0.5,
+      "source_hold_ms": 133,
+      "file": "frames/east/walk_05.png",
+      "sha256": "b39d9d5cb760e8cf557096f19703c9fba5979975b1425fc1c0a5a6de74efddb3",
+      "raw_selected_file": "selected-source/east/east_000016.png",
+      "raw_selected_sha256": "66ffab430795786fd3970a1e47207f66ca277b130bfa69a15a278c07669d203d",
+      "original_guide": "original-guides/east/east_000016.png",
+      "original_guide_sha256": "03b2bdec87f94608d8af08e0b8f6ddb4def30af3b99f19a607b5133458292505",
+      "source_bbox": [
+        326,
+        55,
+        886,
+        650
+      ],
+      "uniform_scale": 0.6991596638655462,
+      "resized_dimensions": [
+        392,
+        416
+      ],
+      "placement": [
+        60,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-east-06",
+      "direction": "east",
+      "slot": 6,
+      "source_frame": 20,
+      "source_timestamp_seconds": 0.6333333333333333,
+      "source_hold_ms": 100,
+      "file": "frames/east/walk_06.png",
+      "sha256": "17b1abc6d0db2f5479411110e7386a59cf7e8d0a5b5ca8e9eef515e0854e1ea3",
+      "raw_selected_file": "selected-source/east/east_000020.png",
+      "raw_selected_sha256": "1b803d2899f87f9001248c6fcaee9b98621819a040b0d9e440edc6b800c70f30",
+      "original_guide": "original-guides/east/east_000020.png",
+      "original_guide_sha256": "91bedc3cbc9bb733e9f7ca70906a261a682f70cecdb75cd0e709113ff0aec424",
+      "source_bbox": [
+        316,
+        65,
+        888,
+        654
+      ],
+      "uniform_scale": 0.7062818336162988,
+      "resized_dimensions": [
+        404,
+        416
+      ],
+      "placement": [
+        54,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-east-07",
+      "direction": "east",
+      "slot": 7,
+      "source_frame": 23,
+      "source_timestamp_seconds": 0.7333333333333333,
+      "source_hold_ms": 133,
+      "file": "frames/east/walk_07.png",
+      "sha256": "84b2aa711ec2f2eba774d4d47d224de86707e21665ed67e954407993d65ff1c6",
+      "raw_selected_file": "selected-source/east/east_000023.png",
+      "raw_selected_sha256": "ae59e153bb1b791258b06d1164bbfd4935961beab1078dba776c75809b3deb1e",
+      "original_guide": "original-guides/east/east_000023.png",
+      "original_guide_sha256": "c11f19f0cf2cbc4008afe282b8a07c6726187131bdcb288de9cbe5ce35ad40de",
+      "source_bbox": [
+        320,
+        77,
+        884,
+        655
+      ],
+      "uniform_scale": 0.7197231833910035,
+      "resized_dimensions": [
+        406,
+        416
+      ],
+      "placement": [
+        53,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-east-08",
+      "direction": "east",
+      "slot": 8,
+      "source_frame": 27,
+      "source_timestamp_seconds": 0.8666666666666667,
+      "source_hold_ms": 133,
+      "file": "frames/east/walk_08.png",
+      "sha256": "9d54e7fe08d511b4b07f775e31b14cd43e10d8a7fa564a292e3830afa123f9ad",
+      "raw_selected_file": "selected-source/east/east_000027.png",
+      "raw_selected_sha256": "81d7892f2ecccf0f4f83ab80b03807dbd7180cdffefebd1d11c36a4e54c757d0",
+      "original_guide": "original-guides/east/east_000027.png",
+      "original_guide_sha256": "afcbdfd74ddc7cd8ba755285430bd09be63fc3b39c6ed47baafe508f3799b0cf",
+      "source_bbox": [
+        326,
+        74,
+        890,
+        638
+      ],
+      "uniform_scale": 0.7375886524822695,
+      "resized_dimensions": [
+        416,
+        416
+      ],
+      "placement": [
+        48,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-north-east-01",
+      "direction": "north-east",
+      "slot": 1,
+      "source_frame": 26,
+      "source_timestamp_seconds": 1.0416666666666667,
+      "source_hold_ms": 292,
+      "file": "frames/north-east/walk_01.png",
+      "sha256": "4fb91281e59ad5f41a18b3f1a653de5b345cb20b71f2f6bc80d4a0f3ad6823b9",
+      "raw_selected_file": "selected-source/north-east/north-east_000026.png",
+      "raw_selected_sha256": "0af6cf9f0c76dcc2b3d9c91c5bbf915b11c623f4e4d8cfcdcc659d4d5cac9779",
+      "original_guide": "original-guides/north-east/north-east_000026.png",
+      "original_guide_sha256": "af3b0fe38d12a124392fac7cb09481cfb1f73173ad21167388a5d5c8c2973d89",
+      "source_bbox": [
+        98,
+        27,
+        412,
+        508
+      ],
+      "uniform_scale": 0.8648648648648649,
+      "resized_dimensions": [
+        272,
+        416
+      ],
+      "placement": [
+        120,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-north-east-02",
+      "direction": "north-east",
+      "slot": 2,
+      "source_frame": 33,
+      "source_timestamp_seconds": 1.3333333333333333,
+      "source_hold_ms": 292,
+      "file": "frames/north-east/walk_02.png",
+      "sha256": "c07e57b9be3aff1657bff5577b4537f4dc2c752f6f09dd8c379a3682ad9a917d",
+      "raw_selected_file": "selected-source/north-east/north-east_000033.png",
+      "raw_selected_sha256": "865e8250d935f21f85a5532675b0cf2d5cbae63bf7347abe61e7e337b579d373",
+      "original_guide": "original-guides/north-east/north-east_000033.png",
+      "original_guide_sha256": "d4e2b7ea703d119e6b08fca9bf8f131c895d3e0c18da5ee1f2107b45d4fb11d0",
+      "source_bbox": [
+        100,
+        34,
+        407,
+        502
+      ],
+      "uniform_scale": 0.8888888888888888,
+      "resized_dimensions": [
+        273,
+        416
+      ],
+      "placement": [
+        119,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-north-east-03",
+      "direction": "north-east",
+      "slot": 3,
+      "source_frame": 40,
+      "source_timestamp_seconds": 1.625,
+      "source_hold_ms": 250,
+      "file": "frames/north-east/walk_03.png",
+      "sha256": "b29628e5bb23f6733d11b3e451e78fad881597af2f342ea8c9a6ad2d17c5d5a5",
+      "raw_selected_file": "selected-source/north-east/north-east_000040.png",
+      "raw_selected_sha256": "257b52811897406197ca860a1db5e094d0534a69877904ee9707ed842aec8b5d",
+      "original_guide": "original-guides/north-east/north-east_000040.png",
+      "original_guide_sha256": "5b7fd51baa922f0ffc948af38830d97321bae83e6f53bf2506360ccb4574b81d",
+      "source_bbox": [
+        110,
+        21,
+        442,
+        501
+      ],
+      "uniform_scale": 0.8666666666666667,
+      "resized_dimensions": [
+        288,
+        416
+      ],
+      "placement": [
+        112,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-north-east-04",
+      "direction": "north-east",
+      "slot": 4,
+      "source_frame": 46,
+      "source_timestamp_seconds": 1.875,
+      "source_hold_ms": 292,
+      "file": "frames/north-east/walk_04.png",
+      "sha256": "f23bc4af6b4fee5a6bd97fe27da846955a72ee27f7554bc7552e8c49ab7cad24",
+      "raw_selected_file": "selected-source/north-east/north-east_000046.png",
+      "raw_selected_sha256": "99ee234c77cde4bee0b14b5683ab98e9fa347fe5bc2f5bd6ab1023f4c9a0f34e",
+      "original_guide": "original-guides/north-east/north-east_000046.png",
+      "original_guide_sha256": "3530831090b34e069861d405dee1ff6b9cdeb560aa2eea2021b1fbc5722c249d",
+      "source_bbox": [
+        115,
+        21,
+        461,
+        507
+      ],
+      "uniform_scale": 0.8559670781893004,
+      "resized_dimensions": [
+        296,
+        416
+      ],
+      "placement": [
+        108,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-north-east-05",
+      "direction": "north-east",
+      "slot": 5,
+      "source_frame": 53,
+      "source_timestamp_seconds": 2.1666666666666665,
+      "source_hold_ms": 292,
+      "file": "frames/north-east/walk_05.png",
+      "sha256": "ffe6f522979b45a48eb3d436da823508ed29a91dab926c88ef765f56943c6d39",
+      "raw_selected_file": "selected-source/north-east/north-east_000053.png",
+      "raw_selected_sha256": "c2f3ba499a4b01b543d2ffe482c033e6691b48fa838363598da23166ffaf35c2",
+      "original_guide": "original-guides/north-east/north-east_000053.png",
+      "original_guide_sha256": "308e3c278032274e8b35413be558405402ceb81d558cb5079f4777cfb3fae69b",
+      "source_bbox": [
+        96,
+        34,
+        462,
+        510
+      ],
+      "uniform_scale": 0.8739495798319328,
+      "resized_dimensions": [
+        320,
+        416
+      ],
+      "placement": [
+        96,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-north-east-06",
+      "direction": "north-east",
+      "slot": 6,
+      "source_frame": 60,
+      "source_timestamp_seconds": 2.4583333333333335,
+      "source_hold_ms": 250,
+      "file": "frames/north-east/walk_06.png",
+      "sha256": "5be24ee4353f7501744f0e61c2de974c3b5c7f1ae1f36f4091d58637a7456587",
+      "raw_selected_file": "selected-source/north-east/north-east_000060.png",
+      "raw_selected_sha256": "27cdf31e15b3f382d30a6c8811722bda15e77f2efffad8e76e463bcb099d89f7",
+      "original_guide": "original-guides/north-east/north-east_000060.png",
+      "original_guide_sha256": "cc9f68e905770452bf5c09ce92d3d34baf2e6be8f1133a4cb5ab11285928ca59",
+      "source_bbox": [
+        112,
+        26,
+        446,
+        512
+      ],
+      "uniform_scale": 0.8559670781893004,
+      "resized_dimensions": [
+        286,
+        416
+      ],
+      "placement": [
+        113,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-north-east-07",
+      "direction": "north-east",
+      "slot": 7,
+      "source_frame": 66,
+      "source_timestamp_seconds": 2.7083333333333335,
+      "source_hold_ms": 292,
+      "file": "frames/north-east/walk_07.png",
+      "sha256": "53e3f33220ae728087bfd1624fe8e71a2de35c939d7bce2c9efa2862b295d238",
+      "raw_selected_file": "selected-source/north-east/north-east_000066.png",
+      "raw_selected_sha256": "f0ee9290c5318b1c8134c8af5a171fa5cd60ad5f5e2c110e1eec9efd1b5432fb",
+      "original_guide": "original-guides/north-east/north-east_000066.png",
+      "original_guide_sha256": "b784d23a108b436822dbbead0dd461a2d57861e9ad011fb312a93af9f1603b23",
+      "source_bbox": [
+        119,
+        20,
+        426,
+        500
+      ],
+      "uniform_scale": 0.8666666666666667,
+      "resized_dimensions": [
+        266,
+        416
+      ],
+      "placement": [
+        123,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-north-east-08",
+      "direction": "north-east",
+      "slot": 8,
+      "source_frame": 73,
+      "source_timestamp_seconds": 3.0,
+      "source_hold_ms": 292,
+      "file": "frames/north-east/walk_08.png",
+      "sha256": "8c115c185359a8a311864ca14fdca71ad9ebe48fd53eb0a377ea6ac83aeff13e",
+      "raw_selected_file": "selected-source/north-east/north-east_000073.png",
+      "raw_selected_sha256": "a0c997136d191e77276d01492bf36c2e9fa6086c18ec6a22436cdcea418e0b6c",
+      "original_guide": "original-guides/north-east/north-east_000073.png",
+      "original_guide_sha256": "e846a1c7c907fbdb8f479b8a5b495e4e15642cccd89df7231035ebe3b3d8caa1",
+      "source_bbox": [
+        105,
+        25,
+        412,
+        508
+      ],
+      "uniform_scale": 0.8612836438923396,
+      "resized_dimensions": [
+        264,
+        416
+      ],
+      "placement": [
+        124,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-north-01",
+      "direction": "north",
+      "slot": 1,
+      "source_frame": 1,
+      "source_timestamp_seconds": 0.0,
+      "source_hold_ms": 133,
+      "file": "frames/north/walk_01.png",
+      "sha256": "d4c0d1a43158196e489204a51ff86c51086c08ee2b9570e5db518e66865b8058",
+      "raw_selected_file": "selected-source/north/north_000001.png",
+      "raw_selected_sha256": "01cd511f52269db58002b52ba2ffd00b8368203a0dfcc32725d177b6bc0bb77e",
+      "original_guide": "original-guides/north/north_000001.png",
+      "original_guide_sha256": "261c7b2024d6e9c4e72b7f31cb42b70bcbd5f9412fae68b18173d7ecaafef58a",
+      "source_bbox": [
+        466,
+        99,
+        781,
+        627
+      ],
+      "uniform_scale": 0.7878787878787878,
+      "resized_dimensions": [
+        248,
+        416
+      ],
+      "placement": [
+        132,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-north-02",
+      "direction": "north",
+      "slot": 2,
+      "source_frame": 5,
+      "source_timestamp_seconds": 0.13333333333333333,
+      "source_hold_ms": 133,
+      "file": "frames/north/walk_02.png",
+      "sha256": "fb4c17525bf8b183c0f25f3aec1fc19c4b5c2dfc37c1e08287c5b25b3cd010fa",
+      "raw_selected_file": "selected-source/north/north_000005.png",
+      "raw_selected_sha256": "0d341c2ef9d5ba4331a18e404d8bb724dfecec917002e7a861e034470a63fa43",
+      "original_guide": "original-guides/north/north_000005.png",
+      "original_guide_sha256": "5e25f4b10f0abe124b8b75a16c40c7b82b13e61d4b755a2490550dacee3a2ad3",
+      "source_bbox": [
+        467,
+        98,
+        782,
+        629
+      ],
+      "uniform_scale": 0.783427495291902,
+      "resized_dimensions": [
+        247,
+        416
+      ],
+      "placement": [
+        132,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-north-03",
+      "direction": "north",
+      "slot": 3,
+      "source_frame": 9,
+      "source_timestamp_seconds": 0.26666666666666666,
+      "source_hold_ms": 133,
+      "file": "frames/north/walk_03.png",
+      "sha256": "c9505f0113514e986de1172943f3d42422379460d231217bfde3fee76f560450",
+      "raw_selected_file": "selected-source/north/north_000009.png",
+      "raw_selected_sha256": "47370b6a3c3a52447cde14858650557ae01455128c472f371eb64d206a75935a",
+      "original_guide": "original-guides/north/north_000009.png",
+      "original_guide_sha256": "a8f5c05f5f123ed7d66a0215c56b918b422f6fe6b0d1bd3e7f6fd6f71ae47072",
+      "source_bbox": [
+        472,
+        108,
+        792,
+        631
+      ],
+      "uniform_scale": 0.7954110898661568,
+      "resized_dimensions": [
+        255,
+        416
+      ],
+      "placement": [
+        128,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-north-04",
+      "direction": "north",
+      "slot": 4,
+      "source_frame": 13,
+      "source_timestamp_seconds": 0.4,
+      "source_hold_ms": 133,
+      "file": "frames/north/walk_04.png",
+      "sha256": "6c8b7b0ab224e2504df749bf73062c69a2eb560cb429c93db24f69433900fd35",
+      "raw_selected_file": "selected-source/north/north_000013.png",
+      "raw_selected_sha256": "0191cd5f2ed117df6119219062ff4a3d47728bb142a2e0294c36c2b6f1eb9f62",
+      "original_guide": "original-guides/north/north_000013.png",
+      "original_guide_sha256": "d9c1fae741fd659575f2f722e014554d66c00da158be22bc98f006ec0249542f",
+      "source_bbox": [
+        480,
+        124,
+        804,
+        629
+      ],
+      "uniform_scale": 0.8237623762376237,
+      "resized_dimensions": [
+        267,
+        416
+      ],
+      "placement": [
+        122,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-north-05",
+      "direction": "north",
+      "slot": 5,
+      "source_frame": 17,
+      "source_timestamp_seconds": 0.5333333333333333,
+      "source_hold_ms": 133,
+      "file": "frames/north/walk_05.png",
+      "sha256": "e44aada2c11e9dda2f8052a23f7313fd673e0bb2e5a82a5cf1012fe81627ddbe",
+      "raw_selected_file": "selected-source/north/north_000017.png",
+      "raw_selected_sha256": "787410f4c39199b5bbea01ae60167df99c89e92ea8c06828634e8872c2d1c13d",
+      "original_guide": "original-guides/north/north_000017.png",
+      "original_guide_sha256": "e6b5a45d6b23803945b8a99dc61366a0abca2f8862ffc44e6a443a212eb4b0ad",
+      "source_bbox": [
+        484,
+        114,
+        808,
+        623
+      ],
+      "uniform_scale": 0.8172888015717092,
+      "resized_dimensions": [
+        265,
+        416
+      ],
+      "placement": [
+        123,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-north-06",
+      "direction": "north",
+      "slot": 6,
+      "source_frame": 21,
+      "source_timestamp_seconds": 0.6666666666666666,
+      "source_hold_ms": 133,
+      "file": "frames/north/walk_06.png",
+      "sha256": "18362a4d1b1767d8afcc865f2b44c3bdf16f06b61cf1369afb03dd19183065bc",
+      "raw_selected_file": "selected-source/north/north_000021.png",
+      "raw_selected_sha256": "25e492fa75126a5fe836739d85d35144cf12de49cccd79dcd92916e0e0960fc0",
+      "original_guide": "original-guides/north/north_000021.png",
+      "original_guide_sha256": "74819dc25fa2959d232c6ae09c131cb389b9e2954344fe915b7a136aad676caa",
+      "source_bbox": [
+        485,
+        108,
+        802,
+        621
+      ],
+      "uniform_scale": 0.8109161793372319,
+      "resized_dimensions": [
+        257,
+        416
+      ],
+      "placement": [
+        127,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-north-07",
+      "direction": "north",
+      "slot": 7,
+      "source_frame": 25,
+      "source_timestamp_seconds": 0.8,
+      "source_hold_ms": 133,
+      "file": "frames/north/walk_07.png",
+      "sha256": "5b070e2e8325685ec6b2589b883d80c3b4ba17fc62556ad746973066cdf99e18",
+      "raw_selected_file": "selected-source/north/north_000025.png",
+      "raw_selected_sha256": "f06ff162eb4b3395db288289d0ede706d8e226a56bdd489ee790b4415de30b7b",
+      "original_guide": "original-guides/north/north_000025.png",
+      "original_guide_sha256": "62f24b203cd30b7335bc92ffb27dd8a3faa68ab08f92bb02d5ccac6ae850e48a",
+      "source_bbox": [
+        473,
+        116,
+        784,
+        624
+      ],
+      "uniform_scale": 0.8188976377952756,
+      "resized_dimensions": [
+        255,
+        416
+      ],
+      "placement": [
+        128,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-north-08",
+      "direction": "north",
+      "slot": 8,
+      "source_frame": 29,
+      "source_timestamp_seconds": 0.9333333333333333,
+      "source_hold_ms": 133,
+      "file": "frames/north/walk_08.png",
+      "sha256": "b2eebddab11aeb1613fa70e51e3b4e6fc35a112f4ceb8bc3c3a72fb91d9fbe56",
+      "raw_selected_file": "selected-source/north/north_000029.png",
+      "raw_selected_sha256": "10795f7b75df85e22916f06afadde6b76a8342671236badec8cd284f6bc0656f",
+      "original_guide": "original-guides/north/north_000029.png",
+      "original_guide_sha256": "1898662ddf75fd77b24f39891b12e83deef782c8283a7d5a4b3e500241c6f45c",
+      "source_bbox": [
+        471,
+        131,
+        778,
+        616
+      ],
+      "uniform_scale": 0.8577319587628865,
+      "resized_dimensions": [
+        263,
+        416
+      ],
+      "placement": [
+        124,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-south-west-01",
+      "direction": "south-west",
+      "slot": 1,
+      "source_frame": 26,
+      "source_timestamp_seconds": 1.0416666666666667,
+      "source_hold_ms": 250,
+      "file": "frames/south-west/walk_01.png",
+      "sha256": "a5d9c9675e4d9187619be61bf508d6f8c1c8ffcafee34a8c80f1dceee3594376",
+      "raw_selected_file": "selected-source/south-west/south-west_000026.png",
+      "raw_selected_sha256": "e12539bcf4f4f673dccb2b7be04225af5a6647729af562269dca0ae6bb65601a",
+      "original_guide": "original-guides/south-west/south-west_000026.png",
+      "original_guide_sha256": "5ff59ce097d2572b56747350cf4406e194542172085ac83c97d6cc7643a430d0",
+      "source_bbox": [
+        130,
+        26,
+        470,
+        516
+      ],
+      "uniform_scale": 0.8489795918367347,
+      "resized_dimensions": [
+        289,
+        416
+      ],
+      "placement": [
+        111,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-south-west-02",
+      "direction": "south-west",
+      "slot": 2,
+      "source_frame": 32,
+      "source_timestamp_seconds": 1.2916666666666667,
+      "source_hold_ms": 292,
+      "file": "frames/south-west/walk_02.png",
+      "sha256": "736fe45ff382895cb25caebad1e92d94265e27a7bfdbdd89e7e252468d055046",
+      "raw_selected_file": "selected-source/south-west/south-west_000032.png",
+      "raw_selected_sha256": "fcbf7c530e86002808b11453667678b74e8d56de3740cace35aa26120c7937d7",
+      "original_guide": "original-guides/south-west/south-west_000032.png",
+      "original_guide_sha256": "d4220678710dc26a564f245a8584168ba6c86914f85d46905a01bff9a508c19e",
+      "source_bbox": [
+        95,
+        24,
+        476,
+        512
+      ],
+      "uniform_scale": 0.8524590163934426,
+      "resized_dimensions": [
+        325,
+        416
+      ],
+      "placement": [
+        93,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-south-west-03",
+      "direction": "south-west",
+      "slot": 3,
+      "source_frame": 39,
+      "source_timestamp_seconds": 1.5833333333333333,
+      "source_hold_ms": 250,
+      "file": "frames/south-west/walk_03.png",
+      "sha256": "9a10697b3ed3f0f8d14da07fe551c08e4785a220ae5195410d42755ade335a16",
+      "raw_selected_file": "selected-source/south-west/south-west_000039.png",
+      "raw_selected_sha256": "528c7fd1297d3e446153b15cb5357a05ccbf17d3f2f290361be6198ca6b58da4",
+      "original_guide": "original-guides/south-west/south-west_000039.png",
+      "original_guide_sha256": "b8656c61af2615171b16cddbfac96af46edea5c6f6c70d91f4e6daaaa29ad0f2",
+      "source_bbox": [
+        99,
+        33,
+        474,
+        508
+      ],
+      "uniform_scale": 0.8757894736842106,
+      "resized_dimensions": [
+        328,
+        416
+      ],
+      "placement": [
+        92,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-south-west-04",
+      "direction": "south-west",
+      "slot": 4,
+      "source_frame": 45,
+      "source_timestamp_seconds": 1.8333333333333333,
+      "source_hold_ms": 292,
+      "file": "frames/south-west/walk_04.png",
+      "sha256": "e5981cead6aa82c47a2e8036000df62379be3e215e008c84e30fd745613cf1d9",
+      "raw_selected_file": "selected-source/south-west/south-west_000045.png",
+      "raw_selected_sha256": "ff4f5470c38e087cb01d15597dbd4498ee769b1277bf5a2b829c082ca25be17e",
+      "original_guide": "original-guides/south-west/south-west_000045.png",
+      "original_guide_sha256": "d454ed34d55326c09612b67d8c477b7e2ea52ecd9ba9dd16d05dc0febc01e407",
+      "source_bbox": [
+        135,
+        32,
+        464,
+        509
+      ],
+      "uniform_scale": 0.8721174004192872,
+      "resized_dimensions": [
+        287,
+        416
+      ],
+      "placement": [
+        112,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-south-west-05",
+      "direction": "south-west",
+      "slot": 5,
+      "source_frame": 52,
+      "source_timestamp_seconds": 2.125,
+      "source_hold_ms": 250,
+      "file": "frames/south-west/walk_05.png",
+      "sha256": "97ce3575913f2ed5b49279ea3737c920b806f4c9c28c18f1e499d0b50459cf0c",
+      "raw_selected_file": "selected-source/south-west/south-west_000052.png",
+      "raw_selected_sha256": "2b2fdbd6c4c71913b2b8b9e2175c92d6df91d2a1fada176a3c676ce54ab49b4b",
+      "original_guide": "original-guides/south-west/south-west_000052.png",
+      "original_guide_sha256": "6b893e1c39d7c5d0bf11fa6b724602d179b80f45b8a671d35cd744c1f47203b5",
+      "source_bbox": [
+        103,
+        24,
+        464,
+        513
+      ],
+      "uniform_scale": 0.8507157464212679,
+      "resized_dimensions": [
+        307,
+        416
+      ],
+      "placement": [
+        102,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-south-west-06",
+      "direction": "south-west",
+      "slot": 6,
+      "source_frame": 58,
+      "source_timestamp_seconds": 2.375,
+      "source_hold_ms": 250,
+      "file": "frames/south-west/walk_06.png",
+      "sha256": "0dbe51bce62906d7393b823f53d5fee6abf251634b04d8570924d7521d685091",
+      "raw_selected_file": "selected-source/south-west/south-west_000058.png",
+      "raw_selected_sha256": "decbe15ab40f2a4e9f738da3e5d2e5eeca11ecb38917b16707394240d55fd04c",
+      "original_guide": "original-guides/south-west/south-west_000058.png",
+      "original_guide_sha256": "774938b87ef5b41efd8c6156e03b9c6a042a5988991d163bc00c3a39877845aa",
+      "source_bbox": [
+        82,
+        24,
+        465,
+        502
+      ],
+      "uniform_scale": 0.8702928870292888,
+      "resized_dimensions": [
+        333,
+        416
+      ],
+      "placement": [
+        89,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-south-west-07",
+      "direction": "south-west",
+      "slot": 7,
+      "source_frame": 64,
+      "source_timestamp_seconds": 2.625,
+      "source_hold_ms": 292,
+      "file": "frames/south-west/walk_07.png",
+      "sha256": "e2029da6ec3c66342a765f305f73ac3ca26e70143c5b85d0dc88e9d9aa1e6d2e",
+      "raw_selected_file": "selected-source/south-west/south-west_000064.png",
+      "raw_selected_sha256": "d9b422804cf31775b97bcbb8b94657f06f7581b20c5d60ab6ebb5e38afe30310",
+      "original_guide": "original-guides/south-west/south-west_000064.png",
+      "original_guide_sha256": "9d96d96fc870082acc97f66c4812750fdd60f87c86427ee2ff33b9fbada35b4e",
+      "source_bbox": [
+        82,
+        32,
+        466,
+        509
+      ],
+      "uniform_scale": 0.8721174004192872,
+      "resized_dimensions": [
+        335,
+        416
+      ],
+      "placement": [
+        88,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-south-west-08",
+      "direction": "south-west",
+      "slot": 8,
+      "source_frame": 71,
+      "source_timestamp_seconds": 2.9166666666666665,
+      "source_hold_ms": 250,
+      "file": "frames/south-west/walk_08.png",
+      "sha256": "5780b0da48afbb5142049da2ad8060c443f4c1843510484386cab65cd1c54d42",
+      "raw_selected_file": "selected-source/south-west/south-west_000071.png",
+      "raw_selected_sha256": "8e4cbb367c3481f1f64c97d278766845365690cbe92437b49090a5b2ff2d1dfc",
+      "original_guide": "original-guides/south-west/south-west_000071.png",
+      "original_guide_sha256": "5cf42ff21a556c4036d35e1c18df7b8abe23e19f1bd401a3ecaffb3c8f345557",
+      "source_bbox": [
+        107,
+        30,
+        468,
+        522
+      ],
+      "uniform_scale": 0.8455284552845529,
+      "resized_dimensions": [
+        305,
+        416
+      ],
+      "placement": [
+        103,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-south-01",
+      "direction": "south",
+      "slot": 1,
+      "source_frame": 26,
+      "source_timestamp_seconds": 1.0416666666666667,
+      "source_hold_ms": 125,
+      "file": "frames/south/walk_01.png",
+      "sha256": "47917ef68740509019b037e9abfd588e983ba73f9313896707908c840afb288b",
+      "raw_selected_file": "selected-source/south/south_000026.png",
+      "raw_selected_sha256": "fd2146af6d02e619521f06d762163adb8e4c673b547383a7bf0db7a41c71ab67",
+      "original_guide": "original-guides/south/south_000026.png",
+      "original_guide_sha256": "d7bb5d9f104dbfb442d4ebda9bea37355deebc56365c1f1edd4834d207121e09",
+      "source_bbox": [
+        86,
+        46,
+        424,
+        564
+      ],
+      "uniform_scale": 0.803088803088803,
+      "resized_dimensions": [
+        271,
+        416
+      ],
+      "placement": [
+        120,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-south-02",
+      "direction": "south",
+      "slot": 2,
+      "source_frame": 29,
+      "source_timestamp_seconds": 1.1666666666666667,
+      "source_hold_ms": 125,
+      "file": "frames/south/walk_02.png",
+      "sha256": "c0ce04907c2945275cf19776e339e4c34572673412a34c710a0b78e82c090310",
+      "raw_selected_file": "selected-source/south/south_000029.png",
+      "raw_selected_sha256": "979244483ec8e0a8ddb45c230925f80eb40345a1563336acccb6c70fbbef7ec1",
+      "original_guide": "original-guides/south/south_000029.png",
+      "original_guide_sha256": "7b7897a3341db0fe12e80b3342ce6a67bb2f26decf88b217ab72dc308dcb5a56",
+      "source_bbox": [
+        75,
+        38,
+        420,
+        560
+      ],
+      "uniform_scale": 0.7969348659003831,
+      "resized_dimensions": [
+        275,
+        416
+      ],
+      "placement": [
+        118,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-south-03",
+      "direction": "south",
+      "slot": 3,
+      "source_frame": 32,
+      "source_timestamp_seconds": 1.2916666666666667,
+      "source_hold_ms": 125,
+      "file": "frames/south/walk_03.png",
+      "sha256": "d148c63c8bbae75fc2706b7ea3b8d50e09789ce743a1080eeaee1a3372116d26",
+      "raw_selected_file": "selected-source/south/south_000032.png",
+      "raw_selected_sha256": "e31ad04a79732139ae357c0da6b09be9006be6c2c5fb89e0124a6c3a32b85cc6",
+      "original_guide": "original-guides/south/south_000032.png",
+      "original_guide_sha256": "9b6b623dccd9e44b49db147392d08a95f6030f70f8be820414a1051df2579b10",
+      "source_bbox": [
+        74,
+        31,
+        429,
+        555
+      ],
+      "uniform_scale": 0.7938931297709924,
+      "resized_dimensions": [
+        282,
+        416
+      ],
+      "placement": [
+        115,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-south-04",
+      "direction": "south",
+      "slot": 4,
+      "source_frame": 35,
+      "source_timestamp_seconds": 1.4166666666666667,
+      "source_hold_ms": 125,
+      "file": "frames/south/walk_04.png",
+      "sha256": "a0fd35bfc63b22e1132bb39951f4ab17284e0954ffc05fe21412e43c0b48131b",
+      "raw_selected_file": "selected-source/south/south_000035.png",
+      "raw_selected_sha256": "598b9d062bb39d1931ed4076dde2442b7eda15a0b1a186e05ccd93b73e71fdc3",
+      "original_guide": "original-guides/south/south_000035.png",
+      "original_guide_sha256": "2165cab9098c3faf7d4d1f9908a03e8cba2a09fe3e66598ceb9ed3cfd51103aa",
+      "source_bbox": [
+        85,
+        35,
+        439,
+        550
+      ],
+      "uniform_scale": 0.8077669902912621,
+      "resized_dimensions": [
+        286,
+        416
+      ],
+      "placement": [
+        113,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-south-05",
+      "direction": "south",
+      "slot": 5,
+      "source_frame": 38,
+      "source_timestamp_seconds": 1.5416666666666667,
+      "source_hold_ms": 167,
+      "file": "frames/south/walk_05.png",
+      "sha256": "e0363ce0df96bc70ae85f0d21a50fa7a7d1ee97c4f347514c20dd930b462f36d",
+      "raw_selected_file": "selected-source/south/south_000038.png",
+      "raw_selected_sha256": "5d225ce9f7a9febaadbe2a4c14eaf4cfe559f6d64a6fa95072eeff11d9e20e06",
+      "original_guide": "original-guides/south/south_000038.png",
+      "original_guide_sha256": "641bc13f9b4db9ce16aa892b2e91e5204f1c3dfe49c458f438c7719be7408bc9",
+      "source_bbox": [
+        93,
+        44,
+        443,
+        552
+      ],
+      "uniform_scale": 0.8188976377952756,
+      "resized_dimensions": [
+        287,
+        416
+      ],
+      "placement": [
+        112,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-south-06",
+      "direction": "south",
+      "slot": 6,
+      "source_frame": 42,
+      "source_timestamp_seconds": 1.7083333333333333,
+      "source_hold_ms": 125,
+      "file": "frames/south/walk_06.png",
+      "sha256": "f608df234967d80ca60620a60b2b78909bf3bd77f0afce527e72a5cd5c1f0739",
+      "raw_selected_file": "selected-source/south/south_000042.png",
+      "raw_selected_sha256": "d0a4d4e1b0eeff35eea4d3023cad907f814753fcb466879839f694f4d40a436f",
+      "original_guide": "original-guides/south/south_000042.png",
+      "original_guide_sha256": "b66c467ee4acc4881bf7c1d1e99db5310bc3d6fe331bc2b18cf6b763a56cabdf",
+      "source_bbox": [
+        92,
+        34,
+        452,
+        558
+      ],
+      "uniform_scale": 0.7938931297709924,
+      "resized_dimensions": [
+        286,
+        416
+      ],
+      "placement": [
+        113,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-south-07",
+      "direction": "south",
+      "slot": 7,
+      "source_frame": 45,
+      "source_timestamp_seconds": 1.8333333333333333,
+      "source_hold_ms": 125,
+      "file": "frames/south/walk_07.png",
+      "sha256": "f2730b8a0f1683c96aa954aa80313e437611371bedeae2caacbfa45aef9f3c48",
+      "raw_selected_file": "selected-source/south/south_000045.png",
+      "raw_selected_sha256": "0adcb6c6f056f40bbed76298a94df2571a38aa3f60cd4fb07adbb85a94b65371",
+      "original_guide": "original-guides/south/south_000045.png",
+      "original_guide_sha256": "b7c3e645ae0be0f626314a2ff10f7d43ae6af5ba15b4bd138c45d1a6dcd9a609",
+      "source_bbox": [
+        87,
+        28,
+        445,
+        554
+      ],
+      "uniform_scale": 0.7908745247148289,
+      "resized_dimensions": [
+        283,
+        416
+      ],
+      "placement": [
+        114,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    },
+    {
+      "id": "walk-south-08",
+      "direction": "south",
+      "slot": 8,
+      "source_frame": 48,
+      "source_timestamp_seconds": 1.9583333333333333,
+      "source_hold_ms": 125,
+      "file": "frames/south/walk_08.png",
+      "sha256": "e8cdad42fa49291eb7671d3d06c968922a258171c3c1827429a47bffa23cf63c",
+      "raw_selected_file": "selected-source/south/south_000048.png",
+      "raw_selected_sha256": "7f2d53a96e8db36b9a824ebd990faf0e3c9dcb5a268f1b8120dc6130b77460da",
+      "original_guide": "original-guides/south/south_000048.png",
+      "original_guide_sha256": "1fc0531bf81f338eba46bc9a19c89963ebb7cef8da1ec6ac9656a00a34e626ce",
+      "source_bbox": [
+        88,
+        36,
+        431,
+        552
+      ],
+      "uniform_scale": 0.8062015503875969,
+      "resized_dimensions": [
+        277,
+        416
+      ],
+      "placement": [
+        117,
+        64
+      ],
+      "status": "proposed pose; regeneration undecided"
+    }
+  ],
+  "next_step": "Review/prune these poses, then regenerate only the chosen frames individually with the accepted character identity and pose guide."
+}

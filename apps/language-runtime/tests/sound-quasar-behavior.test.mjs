@@ -89,11 +89,12 @@ async function mountGame({ language = "mandarin-simplified", muted = true, voice
   const raw = JSON.parse(await readFile(new URL(`../../languages/${language}/static/data/games/sound-quasar/content.json`, import.meta.url), "utf8"));
   mutateCatalog?.(raw);
   const catalog = validateSoundQuasarCatalog(raw);
+  const declaredCourse = JSON.parse(await readFile(new URL(`../../languages/${language}/course.json`, import.meta.url), "utf8"));
   const course = {
     id: catalog.courseId,
     routePrefix: `/${catalog.courseId}`,
-    sourceLanguage: { id: catalog.learnerBaseLanguage.split("-")[0], locale: catalog.learnerBaseLanguage, direction: "ltr" },
-    targetLanguage: { id: catalog.targetLanguageId, locale: catalog.audio.locale, direction: "ltr" },
+    sourceLanguage: { id: catalog.learnerBaseLanguage.split("-")[0], locale: catalog.learnerBaseLanguage, direction: declaredCourse.sourceLanguage.direction },
+    targetLanguage: { id: catalog.targetLanguageId, locale: catalog.audio.locale, direction: declaredCourse.targetLanguage.direction },
     storage: { namespace: `caatuu-${catalog.courseId}`, learningPerformance: `caatuu-${catalog.courseId}.learning.performance.v1` },
     capabilities: { speech: true },
     gameContent: { "sound-quasar": { soundQuasarCatalog: "data/games/sound-quasar/content.json?v=test-1" } }
@@ -195,6 +196,22 @@ async function mountGame({ language = "mandarin-simplified", muted = true, voice
     setReportResult(value) { reportOutcome = value; },
     setVoiceState(value) { voices = value; }, setSpeechResult(value) { audioResult = value; } };
 }
+
+test("Arabic listening keeps target phrases RTL and the English result LTR", async () => {
+  const game = await mountGame({ language: "arabic-standard" });
+  assert.equal(game.document.documentElement.dir, "ltr");
+  for (const choice of game.choices()) {
+    const target = choice.querySelector(".quasar-choice-target");
+    assert.equal(target.dir, "rtl");
+    assert.equal(target.lang, "ar");
+  }
+  await game.listen();
+  game.click(game.choice(game.current().id));
+  assert.equal(game.element("ResultTarget").dir, "rtl");
+  assert.equal(game.element("ResultTarget").textContent, game.current().target);
+  assert.equal(game.element("ResultMeaning").dir, "ltr");
+  game.controller.destroy();
+});
 
 test("listening distinguishes the first unaided attempt from correction without inflating exposure", async () => {
   const game = await mountGame({ realLearning: true });

@@ -253,8 +253,11 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     element("gravityAdjectiveFeedback").textContent = "";
     element("gravityAdjectiveFeedback").classList.add("gravity-visually-hidden");
     prompt.lang = course.targetLanguage?.locale || course.targetLanguage?.id || "und";
+    prompt.dir = course.targetLanguage?.direction || "auto";
     element("gravityAdjectiveNoun").lang = prompt.lang;
+    element("gravityAdjectiveNoun").dir = prompt.dir;
     element("gravityAdjectiveMeaning").lang = course.sourceLanguage?.locale || "en";
+    element("gravityAdjectiveMeaning").dir = course.sourceLanguage?.direction || "auto";
     choices.style.setProperty("--adjective-options", String(currentOptions().length));
     choices.replaceChildren(...currentOptions().map((form, optionIndex) => {
       const button = document.createElement("button");
@@ -265,6 +268,7 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
       else if (step === "category") button.dataset.grammarCategory = form;
       else button.dataset.grammarForm = form;
       button.lang = step !== "form" ? course.sourceLanguage?.locale || "en" : course.targetLanguage?.locale || "und";
+      button.dir = (step !== "form" ? course.sourceLanguage : course.targetLanguage)?.direction || "auto";
       button.setAttribute("aria-label", optionLabel(form));
       const categoryImage = step === "category" && flight.categoryOptions.find(({ id }) => id === form)?.image;
       if (categoryImage) {
@@ -343,6 +347,7 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     context.hidden = !category;
     context.textContent = category;
     context.lang = course.sourceLanguage?.locale || "en";
+    context.dir = course.sourceLanguage?.direction || "auto";
     drop.prepend(illustration);
     recap.hidden = false;
     choices.hidden = true;

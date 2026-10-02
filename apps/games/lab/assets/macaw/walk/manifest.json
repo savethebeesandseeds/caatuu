@@ -1,0 +1,2244 @@
+{
+  "format_version": 1,
+  "preview_only": true,
+  "status": "selected corrected walking and standing source",
+  "canvas": [
+    512,
+    512
+  ],
+  "baseline_y": 480,
+  "fps": 8,
+  "source_selection": "provenance/selection.json",
+  "frames": [
+    {
+      "id": "E-walk-01",
+      "direction": "E",
+      "slot": 1,
+      "file": "images/e-walk-01.png",
+      "sha256": "afb099e6e58dd92dfba314ee6e3727bc2ce8b8080d622954a5746946cc50ba86",
+      "source_frame": 1,
+      "source_timestamp_seconds": 0.0,
+      "action": "walk",
+      "phase": 1,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          67,
+          60,
+          445,
+          480
+        ],
+        "registered_alpha_bounds": [
+          77,
+          82,
+          435,
+          480
+        ],
+        "translation": [
+          77,
+          82
+        ],
+        "scale": 0.9480849258816184,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7383079528808594,
+        "partial_fraction": 0.2567710876464844
+      }
+    },
+    {
+      "id": "E-walk-02",
+      "direction": "E",
+      "slot": 2,
+      "file": "images/e-walk-02.png",
+      "sha256": "b5bd736ab7c915ded4b709cf398b2a4563a55c96fc2d7bda632027cc7bf38bf6",
+      "source_frame": 5,
+      "source_timestamp_seconds": 0.13333333333333333,
+      "action": "walk",
+      "phase": 2,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          58,
+          59,
+          454,
+          480
+        ],
+        "registered_alpha_bounds": [
+          68,
+          81,
+          443,
+          480
+        ],
+        "translation": [
+          68,
+          81
+        ],
+        "scale": 0.9480849258816184,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7357368469238281,
+        "partial_fraction": 0.2591705322265625
+      }
+    },
+    {
+      "id": "E-walk-03",
+      "direction": "E",
+      "slot": 3,
+      "file": "images/e-walk-03.png",
+      "sha256": "d2c2da88a62db8c88f8f4f6810c26afec9db0c3fc17bd5e53a4ac988f2b125e1",
+      "source_frame": 9,
+      "source_timestamp_seconds": 0.26666666666666666,
+      "action": "walk",
+      "phase": 3,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          54,
+          66,
+          459,
+          480
+        ],
+        "registered_alpha_bounds": [
+          64,
+          87,
+          448,
+          480
+        ],
+        "translation": [
+          64,
+          87
+        ],
+        "scale": 0.9480849258816184,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.74432373046875,
+        "partial_fraction": 0.2508544921875
+      }
+    },
+    {
+      "id": "E-walk-04",
+      "direction": "E",
+      "slot": 4,
+      "file": "images/e-walk-04.png",
+      "sha256": "1c29c39a4c447bac9fc3db010691dfc3db0b8a4a80bdf357d2174ccbbdb1c286",
+      "source_frame": 12,
+      "source_timestamp_seconds": 0.36666666666666664,
+      "action": "walk",
+      "phase": 4,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          56,
+          61,
+          457,
+          480
+        ],
+        "registered_alpha_bounds": [
+          66,
+          83,
+          446,
+          480
+        ],
+        "translation": [
+          66,
+          83
+        ],
+        "scale": 0.9480849258816184,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.753814697265625,
+        "partial_fraction": 0.24155044555664062
+      }
+    },
+    {
+      "id": "E-walk-05",
+      "direction": "E",
+      "slot": 5,
+      "file": "images/e-walk-05.png",
+      "sha256": "27dc5fa8e9cd31848eca6437a99a676ec4069463b0d251faaa8a713c93b6a2a4",
+      "source_frame": 16,
+      "source_timestamp_seconds": 0.5,
+      "action": "walk",
+      "phase": 5,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          55,
+          52,
+          457,
+          480
+        ],
+        "registered_alpha_bounds": [
+          65,
+          74,
+          446,
+          480
+        ],
+        "translation": [
+          65,
+          74
+        ],
+        "scale": 0.9480849258816184,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7270278930664062,
+        "partial_fraction": 0.26786041259765625
+      }
+    },
+    {
+      "id": "E-walk-06",
+      "direction": "E",
+      "slot": 6,
+      "file": "images/e-walk-06.png",
+      "sha256": "0c68f2641ea2fdcf38824280acdccaefdf257ce1bd82f88fd020b2f82eb4b649",
+      "source_frame": 20,
+      "source_timestamp_seconds": 0.6333333333333333,
+      "action": "walk",
+      "phase": 6,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          48,
+          56,
+          463,
+          480
+        ],
+        "registered_alpha_bounds": [
+          59,
+          78,
+          452,
+          480
+        ],
+        "translation": [
+          59,
+          78
+        ],
+        "scale": 0.9480849258816184,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7187423706054688,
+        "partial_fraction": 0.2760162353515625
+      }
+    },
+    {
+      "id": "E-walk-07",
+      "direction": "E",
+      "slot": 7,
+      "file": "images/e-walk-07.png",
+      "sha256": "6d96b86affc2b8b70cc1e104cddbc3bc2ba8d3f971b3dc1877eb8a213800960a",
+      "source_frame": 23,
+      "source_timestamp_seconds": 0.7333333333333333,
+      "action": "walk",
+      "phase": 7,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          52,
+          61,
+          459,
+          480
+        ],
+        "registered_alpha_bounds": [
+          64,
+          83,
+          449,
+          480
+        ],
+        "translation": [
+          63,
+          83
+        ],
+        "scale": 0.9480849258816184,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7255706787109375,
+        "partial_fraction": 0.2693595886230469
+      }
+    },
+    {
+      "id": "E-walk-08",
+      "direction": "E",
+      "slot": 8,
+      "file": "images/e-walk-08.png",
+      "sha256": "e877506158520b8752f2f6a956fa95f7ab7444820624db7781dff2f3eeba01f8",
+      "source_frame": 27,
+      "source_timestamp_seconds": 0.8666666666666667,
+      "action": "walk",
+      "phase": 8,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          54,
+          73,
+          459,
+          480
+        ],
+        "registered_alpha_bounds": [
+          64,
+          94,
+          448,
+          480
+        ],
+        "translation": [
+          64,
+          94
+        ],
+        "scale": 0.9480849258816184,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7567558288574219,
+        "partial_fraction": 0.2384185791015625
+      }
+    },
+    {
+      "id": "NE-walk-01",
+      "direction": "NE",
+      "slot": 1,
+      "file": "images/ne-walk-01.png",
+      "sha256": "2d94ef269c1f448831b76af8a48178a8285bd40ef6aeffe9937c65ff357a7be5",
+      "source_frame": 26,
+      "source_timestamp_seconds": 1.0416666666666667,
+      "action": "walk",
+      "phase": 1,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          118,
+          60,
+          394,
+          480
+        ],
+        "registered_alpha_bounds": [
+          119,
+          62,
+          394,
+          480
+        ],
+        "translation": [
+          119,
+          62
+        ],
+        "scale": 0.9962928792867781,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7418403625488281,
+        "partial_fraction": 0.2539787292480469
+      }
+    },
+    {
+      "id": "NE-walk-02",
+      "direction": "NE",
+      "slot": 2,
+      "file": "images/ne-walk-02.png",
+      "sha256": "43d4ff9ef423e8c18bcf5f32268bfa798ed756dc92d8f56739289671090412cf",
+      "source_frame": 33,
+      "source_timestamp_seconds": 1.3333333333333333,
+      "action": "walk",
+      "phase": 2,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          120,
+          79,
+          392,
+          480
+        ],
+        "registered_alpha_bounds": [
+          121,
+          80,
+          392,
+          480
+        ],
+        "translation": [
+          121,
+          80
+        ],
+        "scale": 0.9962928792867781,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7531394958496094,
+        "partial_fraction": 0.24278640747070312
+      }
+    },
+    {
+      "id": "NE-walk-03",
+      "direction": "NE",
+      "slot": 3,
+      "file": "images/ne-walk-03.png",
+      "sha256": "e4fda070d1f0e35c2a889cd01f981dd7fdae3b5edc6527330fa4b998d2cf20d9",
+      "source_frame": 40,
+      "source_timestamp_seconds": 1.625,
+      "action": "walk",
+      "phase": 3,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          110,
+          61,
+          401,
+          480
+        ],
+        "registered_alpha_bounds": [
+          111,
+          63,
+          401,
+          480
+        ],
+        "translation": [
+          111,
+          63
+        ],
+        "scale": 0.9962928792867781,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.732513427734375,
+        "partial_fraction": 0.2631797790527344
+      }
+    },
+    {
+      "id": "NE-walk-04",
+      "direction": "NE",
+      "slot": 4,
+      "file": "images/ne-walk-04.png",
+      "sha256": "bd98a80412b074683a2f3fb8213363c3108f2f87c5b570b8098d877384321141",
+      "source_frame": 46,
+      "source_timestamp_seconds": 1.875,
+      "action": "walk",
+      "phase": 4,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          103,
+          55,
+          409,
+          480
+        ],
+        "registered_alpha_bounds": [
+          104,
+          57,
+          409,
+          480
+        ],
+        "translation": [
+          104,
+          57
+        ],
+        "scale": 0.9962928792867781,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7127037048339844,
+        "partial_fraction": 0.28240203857421875
+      }
+    },
+    {
+      "id": "NE-walk-05",
+      "direction": "NE",
+      "slot": 5,
+      "file": "images/ne-walk-05.png",
+      "sha256": "31a696ce8807aae91b87de077fd13cdc1939eb8830658fad056dbcd5103b319e",
+      "source_frame": 53,
+      "source_timestamp_seconds": 2.1666666666666665,
+      "action": "walk",
+      "phase": 5,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          99,
+          67,
+          413,
+          480
+        ],
+        "registered_alpha_bounds": [
+          100,
+          69,
+          413,
+          480
+        ],
+        "translation": [
+          100,
+          69
+        ],
+        "scale": 0.9962928792867781,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7196197509765625,
+        "partial_fraction": 0.2755699157714844
+      }
+    },
+    {
+      "id": "NE-walk-06",
+      "direction": "NE",
+      "slot": 6,
+      "file": "images/ne-walk-06.png",
+      "sha256": "0264acb452298d32ef4aaebc3158ee0145b2292c40f894dcc5011c4c9cf9b5bd",
+      "source_frame": 60,
+      "source_timestamp_seconds": 2.4583333333333335,
+      "action": "walk",
+      "phase": 6,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          108,
+          63,
+          405,
+          480
+        ],
+        "registered_alpha_bounds": [
+          109,
+          65,
+          405,
+          480
+        ],
+        "translation": [
+          109,
+          65
+        ],
+        "scale": 0.9962928792867781,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7209053039550781,
+        "partial_fraction": 0.2745628356933594
+      }
+    },
+    {
+      "id": "NE-walk-07",
+      "direction": "NE",
+      "slot": 7,
+      "file": "images/ne-walk-07.png",
+      "sha256": "06540c17a2db4ce642484f171732ca875f6a856f04365b6ca47834d854ed0133",
+      "source_frame": 66,
+      "source_timestamp_seconds": 2.7083333333333335,
+      "action": "walk",
+      "phase": 7,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          116,
+          66,
+          395,
+          480
+        ],
+        "registered_alpha_bounds": [
+          117,
+          68,
+          395,
+          480
+        ],
+        "translation": [
+          117,
+          68
+        ],
+        "scale": 0.9962928792867781,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7393798828125,
+        "partial_fraction": 0.25646209716796875
+      }
+    },
+    {
+      "id": "NE-walk-08",
+      "direction": "NE",
+      "slot": 8,
+      "file": "images/ne-walk-08.png",
+      "sha256": "83def750462e9eb3681ff9b4cfe058e794f8ef45215a28abc7fdff9faea8ab58",
+      "source_frame": 73,
+      "source_timestamp_seconds": 3.0,
+      "action": "walk",
+      "phase": 8,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          120,
+          59,
+          392,
+          480
+        ],
+        "registered_alpha_bounds": [
+          121,
+          61,
+          392,
+          480
+        ],
+        "translation": [
+          121,
+          61
+        ],
+        "scale": 0.9962928792867781,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7441940307617188,
+        "partial_fraction": 0.2516059875488281
+      }
+    },
+    {
+      "id": "N-walk-01",
+      "direction": "N",
+      "slot": 1,
+      "file": "images/n-walk-01.png",
+      "sha256": "9f3d18d665016e3fe12b2f22768ca6bff6751058052a6b795bde342bda3f94a9",
+      "source_frame": 1,
+      "source_timestamp_seconds": 0.0,
+      "action": "walk",
+      "phase": 1,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          127,
+          48,
+          385,
+          480
+        ],
+        "registered_alpha_bounds": [
+          128,
+          53,
+          383,
+          480
+        ],
+        "translation": [
+          128,
+          53
+        ],
+        "scale": 0.9893703442135571,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7350807189941406,
+        "partial_fraction": 0.2614250183105469
+      }
+    },
+    {
+      "id": "N-walk-02",
+      "direction": "N",
+      "slot": 2,
+      "file": "images/n-walk-02.png",
+      "sha256": "3a94210e232820e6d70010ed2c2e12654aee0512ce68686d7ea9d65663a8e407",
+      "source_frame": 5,
+      "source_timestamp_seconds": 0.13333333333333333,
+      "action": "walk",
+      "phase": 2,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          128,
+          54,
+          384,
+          480
+        ],
+        "registered_alpha_bounds": [
+          129,
+          59,
+          382,
+          480
+        ],
+        "translation": [
+          129,
+          59
+        ],
+        "scale": 0.9893703442135571,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7446823120117188,
+        "partial_fraction": 0.2517280578613281
+      }
+    },
+    {
+      "id": "N-walk-03",
+      "direction": "N",
+      "slot": 3,
+      "file": "images/n-walk-03.png",
+      "sha256": "c1c6f847648ddfdb6f7f83664aaa88fcaee7e65420e0bbb18e8ddb9628548fcb",
+      "source_frame": 9,
+      "source_timestamp_seconds": 0.26666666666666666,
+      "action": "walk",
+      "phase": 3,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          122,
+          49,
+          391,
+          480
+        ],
+        "registered_alpha_bounds": [
+          123,
+          54,
+          389,
+          480
+        ],
+        "translation": [
+          123,
+          54
+        ],
+        "scale": 0.9893703442135571,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7300186157226562,
+        "partial_fraction": 0.26633453369140625
+      }
+    },
+    {
+      "id": "N-walk-04",
+      "direction": "N",
+      "slot": 4,
+      "file": "images/n-walk-04.png",
+      "sha256": "09db5f9a4e1153e0f42605b538f8dbb1b2331c2c758a5d2277c438f47f4a34ab",
+      "source_frame": 13,
+      "source_timestamp_seconds": 0.4,
+      "action": "walk",
+      "phase": 4,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          120,
+          65,
+          392,
+          480
+        ],
+        "registered_alpha_bounds": [
+          121,
+          69,
+          390,
+          480
+        ],
+        "translation": [
+          121,
+          69
+        ],
+        "scale": 0.9893703442135571,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7389373779296875,
+        "partial_fraction": 0.2573204040527344
+      }
+    },
+    {
+      "id": "N-walk-05",
+      "direction": "N",
+      "slot": 5,
+      "file": "images/n-walk-05.png",
+      "sha256": "7065eadc5eff9ee5aeabce4532ae394c66b23470cde201c5e6bda29439a1b6a0",
+      "source_frame": 17,
+      "source_timestamp_seconds": 0.5333333333333333,
+      "action": "walk",
+      "phase": 5,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          122,
+          62,
+          389,
+          480
+        ],
+        "registered_alpha_bounds": [
+          123,
+          66,
+          387,
+          480
+        ],
+        "translation": [
+          123,
+          66
+        ],
+        "scale": 0.9893703442135571,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7355995178222656,
+        "partial_fraction": 0.2605705261230469
+      }
+    },
+    {
+      "id": "N-walk-06",
+      "direction": "N",
+      "slot": 6,
+      "file": "images/n-walk-06.png",
+      "sha256": "a5db87e11315f8667c645b17b27a3482f7ee953b873eb931d19d8ecc51cef238",
+      "source_frame": 21,
+      "source_timestamp_seconds": 0.6666666666666666,
+      "action": "walk",
+      "phase": 6,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          124,
+          59,
+          387,
+          480
+        ],
+        "registered_alpha_bounds": [
+          125,
+          63,
+          385,
+          480
+        ],
+        "translation": [
+          125,
+          63
+        ],
+        "scale": 0.9893703442135571,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7351646423339844,
+        "partial_fraction": 0.2610588073730469
+      }
+    },
+    {
+      "id": "N-walk-07",
+      "direction": "N",
+      "slot": 7,
+      "file": "images/n-walk-07.png",
+      "sha256": "c7489b106c179bc98d6ea59d5a8327da783aa35b63008508205e4418c3fc6b8f",
+      "source_frame": 25,
+      "source_timestamp_seconds": 0.8,
+      "action": "walk",
+      "phase": 7,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          126,
+          62,
+          386,
+          480
+        ],
+        "registered_alpha_bounds": [
+          127,
+          66,
+          384,
+          480
+        ],
+        "translation": [
+          127,
+          66
+        ],
+        "scale": 0.9893703442135571,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.747711181640625,
+        "partial_fraction": 0.24835968017578125
+      }
+    },
+    {
+      "id": "N-walk-08",
+      "direction": "N",
+      "slot": 8,
+      "file": "images/n-walk-08.png",
+      "sha256": "38dc9a7c4d7835fe9a6fd441bb88898e796e14d53c41c122651ba6d1b51cb265",
+      "source_frame": 29,
+      "source_timestamp_seconds": 0.9333333333333333,
+      "action": "walk",
+      "phase": 8,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          128,
+          82,
+          383,
+          480
+        ],
+        "registered_alpha_bounds": [
+          129,
+          86,
+          381,
+          480
+        ],
+        "translation": [
+          129,
+          86
+        ],
+        "scale": 0.9893703442135571,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7611503601074219,
+        "partial_fraction": 0.23509597778320312
+      }
+    },
+    {
+      "id": "SW-walk-01",
+      "direction": "SW",
+      "slot": 1,
+      "file": "images/sw-walk-01.png",
+      "sha256": "1b995109fc1b0e864d6073d5ac7574d54eb7bb34886b2c88ef2a5903cbdaf5f5",
+      "source_frame": 26,
+      "source_timestamp_seconds": 1.0416666666666667,
+      "action": "walk",
+      "phase": 1,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          106,
+          53,
+          407,
+          480
+        ],
+        "registered_alpha_bounds": [
+          114,
+          77,
+          398,
+          480
+        ],
+        "translation": [
+          114,
+          77
+        ],
+        "scale": 0.9446756143184974,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7438430786132812,
+        "partial_fraction": 0.2524757385253906
+      }
+    },
+    {
+      "id": "SW-walk-02",
+      "direction": "SW",
+      "slot": 2,
+      "file": "images/sw-walk-02.png",
+      "sha256": "38d099ffaeb601226bdafe8b4414b7c23bdda9a72f5dd7e2320b0fe1ba3e91df",
+      "source_frame": 32,
+      "source_timestamp_seconds": 1.2916666666666667,
+      "action": "walk",
+      "phase": 2,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          86,
+          54,
+          425,
+          480
+        ],
+        "registered_alpha_bounds": [
+          95,
+          78,
+          415,
+          480
+        ],
+        "translation": [
+          95,
+          78
+        ],
+        "scale": 0.9446756143184974,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7386474609375,
+        "partial_fraction": 0.2569618225097656
+      }
+    },
+    {
+      "id": "SW-walk-03",
+      "direction": "SW",
+      "slot": 3,
+      "file": "images/sw-walk-03.png",
+      "sha256": "62b8ff77e79503b5137802a84c012bc69b82f548c1995b46183ee62998e96f29",
+      "source_frame": 39,
+      "source_timestamp_seconds": 1.5833333333333333,
+      "action": "walk",
+      "phase": 3,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          93,
+          66,
+          419,
+          480
+        ],
+        "registered_alpha_bounds": [
+          102,
+          89,
+          410,
+          480
+        ],
+        "translation": [
+          102,
+          89
+        ],
+        "scale": 0.9446756143184974,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7509498596191406,
+        "partial_fraction": 0.24475860595703125
+      }
+    },
+    {
+      "id": "SW-walk-04",
+      "direction": "SW",
+      "slot": 4,
+      "file": "images/sw-walk-04.png",
+      "sha256": "99ef22bf173ad355c422189dabf45d15efa419bb380361d2c06434035de64d13",
+      "source_frame": 45,
+      "source_timestamp_seconds": 1.8333333333333333,
+      "action": "walk",
+      "phase": 4,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          112,
+          74,
+          399,
+          480
+        ],
+        "registered_alpha_bounds": [
+          120,
+          96,
+          391,
+          480
+        ],
+        "translation": [
+          120,
+          96
+        ],
+        "scale": 0.9446756143184974,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7495803833007812,
+        "partial_fraction": 0.24635696411132812
+      }
+    },
+    {
+      "id": "SW-walk-05",
+      "direction": "SW",
+      "slot": 5,
+      "file": "images/sw-walk-05.png",
+      "sha256": "0518699e0898dc9026cb0a2085953790313002eb4a87d1f7e7fd5a9bc329c439",
+      "source_frame": 52,
+      "source_timestamp_seconds": 2.125,
+      "action": "walk",
+      "phase": 5,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          98,
+          56,
+          415,
+          480
+        ],
+        "registered_alpha_bounds": [
+          107,
+          79,
+          406,
+          480
+        ],
+        "translation": [
+          107,
+          79
+        ],
+        "scale": 0.9446756143184974,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7333145141601562,
+        "partial_fraction": 0.2628211975097656
+      }
+    },
+    {
+      "id": "SW-walk-06",
+      "direction": "SW",
+      "slot": 6,
+      "file": "images/sw-walk-06.png",
+      "sha256": "b4e6ce54f43848e7427b7d1638b497a38e3262f6740f7c321510f44900a8d0dd",
+      "source_frame": 58,
+      "source_timestamp_seconds": 2.375,
+      "action": "walk",
+      "phase": 6,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          88,
+          65,
+          423,
+          480
+        ],
+        "registered_alpha_bounds": [
+          97,
+          88,
+          413,
+          480
+        ],
+        "translation": [
+          97,
+          88
+        ],
+        "scale": 0.9446756143184974,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7355728149414062,
+        "partial_fraction": 0.2601051330566406
+      }
+    },
+    {
+      "id": "SW-walk-07",
+      "direction": "SW",
+      "slot": 7,
+      "file": "images/sw-walk-07.png",
+      "sha256": "b1779a2d3d3febc5a7dbb233583023dbede50e4a3dcb8364c4204d28cfae7c1a",
+      "source_frame": 64,
+      "source_timestamp_seconds": 2.625,
+      "action": "walk",
+      "phase": 7,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          88,
+          63,
+          424,
+          480
+        ],
+        "registered_alpha_bounds": [
+          97,
+          86,
+          414,
+          480
+        ],
+        "translation": [
+          97,
+          86
+        ],
+        "scale": 0.9446756143184974,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.730316162109375,
+        "partial_fraction": 0.2655296325683594
+      }
+    },
+    {
+      "id": "SW-walk-08",
+      "direction": "SW",
+      "slot": 8,
+      "file": "images/sw-walk-08.png",
+      "sha256": "7a8802fe673c10274045ed98e9f0ffd73aaf7263ea255417fbf019c7cf850fd5",
+      "source_frame": 71,
+      "source_timestamp_seconds": 2.9166666666666665,
+      "action": "walk",
+      "phase": 8,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          98,
+          51,
+          414,
+          480
+        ],
+        "registered_alpha_bounds": [
+          107,
+          75,
+          406,
+          480
+        ],
+        "translation": [
+          107,
+          75
+        ],
+        "scale": 0.9446756143184974,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7355499267578125,
+        "partial_fraction": 0.2608528137207031
+      }
+    },
+    {
+      "id": "S-walk-01",
+      "direction": "S",
+      "slot": 1,
+      "file": "images/s-walk-01.png",
+      "sha256": "a54101864aded51122d66e6054e4db43e7613a24182ffb06db253a3f121eff60",
+      "source_frame": 26,
+      "source_timestamp_seconds": 1.0416666666666667,
+      "action": "walk",
+      "phase": 1,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          118,
+          63,
+          393,
+          480
+        ],
+        "registered_alpha_bounds": [
+          121,
+          72,
+          390,
+          480
+        ],
+        "translation": [
+          121,
+          72
+        ],
+        "scale": 0.9776577745545368,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7445068359375,
+        "partial_fraction": 0.2516899108886719
+      }
+    },
+    {
+      "id": "S-walk-02",
+      "direction": "S",
+      "slot": 2,
+      "file": "images/s-walk-02.png",
+      "sha256": "55a208f1ff424708a2190630202f06900e23a49ee0a352139d9c052c0b6ef59c",
+      "source_frame": 29,
+      "source_timestamp_seconds": 1.1666666666666667,
+      "action": "walk",
+      "phase": 2,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          116,
+          59,
+          395,
+          480
+        ],
+        "registered_alpha_bounds": [
+          119,
+          68,
+          392,
+          480
+        ],
+        "translation": [
+          119,
+          68
+        ],
+        "scale": 0.9776577745545368,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7389488220214844,
+        "partial_fraction": 0.2572021484375
+      }
+    },
+    {
+      "id": "S-walk-03",
+      "direction": "S",
+      "slot": 3,
+      "file": "images/s-walk-03.png",
+      "sha256": "a99f9a9c87943718a746f94f7d5610dde1fcd9be8ac67c53562b3735bf086d86",
+      "source_frame": 32,
+      "source_timestamp_seconds": 1.2916666666666667,
+      "action": "walk",
+      "phase": 3,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          112,
+          56,
+          400,
+          480
+        ],
+        "registered_alpha_bounds": [
+          115,
+          65,
+          397,
+          480
+        ],
+        "translation": [
+          115,
+          65
+        ],
+        "scale": 0.9776577745545368,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.731536865234375,
+        "partial_fraction": 0.264495849609375
+      }
+    },
+    {
+      "id": "S-walk-04",
+      "direction": "S",
+      "slot": 4,
+      "file": "images/s-walk-04.png",
+      "sha256": "bc87f6b5fda3f57316b5550a703d3893bec44a217ba4d9c0a0bcec2b9cca85ca",
+      "source_frame": 35,
+      "source_timestamp_seconds": 1.4166666666666667,
+      "action": "walk",
+      "phase": 4,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          115,
+          74,
+          397,
+          480
+        ],
+        "registered_alpha_bounds": [
+          118,
+          83,
+          394,
+          480
+        ],
+        "translation": [
+          118,
+          83
+        ],
+        "scale": 0.9776577745545368,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7431221008300781,
+        "partial_fraction": 0.25321197509765625
+      }
+    },
+    {
+      "id": "S-walk-05",
+      "direction": "S",
+      "slot": 5,
+      "file": "images/s-walk-05.png",
+      "sha256": "4b144f2cdd921031e04ee7678c9a57d37e56ac277616038ba9cccdecb5dd7b52",
+      "source_frame": 38,
+      "source_timestamp_seconds": 1.5416666666666667,
+      "action": "walk",
+      "phase": 5,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          114,
+          71,
+          397,
+          480
+        ],
+        "registered_alpha_bounds": [
+          117,
+          80,
+          394,
+          480
+        ],
+        "translation": [
+          117,
+          80
+        ],
+        "scale": 0.9776577745545368,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7440452575683594,
+        "partial_fraction": 0.25209808349609375
+      }
+    },
+    {
+      "id": "S-walk-06",
+      "direction": "S",
+      "slot": 6,
+      "file": "images/s-walk-06.png",
+      "sha256": "578a7d2358379d70a1dde6dee7065a63327153eb98b491b76808c98507ad2add",
+      "source_frame": 42,
+      "source_timestamp_seconds": 1.7083333333333333,
+      "action": "walk",
+      "phase": 6,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          110,
+          58,
+          402,
+          480
+        ],
+        "registered_alpha_bounds": [
+          113,
+          67,
+          398,
+          480
+        ],
+        "translation": [
+          113,
+          67
+        ],
+        "scale": 0.9776577745545368,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7315254211425781,
+        "partial_fraction": 0.26432037353515625
+      }
+    },
+    {
+      "id": "S-walk-07",
+      "direction": "S",
+      "slot": 7,
+      "file": "images/s-walk-07.png",
+      "sha256": "b244cba4c2befa4486f874bdb982205b95ea4a4704a2fa1377b515bb61f8e054",
+      "source_frame": 45,
+      "source_timestamp_seconds": 1.8333333333333333,
+      "action": "walk",
+      "phase": 7,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          110,
+          54,
+          401,
+          480
+        ],
+        "registered_alpha_bounds": [
+          113,
+          64,
+          397,
+          480
+        ],
+        "translation": [
+          113,
+          64
+        ],
+        "scale": 0.9776577745545368,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7258682250976562,
+        "partial_fraction": 0.2696342468261719
+      }
+    },
+    {
+      "id": "S-walk-08",
+      "direction": "S",
+      "slot": 8,
+      "file": "images/s-walk-08.png",
+      "sha256": "95bbc6f8288504f355b47efc7f6a457027e3297c0f52f170fa046808b4dfe649",
+      "source_frame": 48,
+      "source_timestamp_seconds": 1.9583333333333333,
+      "action": "walk",
+      "phase": 8,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          118,
+          69,
+          394,
+          480
+        ],
+        "registered_alpha_bounds": [
+          121,
+          78,
+          391,
+          480
+        ],
+        "translation": [
+          121,
+          78
+        ],
+        "scale": 0.9776577745545368,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Regenerated edges and golden feet from the preserved walking pose; no individual contain-fit. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7393913269042969,
+        "partial_fraction": 0.2569541931152344
+      }
+    },
+    {
+      "id": "S-idle",
+      "direction": "S",
+      "action": "idle",
+      "slot": 0,
+      "file": "images/s-idle-v1.png",
+      "sha256": "186c4e5bef0840f1fd4741276b9ebaab7ff7c6d067fedb82225d629b7da1f102",
+      "source_generation": "originals/south.png",
+      "source_sha256": "caacdce1b3b7d3204de1ef377e9b879abac5ff12a83429658f4620f46ae757cb",
+      "reference_sha256": "47917ef68740509019b037e9abfd588e983ba73f9313896707908c840afb288b",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_alpha_bounds": [
+        297,
+        138,
+        956,
+        1169
+      ],
+      "registration_bounds": "alpha > 1 plus 4 pixels of margin; cropped exterior pixels have alpha <= 1/255",
+      "cropped_nearly_transparent_pixels": 54,
+      "source_transparent_fraction": 0.7339015946419624,
+      "uniform_scale": 0.4034917555771096,
+      "placement": [
+        123,
+        64
+      ],
+      "resized_dimensions": [
+        266,
+        416
+      ],
+      "alpha_bounds": [
+        123,
+        64,
+        389,
+        480
+      ],
+      "canvas": [
+        512,
+        512
+      ],
+      "anchor": [
+        256,
+        480
+      ],
+      "pose": "upright, relaxed arms, both feet planted; generated separately from walking",
+      "phase": 0,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          123,
+          65,
+          389,
+          480
+        ],
+        "registered_alpha_bounds": [
+          126,
+          74,
+          386,
+          480
+        ],
+        "translation": [
+          126,
+          74
+        ],
+        "scale": 0.9776577745545368,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Original registered pixels preserved in the pre-normalization archive. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7506980895996094,
+        "partial_fraction": 0.24550628662109375
+      }
+    },
+    {
+      "id": "N-idle",
+      "direction": "N",
+      "action": "idle",
+      "slot": 0,
+      "file": "images/n-idle-v1.png",
+      "sha256": "ad3940668f3adc571cc303ea5f4223d429c547536c64a942f272b8546d03d06e",
+      "source_generation": "originals/north.png",
+      "source_sha256": "c85176655eea306c218711a1c35397c6f76231106a0b7f0c9d4a0dac5a970b9c",
+      "reference_sha256": "d4c0d1a43158196e489204a51ff86c51086c08ee2b9570e5db518e66865b8058",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_alpha_bounds": [
+        302,
+        137,
+        951,
+        1152
+      ],
+      "registration_bounds": "alpha > 1 plus 4 pixels of margin; cropped exterior pixels have alpha <= 1/255",
+      "cropped_nearly_transparent_pixels": 85,
+      "source_transparent_fraction": 0.7412210750160889,
+      "uniform_scale": 0.4098522167487685,
+      "placement": [
+        123,
+        64
+      ],
+      "resized_dimensions": [
+        266,
+        416
+      ],
+      "alpha_bounds": [
+        123,
+        64,
+        389,
+        480
+      ],
+      "canvas": [
+        512,
+        512
+      ],
+      "anchor": [
+        256,
+        480
+      ],
+      "pose": "upright, relaxed arms, both feet planted; generated separately from walking",
+      "phase": 0,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          124,
+          65,
+          389,
+          480
+        ],
+        "registered_alpha_bounds": [
+          125,
+          69,
+          387,
+          480
+        ],
+        "translation": [
+          125,
+          69
+        ],
+        "scale": 0.9893703442135571,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Original registered pixels preserved in the pre-normalization archive. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7436943054199219,
+        "partial_fraction": 0.25235748291015625
+      }
+    },
+    {
+      "id": "E-idle",
+      "direction": "E",
+      "action": "idle",
+      "slot": 0,
+      "file": "images/e-idle-v1.png",
+      "sha256": "927f3c919d7333f6897c89520a024abe79acd276217400d48d0d1a6492c30aa5",
+      "source_generation": "originals/east.png",
+      "source_sha256": "6771a3f513bba13b535e39f7e1b926f49f07ec67c426d0e35619f83b5404c693",
+      "reference_sha256": "8527083aa56be423379e70e1c47cda57e9f9cedb6aa59d5f338dc51476dd16ba",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_alpha_bounds": [
+        188,
+        125,
+        1086,
+        1159
+      ],
+      "registration_bounds": "alpha > 1 plus 4 pixels of margin; cropped exterior pixels have alpha <= 1/255",
+      "cropped_nearly_transparent_pixels": 83,
+      "source_transparent_fraction": 0.7406945302941274,
+      "uniform_scale": 0.402321083172147,
+      "placement": [
+        75,
+        64
+      ],
+      "resized_dimensions": [
+        361,
+        416
+      ],
+      "alpha_bounds": [
+        75,
+        65,
+        436,
+        480
+      ],
+      "canvas": [
+        512,
+        512
+      ],
+      "anchor": [
+        256,
+        480
+      ],
+      "pose": "upright, relaxed arms, both feet planted; generated separately from walking",
+      "phase": 0,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          76,
+          66,
+          437,
+          480
+        ],
+        "registered_alpha_bounds": [
+          85,
+          87,
+          427,
+          480
+        ],
+        "translation": [
+          85,
+          87
+        ],
+        "scale": 0.9480849258816184,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Original registered pixels preserved in the pre-normalization archive. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.772705078125,
+        "partial_fraction": 0.222900390625
+      }
+    },
+    {
+      "id": "NE-idle",
+      "direction": "NE",
+      "action": "idle",
+      "slot": 0,
+      "file": "images/ne-idle-v1.png",
+      "sha256": "84331a2f7a589c40dbe028170c2c79728b5d46f1b0156481c6e08897b11e4c9c",
+      "source_generation": "originals/north-east.png",
+      "source_sha256": "ca2c669723f9c3a69b15cf6c995d004c3690426852f8d5e233c854c4cca4ae27",
+      "reference_sha256": "4fb91281e59ad5f41a18b3f1a653de5b345cb20b71f2f6bc80d4a0f3ad6823b9",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_alpha_bounds": [
+        295,
+        121,
+        923,
+        1147
+      ],
+      "registration_bounds": "alpha > 1 plus 4 pixels of margin; cropped exterior pixels have alpha <= 1/255",
+      "cropped_nearly_transparent_pixels": 49,
+      "source_transparent_fraction": 0.7374296986485352,
+      "uniform_scale": 0.40545808966861596,
+      "placement": [
+        128,
+        64
+      ],
+      "resized_dimensions": [
+        255,
+        416
+      ],
+      "alpha_bounds": [
+        128,
+        64,
+        383,
+        480
+      ],
+      "canvas": [
+        512,
+        512
+      ],
+      "anchor": [
+        256,
+        480
+      ],
+      "pose": "upright, relaxed arms, both feet planted; generated separately from walking",
+      "phase": 0,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          128,
+          64,
+          383,
+          480
+        ],
+        "registered_alpha_bounds": [
+          128,
+          66,
+          382,
+          480
+        ],
+        "translation": [
+          128,
+          66
+        ],
+        "scale": 0.9962928792867781,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Original registered pixels preserved in the pre-normalization archive. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7421112060546875,
+        "partial_fraction": 0.2537803649902344
+      }
+    },
+    {
+      "id": "SW-idle",
+      "direction": "SW",
+      "action": "idle",
+      "slot": 0,
+      "file": "images/sw-idle-v1.png",
+      "sha256": "73e2e9332ebb7406dbf0d16b809e03e5edcdc12df1739fbd4a571e68e04f5449",
+      "source_generation": "originals/south-west.png",
+      "source_sha256": "1bcd55cb406a51fa8e2b81ced725b7d18be630be21beba490c1cf3842687ec24",
+      "reference_sha256": "a5d9c9675e4d9187619be61bf508d6f8c1c8ffcafee34a8c80f1dceee3594376",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_alpha_bounds": [
+        320,
+        131,
+        1047,
+        1152
+      ],
+      "registration_bounds": "alpha > 1 plus 4 pixels of margin; cropped exterior pixels have alpha <= 1/255",
+      "cropped_nearly_transparent_pixels": 137,
+      "source_transparent_fraction": 0.7241808668401466,
+      "uniform_scale": 0.40744368266405484,
+      "placement": [
+        108,
+        64
+      ],
+      "resized_dimensions": [
+        296,
+        416
+      ],
+      "alpha_bounds": [
+        108,
+        64,
+        403,
+        480
+      ],
+      "canvas": [
+        512,
+        512
+      ],
+      "anchor": [
+        256,
+        480
+      ],
+      "pose": "upright, relaxed arms, both feet planted; generated separately from walking",
+      "phase": 0,
+      "registration": {
+        "source": "pre-normalization registered frame",
+        "source_alpha_bounds": [
+          108,
+          65,
+          403,
+          480
+        ],
+        "registered_alpha_bounds": [
+          116,
+          88,
+          395,
+          480
+        ],
+        "translation": [
+          116,
+          88
+        ],
+        "scale": 0.9446756143184974,
+        "head_anchor_x": 256,
+        "ground_baseline": 480,
+        "flight_lift": 0
+      },
+      "visual_notes": "Original registered pixels preserved in the pre-normalization archive. Uniform group scale applied; see mass-normalization.json.",
+      "alpha": {
+        "has_alpha_channel": true,
+        "transparent_fraction": 0.7535820007324219,
+        "partial_fraction": 0.24256134033203125
+      }
+    }
+  ],
+  "directions": [
+    {
+      "id": "N",
+      "source": "N",
+      "mirror": false
+    },
+    {
+      "id": "NE",
+      "source": "NE",
+      "mirror": false
+    },
+    {
+      "id": "E",
+      "source": "E",
+      "mirror": false
+    },
+    {
+      "id": "SE",
+      "source": "SW",
+      "mirror": true
+    },
+    {
+      "id": "S",
+      "source": "S",
+      "mirror": false
+    },
+    {
+      "id": "SW",
+      "source": "SW",
+      "mirror": false
+    },
+    {
+      "id": "W",
+      "source": "E",
+      "mirror": true
+    },
+    {
+      "id": "NW",
+      "source": "NE",
+      "mirror": true
+    }
+  ],
+  "idle": "Separate neutral standing image for each source direction; mirrors share the corresponding standing image.",
+  "standing_complete": true,
+  "standing_provenance": "artifacts/research/world-movement/generated-candidates/macaw-standing-20261002-v1/registration.json",
+  "candidate_id": "macaw-walk-v1",
+  "processing_summary": "45 selected transparent frames with shared direction scale, eight verified strips and measured average walking stride. Original videos retained; intermediate image workspaces retired.",
+  "normalization": {
+    "report": "provenance/mass-normalization.json",
+    "target_median_area": 66000.0,
+    "method": "Alpha-weighted silhouette area; one uniform scale per direction and gait. Idle shares walk scale.",
+    "resampling": "nearest"
+  },
+  "exports": {
+    "cell_width": 512,
+    "cell_height": 512,
+    "complete_order": "idle, walk 1-8",
+    "direction_strips": [
+      {
+        "direction": "N",
+        "action": "walk",
+        "mirror": false,
+        "file": "strips/n-walk.png",
+        "width": 4608,
+        "height": 512,
+        "frame_ids": [
+          "N-idle",
+          "N-walk-01",
+          "N-walk-02",
+          "N-walk-03",
+          "N-walk-04",
+          "N-walk-05",
+          "N-walk-06",
+          "N-walk-07",
+          "N-walk-08"
+        ],
+        "sha256": "02ff37116ee20f712769c415a60d71ef7b5784c9731c3241ee0db0c974cc9790"
+      },
+      {
+        "direction": "NE",
+        "action": "walk",
+        "mirror": false,
+        "file": "strips/ne-walk.png",
+        "width": 4608,
+        "height": 512,
+        "frame_ids": [
+          "NE-idle",
+          "NE-walk-01",
+          "NE-walk-02",
+          "NE-walk-03",
+          "NE-walk-04",
+          "NE-walk-05",
+          "NE-walk-06",
+          "NE-walk-07",
+          "NE-walk-08"
+        ],
+        "sha256": "ec457b6752122104790c2e13ec90168d4689d5875f47c2ca44a76a31fb3fccf7"
+      },
+      {
+        "direction": "E",
+        "action": "walk",
+        "mirror": false,
+        "file": "strips/e-walk.png",
+        "width": 4608,
+        "height": 512,
+        "frame_ids": [
+          "E-idle",
+          "E-walk-01",
+          "E-walk-02",
+          "E-walk-03",
+          "E-walk-04",
+          "E-walk-05",
+          "E-walk-06",
+          "E-walk-07",
+          "E-walk-08"
+        ],
+        "sha256": "d3f04f6131458980d56911b1f627b26897f0d4de4b5c362b2cb6d351ca1cd5c6"
+      },
+      {
+        "direction": "SE",
+        "action": "walk",
+        "mirror": true,
+        "file": "strips/se-walk.png",
+        "width": 4608,
+        "height": 512,
+        "frame_ids": [
+          "SW-idle",
+          "SW-walk-01",
+          "SW-walk-02",
+          "SW-walk-03",
+          "SW-walk-04",
+          "SW-walk-05",
+          "SW-walk-06",
+          "SW-walk-07",
+          "SW-walk-08"
+        ],
+        "sha256": "6dbef17139a88fd935aa43dcf2f4be6eb4937b265e3e508455ac885c4df7d753"
+      },
+      {
+        "direction": "S",
+        "action": "walk",
+        "mirror": false,
+        "file": "strips/s-walk.png",
+        "width": 4608,
+        "height": 512,
+        "frame_ids": [
+          "S-idle",
+          "S-walk-01",
+          "S-walk-02",
+          "S-walk-03",
+          "S-walk-04",
+          "S-walk-05",
+          "S-walk-06",
+          "S-walk-07",
+          "S-walk-08"
+        ],
+        "sha256": "487c55cb9ff1e688b7f96457c61b9a442ea919224a05801e67e688fc80039674"
+      },
+      {
+        "direction": "SW",
+        "action": "walk",
+        "mirror": false,
+        "file": "strips/sw-walk.png",
+        "width": 4608,
+        "height": 512,
+        "frame_ids": [
+          "SW-idle",
+          "SW-walk-01",
+          "SW-walk-02",
+          "SW-walk-03",
+          "SW-walk-04",
+          "SW-walk-05",
+          "SW-walk-06",
+          "SW-walk-07",
+          "SW-walk-08"
+        ],
+        "sha256": "9eaaa240aa0c7366599aa01d5815b5249273200d1617bee6e1073b35dd4847a8"
+      },
+      {
+        "direction": "W",
+        "action": "walk",
+        "mirror": true,
+        "file": "strips/w-walk.png",
+        "width": 4608,
+        "height": 512,
+        "frame_ids": [
+          "E-idle",
+          "E-walk-01",
+          "E-walk-02",
+          "E-walk-03",
+          "E-walk-04",
+          "E-walk-05",
+          "E-walk-06",
+          "E-walk-07",
+          "E-walk-08"
+        ],
+        "sha256": "b55bb979782660044124a7223a20f84f8f4549ff7c60320140436a53eea81a72"
+      },
+      {
+        "direction": "NW",
+        "action": "walk",
+        "mirror": true,
+        "file": "strips/nw-walk.png",
+        "width": 4608,
+        "height": 512,
+        "frame_ids": [
+          "NE-idle",
+          "NE-walk-01",
+          "NE-walk-02",
+          "NE-walk-03",
+          "NE-walk-04",
+          "NE-walk-05",
+          "NE-walk-06",
+          "NE-walk-07",
+          "NE-walk-08"
+        ],
+        "sha256": "061810357f124e20ad6d16b69ba2778a0e181032e6cd113d59af879199bc1fa4"
+      }
+    ]
+  },
+  "generated_at": "2026-10-02T12:45:19.965Z",
+  "review": {
+    "scale_refinement": "Direction/gait area normalized; head and torso proportions still require visual review."
+  },
+  "locomotion": {
+    "walk": {
+      "canvas_pixels": 512,
+      "frames_per_cycle": 8,
+      "steps_per_cycle": 2,
+      "fps": 8,
+      "stride_pixels": 273.396853,
+      "calibration": "stride-calibration.json"
+    }
+  },
+  "provenance": {
+    "walking": "provenance/generation.json",
+    "standing": "provenance/standing-generation.json",
+    "video_sources": "provenance/video-sources.json",
+    "registration": "provenance/registration.json"
+  }
+}

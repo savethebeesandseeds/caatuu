@@ -7,7 +7,7 @@ import {
   judgeConjugationHelixPair,
   judgeConjugationHelixRound,
   splitConjugationDisplay,
-  validateConjugationCometCatalog
+  validateConjugationCometCatalog, MAX_AUTHORED_CONJUGATION_FORMS
 } from "../static/source/games/conjugation-comet/conjugation-comet-core.mjs";
 
 const rawCzech = JSON.parse(await readFile(new URL(
@@ -317,7 +317,7 @@ test("malformed strands and invalid offsets safely return an unsuccessful empty 
     { ...round, subjects: [{ ...round.subjects[0], acceptedTargetTexts: "not an array" }, round.subjects[1]] },
     { ...round, subjects: [{ ...round.subjects[0], acceptedTargetTexts: [null] }, round.subjects[1]] }
   ]) assert.deepEqual(judgeConjugationHelixRound(malformed), invalid);
-  for (const count of [0, 1, 13]) assert.throws(() => buildConjugationHelixRound(
+  for (const count of [0, 1, MAX_AUTHORED_CONJUGATION_FORMS + 1]) assert.throws(() => buildConjugationHelixRound(
     synthetic(Array.from({ length: count }, (_, index) => `form-${index}`)), "test-verb"
   ), { code: "CONJUGATION_COMET_ROUND_INVALID" });
 });

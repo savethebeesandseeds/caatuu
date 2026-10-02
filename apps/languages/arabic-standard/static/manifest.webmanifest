@@ -1,0 +1,35 @@
+{
+  "name": "Caatuu Arabic",
+  "short_name": "Caatuu AR",
+  "description": "An English-to-Modern Standard Arabic development course.",
+  "id": "/ar/",
+  "start_url": "/ar/index.html",
+  "scope": "/ar/",
+  "display": "standalone",
+  "background_color": "#fffaf0",
+  "theme_color": "#fffaf0",
+  "lang": "en",
+  "categories": [
+    "education"
+  ],
+  "icons": [
+    {
+      "src": "/assets/icons/arabic_mark.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Verb Nebula",
+      "short_name": "Verbs",
+      "url": "/ar/index.html?game=verb-lab"
+    },
+    {
+      "name": "Word World",
+      "short_name": "Word World",
+      "url": "/ar/index.html?game=word-net"
+    }
+  ]
+}

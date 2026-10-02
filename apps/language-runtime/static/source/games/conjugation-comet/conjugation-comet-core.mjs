@@ -1,5 +1,8 @@
 import { normalizeContentProgression, selectContentItems, matchesContentDifficulty } from "../adaptive-practice.mjs";
 export const CONJUGATION_COMET_CATALOG_SCHEMA = "caatuu-conjugation-comet-catalog-v1";
+// Arabic distinguishes thirteen person/gender/number slots, including both
+// third-person dual genders and a shared second-person dual form.
+export const MAX_AUTHORED_CONJUGATION_FORMS = 13;
 
 const CONTENT_ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 const LANGUAGE_TAG_PATTERN = /^[A-Za-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$/u;
@@ -351,10 +354,10 @@ function normalizeVerb(verb, index, { legacy = false } = {}) {
       `${location} must be an object.`
     );
   }
-  if (!Array.isArray(verb.forms) || verb.forms.length < 2 || verb.forms.length > 12) {
+  if (!Array.isArray(verb.forms) || verb.forms.length < 2 || verb.forms.length > MAX_AUTHORED_CONJUGATION_FORMS) {
     throw catalogError(
       "CONJUGATION_COMET_CONTENT_INVALID",
-      `${location}.forms must contain 2 to 12 authored forms.`
+      `${location}.forms must contain 2 to ${MAX_AUTHORED_CONJUGATION_FORMS} authored forms.`
     );
   }
   const forms = verb.forms.map((form, formIndex) => (
@@ -813,7 +816,7 @@ export function selectConjugationPracticeVerbs(verbs, { difficulty = 3, history 
 
 export function buildConjugationHelixRound(catalog, verbId, { rng = Math.random } = {}) {
   const current = catalog?.verbs?.find((verb) => verb.id === verbId);
-  if (!current || !Array.isArray(current.forms) || current.forms.length < 2 || current.forms.length > 12) {
+  if (!current || !Array.isArray(current.forms) || current.forms.length < 2 || current.forms.length > MAX_AUTHORED_CONJUGATION_FORMS) {
     throw catalogError(
       "CONJUGATION_COMET_ROUND_INVALID",
       `Unknown Conjugation Comet verb: ${String(verbId || "<missing>")}.`

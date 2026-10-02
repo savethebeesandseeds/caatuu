@@ -41,12 +41,8 @@ async function launch(script, { courses = registry, valid = true, preferences = 
   label.setAttribute('data-i18n', 'launcher.language');
   const select = element('select', 'data-page-language', control);
   select.setAttribute('data-i18n-aria-label', 'launcher.language');
-  const audioMenu = element('details', 'data-audio-menu');
-  const audioToggle = element('summary', null, audioMenu);
-  audioToggle.setAttribute('data-i18n-aria-label', 'common.audio.settings');
-  const musicControls = element('div', 'data-music-controls', audioMenu);
-  const musicLocales = [];
-  window.addEventListener('caatuu:interfacechange', (event) => musicLocales.push(event.detail.content));
+  const interfaceChanges = [];
+  window.addEventListener('caatuu:interfacechange', (event) => interfaceChanges.push(event.detail.content));
   const dialog = element('dialog', 'data-course-dialog');
   const dismiss = element('button', 'data-course-dialog-close', dialog);
   element('h2', 'data-course-dialog-title', dialog);
@@ -68,36 +64,20 @@ async function launch(script, { courses = registry, valid = true, preferences = 
   const executable = script.replace(/import\("\/language-runtime\/static\/source\/launcher-interface\.mjs\?[^"]+"\)/u, 'Promise.resolve(launcherInterface)');
   vm.runInContext(executable, context);
   await settle();
-  return { ...browser, list, bounces, previous, next, entry, download, control, select, label, requests, dialog, dismiss, dialogBrowser, dialogAndroid, dialogStatus, audioMenu, audioToggle, musicControls, musicLocales };
+  return { ...browser, list, bounces, previous, next, entry, download, control, select, label, requests, dialog, dismiss, dialogBrowser, dialogAndroid, dialogStatus, interfaceChanges };
 }
 
 for (const [name, script] of [['server', source], ['Pages', projectPagesLauncherSource(source)]]) {
-  test(`${name}: the audio menu preserves inside clicks and dismisses with Escape or an outside click`, async () => {
+  test(`${name}: the chosen launcher locale is broadcast on initial load and language changes`, async () => {
     const app = await launch(script);
-    app.audioMenu.open = true;
-    app.musicControls.click();
-    assert.equal(app.audioMenu.open, true);
-    app.musicControls.dispatchEvent({ type: 'keydown', key: 'Escape', bubbles: true });
-    assert.equal(app.audioMenu.open, false);
-    assert.equal(app.document.activeElement, app.audioToggle);
-    app.audioMenu.open = true;
-    app.document.body.click();
-    assert.equal(app.audioMenu.open, false);
-  });
-
-  test(`${name}: music receives the chosen launcher locale on initial load and language changes`, async () => {
-    const app = await launch(script);
-    assert.equal(app.musicLocales.at(-1), app.window.CaatuuLauncherInterface);
+    assert.equal(app.interfaceChanges.at(-1), app.window.CaatuuLauncherInterface);
     for (const locale of ['en', 'es-ES']) {
       app.select.value = locale;
       app.select.dispatchEvent({ type: 'change' });
       await settle();
-      const content = app.musicLocales.at(-1);
+      const content = app.interfaceChanges.at(-1);
       assert.equal(content.locale, locale);
       assert.equal(content, app.window.CaatuuLauncherInterface);
-      assert.equal(app.audioToggle.getAttribute('aria-label'), content.t('common.audio.settings'));
-      assert.ok(content.t('music.volume'));
-      assert.ok(content.t('music.pending'));
     }
   });
 

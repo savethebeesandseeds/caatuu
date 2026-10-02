@@ -129,6 +129,14 @@ against its corresponding normalized frame, including baked mirrors. Copy only
 the final frames, strips and audit into this curated folder, then update the
 manifest last. Generated previews stay in the ignored artifact archive.
 
+The default `curated` profile retains this 55-frame contract. The optional
+`--profile video-walk-draft` handles 45 local preview images: five standing
+poses and eight walking poses per source direction, with southwest authored
+and southeast mirrored. It applies the same 66,000-area group rule and exports
+eight verified nine-cell strips. Keep that candidate in the ignored research
+and Scenery draft folders until its gait is approved; it does not replace this
+curated package.
+
 The [normalization regression tests](../tooling/tests/test_normalize_motion.py)
 run with the same managed Tukevejtso Python. Stage the utility and tests together
 with their relative `tooling/` and `tooling/tests/` layout, then run the test file
@@ -136,3 +144,6 @@ directly. Eight cases verify that invalid frame paths, overlapping directories
 and malformed direction/frame mappings leave all source bytes intact and create
 no output. The nine Node workshop tests validate the promoted package and its
 download strips.
+Five additional draft cases verify shared standing/walking factors, preserved
+pose differences, source hashes, exact strip mirrors, clipping rejection and
+ground anchoring when resampling omits a thin alpha tip.

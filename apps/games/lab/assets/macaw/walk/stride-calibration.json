@@ -1,0 +1,65 @@
+{
+  "method": "Average horizontal foot-centroid separation at the two side-profile transfer poses; two steps per full cycle.",
+  "reference_direction": "E",
+  "samples": [
+    {
+      "frame": "E-walk-02",
+      "file": "images/e-walk-02.png",
+      "sha256": "b5bd736ab7c915ded4b709cf398b2a4563a55c96fc2d7bda632027cc7bf38bf6",
+      "feet": [
+        {
+          "pixels": 1271,
+          "centre": [
+            223.014948859166,
+            444.86703383162865
+          ]
+        },
+        {
+          "pixels": 1314,
+          "centre": [
+            363.37823439878235,
+            439.07990867579906
+          ]
+        }
+      ],
+      "step_pixels": 140.36328553961636
+    },
+    {
+      "frame": "E-walk-06",
+      "file": "images/e-walk-06.png",
+      "sha256": "0c68f2641ea2fdcf38824280acdccaefdf257ce1bd82f88fd020b2f82eb4b649",
+      "feet": [
+        {
+          "pixels": 1389,
+          "centre": [
+            236.40820734341253,
+            449.3758099352052
+          ]
+        },
+        {
+          "pixels": 1082,
+          "centre": [
+            369.44177449168205,
+            424.62846580406654
+          ]
+        }
+      ],
+      "step_pixels": 133.03356714826953
+    }
+  ],
+  "step_pixels": 136.69842634394294,
+  "stride_pixels": 273.396853,
+  "segmentation": {
+    "minimum_y": 410,
+    "red_above": 220,
+    "green_between_exclusive": [
+      120,
+      240
+    ],
+    "blue_below": 100,
+    "minimum_alpha": 128,
+    "minimum_component_pixels": 500
+  },
+  "limitations": "Average stride calibration. Eight held drawings and regenerated foot shapes do not provide continuous exact foot locking.",
+  "conversion": "world distance per cycle = stride_pixels / canvas_pixels * displayed canvas world size; speed = cycle distance * fps / frames_per_cycle. Camera zoom cancels."
+}

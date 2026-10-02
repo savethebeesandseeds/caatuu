@@ -81,6 +81,11 @@ async function mountGame({ language = "czech", difficulty = 3, syntheticBase = f
       }
     }
   };
+  if (language === "arabic-standard") {
+    const manifest = JSON.parse(await readFile(new URL("../../languages/arabic-standard/course.json", import.meta.url), "utf8"));
+    Object.assign(course, { id: manifest.id, routePrefix: manifest.routePrefix,
+      sourceLanguage: manifest.sourceLanguage, targetLanguage: manifest.targetLanguage });
+  }
   if (syntheticBase) {
     assert.equal(czech, false, "only v1 catalogs support a different learner base");
     course.id = "de-es";
@@ -325,6 +330,22 @@ function finishBatch(game) {
   game.submit();
   game.advance(350); game.click(game.element("conjugationCometSummaryNext"));
 }
+
+test("Arabic conjugation renders all thirteen RTL forms and expands rows for tall cues", async () => {
+  const game = await mountGame({ language: "arabic-standard", difficulty: 1 });
+  assert.equal(game.strandButtons("target").length, 13);
+  assert.equal(game.strandButtons("subject").length, 13);
+  for (const button of game.strandButtons("target")) assert.equal(button.dir, "rtl");
+  for (const button of game.strandButtons("subject")) {
+    assert.equal(button.dir, "ltr");
+    button.getBoundingClientRect = () => ({ top: 0, left: 0, right: 100, bottom: 180, width: 100, height: 180 });
+  }
+  game.setActive(false);
+  game.setActive(true);
+  const height = Number.parseFloat(game.element("conjugationCometHelix").style.getPropertyValue("--helix-content-height"));
+  assert.ok(height / (game.round().subjects.length + 1.2) > 180, "every row must exceed its measured cue height");
+  game.controller.destroy();
+});
 
 test("conjugation records the assessed verb and each authored form once, after submission", async () => {
   const exposures = [];
@@ -1169,9 +1190,9 @@ test("non-persisted pagehide destroys controls and invalidates pending callbacks
   assert.equal(game.messages.length, 0);
 });
 
-function scrollBoard(game, overrides = {}) {
+function scrollBoard(game, overrides = {}, bounds = {}) {
   const board = game.element("conjugationCometBoard");
-  board.getBoundingClientRect = () => ({ left: 10, top: 10, width: 700, height: 640 });
+  board.getBoundingClientRect = () => ({ left: 10, top: 10, width: 700, height: 640, ...bounds });
   const event = { type: "wheel", clientX: 600, clientY: 400, deltaY: 100, deltaX: 0,
     deltaMode: 0, timeStamp: 1000, bubbles: true, cancelable: true, ...overrides };
   (overrides.target || board).dispatchEvent(event);
@@ -1197,6 +1218,21 @@ test("scrolling anywhere on either half rotates only that strand without grading
   const targetBefore = game.offset("target");
   scrollBoard(game, { target: game.strandButtons("target")[0], clientX: 200 });
   assert.equal(game.offset("target"), (targetBefore + 1) % 6, "scrolling over a phrase also works");
+  game.controller.destroy();
+});
+
+test("a tall board preserves page scrolling while explicit controls still rotate without grading", async () => {
+  const game = await mountGame({ language: "arabic-standard", difficulty: 1 });
+  const before = { target: game.offset("target"), subject: game.offset("subject") };
+  const event = scrollBoard(game, {}, { height: game.window.innerHeight + 500 });
+  assert.equal(Boolean(event.defaultPrevented), false, "scrolling must reach the lower rows");
+  assert.equal(game.offset("target"), before.target);
+  assert.equal(game.offset("subject"), before.subject);
+  game.click(game.element("conjugationCometTargetPrev"));
+  game.advance(420);
+  assert.equal(game.offset("target"), (before.target + 1) % game.round().options.length);
+  assert.equal(game.offset("subject"), before.subject);
+  assert.equal(game.attempts().length, 0);
   game.controller.destroy();
 });
 

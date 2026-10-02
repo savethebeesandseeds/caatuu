@@ -43,6 +43,8 @@ Desktop.ini
 **/.godot/
 artifacts/
 tmp/
+# Local animation candidates served only by the gated Scenery lab
+/apps/games/lab/assets/walking-drafts/
 
 # Heavy model, training, and generated workspaces
 apps/languages/czech/dumps/

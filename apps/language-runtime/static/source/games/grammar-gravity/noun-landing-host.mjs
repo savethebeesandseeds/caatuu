@@ -177,8 +177,10 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     const targetText = session.item?.targetText || "";
     if (word.textContent !== targetText) word.textContent = targetText;
     word.lang = pack.targetLanguage;
+    word.dir = course.targetLanguage?.direction || "auto";
     element("gravityNounMeaning").textContent = session.item?.learnerBaseText || "";
     element("gravityNounMeaning").lang = pack.learnerBaseLanguage;
+    element("gravityNounMeaning").dir = course.sourceLanguage?.direction || "auto";
     const block = element("gravityNounBlock");
     block.hidden = false;
     block.classList.toggle("is-correct", settled && session.correct);

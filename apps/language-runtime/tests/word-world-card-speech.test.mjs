@@ -77,3 +77,13 @@ for (const blocked of ["submitted", "evidencePending", "busy"]) {
     assert.equal(game.calls.length, 0);
   });
 }
+
+test("a course without speech cannot preview words or sentences through the shared service", () => {
+  const game = fixture({ speech: false, answerSide: "source", locale: "la", text: "Corpus movētur." });
+  // A target-language prompt and hover mode would ordinarily permit sentence
+  // audio; even an available service must respect the course declaration.
+  game.state.translationMode = "hover";
+  game.context.toggleCzechSpeech("Corpus movētur.", "sentence");
+  game.context.toggleCzechSpeech("Corpus", "word");
+  assert.equal(game.calls.length, 0);
+});

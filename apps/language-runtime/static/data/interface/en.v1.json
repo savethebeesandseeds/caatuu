@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "locale": "en",
   "direction": "ltr",
-  "revision": "interface-en-39",
+  "revision": "interface-en-41",
   "messages": {
     "music.volume": "Music volume",
     "speech.volume": "Voice volume",
@@ -1286,6 +1286,8 @@
     "wordworld.word.meaning": "Selected word meaning",
     "wordworld.word.play": "Play selected target-language word aloud",
     "wordworld.word.selected": "Selected \"{word}\". Choose ↻ in Generation to continue with it.",
-    "wordworld.word.selectmeaning": "Select {word} and show its meaning"
+    "wordworld.word.selectmeaning": "Select {word} and show its meaning",
+    "languages.ar": "Modern Standard Arabic",
+    "languages.la": "Scientific Latin"
   }
 }

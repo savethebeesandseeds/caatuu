@@ -1,0 +1,366 @@
+{
+  "$schema": "../../../tools/language-packs/schemas/course-pack.v1.schema.json",
+  "schemaVersion": 1,
+  "id": "ar",
+  "directoryName": "arabic-standard",
+  "status": "development",
+  "brandLabel": "Caatuu",
+  "workspaceLabel": "Caatuu Arabic",
+  "routePrefix": "/ar",
+  "entryPath": "/ar/index.html",
+  "sourceLanguage": {
+    "id": "en",
+    "label": "English",
+    "nativeLabel": "English",
+    "shortCode": "EN",
+    "locale": "en",
+    "direction": "ltr",
+    "flagClass": "en-flag",
+    "flagSrc": "/assets/icons/english_flag.png"
+  },
+  "targetLanguage": {
+    "id": "ar",
+    "label": "Modern Standard Arabic",
+    "nativeLabel": "العربية الفصحى",
+    "shortCode": "AR",
+    "locale": "ar",
+    "script": "Arab",
+    "speechLocale": "ar",
+    "direction": "rtl",
+    "flagClass": "arabic-mark",
+    "flagSrc": "/assets/icons/arabic_mark.png"
+  },
+  "linguisticFeatures": [
+    "verb-conjugation",
+    "grammatical-agreement",
+    "grammatical-case"
+  ],
+  "games": [
+    "verb-lab",
+    "word-net",
+    "conjugation-comet",
+    "grammar-gravity",
+    "sound-quasar"
+  ],
+  "upcomingGames": [
+    "memory-moon"
+  ],
+  "launcher": {
+    "flagClass": "flag-icon"
+  },
+  "routes": {
+    "soundQuasar": "/language-runtime/static/games/sound-quasar.html",
+    "conjugationComet": "/language-runtime/static/games/conjugation-comet.html",
+    "grammarGravity": "/language-runtime/static/games/grammar-gravity.html",
+    "languageSelection": "/",
+    "home": "index.html",
+    "games": "index.html",
+    "verbNebula": "index.html?game=verb-lab",
+    "wordWorld": "index.html?game=word-net",
+    "settings": "index.html"
+  },
+  "storage": {
+    "namespace": "caatuu-ar",
+    "theme": "caatuu-ar.theme",
+    "fontSize": "caatuu-ar.font-size",
+    "learningPreferences": "caatuu-ar.learning.preferences.v1",
+    "learningPerformance": "caatuu-ar.learning.performance.v1",
+    "semanticLearningDatabase": "caatuu-ar.semantic-learning",
+    "verbMemory": "caatuu-ar.verb-memory.v3",
+    "wordWorldTranslationMode": "caatuu-ar.word-world.translation-mode",
+    "wordWorldRecentSentences": "caatuu-ar.word-world.recent-sentences.v1"
+  },
+  "cache": {
+    "prefix": "caatuu-ar-pwa-",
+    "setupFallback": "caatuu-ar-setup-v1"
+  },
+  "publication": {
+    "contract": "language-content-v1",
+    "concepts": "apps/languages/shared/english-concepts/word-world-ar-v1.json",
+    "realizations": "apps/languages/arabic-standard/content/word-world/starter-v1.realizations.json",
+    "learnerBaseRealizations": null,
+    "runtimeProjection": {
+      "policyId": "arabic-standard-word-world-v1",
+      "conceptsRuntime": "apps/language-runtime/static/data/english-concepts/word-world-ar-v1.json",
+      "targetRealizationsRuntime": "apps/languages/arabic-standard/static/data/games/word-world/content.json",
+      "learnerBaseRuntime": null,
+      "supplementalOutputs": {},
+      "manifest": "apps/languages/arabic-standard/static/data/games/word-world/manifest.json"
+    }
+  },
+  "capabilities": {
+    "llm": false,
+    "generation": false,
+    "chat": false,
+    "embeddings": true,
+    "semanticSearch": true,
+    "dictionary": false,
+    "memory": false,
+    "verbs": false,
+    "wordWorld": true,
+    "conjugationComet": true,
+    "offlineModels": false,
+    "speech": true,
+    "pronunciationGuides": false
+  },
+  "learningGoals": [
+    {
+      "id": "people-social",
+      "label": "People, feelings & cooperation",
+      "embeddingText": "Greet people, introduce yourself, talk about friendship and feelings, and cooperate with others.",
+      "categories": [
+        "first-contact",
+        "greetings",
+        "introductions",
+        "friendship",
+        "relationships",
+        "feelings",
+        "feelings-and-cooperation",
+        "communication",
+        "cooperation",
+        "cooperation-and-boundaries",
+        "celebrations"
+      ]
+    },
+    {
+      "id": "home-routines",
+      "label": "Home, family & routines",
+      "embeddingText": "Talk about home, family chores, clothing, daily routines and resting.",
+      "categories": [
+        "home",
+        "home-and-community",
+        "family-and-chores",
+        "daily-routines",
+        "clothing",
+        "body-and-rest",
+        "cabin-life"
+      ]
+    },
+    {
+      "id": "food-shopping",
+      "label": "Food, cooking & shopping",
+      "embeddingText": "Talk about food, cook meals and shop for everyday needs.",
+      "categories": [
+        "food",
+        "food-shopping",
+        "cooking",
+        "meals",
+        "shopping",
+        "money-and-payments"
+      ]
+    },
+    {
+      "id": "school-learning",
+      "label": "Learning, work & science",
+      "embeddingText": "Talk about school, learning, work, thinking, science and technology.",
+      "categories": [
+        "school",
+        "learning",
+        "learning-and-thinking",
+        "work",
+        "science",
+        "technology"
+      ]
+    },
+    {
+      "id": "travel-needs",
+      "label": "Travel & practical needs",
+      "embeddingText": "Travel around town, use public transport, ask permission, arrange deliveries and repairs, use public services and explain accessibility needs.",
+      "categories": [
+        "travel",
+        "public-transport",
+        "town",
+        "practical-needs",
+        "travel-and-practical-needs",
+        "requests-and-permission",
+        "post-and-delivery",
+        "repairs-and-services",
+        "public-services",
+        "accessibility",
+        "community"
+      ]
+    },
+    {
+      "id": "nature-weather",
+      "label": "Outdoors, nature & weather",
+      "embeddingText": "Explore forests and the seaside, describe animals, seasons and weather, and care for nature.",
+      "categories": [
+        "animals",
+        "nature",
+        "forest",
+        "seaside",
+        "outdoor-exploration",
+        "adventures",
+        "environment",
+        "nature-and-environment",
+        "weather",
+        "seasons",
+        "weather-and-seasons"
+      ]
+    },
+    {
+      "id": "plans-time",
+      "label": "Time, plans & experiences",
+      "embeddingText": "Discuss numbers and time, make plans, compare quantities and explain past experiences.",
+      "categories": [
+        "numbers-and-time",
+        "planning",
+        "plans-and-time",
+        "time-and-plans",
+        "past-experiences",
+        "comparison-and-quantity",
+        "comparison",
+        "explanations"
+      ]
+    },
+    {
+      "id": "stories-play",
+      "label": "Stories, play & creativity",
+      "embeddingText": "Talk about books, imaginary stories, games, puzzles, sports, music and art.",
+      "categories": [
+        "books-and-stories",
+        "playful-stories",
+        "play",
+        "leisure",
+        "games-and-puzzles",
+        "imagination",
+        "sports",
+        "music-and-art",
+        "creativity-and-feelings"
+      ]
+    },
+    {
+      "id": "language-structure",
+      "label": "Negation, agreement & reference",
+      "embeddingText": "Use Arabic negation, agreement in gender and number, possession, relative clauses and clear references in everyday situations.",
+      "categories": [
+        "negation",
+        "people-and-number",
+        "reference-and-possession",
+        "scope-and-reference"
+      ]
+    }
+  ],
+  "platforms": {
+    "browser": {
+      "enabled": true,
+      "pagesEnabled": false,
+      "entryPath": "/ar/index.html",
+      "backend": "static"
+    },
+    "android": {
+      "enabled": false,
+      "channels": []
+    }
+  },
+  "resources": {
+    "androidAssetCatalog": {
+      "kind": "file",
+      "path": "apps/languages/arabic-standard/android-assets.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "soundQuasarCatalog": {
+      "kind": "file",
+      "path": "apps/languages/arabic-standard/static/data/games/sound-quasar/content.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "sound-quasar-content-1"
+    },
+    "staticRoot": {
+      "kind": "directory",
+      "path": "apps/languages/arabic-standard/static",
+      "scope": "course",
+      "state": "present"
+    },
+    "appEntry": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/app/index.html",
+      "scope": "shared",
+      "state": "present"
+    },
+    "interfaceCatalog": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/data/interface/en.v1.json",
+      "scope": "shared",
+      "state": "present",
+      "revision": "interface-en-41"
+    },
+    "courseProfile": {
+      "kind": "file",
+      "path": "apps/languages/arabic-standard/static/source/shared/course-profile.js",
+      "scope": "course",
+      "state": "present"
+    },
+    "languageAdapter": {
+      "kind": "file",
+      "path": "apps/languages/arabic-standard/static/source/language/adapter.mjs",
+      "scope": "course",
+      "state": "present"
+    },
+    "webManifest": {
+      "kind": "file",
+      "path": "apps/languages/arabic-standard/static/manifest.webmanifest",
+      "scope": "course",
+      "state": "present"
+    },
+    "setupCatalog": {
+      "kind": "file",
+      "path": "apps/languages/arabic-standard/static/setup-assets.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "sourceLanguageFlag": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/assets/home/english_flag.png",
+      "scope": "shared",
+      "state": "present"
+    },
+    "embeddingCatalog": {
+      "kind": "file",
+      "path": "apps/languages/arabic-standard/static/data/embeddings/catalog.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "wordWorldManifest": {
+      "kind": "file",
+      "path": "apps/languages/arabic-standard/static/data/games/word-world/manifest.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "word-world-content-1"
+    },
+    "verbNebulaCatalog": {
+      "kind": "file",
+      "path": "apps/languages/arabic-standard/static/data/games/verb-nebula/content.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "conjugationCometCatalog": {
+      "kind": "file",
+      "path": "apps/languages/arabic-standard/static/data/games/conjugation-comet/content.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "conjugation-comet-content-1"
+    },
+    "grammarGravityCatalog": {
+      "kind": "file",
+      "path": "apps/languages/arabic-standard/static/data/games/grammar-gravity/content.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "grammar-gravity-content-1"
+    },
+    "grammarGravityNouns": {
+      "kind": "file",
+      "path": "apps/languages/arabic-standard/static/data/games/grammar-gravity/nouns.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "grammar-gravity-nouns-1"
+    },
+    "launcherFlag": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/assets/home/arabic_mark.png",
+      "scope": "shared",
+      "state": "present"
+    }
+  }
+}

@@ -1129,11 +1129,12 @@ test("launcher and course-profile compatibility views match the current consumer
     .filter((course) => ["active", "development"].includes(course.status));
   assert.deepEqual(expectedLauncher.languages.map(({ id }) => id), supportedCourses.map(({ id }) => id));
   for (const course of supportedCourses) {
-    assert.equal(course.platforms.browser.enabled, true, `${course.id} local browser`);
-    assert.equal(course.platforms.browser.pagesEnabled, true, `${course.id} public web`);
-    assert.equal(course.platforms.android.enabled, true, `${course.id} Android`);
     const language = expectedLauncher.languages.find(({ id }) => id === course.id);
     assert.equal(language.status, course.status, `${course.id} keeps its review status`);
+    assert.deepEqual(language.platforms.browser, {
+      enabled: course.platforms.browser.enabled,
+      entryPath: course.platforms.browser.entryPath
+    }, `${course.id} keeps its declared browser delivery`);
     assert.deepEqual(language.platforms.android, course.platforms.android);
   }
   assert.equal(expectedLauncher.browserSetup.entryPath, "/cz/index.html");
@@ -2048,9 +2049,10 @@ test("web and Android previews preserve draft licensing while active promotion r
   await validateCourseCatalog(loaded, { checkExistence: false });
   const registry = await generateLauncherRegistry(loaded);
   for (const { course } of loaded.courses.filter(({ course }) => course.status === "development")) {
-    assert.equal(course.platforms.browser.pagesEnabled, true, course.id);
-    assert.equal(course.platforms.android.enabled, true, course.id);
-    assert.equal(registry.languages.find(({ id }) => id === course.id).status, "development");
+    const language = registry.languages.find(({ id }) => id === course.id);
+    assert.equal(language.status, "development");
+    assert.equal(language.platforms.browser.enabled, course.platforms.browser.enabled);
+    assert.deepEqual(language.platforms.android, course.platforms.android);
   }
   const promotedSpanish = cloneLoaded(loaded);
   const spanish = promotedSpanish.courses.find(({ course }) => course.id === "es");

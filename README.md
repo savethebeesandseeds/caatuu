@@ -1,20 +1,23 @@
 # Caatuu
 
-> **Learn a language by entering its world.**
+> **Learn languages. Explore new worlds.**
 
 [![Repository checks](https://github.com/savethebeesandseeds/caatuu/actions/workflows/repository-ci.yml/badge.svg)](https://github.com/savethebeesandseeds/caatuu/actions/workflows/repository-ci.yml)
 [![License: AGPL-3.0-only](https://img.shields.io/badge/license-AGPL--3.0--only-blue.svg)](LICENSE)
 
-Caatuu is a local-first, open-source language-learning platform built around
-playful interactive worlds. It brings together stories, games, dictionaries,
-language models, and memorable characters so practice feels like exploration
-rather than another worksheet.
+Caatuu is a free, open-source language-learning app for guided practice with
+words, phrases, translation, and games. Explore illustrated sentences, connect
+words to meaning, and practise grammar in a playful world with Caatuu's macaw.
 
-The vision is bigger than any single course: **one welcoming universe where
-every language follows the same learning journey while keeping its own voice,
-personality, and natural way of expressing it.**
+Learning progress and preferences stay on your device. No account is required,
+and the app has no advertising or product analytics. Browser courses support
+offline practice after their required assets have been downloaded; Android
+packages provide the native offline experience for their included courses.
 
-![Caatuu language launcher](docs/assets/screenshots/caatuu-language-launcher.png)
+**[Open Caatuu](https://caatuu.waajacu.com/)** ·
+[Development guide](docs/DEVELOPMENT.md) · [Privacy notice](docs/PRIVACY.md)
+
+![Caatuu's current local landing page: Learn languages. Explore new worlds.](docs/assets/screenshots/caatuu-language-launcher.png)
 
 ## Language learning should feel alive
 
@@ -22,11 +25,19 @@ Caatuu is designed for curiosity. Discover words in context, connect them to
 images and meaning, practise grammar through play, and build familiarity by
 returning to places and characters you remember.
 
-- Explore vocabulary through illustrated scenes and generated sentences.
-- Turn meaning, recall, and grammar into interactive games.
-- Use dictionaries, retrieval, and offline-friendly intelligence together.
-- Learn on the web and, when a course manifest enables it, continue through the
-  native Android experience.
+- Explore sentences, images, translations, and individual word meanings in
+  **Word World**.
+- Build vocabulary in **Verb Nebula**, practise conjugation in **Conjugation
+  Comet**, and explore agreement in **Grammar Gravity**.
+- Use listening practice and device speech where the course supports them.
+- Track practice and progress locally, then return to the words and structures
+  you want to strengthen.
+- Learn in the browser or with the Android app, including offline practice once
+  setup is complete.
+
+Games, dictionaries, pronunciation aids, and optional model tools follow each
+course's declared capabilities. Every course uses the same application while
+retaining its own language, content, and learning goals.
 
 ## Inside the experience
 
@@ -47,16 +58,15 @@ returning to places and characters you remember.
 
 ## Any language, one universe
 
-Caatuu is not a Czech-only or Chinese-only application. One canonical
-application, layout, and game engine serves every course. Each language pack
-owns its reviewed learning content and may expose a different declared set of
-games and linguistic features, but it supplies them through the same manifest,
-adapter, content, and capability contracts instead of forking the app. English
-remains the immutable per-item audit and retrieval authority even when neither
-the learner base nor the target language is English.
+One shared application, layout, and game engine serves every course. Language
+packs provide their own authored content, adapters, games, and linguistic
+features through the [language-app contract](docs/LANGUAGE_APP_CONTRACT.md).
+The learner's base language selects the interface; shared English concepts
+provide the audit and semantic-search authority.
 
-Five courses are registered for browser, public Pages, and Android source delivery.
-Registration preserves the separate review, licensing, and publication gates:
+Seven courses are registered in the local browser catalog. Five enable Pages
+and Android delivery in their source manifests; Arabic and Scientific Latin
+are local previews with public and Android delivery disabled.
 
 | Learner language | Learning language | Route | Course status |
 | --- | --- | --- | --- |
@@ -65,19 +75,29 @@ Registration preserves the separate review, licensing, and publication gates:
 | English | Spanish | `/es/` | Development preview |
 | Spanish | English (American) | `/es-en/` | Development preview |
 | English | Norwegian Bokmål | `/nb/` | Development preview |
+| English | Modern Standard Arabic | `/ar/` | Local development preview |
+| English | Scientific Latin (Neo-Latin) | `/la/` | Local development preview |
 
-Czech is the first active reference course and the experience shown in these
-screenshots. Development courses remain `noindex` previews on Pages,
-with their recorded review and licensing status preserved. Preview delivery
-does not promote them to active courses or clear pending reviews. The modern
-courses use the shared English concept authority and their own target-language
-realizations. Earlier Chinese work remains preserved as history and is not a
-dependency of the current Mandarin course. More languages can join through the
-same manifest, adapter, content, and capability contracts.
+Czech is the active reference course and the course shown in the game
+screenshots. Other courses retain their development status and pending reviews;
+Pages-enabled previews remain `noindex`. This table describes the current
+source checkout. Courses available on the public website or in an installed APK
+depend on the version that was published.
 
 The [Norwegian course report](docs/NORWEGIAN_BOKMAL_COURSE_20260909.md) records its
 expanded banks, Bokmål conventions, validation, and remaining review. Registering
-Norwegian does not add it to an already published APK.
+Norwegian does not add it to an already published APK. The
+[Arabic course note](docs/ARABIC_COURSE.md) records its substantial first-course
+scope and the reviews required before distribution. No Arabic APK has been built.
+
+The [Scientific Latin course note](docs/LATIN_SCIENTIFIC_COURSE.md)
+introduces Scientific Neo-Latin through Word World, vocabulary, conjugation,
+and agreement practice, with 2,500 sentences and 600 verb pairs. Qualified
+Latinist review and curriculum distribution approval remain pending; speech
+and listening are not enabled for this course.
+
+New courses follow the [language-pack guide](tools/language-packs/README.md).
+Registration, content review, licensing, and publication remain separate steps.
 
 ## Replicate the development environment
 
@@ -141,6 +161,26 @@ docker exec --interactive --tty --workdir /workspace caatuu-dev bash --login
 If `docker run` reports that `caatuu-dev` already exists, use `docker start`;
 do not replace the existing environment merely to enter it.
 
+Start the local app in that same container:
+
+```powershell
+docker exec --interactive --tty --workdir /workspace caatuu-dev `
+  bash apps/server/run.sh start --release
+```
+
+This builds the locked Rust server and runs it in the foreground. Keep that
+terminal open, then visit [http://127.0.0.1:8765/](http://127.0.0.1:8765/).
+From another terminal, inspect or stop the existing server with:
+
+```powershell
+docker exec --workdir /workspace caatuu-dev bash apps/server/run.sh status
+docker exec --workdir /workspace caatuu-dev bash apps/server/run.sh stop
+```
+
+Builds, tests, ML work, and Android toolchains stay inside the Linux container.
+See the [development guide](docs/DEVELOPMENT.md) for the maintained runtime,
+tooling, and release workflows.
+
 ## Built openly
 
 Caatuu is an active development preview growing in public. You are welcome to
@@ -151,6 +191,7 @@ process settle; the contribution guide records the current policy.
 - [See how Caatuu is designed](docs/ARCHITECTURE.md)
 - [Read the language-app vision](docs/LANGUAGE_APP_CONTRACT.md)
 - [Set up a development environment](docs/DEVELOPMENT.md)
+- [Inspect course content and learning behavior](tools/learning-evaluation/README.md)
 - [Read the contribution policy](.github/CONTRIBUTING.md)
 
 First-party software, developer documentation, and Caatuu-authored English,

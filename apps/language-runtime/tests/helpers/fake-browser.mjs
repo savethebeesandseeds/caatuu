@@ -106,6 +106,7 @@ export class FakeElement {
     this.dataset = {};
     this.style = {
       setProperty(name, value) { this[name] = String(value); },
+      getPropertyValue(name) { return this[name] || ""; },
       removeProperty(name) { delete this[name]; }
     };
     this.classList = new FakeClassList();

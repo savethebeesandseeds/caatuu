@@ -41,6 +41,11 @@ async function mountSequence({ language = "spanish", nounReady = true, phraseFai
     sourceLanguage: { id: spanishBase ? "es" : "en", locale: spanishBase ? "es-ES" : "en" },
     targetLanguage: { id: spanishBase ? "en" : language === "czech" ? "cs" : "es", locale: spanishBase ? "en-US" : language === "czech" ? "cs-CZ" : "es-ES", label: spanishBase ? "English" : language === "czech" ? "Czech" : "Spanish" },
     capabilities: { speech: true } };
+  if (language === "arabic-standard") {
+    const manifest = await json(new URL("../../languages/arabic-standard/course.json", import.meta.url));
+    Object.assign(course, { id: manifest.id, routePrefix: manifest.routePrefix,
+      sourceLanguage: manifest.sourceLanguage, targetLanguage: manifest.targetLanguage });
+  }
   const browser = createBrowserHarness({ course });
   const markup = await readFile(new URL("../static/games/grammar-gravity.html", import.meta.url), "utf8");
   const stack = [browser.document.body];
@@ -181,6 +186,23 @@ async function mountSequence({ language = "spanish", nounReady = true, phraseFai
     async finishPhrase() { finishPhrase?.(); controller = await mounting; } };
 }
 
+
+test("Arabic agreement preserves RTL target phrases through meaning, form and recap", async () => {
+  const game = await mountSequence({ language: "arabic-standard" });
+  assert.deepEqual(game.errors, []);
+  assert.equal(game.controller.ready(), true);
+  assert.equal(game.element("gravityAdjectiveNoun").dir, "rtl");
+  assert.equal(game.element("gravityAdjectiveMeaning").dir, "ltr");
+  game.answerStage();
+  for (const button of game.element("gravityAdjectiveChoices").querySelectorAll("button")) {
+    assert.equal(button.dir, "rtl");
+  }
+  const target = game.state.adjectiveGame.snapshot().current.targetText;
+  game.answerStage();
+  assert.equal(game.element("gravityAdjectiveNoun").dir, "rtl");
+  assert.equal(game.element("gravityAdjectiveNoun").textContent, target);
+  game.controller.destroy();
+});
 
 for (const language of ["czech","spanish","english-from-spanish"]) {
   test(`${language} renders all three modern stages and reports stable evidence`,async()=>{
