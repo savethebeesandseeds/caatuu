@@ -318,6 +318,27 @@
         "bytes": 69683200,
         "sha256": "244f707d83743370158c0cd01753abba10593240833309d67b0e7aacbacb18a7"
       }
+    },
+    {
+      "versionCode": 179,
+      "versionName": "0.1.27",
+      "sourceRevision": "5263521f998ae849a998c761f3ca2a610802870a",
+      "manifest": {
+        "bytes": 1041,
+        "sha256": "f9133de2da33d9cb0764a72fcc73fa0a0d8279bb9c07da212d54f25609a733d1"
+      },
+      "apk": {
+        "bytes": 3473488,
+        "sha256": "9888219db1cbc1d56fca71c7d4e6673ad205a6a610575308ee1e87b9f6efb750"
+      },
+      "receipt": {
+        "bytes": 1360,
+        "sha256": "006059e6f712df01670c94c78f9708574e6f22ac7b21ce6a0b86e762622abfa8"
+      },
+      "setup": {
+        "bytes": 82728960,
+        "sha256": "2fdac2cb9902ad903a9fb48fae6317c5569cd2da611009f8d5767f4088972ffa"
+      }
     }
   ],
   "setupEntries": [
@@ -325,6 +346,9 @@
     "assets/courses/zh/setup-assets.json",
     "assets/courses/es/setup-assets.json",
     "assets/courses/es-en/setup-assets.json",
-    "assets/courses/nb/setup-assets.json"
+    "assets/courses/nb/setup-assets.json",
+    "assets/courses/ar/setup-assets.json",
+    "assets/courses/la/setup-assets.json",
+    "assets/courses/ka/setup-assets.json"
   ]
 }
