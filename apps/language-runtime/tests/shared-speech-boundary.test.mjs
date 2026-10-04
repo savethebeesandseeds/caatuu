@@ -21,7 +21,7 @@ const mandarinCourse = JSON.parse(await readFile(
   "utf8"
 ));
 
-function browserSpeechContext(initialStorage = {}) {
+function browserSpeechContext(initialStorage = {}, courseOverride = {}) {
   let spokenUtterance = null;
   let synthesisSpeakCount = 0;
   const storage = new Map(Object.entries(initialStorage).map(([key, value]) => [key, String(value)]));
@@ -63,7 +63,8 @@ function browserSpeechContext(initialStorage = {}) {
         ...mandarinCourse.targetLanguage,
         locale: "zh-Hans",
         speechLocale: "zh-CN"
-      }
+      },
+      ...courseOverride
     },
     CustomEvent: class FakeCustomEvent {
       constructor(type, init = {}) {
@@ -104,6 +105,47 @@ function browserSpeechContext(initialStorage = {}) {
     synthesisSpeakCount: () => synthesisSpeakCount,
     spokenUtterance: () => spokenUtterance
   };
+}
+
+for (const backend of ["browser", "android"]) {
+  test(`${backend} uses the standard speech provider for Georgian, Arabic and Latin`, async () => {
+    for (const [directory, text] of [
+      ["georgian", "გამარჯობა."],
+      ["arabic-standard", "مَرْحَبًا."],
+      ["latin-scientific", "Corpus movētur."]
+    ]) {
+      const course = JSON.parse(await readFile(new URL(`../../languages/${directory}/course.json`, import.meta.url), "utf8"));
+      assert.equal(course.capabilities.speech, true);
+      const app = browserSpeechContext({}, course);
+      const locale = course.targetLanguage.speechLocale;
+      const voice = { lang: locale, voiceURI: "device-voice", name: "Device voice", localService: true };
+      app.context.speechSynthesis.getVoices = () => [voice];
+      const requests = [];
+      if (backend === "android") app.context.CaatuuRuntime = { env: "android", speech: {
+        async status() { return { available: true, voices: [{ id: "device-voice", locale, name: voice.name, localService: true }] }; },
+        async speak(value, options) { requests.push({ value, options }); return { outcome: "completed" }; },
+        async stop() { return { stopped: true }; }
+      } };
+      vm.runInNewContext(chromeSource, app.context);
+      const chrome = app.context.CaatuuChrome;
+      assert.equal((await chrome.listSpeechVoiceOptions()).voices[0].id, "device-voice");
+      await chrome.speakText(text, { rate: 0.6 });
+      if (backend === "android") {
+        assert.equal(requests[0].value, text);
+        assert.equal(requests[0].options.locale, locale);
+        assert.equal(requests[0].options.rate, 0.6);
+        assert.equal(app.synthesisSpeakCount(), 0);
+      } else {
+        assert.equal(app.spokenUtterance().text, text);
+        assert.equal(app.spokenUtterance().lang, locale);
+        assert.equal(app.spokenUtterance().rate, 0.6);
+        assert.equal(app.spokenUtterance().voice, voice);
+      }
+      chrome.setSpeechMuted(true);
+      assert.equal((await chrome.speakText(text)).outcome, "muted");
+      assert.equal(backend === "android" ? requests.length : app.synthesisSpeakCount(), 1);
+    }
+  });
 }
 
 test("shared speech uses zh-CN and exposes generic APIs with Czech compatibility aliases", async () => {

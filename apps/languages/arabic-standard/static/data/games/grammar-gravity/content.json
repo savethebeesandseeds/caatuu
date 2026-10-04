@@ -16,9 +16,9 @@
   },
   "license": {
     "origin": "caatuu-first-party-authored",
-    "status": "release-review-required",
-    "spdxExpression": null,
-    "notes": "Original curriculum; owner distribution decision remains pending."
+    "status": "release-cleared",
+    "spdxExpression": "AGPL-3.0-only",
+    "notes": "Caatuu project owner approved AGPL-3.0-only and distribution on 2026-10-04. See docs/CURRICULUM_LICENSE_APPROVAL_20261004.json. Language and pronunciation reviews remain pending."
   },
   "presentation": {
     "errorTitle": "Grammar Gravity could not load",

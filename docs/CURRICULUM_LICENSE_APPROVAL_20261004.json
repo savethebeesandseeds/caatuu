@@ -1,0 +1,766 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-04T17:42:42.202Z",
+  "authority": "Caatuu project owner",
+  "approvalKind": "License and distribution authorization; not linguistic review",
+  "spdxExpression": "AGPL-3.0-only",
+  "authorizationPrompt": "Do you authorize distributing Caatuu’s original Arabic, Latin and Georgian curriculum under AGPL-3.0-only, the license already used for the other first-party courses? This is needed to include them in the published APK; language and pronunciation reviews remain pending.",
+  "ownerResponse": "Yes, use AGPL-3.0-only and include all three",
+  "baseSourceRevision": "14de012316e0699decc9ba704d94588b9f530fee",
+  "scope": "Original Caatuu-authored English-to-Modern Standard Arabic, English-to-Scientific Latin and English-to-Modern Standard Georgian curricula, including English concepts, target realizations, vocabulary, conjugation and agreement exercises.",
+  "exclusions": "No replacement of third-party software, model, dictionary, corpus, artwork, audio or font terms. No language, pronunciation or physical-device approval is claimed.",
+  "nativeReviewUnchanged": true,
+  "learningRecordsUnchanged": true,
+  "sources": [
+    {
+      "path": "apps/languages/arabic-standard/content/word-world/content.json",
+      "courseId": "ar",
+      "beforeSha256": "882180aa48c3f71eb5dbce54cbaeb6af69a6aca2406b48e6ec5ba5d0823dc513",
+      "afterSha256": "3538e7351c499a608af8998ba3fde3943d858d883bf6b54b3c09f13cb1bd9b59",
+      "licenseChanges": [
+        {
+          "field": "metadata.english.license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-10-04T17:42:42.202Z"
+          }
+        },
+        {
+          "field": "metadata.target.license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-10-04T17:42:42.202Z"
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/arabic-standard/content/word-world/starter-v1.realizations.json",
+      "courseId": "ar",
+      "beforeSha256": "08c15f6f20d3e08299bb6a2974725ea90070b67ab5da7346ac76f71ab0eb80cc",
+      "afterSha256": "0e68e342ab6f30b1bc1690db147869f77a8a4bb0b075d1470e4ba7676008e54c",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-10-04T17:42:42.202Z"
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/arabic-standard/static/data/games/word-world/content.json",
+      "courseId": "ar",
+      "beforeSha256": "81720392489172435604c73a02ca49294a69fdb27eacd8820985f6b3d05cfd32",
+      "afterSha256": "efcf897e0c5764c7a1726432e1b2bfe9158f9d0d3b1b2f87acb333eb6546b9ee",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-10-04T17:42:42.202Z"
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/arabic-standard/static/data/games/word-world/manifest.json",
+      "courseId": "ar",
+      "beforeSha256": "b0611414f9355e2935d95052bd225f49902bc7c0ac392eacf548c2448dcea3ec",
+      "afterSha256": "ec6171d19dcef1ba30b09d9054c8cbe39bfac118966c9178deb094cc09ed7f99",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-10-04T17:42:42.202Z"
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/arabic-standard/static/data/games/conjugation-comet/content.json",
+      "courseId": "ar",
+      "beforeSha256": "340aae2ef4bd531a52b13d04f1bc9eb4b665a00768c7355f16b18f597389ba34",
+      "afterSha256": "81485c7e81c70c87eef0502d2cb9d0772ca4864164fb957e1663a4d56272c9f3",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "first-party-authored",
+            "status": "release-review-required",
+            "spdx": null,
+            "noteEnglish": "Original curriculum; owner distribution decision remains pending."
+          },
+          "approvedLicense": {
+            "origin": "first-party-authored",
+            "status": "release-cleared",
+            "spdx": "AGPL-3.0-only",
+            "noteEnglish": "Caatuu project owner approved AGPL-3.0-only and distribution on 2026-10-04. See docs/CURRICULUM_LICENSE_APPROVAL_20261004.json. Language and pronunciation reviews remain pending."
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/arabic-standard/static/data/games/grammar-gravity/content.json",
+      "courseId": "ar",
+      "beforeSha256": "c755fa942409890073e6c4f1e71b689cc0096f5992262049a4341a06bfec24cd",
+      "afterSha256": "6fff618b45cd9ecfc69871fbc68f65f05596801ff5b85b4ea613940879516d60",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "notes": "Original curriculum; owner distribution decision remains pending."
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "notes": "Caatuu project owner approved AGPL-3.0-only and distribution on 2026-10-04. See docs/CURRICULUM_LICENSE_APPROVAL_20261004.json. Language and pronunciation reviews remain pending."
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/arabic-standard/static/data/games/grammar-gravity/nouns.json",
+      "courseId": "ar",
+      "beforeSha256": "f52129b6c360184d16a90d50fd6bc63d64e6b86f5b9028b67afa1f02ba4d16b5",
+      "afterSha256": "1d20db8a77e95b954409256bf8483607be57333d3643d4b8f33a4cf6c2cb9212",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "notes": "Original curriculum; owner distribution decision remains pending."
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "notes": "Caatuu project owner approved AGPL-3.0-only and distribution on 2026-10-04. See docs/CURRICULUM_LICENSE_APPROVAL_20261004.json. Language and pronunciation reviews remain pending."
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/latin-scientific/content/word-world/content.json",
+      "courseId": "la",
+      "beforeSha256": "e3bcb7031c67ef791c8b7bbf6b3b065b9bd149f3b58105b95927ceea7d3ef244",
+      "afterSha256": "98ce7a72268b1e4ba86b54f83422a0eeb3e560b3112f673ac03de35ebcdcfb6c",
+      "licenseChanges": [
+        {
+          "field": "metadata.english.license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-10-04T17:42:42.202Z"
+          }
+        },
+        {
+          "field": "metadata.target.license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-10-04T17:42:42.202Z"
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/latin-scientific/content/word-world/starter-v1.realizations.json",
+      "courseId": "la",
+      "beforeSha256": "77691bbb642ff2c01bf5dea6ab227f1b4ffdb4d04177cba0229ebd8cfee39f3d",
+      "afterSha256": "60bdb3abdd1c6aaeb798f16f653e4436497b689908bf33757f9354bba04f3f37",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-10-04T17:42:42.202Z"
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/latin-scientific/static/data/games/word-world/content.json",
+      "courseId": "la",
+      "beforeSha256": "5a75cfa8414e3696e962a4958fcb7635772ad887014ad111718f996c68f2bcea",
+      "afterSha256": "701badd59bdeac813d3c7651f3ee5011938055c1dba7c2fa493078f6ed17315c",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-10-04T17:42:42.202Z"
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/latin-scientific/static/data/games/word-world/manifest.json",
+      "courseId": "la",
+      "beforeSha256": "9682baacbd552473de6b4855e9dd1cf23e04a0ca53f006d57e00ae850b37dabe",
+      "afterSha256": "4e29e560903a6ed1c80dcb117ae995c7d67b743e478d6095da68cb9856c7b6dd",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-10-04T17:42:42.202Z"
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/latin-scientific/static/data/games/conjugation-comet/content.json",
+      "courseId": "la",
+      "beforeSha256": "88034af8e7f60dad7e2916f2aebd4ed350bba81b7cb9b34352e52cb716bf398a",
+      "afterSha256": "dba8f42a1d0303b5303ba10f841f5c0269a17101d94b1614d1a1bfc003847bef",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "first-party-authored",
+            "status": "release-review-required",
+            "spdx": null,
+            "noteEnglish": "Original curriculum; distribution review remains pending."
+          },
+          "approvedLicense": {
+            "origin": "first-party-authored",
+            "status": "release-cleared",
+            "spdx": "AGPL-3.0-only",
+            "noteEnglish": "Caatuu project owner approved AGPL-3.0-only and distribution on 2026-10-04. See docs/CURRICULUM_LICENSE_APPROVAL_20261004.json. Language and pronunciation reviews remain pending."
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/latin-scientific/static/data/games/grammar-gravity/content.json",
+      "courseId": "la",
+      "beforeSha256": "e1a1dced987f189fe0664e8fddd866936b7d5b83811cdd9bc03cb9c407658fea",
+      "afterSha256": "ea47ae7e1ee50e2ed63625e6c6c1b43aa3d1cac32537bc1df65d63d21f38bb40",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "notes": "Original curriculum; owner distribution review remains pending."
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "notes": "Caatuu project owner approved AGPL-3.0-only and distribution on 2026-10-04. See docs/CURRICULUM_LICENSE_APPROVAL_20261004.json. Language and pronunciation reviews remain pending."
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/latin-scientific/static/data/games/grammar-gravity/nouns.json",
+      "courseId": "la",
+      "beforeSha256": "72ccfb63686b07b149afece58630bba09dcee17c3690ea7a9949434a4d2d55ae",
+      "afterSha256": "134a930fa834eac69f5c3b0bb740e06108c62c1e4b57066ca76972438e0bbdf0",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "notes": "Original curriculum; owner distribution review remains pending."
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "notes": "Caatuu project owner approved AGPL-3.0-only and distribution on 2026-10-04. See docs/CURRICULUM_LICENSE_APPROVAL_20261004.json. Language and pronunciation reviews remain pending."
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/georgian/content/word-world/content.json",
+      "courseId": "ka",
+      "beforeSha256": "f6236e5220406cbb645b67095bfe7363a4309100e3eab4f2c97d7e57379d00e9",
+      "afterSha256": "285c085203abf051576de5c036aa8b8fde9c2196ba8ac980f87319272665424f",
+      "licenseChanges": [
+        {
+          "field": "metadata.english.license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-10-04T17:42:42.202Z"
+          }
+        },
+        {
+          "field": "metadata.target.license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-10-04T17:42:42.202Z"
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/georgian/content/word-world/starter-v1.realizations.json",
+      "courseId": "ka",
+      "beforeSha256": "6432f608fc29461ac7ac09f90f53888f0a87c8506bc072eae484111464f4a64a",
+      "afterSha256": "c20f6a065d02f6d93793886f2afc67d1157868901193db5d7b055e6f3d894626",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-10-04T17:42:42.202Z"
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/georgian/static/data/games/word-world/content.json",
+      "courseId": "ka",
+      "beforeSha256": "d66192650426291adae1c0eecd0afc0a0dd5b032a8cd2b8f00837db1077664d1",
+      "afterSha256": "0b54deb20424e801beaba5d72aca2574e4a81dede1f1223304d3626c62dc2817",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-10-04T17:42:42.202Z"
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/georgian/static/data/games/word-world/manifest.json",
+      "courseId": "ka",
+      "beforeSha256": "390e66fa2c9e40ed3ad3cc86e59ce4fad0606392f9f6966841e3a99f5711e26b",
+      "afterSha256": "7e2cc7256b0fc53a4fc09c69d871f128108742c9614a957ab237b31ac643d147",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-10-04T17:42:42.202Z"
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/georgian/static/data/games/conjugation-comet/content.json",
+      "courseId": "ka",
+      "beforeSha256": "afdbbc6cee4f5139424d8eec3e17549b2d3206e60225398ca8527db5041b41fe",
+      "afterSha256": "a713274bd8c4ff822ab931921a5cb94b71ca71b38471f3ef1840c0954d17176a",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "first-party-authored",
+            "status": "release-review-required",
+            "spdx": null,
+            "noteEnglish": "Original development draft; distribution review pending."
+          },
+          "approvedLicense": {
+            "origin": "first-party-authored",
+            "status": "release-cleared",
+            "spdx": "AGPL-3.0-only",
+            "noteEnglish": "Caatuu project owner approved AGPL-3.0-only and distribution on 2026-10-04. See docs/CURRICULUM_LICENSE_APPROVAL_20261004.json. Language and pronunciation reviews remain pending."
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/georgian/static/data/games/grammar-gravity/content.json",
+      "courseId": "ka",
+      "beforeSha256": "f8cf093750d96d668b1b92da4bf10f2ef7371b06611cfd2190f946b3f4e84e77",
+      "afterSha256": "1deb50aa5e0d9535202ac70907fbe649d1d2aa313a0c15481872411a984a3185",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "notes": "Original development draft; distribution review pending."
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "notes": "Caatuu project owner approved AGPL-3.0-only and distribution on 2026-10-04. See docs/CURRICULUM_LICENSE_APPROVAL_20261004.json. Language and pronunciation reviews remain pending."
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/georgian/static/data/games/grammar-gravity/nouns.json",
+      "courseId": "ka",
+      "beforeSha256": "5e7cdeb04875b66cc4740d2a1347778e3035c64cd8547f3d996f6d5e4c1ed8b5",
+      "afterSha256": "462073486e4eacaec9a0bb4ffa3689c235a5fa11d361bec5eb8a6a7833c42348",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "notes": "Original development draft; distribution review pending."
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "notes": "Caatuu project owner approved AGPL-3.0-only and distribution on 2026-10-04. See docs/CURRICULUM_LICENSE_APPROVAL_20261004.json. Language and pronunciation reviews remain pending."
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/shared/english-concepts/word-world-ar-v1.json",
+      "courseId": "ar",
+      "beforeSha256": "da4f6e4cd97e3eb30233353b8c8abe0fb89aba99a3262d8428b1bf76d5a382b5",
+      "afterSha256": "6c688a2d677222ab789914ff55036b582d178925cc843330b6ff2d9fb75c1738",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-10-04T17:42:42.202Z"
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/language-runtime/static/data/english-concepts/word-world-ar-v1.json",
+      "courseId": "ar",
+      "beforeSha256": "aeb9436aaae8a91e1beeafe649fa0a50e8172c5e162d6729ce151a4f69b6c33a",
+      "afterSha256": "8e66a5a8e2606812e04ef3e592e26793d11a39aed7eb034c6809ecb7d5811e9c",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-10-04T17:42:42.202Z"
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/shared/english-concepts/word-world-la-v1.json",
+      "courseId": "la",
+      "beforeSha256": "6854d0fa1c1588fd891537098534d953edb5b706c8ea30a3b4b045bbdf4dbd29",
+      "afterSha256": "aaf374a2137d625a19686f41e22f730360bd355a244a626ad3b63e88e5800f08",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-10-04T17:42:42.202Z"
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/language-runtime/static/data/english-concepts/word-world-la-v1.json",
+      "courseId": "la",
+      "beforeSha256": "ec4fab041ed272d7b86c9f9c6c3cb004dfb0843da77bc8d34245bae6f1621b60",
+      "afterSha256": "392e546e7fd53e1aaba5a356f312fa0e551c9d2db24ad3906e06975e1fbe3d37",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-10-04T17:42:42.202Z"
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/languages/shared/english-concepts/word-world-ka-v1.json",
+      "courseId": "ka",
+      "beforeSha256": "f6980c2517f035ae850c4e1c0f1ccec4775d69ba85058eb54ad77a7725f12afd",
+      "afterSha256": "ccc17ea45f239681b74ff7b814b5cc3373b1672d733a955fcbb858e65e0ed123",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-10-04T17:42:42.202Z"
+          }
+        }
+      ]
+    },
+    {
+      "path": "apps/language-runtime/static/data/english-concepts/word-world-ka-v1.json",
+      "courseId": "ka",
+      "beforeSha256": "9cfdb7eea6055b701767eeaa36925ea9791e62ce689fa77ec1840d0699b5ffb9",
+      "afterSha256": "999aaf5fd47d405a504f82da0b08161c2195aedd1537e89d666d8aa961aec4a4",
+      "licenseChanges": [
+        {
+          "field": "license",
+          "previousLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-review-required",
+            "spdxExpression": null,
+            "sourceReference": null,
+            "reviewedBy": null,
+            "reviewedAt": null
+          },
+          "approvedLicense": {
+            "origin": "caatuu-first-party-authored",
+            "status": "release-cleared",
+            "spdxExpression": "AGPL-3.0-only",
+            "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+            "reviewedBy": "Caatuu project owner",
+            "reviewedAt": "2026-10-04T17:42:42.202Z"
+          }
+        }
+      ]
+    }
+  ]
+}

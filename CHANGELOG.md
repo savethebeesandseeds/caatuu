@@ -5,6 +5,18 @@ governed beta or stable release.
 
 ## Unreleased
 
+### Android 0.1.27 (179): Arabic, Scientific Latin and Georgian
+
+- Include all eight registered courses in the Android course chooser. Add Modern
+  Standard Arabic, Scientific Latin and Modern Standard Georgian, each with
+  2,500 Word World sentences and 600 verb-meaning pairs.
+- Use the existing browser/Android device speech provider for every course;
+  remove the experimental speech engine and retain shared voice and mute controls.
+- Refresh course flags, Georgian interface labels and the offline course assets.
+- Record the owner's AGPL-3.0-only curriculum distribution approval. The three
+  new courses remain development content with language and pronunciation reviews
+  pending. Physical-device installation and update testing remain unverified.
+
 ### Android 0.1.26 (178): consistent interactions and Chinese reading guides
 
 - Unify tap and swipe handling, preserve normal scrolling and cancellation,

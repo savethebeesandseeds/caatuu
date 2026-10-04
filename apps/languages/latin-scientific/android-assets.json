@@ -8,6 +8,10 @@
       "embeddings": {
         "implementation": "webview-english-minilm-v1",
         "resource": "embeddingCatalog"
+      },
+      "speech": {
+        "implementation": "android-text-to-speech-v1",
+        "localeSource": "targetLanguage.speechLocale"
       }
     }
   },

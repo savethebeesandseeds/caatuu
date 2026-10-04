@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "locale": "es-ES",
   "direction": "ltr",
-  "revision": "interface-es-16",
+  "revision": "interface-es-17",
   "messages": {
     "music.volume": "Volumen de la música",
     "speech.volume": "Volumen de la voz",
@@ -1288,6 +1288,7 @@
     "wordworld.word.selected": "Has seleccionado «{word}». Elige ↻ en Generación para continuar con ella.",
     "wordworld.word.selectmeaning": "Seleccionar {word} y mostrar su significado",
     "languages.ar": "Árabe estándar moderno",
-    "languages.la": "Latín científico"
+    "languages.la": "Latín científico",
+    "languages.ka": "Georgiano"
   }
 }

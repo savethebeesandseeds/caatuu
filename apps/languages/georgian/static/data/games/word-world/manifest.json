@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "caatuu-word-world-runtime-manifest-v2",
+  "courseId": "ka",
+  "corpusVersion": "starter-v1",
+  "mode": "authored",
+  "sessionProvider": {
+    "kind": "authored-realizations"
+  },
+  "features": {
+    "wordMeanings": true
+  },
+  "sourceConceptCatalog": "/language-runtime/static/data/english-concepts/word-world-ka-v1.json",
+  "realizationFile": "content.json",
+  "recordCount": 2500,
+  "targetLanguage": "ka",
+  "mediationLanguage": "en",
+  "tokenization": "authored",
+  "review": {
+    "status": "native-review-required",
+    "pronunciationApproved": false,
+    "notes": "Original Modern Standard Georgian teaching examples authored and self-reviewed by AI. Independent native Georgian review remains pending. Mkhedruli is the teaching script; no approved pronunciation or audio is claimed. Verb vocabulary uses masdars (verbal nouns), including explicitly labelled practical verb phrases, rather than claiming Georgian has English-style infinitives."
+  },
+  "capabilities": {
+    "llm": false,
+    "generation": false,
+    "chat": false,
+    "embeddings": true,
+    "semanticSearch": true,
+    "dictionary": false,
+    "wordMeanings": true,
+    "speech": true,
+    "pronunciationGuides": false,
+    "wordWorld": true
+  },
+  "embeddingPolicy": {
+    "inputLanguage": "en",
+    "inputField": "embeddingText",
+    "targetTextAllowed": false,
+    "modelId": "all-minilm-l6-v2-qint8-v0.1",
+    "fallback": "deterministic-lexical"
+  },
+  "license": {
+    "origin": "caatuu-first-party-authored",
+    "status": "release-cleared",
+    "spdxExpression": "AGPL-3.0-only",
+    "sourceReference": "docs/LICENSING.md#first-party-curriculum",
+    "reviewedBy": "Caatuu project owner",
+    "reviewedAt": "2026-10-04T17:42:42.202Z"
+  }
+}

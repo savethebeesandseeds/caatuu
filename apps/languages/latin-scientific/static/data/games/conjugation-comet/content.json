@@ -18,9 +18,9 @@
   },
   "license": {
     "origin": "first-party-authored",
-    "status": "release-review-required",
-    "spdx": null,
-    "noteEnglish": "Original curriculum; distribution review remains pending."
+    "status": "release-cleared",
+    "spdx": "AGPL-3.0-only",
+    "noteEnglish": "Caatuu project owner approved AGPL-3.0-only and distribution on 2026-10-04. See docs/CURRICULUM_LICENSE_APPROVAL_20261004.json. Language and pronunciation reviews remain pending."
   },
   "authority": {
     "kind": "authored-finite-catalog",

@@ -2,8 +2,9 @@
 
 The local `/ar/` development course delivers the agreed first-course scope:
 2,500 unique Word World sentences and 600 distinct verb pairs. It uses the
-shared application and remains pending independent linguistic, audible speech
-and owner distribution review. No APK build or public deployment was performed.
+shared application and remains pending independent linguistic and audible speech
+review. The original onboarding did not build or deploy an APK. Curriculum
+distribution is now approved for the eight-course Android bundle.
 
 ## Architecture and content authority
 
@@ -57,13 +58,16 @@ Hanzi/pinyin contract; Memory Moon is not implemented. Those games stay excluded
 
 Local browser delivery and its offline graph are prepared. The Android source
 allowlist and provider declarations are present, including the target speech
-locale; Android enablement and public Pages delivery remain off. Browser review
+locale. Android delivery is enabled for the eight-course version 179 bundle;
+public Pages delivery remains off. Browser review
 verified RTL targets, LTR cues and all 13 conjugation rows with reachable controls
-at normal and narrow widths. This browser has no ready Arabic speech voice, so
-audible Arabic has not been verified.
+at normal and narrow widths. Audio uses the shared browser/Android device speech
+provider. This browser has no enumerated Arabic voice; audible Arabic remains
+dependent on device support. Pronunciation review remains pending.
 
 Content is original AI-assisted authoring with self-review, not native approval.
-The Arabic curriculum retains `release-review-required` licensing metadata;
+The Arabic curriculum is cleared for AGPL-3.0-only distribution in the
+[4 October owner approval](CURRICULUM_LICENSE_APPROVAL_20261004.json);
 the [earlier owner grant](LICENSING.md) did not include Arabic. These explicit
 external follow-ups do not extend the completed 2,500-sentence/600-verb task.
 

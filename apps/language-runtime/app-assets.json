@@ -981,6 +981,14 @@
     {
       "source": "apps/language-runtime/static/data/english-concepts/word-world-la-v1.json",
       "output": "language-runtime/static/data/english-concepts/word-world-la-v1.json"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/home/georgian_flag.svg",
+      "output": "assets/icons/georgian_flag.svg"
+    },
+    {
+      "source": "apps/language-runtime/static/data/english-concepts/word-world-ka-v1.json",
+      "output": "language-runtime/static/data/english-concepts/word-world-ka-v1.json"
     }
   ]
 }

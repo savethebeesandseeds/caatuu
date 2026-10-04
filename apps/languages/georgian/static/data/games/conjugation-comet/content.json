@@ -1,0 +1,5948 @@
+{
+  "schemaVersion": "caatuu-conjugation-comet-catalog-v1",
+  "id": "ka-person-paradigms-v1",
+  "contentRevision": 2,
+  "courseId": "ka",
+  "targetLanguageId": "ka",
+  "targetLocale": "ka",
+  "learnerBaseLanguageId": "en",
+  "auditLanguageId": "en",
+  "variety": {
+    "id": "ka-standard",
+    "label": "Modern Standard Georgian",
+    "policyNoteEnglish": "Twenty-one common lexemes with explicit six-person paradigms. Four experiencer/possession verbs and exceptional know teach present only; sixteen verbs teach present, future and completed past. The fixed context selects the object agreement. Aorist subject case is authored by verb class. No universal conjugator or exhaustive screeve coverage is claimed."
+  },
+  "review": {
+    "status": "native-review-required",
+    "noteEnglish": "Original Modern Standard Georgian teaching examples authored and self-reviewed by AI. Independent native Georgian review remains pending. Mkhedruli is the teaching script; no approved pronunciation or audio is claimed. Verb vocabulary uses masdars (verbal nouns), including explicitly labelled practical verb phrases, rather than claiming Georgian has English-style infinitives."
+  },
+  "license": {
+    "origin": "first-party-authored",
+    "status": "release-cleared",
+    "spdx": "AGPL-3.0-only",
+    "noteEnglish": "Caatuu project owner approved AGPL-3.0-only and distribution on 2026-10-04. See docs/CURRICULUM_LICENSE_APPROVAL_20261004.json. Language and pronunciation reviews remain pending."
+  },
+  "authority": {
+    "kind": "authored-finite-catalog",
+    "dictionaryLookup": false,
+    "runtimeGeneration": false,
+    "englishAuditRequired": true
+  },
+  "copy": {
+    "title": "Conjugation Comet",
+    "meaningKicker": "Meaning check",
+    "meaningInstruction": "Choose the authored base-language meaning.",
+    "formsKicker": "Person, number and Georgian screeves",
+    "formsInstruction": "Match each Georgian form to its subject and time cue. The example fixes the object or setting.",
+    "meaningTargetHeading": "Georgian verbal noun",
+    "meaningChoicesHeading": "Meaning choices",
+    "targetFormsHeading": "Georgian forms",
+    "baseCuesHeading": "Base-language cues",
+    "meaningBoardLabel": "Verb meaning matching board",
+    "formsBoardLabel": "Georgian person and screeve matching board",
+    "infinitiveLabel": "Masdar / verbal noun",
+    "hintLabel": "Show pattern",
+    "nextLabel": "Next verb",
+    "hearVerbTemplate": "Hear {verb}",
+    "hearFormTemplate": "Hear {form}",
+    "playingTemplate": "Playing {text}",
+    "matchedStateLabel": "matched",
+    "audioUnavailableTemplate": "{language} audio is unavailable on this device.",
+    "meaningStartFeedback": "Choose the base-language meaning before matching the forms.",
+    "wrongMeaningFeedback": "That is a different verb. Try another meaning.",
+    "correctMeaningTemplate": "Correct: {meaning}.",
+    "formsStartFeedback": "You may select either column first.",
+    "pairSelectedFeedback": "Now choose the matching card in the other column.",
+    "pairMatchedFeedback": "Matched. Keep going.",
+    "wrongPairFeedback": "Those cards use different verb forms. Try again.",
+    "roundCompleteTemplate": "All forms matched for {verb}.",
+    "meaningProgressTemplate": "Verb {number} · meaning",
+    "formsProgressTemplate": "{matched} of {total} matched",
+    "progressLabel": "Round progress"
+  },
+  "verbs": [
+    {
+      "id": "ka-001-present",
+      "revision": 1,
+      "targetText": "ყოფნა",
+      "learnerBaseText": "be at home (present)",
+      "englishAuditText": "be at home (present)",
+      "meaningChoiceBaseText": "be at home (present)",
+      "difficulty": 1,
+      "family": "copula: present",
+      "lessonId": "ka-present",
+      "tags": [
+        "modern-georgian",
+        "copula",
+        "present"
+      ],
+      "usefulness": 98,
+      "complexity": 20,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვარ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "I: be at home (present)",
+          "englishAuditText": "I: be at home (present)",
+          "usefulness": 98,
+          "complexity": 20
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "ხარ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (singular): be at home (present)",
+          "englishAuditText": "you (singular): be at home (present)",
+          "usefulness": 98,
+          "complexity": 20
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "არის",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "he / she: be at home (present)",
+          "englishAuditText": "he / she: be at home (present)",
+          "usefulness": 98,
+          "complexity": 20
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვართ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "we: be at home (present)",
+          "englishAuditText": "we: be at home (present)",
+          "usefulness": 98,
+          "complexity": 20
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "ხართ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (plural / polite): be at home (present)",
+          "englishAuditText": "you (plural / polite): be at home (present)",
+          "usefulness": 98,
+          "complexity": 20
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "არიან",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "they: be at home (present)",
+          "englishAuditText": "they: be at home (present)",
+          "usefulness": 98,
+          "complexity": 20
+        }
+      ]
+    },
+    {
+      "id": "ka-001-future",
+      "revision": 1,
+      "targetText": "ყოფნა",
+      "learnerBaseText": "be at home (future)",
+      "englishAuditText": "be at home (future)",
+      "meaningChoiceBaseText": "be at home (future)",
+      "difficulty": 2,
+      "family": "copula: future",
+      "lessonId": "ka-future",
+      "tags": [
+        "modern-georgian",
+        "copula",
+        "future"
+      ],
+      "usefulness": 98,
+      "complexity": 36,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვიქნები",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "I: be at home (future)",
+          "englishAuditText": "I: be at home (future)",
+          "usefulness": 98,
+          "complexity": 36
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "იქნები",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (singular): be at home (future)",
+          "englishAuditText": "you (singular): be at home (future)",
+          "usefulness": 98,
+          "complexity": 36
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "იქნება",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "he / she: be at home (future)",
+          "englishAuditText": "he / she: be at home (future)",
+          "usefulness": 98,
+          "complexity": 36
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვიქნებით",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "we: be at home (future)",
+          "englishAuditText": "we: be at home (future)",
+          "usefulness": 98,
+          "complexity": 36
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "იქნებით",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (plural / polite): be at home (future)",
+          "englishAuditText": "you (plural / polite): be at home (future)",
+          "usefulness": 98,
+          "complexity": 36
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "იქნებიან",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "they: be at home (future)",
+          "englishAuditText": "they: be at home (future)",
+          "usefulness": 98,
+          "complexity": 36
+        }
+      ]
+    },
+    {
+      "id": "ka-001-aorist",
+      "revision": 1,
+      "targetText": "ყოფნა",
+      "learnerBaseText": "be at home (completed past)",
+      "englishAuditText": "be at home (completed past)",
+      "meaningChoiceBaseText": "be at home (completed past)",
+      "difficulty": 3,
+      "family": "copula: aorist",
+      "lessonId": "ka-aorist",
+      "tags": [
+        "modern-georgian",
+        "copula",
+        "aorist"
+      ],
+      "usefulness": 98,
+      "complexity": 52,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვიყავი",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "I: be at home (completed past)",
+          "englishAuditText": "I: be at home (completed past)",
+          "usefulness": 98,
+          "complexity": 52
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "იყავი",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (singular): be at home (completed past)",
+          "englishAuditText": "you (singular): be at home (completed past)",
+          "usefulness": 98,
+          "complexity": 52
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "იყო",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "he / she: be at home (completed past)",
+          "englishAuditText": "he / she: be at home (completed past)",
+          "usefulness": 98,
+          "complexity": 52
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვიყავით",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "we: be at home (completed past)",
+          "englishAuditText": "we: be at home (completed past)",
+          "usefulness": 98,
+          "complexity": 52
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "იყავით",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (plural / polite): be at home (completed past)",
+          "englishAuditText": "you (plural / polite): be at home (completed past)",
+          "usefulness": 98,
+          "complexity": 52
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "იყვნენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "they: be at home (completed past)",
+          "englishAuditText": "they: be at home (completed past)",
+          "usefulness": 98,
+          "complexity": 52
+        }
+      ]
+    },
+    {
+      "id": "ka-002-present",
+      "revision": 1,
+      "targetText": "ქონა",
+      "learnerBaseText": "have a book (present)",
+      "englishAuditText": "have a book (present)",
+      "meaningChoiceBaseText": "have a book (present)",
+      "difficulty": 1,
+      "family": "inversion: present",
+      "lessonId": "ka-present",
+      "tags": [
+        "modern-georgian",
+        "inversion",
+        "present"
+      ],
+      "usefulness": 98,
+      "complexity": 21,
+      "teachingNoteBaseText": "These present forms use an experiencer or possessor in the dative and a nominative stimulus or possession. The prefixes identify the person; the ordinary third-person subject pronouns are მას / მათ. Animate possession uses ყოლა; inanimate possession uses ქონა.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "მაქვს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "I: have a book (present)",
+          "englishAuditText": "I: have a book (present)",
+          "usefulness": 98,
+          "complexity": 21
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "გაქვს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "you (singular): have a book (present)",
+          "englishAuditText": "you (singular): have a book (present)",
+          "usefulness": 98,
+          "complexity": 21
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "მას",
+          "subjectBaseText": "he / she",
+          "targetText": "აქვს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "he / she: have a book (present)",
+          "englishAuditText": "he / she: have a book (present)",
+          "usefulness": 98,
+          "complexity": 21
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "გვაქვს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "we: have a book (present)",
+          "englishAuditText": "we: have a book (present)",
+          "usefulness": 98,
+          "complexity": 21
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "გაქვთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "you (plural / polite): have a book (present)",
+          "englishAuditText": "you (plural / polite): have a book (present)",
+          "usefulness": 98,
+          "complexity": 21
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "მათ",
+          "subjectBaseText": "they",
+          "targetText": "აქვთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "they: have a book (present)",
+          "englishAuditText": "they: have a book (present)",
+          "usefulness": 98,
+          "complexity": 21
+        }
+      ]
+    },
+    {
+      "id": "ka-003-present",
+      "revision": 1,
+      "targetText": "ყოლა",
+      "learnerBaseText": "have a friend (present)",
+      "englishAuditText": "have a friend (present)",
+      "meaningChoiceBaseText": "have a friend (present)",
+      "difficulty": 1,
+      "family": "inversion: present",
+      "lessonId": "ka-present",
+      "tags": [
+        "modern-georgian",
+        "inversion",
+        "present"
+      ],
+      "usefulness": 98,
+      "complexity": 22,
+      "teachingNoteBaseText": "These present forms use an experiencer or possessor in the dative and a nominative stimulus or possession. The prefixes identify the person; the ordinary third-person subject pronouns are მას / მათ. Animate possession uses ყოლა; inanimate possession uses ქონა.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "მყავს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " მეგობარი"
+          },
+          "learnerBaseCueText": "I: have a friend (present)",
+          "englishAuditText": "I: have a friend (present)",
+          "usefulness": 98,
+          "complexity": 22
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "გყავს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " მეგობარი"
+          },
+          "learnerBaseCueText": "you (singular): have a friend (present)",
+          "englishAuditText": "you (singular): have a friend (present)",
+          "usefulness": 98,
+          "complexity": 22
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "მას",
+          "subjectBaseText": "he / she",
+          "targetText": "ჰყავს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " მეგობარი"
+          },
+          "learnerBaseCueText": "he / she: have a friend (present)",
+          "englishAuditText": "he / she: have a friend (present)",
+          "usefulness": 98,
+          "complexity": 22
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "გვყავს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " მეგობარი"
+          },
+          "learnerBaseCueText": "we: have a friend (present)",
+          "englishAuditText": "we: have a friend (present)",
+          "usefulness": 98,
+          "complexity": 22
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "გყავთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " მეგობარი"
+          },
+          "learnerBaseCueText": "you (plural / polite): have a friend (present)",
+          "englishAuditText": "you (plural / polite): have a friend (present)",
+          "usefulness": 98,
+          "complexity": 22
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "მათ",
+          "subjectBaseText": "they",
+          "targetText": "ჰყავთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " მეგობარი"
+          },
+          "learnerBaseCueText": "they: have a friend (present)",
+          "englishAuditText": "they: have a friend (present)",
+          "usefulness": 98,
+          "complexity": 22
+        }
+      ]
+    },
+    {
+      "id": "ka-004-present",
+      "revision": 1,
+      "targetText": "ნდომა",
+      "learnerBaseText": "want water (present)",
+      "englishAuditText": "want water (present)",
+      "meaningChoiceBaseText": "want water (present)",
+      "difficulty": 1,
+      "family": "inversion: present",
+      "lessonId": "ka-present",
+      "tags": [
+        "modern-georgian",
+        "inversion",
+        "present"
+      ],
+      "usefulness": 98,
+      "complexity": 23,
+      "teachingNoteBaseText": "These present forms use an experiencer or possessor in the dative and a nominative stimulus or possession. The prefixes identify the person; the ordinary third-person subject pronouns are მას / მათ. Animate possession uses ყოლა; inanimate possession uses ქონა.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "მინდა",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალი"
+          },
+          "learnerBaseCueText": "I: want water (present)",
+          "englishAuditText": "I: want water (present)",
+          "usefulness": 98,
+          "complexity": 23
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "გინდა",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალი"
+          },
+          "learnerBaseCueText": "you (singular): want water (present)",
+          "englishAuditText": "you (singular): want water (present)",
+          "usefulness": 98,
+          "complexity": 23
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "მას",
+          "subjectBaseText": "he / she",
+          "targetText": "უნდა",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალი"
+          },
+          "learnerBaseCueText": "he / she: want water (present)",
+          "englishAuditText": "he / she: want water (present)",
+          "usefulness": 98,
+          "complexity": 23
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "გვინდა",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალი"
+          },
+          "learnerBaseCueText": "we: want water (present)",
+          "englishAuditText": "we: want water (present)",
+          "usefulness": 98,
+          "complexity": 23
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "გინდათ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალი"
+          },
+          "learnerBaseCueText": "you (plural / polite): want water (present)",
+          "englishAuditText": "you (plural / polite): want water (present)",
+          "usefulness": 98,
+          "complexity": 23
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "მათ",
+          "subjectBaseText": "they",
+          "targetText": "უნდათ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალი"
+          },
+          "learnerBaseCueText": "they: want water (present)",
+          "englishAuditText": "they: want water (present)",
+          "usefulness": 98,
+          "complexity": 23
+        }
+      ]
+    },
+    {
+      "id": "ka-005-present",
+      "revision": 1,
+      "targetText": "მოწონება",
+      "learnerBaseText": "like music (present)",
+      "englishAuditText": "like music (present)",
+      "meaningChoiceBaseText": "like music (present)",
+      "difficulty": 1,
+      "family": "inversion: present",
+      "lessonId": "ka-present",
+      "tags": [
+        "modern-georgian",
+        "inversion",
+        "present"
+      ],
+      "usefulness": 98,
+      "complexity": 24,
+      "teachingNoteBaseText": "These present forms use an experiencer or possessor in the dative and a nominative stimulus or possession. The prefixes identify the person; the ordinary third-person subject pronouns are მას / მათ. Animate possession uses ყოლა; inanimate possession uses ქონა.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "მომწონს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " მუსიკა"
+          },
+          "learnerBaseCueText": "I: like music (present)",
+          "englishAuditText": "I: like music (present)",
+          "usefulness": 98,
+          "complexity": 24
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "მოგწონს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " მუსიკა"
+          },
+          "learnerBaseCueText": "you (singular): like music (present)",
+          "englishAuditText": "you (singular): like music (present)",
+          "usefulness": 98,
+          "complexity": 24
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "მას",
+          "subjectBaseText": "he / she",
+          "targetText": "მოსწონს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " მუსიკა"
+          },
+          "learnerBaseCueText": "he / she: like music (present)",
+          "englishAuditText": "he / she: like music (present)",
+          "usefulness": 98,
+          "complexity": 24
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "მოგვწონს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " მუსიკა"
+          },
+          "learnerBaseCueText": "we: like music (present)",
+          "englishAuditText": "we: like music (present)",
+          "usefulness": 98,
+          "complexity": 24
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "მოგწონთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " მუსიკა"
+          },
+          "learnerBaseCueText": "you (plural / polite): like music (present)",
+          "englishAuditText": "you (plural / polite): like music (present)",
+          "usefulness": 98,
+          "complexity": 24
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "მათ",
+          "subjectBaseText": "they",
+          "targetText": "მოსწონთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " მუსიკა"
+          },
+          "learnerBaseCueText": "they: like music (present)",
+          "englishAuditText": "they: like music (present)",
+          "usefulness": 98,
+          "complexity": 24
+        }
+      ]
+    },
+    {
+      "id": "ka-006-present",
+      "revision": 1,
+      "targetText": "კითხვა",
+      "learnerBaseText": "read a book (present)",
+      "englishAuditText": "read a book (present)",
+      "meaningChoiceBaseText": "read a book (present)",
+      "difficulty": 1,
+      "family": "transitive: present",
+      "lessonId": "ka-present",
+      "tags": [
+        "modern-georgian",
+        "transitive",
+        "present"
+      ],
+      "usefulness": 98,
+      "complexity": 25,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვკითხულობ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "I: read a book (present)",
+          "englishAuditText": "I: read a book (present)",
+          "usefulness": 98,
+          "complexity": 25
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "კითხულობ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "you (singular): read a book (present)",
+          "englishAuditText": "you (singular): read a book (present)",
+          "usefulness": 98,
+          "complexity": 25
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "კითხულობს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "he / she: read a book (present)",
+          "englishAuditText": "he / she: read a book (present)",
+          "usefulness": 98,
+          "complexity": 25
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვკითხულობთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "we: read a book (present)",
+          "englishAuditText": "we: read a book (present)",
+          "usefulness": 98,
+          "complexity": 25
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "კითხულობთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "you (plural / polite): read a book (present)",
+          "englishAuditText": "you (plural / polite): read a book (present)",
+          "usefulness": 98,
+          "complexity": 25
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "კითხულობენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "they: read a book (present)",
+          "englishAuditText": "they: read a book (present)",
+          "usefulness": 98,
+          "complexity": 25
+        }
+      ]
+    },
+    {
+      "id": "ka-006-future",
+      "revision": 1,
+      "targetText": "კითხვა",
+      "learnerBaseText": "read a book (future)",
+      "englishAuditText": "read a book (future)",
+      "meaningChoiceBaseText": "read a book (future)",
+      "difficulty": 2,
+      "family": "transitive: future",
+      "lessonId": "ka-future",
+      "tags": [
+        "modern-georgian",
+        "transitive",
+        "future"
+      ],
+      "usefulness": 98,
+      "complexity": 41,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "წავიკითხავ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "I: read a book (future)",
+          "englishAuditText": "I: read a book (future)",
+          "usefulness": 98,
+          "complexity": 41
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "წაიკითხავ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "you (singular): read a book (future)",
+          "englishAuditText": "you (singular): read a book (future)",
+          "usefulness": 98,
+          "complexity": 41
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "წაიკითხავს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "he / she: read a book (future)",
+          "englishAuditText": "he / she: read a book (future)",
+          "usefulness": 98,
+          "complexity": 41
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "წავიკითხავთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "we: read a book (future)",
+          "englishAuditText": "we: read a book (future)",
+          "usefulness": 98,
+          "complexity": 41
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "წაიკითხავთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "you (plural / polite): read a book (future)",
+          "englishAuditText": "you (plural / polite): read a book (future)",
+          "usefulness": 98,
+          "complexity": 41
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "წაიკითხავენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "they: read a book (future)",
+          "englishAuditText": "they: read a book (future)",
+          "usefulness": 98,
+          "complexity": 41
+        }
+      ]
+    },
+    {
+      "id": "ka-006-aorist",
+      "revision": 1,
+      "targetText": "კითხვა",
+      "learnerBaseText": "read a book (completed past)",
+      "englishAuditText": "read a book (completed past)",
+      "meaningChoiceBaseText": "read a book (completed past)",
+      "difficulty": 3,
+      "family": "transitive: aorist",
+      "lessonId": "ka-aorist",
+      "tags": [
+        "modern-georgian",
+        "transitive",
+        "aorist"
+      ],
+      "usefulness": 98,
+      "complexity": 57,
+      "teachingNoteBaseText": "This past screeve uses an ergative subject (მან / მათ) for this verb. A direct object is nominative: compare წიგნს in the present with წიგნი in the completed past.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "წავიკითხე",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "I: read a book (completed past)",
+          "englishAuditText": "I: read a book (completed past)",
+          "usefulness": 98,
+          "complexity": 57
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "წაიკითხე",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "you (singular): read a book (completed past)",
+          "englishAuditText": "you (singular): read a book (completed past)",
+          "usefulness": 98,
+          "complexity": 57
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "მან",
+          "subjectBaseText": "he / she",
+          "targetText": "წაიკითხა",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "he / she: read a book (completed past)",
+          "englishAuditText": "he / she: read a book (completed past)",
+          "usefulness": 98,
+          "complexity": 57
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "წავიკითხეთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "we: read a book (completed past)",
+          "englishAuditText": "we: read a book (completed past)",
+          "usefulness": 98,
+          "complexity": 57
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "წაიკითხეთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "you (plural / polite): read a book (completed past)",
+          "englishAuditText": "you (plural / polite): read a book (completed past)",
+          "usefulness": 98,
+          "complexity": 57
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "მათ",
+          "subjectBaseText": "they",
+          "targetText": "წაიკითხეს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "they: read a book (completed past)",
+          "englishAuditText": "they: read a book (completed past)",
+          "usefulness": 98,
+          "complexity": 57
+        }
+      ]
+    },
+    {
+      "id": "ka-007-present",
+      "revision": 1,
+      "targetText": "წერა",
+      "learnerBaseText": "write a letter (present)",
+      "englishAuditText": "write a letter (present)",
+      "meaningChoiceBaseText": "write a letter (present)",
+      "difficulty": 1,
+      "family": "transitive: present",
+      "lessonId": "ka-present",
+      "tags": [
+        "modern-georgian",
+        "transitive",
+        "present"
+      ],
+      "usefulness": 98,
+      "complexity": 26,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვწერ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წერილს"
+          },
+          "learnerBaseCueText": "I: write a letter (present)",
+          "englishAuditText": "I: write a letter (present)",
+          "usefulness": 98,
+          "complexity": 26
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "წერ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წერილს"
+          },
+          "learnerBaseCueText": "you (singular): write a letter (present)",
+          "englishAuditText": "you (singular): write a letter (present)",
+          "usefulness": 98,
+          "complexity": 26
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "წერს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წერილს"
+          },
+          "learnerBaseCueText": "he / she: write a letter (present)",
+          "englishAuditText": "he / she: write a letter (present)",
+          "usefulness": 98,
+          "complexity": 26
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვწერთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წერილს"
+          },
+          "learnerBaseCueText": "we: write a letter (present)",
+          "englishAuditText": "we: write a letter (present)",
+          "usefulness": 98,
+          "complexity": 26
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "წერთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წერილს"
+          },
+          "learnerBaseCueText": "you (plural / polite): write a letter (present)",
+          "englishAuditText": "you (plural / polite): write a letter (present)",
+          "usefulness": 98,
+          "complexity": 26
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "წერენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წერილს"
+          },
+          "learnerBaseCueText": "they: write a letter (present)",
+          "englishAuditText": "they: write a letter (present)",
+          "usefulness": 98,
+          "complexity": 26
+        }
+      ]
+    },
+    {
+      "id": "ka-007-future",
+      "revision": 1,
+      "targetText": "წერა",
+      "learnerBaseText": "write a letter (future)",
+      "englishAuditText": "write a letter (future)",
+      "meaningChoiceBaseText": "write a letter (future)",
+      "difficulty": 2,
+      "family": "transitive: future",
+      "lessonId": "ka-future",
+      "tags": [
+        "modern-georgian",
+        "transitive",
+        "future"
+      ],
+      "usefulness": 98,
+      "complexity": 42,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "დავწერ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წერილს"
+          },
+          "learnerBaseCueText": "I: write a letter (future)",
+          "englishAuditText": "I: write a letter (future)",
+          "usefulness": 98,
+          "complexity": 42
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "დაწერ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წერილს"
+          },
+          "learnerBaseCueText": "you (singular): write a letter (future)",
+          "englishAuditText": "you (singular): write a letter (future)",
+          "usefulness": 98,
+          "complexity": 42
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "დაწერს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წერილს"
+          },
+          "learnerBaseCueText": "he / she: write a letter (future)",
+          "englishAuditText": "he / she: write a letter (future)",
+          "usefulness": 98,
+          "complexity": 42
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "დავწერთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წერილს"
+          },
+          "learnerBaseCueText": "we: write a letter (future)",
+          "englishAuditText": "we: write a letter (future)",
+          "usefulness": 98,
+          "complexity": 42
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "დაწერთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წერილს"
+          },
+          "learnerBaseCueText": "you (plural / polite): write a letter (future)",
+          "englishAuditText": "you (plural / polite): write a letter (future)",
+          "usefulness": 98,
+          "complexity": 42
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "დაწერენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წერილს"
+          },
+          "learnerBaseCueText": "they: write a letter (future)",
+          "englishAuditText": "they: write a letter (future)",
+          "usefulness": 98,
+          "complexity": 42
+        }
+      ]
+    },
+    {
+      "id": "ka-007-aorist",
+      "revision": 1,
+      "targetText": "წერა",
+      "learnerBaseText": "write a letter (completed past)",
+      "englishAuditText": "write a letter (completed past)",
+      "meaningChoiceBaseText": "write a letter (completed past)",
+      "difficulty": 3,
+      "family": "transitive: aorist",
+      "lessonId": "ka-aorist",
+      "tags": [
+        "modern-georgian",
+        "transitive",
+        "aorist"
+      ],
+      "usefulness": 98,
+      "complexity": 58,
+      "teachingNoteBaseText": "This past screeve uses an ergative subject (მან / მათ) for this verb. A direct object is nominative: compare წიგნს in the present with წიგნი in the completed past.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "დავწერე",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წერილი"
+          },
+          "learnerBaseCueText": "I: write a letter (completed past)",
+          "englishAuditText": "I: write a letter (completed past)",
+          "usefulness": 98,
+          "complexity": 58
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "დაწერე",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წერილი"
+          },
+          "learnerBaseCueText": "you (singular): write a letter (completed past)",
+          "englishAuditText": "you (singular): write a letter (completed past)",
+          "usefulness": 98,
+          "complexity": 58
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "მან",
+          "subjectBaseText": "he / she",
+          "targetText": "დაწერა",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წერილი"
+          },
+          "learnerBaseCueText": "he / she: write a letter (completed past)",
+          "englishAuditText": "he / she: write a letter (completed past)",
+          "usefulness": 98,
+          "complexity": 58
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "დავწერეთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წერილი"
+          },
+          "learnerBaseCueText": "we: write a letter (completed past)",
+          "englishAuditText": "we: write a letter (completed past)",
+          "usefulness": 98,
+          "complexity": 58
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "დაწერეთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წერილი"
+          },
+          "learnerBaseCueText": "you (plural / polite): write a letter (completed past)",
+          "englishAuditText": "you (plural / polite): write a letter (completed past)",
+          "usefulness": 98,
+          "complexity": 58
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "მათ",
+          "subjectBaseText": "they",
+          "targetText": "დაწერეს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წერილი"
+          },
+          "learnerBaseCueText": "they: write a letter (completed past)",
+          "englishAuditText": "they: write a letter (completed past)",
+          "usefulness": 98,
+          "complexity": 58
+        }
+      ]
+    },
+    {
+      "id": "ka-008-present",
+      "revision": 1,
+      "targetText": "მუშაობა",
+      "learnerBaseText": "work (present)",
+      "englishAuditText": "work (present)",
+      "meaningChoiceBaseText": "work (present)",
+      "difficulty": 1,
+      "family": "activity: present",
+      "lessonId": "ka-present",
+      "tags": [
+        "modern-georgian",
+        "activity",
+        "present"
+      ],
+      "usefulness": 98,
+      "complexity": 27,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვმუშაობ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I: work (present)",
+          "englishAuditText": "I: work (present)",
+          "usefulness": 98,
+          "complexity": 27
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "მუშაობ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular): work (present)",
+          "englishAuditText": "you (singular): work (present)",
+          "usefulness": 98,
+          "complexity": 27
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "მუშაობს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he / she: work (present)",
+          "englishAuditText": "he / she: work (present)",
+          "usefulness": 98,
+          "complexity": 27
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვმუშაობთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we: work (present)",
+          "englishAuditText": "we: work (present)",
+          "usefulness": 98,
+          "complexity": 27
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "მუშაობთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural / polite): work (present)",
+          "englishAuditText": "you (plural / polite): work (present)",
+          "usefulness": 98,
+          "complexity": 27
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "მუშაობენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they: work (present)",
+          "englishAuditText": "they: work (present)",
+          "usefulness": 98,
+          "complexity": 27
+        }
+      ]
+    },
+    {
+      "id": "ka-008-future",
+      "revision": 1,
+      "targetText": "მუშაობა",
+      "learnerBaseText": "work (future)",
+      "englishAuditText": "work (future)",
+      "meaningChoiceBaseText": "work (future)",
+      "difficulty": 2,
+      "family": "activity: future",
+      "lessonId": "ka-future",
+      "tags": [
+        "modern-georgian",
+        "activity",
+        "future"
+      ],
+      "usefulness": 98,
+      "complexity": 43,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვიმუშავებ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I: work (future)",
+          "englishAuditText": "I: work (future)",
+          "usefulness": 98,
+          "complexity": 43
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "იმუშავებ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular): work (future)",
+          "englishAuditText": "you (singular): work (future)",
+          "usefulness": 98,
+          "complexity": 43
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "იმუშავებს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he / she: work (future)",
+          "englishAuditText": "he / she: work (future)",
+          "usefulness": 98,
+          "complexity": 43
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვიმუშავებთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we: work (future)",
+          "englishAuditText": "we: work (future)",
+          "usefulness": 98,
+          "complexity": 43
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "იმუშავებთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural / polite): work (future)",
+          "englishAuditText": "you (plural / polite): work (future)",
+          "usefulness": 98,
+          "complexity": 43
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "იმუშავებენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they: work (future)",
+          "englishAuditText": "they: work (future)",
+          "usefulness": 98,
+          "complexity": 43
+        }
+      ]
+    },
+    {
+      "id": "ka-008-aorist",
+      "revision": 1,
+      "targetText": "მუშაობა",
+      "learnerBaseText": "work (completed past)",
+      "englishAuditText": "work (completed past)",
+      "meaningChoiceBaseText": "work (completed past)",
+      "difficulty": 3,
+      "family": "activity: aorist",
+      "lessonId": "ka-aorist",
+      "tags": [
+        "modern-georgian",
+        "activity",
+        "aorist"
+      ],
+      "usefulness": 98,
+      "complexity": 59,
+      "teachingNoteBaseText": "This past screeve uses an ergative subject (მან / მათ) for this verb. A direct object is nominative: compare წიგნს in the present with წიგნი in the completed past.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვიმუშავე",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I: work (completed past)",
+          "englishAuditText": "I: work (completed past)",
+          "usefulness": 98,
+          "complexity": 59
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "იმუშავე",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular): work (completed past)",
+          "englishAuditText": "you (singular): work (completed past)",
+          "usefulness": 98,
+          "complexity": 59
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "მან",
+          "subjectBaseText": "he / she",
+          "targetText": "იმუშავა",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he / she: work (completed past)",
+          "englishAuditText": "he / she: work (completed past)",
+          "usefulness": 98,
+          "complexity": 59
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვიმუშავეთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we: work (completed past)",
+          "englishAuditText": "we: work (completed past)",
+          "usefulness": 98,
+          "complexity": 59
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "იმუშავეთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural / polite): work (completed past)",
+          "englishAuditText": "you (plural / polite): work (completed past)",
+          "usefulness": 98,
+          "complexity": 59
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "მათ",
+          "subjectBaseText": "they",
+          "targetText": "იმუშავეს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they: work (completed past)",
+          "englishAuditText": "they: work (completed past)",
+          "usefulness": 98,
+          "complexity": 59
+        }
+      ]
+    },
+    {
+      "id": "ka-009-present",
+      "revision": 1,
+      "targetText": "წასვლა",
+      "learnerBaseText": "go home (present)",
+      "englishAuditText": "go home (present)",
+      "meaningChoiceBaseText": "go home (present)",
+      "difficulty": 1,
+      "family": "motion: present",
+      "lessonId": "ka-present",
+      "tags": [
+        "modern-georgian",
+        "motion",
+        "present"
+      ],
+      "usefulness": 98,
+      "complexity": 20,
+      "teachingNoteBaseText": "This intransitive verb keeps a nominative subject, including in the aorist. Motion verbs have distinct authored stems; do not infer them by adding one prefix to the present.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "მივდივარ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "I: go home (present)",
+          "englishAuditText": "I: go home (present)",
+          "usefulness": 98,
+          "complexity": 20
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "მიდიხარ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (singular): go home (present)",
+          "englishAuditText": "you (singular): go home (present)",
+          "usefulness": 98,
+          "complexity": 20
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "მიდის",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "he / she: go home (present)",
+          "englishAuditText": "he / she: go home (present)",
+          "usefulness": 98,
+          "complexity": 20
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "მივდივართ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "we: go home (present)",
+          "englishAuditText": "we: go home (present)",
+          "usefulness": 98,
+          "complexity": 20
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "მიდიხართ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (plural / polite): go home (present)",
+          "englishAuditText": "you (plural / polite): go home (present)",
+          "usefulness": 98,
+          "complexity": 20
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "მიდიან",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "they: go home (present)",
+          "englishAuditText": "they: go home (present)",
+          "usefulness": 98,
+          "complexity": 20
+        }
+      ]
+    },
+    {
+      "id": "ka-009-future",
+      "revision": 1,
+      "targetText": "წასვლა",
+      "learnerBaseText": "go home (future)",
+      "englishAuditText": "go home (future)",
+      "meaningChoiceBaseText": "go home (future)",
+      "difficulty": 2,
+      "family": "motion: future",
+      "lessonId": "ka-future",
+      "tags": [
+        "modern-georgian",
+        "motion",
+        "future"
+      ],
+      "usefulness": 98,
+      "complexity": 36,
+      "teachingNoteBaseText": "This intransitive verb keeps a nominative subject, including in the aorist. Motion verbs have distinct authored stems; do not infer them by adding one prefix to the present.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "წავალ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "I: go home (future)",
+          "englishAuditText": "I: go home (future)",
+          "usefulness": 98,
+          "complexity": 36
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "წახვალ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (singular): go home (future)",
+          "englishAuditText": "you (singular): go home (future)",
+          "usefulness": 98,
+          "complexity": 36
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "წავა",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "he / she: go home (future)",
+          "englishAuditText": "he / she: go home (future)",
+          "usefulness": 98,
+          "complexity": 36
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "წავალთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "we: go home (future)",
+          "englishAuditText": "we: go home (future)",
+          "usefulness": 98,
+          "complexity": 36
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "წახვალთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (plural / polite): go home (future)",
+          "englishAuditText": "you (plural / polite): go home (future)",
+          "usefulness": 98,
+          "complexity": 36
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "წავლენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "they: go home (future)",
+          "englishAuditText": "they: go home (future)",
+          "usefulness": 98,
+          "complexity": 36
+        }
+      ]
+    },
+    {
+      "id": "ka-009-aorist",
+      "revision": 1,
+      "targetText": "წასვლა",
+      "learnerBaseText": "go home (completed past)",
+      "englishAuditText": "go home (completed past)",
+      "meaningChoiceBaseText": "go home (completed past)",
+      "difficulty": 3,
+      "family": "motion: aorist",
+      "lessonId": "ka-aorist",
+      "tags": [
+        "modern-georgian",
+        "motion",
+        "aorist"
+      ],
+      "usefulness": 98,
+      "complexity": 52,
+      "teachingNoteBaseText": "This intransitive verb keeps a nominative subject, including in the aorist. Motion verbs have distinct authored stems; do not infer them by adding one prefix to the present.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "წავედი",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "I: go home (completed past)",
+          "englishAuditText": "I: go home (completed past)",
+          "usefulness": 98,
+          "complexity": 52
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "წახვედი",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (singular): go home (completed past)",
+          "englishAuditText": "you (singular): go home (completed past)",
+          "usefulness": 98,
+          "complexity": 52
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "წავიდა",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "he / she: go home (completed past)",
+          "englishAuditText": "he / she: go home (completed past)",
+          "usefulness": 98,
+          "complexity": 52
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "წავედით",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "we: go home (completed past)",
+          "englishAuditText": "we: go home (completed past)",
+          "usefulness": 98,
+          "complexity": 52
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "წახვედით",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (plural / polite): go home (completed past)",
+          "englishAuditText": "you (plural / polite): go home (completed past)",
+          "usefulness": 98,
+          "complexity": 52
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "წავიდნენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "they: go home (completed past)",
+          "englishAuditText": "they: go home (completed past)",
+          "usefulness": 98,
+          "complexity": 52
+        }
+      ]
+    },
+    {
+      "id": "ka-010-present",
+      "revision": 1,
+      "targetText": "მოსვლა",
+      "learnerBaseText": "come home (present)",
+      "englishAuditText": "come home (present)",
+      "meaningChoiceBaseText": "come home (present)",
+      "difficulty": 1,
+      "family": "motion: present",
+      "lessonId": "ka-present",
+      "tags": [
+        "modern-georgian",
+        "motion",
+        "present"
+      ],
+      "usefulness": 98,
+      "complexity": 21,
+      "teachingNoteBaseText": "This intransitive verb keeps a nominative subject, including in the aorist. Motion verbs have distinct authored stems; do not infer them by adding one prefix to the present.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "მოვდივარ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "I: come home (present)",
+          "englishAuditText": "I: come home (present)",
+          "usefulness": 98,
+          "complexity": 21
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "მოდიხარ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (singular): come home (present)",
+          "englishAuditText": "you (singular): come home (present)",
+          "usefulness": 98,
+          "complexity": 21
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "მოდის",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "he / she: come home (present)",
+          "englishAuditText": "he / she: come home (present)",
+          "usefulness": 98,
+          "complexity": 21
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "მოვდივართ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "we: come home (present)",
+          "englishAuditText": "we: come home (present)",
+          "usefulness": 98,
+          "complexity": 21
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "მოდიხართ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (plural / polite): come home (present)",
+          "englishAuditText": "you (plural / polite): come home (present)",
+          "usefulness": 98,
+          "complexity": 21
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "მოდიან",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "they: come home (present)",
+          "englishAuditText": "they: come home (present)",
+          "usefulness": 98,
+          "complexity": 21
+        }
+      ]
+    },
+    {
+      "id": "ka-010-future",
+      "revision": 1,
+      "targetText": "მოსვლა",
+      "learnerBaseText": "come home (future)",
+      "englishAuditText": "come home (future)",
+      "meaningChoiceBaseText": "come home (future)",
+      "difficulty": 2,
+      "family": "motion: future",
+      "lessonId": "ka-future",
+      "tags": [
+        "modern-georgian",
+        "motion",
+        "future"
+      ],
+      "usefulness": 98,
+      "complexity": 37,
+      "teachingNoteBaseText": "This intransitive verb keeps a nominative subject, including in the aorist. Motion verbs have distinct authored stems; do not infer them by adding one prefix to the present.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "მოვალ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "I: come home (future)",
+          "englishAuditText": "I: come home (future)",
+          "usefulness": 98,
+          "complexity": 37
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "მოხვალ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (singular): come home (future)",
+          "englishAuditText": "you (singular): come home (future)",
+          "usefulness": 98,
+          "complexity": 37
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "მოვა",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "he / she: come home (future)",
+          "englishAuditText": "he / she: come home (future)",
+          "usefulness": 98,
+          "complexity": 37
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "მოვალთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "we: come home (future)",
+          "englishAuditText": "we: come home (future)",
+          "usefulness": 98,
+          "complexity": 37
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "მოხვალთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (plural / polite): come home (future)",
+          "englishAuditText": "you (plural / polite): come home (future)",
+          "usefulness": 98,
+          "complexity": 37
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "მოვლენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "they: come home (future)",
+          "englishAuditText": "they: come home (future)",
+          "usefulness": 98,
+          "complexity": 37
+        }
+      ]
+    },
+    {
+      "id": "ka-010-aorist",
+      "revision": 1,
+      "targetText": "მოსვლა",
+      "learnerBaseText": "come home (completed past)",
+      "englishAuditText": "come home (completed past)",
+      "meaningChoiceBaseText": "come home (completed past)",
+      "difficulty": 3,
+      "family": "motion: aorist",
+      "lessonId": "ka-aorist",
+      "tags": [
+        "modern-georgian",
+        "motion",
+        "aorist"
+      ],
+      "usefulness": 98,
+      "complexity": 53,
+      "teachingNoteBaseText": "This intransitive verb keeps a nominative subject, including in the aorist. Motion verbs have distinct authored stems; do not infer them by adding one prefix to the present.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "მოვედი",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "I: come home (completed past)",
+          "englishAuditText": "I: come home (completed past)",
+          "usefulness": 98,
+          "complexity": 53
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "მოხვედი",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (singular): come home (completed past)",
+          "englishAuditText": "you (singular): come home (completed past)",
+          "usefulness": 98,
+          "complexity": 53
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "მოვიდა",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "he / she: come home (completed past)",
+          "englishAuditText": "he / she: come home (completed past)",
+          "usefulness": 98,
+          "complexity": 53
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "მოვედით",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "we: come home (completed past)",
+          "englishAuditText": "we: come home (completed past)",
+          "usefulness": 98,
+          "complexity": 53
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "მოხვედით",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (plural / polite): come home (completed past)",
+          "englishAuditText": "you (plural / polite): come home (completed past)",
+          "usefulness": 98,
+          "complexity": 53
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "მოვიდნენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "they: come home (completed past)",
+          "englishAuditText": "they: come home (completed past)",
+          "usefulness": 98,
+          "complexity": 53
+        }
+      ]
+    },
+    {
+      "id": "ka-011-present",
+      "revision": 1,
+      "targetText": "დაბრუნება",
+      "learnerBaseText": "return home (present)",
+      "englishAuditText": "return home (present)",
+      "meaningChoiceBaseText": "return home (present)",
+      "difficulty": 1,
+      "family": "intransitive: present",
+      "lessonId": "ka-present",
+      "tags": [
+        "modern-georgian",
+        "intransitive",
+        "present"
+      ],
+      "usefulness": 98,
+      "complexity": 22,
+      "teachingNoteBaseText": "This intransitive verb keeps a nominative subject, including in the aorist. Motion verbs have distinct authored stems; do not infer them by adding one prefix to the present.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვბრუნდები",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "I: return home (present)",
+          "englishAuditText": "I: return home (present)",
+          "usefulness": 98,
+          "complexity": 22
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "ბრუნდები",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (singular): return home (present)",
+          "englishAuditText": "you (singular): return home (present)",
+          "usefulness": 98,
+          "complexity": 22
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "ბრუნდება",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "he / she: return home (present)",
+          "englishAuditText": "he / she: return home (present)",
+          "usefulness": 98,
+          "complexity": 22
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვბრუნდებით",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "we: return home (present)",
+          "englishAuditText": "we: return home (present)",
+          "usefulness": 98,
+          "complexity": 22
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "ბრუნდებით",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (plural / polite): return home (present)",
+          "englishAuditText": "you (plural / polite): return home (present)",
+          "usefulness": 98,
+          "complexity": 22
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "ბრუნდებიან",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "they: return home (present)",
+          "englishAuditText": "they: return home (present)",
+          "usefulness": 98,
+          "complexity": 22
+        }
+      ]
+    },
+    {
+      "id": "ka-011-future",
+      "revision": 1,
+      "targetText": "დაბრუნება",
+      "learnerBaseText": "return home (future)",
+      "englishAuditText": "return home (future)",
+      "meaningChoiceBaseText": "return home (future)",
+      "difficulty": 2,
+      "family": "intransitive: future",
+      "lessonId": "ka-future",
+      "tags": [
+        "modern-georgian",
+        "intransitive",
+        "future"
+      ],
+      "usefulness": 98,
+      "complexity": 38,
+      "teachingNoteBaseText": "This intransitive verb keeps a nominative subject, including in the aorist. Motion verbs have distinct authored stems; do not infer them by adding one prefix to the present.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "დავბრუნდები",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "I: return home (future)",
+          "englishAuditText": "I: return home (future)",
+          "usefulness": 98,
+          "complexity": 38
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "დაბრუნდები",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (singular): return home (future)",
+          "englishAuditText": "you (singular): return home (future)",
+          "usefulness": 98,
+          "complexity": 38
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "დაბრუნდება",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "he / she: return home (future)",
+          "englishAuditText": "he / she: return home (future)",
+          "usefulness": 98,
+          "complexity": 38
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "დავბრუნდებით",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "we: return home (future)",
+          "englishAuditText": "we: return home (future)",
+          "usefulness": 98,
+          "complexity": 38
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "დაბრუნდებით",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (plural / polite): return home (future)",
+          "englishAuditText": "you (plural / polite): return home (future)",
+          "usefulness": 98,
+          "complexity": 38
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "დაბრუნდებიან",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "they: return home (future)",
+          "englishAuditText": "they: return home (future)",
+          "usefulness": 98,
+          "complexity": 38
+        }
+      ]
+    },
+    {
+      "id": "ka-011-aorist",
+      "revision": 1,
+      "targetText": "დაბრუნება",
+      "learnerBaseText": "return home (completed past)",
+      "englishAuditText": "return home (completed past)",
+      "meaningChoiceBaseText": "return home (completed past)",
+      "difficulty": 3,
+      "family": "intransitive: aorist",
+      "lessonId": "ka-aorist",
+      "tags": [
+        "modern-georgian",
+        "intransitive",
+        "aorist"
+      ],
+      "usefulness": 98,
+      "complexity": 54,
+      "teachingNoteBaseText": "This intransitive verb keeps a nominative subject, including in the aorist. Motion verbs have distinct authored stems; do not infer them by adding one prefix to the present.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "დავბრუნდი",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "I: return home (completed past)",
+          "englishAuditText": "I: return home (completed past)",
+          "usefulness": 98,
+          "complexity": 54
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "დაბრუნდი",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (singular): return home (completed past)",
+          "englishAuditText": "you (singular): return home (completed past)",
+          "usefulness": 98,
+          "complexity": 54
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "დაბრუნდა",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "he / she: return home (completed past)",
+          "englishAuditText": "he / she: return home (completed past)",
+          "usefulness": 98,
+          "complexity": 54
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "დავბრუნდით",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "we: return home (completed past)",
+          "englishAuditText": "we: return home (completed past)",
+          "usefulness": 98,
+          "complexity": 54
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "დაბრუნდით",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (plural / polite): return home (completed past)",
+          "englishAuditText": "you (plural / polite): return home (completed past)",
+          "usefulness": 98,
+          "complexity": 54
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "დაბრუნდნენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "they: return home (completed past)",
+          "englishAuditText": "they: return home (completed past)",
+          "usefulness": 98,
+          "complexity": 54
+        }
+      ]
+    },
+    {
+      "id": "ka-012-present",
+      "revision": 1,
+      "targetText": "ცხოვრება",
+      "learnerBaseText": "live (present)",
+      "englishAuditText": "live (present)",
+      "meaningChoiceBaseText": "live (present)",
+      "difficulty": 1,
+      "family": "activity: present",
+      "lessonId": "ka-present",
+      "tags": [
+        "modern-georgian",
+        "activity",
+        "present"
+      ],
+      "usefulness": 98,
+      "complexity": 23,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვცხოვრობ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I: live (present)",
+          "englishAuditText": "I: live (present)",
+          "usefulness": 98,
+          "complexity": 23
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "ცხოვრობ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular): live (present)",
+          "englishAuditText": "you (singular): live (present)",
+          "usefulness": 98,
+          "complexity": 23
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "ცხოვრობს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he / she: live (present)",
+          "englishAuditText": "he / she: live (present)",
+          "usefulness": 98,
+          "complexity": 23
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვცხოვრობთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we: live (present)",
+          "englishAuditText": "we: live (present)",
+          "usefulness": 98,
+          "complexity": 23
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "ცხოვრობთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural / polite): live (present)",
+          "englishAuditText": "you (plural / polite): live (present)",
+          "usefulness": 98,
+          "complexity": 23
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "ცხოვრობენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they: live (present)",
+          "englishAuditText": "they: live (present)",
+          "usefulness": 98,
+          "complexity": 23
+        }
+      ]
+    },
+    {
+      "id": "ka-012-future",
+      "revision": 1,
+      "targetText": "ცხოვრება",
+      "learnerBaseText": "live (future)",
+      "englishAuditText": "live (future)",
+      "meaningChoiceBaseText": "live (future)",
+      "difficulty": 2,
+      "family": "activity: future",
+      "lessonId": "ka-future",
+      "tags": [
+        "modern-georgian",
+        "activity",
+        "future"
+      ],
+      "usefulness": 98,
+      "complexity": 39,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვიცხოვრებ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I: live (future)",
+          "englishAuditText": "I: live (future)",
+          "usefulness": 98,
+          "complexity": 39
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "იცხოვრებ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular): live (future)",
+          "englishAuditText": "you (singular): live (future)",
+          "usefulness": 98,
+          "complexity": 39
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "იცხოვრებს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he / she: live (future)",
+          "englishAuditText": "he / she: live (future)",
+          "usefulness": 98,
+          "complexity": 39
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვიცხოვრებთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we: live (future)",
+          "englishAuditText": "we: live (future)",
+          "usefulness": 98,
+          "complexity": 39
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "იცხოვრებთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural / polite): live (future)",
+          "englishAuditText": "you (plural / polite): live (future)",
+          "usefulness": 98,
+          "complexity": 39
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "იცხოვრებენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they: live (future)",
+          "englishAuditText": "they: live (future)",
+          "usefulness": 98,
+          "complexity": 39
+        }
+      ]
+    },
+    {
+      "id": "ka-012-aorist",
+      "revision": 1,
+      "targetText": "ცხოვრება",
+      "learnerBaseText": "live (completed past)",
+      "englishAuditText": "live (completed past)",
+      "meaningChoiceBaseText": "live (completed past)",
+      "difficulty": 3,
+      "family": "activity: aorist",
+      "lessonId": "ka-aorist",
+      "tags": [
+        "modern-georgian",
+        "activity",
+        "aorist"
+      ],
+      "usefulness": 98,
+      "complexity": 55,
+      "teachingNoteBaseText": "This past screeve uses an ergative subject (მან / მათ) for this verb. A direct object is nominative: compare წიგნს in the present with წიგნი in the completed past.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვიცხოვრე",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I: live (completed past)",
+          "englishAuditText": "I: live (completed past)",
+          "usefulness": 98,
+          "complexity": 55
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "იცხოვრე",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular): live (completed past)",
+          "englishAuditText": "you (singular): live (completed past)",
+          "usefulness": 98,
+          "complexity": 55
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "მან",
+          "subjectBaseText": "he / she",
+          "targetText": "იცხოვრა",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he / she: live (completed past)",
+          "englishAuditText": "he / she: live (completed past)",
+          "usefulness": 98,
+          "complexity": 55
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვიცხოვრეთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we: live (completed past)",
+          "englishAuditText": "we: live (completed past)",
+          "usefulness": 98,
+          "complexity": 55
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "იცხოვრეთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural / polite): live (completed past)",
+          "englishAuditText": "you (plural / polite): live (completed past)",
+          "usefulness": 98,
+          "complexity": 55
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "მათ",
+          "subjectBaseText": "they",
+          "targetText": "იცხოვრეს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they: live (completed past)",
+          "englishAuditText": "they: live (completed past)",
+          "usefulness": 98,
+          "complexity": 55
+        }
+      ]
+    },
+    {
+      "id": "ka-013-present",
+      "revision": 1,
+      "targetText": "სწავლა",
+      "learnerBaseText": "study Georgian (present)",
+      "englishAuditText": "study Georgian (present)",
+      "meaningChoiceBaseText": "study Georgian (present)",
+      "difficulty": 1,
+      "family": "transitive: present",
+      "lessonId": "ka-present",
+      "tags": [
+        "modern-georgian",
+        "transitive",
+        "present"
+      ],
+      "usefulness": 98,
+      "complexity": 24,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვსწავლობ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულს"
+          },
+          "learnerBaseCueText": "I: study Georgian (present)",
+          "englishAuditText": "I: study Georgian (present)",
+          "usefulness": 98,
+          "complexity": 24
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "სწავლობ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულს"
+          },
+          "learnerBaseCueText": "you (singular): study Georgian (present)",
+          "englishAuditText": "you (singular): study Georgian (present)",
+          "usefulness": 98,
+          "complexity": 24
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "სწავლობს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულს"
+          },
+          "learnerBaseCueText": "he / she: study Georgian (present)",
+          "englishAuditText": "he / she: study Georgian (present)",
+          "usefulness": 98,
+          "complexity": 24
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვსწავლობთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულს"
+          },
+          "learnerBaseCueText": "we: study Georgian (present)",
+          "englishAuditText": "we: study Georgian (present)",
+          "usefulness": 98,
+          "complexity": 24
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "სწავლობთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულს"
+          },
+          "learnerBaseCueText": "you (plural / polite): study Georgian (present)",
+          "englishAuditText": "you (plural / polite): study Georgian (present)",
+          "usefulness": 98,
+          "complexity": 24
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "სწავლობენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულს"
+          },
+          "learnerBaseCueText": "they: study Georgian (present)",
+          "englishAuditText": "they: study Georgian (present)",
+          "usefulness": 98,
+          "complexity": 24
+        }
+      ]
+    },
+    {
+      "id": "ka-013-future",
+      "revision": 1,
+      "targetText": "სწავლა",
+      "learnerBaseText": "study Georgian (future)",
+      "englishAuditText": "study Georgian (future)",
+      "meaningChoiceBaseText": "study Georgian (future)",
+      "difficulty": 2,
+      "family": "transitive: future",
+      "lessonId": "ka-future",
+      "tags": [
+        "modern-georgian",
+        "transitive",
+        "future"
+      ],
+      "usefulness": 98,
+      "complexity": 40,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვისწავლი",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულს"
+          },
+          "learnerBaseCueText": "I: study Georgian (future)",
+          "englishAuditText": "I: study Georgian (future)",
+          "usefulness": 98,
+          "complexity": 40
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "ისწავლი",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულს"
+          },
+          "learnerBaseCueText": "you (singular): study Georgian (future)",
+          "englishAuditText": "you (singular): study Georgian (future)",
+          "usefulness": 98,
+          "complexity": 40
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "ისწავლის",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულს"
+          },
+          "learnerBaseCueText": "he / she: study Georgian (future)",
+          "englishAuditText": "he / she: study Georgian (future)",
+          "usefulness": 98,
+          "complexity": 40
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვისწავლით",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულს"
+          },
+          "learnerBaseCueText": "we: study Georgian (future)",
+          "englishAuditText": "we: study Georgian (future)",
+          "usefulness": 98,
+          "complexity": 40
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "ისწავლით",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულს"
+          },
+          "learnerBaseCueText": "you (plural / polite): study Georgian (future)",
+          "englishAuditText": "you (plural / polite): study Georgian (future)",
+          "usefulness": 98,
+          "complexity": 40
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "ისწავლიან",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულს"
+          },
+          "learnerBaseCueText": "they: study Georgian (future)",
+          "englishAuditText": "they: study Georgian (future)",
+          "usefulness": 98,
+          "complexity": 40
+        }
+      ]
+    },
+    {
+      "id": "ka-013-aorist",
+      "revision": 1,
+      "targetText": "სწავლა",
+      "learnerBaseText": "study Georgian (completed past)",
+      "englishAuditText": "study Georgian (completed past)",
+      "meaningChoiceBaseText": "study Georgian (completed past)",
+      "difficulty": 3,
+      "family": "transitive: aorist",
+      "lessonId": "ka-aorist",
+      "tags": [
+        "modern-georgian",
+        "transitive",
+        "aorist"
+      ],
+      "usefulness": 98,
+      "complexity": 56,
+      "teachingNoteBaseText": "This past screeve uses an ergative subject (მან / მათ) for this verb. A direct object is nominative: compare წიგნს in the present with წიგნი in the completed past.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვისწავლე",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართული"
+          },
+          "learnerBaseCueText": "I: study Georgian (completed past)",
+          "englishAuditText": "I: study Georgian (completed past)",
+          "usefulness": 98,
+          "complexity": 56
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "ისწავლე",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართული"
+          },
+          "learnerBaseCueText": "you (singular): study Georgian (completed past)",
+          "englishAuditText": "you (singular): study Georgian (completed past)",
+          "usefulness": 98,
+          "complexity": 56
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "მან",
+          "subjectBaseText": "he / she",
+          "targetText": "ისწავლა",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართული"
+          },
+          "learnerBaseCueText": "he / she: study Georgian (completed past)",
+          "englishAuditText": "he / she: study Georgian (completed past)",
+          "usefulness": 98,
+          "complexity": 56
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვისწავლეთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართული"
+          },
+          "learnerBaseCueText": "we: study Georgian (completed past)",
+          "englishAuditText": "we: study Georgian (completed past)",
+          "usefulness": 98,
+          "complexity": 56
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "ისწავლეთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართული"
+          },
+          "learnerBaseCueText": "you (plural / polite): study Georgian (completed past)",
+          "englishAuditText": "you (plural / polite): study Georgian (completed past)",
+          "usefulness": 98,
+          "complexity": 56
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "მათ",
+          "subjectBaseText": "they",
+          "targetText": "ისწავლეს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართული"
+          },
+          "learnerBaseCueText": "they: study Georgian (completed past)",
+          "englishAuditText": "they: study Georgian (completed past)",
+          "usefulness": 98,
+          "complexity": 56
+        }
+      ]
+    },
+    {
+      "id": "ka-014-present",
+      "revision": 1,
+      "targetText": "ლაპარაკი",
+      "learnerBaseText": "speak Georgian (present)",
+      "englishAuditText": "speak Georgian (present)",
+      "meaningChoiceBaseText": "speak Georgian (present)",
+      "difficulty": 1,
+      "family": "activity: present",
+      "lessonId": "ka-present",
+      "tags": [
+        "modern-georgian",
+        "activity",
+        "present"
+      ],
+      "usefulness": 98,
+      "complexity": 25,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვლაპარაკობ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულად"
+          },
+          "learnerBaseCueText": "I: speak Georgian (present)",
+          "englishAuditText": "I: speak Georgian (present)",
+          "usefulness": 98,
+          "complexity": 25
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "ლაპარაკობ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულად"
+          },
+          "learnerBaseCueText": "you (singular): speak Georgian (present)",
+          "englishAuditText": "you (singular): speak Georgian (present)",
+          "usefulness": 98,
+          "complexity": 25
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "ლაპარაკობს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულად"
+          },
+          "learnerBaseCueText": "he / she: speak Georgian (present)",
+          "englishAuditText": "he / she: speak Georgian (present)",
+          "usefulness": 98,
+          "complexity": 25
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვლაპარაკობთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულად"
+          },
+          "learnerBaseCueText": "we: speak Georgian (present)",
+          "englishAuditText": "we: speak Georgian (present)",
+          "usefulness": 98,
+          "complexity": 25
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "ლაპარაკობთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულად"
+          },
+          "learnerBaseCueText": "you (plural / polite): speak Georgian (present)",
+          "englishAuditText": "you (plural / polite): speak Georgian (present)",
+          "usefulness": 98,
+          "complexity": 25
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "ლაპარაკობენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულად"
+          },
+          "learnerBaseCueText": "they: speak Georgian (present)",
+          "englishAuditText": "they: speak Georgian (present)",
+          "usefulness": 98,
+          "complexity": 25
+        }
+      ]
+    },
+    {
+      "id": "ka-014-future",
+      "revision": 1,
+      "targetText": "ლაპარაკი",
+      "learnerBaseText": "speak Georgian (future)",
+      "englishAuditText": "speak Georgian (future)",
+      "meaningChoiceBaseText": "speak Georgian (future)",
+      "difficulty": 2,
+      "family": "activity: future",
+      "lessonId": "ka-future",
+      "tags": [
+        "modern-georgian",
+        "activity",
+        "future"
+      ],
+      "usefulness": 98,
+      "complexity": 41,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვილაპარაკებ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულად"
+          },
+          "learnerBaseCueText": "I: speak Georgian (future)",
+          "englishAuditText": "I: speak Georgian (future)",
+          "usefulness": 98,
+          "complexity": 41
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "ილაპარაკებ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულად"
+          },
+          "learnerBaseCueText": "you (singular): speak Georgian (future)",
+          "englishAuditText": "you (singular): speak Georgian (future)",
+          "usefulness": 98,
+          "complexity": 41
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "ილაპარაკებს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულად"
+          },
+          "learnerBaseCueText": "he / she: speak Georgian (future)",
+          "englishAuditText": "he / she: speak Georgian (future)",
+          "usefulness": 98,
+          "complexity": 41
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვილაპარაკებთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულად"
+          },
+          "learnerBaseCueText": "we: speak Georgian (future)",
+          "englishAuditText": "we: speak Georgian (future)",
+          "usefulness": 98,
+          "complexity": 41
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "ილაპარაკებთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულად"
+          },
+          "learnerBaseCueText": "you (plural / polite): speak Georgian (future)",
+          "englishAuditText": "you (plural / polite): speak Georgian (future)",
+          "usefulness": 98,
+          "complexity": 41
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "ილაპარაკებენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულად"
+          },
+          "learnerBaseCueText": "they: speak Georgian (future)",
+          "englishAuditText": "they: speak Georgian (future)",
+          "usefulness": 98,
+          "complexity": 41
+        }
+      ]
+    },
+    {
+      "id": "ka-014-aorist",
+      "revision": 1,
+      "targetText": "ლაპარაკი",
+      "learnerBaseText": "speak Georgian (completed past)",
+      "englishAuditText": "speak Georgian (completed past)",
+      "meaningChoiceBaseText": "speak Georgian (completed past)",
+      "difficulty": 3,
+      "family": "activity: aorist",
+      "lessonId": "ka-aorist",
+      "tags": [
+        "modern-georgian",
+        "activity",
+        "aorist"
+      ],
+      "usefulness": 98,
+      "complexity": 57,
+      "teachingNoteBaseText": "This past screeve uses an ergative subject (მან / მათ) for this verb. A direct object is nominative: compare წიგნს in the present with წიგნი in the completed past.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვილაპარაკე",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულად"
+          },
+          "learnerBaseCueText": "I: speak Georgian (completed past)",
+          "englishAuditText": "I: speak Georgian (completed past)",
+          "usefulness": 98,
+          "complexity": 57
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "ილაპარაკე",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულად"
+          },
+          "learnerBaseCueText": "you (singular): speak Georgian (completed past)",
+          "englishAuditText": "you (singular): speak Georgian (completed past)",
+          "usefulness": 98,
+          "complexity": 57
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "მან",
+          "subjectBaseText": "he / she",
+          "targetText": "ილაპარაკა",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულად"
+          },
+          "learnerBaseCueText": "he / she: speak Georgian (completed past)",
+          "englishAuditText": "he / she: speak Georgian (completed past)",
+          "usefulness": 98,
+          "complexity": 57
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვილაპარაკეთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულად"
+          },
+          "learnerBaseCueText": "we: speak Georgian (completed past)",
+          "englishAuditText": "we: speak Georgian (completed past)",
+          "usefulness": 98,
+          "complexity": 57
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "ილაპარაკეთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულად"
+          },
+          "learnerBaseCueText": "you (plural / polite): speak Georgian (completed past)",
+          "englishAuditText": "you (plural / polite): speak Georgian (completed past)",
+          "usefulness": 98,
+          "complexity": 57
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "მათ",
+          "subjectBaseText": "they",
+          "targetText": "ილაპარაკეს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართულად"
+          },
+          "learnerBaseCueText": "they: speak Georgian (completed past)",
+          "englishAuditText": "they: speak Georgian (completed past)",
+          "usefulness": 98,
+          "complexity": 57
+        }
+      ]
+    },
+    {
+      "id": "ka-015-present",
+      "revision": 1,
+      "targetText": "ჭამა",
+      "learnerBaseText": "eat bread (present)",
+      "englishAuditText": "eat bread (present)",
+      "meaningChoiceBaseText": "eat bread (present)",
+      "difficulty": 1,
+      "family": "transitive: present",
+      "lessonId": "ka-present",
+      "tags": [
+        "modern-georgian",
+        "transitive",
+        "present"
+      ],
+      "usefulness": 98,
+      "complexity": 26,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვჭამ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " პურს"
+          },
+          "learnerBaseCueText": "I: eat bread (present)",
+          "englishAuditText": "I: eat bread (present)",
+          "usefulness": 98,
+          "complexity": 26
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "ჭამ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " პურს"
+          },
+          "learnerBaseCueText": "you (singular): eat bread (present)",
+          "englishAuditText": "you (singular): eat bread (present)",
+          "usefulness": 98,
+          "complexity": 26
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "ჭამს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " პურს"
+          },
+          "learnerBaseCueText": "he / she: eat bread (present)",
+          "englishAuditText": "he / she: eat bread (present)",
+          "usefulness": 98,
+          "complexity": 26
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვჭამთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " პურს"
+          },
+          "learnerBaseCueText": "we: eat bread (present)",
+          "englishAuditText": "we: eat bread (present)",
+          "usefulness": 98,
+          "complexity": 26
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "ჭამთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " პურს"
+          },
+          "learnerBaseCueText": "you (plural / polite): eat bread (present)",
+          "englishAuditText": "you (plural / polite): eat bread (present)",
+          "usefulness": 98,
+          "complexity": 26
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "ჭამენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " პურს"
+          },
+          "learnerBaseCueText": "they: eat bread (present)",
+          "englishAuditText": "they: eat bread (present)",
+          "usefulness": 98,
+          "complexity": 26
+        }
+      ]
+    },
+    {
+      "id": "ka-015-future",
+      "revision": 1,
+      "targetText": "ჭამა",
+      "learnerBaseText": "eat bread (future)",
+      "englishAuditText": "eat bread (future)",
+      "meaningChoiceBaseText": "eat bread (future)",
+      "difficulty": 2,
+      "family": "transitive: future",
+      "lessonId": "ka-future",
+      "tags": [
+        "modern-georgian",
+        "transitive",
+        "future"
+      ],
+      "usefulness": 98,
+      "complexity": 42,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "შევჭამ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " პურს"
+          },
+          "learnerBaseCueText": "I: eat bread (future)",
+          "englishAuditText": "I: eat bread (future)",
+          "usefulness": 98,
+          "complexity": 42
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "შეჭამ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " პურს"
+          },
+          "learnerBaseCueText": "you (singular): eat bread (future)",
+          "englishAuditText": "you (singular): eat bread (future)",
+          "usefulness": 98,
+          "complexity": 42
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "შეჭამს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " პურს"
+          },
+          "learnerBaseCueText": "he / she: eat bread (future)",
+          "englishAuditText": "he / she: eat bread (future)",
+          "usefulness": 98,
+          "complexity": 42
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "შევჭამთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " პურს"
+          },
+          "learnerBaseCueText": "we: eat bread (future)",
+          "englishAuditText": "we: eat bread (future)",
+          "usefulness": 98,
+          "complexity": 42
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "შეჭამთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " პურს"
+          },
+          "learnerBaseCueText": "you (plural / polite): eat bread (future)",
+          "englishAuditText": "you (plural / polite): eat bread (future)",
+          "usefulness": 98,
+          "complexity": 42
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "შეჭამენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " პურს"
+          },
+          "learnerBaseCueText": "they: eat bread (future)",
+          "englishAuditText": "they: eat bread (future)",
+          "usefulness": 98,
+          "complexity": 42
+        }
+      ]
+    },
+    {
+      "id": "ka-015-aorist",
+      "revision": 1,
+      "targetText": "ჭამა",
+      "learnerBaseText": "eat bread (completed past)",
+      "englishAuditText": "eat bread (completed past)",
+      "meaningChoiceBaseText": "eat bread (completed past)",
+      "difficulty": 3,
+      "family": "transitive: aorist",
+      "lessonId": "ka-aorist",
+      "tags": [
+        "modern-georgian",
+        "transitive",
+        "aorist"
+      ],
+      "usefulness": 98,
+      "complexity": 58,
+      "teachingNoteBaseText": "This past screeve uses an ergative subject (მან / მათ) for this verb. A direct object is nominative: compare წიგნს in the present with წიგნი in the completed past.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "შევჭამე",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " პური"
+          },
+          "learnerBaseCueText": "I: eat bread (completed past)",
+          "englishAuditText": "I: eat bread (completed past)",
+          "usefulness": 98,
+          "complexity": 58
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "შეჭამე",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " პური"
+          },
+          "learnerBaseCueText": "you (singular): eat bread (completed past)",
+          "englishAuditText": "you (singular): eat bread (completed past)",
+          "usefulness": 98,
+          "complexity": 58
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "მან",
+          "subjectBaseText": "he / she",
+          "targetText": "შეჭამა",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " პური"
+          },
+          "learnerBaseCueText": "he / she: eat bread (completed past)",
+          "englishAuditText": "he / she: eat bread (completed past)",
+          "usefulness": 98,
+          "complexity": 58
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "შევჭამეთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " პური"
+          },
+          "learnerBaseCueText": "we: eat bread (completed past)",
+          "englishAuditText": "we: eat bread (completed past)",
+          "usefulness": 98,
+          "complexity": 58
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "შეჭამეთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " პური"
+          },
+          "learnerBaseCueText": "you (plural / polite): eat bread (completed past)",
+          "englishAuditText": "you (plural / polite): eat bread (completed past)",
+          "usefulness": 98,
+          "complexity": 58
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "მათ",
+          "subjectBaseText": "they",
+          "targetText": "შეჭამეს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " პური"
+          },
+          "learnerBaseCueText": "they: eat bread (completed past)",
+          "englishAuditText": "they: eat bread (completed past)",
+          "usefulness": 98,
+          "complexity": 58
+        }
+      ]
+    },
+    {
+      "id": "ka-016-present",
+      "revision": 1,
+      "targetText": "სმა",
+      "learnerBaseText": "drink water (present)",
+      "englishAuditText": "drink water (present)",
+      "meaningChoiceBaseText": "drink water (present)",
+      "difficulty": 1,
+      "family": "transitive: present",
+      "lessonId": "ka-present",
+      "tags": [
+        "modern-georgian",
+        "transitive",
+        "present"
+      ],
+      "usefulness": 98,
+      "complexity": 27,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვსვამ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალს"
+          },
+          "learnerBaseCueText": "I: drink water (present)",
+          "englishAuditText": "I: drink water (present)",
+          "usefulness": 98,
+          "complexity": 27
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "სვამ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალს"
+          },
+          "learnerBaseCueText": "you (singular): drink water (present)",
+          "englishAuditText": "you (singular): drink water (present)",
+          "usefulness": 98,
+          "complexity": 27
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "სვამს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალს"
+          },
+          "learnerBaseCueText": "he / she: drink water (present)",
+          "englishAuditText": "he / she: drink water (present)",
+          "usefulness": 98,
+          "complexity": 27
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვსვამთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალს"
+          },
+          "learnerBaseCueText": "we: drink water (present)",
+          "englishAuditText": "we: drink water (present)",
+          "usefulness": 98,
+          "complexity": 27
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "სვამთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალს"
+          },
+          "learnerBaseCueText": "you (plural / polite): drink water (present)",
+          "englishAuditText": "you (plural / polite): drink water (present)",
+          "usefulness": 98,
+          "complexity": 27
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "სვამენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალს"
+          },
+          "learnerBaseCueText": "they: drink water (present)",
+          "englishAuditText": "they: drink water (present)",
+          "usefulness": 98,
+          "complexity": 27
+        }
+      ]
+    },
+    {
+      "id": "ka-016-future",
+      "revision": 1,
+      "targetText": "სმა",
+      "learnerBaseText": "drink water (future)",
+      "englishAuditText": "drink water (future)",
+      "meaningChoiceBaseText": "drink water (future)",
+      "difficulty": 2,
+      "family": "transitive: future",
+      "lessonId": "ka-future",
+      "tags": [
+        "modern-georgian",
+        "transitive",
+        "future"
+      ],
+      "usefulness": 98,
+      "complexity": 43,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "დავლევ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალს"
+          },
+          "learnerBaseCueText": "I: drink water (future)",
+          "englishAuditText": "I: drink water (future)",
+          "usefulness": 98,
+          "complexity": 43
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "დალევ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალს"
+          },
+          "learnerBaseCueText": "you (singular): drink water (future)",
+          "englishAuditText": "you (singular): drink water (future)",
+          "usefulness": 98,
+          "complexity": 43
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "დალევს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალს"
+          },
+          "learnerBaseCueText": "he / she: drink water (future)",
+          "englishAuditText": "he / she: drink water (future)",
+          "usefulness": 98,
+          "complexity": 43
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "დავლევთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალს"
+          },
+          "learnerBaseCueText": "we: drink water (future)",
+          "englishAuditText": "we: drink water (future)",
+          "usefulness": 98,
+          "complexity": 43
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "დალევთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალს"
+          },
+          "learnerBaseCueText": "you (plural / polite): drink water (future)",
+          "englishAuditText": "you (plural / polite): drink water (future)",
+          "usefulness": 98,
+          "complexity": 43
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "დალევენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალს"
+          },
+          "learnerBaseCueText": "they: drink water (future)",
+          "englishAuditText": "they: drink water (future)",
+          "usefulness": 98,
+          "complexity": 43
+        }
+      ]
+    },
+    {
+      "id": "ka-016-aorist",
+      "revision": 1,
+      "targetText": "სმა",
+      "learnerBaseText": "drink water (completed past)",
+      "englishAuditText": "drink water (completed past)",
+      "meaningChoiceBaseText": "drink water (completed past)",
+      "difficulty": 3,
+      "family": "transitive: aorist",
+      "lessonId": "ka-aorist",
+      "tags": [
+        "modern-georgian",
+        "transitive",
+        "aorist"
+      ],
+      "usefulness": 98,
+      "complexity": 59,
+      "teachingNoteBaseText": "This past screeve uses an ergative subject (მან / მათ) for this verb. A direct object is nominative: compare წიგნს in the present with წიგნი in the completed past.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "დავლიე",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალი"
+          },
+          "learnerBaseCueText": "I: drink water (completed past)",
+          "englishAuditText": "I: drink water (completed past)",
+          "usefulness": 98,
+          "complexity": 59
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "დალიე",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალი"
+          },
+          "learnerBaseCueText": "you (singular): drink water (completed past)",
+          "englishAuditText": "you (singular): drink water (completed past)",
+          "usefulness": 98,
+          "complexity": 59
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "მან",
+          "subjectBaseText": "he / she",
+          "targetText": "დალია",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალი"
+          },
+          "learnerBaseCueText": "he / she: drink water (completed past)",
+          "englishAuditText": "he / she: drink water (completed past)",
+          "usefulness": 98,
+          "complexity": 59
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "დავლიეთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალი"
+          },
+          "learnerBaseCueText": "we: drink water (completed past)",
+          "englishAuditText": "we: drink water (completed past)",
+          "usefulness": 98,
+          "complexity": 59
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "დალიეთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალი"
+          },
+          "learnerBaseCueText": "you (plural / polite): drink water (completed past)",
+          "englishAuditText": "you (plural / polite): drink water (completed past)",
+          "usefulness": 98,
+          "complexity": 59
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "მათ",
+          "subjectBaseText": "they",
+          "targetText": "დალიეს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალი"
+          },
+          "learnerBaseCueText": "they: drink water (completed past)",
+          "englishAuditText": "they: drink water (completed past)",
+          "usefulness": 98,
+          "complexity": 59
+        }
+      ]
+    },
+    {
+      "id": "ka-017-present",
+      "revision": 1,
+      "targetText": "ყიდვა",
+      "learnerBaseText": "buy a book (present)",
+      "englishAuditText": "buy a book (present)",
+      "meaningChoiceBaseText": "buy a book (present)",
+      "difficulty": 1,
+      "family": "transitive: present",
+      "lessonId": "ka-present",
+      "tags": [
+        "modern-georgian",
+        "transitive",
+        "present"
+      ],
+      "usefulness": 98,
+      "complexity": 20,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვყიდულობ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "I: buy a book (present)",
+          "englishAuditText": "I: buy a book (present)",
+          "usefulness": 98,
+          "complexity": 20
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "ყიდულობ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "you (singular): buy a book (present)",
+          "englishAuditText": "you (singular): buy a book (present)",
+          "usefulness": 98,
+          "complexity": 20
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "ყიდულობს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "he / she: buy a book (present)",
+          "englishAuditText": "he / she: buy a book (present)",
+          "usefulness": 98,
+          "complexity": 20
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვყიდულობთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "we: buy a book (present)",
+          "englishAuditText": "we: buy a book (present)",
+          "usefulness": 98,
+          "complexity": 20
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "ყიდულობთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "you (plural / polite): buy a book (present)",
+          "englishAuditText": "you (plural / polite): buy a book (present)",
+          "usefulness": 98,
+          "complexity": 20
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "ყიდულობენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "they: buy a book (present)",
+          "englishAuditText": "they: buy a book (present)",
+          "usefulness": 98,
+          "complexity": 20
+        }
+      ]
+    },
+    {
+      "id": "ka-017-future",
+      "revision": 1,
+      "targetText": "ყიდვა",
+      "learnerBaseText": "buy a book (future)",
+      "englishAuditText": "buy a book (future)",
+      "meaningChoiceBaseText": "buy a book (future)",
+      "difficulty": 2,
+      "family": "transitive: future",
+      "lessonId": "ka-future",
+      "tags": [
+        "modern-georgian",
+        "transitive",
+        "future"
+      ],
+      "usefulness": 98,
+      "complexity": 36,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვიყიდი",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "I: buy a book (future)",
+          "englishAuditText": "I: buy a book (future)",
+          "usefulness": 98,
+          "complexity": 36
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "იყიდი",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "you (singular): buy a book (future)",
+          "englishAuditText": "you (singular): buy a book (future)",
+          "usefulness": 98,
+          "complexity": 36
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "იყიდის",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "he / she: buy a book (future)",
+          "englishAuditText": "he / she: buy a book (future)",
+          "usefulness": 98,
+          "complexity": 36
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვიყიდით",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "we: buy a book (future)",
+          "englishAuditText": "we: buy a book (future)",
+          "usefulness": 98,
+          "complexity": 36
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "იყიდით",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "you (plural / polite): buy a book (future)",
+          "englishAuditText": "you (plural / polite): buy a book (future)",
+          "usefulness": 98,
+          "complexity": 36
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "იყიდიან",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "they: buy a book (future)",
+          "englishAuditText": "they: buy a book (future)",
+          "usefulness": 98,
+          "complexity": 36
+        }
+      ]
+    },
+    {
+      "id": "ka-017-aorist",
+      "revision": 1,
+      "targetText": "ყიდვა",
+      "learnerBaseText": "buy a book (completed past)",
+      "englishAuditText": "buy a book (completed past)",
+      "meaningChoiceBaseText": "buy a book (completed past)",
+      "difficulty": 3,
+      "family": "transitive: aorist",
+      "lessonId": "ka-aorist",
+      "tags": [
+        "modern-georgian",
+        "transitive",
+        "aorist"
+      ],
+      "usefulness": 98,
+      "complexity": 52,
+      "teachingNoteBaseText": "This past screeve uses an ergative subject (მან / მათ) for this verb. A direct object is nominative: compare წიგნს in the present with წიგნი in the completed past.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვიყიდე",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "I: buy a book (completed past)",
+          "englishAuditText": "I: buy a book (completed past)",
+          "usefulness": 98,
+          "complexity": 52
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "იყიდე",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "you (singular): buy a book (completed past)",
+          "englishAuditText": "you (singular): buy a book (completed past)",
+          "usefulness": 98,
+          "complexity": 52
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "მან",
+          "subjectBaseText": "he / she",
+          "targetText": "იყიდა",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "he / she: buy a book (completed past)",
+          "englishAuditText": "he / she: buy a book (completed past)",
+          "usefulness": 98,
+          "complexity": 52
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვიყიდეთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "we: buy a book (completed past)",
+          "englishAuditText": "we: buy a book (completed past)",
+          "usefulness": 98,
+          "complexity": 52
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "იყიდეთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "you (plural / polite): buy a book (completed past)",
+          "englishAuditText": "you (plural / polite): buy a book (completed past)",
+          "usefulness": 98,
+          "complexity": 52
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "მათ",
+          "subjectBaseText": "they",
+          "targetText": "იყიდეს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "they: buy a book (completed past)",
+          "englishAuditText": "they: buy a book (completed past)",
+          "usefulness": 98,
+          "complexity": 52
+        }
+      ]
+    },
+    {
+      "id": "ka-018-present",
+      "revision": 1,
+      "targetText": "ნახვა",
+      "learnerBaseText": "see a book (present)",
+      "englishAuditText": "see a book (present)",
+      "meaningChoiceBaseText": "see a book (present)",
+      "difficulty": 1,
+      "family": "transitive: present",
+      "lessonId": "ka-present",
+      "tags": [
+        "modern-georgian",
+        "transitive",
+        "present"
+      ],
+      "usefulness": 98,
+      "complexity": 21,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვხედავ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "I: see a book (present)",
+          "englishAuditText": "I: see a book (present)",
+          "usefulness": 98,
+          "complexity": 21
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "ხედავ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "you (singular): see a book (present)",
+          "englishAuditText": "you (singular): see a book (present)",
+          "usefulness": 98,
+          "complexity": 21
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "ხედავს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "he / she: see a book (present)",
+          "englishAuditText": "he / she: see a book (present)",
+          "usefulness": 98,
+          "complexity": 21
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვხედავთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "we: see a book (present)",
+          "englishAuditText": "we: see a book (present)",
+          "usefulness": 98,
+          "complexity": 21
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "ხედავთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "you (plural / polite): see a book (present)",
+          "englishAuditText": "you (plural / polite): see a book (present)",
+          "usefulness": 98,
+          "complexity": 21
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "ხედავენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "they: see a book (present)",
+          "englishAuditText": "they: see a book (present)",
+          "usefulness": 98,
+          "complexity": 21
+        }
+      ]
+    },
+    {
+      "id": "ka-018-future",
+      "revision": 1,
+      "targetText": "ნახვა",
+      "learnerBaseText": "see a book (future)",
+      "englishAuditText": "see a book (future)",
+      "meaningChoiceBaseText": "see a book (future)",
+      "difficulty": 2,
+      "family": "transitive: future",
+      "lessonId": "ka-future",
+      "tags": [
+        "modern-georgian",
+        "transitive",
+        "future"
+      ],
+      "usefulness": 98,
+      "complexity": 37,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვნახავ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "I: see a book (future)",
+          "englishAuditText": "I: see a book (future)",
+          "usefulness": 98,
+          "complexity": 37
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "ნახავ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "you (singular): see a book (future)",
+          "englishAuditText": "you (singular): see a book (future)",
+          "usefulness": 98,
+          "complexity": 37
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "ნახავს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "he / she: see a book (future)",
+          "englishAuditText": "he / she: see a book (future)",
+          "usefulness": 98,
+          "complexity": 37
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვნახავთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "we: see a book (future)",
+          "englishAuditText": "we: see a book (future)",
+          "usefulness": 98,
+          "complexity": 37
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "ნახავთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "you (plural / polite): see a book (future)",
+          "englishAuditText": "you (plural / polite): see a book (future)",
+          "usefulness": 98,
+          "complexity": 37
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "ნახავენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "they: see a book (future)",
+          "englishAuditText": "they: see a book (future)",
+          "usefulness": 98,
+          "complexity": 37
+        }
+      ]
+    },
+    {
+      "id": "ka-018-aorist",
+      "revision": 1,
+      "targetText": "ნახვა",
+      "learnerBaseText": "see a book (completed past)",
+      "englishAuditText": "see a book (completed past)",
+      "meaningChoiceBaseText": "see a book (completed past)",
+      "difficulty": 3,
+      "family": "transitive: aorist",
+      "lessonId": "ka-aorist",
+      "tags": [
+        "modern-georgian",
+        "transitive",
+        "aorist"
+      ],
+      "usefulness": 98,
+      "complexity": 53,
+      "teachingNoteBaseText": "This past screeve uses an ergative subject (მან / მათ) for this verb. A direct object is nominative: compare წიგნს in the present with წიგნი in the completed past.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვნახე",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "I: see a book (completed past)",
+          "englishAuditText": "I: see a book (completed past)",
+          "usefulness": 98,
+          "complexity": 53
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "ნახე",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "you (singular): see a book (completed past)",
+          "englishAuditText": "you (singular): see a book (completed past)",
+          "usefulness": 98,
+          "complexity": 53
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "მან",
+          "subjectBaseText": "he / she",
+          "targetText": "ნახა",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "he / she: see a book (completed past)",
+          "englishAuditText": "he / she: see a book (completed past)",
+          "usefulness": 98,
+          "complexity": 53
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვნახეთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "we: see a book (completed past)",
+          "englishAuditText": "we: see a book (completed past)",
+          "usefulness": 98,
+          "complexity": 53
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "ნახეთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "you (plural / polite): see a book (completed past)",
+          "englishAuditText": "you (plural / polite): see a book (completed past)",
+          "usefulness": 98,
+          "complexity": 53
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "მათ",
+          "subjectBaseText": "they",
+          "targetText": "ნახეს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "they: see a book (completed past)",
+          "englishAuditText": "they: see a book (completed past)",
+          "usefulness": 98,
+          "complexity": 53
+        }
+      ]
+    },
+    {
+      "id": "ka-019-present",
+      "revision": 1,
+      "targetText": "სიმღერა",
+      "learnerBaseText": "sing (present)",
+      "englishAuditText": "sing (present)",
+      "meaningChoiceBaseText": "sing (present)",
+      "difficulty": 1,
+      "family": "activity: present",
+      "lessonId": "ka-present",
+      "tags": [
+        "modern-georgian",
+        "activity",
+        "present"
+      ],
+      "usefulness": 98,
+      "complexity": 22,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვმღერი",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I: sing (present)",
+          "englishAuditText": "I: sing (present)",
+          "usefulness": 98,
+          "complexity": 22
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "მღერი",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular): sing (present)",
+          "englishAuditText": "you (singular): sing (present)",
+          "usefulness": 98,
+          "complexity": 22
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "მღერის",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he / she: sing (present)",
+          "englishAuditText": "he / she: sing (present)",
+          "usefulness": 98,
+          "complexity": 22
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვმღერით",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we: sing (present)",
+          "englishAuditText": "we: sing (present)",
+          "usefulness": 98,
+          "complexity": 22
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "მღერით",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural / polite): sing (present)",
+          "englishAuditText": "you (plural / polite): sing (present)",
+          "usefulness": 98,
+          "complexity": 22
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "მღერიან",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they: sing (present)",
+          "englishAuditText": "they: sing (present)",
+          "usefulness": 98,
+          "complexity": 22
+        }
+      ]
+    },
+    {
+      "id": "ka-019-future",
+      "revision": 1,
+      "targetText": "სიმღერა",
+      "learnerBaseText": "sing (future)",
+      "englishAuditText": "sing (future)",
+      "meaningChoiceBaseText": "sing (future)",
+      "difficulty": 2,
+      "family": "activity: future",
+      "lessonId": "ka-future",
+      "tags": [
+        "modern-georgian",
+        "activity",
+        "future"
+      ],
+      "usefulness": 98,
+      "complexity": 38,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვიმღერებ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I: sing (future)",
+          "englishAuditText": "I: sing (future)",
+          "usefulness": 98,
+          "complexity": 38
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "იმღერებ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular): sing (future)",
+          "englishAuditText": "you (singular): sing (future)",
+          "usefulness": 98,
+          "complexity": 38
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "იმღერებს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he / she: sing (future)",
+          "englishAuditText": "he / she: sing (future)",
+          "usefulness": 98,
+          "complexity": 38
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვიმღერებთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we: sing (future)",
+          "englishAuditText": "we: sing (future)",
+          "usefulness": 98,
+          "complexity": 38
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "იმღერებთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural / polite): sing (future)",
+          "englishAuditText": "you (plural / polite): sing (future)",
+          "usefulness": 98,
+          "complexity": 38
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "იმღერებენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they: sing (future)",
+          "englishAuditText": "they: sing (future)",
+          "usefulness": 98,
+          "complexity": 38
+        }
+      ]
+    },
+    {
+      "id": "ka-019-aorist",
+      "revision": 1,
+      "targetText": "სიმღერა",
+      "learnerBaseText": "sing (completed past)",
+      "englishAuditText": "sing (completed past)",
+      "meaningChoiceBaseText": "sing (completed past)",
+      "difficulty": 3,
+      "family": "activity: aorist",
+      "lessonId": "ka-aorist",
+      "tags": [
+        "modern-georgian",
+        "activity",
+        "aorist"
+      ],
+      "usefulness": 98,
+      "complexity": 54,
+      "teachingNoteBaseText": "This past screeve uses an ergative subject (მან / მათ) for this verb. A direct object is nominative: compare წიგნს in the present with წიგნი in the completed past.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვიმღერე",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I: sing (completed past)",
+          "englishAuditText": "I: sing (completed past)",
+          "usefulness": 98,
+          "complexity": 54
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "იმღერე",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular): sing (completed past)",
+          "englishAuditText": "you (singular): sing (completed past)",
+          "usefulness": 98,
+          "complexity": 54
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "მან",
+          "subjectBaseText": "he / she",
+          "targetText": "იმღერა",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he / she: sing (completed past)",
+          "englishAuditText": "he / she: sing (completed past)",
+          "usefulness": 98,
+          "complexity": 54
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვიმღერეთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we: sing (completed past)",
+          "englishAuditText": "we: sing (completed past)",
+          "usefulness": 98,
+          "complexity": 54
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "იმღერეთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural / polite): sing (completed past)",
+          "englishAuditText": "you (plural / polite): sing (completed past)",
+          "usefulness": 98,
+          "complexity": 54
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "მათ",
+          "subjectBaseText": "they",
+          "targetText": "იმღერეს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they: sing (completed past)",
+          "englishAuditText": "they: sing (completed past)",
+          "usefulness": 98,
+          "complexity": 54
+        }
+      ]
+    },
+    {
+      "id": "ka-020-present",
+      "revision": 1,
+      "targetText": "ცეკვა",
+      "learnerBaseText": "dance (present)",
+      "englishAuditText": "dance (present)",
+      "meaningChoiceBaseText": "dance (present)",
+      "difficulty": 1,
+      "family": "activity: present",
+      "lessonId": "ka-present",
+      "tags": [
+        "modern-georgian",
+        "activity",
+        "present"
+      ],
+      "usefulness": 98,
+      "complexity": 23,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვცეკვავ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I: dance (present)",
+          "englishAuditText": "I: dance (present)",
+          "usefulness": 98,
+          "complexity": 23
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "ცეკვავ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular): dance (present)",
+          "englishAuditText": "you (singular): dance (present)",
+          "usefulness": 98,
+          "complexity": 23
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "ცეკვავს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he / she: dance (present)",
+          "englishAuditText": "he / she: dance (present)",
+          "usefulness": 98,
+          "complexity": 23
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვცეკვავთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we: dance (present)",
+          "englishAuditText": "we: dance (present)",
+          "usefulness": 98,
+          "complexity": 23
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "ცეკვავთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural / polite): dance (present)",
+          "englishAuditText": "you (plural / polite): dance (present)",
+          "usefulness": 98,
+          "complexity": 23
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "ცეკვავენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they: dance (present)",
+          "englishAuditText": "they: dance (present)",
+          "usefulness": 98,
+          "complexity": 23
+        }
+      ]
+    },
+    {
+      "id": "ka-020-future",
+      "revision": 1,
+      "targetText": "ცეკვა",
+      "learnerBaseText": "dance (future)",
+      "englishAuditText": "dance (future)",
+      "meaningChoiceBaseText": "dance (future)",
+      "difficulty": 2,
+      "family": "activity: future",
+      "lessonId": "ka-future",
+      "tags": [
+        "modern-georgian",
+        "activity",
+        "future"
+      ],
+      "usefulness": 98,
+      "complexity": 39,
+      "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვიცეკვებ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I: dance (future)",
+          "englishAuditText": "I: dance (future)",
+          "usefulness": 98,
+          "complexity": 39
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "იცეკვებ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular): dance (future)",
+          "englishAuditText": "you (singular): dance (future)",
+          "usefulness": 98,
+          "complexity": 39
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "იცეკვებს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he / she: dance (future)",
+          "englishAuditText": "he / she: dance (future)",
+          "usefulness": 98,
+          "complexity": 39
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვიცეკვებთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we: dance (future)",
+          "englishAuditText": "we: dance (future)",
+          "usefulness": 98,
+          "complexity": 39
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "იცეკვებთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural / polite): dance (future)",
+          "englishAuditText": "you (plural / polite): dance (future)",
+          "usefulness": 98,
+          "complexity": 39
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "იცეკვებენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they: dance (future)",
+          "englishAuditText": "they: dance (future)",
+          "usefulness": 98,
+          "complexity": 39
+        }
+      ]
+    },
+    {
+      "id": "ka-020-aorist",
+      "revision": 1,
+      "targetText": "ცეკვა",
+      "learnerBaseText": "dance (completed past)",
+      "englishAuditText": "dance (completed past)",
+      "meaningChoiceBaseText": "dance (completed past)",
+      "difficulty": 3,
+      "family": "activity: aorist",
+      "lessonId": "ka-aorist",
+      "tags": [
+        "modern-georgian",
+        "activity",
+        "aorist"
+      ],
+      "usefulness": 98,
+      "complexity": 55,
+      "teachingNoteBaseText": "This past screeve uses an ergative subject (მან / მათ) for this verb. A direct object is nominative: compare წიგნს in the present with წიგნი in the completed past.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვიცეკვე",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I: dance (completed past)",
+          "englishAuditText": "I: dance (completed past)",
+          "usefulness": 98,
+          "complexity": 55
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "იცეკვე",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular): dance (completed past)",
+          "englishAuditText": "you (singular): dance (completed past)",
+          "usefulness": 98,
+          "complexity": 55
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "მან",
+          "subjectBaseText": "he / she",
+          "targetText": "იცეკვა",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he / she: dance (completed past)",
+          "englishAuditText": "he / she: dance (completed past)",
+          "usefulness": 98,
+          "complexity": 55
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვიცეკვეთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we: dance (completed past)",
+          "englishAuditText": "we: dance (completed past)",
+          "usefulness": 98,
+          "complexity": 55
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "იცეკვეთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural / polite): dance (completed past)",
+          "englishAuditText": "you (plural / polite): dance (completed past)",
+          "usefulness": 98,
+          "complexity": 55
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "მათ",
+          "subjectBaseText": "they",
+          "targetText": "იცეკვეს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they: dance (completed past)",
+          "englishAuditText": "they: dance (completed past)",
+          "usefulness": 98,
+          "complexity": 55
+        }
+      ]
+    },
+    {
+      "id": "ka-021-present",
+      "revision": 1,
+      "targetText": "ცოდნა",
+      "learnerBaseText": "know Georgian (present)",
+      "englishAuditText": "know Georgian (present)",
+      "meaningChoiceBaseText": "know Georgian (present)",
+      "difficulty": 1,
+      "family": "knowledge: present",
+      "lessonId": "ka-present",
+      "tags": [
+        "modern-georgian",
+        "knowledge",
+        "present"
+      ],
+      "usefulness": 98,
+      "complexity": 24,
+      "teachingNoteBaseText": "ცოდნა is exceptional: the present uses an ergative third-person subject (მან / მათ) and a nominative object. Compare მან იცის ქართული with ის სწავლობს ქართულს. These are explicit present forms with Georgian as the fixed object.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვიცი",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართული"
+          },
+          "learnerBaseCueText": "I: know Georgian (present)",
+          "englishAuditText": "I: know Georgian (present)",
+          "usefulness": 98,
+          "complexity": 24
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "იცი",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართული"
+          },
+          "learnerBaseCueText": "you (singular): know Georgian (present)",
+          "englishAuditText": "you (singular): know Georgian (present)",
+          "usefulness": 98,
+          "complexity": 24
+        },
+        {
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "მან",
+          "subjectBaseText": "he / she",
+          "targetText": "იცის",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართული"
+          },
+          "learnerBaseCueText": "he / she: know Georgian (present)",
+          "englishAuditText": "he / she: know Georgian (present)",
+          "usefulness": 98,
+          "complexity": 24
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვიცით",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართული"
+          },
+          "learnerBaseCueText": "we: know Georgian (present)",
+          "englishAuditText": "we: know Georgian (present)",
+          "usefulness": 98,
+          "complexity": 24
+        },
+        {
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "იცით",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართული"
+          },
+          "learnerBaseCueText": "you (plural / polite): know Georgian (present)",
+          "englishAuditText": "you (plural / polite): know Georgian (present)",
+          "usefulness": 98,
+          "complexity": 24
+        },
+        {
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "მათ",
+          "subjectBaseText": "they",
+          "targetText": "იციან",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ქართული"
+          },
+          "learnerBaseCueText": "they: know Georgian (present)",
+          "englishAuditText": "they: know Georgian (present)",
+          "usefulness": 98,
+          "complexity": 24
+        }
+      ]
+    }
+  ]
+}

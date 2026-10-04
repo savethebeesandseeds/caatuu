@@ -249,8 +249,21 @@
       "backend": "static"
     },
     "android": {
-      "enabled": false,
-      "channels": []
+      "enabled": true,
+      "channels": [
+        {
+          "kind": "release",
+          "manifest": "/android/caatuu.json",
+          "artifact": "/android/caatuu.apk",
+          "minimumVersionCode": 179
+        },
+        {
+          "kind": "preview",
+          "manifest": "/android/caatuu-preview.json",
+          "artifact": "/android/caatuu-preview.apk",
+          "minimumVersionCode": 179
+        }
+      ]
     }
   },
   "resources": {
@@ -284,7 +297,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-41"
+      "revision": "interface-en-42"
     },
     "courseProfile": {
       "kind": "file",

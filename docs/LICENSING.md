@@ -48,6 +48,13 @@ two PNG copies created for the course, under `AGPL-3.0-only`. Their exact paths
 and hashes are recorded in the receipt. This scoped grant does not replace
 terms for any third-party material or other separately licensed assets.
 
+The project owner authorized `AGPL-3.0-only` and distribution for the original
+Arabic, Scientific Latin and Georgian curricula on 4 October 2026. The
+[approval receipt](CURRICULUM_LICENSE_APPROVAL_20261004.json) records the exact
+authorization and content hashes. This covers their English concepts, target
+realizations, vocabulary, conjugation and agreement exercises. Language and
+pronunciation reviews remain pending; third-party terms are unchanged.
+
 ## Material with separate terms
 
 The root AGPL does not replace or override separate terms for:

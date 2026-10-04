@@ -34,7 +34,7 @@ function harness() {
     verbSelectedCzechId: "", verbSelectedEnglishId: ""
   };
   Object.assign(browser.context, {
-    state, verbNebulaCore, sourceLanguage: course.sourceLanguage, targetLanguage: course.targetLanguage,
+    course, state, verbNebulaCore, sourceLanguage: course.sourceLanguage, targetLanguage: course.targetLanguage,
     verbTargetAuditLabel: "English", verbSourceAuditLabel: "Spanish",
     verbTargetLabel: "Inglés", verbSourceLabel: "Español", verbTargetNativeLabel: "English",
     interfaceText: (id, parameters) => i18n.t(id, parameters),

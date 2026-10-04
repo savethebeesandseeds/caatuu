@@ -1,0 +1,276 @@
+{
+  "$schema": "../../../tools/language-packs/schemas/course-pack.v1.schema.json",
+  "schemaVersion": 1,
+  "id": "ka",
+  "directoryName": "georgian",
+  "status": "development",
+  "brandLabel": "Caatuu",
+  "workspaceLabel": "Caatuu Georgian",
+  "routePrefix": "/ka",
+  "entryPath": "/ka/index.html",
+  "sourceLanguage": {
+    "id": "en",
+    "label": "English",
+    "nativeLabel": "English",
+    "shortCode": "EN",
+    "locale": "en",
+    "direction": "ltr",
+    "flagClass": "en-flag",
+    "flagSrc": "/assets/icons/english_flag.png"
+  },
+  "targetLanguage": {
+    "id": "ka",
+    "label": "Georgian",
+    "nativeLabel": "ქართული",
+    "shortCode": "KA",
+    "locale": "ka",
+    "script": "Geor",
+    "speechLocale": "ka-GE",
+    "direction": "ltr",
+    "flagClass": "georgian-flag",
+    "flagSrc": "/assets/icons/georgian_flag.svg"
+  },
+  "linguisticFeatures": [
+    "verb-conjugation",
+    "grammatical-agreement",
+    "grammatical-case"
+  ],
+  "games": [
+    "verb-lab",
+    "word-net",
+    "conjugation-comet",
+    "grammar-gravity"
+  ],
+  "upcomingGames": [
+    "memory-moon"
+  ],
+  "launcher": {
+    "flagClass": "flag-icon"
+  },
+  "routes": {
+    "conjugationComet": "/language-runtime/static/games/conjugation-comet.html",
+    "grammarGravity": "/language-runtime/static/games/grammar-gravity.html",
+    "languageSelection": "/",
+    "home": "index.html",
+    "games": "index.html",
+    "verbNebula": "index.html?game=verb-lab",
+    "wordWorld": "index.html?game=word-net",
+    "settings": "index.html"
+  },
+  "storage": {
+    "namespace": "caatuu-ka",
+    "theme": "caatuu-ka.theme",
+    "fontSize": "caatuu-ka.font-size",
+    "learningPreferences": "caatuu-ka.learning.preferences.v1",
+    "learningPerformance": "caatuu-ka.learning.performance.v1",
+    "semanticLearningDatabase": "caatuu-ka.semantic-learning",
+    "verbMemory": "caatuu-ka.verb-memory.v3",
+    "wordWorldTranslationMode": "caatuu-ka.word-world.translation-mode",
+    "wordWorldRecentSentences": "caatuu-ka.word-world.recent-sentences.v1"
+  },
+  "cache": {
+    "prefix": "caatuu-ka-pwa-",
+    "setupFallback": "caatuu-ka-setup-v1"
+  },
+  "publication": {
+    "contract": "language-content-v1",
+    "concepts": "apps/languages/shared/english-concepts/word-world-ka-v1.json",
+    "realizations": "apps/languages/georgian/content/word-world/starter-v1.realizations.json",
+    "learnerBaseRealizations": null,
+    "runtimeProjection": {
+      "policyId": "georgian-word-world-v1",
+      "conceptsRuntime": "apps/language-runtime/static/data/english-concepts/word-world-ka-v1.json",
+      "targetRealizationsRuntime": "apps/languages/georgian/static/data/games/word-world/content.json",
+      "learnerBaseRuntime": null,
+      "supplementalOutputs": {},
+      "manifest": "apps/languages/georgian/static/data/games/word-world/manifest.json"
+    }
+  },
+  "capabilities": {
+    "llm": false,
+    "generation": false,
+    "chat": false,
+    "embeddings": true,
+    "semanticSearch": true,
+    "dictionary": false,
+    "memory": false,
+    "verbs": false,
+    "wordWorld": true,
+    "conjugationComet": true,
+    "offlineModels": false,
+    "speech": true,
+    "pronunciationGuides": false
+  },
+  "learningGoals": [
+    {
+      "id": "foundations",
+      "label": "Reading and first conversations",
+      "embeddingText": "Read Mkhedruli and use greetings, introductions, basic questions and polite requests.",
+      "categories": [
+        "script",
+        "foundations",
+        "introductions"
+      ]
+    },
+    {
+      "id": "daily-life",
+      "label": "Daily life in Georgia",
+      "embeddingText": "Talk about home, food, shopping, time, work, study and family.",
+      "categories": [
+        "daily-life",
+        "food",
+        "shopping",
+        "family"
+      ]
+    },
+    {
+      "id": "getting-around",
+      "label": "Getting around and asking for help",
+      "embeddingText": "Ask for directions, use transport, arrange accommodation and describe a practical problem.",
+      "categories": [
+        "travel",
+        "directions",
+        "services",
+        "health"
+      ]
+    },
+    {
+      "id": "connected-speech",
+      "label": "Connecting ideas and actions",
+      "embeddingText": "Use present, future and past actions with appropriate case marking, reasons, conditions and relative clauses.",
+      "categories": [
+        "verb-forms",
+        "case",
+        "connected-speech"
+      ]
+    }
+  ],
+  "platforms": {
+    "browser": {
+      "enabled": true,
+      "pagesEnabled": false,
+      "entryPath": "/ka/index.html",
+      "backend": "static"
+    },
+    "android": {
+      "enabled": true,
+      "channels": [
+        {
+          "kind": "release",
+          "manifest": "/android/caatuu.json",
+          "artifact": "/android/caatuu.apk",
+          "minimumVersionCode": 179
+        },
+        {
+          "kind": "preview",
+          "manifest": "/android/caatuu-preview.json",
+          "artifact": "/android/caatuu-preview.apk",
+          "minimumVersionCode": 179
+        }
+      ]
+    }
+  },
+  "resources": {
+    "androidAssetCatalog": {
+      "kind": "file",
+      "path": "apps/languages/georgian/android-assets.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "staticRoot": {
+      "kind": "directory",
+      "path": "apps/languages/georgian/static",
+      "scope": "course",
+      "state": "present"
+    },
+    "appEntry": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/app/index.html",
+      "scope": "shared",
+      "state": "present"
+    },
+    "interfaceCatalog": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/data/interface/en.v1.json",
+      "scope": "shared",
+      "state": "present",
+      "revision": "interface-en-42"
+    },
+    "courseProfile": {
+      "kind": "file",
+      "path": "apps/languages/georgian/static/source/shared/course-profile.js",
+      "scope": "course",
+      "state": "present"
+    },
+    "languageAdapter": {
+      "kind": "file",
+      "path": "apps/languages/georgian/static/source/language/adapter.mjs",
+      "scope": "course",
+      "state": "present"
+    },
+    "webManifest": {
+      "kind": "file",
+      "path": "apps/languages/georgian/static/manifest.webmanifest",
+      "scope": "course",
+      "state": "present"
+    },
+    "setupCatalog": {
+      "kind": "file",
+      "path": "apps/languages/georgian/static/setup-assets.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "sourceLanguageFlag": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/assets/home/english_flag.png",
+      "scope": "shared",
+      "state": "present"
+    },
+    "embeddingCatalog": {
+      "kind": "file",
+      "path": "apps/languages/georgian/static/data/embeddings/catalog.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "wordWorldManifest": {
+      "kind": "file",
+      "path": "apps/languages/georgian/static/data/games/word-world/manifest.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "word-world-content-2"
+    },
+    "verbNebulaCatalog": {
+      "kind": "file",
+      "path": "apps/languages/georgian/static/data/games/verb-nebula/content.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "conjugationCometCatalog": {
+      "kind": "file",
+      "path": "apps/languages/georgian/static/data/games/conjugation-comet/content.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "conjugation-comet-content-2"
+    },
+    "grammarGravityCatalog": {
+      "kind": "file",
+      "path": "apps/languages/georgian/static/data/games/grammar-gravity/content.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "grammar-gravity-content-1"
+    },
+    "grammarGravityNouns": {
+      "kind": "file",
+      "path": "apps/languages/georgian/static/data/games/grammar-gravity/nouns.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "grammar-gravity-nouns-2"
+    },
+    "launcherFlag": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/assets/home/georgian_flag.svg",
+      "scope": "shared",
+      "state": "present"
+    }
+  }
+}

@@ -42,12 +42,12 @@ test("Latin policy rejects hidden controls, foreign scripts and unapproved pronu
   assert.ok(latinScientificContentPolicy.validate(catalog).some(issue=>issue.code==="latin.pronunciation"));
 });
 
-test("Latin projection keeps English retrieval and disables unsupported speech", () => {
+test("Latin projection keeps English retrieval and supports standard device speech without approving pronunciation", () => {
   const policy=latinScientificWordWorldProjectionPolicy;
   const concepts={concepts:[{id:"la.test"}],embeddingPolicy:{inputLanguage:"en",inputField:"embeddingText",targetTextAllowed:false}};
   const realizations={courseId:"la",targetLanguage:{languageTag:"la"},review:{status:"native-review-required",notes:"Latinist review pending."},license:{status:"release-review-required"}};
   const manifest=policy.buildManifest({concepts,realizations,paths:policy.defaultPaths});
-  assert.equal(manifest.capabilities.speech,false);
+  assert.equal(manifest.capabilities.speech,true);
   assert.equal(manifest.embeddingPolicy.targetTextAllowed,false);
   assert.equal(manifest.embeddingPolicy.inputLanguage,"en");
   assert.equal(manifest.review.pronunciationApproved,false);

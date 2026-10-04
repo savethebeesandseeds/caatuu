@@ -17,6 +17,15 @@
     },
     {
       "manifest": "apps/languages/norwegian-bokmal/course.json"
+    },
+    {
+      "manifest": "apps/languages/arabic-standard/course.json"
+    },
+    {
+      "manifest": "apps/languages/latin-scientific/course.json"
+    },
+    {
+      "manifest": "apps/languages/georgian/course.json"
     }
   ]
 }

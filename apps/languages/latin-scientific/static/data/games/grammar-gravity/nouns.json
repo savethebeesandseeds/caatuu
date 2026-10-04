@@ -15,9 +15,9 @@
   },
   "license": {
     "origin": "caatuu-first-party-authored",
-    "status": "release-review-required",
-    "spdxExpression": null,
-    "notes": "Original curriculum; owner distribution review remains pending."
+    "status": "release-cleared",
+    "spdxExpression": "AGPL-3.0-only",
+    "notes": "Caatuu project owner approved AGPL-3.0-only and distribution on 2026-10-04. See docs/CURRICULUM_LICENSE_APPROVAL_20261004.json. Language and pronunciation reviews remain pending."
   },
   "scope": "Latin singular dictionary headwords. Gender is grammatical. Scientific senses are identified in English. Diēs here uses its ordinary masculine day sense; diameter uses the attested feminine variant. Vowel quantity can distinguish homographs such as os (bone) and ōs (mouth).",
   "lanes": [

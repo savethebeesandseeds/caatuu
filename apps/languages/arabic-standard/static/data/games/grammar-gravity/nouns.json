@@ -15,9 +15,9 @@
   },
   "license": {
     "origin": "caatuu-first-party-authored",
-    "status": "release-review-required",
-    "spdxExpression": null,
-    "notes": "Original curriculum; owner distribution decision remains pending."
+    "status": "release-cleared",
+    "spdxExpression": "AGPL-3.0-only",
+    "notes": "Caatuu project owner approved AGPL-3.0-only and distribution on 2026-10-04. See docs/CURRICULUM_LICENSE_APPROVAL_20261004.json. Language and pronunciation reviews remain pending."
   },
   "scope": "Modern Standard Arabic nouns and singular lexical noun phrases, including mass nouns. Choose grammatical masculine or feminine. Gender is a lexical property and does not describe an object’s biology. Human roles are explicitly distinguished by gender. Additional accepted lanes preserve common authored gender alternatives. Number agreement and nonhuman plural deflection are assessed separately in phrase practice.",
   "lanes": [

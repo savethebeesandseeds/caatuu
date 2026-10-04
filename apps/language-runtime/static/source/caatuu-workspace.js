@@ -2274,9 +2274,14 @@ function applyVerbLanguageCopy() {
 }
 
 function renderVerbAudioControls() {
+  const supportsSpeech = course.capabilities?.speech === true;
+  const menu = document.querySelector("#verbMeaningBoard .verb-audio-menu");
+  if (menu) menu.hidden = !supportsSpeech;
   const button = $("#verbSpeakOnTap");
   const summary = document.querySelector("#verbMeaningBoard .verb-audio-menu > summary");
   const settings = $("#verbAudioSettings");
+  if (button) button.disabled = !supportsSpeech;
+  if (!supportsSpeech) return;
   if (button) {
     button.setAttribute("aria-checked", String(state.verbSpeakOnTap));
     button.classList.toggle("is-active", state.verbSpeakOnTap);
@@ -2316,6 +2321,7 @@ function renderVerbDisplayControls() {
 }
 
 async function refreshVerbAudioVoiceControls() {
+  if (course.capabilities?.speech !== true) return;
   const select = $("#verbAudioVoice");
   const status = $("#verbAudioVoiceStatus");
   if (!select || !status || !state.verbSpeakOnTap) return;
@@ -2360,7 +2366,7 @@ function verbToolbarPopover(menu) {
 }
 
 function speakVerbCzechOnTap(verbId) {
-  if (!state.verbSpeakOnTap) return;
+  if (course.capabilities?.speech !== true || !state.verbSpeakOnTap) return;
   const pair = state.verbRound.find((item) => item.id === verbId);
   const target = pair?.target ?? pair?.cz;
   if (!target || typeof window.CaatuuChrome?.speakText !== "function") return;
@@ -3436,6 +3442,7 @@ function clearVerbMemory({ confirmed = false } = {}) {
 function bindVerbNebulaControls() {
   $("#trainPanelVerbLab")?.addEventListener("click", (event) => {
     if (event.target.closest("#verbSpeakOnTap")) {
+      if (course.capabilities?.speech !== true) return;
       state.verbSpeakOnTap = !state.verbSpeakOnTap;
       saveVerbSpeakOnTap();
       renderVerbAudioControls();

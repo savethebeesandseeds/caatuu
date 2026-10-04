@@ -4370,7 +4370,7 @@
       if (!visible) return;
       root.textContent = interfaceMessage("developer.tools.loading");
       try {
-        const { mountDeveloperTools } = await import("/language-runtime/static/source/developer-tools/developer-tools.mjs?v=developer-tools-4");
+        const { mountDeveloperTools } = await import("/language-runtime/static/source/developer-tools/developer-tools.mjs?v=developer-tools-6");
         if (request !== sequence) return;
         const inspectorCourse = {
           ...course,

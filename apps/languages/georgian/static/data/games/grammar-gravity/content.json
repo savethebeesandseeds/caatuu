@@ -1,0 +1,5165 @@
+{
+  "schemaVersion": "caatuu-grammar-gravity-content-v3",
+  "courseId": "ka",
+  "gameId": "grammar-gravity",
+  "contentId": "ka.grammar.number-v1",
+  "contentRevision": 1,
+  "status": "machine-assisted-preview",
+  "learnerBaseLanguage": "en",
+  "targetLanguage": "ka",
+  "englishAuditLanguage": "en",
+  "review": {
+    "status": "native-review-required",
+    "reviewer": null,
+    "reviewedAt": null,
+    "notes": "Original Modern Standard Georgian teaching examples authored and self-reviewed by AI. Independent native Georgian review remains pending. Mkhedruli is the teaching script; no approved pronunciation or audio is claimed. Verb vocabulary uses masdars (verbal nouns), including explicitly labelled practical verb phrases, rather than claiming Georgian has English-style infinitives."
+  },
+  "license": {
+    "origin": "caatuu-first-party-authored",
+    "status": "release-cleared",
+    "spdxExpression": "AGPL-3.0-only",
+    "notes": "Caatuu project owner approved AGPL-3.0-only and distribution on 2026-10-04. See docs/CURRICULUM_LICENSE_APPROVAL_20261004.json. Language and pronunciation reviews remain pending."
+  },
+  "presentation": {
+    "errorTitle": "Grammar Gravity could not load",
+    "errorDetail": "Return to the planets and try opening it again.",
+    "backLabel": "Back to games"
+  },
+  "axes": [
+    {
+      "id": "singular",
+      "label": "Singular",
+      "features": {
+        "number": "singular"
+      }
+    },
+    {
+      "id": "plural",
+      "label": "Plural",
+      "features": {
+        "number": "plural"
+      }
+    }
+  ],
+  "challenges": [
+    {
+      "id": "ka.grammar.number.01",
+      "revision": 1,
+      "difficulty": 1,
+      "focus": {
+        "kind": "verb",
+        "label": "Human subject: is at home",
+        "targetText": "არის",
+        "resultTitle": "Human subject and verb number",
+        "summary": "Georgian has no grammatical gender. These nominative human subjects take singular or plural verb agreement. Nonhuman plurals often keep singular verbs and are outside this board; nouns after numerals often remain singular."
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "არის",
+          "usefulness": 97,
+          "complexity": 20,
+          "examples": [
+            {
+              "id": "ka.grammar.number.01.singular.1",
+              "revision": 1,
+              "learnerBaseText": "The friend is at home.",
+              "englishAuditText": "The friend is at home.",
+              "targetText": "მეგობარი არის სახლში.",
+              "slot": {
+                "beforeText": "მეგობარი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მეგობარი",
+                "learnerBaseText": "friend",
+                "englishAuditText": "friend"
+              },
+              "usefulness": 97,
+              "complexity": 20
+            },
+            {
+              "id": "ka.grammar.number.01.singular.2",
+              "revision": 1,
+              "learnerBaseText": "The teacher is at home.",
+              "englishAuditText": "The teacher is at home.",
+              "targetText": "მასწავლებელი არის სახლში.",
+              "slot": {
+                "beforeText": "მასწავლებელი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მასწავლებელი",
+                "learnerBaseText": "teacher",
+                "englishAuditText": "teacher"
+              },
+              "usefulness": 97,
+              "complexity": 20
+            },
+            {
+              "id": "ka.grammar.number.01.singular.3",
+              "revision": 1,
+              "learnerBaseText": "The student is at home.",
+              "englishAuditText": "The student is at home.",
+              "targetText": "სტუდენტი არის სახლში.",
+              "slot": {
+                "beforeText": "სტუდენტი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "სტუდენტი",
+                "learnerBaseText": "student",
+                "englishAuditText": "student"
+              },
+              "usefulness": 97,
+              "complexity": 20
+            },
+            {
+              "id": "ka.grammar.number.01.singular.4",
+              "revision": 1,
+              "learnerBaseText": "The doctor is at home.",
+              "englishAuditText": "The doctor is at home.",
+              "targetText": "ექიმი არის სახლში.",
+              "slot": {
+                "beforeText": "ექიმი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "ექიმი",
+                "learnerBaseText": "doctor",
+                "englishAuditText": "doctor"
+              },
+              "usefulness": 97,
+              "complexity": 20
+            },
+            {
+              "id": "ka.grammar.number.01.singular.5",
+              "revision": 1,
+              "learnerBaseText": "The neighbor is at home.",
+              "englishAuditText": "The neighbor is at home.",
+              "targetText": "მეზობელი არის სახლში.",
+              "slot": {
+                "beforeText": "მეზობელი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მეზობელი",
+                "learnerBaseText": "neighbor",
+                "englishAuditText": "neighbor"
+              },
+              "usefulness": 97,
+              "complexity": 20
+            },
+            {
+              "id": "ka.grammar.number.01.singular.6",
+              "revision": 1,
+              "learnerBaseText": "The guest is at home.",
+              "englishAuditText": "The guest is at home.",
+              "targetText": "სტუმარი არის სახლში.",
+              "slot": {
+                "beforeText": "სტუმარი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "სტუმარი",
+                "learnerBaseText": "guest",
+                "englishAuditText": "guest"
+              },
+              "usefulness": 97,
+              "complexity": 20
+            },
+            {
+              "id": "ka.grammar.number.01.singular.7",
+              "revision": 1,
+              "learnerBaseText": "The woman is at home.",
+              "englishAuditText": "The woman is at home.",
+              "targetText": "ქალი არის სახლში.",
+              "slot": {
+                "beforeText": "ქალი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "ქალი",
+                "learnerBaseText": "woman",
+                "englishAuditText": "woman"
+              },
+              "usefulness": 97,
+              "complexity": 20
+            },
+            {
+              "id": "ka.grammar.number.01.singular.8",
+              "revision": 1,
+              "learnerBaseText": "The man is at home.",
+              "englishAuditText": "The man is at home.",
+              "targetText": "კაცი არის სახლში.",
+              "slot": {
+                "beforeText": "კაცი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "კაცი",
+                "learnerBaseText": "man",
+                "englishAuditText": "man"
+              },
+              "usefulness": 97,
+              "complexity": 20
+            },
+            {
+              "id": "ka.grammar.number.01.singular.9",
+              "revision": 1,
+              "learnerBaseText": "The driver is at home.",
+              "englishAuditText": "The driver is at home.",
+              "targetText": "მძღოლი არის სახლში.",
+              "slot": {
+                "beforeText": "მძღოლი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მძღოლი",
+                "learnerBaseText": "driver",
+                "englishAuditText": "driver"
+              },
+              "usefulness": 97,
+              "complexity": 20
+            },
+            {
+              "id": "ka.grammar.number.01.singular.10",
+              "revision": 1,
+              "learnerBaseText": "The seller is at home.",
+              "englishAuditText": "The seller is at home.",
+              "targetText": "გამყიდველი არის სახლში.",
+              "slot": {
+                "beforeText": "გამყიდველი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "გამყიდველი",
+                "learnerBaseText": "seller",
+                "englishAuditText": "seller"
+              },
+              "usefulness": 97,
+              "complexity": 20
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "არიან",
+          "usefulness": 97,
+          "complexity": 20,
+          "examples": [
+            {
+              "id": "ka.grammar.number.01.plural.1",
+              "revision": 1,
+              "learnerBaseText": "The friends are at home.",
+              "englishAuditText": "The friends are at home.",
+              "targetText": "მეგობრები არიან სახლში.",
+              "slot": {
+                "beforeText": "მეგობრები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მეგობრები",
+                "learnerBaseText": "friends",
+                "englishAuditText": "friends"
+              },
+              "usefulness": 97,
+              "complexity": 20
+            },
+            {
+              "id": "ka.grammar.number.01.plural.2",
+              "revision": 1,
+              "learnerBaseText": "The teachers are at home.",
+              "englishAuditText": "The teachers are at home.",
+              "targetText": "მასწავლებლები არიან სახლში.",
+              "slot": {
+                "beforeText": "მასწავლებლები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მასწავლებლები",
+                "learnerBaseText": "teachers",
+                "englishAuditText": "teachers"
+              },
+              "usefulness": 97,
+              "complexity": 20
+            },
+            {
+              "id": "ka.grammar.number.01.plural.3",
+              "revision": 1,
+              "learnerBaseText": "The students are at home.",
+              "englishAuditText": "The students are at home.",
+              "targetText": "სტუდენტები არიან სახლში.",
+              "slot": {
+                "beforeText": "სტუდენტები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "სტუდენტები",
+                "learnerBaseText": "students",
+                "englishAuditText": "students"
+              },
+              "usefulness": 97,
+              "complexity": 20
+            },
+            {
+              "id": "ka.grammar.number.01.plural.4",
+              "revision": 1,
+              "learnerBaseText": "The doctors are at home.",
+              "englishAuditText": "The doctors are at home.",
+              "targetText": "ექიმები არიან სახლში.",
+              "slot": {
+                "beforeText": "ექიმები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "ექიმები",
+                "learnerBaseText": "doctors",
+                "englishAuditText": "doctors"
+              },
+              "usefulness": 97,
+              "complexity": 20
+            },
+            {
+              "id": "ka.grammar.number.01.plural.5",
+              "revision": 1,
+              "learnerBaseText": "The neighbors are at home.",
+              "englishAuditText": "The neighbors are at home.",
+              "targetText": "მეზობლები არიან სახლში.",
+              "slot": {
+                "beforeText": "მეზობლები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მეზობლები",
+                "learnerBaseText": "neighbors",
+                "englishAuditText": "neighbors"
+              },
+              "usefulness": 97,
+              "complexity": 20
+            },
+            {
+              "id": "ka.grammar.number.01.plural.6",
+              "revision": 1,
+              "learnerBaseText": "The guests are at home.",
+              "englishAuditText": "The guests are at home.",
+              "targetText": "სტუმრები არიან სახლში.",
+              "slot": {
+                "beforeText": "სტუმრები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "სტუმრები",
+                "learnerBaseText": "guests",
+                "englishAuditText": "guests"
+              },
+              "usefulness": 97,
+              "complexity": 20
+            },
+            {
+              "id": "ka.grammar.number.01.plural.7",
+              "revision": 1,
+              "learnerBaseText": "The women are at home.",
+              "englishAuditText": "The women are at home.",
+              "targetText": "ქალები არიან სახლში.",
+              "slot": {
+                "beforeText": "ქალები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "ქალები",
+                "learnerBaseText": "women",
+                "englishAuditText": "women"
+              },
+              "usefulness": 97,
+              "complexity": 20
+            },
+            {
+              "id": "ka.grammar.number.01.plural.8",
+              "revision": 1,
+              "learnerBaseText": "The men are at home.",
+              "englishAuditText": "The men are at home.",
+              "targetText": "კაცები არიან სახლში.",
+              "slot": {
+                "beforeText": "კაცები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "კაცები",
+                "learnerBaseText": "men",
+                "englishAuditText": "men"
+              },
+              "usefulness": 97,
+              "complexity": 20
+            },
+            {
+              "id": "ka.grammar.number.01.plural.9",
+              "revision": 1,
+              "learnerBaseText": "The drivers are at home.",
+              "englishAuditText": "The drivers are at home.",
+              "targetText": "მძღოლები არიან სახლში.",
+              "slot": {
+                "beforeText": "მძღოლები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მძღოლები",
+                "learnerBaseText": "drivers",
+                "englishAuditText": "drivers"
+              },
+              "usefulness": 97,
+              "complexity": 20
+            },
+            {
+              "id": "ka.grammar.number.01.plural.10",
+              "revision": 1,
+              "learnerBaseText": "The sellers are at home.",
+              "englishAuditText": "The sellers are at home.",
+              "targetText": "გამყიდველები არიან სახლში.",
+              "slot": {
+                "beforeText": "გამყიდველები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "გამყიდველები",
+                "learnerBaseText": "sellers",
+                "englishAuditText": "sellers"
+              },
+              "usefulness": 97,
+              "complexity": 20
+            }
+          ]
+        }
+      },
+      "usefulness": 97,
+      "complexity": 20
+    },
+    {
+      "id": "ka.grammar.number.02",
+      "revision": 1,
+      "difficulty": 1,
+      "focus": {
+        "kind": "verb",
+        "label": "Human subject: works",
+        "targetText": "მუშაობს",
+        "resultTitle": "Human subject and verb number",
+        "summary": "Georgian has no grammatical gender. These nominative human subjects take singular or plural verb agreement. Nonhuman plurals often keep singular verbs and are outside this board; nouns after numerals often remain singular."
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "მუშაობს",
+          "usefulness": 97,
+          "complexity": 23,
+          "examples": [
+            {
+              "id": "ka.grammar.number.02.singular.1",
+              "revision": 1,
+              "learnerBaseText": "The friend works.",
+              "englishAuditText": "The friend works.",
+              "targetText": "მეგობარი მუშაობს.",
+              "slot": {
+                "beforeText": "მეგობარი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობარი",
+                "learnerBaseText": "friend",
+                "englishAuditText": "friend"
+              },
+              "usefulness": 97,
+              "complexity": 23
+            },
+            {
+              "id": "ka.grammar.number.02.singular.2",
+              "revision": 1,
+              "learnerBaseText": "The teacher works.",
+              "englishAuditText": "The teacher works.",
+              "targetText": "მასწავლებელი მუშაობს.",
+              "slot": {
+                "beforeText": "მასწავლებელი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მასწავლებელი",
+                "learnerBaseText": "teacher",
+                "englishAuditText": "teacher"
+              },
+              "usefulness": 97,
+              "complexity": 23
+            },
+            {
+              "id": "ka.grammar.number.02.singular.3",
+              "revision": 1,
+              "learnerBaseText": "The student works.",
+              "englishAuditText": "The student works.",
+              "targetText": "სტუდენტი მუშაობს.",
+              "slot": {
+                "beforeText": "სტუდენტი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "სტუდენტი",
+                "learnerBaseText": "student",
+                "englishAuditText": "student"
+              },
+              "usefulness": 97,
+              "complexity": 23
+            },
+            {
+              "id": "ka.grammar.number.02.singular.4",
+              "revision": 1,
+              "learnerBaseText": "The doctor works.",
+              "englishAuditText": "The doctor works.",
+              "targetText": "ექიმი მუშაობს.",
+              "slot": {
+                "beforeText": "ექიმი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ექიმი",
+                "learnerBaseText": "doctor",
+                "englishAuditText": "doctor"
+              },
+              "usefulness": 97,
+              "complexity": 23
+            },
+            {
+              "id": "ka.grammar.number.02.singular.5",
+              "revision": 1,
+              "learnerBaseText": "The neighbor works.",
+              "englishAuditText": "The neighbor works.",
+              "targetText": "მეზობელი მუშაობს.",
+              "slot": {
+                "beforeText": "მეზობელი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეზობელი",
+                "learnerBaseText": "neighbor",
+                "englishAuditText": "neighbor"
+              },
+              "usefulness": 97,
+              "complexity": 23
+            },
+            {
+              "id": "ka.grammar.number.02.singular.6",
+              "revision": 1,
+              "learnerBaseText": "The guest works.",
+              "englishAuditText": "The guest works.",
+              "targetText": "სტუმარი მუშაობს.",
+              "slot": {
+                "beforeText": "სტუმარი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "სტუმარი",
+                "learnerBaseText": "guest",
+                "englishAuditText": "guest"
+              },
+              "usefulness": 97,
+              "complexity": 23
+            },
+            {
+              "id": "ka.grammar.number.02.singular.7",
+              "revision": 1,
+              "learnerBaseText": "The woman works.",
+              "englishAuditText": "The woman works.",
+              "targetText": "ქალი მუშაობს.",
+              "slot": {
+                "beforeText": "ქალი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ქალი",
+                "learnerBaseText": "woman",
+                "englishAuditText": "woman"
+              },
+              "usefulness": 97,
+              "complexity": 23
+            },
+            {
+              "id": "ka.grammar.number.02.singular.8",
+              "revision": 1,
+              "learnerBaseText": "The man works.",
+              "englishAuditText": "The man works.",
+              "targetText": "კაცი მუშაობს.",
+              "slot": {
+                "beforeText": "კაცი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "კაცი",
+                "learnerBaseText": "man",
+                "englishAuditText": "man"
+              },
+              "usefulness": 97,
+              "complexity": 23
+            },
+            {
+              "id": "ka.grammar.number.02.singular.9",
+              "revision": 1,
+              "learnerBaseText": "The driver works.",
+              "englishAuditText": "The driver works.",
+              "targetText": "მძღოლი მუშაობს.",
+              "slot": {
+                "beforeText": "მძღოლი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მძღოლი",
+                "learnerBaseText": "driver",
+                "englishAuditText": "driver"
+              },
+              "usefulness": 97,
+              "complexity": 23
+            },
+            {
+              "id": "ka.grammar.number.02.singular.10",
+              "revision": 1,
+              "learnerBaseText": "The seller works.",
+              "englishAuditText": "The seller works.",
+              "targetText": "გამყიდველი მუშაობს.",
+              "slot": {
+                "beforeText": "გამყიდველი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "გამყიდველი",
+                "learnerBaseText": "seller",
+                "englishAuditText": "seller"
+              },
+              "usefulness": 97,
+              "complexity": 23
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "მუშაობენ",
+          "usefulness": 97,
+          "complexity": 23,
+          "examples": [
+            {
+              "id": "ka.grammar.number.02.plural.1",
+              "revision": 1,
+              "learnerBaseText": "The friends work.",
+              "englishAuditText": "The friends work.",
+              "targetText": "მეგობრები მუშაობენ.",
+              "slot": {
+                "beforeText": "მეგობრები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობრები",
+                "learnerBaseText": "friends",
+                "englishAuditText": "friends"
+              },
+              "usefulness": 97,
+              "complexity": 23
+            },
+            {
+              "id": "ka.grammar.number.02.plural.2",
+              "revision": 1,
+              "learnerBaseText": "The teachers work.",
+              "englishAuditText": "The teachers work.",
+              "targetText": "მასწავლებლები მუშაობენ.",
+              "slot": {
+                "beforeText": "მასწავლებლები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მასწავლებლები",
+                "learnerBaseText": "teachers",
+                "englishAuditText": "teachers"
+              },
+              "usefulness": 97,
+              "complexity": 23
+            },
+            {
+              "id": "ka.grammar.number.02.plural.3",
+              "revision": 1,
+              "learnerBaseText": "The students work.",
+              "englishAuditText": "The students work.",
+              "targetText": "სტუდენტები მუშაობენ.",
+              "slot": {
+                "beforeText": "სტუდენტები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "სტუდენტები",
+                "learnerBaseText": "students",
+                "englishAuditText": "students"
+              },
+              "usefulness": 97,
+              "complexity": 23
+            },
+            {
+              "id": "ka.grammar.number.02.plural.4",
+              "revision": 1,
+              "learnerBaseText": "The doctors work.",
+              "englishAuditText": "The doctors work.",
+              "targetText": "ექიმები მუშაობენ.",
+              "slot": {
+                "beforeText": "ექიმები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ექიმები",
+                "learnerBaseText": "doctors",
+                "englishAuditText": "doctors"
+              },
+              "usefulness": 97,
+              "complexity": 23
+            },
+            {
+              "id": "ka.grammar.number.02.plural.5",
+              "revision": 1,
+              "learnerBaseText": "The neighbors work.",
+              "englishAuditText": "The neighbors work.",
+              "targetText": "მეზობლები მუშაობენ.",
+              "slot": {
+                "beforeText": "მეზობლები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეზობლები",
+                "learnerBaseText": "neighbors",
+                "englishAuditText": "neighbors"
+              },
+              "usefulness": 97,
+              "complexity": 23
+            },
+            {
+              "id": "ka.grammar.number.02.plural.6",
+              "revision": 1,
+              "learnerBaseText": "The guests work.",
+              "englishAuditText": "The guests work.",
+              "targetText": "სტუმრები მუშაობენ.",
+              "slot": {
+                "beforeText": "სტუმრები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "სტუმრები",
+                "learnerBaseText": "guests",
+                "englishAuditText": "guests"
+              },
+              "usefulness": 97,
+              "complexity": 23
+            },
+            {
+              "id": "ka.grammar.number.02.plural.7",
+              "revision": 1,
+              "learnerBaseText": "The women work.",
+              "englishAuditText": "The women work.",
+              "targetText": "ქალები მუშაობენ.",
+              "slot": {
+                "beforeText": "ქალები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ქალები",
+                "learnerBaseText": "women",
+                "englishAuditText": "women"
+              },
+              "usefulness": 97,
+              "complexity": 23
+            },
+            {
+              "id": "ka.grammar.number.02.plural.8",
+              "revision": 1,
+              "learnerBaseText": "The men work.",
+              "englishAuditText": "The men work.",
+              "targetText": "კაცები მუშაობენ.",
+              "slot": {
+                "beforeText": "კაცები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "კაცები",
+                "learnerBaseText": "men",
+                "englishAuditText": "men"
+              },
+              "usefulness": 97,
+              "complexity": 23
+            },
+            {
+              "id": "ka.grammar.number.02.plural.9",
+              "revision": 1,
+              "learnerBaseText": "The drivers work.",
+              "englishAuditText": "The drivers work.",
+              "targetText": "მძღოლები მუშაობენ.",
+              "slot": {
+                "beforeText": "მძღოლები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მძღოლები",
+                "learnerBaseText": "drivers",
+                "englishAuditText": "drivers"
+              },
+              "usefulness": 97,
+              "complexity": 23
+            },
+            {
+              "id": "ka.grammar.number.02.plural.10",
+              "revision": 1,
+              "learnerBaseText": "The sellers work.",
+              "englishAuditText": "The sellers work.",
+              "targetText": "გამყიდველები მუშაობენ.",
+              "slot": {
+                "beforeText": "გამყიდველები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "გამყიდველები",
+                "learnerBaseText": "sellers",
+                "englishAuditText": "sellers"
+              },
+              "usefulness": 97,
+              "complexity": 23
+            }
+          ]
+        }
+      },
+      "usefulness": 97,
+      "complexity": 23
+    },
+    {
+      "id": "ka.grammar.number.03",
+      "revision": 1,
+      "difficulty": 1,
+      "focus": {
+        "kind": "verb",
+        "label": "Human subject: studies",
+        "targetText": "სწავლობს",
+        "resultTitle": "Human subject and verb number",
+        "summary": "Georgian has no grammatical gender. These nominative human subjects take singular or plural verb agreement. Nonhuman plurals often keep singular verbs and are outside this board; nouns after numerals often remain singular."
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "სწავლობს",
+          "usefulness": 97,
+          "complexity": 26,
+          "examples": [
+            {
+              "id": "ka.grammar.number.03.singular.1",
+              "revision": 1,
+              "learnerBaseText": "The friend studies.",
+              "englishAuditText": "The friend studies.",
+              "targetText": "მეგობარი სწავლობს.",
+              "slot": {
+                "beforeText": "მეგობარი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობარი",
+                "learnerBaseText": "friend",
+                "englishAuditText": "friend"
+              },
+              "usefulness": 97,
+              "complexity": 26
+            },
+            {
+              "id": "ka.grammar.number.03.singular.2",
+              "revision": 1,
+              "learnerBaseText": "The teacher studies.",
+              "englishAuditText": "The teacher studies.",
+              "targetText": "მასწავლებელი სწავლობს.",
+              "slot": {
+                "beforeText": "მასწავლებელი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მასწავლებელი",
+                "learnerBaseText": "teacher",
+                "englishAuditText": "teacher"
+              },
+              "usefulness": 97,
+              "complexity": 26
+            },
+            {
+              "id": "ka.grammar.number.03.singular.3",
+              "revision": 1,
+              "learnerBaseText": "The student studies.",
+              "englishAuditText": "The student studies.",
+              "targetText": "სტუდენტი სწავლობს.",
+              "slot": {
+                "beforeText": "სტუდენტი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "სტუდენტი",
+                "learnerBaseText": "student",
+                "englishAuditText": "student"
+              },
+              "usefulness": 97,
+              "complexity": 26
+            },
+            {
+              "id": "ka.grammar.number.03.singular.4",
+              "revision": 1,
+              "learnerBaseText": "The doctor studies.",
+              "englishAuditText": "The doctor studies.",
+              "targetText": "ექიმი სწავლობს.",
+              "slot": {
+                "beforeText": "ექიმი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ექიმი",
+                "learnerBaseText": "doctor",
+                "englishAuditText": "doctor"
+              },
+              "usefulness": 97,
+              "complexity": 26
+            },
+            {
+              "id": "ka.grammar.number.03.singular.5",
+              "revision": 1,
+              "learnerBaseText": "The neighbor studies.",
+              "englishAuditText": "The neighbor studies.",
+              "targetText": "მეზობელი სწავლობს.",
+              "slot": {
+                "beforeText": "მეზობელი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეზობელი",
+                "learnerBaseText": "neighbor",
+                "englishAuditText": "neighbor"
+              },
+              "usefulness": 97,
+              "complexity": 26
+            },
+            {
+              "id": "ka.grammar.number.03.singular.6",
+              "revision": 1,
+              "learnerBaseText": "The guest studies.",
+              "englishAuditText": "The guest studies.",
+              "targetText": "სტუმარი სწავლობს.",
+              "slot": {
+                "beforeText": "სტუმარი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "სტუმარი",
+                "learnerBaseText": "guest",
+                "englishAuditText": "guest"
+              },
+              "usefulness": 97,
+              "complexity": 26
+            },
+            {
+              "id": "ka.grammar.number.03.singular.7",
+              "revision": 1,
+              "learnerBaseText": "The woman studies.",
+              "englishAuditText": "The woman studies.",
+              "targetText": "ქალი სწავლობს.",
+              "slot": {
+                "beforeText": "ქალი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ქალი",
+                "learnerBaseText": "woman",
+                "englishAuditText": "woman"
+              },
+              "usefulness": 97,
+              "complexity": 26
+            },
+            {
+              "id": "ka.grammar.number.03.singular.8",
+              "revision": 1,
+              "learnerBaseText": "The man studies.",
+              "englishAuditText": "The man studies.",
+              "targetText": "კაცი სწავლობს.",
+              "slot": {
+                "beforeText": "კაცი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "კაცი",
+                "learnerBaseText": "man",
+                "englishAuditText": "man"
+              },
+              "usefulness": 97,
+              "complexity": 26
+            },
+            {
+              "id": "ka.grammar.number.03.singular.9",
+              "revision": 1,
+              "learnerBaseText": "The driver studies.",
+              "englishAuditText": "The driver studies.",
+              "targetText": "მძღოლი სწავლობს.",
+              "slot": {
+                "beforeText": "მძღოლი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მძღოლი",
+                "learnerBaseText": "driver",
+                "englishAuditText": "driver"
+              },
+              "usefulness": 97,
+              "complexity": 26
+            },
+            {
+              "id": "ka.grammar.number.03.singular.10",
+              "revision": 1,
+              "learnerBaseText": "The seller studies.",
+              "englishAuditText": "The seller studies.",
+              "targetText": "გამყიდველი სწავლობს.",
+              "slot": {
+                "beforeText": "გამყიდველი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "გამყიდველი",
+                "learnerBaseText": "seller",
+                "englishAuditText": "seller"
+              },
+              "usefulness": 97,
+              "complexity": 26
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "სწავლობენ",
+          "usefulness": 97,
+          "complexity": 26,
+          "examples": [
+            {
+              "id": "ka.grammar.number.03.plural.1",
+              "revision": 1,
+              "learnerBaseText": "The friends study.",
+              "englishAuditText": "The friends study.",
+              "targetText": "მეგობრები სწავლობენ.",
+              "slot": {
+                "beforeText": "მეგობრები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობრები",
+                "learnerBaseText": "friends",
+                "englishAuditText": "friends"
+              },
+              "usefulness": 97,
+              "complexity": 26
+            },
+            {
+              "id": "ka.grammar.number.03.plural.2",
+              "revision": 1,
+              "learnerBaseText": "The teachers study.",
+              "englishAuditText": "The teachers study.",
+              "targetText": "მასწავლებლები სწავლობენ.",
+              "slot": {
+                "beforeText": "მასწავლებლები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მასწავლებლები",
+                "learnerBaseText": "teachers",
+                "englishAuditText": "teachers"
+              },
+              "usefulness": 97,
+              "complexity": 26
+            },
+            {
+              "id": "ka.grammar.number.03.plural.3",
+              "revision": 1,
+              "learnerBaseText": "The students study.",
+              "englishAuditText": "The students study.",
+              "targetText": "სტუდენტები სწავლობენ.",
+              "slot": {
+                "beforeText": "სტუდენტები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "სტუდენტები",
+                "learnerBaseText": "students",
+                "englishAuditText": "students"
+              },
+              "usefulness": 97,
+              "complexity": 26
+            },
+            {
+              "id": "ka.grammar.number.03.plural.4",
+              "revision": 1,
+              "learnerBaseText": "The doctors study.",
+              "englishAuditText": "The doctors study.",
+              "targetText": "ექიმები სწავლობენ.",
+              "slot": {
+                "beforeText": "ექიმები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ექიმები",
+                "learnerBaseText": "doctors",
+                "englishAuditText": "doctors"
+              },
+              "usefulness": 97,
+              "complexity": 26
+            },
+            {
+              "id": "ka.grammar.number.03.plural.5",
+              "revision": 1,
+              "learnerBaseText": "The neighbors study.",
+              "englishAuditText": "The neighbors study.",
+              "targetText": "მეზობლები სწავლობენ.",
+              "slot": {
+                "beforeText": "მეზობლები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეზობლები",
+                "learnerBaseText": "neighbors",
+                "englishAuditText": "neighbors"
+              },
+              "usefulness": 97,
+              "complexity": 26
+            },
+            {
+              "id": "ka.grammar.number.03.plural.6",
+              "revision": 1,
+              "learnerBaseText": "The guests study.",
+              "englishAuditText": "The guests study.",
+              "targetText": "სტუმრები სწავლობენ.",
+              "slot": {
+                "beforeText": "სტუმრები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "სტუმრები",
+                "learnerBaseText": "guests",
+                "englishAuditText": "guests"
+              },
+              "usefulness": 97,
+              "complexity": 26
+            },
+            {
+              "id": "ka.grammar.number.03.plural.7",
+              "revision": 1,
+              "learnerBaseText": "The women study.",
+              "englishAuditText": "The women study.",
+              "targetText": "ქალები სწავლობენ.",
+              "slot": {
+                "beforeText": "ქალები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ქალები",
+                "learnerBaseText": "women",
+                "englishAuditText": "women"
+              },
+              "usefulness": 97,
+              "complexity": 26
+            },
+            {
+              "id": "ka.grammar.number.03.plural.8",
+              "revision": 1,
+              "learnerBaseText": "The men study.",
+              "englishAuditText": "The men study.",
+              "targetText": "კაცები სწავლობენ.",
+              "slot": {
+                "beforeText": "კაცები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "კაცები",
+                "learnerBaseText": "men",
+                "englishAuditText": "men"
+              },
+              "usefulness": 97,
+              "complexity": 26
+            },
+            {
+              "id": "ka.grammar.number.03.plural.9",
+              "revision": 1,
+              "learnerBaseText": "The drivers study.",
+              "englishAuditText": "The drivers study.",
+              "targetText": "მძღოლები სწავლობენ.",
+              "slot": {
+                "beforeText": "მძღოლები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მძღოლები",
+                "learnerBaseText": "drivers",
+                "englishAuditText": "drivers"
+              },
+              "usefulness": 97,
+              "complexity": 26
+            },
+            {
+              "id": "ka.grammar.number.03.plural.10",
+              "revision": 1,
+              "learnerBaseText": "The sellers study.",
+              "englishAuditText": "The sellers study.",
+              "targetText": "გამყიდველები სწავლობენ.",
+              "slot": {
+                "beforeText": "გამყიდველები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "გამყიდველები",
+                "learnerBaseText": "sellers",
+                "englishAuditText": "sellers"
+              },
+              "usefulness": 97,
+              "complexity": 26
+            }
+          ]
+        }
+      },
+      "usefulness": 97,
+      "complexity": 26
+    },
+    {
+      "id": "ka.grammar.number.04",
+      "revision": 1,
+      "difficulty": 1,
+      "focus": {
+        "kind": "verb",
+        "label": "Human subject: reads",
+        "targetText": "კითხულობს",
+        "resultTitle": "Human subject and verb number",
+        "summary": "Georgian has no grammatical gender. These nominative human subjects take singular or plural verb agreement. Nonhuman plurals often keep singular verbs and are outside this board; nouns after numerals often remain singular."
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "კითხულობს",
+          "usefulness": 97,
+          "complexity": 29,
+          "examples": [
+            {
+              "id": "ka.grammar.number.04.singular.1",
+              "revision": 1,
+              "learnerBaseText": "The friend reads.",
+              "englishAuditText": "The friend reads.",
+              "targetText": "მეგობარი კითხულობს.",
+              "slot": {
+                "beforeText": "მეგობარი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობარი",
+                "learnerBaseText": "friend",
+                "englishAuditText": "friend"
+              },
+              "usefulness": 97,
+              "complexity": 29
+            },
+            {
+              "id": "ka.grammar.number.04.singular.2",
+              "revision": 1,
+              "learnerBaseText": "The teacher reads.",
+              "englishAuditText": "The teacher reads.",
+              "targetText": "მასწავლებელი კითხულობს.",
+              "slot": {
+                "beforeText": "მასწავლებელი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მასწავლებელი",
+                "learnerBaseText": "teacher",
+                "englishAuditText": "teacher"
+              },
+              "usefulness": 97,
+              "complexity": 29
+            },
+            {
+              "id": "ka.grammar.number.04.singular.3",
+              "revision": 1,
+              "learnerBaseText": "The student reads.",
+              "englishAuditText": "The student reads.",
+              "targetText": "სტუდენტი კითხულობს.",
+              "slot": {
+                "beforeText": "სტუდენტი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "სტუდენტი",
+                "learnerBaseText": "student",
+                "englishAuditText": "student"
+              },
+              "usefulness": 97,
+              "complexity": 29
+            },
+            {
+              "id": "ka.grammar.number.04.singular.4",
+              "revision": 1,
+              "learnerBaseText": "The doctor reads.",
+              "englishAuditText": "The doctor reads.",
+              "targetText": "ექიმი კითხულობს.",
+              "slot": {
+                "beforeText": "ექიმი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ექიმი",
+                "learnerBaseText": "doctor",
+                "englishAuditText": "doctor"
+              },
+              "usefulness": 97,
+              "complexity": 29
+            },
+            {
+              "id": "ka.grammar.number.04.singular.5",
+              "revision": 1,
+              "learnerBaseText": "The neighbor reads.",
+              "englishAuditText": "The neighbor reads.",
+              "targetText": "მეზობელი კითხულობს.",
+              "slot": {
+                "beforeText": "მეზობელი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეზობელი",
+                "learnerBaseText": "neighbor",
+                "englishAuditText": "neighbor"
+              },
+              "usefulness": 97,
+              "complexity": 29
+            },
+            {
+              "id": "ka.grammar.number.04.singular.6",
+              "revision": 1,
+              "learnerBaseText": "The guest reads.",
+              "englishAuditText": "The guest reads.",
+              "targetText": "სტუმარი კითხულობს.",
+              "slot": {
+                "beforeText": "სტუმარი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "სტუმარი",
+                "learnerBaseText": "guest",
+                "englishAuditText": "guest"
+              },
+              "usefulness": 97,
+              "complexity": 29
+            },
+            {
+              "id": "ka.grammar.number.04.singular.7",
+              "revision": 1,
+              "learnerBaseText": "The woman reads.",
+              "englishAuditText": "The woman reads.",
+              "targetText": "ქალი კითხულობს.",
+              "slot": {
+                "beforeText": "ქალი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ქალი",
+                "learnerBaseText": "woman",
+                "englishAuditText": "woman"
+              },
+              "usefulness": 97,
+              "complexity": 29
+            },
+            {
+              "id": "ka.grammar.number.04.singular.8",
+              "revision": 1,
+              "learnerBaseText": "The man reads.",
+              "englishAuditText": "The man reads.",
+              "targetText": "კაცი კითხულობს.",
+              "slot": {
+                "beforeText": "კაცი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "კაცი",
+                "learnerBaseText": "man",
+                "englishAuditText": "man"
+              },
+              "usefulness": 97,
+              "complexity": 29
+            },
+            {
+              "id": "ka.grammar.number.04.singular.9",
+              "revision": 1,
+              "learnerBaseText": "The driver reads.",
+              "englishAuditText": "The driver reads.",
+              "targetText": "მძღოლი კითხულობს.",
+              "slot": {
+                "beforeText": "მძღოლი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მძღოლი",
+                "learnerBaseText": "driver",
+                "englishAuditText": "driver"
+              },
+              "usefulness": 97,
+              "complexity": 29
+            },
+            {
+              "id": "ka.grammar.number.04.singular.10",
+              "revision": 1,
+              "learnerBaseText": "The seller reads.",
+              "englishAuditText": "The seller reads.",
+              "targetText": "გამყიდველი კითხულობს.",
+              "slot": {
+                "beforeText": "გამყიდველი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "გამყიდველი",
+                "learnerBaseText": "seller",
+                "englishAuditText": "seller"
+              },
+              "usefulness": 97,
+              "complexity": 29
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "კითხულობენ",
+          "usefulness": 97,
+          "complexity": 29,
+          "examples": [
+            {
+              "id": "ka.grammar.number.04.plural.1",
+              "revision": 1,
+              "learnerBaseText": "The friends read.",
+              "englishAuditText": "The friends read.",
+              "targetText": "მეგობრები კითხულობენ.",
+              "slot": {
+                "beforeText": "მეგობრები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობრები",
+                "learnerBaseText": "friends",
+                "englishAuditText": "friends"
+              },
+              "usefulness": 97,
+              "complexity": 29
+            },
+            {
+              "id": "ka.grammar.number.04.plural.2",
+              "revision": 1,
+              "learnerBaseText": "The teachers read.",
+              "englishAuditText": "The teachers read.",
+              "targetText": "მასწავლებლები კითხულობენ.",
+              "slot": {
+                "beforeText": "მასწავლებლები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მასწავლებლები",
+                "learnerBaseText": "teachers",
+                "englishAuditText": "teachers"
+              },
+              "usefulness": 97,
+              "complexity": 29
+            },
+            {
+              "id": "ka.grammar.number.04.plural.3",
+              "revision": 1,
+              "learnerBaseText": "The students read.",
+              "englishAuditText": "The students read.",
+              "targetText": "სტუდენტები კითხულობენ.",
+              "slot": {
+                "beforeText": "სტუდენტები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "სტუდენტები",
+                "learnerBaseText": "students",
+                "englishAuditText": "students"
+              },
+              "usefulness": 97,
+              "complexity": 29
+            },
+            {
+              "id": "ka.grammar.number.04.plural.4",
+              "revision": 1,
+              "learnerBaseText": "The doctors read.",
+              "englishAuditText": "The doctors read.",
+              "targetText": "ექიმები კითხულობენ.",
+              "slot": {
+                "beforeText": "ექიმები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ექიმები",
+                "learnerBaseText": "doctors",
+                "englishAuditText": "doctors"
+              },
+              "usefulness": 97,
+              "complexity": 29
+            },
+            {
+              "id": "ka.grammar.number.04.plural.5",
+              "revision": 1,
+              "learnerBaseText": "The neighbors read.",
+              "englishAuditText": "The neighbors read.",
+              "targetText": "მეზობლები კითხულობენ.",
+              "slot": {
+                "beforeText": "მეზობლები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეზობლები",
+                "learnerBaseText": "neighbors",
+                "englishAuditText": "neighbors"
+              },
+              "usefulness": 97,
+              "complexity": 29
+            },
+            {
+              "id": "ka.grammar.number.04.plural.6",
+              "revision": 1,
+              "learnerBaseText": "The guests read.",
+              "englishAuditText": "The guests read.",
+              "targetText": "სტუმრები კითხულობენ.",
+              "slot": {
+                "beforeText": "სტუმრები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "სტუმრები",
+                "learnerBaseText": "guests",
+                "englishAuditText": "guests"
+              },
+              "usefulness": 97,
+              "complexity": 29
+            },
+            {
+              "id": "ka.grammar.number.04.plural.7",
+              "revision": 1,
+              "learnerBaseText": "The women read.",
+              "englishAuditText": "The women read.",
+              "targetText": "ქალები კითხულობენ.",
+              "slot": {
+                "beforeText": "ქალები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ქალები",
+                "learnerBaseText": "women",
+                "englishAuditText": "women"
+              },
+              "usefulness": 97,
+              "complexity": 29
+            },
+            {
+              "id": "ka.grammar.number.04.plural.8",
+              "revision": 1,
+              "learnerBaseText": "The men read.",
+              "englishAuditText": "The men read.",
+              "targetText": "კაცები კითხულობენ.",
+              "slot": {
+                "beforeText": "კაცები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "კაცები",
+                "learnerBaseText": "men",
+                "englishAuditText": "men"
+              },
+              "usefulness": 97,
+              "complexity": 29
+            },
+            {
+              "id": "ka.grammar.number.04.plural.9",
+              "revision": 1,
+              "learnerBaseText": "The drivers read.",
+              "englishAuditText": "The drivers read.",
+              "targetText": "მძღოლები კითხულობენ.",
+              "slot": {
+                "beforeText": "მძღოლები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მძღოლები",
+                "learnerBaseText": "drivers",
+                "englishAuditText": "drivers"
+              },
+              "usefulness": 97,
+              "complexity": 29
+            },
+            {
+              "id": "ka.grammar.number.04.plural.10",
+              "revision": 1,
+              "learnerBaseText": "The sellers read.",
+              "englishAuditText": "The sellers read.",
+              "targetText": "გამყიდველები კითხულობენ.",
+              "slot": {
+                "beforeText": "გამყიდველები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "გამყიდველები",
+                "learnerBaseText": "sellers",
+                "englishAuditText": "sellers"
+              },
+              "usefulness": 97,
+              "complexity": 29
+            }
+          ]
+        }
+      },
+      "usefulness": 97,
+      "complexity": 29
+    },
+    {
+      "id": "ka.grammar.number.05",
+      "revision": 1,
+      "difficulty": 1,
+      "focus": {
+        "kind": "verb",
+        "label": "Human subject: writes",
+        "targetText": "წერს",
+        "resultTitle": "Human subject and verb number",
+        "summary": "Georgian has no grammatical gender. These nominative human subjects take singular or plural verb agreement. Nonhuman plurals often keep singular verbs and are outside this board; nouns after numerals often remain singular."
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "წერს",
+          "usefulness": 97,
+          "complexity": 32,
+          "examples": [
+            {
+              "id": "ka.grammar.number.05.singular.1",
+              "revision": 1,
+              "learnerBaseText": "The friend writes.",
+              "englishAuditText": "The friend writes.",
+              "targetText": "მეგობარი წერს.",
+              "slot": {
+                "beforeText": "მეგობარი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობარი",
+                "learnerBaseText": "friend",
+                "englishAuditText": "friend"
+              },
+              "usefulness": 97,
+              "complexity": 32
+            },
+            {
+              "id": "ka.grammar.number.05.singular.2",
+              "revision": 1,
+              "learnerBaseText": "The teacher writes.",
+              "englishAuditText": "The teacher writes.",
+              "targetText": "მასწავლებელი წერს.",
+              "slot": {
+                "beforeText": "მასწავლებელი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მასწავლებელი",
+                "learnerBaseText": "teacher",
+                "englishAuditText": "teacher"
+              },
+              "usefulness": 97,
+              "complexity": 32
+            },
+            {
+              "id": "ka.grammar.number.05.singular.3",
+              "revision": 1,
+              "learnerBaseText": "The student writes.",
+              "englishAuditText": "The student writes.",
+              "targetText": "სტუდენტი წერს.",
+              "slot": {
+                "beforeText": "სტუდენტი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "სტუდენტი",
+                "learnerBaseText": "student",
+                "englishAuditText": "student"
+              },
+              "usefulness": 97,
+              "complexity": 32
+            },
+            {
+              "id": "ka.grammar.number.05.singular.4",
+              "revision": 1,
+              "learnerBaseText": "The doctor writes.",
+              "englishAuditText": "The doctor writes.",
+              "targetText": "ექიმი წერს.",
+              "slot": {
+                "beforeText": "ექიმი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ექიმი",
+                "learnerBaseText": "doctor",
+                "englishAuditText": "doctor"
+              },
+              "usefulness": 97,
+              "complexity": 32
+            },
+            {
+              "id": "ka.grammar.number.05.singular.5",
+              "revision": 1,
+              "learnerBaseText": "The neighbor writes.",
+              "englishAuditText": "The neighbor writes.",
+              "targetText": "მეზობელი წერს.",
+              "slot": {
+                "beforeText": "მეზობელი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეზობელი",
+                "learnerBaseText": "neighbor",
+                "englishAuditText": "neighbor"
+              },
+              "usefulness": 97,
+              "complexity": 32
+            },
+            {
+              "id": "ka.grammar.number.05.singular.6",
+              "revision": 1,
+              "learnerBaseText": "The guest writes.",
+              "englishAuditText": "The guest writes.",
+              "targetText": "სტუმარი წერს.",
+              "slot": {
+                "beforeText": "სტუმარი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "სტუმარი",
+                "learnerBaseText": "guest",
+                "englishAuditText": "guest"
+              },
+              "usefulness": 97,
+              "complexity": 32
+            },
+            {
+              "id": "ka.grammar.number.05.singular.7",
+              "revision": 1,
+              "learnerBaseText": "The woman writes.",
+              "englishAuditText": "The woman writes.",
+              "targetText": "ქალი წერს.",
+              "slot": {
+                "beforeText": "ქალი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ქალი",
+                "learnerBaseText": "woman",
+                "englishAuditText": "woman"
+              },
+              "usefulness": 97,
+              "complexity": 32
+            },
+            {
+              "id": "ka.grammar.number.05.singular.8",
+              "revision": 1,
+              "learnerBaseText": "The man writes.",
+              "englishAuditText": "The man writes.",
+              "targetText": "კაცი წერს.",
+              "slot": {
+                "beforeText": "კაცი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "კაცი",
+                "learnerBaseText": "man",
+                "englishAuditText": "man"
+              },
+              "usefulness": 97,
+              "complexity": 32
+            },
+            {
+              "id": "ka.grammar.number.05.singular.9",
+              "revision": 1,
+              "learnerBaseText": "The driver writes.",
+              "englishAuditText": "The driver writes.",
+              "targetText": "მძღოლი წერს.",
+              "slot": {
+                "beforeText": "მძღოლი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მძღოლი",
+                "learnerBaseText": "driver",
+                "englishAuditText": "driver"
+              },
+              "usefulness": 97,
+              "complexity": 32
+            },
+            {
+              "id": "ka.grammar.number.05.singular.10",
+              "revision": 1,
+              "learnerBaseText": "The seller writes.",
+              "englishAuditText": "The seller writes.",
+              "targetText": "გამყიდველი წერს.",
+              "slot": {
+                "beforeText": "გამყიდველი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "გამყიდველი",
+                "learnerBaseText": "seller",
+                "englishAuditText": "seller"
+              },
+              "usefulness": 97,
+              "complexity": 32
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "წერენ",
+          "usefulness": 97,
+          "complexity": 32,
+          "examples": [
+            {
+              "id": "ka.grammar.number.05.plural.1",
+              "revision": 1,
+              "learnerBaseText": "The friends write.",
+              "englishAuditText": "The friends write.",
+              "targetText": "მეგობრები წერენ.",
+              "slot": {
+                "beforeText": "მეგობრები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობრები",
+                "learnerBaseText": "friends",
+                "englishAuditText": "friends"
+              },
+              "usefulness": 97,
+              "complexity": 32
+            },
+            {
+              "id": "ka.grammar.number.05.plural.2",
+              "revision": 1,
+              "learnerBaseText": "The teachers write.",
+              "englishAuditText": "The teachers write.",
+              "targetText": "მასწავლებლები წერენ.",
+              "slot": {
+                "beforeText": "მასწავლებლები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მასწავლებლები",
+                "learnerBaseText": "teachers",
+                "englishAuditText": "teachers"
+              },
+              "usefulness": 97,
+              "complexity": 32
+            },
+            {
+              "id": "ka.grammar.number.05.plural.3",
+              "revision": 1,
+              "learnerBaseText": "The students write.",
+              "englishAuditText": "The students write.",
+              "targetText": "სტუდენტები წერენ.",
+              "slot": {
+                "beforeText": "სტუდენტები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "სტუდენტები",
+                "learnerBaseText": "students",
+                "englishAuditText": "students"
+              },
+              "usefulness": 97,
+              "complexity": 32
+            },
+            {
+              "id": "ka.grammar.number.05.plural.4",
+              "revision": 1,
+              "learnerBaseText": "The doctors write.",
+              "englishAuditText": "The doctors write.",
+              "targetText": "ექიმები წერენ.",
+              "slot": {
+                "beforeText": "ექიმები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ექიმები",
+                "learnerBaseText": "doctors",
+                "englishAuditText": "doctors"
+              },
+              "usefulness": 97,
+              "complexity": 32
+            },
+            {
+              "id": "ka.grammar.number.05.plural.5",
+              "revision": 1,
+              "learnerBaseText": "The neighbors write.",
+              "englishAuditText": "The neighbors write.",
+              "targetText": "მეზობლები წერენ.",
+              "slot": {
+                "beforeText": "მეზობლები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეზობლები",
+                "learnerBaseText": "neighbors",
+                "englishAuditText": "neighbors"
+              },
+              "usefulness": 97,
+              "complexity": 32
+            },
+            {
+              "id": "ka.grammar.number.05.plural.6",
+              "revision": 1,
+              "learnerBaseText": "The guests write.",
+              "englishAuditText": "The guests write.",
+              "targetText": "სტუმრები წერენ.",
+              "slot": {
+                "beforeText": "სტუმრები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "სტუმრები",
+                "learnerBaseText": "guests",
+                "englishAuditText": "guests"
+              },
+              "usefulness": 97,
+              "complexity": 32
+            },
+            {
+              "id": "ka.grammar.number.05.plural.7",
+              "revision": 1,
+              "learnerBaseText": "The women write.",
+              "englishAuditText": "The women write.",
+              "targetText": "ქალები წერენ.",
+              "slot": {
+                "beforeText": "ქალები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ქალები",
+                "learnerBaseText": "women",
+                "englishAuditText": "women"
+              },
+              "usefulness": 97,
+              "complexity": 32
+            },
+            {
+              "id": "ka.grammar.number.05.plural.8",
+              "revision": 1,
+              "learnerBaseText": "The men write.",
+              "englishAuditText": "The men write.",
+              "targetText": "კაცები წერენ.",
+              "slot": {
+                "beforeText": "კაცები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "კაცები",
+                "learnerBaseText": "men",
+                "englishAuditText": "men"
+              },
+              "usefulness": 97,
+              "complexity": 32
+            },
+            {
+              "id": "ka.grammar.number.05.plural.9",
+              "revision": 1,
+              "learnerBaseText": "The drivers write.",
+              "englishAuditText": "The drivers write.",
+              "targetText": "მძღოლები წერენ.",
+              "slot": {
+                "beforeText": "მძღოლები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მძღოლები",
+                "learnerBaseText": "drivers",
+                "englishAuditText": "drivers"
+              },
+              "usefulness": 97,
+              "complexity": 32
+            },
+            {
+              "id": "ka.grammar.number.05.plural.10",
+              "revision": 1,
+              "learnerBaseText": "The sellers write.",
+              "englishAuditText": "The sellers write.",
+              "targetText": "გამყიდველები წერენ.",
+              "slot": {
+                "beforeText": "გამყიდველები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "გამყიდველები",
+                "learnerBaseText": "sellers",
+                "englishAuditText": "sellers"
+              },
+              "usefulness": 97,
+              "complexity": 32
+            }
+          ]
+        }
+      },
+      "usefulness": 97,
+      "complexity": 32
+    },
+    {
+      "id": "ka.grammar.number.06",
+      "revision": 1,
+      "difficulty": 1,
+      "focus": {
+        "kind": "verb",
+        "label": "Human subject: speaks Georgian",
+        "targetText": "ლაპარაკობს",
+        "resultTitle": "Human subject and verb number",
+        "summary": "Georgian has no grammatical gender. These nominative human subjects take singular or plural verb agreement. Nonhuman plurals often keep singular verbs and are outside this board; nouns after numerals often remain singular."
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "ლაპარაკობს",
+          "usefulness": 97,
+          "complexity": 35,
+          "examples": [
+            {
+              "id": "ka.grammar.number.06.singular.1",
+              "revision": 1,
+              "learnerBaseText": "The friend speaks Georgian.",
+              "englishAuditText": "The friend speaks Georgian.",
+              "targetText": "მეგობარი ლაპარაკობს ქართულად.",
+              "slot": {
+                "beforeText": "მეგობარი ",
+                "afterText": " ქართულად."
+              },
+              "anchor": {
+                "targetText": "მეგობარი",
+                "learnerBaseText": "friend",
+                "englishAuditText": "friend"
+              },
+              "usefulness": 97,
+              "complexity": 35
+            },
+            {
+              "id": "ka.grammar.number.06.singular.2",
+              "revision": 1,
+              "learnerBaseText": "The teacher speaks Georgian.",
+              "englishAuditText": "The teacher speaks Georgian.",
+              "targetText": "მასწავლებელი ლაპარაკობს ქართულად.",
+              "slot": {
+                "beforeText": "მასწავლებელი ",
+                "afterText": " ქართულად."
+              },
+              "anchor": {
+                "targetText": "მასწავლებელი",
+                "learnerBaseText": "teacher",
+                "englishAuditText": "teacher"
+              },
+              "usefulness": 97,
+              "complexity": 35
+            },
+            {
+              "id": "ka.grammar.number.06.singular.3",
+              "revision": 1,
+              "learnerBaseText": "The student speaks Georgian.",
+              "englishAuditText": "The student speaks Georgian.",
+              "targetText": "სტუდენტი ლაპარაკობს ქართულად.",
+              "slot": {
+                "beforeText": "სტუდენტი ",
+                "afterText": " ქართულად."
+              },
+              "anchor": {
+                "targetText": "სტუდენტი",
+                "learnerBaseText": "student",
+                "englishAuditText": "student"
+              },
+              "usefulness": 97,
+              "complexity": 35
+            },
+            {
+              "id": "ka.grammar.number.06.singular.4",
+              "revision": 1,
+              "learnerBaseText": "The doctor speaks Georgian.",
+              "englishAuditText": "The doctor speaks Georgian.",
+              "targetText": "ექიმი ლაპარაკობს ქართულად.",
+              "slot": {
+                "beforeText": "ექიმი ",
+                "afterText": " ქართულად."
+              },
+              "anchor": {
+                "targetText": "ექიმი",
+                "learnerBaseText": "doctor",
+                "englishAuditText": "doctor"
+              },
+              "usefulness": 97,
+              "complexity": 35
+            },
+            {
+              "id": "ka.grammar.number.06.singular.5",
+              "revision": 1,
+              "learnerBaseText": "The neighbor speaks Georgian.",
+              "englishAuditText": "The neighbor speaks Georgian.",
+              "targetText": "მეზობელი ლაპარაკობს ქართულად.",
+              "slot": {
+                "beforeText": "მეზობელი ",
+                "afterText": " ქართულად."
+              },
+              "anchor": {
+                "targetText": "მეზობელი",
+                "learnerBaseText": "neighbor",
+                "englishAuditText": "neighbor"
+              },
+              "usefulness": 97,
+              "complexity": 35
+            },
+            {
+              "id": "ka.grammar.number.06.singular.6",
+              "revision": 1,
+              "learnerBaseText": "The guest speaks Georgian.",
+              "englishAuditText": "The guest speaks Georgian.",
+              "targetText": "სტუმარი ლაპარაკობს ქართულად.",
+              "slot": {
+                "beforeText": "სტუმარი ",
+                "afterText": " ქართულად."
+              },
+              "anchor": {
+                "targetText": "სტუმარი",
+                "learnerBaseText": "guest",
+                "englishAuditText": "guest"
+              },
+              "usefulness": 97,
+              "complexity": 35
+            },
+            {
+              "id": "ka.grammar.number.06.singular.7",
+              "revision": 1,
+              "learnerBaseText": "The woman speaks Georgian.",
+              "englishAuditText": "The woman speaks Georgian.",
+              "targetText": "ქალი ლაპარაკობს ქართულად.",
+              "slot": {
+                "beforeText": "ქალი ",
+                "afterText": " ქართულად."
+              },
+              "anchor": {
+                "targetText": "ქალი",
+                "learnerBaseText": "woman",
+                "englishAuditText": "woman"
+              },
+              "usefulness": 97,
+              "complexity": 35
+            },
+            {
+              "id": "ka.grammar.number.06.singular.8",
+              "revision": 1,
+              "learnerBaseText": "The man speaks Georgian.",
+              "englishAuditText": "The man speaks Georgian.",
+              "targetText": "კაცი ლაპარაკობს ქართულად.",
+              "slot": {
+                "beforeText": "კაცი ",
+                "afterText": " ქართულად."
+              },
+              "anchor": {
+                "targetText": "კაცი",
+                "learnerBaseText": "man",
+                "englishAuditText": "man"
+              },
+              "usefulness": 97,
+              "complexity": 35
+            },
+            {
+              "id": "ka.grammar.number.06.singular.9",
+              "revision": 1,
+              "learnerBaseText": "The driver speaks Georgian.",
+              "englishAuditText": "The driver speaks Georgian.",
+              "targetText": "მძღოლი ლაპარაკობს ქართულად.",
+              "slot": {
+                "beforeText": "მძღოლი ",
+                "afterText": " ქართულად."
+              },
+              "anchor": {
+                "targetText": "მძღოლი",
+                "learnerBaseText": "driver",
+                "englishAuditText": "driver"
+              },
+              "usefulness": 97,
+              "complexity": 35
+            },
+            {
+              "id": "ka.grammar.number.06.singular.10",
+              "revision": 1,
+              "learnerBaseText": "The seller speaks Georgian.",
+              "englishAuditText": "The seller speaks Georgian.",
+              "targetText": "გამყიდველი ლაპარაკობს ქართულად.",
+              "slot": {
+                "beforeText": "გამყიდველი ",
+                "afterText": " ქართულად."
+              },
+              "anchor": {
+                "targetText": "გამყიდველი",
+                "learnerBaseText": "seller",
+                "englishAuditText": "seller"
+              },
+              "usefulness": 97,
+              "complexity": 35
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "ლაპარაკობენ",
+          "usefulness": 97,
+          "complexity": 35,
+          "examples": [
+            {
+              "id": "ka.grammar.number.06.plural.1",
+              "revision": 1,
+              "learnerBaseText": "The friends speak Georgian.",
+              "englishAuditText": "The friends speak Georgian.",
+              "targetText": "მეგობრები ლაპარაკობენ ქართულად.",
+              "slot": {
+                "beforeText": "მეგობრები ",
+                "afterText": " ქართულად."
+              },
+              "anchor": {
+                "targetText": "მეგობრები",
+                "learnerBaseText": "friends",
+                "englishAuditText": "friends"
+              },
+              "usefulness": 97,
+              "complexity": 35
+            },
+            {
+              "id": "ka.grammar.number.06.plural.2",
+              "revision": 1,
+              "learnerBaseText": "The teachers speak Georgian.",
+              "englishAuditText": "The teachers speak Georgian.",
+              "targetText": "მასწავლებლები ლაპარაკობენ ქართულად.",
+              "slot": {
+                "beforeText": "მასწავლებლები ",
+                "afterText": " ქართულად."
+              },
+              "anchor": {
+                "targetText": "მასწავლებლები",
+                "learnerBaseText": "teachers",
+                "englishAuditText": "teachers"
+              },
+              "usefulness": 97,
+              "complexity": 35
+            },
+            {
+              "id": "ka.grammar.number.06.plural.3",
+              "revision": 1,
+              "learnerBaseText": "The students speak Georgian.",
+              "englishAuditText": "The students speak Georgian.",
+              "targetText": "სტუდენტები ლაპარაკობენ ქართულად.",
+              "slot": {
+                "beforeText": "სტუდენტები ",
+                "afterText": " ქართულად."
+              },
+              "anchor": {
+                "targetText": "სტუდენტები",
+                "learnerBaseText": "students",
+                "englishAuditText": "students"
+              },
+              "usefulness": 97,
+              "complexity": 35
+            },
+            {
+              "id": "ka.grammar.number.06.plural.4",
+              "revision": 1,
+              "learnerBaseText": "The doctors speak Georgian.",
+              "englishAuditText": "The doctors speak Georgian.",
+              "targetText": "ექიმები ლაპარაკობენ ქართულად.",
+              "slot": {
+                "beforeText": "ექიმები ",
+                "afterText": " ქართულად."
+              },
+              "anchor": {
+                "targetText": "ექიმები",
+                "learnerBaseText": "doctors",
+                "englishAuditText": "doctors"
+              },
+              "usefulness": 97,
+              "complexity": 35
+            },
+            {
+              "id": "ka.grammar.number.06.plural.5",
+              "revision": 1,
+              "learnerBaseText": "The neighbors speak Georgian.",
+              "englishAuditText": "The neighbors speak Georgian.",
+              "targetText": "მეზობლები ლაპარაკობენ ქართულად.",
+              "slot": {
+                "beforeText": "მეზობლები ",
+                "afterText": " ქართულად."
+              },
+              "anchor": {
+                "targetText": "მეზობლები",
+                "learnerBaseText": "neighbors",
+                "englishAuditText": "neighbors"
+              },
+              "usefulness": 97,
+              "complexity": 35
+            },
+            {
+              "id": "ka.grammar.number.06.plural.6",
+              "revision": 1,
+              "learnerBaseText": "The guests speak Georgian.",
+              "englishAuditText": "The guests speak Georgian.",
+              "targetText": "სტუმრები ლაპარაკობენ ქართულად.",
+              "slot": {
+                "beforeText": "სტუმრები ",
+                "afterText": " ქართულად."
+              },
+              "anchor": {
+                "targetText": "სტუმრები",
+                "learnerBaseText": "guests",
+                "englishAuditText": "guests"
+              },
+              "usefulness": 97,
+              "complexity": 35
+            },
+            {
+              "id": "ka.grammar.number.06.plural.7",
+              "revision": 1,
+              "learnerBaseText": "The women speak Georgian.",
+              "englishAuditText": "The women speak Georgian.",
+              "targetText": "ქალები ლაპარაკობენ ქართულად.",
+              "slot": {
+                "beforeText": "ქალები ",
+                "afterText": " ქართულად."
+              },
+              "anchor": {
+                "targetText": "ქალები",
+                "learnerBaseText": "women",
+                "englishAuditText": "women"
+              },
+              "usefulness": 97,
+              "complexity": 35
+            },
+            {
+              "id": "ka.grammar.number.06.plural.8",
+              "revision": 1,
+              "learnerBaseText": "The men speak Georgian.",
+              "englishAuditText": "The men speak Georgian.",
+              "targetText": "კაცები ლაპარაკობენ ქართულად.",
+              "slot": {
+                "beforeText": "კაცები ",
+                "afterText": " ქართულად."
+              },
+              "anchor": {
+                "targetText": "კაცები",
+                "learnerBaseText": "men",
+                "englishAuditText": "men"
+              },
+              "usefulness": 97,
+              "complexity": 35
+            },
+            {
+              "id": "ka.grammar.number.06.plural.9",
+              "revision": 1,
+              "learnerBaseText": "The drivers speak Georgian.",
+              "englishAuditText": "The drivers speak Georgian.",
+              "targetText": "მძღოლები ლაპარაკობენ ქართულად.",
+              "slot": {
+                "beforeText": "მძღოლები ",
+                "afterText": " ქართულად."
+              },
+              "anchor": {
+                "targetText": "მძღოლები",
+                "learnerBaseText": "drivers",
+                "englishAuditText": "drivers"
+              },
+              "usefulness": 97,
+              "complexity": 35
+            },
+            {
+              "id": "ka.grammar.number.06.plural.10",
+              "revision": 1,
+              "learnerBaseText": "The sellers speak Georgian.",
+              "englishAuditText": "The sellers speak Georgian.",
+              "targetText": "გამყიდველები ლაპარაკობენ ქართულად.",
+              "slot": {
+                "beforeText": "გამყიდველები ",
+                "afterText": " ქართულად."
+              },
+              "anchor": {
+                "targetText": "გამყიდველები",
+                "learnerBaseText": "sellers",
+                "englishAuditText": "sellers"
+              },
+              "usefulness": 97,
+              "complexity": 35
+            }
+          ]
+        }
+      },
+      "usefulness": 97,
+      "complexity": 35
+    },
+    {
+      "id": "ka.grammar.number.07",
+      "revision": 1,
+      "difficulty": 2,
+      "focus": {
+        "kind": "verb",
+        "label": "Human subject: goes home",
+        "targetText": "მიდის",
+        "resultTitle": "Human subject and verb number",
+        "summary": "Georgian has no grammatical gender. These nominative human subjects take singular or plural verb agreement. Nonhuman plurals often keep singular verbs and are outside this board; nouns after numerals often remain singular."
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "მიდის",
+          "usefulness": 97,
+          "complexity": 38,
+          "examples": [
+            {
+              "id": "ka.grammar.number.07.singular.1",
+              "revision": 1,
+              "learnerBaseText": "The friend goes home.",
+              "englishAuditText": "The friend goes home.",
+              "targetText": "მეგობარი მიდის სახლში.",
+              "slot": {
+                "beforeText": "მეგობარი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მეგობარი",
+                "learnerBaseText": "friend",
+                "englishAuditText": "friend"
+              },
+              "usefulness": 97,
+              "complexity": 38
+            },
+            {
+              "id": "ka.grammar.number.07.singular.2",
+              "revision": 1,
+              "learnerBaseText": "The teacher goes home.",
+              "englishAuditText": "The teacher goes home.",
+              "targetText": "მასწავლებელი მიდის სახლში.",
+              "slot": {
+                "beforeText": "მასწავლებელი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მასწავლებელი",
+                "learnerBaseText": "teacher",
+                "englishAuditText": "teacher"
+              },
+              "usefulness": 97,
+              "complexity": 38
+            },
+            {
+              "id": "ka.grammar.number.07.singular.3",
+              "revision": 1,
+              "learnerBaseText": "The student goes home.",
+              "englishAuditText": "The student goes home.",
+              "targetText": "სტუდენტი მიდის სახლში.",
+              "slot": {
+                "beforeText": "სტუდენტი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "სტუდენტი",
+                "learnerBaseText": "student",
+                "englishAuditText": "student"
+              },
+              "usefulness": 97,
+              "complexity": 38
+            },
+            {
+              "id": "ka.grammar.number.07.singular.4",
+              "revision": 1,
+              "learnerBaseText": "The doctor goes home.",
+              "englishAuditText": "The doctor goes home.",
+              "targetText": "ექიმი მიდის სახლში.",
+              "slot": {
+                "beforeText": "ექიმი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "ექიმი",
+                "learnerBaseText": "doctor",
+                "englishAuditText": "doctor"
+              },
+              "usefulness": 97,
+              "complexity": 38
+            },
+            {
+              "id": "ka.grammar.number.07.singular.5",
+              "revision": 1,
+              "learnerBaseText": "The neighbor goes home.",
+              "englishAuditText": "The neighbor goes home.",
+              "targetText": "მეზობელი მიდის სახლში.",
+              "slot": {
+                "beforeText": "მეზობელი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მეზობელი",
+                "learnerBaseText": "neighbor",
+                "englishAuditText": "neighbor"
+              },
+              "usefulness": 97,
+              "complexity": 38
+            },
+            {
+              "id": "ka.grammar.number.07.singular.6",
+              "revision": 1,
+              "learnerBaseText": "The guest goes home.",
+              "englishAuditText": "The guest goes home.",
+              "targetText": "სტუმარი მიდის სახლში.",
+              "slot": {
+                "beforeText": "სტუმარი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "სტუმარი",
+                "learnerBaseText": "guest",
+                "englishAuditText": "guest"
+              },
+              "usefulness": 97,
+              "complexity": 38
+            },
+            {
+              "id": "ka.grammar.number.07.singular.7",
+              "revision": 1,
+              "learnerBaseText": "The woman goes home.",
+              "englishAuditText": "The woman goes home.",
+              "targetText": "ქალი მიდის სახლში.",
+              "slot": {
+                "beforeText": "ქალი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "ქალი",
+                "learnerBaseText": "woman",
+                "englishAuditText": "woman"
+              },
+              "usefulness": 97,
+              "complexity": 38
+            },
+            {
+              "id": "ka.grammar.number.07.singular.8",
+              "revision": 1,
+              "learnerBaseText": "The man goes home.",
+              "englishAuditText": "The man goes home.",
+              "targetText": "კაცი მიდის სახლში.",
+              "slot": {
+                "beforeText": "კაცი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "კაცი",
+                "learnerBaseText": "man",
+                "englishAuditText": "man"
+              },
+              "usefulness": 97,
+              "complexity": 38
+            },
+            {
+              "id": "ka.grammar.number.07.singular.9",
+              "revision": 1,
+              "learnerBaseText": "The driver goes home.",
+              "englishAuditText": "The driver goes home.",
+              "targetText": "მძღოლი მიდის სახლში.",
+              "slot": {
+                "beforeText": "მძღოლი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მძღოლი",
+                "learnerBaseText": "driver",
+                "englishAuditText": "driver"
+              },
+              "usefulness": 97,
+              "complexity": 38
+            },
+            {
+              "id": "ka.grammar.number.07.singular.10",
+              "revision": 1,
+              "learnerBaseText": "The seller goes home.",
+              "englishAuditText": "The seller goes home.",
+              "targetText": "გამყიდველი მიდის სახლში.",
+              "slot": {
+                "beforeText": "გამყიდველი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "გამყიდველი",
+                "learnerBaseText": "seller",
+                "englishAuditText": "seller"
+              },
+              "usefulness": 97,
+              "complexity": 38
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "მიდიან",
+          "usefulness": 97,
+          "complexity": 38,
+          "examples": [
+            {
+              "id": "ka.grammar.number.07.plural.1",
+              "revision": 1,
+              "learnerBaseText": "The friends go home.",
+              "englishAuditText": "The friends go home.",
+              "targetText": "მეგობრები მიდიან სახლში.",
+              "slot": {
+                "beforeText": "მეგობრები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მეგობრები",
+                "learnerBaseText": "friends",
+                "englishAuditText": "friends"
+              },
+              "usefulness": 97,
+              "complexity": 38
+            },
+            {
+              "id": "ka.grammar.number.07.plural.2",
+              "revision": 1,
+              "learnerBaseText": "The teachers go home.",
+              "englishAuditText": "The teachers go home.",
+              "targetText": "მასწავლებლები მიდიან სახლში.",
+              "slot": {
+                "beforeText": "მასწავლებლები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მასწავლებლები",
+                "learnerBaseText": "teachers",
+                "englishAuditText": "teachers"
+              },
+              "usefulness": 97,
+              "complexity": 38
+            },
+            {
+              "id": "ka.grammar.number.07.plural.3",
+              "revision": 1,
+              "learnerBaseText": "The students go home.",
+              "englishAuditText": "The students go home.",
+              "targetText": "სტუდენტები მიდიან სახლში.",
+              "slot": {
+                "beforeText": "სტუდენტები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "სტუდენტები",
+                "learnerBaseText": "students",
+                "englishAuditText": "students"
+              },
+              "usefulness": 97,
+              "complexity": 38
+            },
+            {
+              "id": "ka.grammar.number.07.plural.4",
+              "revision": 1,
+              "learnerBaseText": "The doctors go home.",
+              "englishAuditText": "The doctors go home.",
+              "targetText": "ექიმები მიდიან სახლში.",
+              "slot": {
+                "beforeText": "ექიმები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "ექიმები",
+                "learnerBaseText": "doctors",
+                "englishAuditText": "doctors"
+              },
+              "usefulness": 97,
+              "complexity": 38
+            },
+            {
+              "id": "ka.grammar.number.07.plural.5",
+              "revision": 1,
+              "learnerBaseText": "The neighbors go home.",
+              "englishAuditText": "The neighbors go home.",
+              "targetText": "მეზობლები მიდიან სახლში.",
+              "slot": {
+                "beforeText": "მეზობლები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მეზობლები",
+                "learnerBaseText": "neighbors",
+                "englishAuditText": "neighbors"
+              },
+              "usefulness": 97,
+              "complexity": 38
+            },
+            {
+              "id": "ka.grammar.number.07.plural.6",
+              "revision": 1,
+              "learnerBaseText": "The guests go home.",
+              "englishAuditText": "The guests go home.",
+              "targetText": "სტუმრები მიდიან სახლში.",
+              "slot": {
+                "beforeText": "სტუმრები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "სტუმრები",
+                "learnerBaseText": "guests",
+                "englishAuditText": "guests"
+              },
+              "usefulness": 97,
+              "complexity": 38
+            },
+            {
+              "id": "ka.grammar.number.07.plural.7",
+              "revision": 1,
+              "learnerBaseText": "The women go home.",
+              "englishAuditText": "The women go home.",
+              "targetText": "ქალები მიდიან სახლში.",
+              "slot": {
+                "beforeText": "ქალები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "ქალები",
+                "learnerBaseText": "women",
+                "englishAuditText": "women"
+              },
+              "usefulness": 97,
+              "complexity": 38
+            },
+            {
+              "id": "ka.grammar.number.07.plural.8",
+              "revision": 1,
+              "learnerBaseText": "The men go home.",
+              "englishAuditText": "The men go home.",
+              "targetText": "კაცები მიდიან სახლში.",
+              "slot": {
+                "beforeText": "კაცები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "კაცები",
+                "learnerBaseText": "men",
+                "englishAuditText": "men"
+              },
+              "usefulness": 97,
+              "complexity": 38
+            },
+            {
+              "id": "ka.grammar.number.07.plural.9",
+              "revision": 1,
+              "learnerBaseText": "The drivers go home.",
+              "englishAuditText": "The drivers go home.",
+              "targetText": "მძღოლები მიდიან სახლში.",
+              "slot": {
+                "beforeText": "მძღოლები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მძღოლები",
+                "learnerBaseText": "drivers",
+                "englishAuditText": "drivers"
+              },
+              "usefulness": 97,
+              "complexity": 38
+            },
+            {
+              "id": "ka.grammar.number.07.plural.10",
+              "revision": 1,
+              "learnerBaseText": "The sellers go home.",
+              "englishAuditText": "The sellers go home.",
+              "targetText": "გამყიდველები მიდიან სახლში.",
+              "slot": {
+                "beforeText": "გამყიდველები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "გამყიდველები",
+                "learnerBaseText": "sellers",
+                "englishAuditText": "sellers"
+              },
+              "usefulness": 97,
+              "complexity": 38
+            }
+          ]
+        }
+      },
+      "usefulness": 97,
+      "complexity": 38
+    },
+    {
+      "id": "ka.grammar.number.08",
+      "revision": 1,
+      "difficulty": 2,
+      "focus": {
+        "kind": "verb",
+        "label": "Human subject: comes home",
+        "targetText": "მოდის",
+        "resultTitle": "Human subject and verb number",
+        "summary": "Georgian has no grammatical gender. These nominative human subjects take singular or plural verb agreement. Nonhuman plurals often keep singular verbs and are outside this board; nouns after numerals often remain singular."
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "მოდის",
+          "usefulness": 97,
+          "complexity": 41,
+          "examples": [
+            {
+              "id": "ka.grammar.number.08.singular.1",
+              "revision": 1,
+              "learnerBaseText": "The friend comes home.",
+              "englishAuditText": "The friend comes home.",
+              "targetText": "მეგობარი მოდის სახლში.",
+              "slot": {
+                "beforeText": "მეგობარი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მეგობარი",
+                "learnerBaseText": "friend",
+                "englishAuditText": "friend"
+              },
+              "usefulness": 97,
+              "complexity": 41
+            },
+            {
+              "id": "ka.grammar.number.08.singular.2",
+              "revision": 1,
+              "learnerBaseText": "The teacher comes home.",
+              "englishAuditText": "The teacher comes home.",
+              "targetText": "მასწავლებელი მოდის სახლში.",
+              "slot": {
+                "beforeText": "მასწავლებელი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მასწავლებელი",
+                "learnerBaseText": "teacher",
+                "englishAuditText": "teacher"
+              },
+              "usefulness": 97,
+              "complexity": 41
+            },
+            {
+              "id": "ka.grammar.number.08.singular.3",
+              "revision": 1,
+              "learnerBaseText": "The student comes home.",
+              "englishAuditText": "The student comes home.",
+              "targetText": "სტუდენტი მოდის სახლში.",
+              "slot": {
+                "beforeText": "სტუდენტი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "სტუდენტი",
+                "learnerBaseText": "student",
+                "englishAuditText": "student"
+              },
+              "usefulness": 97,
+              "complexity": 41
+            },
+            {
+              "id": "ka.grammar.number.08.singular.4",
+              "revision": 1,
+              "learnerBaseText": "The doctor comes home.",
+              "englishAuditText": "The doctor comes home.",
+              "targetText": "ექიმი მოდის სახლში.",
+              "slot": {
+                "beforeText": "ექიმი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "ექიმი",
+                "learnerBaseText": "doctor",
+                "englishAuditText": "doctor"
+              },
+              "usefulness": 97,
+              "complexity": 41
+            },
+            {
+              "id": "ka.grammar.number.08.singular.5",
+              "revision": 1,
+              "learnerBaseText": "The neighbor comes home.",
+              "englishAuditText": "The neighbor comes home.",
+              "targetText": "მეზობელი მოდის სახლში.",
+              "slot": {
+                "beforeText": "მეზობელი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მეზობელი",
+                "learnerBaseText": "neighbor",
+                "englishAuditText": "neighbor"
+              },
+              "usefulness": 97,
+              "complexity": 41
+            },
+            {
+              "id": "ka.grammar.number.08.singular.6",
+              "revision": 1,
+              "learnerBaseText": "The guest comes home.",
+              "englishAuditText": "The guest comes home.",
+              "targetText": "სტუმარი მოდის სახლში.",
+              "slot": {
+                "beforeText": "სტუმარი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "სტუმარი",
+                "learnerBaseText": "guest",
+                "englishAuditText": "guest"
+              },
+              "usefulness": 97,
+              "complexity": 41
+            },
+            {
+              "id": "ka.grammar.number.08.singular.7",
+              "revision": 1,
+              "learnerBaseText": "The woman comes home.",
+              "englishAuditText": "The woman comes home.",
+              "targetText": "ქალი მოდის სახლში.",
+              "slot": {
+                "beforeText": "ქალი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "ქალი",
+                "learnerBaseText": "woman",
+                "englishAuditText": "woman"
+              },
+              "usefulness": 97,
+              "complexity": 41
+            },
+            {
+              "id": "ka.grammar.number.08.singular.8",
+              "revision": 1,
+              "learnerBaseText": "The man comes home.",
+              "englishAuditText": "The man comes home.",
+              "targetText": "კაცი მოდის სახლში.",
+              "slot": {
+                "beforeText": "კაცი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "კაცი",
+                "learnerBaseText": "man",
+                "englishAuditText": "man"
+              },
+              "usefulness": 97,
+              "complexity": 41
+            },
+            {
+              "id": "ka.grammar.number.08.singular.9",
+              "revision": 1,
+              "learnerBaseText": "The driver comes home.",
+              "englishAuditText": "The driver comes home.",
+              "targetText": "მძღოლი მოდის სახლში.",
+              "slot": {
+                "beforeText": "მძღოლი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მძღოლი",
+                "learnerBaseText": "driver",
+                "englishAuditText": "driver"
+              },
+              "usefulness": 97,
+              "complexity": 41
+            },
+            {
+              "id": "ka.grammar.number.08.singular.10",
+              "revision": 1,
+              "learnerBaseText": "The seller comes home.",
+              "englishAuditText": "The seller comes home.",
+              "targetText": "გამყიდველი მოდის სახლში.",
+              "slot": {
+                "beforeText": "გამყიდველი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "გამყიდველი",
+                "learnerBaseText": "seller",
+                "englishAuditText": "seller"
+              },
+              "usefulness": 97,
+              "complexity": 41
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "მოდიან",
+          "usefulness": 97,
+          "complexity": 41,
+          "examples": [
+            {
+              "id": "ka.grammar.number.08.plural.1",
+              "revision": 1,
+              "learnerBaseText": "The friends come home.",
+              "englishAuditText": "The friends come home.",
+              "targetText": "მეგობრები მოდიან სახლში.",
+              "slot": {
+                "beforeText": "მეგობრები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მეგობრები",
+                "learnerBaseText": "friends",
+                "englishAuditText": "friends"
+              },
+              "usefulness": 97,
+              "complexity": 41
+            },
+            {
+              "id": "ka.grammar.number.08.plural.2",
+              "revision": 1,
+              "learnerBaseText": "The teachers come home.",
+              "englishAuditText": "The teachers come home.",
+              "targetText": "მასწავლებლები მოდიან სახლში.",
+              "slot": {
+                "beforeText": "მასწავლებლები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მასწავლებლები",
+                "learnerBaseText": "teachers",
+                "englishAuditText": "teachers"
+              },
+              "usefulness": 97,
+              "complexity": 41
+            },
+            {
+              "id": "ka.grammar.number.08.plural.3",
+              "revision": 1,
+              "learnerBaseText": "The students come home.",
+              "englishAuditText": "The students come home.",
+              "targetText": "სტუდენტები მოდიან სახლში.",
+              "slot": {
+                "beforeText": "სტუდენტები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "სტუდენტები",
+                "learnerBaseText": "students",
+                "englishAuditText": "students"
+              },
+              "usefulness": 97,
+              "complexity": 41
+            },
+            {
+              "id": "ka.grammar.number.08.plural.4",
+              "revision": 1,
+              "learnerBaseText": "The doctors come home.",
+              "englishAuditText": "The doctors come home.",
+              "targetText": "ექიმები მოდიან სახლში.",
+              "slot": {
+                "beforeText": "ექიმები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "ექიმები",
+                "learnerBaseText": "doctors",
+                "englishAuditText": "doctors"
+              },
+              "usefulness": 97,
+              "complexity": 41
+            },
+            {
+              "id": "ka.grammar.number.08.plural.5",
+              "revision": 1,
+              "learnerBaseText": "The neighbors come home.",
+              "englishAuditText": "The neighbors come home.",
+              "targetText": "მეზობლები მოდიან სახლში.",
+              "slot": {
+                "beforeText": "მეზობლები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მეზობლები",
+                "learnerBaseText": "neighbors",
+                "englishAuditText": "neighbors"
+              },
+              "usefulness": 97,
+              "complexity": 41
+            },
+            {
+              "id": "ka.grammar.number.08.plural.6",
+              "revision": 1,
+              "learnerBaseText": "The guests come home.",
+              "englishAuditText": "The guests come home.",
+              "targetText": "სტუმრები მოდიან სახლში.",
+              "slot": {
+                "beforeText": "სტუმრები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "სტუმრები",
+                "learnerBaseText": "guests",
+                "englishAuditText": "guests"
+              },
+              "usefulness": 97,
+              "complexity": 41
+            },
+            {
+              "id": "ka.grammar.number.08.plural.7",
+              "revision": 1,
+              "learnerBaseText": "The women come home.",
+              "englishAuditText": "The women come home.",
+              "targetText": "ქალები მოდიან სახლში.",
+              "slot": {
+                "beforeText": "ქალები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "ქალები",
+                "learnerBaseText": "women",
+                "englishAuditText": "women"
+              },
+              "usefulness": 97,
+              "complexity": 41
+            },
+            {
+              "id": "ka.grammar.number.08.plural.8",
+              "revision": 1,
+              "learnerBaseText": "The men come home.",
+              "englishAuditText": "The men come home.",
+              "targetText": "კაცები მოდიან სახლში.",
+              "slot": {
+                "beforeText": "კაცები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "კაცები",
+                "learnerBaseText": "men",
+                "englishAuditText": "men"
+              },
+              "usefulness": 97,
+              "complexity": 41
+            },
+            {
+              "id": "ka.grammar.number.08.plural.9",
+              "revision": 1,
+              "learnerBaseText": "The drivers come home.",
+              "englishAuditText": "The drivers come home.",
+              "targetText": "მძღოლები მოდიან სახლში.",
+              "slot": {
+                "beforeText": "მძღოლები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მძღოლები",
+                "learnerBaseText": "drivers",
+                "englishAuditText": "drivers"
+              },
+              "usefulness": 97,
+              "complexity": 41
+            },
+            {
+              "id": "ka.grammar.number.08.plural.10",
+              "revision": 1,
+              "learnerBaseText": "The sellers come home.",
+              "englishAuditText": "The sellers come home.",
+              "targetText": "გამყიდველები მოდიან სახლში.",
+              "slot": {
+                "beforeText": "გამყიდველები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "გამყიდველები",
+                "learnerBaseText": "sellers",
+                "englishAuditText": "sellers"
+              },
+              "usefulness": 97,
+              "complexity": 41
+            }
+          ]
+        }
+      },
+      "usefulness": 97,
+      "complexity": 41
+    },
+    {
+      "id": "ka.grammar.number.09",
+      "revision": 1,
+      "difficulty": 2,
+      "focus": {
+        "kind": "verb",
+        "label": "Human subject: returns home",
+        "targetText": "ბრუნდება",
+        "resultTitle": "Human subject and verb number",
+        "summary": "Georgian has no grammatical gender. These nominative human subjects take singular or plural verb agreement. Nonhuman plurals often keep singular verbs and are outside this board; nouns after numerals often remain singular."
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "ბრუნდება",
+          "usefulness": 97,
+          "complexity": 44,
+          "examples": [
+            {
+              "id": "ka.grammar.number.09.singular.1",
+              "revision": 1,
+              "learnerBaseText": "The friend returns home.",
+              "englishAuditText": "The friend returns home.",
+              "targetText": "მეგობარი ბრუნდება სახლში.",
+              "slot": {
+                "beforeText": "მეგობარი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მეგობარი",
+                "learnerBaseText": "friend",
+                "englishAuditText": "friend"
+              },
+              "usefulness": 97,
+              "complexity": 44
+            },
+            {
+              "id": "ka.grammar.number.09.singular.2",
+              "revision": 1,
+              "learnerBaseText": "The teacher returns home.",
+              "englishAuditText": "The teacher returns home.",
+              "targetText": "მასწავლებელი ბრუნდება სახლში.",
+              "slot": {
+                "beforeText": "მასწავლებელი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მასწავლებელი",
+                "learnerBaseText": "teacher",
+                "englishAuditText": "teacher"
+              },
+              "usefulness": 97,
+              "complexity": 44
+            },
+            {
+              "id": "ka.grammar.number.09.singular.3",
+              "revision": 1,
+              "learnerBaseText": "The student returns home.",
+              "englishAuditText": "The student returns home.",
+              "targetText": "სტუდენტი ბრუნდება სახლში.",
+              "slot": {
+                "beforeText": "სტუდენტი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "სტუდენტი",
+                "learnerBaseText": "student",
+                "englishAuditText": "student"
+              },
+              "usefulness": 97,
+              "complexity": 44
+            },
+            {
+              "id": "ka.grammar.number.09.singular.4",
+              "revision": 1,
+              "learnerBaseText": "The doctor returns home.",
+              "englishAuditText": "The doctor returns home.",
+              "targetText": "ექიმი ბრუნდება სახლში.",
+              "slot": {
+                "beforeText": "ექიმი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "ექიმი",
+                "learnerBaseText": "doctor",
+                "englishAuditText": "doctor"
+              },
+              "usefulness": 97,
+              "complexity": 44
+            },
+            {
+              "id": "ka.grammar.number.09.singular.5",
+              "revision": 1,
+              "learnerBaseText": "The neighbor returns home.",
+              "englishAuditText": "The neighbor returns home.",
+              "targetText": "მეზობელი ბრუნდება სახლში.",
+              "slot": {
+                "beforeText": "მეზობელი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მეზობელი",
+                "learnerBaseText": "neighbor",
+                "englishAuditText": "neighbor"
+              },
+              "usefulness": 97,
+              "complexity": 44
+            },
+            {
+              "id": "ka.grammar.number.09.singular.6",
+              "revision": 1,
+              "learnerBaseText": "The guest returns home.",
+              "englishAuditText": "The guest returns home.",
+              "targetText": "სტუმარი ბრუნდება სახლში.",
+              "slot": {
+                "beforeText": "სტუმარი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "სტუმარი",
+                "learnerBaseText": "guest",
+                "englishAuditText": "guest"
+              },
+              "usefulness": 97,
+              "complexity": 44
+            },
+            {
+              "id": "ka.grammar.number.09.singular.7",
+              "revision": 1,
+              "learnerBaseText": "The woman returns home.",
+              "englishAuditText": "The woman returns home.",
+              "targetText": "ქალი ბრუნდება სახლში.",
+              "slot": {
+                "beforeText": "ქალი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "ქალი",
+                "learnerBaseText": "woman",
+                "englishAuditText": "woman"
+              },
+              "usefulness": 97,
+              "complexity": 44
+            },
+            {
+              "id": "ka.grammar.number.09.singular.8",
+              "revision": 1,
+              "learnerBaseText": "The man returns home.",
+              "englishAuditText": "The man returns home.",
+              "targetText": "კაცი ბრუნდება სახლში.",
+              "slot": {
+                "beforeText": "კაცი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "კაცი",
+                "learnerBaseText": "man",
+                "englishAuditText": "man"
+              },
+              "usefulness": 97,
+              "complexity": 44
+            },
+            {
+              "id": "ka.grammar.number.09.singular.9",
+              "revision": 1,
+              "learnerBaseText": "The driver returns home.",
+              "englishAuditText": "The driver returns home.",
+              "targetText": "მძღოლი ბრუნდება სახლში.",
+              "slot": {
+                "beforeText": "მძღოლი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მძღოლი",
+                "learnerBaseText": "driver",
+                "englishAuditText": "driver"
+              },
+              "usefulness": 97,
+              "complexity": 44
+            },
+            {
+              "id": "ka.grammar.number.09.singular.10",
+              "revision": 1,
+              "learnerBaseText": "The seller returns home.",
+              "englishAuditText": "The seller returns home.",
+              "targetText": "გამყიდველი ბრუნდება სახლში.",
+              "slot": {
+                "beforeText": "გამყიდველი ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "გამყიდველი",
+                "learnerBaseText": "seller",
+                "englishAuditText": "seller"
+              },
+              "usefulness": 97,
+              "complexity": 44
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "ბრუნდებიან",
+          "usefulness": 97,
+          "complexity": 44,
+          "examples": [
+            {
+              "id": "ka.grammar.number.09.plural.1",
+              "revision": 1,
+              "learnerBaseText": "The friends return home.",
+              "englishAuditText": "The friends return home.",
+              "targetText": "მეგობრები ბრუნდებიან სახლში.",
+              "slot": {
+                "beforeText": "მეგობრები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მეგობრები",
+                "learnerBaseText": "friends",
+                "englishAuditText": "friends"
+              },
+              "usefulness": 97,
+              "complexity": 44
+            },
+            {
+              "id": "ka.grammar.number.09.plural.2",
+              "revision": 1,
+              "learnerBaseText": "The teachers return home.",
+              "englishAuditText": "The teachers return home.",
+              "targetText": "მასწავლებლები ბრუნდებიან სახლში.",
+              "slot": {
+                "beforeText": "მასწავლებლები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მასწავლებლები",
+                "learnerBaseText": "teachers",
+                "englishAuditText": "teachers"
+              },
+              "usefulness": 97,
+              "complexity": 44
+            },
+            {
+              "id": "ka.grammar.number.09.plural.3",
+              "revision": 1,
+              "learnerBaseText": "The students return home.",
+              "englishAuditText": "The students return home.",
+              "targetText": "სტუდენტები ბრუნდებიან სახლში.",
+              "slot": {
+                "beforeText": "სტუდენტები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "სტუდენტები",
+                "learnerBaseText": "students",
+                "englishAuditText": "students"
+              },
+              "usefulness": 97,
+              "complexity": 44
+            },
+            {
+              "id": "ka.grammar.number.09.plural.4",
+              "revision": 1,
+              "learnerBaseText": "The doctors return home.",
+              "englishAuditText": "The doctors return home.",
+              "targetText": "ექიმები ბრუნდებიან სახლში.",
+              "slot": {
+                "beforeText": "ექიმები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "ექიმები",
+                "learnerBaseText": "doctors",
+                "englishAuditText": "doctors"
+              },
+              "usefulness": 97,
+              "complexity": 44
+            },
+            {
+              "id": "ka.grammar.number.09.plural.5",
+              "revision": 1,
+              "learnerBaseText": "The neighbors return home.",
+              "englishAuditText": "The neighbors return home.",
+              "targetText": "მეზობლები ბრუნდებიან სახლში.",
+              "slot": {
+                "beforeText": "მეზობლები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მეზობლები",
+                "learnerBaseText": "neighbors",
+                "englishAuditText": "neighbors"
+              },
+              "usefulness": 97,
+              "complexity": 44
+            },
+            {
+              "id": "ka.grammar.number.09.plural.6",
+              "revision": 1,
+              "learnerBaseText": "The guests return home.",
+              "englishAuditText": "The guests return home.",
+              "targetText": "სტუმრები ბრუნდებიან სახლში.",
+              "slot": {
+                "beforeText": "სტუმრები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "სტუმრები",
+                "learnerBaseText": "guests",
+                "englishAuditText": "guests"
+              },
+              "usefulness": 97,
+              "complexity": 44
+            },
+            {
+              "id": "ka.grammar.number.09.plural.7",
+              "revision": 1,
+              "learnerBaseText": "The women return home.",
+              "englishAuditText": "The women return home.",
+              "targetText": "ქალები ბრუნდებიან სახლში.",
+              "slot": {
+                "beforeText": "ქალები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "ქალები",
+                "learnerBaseText": "women",
+                "englishAuditText": "women"
+              },
+              "usefulness": 97,
+              "complexity": 44
+            },
+            {
+              "id": "ka.grammar.number.09.plural.8",
+              "revision": 1,
+              "learnerBaseText": "The men return home.",
+              "englishAuditText": "The men return home.",
+              "targetText": "კაცები ბრუნდებიან სახლში.",
+              "slot": {
+                "beforeText": "კაცები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "კაცები",
+                "learnerBaseText": "men",
+                "englishAuditText": "men"
+              },
+              "usefulness": 97,
+              "complexity": 44
+            },
+            {
+              "id": "ka.grammar.number.09.plural.9",
+              "revision": 1,
+              "learnerBaseText": "The drivers return home.",
+              "englishAuditText": "The drivers return home.",
+              "targetText": "მძღოლები ბრუნდებიან სახლში.",
+              "slot": {
+                "beforeText": "მძღოლები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "მძღოლები",
+                "learnerBaseText": "drivers",
+                "englishAuditText": "drivers"
+              },
+              "usefulness": 97,
+              "complexity": 44
+            },
+            {
+              "id": "ka.grammar.number.09.plural.10",
+              "revision": 1,
+              "learnerBaseText": "The sellers return home.",
+              "englishAuditText": "The sellers return home.",
+              "targetText": "გამყიდველები ბრუნდებიან სახლში.",
+              "slot": {
+                "beforeText": "გამყიდველები ",
+                "afterText": " სახლში."
+              },
+              "anchor": {
+                "targetText": "გამყიდველები",
+                "learnerBaseText": "sellers",
+                "englishAuditText": "sellers"
+              },
+              "usefulness": 97,
+              "complexity": 44
+            }
+          ]
+        }
+      },
+      "usefulness": 97,
+      "complexity": 44
+    },
+    {
+      "id": "ka.grammar.number.10",
+      "revision": 1,
+      "difficulty": 2,
+      "focus": {
+        "kind": "verb",
+        "label": "Human subject: lives here",
+        "targetText": "ცხოვრობს",
+        "resultTitle": "Human subject and verb number",
+        "summary": "Georgian has no grammatical gender. These nominative human subjects take singular or plural verb agreement. Nonhuman plurals often keep singular verbs and are outside this board; nouns after numerals often remain singular."
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "ცხოვრობს",
+          "usefulness": 97,
+          "complexity": 47,
+          "examples": [
+            {
+              "id": "ka.grammar.number.10.singular.1",
+              "revision": 1,
+              "learnerBaseText": "The friend lives here.",
+              "englishAuditText": "The friend lives here.",
+              "targetText": "მეგობარი ცხოვრობს აქ.",
+              "slot": {
+                "beforeText": "მეგობარი ",
+                "afterText": " აქ."
+              },
+              "anchor": {
+                "targetText": "მეგობარი",
+                "learnerBaseText": "friend",
+                "englishAuditText": "friend"
+              },
+              "usefulness": 97,
+              "complexity": 47
+            },
+            {
+              "id": "ka.grammar.number.10.singular.2",
+              "revision": 1,
+              "learnerBaseText": "The teacher lives here.",
+              "englishAuditText": "The teacher lives here.",
+              "targetText": "მასწავლებელი ცხოვრობს აქ.",
+              "slot": {
+                "beforeText": "მასწავლებელი ",
+                "afterText": " აქ."
+              },
+              "anchor": {
+                "targetText": "მასწავლებელი",
+                "learnerBaseText": "teacher",
+                "englishAuditText": "teacher"
+              },
+              "usefulness": 97,
+              "complexity": 47
+            },
+            {
+              "id": "ka.grammar.number.10.singular.3",
+              "revision": 1,
+              "learnerBaseText": "The student lives here.",
+              "englishAuditText": "The student lives here.",
+              "targetText": "სტუდენტი ცხოვრობს აქ.",
+              "slot": {
+                "beforeText": "სტუდენტი ",
+                "afterText": " აქ."
+              },
+              "anchor": {
+                "targetText": "სტუდენტი",
+                "learnerBaseText": "student",
+                "englishAuditText": "student"
+              },
+              "usefulness": 97,
+              "complexity": 47
+            },
+            {
+              "id": "ka.grammar.number.10.singular.4",
+              "revision": 1,
+              "learnerBaseText": "The doctor lives here.",
+              "englishAuditText": "The doctor lives here.",
+              "targetText": "ექიმი ცხოვრობს აქ.",
+              "slot": {
+                "beforeText": "ექიმი ",
+                "afterText": " აქ."
+              },
+              "anchor": {
+                "targetText": "ექიმი",
+                "learnerBaseText": "doctor",
+                "englishAuditText": "doctor"
+              },
+              "usefulness": 97,
+              "complexity": 47
+            },
+            {
+              "id": "ka.grammar.number.10.singular.5",
+              "revision": 1,
+              "learnerBaseText": "The neighbor lives here.",
+              "englishAuditText": "The neighbor lives here.",
+              "targetText": "მეზობელი ცხოვრობს აქ.",
+              "slot": {
+                "beforeText": "მეზობელი ",
+                "afterText": " აქ."
+              },
+              "anchor": {
+                "targetText": "მეზობელი",
+                "learnerBaseText": "neighbor",
+                "englishAuditText": "neighbor"
+              },
+              "usefulness": 97,
+              "complexity": 47
+            },
+            {
+              "id": "ka.grammar.number.10.singular.6",
+              "revision": 1,
+              "learnerBaseText": "The guest lives here.",
+              "englishAuditText": "The guest lives here.",
+              "targetText": "სტუმარი ცხოვრობს აქ.",
+              "slot": {
+                "beforeText": "სტუმარი ",
+                "afterText": " აქ."
+              },
+              "anchor": {
+                "targetText": "სტუმარი",
+                "learnerBaseText": "guest",
+                "englishAuditText": "guest"
+              },
+              "usefulness": 97,
+              "complexity": 47
+            },
+            {
+              "id": "ka.grammar.number.10.singular.7",
+              "revision": 1,
+              "learnerBaseText": "The woman lives here.",
+              "englishAuditText": "The woman lives here.",
+              "targetText": "ქალი ცხოვრობს აქ.",
+              "slot": {
+                "beforeText": "ქალი ",
+                "afterText": " აქ."
+              },
+              "anchor": {
+                "targetText": "ქალი",
+                "learnerBaseText": "woman",
+                "englishAuditText": "woman"
+              },
+              "usefulness": 97,
+              "complexity": 47
+            },
+            {
+              "id": "ka.grammar.number.10.singular.8",
+              "revision": 1,
+              "learnerBaseText": "The man lives here.",
+              "englishAuditText": "The man lives here.",
+              "targetText": "კაცი ცხოვრობს აქ.",
+              "slot": {
+                "beforeText": "კაცი ",
+                "afterText": " აქ."
+              },
+              "anchor": {
+                "targetText": "კაცი",
+                "learnerBaseText": "man",
+                "englishAuditText": "man"
+              },
+              "usefulness": 97,
+              "complexity": 47
+            },
+            {
+              "id": "ka.grammar.number.10.singular.9",
+              "revision": 1,
+              "learnerBaseText": "The driver lives here.",
+              "englishAuditText": "The driver lives here.",
+              "targetText": "მძღოლი ცხოვრობს აქ.",
+              "slot": {
+                "beforeText": "მძღოლი ",
+                "afterText": " აქ."
+              },
+              "anchor": {
+                "targetText": "მძღოლი",
+                "learnerBaseText": "driver",
+                "englishAuditText": "driver"
+              },
+              "usefulness": 97,
+              "complexity": 47
+            },
+            {
+              "id": "ka.grammar.number.10.singular.10",
+              "revision": 1,
+              "learnerBaseText": "The seller lives here.",
+              "englishAuditText": "The seller lives here.",
+              "targetText": "გამყიდველი ცხოვრობს აქ.",
+              "slot": {
+                "beforeText": "გამყიდველი ",
+                "afterText": " აქ."
+              },
+              "anchor": {
+                "targetText": "გამყიდველი",
+                "learnerBaseText": "seller",
+                "englishAuditText": "seller"
+              },
+              "usefulness": 97,
+              "complexity": 47
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "ცხოვრობენ",
+          "usefulness": 97,
+          "complexity": 47,
+          "examples": [
+            {
+              "id": "ka.grammar.number.10.plural.1",
+              "revision": 1,
+              "learnerBaseText": "The friends live here.",
+              "englishAuditText": "The friends live here.",
+              "targetText": "მეგობრები ცხოვრობენ აქ.",
+              "slot": {
+                "beforeText": "მეგობრები ",
+                "afterText": " აქ."
+              },
+              "anchor": {
+                "targetText": "მეგობრები",
+                "learnerBaseText": "friends",
+                "englishAuditText": "friends"
+              },
+              "usefulness": 97,
+              "complexity": 47
+            },
+            {
+              "id": "ka.grammar.number.10.plural.2",
+              "revision": 1,
+              "learnerBaseText": "The teachers live here.",
+              "englishAuditText": "The teachers live here.",
+              "targetText": "მასწავლებლები ცხოვრობენ აქ.",
+              "slot": {
+                "beforeText": "მასწავლებლები ",
+                "afterText": " აქ."
+              },
+              "anchor": {
+                "targetText": "მასწავლებლები",
+                "learnerBaseText": "teachers",
+                "englishAuditText": "teachers"
+              },
+              "usefulness": 97,
+              "complexity": 47
+            },
+            {
+              "id": "ka.grammar.number.10.plural.3",
+              "revision": 1,
+              "learnerBaseText": "The students live here.",
+              "englishAuditText": "The students live here.",
+              "targetText": "სტუდენტები ცხოვრობენ აქ.",
+              "slot": {
+                "beforeText": "სტუდენტები ",
+                "afterText": " აქ."
+              },
+              "anchor": {
+                "targetText": "სტუდენტები",
+                "learnerBaseText": "students",
+                "englishAuditText": "students"
+              },
+              "usefulness": 97,
+              "complexity": 47
+            },
+            {
+              "id": "ka.grammar.number.10.plural.4",
+              "revision": 1,
+              "learnerBaseText": "The doctors live here.",
+              "englishAuditText": "The doctors live here.",
+              "targetText": "ექიმები ცხოვრობენ აქ.",
+              "slot": {
+                "beforeText": "ექიმები ",
+                "afterText": " აქ."
+              },
+              "anchor": {
+                "targetText": "ექიმები",
+                "learnerBaseText": "doctors",
+                "englishAuditText": "doctors"
+              },
+              "usefulness": 97,
+              "complexity": 47
+            },
+            {
+              "id": "ka.grammar.number.10.plural.5",
+              "revision": 1,
+              "learnerBaseText": "The neighbors live here.",
+              "englishAuditText": "The neighbors live here.",
+              "targetText": "მეზობლები ცხოვრობენ აქ.",
+              "slot": {
+                "beforeText": "მეზობლები ",
+                "afterText": " აქ."
+              },
+              "anchor": {
+                "targetText": "მეზობლები",
+                "learnerBaseText": "neighbors",
+                "englishAuditText": "neighbors"
+              },
+              "usefulness": 97,
+              "complexity": 47
+            },
+            {
+              "id": "ka.grammar.number.10.plural.6",
+              "revision": 1,
+              "learnerBaseText": "The guests live here.",
+              "englishAuditText": "The guests live here.",
+              "targetText": "სტუმრები ცხოვრობენ აქ.",
+              "slot": {
+                "beforeText": "სტუმრები ",
+                "afterText": " აქ."
+              },
+              "anchor": {
+                "targetText": "სტუმრები",
+                "learnerBaseText": "guests",
+                "englishAuditText": "guests"
+              },
+              "usefulness": 97,
+              "complexity": 47
+            },
+            {
+              "id": "ka.grammar.number.10.plural.7",
+              "revision": 1,
+              "learnerBaseText": "The women live here.",
+              "englishAuditText": "The women live here.",
+              "targetText": "ქალები ცხოვრობენ აქ.",
+              "slot": {
+                "beforeText": "ქალები ",
+                "afterText": " აქ."
+              },
+              "anchor": {
+                "targetText": "ქალები",
+                "learnerBaseText": "women",
+                "englishAuditText": "women"
+              },
+              "usefulness": 97,
+              "complexity": 47
+            },
+            {
+              "id": "ka.grammar.number.10.plural.8",
+              "revision": 1,
+              "learnerBaseText": "The men live here.",
+              "englishAuditText": "The men live here.",
+              "targetText": "კაცები ცხოვრობენ აქ.",
+              "slot": {
+                "beforeText": "კაცები ",
+                "afterText": " აქ."
+              },
+              "anchor": {
+                "targetText": "კაცები",
+                "learnerBaseText": "men",
+                "englishAuditText": "men"
+              },
+              "usefulness": 97,
+              "complexity": 47
+            },
+            {
+              "id": "ka.grammar.number.10.plural.9",
+              "revision": 1,
+              "learnerBaseText": "The drivers live here.",
+              "englishAuditText": "The drivers live here.",
+              "targetText": "მძღოლები ცხოვრობენ აქ.",
+              "slot": {
+                "beforeText": "მძღოლები ",
+                "afterText": " აქ."
+              },
+              "anchor": {
+                "targetText": "მძღოლები",
+                "learnerBaseText": "drivers",
+                "englishAuditText": "drivers"
+              },
+              "usefulness": 97,
+              "complexity": 47
+            },
+            {
+              "id": "ka.grammar.number.10.plural.10",
+              "revision": 1,
+              "learnerBaseText": "The sellers live here.",
+              "englishAuditText": "The sellers live here.",
+              "targetText": "გამყიდველები ცხოვრობენ აქ.",
+              "slot": {
+                "beforeText": "გამყიდველები ",
+                "afterText": " აქ."
+              },
+              "anchor": {
+                "targetText": "გამყიდველები",
+                "learnerBaseText": "sellers",
+                "englishAuditText": "sellers"
+              },
+              "usefulness": 97,
+              "complexity": 47
+            }
+          ]
+        }
+      },
+      "usefulness": 97,
+      "complexity": 47
+    },
+    {
+      "id": "ka.grammar.number.11",
+      "revision": 1,
+      "difficulty": 3,
+      "focus": {
+        "kind": "verb",
+        "label": "Human subject: sings",
+        "targetText": "მღერის",
+        "resultTitle": "Human subject and verb number",
+        "summary": "Georgian has no grammatical gender. These nominative human subjects take singular or plural verb agreement. Nonhuman plurals often keep singular verbs and are outside this board; nouns after numerals often remain singular."
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "მღერის",
+          "usefulness": 97,
+          "complexity": 50,
+          "examples": [
+            {
+              "id": "ka.grammar.number.11.singular.1",
+              "revision": 1,
+              "learnerBaseText": "The friend sings.",
+              "englishAuditText": "The friend sings.",
+              "targetText": "მეგობარი მღერის.",
+              "slot": {
+                "beforeText": "მეგობარი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობარი",
+                "learnerBaseText": "friend",
+                "englishAuditText": "friend"
+              },
+              "usefulness": 97,
+              "complexity": 50
+            },
+            {
+              "id": "ka.grammar.number.11.singular.2",
+              "revision": 1,
+              "learnerBaseText": "The teacher sings.",
+              "englishAuditText": "The teacher sings.",
+              "targetText": "მასწავლებელი მღერის.",
+              "slot": {
+                "beforeText": "მასწავლებელი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მასწავლებელი",
+                "learnerBaseText": "teacher",
+                "englishAuditText": "teacher"
+              },
+              "usefulness": 97,
+              "complexity": 50
+            },
+            {
+              "id": "ka.grammar.number.11.singular.3",
+              "revision": 1,
+              "learnerBaseText": "The student sings.",
+              "englishAuditText": "The student sings.",
+              "targetText": "სტუდენტი მღერის.",
+              "slot": {
+                "beforeText": "სტუდენტი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "სტუდენტი",
+                "learnerBaseText": "student",
+                "englishAuditText": "student"
+              },
+              "usefulness": 97,
+              "complexity": 50
+            },
+            {
+              "id": "ka.grammar.number.11.singular.4",
+              "revision": 1,
+              "learnerBaseText": "The doctor sings.",
+              "englishAuditText": "The doctor sings.",
+              "targetText": "ექიმი მღერის.",
+              "slot": {
+                "beforeText": "ექიმი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ექიმი",
+                "learnerBaseText": "doctor",
+                "englishAuditText": "doctor"
+              },
+              "usefulness": 97,
+              "complexity": 50
+            },
+            {
+              "id": "ka.grammar.number.11.singular.5",
+              "revision": 1,
+              "learnerBaseText": "The neighbor sings.",
+              "englishAuditText": "The neighbor sings.",
+              "targetText": "მეზობელი მღერის.",
+              "slot": {
+                "beforeText": "მეზობელი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეზობელი",
+                "learnerBaseText": "neighbor",
+                "englishAuditText": "neighbor"
+              },
+              "usefulness": 97,
+              "complexity": 50
+            },
+            {
+              "id": "ka.grammar.number.11.singular.6",
+              "revision": 1,
+              "learnerBaseText": "The guest sings.",
+              "englishAuditText": "The guest sings.",
+              "targetText": "სტუმარი მღერის.",
+              "slot": {
+                "beforeText": "სტუმარი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "სტუმარი",
+                "learnerBaseText": "guest",
+                "englishAuditText": "guest"
+              },
+              "usefulness": 97,
+              "complexity": 50
+            },
+            {
+              "id": "ka.grammar.number.11.singular.7",
+              "revision": 1,
+              "learnerBaseText": "The woman sings.",
+              "englishAuditText": "The woman sings.",
+              "targetText": "ქალი მღერის.",
+              "slot": {
+                "beforeText": "ქალი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ქალი",
+                "learnerBaseText": "woman",
+                "englishAuditText": "woman"
+              },
+              "usefulness": 97,
+              "complexity": 50
+            },
+            {
+              "id": "ka.grammar.number.11.singular.8",
+              "revision": 1,
+              "learnerBaseText": "The man sings.",
+              "englishAuditText": "The man sings.",
+              "targetText": "კაცი მღერის.",
+              "slot": {
+                "beforeText": "კაცი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "კაცი",
+                "learnerBaseText": "man",
+                "englishAuditText": "man"
+              },
+              "usefulness": 97,
+              "complexity": 50
+            },
+            {
+              "id": "ka.grammar.number.11.singular.9",
+              "revision": 1,
+              "learnerBaseText": "The driver sings.",
+              "englishAuditText": "The driver sings.",
+              "targetText": "მძღოლი მღერის.",
+              "slot": {
+                "beforeText": "მძღოლი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მძღოლი",
+                "learnerBaseText": "driver",
+                "englishAuditText": "driver"
+              },
+              "usefulness": 97,
+              "complexity": 50
+            },
+            {
+              "id": "ka.grammar.number.11.singular.10",
+              "revision": 1,
+              "learnerBaseText": "The seller sings.",
+              "englishAuditText": "The seller sings.",
+              "targetText": "გამყიდველი მღერის.",
+              "slot": {
+                "beforeText": "გამყიდველი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "გამყიდველი",
+                "learnerBaseText": "seller",
+                "englishAuditText": "seller"
+              },
+              "usefulness": 97,
+              "complexity": 50
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "მღერიან",
+          "usefulness": 97,
+          "complexity": 50,
+          "examples": [
+            {
+              "id": "ka.grammar.number.11.plural.1",
+              "revision": 1,
+              "learnerBaseText": "The friends sing.",
+              "englishAuditText": "The friends sing.",
+              "targetText": "მეგობრები მღერიან.",
+              "slot": {
+                "beforeText": "მეგობრები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობრები",
+                "learnerBaseText": "friends",
+                "englishAuditText": "friends"
+              },
+              "usefulness": 97,
+              "complexity": 50
+            },
+            {
+              "id": "ka.grammar.number.11.plural.2",
+              "revision": 1,
+              "learnerBaseText": "The teachers sing.",
+              "englishAuditText": "The teachers sing.",
+              "targetText": "მასწავლებლები მღერიან.",
+              "slot": {
+                "beforeText": "მასწავლებლები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მასწავლებლები",
+                "learnerBaseText": "teachers",
+                "englishAuditText": "teachers"
+              },
+              "usefulness": 97,
+              "complexity": 50
+            },
+            {
+              "id": "ka.grammar.number.11.plural.3",
+              "revision": 1,
+              "learnerBaseText": "The students sing.",
+              "englishAuditText": "The students sing.",
+              "targetText": "სტუდენტები მღერიან.",
+              "slot": {
+                "beforeText": "სტუდენტები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "სტუდენტები",
+                "learnerBaseText": "students",
+                "englishAuditText": "students"
+              },
+              "usefulness": 97,
+              "complexity": 50
+            },
+            {
+              "id": "ka.grammar.number.11.plural.4",
+              "revision": 1,
+              "learnerBaseText": "The doctors sing.",
+              "englishAuditText": "The doctors sing.",
+              "targetText": "ექიმები მღერიან.",
+              "slot": {
+                "beforeText": "ექიმები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ექიმები",
+                "learnerBaseText": "doctors",
+                "englishAuditText": "doctors"
+              },
+              "usefulness": 97,
+              "complexity": 50
+            },
+            {
+              "id": "ka.grammar.number.11.plural.5",
+              "revision": 1,
+              "learnerBaseText": "The neighbors sing.",
+              "englishAuditText": "The neighbors sing.",
+              "targetText": "მეზობლები მღერიან.",
+              "slot": {
+                "beforeText": "მეზობლები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეზობლები",
+                "learnerBaseText": "neighbors",
+                "englishAuditText": "neighbors"
+              },
+              "usefulness": 97,
+              "complexity": 50
+            },
+            {
+              "id": "ka.grammar.number.11.plural.6",
+              "revision": 1,
+              "learnerBaseText": "The guests sing.",
+              "englishAuditText": "The guests sing.",
+              "targetText": "სტუმრები მღერიან.",
+              "slot": {
+                "beforeText": "სტუმრები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "სტუმრები",
+                "learnerBaseText": "guests",
+                "englishAuditText": "guests"
+              },
+              "usefulness": 97,
+              "complexity": 50
+            },
+            {
+              "id": "ka.grammar.number.11.plural.7",
+              "revision": 1,
+              "learnerBaseText": "The women sing.",
+              "englishAuditText": "The women sing.",
+              "targetText": "ქალები მღერიან.",
+              "slot": {
+                "beforeText": "ქალები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ქალები",
+                "learnerBaseText": "women",
+                "englishAuditText": "women"
+              },
+              "usefulness": 97,
+              "complexity": 50
+            },
+            {
+              "id": "ka.grammar.number.11.plural.8",
+              "revision": 1,
+              "learnerBaseText": "The men sing.",
+              "englishAuditText": "The men sing.",
+              "targetText": "კაცები მღერიან.",
+              "slot": {
+                "beforeText": "კაცები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "კაცები",
+                "learnerBaseText": "men",
+                "englishAuditText": "men"
+              },
+              "usefulness": 97,
+              "complexity": 50
+            },
+            {
+              "id": "ka.grammar.number.11.plural.9",
+              "revision": 1,
+              "learnerBaseText": "The drivers sing.",
+              "englishAuditText": "The drivers sing.",
+              "targetText": "მძღოლები მღერიან.",
+              "slot": {
+                "beforeText": "მძღოლები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მძღოლები",
+                "learnerBaseText": "drivers",
+                "englishAuditText": "drivers"
+              },
+              "usefulness": 97,
+              "complexity": 50
+            },
+            {
+              "id": "ka.grammar.number.11.plural.10",
+              "revision": 1,
+              "learnerBaseText": "The sellers sing.",
+              "englishAuditText": "The sellers sing.",
+              "targetText": "გამყიდველები მღერიან.",
+              "slot": {
+                "beforeText": "გამყიდველები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "გამყიდველები",
+                "learnerBaseText": "sellers",
+                "englishAuditText": "sellers"
+              },
+              "usefulness": 97,
+              "complexity": 50
+            }
+          ]
+        }
+      },
+      "usefulness": 97,
+      "complexity": 50
+    },
+    {
+      "id": "ka.grammar.number.12",
+      "revision": 1,
+      "difficulty": 3,
+      "focus": {
+        "kind": "verb",
+        "label": "Human subject: dances",
+        "targetText": "ცეკვავს",
+        "resultTitle": "Human subject and verb number",
+        "summary": "Georgian has no grammatical gender. These nominative human subjects take singular or plural verb agreement. Nonhuman plurals often keep singular verbs and are outside this board; nouns after numerals often remain singular."
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "ცეკვავს",
+          "usefulness": 97,
+          "complexity": 53,
+          "examples": [
+            {
+              "id": "ka.grammar.number.12.singular.1",
+              "revision": 1,
+              "learnerBaseText": "The friend dances.",
+              "englishAuditText": "The friend dances.",
+              "targetText": "მეგობარი ცეკვავს.",
+              "slot": {
+                "beforeText": "მეგობარი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობარი",
+                "learnerBaseText": "friend",
+                "englishAuditText": "friend"
+              },
+              "usefulness": 97,
+              "complexity": 53
+            },
+            {
+              "id": "ka.grammar.number.12.singular.2",
+              "revision": 1,
+              "learnerBaseText": "The teacher dances.",
+              "englishAuditText": "The teacher dances.",
+              "targetText": "მასწავლებელი ცეკვავს.",
+              "slot": {
+                "beforeText": "მასწავლებელი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მასწავლებელი",
+                "learnerBaseText": "teacher",
+                "englishAuditText": "teacher"
+              },
+              "usefulness": 97,
+              "complexity": 53
+            },
+            {
+              "id": "ka.grammar.number.12.singular.3",
+              "revision": 1,
+              "learnerBaseText": "The student dances.",
+              "englishAuditText": "The student dances.",
+              "targetText": "სტუდენტი ცეკვავს.",
+              "slot": {
+                "beforeText": "სტუდენტი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "სტუდენტი",
+                "learnerBaseText": "student",
+                "englishAuditText": "student"
+              },
+              "usefulness": 97,
+              "complexity": 53
+            },
+            {
+              "id": "ka.grammar.number.12.singular.4",
+              "revision": 1,
+              "learnerBaseText": "The doctor dances.",
+              "englishAuditText": "The doctor dances.",
+              "targetText": "ექიმი ცეკვავს.",
+              "slot": {
+                "beforeText": "ექიმი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ექიმი",
+                "learnerBaseText": "doctor",
+                "englishAuditText": "doctor"
+              },
+              "usefulness": 97,
+              "complexity": 53
+            },
+            {
+              "id": "ka.grammar.number.12.singular.5",
+              "revision": 1,
+              "learnerBaseText": "The neighbor dances.",
+              "englishAuditText": "The neighbor dances.",
+              "targetText": "მეზობელი ცეკვავს.",
+              "slot": {
+                "beforeText": "მეზობელი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეზობელი",
+                "learnerBaseText": "neighbor",
+                "englishAuditText": "neighbor"
+              },
+              "usefulness": 97,
+              "complexity": 53
+            },
+            {
+              "id": "ka.grammar.number.12.singular.6",
+              "revision": 1,
+              "learnerBaseText": "The guest dances.",
+              "englishAuditText": "The guest dances.",
+              "targetText": "სტუმარი ცეკვავს.",
+              "slot": {
+                "beforeText": "სტუმარი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "სტუმარი",
+                "learnerBaseText": "guest",
+                "englishAuditText": "guest"
+              },
+              "usefulness": 97,
+              "complexity": 53
+            },
+            {
+              "id": "ka.grammar.number.12.singular.7",
+              "revision": 1,
+              "learnerBaseText": "The woman dances.",
+              "englishAuditText": "The woman dances.",
+              "targetText": "ქალი ცეკვავს.",
+              "slot": {
+                "beforeText": "ქალი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ქალი",
+                "learnerBaseText": "woman",
+                "englishAuditText": "woman"
+              },
+              "usefulness": 97,
+              "complexity": 53
+            },
+            {
+              "id": "ka.grammar.number.12.singular.8",
+              "revision": 1,
+              "learnerBaseText": "The man dances.",
+              "englishAuditText": "The man dances.",
+              "targetText": "კაცი ცეკვავს.",
+              "slot": {
+                "beforeText": "კაცი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "კაცი",
+                "learnerBaseText": "man",
+                "englishAuditText": "man"
+              },
+              "usefulness": 97,
+              "complexity": 53
+            },
+            {
+              "id": "ka.grammar.number.12.singular.9",
+              "revision": 1,
+              "learnerBaseText": "The driver dances.",
+              "englishAuditText": "The driver dances.",
+              "targetText": "მძღოლი ცეკვავს.",
+              "slot": {
+                "beforeText": "მძღოლი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მძღოლი",
+                "learnerBaseText": "driver",
+                "englishAuditText": "driver"
+              },
+              "usefulness": 97,
+              "complexity": 53
+            },
+            {
+              "id": "ka.grammar.number.12.singular.10",
+              "revision": 1,
+              "learnerBaseText": "The seller dances.",
+              "englishAuditText": "The seller dances.",
+              "targetText": "გამყიდველი ცეკვავს.",
+              "slot": {
+                "beforeText": "გამყიდველი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "გამყიდველი",
+                "learnerBaseText": "seller",
+                "englishAuditText": "seller"
+              },
+              "usefulness": 97,
+              "complexity": 53
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "ცეკვავენ",
+          "usefulness": 97,
+          "complexity": 53,
+          "examples": [
+            {
+              "id": "ka.grammar.number.12.plural.1",
+              "revision": 1,
+              "learnerBaseText": "The friends dance.",
+              "englishAuditText": "The friends dance.",
+              "targetText": "მეგობრები ცეკვავენ.",
+              "slot": {
+                "beforeText": "მეგობრები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობრები",
+                "learnerBaseText": "friends",
+                "englishAuditText": "friends"
+              },
+              "usefulness": 97,
+              "complexity": 53
+            },
+            {
+              "id": "ka.grammar.number.12.plural.2",
+              "revision": 1,
+              "learnerBaseText": "The teachers dance.",
+              "englishAuditText": "The teachers dance.",
+              "targetText": "მასწავლებლები ცეკვავენ.",
+              "slot": {
+                "beforeText": "მასწავლებლები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მასწავლებლები",
+                "learnerBaseText": "teachers",
+                "englishAuditText": "teachers"
+              },
+              "usefulness": 97,
+              "complexity": 53
+            },
+            {
+              "id": "ka.grammar.number.12.plural.3",
+              "revision": 1,
+              "learnerBaseText": "The students dance.",
+              "englishAuditText": "The students dance.",
+              "targetText": "სტუდენტები ცეკვავენ.",
+              "slot": {
+                "beforeText": "სტუდენტები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "სტუდენტები",
+                "learnerBaseText": "students",
+                "englishAuditText": "students"
+              },
+              "usefulness": 97,
+              "complexity": 53
+            },
+            {
+              "id": "ka.grammar.number.12.plural.4",
+              "revision": 1,
+              "learnerBaseText": "The doctors dance.",
+              "englishAuditText": "The doctors dance.",
+              "targetText": "ექიმები ცეკვავენ.",
+              "slot": {
+                "beforeText": "ექიმები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ექიმები",
+                "learnerBaseText": "doctors",
+                "englishAuditText": "doctors"
+              },
+              "usefulness": 97,
+              "complexity": 53
+            },
+            {
+              "id": "ka.grammar.number.12.plural.5",
+              "revision": 1,
+              "learnerBaseText": "The neighbors dance.",
+              "englishAuditText": "The neighbors dance.",
+              "targetText": "მეზობლები ცეკვავენ.",
+              "slot": {
+                "beforeText": "მეზობლები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეზობლები",
+                "learnerBaseText": "neighbors",
+                "englishAuditText": "neighbors"
+              },
+              "usefulness": 97,
+              "complexity": 53
+            },
+            {
+              "id": "ka.grammar.number.12.plural.6",
+              "revision": 1,
+              "learnerBaseText": "The guests dance.",
+              "englishAuditText": "The guests dance.",
+              "targetText": "სტუმრები ცეკვავენ.",
+              "slot": {
+                "beforeText": "სტუმრები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "სტუმრები",
+                "learnerBaseText": "guests",
+                "englishAuditText": "guests"
+              },
+              "usefulness": 97,
+              "complexity": 53
+            },
+            {
+              "id": "ka.grammar.number.12.plural.7",
+              "revision": 1,
+              "learnerBaseText": "The women dance.",
+              "englishAuditText": "The women dance.",
+              "targetText": "ქალები ცეკვავენ.",
+              "slot": {
+                "beforeText": "ქალები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ქალები",
+                "learnerBaseText": "women",
+                "englishAuditText": "women"
+              },
+              "usefulness": 97,
+              "complexity": 53
+            },
+            {
+              "id": "ka.grammar.number.12.plural.8",
+              "revision": 1,
+              "learnerBaseText": "The men dance.",
+              "englishAuditText": "The men dance.",
+              "targetText": "კაცები ცეკვავენ.",
+              "slot": {
+                "beforeText": "კაცები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "კაცები",
+                "learnerBaseText": "men",
+                "englishAuditText": "men"
+              },
+              "usefulness": 97,
+              "complexity": 53
+            },
+            {
+              "id": "ka.grammar.number.12.plural.9",
+              "revision": 1,
+              "learnerBaseText": "The drivers dance.",
+              "englishAuditText": "The drivers dance.",
+              "targetText": "მძღოლები ცეკვავენ.",
+              "slot": {
+                "beforeText": "მძღოლები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მძღოლები",
+                "learnerBaseText": "drivers",
+                "englishAuditText": "drivers"
+              },
+              "usefulness": 97,
+              "complexity": 53
+            },
+            {
+              "id": "ka.grammar.number.12.plural.10",
+              "revision": 1,
+              "learnerBaseText": "The sellers dance.",
+              "englishAuditText": "The sellers dance.",
+              "targetText": "გამყიდველები ცეკვავენ.",
+              "slot": {
+                "beforeText": "გამყიდველები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "გამყიდველები",
+                "learnerBaseText": "sellers",
+                "englishAuditText": "sellers"
+              },
+              "usefulness": 97,
+              "complexity": 53
+            }
+          ]
+        }
+      },
+      "usefulness": 97,
+      "complexity": 53
+    }
+  ],
+  "gameplay": {
+    "contract": "caatuu-grammar-gravity-journey-v1",
+    "stages": [
+      "meaning",
+      "category",
+      "form"
+    ],
+    "categoryFeature": "number",
+    "categoryOptions": [
+      {
+        "id": "singular",
+        "label": "Singular"
+      },
+      {
+        "id": "plural",
+        "label": "Plural"
+      }
+    ]
+  }
+}

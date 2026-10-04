@@ -1,4 +1,4 @@
-import { mountAudioLab } from "./audio-lab.mjs?v=audio-lab-2";
+import { mountAudioLab } from "./audio-lab.mjs?v=audio-lab-4";
 import { mountVerbDifficulty, mountDictionaryInspector } from "./catalog-inspectors.mjs";
 import { mountEmbeddingImages, mountDebugChat } from "./model-tools.mjs?v=model-tools-2";
 

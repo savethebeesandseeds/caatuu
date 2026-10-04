@@ -43,6 +43,10 @@
     {
       "id": "la",
       "manifest": "apps/languages/latin-scientific/course.json"
+    },
+    {
+      "id": "ka",
+      "manifest": "apps/languages/georgian/course.json"
     }
   ]
 }
