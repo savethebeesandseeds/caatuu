@@ -6,7 +6,7 @@ import { validateSoundQuasarCatalog } from "../../../apps/language-runtime/stati
 import { validateConjugationCometCatalog } from "../../../apps/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs";
 import { validatePack as validateCaseCosmosPack } from "../../../apps/languages/czech/static/source/games/case-cosmos/case-cosmos-content.mjs";
 
-export const LEARNER_CONTENT_SAFETY_POLICY_VERSION = "caatuu-child-content-safety-v4";
+export const LEARNER_CONTENT_SAFETY_POLICY_VERSION = "caatuu-child-content-safety-v5";
 
 // Assigned by validated game extractors, never trusted from authored JSON or UI copy.
 const FIXED_LESSON_EXAMPLE = Symbol("fixed-language-example");
@@ -381,15 +381,45 @@ export async function assertRegisteredGameJsonCoverage(repoRoot) {
   return { discovered, registered: [...registered].sort(), nonLearner: [...SHIPPED_NON_LEARNER_GAME_JSON] };
 }
 
-export async function scanShippedLearnerContent(repoRoot) {
-  await assertRegisteredGameJsonCoverage(repoRoot);
+export async function scanShippedLearnerContent(repoRoot, { android = false } = {}) {
+  let sources = SHIPPED_LEARNER_CONTENT_SOURCES;
+  if (android) {
+    const confined = (relative) => {
+      if (typeof relative !== "string" || relative.includes("\\") || path.isAbsolute(relative)
+          || relative.split("/").some(part => !part || part === "." || part === "..")) {
+        throw new Error(`Invalid course content path: ${relative}`);
+      }
+      return path.join(repoRoot, ...relative.split("/"));
+    };
+    const catalog = await readJson(confined("apps/languages/catalog.json"), "language catalog");
+    sources = [];
+    for (const entry of catalog.courses) {
+      const course = await readJson(confined(entry.manifest), entry.manifest);
+      if (course.platforms?.android?.enabled !== true) continue;
+      const root = course.resources.staticRoot;
+      const staticRoot = typeof root === "string" ? root : root.path;
+      for (const source of SHIPPED_LEARNER_CONTENT_SOURCES) {
+        const file = `${staticRoot}/${source.file.split("/static/")[1]}`;
+        try {
+          await fs.access(confined(file));
+        } catch (error) {
+          if (error.code === "ENOENT") continue;
+          throw error;
+        }
+        sources.push({ ...source, file, courseId: course.id });
+      }
+    }
+  } else {
+    await assertRegisteredGameJsonCoverage(repoRoot);
+  }
   const files = [];
   const allFields = [];
-  for (const source of SHIPPED_LEARNER_CONTENT_SOURCES) {
+  for (const source of sources) {
     const absoluteFile = path.join(repoRoot, ...source.file.split("/"));
     const value = await readJson(absoluteFile, source.file);
     const extracted = extractLearnerContent(source.id, value, source.file);
     files.push({
+      ...(source.courseId ? { courseId: source.courseId } : {}),
       sourceId: source.id,
       file: source.file,
       recordCount: extracted.recordCount,
@@ -650,7 +680,9 @@ function edgedWeaponNeedsReviewEn(tokens) {
   }
   for (let index = 0; index < tokens.length; index += 1) {
     if (!["knife", "knives"].includes(tokens[index])) continue;
-    if (!hasNearbyToken(tokens, index, 3, ["butter", "cutlery", "fork", "plastic", "table", "utensil", "utensils"])) return true;
+    const pairedCutlery = tokens.slice(Math.max(0, index - 4), index + 1).join(" ") === "fork is beside the knife"
+      || tokens.slice(index, index + 5).join(" ") === "knife is beside the fork";
+    if (!pairedCutlery && !hasNearbyToken(tokens, index, 3, ["butter", "cutlery", "fork", "plastic", "table", "utensil", "utensils"])) return true;
   }
   return false;
 }
@@ -887,8 +919,9 @@ function personalDataSolicitationEn(tokens) {
 }
 
 function isFixedNameLesson(value) {
-  const normalized = normalizeSafetyText(value);
-  return /^(?:what is your name|what's your name|write your name|can you spell your surname|jak se jmenuješ|jak se jmenujete|jaké je tvoje jméno|jaké je vaše jméno)$/u.test(normalized);
+  // A terminal grammatical addressee note is part of a fixed translation task.
+  const normalized = normalizeSafetyText(String(value).replace(/\s*\(to a (?:man|woman)\)\s*$/u, ""));
+  return /^(?:what is your name|what's your name|write your name(?: at the top of the page)?|please spell your name|can you spell your surname|jak se jmenuješ|jak se jmenujete|jaké je tvoje jméno|jaké je vaše jméno)$/u.test(normalized);
 }
 
 function personalDataTokens(field, tokens) {

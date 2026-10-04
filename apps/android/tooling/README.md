@@ -122,6 +122,8 @@ compact, keeping the catalog-derived course bundle inside its unchanged 8 MB
 asset budget without omitting download receipts or moving Home into setup.
 The complete eight-course companion has a bounded 96 MB content budget; each
 device still downloads shared assets and only its selected course content.
+Release preflight scans the learner content of every Android-enabled course
+before Gradle, using the same extractors and rules as the final compiler.
 
 Regenerate those reviewed copies with
 `docker exec -w /workspace caatuu-dev python apps/language-runtime/tooling/build-home-art.py`;

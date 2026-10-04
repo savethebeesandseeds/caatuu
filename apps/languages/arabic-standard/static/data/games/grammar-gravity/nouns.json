@@ -827,11 +827,11 @@
     },
     {
       "id": "ar.gravity.noun.lexical.0033",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 1,
       "targetText": "سِكِّين",
-      "learnerBaseText": "knife",
-      "english": "knife",
+      "learnerBaseText": "knife (cutlery)",
+      "english": "knife (cutlery)",
       "laneId": "masculine",
       "acceptedLaneIds": [
         "masculine",

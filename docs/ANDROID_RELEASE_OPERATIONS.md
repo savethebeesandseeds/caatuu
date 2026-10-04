@@ -363,3 +363,11 @@ setup mismatch. The shared app asset catalog now includes that source, so the
 compiler seals it in the companion and setup uses its content-addressed URL.
 The published website's earlier image remains untouched. No candidate was
 sealed by either failed attempt.
+
+Source `6e6076c` then reached Arabic content checks. Fixed name lessons with
+grammatical addressee notes were misclassified as requests for personal data.
+The trusted fixed-lesson check now recognizes those exact forms; raw UI requests,
+added questions and credentials remain blocked. Cutlery is explicitly labeled
+in the noun/gloss, and one accident example is now a neutral event. Preflight
+scans every Android-enabled course with the compiler's extractors before Gradle,
+catching this class of content issue without another expensive asset build.

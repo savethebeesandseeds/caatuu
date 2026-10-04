@@ -28487,9 +28487,9 @@
     {
       "id": "ar-sound-ww-ar261001-01514",
       "revision": "arabic-authored-1",
-      "target": "قَدَّمَ الشَّاهِدَانِ اللَّذَانِ شَاهَدَا الْحَادِثَ رِوَايَتَيْنِ مُخْتَلِفَتَيْنِ.",
-      "meaning": "The two witnesses who saw the accident gave different accounts.",
-      "englishAuditText": "The two witnesses who saw the accident gave different accounts.",
+      "target": "قَدَّمَ الشَّاهِدَانِ اللَّذَانِ شَاهَدَا الْحَدَثَ رِوَايَتَيْنِ مُخْتَلِفَتَيْنِ.",
+      "meaning": "The two witnesses who saw the event gave different accounts.",
+      "englishAuditText": "The two witnesses who saw the event gave different accounts.",
       "sourceId": "ww-ar261001-01514",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 3,

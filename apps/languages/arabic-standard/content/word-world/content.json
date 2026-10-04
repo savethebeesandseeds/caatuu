@@ -33834,7 +33834,7 @@
         {
           "surface": "السِّكِّينِ",
           "pronunciation": null,
-          "gloss": "the knife",
+          "gloss": "the knife (cutlery)",
           "playable": true
         }
       ],
@@ -70959,10 +70959,10 @@
       "usefulness": 93,
       "complexity": 63,
       "topic": "scope-and-reference",
-      "englishText": "The two witnesses who saw the accident gave different accounts.",
-      "embeddingText": "The two witnesses who saw the accident gave different accounts.",
+      "englishText": "The two witnesses who saw the event gave different accounts.",
+      "embeddingText": "The two witnesses who saw the event gave different accounts.",
       "englishAlternates": [],
-      "targetText": "قَدَّمَ الشَّاهِدَانِ اللَّذَانِ شَاهَدَا الْحَادِثَ رِوَايَتَيْنِ مُخْتَلِفَتَيْنِ.",
+      "targetText": "قَدَّمَ الشَّاهِدَانِ اللَّذَانِ شَاهَدَا الْحَدَثَ رِوَايَتَيْنِ مُخْتَلِفَتَيْنِ.",
       "pronunciation": null,
       "tokens": [
         {
@@ -70990,9 +70990,9 @@
           "playable": true
         },
         {
-          "surface": "الْحَادِثَ",
+          "surface": "الْحَدَثَ",
           "pronunciation": null,
-          "gloss": "the accident",
+          "gloss": "the event",
           "playable": true
         },
         {
@@ -71009,7 +71009,7 @@
         }
       ],
       "learnerBase": null,
-      "sceneQuery": "The two witnesses who saw the accident gave different accounts.",
+      "sceneQuery": "The two witnesses who saw the event gave different accounts.",
       "sceneAssetIds": [],
       "annotations": {}
     },

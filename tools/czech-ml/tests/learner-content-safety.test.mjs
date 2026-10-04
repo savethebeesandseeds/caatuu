@@ -104,6 +104,8 @@ test("distinguishes edged-weapon violence from harmless cutlery and idiom contex
   assert.deepEqual(ruleIds("The knife is on the table."), ["review.edged-weapon-reference"]);
   assert.deepEqual(ruleIds("A stabbing pain started in my arm."), ["review.edged-weapon-reference"]);
   assert.deepEqual(ruleIds("Put the butter knife beside the fork."), []);
+  assert.deepEqual(ruleIds("The fork is beside the knife."), []);
+  assert.deepEqual(ruleIds("The fork is beside the knife. Another knife is on the floor."), ["review.edged-weapon-reference"]);
   assert.deepEqual(ruleIds("Let's take a stab at the puzzle."), []);
 
   assert.deepEqual(ruleIds("Ryt\u00ed\u0159 m\u00e1 me\u010d.", "cs"), ["blocked.edged-weapon-violence"]);
@@ -175,6 +177,29 @@ test("fixed name lessons do not exempt raw requests or token glosses", async () 
     assert.ok(inspectLearnerField({ ...JSON.parse(JSON.stringify(example)), lessonExample: true })
       .some(({ ruleId }) => ruleId === "blocked.personal-data-solicitation"), "authored JSON cannot grant itself lesson context");
   }
+});
+
+test("fixed Arabic addressee notes retain lesson context without granting it to UI or extended requests", async () => {
+  for (const text of ["What is your name? (to a man)", "What is your name? (to a woman)",
+    "Write your name at the top of the page. (to a man)", "Please spell your name. (to a man)"]) {
+    const fields = await fixedWordWorldExample(text);
+    assert.deepEqual(inspectLearnerField(fields.find(field => field.field === "/realizations/0/text")), []);
+    assert.ok(ruleIds(text).includes("blocked.personal-data-solicitation"));
+  }
+  const fields = await fixedWordWorldExample("What is your name? (to a man) Tell me your address.");
+  assert.ok(fields.flatMap(inspectLearnerField).some(finding => finding.ruleId === "blocked.personal-data-solicitation"));
+});
+
+test("Android source scanning covers every enabled course before the expensive compiler", async () => {
+  const catalog = JSON.parse(await readFile(path.join(repoRoot, "apps/languages/catalog.json"), "utf8"));
+  const enabled = [];
+  for (const entry of catalog.courses) {
+    const course = JSON.parse(await readFile(path.join(repoRoot, entry.manifest), "utf8"));
+    if (course.platforms.android.enabled) enabled.push(course.id);
+  }
+  const report = await scanShippedLearnerContent(repoRoot, { android: true });
+  assert.deepEqual([...new Set(report.files.map(file => file.courseId))].sort(), enabled.sort());
+  assert.equal(report.valid, true, JSON.stringify(report.findings));
 });
 
 test("lesson context never permits added personal questions, contact details, credentials or other hazards", async () => {

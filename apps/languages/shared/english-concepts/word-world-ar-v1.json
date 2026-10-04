@@ -15149,9 +15149,9 @@
     },
     {
       "id": "ww-ar261001-01514",
-      "englishText": "The two witnesses who saw the accident gave different accounts.",
-      "embeddingText": "The two witnesses who saw the accident gave different accounts.",
-      "sceneQuery": "The two witnesses who saw the accident gave different accounts.",
+      "englishText": "The two witnesses who saw the event gave different accounts.",
+      "embeddingText": "The two witnesses who saw the event gave different accounts.",
+      "sceneQuery": "The two witnesses who saw the event gave different accounts.",
       "topic": "scope-and-reference",
       "difficulty": 3,
       "usefulness": 93,

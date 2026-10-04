@@ -7,9 +7,9 @@ import { caatuuRoot } from "./paths.mjs";
 try {
   const options = parseArguments(process.argv.slice(2));
   if (options.help) {
-    console.log("Usage: node tools/czech-ml/scripts/validate-learner-content-safety.mjs [--repo-root <path>] [--compact]");
+    console.log("Usage: node tools/czech-ml/scripts/validate-learner-content-safety.mjs [--repo-root <path>] [--compact] [--android]");
   } else {
-    const report = await scanShippedLearnerContent(options.repoRoot);
+    const report = await scanShippedLearnerContent(options.repoRoot, { android: options.android });
     console.log(JSON.stringify(report, null, options.compact ? 0 : 2));
     if (!report.valid) process.exitCode = 1;
   }
@@ -23,7 +23,7 @@ try {
 }
 
 function parseArguments(argv) {
-  const options = { compact: false, help: false, repoRoot: caatuuRoot };
+  const options = { compact: false, android: false, help: false, repoRoot: caatuuRoot };
   for (let index = 0; index < argv.length; index += 1) {
     const argument = argv[index];
     if (argument === "--help" || argument === "-h") {
@@ -32,6 +32,10 @@ function parseArguments(argv) {
     }
     if (argument === "--compact") {
       options.compact = true;
+      continue;
+    }
+    if (argument === "--android") {
+      options.android = true;
       continue;
     }
     if (argument !== "--repo-root") throw new Error(`Unknown option: ${argument}`);
