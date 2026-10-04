@@ -355,3 +355,11 @@ the three approved curricula, exceeding the previous five-course 72 MB limit.
 The bounded companion budget is now 96 MB, with an executable overflow
 regression. The 8 MB bootstrap limit, selected-course installation and setup
 integrity checks remain intact.
+
+The next attempt at source `3872933` passed both size limits, then stopped on
+the existing public `assets/macaw/actions/macaw (83).png`: its live receipt
+differed from the reviewed local source. This was the only remaining public
+setup mismatch. The shared app asset catalog now includes that source, so the
+compiler seals it in the companion and setup uses its content-addressed URL.
+The published website's earlier image remains untouched. No candidate was
+sealed by either failed attempt.

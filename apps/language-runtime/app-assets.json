@@ -967,6 +967,10 @@
       "output": "assets/macaw/actions/macaw (49).png"
     },
     {
+      "source": "apps/launcher/static/assets/macaw/actions/macaw (83).png",
+      "output": "assets/macaw/actions/macaw (83).png"
+    },
+    {
       "source": "apps/language-runtime/static/data/english-concepts/word-world-ar-v1.json",
       "output": "language-runtime/static/data/english-concepts/word-world-ar-v1.json"
     },
