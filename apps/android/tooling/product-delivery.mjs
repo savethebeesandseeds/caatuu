@@ -36,10 +36,15 @@ export const HOME_BOOTSTRAP_ARTWORK = Object.freeze([
 // Separate residency and content budgets; independently delivered model and
 // dictionary binaries are not duplicated in this companion payload.
 export const PRODUCT_BOOTSTRAP_MAX_BYTES = 8_000_000;
-export const PRODUCT_SETUP_PAYLOAD_MAX_BYTES = 72_000_000;
+// The complete eight-course companion is currently about 83 MB. This bounded
+// download budget covers the three approved 2,500-sentence courses; it is not
+// APK residency, and a device installs only its selected course plus shared art.
+export const PRODUCT_SETUP_PAYLOAD_MAX_BYTES = 96_000_000;
 
 const hash = (bytes) => createHash("sha256").update(bytes).digest("hex");
-const jsonBytes = (value) => Buffer.from(`${JSON.stringify(value, null, 2)}\n`, "utf8");
+// APK setup catalogs repeat shared receipts across courses. Omit formatting
+// whitespace while preserving every field and exact downloaded-byte identity.
+const jsonBytes = (value) => Buffer.from(`${JSON.stringify(value)}\n`, "utf8");
 
 /** Course manifests own their flags, including both directions of each pair. */
 export function homeBootstrapAssets(files, courses) {

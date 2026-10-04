@@ -20,6 +20,14 @@ SOURCE_DIRECTORY = WORKSPACE / "apps/launcher/static/assets/icons"
 OUTPUT_DIRECTORY = WORKSPACE / "apps/language-runtime/static/assets/home"
 # Keep full canvases and alpha; the 512px mascot also supports larger Home art.
 MAX_EDGES = {
+    "home_icon.png": 192,
+    "homebase_icon.png": 192,
+    "social_icon.png": 192,
+    "games_icon.png": 192,
+    "backpack_icon.png": 192,
+    "items_icon.png": 192,
+    "gear_icon.png": 192,
+    "stats_icon.png": 192,
     "english_flag.png": 256,
     "spain_flag.png": 256,
     "icon_gem.png": 256,

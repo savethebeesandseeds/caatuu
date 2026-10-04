@@ -483,7 +483,7 @@
       "output": "language-runtime/static/data/english-concepts/word-world-es-en-v1.json"
     },
     {
-      "source": "apps/launcher/static/assets/icons/backpack_icon.png",
+      "source": "apps/language-runtime/static/assets/home/backpack_icon.png",
       "output": "assets/icons/backpack_icon.png"
     },
     {
@@ -527,11 +527,11 @@
       "output": "assets/icons/difficulty_medal_3_ui.png"
     },
     {
-      "source": "apps/launcher/static/assets/icons/games_icon.png",
+      "source": "apps/language-runtime/static/assets/home/games_icon.png",
       "output": "assets/icons/games_icon.png"
     },
     {
-      "source": "apps/launcher/static/assets/icons/gear_icon.png",
+      "source": "apps/language-runtime/static/assets/home/gear_icon.png",
       "output": "assets/icons/gear_icon.png"
     },
     {
@@ -539,11 +539,11 @@
       "output": "assets/icons/hello.png"
     },
     {
-      "source": "apps/launcher/static/assets/icons/home_icon.png",
+      "source": "apps/language-runtime/static/assets/home/home_icon.png",
       "output": "assets/icons/home_icon.png"
     },
     {
-      "source": "apps/launcher/static/assets/icons/homebase_icon.png",
+      "source": "apps/language-runtime/static/assets/home/homebase_icon.png",
       "output": "assets/icons/homebase_icon.png"
     },
     {
@@ -551,7 +551,7 @@
       "output": "assets/icons/icon_gem.png"
     },
     {
-      "source": "apps/launcher/static/assets/icons/items_icon.png",
+      "source": "apps/language-runtime/static/assets/home/items_icon.png",
       "output": "assets/icons/items_icon.png"
     },
     {
@@ -563,11 +563,11 @@
       "output": "assets/icons/paper_plane_submit_ui.png"
     },
     {
-      "source": "apps/launcher/static/assets/icons/social_icon.png",
+      "source": "apps/language-runtime/static/assets/home/social_icon.png",
       "output": "assets/icons/social_icon.png"
     },
     {
-      "source": "apps/launcher/static/assets/icons/stats_icon.png",
+      "source": "apps/language-runtime/static/assets/home/stats_icon.png",
       "output": "assets/icons/stats_icon.png"
     },
     {

@@ -4,6 +4,7 @@ import test from "node:test";
 import {
   HOME_BOOTSTRAP_ARTWORK,
   HOME_BOOTSTRAP_ASSET_MAX_BYTES,
+  PRODUCT_SETUP_PAYLOAD_MAX_BYTES,
   homeBootstrapAssets,
   isSetupDeliveredAsset,
   nativeBootstrapCatalogAssets,
@@ -173,4 +174,10 @@ test("an engine-sized regression trips the bootstrap budget instead of moving it
   const input = fixture();
   input.files.set("language-runtime/static/source/oversized.mjs", Buffer.alloc(8_000_001));
   assert.throws(() => planProductDelivery(input), /Bootstrap APK assets exceed the reviewed/u);
+});
+
+test("downloadable content retains a bounded payload budget as courses are added", () => {
+  const input = fixture();
+  input.files.set("courses/alpha/data/games/oversized.json", Buffer.alloc(PRODUCT_SETUP_PAYLOAD_MAX_BYTES + 1));
+  assert.throws(() => planProductDelivery(input), /Setup payload exceeds the reviewed/u);
 });

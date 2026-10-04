@@ -1,6 +1,6 @@
 # Android release operations
 
-Last reviewed: 7 September 2026
+Last reviewed: 4 October 2026
 
 This is the operational handoff for maintainers and coding sessions. Use the
 maintained entrypoints, not a remembered sequence of repair commands.
@@ -340,3 +340,18 @@ morning. Source CI also caught a fixed stylesheet revision in the browser
 setup test; that test now verifies the current entrypoint reference is present
 in the offline catalog. Retry the same unsealed version after committing these
 source fixes; no release safeguard or published artifact needs replacement.
+
+### Reference incident: eight-course bootstrap size
+
+Android 179's first attempt at source
+`e3b5e19bf080b94eac7b990efbbf1c2a45b79e2a` stopped in asset generation:
+8,782,794 bootstrap bytes exceeded the unchanged 8,000,000-byte budget.
+No candidate was sealed. Generated setup catalogs now omit formatting
+whitespace, and the existing Home artwork generator supplies 192px navigation
+icons. The catalog-derived Home/bootstrap test covers the complete enabled
+course set and its size budget. Retry the same unsealed version after committing
+the source fix. The same check measured 82,333,519 companion bytes after adding
+the three approved curricula, exceeding the previous five-course 72 MB limit.
+The bounded companion budget is now 96 MB, with an executable overflow
+regression. The 8 MB bootstrap limit, selected-course installation and setup
+integrity checks remain intact.
