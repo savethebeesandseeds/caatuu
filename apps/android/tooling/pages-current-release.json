@@ -339,6 +339,27 @@
         "bytes": 82728960,
         "sha256": "2fdac2cb9902ad903a9fb48fae6317c5569cd2da611009f8d5767f4088972ffa"
       }
+    },
+    {
+      "versionCode": 180,
+      "versionName": "0.1.28",
+      "sourceRevision": "5b79f8d2ddb924cda77e4926bd4677950903aaaa",
+      "manifest": {
+        "bytes": 1041,
+        "sha256": "e623a29766998e73fb5462d6be0619970961749bcf06cf202f7e444f82accd57"
+      },
+      "apk": {
+        "bytes": 3469392,
+        "sha256": "0fecce8701ee82146c5422d9584cadeecdff54d2ad24e7f2036ba427bcd7907f"
+      },
+      "receipt": {
+        "bytes": 1360,
+        "sha256": "706982ee0184af1857709d22b7022062eaea863544ac90ebdfcb77906aee3230"
+      },
+      "setup": {
+        "bytes": 82728960,
+        "sha256": "2fdac2cb9902ad903a9fb48fae6317c5569cd2da611009f8d5767f4088972ffa"
+      }
     }
   ],
   "setupEntries": [
