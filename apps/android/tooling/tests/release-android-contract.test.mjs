@@ -9,6 +9,8 @@ test("the Windows entrypoint delegates only to the guarded build and receipt-onl
   assert.match(source, /C:\\Work\\caatuu/u);
   assert.match(source, /release-orchestration\.psm1/u);
   assert.match(source, /Invoke-CaatuuReleasePipeline/u);
+  assert.match(source, /Wait-CaatuuReleaseSourceCI/u);
+  assert.match(source, /-SourceCheckStage/u);
   assert.equal(source.match(/publish-release\.sh --build-once/gu)?.length, 1);
   assert.equal(source.match(/deploy-pages-release\.ps1/gu)?.length, 1);
   assert.match(source, /-CandidateReceipt/u);

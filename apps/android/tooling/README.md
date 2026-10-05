@@ -268,6 +268,11 @@ The routine entrypoint orchestrates both operations with one command:
 pwsh -NoProfile -File apps/android/tooling/release-android.ps1
 ```
 
+For a new build it first waits for successful Repository CI on the exact `main`
+source commit. The wait is bounded to 15 minutes and uses the existing run;
+failed or missing checks stop before Gradle. Finalized receipt-only retries skip
+the source gate and build. The native orchestration suite tests both paths.
+
 When a finalized receipt already exists for the declared version, the wrapper
 skips the build operation and resumes receipt-only deployment. The two
 lower-level commands below remain available for inspection and recovery.

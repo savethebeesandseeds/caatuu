@@ -27,6 +27,11 @@ if (-not $VersionMatch.Success) {
 }
 
 $VersionCode = [int]$VersionMatch.Groups[1].Value
+$SourceRevision = (& git -C $RepositoryRoot rev-parse HEAD).Trim()
+if ($LASTEXITCODE -ne 0) { throw "Could not read the release source revision." }
+$SourceCheckStage = {
+    release-orchestration\Wait-CaatuuReleaseSourceCI -SourceRevision $SourceRevision
+}.GetNewClosure()
 $FinalizedReleaseDirectory = Join-Path $RepositoryRoot "artifacts\android\releases\$VersionCode"
 $FinalizedApk = Join-Path $FinalizedReleaseDirectory "caatuu.apk"
 $FinalizedManifest = Join-Path $FinalizedReleaseDirectory "caatuu.json"
@@ -48,4 +53,5 @@ $DeployStage = {
     & $Deployer -CandidateReceipt $Receipt
 }.GetNewClosure()
 Invoke-CaatuuReleasePipeline -VersionCode $VersionCode -CandidateReceipt $FinalizedReceipt `
-    -ReadFinalizedState $ReadFinalizedState -BuildStage $BuildStage -DeployStage $DeployStage
+    -ReadFinalizedState $ReadFinalizedState -SourceCheckStage $SourceCheckStage `
+    -BuildStage $BuildStage -DeployStage $DeployStage

@@ -42,6 +42,14 @@ to make a release work. The existing local app on port 8765 need not be stopped.
    package audit, finalization, upload, Pages handoff and public verification.
    Do not first build the same APK separately or run a full website export.
 
+Before entering a new build, the routine command requires successful Repository
+CI for the exact source commit on `main`. It reads the existing run rather than
+dispatching another one, waits for pending checks for at most 15 minutes, and
+stops before Gradle on failure, cancellation, missing results or a revision
+mismatch. Fix the source and reuse an unsealed version after its checks pass.
+Finalized receipt-only retries skip this gate as well as the build. Advanced
+use of the lower-level builder requires the same successful source checkpoint.
+
 The builder's metadata-only Pages capacity preflight runs before Gradle. It
 accounts for pending finalized releases, applies only the explicitly approved
 APK archive policy, and reserves a full 96 MB companion plus two 32 MB APK
@@ -209,6 +217,8 @@ Source CI owns larger compiler fixtures and website tests. Routine APK preflight
 stays small; the real compiler and final archive audit retain integrity checks.
 The inexpensive fallback course-chooser and shared-selector contracts run before
 Gradle, so missing course rows or offline flag coverage fail before an APK build.
+The routine command waits for that commit's broader source CI first, so compiler
+fixtures and course integration failures cannot arrive after its APK build.
 Fresh-checkout fixtures must not secretly require Git-ignored model downloads.
 Metadata-only tests may explicitly exercise the setup-delivered runtime mode;
 normal Android builds remain strict. Synthetic missing-file, byte/hash mismatch
@@ -450,3 +460,11 @@ absent optional sound banks, validate usable goal coverage without a fixed goal
 count, and supply real Request objects in the dictionary worker fixture. These
 fixtures verify runtime contracts without requiring unsupported games or
 rewriting existing learner evidence.
+
+Version 181 closes the ordering failure: the routine entrypoint waits for
+successful source CI before calling the builder. Native orchestration tests cover
+pending checks, unsuccessful conclusions, mismatched commits, bounded waits and
+receipt-only retries. The actual read-only gate was also exercised against the
+successful fix commit `7b6abc29e8676fc57e5c33f98d50a944281e70d7` before publication.
+This moves source failures ahead of Gradle; signing, archive integrity and public
+byte checks still validate the artifacts and deployment at their own boundaries.

@@ -1,5 +1,14 @@
 # Changelog
 
+## Android 181 / 0.1.29
+
+- Grade complete 13-form Arabic Conjugation Comet solutions and match Georgian
+  learning goals to its authored topic names.
+- Complete the course chooser, landing translations and offline selector flag
+  coverage for the registered courses.
+- Require successful source CI before a new APK build, retaining receipt-only
+  deployment retries and adding focused grading and goal checks before Gradle.
+
 ## Android 180 / 0.1.28
 
 - Add a thin black outline to the Georgian course flag and refresh offline
@@ -12,13 +21,6 @@ All tester-facing changes will be recorded here. Caatuu has not yet declared a
 governed beta or stable release.
 
 ## Unreleased
-
-- Accept complete 13-form Arabic Conjugation Comet solutions and align Georgian
-  learning goals with its authored topic names.
-- Add Arabic, Latin and Georgian labels to the landing page's language catalogs.
-- Complete the browser fallback course chooser and offline selector flag coverage
-  for all registered courses; support catalog-declared SVG flags in static exports.
-- Catch chooser and selector coverage errors before future Android builds.
 
 ### Android 0.1.27 (179): Arabic, Scientific Latin and Georgian
 
