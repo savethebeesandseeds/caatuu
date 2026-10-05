@@ -468,3 +468,16 @@ receipt-only retries. The actual read-only gate was also exercised against the
 successful fix commit `7b6abc29e8676fc57e5c33f98d50a944281e70d7` before publication.
 This moves source failures ahead of Gradle; signing, archive integrity and public
 byte checks still validate the artifacts and deployment at their own boundaries.
+
+Android 181 (`0.1.29`) from `b0b6d4c85ff535304cb0012784deff7c7de07431`
+was built and published successfully in one routine-command attempt. Its
+[source CI run 37298064924](https://github.com/savethebeesandseeds/caatuu/actions/runs/37298064924)
+passed before the build. All 93 focused preflight checks passed, and the early
+capacity projection left 42,181,846 reserved bytes. Gradle took 6m43s; the complete
+local validation/build/finalization stages took 725s, and receipt-only deployment
+took 320s, excluding the preceding CI wait. These are measurements, not guarantees.
+[Pages run 37299695799](https://github.com/savethebeesandseeds/caatuu/actions/runs/37299695799)
+and public APK/setup-byte verification passed. The APK SHA-256 is
+`a73fa4851b9c284541b3d98e43337e6566515d3db0e02f50edc45a3ba49e25d7`.
+Any deployment retry uses the finalized 181 receipt; it must not rebuild those
+bytes. Physical-device installation and pronunciation review remain unverified.
