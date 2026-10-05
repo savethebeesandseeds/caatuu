@@ -8,6 +8,7 @@ import { fileURLToPath } from "node:url";
 
 import { validatePagesCurrentReleaseDescriptor } from "./pages-current-release.mjs";
 import { readZipEntry } from "./pages-baseline.mjs";
+import { readPagesStoragePolicy, validatePagesStoragePolicy } from "./pages-storage-policy.mjs";
 
 const modulePath = fileURLToPath(import.meta.url);
 const moduleDirectory = dirname(modulePath);
@@ -378,7 +379,7 @@ async function publicLanguageRegistry(request, origin) {
   });
 }
 
-async function publicBundle(request, origin, current, baseline, languageRegistry) {
+async function publicBundle(request, origin, current, baseline, languageRegistry, archivedApks) {
   return request(origin, "/caatuu-web-bundle.json", { headers: { accept: "application/json" } }, async (response) => {
     const raw = await responseBytes(response, "/caatuu-web-bundle.json");
     const bundle = JSON.parse(raw.toString("utf8"));
@@ -402,8 +403,12 @@ async function publicBundle(request, origin, current, baseline, languageRegistry
 
     for (const channel of [baseline.stable, baseline.compatibility, ...current.releases.map(overlayChannel)]) {
       inventoryRecord(bundle, channel.manifest.path, channel.manifest, `Android ${channel.versionCode} manifest`);
-      inventoryRecord(bundle, channel.apk.path, channel.apk, `Android ${channel.versionCode} APK`);
+      if (!archivedApks.some(({ path }) => `/${path}` === channel.apk.path)) {
+        inventoryRecord(bundle, channel.apk.path, channel.apk, `Android ${channel.versionCode} APK`);
+      }
     }
+    assert.deepEqual(bundle.archivedAndroidApks ?? [], archivedApks, "Published APK archive policy differs");
+    for (const { path } of archivedApks) assert.ok(!bundle.files.some((file) => file.path === path), `Archived APK was republished: ${path}`);
     for (const alias of baseline.compatibility.manifest.aliases) {
       inventoryRecord(bundle, alias, baseline.compatibility.manifest, "compatibility Android manifest alias");
     }
@@ -436,6 +441,7 @@ export async function verifyPublicPagesReleaseOnce({
   requestTimeoutMs = 30_000,
   apkRequestTimeoutMs = 120_000,
   androidOnly = false,
+  archivedApks = [],
 }) {
   assert.equal(typeof fetchImpl, "function", "A fetch implementation is required");
   assert.ok(
@@ -447,6 +453,7 @@ export async function verifyPublicPagesReleaseOnce({
     "apkRequestTimeoutMs is invalid",
   );
   const current = validatePagesCurrentReleaseDescriptor(descriptor);
+  validatePagesStoragePolicy({ schemaVersion: 1, archivedApks }, current);
   const baseline = validatePublicBaselineDescriptor(baselineDescriptor, current);
   const origin = current.canonicalOrigin;
   const timedFetch = withRequestTimeout(fetchImpl, requestTimeoutMs);
@@ -455,7 +462,7 @@ export async function verifyPublicPagesReleaseOnce({
   // Keep stale-cache checks cheap. Full current APK verification happens only
   // after the Pages metadata, immutable manifests, old routes, and Worker agree.
   const languageRegistry = androidOnly ? null : await publicLanguageRegistry(timedFetch, origin);
-  const bundle = await publicBundle(timedFetch, origin, current, baseline, languageRegistry);
+  const bundle = await publicBundle(timedFetch, origin, current, baseline, languageRegistry, archivedApks);
   if (!androidOnly) {
     for (const path of languageRegistry.entrypoints) await htmlEntrypoint(timedFetch, origin, path);
   }
@@ -486,7 +493,8 @@ export async function verifyPublicPagesReleaseOnce({
   );
   validateAndroidManifest(stableManifest.value, stable, "stable Android manifest alias", current);
 
-  for (const channel of channels.filter((channel) => channel.versionCode !== current.stable.versionCode)) {
+  for (const channel of channels.filter((channel) => channel.versionCode !== current.stable.versionCode
+    && !archivedApks.some(({ path }) => `/${path}` === channel.apk.path))) {
     await rangedFile(timedFetch, origin, channel.apk, `Android ${channel.versionCode} immutable APK`);
   }
   for (const alias of baseline.compatibility.apk.aliases) {
@@ -517,6 +525,7 @@ export async function verifyPublicPagesReleaseOnce({
     tag: current.githubRelease.tag,
     browserEntrypoints: languageRegistry?.entrypoints ?? [],
     retainedAndroidVersions: channels.map((channel) => channel.versionCode),
+    archivedAndroidApks: archivedApks.map(({ path, downloadUrl }) => ({ path, downloadUrl })),
     reportingVersion: health?.version ?? null,
   };
 }
@@ -536,6 +545,7 @@ export async function verifyPublicPagesRelease({
   sleepImpl = sleep,
   onAttemptFailure = () => {},
   androidOnly = false,
+  archivedApks = [],
 }) {
   // Thirty 20-second waits give Pages edge caches roughly ten minutes to
   // converge. Request time is separate and individually bounded.
@@ -544,7 +554,7 @@ export async function verifyPublicPagesRelease({
   let lastError;
   for (let attempt = 1; attempt <= attempts; attempt += 1) {
     try {
-      return await verifyPublicPagesReleaseOnce({ descriptor, baselineDescriptor, fetchImpl, requestTimeoutMs, apkRequestTimeoutMs, androidOnly });
+      return await verifyPublicPagesReleaseOnce({ descriptor, baselineDescriptor, fetchImpl, requestTimeoutMs, apkRequestTimeoutMs, androidOnly, archivedApks });
     } catch (error) {
       lastError = error;
       await onAttemptFailure({ attempt, attempts, error });
@@ -582,6 +592,7 @@ async function main(argv) {
     attempts: options.attempts,
     retryDelayMs: options.retryDelayMs,
     androidOnly: options.androidOnly === true,
+    archivedApks: readPagesStoragePolicy(validatePagesCurrentReleaseDescriptor(descriptor)),
   });
   process.stdout.write(`${JSON.stringify(result)}\n`);
 }

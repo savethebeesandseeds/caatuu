@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import assert from "node:assert/strict";
-import { constants, copyFileSync, existsSync, lstatSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { constants, copyFileSync, existsSync, lstatSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { basename, dirname, isAbsolute, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { readZipEntry, sha256Bytes, sha256File } from "./pages-baseline.mjs";
@@ -137,6 +137,10 @@ function identityMatches(left, right) {
 export function planAndroidReleaseOverlay({ preservedSite, currentRelease, readApkAsset = readZipEntry }) {
   const { descriptor, current, releases, setupManifests } = currentRelease;
   const { manifest, files } = preservedSite;
+  const archivedApks = descriptor.archivedApks ?? [];
+  const archived = new Map(archivedApks.map((record) => [record.path, record]));
+  const removals = files.filter((file) => archived.has(file.path));
+  for (const file of removals) assert.ok(identityMatches(file, archived.get(file.path)), `Archived APK identity differs: ${file.path}`);
   assert.equal(descriptor.canonicalOrigin, manifest.canonicalOrigin, "Release and website origins differ");
   assert.ok(Number.isSafeInteger(manifest.android?.stableVersionCode), "Preserved website has no Android stable version");
   assert.ok(current.release.versionCode >= manifest.android.stableVersionCode, "Android overlay would roll back the published version");
@@ -165,6 +169,7 @@ export function planAndroidReleaseOverlay({ preservedSite, currentRelease, readA
     for (const kind of ["apk", "manifest", "receipt"]) {
       const artifact = loaded.release[kind];
       const filename = kind === "apk" ? "caatuu.apk" : kind === "manifest" ? "caatuu.json" : "caatuu-release-candidate.json";
+      if (kind === "apk" && archived.has(`android/releases/${loaded.release.versionCode}/${filename}`)) continue;
       add(`android/releases/${loaded.release.versionCode}/${filename}`, artifact, { sourcePath: loaded[`${kind}Path`] });
     }
     for (const [path, object] of loaded.setupPayload ?? []) {
@@ -232,17 +237,22 @@ export function planAndroidReleaseOverlay({ preservedSite, currentRelease, readA
     previousStableVersionName: previous?.versionName ?? (manifest.android.stableVersionCode === descriptor.baselineStableVersionCode
       ? manifest.android.stableVersionName : manifest.android.previousStableVersionName),
   };
-  return { writes: [...writes.values()], android, currentAndroidRelease: descriptor.githubRelease, addedSetupPaths, nativeArtifactCount };
+  return { writes: [...writes.values()], removals, archivedApks, android, currentAndroidRelease: descriptor.githubRelease, addedSetupPaths, nativeArtifactCount };
 }
 
 export function createOverlayManifest({ preservedSite, plan, files, websiteSnapshot }) {
   validateWebsiteSnapshot(websiteSnapshot, preservedSite.manifest);
   const finalFiles = new Map(files.map((file) => [file.path, file]));
   assert.equal(finalFiles.size, files.length, "Overlay inventory contains duplicate files");
-  const expectedPaths = new Set([...preservedSite.files.map((file) => file.path), ...plan.writes.map((file) => file.path)]);
+  const removed = new Set((plan.removals ?? []).map(({ path }) => path));
+  for (const file of plan.removals ?? []) {
+    const approved = (plan.archivedApks ?? []).find(({ path }) => path === file.path);
+    assert.ok(approved && identityMatches(file, approved), `Unapproved overlay removal: ${file.path}`);
+  }
+  const expectedPaths = new Set([...preservedSite.files.filter(({ path }) => !removed.has(path)).map((file) => file.path), ...plan.writes.map((file) => file.path)]);
   assert.deepEqual([...finalFiles.keys()].sort(comparePaths), [...expectedPaths].sort(comparePaths), "Overlay added or removed unplanned files");
   const replacedAliases = new Set(plan.writes.filter((file) => aliases.has(file.path)).map((file) => file.path));
-  for (const file of preservedSite.files.filter((item) => !replacedAliases.has(item.path))) {
+  for (const file of preservedSite.files.filter((item) => !replacedAliases.has(item.path) && !removed.has(item.path))) {
     assert.deepEqual(finalFiles.get(file.path), file, `Overlay changed preserved website bytes: ${file.path}`);
   }
   for (const file of plan.writes) assert.ok(identityMatches(finalFiles.get(file.path), file), `Overlay output differs: ${file.path}`);
@@ -252,6 +262,7 @@ export function createOverlayManifest({ preservedSite, plan, files, websiteSnaps
   return {
     ...preservedSite.manifest,
     currentAndroidRelease: plan.currentAndroidRelease,
+    archivedAndroidApks: plan.archivedApks ?? [],
     android: plan.android,
     websiteSnapshot: structuredClone(websiteSnapshot),
     payloadFileCount: files.length,
@@ -269,13 +280,18 @@ export function overlayAndroidReleaseSite({ workspaceRoot, siteDir, descriptorPa
   const currentRelease = loadPagesCurrentRelease({ workspaceRoot, descriptorPath });
   const plan = planAndroidReleaseOverlay({ preservedSite, currentRelease });
   const plannedFiles = new Map(preservedSite.files.map((file) => [file.path, file]));
+  for (const file of plan.removals) plannedFiles.delete(file.path);
   for (const { path, bytes, sha256 } of plan.writes) plannedFiles.set(path, { path, bytes, sha256 });
   createOverlayManifest({
     preservedSite, plan, websiteSnapshot,
     files: [...plannedFiles.values()].sort((left, right) => comparePaths(left.path, right.path)),
   });
   // Finish all source, destination and closure checks before writing any file.
-  for (const file of plan.writes) {
+  for (const file of [...plan.writes, ...plan.removals]) {
+    if (plan.removals.includes(file)) {
+      const target = resolve(site, file.path);
+      assert.ok(identityMatches({ bytes: lstatSync(target).size, sha256: sha256File(target) }, file), `Archived APK changed before removal: ${file.path}`);
+    }
     if (file.sourcePath) {
       assert.ok(lstatSync(file.sourcePath).isFile() && !lstatSync(file.sourcePath).isSymbolicLink(), `Release source is not a regular file: ${file.sourcePath}`);
       assert.ok(identityMatches({ bytes: lstatSync(file.sourcePath).size, sha256: sha256File(file.sourcePath) }, file), `Sealed release source changed: ${file.path}`);
@@ -295,6 +311,7 @@ export function overlayAndroidReleaseSite({ workspaceRoot, siteDir, descriptorPa
       }
     }
   }
+  for (const file of plan.removals) rmSync(resolve(site, file.path));
   for (const file of plan.writes) {
     const target = resolve(site, file.path);
     mkdirSync(dirname(target), { recursive: true });

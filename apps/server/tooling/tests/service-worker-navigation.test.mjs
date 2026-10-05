@@ -33,13 +33,14 @@ class FakeRequest {
 function serviceWorkerContext({
   scope = "https://caatuu.test/zh/",
   cachedResponses = new Map(),
+  precacheImplementation = async () => {},
   fetchImplementation = async () => { throw new Error("offline"); }
 } = {}) {
   const lookups = [];
   const puts = [];
   const handlers = new Map();
   const cache = {
-    async addAll() {},
+    async addAll(requests) { await precacheImplementation(requests); },
     async match(request) {
       const key = typeof request === "string" ? request : request.url;
       lookups.push(key);
@@ -512,4 +513,26 @@ test("offline script requests preserve version query keys", async () => {
     /offline/
   );
   assert.deepEqual(lookups, [scriptUrl]);
+});
+
+test("offline updates keep refreshed artwork when the HTTP cache still holds old bytes", async () => {
+  const flagUrl = "https://caatuu.test/assets/icons/fixture.png";
+  const cachedResponses = new Map();
+  const worker = serviceWorkerContext({
+    cachedResponses,
+    precacheImplementation: async (requests) => {
+      for (const request of requests) {
+        const url = typeof request === "string" ? request : request.url;
+        const body = request.cache === "reload" ? "updated-artwork" : "old-artwork";
+        cachedResponses.set(url, new Response(body));
+      }
+    }
+  });
+  const config = validatedConfig(worker.context, { offline: { assets: [flagUrl] } });
+  await call(worker.context, "courseOfflineConfigPromise = Promise.resolve(__config)", { __config: config });
+  let installation;
+  worker.handlers.get("install")({ waitUntil(promise) { installation = promise; } });
+  await installation;
+  const response = await fetchThroughWorker(worker, new FakeRequest(flagUrl, { destination: "image" }), config);
+  assert.equal(await response.text(), "updated-artwork");
 });

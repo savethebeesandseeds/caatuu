@@ -106,6 +106,8 @@ test("new signed builds capture public native-asset receipts under the lock befo
   const gradle = builder.indexOf("gradle --no-daemon");
   assert.ok(lock >= 0 && receiptReuse > lock && inventory > receiptReuse && gradle > inventory);
   assert.match(builder, /export CAATUU_RELEASE_PUBLIC_INVENTORY="\$inventory_file"/u);
+  const capacity = builder.indexOf('pages-capacity-preflight.mjs');
+  assert.ok(capacity > inventory && capacity < gradle, "Hosting capacity must be checked before Gradle");
   assert.match(builder, /assertPublicSetupDependencies\(\{ artifacts: \[\] \}/u);
   assert.doesNotMatch(builder, /build-pages-site|build-static-site/u);
 });

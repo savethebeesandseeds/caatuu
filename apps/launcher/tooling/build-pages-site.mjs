@@ -544,12 +544,14 @@ function overlayAndroidReleases({ currentRelease, siteDir }) {
       release.manifest,
       `Android ${release.versionCode} manifest`,
     );
-    copyVerified(
-      loaded.apkPath,
-      outputPath(siteDir, release.apk.publicPaths[0]),
-      release.apk,
-      `Android ${release.versionCode} APK`,
-    );
+    if (!(currentRelease.descriptor.archivedApks ?? []).some(({ path }) => path === release.apk.publicPaths[0])) {
+      copyVerified(
+        loaded.apkPath,
+        outputPath(siteDir, release.apk.publicPaths[0]),
+        release.apk,
+        `Android ${release.versionCode} APK`,
+      );
+    }
     for (const [path, object] of loaded.setupPayload ?? []) {
       const destination = outputPath(siteDir, path);
       if (existsSync(destination)) {
@@ -1280,6 +1282,7 @@ function generateBundleManifest({ siteDir, baseline, currentRelease, worker, lan
     serviceWorkerCache: worker.cacheName,
     releaseArchive: descriptor.releaseArchive,
     currentAndroidRelease: current.githubRelease,
+    archivedAndroidApks: current.archivedApks ?? [],
     android: {
       stableVersionCode: current.stable.versionCode,
       stableVersionName: current.stable.versionName,
@@ -1419,6 +1422,7 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, current
     });
     for (const artifact of [channel.manifest, channel.apk]) {
       for (const path of artifact.publicPaths) {
+        if ((currentDescriptor.archivedApks ?? []).some((record) => record.path === path)) continue;
         const published = outputPath(siteDir, path);
         assert.equal(statSync(published).size, artifact.bytes, `${path} byte count changed`);
         assert.equal(sha256File(published), artifact.sha256, `${path} hash changed`);

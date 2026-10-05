@@ -1,3 +1,3 @@
 "use strict";
-// Offline catalog revision: caatuu-es-en-pwa-v62
+// Offline catalog revision: caatuu-es-en-pwa-v64
 importScripts("/language-runtime/static/source/course-service-worker.js");

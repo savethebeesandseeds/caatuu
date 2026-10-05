@@ -7,7 +7,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-la-pwa-v16",
+    "cacheName": "caatuu-la-pwa-v18",
     "cachePrefix": "caatuu-la-pwa-",
     "assets": [
       "/language-runtime/static/assets/initial-image.png",
@@ -536,15 +536,15 @@
       "url": "/la/sw.js",
       "browserRequired": true,
       "bytes": 136,
-      "sha256": "5c6705f231ad6b63a3c0e76a5de9459948a8c7a5683ce6c056a1d7e2d041e143"
+      "sha256": "112b0dca9305f8209dad3b60b8881828a7999475d07af6a1dfe383bf67b752e4"
     },
     {
       "key": "shared-course-service-worker",
       "kind": "shared-runtime",
       "url": "/language-runtime/static/source/course-service-worker.js",
       "browserRequired": true,
-      "bytes": 12000,
-      "sha256": "eb39bde8321162ab798f3902124dda569a57ec80459b63b1e4e16c1c0b3c19e0"
+      "bytes": 12021,
+      "sha256": "7f2bb29529bdce9337a3db79f15b76aa2e213fa46f3556e3f646980f90de8f7d"
     },
     {
       "key": "course-flag",

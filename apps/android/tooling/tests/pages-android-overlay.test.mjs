@@ -79,9 +79,31 @@ function snapshot(manifest) {
 
 function outputFiles(preservedSite, plan) {
   const result = new Map(preservedSite.files.map((item) => [item.path, item]));
+  for (const file of plan.removals ?? []) result.delete(file.path);
   for (const { path, bytes, sha256 } of plan.writes) result.set(path, { path, bytes, sha256 });
   return [...result.values()].sort(byPath);
 }
+
+test("approved APK retirement preserves manifests, setup assets and unrelated website bytes", (t) => {
+  const path = "android/releases/19/caatuu.apk";
+  const preservedSite = siteFixture(t, { [path]: "archived apk", "android/releases/19/caatuu.json": "archived manifest",
+    "assets/setup/retained/content.json": "older installed app content" });
+  const currentRelease = releaseFixture();
+  const approved = { ...file(path, "archived apk"), downloadUrl: "https://github.com/example/archive.apk" };
+  currentRelease.descriptor.archivedApks = [approved];
+  const plan = planAndroidReleaseOverlay({ preservedSite, currentRelease });
+  assert.deepEqual(plan.removals, [file(path, "archived apk")]);
+  assert.ok(!plan.writes.some((record) => record.path === path));
+  const result = createOverlayManifest({ preservedSite, plan, files: outputFiles(preservedSite, plan), websiteSnapshot: snapshot(preservedSite.manifest) });
+  assert.deepEqual(result.archivedAndroidApks, [approved]);
+  assert.ok(result.files.some((record) => record.path === "android/releases/19/caatuu.json"));
+  assert.ok(result.files.some((record) => record.path === "assets/setup/retained/content.json"));
+  const tampered = structuredClone(currentRelease);
+  tampered.descriptor.archivedApks[0].sha256 = "f".repeat(64);
+  assert.throws(() => planAndroidReleaseOverlay({ preservedSite, currentRelease: tampered }), /identity differs/);
+  const unapproved = { ...plan, removals: [preservedSite.files.find((record) => record.path === "index.html")] };
+  assert.throws(() => createOverlayManifest({ preservedSite, plan: unapproved, files: outputFiles(preservedSite, unapproved), websiteSnapshot: snapshot(preservedSite.manifest) }), /Unapproved/);
+});
 
 test("preserved-site validation checks bytes without interpreting interface text, artwork or courses", (t) => {
   const fixture = siteFixture(t);

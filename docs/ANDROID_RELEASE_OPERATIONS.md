@@ -1,6 +1,6 @@
 # Android release operations
 
-Last reviewed: 4 October 2026
+Last reviewed: 5 October 2026
 
 This is the operational handoff for maintainers and coding sessions. Use the
 maintained entrypoints, not a remembered sequence of repair commands.
@@ -41,6 +41,14 @@ to make a release work. The existing local app on port 8765 need not be stopped.
 5. Invoke the routine command once. It owns the build lock, preflight, signing,
    package audit, finalization, upload, Pages handoff and public verification.
    Do not first build the same APK separately or run a full website export.
+
+The builder's metadata-only Pages capacity preflight runs before Gradle. It
+accounts for pending finalized releases, applies only the explicitly approved
+APK archive policy, and reserves a full 96 MB companion plus two 32 MB APK
+copies. It does not repeat product transforms or website builds. The final
+overlay still verifies its actual complete payload against the 1 GB limit.
+Insufficient headroom stops before an APK build; inspect the reported bytes
+and agree on capacity rather than repeatedly invoking the publisher.
 
 Signing lineage is pinned by
 [`direct-release-certificate.sha256`](../apps/android/tooling/direct-release-certificate.sha256).
@@ -97,6 +105,18 @@ Android release and updates its mutable download pointers. Missing
 content-addressed setup assets may come from the sealed APK. Existing website
 or immutable release bytes cannot be overwritten. Pages still transports a
 complete site artifact; that transport is not a website rebuild.
+
+The owner-approved [`pages-storage-policy.json`](../apps/android/tooling/pages-storage-policy.json)
+archives only the six APK copies at `/android/releases/163/caatuu.apk` through
+`/android/releases/168/caatuu.apk`, reclaiming 216,904,912 bytes. Approval was
+given in this release chat on 5 October 2026: "Yes, archive those six Pages APK
+copies". Each policy entry pins the original byte count, digest and identical
+GitHub Release download. Those six old Pages APK URLs cease to work; their
+GitHub archives, Pages manifests/receipts, compatibility baseline, recent APKs
+and every course setup object remain. The immutable release-history descriptor
+is unchanged by archiving. Android retries, public verification and later
+website builds honor the policy; older website snapshots cannot reintroduce
+the archived APKs. Additional removals require a new explicit approval.
 
 Website scope also verifies the live inventory's `websiteSnapshot.sourceRevision`
 after Pages reports deployment success. During version 177 publication, the live
@@ -199,6 +219,7 @@ pwsh -NoProfile -File apps/android/tooling/tests/release-orchestration.test.ps1
 pwsh -NoProfile -File apps/android/tooling/tests/release-network-retry.test.ps1
 docker exec -w /workspace caatuu-dev node --test apps/android/tooling/tests/release-android-contract.test.mjs apps/android/tooling/tests/release-candidate.test.mjs apps/android/tooling/tests/publisher-build-once-contract.test.mjs apps/android/tooling/tests/release-publication-state.test.mjs apps/android/tooling/tests/deploy-pages-release-contract.test.mjs
 docker exec -w /workspace caatuu-dev node --test apps/android/tooling/tests/setup-payload.test.mjs apps/android/tooling/tests/pages-current-release.test.mjs apps/android/tooling/tests/pages-android-overlay.test.mjs apps/android/tooling/tests/pages-website-snapshot.test.mjs apps/android/tooling/tests/verify-public-pages-release.test.mjs
+docker exec -w /workspace caatuu-dev node --test apps/android/tooling/tests/pages-storage-policy.test.mjs
 docker exec -w /workspace caatuu-dev node tools/repository/check-tracked-files.mjs
 docker exec -w /workspace caatuu-dev node tools/repository/check-markdown-links.mjs
 ```
@@ -371,3 +392,28 @@ added questions and credentials remain blocked. Cutlery is explicitly labeled
 in the noun/gloss, and one accident example is now a neutral event. Preflight
 scans every Android-enabled course with the compiler's extractors before Gradle,
 catching this class of content issue without another expensive asset build.
+
+### Reference incident: Android 179 Pages capacity
+
+Android 179 (`0.1.27`) from `5263521f998ae849a998c761f3ca2a610802870a`
+was signed, audited and finalized. Its immutable GitHub Release assets uploaded
+successfully, but [Pages run 37227350618](https://github.com/savethebeesandseeds/caatuu/actions/runs/37227350618)
+stopped before deployment: the Android overlay exceeded GitHub Pages' 1 GB
+hosting limit. The captured public inventory already contained 994,921,785
+payload bytes. The previous public site and Android 178 manifest were preserved;
+uploaded GitHub Release assets alone do not establish completed course delivery.
+
+Do not rebuild or replace finalized 179, raise the hosting-limit guard, or
+silently remove historical release/setup objects. Resolve capacity through an
+explicitly approved retention or hosting strategy, then resume the receipt-only
+deployer with `artifacts/android/releases/179/caatuu-release-candidate.json`.
+The maintained pipeline still needs an early projection of the existing public
+inventory plus new APK/setup objects, before Gradle; this improvement was not
+implemented before the battery-related pause. Any requested image changes must
+be included in a later monotonic version, because 179's bytes are sealed.
+
+The 5 October continuation implements the approved six-APK archival policy
+and the early capacity projection. Its first projection reserved all 160 MB
+for a new companion and APK copies and still left 45,479,588 bytes of headroom.
+The next release includes the Georgian flag outline and shared offline-cache
+refresh fix. Version 179 remains sealed and is retained as a historical release.

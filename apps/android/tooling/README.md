@@ -125,6 +125,17 @@ device still downloads shared assets and only its selected course content.
 Release preflight scans the learner content of every Android-enabled course
 before Gradle, using the same extractors and rules as the final compiler.
 
+Before Gradle, `pages-capacity-preflight.mjs` also projects the live inventory
+and pending sealed objects, applying `pages-storage-policy.json` and reserving
+the full companion budget plus two 32 MB APK copies. This is a metadata check,
+without product transforms or a website build. The final overlay checks actual
+bytes against the unchanged 1 GB Pages cap. The approved policy archives only
+the Pages APK copies for versions 163–168; identical GitHub Release downloads,
+Pages manifests/receipts and all setup assets remain. Policy pins prevent
+arbitrary deletion or retirement of current/previous APKs. Both Android overlays
+and later website builds honor it. See the operational runbook for approval
+and recovery; never change immutable release-history records to reclaim space.
+
 Regenerate those reviewed copies with
 `docker exec -w /workspace caatuu-dev python apps/language-runtime/tooling/build-home-art.py`;
 append `--check` for a read-only reproducibility check.

@@ -125,6 +125,10 @@ launcher icon catalogs. The existing `georgian_flag.svg` delivery URL embeds
 those same PNG bytes, so the browser and offline package receive one complete
 asset without an extra image request. The README uses the PNG directly.
 
+A 1.5px black outline sits inside the flag face so its white edges remain
+visible on light backgrounds. Offline updates fetch fresh artwork instead of
+copying an older HTTP-cache entry into the new course cache.
+
 Generated sources, the built-in imagegen prompts and the normalization script
 are retained under ignored `artifacts/imagegen/georgian-flag-20261004/`.
 The flag update introduced Georgian offline cache revision `caatuu-ka-pwa-v5`.

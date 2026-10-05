@@ -6,7 +6,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-czech-pwa-v735",
+    "cacheName": "caatuu-czech-pwa-v737",
     "cachePrefix": "caatuu-czech-pwa-",
     "assets": [
       "/language-runtime/static/assets/initial-image.png",

@@ -141,6 +141,7 @@ assertPublicSetupDependencies({ artifacts: [] }, JSON.parse(readFileSync(process
 NODE
   mv "$inventory_download" "$inventory_file"
   export CAATUU_RELEASE_PUBLIC_INVENTORY="$inventory_file"
+  node "$repo_root/apps/android/tooling/pages-capacity-preflight.mjs" "$inventory_file"
   finish_phase
 fi
 

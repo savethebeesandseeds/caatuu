@@ -294,6 +294,39 @@ function mockPublicFetch(data, { staleBundleOnce = false, corruptAlias = false }
   return { calls, fetchImpl };
 }
 
+test("public verifier retains archive metadata without requiring retired Pages APK downloads", async () => {
+  const data = fixture();
+  const apkBytes = data.bodies.get("/android/releases/164/caatuu.apk");
+  const nextManifest = { ...JSON.parse(data.bodies.get("/android/releases/164/caatuu.json")),
+    version_code: 165, version_name: "0.1.13", apk_url: "https://caatuu.waajacu.com/android/releases/165/caatuu.apk" };
+  const manifestBytes = jsonBytes(nextManifest);
+  data.descriptor.releases.push({ ...data.descriptor.releases.at(-1), versionCode: 165, versionName: "0.1.13",
+    manifest: { bytes: manifestBytes.length, sha256: sha256(manifestBytes) } });
+  for (const [path, body] of [["/android/releases/165/caatuu.apk", apkBytes], ["/android/caatuu.apk", apkBytes],
+    ["/android/releases/165/caatuu.json", manifestBytes], ["/android/caatuu.json", manifestBytes]]) data.bodies.set(path, body);
+  data.rangedSizes.set("/android/releases/164/caatuu.apk", apkBytes.length);
+  const first = data.descriptor.releases[0];
+  const archived = { path: "android/releases/163/caatuu.apk", ...first.apk,
+    downloadUrl: "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-android-v163/caatuu-163.apk" };
+  data.bundle.archivedAndroidApks = [archived];
+  data.bundle.currentAndroidRelease.tag = "caatuu-android-v165";
+  Object.assign(data.bundle.android, { stableVersionCode: 165, stableVersionName: "0.1.13", previousStableVersionCode: 164 });
+  data.bundle.files = data.bundle.files.filter(({ path }) => path !== archived.path && !["android/caatuu.apk", "android/caatuu.json"].includes(path));
+  for (const path of ["android/releases/165/caatuu.apk", "android/caatuu.apk", "android/releases/165/caatuu.json", "android/caatuu.json"]) {
+    const bytes = data.bodies.get(`/${path}`);
+    data.bundle.files.push({ path, bytes: bytes.length, sha256: sha256(bytes) });
+  }
+  const mock = mockPublicFetch(data);
+  const result = await verifyPublicPagesReleaseOnce({ descriptor: data.descriptor, baselineDescriptor: data.baselineDescriptor,
+    fetchImpl: mock.fetchImpl, archivedApks: [archived] });
+  assert.equal(result.ok, true);
+  assert.ok(!mock.calls.some(({ path }) => path === `/${archived.path}`));
+  assert.ok(mock.calls.some(({ path }) => path === "/android/releases/163/caatuu.json"));
+  data.bundle.files.push(archived);
+  await assert.rejects(verifyPublicPagesReleaseOnce({ descriptor: data.descriptor, baselineDescriptor: data.baselineDescriptor,
+    fetchImpl: mock.fetchImpl, archivedApks: [archived] }), /republished/);
+});
+
 test("public verifier checks Pages, all retained Android routes, aliases, and data-free health", async () => {
   const data = fixture();
   const mock = mockPublicFetch(data);

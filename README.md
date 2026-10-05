@@ -102,7 +102,8 @@ review remains pending; a dedicated listening game is not enabled.
 The [Georgian course note](docs/GEORGIAN_COURSE.md) describes its 2,500 sentences,
 600 verb-meaning pairs, beginner reading content and explicit verb/case
 contexts. The verb count includes practical phrases. Its painted five-cross
-flag follows the same visual style as the other course icons. Native Georgian
+flag follows the same visual style as the other course icons, with a thin black
+outline that keeps its white edges visible. Native Georgian
 review remains pending. Audio uses the shared
 browser/Android device speech provider and joins the Android course bundle
 starting with version 179.

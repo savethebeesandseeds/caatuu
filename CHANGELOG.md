@@ -1,5 +1,13 @@
 # Changelog
 
+## Android 180 / 0.1.28
+
+- Add a thin black outline to the Georgian course flag and refresh offline
+  artwork from the network when a new course cache is installed.
+- Check GitHub Pages capacity before Gradle and archive the owner-approved
+  Pages APK copies for versions 163–168 while retaining their GitHub downloads
+  and every course setup asset.
+
 All tester-facing changes will be recorded here. Caatuu has not yet declared a
 governed beta or stable release.
 

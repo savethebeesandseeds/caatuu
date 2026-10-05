@@ -7,7 +7,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-ka-pwa-v15",
+    "cacheName": "caatuu-ka-pwa-v17",
     "cachePrefix": "caatuu-ka-pwa-",
     "assets": [
       "/language-runtime/static/assets/initial-image.png",
@@ -535,23 +535,23 @@
       "url": "/ka/sw.js",
       "browserRequired": true,
       "bytes": 136,
-      "sha256": "5bb27aea09d2020066a9473f026aaad8d0f371eea48e418664cafec8577ecc56"
+      "sha256": "81c7750b1f6176fff30790cedf62260d6b93a86d9114674163880fe3c82039fa"
     },
     {
       "key": "shared-course-service-worker",
       "kind": "shared-runtime",
       "url": "/language-runtime/static/source/course-service-worker.js",
       "browserRequired": true,
-      "bytes": 12000,
-      "sha256": "eb39bde8321162ab798f3902124dda569a57ec80459b63b1e4e16c1c0b3c19e0"
+      "bytes": 12021,
+      "sha256": "7f2bb29529bdce9337a3db79f15b76aa2e213fa46f3556e3f646980f90de8f7d"
     },
     {
       "key": "course-flag",
       "kind": "shared-visual",
       "url": "/assets/icons/georgian_flag.svg",
       "browserRequired": true,
-      "bytes": 30216,
-      "sha256": "937df00b0e9086d4712aa205befda65a06cd62e292c91eae5a1a051af149525d"
+      "bytes": 29145,
+      "sha256": "016ce27453b5cbaab54d35dc4779e008f8e4f9b03bfc5db20b9e410f7d807410"
     },
     {
       "key": "music-woodland-fantasy",

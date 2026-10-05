@@ -165,13 +165,19 @@ test("the Pages profile rewrite preserves every course APK minimum and removes p
 test("Pages retains every supported course and its preview status in registry, fallback, and selectors", async () => {
   const languagePlan = await assertDeclaredPagesLanguageCoverage({ workspaceRoot });
   const localRegistry = JSON.parse(readFileSync(join(testDir, "../../static/languages.json"), "utf8"));
-  const expectedIds = localRegistry.browserSetup.courses.map(({ id }) => id);
-  const expectedStatuses = localRegistry.browserSetup.courses.map(({ id, status }) => ({ id, status }));
+  const catalog = JSON.parse(readFileSync(join(workspaceRoot, "apps/languages/catalog.json"), "utf8"));
+  const pagesIds = new Set(catalog.courses.filter(({ manifest }) => {
+    const course = JSON.parse(readFileSync(join(workspaceRoot, manifest), "utf8"));
+    return course.platforms.browser.enabled && course.platforms.browser.pagesEnabled !== false;
+  }).map(({ id }) => id));
+  const expectedCourses = localRegistry.browserSetup.courses.filter(({ id }) => pagesIds.has(id));
+  const expectedIds = expectedCourses.map(({ id }) => id);
+  const expectedStatuses = expectedCourses.map(({ id, status }) => ({ id, status }));
   assert.deepEqual(languagePlan.browserCourses.map(({ id }) => id), expectedIds);
   const projectedRegistry = projectPagesLanguageRegistry({ registry: localRegistry, languagePlan });
   assert.deepEqual(projectedRegistry.browserSetup.courses.map(({ id, status }) => ({ id, status })), expectedStatuses);
   assert.deepEqual(projectedRegistry.languages.map(({ id, status }) => ({ id, status })), expectedStatuses);
-  assert.deepEqual(localRegistry.browserSetup.courses.map(({ id }) => id), expectedIds);
+  assert.equal(localRegistry.browserSetup.courses.length, catalog.courses.length, "projection must preserve the local catalog");
 
   const localLauncher = readFileSync(join(testDir, "../../static/index.html"), "utf8");
   const projectedLauncher = projectPagesLauncherFallback({ source: localLauncher, languagePlan });

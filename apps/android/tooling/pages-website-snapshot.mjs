@@ -2,13 +2,15 @@
 // Preserve deployment artifacts, never compile application sources on an APK update.
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { createWriteStream, existsSync, lstatSync, mkdirSync, readFileSync, writeFileSync, copyFileSync, readdirSync } from "node:fs";
+import { createWriteStream, existsSync, lstatSync, mkdirSync, readFileSync, writeFileSync, copyFileSync, readdirSync, rmSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { Readable } from "node:stream";
 import { pipeline } from "node:stream/promises";
 import { execFileSync } from "node:child_process";
 import { sha256File } from "./pages-baseline.mjs";
+import { readPagesStoragePolicy } from "./pages-storage-policy.mjs";
+import { validatePagesCurrentReleaseDescriptor } from "./pages-current-release.mjs";
 
 const workspaceDefault = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 const origin = "https://caatuu.waajacu.com";
@@ -157,6 +159,26 @@ export function sealWebsiteSnapshot({ workspaceRoot = workspaceDefault, siteDir,
   return snapshot;
 }
 
+export function reconcileSnapshotInventory(snapshotFiles, publishedFiles, archivedApks = []) {
+  const live = new Map(publishedFiles.map((record) => [record.path, record]));
+  const archived = new Map(archivedApks.map((record) => [record.path, record]));
+  const aliases = new Set(["android/caatuu.apk", "android/caatuu.json"]);
+  const removed = [];
+  for (const record of snapshotFiles) {
+    const published = live.get(record.path);
+    if (!published && archived.has(record.path)) {
+      const approved = archived.get(record.path);
+      assert.equal(record.bytes, approved.bytes, `Archived snapshot APK bytes differ: ${record.path}`);
+      assert.equal(record.sha256, approved.sha256, `Archived snapshot APK hash differs: ${record.path}`);
+      removed.push(record.path);
+      continue;
+    }
+    assert.ok(published, `Published website removed a snapshot file: ${record.path}`);
+    if (!aliases.has(record.path)) assert.deepEqual(published, record, `Published website changed immutable snapshot bytes: ${record.path}`);
+  }
+  return removed;
+}
+
 export async function restorePublishedWebsite({ workspaceRoot = workspaceDefault, siteDir, archivePath, bootstrapPath, fetchImpl = globalThis.fetch }) {
   const output = generatedPath(siteDir, workspaceRoot);
   const archive = generatedPath(archivePath, workspaceRoot);
@@ -184,13 +206,11 @@ export async function restorePublishedWebsite({ workspaceRoot = workspaceDefault
   // The snapshot is the last website build, not necessarily the last Android
   // publication. Preserve the complete CURRENT inventory, including assets that
   // older installed APKs still need but the new APK no longer references.
-  const liveFiles = new Map(live.files.map((record) => [record.path, record]));
+  const policyPath = join(workspaceRoot, "apps/android/tooling/pages-storage-policy.json");
+  const archived = existsSync(policyPath) ? readPagesStoragePolicy(validatePagesCurrentReleaseDescriptor(JSON.parse(readFileSync(
+    join(workspaceRoot, "apps/android/tooling/pages-current-release.json"), "utf8"))), policyPath) : [];
   const aliases = new Set(["android/caatuu.apk", "android/caatuu.json"]);
-  for (const record of manifest.files) {
-    const published = liveFiles.get(record.path);
-    assert.ok(published, `Published website removed a snapshot file: ${record.path}`);
-    if (!aliases.has(record.path)) assert.deepEqual(published, record, `Published website changed immutable snapshot bytes: ${record.path}`);
-  }
+  for (const path of reconcileSnapshotInventory(manifest.files, live.files, archived)) rmSync(join(output, path));
   let cursor = 0;
   await Promise.all(Array.from({ length: 8 }, async () => {
     while (cursor < live.files.length) {

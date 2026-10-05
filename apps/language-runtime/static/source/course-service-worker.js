@@ -1,6 +1,6 @@
 "use strict";
 
-// Contract revision 7: verified setup music is shared across courses and supports offline byte ranges.
+// Contract revision 8: offline updates bypass stale HTTP cache entries.
 
 const CAATUU_CANONICAL_APP_ENTRY = "apps/language-runtime/static/app/index.html";
 const CAATUU_SHARED_WORKER_URL = "/language-runtime/static/source/course-service-worker.js";
@@ -29,7 +29,7 @@ self.addEventListener("install", (event) => {
   event.waitUntil((async () => {
     const config = await courseOfflineConfig();
     const cache = await caches.open(config.cacheName);
-    await cache.addAll(config.precacheUrls);
+    await cache.addAll(config.precacheUrls.map((url) => new Request(url, { cache: "reload" })));
     await self.skipWaiting();
   })());
 });

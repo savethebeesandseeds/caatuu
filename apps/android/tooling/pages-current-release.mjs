@@ -18,6 +18,7 @@ import { fileURLToPath } from "node:url";
 import { readZipEntry, sha256Bytes, sha256File } from "./pages-baseline.mjs";
 import { assertSetupArtifactMetadata } from "./android-artifact-contract.mjs";
 import { readSetupPayloadArchive, validateSetupPayloadForApk } from "./setup-payload.mjs";
+import { readPagesStoragePolicy } from "./pages-storage-policy.mjs";
 
 const modulePath = fileURLToPath(import.meta.url);
 const defaultWorkspaceRoot = resolve(dirname(modulePath), "../../..");
@@ -517,6 +518,8 @@ export function loadPagesCurrentRelease({
   const workspace = resolve(workspaceRoot);
   const stored = readStoredDescriptorFile({ workspaceRoot: workspace, descriptorPath }).descriptor;
   const descriptor = validatePagesCurrentReleaseDescriptor(stored);
+  const storagePolicyPath = resolve(workspace, "apps/android/tooling/pages-storage-policy.json");
+  descriptor.archivedApks = existsSync(storagePolicyPath) ? readPagesStoragePolicy(descriptor, storagePolicyPath) : [];
   const releases = descriptor.releases.map((release) => validateLoadedRelease({ workspaceRoot: workspace, descriptor, release }));
   const current = releases.at(-1);
   const setupManifests = validateCurrentSetupManifests(descriptor, current);

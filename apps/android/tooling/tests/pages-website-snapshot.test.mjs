@@ -4,7 +4,7 @@ import { mkdtempSync, mkdirSync, writeFileSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
-import { safePublicPath, validatePublishedInventory, validateWebsiteSnapshot, sealWebsiteSnapshot, restorePublishedWebsite } from "../pages-website-snapshot.mjs";
+import { safePublicPath, validatePublishedInventory, validateWebsiteSnapshot, sealWebsiteSnapshot, restorePublishedWebsite, reconcileSnapshotInventory } from "../pages-website-snapshot.mjs";
 const hash = (value) => createHash("sha256").update(value).digest("hex");
 function fixture(copy = "Any runtime-localized wording 🌍") {
   const files = [{ path: "index.html", bytes: Buffer.byteLength(copy), sha256: hash(copy) }];
@@ -19,6 +19,15 @@ test("snapshot inventory rejects path escapes, duplicates, and changed bytes", (
   assert.throws(() => validatePublishedInventory(invalid), /Duplicate/);
   const changed = fixture(); changed.files[0].sha256 = "a".repeat(64);
   assert.throws(() => validatePublishedInventory(changed));
+});
+
+test("a later Android retry cannot restore approved archived APKs or remove other snapshot files", () => {
+  const apk = { path: "android/releases/163/caatuu.apk", bytes: 7, sha256: hash("old apk") };
+  const content = { path: "assets/setup/old/content.json", bytes: 7, sha256: hash("content") };
+  assert.deepEqual(reconcileSnapshotInventory([apk, content], [content], [apk]), [apk.path]);
+  assert.deepEqual(reconcileSnapshotInventory([apk, content], [apk, content], [apk]), []);
+  assert.throws(() => reconcileSnapshotInventory([apk, content], [], [apk]), /snapshot file/);
+  assert.throws(() => reconcileSnapshotInventory([apk, content], [content], [{ ...apk, sha256: hash("wrong") }]), /hash differs/);
 });
 test("website archives are source-pinned immutable and content verified before sealing", () => {
   const workspaceRoot = mkdtempSync(join(tmpdir(), "caatuu-snapshot-test-"));
