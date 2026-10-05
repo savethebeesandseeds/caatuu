@@ -628,8 +628,7 @@
         embeddingText: "Read Mkhedruli and use greetings, introductions, basic questions and polite requests.",
         categories: [
           "script",
-          "foundations",
-          "introductions"
+          "first-conversations"
         ]
       },
       {
@@ -637,10 +636,10 @@
         label: "Daily life in Georgia",
         embeddingText: "Talk about home, food, shopping, time, work, study and family.",
         categories: [
-          "daily-life",
+          "daily-activities",
+          "daily-objects",
           "food",
-          "shopping",
-          "family"
+          "people-and-family"
         ]
       },
       {
@@ -648,10 +647,7 @@
         label: "Getting around and asking for help",
         embeddingText: "Ask for directions, use transport, arrange accommodation and describe a practical problem.",
         categories: [
-          "travel",
-          "directions",
-          "services",
-          "health"
+          "getting-around"
         ]
       },
       {
@@ -659,9 +655,8 @@
         label: "Connecting ideas and actions",
         embeddingText: "Use present, future and past actions with appropriate case marking, reasons, conditions and relative clauses.",
         categories: [
-          "verb-forms",
-          "case",
-          "connected-speech"
+          "case-foundations",
+          "questions-and-ideas"
         ]
       }
     ],

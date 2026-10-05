@@ -138,7 +138,7 @@ async function courseSamples(manifest) {
     add("grammar-gravity", "nouns", noun.id, noun.english);
   }
   const sound = await resource("soundQuasarCatalog");
-  for (const [bankId, values] of [["words", sound.items], ["sentences", sound.sentences]]) {
+  for (const [bankId, values] of [["words", sound?.items], ["sentences", sound?.sentences]]) {
     if (values?.length) add("sound-quasar", bankId, values[0].id, values[0].englishAuditText);
   }
   const cases = await resource("caseCosmosCatalog");
@@ -156,7 +156,7 @@ async function courseSamples(manifest) {
   return rows;
 }
 
-test("all five actual course catalogs map every supported bank and recorded Grammar difficulty using authored English", async t => {
+test("every actual course catalog maps its supported banks and recorded Grammar difficulty using authored English", async t => {
   for (const { course: manifest } of loaded.courses) await t.test(manifest.id, async () => {
     const course = generateCourseProfileObject(manifest, loaded.courses);
     const samples = await courseSamples(manifest);

@@ -27,6 +27,7 @@ test("the course worker caches the dictionary patch under its current content di
   let installation;
   const context = vm.createContext({
     URL,
+    Request,
     self: {
       registration: { scope: "https://caatuu.test/cz/" },
       location: { origin: "https://caatuu.test" },
@@ -51,7 +52,7 @@ test("the course worker caches the dictionary patch under its current content di
   vm.runInContext(localWorker, context);
   handlers.get("install")({ waitUntil: (promise) => { installation = promise; } });
   await installation;
-  assert.ok(cachedUrls.includes(`https://caatuu.test/cz/${versionedPath}`));
+  assert.ok(cachedUrls.some(request => request.url === `https://caatuu.test/cz/${versionedPath}`));
 });
 
 test("dictionary patch validation rejects missing or malformed offline catalogs", () => {

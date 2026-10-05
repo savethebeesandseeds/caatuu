@@ -127,6 +127,9 @@ before Gradle, using the same extractors and rules as the final compiler.
 It also checks the fallback course chooser and shared language-selector flag
 coverage. Browser flag tests accept the catalog's current asset revision;
 the static exporter supports catalog-declared PNG and SVG flags.
+Focused preflight also grades a complete 13-form Arabic conjugation round and
+checks landing-page translation and authored topic-goal coverage before the
+expensive build stage.
 
 Before Gradle, `pages-capacity-preflight.mjs` also projects the live inventory
 and pending sealed objects, applying `pages-storage-policy.json` and reserving

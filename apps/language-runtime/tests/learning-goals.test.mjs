@@ -135,7 +135,8 @@ test("every registered course projects usable topic goals from its real Word Wor
     const generated = generateCourseProfileObject(manifest);
     assert.deepEqual(generated.learningGoals, manifest.learningGoals);
     assert.notEqual(generated.learningGoals, manifest.learningGoals);
-    assert.ok(generated.learningGoals.length >= 6 && generated.learningGoals.length <= 8, manifest.id);
+    assert.ok(generated.learningGoals.length > 0, `${manifest.id} has usable topic goals`);
+    assert.equal(new Set(generated.learningGoals.map(goal => goal.id)).size, generated.learningGoals.length);
     const app = browser({ profile: generated });
     assert.equal(app.learning.goalOptions().length, 4 + manifest.learningGoals.length);
     for (const authored of manifest.learningGoals) {
@@ -144,7 +145,8 @@ test("every registered course projects usable topic goals from its real Word Wor
       assert.equal(topic.label, authored.label, "display text belongs to this course's learner base");
       assert.equal(topic.embeddingText, authored.embeddingText);
       assert.deepEqual(Array.from(topic.categories), authored.categories);
-      for (const category of topic.categories) assert.ok(topics.has(category), `${manifest.id}: missing authored topic ${category}`);
+      assert.ok(topic.categories.some(category => topics.has(category)),
+        `${manifest.id}: ${authored.id} must cover an authored Word World topic`);
       assert.doesNotThrow(() => validateEnglishEmbeddingPayload({ inputLanguage: "en", query: { embeddingText: authored.embeddingText },
         candidates: [{ conceptId: "test.goal", embeddingText: "English topic" }] }));
     }

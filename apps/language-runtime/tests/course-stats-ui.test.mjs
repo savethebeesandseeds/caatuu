@@ -130,7 +130,8 @@ test("every course renders its own assessed, supported, legacy, and due item cou
       // Campaign orchestrates games rather than supplying its own item bank.
       const practiceGames = course.games.filter(id => id !== "campaign")
         .map(id => id === "verb-lab" ? "verb-nebula" : id === "word-net" ? "word-world" : id);
-      assert.deepEqual(new Set(app.list.children.map(row => row.dataset.gameId)), new Set(practiceGames));
+      // Recorded practice stays visible even when its game is no longer enabled.
+      assert.deepEqual(new Set(app.list.children.map(row => row.dataset.gameId)), new Set([...practiceGames, "sound-quasar"]));
       assert.equal(app.element("courseProgressActivities").textContent, String(index + 2));
       if (index) assert.ok(app.learning.snapshot().journey.summary.activities > index + 2, "other courses have journey activity");
       assert.ok(app.template.includes(app.content.t("settings.practice.explanation")));

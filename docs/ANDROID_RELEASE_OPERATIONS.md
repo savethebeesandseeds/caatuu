@@ -435,3 +435,18 @@ derives selector flag coverage from course manifests. Tests derive public-route
 expectations from declared Pages support and accept changing asset revisions.
 These source repairs do not alter sealed 180 bytes and require no APK rebuild
 or additional publication.
+
+The following language-runtime CI stage then exposed a real Arabic grading
+defect: the catalog and builder allowed 13 forms, but whole-round judgment still
+rejected more than 12. Judgment now uses the same authored-form limit, and the
+Arabic capacity regression checks a complete solved round. Georgian topic goals
+now use the course's real category IDs. These runtime changes require a later
+monotonic APK version; sealed 180 cannot be replaced. Routine preflight now runs
+the Arabic grading, landing-translation and authored topic-goal contracts before
+Gradle.
+
+Remaining CI repairs preserve disabled-game history in Stats fixtures, handle
+absent optional sound banks, validate usable goal coverage without a fixed goal
+count, and supply real Request objects in the dictionary worker fixture. These
+fixtures verify runtime contracts without requiring unsupported games or
+rewriting existing learner evidence.

@@ -873,7 +873,7 @@ export function judgeConjugationHelixRound(round, subjectOffset = 0, targetOffse
   const options = Array.from(round.options);
   const total = subjects.length;
   const hasText = (value) => typeof value === "string" && Boolean(conjugationTextKey(value));
-  if (total < 2 || total > 12 || options.length !== total
+  if (total < 2 || total > MAX_AUTHORED_CONJUGATION_FORMS || options.length !== total
     || subjects.some((subject) => !subject || !hasText(subject.id) || !hasText(subject.correctFormText)
       || (subject.acceptedTargetTexts !== undefined && (!Array.isArray(subject.acceptedTargetTexts)
         || Array.from(subject.acceptedTargetTexts).some((text) => !hasText(text)))))

@@ -217,8 +217,8 @@ test("unknown verbs and invalid pair IDs cannot produce a match", () => {
   assert.equal(judgeConjugationHelixPair(null, "form-0", "option-1"), false);
 });
 
-test("every generated size from two to twelve is solvable by rotating whole strands across seeds", () => {
-  for (let size = 2; size <= 12; size += 1) {
+test("every supported helix size is solvable by rotating whole strands across seeds", () => {
+  for (let size = 2; size <= MAX_AUTHORED_CONJUGATION_FORMS; size += 1) {
     const catalog = synthetic(Array.from({ length: size }, (_, index) => `distinct-form-${index}`));
     for (let seed = 1; seed <= 40; seed += 1) {
       const round = buildConjugationHelixRound(catalog, "test-verb", { rng: random(seed) });

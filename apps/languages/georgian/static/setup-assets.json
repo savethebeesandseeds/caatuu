@@ -7,7 +7,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-ka-pwa-v18",
+    "cacheName": "caatuu-ka-pwa-v19",
     "cachePrefix": "caatuu-ka-pwa-",
     "assets": [
       "/language-runtime/static/assets/initial-image.png",
@@ -60,7 +60,7 @@
       "/language-runtime/static/source/games/grammar-gravity/adjective-flight-core.mjs?v=grammar-journey-3",
       "/language-runtime/static/source/games/grammar-gravity/adjective-flight-host.mjs?v=adjective-flight-host-20",
       "/assets/icons/clock_icon.png",
-      "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs?v=conjugation-comet-core-3",
+      "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs?v=conjugation-comet-core-4",
       "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs?v=conjugation-comet-shared-16",
       "/language-runtime/static/styles/games/grammar-gravity.css?v=grammar-gravity-shared-38",
       "/language-runtime/static/styles/games/conjugation-comet.css?v=conjugation-comet-shared-7",
@@ -265,8 +265,8 @@
       "kind": "course-contract",
       "url": "/ka/source/shared/course-profile.js",
       "browserRequired": true,
-      "bytes": 23410,
-      "sha256": "7aaac0e0bd2a582102008abe66534b294e2df35f2233a4ec78e51614ca79ad89"
+      "bytes": 23346,
+      "sha256": "e483915c4a3afd0c81c53343a81c8302b767ee6bb3d201ea08dc809038286afc"
     },
     {
       "key": "shared-app-bootstrap",
@@ -538,7 +538,7 @@
       "url": "/ka/sw.js",
       "browserRequired": true,
       "bytes": 136,
-      "sha256": "e64af3335049cce72197c731aeec2c7604f0ce51cb977972542e022b245e21c9"
+      "sha256": "60e4ed5a74e942fd3a1b434c6e701fc75c13ffd7934ac22107dda47c29a96010"
     },
     {
       "key": "shared-course-service-worker",

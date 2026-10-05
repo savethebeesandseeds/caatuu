@@ -13,6 +13,9 @@ governed beta or stable release.
 
 ## Unreleased
 
+- Accept complete 13-form Arabic Conjugation Comet solutions and align Georgian
+  learning goals with its authored topic names.
+- Add Arabic, Latin and Georgian labels to the landing page's language catalogs.
 - Complete the browser fallback course chooser and offline selector flag coverage
   for all registered courses; support catalog-declared SVG flags in static exports.
 - Catch chooser and selector coverage errors before future Android builds.

@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
-import { validateConjugationCometCatalog, buildConjugationHelixRound, judgeConjugationHelixPair } from "../static/source/games/conjugation-comet/conjugation-comet-core.mjs";
+import { validateConjugationCometCatalog, buildConjugationHelixRound, judgeConjugationHelixPair, judgeConjugationHelixRound } from "../static/source/games/conjugation-comet/conjugation-comet-core.mjs";
 
 test("a complete thirteen-slot Arabic paradigm remains solvable without truncation", async () => {
   const catalog = JSON.parse(await readFile(new URL("../../languages/norwegian-bokmal/static/data/games/conjugation-comet/content.json", import.meta.url), "utf8"));
@@ -14,6 +14,8 @@ test("a complete thirteen-slot Arabic paradigm remains solvable without truncati
   const normalized = validateConjugationCometCatalog(catalog);
   const round = buildConjugationHelixRound(normalized, verb.id, { rng: () => 0.37 });
   assert.equal(round.subjects.length, 13); assert.equal(round.options.length, 13);
+  assert.ok(round.options.some((_, offset) => judgeConjugationHelixRound(round, 0, offset).correct),
+    "whole-round grading accepts a solved thirteen-slot paradigm");
   for (const subject of round.subjects) {
     assert.ok(round.options.some(option => judgeConjugationHelixPair(round, subject.id, option.id)));
     assert.ok(round.options.some(option => !judgeConjugationHelixPair(round, subject.id, option.id)));
