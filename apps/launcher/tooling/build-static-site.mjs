@@ -296,7 +296,7 @@ function launcherIconPaths(launcherStaticDir) {
       courseRecord?.targetLanguage?.flagSrc,
       `browser setup flag for ${courseRecord?.id || "unknown course"}`
     );
-    assert.match(path, /^assets\/icons\/[^/]+\.png$/u, `Browser setup flag must be a launcher PNG: /${path}`);
+    assert.match(path, /^assets\/icons\/[^/]+\.(?:png|svg)$/u, `Browser setup flag must be a launcher image: /${path}`);
     paths.add(path);
   }
   return [...paths].sort();

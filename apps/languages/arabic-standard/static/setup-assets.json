@@ -7,7 +7,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-ar-pwa-v38",
+    "cacheName": "caatuu-ar-pwa-v39",
     "cachePrefix": "caatuu-ar-pwa-",
     "assets": [
       "/language-runtime/static/assets/initial-image.png",
@@ -240,7 +240,8 @@
       "/language-runtime/static/data/english-concepts/word-world-la-v1.json",
       "/assets/icons/latin_mark.png",
       "/language-runtime/static/data/english-concepts/word-world-ka-v1.json",
-      "/assets/icons/georgian_flag.svg"
+      "/assets/icons/georgian_flag.svg",
+      "/assets/icons/norway_flag.png"
     ]
   },
   "artifacts": [
@@ -538,7 +539,7 @@
       "url": "/ar/sw.js",
       "browserRequired": true,
       "bytes": 136,
-      "sha256": "485fdef04c825dd50cee2c0cbd5a0109f0209155605ccd726a0ed4f945f02dd0"
+      "sha256": "68f3c05dc72751252d084addcbcecf92c856b86b4615983f282f50728e932466"
     },
     {
       "key": "shared-course-service-worker",

@@ -131,10 +131,12 @@ function outputFixture(plan, {
 test("every supported catalog course has Pages route, setup, and profile coverage", () => {
   const plan = loadPagesLanguagePlan({ workspaceRoot });
   const catalog = JSON.parse(readFileSync(join(workspaceRoot, "apps/languages/catalog.json"), "utf8"));
-  const supported = catalog.courses.map(({ manifest }) => ({
+  const declared = catalog.courses.map(({ manifest }) => ({
     manifest,
     course: JSON.parse(readFileSync(join(workspaceRoot, manifest), "utf8")),
   })).filter(({ course }) => ["active", "development"].includes(course.status));
+  const supported = declared.filter(({ course }) => course.platforms.browser.enabled && course.platforms.browser.pagesEnabled);
+  const withheld = declared.filter((record) => !supported.includes(record));
   assert.deepEqual(plan.browserCourses, supported.map(({ manifest, course }) => ({
     id: course.id,
     status: course.status,
@@ -151,7 +153,7 @@ test("every supported catalog course has Pages route, setup, and profile coverag
     setupPath: `${course.routePrefix}/setup-assets.json`,
     profilePath: `${course.routePrefix}/source/shared/course-profile.js`,
     pagesEnabled: true,
-    androidEnabled: true,
+    androidEnabled: course.platforms.android.enabled,
   })));
   assert.deepEqual(plan.requiredEntrypoints, ["/", ...supported.flatMap(({ course }) => [
     `${course.routePrefix}/`, course.entryPath,
@@ -164,8 +166,9 @@ test("every supported catalog course has Pages route, setup, and profile coverag
     `${course.routePrefix.slice(1)}/setup-assets.json`,
     `${course.routePrefix.slice(1)}/source/shared/course-profile.js`,
   ]));
-  assert.deepEqual(plan.forbiddenOutputPaths, []);
-  assert.deepEqual(plan.forbiddenOutputPrefixes, []);
+  assert.deepEqual(plan.forbiddenOutputPaths, withheld.flatMap(({ course }) => [course.entryPath.slice(1),
+    `${course.routePrefix.slice(1)}/setup-assets.json`, `${course.routePrefix.slice(1)}/source/shared/course-profile.js`]));
+  assert.deepEqual(plan.forbiddenOutputPrefixes, withheld.map(({ course }) => `${course.routePrefix.slice(1)}/`));
 });
 
 test("a third browser course fails closed until both its public route and entry are declared", () => {

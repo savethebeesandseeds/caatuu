@@ -207,6 +207,8 @@ has no safety or behavior contract, remove it rather than maintaining it.
 
 Source CI owns larger compiler fixtures and website tests. Routine APK preflight
 stays small; the real compiler and final archive audit retain integrity checks.
+The inexpensive fallback course-chooser and shared-selector contracts run before
+Gradle, so missing course rows or offline flag coverage fail before an APK build.
 Fresh-checkout fixtures must not secretly require Git-ignored model downloads.
 Metadata-only tests may explicitly exercise the setup-delivered runtime mode;
 normal Android builds remain strict. Synthetic missing-file, byte/hash mismatch
@@ -417,3 +419,19 @@ and the early capacity projection. Its first projection reserved all 160 MB
 for a new companion and APK copies and still left 45,479,588 bytes of headroom.
 The next release includes the Georgian flag outline and shared offline-cache
 refresh fix. Version 179 remains sealed and is retained as a historical release.
+
+Android 180 (`0.1.28`) from `5b79f8d2ddb924cda77e4926bd4677950903aaaa`
+completed the routine release command and public-byte verification in
+[Pages run 37291154663](https://github.com/savethebeesandseeds/caatuu/actions/runs/37291154663).
+Its APK SHA-256 is
+`0fecce8701ee82146c5422d9584cadeecdff54d2ad24e7f2036ba427bcd7907f`.
+The guarded build took 8m21s; receipt-only deployment took about 5m9s.
+Physical-device installation and playback were not tested.
+
+Source CI then exposed browser-only onboarding gaps: the fallback chooser lacked
+Latin and Georgian, new course caches omitted other selector flags, and the
+static exporter accepted only PNG flags. The all-browser catalog refresher now
+derives selector flag coverage from course manifests. Tests derive public-route
+expectations from declared Pages support and accept changing asset revisions.
+These source repairs do not alter sealed 180 bytes and require no APK rebuild
+or additional publication.

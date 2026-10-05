@@ -13,6 +13,10 @@ governed beta or stable release.
 
 ## Unreleased
 
+- Complete the browser fallback course chooser and offline selector flag coverage
+  for all registered courses; support catalog-declared SVG flags in static exports.
+- Catch chooser and selector coverage errors before future Android builds.
+
 ### Android 0.1.27 (179): Arabic, Scientific Latin and Georgian
 
 - Include all eight registered courses in the Android course chooser. Add Modern

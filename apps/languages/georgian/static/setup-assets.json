@@ -7,7 +7,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-ka-pwa-v17",
+    "cacheName": "caatuu-ka-pwa-v18",
     "cachePrefix": "caatuu-ka-pwa-",
     "assets": [
       "/language-runtime/static/assets/initial-image.png",
@@ -237,7 +237,10 @@
       "/language-runtime/static/source/games/sound-quasar/sound-quasar-host.mjs?v=sound-quasar-15",
       "/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-8",
       "/language-runtime/static/styles/games/sound-quasar.css?v=sound-quasar-7",
-      "/language-runtime/static/data/english-concepts/word-world-la-v1.json"
+      "/language-runtime/static/data/english-concepts/word-world-la-v1.json",
+      "/assets/icons/norway_flag.png",
+      "/assets/icons/arabic_mark.png",
+      "/assets/icons/latin_mark.png"
     ]
   },
   "artifacts": [
@@ -535,7 +538,7 @@
       "url": "/ka/sw.js",
       "browserRequired": true,
       "bytes": 136,
-      "sha256": "81c7750b1f6176fff30790cedf62260d6b93a86d9114674163880fe3c82039fa"
+      "sha256": "e64af3335049cce72197c731aeec2c7604f0ce51cb977972542e022b245e21c9"
     },
     {
       "key": "shared-course-service-worker",

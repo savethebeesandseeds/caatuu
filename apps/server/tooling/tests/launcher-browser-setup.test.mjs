@@ -46,8 +46,8 @@ test("launcher keeps all fallback courses and labels its independent page langua
   assert.match(index, /aria-label="Czech \(Čeština\)"[\s\S]*?language-choice-code">CZ<\/span>/u);
   assert.match(index, /aria-label="Mandarin \(中文\), Preview"[\s\S]*?language-choice-code">ZH<\/span>[\s\S]*?language-choice-status">Preview<\/span>/u);
   assert.match(index, /aria-label="Spanish \(Español\), Preview"[\s\S]*?language-choice-code">ES<\/span>[\s\S]*?language-choice-status">Preview<\/span>/u);
-  assert.match(index, /china_flag\.png\?caatuu_asset=11/u);
-  assert.match(index, /spain_flag\.png\?caatuu_asset=11/u);
+  assert.match(index, /china_flag\.png\?caatuu_asset=[0-9]+/u);
+  assert.match(index, /spain_flag\.png\?caatuu_asset=[0-9]+/u);
   assert.match(index, /aria-label="Continue online in the browser"[\s\S]*?<b data-i18n="launcher\.continue">Continue online<\/b>/u);
   assert.match(index, /data-language-control hidden/u);
   assert.match(index, /<select data-page-language[^>]*data-i18n-aria-label="launcher\.language"/u);

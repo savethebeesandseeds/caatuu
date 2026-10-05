@@ -124,6 +124,9 @@ The complete eight-course companion has a bounded 96 MB content budget; each
 device still downloads shared assets and only its selected course content.
 Release preflight scans the learner content of every Android-enabled course
 before Gradle, using the same extractors and rules as the final compiler.
+It also checks the fallback course chooser and shared language-selector flag
+coverage. Browser flag tests accept the catalog's current asset revision;
+the static exporter supports catalog-declared PNG and SVG flags.
 
 Before Gradle, `pages-capacity-preflight.mjs` also projects the live inventory
 and pending sealed objects, applying `pages-storage-policy.json` and reserving

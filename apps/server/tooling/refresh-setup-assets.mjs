@@ -230,7 +230,8 @@ function canonicalSharedRuntimeOfflineAssetChanges({
   manifest,
   application,
   workspaceRoot,
-  appAssetCatalog
+  appAssetCatalog,
+  selectorFlagUrls = []
 }) {
   const appEntryPath = resolvedWithin(
     resolve(workspaceRoot),
@@ -340,6 +341,12 @@ function canonicalSharedRuntimeOfflineAssetChanges({
       changes.push({ index, pathname: reference.pathname, previousUrl, url: canonicalUrl });
     }
   }
+  const sharedOutputs = new Set(appAssetCatalog.assets.map(({ output }) => `/${output}`));
+  let nextIndex = manifest.offline.assets.length;
+  for (const url of selectorFlagUrls) {
+    if (!sharedOutputs.has(url)) throw new Error(`Course selector flag is absent from shared app assets: ${url}`);
+    if (!manifest.offline.assets.includes(url)) changes.push({ index: nextIndex++, pathname: url, previousUrl: null, url });
+  }
   return changes;
 }
 
@@ -386,7 +393,8 @@ export function inspectSetupAssetManifest({
   sharedRuntimeDir = join(workspaceRoot, "apps/language-runtime"),
   appAssetCatalogPath = join(sharedRuntimeDir, "app-assets.json"),
   courseManifestPath = join(dirname(languageStaticDir), "course.json"),
-  languageRoutePrefix
+  languageRoutePrefix,
+  selectorFlagUrls = []
 } = {}) {
   const absoluteManifestPath = resolve(manifestPath);
   if (!existsSync(absoluteManifestPath)) {
@@ -443,7 +451,8 @@ export function inspectSetupAssetManifest({
     manifest,
     application,
     workspaceRoot: resolve(workspaceRoot),
-    appAssetCatalog
+    appAssetCatalog,
+    selectorFlagUrls
   });
   validateDictionaryOfflineContract(course, manifest);
   validateEmbeddingOfflineContract(course, manifest);
@@ -576,9 +585,12 @@ export async function refreshAllBrowserCourseSetupAssets({
 
   // Inspect every course before the first write so one invalid pack cannot leave
   // a partially refreshed multi-language catalog.
+  const selectorFlagUrls = [...new Set(browserRecords.flatMap(({ course }) => [
+    course.sourceLanguage?.flagSrc, course.targetLanguage?.flagSrc
+  ]).filter((url) => typeof url === "string"))];
   const reports = browserRecords.map((record) => ({
     courseId: record.course.id,
-    ...inspectSetupAssetManifest(catalogCourseRefreshOptions(absoluteWorkspaceRoot, record))
+    ...inspectSetupAssetManifest({ ...catalogCourseRefreshOptions(absoluteWorkspaceRoot, record), selectorFlagUrls })
   }));
   if (!check) {
     for (const report of reports) {

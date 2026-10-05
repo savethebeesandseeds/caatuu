@@ -298,6 +298,8 @@ if [[ "$mode" == "build-once" ]]; then
       "$repo_root/apps/android/tooling/tests/product-package-contract.test.mjs" \
       "$repo_root/apps/android/tooling/tests/product-interface-catalog.test.mjs" \
       "$repo_root/apps/android/tooling/tests/product-index-transform.test.mjs" \
+      "$repo_root/apps/server/tooling/tests/runtime-launcher-contracts.test.mjs" \
+      "$repo_root/apps/server/tooling/tests/shared-language-selector.test.mjs" \
       "$repo_root/apps/android/tooling/tests/publisher-build-once-contract.test.mjs"
     finish_phase
     start_phase "Build one signed release candidate"

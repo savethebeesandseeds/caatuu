@@ -7,7 +7,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-zh-hans-pwa-v209",
+    "cacheName": "caatuu-zh-hans-pwa-v210",
     "cachePrefix": "caatuu-zh-hans-pwa-",
     "assets": [
       "/language-runtime/static/assets/initial-image.png",
@@ -241,7 +241,8 @@
       "/language-runtime/static/data/english-concepts/word-world-la-v1.json",
       "/assets/icons/latin_mark.png",
       "/language-runtime/static/data/english-concepts/word-world-ka-v1.json",
-      "/assets/icons/georgian_flag.svg"
+      "/assets/icons/georgian_flag.svg",
+      "/assets/icons/arabic_mark.png"
     ]
   },
   "artifacts": [
@@ -571,7 +572,7 @@
       "url": "/zh/sw.js",
       "browserRequired": true,
       "bytes": 142,
-      "sha256": "f9c6debb94779015d38df7362e611aa5cdf6b337baf5c7a361875276a03dcd49"
+      "sha256": "d43d8c1db124dec8bf8f788e502b07c3af907023e98c8a6d58faeac46b93b9db"
     },
     {
       "key": "shared-course-service-worker",

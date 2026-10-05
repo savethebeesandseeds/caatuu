@@ -78,9 +78,9 @@ test("the language landing page uses the registered Czech PNG without a frame", 
   const holder = ruleBody(launcherCss, ".language-list li");
   assert.match(holder, /\bborder\s*:\s*0\s*;/, "the flag holder must not add a surrounding border");
   assert.match(holder, /\bbackground\s*:\s*transparent\s*;/, "the flag holder must not add a framed tile");
-  assert.match(launcherHtml, /<img class="flag-icon" src="\/assets\/icons\/czech_flag_ui\.png\?caatuu_asset=11" alt=""[^>]*>/);
+  assert.match(launcherHtml, /<img class="flag-icon" src="\/assets\/icons\/czech_flag_ui\.png\?caatuu_asset=[0-9]+" alt=""[^>]*>/);
   assert.match(launcherHtml, /<span class="language-choice-code">CZ<\/span>/, "the fallback language row should name Czech explicitly");
-  assert.match(launcherHtml, /<img class="flag-icon" src="\/assets\/icons\/china_flag\.png\?caatuu_asset=11" alt=""[^>]*>/);
+  assert.match(launcherHtml, /<img class="flag-icon" src="\/assets\/icons\/china_flag\.png\?caatuu_asset=[0-9]+" alt=""[^>]*>/);
   assert.match(launcherHtml, /<span class="language-choice-code">ZH<\/span>/, "the fallback language row should name Mandarin explicitly");
   assert.match(launcherHtml, /<span class="language-choice-status">Preview<\/span>/, "the fallback language row should disclose Mandarin's preview status");
   assert.match(languageRegistry, /"flagSrc": "\/assets\/icons\/czech_flag_ui\.png"/);
