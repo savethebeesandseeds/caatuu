@@ -1501,7 +1501,7 @@
       canInstallVoice: backend === "android" && (
         reason === "missing-language-data"
         || reason === "no-language-voice"
-        || !localVoiceAvailable
+        || (available && !localVoiceAvailable)
       ),
       voices: voices.map((voice) => ({
         ...voice,
@@ -1589,7 +1589,10 @@
     }
     const install = window.CaatuuRuntime?.speech?.installData;
     if (!install) throw new Error(interfaceMessage("speech.voice.installunavailable"));
-    return install();
+    const status = await listSpeechVoiceOptions();
+    const settingsOnly = status.reason === "no-language-voice";
+    const result = await install({ settingsOnly });
+    return { ...result, settingsOnly };
   }
 
   function setSpeechVoicePreference(value) {
@@ -1817,7 +1820,8 @@
     if (installButton) {
       installButton.hidden = !result.canInstallVoice;
       installButton.disabled = false;
-      installButton.textContent = interfaceMessage("speech.voice.install", { language: targetLanguageName });
+      installButton.textContent = interfaceMessage(result.reason === "no-language-voice"
+        ? "speech.voice.settings" : "speech.voice.install", { language: targetLanguageName });
     }
   }
 
@@ -1893,7 +1897,9 @@
       status.textContent = interfaceMessage("speech.voice.openinginstall");
       try {
         const result = await installSpeechData();
-        status.textContent = result?.launched === false
+        status.textContent = result?.settingsOnly
+          ? interfaceMessage("speech.voice.settingsopened", { language: targetLanguageName })
+          : result?.launched === false
           ? interfaceMessage("speech.voice.addinsettings", { language: targetLanguageName })
           : interfaceMessage("speech.voice.finishandroidinstall", { language: targetLanguageName });
       } catch (error) {
@@ -2142,10 +2148,12 @@
     const journey = profile.journey?.summary || profile.summary;
     const rewards = {
       xp: journey.xp,
-      coins: journey.rounds
+      coins: profile.rewards?.coins ?? journey.rounds,
+      gems: profile.rewards?.gems ?? 0
     };
     renderHeaderReward(root, "xp", rewards.xp, "progress.reward.experience");
     renderHeaderReward(root, "coins", rewards.coins, "progress.reward.coin");
+    renderHeaderReward(root, "gems", rewards.gems, "practice.reward.gems.count");
     root.querySelectorAll("[data-difficulty-level]").forEach((button) => {
       const selected = Number(button.dataset.difficultyLevel) === profile.difficulty;
       button.classList.toggle("is-active", selected);
@@ -2160,11 +2168,14 @@
     const goalSelect = root.querySelector("#learningGoal");
     if (goalSelect) goalSelect.value = profile.goal?.id || "balanced";
     renderLearningDirection(root);
+    window.CaatuuBadgeProgression?.mount?.(root);
     renderCoursePractice(root);
     const xp = root.querySelector("#courseProgressXp");
     if (xp) xp.textContent = String(rewards.xp);
     const coins = root.querySelector("#courseProgressCoins");
     if (coins) coins.textContent = String(rewards.coins);
+    const gems = root.querySelector("#courseProgressGems");
+    if (gems) gems.textContent = String(rewards.gems);
     const activities = root.querySelector("#courseProgressActivities");
     if (activities) activities.textContent = String(profile.summary.activities);
     const summary = root.querySelector("#courseProgressSummary");
@@ -4208,10 +4219,15 @@
       stat.className = `app-header-stat app-header-${kind}`;
       stat.setAttribute(`data-caatuu-header-${kind}`, "");
 
-      const statIcon = document.createElement("img");
-      statIcon.src = iconSrc;
-      statIcon.alt = "";
-      statIcon.decoding = "async";
+      const statIcon = document.createElement(kind === "xp" ? "span" : "img");
+      if (kind === "xp") {
+        statIcon.className = "practice-xp-token";
+        statIcon.textContent = "XP";
+      } else {
+        statIcon.src = iconSrc;
+        statIcon.alt = "";
+        statIcon.decoding = "async";
+      }
       statIcon.setAttribute("aria-hidden", "true");
 
       const statCount = document.createElement("strong");
@@ -4223,12 +4239,13 @@
 
     const xp = createHeaderStat("xp", experienceIconSrc);
     const coins = createHeaderStat("coins", coinIconSrc);
+    const gems = createHeaderStat("gems", experienceIconSrc);
     const streak = createHeaderStat("streak", streakIconSrc);
     streak.removeAttribute("data-caatuu-header-streak");
     streak.setAttribute("data-caatuu-streak", "");
     streak.querySelector("strong")?.removeAttribute("data-caatuu-header-streak-count");
     streak.querySelector("strong")?.setAttribute("data-caatuu-streak-count", "");
-    headerStats.append(xp, coins, streak);
+    headerStats.append(xp, coins, gems, streak);
 
     const actions = document.createElement("span");
     actions.className = "header-actions";
@@ -4506,7 +4523,17 @@
                   <span class="wallet-copy">
                     <span>${interfaceHtml("progress.coins")}</span>
                     <strong id="courseProgressCoins">0</strong>
-                    <small>${interfaceHtml("progress.completedrounds")}</small>
+                    <small>${interfaceHtml("practice.coins.description")}</small>
+                  </span>
+                </div>
+                <div class="backpack-wallet-item backpack-wallet-gems">
+                  <span class="wallet-token wallet-token-coin" aria-hidden="true">
+                    <img src="/assets/icons/icon_gem.png" alt="" loading="lazy" decoding="async">
+                  </span>
+                  <span class="wallet-copy">
+                    <span>${interfaceHtml("practice.reward.gems")}</span>
+                    <strong id="courseProgressGems">0</strong>
+                    <small>${interfaceHtml("practice.gems.description")}</small>
                   </span>
                 </div>
                 <div class="backpack-wallet-item backpack-wallet-streak" data-caatuu-streak>
@@ -4535,12 +4562,13 @@
                     ${learningDifficultyButtons()}
                   </div>
                   <p id="difficultyDescription">${interfaceHtml("settings.difficulty.defaultsummary")}</p>
+                  <div class="caatuu-badge-progression" data-caatuu-badge-progression></div>
                 </div>
               </details>
 
               <div class="learning-progress-note">
                 <p id="courseProgressSummary">${interfaceHtml("progress.record.empty")}</p>
-                <small>${interfaceHtml("settings.rewards.future")}</small>
+                <small>${interfaceHtml("practice.rewards.summary")}</small>
               </div>
               <p class="learning-status" id="learningStatus" role="status" aria-live="polite" aria-atomic="true"></p>
             </section>

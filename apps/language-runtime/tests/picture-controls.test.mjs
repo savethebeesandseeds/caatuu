@@ -6,10 +6,10 @@ import vm from "node:vm";
 const read = (path) => readFile(new URL(path, import.meta.url), "utf8");
 const [wordWorld, nucleus, markup, styles, nucleusStyles, workspace, english] = await Promise.all([
   read("../static/source/product-word-world.mjs"),
-  read("../../languages/mandarin-simplified/static/source/games/naturalization-nucleus/naturalization-nucleus.js"),
+  read("../static/source/games/naturalization-nucleus/naturalization-nucleus.js"),
   read("../static/app/index.html"),
   read("../static/styles/caatuu-word-world.css"),
-  read("../../languages/mandarin-simplified/static/source/games/naturalization-nucleus/naturalization-nucleus.css"),
+  read("../static/source/games/naturalization-nucleus/naturalization-nucleus.css"),
   read("../static/source/caatuu-workspace.js"),
   read("../static/data/interface/en.v1.json")
 ]);

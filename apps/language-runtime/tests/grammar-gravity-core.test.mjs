@@ -8,6 +8,7 @@ import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { createInterfaceContent } from "../static/source/interface-content.mjs";
 import { buildGrammarGravityRounds, scopeGrammarGravityMeaningChoices, validateGrammarGravityCategories, normalizeGrammarGravityPack } from "../static/source/games/grammar-gravity/grammar-gravity-core.mjs";
 import { mountGrammarFlight } from "../static/source/games/grammar-gravity/adjective-flight-host.mjs";
+import { createArabicReadingGuide } from "../static/source/arabic-reading-guide.mjs";
 async function json(url) { return JSON.parse(await readFile(url,"utf8")); }
 
 test("authored grammar banks retain every example while separating repeated words and cycle boundaries", async () => {
@@ -119,7 +120,7 @@ async function mountSequence({ language = "spanish", nounReady = true, phraseFai
     removeEventListener: browser.window.removeEventListener,
     requestAnimationFrame: (callback) => { frames.set(++frameId, callback); return frameId; },
     cancelAnimationFrame: (id) => frames.delete(id),
-    buildGrammarGravityRounds, scopeGrammarGravityMeaningChoices, validateGrammarGravityCategories, normalizeGrammarGravityPack, mountGrammarFlight, mountRobotLoadingScreen,
+    buildGrammarGravityRounds, scopeGrammarGravityMeaningChoices, validateGrammarGravityCategories, normalizeGrammarGravityPack, mountGrammarFlight, mountRobotLoadingScreen, createArabicReadingGuide,
     readEmbeddedCourseProfile: () => course,
     fetchDeclaredCourseGameJson: async () => {
       if (deferPhrase) await new Promise((resolve) => { finishPhrase = resolve; });
@@ -200,7 +201,9 @@ test("Arabic agreement preserves RTL target phrases through meaning, form and re
   const target = game.state.adjectiveGame.snapshot().current.targetText;
   game.answerStage();
   assert.equal(game.element("gravityAdjectiveNoun").dir, "rtl");
-  assert.equal(game.element("gravityAdjectiveNoun").textContent, target);
+  const targetOnly = game.element("gravityAdjectiveNoun").cloneNode(true);
+  targetOnly.querySelectorAll("rt").forEach(node => node.remove());
+  assert.equal(targetOnly.textContent, target, "reading annotations do not replace the target phrase");
   game.controller.destroy();
 });
 

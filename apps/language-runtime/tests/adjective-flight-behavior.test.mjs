@@ -10,6 +10,7 @@ import {
 } from "../static/source/games/grammar-gravity/grammar-gravity-core.mjs";
 import * as flightCore from "../static/source/games/grammar-gravity/adjective-flight-core.mjs";
 import { createSpeechIcon, mountRobotLoadingScreen } from "../static/source/games/embedded-game-controls.mjs";
+import { createTargetReadingGuide } from "../static/source/target-reading-guide.mjs";
 
 const hostSource = await readFile(new URL(
   "../static/source/games/grammar-gravity/adjective-flight-host.mjs", import.meta.url
@@ -35,13 +36,15 @@ function seedMarkup(harness) {
   }
 }
 
-async function mountGame({ language = "czech", active = true, reducedMotion = false, speech = false, autoplay = false, meaningThenForm = false, practiceMode, focusKind, delayVisual = false } = {}) {
+async function mountGame({ language = "czech", active = true, reducedMotion = false, speech = false, autoplay = false, meaningThenForm = false, practiceMode, focusKind, delayVisual = false, localStorageValues = {} } = {}) {
   const czech = language === "czech";
   const english = language === "english-from-spanish";
+  const arabic = language === "arabic-standard";
+  const georgian = language === "georgian";
   const course = {
-    id: czech ? "cz" : english ? "es-en" : "es",
+    id: czech ? "cz" : english ? "es-en" : arabic ? "ar" : georgian ? "ka" : "es",
     sourceLanguage: { id: english ? "es" : "en", locale: english ? "es-ES" : "en" },
-    targetLanguage: { id: czech ? "cs" : english ? "en" : "es", locale: czech ? "cs-CZ" : english ? "en-US" : "es-ES" }
+    targetLanguage: { id: czech ? "cs" : english ? "en" : arabic ? "ar" : georgian ? "ka" : "es", locale: czech ? "cs-CZ" : english ? "en-US" : arabic ? "ar" : georgian ? "ka" : "es-ES", direction: arabic ? "rtl" : "ltr" }
   };
   const raw = JSON.parse(await readFile(new URL(
     "../../languages/" + language + "/static/data/games/grammar-gravity/content.json", import.meta.url
@@ -60,7 +63,7 @@ async function mountGame({ language = "czech", active = true, reducedMotion = fa
   const flights = authoredRounds.filter(({ challengeId }) => challengeId === authored.challengeId)
     .flatMap(({ flights }) => flights).slice(0, 3).map((flight) => ({ ...flight, stages }));
   const selectedMode = practiceMode || (meaningThenForm ? "sequence" : "forms");
-  const harness = createBrowserHarness({ course });
+  const harness = createBrowserHarness({ course, localStorageValues });
   harness.window.CaatuuI18n = englishInterfaceContent;
   course.capabilities = { speech };
   const speechCalls = [];
@@ -72,6 +75,7 @@ async function mountGame({ language = "czech", active = true, reducedMotion = fa
     speakText: async (text) => { speechCalls.push(text); }
   };
   seedMarkup(harness);
+  const readingGuide = createTargetReadingGuide({ course, gameId: "grammar-gravity", document: harness.document, storage: harness.window.localStorage });
   const element = (id) => harness.document.getElementById(id);
   const arena = element("gravityAdjectiveArena");
   arena.clientHeight = 500;
@@ -99,6 +103,7 @@ async function mountGame({ language = "czech", active = true, reducedMotion = fa
   });
   Object.assign(harness.context, flightCore, {
     createSpeechIcon, mountRobotLoadingScreen,
+    readingGuide,
     course,
     onAttempt: (value) => attempts.push(value),
     onComplete: (value) => completions.push(value),
@@ -140,7 +145,7 @@ async function mountGame({ language = "czech", active = true, reducedMotion = fa
     .replace(/\bexport function /gu, "function ");
   vm.runInContext(executable, harness.context, { filename: "adjective-flight-host.mjs" });
   const controller = vm.runInContext(
-    "mountGrammarFlight({ document, scope: window, shell: window, course, onAttempt, onComplete, copy })",
+    "mountGrammarFlight({ document, scope: window, shell: window, course, onAttempt, onComplete, copy, readingGuide })",
     harness.context
   );
   controller.setActive(active);
@@ -174,12 +179,71 @@ async function mountGame({ language = "czech", active = true, reducedMotion = fa
   }
   // Timing/input tests begin at the response window; dedicated modern preview tests keep it visible.
   if (!meaningThenForm && !practiceMode && active) advance(4000);
-  return { ...harness, course, round, flights, controller, element, arena, outsideControl, outsideInput,
+  return { ...harness, course, round, flights, controller, element, arena, outsideControl, outsideInput, readingGuide,
     attempts, completions, visuals, motionListeners, frames, frame, advance, option, answer, speechCalls, speechState,
     responseWindow: !meaningThenForm && !practiceMode };
 }
 
 async function settleSpeech() { for (let index = 0; index < 8; index += 1) await Promise.resolve(); }
+
+test("Arabic form readings preserve colored endings and toggle without resetting the flight", async () => {
+  const game = await mountGame({ language: "arabic-standard", focusKind: "adjective", practiceMode: "forms" });
+  const prompt = game.element("gravityAdjectivePrompt");
+  const choices = game.element("gravityAdjectiveChoices");
+  assert.equal(prompt.textContent.includes(game.controller.snapshot().current.answer), false, "the partial prompt never exposes the completed answer");
+  assert.ok(choices.querySelector("rt"));
+  assert.ok(choices.querySelector(".gravity-adjective-form-ending"), "the colored ending remains inside the connected word");
+  const snapshot = game.controller.snapshot();
+  game.readingGuide.setEnabled(false);
+  assert.equal(choices.querySelector("rt"), null);
+  assert.equal(game.controller.snapshot().phase, snapshot.phase);
+  assert.equal(game.controller.snapshot().current.id, snapshot.current.id);
+  game.readingGuide.setEnabled(true);
+  assert.ok(choices.querySelector("rt"));
+  assert.ok(choices.querySelector(".gravity-adjective-form-ending"));
+  assert.equal(game.attempts.length, 0);
+  game.answer();
+  game.advance(180);
+  const completedPhrase = game.element("gravityAdjectiveNoun");
+  assert.ok(completedPhrase.querySelector("rt"));
+  game.readingGuide.setEnabled(false);
+  assert.equal(completedPhrase.textContent, snapshot.current.targetText);
+  game.controller.destroy();
+});
+
+test("Georgian agreement retains word endings and sentence frames through reading preferences", async () => {
+  const game = await mountGame({ language: "georgian", practiceMode: "forms" });
+  const choices = game.element("gravityAdjectiveChoices");
+  const first = game.controller.snapshot().current;
+  assert.equal(game.readingGuide.available, true);
+  assert.ok(choices.querySelector("rt"));
+  assert.equal(choices.querySelector("rt").lang, "ka-Latn");
+  for (const button of choices.querySelectorAll("button")) {
+    assert.equal(button.querySelector(".caatuu-target-text-glyph").textContent, button.dataset.grammarForm);
+    assert.ok(button.querySelector(".gravity-adjective-form-ending"));
+  }
+  game.readingGuide.setEnabled(false);
+  assert.equal(choices.querySelector("rt"), null);
+  assert.equal(game.controller.snapshot().current, first);
+  assert.equal(game.controller.snapshot().elapsedMs, 0);
+  assert.equal(game.attempts.length, 0);
+  game.readingGuide.setEnabled(true);
+  game.answer();
+  game.advance(180);
+  const phrase = game.element("gravityAdjectiveNoun");
+  assert.ok(phrase.querySelector("rt"));
+  assert.ok(phrase.querySelector(".gravity-adjective-ending"));
+  game.readingGuide.setEnabled(false);
+  assert.equal(phrase.textContent, first.targetText, "the full authored Georgian frame survives toggling");
+  assert.ok(phrase.querySelector(".gravity-adjective-ending"));
+  assert.equal(game.localStorage.getItem("caatuu.ka.grammar-gravity.romanization"), "false");
+  game.controller.destroy();
+  const reopened = await mountGame({ language: "georgian", practiceMode: "forms",
+    localStorageValues: { "caatuu.ka.grammar-gravity.romanization": "false" } });
+  assert.equal(reopened.readingGuide.enabled, false);
+  assert.equal(reopened.element("gravityAdjectiveChoices").querySelector("rt"), null);
+  reopened.controller.destroy();
+});
 
 test("the robot keeps meaning input and its clock paused until the illustration is ready", async () => {
   const game = await mountGame({ practiceMode: "meaning", delayVisual: true });

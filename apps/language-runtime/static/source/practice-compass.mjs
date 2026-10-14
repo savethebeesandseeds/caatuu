@@ -282,7 +282,7 @@ export function createPracticeCompass({ course, learning, runtimeHref = globalTh
         })));
         result = { default: englishRows([...legacy, ...document.contexts], row => row.id, row => row.english) };
       } else if (gameId === "naturalization-nucleus") {
-        if (document.schemaVersion !== 1 || document.gameId !== gameId) throw new Error("Unsupported recognition schema.");
+        if (![1, 2].includes(document.schemaVersion) || document.gameId !== gameId) throw new Error("Unsupported recognition schema.");
         result = { default: englishRows(document.challenges, row => row.id,
           row => row.englishAuditText ?? (course.sourceLanguage.id === "en" ? row.translation : undefined)) };
       }
@@ -295,7 +295,7 @@ export function createPracticeCompass({ course, learning, runtimeHref = globalTh
   function bankCatalog(gameId, bankId, catalog) {
     if (gameId === "word-world" && ["sentences", "reconstruct-target", "reconstruct-source"].includes(bankId)) return catalog.sentences;
     if (gameId === "grammar-gravity" && /^phrases-(?:sequence|meaning|nouns|forms)$/u.test(bankId)) return catalog.phrases;
-    if (gameId === "naturalization-nucleus" && ["default", "recognize-hanzi-pinyin", "recognize-pinyin-hanzi"].includes(bankId)) return catalog.default;
+    if (gameId === "naturalization-nucleus" && ["default", "recognize-hanzi-pinyin", "recognize-pinyin-hanzi", "recognize-target-reading", "recognize-reading-target"].includes(bankId)) return catalog.default;
     return own(catalog, bankId);
   }
 

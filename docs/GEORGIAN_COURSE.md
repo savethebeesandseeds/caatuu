@@ -14,6 +14,29 @@ modern letters, greetings, polite requests, introductions, numbers, transport,
 accommodation, food, shopping, directions and asking for help. Letter names in
 word hints identify the letters; they do not supply approved pronunciation.
 
+Latin romanization appears above whole Georgian words by default in all four
+games: Word World, Verb Nebula, Conjugation Comet and Grammar Gravity. Each
+game has its own saved **Show romanization** setting. The guide uses the same
+red as translations and leaves the authored Georgian spelling, answer keys and
+speech text intact. It is a presentation aid; independent native pronunciation
+review remains pending.
+
+The guide follows the modern Georgian national romanization system adopted in
+2002, documented in the
+[UNGEGN Georgian report](https://unstats.un.org/unsd/ungegn/working_groups/wg5/documents/wgrr4georgian.pdf).
+It uses readable combinations such as `sh`, `ch`, `ts`, `kh` and `gh`. A straight
+apostrophe marks ejective consonants: `k'`, `p'`, `t'`, `q'`, `ts'` and `ch'`.
+For example, **ქართული** reads **kartuli**, **გამარჯობა** reads **gamarjoba**,
+and **წიგნი** reads **ts'igni**. Mkhedruli and its Mtavruli uppercase forms
+receive the same guide; unsupported historical letters remain unannotated.
+
+Reading coverage checks found no unsupported words in any current game bank:
+647 distinct words in Word World, 328 in Verb Nebula, 362 in Conjugation Comet
+and 177 in Grammar Gravity. These are spelling coverage counts within each
+catalog, including token hints, rather than additional independent learning
+units. Exact reading coverage is retained under ignored
+`artifacts/georgian-romanization/coverage.json`.
+
 Use [TSU's Georgian eLearning course](https://ice.tsu.ge/web/elearning_geo.html)
 for its alphabet and sound lessons alongside this text-first preview. Its
 beginner sequence informed the topic selection; its lessons, audio and exercise

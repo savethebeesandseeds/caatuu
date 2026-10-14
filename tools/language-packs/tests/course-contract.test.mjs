@@ -532,7 +532,7 @@ test("versioned schemas and both authoritative manifests are valid JSON", async 
   assert.deepEqual(PLANET_GAME_CONTRACT.planets["sound-quasar"].capabilities, ["speech"]);
   assert.equal(PLANET_GAME_CONTRACT.planets["sound-quasar"].implementationState, "implemented");
   assert.equal(
-    PLANET_GAME_CONTRACT.planets["naturalization-nucleus"].linguisticFeatures.includes("hanzi-pinyin"),
+    PLANET_GAME_CONTRACT.planets["naturalization-nucleus"].anyLinguisticFeatures.includes("hanzi-pinyin"),
     true
   );
   await validateCourseCatalog(loaded, { checkExistence: false });

@@ -1,6 +1,8 @@
 import { initializeWorkspaceAfterDictionaryProvider } from "./dictionary-provider-loader.mjs";
 import { initializeHomeCourseSetup } from "./course-setup.mjs?v=course-setup-2";
 import { installMusic } from "./music.mjs";
+import { installGameDynamics } from "./game-dynamics.mjs?v=game-dynamics-4";
+import { installBadgeProgression } from "./badge-progression.mjs?v=badge-progression-1";
 import { createPracticeCompass, sharedPracticeAxes } from "./practice-compass.mjs?v=practice-compass-5";
 import {
   installInterfaceContent,
@@ -229,7 +231,9 @@ function installSharedSpeechRuntime() {
           }, handlers);
         },
         stop() { return nativeSpeechCall("speech_stop", {}, { timeoutMs: 3_000 }); },
-        installData() { return nativeSpeechCall("speech_install_data", {}, { timeoutMs: 10_000 }); }
+        installData(options = {}) {
+          return nativeSpeechCall("speech_install_data", { settingsOnly: options.settingsOnly === true }, { timeoutMs: 10_000 });
+        }
       });
     },
     status(_requestedLocale = locale, options = {}) {
@@ -279,10 +283,10 @@ function installSharedSpeechRuntime() {
         { timeoutMs: 3_000, timeoutMessage: t("speech.stoptimeout", { language: languageLabel }) }
       );
     },
-    installData() {
+    installData(options = {}) {
       return nativeSpeechCall(
         "speech_install_data",
-        {},
+        { settingsOnly: options.settingsOnly === true },
         { timeoutMs: 10_000, timeoutMessage: t("speech.installererror", { language: languageLabel }) }
       );
     }
@@ -340,7 +344,11 @@ function installSetupSpeechCheck() {
   const test = document.createElement("button");
   test.type = "button";
   test.textContent = t("setup.voice.test");
-  actions.append(test, retry);
+  const manage = document.createElement("button");
+  manage.type = "button";
+  manage.dataset.setupVoiceRecovery = "";
+  manage.hidden = true;
+  actions.append(test, retry, manage);
   row.append(icon, label, status, note, actions);
 
   const retryDelays = [250, 750, 1500, 3000, 5000];
@@ -350,6 +358,7 @@ function installSetupSpeechCheck() {
   let checking = null;
   let checkAgain = false;
   let playing = false;
+  let managingVoice = false;
   let disposed = false;
   let attempts = 0;
   let checked = false;
@@ -376,13 +385,16 @@ function installSetupSpeechCheck() {
       : state === "unverified" ? "setup.voice.unverified" : "common.unavailable");
     note.textContent = feedback || (available
       ? t(voice?.playbackStatus === "confirmed" ? "speech.voice.playbackconfirmed" : "setup.voice.availablemessage", { language })
-      : state === "checking" ? t("speech.voices.checking", { language })
+      : state === "checking" && !voice?.canInstallVoice ? t("speech.voices.checking", { language })
         : globalThis.CaatuuChrome?.describeSpeechVoiceState?.(voice || { voices: [] })
           || t("speech.voices.unavailable", { language }));
     // An empty browser voice list does not prevent device-default playback.
-    test.disabled = voice?.available !== true || playing;
+    test.disabled = voice?.available !== true || playing || managingVoice;
     test.textContent = t(playing ? "speech.test.playing" : "setup.voice.test");
-    retry.disabled = Boolean(checking) || playing;
+    retry.disabled = Boolean(checking) || playing || managingVoice;
+    manage.hidden = voice?.backend !== "android" || voice?.canInstallVoice !== true;
+    manage.disabled = playing || managingVoice;
+    manage.textContent = t(voice?.reason === "no-language-voice" ? "speech.voice.settings" : "speech.voice.install", { language });
     const card = document.getElementById("nativeSetup");
     // Voice availability must never release the controls/content startup barrier.
     const controlsReady = document.documentElement.dataset.caatuuShellReady === "true"
@@ -395,6 +407,7 @@ function installSetupSpeechCheck() {
 
   function refresh({ restart = true } = {}) {
     if (disposed || playing) return Promise.resolve();
+    if (managingVoice) { checkAgain = true; return Promise.resolve(); }
     if (restart) attempts = 0;
     if (checking) { checkAgain = true; return checking; }
     globalThis.clearTimeout(retryTimer);
@@ -442,6 +455,26 @@ function installSetupSpeechCheck() {
   }
 
   retry.addEventListener("click", () => { void refresh(); });
+  manage.addEventListener("click", async () => {
+    if (manage.hidden || manage.disabled || disposed) return;
+    managingVoice = true;
+    feedback = t("speech.voice.openinginstall");
+    render();
+    try {
+      const result = await globalThis.CaatuuChrome.installSpeechData();
+      feedback = t(result?.settingsOnly ? "speech.voice.settingsopened"
+        : result?.launched === false ? "speech.voice.addinsettings" : "speech.voice.finishandroidinstall", { language });
+    } catch {
+      feedback = t("speech.voice.androidinstallfailed");
+    } finally {
+      managingVoice = false;
+      render();
+      if (checkAgain) {
+        checkAgain = false;
+        void refresh();
+      }
+    }
+  });
   test.addEventListener("click", async () => {
     if (playing || voice?.available !== true) return;
     playbackRevision++;
@@ -696,8 +729,8 @@ async function loadCourseFeatureProviders() {
   const naturalizationNucleus = gameAvailable("naturalization-nucleus");
   if (naturalizationNucleus) {
     await Promise.all([
-      loadStyle("source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-18"),
-      loadScript("source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-19-files-4")
+      loadStyle("/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-21"),
+      loadScript("/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-22")
     ]);
   }
   const courseRuntime = declaredBrowserProvider("courseRuntime");
@@ -717,7 +750,7 @@ async function loadCourseFeatureProviders() {
     origin: location.origin,
     routeBase,
     async initializeWorkspace() {
-      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-44");
+      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-47");
       const workspace = await globalThis.CaatuuWorkspaceReady;
       if (workspace?.ready !== true) {
         throw workspace?.error instanceof Error
@@ -752,14 +785,23 @@ async function start() {
     axes: sharedPracticeAxes,
     ...createPracticeCompass({ course, learning: globalThis.CaatuuLearning })
   });
-  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-178");
+  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-180");
+  globalThis.CaatuuGameDynamics = installGameDynamics({
+    scope: globalThis,
+    onPauseChange(paused) {
+      document.body.toggleAttribute("data-caatuu-practice-paused", paused);
+      if (paused) globalThis.CaatuuChrome?.stopSpeech?.();
+      globalThis.dispatchEvent(new CustomEvent("caatuu:game-dynamics-change"));
+    }
+  });
   globalThis.CaatuuMusicUi?.mountAll();
+  globalThis.CaatuuBadgeProgression = installBadgeProgression({ scope: globalThis });
   // Keep the canonical Home and its language controls available while native
   // setup verifies the selected course. Curriculum and game artwork wait for it.
   await initializeHomeCourseSetup(globalThis, { onSetupRequired: revealApplication });
   configureGameRoutes();
   applyCapabilityBoundaries();
-  await import("./word-world-host.mjs?v=word-world-host-28");
+  await import("./word-world-host.mjs?v=word-world-host-29");
   await loadCourseFeatureProviders();
   // Publish the usable-controls and voice results together. Further voice
   // retries can recover a late engine without delaying entry to the app.

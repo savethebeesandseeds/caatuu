@@ -437,9 +437,9 @@ class ModelManager(context: Context) {
         downloadFile(spec).takeIf { it.isFile && it.length() > spec.bytes }?.delete()
 
         managedDownloadStatus(spec)?.let { status ->
-            if (status.isCompleteFor(spec)) {
+            completedManagedDownload(spec, status)?.let { file ->
                 onProgress(ModelProgress(spec.bytes, spec.bytes))
-                return status.file ?: managedDownloadFile(spec)
+                return file
             }
         }
 
@@ -460,9 +460,9 @@ class ModelManager(context: Context) {
             val totalBytes = status.totalBytes.takeIf { it > 0L } ?: spec.bytes
             onProgress(ModelProgress(status.bytes, totalBytes))
 
-            if (status.isCompleteFor(spec)) {
+            completedManagedDownload(spec, status)?.let { file ->
                 onProgress(ModelProgress(spec.bytes, spec.bytes))
-                return status.file ?: managedDownloadFile(spec)
+                return file
             }
 
             if (status.isFailed) {
@@ -476,6 +476,18 @@ class ModelManager(context: Context) {
 
             delay(MODEL_DOWNLOAD_POLL_MS)
         }
+    }
+
+    private fun completedManagedDownload(spec: LocalModelSpec, status: ManagedDownloadStatus): File? {
+        if (status.status != DownloadManager.STATUS_SUCCESSFUL) return null
+        val file = status.file ?: managedDownloadFile(spec)
+        try {
+            NativeArtifactDownload.requireCompletedSize(file.takeIf { it.isFile }?.length(), spec.bytes)
+        } catch (error: IOException) {
+            clearManagedDownload(spec, removeFile = true)
+            throw error
+        }
+        return file
     }
 
     private suspend fun recoverAndDownloadDirect(
@@ -542,19 +554,16 @@ class ModelManager(context: Context) {
                 } else {
                     connection.contentLengthLong.takeIf { it > 0L } ?: spec.bytes
                 }
-                val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
-                var bytesRead = if (append) resumeBytes else 0L
+                val downloadContext = coroutineContext
 
                 connection.inputStream.use { input ->
                     FileOutputStream(tmpFile, append).use { output ->
-                        while (true) {
-                            coroutineContext.ensureActive()
-                            val read = input.read(buffer)
-                            if (read < 0) break
-                            output.write(buffer, 0, read)
-                            bytesRead += read
-                            onProgress(ModelProgress(bytesRead, totalBytes))
-                        }
+                        NativeArtifactDownload.copyBounded(
+                            input, output, spec.bytes,
+                            startBytes = if (append) resumeBytes else 0L,
+                            checkActive = { downloadContext.ensureActive() },
+                            onProgress = { onProgress(ModelProgress(it, totalBytes)) },
+                        )
                     }
                 }
 
@@ -564,6 +573,9 @@ class ModelManager(context: Context) {
                 }
             } catch (error: CancellationException) {
                 throw error
+            } catch (error: NativeArtifactSizeException) {
+                tmpFile.delete()
+                lastError = error
             } catch (error: Exception) {
                 lastError = error
             } finally {

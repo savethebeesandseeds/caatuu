@@ -5,11 +5,27 @@ import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { englishInterfaceContent } from "./helpers/english-interface-content.mjs";
 import { createInterfaceContent } from "../static/source/interface-content.mjs";
 import { createSpeechIcon, mountEmbeddedGameControls } from "../static/source/games/embedded-game-controls.mjs";
+import { createArabicReadingGuide } from "../static/source/arabic-reading-guide.mjs";
 
 const course = { targetLanguage: { id: "cs", locale: "cs", label: "Czech" }, capabilities: { speech: true } };
 
+test("embedded gestures reach the shared reward sound owner and detach with controls", () => {
+  const f = fixture();
+  const gestures = [];
+  f.shell.CaatuuGameDynamics = { unlockSound: event => gestures.push(event) };
+  f.frame.document.dispatchEvent({ type: "pointerdown", isTrusted: true });
+  f.frame.document.dispatchEvent({ type: "pointerup", isTrusted: true, pointerType: "touch" });
+  f.frame.document.dispatchEvent({ type: "keydown", isTrusted: true, key: "Enter" });
+  assert.equal(gestures.length, 3);
+  assert.ok(gestures.every(event => event.isTrusted));
+  f.controller.destroy();
+  f.frame.document.dispatchEvent({ type: "pointerdown", isTrusted: true });
+  f.frame.document.dispatchEvent({ type: "pointerup", isTrusted: true, pointerType: "touch" });
+  assert.equal(gestures.length, 3);
+});
+
 function fixture({ speech = true, layout = true, settings = false, settingsIcon, illustrations = false,
-  illustrationsPressed = true, challenge = false, autoplay = false, onOpenChange, i18n = englishInterfaceContent } = {}) {
+  illustrationsPressed = true, challenge = false, autoplay = false, romanization = false, onOpenChange, i18n = englishInterfaceContent } = {}) {
   const parent = createBrowserHarness();
   const frame = createBrowserHarness();
   const shell = parent.window;
@@ -45,6 +61,10 @@ function fixture({ speech = true, layout = true, settings = false, settingsIcon,
   };
   const container = frame.document.createElement("div");
   frame.document.body.append(container);
+  const readingGuide = romanization ? createArabicReadingGuide({
+    course: { id: "ar", targetLanguage: { id: "ar" } }, gameId: "grammar-gravity",
+    document: frame.document, storage: shell.localStorage
+  }) : undefined;
   const settingsContent = frame.document.createElement("fieldset");
   const settingsInput = frame.document.createElement("input");
   settingsInput.type = "checkbox";
@@ -65,15 +85,36 @@ function fixture({ speech = true, layout = true, settings = false, settingsIcon,
   challengeContent.append(challengeInput);
   challengeContent.hidden = true;
   frame.document.body.append(challengeContent);
-  const controller = mountEmbeddedGameControls({ container, shell, course: { ...course, capabilities: { speech } }, onOpenChange, autoplay,
+  const controller = mountEmbeddedGameControls({ container, shell, course: { ...course, capabilities: { speech } }, onOpenChange, autoplay, readingGuide,
     ...(settings ? { settings: { content: settingsContent, labelKey: "common.game.controls", icon: settingsIcon } } : {}),
     ...(illustrations ? { illustrations: { labelKey: "common.display", pressed: illustrationsPressed,
       onChange: (value) => illustrationChanges.push(value) } } : {}),
     ...(challenge ? { challenge: { content: challengeContent, labelKey: "wordworld.challenge.type" } } : {}),
     ...(layout ? { onLayoutChange: (value) => preferences.layouts.push(value) } : {}) });
-  return { shell, frame, container, controller, preferences, settingsContent, settingsInput,
+  return { shell, frame, container, controller, preferences, settingsContent, settingsInput, readingGuide,
     illustrationChanges, challengeContent, challengeInput, disconnected: () => disconnected };
 }
+
+test("Arabic romanization uses the existing Display menu and refreshes the current word", () => {
+  const { container, frame, controller, readingGuide, shell } = fixture({ romanization: true });
+  const word = frame.document.createElement("strong");
+  frame.document.body.append(word);
+  readingGuide.render(word, "كَتَبَ");
+  assert.equal(word.querySelector("rt").textContent, "kataba");
+  const display = container.querySelector('[aria-label="Display settings"]');
+  display.click();
+  const toggle = container.querySelector('[data-arabic-romanization-setting="grammar-gravity"]');
+  assert.equal(toggle.closest('[role="dialog"]').getAttribute("aria-label"), "Display settings");
+  assert.equal(toggle.getAttribute("aria-checked"), "true");
+  toggle.click();
+  assert.equal(toggle.getAttribute("aria-checked"), "false");
+  assert.equal(word.textContent, "كَتَبَ");
+  assert.equal(word.querySelector("rt"), null);
+  assert.equal(shell.localStorage.getItem("caatuu.ar.grammar-gravity.romanization"), "false");
+  toggle.click();
+  assert.equal(word.querySelector("rt").textContent, "kataba");
+  controller.destroy();
+});
 
 test("the boxes settings icon opens the same accessible game settings menu", () => {
   const { container, settingsContent, settingsInput, frame, controller } = fixture({ settings: true, settingsIcon: "boxes", layout: false });

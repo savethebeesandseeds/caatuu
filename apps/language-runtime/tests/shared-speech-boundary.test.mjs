@@ -476,5 +476,35 @@ test("Mandarin native speech uses zh-CN without loading the Czech LLM course run
   assert.equal(learningRequest.locale, "zh-CN", "inspector speech leaves the learning runtime unchanged");
   nativeContext.CaatuuNative.receive({ id: learningRequest.id, kind: "done", result: { available: true } });
   await learningStatus;
+  for (const provider of [nativeContext.CaatuuRuntime.speech, inspector]) {
+    for (const settingsOnly of [false, true]) {
+      const installation = provider.installData({ settingsOnly });
+      const request = nativeRequests.shift();
+      assert.equal(request.type, "speech_install_data");
+      assert.equal(request.settingsOnly, settingsOnly, "the native bridge preserves the recovery destination");
+      nativeContext.CaatuuNative.receive({ id: request.id, kind: "done", result: { launched: true } });
+      assert.equal((await installation).launched, true);
+    }
+  }
   await assert.rejects(inspector.speak(" "), /requires text/iu);
+});
+
+test("native voice recovery uses engine settings for an unsupported language and the installer for missing data", async () => {
+  for (const reason of ["no-language-voice", "missing-language-data", "engine-unavailable", ""]) {
+    const app = browserSpeechContext();
+    const requests = [];
+    app.context.CaatuuRuntime = { env: "android", speech: {
+      async status() { return { available: !reason, reason, voices: [], localVoiceAvailable: false }; },
+      async installData(options) { requests.push(options); return { launched: true }; }
+    } };
+    vm.runInNewContext(chromeSource, app.context);
+    const speech = app.context.CaatuuChrome;
+    const state = await speech.listSpeechVoiceOptions();
+    assert.equal(state.canInstallVoice, reason !== "engine-unavailable");
+    const opened = await speech.installSpeechData();
+    assert.equal(requests.length, 1);
+    assert.equal(requests[0].settingsOnly, reason === "no-language-voice");
+    assert.equal(opened.settingsOnly, reason === "no-language-voice");
+    assert.equal(opened.launched, true);
+  }
 });

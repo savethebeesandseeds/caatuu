@@ -8,6 +8,7 @@ let verbNebulaCore = null;
 let verbExerciseFamilyCore = null;
 let verbTargetTextRenderer = null;
 let verbTargetTextReadings = new Map();
+let verbReadingGuide = null;
 let childFacingAssets = null;
 let verbImageSearchPromise = null;
 let deferredPwaInstallPrompt = null;
@@ -50,15 +51,16 @@ function syncShellRobotLoading() {
 
 function setShellRobotLoading(container, visible, label) {
   if (!container || shellRobotRetired) return;
-  container.hidden = !visible;
-  container.dataset.active = String(shellRobotActive(container));
   let entry = shellRobotScreens.get(container);
+  // Once mounted, the shared controller owns visibility and reward gates.
+  if (!entry?.screen) container.hidden = !visible;
+  container.dataset.active = String(shellRobotActive(container));
   if (!visible && !entry) return;
   container.setAttribute("aria-label", label || interfaceText("verbnebula.round.preparing"));
   if (!entry) {
     entry = { container, screen: null, retired: false };
     shellRobotScreens.set(container, entry);
-    shellRobotModulePromise ||= import("/language-runtime/static/source/games/embedded-game-controls.mjs?v=embedded-game-controls-9");
+    shellRobotModulePromise ||= import("/language-runtime/static/source/games/embedded-game-controls.mjs?v=embedded-game-controls-10");
     void shellRobotModulePromise.then(({ mountRobotLoadingScreen }) => {
       if (entry.retired || !container.isConnected) return;
       entry.screen = mountRobotLoadingScreen({
@@ -74,6 +76,7 @@ function setShellRobotLoading(container, visible, label) {
 }
 
 document.addEventListener("visibilitychange", syncShellRobotLoading);
+window.addEventListener("caatuu:game-dynamics-change", () => syncActiveGameVisibility());
 window.addEventListener("pagehide", (event) => {
   shellRobotPageHidden = true;
   syncShellRobotLoading();
@@ -454,7 +457,15 @@ async function loadContentData() {
       import("/language-runtime/static/source/games/verb-nebula/verb-exercise-family-core.mjs?v=verb-exercise-family-core-3"),
       import("/language-runtime/static/source/child-facing-assets.mjs?v=child-facing-assets-2")
     ]);
-    if (verbUsesTargetTextGuide()) {
+    if (verbUsesRomanizationGuide()) {
+      const { createTargetReadingGuide } = await import("/language-runtime/static/source/target-reading-guide.mjs?v=target-reading-guide-1");
+      verbReadingGuide = createTargetReadingGuide({
+        course, gameId: "verb-lab", document, storage: window.localStorage,
+        onChange() {
+          if (state.verbSolutionRevealed) renderVerbSolutionArrows();
+        }
+      });
+    } else if (verbUsesTargetTextGuide()) {
       verbTargetTextRenderer = await import("/language-runtime/static/source/target-text.mjs?v=target-text-1");
       verbTargetTextReadings = indexVerbTargetTextReadings(countryDictionary);
     }
@@ -2170,8 +2181,12 @@ function saveVerbSpeakOnTap() {
   }
 }
 
+function verbUsesRomanizationGuide() {
+  return ["ar", "ka"].includes(course.targetLanguage?.id);
+}
+
 function verbUsesTargetTextGuide() {
-  return course.linguisticFeatures?.includes("hanzi-pinyin") === true;
+  return verbUsesRomanizationGuide() || course.linguisticFeatures?.includes("hanzi-pinyin") === true;
 }
 
 function loadVerbTargetTextPreferences() {
@@ -2209,6 +2224,10 @@ function indexVerbTargetTextReadings(rows) {
 
 function renderVerbTargetTextCopy(copy, pair) {
   const target = pair.target ?? pair.cz;
+  if (verbUsesRomanizationGuide()) {
+    if (!verbReadingGuide?.render(copy, target)) copy.textContent = target;
+    return;
+  }
   const authored = verbTargetTextReadings.get(pair.id);
   const reading = authored?.target === target ? authored.reading : null;
   verbTargetTextRenderer.renderTargetText(document, copy, target, {
@@ -2221,13 +2240,20 @@ function renderVerbTargetTextCopy(copy, pair) {
 function renderVerbTargetTextControls() {
   const settings = $("#verbTargetTextSettings");
   const available = verbUsesTargetTextGuide();
+  const romanization = verbUsesRomanizationGuide();
   if (settings) settings.hidden = !available;
   document.querySelectorAll("[data-verb-target-text-setting]").forEach((button) => {
     const enabled = state.verbTargetTextPreferences[button.dataset.verbTargetTextSetting] === true;
-    button.disabled = !available;
+    button.hidden = romanization;
+    button.disabled = !available || romanization;
     button.setAttribute("aria-checked", String(enabled));
     button.classList.toggle("is-active", enabled);
   });
+  if (romanization && settings && verbReadingGuide) {
+    const title = $("#verbTargetTextLabel");
+    if (title) title.textContent = "Reading guide";
+    verbReadingGuide.mountSetting(settings);
+  }
 }
 
 function changeVerbTargetTextPreference(event) {
@@ -2596,7 +2622,8 @@ function renderVerbRoundInterstitial() {
   const reward = $("#verbRoundReward");
   const rewardAmount = $("#verbRoundRewardAmount");
   const rewardXp = Math.max(0, Number(state.verbRoundRewardXp) || 0);
-  const rewardVisible = active && rewardXp > 0;
+  // Practice-set rewards have one shared presenter across every game.
+  const rewardVisible = active && rewardXp > 0 && !window.CaatuuGameDynamics;
   const gameNodes = [
     document.querySelector(".verb-match-controls"),
     ...document.querySelectorAll(".verb-match-column-heading"),
@@ -3039,7 +3066,7 @@ function chooseVerbMatchCard(event) {
   const card = event.target.closest("button[data-verb-side][data-verb-id]");
   if (event.defaultPrevented || !card || card.disabled || state.verbWrongTimer
     || state.activeView !== "verbs" || state.trainTab !== "verb-lab"
-    || document.hidden || document.visibilityState === "hidden"
+    || document.hidden || document.visibilityState === "hidden" || window.CaatuuGameDynamics?.active
     || state.verbRoundTransitioning || state.campaignTransitioning || state.verbGuidedEvidencePending
     || verbGuidedInteractionLocked()) return;
   const id = card.dataset.verbId;
@@ -4498,16 +4525,18 @@ function setView(view) {
 }
 
 function syncActiveGameVisibility() {
-  const activeTab = state.activeView === "verbs" ? state.trainTab : "";
-  document.body.classList.toggle("word-net-active", activeTab === "word-net");
-  document.body.classList.toggle("embedded-game-active", activeTab === "word-net" || Object.hasOwn(embeddedGameTabs, activeTab));
+  const selectedTab = state.activeView === "verbs" ? state.trainTab : "";
+  window.CaatuuGameDynamics?.setActive?.(Boolean(selectedTab && selectedTab !== "galaxy"));
+  const activeTab = window.CaatuuGameDynamics?.active ? "" : selectedTab;
+  document.body.classList.toggle("word-net-active", selectedTab === "word-net");
+  document.body.classList.toggle("embedded-game-active", selectedTab === "word-net" || Object.hasOwn(embeddedGameTabs, selectedTab));
   syncEmbeddedWordNetVisibility(activeTab === "word-net");
   syncEmbeddedGameVisibility(activeTab);
   syncShellRobotLoading();
 }
 
 function syncEmbeddedWordNetVisibility(active) {
-  window.CaatuuWordWorldHost?.setActive?.(Boolean(active && state.activeView === "verbs"), {
+  window.CaatuuWordWorldHost?.setActive?.(Boolean(active && state.activeView === "verbs" && !window.CaatuuGameDynamics?.active), {
     theme: document.documentElement.dataset.theme || "light",
     fontSize: document.documentElement.dataset.fontSize || "largest"
   });
@@ -4609,7 +4638,7 @@ function syncEmbeddedGameVisibility(activeTab) {
     frame.contentWindow.postMessage({
       source: "caatuu-app-shell",
       type: "visibility",
-      active: state.activeView === "verbs" && activeTab === gameId,
+      active: state.activeView === "verbs" && activeTab === gameId && !window.CaatuuGameDynamics?.active,
       theme: document.documentElement.dataset.theme || "light",
       fontSize: document.documentElement.dataset.fontSize || "largest"
     }, window.location.origin);

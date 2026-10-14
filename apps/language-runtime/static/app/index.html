@@ -9,18 +9,19 @@
     <link rel="icon" href="/language-runtime/static/assets/caatuu-shell-512.png">
     <link rel="apple-touch-icon" href="/language-runtime/static/assets/caatuu-shell-512.png">
     <script src="source/shared/course-profile.js?v=course-72"></script>
-    <script src="/language-runtime/static/source/learning-profile.js?v=learning-13"></script>
+    <script src="/language-runtime/static/source/learning-profile.js?v=learning-17"></script>
     <script src="/language-runtime/static/source/initial-theme.js?v=theme-3"></script>
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-theme.css?v=theme-8">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-workspace.css?v=shell-101">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-workspace.css?v=shell-102">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-home.css?v=home-61">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-142">
     <link rel="stylesheet" href="/language-runtime/static/styles/music-controls.css?v=music-controls-2">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-developer-tools.css?v=developer-tools-2">
     <link rel="stylesheet" href="/language-runtime/static/styles/dictionary-word-card.css?v=dictionary-card-3">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-target-text.css?v=target-text-1">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-target-text.css?v=target-text-4">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-word-world.css?v=word-net-95">
     <link rel="stylesheet" href="/language-runtime/static/styles/games/embedded-game-controls.css?v=embedded-game-controls-10">
+    <link rel="stylesheet" href="/language-runtime/static/styles/game-dynamics.css?v=game-dynamics-3">
   </head>
   <body class="games-page setup-blocked app-loading">
     <div class="app-loading-screen" id="appLoadingScreen" role="status" aria-live="polite">
@@ -852,7 +853,7 @@
                 <div class="naturalization-nucleus-interstitial caatuu-game-robot-loading" id="naturalizationNucleusInterstitial" role="status" aria-live="polite" aria-atomic="true" aria-label="Preparing a Naturalization Nucleus round">
                   <img class="caatuu-game-robot-loading-art" id="naturalizationNucleusInterstitialRobot" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true">
                 </div>
-                <section class="naturalization-nucleus-game" id="naturalizationNucleusGame" aria-label="Circular Hanzi and pinyin matching puzzle" aria-describedby="naturalizationNucleusStatus" aria-hidden="true" inert>
+                <section class="naturalization-nucleus-game" id="naturalizationNucleusGame" aria-label="Circular word and reading matching puzzle" aria-describedby="naturalizationNucleusStatus" aria-hidden="true" inert>
                   <div class="naturalization-nucleus-playfield">
                     <div class="word-net-panel-actions naturalization-nucleus-toolbar" aria-label="Naturalization Nucleus controls">
                       <button class="word-net-icon-button theme-toggle" id="naturalizationNucleusDisplayToggle" type="button" aria-label="Display settings" aria-haspopup="dialog" aria-controls="naturalizationNucleusDisplayMenu" aria-expanded="false" title="Display settings">
@@ -882,14 +883,14 @@
                           </div>
                         </section>
                       </div>
-                      <button class="word-net-icon-button word-net-audio-toggle" id="naturalizationNucleusSound" type="button" aria-label="Mandarin audio settings" aria-haspopup="dialog" aria-controls="naturalizationNucleusAudioMenu" aria-expanded="false" title="Mandarin audio settings">
+                      <button class="word-net-icon-button word-net-audio-toggle" id="naturalizationNucleusSound" type="button" aria-label="Audio settings" aria-haspopup="dialog" aria-controls="naturalizationNucleusAudioMenu" aria-expanded="false" title="Audio settings">
                         <svg class="word-net-sound-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                           <path d="M4.5 9.25v5.5h3.25l4.75 3.75v-13L7.75 9.25H4.5Z"></path>
                           <path d="M15.5 9.25c1.5 1.5 1.5 4 0 5.5"></path>
                           <path d="M18.25 6.75c3 3 3 7.5 0 10.5"></path>
                         </svg>
                       </button>
-                      <div class="caatuu-audio-menu word-net-audio-menu naturalization-nucleus-toolbar-menu" id="naturalizationNucleusAudioMenu" role="dialog" aria-label="Mandarin audio settings" hidden>
+                      <div class="caatuu-audio-menu word-net-audio-menu naturalization-nucleus-toolbar-menu" id="naturalizationNucleusAudioMenu" role="dialog" aria-label="Audio settings" hidden>
                 <span class="caatuu-audio-title" data-i18n="common.audio">Audio</span>
                 <div class="caatuu-audio-controls">
                   <div class="caatuu-audio-group"><div data-music-controls></div></div>
@@ -913,14 +914,14 @@
                       <button class="word-net-icon-button word-net-image-toggle is-active" id="naturalizationNucleusImageToggle" type="button" aria-label="Hide picture clues" aria-pressed="true" aria-controls="naturalizationNucleusCore" title="Hide picture clues">
                         <span aria-hidden="true">🪶</span>
                       </button>
-                      <button class="word-net-icon-button word-net-translation-toggle naturalization-nucleus-options-toggle" id="naturalizationNucleusOptionsToggle" type="button" aria-label="Hanzi tile settings. Current: 5 tiles." aria-haspopup="menu" aria-controls="naturalizationNucleusOptionsMenu" aria-expanded="false" title="Hanzi tile settings">
+                      <button class="word-net-icon-button word-net-translation-toggle naturalization-nucleus-options-toggle" id="naturalizationNucleusOptionsToggle" type="button" aria-label="Tile settings. Current: 5 tiles." aria-haspopup="menu" aria-controls="naturalizationNucleusOptionsMenu" aria-expanded="false" title="Tile settings">
                         <span class="verb-pair-menu-icon" aria-hidden="true">
                           <i></i><i></i><i></i><i></i><i></i><i></i>
                         </span>
                         <span class="verb-pair-current" id="naturalizationNucleusPieceCount" aria-hidden="true">5</span>
                       </button>
-                      <div class="word-net-translation-menu naturalization-nucleus-options-menu naturalization-nucleus-toolbar-menu" id="naturalizationNucleusOptionsMenu" role="menu" aria-label="Hanzi tile settings" hidden>
-                        <section class="word-net-translation-menu-section" role="group" aria-label="Hanzi tile count">
+                      <div class="word-net-translation-menu naturalization-nucleus-options-menu naturalization-nucleus-toolbar-menu" id="naturalizationNucleusOptionsMenu" role="menu" aria-label="Tile settings" hidden>
+                        <section class="word-net-translation-menu-section" role="group" aria-label="Tile count">
                           <button type="button" role="menuitemradio" tabindex="-1" aria-checked="true" data-naturalization-piece-count="5"><span>5 tiles</span><small>Short orbit</small></button>
                           <button type="button" role="menuitemradio" tabindex="-1" aria-checked="false" data-naturalization-piece-count="9"><span>9 tiles</span><small>Full orbit</small></button>
                         </section>
@@ -963,13 +964,14 @@
                       </aside>
                     </div>
                   </div>
-                  <section class="naturalization-nucleus-deck-panel" aria-label="Hanzi tiles waiting to be placed">
-                    <div class="naturalization-nucleus-deck" id="naturalizationNucleusDeck" role="list" aria-label="Hanzi tiles waiting to be placed"></div>
+                  <section class="naturalization-nucleus-deck-panel" aria-label="Word tiles waiting to be placed">
+                    <div class="naturalization-nucleus-deck" id="naturalizationNucleusDeck" role="list" aria-label="Word tiles waiting to be placed"></div>
                   </section>
                 </section>
               </div>
               <div class="naturalization-nucleus-game-footer">
                 <p class="word-net-instructions" id="naturalizationNucleusStatus" role="status" aria-live="polite">Preparing the dominoes.</p>
+                <p class="naturalization-nucleus-notation-help" id="naturalizationNucleusNotationHelp" hidden></p>
               </div>
             </section>
 
@@ -1158,6 +1160,6 @@
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true" data-i18n-aria-label="print.book.label"></section>
 
     <script src="/language-runtime/static/source/shell-policy.js?v=shell-policy-17"></script>
-    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-108"></script>
+    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-115"></script>
   </body>
 </html>

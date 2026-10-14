@@ -614,3 +614,50 @@ html[data-theme="dark"] .naturalization-nucleus-tone-5 { color: #c0cbc7; }
     transition: none;
   }
 }
+.naturalization-nucleus-notation-help {
+  max-width: 760px;
+  margin: 6px auto 12px;
+  padding: 0 16px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text-muted, #64748b);
+}
+
+[data-notation="arabic-learning-romanization-v1"] .naturalization-nucleus-script-target,
+[data-notation="arabic-learning-romanization-v1"] .naturalization-nucleus-fused-hanzi {
+  font-family: "Noto Sans Arabic", "Segoe UI", sans-serif;
+  font-size: clamp(1rem, 4cqi, 1.5rem);
+  line-height: 1.6;
+  white-space: nowrap;
+  unicode-bidi: isolate;
+}
+
+[data-notation="arabic-learning-romanization-v1"] .naturalization-nucleus-script-reading,
+[data-notation="arabic-learning-romanization-v1"] .naturalization-nucleus-fused-pinyin {
+  font-size: clamp(0.58rem, 2.8cqi, 0.95rem);
+  overflow-wrap: anywhere;
+  unicode-bidi: isolate;
+}
+
+[data-notation="arabic-learning-romanization-v1"] .naturalization-nucleus-domino-hanzi {
+  font-size: 1.2rem;
+}
+
+[data-notation="arabic-learning-romanization-v1"] .naturalization-nucleus-deck-item {
+  flex-basis: 140px;
+}
+
+[data-notation="arabic-learning-romanization-v1"] .naturalization-nucleus-domino-hanzi.naturalization-nucleus-script-reading {
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+[data-notation="arabic-learning-romanization-v1"][data-piece-count="9"] {
+  --socket-width: clamp(62px, 21cqi, 84px);
+}
+
+[data-notation="arabic-learning-romanization-v1"] .naturalization-nucleus-socket-pinyin.naturalization-nucleus-word-long,
+[data-notation="arabic-learning-romanization-v1"] .naturalization-nucleus-fused-hanzi.naturalization-nucleus-word-long {
+  font-size: 0.8rem;
+}

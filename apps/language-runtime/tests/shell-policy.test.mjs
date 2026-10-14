@@ -32,6 +32,16 @@ async function json(relativeUrl) {
   return JSON.parse(await readFile(new URL(relativeUrl, import.meta.url), "utf8"));
 }
 
+test("Arabic reading practice requires its own feature and joins Campaign", async () => {
+  const arabic = await json("../../languages/arabic-standard/course.json");
+  assert.equal(isGameAvailable("naturalization-nucleus", arabic), true);
+  assert.ok(campaignGameIds(arabic).includes("naturalization-nucleus"));
+  assert.equal(isGameAvailable("naturalization-nucleus", { ...arabic,
+    linguisticFeatures: arabic.linguisticFeatures.filter(feature => feature !== "arabic-romanization") }), false);
+  assert.equal(isGameAvailable("naturalization-nucleus", { ...arabic,
+    routes: { ...arabic.routes, naturalizationNucleus: "" } }), false);
+});
+
 const czech = await json("../../languages/czech/course.json");
 const mandarin = await json("../../languages/mandarin-simplified/course.json");
 const spanish = await json("../../languages/spanish/course.json");
@@ -124,8 +134,8 @@ test("one declarative planet contract governs IDs, requirements, and Campaign el
   ));
   assert.equal(PLANET_GAME_CONTRACT.campaign.minimumEligibleGames, 1);
   assert.deepEqual(
-    PLANET_GAME_CONTRACT.planets["naturalization-nucleus"].linguisticFeatures,
-    ["hanzi-pinyin"]
+    PLANET_GAME_CONTRACT.planets["naturalization-nucleus"].anyLinguisticFeatures,
+    ["hanzi-pinyin", "arabic-romanization"]
   );
   assert.equal(
     PLANET_GAME_CONTRACT.planets["naturalization-nucleus"].resources[0].name,

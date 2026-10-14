@@ -143,7 +143,7 @@
       "type": "array",
       "uniqueItems": true,
       "items": {
-        "enum": ["verb-conjugation", "grammatical-case", "grammatical-agreement", "hanzi-pinyin"]
+        "enum": ["verb-conjugation", "grammatical-case", "grammatical-agreement", "hanzi-pinyin", "arabic-romanization"]
       }
     },
     "games": {
@@ -350,6 +350,34 @@
     {
       "if": {
         "properties": {
+          "linguisticFeatures": {
+            "contains": {
+              "const": "arabic-romanization"
+            }
+          }
+        },
+        "required": [
+          "linguisticFeatures"
+        ]
+      },
+      "then": {
+        "properties": {
+          "targetLanguage": {
+            "properties": {
+              "id": {
+                "const": "ar"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
           "games": {
             "contains": { "const": "naturalization-nucleus" }
           }
@@ -360,7 +388,7 @@
         "required": ["linguisticFeatures", "resources"],
         "properties": {
           "linguisticFeatures": {
-            "contains": { "const": "hanzi-pinyin" }
+            "contains": { "enum": ["hanzi-pinyin", "arabic-romanization"] }
           },
           "resources": {
             "required": ["naturalizationNucleusCatalog"],

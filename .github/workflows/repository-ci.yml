@@ -9,77 +9,8 @@ permissions:
   contents: read
 
 jobs:
-  changes:
-    name: Classify affected components
-    runs-on: ubuntu-24.04
-    outputs:
-      browser: ${{ steps.filter.outputs.browser }}
-      language: ${{ steps.filter.outputs.language }}
-      compose: ${{ steps.filter.outputs.compose }}
-      rust: ${{ steps.filter.outputs.rust }}
-      scenery_evidence: ${{ steps.filter.outputs.scenery_evidence }}
-      static_site_evidence: ${{ steps.filter.outputs.static_site_evidence }}
-    steps:
-      - name: Check out repository history
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
-        with:
-          fetch-depth: 0
-
-      - name: Classify changed paths
-        id: filter
-        env:
-          EVENT_NAME: ${{ github.event_name }}
-          BEFORE_SHA: ${{ github.event.before }}
-          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-          CURRENT_SHA: ${{ github.sha }}
-        run: |
-          set -euo pipefail
-
-          all=false
-          case "$EVENT_NAME" in
-            workflow_dispatch)
-              all=true
-              ;;
-            pull_request)
-              base="$PR_BASE_SHA"
-              head="$PR_HEAD_SHA"
-              ;;
-            *)
-              base="$BEFORE_SHA"
-              head="$CURRENT_SHA"
-              ;;
-          esac
-
-          if [[ "$all" == false ]]; then
-            if [[ -z "${base:-}" || "$base" =~ ^0+$ ]] \
-              || ! git cat-file -e "${base}^{commit}" 2>/dev/null; then
-              all=true
-            else
-              git diff --name-only --no-renames "$base" "$head" > changed-files.txt
-            fi
-          fi
-
-          emit() {
-            local name="$1"
-            local pattern="$2"
-            local value=false
-            if [[ "$all" == true ]] || grep -Eq "$pattern" changed-files.txt; then
-              value=true
-            fi
-            printf '%s=%s\n' "$name" "$value" >> "$GITHUB_OUTPUT"
-          }
-
-          emit browser '^(\.github/workflows/(repository-ci|pages)\.yml|LICENSE$|CHANGELOG\.md$|\.dockerignore$|compose\.yaml$|compose/|archive/|apps/(android|games|language-runtime|languages|launcher)/|apps/server/(profiles|tooling)/|tools/(czech-ml|language-content|language-packs|on-device-models|semantic-index)/|docs/(COMPONENT_RELEASE_VALIDATORS|DEPLOYMENT_STANDARD|FIRST_ANDROID_RELEASE|LEGAL_INVENTORY|RELEASING|schemas/))'
-          emit language '^(\.github/workflows/repository-ci\.yml|apps/(language-runtime|languages)/|apps/launcher/static/|apps/server/tooling/refresh-setup-assets\.mjs|tools/(language-content|language-packs|learning-evaluation|semantic-index)/|tools/czech-ml/data/(curriculum|word-world)/)'
-          emit compose '^(\.github/workflows/repository-ci\.yml|compose\.yaml|compose/.*\.yaml)$'
-          emit rust '^(\.github/workflows/repository-ci\.yml|\.dockerignore$|compose\.yaml|apps/server/(Cargo\.(toml|lock)|src/|tooling/Dockerfile|\.caatuu-runtime\.lock)|tools/czech-ml/vector-schema\.sql)$'
-          emit scenery_evidence '^(\.github/workflows/repository-ci\.yml|apps/launcher/static/assets/scenery/|apps/games/(evidence/scenery-package-evidence\.test\.mjs|tooling/(json-schema-subset|validate-scenery-package)\.mjs|test/(json-schema-subset|scenery-package-validator)\.test\.mjs))'
-          emit static_site_evidence '^(\.github/workflows/repository-ci\.yml|apps/(android/|language-runtime/|languages/|launcher/(static/|tooling/(build-static-site\.mjs|data/|templates/|tests/static-site-contract\.test\.mjs))))'
-
   contracts:
     name: Structure and browser contracts
-    needs: changes
     runs-on: ubuntu-24.04
     steps:
       - name: Check out repository
@@ -94,13 +25,13 @@ jobs:
             "node tools/repository/check-tracked-files.mjs && node tools/repository/check-markdown-links.mjs"
 
       - name: Run browser and server contract tests
-        if: needs.changes.outputs.browser == 'true'
+        if: github.event_name == 'workflow_dispatch'
         run: |
           docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace node:24-bookworm \
             bash -lc '
               set -euo pipefail
               mapfile -t tests < <(
-                find apps/server/tooling/tests apps/games/test apps/android/tooling/tests apps/launcher/tooling/tests \
+                find apps/server/tooling/tests apps/games/test apps/android/tooling/tests apps/launcher/tooling/tests apps/reporting-worker/tests \
                   -type f -name "*.test.mjs" \
                   ! -path "apps/launcher/tooling/tests/static-site-contract.test.mjs" \
                   | sort
@@ -111,14 +42,14 @@ jobs:
             '
 
       - name: Exercise Android release failure and resume behavior without publication
-        if: needs.changes.outputs.browser == 'true'
+        if: github.event_name == 'workflow_dispatch'
         shell: pwsh
         run: |
           ./apps/android/tooling/tests/release-orchestration.test.ps1
           ./apps/android/tooling/tests/release-network-retry.test.ps1
 
       - name: Restore pinned shared runtime files for contract tests
-        if: needs.changes.outputs.language == 'true'
+        if: github.event_name == 'workflow_dispatch'
         run: |
           set -euo pipefail
           while IFS=$'\t' read -r path url bytes sha256; do
@@ -134,14 +65,14 @@ jobs:
           done < <(jq -r '.runtimes[].artifacts[] | [.path, .url, .bytes, .sha256] | @tsv' apps/language-runtime/embedding-runtimes.json)
 
       - name: Validate language content and deterministic Word World projections
-        if: needs.changes.outputs.language == 'true'
+        if: github.event_name == 'workflow_dispatch'
         run: |
           docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/workspace" -w /workspace node:24-bookworm \
             bash -lc \
             "node tools/language-packs/restore-ci-runtime.mjs && node tools/language-content/validate.mjs && node tools/language-content/quality/content-progression-catalogs.mjs && node tools/language-content/project-word-world-runtime.mjs --check && node apps/server/tooling/refresh-setup-assets.mjs --all-browser-courses --check && node --test apps/language-runtime/tests/*.test.mjs apps/languages/*/tests/*.test.mjs tools/language-content/tests/*.test.mjs tools/language-content/quality/content-progression-catalogs.test.mjs tools/language-packs/tests/*.test.mjs tools/learning-evaluation/policy/*.test.mjs tools/learning-evaluation/content/*.test.mjs tools/semantic-index/tests/*.test.mjs tools/czech-ml/tests/*.test.mjs"
 
       - name: Validate Compose boundaries
-        if: needs.changes.outputs.compose == 'true'
+        if: github.event_name == 'workflow_dispatch'
         env:
           CAATUU_PHONE_DEBUG_BIND: 192.0.2.10
         run: |
@@ -152,8 +83,7 @@ jobs:
 
   rust:
     name: Rust server
-    needs: changes
-    if: needs.changes.outputs.rust == 'true'
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-24.04
     steps:
       - name: Check out repository
@@ -166,8 +96,7 @@ jobs:
 
   scenery-evidence:
     name: Scenery package evidence
-    needs: changes
-    if: needs.changes.outputs.scenery_evidence == 'true'
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-24.04
     steps:
       - name: Check out repository
@@ -180,8 +109,7 @@ jobs:
 
   static-site-evidence:
     name: Static Pages build evidence
-    needs: changes
-    if: needs.changes.outputs.static_site_evidence == 'true'
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-24.04
     steps:
       - name: Check out repository

@@ -1,0 +1,840 @@
+{
+  "$schema": "https://caatuu.org/schemas/development/naturalization-nucleus.preview.v2.json",
+  "schemaVersion": 2,
+  "courseId": "ar",
+  "gameId": "naturalization-nucleus",
+  "contentId": "naturalization-nucleus.arabic-starter-v1",
+  "title": "Naturalization Nucleus",
+  "instructions": "Match each whole Arabic word with its Latin reading. Each match joins the two scripts and plays the Arabic word.",
+  "notation": {
+    "system": "arabic-learning-romanization-v1",
+    "help": "Reading key: ā, ī, ū are long vowels; sh as in ship, th as in thin, dh as in this; kh and gh are throat sounds. ḥ is a deeper h; ṣ, ḍ, ṭ, ẓ are emphatic sounds; ʿ marks ʿayn and ʾ a glottal stop. Doubled consonants are held longer. These are isolated verb readings with their written endings. Use the Arabic audio too. Readings await native review."
+  },
+  "roundSettings": {
+    "pieceCounts": [
+      5,
+      9
+    ],
+    "defaultPieceCount": 5,
+    "artwork": [
+      "/assets/ships/ship%20(1).png",
+      "/assets/ships/ship%20(2).png",
+      "/assets/ships/ship%20(3).png",
+      "/assets/ships/ship%20(4).png",
+      "/assets/ships/ship%20(5).png",
+      "/assets/ships/ship%20(6).png",
+      "/assets/ships/ship%20(7).png",
+      "/assets/ships/ship%20(8).png",
+      "/assets/ships/ship%20(9).png",
+      "/assets/ships/ship%20(10).png",
+      "/assets/ships/ship%20(11).png",
+      "/assets/ships/ship%20(12).png",
+      "/assets/ships/ship%20(13).png",
+      "/assets/ships/ship%20(14).png",
+      "/assets/ships/ship%20(15).png",
+      "/assets/ships/ship%20(16).png",
+      "/assets/ships/ship%20(17).png",
+      "/assets/ships/ship%20(18).png",
+      "/assets/ships/ship%20(19).png",
+      "/assets/ships/ship%20(20).png",
+      "/assets/ships/ship%20(21).png",
+      "/assets/ships/ship%20(22).png",
+      "/assets/ships/ship%20(23).png",
+      "/assets/ships/ship%20(24).png",
+      "/assets/ships/ship%20(25).png",
+      "/assets/ships/ship%20(26).png",
+      "/assets/ships/ship%20(27).png",
+      "/assets/ships/ship%20(28).png"
+    ]
+  },
+  "status": "machine-assisted-preview",
+  "derivedFrom": "data/games/verb-nebula/content.json",
+  "review": {
+    "status": "native-review-required",
+    "reviewer": null,
+    "reviewedAt": null,
+    "notes": "Latin readings were individually authored for the existing vowel-marked Arabic citation verbs. The notation uses scholarly consonant and long-vowel symbols, retains written verb endings, and omits initial hamza. Qualified native Arabic reading and audible speech review remain pending."
+  },
+  "challenges": [
+    {
+      "id": "ar.reading.v0001",
+      "target": "كَانَ",
+      "reading": "kāna",
+      "translation": "be (past)",
+      "englishAuditText": "be (past)",
+      "sourceItemIds": [
+        "ar.verb.v0001"
+      ],
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 18
+    },
+    {
+      "id": "ar.reading.v0002",
+      "target": "أَصْبَحَ",
+      "reading": "aṣbaḥa",
+      "translation": "become",
+      "englishAuditText": "become",
+      "sourceItemIds": [
+        "ar.verb.v0002"
+      ],
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 18
+    },
+    {
+      "id": "ar.reading.v0003",
+      "target": "أَرَادَ",
+      "reading": "arāda",
+      "translation": "want",
+      "englishAuditText": "want",
+      "sourceItemIds": [
+        "ar.verb.v0003"
+      ],
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 18
+    },
+    {
+      "id": "ar.reading.v0004",
+      "target": "احْتَاجَ",
+      "reading": "iḥtāja",
+      "translation": "need",
+      "englishAuditText": "need",
+      "sourceItemIds": [
+        "ar.verb.v0004"
+      ],
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 18
+    },
+    {
+      "id": "ar.reading.v0005",
+      "target": "مَلَكَ",
+      "reading": "malaka",
+      "translation": "own",
+      "englishAuditText": "own",
+      "sourceItemIds": [
+        "ar.verb.v0005"
+      ],
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 18
+    },
+    {
+      "id": "ar.reading.v0006",
+      "target": "فَعَلَ",
+      "reading": "faʿala",
+      "translation": "do",
+      "englishAuditText": "do",
+      "sourceItemIds": [
+        "ar.verb.v0006"
+      ],
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 18
+    },
+    {
+      "id": "ar.reading.v0007",
+      "target": "ذَهَبَ",
+      "reading": "dhahaba",
+      "translation": "go",
+      "englishAuditText": "go",
+      "sourceItemIds": [
+        "ar.verb.v0007"
+      ],
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 18
+    },
+    {
+      "id": "ar.reading.v0008",
+      "target": "جَاءَ",
+      "reading": "jāʾa",
+      "translation": "come",
+      "englishAuditText": "come",
+      "sourceItemIds": [
+        "ar.verb.v0008"
+      ],
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 18
+    },
+    {
+      "id": "ar.reading.v0009",
+      "target": "عَادَ",
+      "reading": "ʿāda",
+      "translation": "return",
+      "englishAuditText": "return",
+      "sourceItemIds": [
+        "ar.verb.v0009"
+      ],
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 18
+    },
+    {
+      "id": "ar.reading.v0010",
+      "target": "غَادَرَ",
+      "reading": "ghādara",
+      "translation": "leave",
+      "englishAuditText": "leave",
+      "sourceItemIds": [
+        "ar.verb.v0010"
+      ],
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 18
+    },
+    {
+      "id": "ar.reading.v0011",
+      "target": "دَخَلَ",
+      "reading": "dakhala",
+      "translation": "enter",
+      "englishAuditText": "enter",
+      "sourceItemIds": [
+        "ar.verb.v0011"
+      ],
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 18
+    },
+    {
+      "id": "ar.reading.v0012",
+      "target": "خَرَجَ",
+      "reading": "kharaja",
+      "translation": "exit",
+      "englishAuditText": "exit",
+      "sourceItemIds": [
+        "ar.verb.v0012"
+      ],
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 18
+    },
+    {
+      "id": "ar.reading.v0013",
+      "target": "وَصَلَ",
+      "reading": "waṣala",
+      "translation": "arrive",
+      "englishAuditText": "arrive",
+      "sourceItemIds": [
+        "ar.verb.v0013"
+      ],
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 18
+    },
+    {
+      "id": "ar.reading.v0014",
+      "target": "سَافَرَ",
+      "reading": "sāfara",
+      "translation": "travel",
+      "englishAuditText": "travel",
+      "sourceItemIds": [
+        "ar.verb.v0014"
+      ],
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 18
+    },
+    {
+      "id": "ar.reading.v0015",
+      "target": "مَشَى",
+      "reading": "mashā",
+      "translation": "walk",
+      "englishAuditText": "walk",
+      "sourceItemIds": [
+        "ar.verb.v0015"
+      ],
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 18
+    },
+    {
+      "id": "ar.reading.v0016",
+      "target": "رَكَضَ",
+      "reading": "rakaḍa",
+      "translation": "run",
+      "englishAuditText": "run",
+      "sourceItemIds": [
+        "ar.verb.v0016"
+      ],
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 18
+    },
+    {
+      "id": "ar.reading.v0017",
+      "target": "جَلَسَ",
+      "reading": "jalasa",
+      "translation": "sit",
+      "englishAuditText": "sit",
+      "sourceItemIds": [
+        "ar.verb.v0017"
+      ],
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 18
+    },
+    {
+      "id": "ar.reading.v0018",
+      "target": "وَقَفَ",
+      "reading": "waqafa",
+      "translation": "stand",
+      "englishAuditText": "stand",
+      "sourceItemIds": [
+        "ar.verb.v0018"
+      ],
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 18
+    },
+    {
+      "id": "ar.reading.v0019",
+      "target": "نَامَ",
+      "reading": "nāma",
+      "translation": "sleep",
+      "englishAuditText": "sleep",
+      "sourceItemIds": [
+        "ar.verb.v0019"
+      ],
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 18
+    },
+    {
+      "id": "ar.reading.v0020",
+      "target": "اسْتَيْقَظَ",
+      "reading": "istayqaẓa",
+      "translation": "wake up",
+      "englishAuditText": "wake up",
+      "sourceItemIds": [
+        "ar.verb.v0020"
+      ],
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 18
+    },
+    {
+      "id": "ar.reading.v0151",
+      "target": "أَخْبَرَ",
+      "reading": "akhbara",
+      "translation": "tell",
+      "englishAuditText": "tell",
+      "sourceItemIds": [
+        "ar.verb.v0151"
+      ],
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 34
+    },
+    {
+      "id": "ar.reading.v0152",
+      "target": "أَعْلَنَ",
+      "reading": "aʿlana",
+      "translation": "announce",
+      "englishAuditText": "announce",
+      "sourceItemIds": [
+        "ar.verb.v0152"
+      ],
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 34
+    },
+    {
+      "id": "ar.reading.v0153",
+      "target": "ذَكَرَ",
+      "reading": "dhakara",
+      "translation": "mention",
+      "englishAuditText": "mention",
+      "sourceItemIds": [
+        "ar.verb.v0153"
+      ],
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 34
+    },
+    {
+      "id": "ar.reading.v0154",
+      "target": "وَصَفَ",
+      "reading": "waṣafa",
+      "translation": "describe",
+      "englishAuditText": "describe",
+      "sourceItemIds": [
+        "ar.verb.v0154"
+      ],
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 34
+    },
+    {
+      "id": "ar.reading.v0155",
+      "target": "نَاقَشَ",
+      "reading": "nāqasha",
+      "translation": "discuss",
+      "englishAuditText": "discuss",
+      "sourceItemIds": [
+        "ar.verb.v0155"
+      ],
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 34
+    },
+    {
+      "id": "ar.reading.v0156",
+      "target": "اقْتَرَحَ",
+      "reading": "iqtaraḥa",
+      "translation": "suggest",
+      "englishAuditText": "suggest",
+      "sourceItemIds": [
+        "ar.verb.v0156"
+      ],
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 34
+    },
+    {
+      "id": "ar.reading.v0157",
+      "target": "نَصَحَ",
+      "reading": "naṣaḥa",
+      "translation": "advise",
+      "englishAuditText": "advise",
+      "sourceItemIds": [
+        "ar.verb.v0157"
+      ],
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 34
+    },
+    {
+      "id": "ar.reading.v0158",
+      "target": "أَوْصَى",
+      "reading": "awṣā",
+      "translation": "recommend",
+      "englishAuditText": "recommend",
+      "sourceItemIds": [
+        "ar.verb.v0158"
+      ],
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 34
+    },
+    {
+      "id": "ar.reading.v0159",
+      "target": "الْتَمَسَ",
+      "reading": "iltamasa",
+      "translation": "request formally",
+      "englishAuditText": "request formally",
+      "sourceItemIds": [
+        "ar.verb.v0159"
+      ],
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 34
+    },
+    {
+      "id": "ar.reading.v0160",
+      "target": "وَعَدَ",
+      "reading": "waʿada",
+      "translation": "promise",
+      "englishAuditText": "promise",
+      "sourceItemIds": [
+        "ar.verb.v0160"
+      ],
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 34
+    },
+    {
+      "id": "ar.reading.v0161",
+      "target": "حَذَّرَ",
+      "reading": "ḥadhdhara",
+      "translation": "warn",
+      "englishAuditText": "warn",
+      "sourceItemIds": [
+        "ar.verb.v0161"
+      ],
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 34
+    },
+    {
+      "id": "ar.reading.v0162",
+      "target": "ذَكَّرَ",
+      "reading": "dhakkara",
+      "translation": "remind",
+      "englishAuditText": "remind",
+      "sourceItemIds": [
+        "ar.verb.v0162"
+      ],
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 34
+    },
+    {
+      "id": "ar.reading.v0163",
+      "target": "أَقْنَعَ",
+      "reading": "aqnaʿa",
+      "translation": "persuade",
+      "englishAuditText": "persuade",
+      "sourceItemIds": [
+        "ar.verb.v0163"
+      ],
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 34
+    },
+    {
+      "id": "ar.reading.v0164",
+      "target": "اقْتَنَعَ",
+      "reading": "iqtanaʿa",
+      "translation": "convince oneself",
+      "englishAuditText": "convince oneself",
+      "sourceItemIds": [
+        "ar.verb.v0164"
+      ],
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 34
+    },
+    {
+      "id": "ar.reading.v0165",
+      "target": "أَنْكَرَ",
+      "reading": "ankara",
+      "translation": "deny",
+      "englishAuditText": "deny",
+      "sourceItemIds": [
+        "ar.verb.v0165"
+      ],
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 34
+    },
+    {
+      "id": "ar.reading.v0166",
+      "target": "اعْتَرَفَ",
+      "reading": "iʿtarafa",
+      "translation": "admit",
+      "englishAuditText": "admit",
+      "sourceItemIds": [
+        "ar.verb.v0166"
+      ],
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 34
+    },
+    {
+      "id": "ar.reading.v0167",
+      "target": "ادَّعَى",
+      "reading": "iddaʿā",
+      "translation": "claim",
+      "englishAuditText": "claim",
+      "sourceItemIds": [
+        "ar.verb.v0167"
+      ],
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 34
+    },
+    {
+      "id": "ar.reading.v0168",
+      "target": "أَكَّدَ",
+      "reading": "akkada",
+      "translation": "confirm",
+      "englishAuditText": "confirm",
+      "sourceItemIds": [
+        "ar.verb.v0168"
+      ],
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 34
+    },
+    {
+      "id": "ar.reading.v0169",
+      "target": "أَوْضَحَ",
+      "reading": "awḍaḥa",
+      "translation": "clarify",
+      "englishAuditText": "clarify",
+      "sourceItemIds": [
+        "ar.verb.v0169"
+      ],
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 34
+    },
+    {
+      "id": "ar.reading.v0170",
+      "target": "لَخَّصَ",
+      "reading": "lakhkhaṣa",
+      "translation": "summarize",
+      "englishAuditText": "summarize",
+      "sourceItemIds": [
+        "ar.verb.v0170"
+      ],
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 34
+    },
+    {
+      "id": "ar.reading.v0451",
+      "target": "اسْتَنْتَجَ",
+      "reading": "istantaja",
+      "translation": "infer",
+      "englishAuditText": "infer",
+      "sourceItemIds": [
+        "ar.verb.v0451"
+      ],
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 55
+    },
+    {
+      "id": "ar.reading.v0452",
+      "target": "اسْتَخْلَصَ",
+      "reading": "istakhlaṣa",
+      "translation": "extract",
+      "englishAuditText": "extract",
+      "sourceItemIds": [
+        "ar.verb.v0452"
+      ],
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 55
+    },
+    {
+      "id": "ar.reading.v0453",
+      "target": "اسْتَوْعَبَ",
+      "reading": "istawʿaba",
+      "translation": "assimilate",
+      "englishAuditText": "assimilate",
+      "sourceItemIds": [
+        "ar.verb.v0453"
+      ],
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 55
+    },
+    {
+      "id": "ar.reading.v0454",
+      "target": "اسْتَكْشَفَ",
+      "reading": "istakshafa",
+      "translation": "explore",
+      "englishAuditText": "explore",
+      "sourceItemIds": [
+        "ar.verb.v0454"
+      ],
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 55
+    },
+    {
+      "id": "ar.reading.v0455",
+      "target": "اسْتَعْرَضَ",
+      "reading": "istaʿraḍa",
+      "translation": "survey",
+      "englishAuditText": "survey",
+      "sourceItemIds": [
+        "ar.verb.v0455"
+      ],
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 55
+    },
+    {
+      "id": "ar.reading.v0456",
+      "target": "اسْتَبْعَدَ",
+      "reading": "istabʿada",
+      "translation": "exclude",
+      "englishAuditText": "exclude",
+      "sourceItemIds": [
+        "ar.verb.v0456"
+      ],
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 55
+    },
+    {
+      "id": "ar.reading.v0457",
+      "target": "افْتَرَضَ",
+      "reading": "iftaraḍa",
+      "translation": "assume",
+      "englishAuditText": "assume",
+      "sourceItemIds": [
+        "ar.verb.v0457"
+      ],
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 55
+    },
+    {
+      "id": "ar.reading.v0458",
+      "target": "بَرْهَنَ",
+      "reading": "barhana",
+      "translation": "prove",
+      "englishAuditText": "prove",
+      "sourceItemIds": [
+        "ar.verb.v0458"
+      ],
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 55
+    },
+    {
+      "id": "ar.reading.v0459",
+      "target": "أَثْبَتَ",
+      "reading": "athbata",
+      "translation": "establish",
+      "englishAuditText": "establish",
+      "sourceItemIds": [
+        "ar.verb.v0459"
+      ],
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 55
+    },
+    {
+      "id": "ar.reading.v0460",
+      "target": "نَفَى",
+      "reading": "nafā",
+      "translation": "negate",
+      "englishAuditText": "negate",
+      "sourceItemIds": [
+        "ar.verb.v0460"
+      ],
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 55
+    },
+    {
+      "id": "ar.reading.v0461",
+      "target": "فَسَّرَ",
+      "reading": "fassara",
+      "translation": "interpret",
+      "englishAuditText": "interpret",
+      "sourceItemIds": [
+        "ar.verb.v0461"
+      ],
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 55
+    },
+    {
+      "id": "ar.reading.v0462",
+      "target": "بَرَّرَ",
+      "reading": "barrara",
+      "translation": "justify",
+      "englishAuditText": "justify",
+      "sourceItemIds": [
+        "ar.verb.v0462"
+      ],
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 55
+    },
+    {
+      "id": "ar.reading.v0463",
+      "target": "عَلَّلَ",
+      "reading": "ʿallala",
+      "translation": "give a reason",
+      "englishAuditText": "give a reason",
+      "sourceItemIds": [
+        "ar.verb.v0463"
+      ],
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 55
+    },
+    {
+      "id": "ar.reading.v0464",
+      "target": "اسْتَدَلَّ",
+      "reading": "istadalla",
+      "translation": "deduce from evidence",
+      "englishAuditText": "deduce from evidence",
+      "sourceItemIds": [
+        "ar.verb.v0464"
+      ],
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 55
+    },
+    {
+      "id": "ar.reading.v0465",
+      "target": "تَأَمَّلَ",
+      "reading": "taʾammala",
+      "translation": "contemplate",
+      "englishAuditText": "contemplate",
+      "sourceItemIds": [
+        "ar.verb.v0465"
+      ],
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 55
+    },
+    {
+      "id": "ar.reading.v0466",
+      "target": "تَخَيَّلَ",
+      "reading": "takhayyala",
+      "translation": "imagine",
+      "englishAuditText": "imagine",
+      "sourceItemIds": [
+        "ar.verb.v0466"
+      ],
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 55
+    },
+    {
+      "id": "ar.reading.v0467",
+      "target": "تَصَوَّرَ",
+      "reading": "taṣawwara",
+      "translation": "picture mentally",
+      "englishAuditText": "picture mentally",
+      "sourceItemIds": [
+        "ar.verb.v0467"
+      ],
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 55
+    },
+    {
+      "id": "ar.reading.v0468",
+      "target": "أَدْرَكَ",
+      "reading": "adraka",
+      "translation": "recognize mentally",
+      "englishAuditText": "recognize mentally",
+      "sourceItemIds": [
+        "ar.verb.v0468"
+      ],
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 55
+    },
+    {
+      "id": "ar.reading.v0469",
+      "target": "مَيَّزَ",
+      "reading": "mayyaza",
+      "translation": "distinguish",
+      "englishAuditText": "distinguish",
+      "sourceItemIds": [
+        "ar.verb.v0469"
+      ],
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 55
+    },
+    {
+      "id": "ar.reading.v0470",
+      "target": "حَدَّدَ",
+      "reading": "ḥaddada",
+      "translation": "identify",
+      "englishAuditText": "identify",
+      "sourceItemIds": [
+        "ar.verb.v0470"
+      ],
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 55
+    }
+  ]
+}

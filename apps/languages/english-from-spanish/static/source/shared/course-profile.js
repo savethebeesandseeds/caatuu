@@ -426,6 +426,9 @@
                 grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-1",
                 grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1"
               },
+              "naturalization-nucleus": {
+                naturalizationNucleusCatalog: "data/games/naturalization-nucleus/content.json?v=arabic-reading-starter-1"
+              },
               "sound-quasar": {
                 soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-content-1"
               }

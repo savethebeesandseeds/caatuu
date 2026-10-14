@@ -268,10 +268,10 @@ The routine entrypoint orchestrates both operations with one command:
 pwsh -NoProfile -File apps/android/tooling/release-android.ps1
 ```
 
-For a new build it first waits for successful Repository CI on the exact `main`
-source commit. The wait is bounded to 15 minutes and uses the existing run;
-failed or missing checks stop before Gradle. Finalized receipt-only retries skip
-the source gate and build. The native orchestration suite tests both paths.
+For a new build the publisher requires clean, pushed `main` and runs its focused
+local source preflight before Gradle. The wrapper does not wait for remote
+Repository CI or the full review suite. Finalized receipt-only retries skip
+source tests and building while retaining receipt/artifact verification.
 
 When a finalized receipt already exists for the declared version, the wrapper
 skips the build operation and resumes receipt-only deployment. The two
@@ -294,8 +294,13 @@ docker exec -w /workspace caatuu-dev \
 That command performs at most one Android build.
 Before signing, the publisher runs focused Android safety contracts and the
 content release validator. Full fixture builds and website export tests belong
-to source CI, not every APK publication. The real asset compiler and final
+to separate full reviews. The real asset compiler and final
 archive audit still enforce package capabilities and source/asset integrity.
+The fixed preflight list uses `learning-goals-projection.test.mjs` for authored
+topic coverage; repeated full-catalog mutation checks stay outside publication.
+Ordinary Repository CI pushes check repository file policy and Markdown links.
+Its manual workflow dispatch runs the full diagnostic suite independently of
+Android publication. Run focused tests for the changed behavior before release.
 The publisher can reuse a fresh builder's full archive audit only within the
 same invocation, using a private challenge bound to pre-audit APK/AAB and optional setup archive hashes,
 the sealed receipt, clean source revision and verifier/launcher identities.
@@ -370,7 +375,7 @@ Short allowlisted network reads have three attempts at most, a 60-second
 per-attempt limit and 2/4-second backoff. Permanent/authentication/certificate
 errors stop. Uploads, finalization and dispatch are never blindly repeated:
 uncertain responses require exact server-state reconciliation. The native
-PowerShell failure/resume and retry suites run in source CI without real
+PowerShell failure/resume and retry suites run in full reviews without real
 builds or publication; commands and coverage are in the runbook.
 The compatibility transition remains the frozen version 161 artifact; never
 build a new transition for each stable release.

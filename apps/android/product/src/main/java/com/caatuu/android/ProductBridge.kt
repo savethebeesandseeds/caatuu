@@ -130,7 +130,7 @@ class ProductBridge(
                     "speech_status" -> speechStatus(id, request, runtime)
                     "speech_speak" -> speakSpeech(id, request, runtime)
                     "speech_stop" -> stopSpeech(id, runtime)
-                    "speech_install_data" -> installSpeechData(id, runtime)
+                    "speech_install_data" -> installSpeechData(id, request, runtime)
                     "delete_local_pack" -> deleteLocalPack(id, runtime)
                     "clear_cache" -> clearCache(id, runtime)
                     "update_app_status" -> emitDone(id, appUpdateManager.statusJson())
@@ -598,16 +598,18 @@ class ProductBridge(
         )
     }
 
-    private fun installSpeechData(id: String, runtime: ProductCourseRuntime) {
+    private fun installSpeechData(id: String, request: JSONObject, runtime: ProductCourseRuntime) {
         val manager = requireSpeechManager(runtime)
         val candidates = mutableListOf<Intent>()
-        manager.defaultEnginePackageName()
-            .takeIf { it.isNotBlank() }
-            ?.let { enginePackage ->
-                candidates += Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA)
-                    .setPackage(enginePackage)
-            }
-        candidates += Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA)
+        if (!request.optBoolean("settingsOnly", false)) {
+            manager.defaultEnginePackageName()
+                .takeIf { it.isNotBlank() }
+                ?.let { enginePackage ->
+                    candidates += Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA)
+                        .setPackage(enginePackage)
+                }
+            candidates += Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA)
+        }
         candidates += Intent(ACTION_TEXT_TO_SPEECH_SETTINGS)
         candidates += Intent(Settings.ACTION_VOICE_INPUT_SETTINGS)
         candidates += Intent(Settings.ACTION_SETTINGS)

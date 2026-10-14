@@ -49,9 +49,59 @@ export function mountRobotLoadingScreen({ container, label, active = true } = {}
   let destroyed = false;
   let elapsed = 0;
   let runningSince = null;
+  let visibleCycles = 0;
+  let shown = !container.hidden;
+  let announced = false;
+  let hideRequested = false;
+  let visibilityRequest = 0;
+  const gates = new Map();
   const pending = new Set();
   const now = () => view.performance?.now?.() ?? Date.now();
   const visibleTime = () => elapsed + (runningSince === null ? 0 : Math.max(0, now() - runningSince));
+  function registerGate(value) {
+    if (!value || typeof value.then !== "function" || gates.has(value)) return;
+    let release;
+    const waiting = new Promise((resolve) => { release = resolve; });
+    const gate = { waiting, release: () => {
+      if (gates.get(value) !== gate) return;
+      gates.delete(value);
+      release();
+    } };
+    gates.set(value, gate);
+    // Presentation failures must release the underlying game transition too.
+    Promise.resolve(value).then(gate.release, gate.release);
+  }
+  function notifyTransition(phase) {
+    // The shared shell may hold a transition for a queued reward. Games without
+    // that owner retain their existing timing and visibility behavior.
+    let shell;
+    try {
+      if (view.CaatuuGameDynamics) shell = view;
+      else if (view.parent && view.parent !== view
+          && view.parent.location.origin === view.location.origin && view.parent.CaatuuGameDynamics) shell = view.parent;
+    } catch { return; }
+    if (!shell || typeof shell.CustomEvent !== "function" || typeof shell.dispatchEvent !== "function") return;
+    let acceptingWaits = phase !== "destroy";
+    const detail = {
+      content: container.closest?.("[data-train-panel]")
+        || view.frameElement?.closest?.("[data-train-panel]") || null,
+      container, sourceWindow: view, phase, active: Boolean(active), initial: visibleCycles === 0,
+      waitUntil(value) { if (acceptingWaits && !destroyed) registerGate(value); }
+    };
+    try { shell.dispatchEvent(new shell.CustomEvent("caatuu:challenge-transition", { detail })); }
+    finally { acceptingWaits = false; }
+  }
+  function waitForGates() {
+    if (!gates.size || destroyed) return Promise.resolve();
+    return Promise.all([...gates.values()].map((gate) => gate.waiting)).then(waitForGates);
+  }
+  function hideNow() {
+    container.hidden = true;
+    if (shown) visibleCycles += 1;
+    shown = false;
+    announced = false;
+    sync();
+  }
   function finish(wait) {
     view.clearTimeout(wait.timer);
     if (pending.delete(wait)) wait.resolve();
@@ -72,17 +122,30 @@ export function mountRobotLoadingScreen({ container, label, active = true } = {}
   return Object.freeze({
     show() {
       if (destroyed) return;
+      visibilityRequest += 1;
+      if (hideRequested) announced = false;
+      hideRequested = false;
       if (container.hidden) {
         elapsed = 0;
         runningSince = null;
         container.hidden = false;
       }
+      shown = true;
       sync();
+      if (!announced) {
+        announced = true;
+        notifyTransition("show");
+      }
     },
     hide() {
-      if (destroyed) return;
-      container.hidden = true;
-      sync();
+      if (destroyed || hideRequested || !shown) return;
+      hideRequested = true;
+      const request = ++visibilityRequest;
+      notifyTransition("hide");
+      if (!gates.size) hideNow();
+      else void waitForGates().then(() => {
+        if (!destroyed && hideRequested && visibilityRequest === request) hideNow();
+      });
     },
     setActive(value) {
       if (destroyed) return;
@@ -91,15 +154,20 @@ export function mountRobotLoadingScreen({ container, label, active = true } = {}
     },
     minimumVisible(milliseconds) {
       if (destroyed || container.hidden) return Promise.resolve();
+      notifyTransition("hold");
       const duration = Number.isFinite(milliseconds) ? Math.max(0, milliseconds) : 0;
-      return new Promise((resolve) => {
+      const visible = new Promise((resolve) => {
         pending.add({ duration, resolve, timer: null });
         sync();
       });
+      return gates.size ? Promise.all([visible, waitForGates()]).then(() => {}) : visible;
     },
     destroy() {
       if (destroyed) return;
+      notifyTransition("destroy");
       destroyed = true;
+      visibilityRequest += 1;
+      for (const gate of gates.values()) gate.release();
       container.hidden = true;
       sync();
     }
@@ -107,7 +175,7 @@ export function mountRobotLoadingScreen({ container, label, active = true } = {}
 }
 
 export function mountEmbeddedGameControls({ container, shell, course, onLayoutChange, settings,
-  illustrations, challenge, onOpenChange, autoplay = false } = {}) {
+  illustrations, challenge, readingGuide, onOpenChange, autoplay = false } = {}) {
   const document = container?.ownerDocument;
   const api = shell?.CaatuuChrome;
   const i18n = shell?.CaatuuI18n;
@@ -160,6 +228,11 @@ export function mountEmbeddedGameControls({ container, shell, course, onLayoutCh
     target?.addEventListener?.(type, handler, options);
     disposers.push(() => target?.removeEventListener?.(type, handler, options));
   }
+  // Iframe gestures do not bubble into the shell. The shared controls forward
+  // trusted user activation to its single reward sound owner.
+  listen(document, "pointerdown", event => shell.CaatuuGameDynamics?.unlockSound?.(event), true);
+  listen(document, "pointerup", event => shell.CaatuuGameDynamics?.unlockSound?.(event), true);
+  listen(document, "keydown", event => shell.CaatuuGameDynamics?.unlockSound?.(event), true);
   const root = node("div", "caatuu-game-controls");
   root.setAttribute("role", "group");
   root.setAttribute("aria-label", t("common.game.controls"));
@@ -278,6 +351,7 @@ export function mountEmbeddedGameControls({ container, shell, course, onLayoutCh
   }
 
   const display = createMenu("common.display.settings", imageIcon("/assets/icons/dark_mode_ui.png"));
+  readingGuide?.mountSetting?.(display);
   const themes = group(display, "common.theme");
   ["light", "dark"].forEach((value) => option(themes, `common.${value}`, value,
     (selected) => api.applyTheme(selected), themeButtons, imageIcon(`/assets/icons/${value}_mode_ui.png`)));

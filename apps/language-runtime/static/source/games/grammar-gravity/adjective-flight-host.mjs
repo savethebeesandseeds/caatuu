@@ -1,6 +1,6 @@
 import { grammarFeedbackDuration, highlightedFormParts, buildMeaningChoices, validateGrammarFlight, validateGrammarStages } from "./adjective-flight-core.mjs?v=grammar-journey-3";
 import { createNounVisual } from "./noun-visual.mjs?v=noun-visual-4";
-import { createSpeechIcon, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-9";
+import { createSpeechIcon, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-10";
 
 const LANDING_MS = 180;
 const PREVIEW_MS = 4000;
@@ -8,7 +8,7 @@ const FORM_TIME_MULTIPLIER = 2;
 const DURATIONS = [0, 5000, 10000, 15000, 20000];
 
 export function mountGrammarFlight({ document, scope = globalThis, shell, course,
-  onAttempt = () => {}, onComplete = () => {}, copy = (key) => key } = {}) {
+  onAttempt = () => {}, onComplete = () => {}, copy = (key) => key, readingGuide } = {}) {
   const element = (id) => document.getElementById(id);
   const arena = element("gravityAdjectiveArena");
   const drop = element("gravityAdjectiveDrop");
@@ -194,12 +194,23 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
   function formContent(form, ending = false) {
     const { stem, ending: suffix } = highlightedFormParts(form, current().options);
     const fragment = document.createElement("span");
-    fragment.append(stem);
+    const stemText = document.createElement("span");
+    stemText.textContent = stem;
+    fragment.append(stemText);
     const highlight = document.createElement("span");
     highlight.className = ending ? "gravity-adjective-ending" : "gravity-adjective-form-ending";
     highlight.textContent = suffix;
     fragment.append(highlight);
+    readingGuide?.render(fragment, form, /\s/u.test(form) ? {} : { glyphs: Array.from(fragment.childNodes) });
     return fragment;
+  }
+  function renderTarget(host, text) {
+    if (!readingGuide?.render(host, text)) host.textContent = text;
+  }
+  function phraseContent(text) {
+    const phrase = document.createElement("span");
+    renderTarget(phrase, text);
+    return phrase;
   }
   function renderProgress() {
     const progress = element("gravityAdjectiveProgress");
@@ -235,12 +246,12 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     arena.setAttribute("aria-label", copy(step === "meaning" ? "choosemeaning" : step === "category" ? "choosecategory" : "choose", { anchor: flight.anchorText }));
     renderProgress();
     const { stem, ending } = highlightedFormParts(flight.answer, flight.options);
-    prompt.textContent = stem && ending ? `${stem}…` : "…";
+    renderTarget(prompt, stem && ending ? `${stem}…` : "…");
     prompt.setAttribute("aria-label", copy("prompt"));
-    element("gravityAdjectiveNoun").replaceChildren(flight.beforeText, prompt, flight.afterText);
+    element("gravityAdjectiveNoun").replaceChildren(phraseContent(flight.beforeText), prompt, phraseContent(flight.afterText));
     element("gravityAdjectiveMeaning").textContent = flight.learnerBaseText;
     if (step !== "form") {
-      element("gravityAdjectiveNoun").textContent = flight.anchorText;
+      element("gravityAdjectiveNoun").replaceChildren(phraseContent(flight.anchorText));
       element("gravityAdjectiveMeaning").textContent = step === "meaning" ? "" : flight.anchorMeaning;
     }
     const context = element("gravityAdjectiveContext");
@@ -311,10 +322,10 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
       }
     }
     if (step !== "form") {
-      element("gravityAdjectiveNoun").textContent = flight.anchorText;
+      element("gravityAdjectiveNoun").replaceChildren(phraseContent(flight.anchorText));
       element("gravityAdjectiveMeaning").textContent = step === "category" ? `${flight.anchorMeaning} · ${optionLabel(flight.categoryId)}` : flight.anchorMeaning;
     } else {
-      element("gravityAdjectiveNoun").replaceChildren(flight.beforeText, formContent(flight.answer, true), flight.afterText);
+      element("gravityAdjectiveNoun").replaceChildren(phraseContent(flight.beforeText), formContent(flight.answer, true), phraseContent(flight.afterText));
     }
     element("gravityAdjectiveFeedback").textContent = copy(correct ? "correct" : timeout ? "timeout" : step === "meaning" ? "wrongmeaning" : "wrong", {
       phrase: step !== "form" ? `${flight.anchorText} · ${optionLabel(answerText())}` : flight.targetText
@@ -340,7 +351,7 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     const label = element("gravityAdjectivePreviewLabel");
     label.hidden = true;
     label.textContent = "";
-    element("gravityAdjectiveNoun").replaceChildren(flight.beforeText, formContent(flight.answer, true), flight.afterText);
+    element("gravityAdjectiveNoun").replaceChildren(phraseContent(flight.beforeText), formContent(flight.answer, true), phraseContent(flight.afterText));
     element("gravityAdjectiveMeaning").textContent = flight.learnerBaseText;
     const category = steps.includes("category") ? flight.categoryOptions.find(({ id }) => id === flight.categoryId).label : "";
     const context = element("gravityAdjectiveContext");

@@ -4,6 +4,7 @@
   const runtime = window.CaatuuRuntime;
   const maxLogEntries = 36;
   let setupRunning = false;
+  let setupGeneration = 0;
   let setupAborted = false;
   let nativeSetupActive = false;
   let setupComplete = false;
@@ -1142,10 +1143,12 @@
     }
   }
 
-  async function renderStatus(status, message = "") {
+  async function renderStatus(status, message = "", isCurrent = () => true) {
     document.body.classList.remove("choosing-setup-language");
     await waitForShellControlsBeforeReady(status);
+    if (!isCurrent()) return;
     await preloadBackpackStatsBeforeReady(status);
+    if (!isCurrent()) return;
     syncArtifactState(status);
     const ready = Boolean(status?.ready) && totalReady();
     setupComplete = ready;
@@ -1301,13 +1304,14 @@
     setControls();
   }
 
-  async function runStoragePreflight() {
+  async function runStoragePreflight(generation) {
     if (!runtime?.setup?.preflight) return true;
     setText("#setupPhase", phaseText("verify"));
     setText("#setupMessage", stableSetupMessage);
     pushLog("status", "Storage check started", "Checking free space before downloads.");
 
     const preflight = await runtime.setup.preflight();
+    if (generation !== setupGeneration) return false;
     lastStoragePreflight = preflight;
     if (preflight?.ok === false) {
       const message = preflight.message ||
@@ -1402,6 +1406,8 @@
 
   async function startSetup() {
     if (setupRunning || updateRunning) return;
+    const generation = ++setupGeneration;
+    const isCurrent = () => generation === setupGeneration;
     clearSetupStatusPoll();
     setupRunning = true;
     setupAborted = false;
@@ -1417,19 +1423,22 @@
     pushLog("status", "Setup started", setupMode === "browser" ? "Caching browser files." : "Preparing local app storage.");
 
     try {
-      const storageOk = await runStoragePreflight();
-      if (!storageOk) return;
-      const result = await runtime.setup.start({ onEvent: renderSetupEvent });
+      const storageOk = await runStoragePreflight(generation);
+      if (!isCurrent() || !storageOk) return;
+      const result = await runtime.setup.start({ onEvent(event) {
+        if (isCurrent()) renderSetupEvent(event);
+      } });
+      if (!isCurrent()) return;
       setupRunning = false;
       setupAborted = false;
       if (result?.setupActive && !result?.ready) {
-        await renderStatus(result, "Setup is already running. Caatuu will recheck the local files.");
-        scheduleSetupStatusPoll();
+        await renderStatus(result, "Setup is already running. Caatuu will recheck the local files.", isCurrent);
+        if (isCurrent()) scheduleSetupStatusPoll();
         return;
       }
-      await renderStatus(result, "Ready.");
+      await renderStatus(result, "Ready.", isCurrent);
     } catch (error) {
-      if (updateRunning) return;
+      if (!isCurrent() || updateRunning) return;
       const message = setupAborted || error?.name === "AbortError"
         ? "Setup aborted. Completed files stay verified; interrupted downloads can be started again."
         : error?.message || String(error);
@@ -1439,6 +1448,7 @@
 
   async function abortSetup() {
     if (!setupRunning && !nativeSetupActive) return;
+    const generation = ++setupGeneration;
     clearSetupStatusPoll();
     setupAborted = true;
     pushLog("status", "Abort requested", "Stopping setup so you can update or retry.");
@@ -1448,12 +1458,15 @@
 
     try {
       const result = await runtime.setup.abort();
+      if (generation !== setupGeneration) return;
       nativeSetupActive = false;
       const status = artifactRows(result).length ? result : await runtime.setup.status();
+      if (generation !== setupGeneration) return;
       syncArtifactState(status);
       const scope = setupMode === "browser" ? "Browser setup" : "Android setup";
       stopSetupUi(`${scope} stopped. Active downloads were cancelled.`);
     } catch (error) {
+      if (generation !== setupGeneration) return;
       stopSetupUi(error?.message || "Setup abort did not finish cleanly.");
     }
   }

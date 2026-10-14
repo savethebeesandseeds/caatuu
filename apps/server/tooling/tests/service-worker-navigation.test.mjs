@@ -118,6 +118,41 @@ async function fetchThroughWorker(worker, request, config) {
   return response;
 }
 
+test("a restarted worker retries its catalog after a temporary failure with no cached copy", async () => {
+  const catalogUrl = "https://caatuu.test/zh/setup-assets.json";
+  const catalog = {
+    application: { entryPath: "/zh/index.html", appEntry: "apps/language-runtime/static/app/index.html" },
+    offline: { cacheName: "caatuu-zh-hans-pwa-v17", cachePrefix: "caatuu-zh-hans-pwa-", assets: [] }
+  };
+  let catalogRequests = 0;
+  const worker = serviceWorkerContext({
+    fetchImplementation: async (request) => {
+      if (request === catalogUrl) {
+        catalogRequests += 1;
+        if (catalogRequests === 1) throw new Error("temporary catalog failure");
+        return new Response(JSON.stringify(catalog));
+      }
+      return new Response("recovered script");
+    }
+  });
+  const request = new FakeRequest("https://caatuu.test/language-runtime/static/source/app-bootstrap.mjs", {
+    destination: "script"
+  });
+  const dispatch = () => {
+    let response;
+    worker.handlers.get("fetch")({ request, respondWith(value) { response = value; } });
+    return response;
+  };
+
+  const initial = [dispatch(), dispatch()];
+  await Promise.all(initial.map((response) => assert.rejects(response, /temporary catalog failure/u)));
+  assert.equal(catalogRequests, 1, "Concurrent requests share their initial catalog check");
+  assert.equal(await (await dispatch()).text(), "recovered script");
+  assert.equal(catalogRequests, 2, "The next request retries the catalog once the network recovers");
+  assert.equal(await (await dispatch()).text(), "recovered script");
+  assert.equal(catalogRequests, 2, "A successful catalog remains memoized");
+});
+
 test("verified setup music plays offline with full, bounded, open and suffix byte requests", async () => {
   const url = "https://caatuu.test/assets/music/audio/fixture.mp3";
   for (const [range, status, body, contentRange] of [

@@ -27,9 +27,7 @@
     "data/games/verb-nebula/content.json",
     "data/games/word-world/manifest.json",
     "data/games/word-world/content.json",
-    "data/games/word-world/reading-guides.json",
-    "source/games/naturalization-nucleus/naturalization-nucleus.css",
-    "source/games/naturalization-nucleus/naturalization-nucleus.js"
+    "data/games/word-world/reading-guides.json"
   ],
   "launcherIconFiles": [
     "china_flag.png"

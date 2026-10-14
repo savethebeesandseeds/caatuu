@@ -17,7 +17,7 @@ import { canonicalEnglishInput } from './semantic-cache.mjs';
 export const CORPUS_SCHEMA_VERSION = 1;
 export const CORPUS_ADAPTER_VERSION = 'english-authority-and-static-assessment-units-v1';
 const repositoryRoot = fileURLToPath(new URL('../../../', import.meta.url));
-const NATURALIZATION_SOURCE = 'apps/languages/mandarin-simplified/static/source/games/naturalization-nucleus/naturalization-nucleus.js';
+const NATURALIZATION_SOURCE = 'apps/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.js';
 const IMPLEMENTATION_SOURCES = [
   'tools/learning-evaluation/shared/corpus.mjs',
   'tools/learning-evaluation/shared/semantic-cache.mjs',
@@ -55,7 +55,7 @@ export function englishAuthority(catalog, row) {
     case 'grammar-gravity': fields = kind === 'agreement-example' ? ['englishAuditText'] : []; break;
     case 'grammar-gravity-nouns': fields = ['english']; break;
     case 'sound-quasar': fields = ['englishAuditText']; break;
-    case 'naturalization-nucleus': fields = catalog.course.id === 'zh' && englishBase(catalog.course) ? ['translation'] : []; break;
+    case 'naturalization-nucleus': fields = englishBase(catalog.course) ? ['translation'] : []; break;
     default: throw new Error(`No English authority adapter for ${catalog.game}`);
   }
   const field = fields.find(key => text(item[key]));
@@ -74,7 +74,7 @@ function translations(catalog, row, english) {
     case 'grammar-gravity': targetText = text(item.targetText) || text(item.displayForm) || text(item.focus?.targetText); learnerBaseText = text(item.learnerBaseText); break;
     case 'grammar-gravity-nouns': targetText = text(item.targetText); learnerBaseText = text(item.learnerBaseText); break;
     case 'sound-quasar': targetText = text(item.target); learnerBaseText = text(item.meaning); break;
-    case 'naturalization-nucleus': targetText = text(item.hanzi); learnerBaseText = englishBase(catalog.course) ? text(item.translation) : null; break;
+    case 'naturalization-nucleus': targetText = text(item.target ?? item.hanzi); learnerBaseText = englishBase(catalog.course) ? text(item.translation) : null; break;
   }
   const structural = english.reason === 'structural-record-without-independent-English';
   return { targetText, learnerBaseText, missingTarget: !targetText && !structural, missingLearnerBase: !learnerBaseText && !structural };
@@ -187,7 +187,7 @@ function actualPlayableUnits(catalog, rows, { naturalizationValidator } = {}) {
   } else if (game === 'naturalization-nucleus') {
     normalizer = 'CaatuuNaturalizationNucleus.validateCatalog';
     if (typeof naturalizationValidator !== 'function') throw new Error('The existing Naturalization Nucleus validator must be supplied.');
-    for (const item of naturalizationValidator(document).challenges) add(item, 'character-puzzle', [byItemId.get(item.id)], normalizer);
+    for (const item of naturalizationValidator(document).challenges) add(item, document.schemaVersion === 2 ? 'word-reading-puzzle' : 'character-puzzle', [byItemId.get(item.id)], normalizer);
   } else throw new Error(`Unmapped game ${game}`);
   return { units: output, normalizer };
 }

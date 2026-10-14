@@ -11,14 +11,20 @@ import {
 } from "node:fs";
 import { dirname, isAbsolute, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { syncPracticeProgression } from "./sync-practice-progression.mjs";
 
 import {
+  BUILD_ONLY_COURSE_SERVICE_WORKER_MAPPING,
   browserCourseGameContentClosureIssues,
   browserInterfaceContentClosureIssues,
   browserSetupCacheNamespaceIssues,
   browserSharedRuntimeClosureIssues
 } from "../../../tools/language-packs/lib/browser-shared-runtime-closure.mjs";
-import { loadAndValidateCourseCatalog } from "../../../tools/language-packs/lib/course-contract.mjs";
+import {
+  CourseContractError,
+  loadAndValidateCourseCatalog,
+  loadCourseCatalog
+} from "../../../tools/language-packs/lib/course-contract.mjs";
 
 const scriptPath = fileURLToPath(import.meta.url);
 const defaultWorkspaceRoot = resolve(dirname(scriptPath), "..", "..", "..");
@@ -196,13 +202,40 @@ function validateEmbeddingOfflineContract(course, manifest) {
 function validateBrowserSharedRuntimeOfflineContract({
   course,
   manifest,
-  appAssetCatalogPath
+  appAssetCatalogPath,
+  registerSharedRuntime = false
 }) {
   let appAssetCatalog;
   try {
     appAssetCatalog = JSON.parse(readFileSync(appAssetCatalogPath, "utf8"));
   } catch (error) {
     throw new Error(`Cannot read shared app asset catalog ${appAssetCatalogPath}: ${error.message}`);
+  }
+  const registrations = [];
+  if (registerSharedRuntime) {
+    const issues = browserSharedRuntimeClosureIssues({
+      appAssetCatalog, setupCatalog: manifest, courseId: course.id || "course", routePrefix: course.routePrefix
+    }).filter(({ code }) => code === "browser.shared-runtime-catalog");
+    if (issues.length) throw new Error(issues.map(({ message }) => message).join("\n"));
+    if (!Array.isArray(manifest?.offline?.assets)) {
+      throw new Error("setup-assets.json offline.assets must be an array.");
+    }
+    const base = `https://caatuu.invalid${course.routePrefix.replace(/\/$/u, "")}/`;
+    const cached = new Set(manifest.offline.assets.map((asset) => new URL(asset, base).pathname));
+    for (const mapping of appAssetCatalog.assets) {
+      if (!mapping.source.startsWith("apps/language-runtime/")
+          || !mapping.output.startsWith("language-runtime/")
+          || mapping.source.startsWith("apps/language-runtime/static/data/interface/")
+          || mapping.output.startsWith("language-runtime/static/data/interface/")
+          || mapping.source === BUILD_ONLY_COURSE_SERVICE_WORKER_MAPPING.source
+            && mapping.output === BUILD_ONLY_COURSE_SERVICE_WORKER_MAPPING.output) continue;
+      const pathname = new URL(`/${mapping.output}`, "https://caatuu.invalid/").pathname;
+      if (cached.has(pathname)) continue;
+      const index = manifest.offline.assets.length;
+      manifest.offline.assets.push(pathname);
+      cached.add(pathname);
+      registrations.push({ index, pathname, previousUrl: null, url: pathname });
+    }
   }
   const issues = browserSharedRuntimeClosureIssues({
     appAssetCatalog,
@@ -213,7 +246,7 @@ function validateBrowserSharedRuntimeOfflineContract({
   if (issues.length > 0) {
     throw new Error(issues.map(({ message }) => message).join("\n"));
   }
-  return appAssetCatalog;
+  return { appAssetCatalog, registrations };
 }
 
 function validateCourseGameContentOfflineContract(course, manifest) {
@@ -394,7 +427,8 @@ export function inspectSetupAssetManifest({
   appAssetCatalogPath = join(sharedRuntimeDir, "app-assets.json"),
   courseManifestPath = join(dirname(languageStaticDir), "course.json"),
   languageRoutePrefix,
-  selectorFlagUrls = []
+  selectorFlagUrls = [],
+  registerSharedRuntime = false
 } = {}) {
   const absoluteManifestPath = resolve(manifestPath);
   if (!existsSync(absoluteManifestPath)) {
@@ -417,10 +451,11 @@ export function inspectSetupAssetManifest({
   }
   const applicationChanged = JSON.stringify(manifest.application) !== JSON.stringify(application);
   validateBrowserSetupCacheNamespace(course, manifest);
-  const appAssetCatalog = validateBrowserSharedRuntimeOfflineContract({
+  const { appAssetCatalog, registrations } = validateBrowserSharedRuntimeOfflineContract({
     course,
     manifest,
-    appAssetCatalogPath: resolve(appAssetCatalogPath)
+    appAssetCatalogPath: resolve(appAssetCatalogPath),
+    registerSharedRuntime
   });
   validateOfflineCatalog(manifest, (asset) => {
     const publicUrl = new URL(
@@ -447,13 +482,19 @@ export function inspectSetupAssetManifest({
     throw new Error(interfaceContentIssues.map(({ message }) => message).join("\n"));
   }
   validateCourseGameContentOfflineContract(course, manifest);
-  const offlineAssetChanges = canonicalSharedRuntimeOfflineAssetChanges({
+  const canonicalChanges = canonicalSharedRuntimeOfflineAssetChanges({
     manifest,
     application,
     workspaceRoot: resolve(workspaceRoot),
     appAssetCatalog,
     selectorFlagUrls
   });
+  const offlineByIndex = new Map(registrations.map((change) => [change.index, change]));
+  for (const change of canonicalChanges) {
+    offlineByIndex.set(change.index, { ...change,
+      previousUrl: offlineByIndex.has(change.index) ? null : change.previousUrl });
+  }
+  const offlineAssetChanges = [...offlineByIndex.values()];
   validateDictionaryOfflineContract(course, manifest);
   validateEmbeddingOfflineContract(course, manifest);
   validateServiceWorkerRevision(manifest, languageStaticDir);
@@ -570,12 +611,24 @@ export async function refreshAllBrowserCourseSetupAssets({
   workspaceRoot = defaultWorkspaceRoot,
   catalogPath,
   check = false,
-  loadValidatedCatalog = loadAndValidateCourseCatalog
+  registerSharedRuntime = false,
+  loadValidatedCatalog = loadAndValidateCourseCatalog,
+  syncProgression = loadValidatedCatalog === loadAndValidateCourseCatalog ? syncPracticeProgression : null
 } = {}) {
   const absoluteWorkspaceRoot = resolve(workspaceRoot);
   const loadOptions = { repoRoot: absoluteWorkspaceRoot };
   if (catalogPath) loadOptions.catalogPath = catalogPath;
-  const loaded = await loadValidatedCatalog(loadOptions);
+  let loaded;
+  try { loaded = await loadValidatedCatalog(loadOptions); }
+  catch (error) {
+    // New mapped runtime assets intentionally precede generated course closure.
+    // Permit only those omissions; every other catalog guard remains mandatory.
+    if (!registerSharedRuntime || loadValidatedCatalog !== loadAndValidateCourseCatalog
+        || !(error instanceof CourseContractError) || !error.issues.length
+        || error.issues.some(({ code, message }) => code !== "browser.shared-runtime-package"
+          || !/ setup offline assets omit shared runtime pathname \/language-runtime\//u.test(message))) throw error;
+    loaded = await loadCourseCatalog(loadOptions);
+  }
   const browserRecords = loaded.courses.filter(
     ({ course }) => course.platforms?.browser?.enabled === true
   );
@@ -588,10 +641,18 @@ export async function refreshAllBrowserCourseSetupAssets({
   const selectorFlagUrls = [...new Set(browserRecords.flatMap(({ course }) => [
     course.sourceLanguage?.flagSrc, course.targetLanguage?.flagSrc
   ]).filter((url) => typeof url === "string"))];
-  const reports = browserRecords.map((record) => ({
+  const inspectCourses = () => browserRecords.map((record) => ({
     courseId: record.course.id,
-    ...inspectSetupAssetManifest({ ...catalogCourseRefreshOptions(absoluteWorkspaceRoot, record), selectorFlagUrls })
+    ...inspectSetupAssetManifest({ ...catalogCourseRefreshOptions(absoluteWorkspaceRoot, record),
+      selectorFlagUrls, registerSharedRuntime })
   }));
+  let reports = inspectCourses();
+  // Derive shared badge workloads from the playable corpus before hashing the
+  // updated profile, after all course manifests have passed inspection.
+  if (syncProgression) {
+    const progression = await syncProgression({ workspaceRoot: absoluteWorkspaceRoot, check });
+    if (progression.changed && !check) reports = inspectCourses();
+  }
   if (!check) {
     for (const report of reports) {
       if (report.changes.length > 0
@@ -605,7 +666,7 @@ export async function refreshAllBrowserCourseSetupAssets({
 }
 
 function parseArgs(args) {
-  const parsed = { check: false, allBrowserCourses: false };
+  const parsed = { check: false, allBrowserCourses: false, registerSharedRuntime: false };
   const valueOptions = new Map([
     ["--catalog", "catalogPath"],
     ["--workspace-root", "workspaceRoot"],
@@ -625,6 +686,10 @@ function parseArgs(args) {
     }
     if (argument === "--all-browser-courses") {
       parsed.allBrowserCourses = true;
+      continue;
+    }
+    if (argument === "--register-shared-runtime") {
+      parsed.registerSharedRuntime = true;
       continue;
     }
     if (argument === "--help" || argument === "-h") {
@@ -655,6 +720,9 @@ function parseArgs(args) {
   } else if (parsed.catalogPath !== undefined) {
     throw new Error("--catalog requires --all-browser-courses.");
   }
+  if (parsed.registerSharedRuntime && !parsed.allBrowserCourses) {
+    throw new Error("--register-shared-runtime requires --all-browser-courses.");
+  }
   return parsed;
 }
 
@@ -666,6 +734,7 @@ Refresh every setup artifact byte count, SHA-256, and canonical shared-runtime U
 Options:
   --check                         Report drift without writing the manifest
   --all-browser-courses           Validate and refresh every catalog browser course
+  --register-shared-runtime       Register mapped shared runtime assets for every browser course
   --catalog PATH                  Internal catalog path for --all-browser-courses
   --manifest PATH                 Manifest path (default: Czech setup-assets.json)
   --launcher-static PATH          Launcher and shared-asset static root
@@ -708,7 +777,8 @@ async function main() {
     const reports = await refreshAllBrowserCourseSetupAssets({
       workspaceRoot,
       catalogPath: args.catalogPath,
-      check: args.check
+      check: args.check,
+      registerSharedRuntime: args.registerSharedRuntime
     });
     let staleCount = 0;
     for (const report of reports) {

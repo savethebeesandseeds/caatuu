@@ -21,9 +21,10 @@ import {
 import { WordNetBranchQueue } from "./word-net-queue.mjs?v=word-net-queue-6";
 import { bindHorizontalGesture } from "./horizontal-gesture.mjs";
 import { localAiAvailability } from "./shell-policy.mjs";
-import { mountRobotLoadingScreen } from "./games/embedded-game-controls.mjs?v=embedded-game-controls-9";
+import { mountRobotLoadingScreen } from "./games/embedded-game-controls.mjs?v=embedded-game-controls-10";
 import { createEnglishImageSearch } from "./english-image-search.mjs?v=english-image-search-4";
 import { renderTargetText } from "./target-text.mjs?v=target-text-1";
+import { createTargetReadingGuide } from "./target-reading-guide.mjs?v=target-reading-guide-1";
 import { matchesContentDifficulty, newContentEncounterId } from "./games/content-progression.mjs";
 import { progressiveWordWorldSelection,
   wordWorldEvidenceBank, wordWorldPracticeHistory } from "./word-world-progression.mjs";
@@ -70,6 +71,7 @@ const targetLanguageLabel = interfaceLanguageName(course.targetLanguage);
 const sourceLanguageLabel = interfaceLanguageName(course.sourceLanguage);
 let mountRoot = null;
 let providerContext = null;
+let wordWorldReadingGuide = null;
 let lifecycleOptions = Object.freeze({});
 let mounted = false;
 const TRANSLATION_MODE_STORAGE_KEY = course.storage.wordWorldTranslationMode;
@@ -1061,6 +1063,8 @@ async function refreshAudioVoiceOptions() {
     if (installButton) {
       installButton.hidden = result?.backend !== "android" || result?.canInstallVoice !== true;
       installButton.disabled = false;
+      installButton.textContent = interfaceText(result?.reason === "no-language-voice"
+        ? "speech.voice.settings" : "speech.voice.install", { language: targetLanguageLabel });
     }
   } catch (error) {
     select.disabled = true;
@@ -1095,7 +1099,9 @@ async function installCzechVoiceFromAudioMenu() {
   try {
     const result = await install();
     if (status) {
-      status.textContent = result?.launched === false
+      status.textContent = result?.settingsOnly
+        ? interfaceText("speech.voice.settingsopened", { language: targetLanguageLabel })
+        : result?.launched === false
         ? interfaceText("speech.install.openmanually", { language: targetLanguageLabel })
         : interfaceText("speech.install.finish", { language: targetLanguageLabel });
     }
@@ -2355,17 +2361,25 @@ function syncTranslationMenu() {
     button.disabled = state.busy || guidedWordInteractionLocked();
   });
   const guide = providerContext?.targetTextGuide || null;
+  const romanization = wordWorldReadingGuide?.available === true;
   const targetTextSection = $("#wordNetTargetTextSettings");
-  if (targetTextSection) targetTextSection.hidden = !guide;
+  if (targetTextSection) targetTextSection.hidden = !guide && !romanization;
   const targetTextLabel = $("#wordNetTargetTextSettingsLabel");
   if (targetTextLabel && guide) targetTextLabel.textContent = guide.labels.section;
+  if (targetTextLabel && romanization) targetTextLabel.textContent = "Reading guide";
   document.querySelectorAll("[data-target-text-setting]").forEach((button) => {
     const key = button.dataset.targetTextSetting;
     const label = guide?.labels?.[key];
     if (label) button.textContent = label;
+    button.hidden = romanization;
     button.setAttribute("aria-checked", String(Boolean(state.targetTextPreferences[key])));
     button.disabled = !guide || state.busy || guidedWordInteractionLocked();
   });
+  if (romanization && targetTextSection) {
+    const setting = wordWorldReadingGuide.mountSetting(targetTextSection);
+    setting.setAttribute("role", "menuitemcheckbox");
+    setting.tabIndex = -1;
+  }
 }
 
 function syncGenerationControl() {
@@ -3338,6 +3352,7 @@ function replaceTargetSentence(host, text, record = preparedTargetRecord(), {
 } = {}) {
   if (!host) return false;
   const surface = String(text || "").normalize("NFC").trim();
+  if (wordWorldReadingGuide?.render(host, `${prefix}${surface}${suffix}`)) return true;
   const parts = providerContext?.targetTextGuide
     ? targetReconstructionParts(surface, record)
     : [];
@@ -4122,11 +4137,26 @@ function syncWordTranslation() {
       ? interfaceText("wordworld.dictionary.loading")
       : state.selectedWordMeaning || unavailableWordMeaning();
   meaningNode.lang = details?.languageTag || providerContext?.learnerBase?.languageTag || "en";
-  metaNode.textContent = visible && !state.wordMeaningLoading ? metadata.join(" · ") : "";
-  metaNode.hidden = !metaNode.textContent;
-  metaNode.title = metaNode.textContent;
+  renderWordMetadata(metaNode, visible && !state.wordMeaningLoading ? metadata.join(" · ") : "");
   syncTranslationMenu();
   syncSpeechControl();
+}
+
+function renderWordMetadata(host, text) {
+  host.textContent = text;
+  host.hidden = !text;
+  host.title = text;
+  if (!wordWorldReadingGuide?.supports(text)) return;
+  // Keep English dictionary labels in their normal direction while guiding
+  // each complete target-language word in lemmas and synonym metadata.
+  const fragments = String(text).split(/([\p{L}\p{M}]+)/u).map((part) => {
+    if (!wordWorldReadingGuide.supports(part)) return part;
+    const fragment = document.createElement("span");
+    fragment.className = "word-net-dictionary-target-fragment";
+    wordWorldReadingGuide.render(fragment, part);
+    return fragment;
+  });
+  host.replaceChildren(...fragments);
 }
 
 function targetTextUnits(prepared) {
@@ -4139,6 +4169,7 @@ function targetTextUnits(prepared) {
 }
 
 function replaceTargetText(host, text, prepared) {
+  if (wordWorldReadingGuide?.render(host, text)) return true;
   return renderTargetText(document, host, text, {
     units: targetTextUnits(prepared),
     showGuide: state.targetTextPreferences.showGuide,
@@ -4502,7 +4533,8 @@ function renderTrail() {
     base.className = "word-net-trail-base";
     target.className = "word-net-trail-target";
     base.textContent = item.en || localTranslation(item.sentence, item.word);
-    target.textContent = item.sentence;
+    if (wordWorldReadingGuide?.available) replaceTargetSentence(target, item.sentence, null);
+    else target.textContent = item.sentence;
     if (sourceLang) base.setAttribute("lang", sourceLang);
     if (targetLang) target.setAttribute("lang", targetLang);
     base.setAttribute("dir", sourceDirection);
@@ -6115,6 +6147,9 @@ export async function mountProductWordWorld(root, preparedContext, options = {})
     active: robotLoadingActive()
   });
   providerContext = context;
+  wordWorldReadingGuide = createTargetReadingGuide({
+    course, gameId: "word-net", document, storage: window.localStorage
+  });
   state.targetTextPreferences = loadTargetTextPreferences(context.targetTextGuide?.defaults);
   lifecycleOptions = Object.freeze({ ...options });
   mounted = true;

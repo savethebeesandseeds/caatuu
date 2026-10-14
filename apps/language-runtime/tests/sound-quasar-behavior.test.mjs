@@ -7,6 +7,7 @@ import { newContentEncounterId } from "../static/source/games/content-progressio
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { createInterfaceContent } from "../static/source/interface-content.mjs";
 import { appendTargetToneText } from "../static/source/target-text-tones.mjs";
+import { createArabicReadingGuide } from "../static/source/arabic-reading-guide.mjs";
 import { fetchDeclaredCourseGameJson, readEmbeddedCourseProfile } from "../static/source/games/course-game-content.mjs";
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../static/source/games/embedded-game-controls.mjs";
 import { createSoundQuasarSession, evaluateSoundQuasarChoice, validateSoundQuasarCatalog, soundQuasarItemsForDifficulty }
@@ -156,6 +157,7 @@ async function mountGame({ language = "mandarin-simplified", muted = true, voice
   harness.window.parent = shell;
   Object.assign(harness.context, {
     newContentEncounterId,
+    createArabicReadingGuide,
     fetchDeclaredCourseGameJson, readEmbeddedCourseProfile, createSpeechIcon,
     mountEmbeddedGameControls, mountRobotLoadingScreen, createSoundQuasarSession, evaluateSoundQuasarChoice,
     validateSoundQuasarCatalog, soundQuasarItemsForDifficulty, appendTargetToneText, testRandom: random,
@@ -208,8 +210,27 @@ test("Arabic listening keeps target phrases RTL and the English result LTR", asy
   await game.listen();
   game.click(game.choice(game.current().id));
   assert.equal(game.element("ResultTarget").dir, "rtl");
+  assert.ok(game.element("ResultTarget").querySelector("rt"));
+  game.document.querySelector('[data-arabic-romanization-setting="sound-quasar"]').click();
   assert.equal(game.element("ResultTarget").textContent, game.current().target);
   assert.equal(game.element("ResultMeaning").dir, "ltr");
+  game.controller.destroy();
+});
+
+test("Arabic listening can hide and restore readings without changing choices, progress or speech", async () => {
+  const game = await mountGame({ language: "arabic-standard" });
+  const choices = game.choices().map(choice => choice.dataset.choiceId);
+  const progress = game.element("Progress").textContent;
+  assert.ok(game.choices().every(choice => choice.querySelector("rt")));
+  const toggle = game.document.querySelector('[data-arabic-romanization-setting="sound-quasar"]');
+  toggle.click();
+  assert.ok(game.choices().every(choice => !choice.querySelector("rt")));
+  assert.equal(game.element("Progress").textContent, progress);
+  assert.deepEqual(game.choices().map(choice => choice.dataset.choiceId), choices);
+  assert.equal(game.speechCalls.length, 0);
+  toggle.click();
+  assert.ok(game.choices().every(choice => choice.querySelector("rt")));
+  game.noCredit();
   game.controller.destroy();
 });
 

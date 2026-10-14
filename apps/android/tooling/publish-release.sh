@@ -290,8 +290,8 @@ if [[ "$mode" == "build-once" ]]; then
     start_phase "Validate release source"
     node "$repo_root/tools/language-content/validate.mjs" --release
     node "$repo_root/tools/czech-ml/scripts/validate-learner-content-safety.mjs" --android --compact
-    # Keep release preflight bounded. Full compiler/website integration suites
-    # belong to source CI; Gradle compiles and validates the actual assets once,
+    # This focused preflight is the release source checkpoint. Full review
+    # suites run independently; Gradle validates the actual assets once,
     # and the signed APK/AAB are audited before a receipt can be sealed.
     node --test \
       "$repo_root/apps/android/tooling/tests/android-artifact-contract.test.mjs" \
@@ -302,7 +302,7 @@ if [[ "$mode" == "build-once" ]]; then
       "$repo_root/apps/server/tooling/tests/shared-language-selector.test.mjs" \
       "$repo_root/apps/language-runtime/tests/conjugation-arabic-capacity.test.mjs" \
       "$repo_root/apps/language-runtime/tests/launcher-interface.test.mjs" \
-      "$repo_root/apps/language-runtime/tests/learning-goals.test.mjs" \
+      "$repo_root/apps/language-runtime/tests/learning-goals-projection.test.mjs" \
       "$repo_root/apps/android/tooling/tests/publisher-build-once-contract.test.mjs"
     finish_phase
     start_phase "Build one signed release candidate"

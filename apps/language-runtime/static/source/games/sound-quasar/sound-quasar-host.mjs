@@ -1,8 +1,9 @@
 import { readEmbeddedCourseProfile, fetchDeclaredCourseGameJson } from "../course-game-content.mjs?v=course-game-content-1";
 import { validateSoundQuasarCatalog, createSoundQuasarSession, evaluateSoundQuasarChoice, soundQuasarItemsForDifficulty } from "./sound-quasar-core.mjs?v=sound-quasar-8";
-import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-9";
+import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-10";
 import { appendTargetToneText } from "../../target-text-tones.mjs?v=target-text-tones-1";
 import { newContentEncounterId } from "../content-progression.mjs";
+import { createArabicReadingGuide } from "../../arabic-reading-guide.mjs?v=arabic-reading-guide-2";
 
 const GAME_ID = "sound-quasar";
 const MUSIC_ARTWORK = Object.freeze([
@@ -80,11 +81,13 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
   try { if (shell.localStorage?.getItem(choiceCountKey) === "6") state.choiceCount = 6; } catch { /* Keep the session default when storage is unavailable. */ }
   try { if (shell.localStorage?.getItem(modeKey) === "sentences") state.mode = "sentences"; } catch { /* Keep the session default when storage is unavailable. */ }
   const disposers = [];
+  const readingGuide = createArabicReadingGuide({ course, gameId: GAME_ID, document: doc, storage: shell.localStorage });
   const listen = (target, event, handler) => {
     target?.addEventListener?.(event, handler);
     disposers.push(() => target?.removeEventListener?.(event, handler));
   };
   const controls = mountEmbeddedGameControls({ container: node("quasarControls"), shell, course,
+    readingGuide,
     challenge: { content: node("quasarModeOptions"), labelKey: "soundquasar.mode.title" },
     settings: { content: node("quasarChoiceOptions"), labelKey: "soundquasar.options.title", icon: "boxes" },
     onOpenChange: () => syncButtons() });
@@ -138,7 +141,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     target.lang = course.targetLanguage.locale || course.targetLanguage.id;
     target.dir = course.targetLanguage.direction || "auto";
     target.replaceChildren();
-    appendTargetToneText(doc, target, round.target, round.reading);
+    if (!readingGuide.render(target, round.target)) appendTargetToneText(doc, target, round.target, round.reading);
     const reading = node("quasarResultReading");
     reading.textContent = round.reading?.system === "pinyin"
       ? round.reading.tokens.flatMap((token) => token.units.map((unit) => unit.notation)).join(" ") : "";
@@ -232,7 +235,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
       target.className = "quasar-choice-target";
       target.lang = course.targetLanguage.locale || course.targetLanguage.id;
       target.dir = course.targetLanguage.direction || "auto";
-      appendTargetToneText(doc, target, choice.target, choice.reading);
+      if (!readingGuide.render(target, choice.target)) appendTargetToneText(doc, target, choice.target, choice.reading);
       button.append(number, target);
       button.addEventListener("click", () => choose(choice.id));
       return button;

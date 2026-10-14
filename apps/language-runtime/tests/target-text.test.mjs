@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
 import { renderTargetText } from "../static/source/target-text.mjs";
+import { createTargetReadingGuide } from "../static/source/target-reading-guide.mjs";
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 
 const units = [{ surface: "需", notation: "xū" }, { surface: "要", notation: "yào" }];
@@ -93,7 +94,7 @@ test("Word World delegates its provider reading and current preferences to the s
   const providerContext = { targetTextGuide: { languageTag: "zh-Latn-pinyin" },
     targetTextUnits(request) { lookups.push(request); return units; } };
   const state = { targetTextPreferences: { showGuide: true, colorTones: false } };
-  Object.assign(browser.context, { renderTargetText, providerContext, state });
+  Object.assign(browser.context, { renderTargetText, providerContext, state, wordWorldReadingGuide: null });
   vm.runInContext(source.slice(start, end), browser.context);
   assert.equal(browser.context.replaceTargetText(browser.host, "需要", prepared), true);
   assert.equal(lookups[0], prepared);
@@ -112,6 +113,82 @@ test("Word World delegates its provider reading and current preferences to the s
   browser.context.providerContext = null;
   assert.equal(browser.context.replaceTargetText(browser.host, "plain", null), false);
   assert.equal(browser.host.textContent, "plain");
+});
+
+test("Arabic Word World renders dictionary words and full reconstruction sentences without provider pinyin", async () => {
+  const browser = harness();
+  const course = JSON.parse(await readFile(new URL("../../languages/arabic-standard/course.json", import.meta.url), "utf8"));
+  const source = await readFile(new URL("../static/source/product-word-world.mjs", import.meta.url), "utf8");
+  const start = source.indexOf("function targetTextUnits(prepared)"), end = source.indexOf("function abortWordLookup()", start);
+  const sentenceStart = source.indexOf("function replaceTargetSentence("), sentenceEnd = source.indexOf("function renderReconstructionAttempt(", sentenceStart);
+  const metadataStart = source.indexOf("function renderWordMetadata("), metadataEnd = source.indexOf("function targetTextUnits(", metadataStart);
+  const wordWorldReadingGuide = createTargetReadingGuide({
+    course, gameId: "word-net", document: browser.document, storage: browser.localStorage
+  });
+  Object.assign(browser.context, { renderTargetText, wordWorldReadingGuide,
+    providerContext: {}, state: { targetTextPreferences: {} } });
+  vm.runInContext(source.slice(start, end) + source.slice(sentenceStart, sentenceEnd)
+    + source.slice(metadataStart, metadataEnd), browser.context);
+  assert.equal(browser.context.replaceTargetText(browser.host, "كَتَبَ", null), true);
+  assert.equal(browser.host.querySelector("rt").textContent, "kataba");
+  const sentence = browser.document.createElement("strong");
+  browser.document.body.append(sentence);
+  assert.equal(browser.context.replaceTargetSentence(sentence, "كَتَبَ وَلَدٌ", null, { prefix: "“", suffix: "”" }), true);
+  assert.equal(sentence.querySelectorAll("ruby").length, 2);
+  assert.deepEqual(sentence.querySelectorAll(".caatuu-target-text-glyph").map(node => node.textContent), ["كَتَبَ", "وَلَدٌ"]);
+  const metadata = browser.document.createElement("span");
+  browser.document.body.append(metadata);
+  browser.context.renderWordMetadata(metadata, "Lemma: كَتَبَ · Also: قَرَأَ");
+  assert.equal(metadata.title, "Lemma: كَتَبَ · Also: قَرَأَ");
+  assert.equal(metadata.querySelectorAll("ruby").length, 2);
+  assert.equal(metadata.querySelectorAll(".word-net-dictionary-target-fragment").length, 2);
+  const settingContainer = browser.document.createElement("section");
+  browser.document.body.append(settingContainer);
+  const setting = wordWorldReadingGuide.mountSetting(settingContainer);
+  setting.dispatchEvent({ type: "click", bubbles: true });
+  assert.equal(browser.host.querySelector("rt"), null);
+  assert.equal(sentence.querySelector("rt"), null);
+  assert.equal(sentence.textContent, "“كَتَبَ وَلَدٌ”");
+  assert.equal(metadata.textContent, "Lemma: كَتَبَ · Also: قَرَأَ");
+});
+
+test("Georgian Word World guides full sentences and mixed dictionary metadata and updates them in place", async () => {
+  const browser = harness();
+  const course = JSON.parse(await readFile(new URL("../../languages/georgian/course.json", import.meta.url), "utf8"));
+  const source = await readFile(new URL("../static/source/product-word-world.mjs", import.meta.url), "utf8");
+  const start = source.indexOf("function targetTextUnits(prepared)"), end = source.indexOf("function abortWordLookup()", start);
+  const sentenceStart = source.indexOf("function replaceTargetSentence("), sentenceEnd = source.indexOf("function renderReconstructionAttempt(", sentenceStart);
+  const metadataStart = source.indexOf("function renderWordMetadata("), metadataEnd = source.indexOf("function targetTextUnits(", metadataStart);
+  const wordWorldReadingGuide = createTargetReadingGuide({
+    course, gameId: "word-net", document: browser.document, storage: browser.localStorage
+  });
+  Object.assign(browser.context, { renderTargetText, wordWorldReadingGuide,
+    providerContext: {}, state: { targetTextPreferences: {} } });
+  vm.runInContext(source.slice(start, end) + source.slice(sentenceStart, sentenceEnd)
+    + source.slice(metadataStart, metadataEnd), browser.context);
+  const sentence = browser.document.createElement("strong");
+  const metadata = browser.document.createElement("span");
+  browser.document.body.append(sentence, metadata);
+  sentence.focus();
+  assert.equal(browser.context.replaceTargetSentence(sentence, "დილა მშვიდობისა!", null, { prefix: "“", suffix: "”" }), true);
+  assert.deepEqual(sentence.querySelectorAll("rt").map(node => node.textContent), ["dila", "mshvidobisa"]);
+  assert.ok(sentence.querySelectorAll("rt").every(node => node.lang === "ka-Latn" && node.dir === "ltr"));
+  assert.deepEqual(sentence.querySelectorAll(".caatuu-target-text-glyph").map(node => node.textContent), ["დილა", "მშვიდობისა"]);
+  browser.context.renderWordMetadata(metadata, "Lemma: არის · Also: მიდის");
+  assert.equal(metadata.title, "Lemma: არის · Also: მიდის");
+  assert.deepEqual(metadata.querySelectorAll("rt").map(node => node.textContent), ["aris", "midis"]);
+  assert.equal(metadata.querySelectorAll(".word-net-dictionary-target-fragment").length, 2);
+  wordWorldReadingGuide.setEnabled(false);
+  assert.equal(sentence.textContent, "“დილა მშვიდობისა!”");
+  assert.equal(metadata.textContent, "Lemma: არის · Also: მიდის");
+  assert.equal(browser.document.activeElement, sentence);
+  assert.equal(browser.localStorage.getItem("caatuu.ka.word-net.romanization"), "false");
+  wordWorldReadingGuide.setEnabled(true);
+  assert.equal(sentence.querySelectorAll("ruby").length, 2);
+  assert.equal(metadata.querySelectorAll("ruby").length, 2);
+  const plain = browser.document.createElement("span");
+  assert.equal(browser.context.replaceTargetText(plain, "English", null), false);
+  assert.equal(plain.textContent, "English");
 });
 
 test("shared styles wrap complete ruby units and retain static Naturalization aliases", async () => {

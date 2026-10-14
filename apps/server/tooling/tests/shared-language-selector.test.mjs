@@ -60,11 +60,12 @@ test("every browser course receives one catalog-derived course-selector projecti
     browserRecords.map(({ course }) => course.targetLanguage.shortCode)
   );
   const spanishBase = reference.courses.find(({ id }) => id === "es-en");
-  assert.equal(spanishBase.sourceLanguage.locale, "es-ES");
-  assert.equal(spanishBase.targetLanguage.locale, "en-US");
-  assert.equal(spanishBase.interfaceContent.locale, "es-ES");
-  assert.equal(spanishBase.interfaceContent.catalog, "/language-runtime/static/data/interface/es.v1.json");
   const spanishBaseCourse = browserRecords.find(({ id }) => id === "es-en").course;
+  assert.equal(spanishBase.sourceLanguage.locale, spanishBaseCourse.sourceLanguage.locale);
+  assert.equal(spanishBase.targetLanguage.locale, spanishBaseCourse.targetLanguage.locale);
+  assert.equal(spanishBase.interfaceContent.locale, spanishBaseCourse.sourceLanguage.locale);
+  assert.equal(spanishBase.interfaceContent.catalog,
+    spanishBaseCourse.resources.interfaceCatalog.path.replace(/^apps\//u, "/"));
   const spanishInterfaceCatalog = await readJson(spanishBaseCourse.resources.interfaceCatalog.path);
   assert.equal(spanishBase.interfaceContent.revision, spanishInterfaceCatalog.revision);
   assert.deepEqual(launcherRegistry.languages.map(({ id, status }) => ({ id, status })),

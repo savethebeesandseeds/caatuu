@@ -3,7 +3,7 @@ import {
   selectNounLane, advanceNounFall, landNoun, nextNoun, setNounFallDuration
 } from "./noun-landing-core.mjs?v=noun-landing-core-11";
 import { fetchDeclaredCourseGameJson } from "../course-game-content.mjs?v=course-game-content-1";
-import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-9";
+import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-10";
 import { createNounVisual } from "./noun-visual.mjs?v=noun-visual-4";
 import { newContentEncounterId } from "../content-progression.mjs";
 
@@ -13,7 +13,7 @@ const ERROR_FEEDBACK_MS = LANDING_MS + 2400;
 
 // Course JSON owns words, categories and artwork. This host owns input and active-time presentation.
 export async function mountNounLanding({ course, shell, scope = globalThis, document = scope.document,
-  mountControls = true, initialActive = true, segmentSize = 0, onComplete } = {}) {
+  mountControls = true, initialActive = true, segmentSize = 0, onComplete, readingGuide } = {}) {
   if (!Number.isInteger(segmentSize) || segmentSize < 0 || (segmentSize > 0 && typeof onComplete !== "function")) {
     throw new Error("Noun segments require a nonnegative size and a completion callback.");
   }
@@ -48,6 +48,7 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
   let clockItem = "";
   let clockTurns = 0;
   let loadingPageHidden = false;
+  let displayedTarget = null;
   const visual = createNounVisual({ shell, course, image: element("gravityNounVisual"), scope,
     onLoadingChange: () => {
       if (!session || destroyed) return;
@@ -175,7 +176,10 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     arena.setAttribute("aria-label", t("arena", { word: session.item?.targetText || "" }));
     const word = element("gravityNounWord");
     const targetText = session.item?.targetText || "";
-    if (word.textContent !== targetText) word.textContent = targetText;
+    if (displayedTarget !== targetText) {
+      displayedTarget = targetText;
+      if (!readingGuide?.render(word, targetText)) word.textContent = targetText;
+    }
     word.lang = pack.targetLanguage;
     word.dir = course.targetLanguage?.direction || "auto";
     element("gravityNounMeaning").textContent = session.item?.learnerBaseText || "";
@@ -484,7 +488,7 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     });
     lanes.replaceChildren(...laneButtons);
     beginCycle();
-    if (mountControls) controls = mountEmbeddedGameControls({ container: element("gravityNounControls"), shell, course, autoplay: true });
+    if (mountControls) controls = mountEmbeddedGameControls({ container: element("gravityNounControls"), shell, course, autoplay: true, readingGuide });
     listen(reducedMotion, "change", () => { render(); });
     listen(element("gravityNounSpeak"), "click", () => { void speak(); });
     listen(shell, "caatuu:speech-mute-change", () => {

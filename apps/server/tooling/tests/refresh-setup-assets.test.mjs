@@ -1,9 +1,11 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 
 import {
   inspectSetupAssetManifest,
@@ -618,6 +620,159 @@ test("catalog-derived refresh updates every browser course", async (t) => {
   assert.deepEqual(reports.map(({ courseId }) => courseId), ["cz", "zh"]);
   assert.equal(inspectSetupAssetManifest(czech).changes.length, 0);
   assert.equal(inspectSetupAssetManifest(mandarin).changes.length, 0);
+});
+
+async function registrationFixture() {
+  const workspaceRoot = await mkdtemp(join(tmpdir(), "caatuu-register-runtime-"));
+  const czech = await fixture({ workspaceRoot });
+  const mandarin = await fixture({ workspaceRoot, courseId: "zh", directoryName: "mandarin-simplified", routePrefix: "/zh" });
+  const appAssetsPath = join(czech.sharedRuntimeDir, "app-assets.json");
+  const appAssets = JSON.parse(await readFile(appAssetsPath, "utf8"));
+  await mkdir(join(czech.sharedRuntimeDir, "static/styles"), { recursive: true });
+  await writeFile(join(czech.sharedRuntimeDir, "static/source/reward-runtime.mjs"), "export {};\n");
+  await writeFile(join(czech.sharedRuntimeDir, "static/styles/reward-runtime.css"), ".reward { display: block; }\n");
+  await writeFile(join(czech.sharedRuntimeDir, "static/data/interface/es.v1.json"), "{}");
+  appAssets.assets.push(
+    { source: "apps/language-runtime/static/source/reward-runtime.mjs", output: "language-runtime/static/source/reward-runtime.mjs" },
+    { source: "apps/language-runtime/static/styles/reward-runtime.css", output: "language-runtime/static/styles/reward-runtime.css" },
+    { source: "apps/language-runtime/static/data/interface/es.v1.json", output: "language-runtime/static/data/interface/es.v1.json" }
+  );
+  await writeFile(appAssetsPath, JSON.stringify(appAssets));
+  await writeFile(join(czech.sharedRuntimeDir, "static/app/index.html"),
+    '<script src="/language-runtime/static/source/shared-runtime.mjs?v=runtime-1"></script>\n'
+    + '<link href="/language-runtime/static/styles/reward-runtime.css?v=reward-style-2" rel="stylesheet">\n');
+  await writeFile(join(czech.sharedRuntimeDir, "static/source/shared-runtime.mjs"),
+    'import "./reward-runtime.mjs?v=reward-runtime-3";\n');
+  return { workspaceRoot, czech, mandarin, appAssetsPath, appAssets,
+    loadValidatedCatalog: async () => ({ courses: [czech.record, mandarin.record] }) };
+}
+
+test("all-course refresh hashes shared bytes after refreshing the corpus stage budget", async (t) => {
+  const f = await registrationFixture();
+  t.after(() => rm(f.workspaceRoot, { recursive: true, force: true }));
+  const updated = "shared app after corpus refresh\n";
+  let calls = 0;
+  const reports = await refreshAllBrowserCourseSetupAssets({ ...f, registerSharedRuntime: true,
+    syncProgression: async ({ workspaceRoot, check }) => {
+      assert.equal(workspaceRoot, f.workspaceRoot);
+      assert.equal(check, false);
+      calls++;
+      await writeFile(join(f.czech.sharedRuntimeDir, "static/app/index.html"), updated);
+      return { changed: true };
+    } });
+  assert.equal(calls, 1);
+  for (const report of reports) {
+    const manifest = JSON.parse(await readFile(report.manifestPath, "utf8"));
+    const app = manifest.artifacts.find(artifact => artifact.key === "app-entry");
+    assert.equal(app.bytes, Buffer.byteLength(updated));
+    assert.equal(app.sha256, createHash("sha256").update(updated).digest("hex"));
+  }
+});
+
+test("a stale corpus stage table fails read-only setup checking without changing any manifest", async (t) => {
+  const f = await registrationFixture();
+  t.after(() => rm(f.workspaceRoot, { recursive: true, force: true }));
+  const before = await Promise.all([f.czech, f.mandarin].map(paths => readFile(paths.manifestPath, "utf8")));
+  await assert.rejects(refreshAllBrowserCourseSetupAssets({ ...f, check: true, registerSharedRuntime: true,
+    syncProgression: async ({ check }) => {
+      assert.equal(check, true);
+      throw new Error("Practice corpus workload table is stale.");
+    } }), /workload table is stale/u);
+  const after = await Promise.all([f.czech, f.mandarin].map(paths => readFile(paths.manifestPath, "utf8")));
+  assert.deepEqual(after, before);
+});
+
+test("invalid course manifests prevent corpus refresh before its first write", async (t) => {
+  const f = await registrationFixture();
+  t.after(() => rm(f.workspaceRoot, { recursive: true, force: true }));
+  const manifest = JSON.parse(await readFile(f.mandarin.manifestPath, "utf8"));
+  manifest.offline.assets.push("./missing-source.js");
+  await writeFile(f.mandarin.manifestPath, JSON.stringify(manifest));
+  let called = false;
+  await assert.rejects(refreshAllBrowserCourseSetupAssets({ ...f, registerSharedRuntime: true,
+    syncProgression: async () => { called = true; return { changed: true }; } }), /source file does not exist/u);
+  assert.equal(called, false);
+});
+
+test("shared runtime registration is opt-in and adds exact canonical module and style URLs to all browser courses", async (t) => {
+  const f = await registrationFixture();
+  t.after(() => rm(f.workspaceRoot, { recursive: true, force: true }));
+  await assert.rejects(refreshAllBrowserCourseSetupAssets(f), /omit shared runtime pathname/u);
+  const reports = await refreshAllBrowserCourseSetupAssets({ ...f, registerSharedRuntime: true });
+  for (const report of reports) {
+    assert.deepEqual(report.offlineAssetChanges.map(({ previousUrl, url }) => ({ previousUrl, url })), [
+      { previousUrl: null, url: "/language-runtime/static/source/reward-runtime.mjs?v=reward-runtime-3" },
+      { previousUrl: null, url: "/language-runtime/static/styles/reward-runtime.css?v=reward-style-2" }
+    ]);
+    const manifest = JSON.parse(await readFile(report.manifestPath, "utf8"));
+    assert.deepEqual(manifest.offline.assets.filter(asset => asset.includes("/static/data/interface/")),
+      ["/language-runtime/static/data/interface/en.v1.json?v=interface-en-1"]);
+    assert.equal(manifest.offline.assets.some(asset => asset.includes("course-service-worker.js")), false);
+  }
+  assert.equal(inspectSetupAssetManifest(f.czech).offlineAssetChanges.length, 0);
+  assert.equal(inspectSetupAssetManifest(f.mandarin).offlineAssetChanges.length, 0);
+});
+
+test("shared runtime registration check reports prospective additions without changing any course manifest", async (t) => {
+  const f = await registrationFixture();
+  t.after(() => rm(f.workspaceRoot, { recursive: true, force: true }));
+  const before = await Promise.all([f.czech, f.mandarin].map(paths => readFile(paths.manifestPath, "utf8")));
+  const reports = await refreshAllBrowserCourseSetupAssets({ ...f, registerSharedRuntime: true, check: true });
+  assert.deepEqual(reports.map(report => report.offlineAssetChanges.length), [2, 2]);
+  assert.deepEqual(await Promise.all([f.czech, f.mandarin].map(paths => readFile(paths.manifestPath, "utf8"))), before);
+});
+
+test("registration preserves duplicate, remapped, corrupt, and missing-source guards", async (t) => {
+  for (const failure of ["duplicate", "duplicate-cache", "remapped", "corrupt", "missing-source", "unmapped-reference"]) {
+    const f = await registrationFixture();
+    t.after(() => rm(f.workspaceRoot, { recursive: true, force: true }));
+    let before = await readFile(f.czech.manifestPath, "utf8");
+    let expected;
+    if (failure === "duplicate") {
+      f.appAssets.assets.push({ ...f.appAssets.assets[0] });
+      expected = /repeats browser runtime pathname/u;
+    } else if (failure === "duplicate-cache") {
+      const manifest = JSON.parse(before);
+      manifest.offline.assets.push("/language-runtime/static/source/shared-runtime.mjs?v=another-version");
+      await writeFile(f.czech.manifestPath, JSON.stringify(manifest));
+      before = await readFile(f.czech.manifestPath, "utf8");
+      expected = /repeat shared runtime pathname/u;
+    } else if (failure === "remapped") {
+      f.appAssets.assets[0].output = "language-runtime/static/source/renamed-runtime.mjs";
+      expected = /is remapped to/u;
+    } else if (failure === "corrupt") {
+      f.appAssets.assets.push(null);
+      expected = /is not an object/u;
+    } else if (failure === "missing-source") {
+      f.appAssets.assets.push({ source: "apps/language-runtime/static/source/missing.mjs", output: "language-runtime/static/source/missing.mjs" });
+      expected = /Offline asset source file does not exist/u;
+    } else {
+      await writeFile(join(f.czech.sharedRuntimeDir, "static/source/shared-runtime.mjs"), 'import "./unmapped.mjs?v=missing-1";\n');
+      expected = /absent from app-assets\.json/u;
+    }
+    await writeFile(f.appAssetsPath, JSON.stringify(f.appAssets));
+    await assert.rejects(refreshAllBrowserCourseSetupAssets({ ...f, registerSharedRuntime: true }), expected);
+    assert.equal(await readFile(f.czech.manifestPath, "utf8"), before);
+  }
+});
+
+test("the registration CLI requires an explicit all-browser-course operation", () => {
+  const result = spawnSync(process.execPath, [
+    fileURLToPath(new URL("../refresh-setup-assets.mjs", import.meta.url)), "--register-shared-runtime"
+  ], { encoding: "utf8" });
+  assert.equal(result.status, 2);
+  assert.match(result.stderr, /--register-shared-runtime requires --all-browser-courses/u);
+});
+
+test("registration still prevalidates every prospective course before its first write", async (t) => {
+  const f = await registrationFixture();
+  t.after(() => rm(f.workspaceRoot, { recursive: true, force: true }));
+  const before = await readFile(f.czech.manifestPath, "utf8");
+  const manifest = JSON.parse(await readFile(f.mandarin.manifestPath, "utf8"));
+  manifest.offline.assets.push("./source/unavailable.js");
+  await writeFile(f.mandarin.manifestPath, JSON.stringify(manifest));
+  await assert.rejects(refreshAllBrowserCourseSetupAssets({ ...f, registerSharedRuntime: true }), /Offline asset source file does not exist/u);
+  assert.equal(await readFile(f.czech.manifestPath, "utf8"), before);
 });
 
 test("catalog-derived refresh validates every browser course before writing any", async (t) => {

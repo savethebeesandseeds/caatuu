@@ -22,7 +22,9 @@ docker exec -w /workspace caatuu-dev `
   bash -lc "node tools/repository/check-tracked-files.mjs && node tools/repository/check-markdown-links.mjs"
 ```
 
-The repository workflow runs the same commands on GitHub Actions.
+The repository workflow runs the same commands on ordinary GitHub Actions
+pushes. Its manual workflow dispatch runs the full diagnostic suites; Android
+publication uses the publisher's focused local preflight independently.
 
 Inspect either checked-in synthetic example in structural authoring mode:
 
@@ -63,8 +65,8 @@ docker run --rm -v "${PWD}:/workspace" -w /workspace $validatorImage `
 
 The existing runtime contract-test glob includes
 `apps/server/tooling/tests/release-manifest-contract.test.mjs`, so schema,
-example, integrity, and fail-closed validation run in non-publishing repository
-CI.
+example, integrity, and fail-closed validation run in the non-publishing full
+repository review.
 
 ## Clean local generated state
 

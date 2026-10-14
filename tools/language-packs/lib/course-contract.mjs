@@ -115,7 +115,8 @@ const LINGUISTIC_FEATURE_IDS = [
   "verb-conjugation",
   "grammatical-case",
   "grammatical-agreement",
-  "hanzi-pinyin"
+  "hanzi-pinyin",
+  "arabic-romanization"
 ];
 const UPCOMING_GAME_IDS = NON_CAMPAIGN_GAME_IDS;
 const GAME_REQUIREMENTS = NON_CAMPAIGN_GAME_REGISTRY;
@@ -1010,6 +1011,9 @@ function validateCapabilityResources(course, issues) {
     }
   }
   const declaredFeatures = new Set(Array.isArray(course.linguisticFeatures) ? course.linguisticFeatures : []);
+  if (declaredFeatures.has("arabic-romanization") && course.targetLanguage?.id !== "ar") {
+    issues.push({ code: "linguistic-feature.language", message: `${course.id}.linguisticFeatures declares arabic-romanization but targetLanguage.id is not ar.` });
+  }
   if (declaredFeatures.has("hanzi-pinyin") && course.targetLanguage?.id !== "zh") {
     issues.push({
       code: "linguistic-feature.language",
@@ -1041,6 +1045,9 @@ function validateCapabilityResources(course, issues) {
           message: `${course.id}.games enables ${gameId} but linguisticFeatures does not declare ${feature}.`
         });
       }
+    }
+    if (requirement.anyLinguisticFeatures && !requirement.anyLinguisticFeatures.some(feature => declaredFeatures.has(feature))) {
+      issues.push({ code: "game.linguistic-feature", message: `${course.id}.games enables ${gameId} but linguisticFeatures must declare one of ${requirement.anyLinguisticFeatures.join(", ")}.` });
     }
     for (const resourceRequirement of requirement.resources ?? []) {
       const resource = resources[resourceRequirement.name];

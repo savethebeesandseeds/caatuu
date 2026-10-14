@@ -6373,6 +6373,30 @@ html[data-theme="dark"] .verb-match-board {
     --verb-hint-size: 82px;
   }
 
+  /* Whole-word reading guides need the target column's full width. Keep
+     picture clues above their cards instead of squeezing them beside text. */
+  body:is([data-target-script^="Geor"], [data-target-script^="Arab"]) .verb-match-board {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    column-gap: 16px;
+  }
+
+  body:is([data-target-script^="Geor"], [data-target-script^="Arab"]) .verb-match-column-heading-cz {
+    padding-inline-start: 5px;
+  }
+
+  body:is([data-target-script^="Geor"], [data-target-script^="Arab"]) .verb-match-card-row-cz {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  body:is([data-target-script^="Geor"], [data-target-script^="Arab"]) .verb-match-card-row-cz > .verb-match-hint-slot {
+    justify-self: center;
+  }
+
+  body:is([data-target-script^="Geor"], [data-target-script^="Arab"]) .verb-match-card-row-cz > .verb-match-card {
+    grid-column: 1;
+    overflow: visible;
+  }
+
   .verb-match-card {
     min-height: 58px;
     padding: 6px 8px;

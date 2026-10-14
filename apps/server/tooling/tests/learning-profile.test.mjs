@@ -726,7 +726,8 @@ test("the backpack progression hub and both active games use the global learning
   assert.match(chromeSource, /courseProgressActivities/);
   assert.match(chromeSource, /const journey = profile\.journey\?\.summary \|\| profile\.summary/);
   assert.match(chromeSource, /xp: journey\.xp/);
-  assert.match(chromeSource, /coins: journey\.rounds/);
+  assert.match(chromeSource, /coins: profile\.rewards\?\.coins/);
+  assert.match(chromeSource, /gems: profile\.rewards\?\.gems/);
   assert.match(chromeSource, /data-caatuu-streak-count/);
   assert.match(chromeSource, /data-streak-reminder-toggle/);
   assert.match(chromeSource, /settingsResetCourseProgress/);

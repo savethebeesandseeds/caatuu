@@ -3,6 +3,26 @@
   "appEntry": "apps/language-runtime/static/app/index.html",
   "assets": [
     {
+      "source": "apps/language-runtime/static/source/badge-recommendation.mjs",
+      "output": "language-runtime/static/source/badge-recommendation.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/badge-progression.mjs",
+      "output": "language-runtime/static/source/badge-progression.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/reward-sound.mjs",
+      "output": "language-runtime/static/source/reward-sound.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/game-dynamics.mjs",
+      "output": "language-runtime/static/source/game-dynamics.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/styles/game-dynamics.css",
+      "output": "language-runtime/static/styles/game-dynamics.css"
+    },
+    {
       "source": "apps/language-runtime/static/assets/initial-image.png",
       "output": "language-runtime/static/assets/initial-image.png"
     },
@@ -385,6 +405,22 @@
     {
       "source": "apps/language-runtime/static/source/target-text.mjs",
       "output": "language-runtime/static/source/target-text.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/arabic-romanization.mjs",
+      "output": "language-runtime/static/source/arabic-romanization.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/arabic-reading-guide.mjs",
+      "output": "language-runtime/static/source/arabic-reading-guide.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/georgian-romanization.mjs",
+      "output": "language-runtime/static/source/georgian-romanization.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/target-reading-guide.mjs",
+      "output": "language-runtime/static/source/target-reading-guide.mjs"
     },
     {
       "source": "apps/language-runtime/static/source/word-net-core.mjs",
@@ -993,6 +1029,14 @@
     {
       "source": "apps/language-runtime/static/data/english-concepts/word-world-ka-v1.json",
       "output": "language-runtime/static/data/english-concepts/word-world-ka-v1.json"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.js",
+      "output": "language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.js"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.css",
+      "output": "language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.css"
     }
   ]
 }

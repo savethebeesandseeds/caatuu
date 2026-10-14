@@ -207,6 +207,56 @@ test('interruption during journal deletion replays retained entries exactly once
   assert.equal(result.mistakes, 1);
 });
 
+test('another tab finishing an interrupted journal deletion lets the original tab checkpoint again', async () => {
+  const a = browser(); const remove = a.localStorage.removeItem.bind(a.localStorage);
+  let interrupted = true;
+  a.localStorage.removeItem = name => {
+    if (interrupted && name.startsWith(`${key}.pending.`)) throw new Error('deletion interrupted');
+    remove(name);
+  };
+  independent(a, 'first');
+  await a.learning.retryPendingSaves();
+  assert.equal(a.learning.saveStatus().status, 'error');
+  interrupted = false;
+  const b = browser(a.localStorage);
+  await b.learning.retryPendingSaves();
+  assert.equal(b.learning.saveStatus().status, 'saved');
+  assert.equal((await a.learning.retryPendingSaves()).status, 'saved');
+  assert.equal(a.learning.practiceSummary().status, 'ready');
+  independent(a, 'second');
+  await a.learning.retryPendingSaves();
+  assert.equal(a.learning.saveStatus().status, 'saved');
+  assert.equal(itemHistory(browser(a.localStorage)).exposures, 2);
+  const pendingKeys = Array.from({ length: a.localStorage.length }, (_, index) => a.localStorage.key(index))
+    .filter(name => name.startsWith(`${key}.pending.`));
+  assert.deepEqual(pendingKeys, [], 'new encounters must resume durable checkpoint compaction');
+});
+
+test('journal reconciliation preserves malformed entries and incomplete storage reads', async () => {
+  const a = browser(); const pendingKey = `${key}.pending.unreadable`;
+  a.localStorage.setItem(pendingKey, '{malformed');
+  independent(a, 'valid');
+  await a.learning.retryPendingSaves();
+  assert.equal(a.learning.saveStatus().status, 'error');
+  assert.equal(a.learning.practiceSummary().status, 'partial');
+  assert.equal(a.localStorage.getItem(pendingKey), '{malformed');
+  // A failed read does not prove that a previously damaged entry disappeared.
+  a.localStorage.removeItem(pendingKey);
+  const read = a.localStorage.getItem.bind(a.localStorage);
+  a.localStorage.getItem = name => {
+    if (name === pendingKey) throw new Error('storage read interrupted');
+    return read(name);
+  };
+  await a.learning.retryPendingSaves();
+  assert.equal(a.learning.saveStatus().status, 'error');
+  assert.equal(a.learning.practiceSummary().status, 'partial');
+  a.localStorage.getItem = read;
+  await a.learning.retryPendingSaves();
+  assert.equal(a.learning.saveStatus().status, 'saved');
+  assert.equal(a.learning.practiceSummary().status, 'ready');
+  assert.equal(itemHistory(browser(a.localStorage)).exposures, 1);
+});
+
 test('only explicit unaided successes earn recall evidence; exposure and support remain distinct', () => {
   const clock = clockAt('2030-01-01T10:00:00.000Z'); const a = browser(null, 'caatuu-test', clock);
   a.learning.recordExposure('sound-quasar', event('unknown'));

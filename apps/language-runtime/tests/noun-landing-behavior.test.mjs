@@ -13,6 +13,7 @@ import * as core from "../static/source/games/grammar-gravity/noun-landing-core.
 import { createNounVisual } from "../static/source/games/grammar-gravity/noun-visual.mjs";
 import { mountGrammarFlight } from "../static/source/games/grammar-gravity/adjective-flight-host.mjs";
 import { buildGrammarGravityRounds, normalizeGrammarGravityPack } from "../static/source/games/grammar-gravity/grammar-gravity-core.mjs";
+import { createTargetReadingGuide } from "../static/source/target-reading-guide.mjs";
 
 const hostSource = await readFile(new URL(
   "../static/source/games/grammar-gravity/noun-landing-host.mjs", import.meta.url
@@ -71,6 +72,7 @@ async function mountGame({ language = "czech", syntheticBase = false, reducedMot
     href: "https://caatuu.test/language-runtime/static/games/grammar-gravity.html"
   } });
   seedMarkup(harness);
+  const readingGuide = createTargetReadingGuide({ course, gameId: "grammar-gravity", document: harness.document, storage: harness.window.localStorage });
   const outsideControl = harness.document.createElement("button");
   outsideControl.type = "button";
   outsideControl.textContent = "Outside the game";
@@ -129,7 +131,7 @@ async function mountGame({ language = "czech", syntheticBase = false, reducedMot
       if (visualFails) throw new Error("image lookup unavailable");
       return { rows: [{ sourceKind: "image_asset", path: "/assets/miscellaneous/noun-fixture.png" }] };
     } }), mountRobotLoadingScreen,
-    course, shell, mountOptions: { segmentSize, mountControls, initialActive, onComplete: () => segments.push(true) },
+    course, shell, mountOptions: { segmentSize, mountControls, initialActive, onComplete: () => segments.push(true), readingGuide },
     createNounLandingSession: (pack, options = {}) => core.createNounLandingSession(pack, { ...options, random: () => 0.999 }),
     fetchDeclaredCourseGameJson: (profile, options) => fetchDeclaredCourseGameJson(profile, {
       ...options,
@@ -188,7 +190,7 @@ async function mountGame({ language = "czech", syntheticBase = false, reducedMot
   }
   const lane = (id) => element("gravityNounLanes").querySelector('[data-lane-id="' + id + '"]');
   const answer = (id = controller.snapshot().item.laneId) => click(lane(id));
-  return { ...harness, shell, get controller() { return controller; }, raw, course, element, click, lane, answer,
+  return { ...harness, shell, get controller() { return controller; }, raw, course, element, click, lane, answer, readingGuide,
     frame, finishFeedback, frames, fetches, records, messages, errors, controls, segments, outsideControl,
     mediaListeners, speechCalls, visualCalls, companion, finishSpeech: () => finishSpeech?.(), speechStops: () => speechStops,
     setDifficulty(value) {
@@ -201,6 +203,22 @@ async function mountGame({ language = "czech", syntheticBase = false, reducedMot
 async function settle() {
   for (let index = 0; index < 12; index += 1) await Promise.resolve();
 }
+
+for (const language of ["arabic-standard", "georgian"]) test(`${language} noun readings toggle in place without restarting the fall or changing the target`, async () => {
+  const game = await mountGame({ language });
+  const word = game.element("gravityNounWord");
+  assert.ok(word.querySelector("rt"));
+  assert.equal(word.querySelector("rt").lang, `${game.course.targetLanguage.id}-Latn`);
+  const item = game.controller.snapshot().item;
+  game.readingGuide.setEnabled(false);
+  assert.equal(word.textContent, item.targetText);
+  assert.equal(word.querySelector("rt"), null);
+  assert.equal(game.controller.snapshot().item.id, item.id);
+  game.readingGuide.setEnabled(true);
+  assert.ok(word.querySelector("rt"));
+  assert.equal(game.records.length, 0);
+  game.controller.destroy();
+});
 
 test("an unavailable noun band retires the board and can recover through another badge", async () => {
   const game = await mountGame({ mutateContent(raw) {
@@ -250,7 +268,9 @@ test("Navigator to Explorer retires the current noun queue and pending speech in
     const replacement = game.controller.snapshot();
     assert.equal(replacement.phase, "falling");
     assert.ok([replacement.item, ...replacement.queue].every(item => (item.difficulty ?? 1) === 1));
-    assert.equal(game.element("gravityNounWord").textContent, replacement.item.targetText);
+    const word = game.element("gravityNounWord");
+    const surface = word.querySelectorAll("rt").reduce((text, guide) => text.replace(guide.textContent, ""), word.textContent);
+    assert.equal(surface, replacement.item.targetText);
     assert.ok(oldFrames.every(id => !game.frames.has(id)), "old falling work is cancelled");
     assert.equal(game.frames.size, 1);
     assert.equal(game.speechStops(), stops + 1);

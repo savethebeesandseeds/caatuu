@@ -7,6 +7,7 @@ import { selectContentItems, newContentEncounterId, matchesContentDifficulty } f
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { createInterfaceContent } from "../static/source/interface-content.mjs";
 import { mountRobotLoadingScreen } from "../static/source/games/embedded-game-controls.mjs";
+import { createTargetReadingGuide } from "../static/source/target-reading-guide.mjs";
 import {
   fetchDeclaredCourseGameJson,
   readEmbeddedCourseProfile
@@ -81,8 +82,8 @@ async function mountGame({ language = "czech", difficulty = 3, syntheticBase = f
       }
     }
   };
-  if (language === "arabic-standard") {
-    const manifest = JSON.parse(await readFile(new URL("../../languages/arabic-standard/course.json", import.meta.url), "utf8"));
+  if (["arabic-standard", "georgian"].includes(language)) {
+    const manifest = JSON.parse(await readFile(new URL(`../../languages/${language}/course.json`, import.meta.url), "utf8"));
     Object.assign(course, { id: manifest.id, routePrefix: manifest.routePrefix,
       sourceLanguage: manifest.sourceLanguage, targetLanguage: manifest.targetLanguage });
   }
@@ -195,6 +196,8 @@ async function mountGame({ language = "czech", difficulty = 3, syntheticBase = f
     rejectCatalog = reject;
   }) : Promise.resolve();
   Object.assign(harness.context, {
+    createTargetReadingGuide,
+    createArabicReadingGuide: createTargetReadingGuide,
     selectConjugationPracticeVerbs, newContentEncounterId, matchesContentDifficulty,
     fetchDeclaredCourseGameJson,
     readEmbeddedCourseProfile,
@@ -344,6 +347,108 @@ test("Arabic conjugation renders all thirteen RTL forms and expands rows for tal
   game.setActive(true);
   const height = Number.parseFloat(game.element("conjugationCometHelix").style.getPropertyValue("--helix-content-height"));
   assert.ok(height / (game.round().subjects.length + 1.2) > 180, "every row must exceed its measured cue height");
+  game.controller.destroy();
+});
+
+test("Georgian conjugation guides preserve colored forms, assessment and a saved preference", async () => {
+  const game = await mountGame({ language: "georgian", difficulty: 1 });
+  const guide = game.toolbarCalls[0].readingGuide;
+  const target = game.element("conjugationCometTargets");
+  assert.equal(guide.available, true);
+  assert.equal(guide.enabled, true);
+  assert.equal(game.strandButtons("target").length, 6);
+  assert.equal(target.querySelectorAll("ruby").length, 6);
+  for (const button of game.strandButtons("target")) {
+    assert.equal(button.dir, "ltr");
+    assert.equal(button.querySelector("rt").lang, "ka-Latn");
+    assert.equal(button.querySelector(".caatuu-target-text-glyph").textContent, button.dataset.targetSurface);
+    assert.ok(button.querySelector(".conjugation-comet-difference"), "the authored differing form stays highlighted");
+  }
+  const initial = game.assessment();
+  guide.setEnabled(false);
+  assert.equal(target.querySelector("rt"), null);
+  for (const button of game.strandButtons("target")) {
+    assert.equal(button.textContent, button.dataset.targetSurface);
+    assert.ok(button.querySelector(".conjugation-comet-difference"));
+  }
+  assert.deepEqual(game.assessment(), initial);
+  assert.equal(game.attempts().length, 0);
+  guide.setEnabled(true);
+  assert.equal(target.querySelectorAll("ruby").length, 6);
+  game.submit();
+  game.advance(350);
+  assert.equal(game.element("conjugationCometSummaryPairs").querySelectorAll("rt").length, 6);
+  guide.setEnabled(false);
+  assert.equal(game.element("conjugationCometSummaryPairs").querySelector("rt"), null);
+  assert.equal(game.localStorage.getItem("caatuu.ka.conjugation-comet.romanization"), "false");
+  game.controller.destroy();
+  const reopened = await mountGame({ language: "georgian", difficulty: 1,
+    localStorageValues: { "caatuu.ka.conjugation-comet.romanization": "false" } });
+  assert.equal(reopened.toolbarCalls[0].readingGuide.enabled, false);
+  assert.equal(reopened.element("conjugationCometTargets").querySelector("rt"), null);
+  reopened.controller.destroy();
+});
+
+test("long Georgian readings use the target half before shrinking on a narrow helix", async () => {
+  const game = await mountGame({ language: "georgian", difficulty: 2, mutateCatalog(raw) {
+    raw.verbs = raw.verbs.filter(({ id, difficulty }) => id === "ka-014-future" || difficulty === 1);
+  } });
+  const buttons = game.strandButtons("target");
+  const original = new Map(buttons.map((button) => [button, {
+    left: button.style.getPropertyValue("left"), width: button.style.getPropertyValue("width")
+  }]));
+  let helixWidth = 296;
+  game.element("conjugationCometHelix").getBoundingClientRect = () => ({
+    top: 0, left: 0, right: helixWidth, bottom: 600, width: helixWidth, height: 600
+  });
+  game.window.getComputedStyle = () => ({ fontSize: "17.2px", paddingLeft: "3px", paddingRight: "3px" });
+  for (const button of buttons) {
+    const long = button.dataset.targetSurface.length >= 12;
+    button.querySelector("ruby").getBoundingClientRect = () => ({
+      width: (long ? 120 : 52) * (Number.parseFloat(button.style.getPropertyValue("--comet-target-font-size")) || 17.2) / 17.2,
+      height: 30, top: 0, bottom: 30, left: 0, right: long ? 120 : 52
+    });
+  }
+  const long = buttons.find((button) => button.dataset.targetSurface === "ვილაპარაკებთ");
+  assert.ok(long, "the fixture includes an authored twelve-letter form");
+  const guide = game.toolbarCalls[0].readingGuide;
+  game.setActive(false);
+  game.setActive(true);
+  assert.equal(long.style.getPropertyValue("--comet-target-font-size"), "", "available width preserves the learner's font size");
+  assert.ok(Number.parseFloat(long.style.getPropertyValue("width")) > Number.parseFloat(original.get(long).width));
+  for (const button of buttons.filter((button) => button.dataset.targetSurface.length < 12)) {
+    assert.equal(button.style.getPropertyValue("left"), original.get(button).left);
+    assert.equal(button.style.getPropertyValue("width"), original.get(button).width);
+  }
+  function assertFits() {
+    const width = Number.parseFloat(long.style.getPropertyValue("width"));
+    const center = Number.parseFloat(long.style.getPropertyValue("left"));
+    assert.ok(center - width / 2 >= .99, "the guided word remains inside the left edge");
+    assert.ok(center + width / 2 <= 46.01, "the guided word remains on the target side");
+    assert.ok(long.querySelector("ruby").getBoundingClientRect().width + 6 <= width * helixWidth / 100 + .01);
+    assert.equal(long.querySelectorAll("ruby").length, 1, "the Georgian word remains whole");
+    assert.equal(long.querySelector(".caatuu-target-text-glyph").textContent, "ვილაპარაკებთ");
+    assert.equal(game.attempts().length, 0);
+  }
+  assertFits();
+  helixWidth = 220;
+  game.setActive(false);
+  game.setActive(true);
+  const fitted = Number.parseFloat(long.style.getPropertyValue("--comet-target-font-size"));
+  assert.ok(fitted > 12 && fitted < 17.2, "only the space-constrained guided target shrinks");
+  assertFits();
+  game.setActive(false);
+  game.setActive(true);
+  assert.equal(Number.parseFloat(long.style.getPropertyValue("--comet-target-font-size")), fitted, "repeated measurements do not compound the font reduction");
+  helixWidth = 296;
+  game.setActive(false);
+  game.setActive(true);
+  assert.equal(long.style.getPropertyValue("--comet-target-font-size"), "", "a wider view restores the learner's font size");
+  assertFits();
+  guide.setEnabled(false);
+  assert.equal(long.style.getPropertyValue("width"), original.get(long).width);
+  assert.equal(long.style.getPropertyValue("--comet-target-font-size"), "");
+  guide.setEnabled(true);
   game.controller.destroy();
 });
 

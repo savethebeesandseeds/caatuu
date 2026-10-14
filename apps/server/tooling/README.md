@@ -138,7 +138,13 @@ pack cannot leave a partially refreshed catalog. The same inspection binds
 `offline.cachePrefix` exactly to the owning course's `cache.prefix` and keeps
 `offline.cacheName` versioned beneath that prefix, preventing a copied setup
 from sharing another course's worker-managed cache namespace. Android Gradle builds run the
-write mode automatically before packaging. After that preflight, run the full
+write mode automatically before packaging. The all-course command also derives
+the shared badge-stage workload table from each course's validated playable
+inventory. Its read-only mode rejects a stale table; write mode refreshes it
+before hashing the profile for every course. No model or semantic cache is used.
+The focused generator can be inspected independently with
+`node apps/server/tooling/sync-practice-progression.mjs --check` in this container.
+After that preflight, run the full
 boundary audit:
 
 ```powershell

@@ -27,7 +27,7 @@ const gameplayVariants = [
 const catalogsPromise = loadProgressionCatalogs();
 const nucleusPromise = (async () => {
   const context = { window: {} };
-  vm.runInNewContext(await readFile(new URL('../../languages/mandarin-simplified/static/source/games/naturalization-nucleus/naturalization-nucleus.js', import.meta.url), 'utf8'), context);
+  vm.runInNewContext(await readFile(new URL('../static/source/games/naturalization-nucleus/naturalization-nucleus.js', import.meta.url), 'utf8'), context);
   return context.window.CaatuuNaturalizationNucleus;
 })();
 const scope = (courseId, gameId, bankId = 'default', onDecision = () => {}) => ({

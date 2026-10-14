@@ -272,9 +272,11 @@ courses. Its `soundQuasarCatalog` pins course-owned words and sentences with
 English audit text and upstream provenance at `sound-quasar-items-v2`. The
 Aa control switches between five-word and five-sentence rounds. Correct answers
 earn 1 XP, including correct retries; reveals earn none. Completing a round
-adds one completed round (coin), with streak eligibility when at least one
+adds one completed round and shared practice-set effort, with streak eligibility when at least one
 answer was correct. Device speech remains unreviewed and does not establish
 pronunciation mastery or Campaign completion.
+Coins, milestone gems, and reward presentation follow the
+[shared game dynamics](GAME_DYNAMICS.md) for every course.
 Source review and license states are preserved; adding the pilot does not
 approve its source text or synthesized audio.
 
@@ -287,7 +289,7 @@ Planet readiness is a conjunction, not a language allowlist:
 | Conjugation Comet | `conjugationCometCatalog` | `conjugationComet`, `verb-conjugation`, and its route |
 | Case Cosmos | `caseCosmosCatalog` | `grammatical-case` and its route |
 | Grammar Gravity | `grammarGravityCatalog` | `grammatical-agreement` and its route |
-| Naturalization Nucleus | `naturalizationNucleusCatalog` | `hanzi-pinyin`, a Chinese target, and its route |
+| Naturalization Nucleus | `naturalizationNucleusCatalog` | `hanzi-pinyin` with a Chinese target, or `arabic-romanization` with an Arabic target, and its route |
 | Memory Moon | No authored catalog yet | `memory` and its route when promoted from upcoming |
 | Sounds Quasar | `soundQuasarCatalog` | `speech` and the shared `routes.soundQuasar` host; device speech is practice only |
 | Campaign | No separate catalog | Its route and at least one explicitly Campaign-eligible playable planet |

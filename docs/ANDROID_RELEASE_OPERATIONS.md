@@ -1,6 +1,6 @@
 # Android release operations
 
-Last reviewed: 5 October 2026
+Last reviewed: 6 October 2026
 
 This is the operational handoff for maintainers and coding sessions. Use the
 maintained entrypoints, not a remembered sequence of repair commands.
@@ -14,7 +14,7 @@ successful publication is not proof of beta/stable readiness.
 | New Android version | `pwsh -NoProfile -File apps/android/tooling/release-android.ps1` | One guarded Android build, only if no sealed candidate exists. |
 | Retry finalized Android publication | Rerun that command, or use the receipt-only command below. | Neither Android nor website. |
 | Publish changed website sources | Explicit `deployment_scope=website` in the existing Pages workflow. | Website only; existing Android artifacts are retained. |
-| Change release tooling/tests/docs | Focused verification and source CI. | No new APK solely to test orchestration. |
+| Change release tooling/tests/docs | Focused verification; request a full review when needed. | No new APK solely to test orchestration. |
 
 Run from `C:\Work\caatuu` on the Windows host. Heavy builds and Node checks run
 in the established `caatuu-dev` container at `/workspace`. Never create a
@@ -42,13 +42,13 @@ to make a release work. The existing local app on port 8765 need not be stopped.
    package audit, finalization, upload, Pages handoff and public verification.
    Do not first build the same APK separately or run a full website export.
 
-Before entering a new build, the routine command requires successful Repository
-CI for the exact source commit on `main`. It reads the existing run rather than
-dispatching another one, waits for pending checks for at most 15 minutes, and
-stops before Gradle on failure, cancellation, missing results or a revision
-mismatch. Fix the source and reuse an unsealed version after its checks pass.
-Finalized receipt-only retries skip this gate as well as the build. Advanced
-use of the lower-level builder requires the same successful source checkpoint.
+Before entering a new build, the publisher requires clean, pushed `main` and
+runs its explicit focused source preflight in the existing container. A failed
+preflight stops before Gradle. The routine command does not wait for remote
+Repository CI or require the full review suite to pass. Finalized receipt-only
+retries skip source tests and building; the deployer still authenticates the
+receipt and exact artifacts. The lower-level publisher uses the same mandatory
+local checkpoint.
 
 The builder's metadata-only Pages capacity preflight runs before Gradle. It
 accounts for pending finalized releases, applies only the explicitly approved
@@ -213,12 +213,19 @@ rendered structure or behavior where appropriate. Replacing one stale literal
 with today's literal does not fix this class of failure. If a wording assertion
 has no safety or behavior contract, remove it rather than maintaining it.
 
-Source CI owns larger compiler fixtures and website tests. Routine APK preflight
-stays small; the real compiler and final archive audit retain integrity checks.
+Full reviews own larger compiler fixtures, repeated catalog mutation tests and
+website tests. Routine APK preflight stays small; the real compiler and final
+archive audit retain integrity checks.
 The inexpensive fallback course-chooser and shared-selector contracts run before
 Gradle, so missing course rows or offline flag coverage fail before an APK build.
-The routine command waits for that commit's broader source CI first, so compiler
-fixtures and course integration failures cannot arrive after its APK build.
+The publisher runs a fixed list of ten focused test files, including the authored
+topic-goal projection without repeated full-catalog validation. It does not
+discover or run the repository-wide test collection. Run focused behavior tests
+for each changed boundary before publication; full-review failures must be
+assessed for relevance rather than becoming an unrelated global release gate.
+Ordinary Repository CI pushes check file policy and Markdown links. Use its
+manual workflow dispatch for the full browser, runtime, catalog, Rust and build
+evidence suites. These diagnostic runs are independent of APK publication.
 Fresh-checkout fixtures must not secretly require Git-ignored model downloads.
 Metadata-only tests may explicitly exercise the setup-delivered runtime mode;
 normal Android builds remain strict. Synthetic missing-file, byte/hash mismatch
@@ -241,7 +248,7 @@ build, Git mutation or publication. They exercise the maintained orchestration
 and network/dispatch functions with controlled stage failures: before sealing,
 after upload, during Pages and public verification, corrupted receipt, bounded
 read timeout, and an accepted dispatch with a lost response. Retries must keep
-the same artifact identity and must not call the builder twice. Source CI runs
+the same artifact identity and must not call the builder twice. Full reviews run
 these suites alongside the Node contracts. These simulations do not replace a
 signed-package audit, actual public-byte verification or physical-device testing.
 
@@ -468,6 +475,12 @@ receipt-only retries. The actual read-only gate was also exercised against the
 successful fix commit `7b6abc29e8676fc57e5c33f98d50a944281e70d7` before publication.
 This moves source failures ahead of Gradle; signing, archive integrity and public
 byte checks still validate the artifacts and deployment at their own boundaries.
+
+The 6 October deployment policy supersedes that whole-CI waiting requirement.
+The publisher's focused local source preflight remains mandatory before Gradle;
+full reviews run independently. This removes unrelated-suite failures and queue
+time from routine publication while retaining the signed-package audit and
+receipt-only retry boundary.
 
 Android 181 (`0.1.29`) from `b0b6d4c85ff535304cb0012784deff7c7de07431`
 was built and published successfully in one routine-command attempt. Its

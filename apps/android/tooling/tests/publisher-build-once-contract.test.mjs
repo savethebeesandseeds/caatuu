@@ -204,6 +204,8 @@ test("release preflight checks cheap Android safety contracts without rebuilding
       `${contract} must validate the Android boundary before signing`);
   }
   assert.doesNotMatch(preflightSource, /product-\*|product-assets-contract|product-word-world-startup|apps\/launcher\/tooling|build-product-assets\.mjs|build-static-site\.mjs|build-pages-site\.mjs/u);
+  assert.match(preflightSource, /learning-goals-projection\.test\.mjs/u);
+  assert.doesNotMatch(preflightSource, /\/learning-goals\.test\.mjs|--test\s+[^\n]*\*/u);
   assert.match(builder, /:product:generateProductAssets/u);
   assert.match(builder, /validate-product-package\.mjs/u);
 });

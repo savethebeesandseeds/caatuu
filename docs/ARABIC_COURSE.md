@@ -26,8 +26,9 @@ and [content evaluator guide](../tools/learning-evaluation/README.md).
 
 The course teaches Modern Standard Arabic with authored vowel marks and
 contextual hints for whole orthographic words, including attached articles,
-prepositions and pronouns. It does not invent a transliteration or split Arabic
-into character puzzles. Native review must check vowel marks, case endings,
+prepositions and pronouns. Naturalization Nucleus adds individually authored
+Latin readings for whole Arabic words; it preserves connected script and vowel
+marks. Native review must check vowel marks, case endings,
 idiomatic wording and English equivalence.
 
 Sentences cover introductions, relationships, home, routines, food, shopping,
@@ -46,13 +47,39 @@ The sentence bank contains 778 level-1, 1,238 level-2 and 484 level-3 records.
 | Conjugation Comet | 75 lexemes, past and present, 150 paradigms and 1,950 assessed forms across 13 slots |
 | Grammar Gravity | 24 families, 720 agreement examples and 500 nouns |
 | Sounds Quasar | Exact reuse of the 600 verbs and 2,500 sentences for device speech |
+| Naturalization Nucleus | 60 whole-word verb/Latin-reading pairs, 20 per difficulty, with 5- and 9-tile boards |
 
 Conjugation includes sound, weak and hamzated verbs with explicit authored
 forms. Grammar distinguishes human dual/plural agreement from nonhuman plural
 agreement. The selection follows [Arabic grammar references](https://openbooks.lib.msu.edu/arb201/chapter/2-2-grammar-in-context/)
 and the [Arabic layout requirements](https://www.w3.org/TR/alreq/).
-Case Cosmos lacks an Arabic case curriculum; Naturalization Nucleus uses a
-Hanzi/pinyin contract; Memory Moon is not implemented. Those games stay excluded.
+Case Cosmos lacks an Arabic case curriculum; Memory Moon is not implemented.
+Those games stay excluded.
+
+The [reading catalog](../apps/languages/arabic-standard/static/data/games/naturalization-nucleus/content.json)
+uses `arabic-learning-romanization-v1`: scholarly consonant symbols and long
+vowels (`ā`, `ī`, `ū`), doubled consonants for shadda, `ʿ` for ʿayn and `ʾ` for
+noninitial hamza. Initial hamza is omitted. Readings retain written citation-verb
+endings and use `ā` for alif maqṣūra. They are a pedagogical notation informed
+by the [ALA-LC Arabic table](https://www.loc.gov/catdir/cpso/romanization/arabic-2011.pdf),
+not a claim of full bibliographic ALA-LC compliance. Readings are authored,
+not guessed from unvocalized text, and remain a machine-assisted preview pending
+qualified native review. Every Arabic game also enables a Latin reading above
+the Arabic by default, using the same red as translation. Each game's settings
+include an independent, persistent **Show romanization** toggle; changing it
+preserves the active round. Campaign reuses these settings.
+
+The shared reading guide projects the authored written vowels, with explicit
+spelling and initial-alif exceptions. It keeps each connected word intact and
+preserves colored conjugation endings. Unvocalized words without a declared
+exception remain plain Arabic. This presentation aid does not replace answer
+keys, Arabic speech or reviewed pronunciation metadata. Naturalization Nucleus
+uses its authored readings and records matching while the reading aid was shown
+as assisted practice. Native pronunciation review remains pending.
+
+The shared renderer alternates Arabic
+and Latin matching directions, preserves RTL/LTR language metadata, and uses
+the course's Arabic device speech. Both recognition banks feed shared Stats.
 
 ## Delivery and review status
 

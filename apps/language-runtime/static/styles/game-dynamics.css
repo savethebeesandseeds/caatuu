@@ -1,0 +1,265 @@
+/* Shared practice pacing: one course-wide set, one brief reward bundle. */
+.app-header:has(.caatuu-reward-received) { z-index: 41; }
+.practice-xp-token {
+  display: grid;
+  place-items: center;
+  min-width: 25px;
+  height: 25px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--green, #22594d) 12%, var(--panel, #fffdf8));
+  color: var(--green, #22594d);
+  font-size: 0.62rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.caatuu-practice-meter {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 8;
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  gap: 3px 8px;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  padding: 5px 9px;
+  border: 1px solid var(--line, #cfd8d1);
+  border-radius: 10px;
+  background: var(--panel, #fffdf8);
+  color: var(--muted, #5d6b65);
+  font-size: 0.65rem;
+  font-weight: 600;
+  line-height: 1.2;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.caatuu-practice-meter.is-floating {
+  position: fixed;
+  top: auto;
+  bottom: calc(80px + env(safe-area-inset-bottom));
+}
+
+.caatuu-practice-meter-count { font-variant-numeric: tabular-nums; }
+.caatuu-practice-meter-cycle { grid-column: 1 / -1; font-size: .6rem; color: var(--muted, #5d6b65); }
+.caatuu-practice-badge-offer { grid-column: 1 / -1; padding: 5px 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--green); font: inherit; pointer-events: auto; }
+.caatuu-practice-meter-cycle[hidden], .caatuu-practice-badge-offer[hidden], .caatuu-badge-progression[hidden] { display: none; }
+.caatuu-badge-progression { display: grid; gap: 5px; padding: 10px; border: 1px solid var(--line); border-radius: 12px; font-size: .75rem; line-height: 1.4; }
+.caatuu-badge-progression p { margin: 0; }
+.caatuu-badge-stage-title { color: var(--ink); }
+.caatuu-badge-stage-count { color: var(--green); font-weight: 700; }
+.caatuu-badge-stage-sets, .caatuu-badge-recommendation small { color: var(--muted); }
+.caatuu-badge-stage-meter { width: 100%; height: 5px; accent-color: var(--green); }
+.caatuu-badge-recommendation { display: grid; gap: 6px; }
+.caatuu-badge-recommendation-art { width: 52px; height: 52px; object-fit: contain; justify-self: center; }
+.caatuu-badge-recommendation-message { font-weight: 700; }
+.caatuu-badge-recommendation-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.caatuu-badge-recommendation button { min-height: 44px; padding: 7px 10px; border: 1px solid var(--line); border-radius: 9px; background: var(--panel); color: var(--green); font: inherit; font-weight: 700; }
+.caatuu-badge-recommendation .caatuu-badge-equip { color: var(--panel); background: var(--green); border-color: var(--green); }
+.caatuu-badge-recommendation button:focus-visible, .caatuu-practice-badge-offer:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
+.difficulty-control button.is-recommended { outline: 2px solid var(--green); outline-offset: 1px; }
+.caatuu-practice-meter-progress {
+  grid-column: 1 / -1;
+  width: 100%;
+  height: 3px;
+  border: 0;
+  border-radius: 4px;
+  accent-color: var(--green, #22594d);
+}
+.caatuu-practice-meter-progress::-webkit-progress-bar { background: var(--line, #cfd8d1); border-radius: 4px; }
+.caatuu-practice-meter-progress::-webkit-progress-value { background: var(--green, #22594d); border-radius: 4px; }
+.caatuu-practice-meter-progress::-moz-progress-bar { background: var(--green, #22594d); border-radius: 4px; }
+
+.caatuu-practice-celebration {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  padding: max(20px, env(safe-area-inset-top)) 20px max(84px, env(safe-area-inset-bottom));
+  background: color-mix(in srgb, var(--paper, #f5efe5) 78%, transparent);
+  pointer-events: none;
+}
+
+.caatuu-practice-celebration-card {
+  position: relative;
+  width: min(370px, 100%);
+  padding: 27px 20px 17px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--green, #22594d) 36%, var(--line, #cfd8d1));
+  border-radius: 22px;
+  background: var(--panel, #fffdf8);
+  box-shadow: var(--shadow, 0 18px 44px #17201d22);
+  color: var(--ink, #17201d);
+  text-align: center;
+  pointer-events: auto;
+  animation: caatuu-practice-arrive 420ms cubic-bezier(.16, .7, .2, 1) both;
+}
+
+.caatuu-practice-celebration-card::before {
+  position: absolute;
+  inset: -100px -50px 30px;
+  content: "";
+  background: radial-gradient(ellipse at 50% 60%, color-mix(in srgb, #e8ca6b 20%, transparent), transparent 64%);
+  pointer-events: none;
+  animation: caatuu-practice-warmth 1600ms ease-out both;
+}
+
+.caatuu-practice-celebration-title { position: relative; font-size: 1.2rem; font-weight: 800; }
+.caatuu-practice-celebration-message { position: relative; margin-top: 7px; color: var(--muted, #5d6b65); font-size: 0.79rem; line-height: 1.4; }
+.caatuu-practice-celebration-rewards { position: relative; display: flex; justify-content: center; gap: 28px; margin: 22px 0 18px; }
+.caatuu-practice-reward { position: relative; display: grid; justify-items: center; gap: 3px; min-width: 52px; animation: caatuu-practice-token 640ms cubic-bezier(.16, .7, .2, 1) 80ms both; }
+.caatuu-practice-reward-coins { animation-delay: 160ms; }
+.caatuu-practice-reward-gems { animation-delay: 240ms; }
+.caatuu-practice-reward-art { width: 52px; height: 52px; object-fit: contain; filter: drop-shadow(0 4px 6px #17201d20); }
+.caatuu-practice-reward-xp .caatuu-practice-reward-art { display: grid; place-items: center; border-radius: 16px; background: color-mix(in srgb, var(--green, #22594d) 12%, var(--panel, #fffdf8)); color: var(--green, #22594d); font-size: 2.3rem; }
+.caatuu-practice-reward-coins .caatuu-practice-reward-art { animation: caatuu-practice-coin-turn 560ms ease-out 180ms both; }
+.caatuu-practice-reward-coins::after {
+  position: absolute;
+  top: 2px;
+  left: calc(50% + 8px);
+  content: "✦";
+  color: #fff8d8;
+  font-size: 19px;
+  line-height: 1;
+  opacity: 0;
+  filter: drop-shadow(0 0 3px #e8ca6b);
+  pointer-events: none;
+  animation: caatuu-practice-glint 600ms ease-out 520ms both;
+}
+.caatuu-practice-reward-gems .caatuu-practice-reward-art { animation: caatuu-practice-gem-bloom 1100ms ease-out 300ms both; }
+.caatuu-practice-reward-amount { font-size: 1.2rem; font-variant-numeric: tabular-nums; }
+.caatuu-practice-reward-label { color: var(--muted, #5d6b65); font-size: 0.72rem; }
+.caatuu-practice-celebration-skip { position: relative; min-width: 108px; min-height: 44px; padding: 8px 18px; border: 1px solid var(--line, #cfd8d1); border-radius: 12px; background: transparent; color: var(--green, #22594d); font-weight: 700; font-size: 0.8rem; }
+.caatuu-practice-celebration-skip:focus-visible { outline: 3px solid var(--green, #22594d); outline-offset: 3px; }
+
+.caatuu-practice-sparkles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.caatuu-practice-sparkle {
+  position: absolute;
+  top: 59%;
+  left: 50%;
+  width: 5px;
+  height: 9px;
+  border-radius: 50%;
+  background: #e8ca6b;
+  opacity: 0;
+  animation: caatuu-practice-spark 1000ms ease-out 450ms both;
+}
+.caatuu-practice-sparkle:nth-child(1) { --caatuu-spark-x: -115px; --caatuu-spark-y: -50px; --caatuu-spark-turn: -95deg; }
+.caatuu-practice-sparkle:nth-child(2) { --caatuu-spark-x: -85px; --caatuu-spark-y: -85px; --caatuu-spark-turn: 70deg; animation-delay: 490ms; }
+.caatuu-practice-sparkle:nth-child(3) { --caatuu-spark-x: -45px; --caatuu-spark-y: -105px; --caatuu-spark-turn: -50deg; }
+.caatuu-practice-sparkle:nth-child(4) { --caatuu-spark-x: -16px; --caatuu-spark-y: -82px; --caatuu-spark-turn: 90deg; animation-delay: 530ms; }
+.caatuu-practice-sparkle:nth-child(5) { --caatuu-spark-x: 18px; --caatuu-spark-y: -100px; --caatuu-spark-turn: -70deg; }
+.caatuu-practice-sparkle:nth-child(6) { --caatuu-spark-x: 55px; --caatuu-spark-y: -94px; --caatuu-spark-turn: 50deg; animation-delay: 490ms; }
+.caatuu-practice-sparkle:nth-child(7) { --caatuu-spark-x: 91px; --caatuu-spark-y: -72px; --caatuu-spark-turn: -95deg; }
+.caatuu-practice-sparkle:nth-child(8) { --caatuu-spark-x: 120px; --caatuu-spark-y: -34px; --caatuu-spark-turn: 80deg; animation-delay: 550ms; }
+.caatuu-practice-sparkle:nth-child(3n) {
+  width: 8px;
+  height: 8px;
+  background: color-mix(in srgb, var(--green, #22594d) 60%, #e8ca6b);
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+}
+
+.caatuu-practice-flight-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.caatuu-practice-flight-xp, .caatuu-practice-flight-coins, .caatuu-practice-flight-gems {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  opacity: 0;
+  pointer-events: none;
+}
+.caatuu-practice-flight-layer img, .caatuu-practice-flight-layer span {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 4px #17201d25);
+}
+.caatuu-practice-flight-xp > span {
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--green, #22594d) 12%, var(--panel, #fffdf8));
+  color: var(--green, #22594d);
+  font-size: 1.15rem;
+}
+.caatuu-practice-flight-coins { --caatuu-flight-offset: -22px; }
+.caatuu-practice-flight-gems { --caatuu-flight-offset: 22px; }
+.caatuu-practice-flight-xp.is-fallback, .caatuu-practice-flight-coins.is-fallback, .caatuu-practice-flight-gems.is-fallback {
+  animation: caatuu-practice-flight-fallback 1000ms cubic-bezier(.3, .05, .25, 1) 700ms both;
+}
+.caatuu-reward-received { animation: caatuu-practice-received 650ms ease-out both; }
+
+.caatuu-practice-meter[hidden], .caatuu-practice-celebration[hidden] { display: none; }
+.caatuu-practice-celebration.is-paused { visibility: hidden; }
+.caatuu-practice-celebration.is-paused *, .caatuu-practice-celebration.is-paused *::before, .caatuu-practice-celebration.is-paused *::after,
+.caatuu-reward-received.is-paused, .is-paused .caatuu-reward-received { animation-play-state: paused; }
+.caatuu-practice-celebration.is-reduced-motion *, .caatuu-practice-celebration.is-reduced-motion *::before, .caatuu-practice-celebration.is-reduced-motion *::after { animation: none; }
+.caatuu-practice-celebration.is-reduced-motion .caatuu-practice-flight-layer,
+.caatuu-practice-celebration.is-reduced-motion .caatuu-practice-sparkles { display: none; }
+
+@keyframes caatuu-practice-arrive {
+  from { opacity: 0; transform: translateY(18px) scale(.91); }
+  70% { opacity: 1; transform: translateY(-3px) scale(1.015); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes caatuu-practice-token {
+  from { opacity: 0; transform: translateY(22px) scale(.5) rotate(-14deg); }
+  55% { opacity: 1; transform: translateY(-7px) scale(1.15) rotate(4deg); }
+  78% { opacity: 1; transform: translateY(2px) scale(.97) rotate(-1deg); }
+  to { opacity: 1; transform: translateY(0) scale(1) rotate(0); }
+}
+@keyframes caatuu-practice-warmth {
+  from { opacity: .3; transform: scale(.8); }
+  45% { opacity: 1; transform: scale(1.07); }
+  to { opacity: .7; transform: scale(1); }
+}
+@keyframes caatuu-practice-coin-turn {
+  from { transform: rotateY(-65deg) rotate(-12deg); }
+  65% { transform: rotateY(18deg) rotate(4deg); }
+  to { transform: rotateY(0) rotate(0); }
+}
+@keyframes caatuu-practice-glint {
+  from { opacity: 0; transform: scale(.3) rotate(-30deg); }
+  40% { opacity: 1; transform: scale(1.2) rotate(15deg); }
+  to { opacity: 0; transform: scale(.5) rotate(65deg); }
+}
+@keyframes caatuu-practice-gem-bloom {
+  from, to { filter: drop-shadow(0 4px 6px #17201d20); }
+  35% { filter: drop-shadow(0 0 9px color-mix(in srgb, var(--green, #22594d) 65%, transparent)); }
+}
+@keyframes caatuu-practice-spark {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(.3); }
+  18% { opacity: .85; }
+  65% { opacity: .5; }
+  to { opacity: 0; transform: translate(var(--caatuu-spark-x), var(--caatuu-spark-y)) rotate(var(--caatuu-spark-turn)) scale(.6); }
+}
+@keyframes caatuu-practice-flight-fallback {
+  from { opacity: 0; transform: translate(calc(50vw - 12px + var(--caatuu-flight-offset, 0px)), calc(50vh - 18px)) scale(1.4); }
+  12% { opacity: 1; }
+  80% { opacity: 1; }
+  to { opacity: 0; transform: translate(calc(50vw - 12px + var(--caatuu-flight-offset, 0px)), 28px) scale(.65); }
+}
+@keyframes caatuu-practice-received {
+  from, to { scale: 1; filter: drop-shadow(0 0 0 transparent); }
+  38% { scale: 1.045; filter: drop-shadow(0 0 6px color-mix(in srgb, #e8ca6b 80%, transparent)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .caatuu-practice-celebration *, .caatuu-practice-celebration *::before, .caatuu-practice-celebration *::after,
+  .caatuu-reward-received { animation: none; }
+  .caatuu-practice-flight-layer, .caatuu-practice-sparkles { display: none; }
+}

@@ -95,3 +95,23 @@ test("routine Android publication cannot invoke the website compiler", () => {
   assert.match(workflow, /pages-website-snapshot\.mjs seal/u);
   assert.doesNotMatch(workflow, /--clobber/u);
 });
+
+test("full repository reviews require manual dispatch", () => {
+  const ci = readFileSync(join(workspaceRoot, ".github/workflows/repository-ci.yml"), "utf8");
+  assert.match(ci, /^on:\n  push:\n  pull_request:\n  workflow_dispatch:/mu);
+  const jobs = ci.slice(ci.indexOf("\njobs:\n")).split(/\n  (?=[a-z][a-z-]*:\n)/u).slice(1);
+  const contracts = jobs.find((job) => job.startsWith("contracts:\n"));
+  assert.ok(contracts);
+  const steps = contracts.split(/\n      - name: /u).slice(1);
+  const reviews = steps.filter((step) => /node --test|\.test\.ps1|restore-ci-runtime|curl --fail|docker compose/u.test(step));
+  assert.ok(reviews.length > 0, "Full coverage remains available on request");
+  for (const step of reviews) {
+    assert.equal(step.match(/^        if: (.+)$/mu)?.[1], "github.event_name == 'workflow_dispatch'");
+  }
+  const structure = steps.find((step) => step.includes("node tools/repository/check-tracked-files.mjs"));
+  assert.ok(structure?.includes("node tools/repository/check-markdown-links.mjs"));
+  assert.doesNotMatch(structure, /^        if:/mu);
+  for (const job of jobs.filter((job) => !job.startsWith("contracts:\n"))) {
+    assert.equal(job.match(/^    if: (.+)$/mu)?.[1], "github.event_name == 'workflow_dispatch'");
+  }
+});

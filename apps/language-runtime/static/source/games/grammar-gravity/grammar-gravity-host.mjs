@@ -8,10 +8,11 @@ import {
   fetchDeclaredCourseGameJson,
   readEmbeddedCourseProfile
 } from "../course-game-content.mjs?v=course-game-content-1";
-import { mountNounLanding } from "./noun-landing-host.mjs?v=noun-landing-host-25";
-import { mountGrammarFlight } from "./adjective-flight-host.mjs?v=adjective-flight-host-20";
-import { mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-9";
+import { mountNounLanding } from "./noun-landing-host.mjs?v=noun-landing-host-26";
+import { mountGrammarFlight } from "./adjective-flight-host.mjs?v=adjective-flight-host-21";
+import { mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-10";
 import { selectContentItems, newContentEncounterId } from "../adaptive-practice.mjs";
+import { createArabicReadingGuide } from "../../arabic-reading-guide.mjs?v=arabic-reading-guide-2";
 
 const GAME_ID = "grammar-gravity";
 const RESOURCE_NAME = "grammarGravityCatalog";
@@ -417,6 +418,7 @@ function configureControls() {
   }));
   state.controls = mountEmbeddedGameControls({
     container: $("#gravityNounControls"), shell: state.shell, course: state.course,
+    readingGuide: state.readingGuide,
     autoplay: true,
     illustrations: {
       labelKey: "games.grammargravity.controls.illustrations", pressed: state.iconsVisible,
@@ -481,6 +483,7 @@ export async function mountGrammarGravity() {
   });
   state.course = readEmbeddedCourseProfile(globalThis);
   state.shell = globalThis.parent && globalThis.parent !== globalThis ? globalThis.parent : globalThis;
+  state.readingGuide = createArabicReadingGuide({ course: state.course, gameId: GAME_ID, document, storage: state.shell.localStorage });
   const requestedPractice = state.shell.document?.documentElement?.dataset?.grammarGravityPractice
     || new URL(state.shell.location?.href || globalThis.location.href).searchParams.get("practice") || "sequence";
   const loadingLabel = state.shell.CaatuuI18n.t("games.grammargravity.nouns.loading");
@@ -491,6 +494,7 @@ export async function mountGrammarGravity() {
     container: $("#grammarGravityLoading"), label: loadingLabel, active: false
   });
   state.adjectiveGame = mountGrammarFlight({ document, scope: globalThis, shell: state.shell, course: state.course,
+    readingGuide: state.readingGuide,
     copy: (key, values) => state.shell.CaatuuI18n.t(`games.grammargravity.journey.${key}`, values),
     onAttempt({ correct, answerCorrect, evidence = "exposure" }) {
       state.shell.CaatuuLearning?.recordExposure?.(GAME_ID, {
@@ -512,6 +516,7 @@ export async function mountGrammarGravity() {
   selectMode("loading");
   render();
   state.nounGame = await mountNounLanding({ course: state.course, shell: state.shell,
+    readingGuide: state.readingGuide,
     initialActive: false, mountControls: false, segmentSize: NOUN_SEGMENT_SIZE, onComplete: finishNounSegment });
   if (state.destroyed) { state.nounGame.destroy(); return controller; }
   state.nounGame.setDurationMs(state.durationMs);

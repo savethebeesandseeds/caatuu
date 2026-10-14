@@ -54,13 +54,15 @@
     linguisticFeatures: [
       "verb-conjugation",
       "grammatical-agreement",
-      "grammatical-case"
+      "grammatical-case",
+      "arabic-romanization"
     ],
     games: [
       "verb-lab",
       "word-net",
       "conjugation-comet",
       "grammar-gravity",
+      "naturalization-nucleus",
       "sound-quasar"
     ],
     upcomingGames: [
@@ -84,6 +86,9 @@
       "grammar-gravity": {
         grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-1",
         grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1"
+      },
+      "naturalization-nucleus": {
+        naturalizationNucleusCatalog: "data/games/naturalization-nucleus/content.json?v=arabic-reading-starter-1"
       },
       "sound-quasar": {
         soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-content-1"
@@ -429,6 +434,9 @@
                 grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-1",
                 grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1"
               },
+              "naturalization-nucleus": {
+                naturalizationNucleusCatalog: "data/games/naturalization-nucleus/content.json?v=arabic-reading-starter-1"
+              },
               "sound-quasar": {
                 soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-content-1"
               }
@@ -594,7 +602,8 @@
       games: "index.html",
       verbNebula: "index.html?game=verb-lab",
       wordWorld: "index.html?game=word-net",
-      settings: "index.html"
+      settings: "index.html",
+      naturalizationNucleus: "index.html?game=naturalization-nucleus"
     },
     storage: {
       namespace: "caatuu-ar",

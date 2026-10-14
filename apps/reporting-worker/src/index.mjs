@@ -311,18 +311,17 @@ async function storeDictionaryGap(env, report, now) {
     FROM dictionary_gaps
     WHERE dictionary_key = ?1 AND dictionary_direction = ?2 AND normalized_word = ?3
   `).bind(report.dictionaryKey, report.dictionaryDirection, report.normalizedWord).first();
-  if (!existing) {
-    const capacity = await env.DB.prepare("SELECT COUNT(*) AS count FROM dictionary_gaps").first();
-    if (Number(capacity?.count || 0) >= 4096) {
-      throw new RequestError(507, "dictionary_capacity_reached", "Dictionary maintenance storage is full.");
-    }
-  }
   const result = await env.DB.prepare(`
     INSERT INTO dictionary_gaps (
       dictionary_key, dictionary_direction, normalized_word, target_word,
       lookup_outcome, lookup_returned, first_seen_at_unix_ms,
       last_seen_at_unix_ms, observation_count
-    ) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?7, 1)
+    ) SELECT ?1, ?2, ?3, ?4, ?5, ?6, ?7, ?7, 1
+    WHERE (SELECT COUNT(*) FROM dictionary_gaps) < 4096
+      OR EXISTS (
+        SELECT 1 FROM dictionary_gaps
+        WHERE dictionary_key = ?1 AND dictionary_direction = ?2 AND normalized_word = ?3
+      )
     ON CONFLICT (dictionary_key, dictionary_direction, normalized_word) DO UPDATE SET
       target_word = excluded.target_word,
       lookup_outcome = excluded.lookup_outcome,
@@ -339,6 +338,9 @@ async function storeDictionaryGap(env, report, now) {
     now
   ).run();
   if (result?.success !== true) throw new Error("D1 did not acknowledge the dictionary write.");
+  if (result.meta?.changes === 0) {
+    throw new RequestError(507, "dictionary_capacity_reached", "Dictionary maintenance storage is full.");
+  }
   return { deduplicated: Boolean(existing) };
 }
 
@@ -360,6 +362,7 @@ async function storeSentenceReport(env, report, now) {
       client_report_id, payload_sha256, sentence, translation, reason,
       comment, entry_id, content_mode, corpus_version, received_at_unix_ms
     ) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10)
+    ON CONFLICT (client_report_id) DO NOTHING
   `).bind(
     report.clientReportId,
     payloadSha256,
@@ -373,6 +376,19 @@ async function storeSentenceReport(env, report, now) {
     now
   ).run();
   if (result?.success !== true) throw new Error("D1 did not acknowledge the sentence write.");
+  if (result.meta?.changes === 0) {
+    // Another request may have inserted this identifier after the initial read.
+    const stored = await env.DB.prepare(`
+      SELECT payload_sha256
+      FROM sentence_reports
+      WHERE client_report_id = ?1
+    `).bind(report.clientReportId).first();
+    if (!stored) throw new Error("D1 did not retain the conflicting sentence report.");
+    if (stored.payload_sha256 !== payloadSha256) {
+      throw new RequestError(409, "report_id_conflict", "That report identifier was already used for different content.");
+    }
+    return { deduplicated: true };
+  }
   return { deduplicated: false };
 }
 

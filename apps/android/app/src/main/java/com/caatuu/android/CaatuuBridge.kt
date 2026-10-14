@@ -161,7 +161,7 @@ class CaatuuBridge(
                     "speech_status" -> speechStatus(id, request)
                     "speech_speak" -> speakSpeech(id, request)
                     "speech_stop" -> stopSpeech(id)
-                    "speech_install_data" -> installSpeechData(id)
+                    "speech_install_data" -> installSpeechData(id, request)
                     "delete_model" -> deleteLocalPack(id)
                     "clear_cache" -> clearCache(id)
                     "update_app_status" -> emitDone(id, appUpdateManager.statusJson())
@@ -238,15 +238,17 @@ class CaatuuBridge(
         )
     }
 
-    private fun installSpeechData(id: String) {
+    private fun installSpeechData(id: String, request: JSONObject) {
         val candidates = mutableListOf<Intent>()
-        speechManager.defaultEnginePackageName()
-            .takeIf { it.isNotBlank() }
-            ?.let { enginePackage ->
-                candidates += Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA)
-                    .setPackage(enginePackage)
-            }
-        candidates += Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA)
+        if (!request.optBoolean("settingsOnly", false)) {
+            speechManager.defaultEnginePackageName()
+                .takeIf { it.isNotBlank() }
+                ?.let { enginePackage ->
+                    candidates += Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA)
+                        .setPackage(enginePackage)
+                }
+            candidates += Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA)
+        }
         candidates += Intent(ACTION_TEXT_TO_SPEECH_SETTINGS)
         candidates += Intent(Settings.ACTION_VOICE_INPUT_SETTINGS)
         candidates += Intent(Settings.ACTION_SETTINGS)

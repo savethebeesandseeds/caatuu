@@ -135,18 +135,15 @@ class DictionaryManager(
                     }
                     val append = resumeBytes > 0L && statusCode == HttpURLConnection.HTTP_PARTIAL
                     if (!append) temporaryFile.delete()
-                    val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
-                    var bytesRead = if (append) resumeBytes else 0L
+                    val downloadContext = coroutineContext
                     connection.inputStream.use { input ->
                         FileOutputStream(temporaryFile, append).use { output ->
-                            while (true) {
-                                coroutineContext.ensureActive()
-                                val read = input.read(buffer)
-                                if (read < 0) break
-                                output.write(buffer, 0, read)
-                                bytesRead += read
-                                onProgress(ModelProgress(bytesRead, spec.bytes))
-                            }
+                            NativeArtifactDownload.copyBounded(
+                                input, output, spec.bytes,
+                                startBytes = if (append) resumeBytes else 0L,
+                                checkActive = { downloadContext.ensureActive() },
+                                onProgress = { onProgress(ModelProgress(it, spec.bytes)) },
+                            )
                             output.fd.sync()
                         }
                     }
@@ -158,6 +155,9 @@ class DictionaryManager(
                     }
                 } catch (error: CancellationException) {
                     throw error
+                } catch (error: NativeArtifactSizeException) {
+                    temporaryFile.delete()
+                    lastError = error
                 } catch (error: Exception) {
                     lastError = error
                 } finally {

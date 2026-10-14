@@ -6,6 +6,7 @@ import * as contentProgression from "../../../language-runtime/static/source/gam
 import * as adaptivePractice from "../../../language-runtime/static/source/games/adaptive-practice.mjs";
 import { createBrowserHarness } from "../../../language-runtime/tests/helpers/fake-browser.mjs";
 import { mountRobotLoadingScreen } from "../../../language-runtime/static/source/games/embedded-game-controls.mjs";
+import { createArabicReadingGuide } from "../../../language-runtime/static/source/arabic-reading-guide.mjs";
 
 const repoRoot = new URL("../../../../", import.meta.url);
 const NUCLEUS_SCHEMA_URL = "https://caatuu.org/schemas/development/naturalization-nucleus.preview.v1.json";
@@ -27,8 +28,8 @@ const [
 ] = await Promise.all([
   readText("apps/language-runtime/static/app/index.html"),
   readText("apps/language-runtime/static/source/app-bootstrap.mjs"),
-  readText("apps/languages/mandarin-simplified/static/source/games/naturalization-nucleus/naturalization-nucleus.js"),
-  readText("apps/languages/mandarin-simplified/static/source/games/naturalization-nucleus/naturalization-nucleus.css"),
+  readText("apps/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.js"),
+  readText("apps/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.css"),
   readJson("apps/languages/mandarin-simplified/static/data/games/naturalization-nucleus/content.json"),
   readJson("apps/languages/mandarin-simplified/static/setup-assets.json"),
   readJson("apps/languages/czech/static/setup-assets.json"),
@@ -42,6 +43,119 @@ const context = vm.createContext({ window: {} });
 vm.runInContext(controller, context, { filename: "naturalization-nucleus.js" });
 const game = context.window.CaatuuNaturalizationNucleus;
 const validatedCatalog = game.validateCatalog(catalog);
+const arabicCatalog = await readJson("apps/languages/arabic-standard/static/data/games/naturalization-nucleus/content.json");
+
+test("Arabic uses authored whole-word readings with exact vocabulary provenance", async () => {
+  const pack = game.validateCatalog(arabicCatalog);
+  const verbs = await readJson("apps/languages/arabic-standard/static/data/games/verb-nebula/content.json");
+  for (const item of pack.challenges) {
+    const source = verbs.find(verb => verb.id === item.sourceItemIds[0]);
+    assert.equal(item.target, source.target.normalize("NFC"));
+    assert.equal(item.englishAuditText, source.englishAuditText);
+    assert.equal(item.difficulty, source.difficulty);
+    assert.ok(!Object.hasOwn(item, "tone"));
+    assert.ok(!Object.hasOwn(item, "hanzi"));
+  }
+  assert.equal(pack.challenges.find(item => item.target === "كَانَ").reading, "kāna");
+  assert.equal(pack.challenges.find(item => item.target === "جَاءَ").reading, "jāʾa");
+  assert.equal(pack.challenges.find(item => item.target === "فَعَلَ").reading, "faʿala");
+  for (const difficulty of [1, 2, 3]) for (const count of [5, 9]) {
+    const round = game.createRound(pack, count, () => 0.4, "", difficulty);
+    assert.equal(round.pieces.length, count);
+    assert.ok(round.pieces.every(piece => piece.left.difficulty === difficulty));
+    assert.equal(new Set(round.pieces.map(piece => game.readingKey(piece.left))).size, count);
+  }
+  for (const change of [
+    pack => { delete pack.challenges[0].reading; },
+    pack => { pack.challenges[0].target = "كان"; },
+    pack => { pack.challenges[0].target = "َ"; },
+    pack => { pack.challenges[0].reading = "---"; },
+    pack => { pack.challenges[0].tone = 1; },
+    pack => { pack.challenges[0].reading = "كَانَ"; },
+    pack => { pack.notation.system = "pinyin"; },
+    pack => { pack.courseId = "zh"; }
+  ]) {
+    const invalid = structuredClone(arabicCatalog);
+    change(invalid);
+    assert.throws(() => game.validateCatalog(invalid));
+  }
+});
+
+test("Arabic matches both directions, isolates RTL words, speaks Arabic, and records reading evidence", async () => {
+  const fixture = createLoadingHarness({ fetchImpl: async () => ({ ok: true, json: async () => arabicCatalog }) });
+  const events = [], spoken = [];
+  fixture.window.CaatuuCourse = { id: "ar", targetLanguage: { id: "ar" } };
+  fixture.window.CaatuuLearning = { difficulty: () => 1, contentHistory: () => ({}),
+    recordExposure: (gameId, event) => events.push({gameId, ...event}) };
+  fixture.window.CaatuuChrome = { speakText: async text => spoken.push(text) };
+  await fixture.api.mount();
+  await fixture.advance(1600);
+  assert.equal(fixture.element("NotationHelp").hidden, false);
+  assert.match(fixture.element("NotationHelp").textContent, /ā, ī, ū/u);
+  const tile = fixture.element("Deck").querySelector("button[data-naturalization-piece-id]");
+  assert.equal(tile.querySelector("span").lang, "ar");
+  assert.equal(tile.querySelector("span").dir, "rtl");
+  tile.click();
+  assert.ok(fixture.element("FeedbackPinyin").textContent);
+  assert.ok(tile.querySelector("rt"));
+  assert.equal(fixture.element("FeedbackHanzi").dir, "rtl");
+  fixture.element("Deck").querySelector("button[data-naturalization-piece-id]").click();
+  solveBoard(fixture);
+  await settle();
+  assert.equal(fixture.element("FeedbackPinyin").lang, "ar-Latn");
+  assert.equal(fixture.element("FeedbackPinyin").dir, "ltr");
+  assert.ok(!Object.hasOwn(fixture.element("FeedbackReading").dataset, "tone"));
+  assert.ok(spoken.every(text => arabicCatalog.challenges.some(item => item.target === text)));
+  await fixture.advance(10000);
+  assert.ok(events.some(event => event.bankId === "recognize-target-reading"));
+  assert.ok(events.filter(event => event.bankId === "recognize-target-reading").every(event => event.evidence === "assisted"));
+  const reverseTile = fixture.element("Deck").querySelector("button[data-naturalization-piece-id]");
+  assert.equal(reverseTile.querySelector("span").lang, "ar-Latn");
+  assert.equal(reverseTile.querySelector("span").dir, "ltr");
+  reverseTile.click();
+  assert.equal(fixture.element("FeedbackHanzi").lang, "ar-Latn");
+  assert.equal(fixture.element("FeedbackPinyin").textContent, "");
+  fixture.element("Deck").querySelector("button[data-naturalization-piece-id]").click();
+  solveBoard(fixture);
+  await fixture.advance(10000);
+  assert.ok(events.some(event => event.bankId === "recognize-reading-target"));
+  fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+});
+
+test("Arabic Nucleus reading aid can be disabled in place and stays off across rounds", async () => {
+  const fixture = createLoadingHarness({ fetchImpl: async () => ({ ok: true, json: async () => arabicCatalog }) });
+  fixture.window.CaatuuCourse = { id: "ar", targetLanguage: { id: "ar" } };
+  const events = [];
+  fixture.window.CaatuuLearning = { difficulty: () => 1, contentHistory: () => ({}),
+    recordExposure: (_gameId, event) => events.push(event) };
+  await fixture.api.mount();
+  await fixture.advance(1600);
+  const tile = fixture.element("Deck").querySelector("button[data-naturalization-piece-id]");
+  const id = tile.dataset.naturalizationPieceId;
+  const setting = fixture.element("DisplayMenu").querySelector("[data-arabic-romanization-setting]");
+  assert.equal(setting.getAttribute("aria-checked"), "true");
+  setting.click();
+  assert.equal(setting.getAttribute("aria-checked"), "false");
+  assert.equal(fixture.element("Deck").querySelector("button[data-naturalization-piece-id]"), tile);
+  assert.equal(tile.dataset.naturalizationPieceId, id);
+  assert.equal(tile.querySelector("rt"), null);
+  tile.click();
+  assert.equal(fixture.element("FeedbackPinyin").hidden, true);
+  assert.equal(fixture.window.localStorage.getItem("caatuu.ar.naturalization-nucleus.romanization"), "false");
+  fixture.element("Deck").querySelector("button[data-naturalization-piece-id]").click();
+  solveBoard(fixture);
+  await fixture.advance(10000);
+  assert.equal(fixture.element("Ring").querySelector("rt"), null);
+  assert.equal(setting.getAttribute("aria-checked"), "false");
+  solveBoard(fixture);
+  await fixture.advance(10000);
+  const assessments = events.filter(event => event.bankId);
+  assert.ok(assessments.filter(event => event.bankId === "recognize-target-reading").every(event => event.evidence === "assisted"));
+  const unaided = assessments.filter(event => event.bankId === "recognize-reading-target");
+  assert.equal(unaided.length, 5);
+  assert.ok(unaided.every(event => event.evidence === "independent"));
+  fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+});
 
 async function settle() {
   for (let index = 0; index < 12; index += 1) await Promise.resolve();
@@ -93,9 +207,11 @@ function createLoadingHarness({ fetchImpl = async () => ({ ok: true, json: async
   harness.document.querySelector = (selector) => harness.document.querySelectorAll(selector)[0] || null;
   harness.context.nucleusLoadingModule = loadingModule;
   harness.context.nucleusProgressionModule = adaptivePractice;
+  harness.context.nucleusReadingModule = { createArabicReadingGuide };
   vm.runInContext(controller.replace(/import\("\/language-runtime\/static\/source\/games\/embedded-game-controls\.mjs\?v=[^"]+"\)/u,
     "Promise.resolve(nucleusLoadingModule)").replace(/import\("\/language-runtime\/static\/source\/games\/adaptive-practice\.mjs"\)/u,
-    "Promise.resolve(nucleusProgressionModule)"), harness.context);
+    "Promise.resolve(nucleusProgressionModule)").replace(/import\("\/language-runtime\/static\/source\/arabic-reading-guide\.mjs\?v=[^"]+"\)/u,
+    "Promise.resolve(nucleusReadingModule)"), harness.context);
   async function advance(milliseconds) {
     const until = now + milliseconds;
     let runs = 0;
@@ -1220,24 +1336,24 @@ test("round generation avoids visible homophone ambiguity and immediate artwork 
   assert.throws(() => game.createRound(insufficientCatalog, 5, seededRandom(1)), /distinct readings/u);
 });
 
-test("Mandarin alone includes Naturalization Nucleus while both courses include launchpad ships", () => {
+test("Nucleus has a shared renderer and course-owned catalogs in offline and Android delivery", () => {
   const mandarinOffline = JSON.stringify(mandarinSetup.offline.assets);
   const czechOffline = JSON.stringify(czechSetup.offline.assets);
   for (const fragment of [
     "data/games/naturalization-nucleus/content.json",
-    "source/games/naturalization-nucleus/naturalization-nucleus.js",
-    "source/games/naturalization-nucleus/naturalization-nucleus.css",
     "/assets/planets/naturalization-nucleus.png"
   ]) {
     const pattern = new RegExp(fragment.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
     assert.match(mandarinOffline, pattern);
     assert.doesNotMatch(czechOffline, pattern);
   }
-  for (const path of [
-    "data/games/naturalization-nucleus/content.json",
-    "source/games/naturalization-nucleus/naturalization-nucleus.js",
-    "source/games/naturalization-nucleus/naturalization-nucleus.css"
-  ]) assert.ok(androidAssets.files.includes(path));
+  assert.ok(androidAssets.files.includes("data/games/naturalization-nucleus/content.json"));
+  for (const extension of ["js", "css"]) {
+    const output = `language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.${extension}`;
+    assert.ok(appAssets.assets.some(mapping => mapping.source === `apps/${output}` && mapping.output === output));
+    assert.ok(mandarinSetup.offline.assets.some(url => url.split("?")[0] === `/${output}`));
+    assert.ok(czechSetup.offline.assets.some(url => url.split("?")[0] === `/${output}`));
+  }
 
   for (const robotAsset of [
     "/assets/robots/keymap.json",

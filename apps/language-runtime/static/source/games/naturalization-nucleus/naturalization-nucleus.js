@@ -3,16 +3,18 @@
 
   const DEFAULT_DATA_URL = "data/games/naturalization-nucleus/content.json";
   const EXPECTED_SCHEMA_URL = "https://caatuu.org/schemas/development/naturalization-nucleus.preview.v1.json";
+  const WORD_SCHEMA_URL = "https://caatuu.org/schemas/development/naturalization-nucleus.preview.v2.json";
   const STORAGE_KEY_SUFFIX = "naturalizationNucleus.pieceCount.v1";
   const SOLVED_HOLD_MILLIS = 420;
   const ROUND_LOADING_MILLIS = 1600;
   const ROOT_KEYS = new Set([
     "$schema", "schemaVersion", "courseId", "gameId", "contentId", "title",
-    "instructions", "roundSettings", "status", "derivedFrom", "review", "challenges"
+    "instructions", "roundSettings", "status", "derivedFrom", "review", "challenges", "notation"
   ]);
   const ROUND_SETTING_KEYS = new Set(["pieceCounts", "defaultPieceCount", "artwork"]);
   const REVIEW_KEYS = new Set(["status", "reviewer", "reviewedAt", "notes"]);
   const CHALLENGE_KEYS = new Set(["id", "hanzi", "pinyin", "tone", "translation", "sourceConceptIds", "difficulty", "usefulness", "complexity", "urgency", "subdifficulty"]);
+  const WORD_CHALLENGE_KEYS = new Set(["id", "target", "reading", "translation", "englishAuditText", "sourceItemIds", "difficulty", "usefulness", "complexity"]);
   const CONTENT_STATUSES = new Set(["machine-assisted-preview", "native-reviewed"]);
   const REVIEW_STATUSES = new Set(["native-review-required", "native-reviewed"]);
   const TONE_MARKS = Object.freeze({
@@ -171,25 +173,40 @@
     return Number.isInteger(level) && level >= 1 && level <= 3 ? level : fallback;
   }
 
-  function validateChallenge(value, index) {
+  function validateChallenge(value, index, wordNotation = false) {
     const label = `challenges[${index}]`;
     assert(isPlainObject(value), `${label} must be an object.`);
-    assertExactKeys(value, CHALLENGE_KEYS, label);
+    assertExactKeys(value, wordNotation ? WORD_CHALLENGE_KEYS : CHALLENGE_KEYS, label);
     const id = requiredText(value.id, `${label}.id`, 80);
-    assert(/^zh\.hanzi\.[a-z0-9-]+$/u.test(id), `${label}.id must use the zh.hanzi.* namespace.`);
-    const hanzi = requiredText(value.hanzi, `${label}.hanzi`, 1);
-    assert(/^[\u3400-\u9fff\uf900-\ufaff]$/u.test(hanzi), `${label}.hanzi must be one Han character.`);
-    assertLearnerSafe(hanzi, `${label}.hanzi`);
-    const pinyin = requiredText(value.pinyin, `${label}.pinyin`, 24);
-    assert(/^[A-Za-z\u00c0-\u024f]+$/u.test(pinyin), `${label}.pinyin must contain one Latin-script syllable.`);
-    assertLearnerSafe(pinyin, `${label}.pinyin`);
-    validatePinyinTone(pinyin, value.tone, label);
-    const citationReading = ISOLATED_CITATION_READINGS[hanzi];
-    if (citationReading) {
-      assert(
-        pinyin.toLocaleLowerCase("en-US") === citationReading,
-        `${label}.pinyin must use the citation reading ${citationReading} for isolated ${hanzi}.`
-      );
+    let scriptFields;
+    if (wordNotation) {
+      assert(/^ar\.reading\.[a-z0-9-]+$/u.test(id), `${label}.id must use the ar.reading.* namespace.`);
+      const target = requiredText(value.target, `${label}.target`, 48);
+      assert(/^[\u0621-\u063a\u0641-\u0652\u0670]+$/u.test(target) && /[\u0621-\u063a\u0641-\u064a]/u.test(target) && /[\u064b-\u0652]/u.test(target), `${label}.target must be a vowel-marked Arabic word.`);
+      const reading = requiredText(value.reading, `${label}.reading`, 60);
+      assert(/^[a-zāīūḥṣḍṭẓʿʾ]+(?:-[a-zāīūḥṣḍṭẓʿʾ]+)*$/u.test(reading) && /[a-zāīū]/u.test(reading), `${label}.reading must use the declared Latin notation.`);
+      assertLearnerSafe(target, `${label}.target`);
+      assertLearnerSafe(reading, `${label}.reading`);
+      const englishAuditText = requiredText(value.englishAuditText, `${label}.englishAuditText`, 80);
+      assertLearnerSafe(englishAuditText, `${label}.englishAuditText`);
+      scriptFields = { target, reading, englishAuditText };
+    } else {
+      assert(/^zh\.hanzi\.[a-z0-9-]+$/u.test(id), `${label}.id must use the zh.hanzi.* namespace.`);
+      const hanzi = requiredText(value.hanzi, `${label}.hanzi`, 1);
+      assert(/^[\u3400-\u9fff\uf900-\ufaff]$/u.test(hanzi), `${label}.hanzi must be one Han character.`);
+      assertLearnerSafe(hanzi, `${label}.hanzi`);
+      const pinyin = requiredText(value.pinyin, `${label}.pinyin`, 24);
+      assert(/^[A-Za-z\u00c0-\u024f]+$/u.test(pinyin), `${label}.pinyin must contain one Latin-script syllable.`);
+      assertLearnerSafe(pinyin, `${label}.pinyin`);
+      validatePinyinTone(pinyin, value.tone, label);
+      const citationReading = ISOLATED_CITATION_READINGS[hanzi];
+      if (citationReading) {
+        assert(
+          pinyin.toLocaleLowerCase("en-US") === citationReading,
+          `${label}.pinyin must use the citation reading ${citationReading} for isolated ${hanzi}.`
+        );
+      }
+      scriptFields = { hanzi, pinyin, tone: value.tone };
     }
     const translation = requiredText(value.translation, `${label}.translation`, 80);
     assertLearnerSafe(translation, `${label}.translation`);
@@ -208,25 +225,36 @@
       assert(Number.isInteger(grade) && grade >= 1 && grade <= 100, `${label}.${key} must be an integer from 1 to 100.`);
       progression[key] = grade;
     }
-    assert(Array.isArray(value.sourceConceptIds) && value.sourceConceptIds.length > 0, `${label}.sourceConceptIds must be a non-empty array.`);
-    const sourceConceptIds = value.sourceConceptIds.map((conceptId, conceptIndex) => (
-      requiredText(conceptId, `${label}.sourceConceptIds[${conceptIndex}]`, 100)
+    const sourceField = wordNotation ? "sourceItemIds" : "sourceConceptIds";
+    assert(Array.isArray(value[sourceField]) && value[sourceField].length > 0, `${label}.${sourceField} must be a non-empty array.`);
+    const sources = value[sourceField].map((conceptId, conceptIndex) => (
+      requiredText(conceptId, `${label}.${sourceField}[${conceptIndex}]`, 100)
     ));
-    assert(new Set(sourceConceptIds).size === sourceConceptIds.length, `${label}.sourceConceptIds must be unique.`);
+    assert(new Set(sources).size === sources.length, `${label}.${sourceField} must be unique.`);
     return Object.freeze({
       id,
-      hanzi,
-      pinyin,
-      tone: value.tone,
+      ...scriptFields,
       translation,
       difficulty,
       ...progression,
-      sourceConceptIds: Object.freeze(sourceConceptIds)
+      [sourceField]: Object.freeze(sources)
     });
   }
 
   function readingKey(challenge) {
-    return `${challenge.pinyin.normalize("NFC").toLowerCase()}:${challenge.tone}`;
+    return `${(challenge.reading ?? challenge.pinyin).normalize("NFC").toLowerCase()}:${challenge.tone ?? "word"}`;
+  }
+
+  function targetText(challenge) { return challenge.target ?? challenge.hanzi; }
+  function readingText(challenge) { return challenge.reading ?? challenge.pinyin; }
+
+  function validateNotation(value) {
+    assert(isPlainObject(value), "notation must be an object.");
+    assertExactKeys(value, new Set(["system", "help"]), "notation");
+    assert(value.system === "arabic-learning-romanization-v1", "notation.system must declare the Arabic learning notation.");
+    const help = requiredText(value.help, "notation.help", 700);
+    assertLearnerSafe(help, "notation.help");
+    return Object.freeze({ system: value.system, help });
   }
 
   function filterChallengesForDifficulty(challenges, difficulty) {
@@ -238,9 +266,13 @@
     assert(isPlainObject(value), "catalog root must be an object.");
     assertExactKeys(value, ROOT_KEYS, "catalog root");
     assert(Object.hasOwn(value, "$schema"), "catalog root.$schema is required.");
-    assert(value.$schema === EXPECTED_SCHEMA_URL, `catalog root.$schema must be ${EXPECTED_SCHEMA_URL}.`);
-    assert(value.schemaVersion === 1, "schemaVersion must be 1.");
-    assert(value.courseId === "zh", "courseId must be zh.");
+    const wordNotation = value.schemaVersion === 2;
+    const schemaUrl = wordNotation ? WORD_SCHEMA_URL : EXPECTED_SCHEMA_URL;
+    assert(value.$schema === schemaUrl, `catalog root.$schema must be ${schemaUrl}.`);
+    assert(value.schemaVersion === 1 || wordNotation, "schemaVersion must be 1 or 2.");
+    assert(value.courseId === (wordNotation ? "ar" : "zh"), `courseId must be ${wordNotation ? "ar" : "zh"}.`);
+    const notation = wordNotation ? validateNotation(value.notation) : null;
+    if (!wordNotation) assert(!Object.hasOwn(value, "notation"), "Mandarin v1 cannot declare word notation.");
     assert(value.gameId === "naturalization-nucleus", "gameId must be naturalization-nucleus.");
     assert(CONTENT_STATUSES.has(value.status), "status is not supported.");
     assertLearnerSafe(value.status, "status");
@@ -256,9 +288,9 @@
     assert(Array.isArray(value.challenges), "challenges must be an array.");
     const requiredCount = Math.max(...roundSettings.pieceCounts);
     assert(value.challenges.length >= requiredCount, `challenges must contain at least ${requiredCount} entries.`);
-    const challenges = value.challenges.map(validateChallenge);
+    const challenges = value.challenges.map((challenge, index) => validateChallenge(challenge, index, wordNotation));
     assert(new Set(challenges.map(({ id }) => id)).size === challenges.length, "challenge ids must be unique.");
-    assert(new Set(challenges.map(({ hanzi }) => hanzi)).size === challenges.length, "challenge Hanzi must be unique.");
+    assert(new Set(challenges.map(targetText)).size === challenges.length, wordNotation ? "challenge target words must be unique." : "challenge Hanzi must be unique.");
     assert(new Set(challenges.map(readingKey)).size >= requiredCount, `challenges must provide at least ${requiredCount} distinct pinyin readings.`);
     for (let difficulty = 1; difficulty <= 3; difficulty += 1) {
       const eligible = filterChallengesForDifficulty(challenges, difficulty);
@@ -279,6 +311,7 @@
       status: value.status,
       derivedFrom,
       review,
+      ...(notation ? { notation } : {}),
       challenges: Object.freeze(challenges)
     });
   }
@@ -543,16 +576,26 @@
     });
   }
 
-  function makeText(documentRef, className, text, lang = "") {
+  function makeText(documentRef, className, text, lang = "", direction = "ltr", readingGuide = null, reading = "") {
     const node = documentRef.createElement("span");
     node.className = className;
     if (lang) node.lang = lang;
+    node.dir = direction;
+    if (lang === "ar" && [...text.replace(/\p{M}/gu, "")].length > 6) node.classList.add("naturalization-nucleus-word-long");
     node.textContent = text;
+    if (lang === "ar") readingGuide?.render(node, text, { reading });
     return node;
   }
 
-  function roundPresentation(roundIndex) {
+  function roundPresentation(roundIndex, catalog) {
     const reversed = roundIndex % 2 === 1;
+    if (catalog?.notation) return {
+      deck: reversed ? "reading" : "target",
+      ring: reversed ? "target" : "reading",
+      deckLabel: reversed ? "Latin reading" : "Arabic word",
+      ringLabel: reversed ? "Arabic word" : "Latin reading",
+      wordNotation: true
+    };
     return {
       deck: reversed ? "pinyin" : "hanzi",
       ring: reversed ? "hanzi" : "pinyin",
@@ -562,8 +605,12 @@
   }
 
   function scriptLanguage(script) {
+    if (script === "target") return "ar";
+    if (script === "reading") return "ar-Latn";
     return script === "hanzi" ? "zh-Hans" : "zh-Latn-pinyin";
   }
+
+  function scriptDirection(script) { return script === "target" ? "rtl" : "ltr"; }
 
   function deckHanziTile(documentRef, piece, index, selected, dragging, invalid, presentation) {
     const item = documentRef.createElement("div");
@@ -584,7 +631,7 @@
       documentRef,
       `naturalization-nucleus-domino-hanzi naturalization-nucleus-script-${presentation.deck}`,
       piece.left[presentation.deck],
-      scriptLanguage(presentation.deck)
+      scriptLanguage(presentation.deck), scriptDirection(presentation.deck), presentation.readingGuide, readingText(piece.left)
     ));
     item.append(tile);
     return item;
@@ -607,21 +654,20 @@
     target.dataset.naturalizationSocketIndex = String(index);
     target.dataset.naturalizationChallengeId = challenge.id;
     target.setAttribute("aria-label", `${presentation.ringLabel} ${challenge[presentation.ring]}. Choose the matching ${presentation.deckLabel}.`);
-    target.append(makeText(documentRef, `naturalization-nucleus-socket-pinyin naturalization-nucleus-script-${presentation.ring}`, challenge[presentation.ring], scriptLanguage(presentation.ring)));
+    target.append(makeText(documentRef, `naturalization-nucleus-socket-pinyin naturalization-nucleus-script-${presentation.ring}`, challenge[presentation.ring], scriptLanguage(presentation.ring), scriptDirection(presentation.ring), presentation.readingGuide, readingText(challenge)));
     return target;
   }
 
-  function fusedWord(documentRef, challenge, isNew) {
+  function fusedWord(documentRef, challenge, isNew, readingGuide) {
+    const wordNotation = Boolean(challenge.target);
     const button = documentRef.createElement("button");
     button.type = "button";
     button.className = "naturalization-nucleus-fused-word";
     button.dataset.naturalizationReviewId = challenge.id;
     button.dataset.new = String(isNew);
-    button.setAttribute("aria-label", `${challenge.hanzi}, ${challenge.pinyin}, ${challenge.translation}. Play again.`);
-    button.append(
-      makeText(documentRef, "naturalization-nucleus-fused-pinyin", challenge.pinyin, "zh-Latn-pinyin"),
-      makeText(documentRef, `naturalization-nucleus-fused-hanzi ${toneClass(challenge.tone)}`, challenge.hanzi, "zh-Hans")
-    );
+    button.setAttribute("aria-label", `${targetText(challenge)}, ${readingText(challenge)}, ${challenge.translation}. Play again.`);
+    if (!wordNotation) button.append(makeText(documentRef, "naturalization-nucleus-fused-pinyin", readingText(challenge), "zh-Latn-pinyin"));
+    button.append(makeText(documentRef, `naturalization-nucleus-fused-hanzi ${wordNotation ? "" : toneClass(challenge.tone)}`, targetText(challenge), wordNotation ? "ar" : "zh-Hans", wordNotation ? "rtl" : "ltr", readingGuide, readingText(challenge)));
     return button;
   }
 
@@ -632,7 +678,7 @@
     item.dataset.invalid = String(errorSlot === index);
     if (placedPiece) {
       item.dataset.socketState = "matched";
-      item.append(fusedWord(documentRef, challenge, newMatchSlots.includes(index)));
+      item.append(fusedWord(documentRef, challenge, newMatchSlots.includes(index), presentation.readingGuide));
     } else {
       item.dataset.socketState = "empty";
       item.append(pinyinSocketTarget(documentRef, index, challenge, presentation));
@@ -640,12 +686,20 @@
     return item;
   }
 
-  function createGame(root, catalog, { loadingScreen, isActive, disposeLoading, progression }) {
+  function createGame(root, catalog, { loadingScreen, isActive, disposeLoading, progression, createReadingGuide }) {
     const stage = root.querySelector(".naturalization-nucleus-stage");
     const game = root.querySelector("#naturalizationNucleusGame");
     const interstitial = root.querySelector("#naturalizationNucleusInterstitial");
     const interstitialRobot = root.querySelector("#naturalizationNucleusInterstitialRobot");
     const board = root.querySelector("#naturalizationNucleusBoard");
+    board.dataset.notation = catalog.notation?.system || "hanzi-pinyin";
+    game.dataset.notation = board.dataset.notation;
+    game.setAttribute("aria-label", catalog.instructions);
+    const notationHelp = root.querySelector("#naturalizationNucleusNotationHelp");
+    if (notationHelp) {
+      notationHelp.hidden = !catalog.notation;
+      notationHelp.textContent = catalog.notation?.help || "";
+    }
     const ring = root.querySelector("#naturalizationNucleusRing");
     const deck = root.querySelector("#naturalizationNucleusDeck");
     const artwork = root.querySelector("#naturalizationNucleusArtwork");
@@ -655,6 +709,10 @@
     const pieceCount = root.querySelector("#naturalizationNucleusPieceCount");
     const displayToggle = root.querySelector("#naturalizationNucleusDisplayToggle");
     const displayMenu = root.querySelector("#naturalizationNucleusDisplayMenu");
+    const readingGuide = createReadingGuide?.({ course: global.CaatuuCourse, gameId: "naturalization-nucleus",
+      document: board.ownerDocument || global.document, storage: global.localStorage,
+      onChange: () => { markReadingAssistance(); renderFeedback(); } });
+    readingGuide?.mountSetting(displayMenu);
     const audioToggle = root.querySelector("#naturalizationNucleusSound");
     const audioMenu = root.querySelector("#naturalizationNucleusAudioMenu");
     const optionsToggle = root.querySelector("#naturalizationNucleusOptionsToggle");
@@ -762,7 +820,7 @@
       audioSpeed.value = String(paceIndex);
       audioSpeed.dataset.paceIndex = String(paceIndex);
       audioSpeed.setAttribute("aria-valuetext", `${option.label}, ${option.rate} times`);
-      const label = `Mandarin audio settings. Current: ${option.label} speed.`;
+      const label = `${catalog.notation ? "Arabic" : "Mandarin"} audio settings. Current: ${option.label} speed.`;
       audioToggle.setAttribute("aria-label", label);
       audioToggle.title = label;
     }
@@ -901,21 +959,28 @@
       feedback.hidden = !challenge;
       if (!challenge) return;
       const revealed = state.feedbackRevealed;
-      const script = roundPresentation(state.roundIndex).deck;
-      const label = revealed ? `${challenge.hanzi}, ${challenge.pinyin}` : challenge[script];
-      // An unfinished tile may show its meaning, but never the missing script
-      // or tone hints, including in screen-reader and speech-button labels.
-      feedbackPinyin.textContent = revealed ? challenge.pinyin : "";
-      feedbackPinyin.hidden = !revealed;
-      feedbackGlyph.textContent = revealed || script === "hanzi" ? challenge.hanzi : challenge.pinyin;
-      feedbackHanzi.lang = revealed || script === "hanzi" ? "zh-Hans" : "zh-Latn-pinyin";
-      feedbackHanzi.classList.toggle("has-target-text-guide", revealed);
-      feedbackHanzi.classList.toggle("has-target-text-colors", revealed);
-      if (revealed) feedbackReading.dataset.tone = String(challenge.tone);
+      const script = roundPresentation(state.roundIndex, catalog).deck;
+      const targetScript = catalog.notation ? "target" : "hanzi";
+      const label = revealed ? `${targetText(challenge)}, ${readingText(challenge)}` : challenge[script];
+      const showReading = catalog.notation
+        ? readingGuide?.enabled && (revealed || script === targetScript)
+        : revealed;
+      // Arabic reading help follows the learner's setting. Matching labels and
+      // speech continue to use the original target, independently of the aid.
+      feedbackPinyin.textContent = showReading ? readingText(challenge) : "";
+      feedbackPinyin.lang = scriptLanguage(catalog.notation ? "reading" : "pinyin");
+      feedbackPinyin.dir = "ltr";
+      feedbackPinyin.hidden = !showReading;
+      feedbackGlyph.textContent = revealed || script === targetScript ? targetText(challenge) : readingText(challenge);
+      feedbackHanzi.lang = scriptLanguage(revealed ? targetScript : script);
+      feedbackHanzi.dir = scriptDirection(revealed ? targetScript : script);
+      feedbackHanzi.classList.toggle("has-target-text-guide", Boolean(showReading));
+      feedbackHanzi.classList.toggle("has-target-text-colors", revealed && !catalog.notation);
+      if (revealed && !catalog.notation) feedbackReading.dataset.tone = String(challenge.tone);
       else feedbackReading.removeAttribute("data-tone");
       feedbackHanzi.setAttribute("aria-label", label);
       feedback.dataset.state = revealed ? "matched" : "preview";
-      feedback.setAttribute("aria-label", revealed ? "Matched Mandarin word" : "Selected Mandarin word");
+      feedback.setAttribute("aria-label", `${revealed ? "Matched" : "Selected"} ${catalog.notation ? "Arabic" : "Mandarin"} word`);
       feedbackMeaning.textContent = challenge.translation;
       const playLabel = `Play ${label}.`;
       feedbackSound.setAttribute("aria-label", playLabel);
@@ -924,7 +989,9 @@
 
     function render(focusPieceId = "") {
       const documentRef = board.ownerDocument || global.document;
-      const presentation = roundPresentation(state.roundIndex);
+      const presentation = roundPresentation(state.roundIndex, catalog);
+      presentation.readingGuide = readingGuide;
+      markReadingAssistance();
       deck.setAttribute("aria-label", `${presentation.deckLabel} tiles waiting to be placed`);
       deck.parentElement.setAttribute("aria-label", `${presentation.deckLabel} tiles waiting to be placed`);
       ring.setAttribute("aria-label", `${presentation.ringLabel} matching positions`);
@@ -969,7 +1036,7 @@
         status.textContent = state.errorMessage;
         status.dataset.state = "error";
       } else if (isSolved) {
-        status.textContent = "Orbit complete — every Hanzi has found its pinyin.";
+        status.textContent = catalog.notation ? "Orbit complete — every Arabic word has found its Latin reading." : "Orbit complete — every Hanzi has found its pinyin.";
         status.dataset.state = "solved";
       } else if (state.selectedSocketIndex >= 0) {
         status.textContent = `Selected ${targets[state.selectedSocketIndex][presentation.ring]}. Choose its matching ${presentation.deckLabel} tile.`;
@@ -982,7 +1049,7 @@
         status.textContent = `${state.placements.filter(Boolean).length} of ${state.pieceCount} matches complete. Choose another ${presentation.deckLabel} tile.`;
         status.dataset.state = "ready";
       } else {
-        status.textContent = "Match each Hanzi with its pinyin. Choose either side first.";
+        status.textContent = catalog.notation ? "Match each Arabic word with its Latin reading. Choose either side first." : "Match each Hanzi with its pinyin. Choose either side first.";
         status.dataset.state = "ready";
       }
       pieceCount.textContent = String(state.pieceCount);
@@ -997,13 +1064,20 @@
       focusDeckPiece(focusPieceId);
     }
 
+    function markReadingAssistance() {
+      if (!catalog.notation || !readingGuide?.enabled || !state.round) return;
+      for (const piece of state.round.solution) {
+        if (!state.placements.includes(piece.id)) state.assistedIds.add(piece.left.id);
+      }
+    }
+
     function speak(challenge) {
       if (!challenge || !active || !isActive() || destroyed) return Promise.resolve();
       const speakText = global.CaatuuChrome?.speakText;
       if (typeof speakText !== "function") return Promise.resolve();
       const piece = state.round?.solution.find(item => item.left.id === challenge.id);
       if (piece && !state.placements.includes(piece.id)) state.assistedIds.add(challenge.id);
-      return Promise.resolve(speakText(challenge.hanzi)).catch(() => {
+      return Promise.resolve(speakText(targetText(challenge))).catch(() => {
         // Visual feedback remains useful when speech is unavailable.
       });
     }
@@ -1142,7 +1216,7 @@
       global.clearTimeout(errorTimer);
       const previousArtworkSrc = state.round?.artworkSrc || "";
       state.pieceCount = pieceCount;
-      const presentation = roundPresentation(state.roundIndex + 1);
+      const presentation = roundPresentation(state.roundIndex + 1, catalog);
       state.practiceBank = `recognize-${presentation.deck}-${presentation.ring}`;
       state.round = createRound(catalog, pieceCount, global.Math.random, previousArtworkSrc, state.difficulty, {
         ...progression,
@@ -1516,7 +1590,7 @@
     listen(global, "pageshow", () => { pageHidden = false; syncActivity(); });
     syncActivity();
     const mounting = (async () => {
-      const { mountRobotLoadingScreen } = await import("/language-runtime/static/source/games/embedded-game-controls.mjs?v=embedded-game-controls-9");
+      const { mountRobotLoadingScreen } = await import("/language-runtime/static/source/games/embedded-game-controls.mjs?v=embedded-game-controls-10");
       if (disposed) return null;
       loadingScreen = mountRobotLoadingScreen({ container: interstitial,
         label: global.CaatuuI18n?.t?.("verbnebula.round.preparing") || "Preparing a Naturalization Nucleus round",
@@ -1524,8 +1598,10 @@
       loadingScreen.show();
       const catalog = await loadCatalog(requiredText(dataUrl, "mount.dataUrl", 500), Boolean(forceReload));
       const progression = await import("/language-runtime/static/source/games/adaptive-practice.mjs");
+      const { createArabicReadingGuide: createReadingGuide } = catalog.notation
+        ? await import("/language-runtime/static/source/arabic-reading-guide.mjs?v=arabic-reading-guide-2") : {};
       if (disposed) return null;
-      session = createGame(root, catalog, { loadingScreen, isActive, disposeLoading, progression });
+      session = createGame(root, catalog, { loadingScreen, isActive, disposeLoading, progression, createReadingGuide });
       return catalog;
     })();
     mountingBoards.set(board, mounting);

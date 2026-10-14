@@ -114,7 +114,7 @@ for (const course of courses) {
         }
       } else if (game === 'naturalization-nucleus') {
         const context = vm.createContext({ window: {} });
-        const controller = 'apps/languages/mandarin-simplified/static/source/games/naturalization-nucleus/naturalization-nucleus.js';
+        const controller = 'apps/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.js';
         vm.runInContext(await readFile(new URL(controller, root), 'utf8'), context);
         const api = context.window.CaatuuNaturalizationNucleus;
         const pack = api.validateCatalog(await resource('naturalizationNucleusCatalog'));

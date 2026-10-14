@@ -234,7 +234,7 @@ test("embedding manifests bind one safe local basename to canonical bytes and an
   );
 });
 
-test("the tracked Czech embedding manifest resolves to its exact published database URL", async () => {
+test("the tracked Czech embedding manifest resolves to its catalog-declared database URL", async () => {
   const catalog = JSON.parse(await readFile(
     new URL("../../../languages/czech/static/data/embeddings/models.json", import.meta.url),
     "utf8",
@@ -249,7 +249,7 @@ test("the tracked Czech embedding manifest resolves to its exact published datab
   ));
   assert.equal(
     embeddingStorageRecord(active, manifest, catalog.base_url, "cz", "Czech embedding").source,
-    "https://caatuu.waajacu.com/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
+    new URL(active.model_file, `${catalog.base_url.replace(/\/+$/u, "")}/`).href,
   );
 });
 

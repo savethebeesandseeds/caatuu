@@ -11,7 +11,8 @@ const flush = () => new Promise(setImmediate);
 const available = { backend: "browser", available: true, voices: [{ id: "course-voice" }] };
 const missing = { backend: "browser", available: true, voices: [] };
 
-function mount(t, { query = async () => available, playback = async () => ({ outcome: "completed" }), controlsReady = true } = {}) {
+function mount(t, { query = async () => available, playback = async () => ({ outcome: "completed" }),
+  install = async () => ({ launched: true }), controlsReady = true } = {}) {
   const course = { capabilities: { speech: true }, targetLanguage: { id: "nb", locale: "nb-NO" } };
   const app = createBrowserHarness({ course });
   const { document, context, window } = app;
@@ -49,7 +50,12 @@ function mount(t, { query = async () => available, playback = async () => ({ out
     },
     CaatuuChrome: {
       listSpeechVoiceOptions() { queries++; return query(); },
-      previewSpeech() { plays++; return playback(); }
+      previewSpeech() { plays++; return playback(); },
+      installSpeechData: install,
+      describeSpeechVoiceState(voice) {
+        return englishInterfaceContent.t(voice.reason === "no-language-voice"
+          ? "speech.voice.enginemissing" : "speech.voice.datanotinstalled", { language: "Norwegian" });
+      }
     }
   });
   vm.runInContext(`${speechCheckSource}\ninstallSetupSpeechCheck();`, context);
@@ -236,4 +242,75 @@ test("a pending enumeration cannot overwrite newer playback evidence", async t =
   assert.equal(app.row.dataset.ready, "true");
   assert.equal(app.warning.hidden, true);
   assert.equal(app.timers.size, 0);
+});
+
+test("Home offers native voice recovery for missing data and an unsupported engine, then removes it after recovery", async t => {
+  for (const reason of ["missing-language-data", "no-language-voice"]) {
+    let result = { backend: "android", available: false, voices: [], reason, canInstallVoice: true };
+    let installs = 0;
+    let finish;
+    const app = mount(t, { query: async () => result, install: () => {
+      installs++;
+      return new Promise(resolve => { finish = resolve; });
+    } });
+    await flush();
+    const manage = app.row.querySelector("[data-setup-voice-recovery]");
+    assert.equal(manage.hidden, false);
+    assert.equal(manage.textContent, englishInterfaceContent.t(reason === "no-language-voice"
+      ? "speech.voice.settings" : "speech.voice.install", { language: "Norwegian" }));
+    assert.equal(app.row.querySelector("p").textContent, englishInterfaceContent.t(reason === "no-language-voice"
+      ? "speech.voice.enginemissing" : "speech.voice.datanotinstalled", { language: "Norwegian" }));
+    manage.click();
+    manage.click();
+    assert.equal(installs, 1, "repeated taps must not open multiple Android activities");
+    assert.equal(manage.disabled, true);
+    finish({ launched: true, settingsOnly: reason === "no-language-voice" });
+    await flush();
+    assert.equal(manage.disabled, false);
+    assert.equal(app.row.querySelector("p").textContent, englishInterfaceContent.t(reason === "no-language-voice"
+      ? "speech.voice.settingsopened" : "speech.voice.finishandroidinstall", { language: "Norwegian" }));
+    assert.equal(app.row.dataset.ready, "false", "opening settings does not prove voice readiness");
+    result = { backend: "android", available: true, voices: [], canInstallVoice: false };
+    app.window.dispatchEvent({ type: "focus" });
+    await flush();
+    assert.equal(app.row.dataset.ready, "true");
+    assert.equal(manage.hidden, true);
+    assert.equal(app.warning.hidden, true);
+  }
+});
+
+test("Home hides native recovery for browsers and healthy or unavailable engines", async t => {
+  for (const result of [missing, available, { backend: "android", available: true, voices: [], canInstallVoice: false },
+    { backend: "android", available: false, voices: [], reason: "engine-unavailable", canInstallVoice: false }]) {
+    const app = mount(t, { query: async () => result });
+    await flush();
+    assert.equal(app.row.querySelector("[data-setup-voice-recovery]").hidden, true);
+  }
+});
+
+test("Home reports an Android settings failure without blocking practice or losing the recovery action", async t => {
+  const app = mount(t, { query: async () => ({ backend: "android", available: false, voices: [],
+    reason: "missing-language-data", canInstallVoice: true }), install: async () => { throw new Error("no settings activity"); } });
+  await flush();
+  const manage = app.row.querySelector("[data-setup-voice-recovery]");
+  manage.click();
+  await flush();
+  assert.equal(app.row.querySelector("p").textContent, englishInterfaceContent.t("speech.voice.androidinstallfailed"));
+  assert.equal(manage.disabled, false);
+  assert.equal(app.document.body.classList.contains("setup-blocked"), false);
+});
+
+test("a return from Android settings during a pending launch rechecks voices after the launch settles", async t => {
+  let result = { backend: "android", available: false, voices: [], reason: "no-language-voice", canInstallVoice: true };
+  let finish;
+  const app = mount(t, { query: async () => result, install: () => new Promise(resolve => { finish = resolve; }) });
+  await flush();
+  app.row.querySelector("[data-setup-voice-recovery]").click();
+  result = { backend: "android", available: true, voices: [], canInstallVoice: false };
+  app.window.dispatchEvent({ type: "caatuu:speech-voices-refresh" });
+  finish({ launched: true, settingsOnly: true });
+  await flush();
+  assert.equal(app.row.dataset.ready, "true");
+  assert.equal(app.row.querySelector("[data-setup-voice-recovery]").hidden, true);
+  assert.equal(app.warning.hidden, true);
 });

@@ -28,12 +28,13 @@
     "data/games/word-world/content.json",
     "data/games/conjugation-comet/content.json",
     "data/games/grammar-gravity/content.json",
-    "data/games/grammar-gravity/nouns.json"
+    "data/games/grammar-gravity/nouns.json",
+    "data/games/naturalization-nucleus/content.json"
   ],
   "launcherIconFiles": [],
   "policy": {
     "includeOnlyAllowlistedFiles": true,
     "llmAssetsAllowed": false,
-    "targetPronunciationMetadataAllowed": false
+    "targetPronunciationMetadataAllowed": true
   }
 }

@@ -175,19 +175,16 @@ class VectorDatabaseManager(
                     } else {
                         connection.contentLengthLong.takeIf { it > 0L } ?: spec.bytes
                     }
-                    val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
-                    var bytesRead = if (append) resumeBytes else 0L
+                    val downloadContext = coroutineContext
 
                     connection.inputStream.use { input ->
                         FileOutputStream(tmpFile, append).use { output ->
-                            while (true) {
-                                coroutineContext.ensureActive()
-                                val read = input.read(buffer)
-                                if (read < 0) break
-                                output.write(buffer, 0, read)
-                                bytesRead += read
-                                onProgress(ModelProgress(bytesRead, totalBytes))
-                            }
+                            NativeArtifactDownload.copyBounded(
+                                input, output, spec.bytes,
+                                startBytes = if (append) resumeBytes else 0L,
+                                checkActive = { downloadContext.ensureActive() },
+                                onProgress = { onProgress(ModelProgress(it, totalBytes)) },
+                            )
                         }
                     }
 
@@ -197,6 +194,9 @@ class VectorDatabaseManager(
                     }
                 } catch (error: CancellationException) {
                     throw error
+                } catch (error: NativeArtifactSizeException) {
+                    tmpFile.delete()
+                    lastError = error
                 } catch (error: Exception) {
                     lastError = error
                 } finally {

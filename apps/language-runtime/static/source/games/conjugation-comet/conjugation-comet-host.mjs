@@ -3,14 +3,16 @@ import {
   buildConjugationHelixRound, judgeConjugationHelixRound, splitConjugationDisplay,
   buildConjugationVerbQueue, validateConjugationCometCatalog, selectConjugationPracticeVerbs
 } from "./conjugation-comet-core.mjs?v=conjugation-comet-core-4";
-import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-9";
+import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-10";
 import { newContentEncounterId, matchesContentDifficulty } from "../content-progression.mjs";
+import { createArabicReadingGuide } from "../../arabic-reading-guide.mjs?v=arabic-reading-guide-2";
 
 const GAME_ID = "conjugation-comet";
 const RESOURCE_NAME = "conjugationCometCatalog";
 const PHASE_DELAYS = Object.freeze({ moving: 420, transition: 1200 });
 const ILLUSTRATIONS_KEY = "caatuu.conjugation-comet.illustrations";
 const element = (id) => document.getElementById(id);
+const targetReadingMeasurements = new WeakMap();
 
 function shellWindow() {
   try {
@@ -182,9 +184,9 @@ function syncActivity(state) {
   armPhase(state);
   maybeSpeakVerb(state);
 }
-function formNodes(text, options) {
+function formNodes(text, options, readingGuide) {
   const pieces = splitConjugationDisplay(text, options);
-  return [
+  const glyphs = [
     ["", pieces.beforeText], ["conjugation-comet-common", pieces.commonText],
     ["conjugation-comet-difference", pieces.differingText], ["", pieces.afterText]
   ].filter(([, value]) => value).map(([className, value]) => {
@@ -193,6 +195,9 @@ function formNodes(text, options) {
     span.textContent = value;
     return span;
   });
+  const word = document.createElement("span");
+  if (readingGuide?.render(word, text, /\s/u.test(text) ? {} : { glyphs })) return [word];
+  return glyphs;
 }
 function subjectNodes(item, locale) {
   const text = item.learnerBaseText;
@@ -241,6 +246,20 @@ function nodePosition(row, total, side) {
     top: rowTop(row, total),
     width
   };
+}
+function readingNodePosition(node, point, side, helixWidth) {
+  const measurement = side === "target" && targetReadingMeasurements.get(node);
+  if (!measurement || !(helixWidth > 0)) return point;
+  const originalWidth = point.width * helixWidth / 100;
+  const neededWidth = measurement.width + measurement.padding;
+  if (neededWidth <= originalWidth) return point;
+  // A whole reading word may be wider than the decorative helix cell. Give it
+  // the available target half first; reduce its type only after using that room.
+  const availableWidth = helixWidth * .45;
+  const fittedWidth = Math.max(originalWidth, Math.min(availableWidth, neededWidth));
+  const width = fittedWidth * 100 / helixWidth;
+  const left = Math.max(width / 2 + 1, Math.min(46 - width / 2, point.left));
+  return { ...point, left, width };
 }
 function svgElement(tag, attributes) {
   const node = document.createElementNS("http://www.w3.org/2000/svg", tag);
@@ -353,8 +372,9 @@ function renderBackbone(state) {
 }
 function animateNode(state, node, oldRow, shift, total, side) {
   if (!node.animate || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+  const helixWidth = element("conjugationCometHelix").getBoundingClientRect().width;
   const frame = (row, offset) => {
-    const point = nodePosition(row, total, side);
+    const point = readingNodePosition(node, nodePosition(row, total, side), side, helixWidth);
     const edge = Math.min(row + .5, total - .5 - row);
     return { left: `${point.left}%`, top: `${point.top}%`, width: `${point.width}%`, opacity: Math.min(1, Math.max(0, edge * 4)), offset };
   };
@@ -388,16 +408,18 @@ function renderStrand(state, side, { fresh = false, shift = 0 } = {}) {
       node.dataset.helixSide = side;
       node.dataset.helixIndex = String(index);
       node.dataset.formId = item.id;
+      node.dataset.targetSurface = subjects ? item.learnerBaseText : item.text;
       state.pairResize?.observe(node);
       if (subjects) node.replaceChildren(...subjectNodes(item, state.sourceLocale));
-      else node.replaceChildren(...formNodes(item.text, state.round.options.map((option) => option.text)));
+      else node.replaceChildren(...formNodes(item.text, state.round.options.map((option) => option.text), state.readingGuide));
       return node;
     }));
   }
   [...container.querySelectorAll("button")].forEach((node, index) => {
     const row = wrap(index - selected, items.length);
     const oldRow = Number(node.dataset.row);
-    const point = nodePosition(row, items.length, side);
+    const point = readingNodePosition(node, nodePosition(row, items.length, side), side,
+      element("conjugationCometHelix").getBoundingClientRect().width);
     node.dataset.row = String(row);
     node.dataset.junction = String(row % 2 === 1);
     node.dataset.half = point.left < 50 ? "left" : "right";
@@ -416,6 +438,28 @@ function renderStrand(state, side, { fresh = false, shift = 0 } = {}) {
 function renderPairBackgrounds(state) {
   if (state.destroyed || !state.round || !["question", "result"].includes(state.phase)) return;
   const helix = element("conjugationCometHelix");
+  const helixWidth = helix.getBoundingClientRect().width;
+  for (const node of element("conjugationCometTargets").querySelectorAll("button")) {
+    node.style.removeProperty("--comet-target-font-size");
+    const notation = [...node.querySelectorAll("ruby")];
+    const style = window.getComputedStyle?.(node);
+    const fontSize = Number.parseFloat(style?.fontSize);
+    const width = Math.max(0, ...notation.map((unit) => unit.getBoundingClientRect().width));
+    if (notation.length && width > 0 && fontSize > 0) {
+      const padding = (Number.parseFloat(style.paddingLeft) || 0) + (Number.parseFloat(style.paddingRight) || 0);
+      targetReadingMeasurements.set(node, { width, padding, fontSize });
+    } else targetReadingMeasurements.delete(node);
+    const point = readingNodePosition(node, nodePosition(Number(node.dataset.row), state.round.subjects.length, "target"), "target", helixWidth);
+    node.style.setProperty("left", `${point.left}%`);
+    node.style.setProperty("width", `${point.width}%`);
+    const measurement = targetReadingMeasurements.get(node);
+    if (measurement && helixWidth > 0) {
+      const available = point.width * helixWidth / 100 - measurement.padding;
+      if (available < measurement.width) {
+        node.style.setProperty("--comet-target-font-size", `${measurement.fontSize * available / measurement.width}px`);
+      }
+    }
+  }
   // Authored cues may wrap when a course has more person slots or the learner
   // increases text size. Keep each row tall enough for its complete tap target.
   const phrases = ["conjugationCometSubjects", "conjugationCometTargets"]
@@ -546,7 +590,9 @@ function beginNextVerb(state) {
   state.phase = "question";
   element("conjugationCometPlay").hidden = false;
   state.transitionScreen.hide();
-  element("conjugationCometFormLemma").textContent = state.current.targetText;
+  if (!state.readingGuide?.render(element("conjugationCometFormLemma"), state.current.targetText)) {
+    element("conjugationCometFormLemma").textContent = state.current.targetText;
+  }
   element("conjugationCometMeaning").textContent = state.current.learnerBaseText;
   element("conjugationCometQuestion").textContent = copy(state, "question");
   configureSpeech(state, "conjugationCometSpeakLemma", state.current.targetText, state.catalog.copy.hearVerbTemplate);
@@ -603,9 +649,10 @@ function showSummary(state) {
       phrase.textContent = text;
       phrase.lang = locale;
       phrase.dir = (side === "subject" ? state.course.sourceLanguage : state.course.targetLanguage)?.direction || "auto";
+      if (side === "target") state.readingGuide?.render(phrase, text);
       row.append(phrase);
       const source = Array.from(element(side === "subject" ? "conjugationCometSubjects" : "conjugationCometTargets").children)
-        .find((node) => node.textContent === text);
+        .find((node) => node.dataset.targetSurface === text);
       origins.push({ phrase, source: source?.getBoundingClientRect() });
     }
     return row;
@@ -854,8 +901,11 @@ export async function mountSharedConjugationComet({ scope = globalThis, fetchImp
     element(`conjugationComet${id}`).setAttribute("aria-label", copy(state, key));
   }
 
+  state.readingGuide = createArabicReadingGuide({ course, gameId: GAME_ID, document, storage: shellWindow().localStorage,
+    onChange: () => renderPairBackgrounds(state) });
   state.controls = mountEmbeddedGameControls({
     container: element("conjugationCometControls"), shell: shellWindow(), course, autoplay: true,
+    readingGuide: state.readingGuide,
     illustrations: {
       labelKey: "conjugationcomet.illustrations", pressed: readIllustrations(),
       onChange(visible) {

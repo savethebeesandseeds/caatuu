@@ -150,7 +150,9 @@ async function courseSamples(manifest) {
     add("case-cosmos", "default", cases.contexts[0].id, cases.contexts[0].english);
   }
   const nucleus = await resource("naturalizationNucleusCatalog");
-  if (nucleus) for (const bankId of ["default", "recognize-hanzi-pinyin", "recognize-pinyin-hanzi"]) {
+  if (nucleus) for (const bankId of nucleus.schemaVersion === 2
+    ? ["default", "recognize-target-reading", "recognize-reading-target"]
+    : ["default", "recognize-hanzi-pinyin", "recognize-pinyin-hanzi"]) {
     add("naturalization-nucleus", bankId, nucleus.challenges[0].id, nucleus.challenges[0].translation);
   }
   return rows;

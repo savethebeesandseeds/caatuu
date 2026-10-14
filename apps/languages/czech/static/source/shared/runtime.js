@@ -1555,7 +1555,7 @@
           }
         );
       },
-      installData() {
+      installData(options = {}) {
         if (env !== "android") {
           return Promise.resolve({
             runtime: "browser-web-speech",
@@ -1565,7 +1565,7 @@
         }
         return nativeCall(
           "speech_install_data",
-          {},
+          { settingsOnly: options.settingsOnly === true },
           {
             timeoutMs: 10_000,
             timeoutMessage: "Android could not open its Czech voice installer."

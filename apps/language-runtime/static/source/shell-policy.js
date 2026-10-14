@@ -127,7 +127,8 @@
         id: "naturalization-nucleus",
         route: "naturalizationNucleus",
         capabilities: Object.freeze([]),
-        linguisticFeatures: Object.freeze(["hanzi-pinyin"]),
+        linguisticFeatures: Object.freeze([]),
+        anyLinguisticFeatures: Object.freeze(["hanzi-pinyin", "arabic-romanization"]),
         resources: Object.freeze([presentCourseFile(
           "naturalizationNucleusCatalog",
           "static/data/games/naturalization-nucleus/content.json",
@@ -250,6 +251,7 @@
         && gameDeclared(courseOrCapabilities, gameId)
         && allCapabilitiesEnabled(capabilities, game.capabilities)
         && allLinguisticFeaturesDeclared(courseOrCapabilities, game.linguisticFeatures)
+        && (!game.anyLinguisticFeatures || game.anyLinguisticFeatures.some(feature => declaredValues(courseOrCapabilities, "linguisticFeatures").has(feature)))
         && routeEnabled(courseOrCapabilities, game.route);
       availability[gameId] = available;
     }

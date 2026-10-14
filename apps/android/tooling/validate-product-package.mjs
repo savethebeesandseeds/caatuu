@@ -30,7 +30,13 @@ import {
 const scriptPath = fileURLToPath(import.meta.url);
 const workspaceRoot = resolve(dirname(scriptPath), "../../..");
 let readSource = packageSourceReader(workspaceRoot);
-let expectedProductPublicationPlan = loadAndroidCourseBundleCatalogPlan({ workspaceRoot }).publicationPlan;
+let expectedProductPublicationPlan;
+function defaultProductPublicationPlan() {
+  // Fixture helpers supply a plan. Load the full workspace configuration only
+  // when an audit needs the default plan, retaining its source validation.
+  expectedProductPublicationPlan ??= loadAndroidCourseBundleCatalogPlan({ workspaceRoot }).publicationPlan;
+  return expectedProductPublicationPlan;
+}
 let appAssetCatalog = JSON.parse(readSource("apps/language-runtime/app-assets.json").toString("utf8"));
 let canonicalAppEntry = Buffer.from(transformIndex(
   readSource("apps/language-runtime/static/app/index.html").toString("utf8"),
@@ -504,7 +510,7 @@ export function assertCourseBundleContract(
   bundle,
   profile,
   label = "Caatuu product package",
-  publicationPlan = expectedProductPublicationPlan,
+  publicationPlan = defaultProductPublicationPlan(),
 ) {
   assertPublicationPlan(publicationPlan, label);
   assert(
@@ -1231,7 +1237,7 @@ function assertAssetBoundary(unzip, archive, entries, kind, label, setupPayload 
 }
 
 /** Source-pinned declarations select residency; all asset bytes come from the sealed package. */
-export function packageBootstrapAssets(files, publicationPlan = expectedProductPublicationPlan, sourceReader = readSource) {
+export function packageBootstrapAssets(files, publicationPlan = defaultProductPublicationPlan(), sourceReader = readSource) {
   // Historical releases predate resident Home art and retain their original policy.
   const policySource = sourceReader("apps/android/tooling/product-delivery.mjs").toString("utf8");
   if (!policySource.includes("export const HOME_BOOTSTRAP_ARTWORK")) return new Set();
@@ -1413,6 +1419,8 @@ function main() {
       appAssetCatalog = JSON.parse(readSource("apps/language-runtime/app-assets.json").toString("utf8"));
       canonicalAppEntry = Buffer.from(transformIndex(readSource("apps/language-runtime/static/app/index.html").toString("utf8")));
       SHARED_APP_REQUIRED_ASSET_PATHS = Object.freeze(appAssetCatalog.assets.map(({ output }) => output));
+    } else {
+      defaultProductPublicationPlan();
     }
     assert(existsSync(aab), `Caatuu AAB does not exist at ${aab}`);
     assert(existsSync(apk), `AAB-derived universal APK does not exist at ${apk}`);

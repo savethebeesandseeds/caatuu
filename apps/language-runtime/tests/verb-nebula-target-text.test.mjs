@@ -4,10 +4,13 @@ import test from "node:test";
 import vm from "node:vm";
 import * as verbNebulaCore from "../static/source/games/verb-nebula/verb-nebula-core.mjs";
 import * as verbTargetTextRenderer from "../static/source/target-text.mjs";
+import { createTargetReadingGuide } from "../static/source/target-reading-guide.mjs";
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 
 const workspace = await readFile(new URL("../static/source/caatuu-workspace.js", import.meta.url), "utf8");
 const course = JSON.parse(await readFile(new URL("../../languages/mandarin-simplified/course.json", import.meta.url), "utf8"));
+const arabicCourse = JSON.parse(await readFile(new URL("../../languages/arabic-standard/course.json", import.meta.url), "utf8"));
+const georgianCourse = JSON.parse(await readFile(new URL("../../languages/georgian/course.json", import.meta.url), "utf8"));
 function between(start, end) {
   const first = workspace.indexOf(start), last = workspace.indexOf(end, first);
   assert.ok(first >= 0 && last > first, `Missing actual workspace functions: ${start}`);
@@ -29,7 +32,12 @@ function harness({ selectedCourse = course, catalog = rows, saved = {} } = {}) {
     verbSelectedCzechId: pairs[0]?.id, verbSelectedEnglishId: "", verbRoundTransitionId: 12,
     verbStats: { attempts: 4, matches: 2 }, verbSolutionRevealed: false };
   const calls = { choose: 0, arrows: 0, rounds: 0 };
+  const verbReadingGuide = createTargetReadingGuide({
+    course: selectedCourse, gameId: "verb-lab", document: browser.document, storage: browser.localStorage,
+    onChange() { if (state.verbSolutionRevealed) calls.arrows += 1; }
+  });
   Object.assign(browser.context, { course: selectedCourse, state, verbTargetTextRenderer,
+    verbReadingGuide,
     sourceLanguage: selectedCourse.sourceLanguage, targetLanguage: selectedCourse.targetLanguage,
     $: (selector) => browser.document.querySelector(selector),
     verbGuidedInteractionLocked: () => false, verbGuidedTargetPending: () => false,
@@ -41,7 +49,7 @@ function harness({ selectedCourse = course, catalog = rows, saved = {} } = {}) {
   });
   vm.runInContext([
     between("const verbTargetTextStorageKey =", "const defaultModelKey ="),
-    between("function verbUsesTargetTextGuide()", "function applyVerbLanguageCopy()"),
+    between("function verbUsesRomanizationGuide()", "function applyVerbLanguageCopy()"),
     between("function createVerbMatchCard(pair, side)", "function verbMatchCardForId"),
     between("function bindVerbNebulaControls()", "function printOptions()")
   ].join("\n"), browser.context);
@@ -55,6 +63,7 @@ function harness({ selectedCourse = course, catalog = rows, saved = {} } = {}) {
   }
   const panel = node("section", "trainPanelVerbLab", browser.document.body);
   const controls = node("section", "verbTargetTextSettings", panel);
+  node("span", "verbTargetTextLabel", controls);
   const tones = node("button", "verbTargetTextToneColors", controls);
   tones.dataset.verbTargetTextSetting = "colorTones";
   const guide = node("button", "verbTargetTextNotation", controls);
@@ -205,4 +214,74 @@ test("reading controls ignore consumed and inactive clicks but accept nested nat
   assert.equal(game.state.verbTargetTextPreferences.colorTones, false);
   assert.equal(game.calls.arrows, 1, "solution arrows are remeasured when card height changes");
   assert.equal(game.calls.choose, 0);
+});
+
+test("Arabic cards show a whole-word guide by default and settings preserve the matching round", () => {
+  const game = harness({ selectedCourse: arabicCourse, catalog: [
+    { id: "read", kind: "verb", target: "قَرَأَ", source: "read", difficulty: 1, usefulness: 80, complexity: 1 },
+    { id: "write", kind: "verb", target: "كَتَبَ", source: "write", difficulty: 1, usefulness: 80, complexity: 1 }
+  ] });
+  const setting = game.controls.querySelector(".caatuu-romanization-setting");
+  const originalCard = game.card("read"), originalRound = game.state.verbRound;
+  assert.equal(game.controls.hidden, false);
+  assert.equal(game.tones.hidden, true);
+  assert.equal(game.guide.hidden, true);
+  assert.ok(setting, "Arabic owns an independent romanization switch");
+  assert.equal(setting.getAttribute("aria-checked"), "true");
+  assert.equal(originalCard.querySelectorAll("ruby").length, 1, "joined Arabic is kept in a single word");
+  assert.equal(originalCard.querySelector("rt").textContent, "qaraʾa");
+  assert.equal(originalCard.querySelector(".caatuu-target-text-glyph").textContent, "قَرَأَ");
+  assert.equal(game.meanings.querySelector("rt"), null);
+  originalCard.focus();
+  game.state.verbSolutionRevealed = true;
+  game.click(setting);
+  assert.equal(game.card("read"), originalCard);
+  assert.equal(game.state.verbRound, originalRound);
+  assert.equal(game.document.activeElement, originalCard);
+  assert.equal(originalCard.querySelector("rt"), null);
+  assert.equal(originalCard.textContent, "قَرَأَ");
+  assert.equal(game.calls.arrows, 1);
+  assert.equal(game.calls.choose, 0);
+  assert.equal(game.calls.rounds, 0);
+  game.context.renderVerbTargetTextControls();
+  assert.equal(game.controls.querySelectorAll(".caatuu-romanization-setting").length, 1);
+  const reopened = harness({ selectedCourse: arabicCourse, catalog: [
+    { id: "read", kind: "verb", target: "قَرَأَ", source: "read", difficulty: 1, usefulness: 80, complexity: 1 },
+    { id: "write", kind: "verb", target: "كَتَبَ", source: "write", difficulty: 1, usefulness: 80, complexity: 1 }
+  ], saved: game.localStorage.snapshot() });
+  assert.equal(reopened.card("read").querySelector("rt"), null);
+  assert.equal(reopened.controls.querySelector(".caatuu-romanization-setting").getAttribute("aria-checked"), "false");
+});
+
+test("Georgian cards enable romanization and retain matching state across a persisted reading switch", () => {
+  const catalog = [
+    { id: "be", kind: "verb", target: "არის", source: "be", difficulty: 1, usefulness: 80, complexity: 1 },
+    { id: "go", kind: "verb", target: "მიდის", source: "go", difficulty: 1, usefulness: 80, complexity: 1 }
+  ];
+  const game = harness({ selectedCourse: georgianCourse, catalog });
+  const setting = game.controls.querySelector(".caatuu-romanization-setting");
+  const originalCard = game.card("be"), originalRound = game.state.verbRound;
+  assert.equal(game.controls.hidden, false);
+  assert.equal(game.tones.hidden, true);
+  assert.equal(game.guide.hidden, true);
+  assert.equal(game.controls.querySelectorAll(".caatuu-romanization-setting").length, 1);
+  assert.equal(setting.getAttribute("aria-checked"), "true");
+  assert.equal(originalCard.querySelectorAll("ruby").length, 1);
+  assert.equal(originalCard.querySelector("rt").textContent, "aris");
+  assert.equal(originalCard.querySelector("rt").lang, "ka-Latn");
+  assert.equal(game.card("go").querySelector("rt").textContent, "midis");
+  assert.equal(game.meanings.querySelector("rt"), null);
+  originalCard.focus();
+  game.click(setting);
+  assert.equal(originalCard.querySelector("rt"), null);
+  assert.equal(originalCard.textContent, "არის");
+  assert.equal(game.card("be"), originalCard);
+  assert.equal(game.state.verbRound, originalRound);
+  assert.equal(game.document.activeElement, originalCard);
+  assert.deepEqual(game.calls, { choose: 0, arrows: 0, rounds: 0 });
+  const reopened = harness({ selectedCourse: georgianCourse, catalog, saved: game.localStorage.snapshot() });
+  assert.equal(reopened.controls.querySelector(".caatuu-romanization-setting").getAttribute("aria-checked"), "false");
+  assert.equal(reopened.card("be").querySelector("rt"), null);
+  reopened.click(reopened.controls.querySelector(".caatuu-romanization-setting"));
+  assert.equal(reopened.card("be").querySelector("rt").textContent, "aris");
 });

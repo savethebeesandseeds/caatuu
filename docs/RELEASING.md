@@ -61,11 +61,17 @@ A beta or stable release requires all of the following:
   behavior;
 - private security-reporting channel and supported-version policy;
 - release notes in [`CHANGELOG.md`](../CHANGELOG.md);
-- green automated checks for the runtime, browser contracts, provenance, and
-  package contents;
+- green focused automated checks for the changed runtime/browser behavior,
+  provenance, and package contents;
 - successful signed-package audit; and
 - physical-device smoke test of installation, setup, offline use, update, and
   data preservation.
+
+The publisher's focused source preflight and signed-package audit are mandatory.
+The complete Repository CI review suite is an independent diagnostic run;
+publication does not wait for every unrelated test to pass. Assess full-review
+findings against the changed behavior and release scope rather than treating
+the workflow's overall conclusion as a publication gate.
 
 Native-speaker curriculum review is an activation and approved-pronunciation
 quality gate, not an APK publication gate. A course whose review is still

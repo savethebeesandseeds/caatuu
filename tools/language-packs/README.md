@@ -89,6 +89,15 @@ course data was absent. The same shared planet registry assigns a versioned
 English-audit contract to every one of those resources, and full validation
 reads each real catalog to prove item-level English coverage.
 
+Naturalization Nucleus uses one shared renderer. Its feature gate accepts
+`hanzi-pinyin` for Chinese or `arabic-romanization` for Arabic. Mandarin's v1
+catalog preserves single-character Hanzi/pinyin/tone records. Arabic's v2
+catalog declares `arabic-learning-romanization-v1` notation with an explanatory
+reading key and authored whole-word `target`, `reading`, `englishAuditText`,
+and `sourceItemIds` fields. Missing readings fail validation; the renderer
+does not infer vowels or split connected Arabic script. Preview review
+metadata remains required.
+
 The generated browser profile exposes those declared paths through
 `gameContent[gameId][resourceName]`. Shared game hosts must read that projection
 and resolve it inside the active course route; they must not infer a language
@@ -278,8 +287,17 @@ docker exec -w /workspace caatuu-dev node apps/server/tooling/refresh-setup-asse
 ```
 
 Omit `--check` only when intentionally refreshing all validated browser-course
-setup manifests; the tool validates and inspects the complete set before its
-first write.
+catalogs. When adding shared application runtime assets, register their canonical
+offline URLs for every browser course in the same validated pass:
+
+```powershell
+docker exec -w /workspace caatuu-dev node apps/server/tooling/refresh-setup-assets.mjs --all-browser-courses --register-shared-runtime
+```
+
+Registration is explicit; ordinary refresh and validation continue to reject
+missing runtime assets. The command validates every prospective course before
+writing any catalog. Shared [game dynamics](../../docs/GAME_DYNAMICS.md) use this
+path rather than course-specific integration.
 
 Check that the public launcher and every present course profile have not
 drifted (including development courses):

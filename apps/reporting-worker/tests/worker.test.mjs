@@ -34,17 +34,28 @@ class FakeStatement {
   async run() {
     this.database.calls.push({ kind: "run", sql: this.sql, parameters: this.parameters });
     if (this.database.fail) throw new Error("synthetic D1 failure");
+    await this.database.beforeWrite?.();
     if (this.sql.startsWith("INSERT INTO dictionary_gaps")) {
       const key = this.parameters.slice(0, 3).join("|");
+      if (this.sql.includes("WHERE (SELECT COUNT(*) FROM dictionary_gaps) < 4096") &&
+          this.database.gaps.size >= 4096 && !this.database.gaps.has(key)) {
+        return { success: true, meta: { changes: 0 } };
+      }
       this.database.gaps.set(key, { parameters: this.parameters });
-      return { success: true };
+      return { success: true, meta: { changes: 1 } };
     }
     if (this.sql.startsWith("INSERT INTO sentence_reports")) {
+      if (this.database.sentences.has(this.parameters[0])) {
+        if (this.sql.includes("ON CONFLICT (client_report_id) DO NOTHING")) {
+          return { success: true, meta: { changes: 0 } };
+        }
+        throw new Error("UNIQUE constraint failed: sentence_reports.client_report_id");
+      }
       this.database.sentences.set(this.parameters[0], {
         payloadSha256: this.parameters[1],
         parameters: this.parameters
       });
-      return { success: true };
+      return { success: true, meta: { changes: 1 } };
     }
     throw new Error(`Unhandled run statement: ${this.sql}`);
   }
@@ -181,6 +192,64 @@ test("sentence retries deduplicate and conflicting identifier reuse fails", asyn
   const conflict = await handleRequest(post("/api/sentence-reports", { ...sentence, comment: "Different" }), env);
   assert.equal(conflict.status, 409);
   assert.equal((await body(conflict)).stored, false);
+});
+
+function pairWrites(database) {
+  let release;
+  const ready = new Promise((resolve) => { release = resolve; });
+  let arrivals = 0;
+  database.beforeWrite = async () => {
+    arrivals += 1;
+    if (arrivals === 2) release();
+    await ready;
+  };
+}
+
+test("simultaneous sentence retries acknowledge the same durable report", async () => {
+  const env = environment();
+  pairWrites(env.DB);
+  const responses = await Promise.all([
+    handleRequest(post("/api/sentence-reports", sentence), env),
+    handleRequest(post("/api/sentence-reports", sentence), env)
+  ]);
+  assert.deepEqual(responses.map((response) => response.status), [200, 200]);
+  const results = await Promise.all(responses.map(body));
+  assert.deepEqual(results.map((result) => result.deduplicated).sort(), [false, true]);
+  assert.equal(env.DB.sentences.size, 1);
+});
+
+test("simultaneous conflicting sentence identifiers preserve the winning content", async () => {
+  const env = environment();
+  pairWrites(env.DB);
+  const reports = [sentence, { ...sentence, comment: "Different" }];
+  const responses = await Promise.all(reports.map((report) =>
+    handleRequest(post("/api/sentence-reports", report), env)
+  ));
+  assert.deepEqual(responses.map((response) => response.status).sort(), [200, 409]);
+  const winner = responses.findIndex((response) => response.status === 200);
+  assert.equal(env.DB.sentences.get(sentence.clientReportId).parameters[5], reports[winner].comment);
+});
+
+test("simultaneous new dictionary gaps cannot exceed the durable capacity", async () => {
+  const env = environment();
+  for (let index = 0; index < 4095; index += 1) env.DB.gaps.set(`existing-${index}`, {});
+  pairWrites(env.DB);
+  const reports = [gap, { ...gap, targetWord: "Jiný", normalizedWord: "jiný" }];
+  const responses = await Promise.all(reports.map((report) =>
+    handleRequest(post("/cz/api/dictionary/gaps", report), env)
+  ));
+  assert.deepEqual(responses.map((response) => response.status).sort(), [200, 507]);
+  assert.equal(env.DB.gaps.size, 4096);
+});
+
+test("dictionary retries remain writable when durable capacity is full", async () => {
+  const env = environment();
+  await handleRequest(post("/cz/api/dictionary/gaps", gap), env);
+  for (let index = 0; index < 4095; index += 1) env.DB.gaps.set(`existing-${index}`, {});
+  const response = await handleRequest(post("/cz/api/dictionary/gaps", gap), env);
+  assert.equal(response.status, 200);
+  assert.equal((await body(response)).deduplicated, true);
+  assert.equal(env.DB.gaps.size, 4096);
 });
 
 test("generic diagnostic envelopes and unexpected fields fail closed", async () => {

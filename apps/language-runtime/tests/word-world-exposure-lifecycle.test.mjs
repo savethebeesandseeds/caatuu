@@ -12,7 +12,7 @@ const functions = ["beginWordWorldEncounter", "completeWordWorldExposure", "rest
   "showStandardPhrase", "showPreviousSentence", "currentReconstructionKey", "ensureReconstructionChallenge",
   "shouldBlockReconstructionAdvance", "submitReconstructionChallenge", "activateNextSentence",
   "awardTimedRevealXp", "currentGuidedPhraseToken", "applyTranslationMode",
-  "markGuidedDictionaryHint", "syncWordTranslation"];
+  "markGuidedDictionaryHint", "syncWordTranslation", "renderWordMetadata"];
 const bodies = functions.map(name => {
   const body = controller.match(new RegExp(`(?:^|\\n)((?:async )?function ${name}\\([\\s\\S]*?\\n\\})(?=\\r?\\n|$)`, "u"))?.[1];
   assert.ok(body, `${name} must have an executable controller boundary`);
@@ -40,7 +40,7 @@ function game(storage) {
   harness.window.setTimeout = callback => { timers.push(callback); return timers.length; };
   const context = vm.createContext({ state, window: harness.window, document: harness.document,
     performance: { now: () => 0 }, $: () => null, interfaceText: () => "", sourceLanguageLabel: "Base",
-    targetLocale: "en", providerContext: {}, preparedTokenForWord: () => null,
+    targetLocale: "en", providerContext: {}, wordWorldReadingGuide: null, preparedTokenForWord: () => null,
     replaceTargetText() {}, syncTranslationMenu() {}, syncSpeechControl() {},
     sourcePrimaryLanguage: "en", newContentEncounterId: () => `visit-${++sequence}`, wordWorldEvidenceBank,
     learningDifficulty: () => 1, normalizeWord: value => String(value || ""), sentenceFingerprint: value => value,

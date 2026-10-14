@@ -33,13 +33,15 @@
   "linguisticFeatures": [
     "verb-conjugation",
     "grammatical-agreement",
-    "grammatical-case"
+    "grammatical-case",
+    "arabic-romanization"
   ],
   "games": [
     "verb-lab",
     "word-net",
     "conjugation-comet",
     "grammar-gravity",
+    "naturalization-nucleus",
     "sound-quasar"
   ],
   "upcomingGames": [
@@ -57,7 +59,8 @@
     "games": "index.html",
     "verbNebula": "index.html?game=verb-lab",
     "wordWorld": "index.html?game=word-net",
-    "settings": "index.html"
+    "settings": "index.html",
+    "naturalizationNucleus": "index.html?game=naturalization-nucleus"
   },
   "storage": {
     "namespace": "caatuu-ar",
@@ -374,6 +377,13 @@
       "path": "apps/language-runtime/static/assets/home/arabic_mark.png",
       "scope": "shared",
       "state": "present"
+    },
+    "naturalizationNucleusCatalog": {
+      "kind": "file",
+      "path": "apps/languages/arabic-standard/static/data/games/naturalization-nucleus/content.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "arabic-reading-starter-1"
     }
   }
 }

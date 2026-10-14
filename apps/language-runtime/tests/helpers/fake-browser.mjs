@@ -168,6 +168,7 @@ export class FakeElement {
 
   set textContent(value) {
     const text = String(value ?? "");
+    for (const child of this.childNodes) child.parentElement = null;
     this.childNodes = text ? [{ nodeType: 3, nodeValue: text, parentElement: this }] : [];
     this.children = [];
   }
@@ -381,12 +382,13 @@ export class FakeElement {
   }
 
   cloneNode(deep = false) {
-    const clone = new FakeElement(this.tagName, this.registry);
+    const clone = this.registry?.create(this.tagName) || new FakeElement(this.tagName);
     for (const [name, value] of this.attributes) clone.setAttribute(name, value);
+    clone.className = this.className;
     for (const [name, value] of Object.entries(this.dataset)) {
       clone.setAttribute(`data-${dataAttribute(name)}`, value);
     }
-    if (deep) clone.append(...this.children.map((child) => child.cloneNode(true)));
+    if (deep) clone.append(...this.childNodes.map((child) => child.nodeType === 3 ? child.nodeValue : child.cloneNode(true)));
     else clone.textContent = this.textContent;
     return clone;
   }

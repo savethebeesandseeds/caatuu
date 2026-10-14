@@ -10,7 +10,7 @@ const [profileSource, source] = await Promise.all([
   readFile(new URL("source/shared/runtime.js", staticRoot), "utf8")
 ]);
 
-function runtimeWith({ manifest, match = async () => null, fetchArtifact, sharedCaches = null, crypto = undefined } = {}) {
+function runtimeWith({ manifest, match = async () => null, fetchArtifact, sharedCaches = null, crypto = undefined, native = false } = {}) {
   let cacheWrites = 0;
   const cache = {
     match,
@@ -46,9 +46,15 @@ function runtimeWith({ manifest, match = async () => null, fetchArtifact, shared
     dispatchEvent(event) { events.push(event.type); },
     setTimeout() {
       return 0;
-    }
+    },
+    clearTimeout() {}
   };
   const events = [];
+  const nativeRequests = [];
+  if (native) {
+    window.location.hostname = "caatuu.local";
+    window.CaatuuAndroid = { postMessage(raw) { nativeRequests.push(JSON.parse(raw)); } };
+  }
   const context = {
     AbortController,
     DOMException,
@@ -79,9 +85,23 @@ function runtimeWith({ manifest, match = async () => null, fetchArtifact, shared
   return {
     runtime: window.CaatuuRuntime,
     events,
+    nativeRequests,
+    reply: (request, result) => window.CaatuuNative.receive({ id: request.id, kind: "done", result }),
     cacheWrites: () => cacheWrites
   };
 }
+
+test("the full native course adapter preserves the speech recovery destination", async () => {
+  const app = runtimeWith({ native: true });
+  for (const settingsOnly of [false, true]) {
+    const installation = app.runtime.speech.installData({ settingsOnly });
+    const request = app.nativeRequests.shift();
+    assert.equal(request.type, "speech_install_data");
+    assert.equal(request.settingsOnly, settingsOnly);
+    app.reply(request, { launched: true });
+    assert.equal((await installation).launched, true);
+  }
+});
 
 test("an empty required setup manifest is never ready", async () => {
   const { runtime } = runtimeWith({

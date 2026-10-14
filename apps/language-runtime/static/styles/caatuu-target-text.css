@@ -1,5 +1,96 @@
 /* Legacy aliases retain the static Naturalization feedback reading. Runtime
    consumers use the shared caatuu-target-text renderer and classes. */
+.caatuu-reading-guide,
+.caatuu-arabic-reading {
+  unicode-bidi: isolate;
+  white-space: normal;
+  line-height: 1.8;
+}
+
+.caatuu-reading-unit,
+.caatuu-arabic-reading-unit {
+  ruby-position: over;
+  ruby-align: center;
+  white-space: nowrap;
+  break-inside: avoid;
+  line-height: 1.3;
+}
+
+.caatuu-reading-unit > .caatuu-target-text-glyph {
+  letter-spacing: 0;
+  display: inline-block;
+  padding-top: .15em;
+}
+
+.caatuu-arabic-reading-unit > .caatuu-target-text-glyph {
+  font-family: "Noto Sans Arabic", "Segoe UI", sans-serif;
+}
+
+.caatuu-georgian-reading-unit > .caatuu-target-text-glyph {
+  font-family: "Noto Sans Georgian", "Segoe UI", sans-serif;
+}
+
+[data-verb-target-text-setting][hidden],
+[data-target-text-setting][hidden] { display: none; }
+
+.caatuu-reading-unit > .caatuu-target-text-notation,
+.caatuu-arabic-reading-unit > .caatuu-target-text-notation,
+.word-net-target-text-notation:is([lang="ar-Latn"], [lang="ka-Latn"]) {
+  color: var(--theme-red, #985044);
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-size: max(0.48em, 0.65rem);
+  line-height: 1.4;
+}
+
+.has-reading-guide,
+.has-arabic-reading-guide {
+  overflow: visible;
+  text-overflow: clip;
+}
+
+.caatuu-romanization-setting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  padding: .65rem .5rem;
+  border: 0;
+  border-radius: .4rem;
+  background: transparent;
+  color: var(--theme-ink);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.caatuu-romanization-setting > i {
+  flex: none;
+  position: relative;
+  width: 1.9rem;
+  height: 1.1rem;
+  border-radius: 1rem;
+  background: var(--theme-quiet);
+}
+
+.caatuu-romanization-setting > i::after {
+  content: "";
+  position: absolute;
+  top: .15rem;
+  left: .15rem;
+  width: .8rem;
+  height: .8rem;
+  border-radius: 50%;
+  background: var(--theme-panel, white);
+}
+
+.caatuu-romanization-setting[aria-checked="true"] > i { background: var(--theme-red, #985044); }
+.caatuu-romanization-setting[aria-checked="true"] > i::after { left: .95rem; }
+
+/* Checkbox menus already supply their own checked-state marker. */
+.caatuu-romanization-setting[role="menuitemcheckbox"] > i { display: none; }
+
 .caatuu-target-text,
 .word-net-target-text {
   min-width: 0;
