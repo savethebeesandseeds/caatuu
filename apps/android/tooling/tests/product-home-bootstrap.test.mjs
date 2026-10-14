@@ -52,6 +52,7 @@ test("the product Home renders its existing art, controls, and course flags befo
       `${course.id} curriculum remains selected-course setup-delivered`);
   }
   const catalog = JSON.parse(delivery.bundledFiles.get("caatuu-course-bundle.json"));
+  assert.deepEqual(catalog, bundle.courseCatalog, "APK residency preserves complete course and native-provider metadata");
   const languageCatalog = JSON.parse(read("apps/languages/catalog.json"));
   const enabled = languageCatalog.courses.filter(({ manifest }) => JSON.parse(read(manifest)).platforms.android.enabled);
   assert.deepEqual(catalog.courses.map(({ id }) => id).sort(), enabled.map(({ id }) => id).sort());

@@ -117,8 +117,10 @@ installation gate; curriculum and native learning operations still require a
 verified installation. The legacy `/setup.html` entry redirects to Home.
 Essential Home artwork is packaged, so this first screen also renders offline.
 The smaller UI artwork preserves the original assets and logical URLs.
-The navigation icons use 192px copies, and generated bootstrap setup JSON is
-compact, keeping the catalog-derived course bundle inside its unchanged 8 MB
+The navigation icons use 192px copies, and generated bootstrap setup JSON,
+packaged interface catalogs, and the Android course-bundle catalog are compact.
+This preserves their complete metadata and messages while keeping the
+catalog-derived course bundle inside its unchanged 8 MB
 asset budget without omitting download receipts or moving Home into setup.
 The complete eight-course companion has a bounded 96 MB content budget; each
 device still downloads shared assets and only its selected course content.

@@ -1,6 +1,6 @@
 # Android release operations
 
-Last reviewed: 6 October 2026
+Last reviewed: 14 October 2026
 
 This is the operational handoff for maintainers and coding sessions. Use the
 maintained entrypoints, not a remembered sequence of repair commands.
@@ -494,3 +494,11 @@ and public APK/setup-byte verification passed. The APK SHA-256 is
 `a73fa4851b9c284541b3d98e43337e6566515d3db0e02f50edc45a3ba49e25d7`.
 Any deployment retry uses the finalized 181 receipt; it must not rebuild those
 bytes. Physical-device installation and pronunciation review remain unverified.
+
+On 14 October, the updated shared game runtime reached 8,011,386 bytes in the
+bootstrap asset plan and correctly failed the reviewed 8,000,000-byte limit.
+The product compiler now serializes packaged interface and course-bundle JSON
+without authoring indentation. Complete messages, native-provider metadata,
+selected-course content, and the existing size guard remain intact. The focused
+interface projection and Home bootstrap contracts check that preservation and
+the actual residency budget before the next release build.

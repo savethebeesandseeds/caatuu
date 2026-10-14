@@ -1892,7 +1892,9 @@ export function transformProductInterfaceCatalog(input) {
       delete catalog.messages[key];
     }
   }
-  return `${JSON.stringify(catalog, null, 2)}\n`;
+  // UI catalogs are APK-resident. Retain every projected value without
+  // duplicating authoring whitespace in each packaged interface locale.
+  return `${JSON.stringify(catalog)}\n`;
 }
 
 export function transformProductDeveloperTools(input) {
@@ -2889,7 +2891,7 @@ function productLogicalBytes(bundle) {
     if (transform) putText(output, transform(readSourceText(source)));
     else files.set(output, readFileSync(source));
   }
-  putText(PRODUCT_COURSE_BUNDLE_ASSET, `${JSON.stringify(bundle.courseCatalog, null, 2)}\n`);
+  putText(PRODUCT_COURSE_BUNDLE_ASSET, `${JSON.stringify(bundle.courseCatalog)}\n`);
   for (const { course } of bundle.configurations) {
     const assetPrefix = `courses/${course.id}`;
     const setupPath = `${assetPrefix}/setup-assets.json`;
