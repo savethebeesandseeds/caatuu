@@ -381,6 +381,27 @@
         "bytes": 82728960,
         "sha256": "2fdac2cb9902ad903a9fb48fae6317c5569cd2da611009f8d5767f4088972ffa"
       }
+    },
+    {
+      "versionCode": 182,
+      "versionName": "0.1.30",
+      "sourceRevision": "41bac4d596ef9a3b107e91e038cd647b6a26125d",
+      "manifest": {
+        "bytes": 1041,
+        "sha256": "e680cca568d3d06832c125c0f96fe5766cc70569bde1cd53c4b5b5fc8895a299"
+      },
+      "apk": {
+        "bytes": 3515421,
+        "sha256": "d118e39bda84677e07cccde8440cd25c204bf4a652eea9b13c3c34f2c3cc0cb6"
+      },
+      "receipt": {
+        "bytes": 1360,
+        "sha256": "b9932801f8a975ceb689db7664a6350f9c9ccabbe0909fe16cfb5dcaa6997f1f"
+      },
+      "setup": {
+        "bytes": 82749440,
+        "sha256": "47b0ea30c374364f2cd0a4939c41a44714470d5ef825257697ca0fce8ff37e1f"
+      }
     }
   ],
   "setupEntries": [
