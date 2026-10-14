@@ -502,3 +502,15 @@ without authoring indentation. Complete messages, native-provider metadata,
 selected-course content, and the existing size guard remain intact. The focused
 interface projection and Home bootstrap contracts check that preservation and
 the actual residency budget before the next release build.
+
+Android 182 (`0.1.30`) from `41bac4d596ef9a3b107e91e038cd647b6a26125d`
+completed the routine build/finalize/deploy command successfully after this
+repair. All 13 focused packaging contracts and 82 publisher source-preflight
+checks passed. APK-resident assets total 7,991,680 bytes, within the unchanged
+8,000,000-byte budget; the sealed setup archive is 82,749,440 bytes.
+The signed APK is 3,515,421 bytes with SHA-256
+`d118e39bda84677e07cccde8440cd25c204bf4a652eea9b13c3c34f2c3cc0cb6`.
+[Pages run 38601856380](https://github.com/savethebeesandseeds/caatuu/actions/runs/38601856380)
+and public manifest/APK/setup-byte verification passed. Deployment used the
+finalized receipt without another build. Any retry must use that same 182
+receipt. Physical-device installation was not tested.
