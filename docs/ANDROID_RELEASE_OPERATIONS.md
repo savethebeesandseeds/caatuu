@@ -1,6 +1,6 @@
 # Android release operations
 
-Last reviewed: 14 October 2026
+Last reviewed: 15 October 2026
 
 This is the operational handoff for maintainers and coding sessions. Use the
 maintained entrypoints, not a remembered sequence of repair commands.
@@ -262,6 +262,18 @@ pwsh -NoProfile -Command '$ErrorActionPreference = "Stop"; & ./apps/android/tool
 ```
 
 ## Close the loop after each incident
+
+Android 183 packaging at source `7a2498b21` initially stopped at 8,214,167
+resident asset bytes, above the unchanged 8,000,000-byte limit; no signed
+candidate was sealed. Bootstrap setup catalogs now declare
+`android-native-v1`: they retain all native artifact receipts while omitting the
+browser service worker's cache lists and `browser_required` flags. The browser
+catalogs and companion content stay unchanged. The package audit requires the
+profile and every setup catalog to agree on the format and still checks native
+requirements, exact URLs, sizes, hashes and shared storage. Unmarked historical
+packages retain their original catalog layout during receipt verification.
+Focused delivery and package contracts cover both layouts, idempotent auditing
+and rejection of changed native download identities.
 
 Record the failing phase, exact error, source revision, candidate identity and
 relevant run/log link. Fix the owning entrypoint or validator, add a focused

@@ -41,11 +41,26 @@ export const PRODUCT_BOOTSTRAP_MAX_BYTES = 8_000_000;
 // download budget covers the three approved 2,500-sentence courses; it is not
 // APK residency, and a device installs only its selected course plus shared art.
 export const PRODUCT_SETUP_PAYLOAD_MAX_BYTES = 96_000_000;
+export const NATIVE_SETUP_CATALOG_FORMAT = "android-native-v1";
 
 const hash = (bytes) => createHash("sha256").update(bytes).digest("hex");
 // APK setup catalogs repeat shared receipts across courses. Omit formatting
 // whitespace while preserving every field and exact downloaded-byte identity.
 const jsonBytes = (value) => Buffer.from(`${JSON.stringify(value)}\n`, "utf8");
+
+/** Native setup consumes artifact receipts, never the browser worker's cache plan. */
+export function projectNativeSetupCatalog(setup) {
+  const { offline: _offline, ...native } = setup;
+  return { ...native, delivery: NATIVE_SETUP_CATALOG_FORMAT,
+    artifacts: setup.artifacts.map(({ browser_required: _browser, ...artifact }) => artifact) };
+}
+
+export function assertNativeSetupCatalog(setup, label = "Native setup") {
+  assert.equal(setup.delivery, NATIVE_SETUP_CATALOG_FORMAT, `${label} delivery format`);
+  assert.ok(!Object.hasOwn(setup, "offline"), `${label} must omit the browser cache plan`);
+  assert.ok(setup.artifacts.every(artifact => !Object.hasOwn(artifact, "browser_required")),
+    `${label} must omit browser-only artifact flags`);
+}
 
 /** Course manifests own their flags, including both directions of each pair. */
 export function homeBootstrapAssets(files, courses) {
@@ -139,8 +154,11 @@ function logicalArtifactPath(artifact, courseId) {
 }
 
 /** Split fully transformed product bytes into the APK and sealed setup objects. */
-export function planProductDelivery({ files, courseIds, profile, bootstrapAssets, providerCatalogs }) {
+export function planProductDelivery({ files, courseIds, profile, bootstrapAssets, providerCatalogs,
+  setupCatalogFormat = NATIVE_SETUP_CATALOG_FORMAT }) {
   assert.ok(files instanceof Map, "Product delivery requires a logical file map");
+  assert.ok(setupCatalogFormat === null || setupCatalogFormat === NATIVE_SETUP_CATALOG_FORMAT,
+    "Unsupported native setup catalog format");
   assert.ok(Array.isArray(courseIds) && new Set(courseIds).size === courseIds.length,
     "Product delivery course IDs must be unique");
   const bundledFiles = new Map();
@@ -225,13 +243,15 @@ export function planProductDelivery({ files, courseIds, profile, bootstrapAssets
     assertSetupArtifactMetadata(setup, `${courseId} bootstrap setup`);
     ownership.push(...setup.artifacts.filter((artifact) => artifact.native_required === true)
       .map((artifact) => setupStorageRecord(artifact, courseId, `${courseId} bootstrap setup ${artifact.key}`)));
-    bundledFiles.set(setupPath, jsonBytes(setup));
+    bundledFiles.set(setupPath, jsonBytes(setupCatalogFormat ? projectNativeSetupCatalog(setup) : setup));
   }
   assertCompatibleSharedStorage(ownership, "Product setup delivery");
   const delivered = new Set(records.map(({ assetPath }) => assetPath));
   assert.deepEqual([...new Set([...bundledFiles.keys(), ...delivered])].sort(), [...files.keys()].sort(),
     "APK and setup objects must cover the exact logical product allowlist");
-  const deliveredProfile = { ...profile, assets: [...bundledFiles.keys()].filter((path) => path !== "caatuu-profile.json").sort() };
+  const deliveredProfile = { ...profile,
+    ...(setupCatalogFormat ? { setupCatalogFormat } : {}),
+    assets: [...bundledFiles.keys()].filter((path) => path !== "caatuu-profile.json").sort() };
   bundledFiles.set("caatuu-profile.json", jsonBytes(deliveredProfile));
   const byteCounts = {
     bootstrap: [...bundledFiles.values()].reduce((sum, bytes) => sum + bytes.length, 0),

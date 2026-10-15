@@ -12,8 +12,32 @@ import {
   requiredAssetPaths,
   requiredNativeClassNames,
   packageBootstrapAssets,
+  assertSetupEmbeddingBoundary,
 } from "../validate-product-package.mjs";
-import { HOME_BOOTSTRAP_ARTWORK, HOME_BOOTSTRAP_ASSET_MAX_BYTES } from "../product-delivery.mjs";
+import { HOME_BOOTSTRAP_ARTWORK, HOME_BOOTSTRAP_ASSET_MAX_BYTES, projectNativeSetupCatalog } from "../product-delivery.mjs";
+
+test("native and historical setup catalogs enforce the same complete pinned embedding downloads", () => {
+  const artifacts = [
+    "models/example/onnx/model_qint8_arm64.onnx",
+    "models/example/ort/ort-wasm-simd-threaded.mjs",
+    "models/example/ort/ort-wasm-simd-threaded.wasm",
+  ].map((path, index) => ({ path, bytes: index + 1, sha256: String(index + 1).repeat(64) }));
+  const legacy = { offline: { assets: ["/language-runtime/vendor/transformers/transformers.min.js"] },
+    artifacts: artifacts.map(artifact => ({ artifact_kind: "embedding-runtime", native_required: true,
+      browser_required: true, bytes: artifact.bytes, sha256: artifact.sha256,
+      asset_path: `language-runtime/${artifact.path}`, url: `/language-runtime/${artifact.path}` })) };
+  for (const setup of [legacy, projectNativeSetupCatalog(legacy)]) {
+    const check = value => assertSetupEmbeddingBoundary(value, "fixture", { sharedRuntimeArtifacts: artifacts });
+    check(setup);
+    for (const patch of [{ native_required: false }, { sha256: "f".repeat(64) }, { bytes: 999 },
+      { url: "/another/runtime.wasm" }, { asset_path: "language-runtime/../escape" }]) {
+      const changed = structuredClone(setup);
+      Object.assign(changed.artifacts[0], patch);
+      assert.throws(() => check(changed));
+    }
+    assert.throws(() => check({ ...setup, artifacts: setup.artifacts.slice(1) }), /every shared embedding/u);
+  }
+});
 
 test("package audit uses source-pinned Home residency while retaining historical release policy", () => {
   const flag = "assets/icons/example.png";

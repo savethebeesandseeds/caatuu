@@ -407,6 +407,12 @@ against the published byte inventory during asset compilation. Changed artwork
 receives its own immutable URL; never replace files still required by older
 installations. These checks use artifact paths and hashes.
 
+Bootstrap setup catalogs use `android-native-v1` in the product profile and each
+catalog. They omit browser cache lists and `browser_required` flags, which the
+native installer does not read. Every native receipt, packaged marker, download
+identity and storage check is retained. Browser catalogs stay complete; audits
+of historical packages preserve their original unmarked layout.
+
 The one-time `pages-website-bootstrap.json` receipt preserves the last deployed
 website before snapshot support (successful run 33749970406). Its bytes were
 captured against the public inventory, reusing only locally cached files with

@@ -9,6 +9,8 @@ import {
   isSetupDeliveredAsset,
   nativeBootstrapCatalogAssets,
   planProductDelivery,
+  assertNativeSetupCatalog,
+  NATIVE_SETUP_CATALOG_FORMAT,
 } from "../product-delivery.mjs";
 
 const buffer = (value) => Buffer.from(typeof value === "string" ? value : JSON.stringify(value));
@@ -109,6 +111,40 @@ test("immutable records pin exact transformed bytes and are deterministic across
   }
   assert.deepEqual([...result.bundledFiles.keys()], [...reordered.bundledFiles.keys()]);
   for (const [path, bytes] of result.bundledFiles) assert.ok(bytes.equals(reordered.bundledFiles.get(path)), path);
+});
+
+test("native setup omits browser cache metadata while preserving every artifact receipt and historical layout", () => {
+  const input = fixture();
+  const setup = JSON.parse(input.files.get("courses/alpha/setup-assets.json"));
+  setup.offline = { cacheName: "browser-v1", assets: ["./index.html", "/assets/planets/shared.png"] };
+  setup.artifacts[0].browser_required = true;
+  input.files.set("courses/alpha/setup-assets.json", buffer(setup));
+  const before = Buffer.from(input.files.get("courses/alpha/setup-assets.json"));
+  const legacy = planProductDelivery({ ...input, setupCatalogFormat: null });
+  const native = planProductDelivery(input);
+  assert.equal(native.profile.setupCatalogFormat, NATIVE_SETUP_CATALOG_FORMAT);
+  assert.equal(legacy.profile.setupCatalogFormat, undefined);
+  for (const id of input.courseIds) {
+    const path = `courses/${id}/setup-assets.json`;
+    const previous = JSON.parse(legacy.bundledFiles.get(path));
+    const projected = JSON.parse(native.bundledFiles.get(path));
+    assertNativeSetupCatalog(projected);
+    assert.deepEqual(projected.artifacts, previous.artifacts.map(({ browser_required, ...receipt }) => receipt),
+      "native flags, packaged markers, hashes, byte counts, paths and URLs remain exact");
+    assert.deepEqual({ ...projected, delivery: undefined, offline: previous.offline },
+      { ...previous, delivery: undefined, offline: previous.offline, artifacts: projected.artifacts });
+  }
+  assert.ok(input.files.get("courses/alpha/setup-assets.json").equals(before), "browser authority is read-only");
+  assert.deepEqual(native.setupPayload, legacy.setupPayload, "companion objects and their hashes do not change");
+  const rehydrate = delivery => new Map([...delivery.bundledFiles, ...delivery.setupPayload.artifacts.map(record =>
+    [record.assetPath, delivery.setupObjects.get(record.file)])]);
+  for (const [delivery, setupCatalogFormat] of [[native, NATIVE_SETUP_CATALOG_FORMAT], [legacy, null]]) {
+    const replay = planProductDelivery({ ...input, files: rehydrate(delivery), profile: delivery.profile, setupCatalogFormat });
+    for (const [path, bytes] of delivery.bundledFiles) assert.ok(bytes.equals(replay.bundledFiles.get(path)), path);
+  }
+  assert.throws(() => planProductDelivery({ ...input, setupCatalogFormat: "unknown" }), /Unsupported/u);
+  assert.throws(() => assertNativeSetupCatalog({ delivery: NATIVE_SETUP_CATALOG_FORMAT, offline: {}, artifacts: [] }), /browser cache/u);
+  assert.throws(() => assertNativeSetupCatalog({ delivery: NATIVE_SETUP_CATALOG_FORMAT, artifacts: [{ browser_required: false }] }), /browser-only/u);
 });
 
 test("a first course installs shared external pictures without another course's content", () => {

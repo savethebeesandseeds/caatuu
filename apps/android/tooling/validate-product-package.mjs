@@ -5,7 +5,8 @@ import { existsSync } from "node:fs";
 import { basename, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { assertProductSourceText } from "./product-source-policy.mjs";
-import { homeBootstrapAssets, nativeBootstrapCatalogAssets, planProductDelivery } from "./product-delivery.mjs";
+import { homeBootstrapAssets, nativeBootstrapCatalogAssets, planProductDelivery,
+  assertNativeSetupCatalog, NATIVE_SETUP_CATALOG_FORMAT } from "./product-delivery.mjs";
 import { readSetupPayloadArchive, validateSetupPayloadForApk } from "./setup-payload.mjs";
 import { packageSourceReader, packagePublicationPlan } from "./package-source-contract.mjs";
 
@@ -1009,11 +1010,12 @@ export function assertPackageSharedStorage(records, label = "Android package") {
   return assertCompatibleSharedStorage(records, label);
 }
 
-function assertSetupEmbeddingBoundary(
+export function assertSetupEmbeddingBoundary(
   setup,
   label,
   { sharedRuntimeArtifacts = [] } = {},
 ) {
+  const nativeCatalog = setup.delivery === NATIVE_SETUP_CATALOG_FORMAT;
   const embeddingArtifacts = (setup?.artifacts ?? []).filter(
     (artifact) => artifact?.artifact_kind === "embedding-runtime",
   );
@@ -1025,7 +1027,7 @@ function assertSetupEmbeddingBoundary(
     embeddingArtifacts.every(
       (artifact) =>
         artifact.native_required === true &&
-        artifact.browser_required === true &&
+        (nativeCatalog || artifact.browser_required === true) &&
         Number.isSafeInteger(artifact.bytes) &&
         artifact.bytes > 0 &&
         /^[a-f0-9]{64}$/u.test(artifact.sha256),
@@ -1060,6 +1062,9 @@ function assertSetupEmbeddingBoundary(
       `${label} setup embedding artifact bytes and hash must match the shared runtime catalog`,
     );
   }
+  // Legacy browser-shaped catalogs remain auditable at their sealed source.
+  // Native catalogs have already passed the format and exact-receipt checks.
+  if (nativeCatalog) return;
   const offlineAssets = (setup?.offline?.assets ?? []).map((value) => decodeURIComponent(String(value)).split("?", 1)[0]);
   assert(
     offlineAssets.includes("/language-runtime/vendor/transformers/transformers.min.js"),
@@ -1140,6 +1145,12 @@ function assertAssetBoundary(unzip, archive, entries, kind, label, setupPayload 
     const setupAsset = courseAssetPath(course, "setup-assets.json");
     const setup = parseJsonAsset(unzip, archive, setupAsset, kind, courseLabel);
     assert(Array.isArray(setup?.artifacts), `${courseLabel} setup catalog must list artifacts`);
+    if (profile.setupCatalogFormat !== undefined) {
+      assert(profile.setupCatalogFormat === NATIVE_SETUP_CATALOG_FORMAT, `${courseLabel} unknown setup catalog format`);
+      assertNativeSetupCatalog(setup, courseLabel);
+    } else {
+      assert(setup.delivery === undefined, `${courseLabel} native setup requires its profile format marker`);
+    }
     assertSetupArtifactMetadata(setup, `${courseLabel} setup`);
     assertBundledSetupArtifacts(setup, {
       assetPrefix: course.assetPrefix,
@@ -1257,7 +1268,8 @@ function assertBootstrapDelivery({ unzip, archive, kind, label, bundle, profile,
   }
   const providerCatalogs = nativeBootstrapCatalogAssets(files, bundle);
   const bootstrapAssets = packageBootstrapAssets(files);
-  const delivery = planProductDelivery({ files, courseIds: bundle.courses.map(({ id }) => id), profile, providerCatalogs, bootstrapAssets });
+  const delivery = planProductDelivery({ files, courseIds: bundle.courses.map(({ id }) => id), profile, providerCatalogs, bootstrapAssets,
+    setupCatalogFormat: profile.setupCatalogFormat ?? null });
   assert(JSON.stringify(delivery.profile.assets) === JSON.stringify(profile.assets), `${label} APK does not match the bootstrap residency policy`);
   for (const [path, expected] of delivery.bundledFiles) {
     assert(expected.equals(files.get(path)), `${label} bootstrap bytes differ from delivery plan: ${path}`);
