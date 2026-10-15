@@ -40,7 +40,7 @@
       "/language-runtime/contract.mjs",
       "/language-runtime/embedding-runtimes.json",
       "/language-runtime/static/source/initial-theme.js?v=theme-3",
-      "/language-runtime/static/source/app-bootstrap.mjs?v=app-118",
+      "/language-runtime/static/source/app-bootstrap.mjs?v=app-120",
       "/language-runtime/static/source/interface-content.mjs?v=interface-runtime-2",
       "/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-10",
       "/language-runtime/static/source/dictionary-provider-loader.mjs",
@@ -64,7 +64,7 @@
       "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs?v=conjugation-comet-shared-19",
       "/language-runtime/static/styles/games/grammar-gravity.css?v=grammar-gravity-shared-38",
       "/language-runtime/static/styles/games/conjugation-comet.css?v=conjugation-comet-shared-8",
-      "/language-runtime/static/source/caatuu-workspace.js?v=workspace-47",
+      "/language-runtime/static/source/caatuu-workspace.js?v=workspace-48",
       "/language-runtime/static/source/maintenance-ui.js?v=maintenance-26",
       "/language-runtime/static/source/child-facing-assets.mjs?v=child-facing-assets-2",
       "/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-14",
@@ -75,7 +75,7 @@
       "/language-runtime/static/source/browser-shell.mjs?v=browser-shell-2",
       "/language-runtime/static/source/shell-policy.js?v=shell-policy-17",
       "/language-runtime/static/source/shell-policy.mjs",
-      "/language-runtime/static/source/caatuu-chrome.js?v=chrome-182",
+      "/language-runtime/static/source/caatuu-chrome.js?v=chrome-183",
       "/language-runtime/static/source/learning-profile.js?v=learning-17",
       "/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-36",
       "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-22",
@@ -85,11 +85,11 @@
       "/language-runtime/static/styles/caatuu-theme.css?v=theme-8",
       "/language-runtime/static/styles/caatuu-workspace.css?v=shell-102",
       "/language-runtime/static/styles/caatuu-home.css?v=home-61",
-      "/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-145",
+      "/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-146",
       "/language-runtime/static/styles/caatuu-word-world.css?v=word-net-100",
       "/language-runtime/static/styles/dictionary-word-card.css?v=dictionary-card-3",
       "/language-runtime/static/assets/caatuu-shell-512.png",
-      "/language-runtime/static/data/interface/en.v1.json?v=interface-en-43",
+      "/language-runtime/static/data/interface/en.v1.json?v=interface-en-45",
       "/language-runtime/static/data/english-concepts/word-world-nb-v1.json",
       "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
       "/language-runtime/static/data/english-concepts/word-world-es-en-v1.json",
@@ -249,14 +249,57 @@
       "/language-runtime/static/source/georgian-romanization.mjs?v=georgian-romanization-1",
       "/language-runtime/static/source/target-reading-guide.mjs?v=target-reading-guide-1",
       "/language-runtime/static/source/game-dynamics.mjs?v=game-dynamics-6",
-      "/language-runtime/static/styles/game-dynamics.css?v=game-dynamics-6",
+      "/language-runtime/static/styles/game-dynamics.css?v=game-dynamics-7",
       "/language-runtime/static/source/reward-sound.mjs?v=reward-sound-2",
       "/language-runtime/static/source/badge-recommendation.mjs?v=badge-recommendation-1",
       "/language-runtime/static/source/badge-progression.mjs?v=badge-progression-1",
       "/language-runtime/static/assets/xp-gold.webp",
       "/language-runtime/static/source/word-world-learning.mjs",
       "/language-runtime/static/source/word-world-teaching.mjs",
-      "/language-runtime/static/assets/aa-control.webp"
+      "/language-runtime/static/assets/aa-control.webp",
+      "/language-runtime/static/source/campaign-roadmap.mjs?v=campaign-roadmap-2",
+      "/language-runtime/static/styles/campaign-roadmap.css?v=campaign-roadmap-6",
+      "/language-runtime/static/assets/campaign/robot-01.webp",
+      "/language-runtime/static/assets/campaign/robot-02.webp",
+      "/language-runtime/static/assets/campaign/robot-03.webp",
+      "/language-runtime/static/assets/campaign/robot-04.webp",
+      "/language-runtime/static/assets/campaign/robot-05.webp",
+      "/language-runtime/static/assets/campaign/robot-06.webp",
+      "/language-runtime/static/assets/campaign/robot-07.webp",
+      "/language-runtime/static/assets/campaign/robot-08.webp",
+      "/language-runtime/static/assets/campaign/robot-09.webp",
+      "/language-runtime/static/assets/campaign/robot-10.webp",
+      "/language-runtime/static/assets/campaign/robot-11.webp",
+      "/language-runtime/static/assets/campaign/robot-12.webp",
+      "/language-runtime/static/assets/campaign/robot-13.webp",
+      "/language-runtime/static/assets/campaign/robot-14.webp",
+      "/language-runtime/static/assets/campaign/robot-15.webp",
+      "/language-runtime/static/assets/campaign/robot-16.webp",
+      "/language-runtime/static/assets/campaign/robot-17.webp",
+      "/language-runtime/static/assets/campaign/robot-18.webp",
+      "/language-runtime/static/assets/campaign/robot-19.webp",
+      "/language-runtime/static/assets/campaign/robot-20.webp",
+      "/language-runtime/static/assets/campaign/robot-21.webp",
+      "/language-runtime/static/assets/campaign/robot-22.webp",
+      "/language-runtime/static/assets/campaign/robot-23.webp",
+      "/language-runtime/static/assets/campaign/robot-24.webp",
+      "/language-runtime/static/assets/campaign/robot-25.webp",
+      "/language-runtime/static/assets/campaign/robot-26.webp",
+      "/language-runtime/static/assets/campaign/robot-27.webp",
+      "/language-runtime/static/assets/campaign/robot-28.webp",
+      "/language-runtime/static/assets/campaign/robot-29.webp",
+      "/language-runtime/static/assets/campaign/robot-30.webp",
+      "/language-runtime/static/assets/campaign/robot-31.webp",
+      "/language-runtime/static/assets/campaign/robot-32.webp",
+      "/language-runtime/static/assets/campaign/robot-33.webp",
+      "/language-runtime/static/assets/campaign/macaw-lantern.webp",
+      "/language-runtime/static/assets/campaign/macaw-chest.webp",
+      "/language-runtime/static/assets/campaign/macaw-astronaut.webp",
+      "/language-runtime/static/assets/campaign/macaw-jump.webp",
+      "/language-runtime/static/assets/campaign/macaw-balance.webp",
+      "/language-runtime/static/assets/campaign/macaw-lever.webp",
+      "/language-runtime/static/assets/campaign/macaw-high-five.webp",
+      "/language-runtime/static/assets/campaign/cycle-trophy.webp"
     ]
   },
   "artifacts": [
@@ -273,8 +316,8 @@
       "kind": "shared-application",
       "url": "/nb/index.html",
       "browserRequired": true,
-      "bytes": 96521,
-      "sha256": "9381e82334f9f4e1d964f32703911bd67606baaef36e076f0bf85b643af0490f"
+      "bytes": 96834,
+      "sha256": "878cc64de7dac31d1418f77ca7f33693292d12e17cf8324c77a0b2a83d96fb28"
     },
     {
       "key": "course-profile",
@@ -282,15 +325,15 @@
       "url": "/nb/source/shared/course-profile.js",
       "browserRequired": true,
       "bytes": 25818,
-      "sha256": "468ef4ca45bf690e41e7bee839be21c3fe4531cef6485a2d0e5590093e7f3057"
+      "sha256": "44c5e9a617d820e2bbf6e4cf177a38676877f2a984630d8db9d9ba94b2e33f0e"
     },
     {
       "key": "shared-app-bootstrap",
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/app-bootstrap.mjs",
       "browserRequired": true,
-      "bytes": 35475,
-      "sha256": "c027a2b8b656c83cb90d7ca68b413506d732528b31f6f1fa8b92f78db2383bdc"
+      "bytes": 35645,
+      "sha256": "0f4be964de8a883d352acd8c7acf1b26b32b6d3b944959316a00403689737672"
     },
     {
       "key": "initial-theme",
@@ -353,8 +396,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/caatuu-workspace.js",
       "browserRequired": true,
-      "bytes": 193153,
-      "sha256": "10c4823a9eed117c45e1e43173571ae7f8cb84e1e2545cb193b1d132149ee904"
+      "bytes": 193583,
+      "sha256": "e8942ee6a3f2200e2bdfc348fea408d65e979889c77184e10c2a7372da032489"
     },
     {
       "key": "child-facing-assets",
@@ -401,8 +444,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/caatuu-chrome.js",
       "browserRequired": true,
-      "bytes": 256867,
-      "sha256": "bed06b053d1c587db88a242c83ee759d1d93223b08c36c75e26fd2aaa93f270f"
+      "bytes": 257054,
+      "sha256": "0203d3489b86edb0838e3ba4762646be9da9b63202acd8a1f2382a7129c25169"
     },
     {
       "key": "learning-profile",
@@ -410,7 +453,7 @@
       "url": "/language-runtime/static/source/learning-profile.js",
       "browserRequired": true,
       "bytes": 107245,
-      "sha256": "71799b08b192a3e2c67c1be6484519dac0628a442f8615723686a469b5584daf"
+      "sha256": "c627a1ab24921eb30b8e3b90db74bce8c57376f710d9f111fd1e73acf2fcfd05"
     },
     {
       "key": "product-word-world",
@@ -481,8 +524,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/styles/caatuu-chrome.css",
       "browserRequired": true,
-      "bytes": 116361,
-      "sha256": "360e17b99d5d9738c9882160dfe11b0969a011993a9e5370991925e8a5d4ae90"
+      "bytes": 116929,
+      "sha256": "51fef9458f12143b191c3ac768878c3e17225e97815696320dad869fad4055ad"
     },
     {
       "key": "shared-word-world-style",
@@ -561,8 +604,8 @@
       "kind": "shared-runtime",
       "url": "/language-runtime/static/source/course-service-worker.js",
       "browserRequired": true,
-      "bytes": 12415,
-      "sha256": "3316243f3e10d136433a32d812697bf02bcb5a1e7282e1b701f4186a8a8288ea"
+      "bytes": 12418,
+      "sha256": "fc31b9a4eeea801754802102b5378369e89c0ab697867c9f97e33a4f9deb74c0"
     },
     {
       "key": "course-flag",

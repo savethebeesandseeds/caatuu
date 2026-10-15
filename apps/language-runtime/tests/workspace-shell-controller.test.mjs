@@ -503,6 +503,37 @@ test("a Word-World-only course initializes and navigates without unrelated cours
   assert.deepEqual(browser.fetches, [corpusFetch]);
 });
 
+test("Campaign opens its roadmap before practice and returns from the running rotation", async () => {
+  const browser = wordWorldOnlyBrowser();
+  const visible = [], pacing = [];
+  browser.window.CaatuuShellPolicy.gameAvailable = (_course, id) => ["campaign", "word-net"].includes(id);
+  browser.window.CaatuuCampaignRoadmap = { show: value => visible.push(value) };
+  browser.window.CaatuuGameDynamics = { setActive: value => pacing.push(value) };
+  vm.runInContext(promoted, browser.context, { filename: "caatuu-workspace.js" });
+  await browser.window.CaatuuWorkspaceReady;
+  const selectCampaign = () => browser.dispatchDocumentEvent("click", {
+    target: { closest: selector => selector === "[data-train-tab]" ? { dataset: { trainTab: "campaign" } } : null },
+    preventDefault() {}
+  });
+  selectCampaign();
+  const shell = browser.window.CaatuuWorkspaceShell;
+  assert.equal(shell.state().trainTab, "campaign");
+  assert.equal(shell.state().campaignActive, false);
+  assert.equal(browser.hostCalls.ensureLoaded, 0, "looking at the journey must not start a challenge");
+  assert.equal(visible.at(-1), true);
+  assert.equal(pacing.at(-1), false, "the map cannot settle or claim a reward");
+  await shell.startCampaign();
+  assert.equal(shell.state().campaignActive, true);
+  assert.equal(shell.state().trainTab, "word-net");
+  assert.equal(visible.at(-1), false);
+  assert.equal(pacing.at(-1), true);
+  assert.equal(browser.chromeCalls.headerTitle.at(-1).configuration.trainTab, "campaign");
+  selectCampaign();
+  assert.equal(shell.state().campaignActive, false);
+  assert.equal(shell.state().trainTab, "campaign");
+  assert.equal(visible.at(-1), true);
+});
+
 test("Home recovery deactivates Word World and returning to Games restores its visibility", async () => {
   const browser = wordWorldOnlyBrowser();
   vm.runInContext(promoted, browser.context, { filename: "caatuu-workspace.js" });

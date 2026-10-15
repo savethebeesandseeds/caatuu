@@ -862,6 +862,29 @@ test("opening Games over Backpack preserves the current screen until selection",
   assert.equal(localGameClicks, 1);
 });
 
+test("Campaign's chooser entry returns to its map from a running campaign", () => {
+  const course = fixtureCourse();
+  course.games = ["word-net"];
+  course.capabilities.wordWorld = true;
+  const { document, nav } = executeChromeWithHomeMenu({ course });
+  document.body.dataset.campaignActive = "true";
+  const view = document.createElement("section");
+  view.id = "view-verbs";
+  view.classList.add("is-active");
+  const proxy = document.createElement("button");
+  proxy.dataset.trainTab = "campaign";
+  let selections = 0;
+  proxy.addEventListener("click", () => { selections++; document.body.classList.add("campaign-map-active"); });
+  document.body.append(view, proxy);
+  const trigger = nav.querySelector('[data-nav-key="games"]');
+  trigger.click();
+  document.querySelector('[data-game-menu-target="campaign"]').click();
+  assert.equal(selections, 1, "Campaign must open the map even while its games are running");
+  trigger.click();
+  document.querySelector('[data-game-menu-target="campaign"]').click();
+  assert.equal(selections, 1, "reselecting the visible map simply closes the menu");
+});
+
 test("the shared chooser opens the declared Sounds Quasar game", () => {
   const course = fixtureCourse();
   course.games = ["sound-quasar"];

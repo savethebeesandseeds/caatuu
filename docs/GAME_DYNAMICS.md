@@ -66,6 +66,24 @@ including the full XP from a challenge whose surplus effort carries forward.
 
 ## Cycles, difficulty stages, and badge recommendations
 
+Campaign Mode opens a shared, vertically winding roadmap before starting a
+challenge. Its 16 robot stops display the current course's practice cycle;
+completed, current and upcoming sets come directly from the existing ledger.
+Practice in individual games advances the same map. A trophy marks
+the cycle boundary without changing reward rules, while the badge strip reads the current
+difficulty's corpus-derived stage budget. Badge details open the existing
+readiness-based recommendation. Viewing the map never grants rewards, records
+effort or equips a badge.
+
+Only the current set starts Campaign's existing mixed-game rotation. The game
+header's back control and Campaign's chooser entry return to the map. The
+Games dock button and game chooser remain available. Each cycle uses 16 distinct
+robots, rotating deterministically through the existing 33-robot catalog. A
+different macaw scene fills the opposite side of each consecutive robot pair.
+The scenes, trophy and small WebP derivatives are shared offline assets.
+[`prepare-campaign-art.py`](../apps/language-runtime/tooling/prepare-campaign-art.py)
+reproduces those derivatives inside `caatuu-dev` without altering original art.
+
 The progression terminology is **challenge → practice set →
 practice cycle → difficulty stage**. A stage groups multiple cycles and connects
 to a recommendation for the next difficulty badge.

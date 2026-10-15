@@ -9,6 +9,7 @@ import { initializeHomeCourseSetup } from "../static/source/course-setup.mjs";
 import { installMusic } from "../static/source/music.mjs";
 import { installGameDynamics } from "../static/source/game-dynamics.mjs";
 import { installBadgeProgression } from "../static/source/badge-progression.mjs";
+import { installCampaignRoadmap } from "../static/source/campaign-roadmap.mjs";
 import { createPracticeCompass, sharedPracticeAxes } from "../static/source/practice-compass.mjs";
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { englishInterfaceContent, installEnglishInterfaceContent } from "./helpers/english-interface-content.mjs";
@@ -149,6 +150,7 @@ function startHarness({ dictionary = false, failScript = "", serviceWorker = nul
     installMusic,
     installGameDynamics,
     installBadgeProgression,
+    installCampaignRoadmap,
     addEventListener: harness.window.addEventListener.bind(harness.window),
     removeEventListener: harness.window.removeEventListener.bind(harness.window),
     dispatchEvent: harness.window.dispatchEvent.bind(harness.window),

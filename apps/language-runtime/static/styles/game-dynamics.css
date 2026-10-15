@@ -7,27 +7,6 @@
 .app-header:has(.caatuu-practice-meter:not([hidden])) .app-header-center {
   top: max(14px, env(safe-area-inset-top));
 }
-@media (max-width: 600px) {
-  .app-header:has(.caatuu-practice-meter:not([hidden])) {
-    column-gap: 5px;
-  }
-  .app-header:has(.caatuu-practice-meter:not([hidden])) .header-actions {
-    gap: 8px;
-  }
-  .app-header:has(.caatuu-practice-meter:not([hidden])) .app-header-stats {
-    gap: 4px;
-  }
-  .app-header.has-screen-title:has(.caatuu-practice-meter:not([hidden])) .app-header-back {
-    margin-right: 0;
-  }
-  .app-header.has-screen-title:has(.caatuu-practice-meter:not([hidden])) .app-header-center {
-    position: static;
-    flex: 0 0 var(--caatuu-control-target-size, 44px);
-    margin-right: auto;
-    transform: none;
-  }
-}
-
 .caatuu-practice-meter {
   position: relative;
   flex: 0 0 100%;

@@ -47,7 +47,7 @@
       schemaVersion: 1,
       locale: "es-ES",
       direction: "ltr",
-      revision: "interface-es-18",
+      revision: "interface-es-20",
       catalog: "/language-runtime/static/data/interface/es.v1.json"
     },
     learnerBasePreview: true,
@@ -148,7 +148,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-43",
+            revision: "interface-en-45",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -205,7 +205,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-43",
+            revision: "interface-en-45",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -266,7 +266,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-43",
+            revision: "interface-en-45",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -327,7 +327,7 @@
             schemaVersion: 1,
             locale: "es-ES",
             direction: "ltr",
-            revision: "interface-es-18",
+            revision: "interface-es-20",
             catalog: "/language-runtime/static/data/interface/es.v1.json"
           },
           targetLanguage: {
@@ -388,7 +388,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-43",
+            revision: "interface-en-45",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -452,7 +452,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-43",
+            revision: "interface-en-45",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -510,7 +510,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-43",
+            revision: "interface-en-45",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -568,7 +568,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-43",
+            revision: "interface-en-45",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {

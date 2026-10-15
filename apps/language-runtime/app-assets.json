@@ -3,6 +3,178 @@
   "appEntry": "apps/language-runtime/static/app/index.html",
   "assets": [
     {
+      "source": "apps/language-runtime/static/source/campaign-roadmap.mjs",
+      "output": "language-runtime/static/source/campaign-roadmap.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/styles/campaign-roadmap.css",
+      "output": "language-runtime/static/styles/campaign-roadmap.css"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-01.webp",
+      "output": "language-runtime/static/assets/campaign/robot-01.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-02.webp",
+      "output": "language-runtime/static/assets/campaign/robot-02.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-03.webp",
+      "output": "language-runtime/static/assets/campaign/robot-03.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-04.webp",
+      "output": "language-runtime/static/assets/campaign/robot-04.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-05.webp",
+      "output": "language-runtime/static/assets/campaign/robot-05.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-06.webp",
+      "output": "language-runtime/static/assets/campaign/robot-06.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-07.webp",
+      "output": "language-runtime/static/assets/campaign/robot-07.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-08.webp",
+      "output": "language-runtime/static/assets/campaign/robot-08.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-09.webp",
+      "output": "language-runtime/static/assets/campaign/robot-09.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-10.webp",
+      "output": "language-runtime/static/assets/campaign/robot-10.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-11.webp",
+      "output": "language-runtime/static/assets/campaign/robot-11.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-12.webp",
+      "output": "language-runtime/static/assets/campaign/robot-12.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-13.webp",
+      "output": "language-runtime/static/assets/campaign/robot-13.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-14.webp",
+      "output": "language-runtime/static/assets/campaign/robot-14.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-15.webp",
+      "output": "language-runtime/static/assets/campaign/robot-15.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-16.webp",
+      "output": "language-runtime/static/assets/campaign/robot-16.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-17.webp",
+      "output": "language-runtime/static/assets/campaign/robot-17.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-18.webp",
+      "output": "language-runtime/static/assets/campaign/robot-18.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-19.webp",
+      "output": "language-runtime/static/assets/campaign/robot-19.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-20.webp",
+      "output": "language-runtime/static/assets/campaign/robot-20.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-21.webp",
+      "output": "language-runtime/static/assets/campaign/robot-21.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-22.webp",
+      "output": "language-runtime/static/assets/campaign/robot-22.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-23.webp",
+      "output": "language-runtime/static/assets/campaign/robot-23.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-24.webp",
+      "output": "language-runtime/static/assets/campaign/robot-24.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-25.webp",
+      "output": "language-runtime/static/assets/campaign/robot-25.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-26.webp",
+      "output": "language-runtime/static/assets/campaign/robot-26.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-27.webp",
+      "output": "language-runtime/static/assets/campaign/robot-27.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-28.webp",
+      "output": "language-runtime/static/assets/campaign/robot-28.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-29.webp",
+      "output": "language-runtime/static/assets/campaign/robot-29.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-30.webp",
+      "output": "language-runtime/static/assets/campaign/robot-30.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-31.webp",
+      "output": "language-runtime/static/assets/campaign/robot-31.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-32.webp",
+      "output": "language-runtime/static/assets/campaign/robot-32.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/robot-33.webp",
+      "output": "language-runtime/static/assets/campaign/robot-33.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/macaw-lantern.webp",
+      "output": "language-runtime/static/assets/campaign/macaw-lantern.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/macaw-chest.webp",
+      "output": "language-runtime/static/assets/campaign/macaw-chest.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/macaw-astronaut.webp",
+      "output": "language-runtime/static/assets/campaign/macaw-astronaut.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/macaw-jump.webp",
+      "output": "language-runtime/static/assets/campaign/macaw-jump.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/macaw-balance.webp",
+      "output": "language-runtime/static/assets/campaign/macaw-balance.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/macaw-lever.webp",
+      "output": "language-runtime/static/assets/campaign/macaw-lever.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/macaw-high-five.webp",
+      "output": "language-runtime/static/assets/campaign/macaw-high-five.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/campaign/cycle-trophy.webp",
+      "output": "language-runtime/static/assets/campaign/cycle-trophy.webp"
+    },
+    {
       "source": "apps/language-runtime/static/assets/aa-control.webp",
       "output": "language-runtime/static/assets/aa-control.webp"
     },

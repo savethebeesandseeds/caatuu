@@ -814,6 +814,7 @@
     const settingsPanel = document.querySelector("#settingsPanel");
     const sharedGamesView = document.querySelector("#view-verbs");
     const sameGameIsVisible = currentGameId() === normalizedGameId
+      && (normalizedGameId !== "campaign" || document.body.classList.contains("campaign-map-active"))
       && (!sharedGamesView || sharedGamesView.classList.contains("is-active"));
     if (sameGameIsVisible) {
       closeGameMenu({ restoreFocus: false });
@@ -838,6 +839,7 @@
   }
 
   function currentGameId() {
+    if (document.body?.classList.contains("campaign-map-active")) return "campaign";
     if (document.body?.dataset.campaignActive === "true") return "campaign";
     if (document.querySelector(".conjugation-comet-page")) return "conjugation-comet";
     if (document.querySelector(".case-cosmos-page")) return "case-cosmos";

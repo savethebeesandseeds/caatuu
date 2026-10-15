@@ -4518,15 +4518,16 @@ function setView(view) {
       : sharedGameTitle(state.trainTab)
     : "";
   window.CaatuuChrome?.setHeaderTitle?.(viewTitle, {
-    backLabel: interfaceText("nav.backtomenu"),
+    backLabel: state.campaignActive ? sharedGameTitle("campaign") : interfaceText("nav.backtomenu"),
     backHref: viewTitle ? "index.html" : "",
-    trainTab: viewTitle ? "galaxy" : ""
+    trainTab: viewTitle ? state.campaignActive ? "campaign" : "galaxy" : ""
   });
 }
 
 function syncActiveGameVisibility() {
   const selectedTab = state.activeView === "verbs" ? state.trainTab : "";
-  window.CaatuuGameDynamics?.setActive?.(Boolean(selectedTab && selectedTab !== "galaxy"));
+  window.CaatuuGameDynamics?.setActive?.(Boolean(selectedTab && !["galaxy", "campaign"].includes(selectedTab)));
+  window.CaatuuCampaignRoadmap?.show?.(selectedTab === "campaign");
   const activeTab = window.CaatuuGameDynamics?.active ? "" : selectedTab;
   document.body.classList.toggle("word-net-active", selectedTab === "word-net");
   document.body.classList.toggle("embedded-game-active", selectedTab === "word-net" || Object.hasOwn(embeddedGameTabs, selectedTab));
@@ -4895,6 +4896,7 @@ function setTrainTab(tab) {
   tab = window.CaatuuShellPolicy?.normalizeGameId?.(tab) ?? tab;
   const trainPanels = {
     galaxy: "trainPanelGalaxy",
+    campaign: "trainPanelCampaign",
     "verb-lab": "trainPanelVerbLab",
     "word-net": "trainPanelWordNet",
     "conjugation-comet": "trainPanelConjugationComet",
@@ -4909,11 +4911,12 @@ function setTrainTab(tab) {
   if (courseGameAvailable("verb-lab") && activeTab !== "verb-lab") deferVerbGuidedActivation();
   const targetId = trainPanels[activeTab];
   state.trainTab = activeTab;
+  document.body.classList.toggle("campaign-map-active", activeTab === "campaign");
   const title = state.campaignActive ? sharedGameTitle("campaign") : sharedGameTitle(activeTab);
   window.CaatuuChrome?.setHeaderTitle?.(title, {
-    backLabel: interfaceText("nav.backtomenu"),
+    backLabel: state.campaignActive ? sharedGameTitle("campaign") : interfaceText("nav.backtomenu"),
     backHref: title ? "index.html" : "",
-    trainTab: title ? "galaxy" : ""
+    trainTab: title ? state.campaignActive ? "campaign" : "galaxy" : ""
   });
   document.querySelectorAll(".train-world").forEach((button) => {
     const selected = state.campaignActive
@@ -5018,7 +5021,8 @@ function bindUi() {
       event.preventDefault();
       if (state.activeView !== "verbs") setView("verbs");
       if (selectedTab === "campaign") {
-        void startCampaign();
+        stopCampaign();
+        setTrainTab("campaign");
         return;
       }
       stopCampaign();
@@ -5152,6 +5156,7 @@ function registerServiceWorker() {
 window.CaatuuWorkspaceShell = Object.freeze({
   setView,
   setTrainTab,
+  startCampaign,
   completeWordWorldRound: completeWordWorldCampaignRound,
   continueWordWorld: continueWordWorldCampaign,
   state() {

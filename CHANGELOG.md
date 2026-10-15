@@ -1,5 +1,17 @@
 # Changelog
 
+## Android 183 / 0.1.31
+
+- Open Campaign Mode on a shared winding roadmap for every course, with distinct
+  robots for each practice set, softer macaw scenes, a cycle trophy and
+  readiness-based badge details. Keep the existing progress and reward ledger.
+- Show compact practice progress bars and small illustrated XP and text-size
+  controls across games.
+- Expand Mandarin practice content and improve Word World teaching, listening
+  choices and Naturalization Nucleus context.
+- Physical-device installation, update, offline use and saved-data preservation
+  remain unverified for this candidate. Course review status is unchanged.
+
 ## Android 181 / 0.1.29
 
 - Grade complete 13-form Arabic Conjugation Comet solutions and match Georgian

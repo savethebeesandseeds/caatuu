@@ -3,6 +3,7 @@ import { initializeHomeCourseSetup } from "./course-setup.mjs?v=course-setup-2";
 import { installMusic } from "./music.mjs";
 import { installGameDynamics } from "./game-dynamics.mjs?v=game-dynamics-6";
 import { installBadgeProgression } from "./badge-progression.mjs?v=badge-progression-1";
+import { installCampaignRoadmap } from "./campaign-roadmap.mjs?v=campaign-roadmap-2";
 import { createPracticeCompass, sharedPracticeAxes } from "./practice-compass.mjs?v=practice-compass-5";
 import {
   installInterfaceContent,
@@ -750,7 +751,7 @@ async function loadCourseFeatureProviders() {
     origin: location.origin,
     routeBase,
     async initializeWorkspace() {
-      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-47");
+      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-48");
       const workspace = await globalThis.CaatuuWorkspaceReady;
       if (workspace?.ready !== true) {
         throw workspace?.error instanceof Error
@@ -785,7 +786,7 @@ async function start() {
     axes: sharedPracticeAxes,
     ...createPracticeCompass({ course, learning: globalThis.CaatuuLearning })
   });
-  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-182");
+  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-183");
   globalThis.CaatuuGameDynamics = installGameDynamics({
     scope: globalThis,
     onPauseChange(paused) {
@@ -796,6 +797,7 @@ async function start() {
   });
   globalThis.CaatuuMusicUi?.mountAll();
   globalThis.CaatuuBadgeProgression = installBadgeProgression({ scope: globalThis });
+  globalThis.CaatuuCampaignRoadmap = installCampaignRoadmap({ scope: globalThis });
   // Keep the canonical Home and its language controls available while native
   // setup verifies the selected course. Curriculum and game artwork wait for it.
   await initializeHomeCourseSetup(globalThis, { onSetupRequired: revealApplication });

@@ -298,6 +298,20 @@ html {
   margin-left: auto;
 }
 
+/* Keep game artwork beside Back on narrow screens, including the Campaign map. */
+@media (max-width: 600px) {
+  .app-header.has-screen-title { flex-wrap: wrap; column-gap: 5px; row-gap: 5px; }
+  .app-header.has-screen-title .header-actions { gap: 8px; }
+  .app-header.has-screen-title .app-header-stats { gap: 4px; }
+  .app-header.has-screen-title .app-header-back { margin-right: 0; }
+  .app-header.has-screen-title .app-header-center {
+    position: static;
+    flex: 0 0 var(--caatuu-control-target-size, 44px);
+    margin-right: auto;
+    transform: none;
+  }
+}
+
 .app-header-title {
   min-width: var(--caatuu-control-target-size, 44px);
   min-height: var(--caatuu-control-target-size, 44px);
